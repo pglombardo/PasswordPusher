@@ -25,3 +25,10 @@
       - else
         == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views.
     
+%div.footer_note
+  This 
+  - if @password.expired
+    (unfortunately expired)
+  password is brought to you by
+  = link_to "Password Pusher", "/"
+  and viewers like you.
