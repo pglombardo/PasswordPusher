@@ -4,7 +4,8 @@ class CreatePasswords < ActiveRecord::Migration
       t.string :payload
       t.integer :expire_after_days
       t.integer :expire_after_views
-      t.integer :views, :default => 0
+      t.boolean :expired, :default => false
+      t.string :url_token
       t.timestamps
     end
   end
