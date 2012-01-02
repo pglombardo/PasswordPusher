@@ -21,7 +21,7 @@ class PasswordsController < ApplicationController
       return
     end
     
-    
+    @views_remaining = 0    
     @days_old = (Time.now.to_datetime - @password.created_at.to_datetime).to_i
     @days_remaining = @password.expire_after_days - @days_old
     unless @password.expired
@@ -37,7 +37,6 @@ class PasswordsController < ApplicationController
           @password.expired = true
           @password.payload = nil
           @password.save
-          @views_remaining = 0
         else
           @views_remaining = @password.expire_after_views - @views.count
       end
@@ -79,6 +78,11 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
+    if params[:password].has_key?(:payload) and params[:password][:payload] == PAYLOAD_INITIAL_TEXT
+      redirect_to '/'
+      return
+    end
+    
     @password = Password.new(params[:password])
     @password.url_token = rand(36**16).to_s(36)
     
