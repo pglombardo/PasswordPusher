@@ -13,7 +13,46 @@ class PasswordsController < ApplicationController
   # GET /passwords/1
   # GET /passwords/1.json
   def show
-    @password = Password.find(params[:id])
+    if params.has_key?(:url_token)
+      @password = Password.find_by_url_token!(params[:url_token])   
+      @views = View.where(:password_id => @password.id)
+    else
+      redirect_to :root
+      return
+    end
+    
+    
+    @days_old = (Time.now.to_datetime - @password.created_at.to_datetime).to_i
+    @days_remaining = @password.expire_after_days - @days_old
+    unless @password.expired
+      # This password hasn't expired yet.
+      
+      if @password.expire_after_days < @days_old
+        # This password has expired - expire it
+        @password.expired = true
+        @password.payload = nil
+        @password.save
+      elsif  @views.count > @password.expire_after_views and not @password.expired
+          # Expire this Password as it has hit maximum views
+          @password.expired = true
+          @password.payload = nil
+          @password.save
+          @views_remaining = 0
+        else
+          @views_remaining = @password.expire_after_views - @views.count
+      end
+    else
+      # This password is expired      
+    end
+    
+    @view = View.new
+    @view.password_id = @password.id
+    @view.ip = request.env["HTTP_X_FORWARDED_FOR"]
+    @view.user_agent = request.env["HTTP_USER_AGENT"]
+    @view.referrer = request.env["HTTP_REFERRER"]
+    @view.save
+    
+    @views << @view
 
     respond_to do |format|
       format.html # show.html.erb
@@ -41,10 +80,11 @@ class PasswordsController < ApplicationController
   # POST /passwords.json
   def create
     @password = Password.new(params[:password])
+    @password.url_token = rand(36**16).to_s(36)
     
     respond_to do |format|
       if @password.save
-        format.html { redirect_to @password, :notice => 'Password was successfully created.' }
+        format.html { redirect_to "/p/#{@password.url_token}", :notice => 'Password was successfully created.' }
         format.json { render :json => @password, :status => :created, :location => @password }
       else
         format.html { render :action => "new" }
