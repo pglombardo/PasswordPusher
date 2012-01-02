@@ -30,7 +30,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem "delayed_job", :git => "git://github.com/collectiveidea/delayed_job.git"
+gem 'delayed_job_active_record'
 
 
 # To use ActiveModel has_secure_password
@@ -42,3 +42,4 @@ gem 'thin'
 gem 'capistrano'
 
 
+gem "mocha", :group => :test
