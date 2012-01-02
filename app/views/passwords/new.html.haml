@@ -6,7 +6,7 @@
         %br
         %span.tagline Go Ahead.  Email Another Password.
     %p.payload
-      = f.text_field(:payload, { :class => "password", :value => 'Enter the Password to be Shared', :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)" })
+      = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)" })
     %p
       Delete password and link after:
       %p.slider_box
@@ -25,8 +25,11 @@
 
 
   %p.notes
+    %span.tip
+      * Tip: Only enter the password into the box.  Other identifying information can compromise security.
+    %p
     %span.note
       Passwords are stored on the site using a two-way hash and are available to only those with the direct link.
     %br/
-    %span.tip
-      * Tip: Only enter the password into the box.  Other identifying information can compromise security.
+    %span.note
+      Once expired, passwords hashes are unequivocally deleted from the database.
