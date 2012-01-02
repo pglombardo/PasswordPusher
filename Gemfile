@@ -20,6 +20,8 @@ gem 'json'
 gem 'haml'
 gem 'haml-rails'
 gem 'ezcrypto'
+gem 'fastercsv' # Only required on Ruby 1.8 and below
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,3 +45,5 @@ gem 'capistrano'
 
 
 gem "mocha", :group => :test
+
+gem "devise"

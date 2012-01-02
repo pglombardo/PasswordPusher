@@ -1,5 +1,9 @@
 PasswordPusher::Application.routes.draw do
   
+  mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
+
+  devise_for :users
+
   resources :passwords do
     resources :views
   end

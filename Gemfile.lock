@@ -1,3 +1,19 @@
+GIT
+  remote: git://github.com/sferik/rails_admin.git
+  revision: 4e3014605b734f28942db836a2fc78692af05b10
+  specs:
+    rails_admin (0.0.1)
+      bbenezech-nested_form (~> 0.0)
+      bootstrap-sass (~> 1.4, >= 1.4.1)
+      builder (~> 3.0)
+      coffee-rails (~> 3.1)
+      haml (~> 3.1)
+      jquery-rails (>= 1.0)
+      kaminari (~> 0.12)
+      rack-pjax (~> 0.5)
+      rails (~> 3.1)
+      remotipart (~> 1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -30,9 +46,13 @@ GEM
     activesupport (3.1.2)
       multi_json (~> 1.0)
     arel (2.2.1)
+    bbenezech-nested_form (0.0.2)
+    bcrypt-ruby (3.0.1)
     blueprints (1.0.0)
       activesupport (>= 2.3.0)
       database_cleaner (~> 0.6.1)
+    bootstrap-sass (1.4.3)
+      sass-rails (~> 3.1)
     builder (3.0.0)
     capistrano (2.9.0)
       highline
@@ -56,12 +76,17 @@ GEM
     delayed_job_active_record (0.2.1)
       activerecord (> 2.1.0)
       delayed_job (~> 3.0.0.pre)
+    devise (1.5.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.2.9)
       multi_json (~> 1.0)
     ezcrypto (0.7.2)
+    fastercsv (1.5.4)
     haml (3.1.3)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -70,11 +95,16 @@ GEM
       railties (~> 3.0)
     highline (1.6.8)
     hike (1.2.1)
+    hpricot (0.8.5)
     i18n (0.6.0)
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.2)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     mail (2.3.0)
@@ -94,6 +124,7 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nifty-generators (0.4.6)
+    orm_adapter (0.0.5)
     pg (0.11.0)
     polyglot (0.3.3)
     rack (1.3.5)
@@ -101,6 +132,9 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
+    rack-pjax (0.5.5)
+      hpricot (~> 0.8.4)
+      rack (~> 1.3)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -124,6 +158,7 @@ GEM
     rbx-require-relative (0.0.5)
     rdoc (3.11)
       json (~> 1.4)
+    remotipart (1.0.1)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -166,6 +201,8 @@ GEM
     uglifier (1.1.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    warden (1.1.0)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
@@ -175,7 +212,9 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 3.1.1)
   delayed_job_active_record
+  devise
   ezcrypto
+  fastercsv
   haml
   haml-rails
   jquery-rails
@@ -184,6 +223,7 @@ DEPENDENCIES
   nifty-generators
   pg
   rails (= 3.1.2)
+  rails_admin!
   rspec
   rspec-core
   rspec-expectations
