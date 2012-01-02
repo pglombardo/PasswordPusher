@@ -1,6 +1,27 @@
-%p#notice= notice
+/ %p#notice= notice
 
+%div.content
+  - if @password.expired
+    %p
+      We apologize but...
+    %div.payload
+      This password has expired.
+    %p
+      - if @views_remaining < 0
+        == The password has hit it's chosen maximum view count of #{@password.expire_after_views}.
+      - elsif @days_remaining < 0
+        == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
+      
+  - else
+    %p
+      Your password is...
+  
+    %div.payload
+      = @password.payload
 
-= link_to 'Edit', edit_password_path(@password)
-\|
-= link_to 'Back', passwords_path
+    %p
+      - if @views_remaining == 0
+        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views (this is the last view).
+      - else
+        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views.
+    
