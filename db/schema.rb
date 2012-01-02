@@ -10,13 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128183630) do
+ActiveRecord::Schema.define(:version => 20111228183300) do
 
   create_table "passwords", :force => true do |t|
     t.string   "payload"
     t.integer  "expire_after_days"
     t.integer  "expire_after_views"
-    t.integer  "views",              :default => 0
+    t.boolean  "expired",            :default => false
+    t.string   "url_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "views", :force => true do |t|
+    t.integer  "password_id"
+    t.string   "ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.boolean  "successful"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
