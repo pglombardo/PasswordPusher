@@ -1,6 +1,11 @@
 PasswordPusher::Application.routes.draw do
   
-  resources :passwords
+  resources :passwords do
+    resources :views
+  end
+  
+  match '/p/:url_token' => 'passwords#show'
+  match '/p' => 'passwords#new'
 
   root :to => 'passwords#new'
   # This is a legacy wild controller route that's not recommended for RESTful applications.
