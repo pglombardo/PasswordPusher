@@ -8,7 +8,7 @@
     %p.payload
       = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)" })
     %p
-      Delete password and link after:
+      Delete password after:
       %p.slider_box
         = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "5", :max => "365", :step => "5", :onchange => "showDaysValue(this.value)"})
         %span#daysrange
