@@ -11,6 +11,14 @@
         == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
       
   - else
+    - if @first_view
+      %p.share_note
+        == This is your password.  Use this link to send to users: 
+        %br/
+        %input{ :value => "#{request.url}" }
+        %br/
+        %span.note
+          This note won't be shown again for this password...
     %p
       Your password is...
   
@@ -21,7 +29,7 @@
       - if @views_remaining == 0
         == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views (this is the last view).
       - else
-        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views.
+        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views.    
     
 %div.footer_note
   This 

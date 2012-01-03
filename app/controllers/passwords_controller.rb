@@ -20,28 +20,31 @@ class PasswordsController < ApplicationController
       redirect_to :root
       return
     end
+
+    @views_remaining = 0
+    @days_remaining = 0
     
-    @views_remaining = 0    
     @days_old = (Time.now.to_datetime - @password.created_at.to_datetime).to_i
     @days_remaining = @password.expire_after_days - @days_old
     unless @password.expired
       # This password hasn't expired yet.
-      
-      if @password.expire_after_days < @days_old
-        # This password has expired - expire it
+      if (@days_old > @password.expire_after_days) or (@views.count > @password.expire_after_views)
+        # This password has hit max age or max views - expire it
         @password.expired = true
         @password.payload = nil
         @password.save
-      elsif  @views.count > @password.expire_after_views and not @password.expired
-          # Expire this Password as it has hit maximum views
-          @password.expired = true
-          @password.payload = nil
-          @password.save
-        else
-          @views_remaining = @password.expire_after_views - @views.count
+      else
+        @views_remaining = @password.expire_after_views - @views.count
       end
     else
       # This password is expired      
+    end
+
+    @views_remaining = 0 if @views_remaining < 0
+    @days_remaining = 0  if @days_remaining  < 0
+    
+    if @views.count == 0
+      @first_view = true
     end
     
     @view = View.new
@@ -88,7 +91,7 @@ class PasswordsController < ApplicationController
     
     respond_to do |format|
       if @password.save
-        format.html { redirect_to "/p/#{@password.url_token}", :notice => 'Password was successfully created.' }
+        format.html { redirect_to "/p/#{@password.url_token}", :notice => "The password has been pushed." }
         format.json { render :json => @password, :status => :created, :location => @password }
       else
         format.html { render :action => "new" }
