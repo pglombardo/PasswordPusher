@@ -20,7 +20,7 @@ class PasswordsController < ApplicationController
       redirect_to :root
       return
     end
-
+    
     @views_remaining = 0
     @days_remaining = 0
     
@@ -35,10 +35,15 @@ class PasswordsController < ApplicationController
         @password.save
       else
         @views_remaining = @password.expire_after_views - @views.count
+
+        # Decrypt the passwords
+        @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
+        @payload = @key.decrypt64(@password.payload)
       end
     else
       # This password is expired      
     end
+    
 
     @views_remaining = 0 if @views_remaining < 0
     @days_remaining = 0  if @days_remaining  < 0
@@ -81,13 +86,20 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
-    if params[:password].has_key?(:payload) and params[:password][:payload] == PAYLOAD_INITIAL_TEXT
+    if params[:password][:payload].blank? or params[:password][:payload] == PAYLOAD_INITIAL_TEXT
       redirect_to '/'
       return
     end
+
+    @password = Password.new()
     
-    @password = Password.new(params[:password])
+    @password.expire_after_days = params[:password][:expire_after_days]
+    @password.expire_after_views = params[:password][:expire_after_views]
     @password.url_token = rand(36**16).to_s(36)
+    
+    # Encrypt the passwords
+    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
+    @password.payload = @key.encrypt64(params[:password][:payload])
     
     respond_to do |format|
       if @password.save
