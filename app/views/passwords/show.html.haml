@@ -12,10 +12,21 @@
       
   - else
     - if @first_view
-      %p.share_note
+      .share_note
         == This is your password.  Use this link to share it: 
-        %br/
-        %input{ :value => "#{request.url}" }
+        %p.url
+          %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
+          %span#clip_data{ :style => 'display: none;' }= request.url
+          %span#clippy{ :title => 'copy to clipboard' }
+            %span#clip_tip copy to clipboard
+            != clippy(request.url)
+          :javascript
+            $('#clippy').mousedown(function (e){
+              $('#clip_tip').text('copied!');
+            });
+            $('#clippy').mouseout(function (e){
+              $('#clip_tip').text('copy to clipboard');
+            });
         %br/
         %span.note
           This note won't be shown again for this password...

@@ -33,3 +33,7 @@ function revertTextField(e) {
       e.value = msg;
     }
 }
+
+function setCopied() {
+	$('#clip_tip').text('copied!');
+}
