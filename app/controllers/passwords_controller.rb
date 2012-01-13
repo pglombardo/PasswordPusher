@@ -44,7 +44,6 @@ class PasswordsController < ApplicationController
       # This password is expired      
     end
     
-
     @views_remaining = 0 if @views_remaining < 0
     @days_remaining = 0  if @days_remaining  < 0
     
@@ -54,9 +53,10 @@ class PasswordsController < ApplicationController
     
     @view = View.new
     @view.password_id = @password.id
-    @view.ip = request.env["HTTP_X_FORWARDED_FOR"]
+    @view.ip = request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
     @view.user_agent = request.env["HTTP_USER_AGENT"]
-    @view.referrer = request.env["HTTP_REFERRER"]
+    @view.referrer = request.env["HTTP_REFERER"]
+    @view.successful = @password.expired ? false : true
     @view.save
     
     @views << @view
