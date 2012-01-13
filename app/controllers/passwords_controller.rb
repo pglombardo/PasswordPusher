@@ -78,11 +78,6 @@ class PasswordsController < ApplicationController
     end
   end
 
-  # GET /passwords/1/edit
-  def edit
-    @password = Password.find(params[:id])
-  end
-
   # POST /passwords
   # POST /passwords.json
   def create
@@ -109,34 +104,6 @@ class PasswordsController < ApplicationController
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-  # PUT /passwords/1
-  # PUT /passwords/1.json
-  def update
-    @password = Password.find(params[:id])
-
-    respond_to do |format|
-      if @password.update_attributes(params[:password])
-        format.html { redirect_to @password, :notice => 'Password was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @password.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /passwords/1
-  # DELETE /passwords/1.json
-  def destroy
-    @password = Password.find(params[:id])
-    @password.destroy
-
-    respond_to do |format|
-      format.html { redirect_to passwords_url }
-      format.json { head :ok }
     end
   end
 end

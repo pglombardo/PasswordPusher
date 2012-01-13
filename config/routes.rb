@@ -4,8 +4,8 @@ PasswordPusher::Application.routes.draw do
 
   devise_for :users
 
-  resources :passwords do
-    resources :views
+  resources :passwords, :only => [ :new, :create, :show ] do
+    resources :views, :only => [ :index, :show ]
   end
   
   match '/p/:url_token' => 'passwords#show'
