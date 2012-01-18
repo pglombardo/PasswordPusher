@@ -6,5 +6,26 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = render :partial => "layouts/ga" if Rails.env == "production"
+    :javascript
+      // Set up the yepnope (Modernizr.load) directives... 
+      Modernizr.load([
+      {
+          // Test if Input Range is supported using Modernizr
+          test: Modernizr.inputtypes.range,
+          // If ranges are not supported, load the slider script and CSS file
+          nope: [     
+            // The slider CSS file
+            'css!http://pwpush.com/assets/fd-slider.css'       
+            // Javascript file for slider
+           ,'http://pwpush.com/assets/fd-slider.js'     
+          ],
+          callback: function(id, testResult) {
+              // If the slider file has loaded then fire the onDomReady event        
+              if("fdSlider" in window && typeof (fdSlider.onDomReady) != "undefined") {
+                      try { fdSlider.onDomReady(); } catch(err) {};
+              };
+          }
+      }
+      ]);
   %body
     = yield
