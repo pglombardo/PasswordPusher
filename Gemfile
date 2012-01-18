@@ -23,6 +23,7 @@ gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
+gem 'modernizr-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
