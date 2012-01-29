@@ -50,3 +50,5 @@ gem 'capistrano'
 gem "mocha", :group => :test
 
 gem "devise"
+gem "omniauth"
+
