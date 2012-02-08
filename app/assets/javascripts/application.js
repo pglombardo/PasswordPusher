@@ -9,16 +9,24 @@
 //= require_tree .
 //= require modernizr
 
-
 function showDaysValue(newValue)
 {
-	document.getElementById("daysrange").innerHTML=newValue + ' Days';
+  if (newValue > 1) {
+  	document.getElementById("daysrange").innerHTML=newValue + ' Days';
+  } else {
+  	document.getElementById("daysrange").innerHTML=newValue + ' Day';    
+  }
 }
 
 function showViewsValue(newValue)
 {
-	document.getElementById("viewsrange").innerHTML=newValue + ' Views';
+  if (newValue > 1) {
+  	document.getElementById("viewsrange").innerHTML=newValue + ' Views';
+  } else {
+  	document.getElementById("viewsrange").innerHTML=newValue + ' View';
+  }
 }
+
 
 msg = "Enter the Password to be Shared"
 function prepareTextField(e) {
