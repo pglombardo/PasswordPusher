@@ -40,9 +40,10 @@
 
     %p
       - if @views_remaining == 0
-        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views (this is the last view).
+        == This password will be deleted in #{pluralize(@days_remaining, 'day')} or #{@views_remaining} more views (this is the last view).
       - else
-        == This password will be deleted in #{@days_remaining} days or #{@views_remaining} more views.    
+        == This password will be deleted in #{pluralize(@days_remaining, 'day')} 
+        == or #{pluralize(@views_remaining, 'more view')}.    
     
 %div.footer_note
   This 
