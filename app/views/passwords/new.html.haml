@@ -10,11 +10,11 @@
     %p
       Delete password after:
       %p.slider_box
-        = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "5", :max => "365", :step => "5", :onchange => "showDaysValue(this.value)"})
+        = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "1", :max => "90", :step => "1", :onchange => "showDaysValue(this.value)"})
         %span#daysrange
           30 Days
       %p.slider_box
-        = range_field_tag("password_expire_after_views", "10", {:name => "password[expire_after_views]", :class => "slider", :min => "5", :max => "100", :step => "5", :onchange => "showViewsValue(this.value)"})
+        = range_field_tag("password_expire_after_views", "10", {:name => "password[expire_after_views]", :class => "slider", :min => "1", :max => "100", :step => "1", :onchange => "showViewsValue(this.value)"})
         %span#viewsrange
           10 Views
       %br
@@ -33,6 +33,3 @@
     %br/
     %span.note
       Once expired, passwords hashes are unequivocally deleted from the database.
-      
-  %p
-    = link_to "more", page_path("about")
