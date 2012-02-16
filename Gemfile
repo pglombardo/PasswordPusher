@@ -51,4 +51,7 @@ gem "mocha", :group => :test
 
 gem "devise"
 gem "omniauth"
+gem 'omniauth-openid'
+gem 'omniauth-twitter'
+
 
