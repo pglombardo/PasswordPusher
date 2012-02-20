@@ -101,6 +101,10 @@ class PasswordsController < ApplicationController
     
     @password.url_token = rand(36**16).to_s(36)
     
+    if current_user
+      @password.user_id = current_user.id
+    end
+    
     # Encrypt the passwords
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
     @password.payload = @key.encrypt64(params[:password][:payload])
