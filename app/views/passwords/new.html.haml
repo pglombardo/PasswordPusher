@@ -1,35 +1,49 @@
-%div.content
-  = form_for @password do |f|
-    %p
-      %div.title
-        %span.title Password Pusher
-        %br
-        %span.tagline Go Ahead.  Email Another Password.
-    %p.payload
-      = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)" })
-    %p
-      Delete password after:
-      %p.slider_box
-        = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "1", :max => "90", :step => "1", :onchange => "showDaysValue(this.value)"})
-        %span#daysrange
-          30 Days
-      %p.slider_box
-        = range_field_tag("password_expire_after_views", "10", {:name => "password[expire_after_views]", :class => "slider", :min => "1", :max => "100", :step => "1", :onchange => "showViewsValue(this.value)"})
-        %span#viewsrange
-          10 Views
+
+= form_for @password do |f|
+  %p
+    %div.title
+      %span.title Password Pusher
       %br
-        %span.note
-          (whichever comes first)
-    %p
-      = f.submit(:value => "Push it!")
+      %span.tagline Go Ahead.  Email Another Password.
+  %p.payload
+    = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)" })
+  %p
+    Delete password after:
+    %p.slider_box
+      = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "1", :max => "90", :step => "1", :onchange => "showDaysValue(this.value)"})
+      %span#daysrange
+        30 Days
+    %p.slider_box
+      = range_field_tag("password_expire_after_views", "10", {:name => "password[expire_after_views]", :class => "slider", :min => "1", :max => "100", :step => "1", :onchange => "showViewsValue(this.value)"})
+      %span#viewsrange
+        10 Views
+    %br
+      %span.note
+        (whichever comes first)
+  %p
+    = f.submit(:value => "Push it!")
 
 
-  %p.notes
-    %span.tip
-      * Tip: Only enter the password into the box.  Other identifying information can compromise security.
-    %p
-    %span.note
-      Passwords are stored on the site using a two-way hash and are available to only those with the direct link.
-    %br/
-    %span.note
-      Once expired, passwords hashes are unequivocally deleted from the database.
+%p.notes
+  %span.tip
+    * Tip: Only enter the password into the box.  Other identifying information can compromise security.
+  %p
+  %span.note
+    Passwords are stored on the site using a two-way hash and are available to only those with the direct link.
+  %br/
+  %span.note
+    Once expired, passwords hashes are unequivocally deleted from the database.
+    
+%p.footer
+  = link_to "more", page_path("about")
+  |
+  - if user_signed_in?
+    - if current_user.try(:admin?)
+      = link_to('power', rails_admin_path())
+      |
+    = link_to('logout', destroy_user_session_path, :method => :delete)
+      
+  - else
+    = link_to('signup', new_user_registration_path)
+    |
+    = link_to('login', new_user_session_path)
