@@ -1,7 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.2'
-gem 'pg'
+
+group :development, :test, :private do
+  gem "sqlite3"
+end
+
+group :production do
+  gem 'pg'
+end
 
 group :development, :test do
 	gem 'silent-postgres'
