@@ -29,10 +29,10 @@
     * Tip: Only enter the password into the box.  Other identifying information can compromise security.
   %p
   %span.note
-    Passwords are stored on the site using a two-way hash and are available to only those with the direct link.
+    All passwords are encrypted prior to storage and are available to only those with the direct link.
   %br/
   %span.note
-    Once expired, passwords hashes are unequivocally deleted from the database.
+    Once expired, encrypted passwords are unequivocally deleted from the database.
     
 %p.footer
   = link_to "more", page_path("about")
@@ -41,9 +41,9 @@
     - if current_user.try(:admin?)
       = link_to('power', rails_admin_path())
       |
-    = link_to('logout', destroy_user_session_path, :method => :delete)
+    = link_to('logout', '/logout', :method => :delete)
       
   - else
-    = link_to('signup', new_user_registration_path)
+    = link_to('signup', '/register')
     |
-    = link_to('login', new_user_session_path)
+    = link_to('login', '/login')
