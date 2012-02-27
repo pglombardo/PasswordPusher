@@ -4,12 +4,25 @@ base: &base
   timeout: 5000
 
 development:
-  database: db/development.sqlite3
-  <<: *base
-
+  adapter: postgresql
+  host: localhost
+  database: #{application}_development
+  username: #{application}
+  password: #{Capistrano::CLI.ui.ask("Enter development database password: ")}
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
+    
 test: &test
-  database: db/test.sqlite3
-  <<: *base
+  adapter: postgresql
+  database: #{application}_test
+  username: #{application}
+  password: #{Capistrano::CLI.ui.ask("Enter test database password: ")}
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
 
 private:
   database: db/private.sqlite3
@@ -20,7 +33,7 @@ production:
   adapter: postgresql
   database: #{application}_production 
   username: pusher
-  password: #{Capistrano::CLI.ui.ask("Enter production database password: ")}
+  password: #{Capistrano::CLI.ui.ask("Enter pwpush.com production database password: ")}
   pool: 5
   timeout: 5000
   encoding: utf8
