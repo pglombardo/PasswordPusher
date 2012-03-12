@@ -33,17 +33,18 @@
   %br/
   %span.note
     Once expired, encrypted passwords are unequivocally deleted from the database.
+
     
 %p.footer
-  = link_to "more", page_path("about")
-  |
-  - if user_signed_in?
-    - if current_user.try(:admin?)
-      = link_to('power', rails_admin_path())
-      |
-    = link_to('logout', '/logout', :method => :delete)
-      
-  - else
-    = link_to('signup', '/register')
-    |
-    = link_to('login', '/login')
+  / = link_to "more", page_path("about")
+  / |
+  / - if user_signed_in?
+  /   - if current_user.try(:admin?)
+  /     = link_to('power', rails_admin_path())
+  /     |
+  /   = link_to('logout', '/logout', :method => :delete)
+  /     
+  / - else
+  /   = link_to('signup', '/register')
+  /   |
+  /   = link_to('login', '/login')
