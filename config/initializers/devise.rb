@@ -201,7 +201,6 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :identifier => 'https://www.google.com/accounts/o8/id', :name => 'google', :require => 'omniauth-openid'
   config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :identifier => 'https://yahoo.com', :name => 'yahoo', :require => 'omniauth-openid'
-  config.omniauth :twitter, 'An61XGkMRQlWNUg9FQ4wA', '1r6N08nK4xuWFeHAl1Dbofj8GRr9wNI63PVRFkWCtE'
   
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
