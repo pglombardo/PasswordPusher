@@ -12,7 +12,7 @@ end
 
 group :development, :test do
 	gem 'silent-postgres'
-  gem "ruby-debug"
+  gem "ruby-debug19"
   gem "rspec-rails", ">= 2.0.1"
   gem "rspec"
   gem "rspec-core"
@@ -20,7 +20,6 @@ group :development, :test do
   gem "rspec-mocks"
   gem "blueprints"
   gem "nifty-generators"
-	gem 'ruby-debug'
 end
 
 gem 'json'
