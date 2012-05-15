@@ -4,7 +4,7 @@ PasswordPusher is a Ruby on Rails application to communicate passwords over the 
 
 ## Quick Start
 
-If you want to host PasswordPusher yourself, here are 3 
+If you want to host PasswordPusher yourself:
 
     git clone git@github.com:pglombardo/PasswordPusher.git
     cd PasswordPusher
