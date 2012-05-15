@@ -12,6 +12,12 @@ If you want to host PasswordPusher yourself:
     export RAILS_ENV=private
     bundle exec rake db:create db:migrate
     bundle exec rails server
+    
+Then view the site @ [http://localhost:3000](http://localhost:3000)
+
+If you want to run the site on a different port, use the -p parameter.
+
+    bundle exec rails server -p 80
 
 ## Potential Quick Start Errors
 
