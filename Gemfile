@@ -11,8 +11,9 @@ group :production do
 end
 
 group :development, :test do
-	gem 'silent-postgres'
-  gem "ruby-debug19"
+  gem 'silent-postgres'
+  gem "ruby-debug19", :platforms => :ruby_19
+  gem "ruby-debug", :platforms => :ruby_18
   gem "rspec-rails", ">= 2.0.1"
   gem "rspec"
   gem "rspec-core"
