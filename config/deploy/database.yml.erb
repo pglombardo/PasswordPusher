@@ -5,10 +5,10 @@ base: &base
 
 development:
   adapter: postgresql
-  host: localhost
-  database: <%= application.downcase %>_development
-  username: <%= application.downcase %>
-  password: <%= Capistrano::CLI.ui.ask("Enter development database password: ") %>
+  host: <%= DEVELOPMENT_DB_HOST %>
+  database: <%= DEVELOPMENT_DB_NAME %>
+  username: <%= DEVELOPMENT_DB_USER %>
+  password: <%= DEVELOPMENT_DB_PASSWORD %>
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -16,20 +16,29 @@ development:
     
 test: &test
   adapter: postgresql
-  database: <%= application.downcase %>_test
-  username: <%= application.downcase %>
-  password: <%= Capistrano::CLI.ui.ask("Enter test database password: ") %>
+  database: <%= TEST_DB_NAME %>
+  username: <%= TEST_DB_USER %>
+  password: <%= TEST_DB_PASSWORD %>
   pool: 5
   timeout: 5000
   encoding: utf8
   reconnect: false
 
-# This is used for pwpush.com
+preview:
+  adapter: postgresql
+  database: <%= PREVIEW_DB_NAME %>
+  username: <%= PREVIEW_DB_USER %>
+  password: <%= PREVIEW_DB_PASSWORD %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
+
 production:
   adapter: postgresql
-  database: <%= application.downcase %>_production 
-  username: pusher
-  password: <%= Capistrano::CLI.ui.ask("Enter pwpush.com production database password: ") %>
+  database: <%= PRODUCTION_DB_NAME %>
+  username: <%= PRODUCTION_DB_USER %>
+  password: <%= PRODUCTION_DB_PASSWORD %>
   pool: 5
   timeout: 5000
   encoding: utf8
