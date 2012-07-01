@@ -64,6 +64,8 @@ class PasswordsController < ApplicationController
     @view.save
     
     @views << @view
+    
+    expires_now()
 
     respond_to do |format|
       format.html # show.html.erb
