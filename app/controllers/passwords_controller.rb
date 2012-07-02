@@ -1,17 +1,4 @@
 class PasswordsController < ApplicationController
-  # GET /passwords
-  # GET /passwords.json
-  def index
-    @passwords = Password.all
-    
-    expires_in 3.hours, :public => true, 'max-stale' => 0
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @passwords }
-    end
-  end
-
   # GET /passwords/1
   # GET /passwords/1.json
   def show
@@ -79,6 +66,8 @@ class PasswordsController < ApplicationController
   # GET /passwords/new.json
   def new
     @password = Password.new
+
+    expires_in 3.hours, :public => true, 'max-stale' => 0
 
     respond_to do |format|
       format.html # new.html.erb
