@@ -3,6 +3,8 @@ class PasswordsController < ApplicationController
   # GET /passwords.json
   def index
     @passwords = Password.all
+    
+    expires_in 3.hours, :public => true, 'max-stale' => 0
 
     respond_to do |format|
       format.html # index.html.erb
