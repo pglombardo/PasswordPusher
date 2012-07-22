@@ -39,20 +39,8 @@
     = link_to "About PasswordPusher", page_path('about')
     %br/
     Find us on:
-    = link_to "@Twitter", "https://twitter.com/gamefndr"
-    &amp;
+    = succeed "," do
+      = link_to "@Twitter", "https://twitter.com/gamefndr"
     = link_to "@Github", "https://github.com/pglombardo"
-    
-%p.footer
-  / = link_to "more", page_path("about")
-  / |
-  / - if user_signed_in?
-  /   - if current_user.try(:admin?)
-  /     = link_to('power', rails_admin_path())
-  /     |
-  /   = link_to('logout', '/logout', :method => :delete)
-  /     
-  / - else
-  /   = link_to('signup', '/register')
-  /   |
-  /   = link_to('login', '/login')
+    &amp;
+    = link_to "@Tumblr", "http://gamefndr.tumblr.com/"
