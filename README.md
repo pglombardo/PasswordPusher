@@ -38,4 +38,20 @@ If you get something like 'Command not found: gem', then you need to install Rub
 If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to install the sqlite3 packages for your operating system.  For Ubuntu, the command is:
 
     sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
+    
+## Other Information
 
+### If you want to switch to 'production' environment...
+
+Remember to precompile your assets before starting the server with:
+
+    export RAILS_ENV=production
+    bundle exec rake assets:precompile
+
+If you don't do this in 'production' environment, you will get an error similar to:
+
+    We're sorry, but something went wrong.
+    
+and in your logs:
+
+    ActionView::Template::Error (application.css isn't precompiled):
