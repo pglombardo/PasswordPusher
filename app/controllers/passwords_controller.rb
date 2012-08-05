@@ -105,7 +105,7 @@ class PasswordsController < ApplicationController
     respond_to do |format|
       if @password.save
         format.html { redirect_to "/p/#{@password.url_token}", :notice => "The password has been pushed." }
-        format.json { render :json => @password, :status => :created, :location => @password }
+        format.json { render :json => @password, :status => :created }
       else
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
