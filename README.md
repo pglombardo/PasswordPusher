@@ -25,9 +25,12 @@ If you want to run the site on a different port, use the -p parameter.
 
 You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
 
-And you will have to send these variables:
+And you will have to send these POST variables:
+
 password[payload]: test 
+
 password[expire_after_days]: 60
+
 password[expire_after_views]: 1337
 
 You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
