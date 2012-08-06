@@ -37,6 +37,10 @@ You can test it in your browsers javascript console by going to the frontpage of
 
     $.post('http://127.0.0.1:3000/passwords.json',{ 'password[payload]': 'test', 'password[expire_after_days]': '60', 'password[expire_after_views]': '1337' }, function(data) { alert(data.url_token) } )
 
+Or do it with curl:
+
+    curl -d -X POST --data "password[payload]=payload&password[expire_after_days]=60&password[expire_after_views]=1337" http://127.0.0.1:3000/passwords.json
+
 ## Potential Quick Start Errors
 
 ### Command not found: bundle
