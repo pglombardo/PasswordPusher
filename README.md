@@ -27,11 +27,9 @@ You can generate passwords through an API, if you want to automate creation, it 
 
 And you will have to send these POST variables:
 
-password[payload]: test 
-
-password[expire_after_days]: 60
-
-password[expire_after_views]: 1337
+    password[payload]: test 
+    password[expire_after_days]: 60
+    password[expire_after_views]: 1337
 
 You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
 
@@ -75,3 +73,8 @@ If you don't do this in 'production' environment, you will get an error similar 
 and in your logs:
 
     ActionView::Template::Error (application.css isn't precompiled):
+    
+## Credits
+
+Thanks to [Kasper 'kapöw' Grubbe](https://github.com/kap0w) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
+
