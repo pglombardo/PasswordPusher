@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.2'
+gem 'rails', '3.2.8'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -36,26 +36,17 @@ gem "high_voltage"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.5.rc.2'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 3.2.5'
+  gem 'coffee-rails', '~> 3.2.2'
+  gem 'uglifier', '>= 1.2.7'
 end
-
-gem 'jquery-rails'
-gem 'delayed_job_active_record'
-
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-gem 'thin'
-gem 'capistrano'
-
 
 gem "mocha", :group => :test
 
+gem 'jquery-rails'
+gem 'delayed_job_active_record'
+gem 'thin'
+gem 'capistrano'
 gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
