@@ -41,6 +41,7 @@ task :staging do
     set :bundle_without,  [:test, :development, :preview]
     set :rails_env, 'staging'
     default_environment['RAILS_ENV'] = 'staging'
+    set :rvm_ruby_string, 'ruby-1.9.3-p194'
 
     # Staging Config
     role :web, STAGING_WEB
@@ -57,6 +58,7 @@ task :preview do
     set :bundle_without,  [:test, :development]
     set :rails_env, 'preview'
     default_environment['RAILS_ENV'] = 'preview'
+    set :rvm_ruby_string, 'ruby-1.9.3-p194'
 
     # Preview Config
     role :web, PREVIEW_WEB
@@ -73,6 +75,7 @@ task :production do
     set :rails_env, 'production'
     set :bundle_without,  [:test, :development, :preview]
     default_environment['RAILS_ENV'] = 'production'
+    set :rvm_ruby_string, 'ruby-1.9.3-p194'
 
     # Prompt to make really sure we want to deploy into prouction
     puts "\n\e[0;31m   ######################################################################" 
@@ -131,4 +134,7 @@ require './config/boot'
 require "bundler/capistrano"
 load 'deploy/assets'
 require "./config/capistrano_database_yml"
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+require 'rvm/capistrano'
+
 
