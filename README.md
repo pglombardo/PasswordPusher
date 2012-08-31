@@ -74,7 +74,24 @@ and in your logs:
 
     ActionView::Template::Error (application.css isn't precompiled):
     
+### Tip
+
+If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
+
+SQLite3 is provided by default for a quick and easy setup of the application.
+
+For example, on [https://pwpush.com](https://pwpush.com), I run the application with a Postgres database.
+
+*Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
+
 ## Credits
 
 Thanks to [Kasper 'kapöw' Grubbe](https://github.com/kap0w) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
+
+## See Also
+
+[phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) ([cpsh.me](http://cpsh.me/)) based off of PasswordPusher
+
+[bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
+
 
