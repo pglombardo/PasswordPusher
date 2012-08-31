@@ -90,6 +90,8 @@ Thanks to [Kasper 'kapöw' Grubbe](https://github.com/kap0w) for the [JSON POST 
 
 ## See Also
 
+[quasarj]() created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
+
 [phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) ([cpsh.me](http://cpsh.me/)) based off of PasswordPusher
 
 [bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
