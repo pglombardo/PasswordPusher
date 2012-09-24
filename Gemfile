@@ -8,6 +8,9 @@ end
 
 group :production do
   gem 'pg'
+  # Note: Remove the following gem if you are running production - it requires a Tracelytics account
+  # This is intended for pwpush.com only; http://www.tracelytics.com
+  gem 'oboe', :git => "git@github.com:tracelytics/oboe_fu.git", :branch => 'fix_issue_72'
 end
 
 group :development, :test do
@@ -51,5 +54,4 @@ gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
-
 
