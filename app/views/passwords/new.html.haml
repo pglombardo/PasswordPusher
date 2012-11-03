@@ -10,13 +10,13 @@
   %p
     Delete password after:
     %p.slider_box
-      = range_field_tag("password_expire_after_days", "30", {:name => "password[expire_after_days]", :class => "slider", :min => "1", :max => "90", :step => "1", :onchange => "showDaysValue(this.value)"})
+      = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)"})
       %span#daysrange
-        30 Days
+        == #{EXPIRE_AFTER_DAYS_DEFAULT} Days
     %p.slider_box
-      = range_field_tag("password_expire_after_views", "10", {:name => "password[expire_after_views]", :class => "slider", :min => "1", :max => "100", :step => "1", :onchange => "showViewsValue(this.value)"})
+      = range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)"})
       %span#viewsrange
-        10 Views
+        == #{EXPIRE_AFTER_VIEWS_DEFAULT} Views
     %br
       %span.note
         (whichever comes first)

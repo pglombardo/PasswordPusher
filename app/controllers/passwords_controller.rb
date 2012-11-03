@@ -89,8 +89,13 @@ class PasswordsController < ApplicationController
     @password.expire_after_views = params[:password][:expire_after_views]
     
     # Check ranges
-    @password.expire_after_days = 30  unless @password.expire_after_days.between?(1, 90)
-    @password.expire_after_views = 10 unless @password.expire_after_views.between?(1, 100)
+    unless @password.expire_after_days.between?(EXPIRE_AFTER_DAYS_MIN, EXPIRE_AFTER_DAYS_MAX)
+      @password.expire_after_days = EXPIRE_AFTER_DAYS_DEFAULT
+    end
+    
+    unless @password.expire_after_views.between?(EXPIRE_AFTER_VIEWS_MIN, EXPIRE_AFTER_VIEWS_MAX)
+      @password.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT 
+    end
     
     @password.url_token = rand(36**16).to_s(36)
     
