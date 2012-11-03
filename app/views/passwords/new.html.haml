@@ -20,11 +20,12 @@
     %br
       %span.note
         (whichever comes first)
+        
   %p
     = f.submit(:value => "Push it!")
 
 
-%p.notes
+%p.notes      
   %span.tip
     * Tip: Only enter the password into the box.  Other identifying information can compromise security.
   %p
@@ -33,6 +34,14 @@
   %br/
   %span.note
     Once expired, encrypted passwords are unequivocally deleted from the database.
+
+  %p
+    %span.note
+      #cookie-save
+        %a{ :onclick => "saveExpirations()", :href => "#" } Save 
+        these expiration settings as
+        %i default 
+        in a browser cookie
 
 - if Rails.env == "production" or Rails.env == "development"
   %p.notes
