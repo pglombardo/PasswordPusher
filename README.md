@@ -59,6 +59,21 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
     
 ## Other Information
 
+### To change the front page default values (days and views expiration)
+
+You can select default, min and max values for "expire after days" and "expire after views" by changing the values in `config/environment.rb`:
+
+    # Controls the "Expire After Days" form settings in Password#new
+    EXPIRE_AFTER_DAYS_DEFAULT = 30
+    EXPIRE_AFTER_DAYS_MIN = 1
+    EXPIRE_AFTER_DAYS_MAX = 90
+
+    # Controls the "Expire After Views" form settings in Password#new
+    EXPIRE_AFTER_VIEWS_DEFAULT = 10
+    EXPIRE_AFTER_VIEWS_MIN = 1
+    EXPIRE_AFTER_VIEWS_MAX = 100
+
+
 ### If you want to switch to 'production' environment...
 
 Remember to precompile your assets before starting the server with:
