@@ -73,6 +73,7 @@ You can select default, min and max values for "expire after days" and "expire a
     EXPIRE_AFTER_VIEWS_MIN = 1
     EXPIRE_AFTER_VIEWS_MAX = 100
 
+These values are also used in the Password controller range checking code.
 
 ### If you want to switch to 'production' environment...
 
@@ -98,6 +99,52 @@ SQLite3 is provided by default for a quick and easy setup of the application.
 For example, on [https://pwpush.com](https://pwpush.com), I run the application with a Postgres database.
 
 *Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
+
+### How to switch to another backend database
+
+Which database the application uses is specified in `config/database.yml`.  The default configuration has these values for the `private` environment:
+
+    base: &base 
+      adapter: sqlite3
+      timeout: 5000
+
+    private:
+      database: db/private.sqlite3
+      <<: *base
+    
+If you wanted to switch to the postgres database, you would replace the `private` block with something similar to the following:
+
+    private: 
+      adapter: postgresql
+      database: yourdbname
+      username: yourdbusername
+      password: yourdbpassword
+      pool: 5
+      timeout: 5000
+      encoding: utf8
+      reconnect: false
+
+or for mysql:
+
+    private: 
+      adapter: mysql
+      database: yourdbname
+      username: yourdbusername
+      password: yourdbpassword
+      pool: 5
+      encoding: utf8
+
+For more detailed instructions, see the Ruby on Rails documentation on [configuring a database](http://guides.rubyonrails.org/getting_started.html#configuring-a-database).
+
+Note that you will also need to add in the proper database driver gem to your `Gemfile` by simply adding
+
+    gem "pg"
+
+or
+
+    gem "mysql"
+
+and then running `bundle install`.
 
 ## Credits
 
