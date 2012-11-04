@@ -29,19 +29,18 @@
   %span.tip
     * Tip: Only enter the password into the box.  Other identifying information can compromise security.
   %p
+    %span
+      #cookie-save.cookie-save
+        %a{ :onclick => "saveExpirations()", :href => "#" } Save 
+        these expiration settings as
+        %i default 
+        in a browser cookie.
+  %p
   %span.note
     All passwords are encrypted prior to storage and are available to only those with the direct link.
   %br/
   %span.note
     Once expired, encrypted passwords are unequivocally deleted from the database.
-
-  %p
-    %span.note
-      #cookie-save
-        %a{ :onclick => "saveExpirations()", :href => "#" } Save 
-        these expiration settings as
-        %i default 
-        in a browser cookie
 
 - if Rails.env == "production" or Rails.env == "development"
   %p.notes
