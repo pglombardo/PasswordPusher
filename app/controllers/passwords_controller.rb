@@ -13,9 +13,8 @@ class PasswordsController < ApplicationController
     @views_remaining = 0
     @days_remaining = 0
     
-    # FIXME: This should be changed to a database enforced default value in case of nil
-    @password.expire_after_days = 1 unless @password.expire_after_days
-    @password.expire_after_views = 10 unless @password.expire_after_views
+    @password.expire_after_days = EXPIRE_AFTER_DAYS_DEFAULT unless @password.expire_after_days
+    @password.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT unless @password.expire_after_views
     
     @days_old = (Time.now.to_datetime - @password.created_at.to_datetime).to_i
     @days_remaining = @password.expire_after_days - @days_old
@@ -111,6 +110,28 @@ class PasswordsController < ApplicationController
       if @password.save
         format.html { redirect_to "/p/#{@password.url_token}", :notice => "The password has been pushed." }
         format.json { render :json => @password, :status => :created }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @password.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def destroy
+    if params.has_key?(:url_token)
+      @password = Password.find_by_url_token!(params[:url_token])   
+    else
+      redirect_to :root
+      return
+    end
+    
+    @password.expired = true
+    @password.payload = nil
+    
+    respond_to do |format|
+      if @password.save
+        format.html { redirect_to "/p/#{@password.url_token}", :notice => "The password has been deleted." }
+        format.json { render :json => @password, :status => :destroyed }
       else
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
