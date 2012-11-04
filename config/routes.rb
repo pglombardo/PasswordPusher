@@ -18,11 +18,9 @@ PasswordPusher::Application.routes.draw do
   end
   
   # Password paths
-  match '/p/:url_token' => 'passwords#show'
+  match '/p/:url_token' => 'passwords#show',    :via => :get,    :as => :password
+  match '/p/:url_token' => 'passwords#destroy', :via => :delete, :as => :password
   match '/p' => 'passwords#new'
   
-  # The user dashboard
-#  match '/d' => 'dashboard#index'
-
   root :to => 'passwords#new'
 end

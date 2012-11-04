@@ -9,6 +9,8 @@
         == The password has hit it's chosen maximum view count of #{@password.expire_after_views}.
       - elsif @days_remaining < 0
         == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
+      - else
+        This password was manually deleted by one of it's viewers.
       
   - else
     - if @first_view
@@ -44,7 +46,8 @@
       - else
         == This password will be deleted in #{pluralize(@days_remaining, 'day')} 
         == or #{pluralize(@views_remaining, 'more view')}.    
-    
+    %p{ :style => 'font-size: .85em;' }
+      = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
 %div.footer_note
   This 
   - if @password.expired
@@ -52,3 +55,4 @@
   password is brought to you by
   = link_to "Password Pusher", "/"
   and viewers like you.
+  
