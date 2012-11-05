@@ -6,6 +6,10 @@ PasswordPusher::Application.routes.draw do
 #  get "api/config"
 
   mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
+  
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
     get "/login" => "devise/sessions#new"
