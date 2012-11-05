@@ -4,7 +4,7 @@ class PasswordsController < ApplicationController
   def show
     if params.has_key?(:url_token)
       @password = Password.find_by_url_token!(params[:url_token])   
-      @views = View.where(:password_id => @password.id)
+      @views = View.where(:password_id => @password.id, :successful => true)
     else
       redirect_to :root
       return
@@ -13,20 +13,25 @@ class PasswordsController < ApplicationController
     @views_remaining = 0
     @days_remaining = 0
     
+    # Range checking
     @password.expire_after_days = EXPIRE_AFTER_DAYS_DEFAULT unless @password.expire_after_days
     @password.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT unless @password.expire_after_views
+
+    # Calculate views remaining and days remaining
+    @views_remaining = @password.expire_after_views - @views.count
     
     @days_old = (Time.now.to_datetime - @password.created_at.to_datetime).to_i
     @days_remaining = @password.expire_after_days - @days_old
+    
     unless @password.expired
       # This password hasn't expired yet.
+      
       if (@days_old > @password.expire_after_days) or (@views.count > @password.expire_after_views)
         # This password has hit max age or max views - expire it
         @password.expired = true
         @password.payload = nil
         @password.save
       else
-        @views_remaining = @password.expire_after_views - @views.count
 
         # Decrypt the passwords
         @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
@@ -127,6 +132,7 @@ class PasswordsController < ApplicationController
     
     @password.expired = true
     @password.payload = nil
+    @password.deleted = true
     
     respond_to do |format|
       if @password.save
