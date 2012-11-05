@@ -2,9 +2,9 @@
 %html
   %head
     %title PasswordPusher
-    = stylesheet_link_tag    "application"
-    = javascript_include_tag "application"
     = csrf_meta_tags
+    = oboe_rum_header rescue ""
+    = stylesheet_link_tag    "application"
     = render :partial => "layouts/ga" if Rails.env == "production"
     :javascript
       // Set up the yepnope (Modernizr.load) directives... 
@@ -32,3 +32,6 @@
       = link_to image_tag("forkme.png", :style => "position: absolute; top: 0; right: 0; border: 0; z-index: 1;", :alt => "Fork me on Github" ), "https://github.com/pglombardo/PasswordPusher"
       = yield
 
+    = javascript_include_tag "application"
+    = oboe_rum_footer rescue ""
+    
