@@ -5,13 +5,13 @@
     %div.payload
       This password has expired.
     %p
-      - if @views_remaining < 0
-        == The password has hit it's chosen maximum view count of #{@password.expire_after_views}.
-      - elsif @days_remaining < 0
-        == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
-      - else
+      - if @password.deleted
         This password was manually deleted by one of it's viewers.
-      
+      - elsif @views_remaining == 0
+        == The password has hit it's chosen maximum view count of #{@password.expire_after_views}.
+      - elsif @days_remaining == 0
+        == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
+
   - else
     - if @first_view
       .share_note
