@@ -7,10 +7,6 @@ PasswordPusher::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
   
-  unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
-  end
-
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
     get "/login" => "devise/sessions#new"
     delete "/logout" => "devise/sessions#destroy"
@@ -27,4 +23,8 @@ PasswordPusher::Application.routes.draw do
   match '/p' => 'passwords#new'
   
   root :to => 'passwords#new'
+  
+  # unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  # end
 end
