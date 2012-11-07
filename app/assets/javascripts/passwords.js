@@ -37,3 +37,11 @@ $(document).ready(function() {
     showViewsValue(ve.value)
   }
 });
+
+$('#password_payload').keypress(function() {
+  if ($('#password_payload').val().length > 250) {
+    noty({text: 'Passwords can be up to 250 characters maximum in length.', type: 'warning'});
+    $.noty.clearQueue()
+    return false;
+  }
+});
