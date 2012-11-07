@@ -19,17 +19,21 @@ $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
   
+  de = document.getElementById("password_expire_after_days")
+  dr = document.getElementById("daysrange")
   if (days) {
-    de = document.getElementById("password_expire_after_days")
-    dr = document.getElementById("daysrange")
     de.value = days
     dr.innerHTML = days + " Days"
+  } else {
+    showDaysValue(de.value)
   }
   
+  ve = document.getElementById("password_expire_after_views")
+  vr = document.getElementById("viewsrange")
   if (views) {
-    ve = document.getElementById("password_expire_after_views")
-    vr = document.getElementById("viewsrange")
     ve.value = views
     vr.innerHTML = views + " Views"
+  } else {
+    showViewsValue(ve.value)
   }
 });
