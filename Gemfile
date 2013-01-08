@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -55,4 +55,6 @@ gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
+#gem 'airbrake'
+
 
