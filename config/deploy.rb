@@ -73,9 +73,12 @@ desc "Run tasks in production environment"
 task :production do
     set :stage, 'production'
     set :rails_env, 'production'
+    set (:bundle_cmd) { "/usr/local/rbenv/shims/bundle" }
+    set :bundle_flags, "--deployment --quiet --binstubs"
     set :bundle_without,  [:test, :development, :preview]
-    default_environment['RAILS_ENV'] = 'production'
-    set :rvm_ruby_string, 'ruby-1.9.3-p194'
+    set :default_environment, {
+      'RAILS_ENV' => 'production'
+    }
 
     # Prompt to make really sure we want to deploy into prouction
     puts "\n\e[0;31m   ######################################################################" 
@@ -134,7 +137,4 @@ require './config/boot'
 require "bundler/capistrano"
 load 'deploy/assets'
 require "./config/capistrano_database_yml"
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-require 'rvm/capistrano'
-
 
