@@ -10,8 +10,7 @@ group :production do
   gem 'pg'
   # Note: Remove the following gem if you are running production - it requires a Tracelytics account
   # This is intended for pwpush.com only; http://www.tracelytics.com
-  source 'http://gem.tracelytics.com'
-  gem 'oboe', '1.3.3'
+  gem 'oboe', '1.3.8'
 end
 
 group :development, :test do
@@ -32,7 +31,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-gem 'therubyracer'
+#gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
