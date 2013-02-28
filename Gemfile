@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -30,7 +30,7 @@ gem 'json'
 gem 'haml'
 gem 'haml-rails'
 gem 'fastercsv' # Only required on Ruby 1.8 and below
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'rails_admin'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
