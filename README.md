@@ -25,24 +25,6 @@ If you want to run the site on a different port, use the -p parameter.
 
     bundle exec rails server -p 80
 
-## API
-
-You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
-
-And you will have to send these POST variables:
-
-    password[payload]: test 
-    password[expire_after_days]: 60
-    password[expire_after_views]: 1337
-
-You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
-
-    $.post('http://127.0.0.1:3000/passwords.json',{ 'password[payload]': 'test', 'password[expire_after_days]': '60', 'password[expire_after_views]': '1337' }, function(data) { alert(data.url_token) } )
-
-Or do it with curl:
-
-    curl -d -X POST --data "password[payload]=payload&password[expire_after_days]=60&password[expire_after_views]=1337" http://127.0.0.1:3000/passwords.json
-
 ## Potential Quick Start Errors
 
 ### Command not found: bundle
@@ -61,6 +43,24 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
 
     sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
     
+## API
+
+You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
+
+And you will have to send these POST variables:
+
+    password[payload]: test 
+    password[expire_after_days]: 60
+    password[expire_after_views]: 1337
+
+You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
+
+    $.post('http://127.0.0.1:3000/passwords.json',{ 'password[payload]': 'test', 'password[expire_after_days]': '60', 'password[expire_after_views]': '1337' }, function(data) { alert(data.url_token) } )
+
+Or do it with curl:
+
+    curl -d -X POST --data "password[payload]=payload&password[expire_after_days]=60&password[expire_after_views]=1337" http://127.0.0.1:3000/passwords.json
+
 ## Other Information
 
 ### To change the front page default values (days and views expiration)
