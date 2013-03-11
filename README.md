@@ -4,6 +4,10 @@ PasswordPusher is a Ruby on Rails application to communicate passwords over the 
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
+## Note for Existing Users
+
+*If you're already hosting PasswordPusher yourself, the latest source has all the updates required to address the recent Ruby security issues.  Make sure to do a periodic `git pull` from time to time to always get the latest updates.*
+
 ## Quick Start
 
 If you want to host PasswordPusher yourself:
