@@ -158,7 +158,7 @@ Thanks to [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSO
 
 ## See Also
 
-[quasarj]() created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
+[quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
 
 [phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) ([cpsh.me](http://cpsh.me/)) based off of PasswordPusher
 
