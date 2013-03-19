@@ -6,7 +6,9 @@ I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/co
 
 ## Note for Existing Users
 
-*If you're already hosting PasswordPusher yourself, the latest source has all the updates required to address the recent Ruby security issues.  Make sure to do a periodic `git pull` from time to time to always get the latest updates.*
+If you're already hosting PasswordPusher yourself, the latest source has all the updates required to address the recent Ruby security issues.  Make sure to do a periodic `git pull` from time to time to always get the latest updates. 
+
+You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
 ## Quick Start
 
