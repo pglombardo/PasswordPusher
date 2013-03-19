@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -10,7 +10,7 @@ group :production do
   gem 'pg'
   # Note: Remove the following gem if you are running production - it requires a Tracelytics account
   # This is intended for pwpush.com only; http://www.tracelytics.com
-  gem 'oboe', '1.3.9.1'
+  gem 'oboe', '1.4.0.2'
 end
 
 group :development, :test do
