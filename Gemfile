@@ -10,7 +10,7 @@ group :production do
   gem 'pg'
   # Note: Remove the following gem if you are running production - it requires a Tracelytics account
   # This is intended for pwpush.com only; http://www.tracelytics.com
-  gem 'oboe', '1.4.1.2'
+  gem 'oboe'
 end
 
 group :development, :test do
