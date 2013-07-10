@@ -154,7 +154,11 @@ and then running `bundle install`.
 
 ## Credits
 
-Thanks to [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
+Thanks to:
+
+* [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
+
+* [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
 ## See Also
 
