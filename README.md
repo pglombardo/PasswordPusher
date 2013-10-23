@@ -26,6 +26,8 @@ You can quickly host your own instance of Password Pusher on [Heroku](https://ww
     # Create the actual Heroku app and add the postgres DB addon
     heroku apps:create $PWPUSH_APP_NAME
     heroku addons:add heroku-postgresql
+    heroku labs:enable user-env-compile
+    heroku config:add BUNDLE_WITHOUT="development:test:private"
 
     # Push the code to your new Heroku app
     git push heroku master
