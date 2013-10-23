@@ -1,16 +1,33 @@
-# PasswordPusher
+# Password Pusher
 
-PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com).
+![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
+
+PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) (but you can also easily run your own instance).
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
 ## Note for Existing Users
 
-If you're already hosting PasswordPusher yourself, the latest source has all the updates required to address the recent Ruby security issues.  Make sure to do a periodic `git pull` from time to time to always get the latest updates. 
+If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
 
 You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
-## Quick Start
+## Quick Start - Heroku
+
+To host Password Pusher on [Heroku](https://www.heroku.com), log into your Heroku account and create a new application.
+
+Then run the following commands (replacing HEROKU-APP-NAME with the name of your created application):
+
+    git clone git@github.com:pglombardo/PasswordPusher.git
+    cd PasswordPussher
+    git remote add heroku git@heroku.com:HEROKU-APP-NAME.git
+    heroku addons:add heroku-postgresql
+    git push heroku master
+    heroku run bundle exec rake db:setup
+
+Then checkout your new Password Pusher heroku instance at : http://HEROKU-APP-NAME.herokuapp.com
+
+## Quick Start - Private Server
 
 If you want to host PasswordPusher yourself:
 
@@ -19,13 +36,9 @@ If you want to host PasswordPusher yourself:
     bundle install --without development test --deployment
     export RAILS_ENV=private
     bundle exec rake db:create db:migrate
-    bundle exec rails server
-    
-Then view the site @ [http://localhost:3000](http://localhost:3000)
-
-If you want to run the site on a different port, use the -p parameter.
-
     bundle exec rails server -p 80
+    
+Then view the site @ [http://localhost/](http://localhost/)
 
 ## Potential Quick Start Errors
 
@@ -45,7 +58,7 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
 
     sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
     
-## API
+## Password API
 
 You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
 
@@ -81,7 +94,7 @@ You can select default, min and max values for "expire after days" and "expire a
 
 These values are also used in the Password controller range checking code.
 
-### If you want to switch to 'production' environment...
+### Switching to 'production' environment...
 
 Remember to precompile your assets before starting the server with:
 
