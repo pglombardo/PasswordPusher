@@ -8,6 +8,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'oboe'
 end
 
 group :development, :test do
