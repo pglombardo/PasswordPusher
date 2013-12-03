@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 source 'http://gem-beta.tracelytics.com'
 source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.16'
 
 group :development, :test, :private do
   gem "sqlite3"
