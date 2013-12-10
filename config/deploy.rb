@@ -137,4 +137,5 @@ require './config/boot'
 require "bundler/capistrano"
 load 'deploy/assets'
 require "./config/capistrano_database_yml"
+require 'airbrake/capistrano'
 
