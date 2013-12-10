@@ -11,6 +11,7 @@ end
 group :production do
   gem 'pg'
   gem 'oboe', '2.3.4.1'
+  gem 'airbrake'
 end
 
 group :development, :test do
