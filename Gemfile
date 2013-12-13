@@ -23,6 +23,11 @@ group :development, :test do
   gem "nifty-generators"
 end
 
+group :engineyard do
+  gem 'pg'
+  gem 'oboe-heroku'
+end
+
 gem 'json'
 gem 'haml'
 gem 'haml-rails'
