@@ -26,6 +26,7 @@ end
 group :engineyard do
   gem 'pg'
   gem 'oboe-heroku'
+  gem 'unicorn'
 end
 
 gem 'json'
