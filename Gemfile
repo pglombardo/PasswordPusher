@@ -14,6 +14,7 @@ group :development, :test do
   gem 'silent-postgres'
   gem "ruby-debug19", :platforms => :ruby_19
   gem "ruby-debug", :platforms => :ruby_18
+  gem "byebug", :platforms => :ruby_20
   gem "rspec-rails", ">= 2.0.1"
   gem "rspec"
   gem "rspec-core"
@@ -21,6 +22,7 @@ group :development, :test do
   gem "rspec-mocks"
   gem "blueprints"
   gem "nifty-generators"
+  gem 'pry'
 end
 
 group :engineyard do
