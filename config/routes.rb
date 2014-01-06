@@ -1,11 +1,5 @@
 PasswordPusher::Application.routes.draw do
-  
-#  post "api/create"
-#  get "api/generate"
-#  get "api/list"
-#  get "api/config"
-
-  mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
+  # mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
     get "/login" => "devise/sessions#new"
@@ -13,20 +7,16 @@ PasswordPusher::Application.routes.draw do
     get "/register" => "devise/registrations#destroy"
   end
 
-  resources :passwords, :only => [ :new, :create ] do
-    resources :views, :only => [ :index, :show ]
-  end
+  resources :p, :controller => :passwords, :as => :passwords, :except => :index
   
-  # Password paths
-  match '/p/:url_token' => 'passwords#show',    :via => :get,    :as => :password
-  match '/p/:url_token' => 'passwords#destroy', :via => :delete, :as => :password
-  match '/p' => 'passwords#new'
+  # Password Creator route
+  # match '/p/:url_token/:admin_key' => 'passwords#details', :via => :get, :as => :password
   
   root :to => 'passwords#new'
   
   match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   
-  # unless Rails.application.config.consider_all_requests_local
+  unless Rails.application.config.consider_all_requests_local
     match '*not_found', to: 'errors#error_404'
-  # end
+  end
 end
