@@ -15,12 +15,6 @@ group :development, :test do
   gem "ruby-debug19", :platforms => :ruby_19
   gem "ruby-debug", :platforms => :ruby_18
   gem "byebug", :platforms => :ruby_20
-  gem "rspec-rails", ">= 2.0.1"
-  gem "rspec"
-  gem "rspec-core"
-  gem "rspec-expectations"
-  gem "rspec-mocks"
-  gem "blueprints"
   gem "nifty-generators"
   gem 'pry'
 end
@@ -59,5 +53,4 @@ gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
-
 
