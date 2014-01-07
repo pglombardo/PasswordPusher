@@ -7,13 +7,13 @@
     %p
       - if @password.deleted
         This password was manually deleted by one of it's viewers.
-      - elsif @views_remaining == 0
+      - elsif @password.views_remaining == 0
         == The password has hit it's chosen maximum view count of #{@password.expire_after_views}.
-      - elsif @days_remaining == 0
+      - elsif @password.days_remaining == 0
         == The password has hit it's chosen maximum lifetime of #{@password.expire_after_days} days.
 
   - else
-    - if @first_view
+    - if @password.first_view?
       .share_note
         == This is your password.  Use this link to share it: 
         %p.url
@@ -41,11 +41,11 @@
       = @payload
 
     %p
-      - if @views_remaining == 0
-        == This password will be deleted in #{pluralize(@days_remaining, 'day')} or #{@views_remaining} more views (this is the last view).
+      - if @password.views_remaining == 0
+        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
       - else
-        == This password will be deleted in #{pluralize(@days_remaining, 'day')} 
-        == or #{pluralize(@views_remaining, 'more view')}.    
+        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} 
+        == or #{pluralize(@password.views_remaining, 'more view')}.    
     %p{ :style => 'font-size: .85em;' }
       = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
 %div.footer_note

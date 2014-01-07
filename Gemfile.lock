@@ -6,9 +6,9 @@ GIT
 
 GIT
   remote: git://github.com/russfrisch/modernizr-rails.git
-  revision: 8c43201e6545fc136c2d8b81ddcf9f4f3f884cd4
+  revision: 2652d0836f6365e419c3a44b7323af5aa6396e97
   specs:
-    modernizr-rails (2.6.2.3)
+    modernizr-rails (2.7.0)
 
 GEM
   remote: http://rubygems.org/
@@ -49,18 +49,17 @@ GEM
     arel (3.0.3)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
-    blueprints (1.0.1)
-      activesupport (>= 2.3.0)
-      database_cleaner (>= 0.6.1)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
-    capistrano (2.15.5)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    byebug (2.5.0)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
+    capistrano (3.0.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 0.0.23)
+    coderay (1.1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -70,26 +69,25 @@ GEM
     coffee-script-source (1.6.3)
     columnize (0.3.6)
     daemons (1.1.9)
-    database_cleaner (1.1.1)
+    debugger-linecache (1.2.0)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.1.0)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    execjs (2.0.1)
+    execjs (2.0.2)
     fastercsv (1.5.5)
     font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
-    haml (4.0.3)
+    haml (4.0.4)
       tilt
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -97,10 +95,9 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hashie (2.0.5)
-    high_voltage (1.2.4)
-    highline (1.6.19)
+    high_voltage (2.1.0)
     hike (1.2.3)
-    i18n (0.6.8)
+    i18n (0.6.9)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -109,9 +106,10 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.1)
-    kaminari (0.14.1)
+    kaminari (0.15.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kgio (2.8.1)
     libv8 (3.16.14.3)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -121,24 +119,23 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
+    method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.8.2)
     nested_form (0.3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
     nifty-generators (0.4.6)
-    nokogiri (1.6.0)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
     oboe (2.3.4.1)
+    oboe-heroku (0.9.0.1)
+      oboe (>= 2.3.3.7)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
@@ -148,12 +145,16 @@ GEM
     omniauth-openid (1.0.1)
       omniauth (~> 1.0)
       rack-openid (~> 1.3.1)
-    omniauth-twitter (1.0.0)
+    omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    orm_adapter (0.4.0)
-    pg (0.16.0)
+    orm_adapter (0.5.0)
+    pg (0.17.1)
     polyglot (0.3.3)
+    pry (0.9.12.4)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -197,27 +198,13 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.1.0)
+    raindrops (0.12.0)
+    rake (10.1.1)
     rbx-require-relative (0.0.9)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
     remotipart (1.2.1)
-    rspec (2.14.1)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.5)
-    rspec-expectations (2.14.2)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.3)
-    rspec-rails (2.14.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
@@ -234,37 +221,49 @@ GEM
     ruby-openid (2.3.0)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
-    safe_yaml (0.9.5)
-    sass (3.2.10)
+    safe_yaml (0.9.7)
+    sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
     silent-postgres (0.1.1)
+    slop (3.4.7)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.8)
+    sshkit (1.3.0)
+      net-scp (>= 1.1.2)
+      net-ssh
+      term-ansicolor
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
-    thin (1.5.1)
+    thin (1.6.1)
       daemons (>= 1.0.9)
-      eventmachine (>= 0.12.6)
+      eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    tins (0.13.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.38)
-    uglifier (2.2.1)
+    uglifier (2.4.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
+    unicorn (4.7.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -273,7 +272,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
-  blueprints
+  byebug
   capistrano
   coffee-rails (~> 3.2.2)
   delayed_job_active_record
@@ -289,17 +288,14 @@ DEPENDENCIES
   modernizr-rails!
   nifty-generators
   oboe (= 2.3.4.1)
+  oboe-heroku
   omniauth
   omniauth-openid
   omniauth-twitter
   pg
+  pry
   rails (= 3.2.16)
   rails_admin
-  rspec
-  rspec-core
-  rspec-expectations
-  rspec-mocks
-  rspec-rails (>= 2.0.1)
   ruby-debug
   ruby-debug19
   sass-rails (~> 3.2.5)
@@ -308,3 +304,4 @@ DEPENDENCIES
   therubyracer
   thin
   uglifier (>= 1.2.7)
+  unicorn
