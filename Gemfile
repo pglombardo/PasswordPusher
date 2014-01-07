@@ -18,13 +18,15 @@ group :development, :test do
   gem 'silent-postgres'
   gem "ruby-debug19", :platforms => :ruby_19
   gem "ruby-debug", :platforms => :ruby_18
-  gem "rspec-rails", ">= 2.0.1"
-  gem "rspec"
-  gem "rspec-core"
-  gem "rspec-expectations"
-  gem "rspec-mocks"
-  gem "blueprints"
+  gem "byebug", :platforms => :ruby_20
   gem "nifty-generators"
+  gem 'pry'
+end
+
+group :engineyard do
+  gem 'pg'
+  gem 'oboe-heroku'
+  gem 'unicorn'
 end
 
 gem 'json'
@@ -55,5 +57,4 @@ gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
-
 
