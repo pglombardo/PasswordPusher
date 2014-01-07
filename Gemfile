@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 source 'http://gem-beta.tracelytics.com'
-#source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
+source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
 
 gem 'rails', '3.2.16'
 
