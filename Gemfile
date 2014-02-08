@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-source 'http://gem-beta.tracelytics.com'
 source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
 
 gem 'rails', '3.2.16'
@@ -10,7 +9,7 @@ end
 
 group :production do
   gem 'pg'
-  gem 'oboe', '2.4.0.1'
+  gem 'oboe', '2.4.1.6'
   gem 'airbrake'
 end
 
