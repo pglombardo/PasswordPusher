@@ -184,6 +184,8 @@ and then running `bundle install`.
 
 Thanks to:
 
+* [@iandunn](https://github.com/iandunn) for better password form security.
+
 * [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
 
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
