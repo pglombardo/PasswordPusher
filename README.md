@@ -73,41 +73,11 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
 
     sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
     
-## Password API
-
-You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
-
-And you will have to send these POST variables:
-
-    password[payload]: test 
-    password[expire_after_days]: 60
-    password[expire_after_views]: 1337
-
-You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
-
-    $.post('http://127.0.0.1:3000/passwords.json',{ 'password[payload]': 'test', 'password[expire_after_days]': '60', 'password[expire_after_views]': '1337' }, function(data) { alert(data.url_token) } )
-
-Or do it with curl:
-
-    curl -d -X POST --data "password[payload]=payload&password[expire_after_days]=60&password[expire_after_views]=1337" http://127.0.0.1:3000/passwords.json
 
 ## Other Information
 
-### To change the front page default values (days and views expiration)
-
-You can select default, min and max values for "expire after days" and "expire after views" by changing the values in `config/environment.rb`:
-
-    # Controls the "Expire After Days" form settings in Password#new
-    EXPIRE_AFTER_DAYS_DEFAULT = 30
-    EXPIRE_AFTER_DAYS_MIN = 1
-    EXPIRE_AFTER_DAYS_MAX = 90
-
-    # Controls the "Expire After Views" form settings in Password#new
-    EXPIRE_AFTER_VIEWS_DEFAULT = 10
-    EXPIRE_AFTER_VIEWS_MIN = 1
-    EXPIRE_AFTER_VIEWS_MAX = 100
-
-These values are also used in the Password controller range checking code.
+How to use the [Password API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+How to [Change the Front Page Default Values](https://github.com/pglombardo/PasswordPusher/wiki/Changing-the-Front-Page-Default-Values)
 
 ### Switching to 'production' environment...
 
