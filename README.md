@@ -1,5 +1,3 @@
-# Password Pusher
-
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
 
 PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) (but you can also [easily run your own instance](#quick-start---heroku)).
@@ -15,28 +13,28 @@ You can always checkout out the [latest commits](https://github.com/pglombardo/P
 ## Quick Start - Heroku
 
 You can quickly host your own instance of Password Pusher on [Heroku](https://www.heroku.com) by just pasting the following commands:
+```sh
+# Hopefully you're not running this as root (you shouldn't be)
+export PWPUSH_APP_NAME="pwpush-`whoami`"
 
-    # Hopefully you're not running this as root (you shouldn't be)
-    export PWPUSH_APP_NAME="pwpush-`whoami`"
+# Clone the PasswordPusher Repo locally
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
 
-    # Clone the PasswordPusher Repo locally
-    git clone git@github.com:pglombardo/PasswordPusher.git
-    cd PasswordPusher
+# Create the actual Heroku app and add the postgres DB addon
+heroku apps:create $PWPUSH_APP_NAME
+heroku addons:add heroku-postgresql
+heroku labs:enable user-env-compile
+heroku config:add BUNDLE_WITHOUT="development:test:private"
 
-    # Create the actual Heroku app and add the postgres DB addon
-    heroku apps:create $PWPUSH_APP_NAME
-    heroku addons:add heroku-postgresql
-    heroku labs:enable user-env-compile
-    heroku config:add BUNDLE_WITHOUT="development:test:private"
+# Push the code to your new Heroku app
+git push heroku master
 
-    # Push the code to your new Heroku app
-    git push heroku master
+# Setup the PasswordPusher database
+heroku run bundle exec rake db:setup
 
-    # Setup the PasswordPusher database
-    heroku run bundle exec rake db:setup
-
-    echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
-
+echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
+```
 Notes:
 
 * If you haven't used Heroku before, you'll need a [Heroku account](https://id.heroku.com/signup) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed first.
@@ -46,12 +44,14 @@ Notes:
 
 If you want to host PasswordPusher yourself:
 
-    git clone git@github.com:pglombardo/PasswordPusher.git
-    cd PasswordPusher
-    bundle install --without development test --deployment
-    export RAILS_ENV=private
-    bundle exec rake db:create db:migrate
-    bundle exec rails server -p 80
+```sh
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
+bundle install --without development test --deployment
+export RAILS_ENV=private
+bundle exec rake db:create db:migrate
+bundle exec rails server -p 80
+```
     
 Then view the site @ [http://localhost/](http://localhost/)
 
@@ -63,16 +63,15 @@ If you get something like `Command not found: bundle`, then you need to run
 
     gem install bundler
 
-#### Command not found: gem    
-
-If you get something like 'Command not found: gem', then you need to install Ruby. :)
+_If you get something like 'Command not found: gem', then you need to install Ruby. :)_
 
 #### SQLite3
 
 If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to install the sqlite3 packages for your operating system.  For Ubuntu, the command is:
 
-    sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
-    
+```sh
+sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
+```
 
 ## Other Information
 
@@ -83,9 +82,9 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
 
 ### Tip
 
-If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
-
 SQLite3 is provided by default for a quick and easy setup of the application.
+
+If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
 
 For example, on [https://pwpush.com](https://pwpush.com), I run the application with a Postgres database.
 
