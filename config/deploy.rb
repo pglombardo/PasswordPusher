@@ -75,7 +75,7 @@ task :production do
     set :rails_env, 'production'
     set (:bundle_cmd) { "/usr/local/rbenv/shims/bundle" }
     set :bundle_flags, "--deployment --quiet --binstubs"
-    set :bundle_without,  [:test, :development, :engineyard, :preview]
+    set :bundle_without,  [:test, :development, :preview, :engineyard]
     set :default_environment, {
       'RAILS_ENV' => 'production'
     }
