@@ -1,5 +1,3 @@
-# Password Pusher
-
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
 
 PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) (but you can also [easily run your own instance](#quick-start---heroku)).
@@ -15,28 +13,28 @@ You can always checkout out the [latest commits](https://github.com/pglombardo/P
 ## Quick Start - Heroku
 
 You can quickly host your own instance of Password Pusher on [Heroku](https://www.heroku.com) by just pasting the following commands:
+```sh
+# Hopefully you're not running this as root (you shouldn't be)
+export PWPUSH_APP_NAME="pwpush-`whoami`"
 
-    # Hopefully you're not running this as root (you shouldn't be)
-    export PWPUSH_APP_NAME="pwpush-`whoami`"
+# Clone the PasswordPusher Repo locally
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
 
-    # Clone the PasswordPusher Repo locally
-    git clone git@github.com:pglombardo/PasswordPusher.git
-    cd PasswordPusher
+# Create the actual Heroku app and add the postgres DB addon
+heroku apps:create $PWPUSH_APP_NAME
+heroku addons:add heroku-postgresql
+heroku labs:enable user-env-compile
+heroku config:add BUNDLE_WITHOUT="development:test:private"
 
-    # Create the actual Heroku app and add the postgres DB addon
-    heroku apps:create $PWPUSH_APP_NAME
-    heroku addons:add heroku-postgresql
-    heroku labs:enable user-env-compile
-    heroku config:add BUNDLE_WITHOUT="development:test:private"
+# Push the code to your new Heroku app
+git push heroku master
 
-    # Push the code to your new Heroku app
-    git push heroku master
+# Setup the PasswordPusher database
+heroku run bundle exec rake db:setup
 
-    # Setup the PasswordPusher database
-    heroku run bundle exec rake db:setup
-
-    echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
-
+echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
+```
 Notes:
 
 * If you haven't used Heroku before, you'll need a [Heroku account](https://id.heroku.com/signup) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed first.
@@ -46,12 +44,14 @@ Notes:
 
 If you want to host PasswordPusher yourself:
 
-    git clone git@github.com:pglombardo/PasswordPusher.git
-    cd PasswordPusher
-    bundle install --without development test --deployment
-    export RAILS_ENV=private
-    bundle exec rake db:create db:migrate
-    bundle exec rails server -p 80
+```sh
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
+bundle install --without development test --deployment
+export RAILS_ENV=private
+bundle exec rake db:create db:migrate
+bundle exec rails server -p 80
+```
     
 Then view the site @ [http://localhost/](http://localhost/)
 
@@ -63,126 +63,38 @@ If you get something like `Command not found: bundle`, then you need to run
 
     gem install bundler
 
-#### Command not found: gem    
-
-If you get something like 'Command not found: gem', then you need to install Ruby. :)
+_If you get something like 'Command not found: gem', then you need to install Ruby. :)_
 
 #### SQLite3
 
 If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to install the sqlite3 packages for your operating system.  For Ubuntu, the command is:
 
-    sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
-    
-## Password API
-
-You can generate passwords through an API, if you want to automate creation, it is done by hitting the password action with a POST-request. In the development environment you can use this address: http://127.0.0.1:3000/passwords.json
-
-And you will have to send these POST variables:
-
-    password[payload]: test 
-    password[expire_after_days]: 60
-    password[expire_after_views]: 1337
-
-You can test it in your browsers javascript console by going to the frontpage of Password Pusher and type:
-
-    $.post('http://127.0.0.1:3000/passwords.json',{ 'password[payload]': 'test', 'password[expire_after_days]': '60', 'password[expire_after_views]': '1337' }, function(data) { alert(data.url_token) } )
-
-Or do it with curl:
-
-    curl -d -X POST --data "password[payload]=payload&password[expire_after_days]=60&password[expire_after_views]=1337" http://127.0.0.1:3000/passwords.json
+```sh
+sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
+```
 
 ## Other Information
 
-### To change the front page default values (days and views expiration)
+* How to use the [Password API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+* How to [Change the Front Page Default Values](https://github.com/pglombardo/PasswordPusher/wiki/Changing-the-Front-Page-Default-Values)
+* How to [Switch to Production Environment](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Production-Environment)
+* How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database)
 
-You can select default, min and max values for "expire after days" and "expire after views" by changing the values in `config/environment.rb`:
-
-    # Controls the "Expire After Days" form settings in Password#new
-    EXPIRE_AFTER_DAYS_DEFAULT = 30
-    EXPIRE_AFTER_DAYS_MIN = 1
-    EXPIRE_AFTER_DAYS_MAX = 90
-
-    # Controls the "Expire After Views" form settings in Password#new
-    EXPIRE_AFTER_VIEWS_DEFAULT = 10
-    EXPIRE_AFTER_VIEWS_MIN = 1
-    EXPIRE_AFTER_VIEWS_MAX = 100
-
-These values are also used in the Password controller range checking code.
-
-### Switching to 'production' environment...
-
-Remember to precompile your assets before starting the server with:
-
-    export RAILS_ENV=production
-    bundle exec rake assets:precompile
-
-If you don't do this in 'production' environment, you will get an error similar to:
-
-    We're sorry, but something went wrong.
-    
-and in your logs:
-
-    ActionView::Template::Error (application.css isn't precompiled):
-    
 ### Tip
 
-If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
-
 SQLite3 is provided by default for a quick and easy setup of the application.
+
+If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
 
 For example, on [https://pwpush.com](https://pwpush.com), I run the application with a Postgres database.
 
 *Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
 
-### How to switch to another backend database
-
-Which database the application uses is specified in `config/database.yml`.  The default configuration has these values for the `private` environment:
-
-    base: &base 
-      adapter: sqlite3
-      timeout: 5000
-
-    private:
-      database: db/private.sqlite3
-      <<: *base
-    
-If you wanted to switch to the postgres database, you would replace the `private` block with something similar to the following:
-
-    private: 
-      adapter: postgresql
-      database: yourdbname
-      username: yourdbusername
-      password: yourdbpassword
-      pool: 5
-      timeout: 5000
-      encoding: utf8
-      reconnect: false
-
-or for mysql:
-
-    private: 
-      adapter: mysql
-      database: yourdbname
-      username: yourdbusername
-      password: yourdbpassword
-      pool: 5
-      encoding: utf8
-
-For more detailed instructions, see the Ruby on Rails documentation on [configuring a database](http://guides.rubyonrails.org/getting_started.html#configuring-a-database).
-
-Note that you will also need to add in the proper database driver gem to your `Gemfile` by simply adding
-
-    gem "pg"
-
-or
-
-    gem "mysql"
-
-and then running `bundle install`.
-
 ## Credits
 
 Thanks to:
+
+* [@iandunn](https://github.com/iandunn) for better password form security.
 
 * [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
 
