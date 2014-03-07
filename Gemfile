@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
 
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 
 group :development, :test, :private do
   gem "sqlite3"
