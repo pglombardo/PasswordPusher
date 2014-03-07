@@ -9,7 +9,7 @@ end
 
 group :production do
   gem 'pg'
-  gem 'oboe', '2.5.0.7'
+  gem 'oboe', '2.6.0.rc2'
   gem 'airbrake'
 end
 
