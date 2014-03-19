@@ -47,3 +47,6 @@ function revertTextField(e) {
 function setCopied() {
 	$('#clip_tip').text('copied!');
 }
+
+$('spoiler, .spoiler').spoilerAlert({max: 10, partial: 7})
+
