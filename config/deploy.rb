@@ -126,10 +126,35 @@ end
 desc "Open a remote console."
 task :console, :roles => :console do
   input = ''
-  run "cd #{current_path} && bundle exec rails console #{ENV['RAILS_ENV']}" do |channel, stream, data|
+  run "cd #{current_path} && /usr/local/rbenv/shims/bundle exec rails console #{ENV['RAILS_ENV']}" do |channel, stream, data|
     next if data.chomp == input.chomp || data.chomp == ''
     print data
     channel.send_data(input = $stdin.gets) if data =~ /:\d{3}:\d+(\*|>)/
+  end
+end
+
+desc "tail production log files"
+task :tail_logs, :roles => :app do
+  run "tail -f #{shared_path}/log/#{stage}.log" do |channel, stream, data|
+    trap("INT") { puts 'Interupted'; exit 0; }
+    puts  # for an extra line break before the host name
+    puts "#{channel[:host]}: #{data}"
+    break if stream == :err
+  end
+end
+
+after "deploy", "deploy:notifications"
+namespace :deploy do
+  desc "Notify all services that there was a deploy."
+  task :notifications do
+    traceview_deploy
+  end
+
+  desc "Notify TraceView of a deploy"
+  task :traceview_deploy, :roles => :app do
+    set :notification_msg, "Deployed to 'Your App' #{stage} branch #{branch}"
+    puts "  ** Sending notification to Traceylitics for 'Your App'"
+    run "if test -x /usr/bin/tlog; then /usr/bin/tlog -a \"PasswordPusher\" -m \"#{notification_msg}\"; else echo \"WARNING: /usr/bin/tlog not found.  TraceView deploy notification not sent.\"; fi"      
   end
 end
 
