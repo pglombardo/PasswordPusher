@@ -1,11 +1,5 @@
 PasswordPusher::Application.routes.draw do
-  # mount RailsAdmin::Engine => '/power', :as => 'rails_admin'
-  
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
-    get "/login" => "devise/sessions#new"
-    delete "/logout" => "devise/sessions#destroy"
-    get "/register" => "devise/registrations#destroy"
-  end
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :p, :controller => :passwords, :as => :passwords, :except => :index
   
