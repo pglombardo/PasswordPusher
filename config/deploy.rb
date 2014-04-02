@@ -152,9 +152,9 @@ namespace :deploy do
 
   desc "Notify TraceView of a deploy"
   task :traceview_deploy, :roles => :app do
-    set :notification_msg, "Deployed to 'Your App' #{stage} branch #{branch}"
-    puts "  ** Sending notification to Traceylitics for 'Your App'"
-    run "if test -x /usr/bin/tlog; then /usr/bin/tlog -a \"PasswordPusher\" -m \"#{notification_msg}\"; else echo \"WARNING: /usr/bin/tlog not found.  TraceView deploy notification not sent.\"; fi"      
+    set :notification_msg, "Deployed to 'PasswordPusher' #{stage} branch #{branch}"
+    puts "  ** Sending notification to TraceView for 'PasswordPusher'"
+    run "if test -x /usr/bin/tlog; then /usr/bin/tlog -a \"Gameface\" -m \"#{notification_msg}\"; else echo \"WARNING: /usr/bin/tlog not found.  TraceView deploy notification not sent.\"; fi"      
   end
 end
 
