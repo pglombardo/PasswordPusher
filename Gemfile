@@ -7,9 +7,9 @@ group :development, :test, :private do
   gem "sqlite3"
 end
 
-group :production do
+group :production, :engineyard do
   gem 'pg'
-  gem 'oboe'
+  gem 'oboe', '2.6.3.rc1'
   gem 'airbrake'
 end
 
@@ -23,7 +23,6 @@ group :development, :test do
 end
 
 group :engineyard do
-  gem 'pg'
   gem 'oboe-heroku'
   gem 'unicorn'
 end
