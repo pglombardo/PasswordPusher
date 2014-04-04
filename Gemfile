@@ -32,10 +32,12 @@ gem 'haml'
 gem 'haml-rails'
 gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin'
-gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
+
+gem 'libv8', '3.16.14.3', :platform => 'ruby'
+gem 'therubyracer', :platform => 'ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
