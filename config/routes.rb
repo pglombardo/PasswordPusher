@@ -8,7 +8,7 @@ PasswordPusher::Application.routes.draw do
   
   root :to => 'passwords#new'
   
-  match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
+  get 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   
   unless Rails.application.config.consider_all_requests_local
     match '*not_found', to: 'errors#error_404'
