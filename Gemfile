@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'https://g6Jwqo2mSudE5JFfSDim@gem.fury.io/pglombardo/'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.19'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -34,7 +34,7 @@ gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
-gem "high_voltage"
+gem "high_voltage", '~> 2.1.0'
 
 gem 'libv8', '3.16.14.3', :platform => 'ruby'
 gem 'therubyracer', :platform => 'ruby'
