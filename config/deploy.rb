@@ -30,24 +30,24 @@ task :development do
     role :web, DEVELOPMENT_WEB
     role :app, DEVELOPMENT_APP
     role :console, DEVELOPMENT_CONSOLE
-    role :db,  DEVELOPMENT_DB, :primary => true
+    role :db,  DEVELOPMENT_DB_HOST, :primary => true
     set :deploy_to, DEVELOPMENT_DEPLOY_TO
     set :user, DEVELOPMENT_USER
 end
 
-desc "Run tasks in staging environment (kenny)"
+desc "Run tasks in staging environment"
 task :staging do
     set :stage, 'staging'
     set :bundle_without,  [:test, :development, :preview]
+    set (:bundle_cmd) { "/home/deployer/.rbenv/shims/bundle" }
     set :rails_env, 'staging'
     default_environment['RAILS_ENV'] = 'staging'
-    set :rvm_ruby_string, 'ruby-1.9.3-p194'
 
     # Staging Config
     role :web, STAGING_WEB
     role :app, STAGING_APP
     role :console, STAGING_CONSOLE
-    role :db,  STAGING_DB, :primary => true
+    role :db,  STAGING_DB_HOST, :primary => true
     set :deploy_to, STAGING_DEPLOY_TO
     set :user, STAGING_USER
 end
@@ -58,13 +58,12 @@ task :preview do
     set :bundle_without,  [:test, :development]
     set :rails_env, 'preview'
     default_environment['RAILS_ENV'] = 'preview'
-    set :rvm_ruby_string, 'ruby-1.9.3-p194'
 
     # Preview Config
     role :web, PREVIEW_WEB
     role :app, PREVIEW_APP
     role :console, PREVIEW_CONSOLE
-    role :db,  PREVIEW_DB, :primary => true
+    role :db,  PREVIEW_DB_HOST, :primary => true
     set :deploy_to, PREVIEW_DEPLOY_TO
     set :user, PREVIEW_USER
 end
@@ -92,7 +91,7 @@ task :production do
     role :web, PRODUCTION_WEB
     role :app, PRODUCTION_APP
     role :console, PRODUCTION_CONSOLE
-    role :db,  PRODUCTION_DB, :primary => true
+    role :db,  PRODUCTION_DB_HOST, :primary => true
     set :deploy_to, PRODUCTION_DEPLOY_TO
     set :user, PRODUCTION_USER
 end
