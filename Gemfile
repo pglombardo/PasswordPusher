@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.19'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -32,7 +32,7 @@ gem 'rails_admin'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
-gem "high_voltage"
+gem "high_voltage", '~> 2.1.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
