@@ -90,6 +90,8 @@ For example, on [https://pwpush.com](https://pwpush.com), I run the application 
 
 *Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
 
+See How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database) for details.
+
 ## Credits
 
 Thanks to:
