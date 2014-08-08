@@ -1,22 +1,14 @@
-![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
+![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
 PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally or on Heroku with just a few steps.
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
-## Note for Existing Users
-
-If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
-
-You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
-
 ## Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Quick Start - Private Server
-
-If you want to host PasswordPusher yourself:
+## Deploy Internally
 
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
@@ -55,7 +47,7 @@ sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
 
 ### Tip
 
-SQLite3 is provided by default for a quick and easy setup of the application.
+With the internal deploy process described above, SQLite3 is provided by default for a quick and easy setup of the application.
 
 If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
 
@@ -64,6 +56,12 @@ For example, on [https://pwpush.com](https://pwpush.com), I run the application 
 *Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
 
 See How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database) for details.
+
+## Note for Existing Users
+
+If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
+
+You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
 ## Credits
 
