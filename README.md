@@ -1,6 +1,6 @@
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
 
-PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) (but you can also [easily run your own instance](#quick-start---heroku)).
+PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally or on Heroku with just a few steps.
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
@@ -10,35 +10,9 @@ If you're already hosting your own private instance of PasswordPusher, make sure
 
 You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
-## Quick Start - Heroku
+## Deploy to Heroku
 
-You can quickly host your own instance of Password Pusher on [Heroku](https://www.heroku.com) by just pasting the following commands:
-```sh
-# Hopefully you're not running this as root (you shouldn't be)
-export PWPUSH_APP_NAME="pwpush-`whoami`"
-
-# Clone the PasswordPusher Repo locally
-git clone git@github.com:pglombardo/PasswordPusher.git
-cd PasswordPusher
-
-# Create the actual Heroku app and add the postgres DB addon
-heroku apps:create $PWPUSH_APP_NAME
-heroku addons:add heroku-postgresql
-heroku labs:enable user-env-compile
-heroku config:add BUNDLE_WITHOUT="development:test:private"
-
-# Push the code to your new Heroku app
-git push heroku master
-
-# Setup the PasswordPusher database
-heroku run bundle exec rake db:setup
-
-echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
-```
-Notes:
-
-* If you haven't used Heroku before, you'll need a [Heroku account](https://id.heroku.com/signup) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed first.
-* To change the Heroku app name (and resulting URL), change the value of PWPUSH_APP_NAME
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ## Quick Start - Private Server
 
@@ -48,12 +22,11 @@ If you want to host PasswordPusher yourself:
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 bundle install --without development test --deployment
-export RAILS_ENV=private
-bundle exec rake db:create db:migrate
-bundle exec rails server -p 80
+bundle exec rake db:setup
+foreman start
 ```
     
-Then view the site @ [http://localhost/](http://localhost/)
+Then view the site @ [http://localhost:5000/](http://localhost:5000/)
 
 ### Potential Private Server Quick Start Errors
 
