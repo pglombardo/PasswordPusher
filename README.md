@@ -10,6 +10,8 @@ I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/co
 
 ## Deploy Internally
 
+Make sure you have git and Ruby installed and then:
+
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
@@ -20,7 +22,7 @@ foreman start
     
 Then view the site @ [http://localhost:5000/](http://localhost:5000/)
 
-### Potential Private Server Quick Start Errors
+### Troubleshooting
 
 #### Command not found: bundle
 
