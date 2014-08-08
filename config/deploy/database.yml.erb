@@ -16,9 +16,6 @@ development:
     
 test: &test
   adapter: postgresql
-  database: <%= TEST_DB_NAME %>
-  username: <%= TEST_DB_USER %>
-  password: <%= TEST_DB_PASSWORD %>
   pool: 5
   timeout: 5000
   encoding: utf8
@@ -26,6 +23,7 @@ test: &test
 
 preview:
   adapter: postgresql
+  host: <%= PREVIEW_DB_HOST %>
   database: <%= PREVIEW_DB_NAME %>
   username: <%= PREVIEW_DB_USER %>
   password: <%= PREVIEW_DB_PASSWORD %>
@@ -34,8 +32,20 @@ preview:
   encoding: utf8
   reconnect: false
 
+staging:
+  adapter: postgresql
+  host: <%= STAGING_DB_HOST %>
+  database: <%= STAGING_DB_NAME %>
+  username: <%= STAGING_DB_USER %>
+  password: <%= STAGING_DB_PASSWORD %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
+  
 production:
   adapter: postgresql
+  host: <%= PRODUCTION_DB_HOST %>
   database: <%= PRODUCTION_DB_NAME %>
   username: <%= PRODUCTION_DB_USER %>
   password: <%= PRODUCTION_DB_PASSWORD %>
