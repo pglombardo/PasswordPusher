@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.19'
+gem 'rails', '~> 3.2'
 
 group :development, :test, :private do
   gem "sqlite3"
@@ -8,6 +8,8 @@ end
 
 group :production, :engineyard do
   gem 'pg'
+  gem 'oboe-heroku'
+  gem 'unicorn'
 end
 
 group :development, :test do
@@ -17,11 +19,6 @@ group :development, :test do
   gem "byebug", :platforms => :ruby_20
   gem "nifty-generators"
   gem 'pry'
-end
-
-group :engineyard do
-  gem 'oboe-heroku'
-  gem 'unicorn'
 end
 
 gem 'json'
@@ -37,13 +34,12 @@ gem "high_voltage", '~> 2.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.5'
-  gem 'coffee-rails', '~> 3.2.2'
-  gem 'uglifier', '>= 1.2.7'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
 
-gem "mocha", :group => :test
-
+gem 'foreman'
 gem 'jquery-rails'
 gem 'delayed_job_active_record'
 gem 'thin'
