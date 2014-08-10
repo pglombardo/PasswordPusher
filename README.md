@@ -1,61 +1,28 @@
-![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/Password+Pusher+Front+Page.png)
+![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
-PasswordPusher is a Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) (but you can also [easily run your own instance](#quick-start---heroku)).
+PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally or on Heroku with just a few steps.
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
-## Note for Existing Users
+## Deploy to Heroku
 
-If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
+## Deploy Internally
 
-## Quick Start - Heroku
-
-You can quickly host your own instance of Password Pusher on [Heroku](https://www.heroku.com) by just pasting the following commands:
-```sh
-# Hopefully you're not running this as root (you shouldn't be)
-export PWPUSH_APP_NAME="pwpush-`whoami`"
-
-# Clone the PasswordPusher Repo locally
-git clone git@github.com:pglombardo/PasswordPusher.git
-cd PasswordPusher
-
-# Create the actual Heroku app and add the postgres DB addon
-heroku apps:create $PWPUSH_APP_NAME
-heroku addons:add heroku-postgresql
-heroku labs:enable user-env-compile
-heroku config:add BUNDLE_WITHOUT="development:test:private"
-
-# Push the code to your new Heroku app
-git push heroku master
-
-# Setup the PasswordPusher database
-heroku run bundle exec rake db:setup
-
-echo "See your new PasswordPusher instance at https://$PWPUSH_APP_NAME.herokuapp.com"
-```
-Notes:
-
-* If you haven't used Heroku before, you'll need a [Heroku account](https://id.heroku.com/signup) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed first.
-* To change the Heroku app name (and resulting URL), change the value of PWPUSH_APP_NAME
-
-## Quick Start - Private Server
-
-If you want to host PasswordPusher yourself:
+Make sure you have git and Ruby installed and then:
 
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 bundle install --without development test --deployment
-export RAILS_ENV=private
-bundle exec rake db:create db:migrate
-bundle exec rails server -p 80
+bundle exec rake db:setup
+foreman start
 ```
     
-Then view the site @ [http://localhost/](http://localhost/)
+Then view the site @ [http://localhost:5000/](http://localhost:5000/)
 
-### Potential Private Server Quick Start Errors
+### Troubleshooting
 
 #### Command not found: bundle
 
@@ -82,7 +49,7 @@ sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
 
 ### Tip
 
-SQLite3 is provided by default for a quick and easy setup of the application.
+With the internal deploy process described above, SQLite3 is provided by default for a quick and easy setup of the application.
 
 If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
 
@@ -91,6 +58,12 @@ For example, on [https://pwpush.com](https://pwpush.com), I run the application 
 *Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
 
 See How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database) for details.
+
+## Note for Existing Users
+
+If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
+
+You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
 ## Credits
 
