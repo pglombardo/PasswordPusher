@@ -37,7 +37,7 @@ gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage", '~> 2.1.0'
 
 gem 'libv8'
-gem 'therubyracer'
+gem 'therubyracer', '0.10.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
