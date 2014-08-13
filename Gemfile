@@ -36,8 +36,8 @@ gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage", '~> 2.1.0'
 
-#gem 'libv8', '3.16.14.3', :platform => 'ruby'
-gem 'therubyracer', :platform => 'ruby'
+gem 'libv8'
+gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
