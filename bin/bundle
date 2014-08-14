@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+version = ">= 0"
+
+if ARGV.first =~ /^_(.*)_$/ and Gem::Version.correct? $1 then
+  version = $1
+  ARGV.shift
+end
+
+gem 'bundler', version
+load Gem.bin_path('bundler', 'bundle', version)
+
