@@ -1,0 +1,58 @@
+%div.content
+  - if @password.expired
+    %p
+      We apologize but...
+    %div.payload
+      This password has expired.
+    %p
+      - if @password.deleted
+        This password was manually deleted by one of it's viewers.
+      - elsif @password.views_remaining == 0
+        == The password has hit its maximum view count: #{@password.expire_after_views}.
+      - elsif @password.days_remaining == 0
+        == The password has hit its maximum age: #{@password.expire_after_days} days.
+
+  - else
+    - if @password.first_view?
+      .share_note
+        == This is your password.  Use this link to share it: 
+        %p.url
+          %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
+          %span#clip_data{ :style => 'display: none;' }= request.url
+          %span#clippy{ :title => 'copy to clipboard' }
+            %span#clip_tip copy to clipboard
+            != clippy(request.url)
+          :javascript
+            $('#clippy').mousedown(function (e){
+              $('#clip_tip').text('copied!');
+            });
+            $('#clippy').mouseout(function (e){
+              $('#clip_tip').text('copy to clipboard');
+            });
+        %br/
+        %span.note
+          This note won't be shown again for this password...
+          %br/
+          Don't believe me?  Go ahead.  Hit reload...
+    %p
+      Your password is...
+  
+    %div.payload.spoiler
+      = @payload
+
+    %p
+      - if @password.views_remaining == 0
+        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
+      - else
+        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} 
+        == or #{pluralize(@password.views_remaining, 'more view')}.    
+    %p{ :style => 'font-size: .85em;' }
+      = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
+%div.footer_note
+  This 
+  - if @password.expired
+    (unfortunately expired)
+  password is brought to you by
+  = link_to "Password Pusher", "/"
+  and viewers like you.
+  
