@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'https://repo.fury.io/pglombardo/'
 
 gem 'rails', '~> 3.2'
 
@@ -9,6 +10,7 @@ end
 group :production, :engineyard do
   gem 'pg'
   gem 'oboe-heroku'
+  gem 'oboe', '2.7.0'
   gem 'unicorn'
 end
 
