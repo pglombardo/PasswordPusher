@@ -7,13 +7,6 @@ group :development, :test, :private do
   gem "sqlite3"
 end
 
-group :production, :engineyard do
-  gem 'pg'
-  gem 'oboe-heroku'
-  gem 'oboe', '2.7.0'
-  gem 'unicorn'
-end
-
 group :development, :test do
   gem 'silent-postgres'
   gem "ruby-debug19", :platforms => :ruby_19
@@ -50,4 +43,12 @@ gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
+
+group :production, :engineyard do
+  gem 'pg'
+  gem 'oboe-heroku'
+  gem 'oboe', '2.7.0.1'
+  gem 'unicorn'
+end
+
 
