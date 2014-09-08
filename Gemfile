@@ -47,7 +47,7 @@ gem 'omniauth-twitter'
 group :production, :engineyard do
   gem 'pg'
   gem 'oboe-heroku'
-  gem 'oboe', '2.7.0.1'
+  gem 'oboe', '2.7.1.3'
   gem 'unicorn'
 end
 
