@@ -37,8 +37,6 @@ end
 gem 'foreman'
 gem 'jquery-rails'
 gem 'delayed_job_active_record'
-gem 'thin'
-gem 'capistrano', '~>2.15'
 gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
