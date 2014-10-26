@@ -15,12 +15,15 @@ Make sure you have git and Ruby installed and then:
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
-bundle install --without development test --deployment
-bundle exec rake db:setup
-foreman start
+bundle install --without development production test --deployment
+RAILS_ENV=private bundle exec rake db:setup
+foreman start internalweb
 ```
-    
-Then view the site @ [http://localhost:5000/](http://localhost:5000/)
+
+Then view the site @ [http://localhost:5000/](http://localhost:5000/).
+
+_Note: You can change the listening port by modifying the
+[Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
 
 ### Troubleshooting
 

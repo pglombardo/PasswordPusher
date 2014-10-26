@@ -3,10 +3,6 @@ source 'https://repo.fury.io/pglombardo/'
 
 gem 'rails', '~> 3.2'
 
-group :development, :test, :private do
-  gem "sqlite3"
-end
-
 group :development, :test do
   gem 'silent-postgres'
   gem "ruby-debug19", :platforms => :ruby_19
@@ -35,6 +31,7 @@ group :assets do
 end
 
 gem 'foreman'
+gem 'unicorn'
 gem 'jquery-rails'
 gem 'delayed_job_active_record'
 gem "devise"
@@ -42,10 +39,11 @@ gem "omniauth"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
 
-group :production, :engineyard do
+group :production do
   gem 'pg'
   gem 'oboe-heroku'
-  gem 'unicorn'
 end
 
-
+group :private do
+  gem "sqlite3"
+end
