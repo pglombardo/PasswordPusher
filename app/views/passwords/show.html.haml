@@ -15,7 +15,7 @@
   - else
     - if @password.first_view?
       .share_note
-        == This is your password.  Use this link to share it: 
+        == This is your password.  Use this link to share it:
         %p.url
           %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
           %span#clip_data{ :style => 'display: none;' }= request.url
@@ -36,23 +36,22 @@
           Don't believe me?  Go ahead.  Hit reload...
     %p
       Your password is...
-  
-    %div.payload.spoiler
+
+    %div.payload.spoiler<
       = @payload
 
     %p
       - if @password.views_remaining == 0
         == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
       - else
-        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} 
-        == or #{pluralize(@password.views_remaining, 'more view')}.    
+        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')}
+        == or #{pluralize(@password.views_remaining, 'more view')}.
     %p{ :style => 'font-size: .85em;' }
       = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
 %div.footer_note
-  This 
+  This
   - if @password.expired
     (unfortunately expired)
   password is brought to you by
   = link_to "Password Pusher", "/"
   and viewers like you.
-  
