@@ -17,7 +17,7 @@
       .share_note
         == This is your password.  Use this link to share it:
         %p.url
-          %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
+          %input{ :id => "share_url", :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
           %span#clip_data{ :style => 'display: none;' }= request.url
           %span#clippy{ :title => 'copy to clipboard' }
             %span#clip_tip copy to clipboard
