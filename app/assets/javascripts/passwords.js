@@ -42,20 +42,25 @@ $(document).ready(function() {
   }
 
   if ($('.payload.spoiler').length == 1) {
-	var crypttext = $('.payload.spoiler').text();
-	var pass64 = $.jStorage.get('pass64');
-	if (pass64 === null) {
-		pass64 = window.location.hash.substr(1);
-	}
-	window.location.hash = pass64;
-	if ($('#share_url') && $('#clip_data')) {
-		$('#share_url') .val(window.location);
-		$('#clip_data').text(window.location);
-	}
-	var passBits = sjcl.codec.base64.toBits(pass64);
-	$.jStorage.deleteKey('pass64');
-	var cleartext = sjcl.decrypt(passBits, crypttext);
-	$('.payload.spoiler').text(cleartext);
+    var crypttext = $('.payload.spoiler').text();
+    var pass64 = $.jStorage.get('pass64');
+    if (pass64 === null) {
+      pass64 = window.location.hash.substr(1);
+    }
+    if (pass64) {
+      window.location.hash = pass64;
+      if ($('#share_url') && $('#clip_data')) {
+        $('#share_url') .val(window.location);
+        $('#clip_data').text(window.location);
+      }
+
+      pass64 += new Array(pass64.length % 4 + 1).join("="); /* Add back base64 padding */
+
+      var passBits = sjcl.codec.base64.toBits(pass64);
+      $.jStorage.deleteKey('pass64');
+      var cleartext = sjcl.decrypt(passBits, crypttext);
+      $('.payload.spoiler').text(cleartext);
+    }
   }
 });
 
@@ -68,12 +73,12 @@ $('#password_payload').keypress(function() {
 });
 
 $('form#new_password').submit(function() {
-	var cleartext = $('#password_payload').val();
+  var cleartext = $('#password_payload').val();
 
-	if (cleartext) {
-		var passBits = sjcl.random.randomWords(4); /* 4 words = 4*4*8 = 128 bits = AES key size */
-		var pass64 = sjcl.codec.base64.fromBits(passBits);
-		$.jStorage.set('pass64', pass64, {ttl: 3000});
-		$('#password_payload').val(sjcl.encrypt(passBits, cleartext));
-	}
+  if (cleartext) {
+    var passBits = sjcl.random.randomWords(4); /* 4 words = 4*4*8 = 128 bits = AES key size */
+    var pass64 = sjcl.codec.base64.fromBits(passBits).replace(/=/g, ""); /* Remove base64 padding */
+    $.jStorage.set('pass64', pass64, {ttl: 3000});
+    $('#password_payload').val(sjcl.encrypt(passBits, cleartext));
+  }
 });
