@@ -29,7 +29,7 @@ $(document).ready(function() {
       showDaysValue(de.value)
     }
   }
- 
+
   ve = document.getElementById("password_expire_after_views")
   vr = document.getElementById("viewsrange")
   if (ve && vr) {
@@ -80,5 +80,6 @@ $('form#new_password').submit(function() {
     var pass64 = sjcl.codec.base64.fromBits(passBits).replace(/=/g, ""); /* Remove base64 padding */
     $.jStorage.set('pass64', pass64, {ttl: 3000});
     $('#password_payload').val(sjcl.encrypt(passBits, cleartext));
+    $('#password_payload').attr("type", "password");
   }
 });
