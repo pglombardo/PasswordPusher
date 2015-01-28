@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20121105144421) do
 
   create_table "passwords", :force => true do |t|
-    t.string   "payload"
+    t.string   "payload",            :limit => 2048
     t.integer  "expire_after_days"
     t.integer  "expire_after_views"
     t.boolean  "expired",            :default => false
