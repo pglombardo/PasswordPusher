@@ -5,7 +5,7 @@ class Password < ActiveRecord::Base
   def to_param
     self.url_token.to_s
   end
-  
+
   def days_old
     (Time.now.to_datetime - self.created_at.to_datetime).to_i
   end
@@ -30,7 +30,7 @@ class Password < ActiveRecord::Base
   #
   def validate!
     return if expired
-    
+
     # Range checking
     self.expire_after_days  ||= EXPIRE_AFTER_DAYS_DEFAULT
     self.expire_after_views ||= EXPIRE_AFTER_VIEWS_DEFAULT
@@ -38,9 +38,9 @@ class Password < ActiveRecord::Base
     unless self.expire_after_days.between?(EXPIRE_AFTER_DAYS_MIN, EXPIRE_AFTER_DAYS_MAX)
       self.expire_after_days = EXPIRE_AFTER_DAYS_DEFAULT
     end
-    
+
     unless self.expire_after_views.between?(EXPIRE_AFTER_VIEWS_MIN, EXPIRE_AFTER_VIEWS_MAX)
-      self.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT 
+      self.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT
     end
 
     unless self.new_record?
