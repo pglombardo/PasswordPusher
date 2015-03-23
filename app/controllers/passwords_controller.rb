@@ -4,7 +4,16 @@ class PasswordsController < ApplicationController
   def show
     if params.has_key?(:id)
       @password = Password.find_by_url_token!(params[:id])
-      @password.views = View.where(:password_id => @password.id, :successful => true)
+
+      # If this is the first view, update record.  Otherwise, record
+      # a view.
+      @first_view = @password.first_view
+
+      if @first_view
+        @password.update_attribute(:first_view, false)
+      else
+        @password.views = View.where(:password_id => @password.id, :successful => true)
+      end
     else
       redirect_to :root
       return
@@ -20,7 +29,7 @@ class PasswordsController < ApplicationController
       @payload = @key.decrypt64(@password.payload)
     end
 
-    log_view(@password)
+    log_view(@password) unless @first_view
 
     expires_now()
 
@@ -63,6 +72,10 @@ class PasswordsController < ApplicationController
 
     @password.url_token = rand(36**16).to_s(36)
     @password.user_id = current_user.id if current_user
+
+    # The first view on new passwords are free since we redirect
+    # the passwd creator to the password itself.
+    @password.first_view = true
 
     # Encrypt the passwords
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
