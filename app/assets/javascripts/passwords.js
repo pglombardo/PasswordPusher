@@ -6,10 +6,10 @@ function saveExpirations()
 {
   days_value = document.getElementById("password_expire_after_days").value
   views_value = document.getElementById("password_expire_after_views").value
-  
+
   $.cookie('pwpush_days',  days_value, { expires: 365 });
   $.cookie('pwpush_views', views_value, { expires: 365 });
-  
+
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
   return true;
@@ -18,7 +18,7 @@ function saveExpirations()
 $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
-  
+
   de = document.getElementById("password_expire_after_days")
   dr = document.getElementById("daysrange")
   if (days) {
@@ -27,7 +27,7 @@ $(document).ready(function() {
   } else {
     showDaysValue(de.value)
   }
-  
+
   ve = document.getElementById("password_expire_after_views")
   vr = document.getElementById("viewsrange")
   if (views) {
