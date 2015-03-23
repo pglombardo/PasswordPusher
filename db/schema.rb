@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105144421) do
+ActiveRecord::Schema.define(:version => 20150323145847) do
 
   create_table "passwords", :force => true do |t|
     t.string   "payload"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20121105144421) do
     t.datetime "updated_at",                            :null => false
     t.integer  "user_id"
     t.boolean  "deleted",            :default => false
+    t.boolean  "first_view",         :default => true
   end
 
   add_index "passwords", ["user_id"], :name => "index_passwords_on_user_id"

@@ -18,10 +18,6 @@ class Password < ActiveRecord::Base
     [(self.expire_after_views - self.views.count), 0].max
   end
 
-  def first_view?
-    self.views.count == 1
-  end
-
   ##
   # validate!
   #
