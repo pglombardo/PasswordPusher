@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20150323145847) do
     t.datetime "updated_at",                            :null => false
     t.integer  "user_id"
     t.boolean  "deleted",            :default => false
-    t.boolean  "first_view",         :default => true
+    t.boolean  "first_view",         :default => false
   end
 
   add_index "passwords", ["user_id"], :name => "index_passwords_on_user_id"
