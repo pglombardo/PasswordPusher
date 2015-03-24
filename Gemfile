@@ -1,13 +1,15 @@
 source 'http://rubygems.org'
 source 'https://repo.fury.io/pglombardo/'
 
+ruby '2.1.5'
+
 gem 'rails', '~> 3.2'
 
 group :development, :test do
   gem 'silent-postgres'
   gem "ruby-debug19", :platforms => :ruby_19
-  gem "ruby-debug", :platforms => :ruby_18
-  gem "byebug", :platforms => :ruby_20
+  gem "ruby-debug",   :platforms => :ruby_18
+  gem 'byebug',       :platforms => [ :mri_20, :mri_21, :mri_22 ]
   gem "nifty-generators"
   gem 'pry'
 end
