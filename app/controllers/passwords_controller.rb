@@ -74,7 +74,8 @@ class PasswordsController < ApplicationController
     @password.user_id = current_user.id if current_user
 
     # The first view on new passwords are free since we redirect
-    # the passwd creator to the password itself.
+    # the passwd creator to the password itself (and don't burn up
+    # a view).
     @password.first_view = true
 
     # Encrypt the passwords
