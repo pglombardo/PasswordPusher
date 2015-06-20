@@ -20,20 +20,20 @@
     %br
       %span.note
         (whichever comes first)
-        
+
   %p
     = f.submit(:value => "Push it!")
 
 
-%p.notes      
+%p.notes
   %span.tip
     * Tip: Only enter the password into the box.  Other identifying information can compromise security.
   %p
     %span
       #cookie-save.cookie-save
-        %a{ :onclick => "saveExpirations()", :href => "#" } Save 
+        %a{ :onclick => "saveExpirations()", :href => "#" } Save
         these expiration settings as
-        %i default 
+        %i default
         in a browser cookie.
   %p
   %span.note
@@ -41,6 +41,13 @@
   %br/
   %span.note
     Once expired, encrypted passwords are unequivocally deleted from the database.
+
+%p.notes
+  New
+  = link_to "workflow",  "http://www.packal.org/workflow/passwordpusher"
+  for Alfred users.  Thanks to
+  = link_to "@psteinweber", "https://github.com/pglombardo/PasswordPusher/issues/29"
+  for the idea.
 
 - if Rails.env == "production" or Rails.env == "development"
   %p.notes
