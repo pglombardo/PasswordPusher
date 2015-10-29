@@ -35,7 +35,6 @@ end
 gem 'foreman'
 gem 'unicorn'
 gem 'jquery-rails'
-gem 'delayed_job_active_record'
 gem "devise"
 gem "omniauth"
 gem 'omniauth-openid'
