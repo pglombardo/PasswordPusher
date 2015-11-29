@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-source 'https://repo.fury.io/pglombardo/'
+# source 'https://repo.fury.io/pglombardo/'
 
 ruby '2.1.5'
 
