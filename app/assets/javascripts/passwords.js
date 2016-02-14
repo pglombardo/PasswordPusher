@@ -4,11 +4,15 @@
 
 function saveExpirations()
 {
-  days_value = document.getElementById("password_expire_after_days").value
+  days_value  = document.getElementById("password_expire_after_days").value
   views_value = document.getElementById("password_expire_after_views").value
+  dbv = document.getElementById("password_deletable_by_viewer")
 
   $.cookie('pwpush_days',  days_value, { expires: 365 });
   $.cookie('pwpush_views', views_value, { expires: 365 });
+  if (dbv) {
+    $.cookie('pwpush_dbv', dbv.checked, { expires: 365 });
+  }
 
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
@@ -18,6 +22,11 @@ function saveExpirations()
 $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
+  if ($.cookie('pwpush_dbv') == "true") {
+    dbv = true
+  } else {
+    dbv = false
+  }
 
   de = document.getElementById("password_expire_after_days")
   dr = document.getElementById("daysrange")
@@ -35,6 +44,11 @@ $(document).ready(function() {
     vr.innerHTML = views + " Views"
   } else {
     showViewsValue(ve.value)
+  }
+
+  dbv_checkbox = document.getElementById('password_deletable_by_viewer')
+  if (dbv_checkbox && (dbv_checkbox.checked != dbv)) {
+    dbv_checkbox.click()
   }
 });
 
