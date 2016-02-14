@@ -69,6 +69,11 @@ class PasswordsController < ApplicationController
 
     @password.expire_after_days = params[:password][:expire_after_days]
     @password.expire_after_views = params[:password][:expire_after_views]
+    if SHOW_DELETABLE_OPTION
+      @password.deletable_by_viewer = params[:password][:deletable_by_viewer]
+    else
+      @password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
+    end
 
     @password.url_token = rand(36**16).to_s(36)
     @password.user_id = current_user.id if current_user
@@ -98,7 +103,11 @@ class PasswordsController < ApplicationController
   def destroy
     if params.has_key?(:id)
       @password = Password.find_by_url_token!(params[:id])
-    else
+    end
+
+    # Redirect to root if we couldn't find password or
+    # the found password wasn't market as deletable
+    unless @password || @password.deletable_by_viewer
       redirect_to :root
       return
     end
