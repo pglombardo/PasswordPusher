@@ -46,8 +46,9 @@
       - else
         == This password will be deleted in #{pluralize(@password.days_remaining, 'day')}
         == or #{pluralize(@password.views_remaining, 'more view')}.
-    %p{ :style => 'font-size: .85em;' }
-      = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
+    - if @password.deletable_by_viewer
+      %p{ :style => 'font-size: .85em;' }
+        = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
 %div.footer_note
   This
   - if @password.expired
