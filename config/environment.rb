@@ -36,7 +36,7 @@ DELETABLE_BY_VIEWER_PASSWORDS = true
 #   2. Sets the default value for newly pushed passwords if
 #       if unspecified (such as with a json request)
 #
-DELETABLE_BY_VIEWER_DEFAULT = false
+DELETABLE_BY_VIEWER_DEFAULT = true
 
 # Initialize the rails application
 PasswordPusher::Application.initialize!
