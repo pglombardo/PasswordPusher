@@ -22,11 +22,6 @@ function saveExpirations()
 $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
-  if ($.cookie('pwpush_dbv') == "true") {
-    dbv = true
-  } else {
-    dbv = false
-  }
 
   de = document.getElementById("password_expire_after_days")
   dr = document.getElementById("daysrange")
@@ -47,8 +42,20 @@ $(document).ready(function() {
   }
 
   dbv_checkbox = document.getElementById('password_deletable_by_viewer')
-  if (dbv_checkbox && (dbv_checkbox.checked != dbv)) {
-    dbv_checkbox.click()
+  if (dbv_checkbox) {
+
+    if (typeof($.cookie('pwpush_dbv')) != 'undefined') {
+      if ($.cookie('pwpush_dbv') == "true") {
+        dbv = true
+      } else {
+        dbv = false
+      }
+      if (dbv && dbv_checkbox && (dbv_checkbox.checked != dbv)) {
+        dbv_checkbox.click()
+      }
+    } else {
+      dbv_checkbox.checked = <%=DELETABLE_BY_VIEWER_DEFAULT%>
+    }
   }
 });
 

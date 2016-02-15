@@ -69,10 +69,11 @@ class PasswordsController < ApplicationController
 
     @password.expire_after_days = params[:password][:expire_after_days]
     @password.expire_after_views = params[:password][:expire_after_views]
-    if DELETABLE_BY_VIEWER_PASSWORDS
-      @password.deletable_by_viewer = params[:password][:deletable_by_viewer]
+
+    if DELETABLE_BY_VIEWER_PASSWORDS && params[:password].key?(:deletable_by_viewer)
+      @password.deletable_by_viewer = true
     else
-      @password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
+      @password.deletable_by_viewer = false
     end
 
     @password.url_token = rand(36**16).to_s(36)
