@@ -6,7 +6,7 @@ function saveExpirations()
 {
   days_value  = document.getElementById("password_expire_after_days").value
   views_value = document.getElementById("password_expire_after_views").value
-  dbv = document.getElementById("password_deletable_by_viewer")
+  dbv         = document.getElementById("password_deletable_by_viewer")
 
   $.cookie('pwpush_days',  days_value, { expires: 365 });
   $.cookie('pwpush_views', views_value, { expires: 365 });

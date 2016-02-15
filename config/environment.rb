@@ -20,7 +20,7 @@ EXPIRE_AFTER_VIEWS_MAX = 100
 # Are un-expired passwords deletable by viewers?
 DELETABLE_BY_VIEWER_DEFAULT = true
 # Offer passwords to optionally be deletable/undeletable?
-SHOW_DELETABLE_OPTION = true
+DELETABLE_BY_VIEWER_PASSWORDS = false
 
 # Initialize the rails application
 PasswordPusher::Application.initialize!
