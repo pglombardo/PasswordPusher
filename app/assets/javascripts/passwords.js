@@ -10,9 +10,7 @@ function saveExpirations()
 
   $.cookie('pwpush_days',  days_value, { expires: 365 });
   $.cookie('pwpush_views', views_value, { expires: 365 });
-  if (dbv) {
-    $.cookie('pwpush_dbv', dbv.checked, { expires: 365 });
-  }
+  $.cookie('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
 
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
@@ -42,19 +40,15 @@ $(document).ready(function() {
   }
 
   dbv_checkbox = document.getElementById('password_deletable_by_viewer')
-  if (dbv_checkbox) {
-
-    if (typeof($.cookie('pwpush_dbv')) != 'undefined') {
-      if ($.cookie('pwpush_dbv') == "true") {
-        dbv = true
-      } else {
-        dbv = false
-      }
-      if (dbv && dbv_checkbox && (dbv_checkbox.checked != dbv)) {
-        dbv_checkbox.click()
-      }
+  dbv_check_state = $.cookie('pwpush_dbv')
+  if (dbv_check_state) {
+    if (dbv_check_state == "false") {
+      dbv = false
     } else {
-      dbv_checkbox.checked = <%=DELETABLE_BY_VIEWER_DEFAULT%>
+      dbv = true
+    }
+    if (dbv_checkbox.checked != dbv) {
+      dbv_checkbox.click()
     }
   }
 });
