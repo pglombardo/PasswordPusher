@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 # source 'https://repo.fury.io/pglombardo/'
 
-ruby '2.1.5'
+ruby '2.3.1'
 
 gem 'rails', '~> 3.2'
 
