@@ -1,8 +1,6 @@
 source 'http://rubygems.org'
 # source 'https://repo.fury.io/pglombardo/'
 
-ruby '2.3.1'
-
 gem 'rails', '~> 3.2'
 
 group :development, :test do
@@ -23,8 +21,6 @@ end
 gem 'json'
 gem 'haml'
 gem 'haml-rails'
-gem 'fastercsv' # Only required on Ruby 1.8 and below
-gem 'rails_admin'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
