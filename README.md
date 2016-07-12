@@ -15,7 +15,9 @@ Make sure you have git and Ruby installed and then:
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
+gem install bundler
 bundle install --without development production test --deployment
+bundle exec rake assets:precompile
 RAILS_ENV=private bundle exec rake db:setup
 foreman start internalweb
 ```
