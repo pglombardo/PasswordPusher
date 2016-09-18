@@ -11,18 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105144421) do
+ActiveRecord::Schema.define(:version => 20160214205926) do
 
   create_table "passwords", :force => true do |t|
     t.string   "payload"
     t.integer  "expire_after_days"
     t.integer  "expire_after_views"
-    t.boolean  "expired",            :default => false
+    t.boolean  "expired",             :default => false
     t.string   "url_token"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "user_id"
-    t.boolean  "deleted",            :default => false
+    t.boolean  "deleted",             :default => false
+    t.boolean  "first_view",          :default => false
+    t.boolean  "deletable_by_viewer"
   end
 
   add_index "passwords", ["user_id"], :name => "index_passwords_on_user_id"

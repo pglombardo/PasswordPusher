@@ -4,12 +4,14 @@
 
 function saveExpirations()
 {
-  days_value = document.getElementById("password_expire_after_days").value
+  days_value  = document.getElementById("password_expire_after_days").value
   views_value = document.getElementById("password_expire_after_views").value
-  
+  dbv         = document.getElementById("password_deletable_by_viewer")
+
   $.cookie('pwpush_days',  days_value, { expires: 365 });
   $.cookie('pwpush_views', views_value, { expires: 365 });
-  
+  $.cookie('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
+
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
   return true;
@@ -18,7 +20,7 @@ function saveExpirations()
 $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
-  
+
   de = document.getElementById("password_expire_after_days")
   dr = document.getElementById("daysrange")
   if (days) {
@@ -27,7 +29,7 @@ $(document).ready(function() {
   } else {
     showDaysValue(de.value)
   }
-  
+
   ve = document.getElementById("password_expire_after_views")
   vr = document.getElementById("viewsrange")
   if (views) {
@@ -35,6 +37,19 @@ $(document).ready(function() {
     vr.innerHTML = views + " Views"
   } else {
     showViewsValue(ve.value)
+  }
+
+  dbv_checkbox = document.getElementById('password_deletable_by_viewer')
+  dbv_check_state = $.cookie('pwpush_dbv')
+  if (dbv_check_state) {
+    if (dbv_check_state == "false") {
+      dbv = false
+    } else {
+      dbv = true
+    }
+    if (dbv_checkbox.checked != dbv) {
+      dbv_checkbox.click()
+    }
   }
 });
 
