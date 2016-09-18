@@ -4,6 +4,10 @@ PasswordPusher is an opensource Ruby on Rails application to communicate passwor
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
+## See Also
+
+The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
+
 ## Deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
