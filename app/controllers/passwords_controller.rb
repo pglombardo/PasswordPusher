@@ -5,8 +5,7 @@ class PasswordsController < ApplicationController
     if params.has_key?(:id)
       @password = Password.find_by_url_token!(params[:id])
 
-      # If this is the first view, update record.  Otherwise, record
-      # a view.
+      # If this is the first view, update record.  Otherwise, record a view.
       @first_view = @password.first_view
 
       if @first_view
@@ -43,7 +42,6 @@ class PasswordsController < ApplicationController
   # GET /passwords/new.json
   def new
     @password = Password.new
-
     expires_in 3.hours, :public => true, 'max-stale' => 0
 
     respond_to do |format|
@@ -65,8 +63,7 @@ class PasswordsController < ApplicationController
       return
     end
 
-    @password = Password.new()
-
+    @password = Password.new
     @password.expire_after_days = params[:password][:expire_after_days]
     @password.expire_after_views = params[:password][:expire_after_views]
 
@@ -80,8 +77,7 @@ class PasswordsController < ApplicationController
     @password.user_id = current_user.id if current_user
 
     # The first view on new passwords are free since we redirect
-    # the passwd creator to the password itself (and don't burn up
-    # a view).
+    # the passwd creator to the password itself (and don't burn up a view).
     @password.first_view = true
 
     # Encrypt the passwords
