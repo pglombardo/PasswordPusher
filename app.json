@@ -1,0 +1,21 @@
+{
+  "name": "PasswordPusher",
+  "description": "An application to communicate passwords over the web. Passwords expire after a certain number of views and/or time has passed.",
+  "repository": "https://github.com/pglombardo/PasswordPusher",
+  "logo": "https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo.png",
+  "keywords": ["password", "security", "expire"],
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:setup"
+  },
+  "env": {
+    "BUNDLE_WITHOUT": "development:test:private",
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "3"
+    }
+  }
+}
+
