@@ -14,7 +14,7 @@ function showDaysValue(newValue)
   if (newValue > 1) {
   	document.getElementById("daysrange").innerHTML=newValue + ' Days';
   } else {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Day';    
+  	document.getElementById("daysrange").innerHTML=newValue + ' Day';
   }
 }
 
