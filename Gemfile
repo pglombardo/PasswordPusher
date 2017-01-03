@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 # source 'https://repo.fury.io/pglombardo/'
 
 gem 'rails', '~> 3.2'
