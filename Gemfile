@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 # source 'https://repo.fury.io/pglombardo/'
 
 gem 'rails', '~> 3.2'
@@ -22,8 +22,8 @@ gem 'json'
 gem 'haml'
 gem 'haml-rails'
 gem 'therubyracer'
-gem 'ezcrypto', :git => 'git://github.com/pglombardo/ezcrypto.git'
-gem 'modernizr-rails', :git => 'git://github.com/russfrisch/modernizr-rails.git'
+gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
+gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage", '~> 2.1.0'
 
 # Gems used only for assets and not required
