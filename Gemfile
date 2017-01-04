@@ -18,7 +18,7 @@ group :development, :test do
   gem "nifty-generators"
 end
 
-gem 'json'
+gem 'json', '~> 2.0'
 gem 'haml'
 gem 'haml-rails'
 gem 'therubyracer'
