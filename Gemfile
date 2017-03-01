@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby ">=2.3.3"
+
 gem 'rails', '~> 3.2'
 
 group :development, :test do
