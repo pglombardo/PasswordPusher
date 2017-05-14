@@ -12,10 +12,53 @@
   },
   "env": {
     "BUNDLE_WITHOUT": "development:test:private",
+    "CRYPT_KEY": {
+      "description": "CRYPT key",
+      "generator": "secret"
+    },
+    "CRYPT_SALT": {
+      "description": "CRYPT salt",
+      "generator": "secret"
+    },
     "WEB_CONCURRENCY": {
       "description": "The number of processes to run.",
       "value": "3"
-    }
+    },
+    "PAYLOAD_INITIAL_TEXT": {
+      "description": "The initial text for the input field",
+      "value": "Enter the Password to be Shared"
+    },
+    "EXPIRE_AFTER_DAYS_DEFAULT": {
+      "description": "Default value for expire after days",
+      "value": "7"
+    },
+    "EXPIRE_AFTER_DAYS_MIN": {
+      "description": "Expire after days minimum value",
+      "value": "1"
+    },
+    "EXPIRE_AFTER_DAYS_MAX": {
+      "description": "Expire after days maximum value",
+      "value": "90"
+    },
+    "EXPIRE_AFTER_VIEWS_DEFAULT": {
+      "description": "Expire after views default value",
+      "value": "5"
+    },
+    "EXPIRE_AFTER_VIEWS_MIN": {
+      "description": "Expire after views minimum value",
+      "value": "1"
+    },
+    "EXPIRE_AFTER_VIEWS_MAX": {
+      "description": "Expire after views maximum value",
+      "value": "100"
+    },
+    "DELETABLE_BY_VIEWER_PASSWORDS": {
+      "description": "When true, passwords will have a link to optionally delete the password being viewed. When pushing a new password, this option will also add a checkbox to conditionally enable/disable this feature on a per-password basis.",
+      "value": "true"
+    },
+    "DELETABLE_BY_VIEWER_DEFAULT": {
+      "description": "When the option DELETABLE_BY_VIEWER_PASSWORDS is set to true, this option does two things: 1. Sets the default check state for the \"Allow viewers to optionally delete password before expiration\" checkbox. 2. Sets the default value for newly pushed passwords if unspecified (such as with a json request)",
+      "value": "true"
+    },
   }
 }
-
