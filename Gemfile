@@ -38,10 +38,6 @@ end
 gem 'foreman'
 gem 'unicorn'
 gem 'jquery-rails'
-gem "devise"
-gem "omniauth"
-gem 'omniauth-openid'
-gem 'omniauth-twitter'
 
 group :production do
   gem 'pg'
