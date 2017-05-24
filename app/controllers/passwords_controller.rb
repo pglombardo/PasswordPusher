@@ -73,7 +73,7 @@ class PasswordsController < ApplicationController
       @password.deletable_by_viewer = false
     end
 
-    @password.url_token = rand(36**16).to_s(36)
+    @password.url_token = SecureRandom.urlsafe_base64
     @password.user_id = current_user.id if current_user
 
     # The first view on new passwords are free since we redirect
