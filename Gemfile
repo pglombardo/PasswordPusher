@@ -36,5 +36,4 @@ group :private do
   gem "sqlite3"
 end
 
-gem "devise"
 gem "instana"
