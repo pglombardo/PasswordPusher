@@ -11,6 +11,9 @@ class ApplicationController < ActionController::Base
   #         ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
   #         with: lambda { |exception| render_error 404, exception }
   # end
+  rescue_from ActionController::RoutingError, ActionController::UnknownController,
+      ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
+      with: lambda { |exception| render_error 404, exception }
 
   private
   def render_error(status, exception)
