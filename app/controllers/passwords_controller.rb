@@ -74,7 +74,6 @@ class PasswordsController < ApplicationController
     end
 
     @password.url_token = rand(36**16).to_s(36)
-    @password.user_id = current_user.id if current_user
 
     # The first view on new passwords are free since we redirect
     # the passwd creator to the password itself (and don't burn up a view).

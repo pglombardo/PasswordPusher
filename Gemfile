@@ -1,39 +1,28 @@
 source 'http://rubygems.org'
 
-ruby ">=2.3.3"
+ruby ">=2.4.1"
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 4.0'
 
 group :development, :test do
-  gem 'ruby-debug',   :platforms => [ :mri_18, :jruby ]
-  gem 'debugger',     :platform  =>   :mri_19
-  gem 'byebug',       :platforms => [ :mri_20, :mri_21, :mri_22 ]
-  if RUBY_VERSION > '1.8.7'
-    gem 'pry'
-    gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
-  else
-    gem 'pry', '0.9.12.4'
-  end
-
-  gem 'silent-postgres'
-  gem "nifty-generators"
+  gem 'pry'
+  gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
 end
 
+gem 'web-console', '~> 2.0', :group => :development
+
+gem 'protected_attributes'
 gem 'json', '~> 2.0'
 gem 'haml'
 gem 'haml-rails'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
-gem "high_voltage", '~> 2.1.0'
+gem "high_voltage"
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 gem 'foreman'
 gem 'unicorn'
@@ -46,3 +35,5 @@ end
 group :private do
   gem "sqlite3"
 end
+
+gem "instana"
