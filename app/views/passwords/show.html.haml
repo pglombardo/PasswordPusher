@@ -6,11 +6,11 @@
       This password has expired.
     %p
       - if @password.deleted
-        This password was manually deleted by one of its viewers.
+        This link was manually deleted by one of its viewers.
       - elsif @password.views_remaining == 0
-        == The password has hit its maximum view count: #{@password.expire_after_views}.
+        == The link has hit its maximum view count: #{@password.expire_after_views}.
       - elsif @password.days_remaining == 0
-        == The password has hit its maximum age: #{@password.expire_after_days} days.
+        == The link has hit its maximum age: #{@password.expire_after_days} days.
 
   - else
     - if @first_view
@@ -40,19 +40,22 @@
     %div.payload.spoiler<
       = @payload
 
+    %p.pwinstructions
+      Please obtain and securely store this password elsewhere, ideally in a password manager.
+
     %p
       - if @password.views_remaining == 0
-        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
+        == This link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
       - else
-        == This password will be deleted in #{pluralize(@password.days_remaining, 'day')}
+        == This link will be deleted in #{pluralize(@password.days_remaining, 'day')}
         == or #{pluralize(@password.views_remaining, 'more view')}.
     - if @password.deletable_by_viewer
       %p{ :style => 'font-size: .85em;' }
-        = link_to "Nah. I've got it. Delete it now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the password forever.  Are you sure?'
+        = link_to "Nah. I've got it. Delete this link now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the link forever.  Are you sure?'
 %div.footer_note
   This
   - if @password.expired
     (unfortunately expired)
-  password is brought to you by
+  password link is brought to you by
   = link_to "Password Pusher", "/"
   and viewers like you.
