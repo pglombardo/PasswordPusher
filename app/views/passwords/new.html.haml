@@ -8,7 +8,7 @@
   %p.payload
     = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)", :autocomplete => "off" })
   %p
-    Delete password after:
+    Expire secret link and delete the stored password after:
     %p.slider_box
       = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)"})
       %span#daysrange
@@ -41,7 +41,7 @@
     * Tip: Only enter the password into the box.  Other identifying information can compromise security.
   %p
   %span.note
-    All passwords are encrypted prior to storage and are available to only those with the direct link.
+    All passwords are encrypted prior to storage and are available to only those with the secret link.
   %br/
   %span.note
     Once expired, encrypted passwords are unequivocally deleted from the database.

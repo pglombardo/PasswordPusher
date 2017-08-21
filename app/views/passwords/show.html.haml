@@ -6,16 +6,16 @@
       This secret link has expired.
     %p
       - if @password.deleted
-        This link was manually deleted by one of its viewers.
+        This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
       - elsif @password.views_remaining == 0
-        == The link has hit its maximum view count: #{@password.expire_after_views}.
+        == The secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
       - elsif @password.days_remaining == 0
-        == The link has hit its maximum age: #{@password.expire_after_days} days.
+        == The secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
 
   - else
     - if @first_view
       .share_note
-        == This is your password.  Use this link to share it:
+        == This is your password.  Use this secret link to share it:
         %p.url
           %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
           %span#clip_data{ :style => 'display: none;' }= request.url
@@ -31,7 +31,7 @@
             });
         %br/
         %span.note
-          This note won't be shown again for this password...
+          This note won't be shown again...
           %br/
           Don't believe me?  Go ahead.  Hit reload...
     %p
@@ -45,13 +45,13 @@
 
     %p
       - if @password.views_remaining == 0
-        == This link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
+        == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
       - else
-        == This link will be deleted in #{pluralize(@password.days_remaining, 'day')}
-        == or #{pluralize(@password.views_remaining, 'more view')}.
+        == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')}
+        == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
     - if @password.deletable_by_viewer
       %p{ :style => 'font-size: .85em;' }
-        = link_to "Nah. I've got it. Delete this link now.", password_path, :id => @password.url_token, :method => :delete, :confirm => 'This will delete the link forever.  Are you sure?'
+        = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
 %div.footer_note
   This
   - if @password.expired
