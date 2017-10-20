@@ -18,6 +18,12 @@ function saveExpirations()
 }
 
 $(document).ready(function() {
+  var clipboard = new Clipboard('.btn');
+  clipboard.on('success', function(e) {
+    alert("Copied to clipboard!");
+    e.clearSelection();
+  });
+
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
 

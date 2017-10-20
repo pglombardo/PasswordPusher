@@ -17,18 +17,10 @@
       .share_note
         == This is your password.  Use this secret link to share it:
         %p.url
-          %input{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();' }
+          %input#url{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();', :readonly => true }
           %span#clip_data{ :style => 'display: none;' }= request.url
-          %span#clippy{ :title => 'copy to clipboard' }
-            %span#clip_tip copy to clipboard
-            != clippy(request.url)
-          :javascript
-            $('#clippy').mousedown(function (e){
-              $('#clip_tip').text('copied!');
-            });
-            $('#clippy').mouseout(function (e){
-              $('#clip_tip').text('copy to clipboard');
-            });
+          %span.btn#clippy{ :'data-clipboard-target' => '#url' }
+            = image_tag('button_up.png')
         %br/
         %span.note
           This note won't be shown again...
