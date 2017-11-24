@@ -1,0 +1,25 @@
+base: &base
+  adapter: sqlite3
+  timeout: 5000
+
+development:
+  database: db/development.sqlite3
+  <<: *base
+
+test:
+  database: db/test.sqlite3
+  <<: *base
+
+private:
+  database: db/private.sqlite3
+  <<: *base
+
+production:
+  adapter: postgresql
+  database: pwp
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWF'] %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
