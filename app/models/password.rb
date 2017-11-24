@@ -40,7 +40,7 @@ class Password < ActiveRecord::Base
     end
 
     unless self.new_record?
-      if (self.hours_old >= expire_after) or (self.views.count >= self.expire_after_views)
+      if (self.hours_old >= self.expire_after_time) or (self.views.count >= self.expire_after_views)
         # This password has hit max age or max views - expire it
         self.expired = true
         self.payload = nil
