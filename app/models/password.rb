@@ -16,7 +16,7 @@ class Password < ActiveRecord::Base
       else
         expire_after = (self.expire_after_time -23) * 24 * 60 * 60
       end
-    [(expire_after - self.days_old)/(24*60*60), 0].max
+    [(expire_after - self.days_old)/(60*60), 0].max
   end
 
   def views_remaining
