@@ -4,7 +4,7 @@
 
 function saveExpirations()
 {
-  days_value  = document.getElementById("password_expire_after_days").value
+  days_value  = document.getElementById("password_expire_after_time").value
   views_value = document.getElementById("password_expire_after_views").value
   dbv         = document.getElementById("password_deletable_by_viewer")
 
@@ -27,11 +27,11 @@ $(document).ready(function() {
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
 
-  de = document.getElementById("password_expire_after_days")
+  de = document.getElementById("password_expire_after_time")
   dr = document.getElementById("daysrange")
   if (days) {
     de.value = days
-    dr.innerHTML = days + " Days"
+    showDaysValue(de.value)
   } else {
     showDaysValue(de.value)
   }

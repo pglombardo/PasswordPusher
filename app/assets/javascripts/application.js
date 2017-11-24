@@ -11,10 +11,14 @@
 
 function showDaysValue(newValue)
 {
-  if (newValue > 1) {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Days';
+  if (newValue > 24) {
+  	document.getElementById("daysrange").innerHTML= (newValue - 23) + ' Days';
+  } else if (newValue == 24)  {
+  	document.getElementById("daysrange").innerHTML=(newValue - 23) + ' Day';
+  } else if (newValue == 1) {
+    document.getElementById("daysrange").innerHTML=newValue + ' Hour';
   } else {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Day';
+    document.getElementById("daysrange").innerHTML=newValue + ' Hours';
   }
 }
 

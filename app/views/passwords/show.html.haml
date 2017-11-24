@@ -10,8 +10,10 @@
       - elsif @password.views_remaining == 0
         == The secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
       - elsif @password.days_remaining == 0
-        == The secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
-
+        - if @password.expire_after_time > 23
+          == The secret link has hit its maximum age (#{@password.expire_after_time - 23 } days) and the password has been deleted from the PasswordPusher database.
+        - else 
+          == The secret link has hit its maximum age (#{@password.expire_after_time} hours) and the password has been deleted from the PasswordPusher database.
   - else
     - if @first_view
       .share_note

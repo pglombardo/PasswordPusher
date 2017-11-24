@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20160214205926) do
 
   create_table "passwords", force: :cascade do |t|
     t.string   "payload"
-    t.integer  "expire_after_days"
+    t.integer  "expire_after_time"
     t.integer  "expire_after_views"
     t.boolean  "expired",             default: false
     t.string   "url_token"

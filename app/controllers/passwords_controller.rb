@@ -64,7 +64,7 @@ class PasswordsController < ApplicationController
     end
 
     @password = Password.new
-    @password.expire_after_days = params[:password][:expire_after_days]
+    @password.expire_after_time = params[:password][:expire_after_time]
     @password.expire_after_views = params[:password][:expire_after_views]
 
     if DELETABLE_BY_VIEWER_PASSWORDS && params[:password].key?(:deletable_by_viewer)
