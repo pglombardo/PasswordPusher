@@ -6,17 +6,12 @@ class Password < ActiveRecord::Base
     self.url_token.to_s
   end
 
-  def days_old
-    (Time.now.to_i - self.created_at.to_i)
+  def hours_old
+    (Time.now.to_i - self.created_at.to_i)/(60*60)
   end
 
-  def days_remaining
-     if self.expire_after_time < 24
-        expire_after = self.expire_after_time * 60 * 60
-      else
-        expire_after = (self.expire_after_time -23) * 24 * 60 * 60
-      end
-    [(expire_after - self.days_old)/(60*60), 0].max
+  def hours_remaining
+    [(expire_after*60*60 - self.hours_old)/(60*60), 0].max
   end
 
   def views_remaining
@@ -45,12 +40,7 @@ class Password < ActiveRecord::Base
     end
 
     unless self.new_record?
-      if self.expire_after_time < 24
-        expire_after = self.expire_after_time * 60 * 60
-      else
-        expire_after = (self.expire_after_time -23) * 24 * 60 * 60
-      end
-      if (self.days_old >= expire_after) or (self.views.count >= self.expire_after_views)
+      if (self.hours_old >= expire_after) or (self.views.count >= self.expire_after_views)
         # This password has hit max age or max views - expire it
         self.expired = true
         self.payload = nil
