@@ -31,13 +31,13 @@ class Password < ActiveRecord::Base
     self.expire_after_time  ||= EXPIRE_AFTER_TIME_DEFAULT
     self.expire_after_views ||= EXPIRE_AFTER_VIEWS_DEFAULT
 
-    if Integer(EXPIRE_AFTER_TIME_MAX) < 24
-      max_time = EXPIRE_AFTER_TIME_MAX
+    if EXPIRE_AFTER_TIME_MAX.to_i < 24
+      max_time = EXPIRE_AFTER_TIME_MAX.to_i
     else
-      max_time = (24*(EXPIRE_AFTER_TIME_MAX)-23)
+      max_time = (24*(EXPIRE_AFTER_TIME_MAX.to_i)-23)
     end if
 
-    unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN, max_time)
+    unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN.to_i, max_time)
       self.expire_after_time = EXPIRE_AFTER_TIME_DEFAULT
     end
 
