@@ -68,7 +68,7 @@ class PasswordsController < ApplicationController
     if Integer(time) < 24
       @password.expire_after_time = time
     else
-      @password.expire_after_time = 24*(time-23)
+      @password.expire_after_time = (24*(Integer(time)-23)).to_s
     end
     @password.expire_after_views = params[:password][:expire_after_views]
 
