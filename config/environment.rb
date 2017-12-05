@@ -8,9 +8,9 @@ CRYPT_KEY = ENV.fetch('CRYPT_KEY', '}s-#2R0^/+2wEXc47\$9Eb')
 CRYPT_SALT = ENV.fetch('CRYPT_SALT', ',2_%4?[+:3774>f')
 
 # Controls the "Expire After Days" form settings in Password#new
-EXPIRE_AFTER_DAYS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_DAYS_DEFAULT', 7))
-EXPIRE_AFTER_DAYS_MIN = Integer(ENV.fetch('EXPIRE_AFTER_DAYS_MIN', 1))
-EXPIRE_AFTER_DAYS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_DAYS_MAX', 90))
+EXPIRE_AFTER_TIME_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_TIME_DEFAULT', 7))
+EXPIRE_AFTER_TIME_MIN = Integer(ENV.fetch('EXPIRE_AFTER_TIME_MIN', 1))
+EXPIRE_AFTER_TIME_MAX = Integer(ENV.fetch('EXPIRE_AFTER_TIME_MAX', 90))
 
 # Controls the "Expire After Views" form settings in Password#new
 EXPIRE_AFTER_VIEWS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_DEFAULT', 5))

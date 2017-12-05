@@ -28,17 +28,17 @@ class Password < ActiveRecord::Base
     return if expired
 
     # Range checking
-    self.expire_after_time  ||= EXPIRE_AFTER_DAYS_DEFAULT
+    self.expire_after_time  ||= EXPIRE_AFTER_TIME_DEFAULT
     self.expire_after_views ||= EXPIRE_AFTER_VIEWS_DEFAULT
 
-    if EXPIRE_AFTER_DAYS_MAX < 24
-      max_time = EXPIRE_AFTER_DAYS_MAX
+    if EXPIRE_AFTER_TIME_MAX < 24
+      max_time = EXPIRE_AFTER_TIME_MAX
     else
-      max_time = 24*(EXPIRE_AFTER_DAYS_MAX-23)
+      max_time = 24*(EXPIRE_AFTER_TIME_MAX-23)
     end if
 
-    unless self.expire_after_time.between?(EXPIRE_AFTER_DAYS_MIN, max_time)
-      self.expire_after_time = EXPIRE_AFTER_DAYS_DEFAULT
+    unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN, max_time)
+      self.expire_after_time = EXPIRE_AFTER_TIME_DEFAULT
     end
 
     unless self.expire_after_views.between?(EXPIRE_AFTER_VIEWS_MIN, EXPIRE_AFTER_VIEWS_MAX)
