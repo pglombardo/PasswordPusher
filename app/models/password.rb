@@ -35,7 +35,7 @@ class Password < ActiveRecord::Base
       max_time = EXPIRE_AFTER_TIME_MAX
     else
       max_time = (24*(EXPIRE_AFTER_TIME_MAX-23))
-    end if
+    end
 
     unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN, max_time)
       self.expire_after_time = EXPIRE_AFTER_TIME_DEFAULT
