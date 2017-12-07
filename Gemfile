@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 ruby ">=2.4.1"
 
-
 gem 'rails', '~> 4.0'
 
 group :development, :test do
