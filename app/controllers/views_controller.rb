@@ -1,5 +1,5 @@
 class ViewsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   
   def index
     @views = View.all

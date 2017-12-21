@@ -10,7 +10,7 @@ group :development, :test do
 end
 
 
-gem 'strong_parameters'
+
 gem 'json', '~>2.0'
 gem 'slim-rails'
 gem 'therubyracer'
