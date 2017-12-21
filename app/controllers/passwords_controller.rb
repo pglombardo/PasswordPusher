@@ -130,6 +130,13 @@ class PasswordsController < ApplicationController
 
   private
 
+  def password_params
+    params.require(:password).permit(:payload, :expire_after_time, :expire_after_views, :deletable_by_viewer)
+  end
+
+  def user_params
+    params.requre(:user).permit(:email, :password, :password_confirmation, :remember_me)
+  end
   ##
   # log_view
   #
