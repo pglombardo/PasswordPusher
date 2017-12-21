@@ -1,5 +1,4 @@
 class Password < ActiveRecord::Base
-  attr_accessible :payload, :expire_after_time, :expire_after_views, :deletable_by_viewer
   has_many :views, :dependent => :destroy
 
   def to_param
