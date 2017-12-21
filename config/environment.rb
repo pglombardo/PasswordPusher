@@ -39,4 +39,4 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
 
 # Initialize the rails application
-PasswordPusher::Application.initialize!
+Rails.application.initialize!
