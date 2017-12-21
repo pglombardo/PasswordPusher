@@ -2,17 +2,16 @@ source 'http://rubygems.org'
 
 ruby ">=2.4.1"
 
-gem 'rails', '~> 4.0'
+gem 'rails', '~> 5.0'
 
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
 end
 
-gem 'web-console', '~> 2.0', :group => :development
 
 gem 'protected_attributes'
-gem 'json', '~> 2.0'
+gem 'json', '~>2.0'
 gem 'haml'
 gem 'haml-rails'
 gem 'therubyracer'
