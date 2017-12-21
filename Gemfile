@@ -12,8 +12,7 @@ end
 
 gem 'protected_attributes'
 gem 'json', '~>2.0'
-gem 'haml'
-gem 'haml-rails'
+gem 'slim-rails'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
