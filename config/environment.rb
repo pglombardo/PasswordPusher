@@ -1,5 +1,5 @@
 # Load the rails application
-require File.expand_path('../application', __FILE__)
+require_relative 'application'
 
 PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Password to be Shared')
 
