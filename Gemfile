@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby ">=2.4.1"
 
-gem 'rails', '~> 5.0'
+gem 'rails', '~> 5.1'
 
 group :development, :test do
   gem 'pry'
@@ -10,12 +10,12 @@ group :development, :test do
 end
 
 
-
+gem 'secure_headers'
 gem 'json', '~>2.0'
 gem 'slim-rails'
 gem 'therubyracer'
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
-gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
+#gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
 
 gem 'sass-rails'
