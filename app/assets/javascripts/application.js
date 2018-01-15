@@ -6,8 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
-//= require modernizr
+//= require_tree ./sidewide
 
 function showDaysValue(newValue)
 {

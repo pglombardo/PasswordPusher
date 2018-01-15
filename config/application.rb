@@ -33,7 +33,7 @@ module PasswordPusher
        end if File.exists?(env_file)
     end
     config.assets.initialize_on_precompile = false
-    config.assets.precompile += ['fd-slider.css', 'fd-slider.js']
+    config.assets.precompile += ['fd-slider.css', 'fd-slider.js', 'modernizr', 'show']
 
   end
 end
