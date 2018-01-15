@@ -66,3 +66,20 @@ $('#password_payload').keypress(function() {
     return false;
   }
 });
+
+//CSP Fix
+document.getElementById("payload").addEventListener("click",function(){
+  prepareTextField(this);
+});
+
+document.getElementById("payload").addEventListener("blur",function(){
+  revertTextField(this);
+});
+
+document.getElementById("password_expire_after_time").addEventListener("change",function(){
+  showDaysValue(this.value);
+});
+
+document.getElementById("password_expire_after_views").addEventListener("change",function(){
+  showViewsValue(this.value);
+});
