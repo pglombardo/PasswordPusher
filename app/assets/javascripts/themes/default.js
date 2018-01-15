@@ -41,7 +41,7 @@
 
 			this.$bar.css({
 				overflow: 'hidden',
-				background: "url(#{asset_path('default_1')}) repeat-x scroll left top #fff"
+				background: "#{image-url(default_1.png)} repeat-x scroll left top #fff"
 			});
 
 			this.$message.css({
@@ -57,7 +57,7 @@
 				position: 'absolute',
 				top: 4, right: 4,
 				width: 10, height: 10,
-				background: "url(#{asset_path('default_2')})",
+				background: "#{image-url(default_2.png)}",
 				display: 'none',
 				cursor: 'pointer'
 			});
