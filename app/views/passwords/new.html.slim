@@ -1,4 +1,4 @@
-= content_for :head do
+= content_for :extraHead do
   = javascript_include_tag "modernizr"
 
 = form_for @password do |f|
@@ -54,5 +54,5 @@ p.notes
   = link_to "FAQ", page_path('faq')
   ||
   = link_to "About PasswordPusher", page_path('about')
-
-= javascript_include_tag "passwords"
+= content_for :extraTail do
+  = javascript_include_tag "passwords"
