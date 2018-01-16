@@ -83,3 +83,5 @@ document.getElementById("password_expire_after_time").addEventListener("change",
 document.getElementById("password_expire_after_views").addEventListener("change",function(){
   showViewsValue(this.value);
 });
+
+document.getElementById("specialA").addEventListener("click",saveExpirations()});
