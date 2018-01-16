@@ -46,7 +46,7 @@ $(document).ready(function() {
   }
 
   dbv_checkbox = document.getElementById('password_deletable_by_viewer')
-  dbv_check_state = $.cookie('pwpush_dbv')
+  dbv_check_state = Cookies.get('pwpush_dbv')
   if (dbv_check_state) {
     if (dbv_check_state == "false") {
       dbv = false
