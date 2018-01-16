@@ -43,8 +43,7 @@
           var filterValue = "progid:DXImageTransform.Microsoft.Blur(pixelradius="+radius+")"
           $spoiler.css('filter', filterValue)
         } else if (browser.mozilla) {
-          var filterValue = radius > 0 ? "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'>" +
-            "<filter id='blur'><feGaussianBlur stdDeviation='" + radius + "' /></filter></svg>#blur\")" : ''
+          var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
           $spoiler.css('filter', filterValue)
         } else {
           var filterValue = radius > 0 ? 'blur('+radius+'px)' : ''
