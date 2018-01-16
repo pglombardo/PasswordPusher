@@ -14,4 +14,6 @@ SecureHeaders::Configuration.default do |config|
   }
 
   config.referrer_policy = %w(same-origin)
+
+  config.hsts = "max-age=#{1.month.to_i}"
 end
