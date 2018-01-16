@@ -68,11 +68,11 @@ $('#password_payload').keypress(function() {
 });
 
 //CSP Fix
-document.getElementById("payload").addEventListener("click",function(){
+document.getElementById("password_payload").addEventListener("click",function(){
   prepareTextField(this);
 });
 
-document.getElementById("payload").addEventListener("blur",function(){
+document.getElementById("password_payload").addEventListener("blur",function(){
   revertTextField(this);
 });
 
