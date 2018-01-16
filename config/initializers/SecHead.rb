@@ -12,4 +12,6 @@ SecureHeaders::Configuration.default do |config|
     font_src: %w('self' https://fonts.googleapis.com/ https://fonts.gstatic.com/)
    # report_uri: ["/csp_report?report_only=#{Rails.env.production?}“] # violation reports will be sent here
   }
+
+  config.referrer_policy = %w(same-origin)
 end
