@@ -8,9 +8,9 @@ function saveExpirations()
   views_value = document.getElementById("password_expire_after_views").value
   dbv         = document.getElementById("password_deletable_by_viewer")
 
-  $.cookie('pwpush_days',  days_value, { expires: 365 });
-  $.cookie('pwpush_views', views_value, { expires: 365 });
-  $.cookie('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
+  Cookies.set('pwpush_days',  days_value, { expires: 365 });
+  Cookies.set('pwpush_views', views_value, { expires: 365 });
+  Cookies.set('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
 
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
@@ -24,8 +24,8 @@ $(document).ready(function() {
     e.clearSelection();
   });
 
-  days = $.cookie('pwpush_days');
-  views = $.cookie('pwpush_views');
+  days = Cookies.get('pwpush_days');
+  views = Cookies.get('pwpush_views');
 
   de = document.getElementById("password_expire_after_time")
   dr = document.getElementById("daysrange")
