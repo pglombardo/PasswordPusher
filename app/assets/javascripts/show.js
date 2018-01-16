@@ -7,3 +7,6 @@ document.getElementById("url").addEventListener("focus",function(){
     $(this).select();
   });
   
+(function(){
+    new Clipboard('#copyButton');
+})();
