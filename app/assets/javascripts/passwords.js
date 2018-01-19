@@ -90,11 +90,11 @@ document.getElementById("specialA").addEventListener("click",saveExpirations);
 document.getElementById("visibleButton").addEventListener("click",function(){
   if (!visible) {
     visible = true;
-    this.style.opacity="0.5";
-    this.type="text"
+    this.style.opacity="0.3";
+    document.getElementById("password_payload").type="text"
   } else {
     visible = false;
     this.style.opacity="1.0";
-    this.type="password"
+    document.getElementById("password_payload").type="password"
   }
 });
