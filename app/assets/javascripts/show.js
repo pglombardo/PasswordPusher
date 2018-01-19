@@ -8,11 +8,13 @@ document.getElementById("url").addEventListener("focus",function(){
   });
 
 document.getElementById("copyPass").addEventListener("click",function(){
-    console.log("I work");
     var copyText = document.getElementById("payload_spoiler");
-    copyText.select();
+    var div = document.body.createTextRange();
+    div.moveToElementText(copyText);
+    div.select();
     document.execCommand("Copy");
     alert("Password was copied to clipboard!");
+    document.body.removeChild(div);
     return false;
   });
   
