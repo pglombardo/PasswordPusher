@@ -17,8 +17,8 @@ private:
 production:
   adapter: postgresql
   database: pwp
-  username: <%= ENV['POSTGRES_USERNAME'] %>
-  password: <%= ENV['POSTGRES_PASSWD'] %>
+  username: <%= Rails.application.secrets.POSTGRES_USERNAME %>
+  password: <%= Rails.application.secrets.POSTGRES_PASSWD %>
   pool: 5
   timeout: 5000
   encoding: utf8
