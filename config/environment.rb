@@ -4,8 +4,8 @@ require_relative 'application'
 PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Password to be Shared')
 
 # If deploying PasswordPusher yourself, you should change these CRYPT values.
-CRYPT_KEY = ENV.fetch('CRYPT_KEY', Rails.secrets.CRYPT_KEY)
-CRYPT_SALT = ENV.fetch('CRYPT_SALT', Rails.secrets.CRYPT_SALT)
+CRYPT_KEY = ENV.fetch('CRYPT_KEY', Rails.application.secrets.CRYPT_KEY)
+CRYPT_SALT = ENV.fetch('CRYPT_SALT', Rails.application.secrets.CRYPT_SALT)
 
 # Controls the "Expire After Days" form settings in Password#new
 EXPIRE_AFTER_TIME_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_TIME_DEFAULT', 1))
