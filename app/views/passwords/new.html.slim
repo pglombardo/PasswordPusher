@@ -11,7 +11,9 @@
         br
         span.tagline Go Ahead.  Email Another Password.
   p.payload
-    = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :autocomplete => "off" })
+    div.payloadContainer
+      = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :autocomplete => "off", :type => "password" })
+      = image_tag("visble.png" , :class => "visibleButton")
   p
     | Expire secret link and delete the stored password after:
     p.slider_box
