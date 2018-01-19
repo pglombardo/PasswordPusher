@@ -69,11 +69,11 @@ $('#password_payload').keypress(function() {
 
 //CSP Fix
 document.getElementById("password_payload").addEventListener("click",function(){
-  prepareTextField(this);
+  this.placeholder="";
 });
 
 document.getElementById("password_payload").addEventListener("blur",function(){
-  revertTextField(this);
+  this.placeholder="#{PAYLOAD_INITIAL_TEXT}";
 });
 
 document.getElementById("password_expire_after_time").addEventListener("change",function(){
