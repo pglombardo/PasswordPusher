@@ -7,8 +7,8 @@
   browser.msie = /msie/.test(userAgent);
 
   var defaults = {
-    max: 8,
-    partial: 4,
+    max: 12,
+    partial: 8,
     hintText: 'Click to reveal completely'
   }
 
