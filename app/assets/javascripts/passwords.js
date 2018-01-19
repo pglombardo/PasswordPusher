@@ -67,7 +67,7 @@ $('#password_payload').keypress(function() {
   }
 });
 var save_Placeholder=document.getElementById("password_payload").placeholder;
-var visbile = false;
+var visible = false;
 //CSP Fix
 document.getElementById("password_payload").addEventListener("click",function(){
   this.placeholder="";
