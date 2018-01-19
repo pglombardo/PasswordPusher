@@ -22,7 +22,7 @@ Rails.application.configure do
   CRYPT_KEY = ENV.fetch('CRYPT_KEY', Rails.application.secrets.CRYPT_KEY)
   CRYPT_SALT = ENV.fetch('CRYPT_SALT', Rails.application.secrets.CRYPT_SALT)
   #This is currently the only way
-  ENV['POSTGRES_USER'] = Rails.application.secrets.POSTGRES_USER
+  ENV['POSTGRES_USERNAME'] = Rails.application.secrets.POSTGRES_USERNAME
   ENV['POSTGRES_PASSWD'] = Rails.application.secrets.POSTGRES_PASSWD
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
