@@ -67,6 +67,7 @@ $('#password_payload').keypress(function() {
   }
 });
 var save_Placeholder=document.getElementById("password_payload").placeholder;
+var visbile = false;
 //CSP Fix
 document.getElementById("password_payload").addEventListener("click",function(){
   this.placeholder="";
@@ -85,3 +86,15 @@ document.getElementById("password_expire_after_views").addEventListener("change"
 });
 
 document.getElementById("specialA").addEventListener("click",saveExpirations);
+
+document.getElementById("password_payload").addEventListener("click",function(){
+  if (visible) {
+    visible = true;
+    this.style.opacity="0.5";
+    this.type="text"
+  } else {
+    visible = false;
+    this.style.opacity="1.0";
+    this.type="password"
+  }
+});
