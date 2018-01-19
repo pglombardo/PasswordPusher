@@ -87,7 +87,7 @@ document.getElementById("password_expire_after_views").addEventListener("change"
 
 document.getElementById("specialA").addEventListener("click",saveExpirations);
 
-document.getElementById("password_payload").addEventListener("click",function(){
+document.getElementById("visibleButton").addEventListener("click",function(){
   if (!visible) {
     visible = true;
     this.style.opacity="0.5";
