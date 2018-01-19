@@ -29,7 +29,7 @@ gem 'jquery-rails'
 gem 'listen'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~>0.21.0'
 end
 
 group :private do
