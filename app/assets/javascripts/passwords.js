@@ -66,14 +66,15 @@ $('#password_payload').keypress(function() {
     return false;
   }
 });
-
+var save_Placeholder;
 //CSP Fix
 document.getElementById("password_payload").addEventListener("click",function(){
+  save_Placeholder = this.placeholder;
   this.placeholder="";
 });
 
 document.getElementById("password_payload").addEventListener("blur",function(){
-  this.placeholder="#{PAYLOAD_INITIAL_TEXT}";
+  this.placeholder=save_Placeholder;
 });
 
 document.getElementById("password_expire_after_time").addEventListener("change",function(){
