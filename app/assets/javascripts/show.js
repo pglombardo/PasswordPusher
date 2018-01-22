@@ -17,4 +17,5 @@ document.getElementById("url").addEventListener("focus",function(){
   */
 (function(){
     new Clipboard('#copyButton');
+    new Clipboard('#copyLink');
 })();

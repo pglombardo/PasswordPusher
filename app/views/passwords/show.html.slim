@@ -28,11 +28,11 @@ div.content
     p
       | Your password is...
 
-    div.payload.spoiler
+    div.payload.spoiler#payload_div
       = @payload
 
-    //p.copy
-      a#copyPass>  href=("#" )  Click here
+    p.copy
+      a#copyLink data-clipboard-action="copy" data-clipboard-target=("#payload_div" )>  href=("#" )  Click here
       ' to copy the password without reveiling it!
     p.pwinstructions
       | Please obtain and securely store this password elsewhere, ideally in a password manager.
