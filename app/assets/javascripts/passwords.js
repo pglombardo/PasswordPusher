@@ -87,14 +87,24 @@ document.getElementById("password_expire_after_views").addEventListener("change"
 
 document.getElementById("specialA").addEventListener("click",saveExpirations);
 
-document.getElementById("visibleButton").addEventListener("click",function(){
+document.getElementById("myButton").addEventListener("click",function(){
   if (!visible) {
     visible = true;
-    this.style.opacity="0.3";
-    document.getElementById("password_payload").type="text"
+    this.style.opacity="1.0";
+    document.getElementById("password_payload").type="text";
   } else {
     visible = false;
-    this.style.opacity="1.0";
-    document.getElementById("password_payload").type="password"
+    this.style.opacity="0.3";
+    document.getElementById("password_payload").type="password";
   }
+});
+
+document.getElementById("myButton").addEventListener("mouseover",function(){
+  document.getElementById("visibleButton").style.display = "none";
+  document.getElementById("hoverButton").style.display = "inline";
+});
+
+document.getElementById("myButton").addEventListener("mouseout",function(){
+  document.getElementById("visibleButton").style.display = "inline";
+  document.getElementById("hoverButton").style.display = "none";
 });
