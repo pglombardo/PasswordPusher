@@ -13,7 +13,9 @@
   p.payload
     div.payloadContainer
       = f.text_field(:payload, { :class => "password", :placeholder => PAYLOAD_INITIAL_TEXT, :autocomplete => "off", :type => "password" })
-      = image_tag("visible.png" , {:id => "visibleButton", :class => "visibleButton"})
+      div#myButton
+        = image_tag("visible.png" , {:id => "visibleButton", :class => "visibleButton"})
+        = image_tag("hover.png" , {:id => "hoverButton", :class => "hoverButton"})
   p
     | Expire secret link and delete the stored password after:
     p.slider_box

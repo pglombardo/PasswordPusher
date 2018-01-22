@@ -7,15 +7,12 @@ document.getElementById("url").addEventListener("focus",function(){
     $(this).select();
   });
 
-/* document.getElementById("copyPass").addEventListener("click",function(){
-    var copyText = document.getElementById("payload_spoiler");
-    copyText.select();
-    document.execCommand("Copy");
-    alert("Password was copied to clipboard!")
-    return false;
-  });
-  */
 (function(){
+   if (document.getElementById("copyButton") != NULL) {
     new Clipboard('#copyButton');
+   } 
+
+   if (document.getElementById("copyLink") != NULL) {
     new Clipboard('#copyLink');
+   } 
 })();
