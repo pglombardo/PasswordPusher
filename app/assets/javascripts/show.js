@@ -25,9 +25,9 @@ if (document.getElementById("url") != null) {
         p_div.dispatchEvent(new Event('switchBlur'))
       } else {
         if (document.queryCommandSupported("copy")){
-          alert("Password has been saved to your Clipboard!")
+          alert("Password will be saved to your Clipboard!")
         } else {
-          alert("Press CTRL+v to copy the Password to your Clipboard!")
+          alert("After closing this press CTRL+v to copy the Password to your Clipboard!")
         }
     }
     });

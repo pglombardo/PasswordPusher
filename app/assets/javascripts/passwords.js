@@ -107,4 +107,5 @@ document.getElementById("myButton").addEventListener("mouseover",function(){
 document.getElementById("myButton").addEventListener("mouseout",function(){
   document.getElementById("visibleButton").style.display = "inline";
   document.getElementById("hoverButton").style.display = "none";
+  this.dispatchEvent(new Event("mouseup"));
 });
