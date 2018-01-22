@@ -81,6 +81,19 @@
       $spoiler.on('mouseout', function(e) {
         if ($spoiler.data('spoiler-state') == 'shrouded') performBlur(maxBlur, 1)
       })
+      $spoiler.on('switchBlur',function (e) {
+        if ($spoiler.data('spoiler-state') == 'shrouded') {
+          $spoiler.data('spoiler-state', 'revealed')
+            .attr('title', '')
+            .css('cursor', 'auto')
+          performBlur(0, -1)
+        } else {
+          $spoiler.data('spoiler-state', 'shrouded')
+            .attr('title', hintText)
+            .css('cursor', 'pointer')
+          performBlur(partialBlur, 1)
+        }
+      })
     })
 
   };
