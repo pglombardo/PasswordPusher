@@ -29,7 +29,7 @@ if (document.getElementById("url") != null) {
    } 
 
 
-   if ((p_div = getElementById("payload_div") )!= null) {
+   if ((p_div = document.getElementById("payload_div") )!= null) {
     $spoiler = $($('spoiler, .spoiler'))
     new Clipboard('#payload_div');
     p_div.addEventListener("click",function(){
