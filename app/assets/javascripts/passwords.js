@@ -87,16 +87,16 @@ document.getElementById("password_expire_after_views").addEventListener("change"
 
 document.getElementById("specialA").addEventListener("click",saveExpirations);
 
-document.getElementById("myButton").addEventListener("click",function(){
-  if (!visible) {
+document.getElementById("myButton").addEventListener("mousedown",function(){
     visible = true;
     this.style.opacity="1.0";
     document.getElementById("password_payload").type="text";
-  } else {
+});
+
+document.getElementById("myButton").addEventListener("mouseup",function(){
     visible = false;
     this.style.opacity="0.3";
     document.getElementById("password_payload").type="password";
-  }
 });
 
 document.getElementById("myButton").addEventListener("mouseover",function(){
