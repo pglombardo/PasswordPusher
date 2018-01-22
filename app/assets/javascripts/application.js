@@ -51,5 +51,5 @@ function setCopied() {
 	$('#clip_tip').text('copied!');
 }
 
-$('spoiler, .spoiler').spoilerAlert({max: 12, partial: 10})
+$('spoiler, .spoiler').spoilerAlert({max: 16, partial: 14})
 

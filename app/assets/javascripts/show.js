@@ -8,11 +8,11 @@ document.getElementById("url").addEventListener("focus",function(){
   });
 
 (function(){
-   if (document.getElementById("copyButton") != NULL) {
+   if (document.getElementById("copyButton") != null) {
     new Clipboard('#copyButton');
    } 
 
-   if (document.getElementById("copyLink") != NULL) {
+   if (document.getElementById("copyLink") != null) {
     new Clipboard('#copyLink');
    } 
 })();
