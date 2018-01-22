@@ -31,7 +31,7 @@ if (document.getElementById("url") != null) {
 
    if ((p_div = document.getElementById("payload_div") )!= null) {
     $spoiler = $($('spoiler, .spoiler'))
-    new Clipboard('#payload_div');
+   
     p_div.addEventListener("click",function(){
       if ($spoiler.data('spoiler-state') == 'revealed') {
         unblur($spoiler);
@@ -43,8 +43,9 @@ if (document.getElementById("url") != null) {
         }
     }
     });
+    new Clipboard('#payload_div');
 
-    if (cLink = document.getElementById("copyLink") != null){
+    if ((cLink = document.getElementById("copyLink")) != null){
       cLink.addEventListener("click", function(){
         unblur($spoiler);
         setTimeout(function(){

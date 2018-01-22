@@ -86,7 +86,7 @@ document.getElementById("password_expire_after_views").addEventListener("change"
 });
 
 document.getElementById("specialA").addEventListener("click",saveExpirations);
-
+document.getElementById("myButton").style.opacity="0.3";
 document.getElementById("myButton").addEventListener("mousedown",function(){
     visible = true;
     this.style.opacity="1.0";
