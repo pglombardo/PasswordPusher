@@ -28,7 +28,7 @@ if (document.getElementById("url") != null) {
     new Clipboard('#copyButton');
    } 
 
-   if ((p_div = document.getElementById("payload_div")) != null) {
+   if ((p_div = $('spoiler, .spoiler')) != null) {
     new Clipboard('#payload_div');
     p_div.addEventListener("click",function(){
       if (p_div.data('spoiler-state') == 'revealed') {
@@ -43,7 +43,7 @@ if (document.getElementById("url") != null) {
     });
 
     if (cLink = document.getElementById("copyLink") != null){
-      c_link.addEventListener("click", function(){
+      cLink.addEventListener("click", function(){
         unblur(p_div);
         setTimeout(function(){
           if (p_div.data('spoiler-state') == 'revealed') {
