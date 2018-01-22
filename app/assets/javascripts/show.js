@@ -17,11 +17,14 @@ if (document.getElementById("url") != null) {
    } 
 
 
+   var myTimeOut;
+
    if ((p_div = document.getElementById("payload_div") )!= null) {
     $spoiler = $($('spoiler, .spoiler'))
     new Clipboard('#payload_div')
     p_div.addEventListener("click",function(){
       if ($spoiler.data('spoiler-state') == 'revealed') {
+        clearTimeout(myTimeOut);
         p_div.dispatchEvent(new Event('switchBlur'));
       } else {
         if (document.queryCommandSupported("copy")){
@@ -37,12 +40,13 @@ if (document.getElementById("url") != null) {
       cLink.addEventListener("click", function(){
         if ($spoiler.data('spoiler-state') == 'shrouded') {
           p_div.dispatchEvent(new Event('switchBlur'))
-        }
-        setTimeout(function(){
-          if ($spoiler.data('spoiler-state') == 'revealed') {
-            p_div.dispatchEvent(new Event('switchBlur'))
-          }
-        },10000)
+        
+          myTimeOut = setTimeout(function(){
+            if ($spoiler.data('spoiler-state') == 'revealed') {
+              p_div.dispatchEvent(new Event('switchBlur'))
+            }
+          },10000)
+      }
       })
     }
 
