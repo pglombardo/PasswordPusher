@@ -27,12 +27,14 @@ if (document.getElementById("url") != null) {
    if (document.getElementById("copyButton") != null) {
     new Clipboard('#copyButton');
    } 
-
+   help = $('spoiler, .spoiler')
+   console.log(help)
+   console.log($(help))
    if ((p_div = $('spoiler, .spoiler')) != null) {
     new Clipboard('#payload_div');
     p_div.addEventListener("click",function(){
-      if (p_div.data('spoiler-state') == 'revealed') {
-        unblur(p_div);
+      if ($(p_div).data('spoiler-state') == 'revealed') {
+        unblur($(p_div));
       } else {
         if (document.queryCommandSupported("copy")){
           alert("Password has been saved to your Clipboard!")
@@ -44,10 +46,10 @@ if (document.getElementById("url") != null) {
 
     if (cLink = document.getElementById("copyLink") != null){
       cLink.addEventListener("click", function(){
-        unblur(p_div);
+        unblur($(p_div));
         setTimeout(function(){
-          if (p_div.data('spoiler-state') == 'revealed') {
-            unblur(p_div);
+          if ($(p_div).data('spoiler-state') == 'revealed') {
+            unblur($(p_div));
           }
         },10000)
       })
