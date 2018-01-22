@@ -28,7 +28,7 @@ if (document.getElementById("url") != null) {
     new Clipboard('#copyButton');
    } 
 
-   if (p_div = document.getElementById("payload_div") != null) {
+   if ((p_div = document.getElementById("payload_div")) != null) {
     new Clipboard('#payload_div');
     p_div.addEventListener("click",function(){
       if (p_div.data('spoiler-state') == 'revealed') {
