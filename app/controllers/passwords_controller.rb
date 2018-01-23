@@ -64,7 +64,12 @@ class PasswordsController < ApplicationController
     end
 
     @password = Password.new
-    @password.expire_after_days = params[:password][:expire_after_days]
+    time = params[:password][:expire_after_time]
+    if Integer(time) < 24
+      @password.expire_after_time = time
+    else
+      @password.expire_after_time = (24*(Integer(time)-23)).to_s
+    end
     @password.expire_after_views = params[:password][:expire_after_views]
 
     if DELETABLE_BY_VIEWER_PASSWORDS && params[:password].key?(:deletable_by_viewer)
@@ -125,6 +130,13 @@ class PasswordsController < ApplicationController
 
   private
 
+  def password_params
+    params.require(:password).permit(:payload, :expire_after_time, :expire_after_views, :deletable_by_viewer)
+  end
+
+  def user_params
+    params.requre(:user).permit(:email, :password, :password_confirmation, :remember_me)
+  end
   ##
   # log_view
   #

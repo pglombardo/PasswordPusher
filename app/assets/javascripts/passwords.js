@@ -4,13 +4,13 @@
 
 function saveExpirations()
 {
-  days_value  = document.getElementById("password_expire_after_days").value
+  days_value  = document.getElementById("password_expire_after_time").value
   views_value = document.getElementById("password_expire_after_views").value
   dbv         = document.getElementById("password_deletable_by_viewer")
 
-  $.cookie('pwpush_days',  days_value, { expires: 365 });
-  $.cookie('pwpush_views', views_value, { expires: 365 });
-  $.cookie('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
+  Cookies.set('pwpush_days',  days_value, { expires: 365 });
+  Cookies.set('pwpush_views', views_value, { expires: 365 });
+  Cookies.set('pwpush_dbv', dbv.checked.toString(), { expires: 365 });
 
   e = document.getElementById("cookie-save")
   e.innerHTML = "Saved!"
@@ -24,14 +24,14 @@ $(document).ready(function() {
     e.clearSelection();
   });
 
-  days = $.cookie('pwpush_days');
-  views = $.cookie('pwpush_views');
+  days = Cookies.get('pwpush_days');
+  views = Cookies.get('pwpush_views');
 
-  de = document.getElementById("password_expire_after_days")
+  de = document.getElementById("password_expire_after_time")
   dr = document.getElementById("daysrange")
   if (days) {
     de.value = days
-    dr.innerHTML = days + " Days"
+    showDaysValue(de.value)
   } else {
     showDaysValue(de.value)
   }
@@ -46,7 +46,7 @@ $(document).ready(function() {
   }
 
   dbv_checkbox = document.getElementById('password_deletable_by_viewer')
-  dbv_check_state = $.cookie('pwpush_dbv')
+  dbv_check_state = Cookies.get('pwpush_dbv')
   if (dbv_check_state) {
     if (dbv_check_state == "false") {
       dbv = false
@@ -65,4 +65,47 @@ $('#password_payload').keypress(function() {
     $.noty.clearQueue()
     return false;
   }
+});
+var save_Placeholder=document.getElementById("password_payload").placeholder;
+var visible = false;
+//CSP Fix
+document.getElementById("password_payload").addEventListener("click",function(){
+  this.placeholder="";
+});
+
+document.getElementById("password_payload").addEventListener("blur",function(){
+  this.placeholder=save_Placeholder;
+});
+
+document.getElementById("password_expire_after_time").addEventListener("change",function(){
+  showDaysValue(this.value);
+});
+
+document.getElementById("password_expire_after_views").addEventListener("change",function(){
+  showViewsValue(this.value);
+});
+
+document.getElementById("specialA").addEventListener("click",saveExpirations);
+document.getElementById("myButton").style.opacity="0.3";
+document.getElementById("myButton").addEventListener("mousedown",function(){
+    visible = true;
+    this.style.opacity="1.0";
+    document.getElementById("password_payload").type="text";
+});
+
+document.getElementById("myButton").addEventListener("mouseup",function(){
+    visible = false;
+    this.style.opacity="0.3";
+    document.getElementById("password_payload").type="password";
+});
+
+document.getElementById("myButton").addEventListener("mouseover",function(){
+  document.getElementById("visibleButton").style.display = "none";
+  document.getElementById("hoverButton").style.display = "inline";
+});
+
+document.getElementById("myButton").addEventListener("mouseout",function(){
+  document.getElementById("visibleButton").style.display = "inline";
+  document.getElementById("hoverButton").style.display = "none";
+  this.dispatchEvent(new Event("mouseup"));
 });

@@ -4,17 +4,20 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
-//= require_tree .
-//= require modernizr
+//= require_tree ./sitewide
 
 function showDaysValue(newValue)
 {
-  if (newValue > 1) {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Days';
+  if (newValue > 24) {
+  	document.getElementById("daysrange").innerHTML= (newValue - 23) + ' Days';
+  } else if (newValue == 24)  {
+  	document.getElementById("daysrange").innerHTML=(newValue - 23) + ' Day';
+  } else if (newValue == 1) {
+    document.getElementById("daysrange").innerHTML=newValue + ' Hour';
   } else {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Day';
+    document.getElementById("daysrange").innerHTML=newValue + ' Hours';
   }
 }
 
@@ -48,5 +51,5 @@ function setCopied() {
 	$('#clip_tip').text('copied!');
 }
 
-$('spoiler, .spoiler').spoilerAlert({max: 10, partial: 7})
+$('spoiler, .spoiler').spoilerAlert({max: 16, partial: 14, hintText: "Click to copy"})
 
