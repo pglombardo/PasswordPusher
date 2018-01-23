@@ -1,17 +1,16 @@
 class Password < ActiveRecord::Base
-  attr_accessible :payload, :expire_after_days, :expire_after_views, :deletable_by_viewer
   has_many :views, :dependent => :destroy
 
   def to_param
     self.url_token.to_s
   end
 
-  def days_old
-    (Time.now.to_datetime - self.created_at.to_datetime).to_i
+  def hours_old
+    (Time.now.to_i - self.created_at.to_i)/(60*60)
   end
 
-  def days_remaining
-    [(self.expire_after_days - self.days_old), 0].max
+  def hours_remaining
+    [(self.expire_after_time - self.hours_old), 0].max
   end
 
   def views_remaining
@@ -28,11 +27,17 @@ class Password < ActiveRecord::Base
     return if expired
 
     # Range checking
-    self.expire_after_days  ||= EXPIRE_AFTER_DAYS_DEFAULT
+    self.expire_after_time  ||= EXPIRE_AFTER_TIME_DEFAULT
     self.expire_after_views ||= EXPIRE_AFTER_VIEWS_DEFAULT
 
-    unless self.expire_after_days.between?(EXPIRE_AFTER_DAYS_MIN, EXPIRE_AFTER_DAYS_MAX)
-      self.expire_after_days = EXPIRE_AFTER_DAYS_DEFAULT
+    if EXPIRE_AFTER_TIME_MAX < 24
+      max_time = EXPIRE_AFTER_TIME_MAX
+    else
+      max_time = (24*(EXPIRE_AFTER_TIME_MAX-23))
+    end
+
+    unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN, max_time)
+      self.expire_after_time = EXPIRE_AFTER_TIME_DEFAULT
     end
 
     unless self.expire_after_views.between?(EXPIRE_AFTER_VIEWS_MIN, EXPIRE_AFTER_VIEWS_MAX)
@@ -40,7 +45,7 @@ class Password < ActiveRecord::Base
     end
 
     unless self.new_record?
-      if (self.days_old >= self.expire_after_days) or (self.views.count >= self.expire_after_views)
+      if (self.hours_old >= self.expire_after_time) or (self.views.count >= self.expire_after_views)
         # This password has hit max age or max views - expire it
         self.expired = true
         self.payload = nil
