@@ -1,8 +1,9 @@
 class CommandsController < ApplicationController
 
   def create
-    if params[:command] != '/pwp'
-      render :text => "Unknown command: #{params[:command]}", layout: false, content_type: 'text/plain'
+
+    if !params.key?(:command) || !params.key?(:text) || params[:command] != 'pwpush'
+      render :text => "Unknown command: #{params.inspect}", layout: false, content_type: 'text/plain'
       return
     end
 
@@ -24,9 +25,9 @@ class CommandsController < ApplicationController
     @password.validate!
 
     if @password.save
-      render :text => "https://pwpush.com/p/#{@password.url_token}"
+      render :text => "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}", :layout => false
     else
-      render :text => @password.errors
+      render :text => @password.errors, :layout => false
     end
   end
 end
