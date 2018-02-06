@@ -19,16 +19,16 @@ if (document.getElementById("url") != null) {
 
   var myTimeOut;
   
-  if ((p_div = document.getElementById("below_spoiler") )!= null) {
+  if ((p_div = document.getElementById("payload_div") )!= null) {
     var myTooltip = new Tooltip(p_div, {
       placement: 'top',
-      delay: {show: 500, hide: 1000},
       trigger: 'manual',
       title: function(){if (document.queryCommandSupported("copy")){
           return "Password is saved to your Clipboard!";
        } else {
          return "Press CTRL+v to copy the Password to your Clipboard!";
-       }}
+       }},
+
     });
   $spoiler = $($('spoiler, .spoiler'))
   new Clipboard('#payload_div')
@@ -37,9 +37,12 @@ if (document.getElementById("url") != null) {
       clearTimeout(myTimeOut);
       p_div.dispatchEvent(new Event('switchBlur'));
     } else {
-      
+      var height = (p_div.getBoundingClientRect().height)/2;
+      myTooltip.options.offset='0,'+height.toString() + 'px';
       myTooltip.show();
-      //myTooltip.hide();
+      myTimeOut = setTimeout(myTooltip.hide
+      ,1000)
+    
   }
   });
 
