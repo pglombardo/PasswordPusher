@@ -2,7 +2,7 @@ class CommandsController < ApplicationController
 
   def create
 
-    if !params.key?(:command) || !params.key?(:text) || params[:command] != 'pwpush'
+    if !params.key?(:command) || !params.key?(:text) || params[:command] != '/pwpush'
       render :text => "Unknown command: #{params.inspect}", layout: false, content_type: 'text/plain'
       return
     end
