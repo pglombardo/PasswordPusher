@@ -22,7 +22,7 @@ if (document.getElementById("url") != null) {
   if ((p_div = document.getElementById("payload_div") )!= null) {
     var myTooltip = new Tooltip(p_div, {
       placement: 'top',
-      delay: {show: 0, hide: 1000},
+      delay: {show: 100, hide: 1000},
       trigger: 'manual',
     });
   $spoiler = $($('spoiler, .spoiler'))
@@ -38,7 +38,7 @@ if (document.getElementById("url") != null) {
         myTooltip.options.title="Press CTRL+v to copy the Password to your Clipboard!";
       }
       myTooltip.show();
-      myTooltip.hide();
+      //myTooltip.hide();
   }
   });
 
