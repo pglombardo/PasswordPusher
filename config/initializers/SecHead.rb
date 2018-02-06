@@ -19,4 +19,10 @@ SecureHeaders::Configuration.default do |config|
   config.referrer_policy = %w(same-origin)
 
   config.hsts = "max-age=#{6.month.to_i}"
+  config.cookies = {
+    secure: true, # mark all cookies as "Secure"
+    samesite: {
+      lax: true # mark all cookies as SameSite=lax
+    }
+  }
 end
