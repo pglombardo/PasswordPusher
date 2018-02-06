@@ -1,8 +1,8 @@
 class CommandsController < ApplicationController
 
   def create
-    unless params[:command] == '/pwp'
-      render :text => 'Unknown command.', layout: false, content_type: 'text/plain'
+    if params[:command] != '/pwp'
+      render :text => "Unknown command: #{params[:command]}", layout: false, content_type: 'text/plain'
       return
     end
 
