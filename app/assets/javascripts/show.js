@@ -20,7 +20,7 @@ if (document.getElementById("url") != null) {
   var myTimeOut;
   
   if ((p_div = document.getElementById("payload_div") )!= null) {
-    var myTooltip = new Tooltip(p_div, {
+    var myTooltip = new Tooltip(document.getElementById("below_spoiler"), {
       placement: 'top',
       trigger: 'manual',
       title: function(){if (document.queryCommandSupported("copy")){
@@ -41,7 +41,7 @@ if (document.getElementById("url") != null) {
       myTooltip.options.offset='0,'+height.toString() + 'px';
       myTooltip.show();
       myTimeOut = setTimeout(myTooltip.hide
-      ,1000)
+      ,2000)
     
   }
   });
