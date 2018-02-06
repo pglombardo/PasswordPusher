@@ -20,7 +20,7 @@ if (document.getElementById("url") != null) {
   var myTimeOut;
   
   if ((p_div = document.getElementById("below_spoiler") )!= null) {
-    var myTooltip = new Tooltip(p_div, {
+    const myTooltip = new Tooltip(p_div, {
       placement: 'top',
       delay: {show: 500, hide: 1000},
       trigger: 'manual',
