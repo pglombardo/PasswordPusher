@@ -24,7 +24,7 @@ if (document.getElementById("url") != null) {
       placement: 'top',
       trigger: 'manual',
       title: function(){if (document.queryCommandSupported("copy")){
-          return "Password is saved to your Clipboard!";
+          return "Password has been saved to your Clipboard!";
        } else {
          return "Press CTRL+v to copy the Password to your Clipboard!";
        }},
