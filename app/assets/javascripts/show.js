@@ -20,7 +20,7 @@ if (document.getElementById("url") != null) {
   var myTimeOut;
   
   if ((p_div = document.getElementById("payload_div") )!= null) {
-    var myTooltip = Tooltip(p_div, {
+    var myTooltip = new Tooltip(p_div, {
       placement: 'top',
       delay: {show: 0, hide: 1000},
       trigger: 'manual',
