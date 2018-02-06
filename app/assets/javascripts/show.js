@@ -33,7 +33,7 @@ if (document.getElementById("url") != null) {
       p_div.dispatchEvent(new Event('switchBlur'));
     } else {
       if (document.queryCommandSupported("copy")){
-       myTooltip.options.title="Password is saved to your Clipboard!);
+       myTooltip.options.title="Password is saved to your Clipboard!";
       } else {
         myTooltip.options.title="Press CTRL+v to copy the Password to your Clipboard!";
       }
