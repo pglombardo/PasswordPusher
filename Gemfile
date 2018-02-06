@@ -31,7 +31,7 @@ gem 'unicorn'
 gem 'jquery-rails'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.21'
 end
 
 group :private do
