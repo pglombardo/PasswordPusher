@@ -24,6 +24,11 @@ if (document.getElementById("url") != null) {
       placement: 'top',
       delay: {show: 500, hide: 1000},
       trigger: 'manual',
+      title: function(){if (document.queryCommandSupported("copy")){
+          return "Password is saved to your Clipboard!";
+       } else {
+         return "Press CTRL+v to copy the Password to your Clipboard!";
+       }}
     });
   $spoiler = $($('spoiler, .spoiler'))
   new Clipboard('#payload_div')
@@ -32,11 +37,7 @@ if (document.getElementById("url") != null) {
       clearTimeout(myTimeOut);
       p_div.dispatchEvent(new Event('switchBlur'));
     } else {
-      if (document.queryCommandSupported("copy")){
-       myTooltip.options.title="Password is saved to your Clipboard!";
-      } else {
-        myTooltip.options.title="Press CTRL+v to copy the Password to your Clipboard!";
-      }
+      
       myTooltip.show();
       //myTooltip.hide();
   }
