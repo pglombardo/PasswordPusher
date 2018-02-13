@@ -47,7 +47,7 @@ Rails.application.configure do
 
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  #config.ssl_options = {redirect: false}
+  config.ssl_options = {redirect: false}
   #config.ssl_options += { hsts: { expires: 6.months } }
   config.force_ssl = true
 
