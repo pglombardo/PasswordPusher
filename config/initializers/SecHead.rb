@@ -11,7 +11,7 @@ SecureHeaders::Configuration.default do |config|
     form_action: %w('self'),
     base_uri: %w('self'),
     frame_ancestors: %w('none'),
-    upgrade-insecure-requests
+    upgrade-insecure-requests: true,
    # report_uri: ["/csp_report?report_only=#{Rails.env.production?}“] # violation reports will be sent here
   }
 
