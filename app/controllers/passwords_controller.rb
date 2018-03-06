@@ -166,7 +166,7 @@ class PasswordsController < ApplicationController
     cipher = OpenSSL::Cipher.new("aes-256-cbc")
     cipher.encrypt
     dKey = Digest::SHA256.hexdigest(key + salt)
-    cipher.key = dKey
+    cipher.key = dKey[0..31]
     iv = cipher.random_iv
     encrypted = cipher.update(data)
     encrypted << cipher.final
@@ -178,7 +178,7 @@ class PasswordsController < ApplicationController
     cipher = OpenSSL::Cipher.new("aes-256-cbc")
     cipher.decrypt
     dKey = Digest::SHA256.hexdigest(key + salt)
-    cipher.key = dKey
+    cipher.key = dKey[0..31]
     cipher.iv = decodedData[0..15]
     decrypted = cipher.update(decodedData[16..-1])
     decrypted << cipher.final
