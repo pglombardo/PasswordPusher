@@ -17,7 +17,7 @@ SecureHeaders::Configuration.default do |config|
 
   config.referrer_policy = %w(same-origin)
 
-  config.hsts = "max-age=#{6.month.to_i}"
+  config.hsts = "max-age=#{6.month.to_i}; includeSubdomains"
   config.cookies = {
     secure: true, # mark all cookies as "Secure"
     samesite: {
