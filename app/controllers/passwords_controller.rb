@@ -1,5 +1,5 @@
 require 'openssl'
-require 'digest/sha256'
+require 'digest/sha2'
 require 'base64'
 
 class PasswordsController < ApplicationController
