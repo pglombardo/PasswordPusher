@@ -1,3 +1,7 @@
+require 'openssl'
+require 'digest/sha1'
+require 'base64'
+
 class PasswordsController < ApplicationController
   # GET /passwords/1
   # GET /passwords/1.json
@@ -24,8 +28,7 @@ class PasswordsController < ApplicationController
 
     unless @password.expired
       # Decrypt the passwords
-      @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-      @payload = @key.decrypt64(@password.payload)
+      @payload = decrypt(CRYPT_KEY,CRYPT_SALT,@password.payload)
     end
 
     log_view(@password) unless @first_view
@@ -34,6 +37,7 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      @password.payload = @payload
       format.json { render :json => @password }
     end
   end
@@ -85,14 +89,14 @@ class PasswordsController < ApplicationController
     @password.first_view = true
 
     # Encrypt the passwords
-    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @password.payload = @key.encrypt64(params[:password][:payload])
+    @password.payload = encrypt(CRYPT_KEY,CRYPT_SALT,params[:password][:payload])
 
     @password.validate!
 
     respond_to do |format|
       if @password.save
         format.html { redirect_to @password, :notice => "The password has been pushed." }
+        @password.payload = params[:password][:payload]
         format.json { render :json => @password, :status => :created }
       else
         format.html { render :action => "new" }
@@ -156,5 +160,28 @@ class PasswordsController < ApplicationController
 
     password.views << view
     password
+  end
+
+  def encrypt(key,salt,data)
+    cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
+    cipher.encrypt
+    dKey = Digest::SHA1.hexdigest(key + salt)
+    cipher.key = dKey
+    cipher.iv = cipher.random_iv
+    encrypted = cipher.update(data)
+    encrypted << cipher.final
+    return Base64.encode64(cipher.iv + encrypted)
+  end
+
+  def decrypt(key,salt,data)
+    decodedData = Base64.decode64(data)
+    cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
+    cipher.decrypt
+    dKey = Digest::SHA1.hexdigest(key + salt)
+    cipher.key = dKey
+    cipher.iv = data[0..15]
+    decrypted = cipher.update(decodedData[16..-1])
+    decrypted << cipher.final
+    return decrypted
   end
 end
