@@ -1,5 +1,5 @@
 require 'openssl'
-require 'digest/sha1'
+require 'digest/sha256'
 require 'base64'
 
 class PasswordsController < ApplicationController
@@ -163,23 +163,23 @@ class PasswordsController < ApplicationController
   end
 
   def encrypt(key,salt,data)
-    cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
+    cipher = OpenSSL::Cipher.new("aes-256-cbc")
     cipher.encrypt
-    dKey = Digest::SHA1.hexdigest(key + salt)
+    dKey = Digest::SHA256.hexdigest(key + salt)
     cipher.key = dKey
-    cipher.iv = cipher.random_iv
+    iv = cipher.random_iv
     encrypted = cipher.update(data)
     encrypted << cipher.final
-    return Base64.encode64(cipher.iv + encrypted)
+    return Base64.encode64(iv + encrypted)
   end
 
   def decrypt(key,salt,data)
     decodedData = Base64.decode64(data)
-    cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
+    cipher = OpenSSL::Cipher.new("aes-256-cbc")
     cipher.decrypt
-    dKey = Digest::SHA1.hexdigest(key + salt)
+    dKey = Digest::SHA256.hexdigest(key + salt)
     cipher.key = dKey
-    cipher.iv = data[0..15]
+    cipher.iv = decodedData[0..15]
     decrypted = cipher.update(decodedData[16..-1])
     decrypted << cipher.final
     return decrypted
