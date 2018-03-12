@@ -3,19 +3,19 @@ div.content
     p
       | We apologize but...
     div.payload
-      | This secret link has expired.
+      | This link has expired.
     p
       - if @password.deleted
-        | This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
+        | This link was manually expired by one of its viewers and the secret has been deleted from the SecretPush database.
       - elsif @password.views_remaining == 0
-        | The secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
+        | The link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the SecretPush database.
       - elsif @password.hours_remaining == 0
-        | The secret link has hit its maximum age (#{@password.expire_after_time} hours) and the password has been deleted from the PasswordPusher database.
+        | The link has hit its maximum age (#{@password.expire_after_time} hours) and the secret has been deleted from the SecretPush database.
 
   - else
     - if @first_view
       .share_note
-        | This is your password.  Use this secret link to share it:
+        | This is your secret.  Use this link to share it:
         p.url
           div.input_group
             input#url  value="#{request.url}" spellcheck="false"  readonly=(true ) 
@@ -26,35 +26,35 @@ div.content
           br/
           | Don't believe me?  Go ahead.  Hit reload...
     p
-      | Your password is...
+      | Your secret is...
 
     div.payload.spoiler#payload_div data-clipboard-action="copy" data-clipboard-target="#payload_div"
       = @payload
 
     p#below_spoiler
-      | Click on the field above to copy the Password
+      | Click on the field above to copy the secret
     p.copy
       | or
       a#copyLink>  href=("#" )  click here
-      ' to reveal the password for 10s!
+      ' to reveal the secret for 10s!
     p.pwinstructions
-      | Please obtain and securely store this password elsewhere, ideally in a password manager.
+      | Please obtain and securely store this secret elsewhere.
 
     p
       - if @password.views_remaining == 0
-        | This secret link will be deleted in #{pluralize(@password.hours_remaining, 'hour')} or #{@password.views_remaining} more views (this is the last view).
+        | This link will be deleted in #{pluralize(@password.hours_remaining, 'hour')} or #{@password.views_remaining} more views (this is the last view).
       - else
-        ' This secret link will be deleted in #{pluralize(@password.hours_remaining, 'hour')}
+        ' This link will be deleted in #{pluralize(@password.hours_remaining, 'hour')}
         | or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
     - if @password.deletable_by_viewer
       p.delteThis  
-        = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
+        = link_to "Nah. I've got it. Delete this link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this link and remove the secret from the SecretPush database forever.  Are you sure?' }
 div.footer_note
   ' This
   - if @password.expired
     ' (unfortunately expired)
   ' password link is brought to you by
-  = link_to "Password Pusher", "/"
+  = link_to "Secret Push", "/"
   |  and viewers like you.
 
 = content_for :extraTail do
