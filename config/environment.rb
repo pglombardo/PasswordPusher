@@ -1,7 +1,7 @@
 # Load the rails application
 require_relative 'application'
 
-PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Password to be Shared')
+PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Secret to be Shared')
 
 # If deploying PasswordPusher yourself, you should change these CRYPT values.
 if !Rails.env.production?
