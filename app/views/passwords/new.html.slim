@@ -7,9 +7,9 @@
       div.titlelogo
         = image_tag('logo.png')
       div.titletext
-        span.title Password Pusher
+        span.title Secret Push
         br
-        span.tagline Go Ahead.  Email Another Password.
+        span.tagline Go Ahead.  Email Another Secret.
   p.payload
     div.payloadContainer
       = f.text_field(:payload, { :class => "password", :placeholder => PAYLOAD_INITIAL_TEXT, :autocomplete => "off", :type => "password" })
@@ -17,7 +17,7 @@
         = image_tag("visible.png" , {:id => "visibleButton", :class => "visibleButton"})
         = image_tag("hover.png" , {:id => "hoverButton", :class => "hoverButton"})
   p
-    | Expire secret link and delete the stored password after:
+    | Expire link and delete the stored secret after:
     p.slider_box
       = range_field_tag("password_expire_after_time", EXPIRE_AFTER_TIME_DEFAULT, {:name => "password[expire_after_time]", :class => "slider", :min => EXPIRE_AFTER_TIME_MIN, :max => EXPIRE_AFTER_TIME_MAX, :step => "1"})
       span#daysrange
@@ -32,7 +32,7 @@
     - if DELETABLE_BY_VIEWER_PASSWORDS
       p.notes
         = check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT
-        | Allow viewers to optionally delete password before expiration
+        | Allow viewers to optionally delete secret before expiration
 
   p
     = f.submit(:value => "Push it!")
@@ -45,18 +45,18 @@ p.notes
         i> default
         |in a browser cookie.
   span.tip
-    | * Tip: Only enter the password into the box.  Other identifying information can compromise security.
+    | * Tip: Only enter the secret into the box.  Other identifying information can compromise security.
   p
   span.note
-    | All passwords are encrypted prior to storage and are available to only those with the secret link.
+    | All secrets are encrypted prior to storage and are available to only those with the secret link.
   br/
   span.note
-    | Once expired, encrypted passwords are unequivocally deleted from the database.
+    | Once expired, encrypted secrets are unequivocally deleted from the database.
 
 
 p.notes
   = link_to "FAQ", page_path('faq')
   ||
-  = link_to "About PasswordPusher", page_path('about')
+  = link_to "About SecretPush", page_path('about')
 = content_for :extraTail do
   = javascript_include_tag "passwords"
