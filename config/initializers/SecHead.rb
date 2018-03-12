@@ -11,8 +11,8 @@ SecureHeaders::Configuration.default do |config|
     form_action: %w('self'),
     base_uri: %w('self'),
     frame_ancestors: %w('none'),
-    upgrade_insecure_requests: true
-    report_uri: %w(https://secpush.report-uri.com/r/d/csp/enforce) # violation reports will be sent here
+    upgrade_insecure_requests: true,
+    report_uri: %w(https://secpush.report-uri.com/r/d/csp/enforce/) # violation reports will be sent here
   }
 
   config.referrer_policy = %w(same-origin)
