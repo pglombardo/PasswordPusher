@@ -6,8 +6,8 @@ SecureHeaders::Configuration.default do |config|
     img_src: %w('self'),
     connect_src: %w('self'), # Ajax may connect only to the same origin
     #This is dirty. But this is a modernizr issue
-    style_src: %w('self' https://fonts.googleapis.com/ ), 
-    font_src: %w('self' https://fonts.googleapis.com/ https://fonts.gstatic.com/),
+    style_src: %w('self'), 
+    font_src: %w('self'),
     form_action: %w('self'),
     base_uri: %w('self'),
     frame_ancestors: %w('none'),
