@@ -1,18 +1,34 @@
-FROM ruby:2.4.2-onbuild
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs openssh-client git vim zip curl
-RUN mkdir /pwpush
-WORKDIR /pwpush
-COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
-COPY . ./
-EXPOSE 3000
+FROM docker.io/ubuntu:18.04
 
-# To use as temporary preview of the app.  Not suitable for production
-# as the database is recreated from scratch on each docker image boot.
-ENV RAILS_ENV=private
-CMD bundle exec rake db:setup && bundle exec rails server
+# Use the following 2 env variables if you need proxy support in your environment
+#ENV https_proxy=http://10.0.2.2:3128
+#ENV http_proxy=http://10.0.2.2:3128
 
-# Other entries that are useful when debugging, testing etc..
-#CMD bundle exec rails server -p 8080 -b 0.0.0.0
-#CMD bundle exec rails server
-#ENV INSTANA_GEM_DEV=true
+ENV APP_ROOT=/opt/PasswordPusher
+ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
+RUN ln -fs /usr/share/zoneinfo/Europe/Paris > /etc/localtime
+RUN apt-get update -qq && \
+    apt-get install -y --assume-yes build-essential libpq-dev nodejs openssh-client git vim zip curl ruby2.5 ruby2.5-dev tzdata sqlite3 ruby-sqlite3 libsqlite3-dev zlib1g-dev && \
+    cd /opt && \
+    git clone https://github.com/pglombardo/PasswordPusher.git && \
+    touch ${APP_ROOT}/log/private.log && \
+    cd ${APP_ROOT} && \
+    gem install bundler && \
+    gem install thor && \
+    chown -R 1001:root ${APP_ROOT}
+
+EXPOSE 5000
+
+USER 1001
+WORKDIR ${APP_ROOT}
+RUN bundle install --without development production test --deployment && \
+    bundle exec rake assets:precompile && \
+    RAILS_ENV=private bundle exec rake db:setup
+
+USER root
+RUN chmod -R u+x ${APP_ROOT} && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT} /etc/passwd
+
+USER 1001
+ENTRYPOINT [ "bundle", "exec", "foreman", "start", "internalweb" ]
