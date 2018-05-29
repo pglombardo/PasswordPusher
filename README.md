@@ -12,6 +12,12 @@ The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpush
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+## Deploy in Containers
+
+PasswordPusher can be deployed to [Kubernetes](https://kubernetes.io/), [OpenShift](https://openshift.com/) or any [Docker](https://www.docker.com/) host.
+
+See the [containerization directory](https://github.com/pglombardo/PasswordPusher/tree/master/containerization) for details.  Docker images hosted in [docker.io/r/pglombardo](https://hub.docker.com/r/pglombardo/).
+
 ## Deploy Internally
 
 Make sure you have git and Ruby installed and then:
@@ -77,6 +83,8 @@ You can always checkout out the [latest commits](https://github.com/pglombardo/P
 ## Credits
 
 Thanks to:
+
+* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
 * [@iandunn](https://github.com/iandunn) for better password form security.
 
