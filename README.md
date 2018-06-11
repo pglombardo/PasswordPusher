@@ -1,6 +1,8 @@
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
-PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally or on Heroku with just a few steps.
+PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. 
+
+Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally on Docker, Kubernetes, OpenShift or on Heroku with just a few steps.
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
@@ -12,7 +14,13 @@ The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpush
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Deploy Internally
+## Deploy in Containers
+
+PasswordPusher can be deployed to [Kubernetes](https://kubernetes.io/), [OpenShift](https://openshift.com/) or any [Docker](https://www.docker.com/) host.
+
+See the [containerization directory](https://github.com/pglombardo/PasswordPusher/tree/master/containerization) for details.  Docker images hosted in [docker.io/r/pglombardo](https://hub.docker.com/r/pglombardo/).
+
+## Deploy Manually
 
 Make sure you have git and Ruby installed and then:
 
@@ -78,6 +86,8 @@ You can always checkout out the [latest commits](https://github.com/pglombardo/P
 
 Thanks to:
 
+* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
+
 * [@iandunn](https://github.com/iandunn) for better password form security.
 
 * [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
@@ -87,6 +97,8 @@ Thanks to:
 ## See Also
 
 [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/push-pwpush.ps1) for Password Pusher.
+
+[lnfnunes](https://github.com/lnfnunes) created a [NodeJS CLI](https://github.com/lnfnunes/pwpush-cli) wrapper for Password Pusher to be easily used in the terminal.
 
 [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
 

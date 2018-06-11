@@ -39,4 +39,3 @@ group :private do
 end
 
 gem "instana"
-gem "sys-proctable", '< 1.2.0'
