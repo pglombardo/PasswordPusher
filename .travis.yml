@@ -1,9 +1,18 @@
 language: ruby
+
+cache:
+  bundler: true
+  directories:
+    - vendor/bundle
+
+#bundler_args: --without production
+
 rvm:
-  - 2.3.3
-  - 2.4.0
-  - rbx-3.69
-branches:
-  only:
-    - master
-bundler_args: --without production
+  - 2.5.1
+
+before_install:
+  - gem update --system
+  - gem update bundler
+  - gem --version
+
+script: "bundle exec rake test"
