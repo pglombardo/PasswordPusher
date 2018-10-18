@@ -28,8 +28,12 @@
     %p
       Your password is...
 
-    %div.payload.spoiler<
+    %div.payload.spoiler#pass<
       = @payload
+
+    %p Copy Password to Clipboard:
+    %button.btn{ "data-clipboard-target" => "#pass" }
+      = image_tag('button_up.png')
 
     %p.pwinstructions
       Please obtain and securely store this password elsewhere, ideally in a password manager.
