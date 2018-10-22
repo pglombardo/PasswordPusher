@@ -19,7 +19,7 @@
         %p.url
           %div.input_group
             %input#url{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();', :readonly => true }
-            %button.btn{ "data-clipboard-target" => "#url" }
+            %button.btn.btn-link{ "data-clipboard-target" => "#url" }
               = image_tag('button_up.png')
         %span.note
           This note won't be shown again...
@@ -28,8 +28,11 @@
     %p
       Your password is...
 
-    %div.payload.spoiler<
+    %div.payload.spoiler#pass<
       = @payload
+
+    %button.btn.btn-copy{ "data-clipboard-target" => "#pass" }
+      %p Copy Password to Clipboard
 
     %p.pwinstructions
       Please obtain and securely store this password elsewhere, ideally in a password manager.
