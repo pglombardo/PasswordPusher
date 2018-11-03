@@ -1,21 +1,16 @@
-<% title "Views" %>
-
-<table>
+<table align="center">
   <tr>
-    <th>Password</th>
-    <th>Ip</th>
+    <th>Password URL</th>
+    <th>IP</th>
     <th>User Agent</th>
   </tr>
-  <% for view in @views %>
+  <% @views.each do |v| %>
     <tr>
-      <td><%= view.password_id %></td>
-      <td><%= view.ip %></td>
-      <td><%= view.user_agent %></td>
-      <td><%= link_to "Show", view %></td>
-      <td><%= link_to "Edit", edit_view_path(view) %></td>
-      <td><%= link_to "Destroy", view, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to v.password.to_param, password_path(v.password.to_param) %></td>
+      <td><%= v.ip %></td>
+      <td><%= v.user_agent %></td>
     </tr>
-  <% end %>
+  <% end unless @views.empty? %>
 </table>
 
-<p><%= link_to "New View", new_view_path %></p>
+<%= link_to 'Go to Password list', pwds_path, class: 'btn btn-info' %>
