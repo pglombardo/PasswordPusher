@@ -40,6 +40,8 @@
         = notice
       %p.alert
         = alert
+      = "You are logged in as #{current_user.email} - " unless current_user.nil?
+      = link_to 'Disconnect', destroy_user_session_path
       = yield
 
     = javascript_include_tag "application"
