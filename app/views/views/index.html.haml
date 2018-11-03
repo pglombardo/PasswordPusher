@@ -1,18 +1,19 @@
-<h1>Views list</h1>
+%h1 Views list
 
-<table align="center">
-  <tr>
-    <th>Password Token</th>
-    <th>IP</th>
-    <th>User Agent</th>
-  </tr>
-  <% @views.each do |v| %>
-    <tr>
-      <td><%= link_to v.password.to_param, password_path(v.password.to_param) %></td>
-      <td><%= v.ip %></td>
-      <td><%= v.user_agent %></td>
-    </tr>
-  <% end unless @views.empty? %>
-</table>
+%table{align:"center"}
+  %tr
+    %th Password Token
+    %th IP
+    %th User Agent
 
-<%= link_to 'Go to Password list', pwds_path, class: 'btn btn-info' %>
+  - unless @views.empty?
+    - @views.each do |v|
+      %tr
+        %td
+          = link_to v.password.to_param, password_path(v.password.to_param)
+        %td
+          = v.ip
+        %td
+          = v.user_agent
+
+= link_to 'Go to Password list', pwds_path, class: 'btn btn-info'
