@@ -1,68 +1,67 @@
-
 = form_for @password do |f|
   %p
     %div.title
       %span.title Password Pusher
       %br
-      %span.tagline Go Ahead.  Email Another Password.
+      %span.tagline
+        = t('passwords.new.email_another')
   %p.payload
-    = f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)", :autocomplete => "off" })
+    = f.text_field(:payload, { class: 'password', value: PAYLOAD_INITIAL_TEXT, onfocus: 'prepareTextField(this)', onblur: 'revertTextField(this)', autocomplete: 'off' })
   %p
-    Expire secret link and delete the stored password after:
+    = t('passwords.new.expiries')
     %p.slider_box
-      = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)"})
+      = range_field_tag('password_expire_after_days', EXPIRE_AFTER_DAYS_DEFAULT, {name: 'password[expire_after_days]', class: 'slider', min: EXPIRE_AFTER_DAYS_MIN, max: EXPIRE_AFTER_DAYS_MAX, step: '1', onchange: 'showDaysValue(this.value)'})
       %span#daysrange
-        == #{EXPIRE_AFTER_DAYS_DEFAULT} Days
+        == #{EXPIRE_AFTER_DAYS_DEFAULT} #{t('passwords.new.days')}
     %p.slider_box
-      = range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)"})
+      = range_field_tag('password_expire_after_views', EXPIRE_AFTER_VIEWS_DEFAULT, {name: 'password[expire_after_views]', class: 'slider', min: EXPIRE_AFTER_VIEWS_MIN, max: EXPIRE_AFTER_VIEWS_MAX, step: '1', onchange: 'showViewsValue(this.value)'})
       %span#viewsrange
-        == #{EXPIRE_AFTER_VIEWS_DEFAULT} Views
+        == #{EXPIRE_AFTER_VIEWS_DEFAULT} #{t('passwords.new.views')}
     %br
       %span.note
-        (whichever comes first)
+        = t('passwords.new.wichever_first')
     - if DELETABLE_BY_VIEWER_PASSWORDS
       %p.notes
-        = check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT
-        Allow viewers to optionally delete password before expiration
+        = check_box_tag 'password[deletable_by_viewer]', nil, DELETABLE_BY_VIEWER_DEFAULT
+        = t('passwords.new.allow_viewer_deletion')
 
   %p
-    = f.submit(:value => "Push it!")
+    = f.submit(value: t('passwords.new.push_it'))
 
 
 %p.notes
   %p
     %span
       #cookie-save.cookie-save
-        %a{ :onclick => "saveExpirations()", :href => "#" } Save
-        these settings as
-        %i default
-        in a browser cookie.
+        %a{ onclick: 'saveExpirations()', href: '#' }
+          = t('passwords.new.save')
+        = t('passwords.new.this_settings')
+        %i
+          = t('passwords.new.default')
+        = t('passwords.new.in_browser')
   %span.tip
-    * Tip: Only enter the password into the box.  Other identifying information can compromise security.
+    = t('passwords.new.tip')
   %p
   %span.note
-    All passwords are encrypted prior to storage and are available to only those with the secret link.
+    = t('passwords.new.note1')
   %br/
   %span.note
-    Once expired, encrypted passwords are unequivocally deleted from the database.
+    = t('passwords.new.note2')
 
 %p.notes
-  New
-  = link_to "workflow",  "http://www.packal.org/workflow/passwordpusher"
-  for Alfred users.  Thanks to
-  = link_to "@psteinweber", "https://github.com/pglombardo/PasswordPusher/issues/29"
-  for the idea.
+  = t('passwords.new.new_workflow', workflow_link: link_to('workflow',  'http://www.packal.org/workflow/passwordpusher'), guy: link_to('@psteinweber', 'https://github.com/pglombardo/PasswordPusher/issues/29')).html_safe
+
 
 %p.notes
-  = link_to "FAQ", page_path('faq')
+  = link_to t('passwords.new.faq'), page_path('faq')
   \|
-  = link_to "Images, Logos and Icons", 'https://github.com/pglombardo/PasswordPusher/tree/master/app/assets/images'
+  = link_to t('passwords.new.images'), 'https://github.com/pglombardo/PasswordPusher/tree/master/app/assets/images'
   \|
-  = link_to "About PasswordPusher", page_path('about')
+  = link_to t('passwords.new.about'), page_path('about')
   %br/
-  Follow me on:
-  = succeed "," do
-    = link_to "@Twitter", "https://twitter.com/pglombardo"
-  = link_to "@Github", "https://github.com/pglombardo"
+  = t('passwords.new.follow_me')
+  = succeed ',' do
+    = link_to '@Twitter', 'https://twitter.com/pglombardo'
+  = link_to '@Github', 'https://github.com/pglombardo'
   &amp;
-  = link_to "@Tumblr", "http://blog.gameface.in/"
+  = link_to '@Tumblr', 'http://blog.gameface.in/'

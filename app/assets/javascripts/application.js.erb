@@ -12,23 +12,23 @@
 function showDaysValue(newValue)
 {
   if (newValue > 1) {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Days';
+  	document.getElementById("daysrange").innerHTML=newValue + ' <%= I18n.t('passwords.new.days') %>';
   } else {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Day';
+  	document.getElementById("daysrange").innerHTML=newValue + ' <%= I18n.t('passwords.new.day') %>';
   }
 }
 
 function showViewsValue(newValue)
 {
   if (newValue > 1) {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' Views';
+  	document.getElementById("viewsrange").innerHTML=newValue + ' <%= I18n.t('passwords.new.views') %>';
   } else {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' View';
+  	document.getElementById("viewsrange").innerHTML=newValue + ' <%= I18n.t('passwords.new.view') %>';
   }
 }
 
 
-msg = "Enter the Password to be Shared"
+msg = "<%= I18n.t('passwords.new.enter_password') %>"
 function prepareTextField(e) {
   if (e) {
     if (e.value == msg) {
@@ -45,7 +45,7 @@ function revertTextField(e) {
 }
 
 function setCopied() {
-	$('#clip_tip').text('copied!');
+	$('#clip_tip').text('<%= I18n.t('passwords.new.view') %>');
 }
 
 $('spoiler, .spoiler').spoilerAlert({max: 10, partial: 7})
