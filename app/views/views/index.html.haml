@@ -1,19 +1,22 @@
 %h1 Views list
 
-%table{align:"center"}
-  %tr
-    %th Password Token
-    %th IP
-    %th User Agent
+- if @views.empty?
+  %h2 No views
+- else
+  %table{align:"center"}
+    %tr
+      %th Password Token
+      %th IP
+      %th User Agent
 
-  - unless @views.empty?
-    - @views.each do |v|
-      %tr
-        %td
-          = link_to v.password.to_param, password_path(v.password.to_param)
-        %td
-          = v.ip
-        %td
-          = v.user_agent
+    - unless @views.empty?
+      - @views.each do |v|
+        %tr
+          %td
+            = link_to v.password.to_param, password_path(v.password.to_param)
+          %td
+            = v.ip
+          %td
+            = v.user_agent
 
 = link_to 'Go to Password list', pwds_path, class: 'btn btn-info'

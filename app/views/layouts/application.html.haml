@@ -43,6 +43,8 @@
       - unless current_user.nil?
         = "You are logged in as #{current_user.username} - "
         = link_to 'Disconnect', destroy_user_session_path, method: :delete
+        = ' - '
+        = link_to 'See my passwords', pwds_path
       = yield
 
     = javascript_include_tag "application"
