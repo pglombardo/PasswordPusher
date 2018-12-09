@@ -36,6 +36,15 @@
   %body
     .content
       = link_to image_tag("forkme.png", :style => "position: absolute; top: 0; right: 0; border: 0; z-index: 1;", :alt => "Fork me on Github" ), "https://github.com/pglombardo/PasswordPusher"
+      %p.notice
+        = notice
+      %p.alert
+        = alert
+      - unless current_user.nil?
+        = "You are logged in as #{current_user.username} - "
+        = link_to 'Disconnect', destroy_user_session_path, method: :delete
+        = ' - '
+        = link_to 'See my passwords', pwds_path
       = yield
 
     = javascript_include_tag "application"

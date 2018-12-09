@@ -30,6 +30,8 @@ gem 'foreman'
 gem 'unicorn'
 gem 'jquery-rails'
 
+gem 'devise'
+
 group :production do
   gem 'pg', '~> 0.21'
 end
