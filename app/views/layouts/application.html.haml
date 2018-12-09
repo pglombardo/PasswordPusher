@@ -40,8 +40,8 @@
         = notice
       %p.alert
         = alert
-      = "You are logged in as #{current_user.email} - " unless current_user.nil?
-      = link_to 'Disconnect', destroy_user_session_path
+      = "You are logged in as #{current_user.username} - " unless current_user.nil?
+      = link_to 'Disconnect', destroy_user_session_path, method: :delete unless current_user.nil?
       = yield
 
     = javascript_include_tag "application"
