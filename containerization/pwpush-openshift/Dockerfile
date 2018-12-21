@@ -5,7 +5,7 @@ FROM docker.io/ubuntu:18.04
 #ENV http_proxy=http://10.0.2.2:3128
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
-ENV DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
+ENV DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgresql:5432/passwordpusher_db
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Paris > /etc/localtime
 RUN apt-get update -qq && \
@@ -33,4 +33,4 @@ RUN chmod -R u+x ${APP_ROOT} && \
 
 USER 1001
 WORKDIR ${APP_ROOT}
-ENTRYPOINT ["containerization/passwordpusher-postgres/entrypoint.sh"]
+ENTRYPOINT ["containerization/pwpush-postgres/entrypoint.sh"]
