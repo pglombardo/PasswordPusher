@@ -33,4 +33,4 @@ RUN chmod -R u+x ${APP_ROOT} && \
 
 USER 1001
 WORKDIR ${APP_ROOT}
-ENTRYPOINT ["containerization/passwordpusher-postgres/entrypoint.sh"]
+ENTRYPOINT ["containerization/pwpush-postgres/entrypoint.sh"]
