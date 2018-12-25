@@ -1,21 +1,19 @@
 %p
-  .spacer{ :style => 'height: 100px;' }
+  .spacer{ style: 'height: 100px;' }
 
   %h1 #404
 
   %p
-    Unfortunately we couldn't find that password.  The link you followed may be bad
-    %br/
-    or we just screwed up.
+    = t('errors.not_found.message')
   
   %p
-    Double check that the link you followed is correct and is what appears in your URL bar.
+    = t('errors.not_found.instruction')
 
-  .spacer{ :style => 'height: 100px;' }
+  .spacer{ style: 'height: 100px;' }
 
-  - if Rails.env == "production" or Rails.env == "development"
+  - if Rails.env == 'production' or Rails.env == 'development'
     %p.notes
-      %p= link_to "Back to the front page.", "/"
+      %p= link_to t('errors.back_to_front_page'), '/'
       %p
-        == ...or if you think this page is in error, you could always log
-        = link_to "an issue on Github.", "https://github.com/pglombardo/PasswordPusher/issues?state=open", :target => "_blank"
+        = t('errors.not_found.make_an_issue')
+        = link_to t('errors.on_github'), 'https://github.com/pglombardo/PasswordPusher/issues?state=open', target: '_blank'

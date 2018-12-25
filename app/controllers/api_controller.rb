@@ -10,7 +10,7 @@ class ApiController < ApplicationController
     
     unless params.has_key?(:api_key)
       respond_to do |format|
-          format.text { render :text => "Please provide your API key available at https://pwpush.com/api" }
+          format.text { render text: t('api.error.provide_key') }
       end
       return
     end

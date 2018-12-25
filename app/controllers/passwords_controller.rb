@@ -59,7 +59,7 @@ class PasswordsController < ApplicationController
     end
 
     if params[:password][:payload].length > 250
-      redirect_to '/', :error => "That password is too long."
+      redirect_to '/', error: t('passwords.error.too_long')
       return
     end
 
