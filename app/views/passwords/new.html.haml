@@ -10,11 +10,11 @@
   %p
     Expire secret link and delete the stored password after:
     %p.slider_box
-      = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)"})
+      = range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)", :oninput => "showDaysValue(this.value)"})
       %span#daysrange
         == #{EXPIRE_AFTER_DAYS_DEFAULT} Days
     %p.slider_box
-      = range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)"})
+      = range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)", :oninput => "showViewsValue(this.value)"})
       %span#viewsrange
         == #{EXPIRE_AFTER_VIEWS_DEFAULT} Views
     %br
