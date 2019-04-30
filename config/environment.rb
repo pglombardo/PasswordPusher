@@ -19,7 +19,7 @@ EXPIRE_AFTER_TIME_MAX = Integer(ENV.fetch('EXPIRE_AFTER_TIME_MAX', 28))
 # Controls the "Expire After Views" form settings in Password#new
 EXPIRE_AFTER_VIEWS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_DEFAULT', 1))
 EXPIRE_AFTER_VIEWS_MIN = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MIN', 1))
-EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 10))
+EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 25))
 
 # DELETABLE_BY_VIEWER_PASSWORDS
 # Can passwords be deleted by viewers?

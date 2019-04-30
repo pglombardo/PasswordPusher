@@ -51,6 +51,6 @@ bind 'unix:/var/www/PasswordPusher/shared/puma.sock?umask=0111'
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
 #
-
+stdout_redirect '/var/www/PasswordPusher/log/puma_stdout.log', '/var/www/PasswordPusher/log/puma_stderr.log', true
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
