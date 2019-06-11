@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby ">=2.5.0"
+ruby "=2.5.3"
 
 gem 'rails', '~> 5.1'
 
@@ -10,7 +10,11 @@ group :development, :test do
 end
 
 
+
 gem 'secure_headers'
+
+
+
 gem 'json', '~>2.0'
 gem 'slim-rails'
 gem 'therubyracer'
@@ -28,9 +32,10 @@ gem 'jquery-rails'
 
 gem 'listen'
 
-group :production do
+group :production, :test  do
   gem 'pg', '~>0.21.0'
 end
+
 
 group :private do
   gem "sqlite3"

@@ -7,8 +7,14 @@ development:
   <<: *base
 
 test:
-  database: db/test.sqlite3
-  <<: *base
+  adapter: postgresql
+  database: pwp
+  username: <%= Rails.application.secrets.POSTGRES_USERNAME %>
+  password: <%= Rails.application.secrets.POSTGRES_PASSWD %>
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  reconnect: false
 
 private:
   database: db/private.sqlite3
