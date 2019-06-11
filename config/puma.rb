@@ -13,7 +13,8 @@ threads threads_count, threads_count
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch("RAILS_ENV") { "test" }
+env = ENV.fetch("RAILS_ENV") { "test" }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -22,7 +23,15 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-bind 'unix:/var/www/PasswordPusher/shared/puma.sock?umask=0111'
+
+
+if env == "test"
+    bind 'tcp://0.0.0.0:8080'
+    stdout_redirect './log/puma_stdout.log', './log/puma_stderr.log', true
+  else
+    bind 'unix:/var/www/PasswordPusher/shared/puma.sock?umask=0111'
+    stdout_redirect '/var/www/PasswordPusher/log/puma_stdout.log', '/var/www/PasswordPusher/log/puma_stderr.log', true
+  end
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
@@ -51,6 +60,6 @@ bind 'unix:/var/www/PasswordPusher/shared/puma.sock?umask=0111'
 #   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 # end
 #
-stdout_redirect '/var/www/PasswordPusher/log/puma_stdout.log', '/var/www/PasswordPusher/log/puma_stderr.log', true
+
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
