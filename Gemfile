@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-ruby "=2.5.3"
+ruby "2.6.3"
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2'
 
 group :development, :test do
   gem 'pry'
