@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby "2.6.3"
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2.3'
 
 group :development, :test do
   gem 'pry'
@@ -22,7 +22,7 @@ gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 #gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
 
-gem 'sass-rails'
+#gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
