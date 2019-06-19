@@ -5,11 +5,11 @@ PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Secret to be
 
 # If deploying PasswordPusher yourself, you should change these CRYPT values.
 if !Rails.env.production?
-  CRYPT_KEY = ENV.fetch('CRYPT_KEY', '}s-#2R0^/+2wEXc47\$9Eb')
-  CRYPT_SALT = ENV.fetch('CRYPT_SALT', ',2_%4?[+:3774>f')
+  CRYPT_KEY = ENV.fetch('KEY', '}s-#2R0^/+2wEXc47\$9Eb')
+  CRYPT_SALT = ENV.fetch('SALT', ',2_%4?[+:3774>f')
 else
-  CRYPT_KEY = ENV.fetch('CRYPT_KEY', Rails.application.secrets.CRYPT_KEY)
-  CRYPT_SALT = ENV.fetch('CRYPT_SALT', Rails.application.secrets.CRYPT_SALT)
+  CRYPT_KEY = ENV.fetch('CRYPT_KEY', Rails.application.credentials.production[:pwp][:KEY])
+  CRYPT_SALT = ENV.fetch('CRYPT_SALT', Rails.application.credentials.production[:pwp][:SALT])
 end
 # Controls the "Expire After Days" form settings in Password#new
 EXPIRE_AFTER_TIME_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_TIME_DEFAULT', 1))
