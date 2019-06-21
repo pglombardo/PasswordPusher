@@ -11,9 +11,6 @@ end
 
 
 
-gem 'secure_headers'
-
-
 
 gem 'json', '~>2.0'
 gem 'slim-rails'
