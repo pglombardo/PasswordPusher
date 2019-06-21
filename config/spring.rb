@@ -3,6 +3,6 @@
   .rbenv-vars
   tmp/restart.txt
   tmp/caching-dev.txt
-  config/secrets.yml
-  config/secrets.yml.enc
+  config/credentials.yml
+  config/credentials.yml.enc
 ).each { |path| Spring.watch(path) }

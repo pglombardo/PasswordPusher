@@ -12,7 +12,7 @@ Bundler.require(*Rails.groups)
 module PasswordPusher
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -23,9 +23,7 @@ module PasswordPusher
     config.filter_parameters += [:password]
     # Enable the asset pipeline
     config.assets.enabled = true
-    if Rails.env.production?
-      config.read_encrypted_secrets = true
-    end
+   
 
      # Version of your assets, change this if you want to expire all your assets
 

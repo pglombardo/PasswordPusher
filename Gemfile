@@ -1,17 +1,14 @@
 source 'http://rubygems.org'
 
-ruby "2.5.3"
+ruby "2.6.3"
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2.3'
 
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
 end
 
-
-
-gem 'secure_headers'
 
 
 
