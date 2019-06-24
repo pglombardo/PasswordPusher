@@ -13,9 +13,6 @@ threads threads_count, threads_count
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "test" }
-env = ENV.fetch("RAILS_ENV") { "test" }
-
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
@@ -23,9 +20,7 @@ env = ENV.fetch("RAILS_ENV") { "test" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-
-
-if env == "test"
+if Puma.cli_config.environment == "test"
     bind 'tcp://0.0.0.0:8080'
     #stdout_redirect './log/puma_stdout.log', './log/puma_stderr.log', false
   else
