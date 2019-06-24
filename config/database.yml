@@ -23,8 +23,8 @@ private:
 production:
   adapter: postgresql
   database: pwp
-  username: <%= Rails.application.credentials.dig(:production, :postgres, :USERNAME) %>
-  password: <%= Rails.application.credentials.dig(:production, :postgres, :PASSWD) %>
+  username: <%= Rails.application.credentials.dig(:postgres, :USERNAME) %>
+  password: <%= Rails.application.credentials.dig(:postgres, :PASSWD) %>
   pool: 5
   timeout: 5000
   encoding: utf8
