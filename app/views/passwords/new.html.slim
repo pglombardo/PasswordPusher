@@ -1,62 +1,81 @@
-= content_for :extraHead do
-  = javascript_include_tag "modernizr"
 
-= form_for @password do |f|
-  p
-    div.title
-      div.titlelogo
-        = image_tag('logo.png')
-      div.titletext
-        span.title Secret Push
-        br
-        span.tagline Go Ahead.  Email Another Secret.
-  p.payload
-    div.payloadContainer
-      = f.text_field(:payload, { :class => "password", :placeholder => PAYLOAD_INITIAL_TEXT, :autocomplete => "off", :type => "password" })
-      span#myButton
-        = image_tag("visible.png" , {:id => "visibleButton", :class => "visibleButton"})
-        = image_tag("hover.png" , {:id => "hoverButton", :class => "hoverButton"})
-  p
-    | Expire link and delete the stored secret after:
-    p.slider_box
-      = range_field_tag("password_expire_after_time", EXPIRE_AFTER_TIME_DEFAULT, {:name => "password[expire_after_time]", :class => "slider", :min => EXPIRE_AFTER_TIME_MIN, :max => EXPIRE_AFTER_TIME_MAX, :step => "1"})
-      span#daysrange
-        | #{EXPIRE_AFTER_TIME_DEFAULT} Days 
-    p.slider_box
-      = range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1"})
-      span#viewsrange
-        | #{EXPIRE_AFTER_VIEWS_DEFAULT} Views
-    br
-      span.note
-        | (whichever comes first)
-    - if DELETABLE_BY_VIEWER_PASSWORDS
-      p.notes
-        = check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT
-        | Allow viewers to optionally delete secret before expiration
-
-  p
-    = f.submit(:value => "Push it!")
-p.notes
-  p
-    span
-      #cookie-save.cookie-save
-        a#specialA>  href=("#" )  Save
-        ' these settings as
-        i> default
-        |in a browser cookie.
-  span.tip
-    | * Tip: Only enter the secret into the box.  Other identifying information can compromise security.
-  p
-  span.note
-    | All secrets are encrypted prior to storage and are available to only those with the secret link.
-  br/
-  span.note
-    | Once expired, encrypted secrets are unequivocally deleted from the database.
-
-
-p.notes
-  = link_to "FAQ", page_path('faq')
-  ||
-  = link_to "About SecretPush", page_path('about')
+div.container.mb-5 id="introduction"
+	div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+		div.heading-title
+			h1
+				span Share your secret
+		p.lead All secrets are encrypted prior to storage and are available to only those with the secret link. Once expired, encrypted secrets are unequivocally deleted from the database.
+		
+div.container.mb-5  id="forms"
+	div.example.col-lg-8.col-md-10.ml-auto.mr-auto
+		div.row.mb-5
+			div.col-md-12
+				form id="new_password" action="/p" accept-charset="UTF-8" method="post"
+					div.row
+						div.form-group.col-md-12
+							input.form-control.form-control-lg type="password" id="password_payload" name="password[payload]" data-toggle="password" placeholder="Enter the secret to be shared"
+							span.fa.fa-fw.fa-eye.field-icon.toggle-password toggle="#password_payload" data-toggle="tooltip" data-placement="left" data-original-title="Show/Hide the secret" title=""
+					div.row
+						div.col-md-12.mb-4
+							div.alert.alert-danger.d-none.first-hidden-alert id="alertPayloadError"
+								p 
+									b The Password can't be longer then 250 characters!
+					div.row
+						div.col-md-6.mb-4
+							label Expire link in
+							select.custom-select id="password_expire_after_time" name="password[expire_after_time]"
+								option value="1" 1 hour
+								option value="2" 6 hours
+								option value="3" 12 hours
+								option value="4" 1 day
+								option value="5" 2 days
+								option value="6" 3 days
+								option value="7" 4 days
+								option value="8" 5 days
+						div.col-md-6.mb-4
+							label Expire link after
+							select.custom-select id="password_expire_after_views" name="password[expire_after_views]"
+								option value="1" 1 view
+								option value="2" 2 views
+								option value="3" 3 views
+								option value="4" 4 views
+								option value="5" 5 views
+								option value="6" 6 views
+								option value="7" 7 views
+								option value="8" 8 views
+					div.row
+						div.col-md-12.mb-4
+							fieldset
+								div.custom-control.custom-toggle.custom-toggle-sm.d-block.my-2
+									input.custom-control-input type="checkbox" id="password_deletable_by_viewer" name="password[deletable_by_viewer]"
+									label.custom-control-label for="password_deletable_by_viewer" Allow viewers to optionally delete secret before expiration
+					div.row
+						div.col-md-12.mb-4
+							button.btn.btn-primary.btn-lg.btn-block type="submit" id="btnSubmit" Push it 
+					div.row
+						div.col-md-12.mb-4.text-center
+							a id="btnSaveExpirations" href="#" Save these settings as default in a browser cookie
+					div.row
+						div.col-md-12.mb-4.text-center
+							a href="#" data-toggle="modal" data-target="#aboutModal" About SecretPush
+						div.modal.fade id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true"
+							div.modal-dialog role="document"
+								div.modal-content
+									div.modal-header
+										h5.modal-title id="aboutModalLabel" About SecretPush
+										button.close type="button" data-dismiss="modal" aria-label="Close"
+											span.fa.fa-fw.fa-close
+									div.modal-body
+										p SecretPush is a Ruby application to communicate secrets over the web. Links to secrets expire after a certain number of views and/or time has passed
+										p 
+											| The source code to this site is 
+											a href="https://github.com/smarthouse/PasswordPusher/tree/smarthouse" on Github 
+										p 
+											| The original SecretPush-App was developed by Peter Giacomo Lombardo and is 
+											a href="https://github.com/pglombardo/PasswordPusher" on Github
+										
 = content_for :extraTail do
   = javascript_include_tag "passwords"
+
+= content_for :siteTitle do
+	| Share your secret - SecretPush

@@ -26,7 +26,8 @@ module PasswordPusher
    
 
      # Version of your assets, change this if you want to expire all your assets
-
+	
+	config.assets.paths << Rails.root.join("app", "assets", "fonts")
     
 
   end

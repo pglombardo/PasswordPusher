@@ -1,61 +1,86 @@
-div.content
-  - if @password.expired
-    p
-      | We apologize but...
-    div.payload
-      | This link has expired.
-    p
-      - if @password.deleted
-        | This link was manually expired by one of its viewers and the secret has been deleted from the SecretPush database.
-      - elsif @password.views_remaining == 0
-        | The link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the SecretPush database.
-      - elsif @password.hours_remaining == 0
-        | The link has hit its maximum age (#{@password.expire_after_time} hours) and the secret has been deleted from the SecretPush database.
+- if @password.expired
+    div.container.mb-5 id="introduction"
+		div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+			div.heading-title
+				h1 
+					span This link has expired
+			p.lead 
+			  - if @password.deleted
+				| This link was manually expired by one of its viewers and the secret has been deleted from the SecretPush database.
+			  - elsif @password.views_remaining == 0
+				| The link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the SecretPush database.
+			  - elsif @password.hours_remaining == 0
+				| The link has hit its maximum age (#{@password.expire_after_time} hours) and the secret has been deleted from the SecretPush database.
+			p 
+				a href="../.." You want to share a secret too
 
-  - else
+- else
     - if @first_view
-      .share_note
-        | This is your secret.  Use this link to share it:
-        p.url
-          div.input_group
-            input#url  value="#{request.url}" spellcheck="false"  readonly=(true ) 
-            button.btn#copyButton  data-clipboard-target=("#url" ) 
-              = image_tag('button_up.png')
-        span.note
-          | This note won't be shown again...
-          br/
-          | Don't believe me?  Go ahead.  Hit reload...
-    p
-      | Your secret is...
-
-    div.payload.spoiler#payload_div data-clipboard-action="copy" data-clipboard-target="#payload_div"
-      = @payload
-
-    p#below_spoiler
-      | Click on the field above to copy the secret
-    p.copy
-      | or
-      a#copyLink>  href=("#" )  click here
-      ' to reveal the secret for 10s!
-    p.pwinstructions
-      | Please obtain and securely store this secret elsewhere.
-
-    p
-      - if @password.views_remaining == 0
-        | This link will be deleted in #{pluralize(@password.hours_remaining, 'hour')} or #{@password.views_remaining} more views (this is the last view).
-      - else
-        ' This link will be deleted in #{pluralize(@password.hours_remaining, 'hour')}
-        | or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
-    - if @password.deletable_by_viewer
-      p.delteThis  
-        = link_to "Nah. I've got it. Delete this link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this link and remove the secret from the SecretPush database forever.  Are you sure?' }
-div.footer_note
-  ' This
-  - if @password.expired
-    ' (unfortunately expired)
-  ' password link is brought to you by
-  = link_to "Secret Push", "/"
-  |  and viewers like you.
-
+		div.container.mb-5 id="info"
+			div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+				div.card
+					div.card-body
+						h4.card-title Well done!
+						p.card-text Now you can share the following secret link.
+						div.row
+							div.col-md-12.mb-4
+								input.form-control type="text" value="#{request.url}" readonly="true" id="url"
+						div.row
+							div.col-md-12.mb-4
+								button.btn.btn-primary.btn-lg.btn-block type="button" id="btnCopyUrl" Copy to clipboard
+						p This note won't be shown again! Don't believe me? Go ahead and hit reload.
+    div.container.mb-5 id="introduction"
+		div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+			div.heading-title
+				h1
+					- if @first_view
+						span Your secret is
+					- else
+						span A secret for you
+			p.lead 
+				| This link will be expire in 
+				b #{pluralize(@password.hours_remaining, 'hour')} 
+				| or after 
+				strong #{@password.views_remaining} more view 
+				|   whichever occurs first. Please obtain and securely store this secret elsewhere.
+	div.container.mb-5 id="forms"
+		div.example.col-lg-8.col-md-10.ml-auto.mr-auto
+			div.row.mb-5
+				div.col-md-12
+					form 
+						div.row
+							div.form-group.col-md-12
+								input.form-control.form-control-lg type="password" id="payload" name="password" data-toggle="password" value="#{@payload}"
+								span.fa.fa-fw.fa-eye.field-icon.toggle-password toggle="#payload" data-toggle="tooltip" data-placement="left" data-original-title="Show/Hide the secret" title=""
+						div.row
+							div.col-md-12.mb-4
+								button.btn.btn-primary.btn-lg.btn-block type="button" id="btnCopyPayload" Copy to clipboard 
+						- if @password.deletable_by_viewer
+							div.row
+								div.col-md-12.mb-4.text-center
+									a href="#" data-toggle="modal" data-target="#deleteLinkModal" Delete this link now
+								div.modal.fade id="deleteLinkModal" tabindex="-1" role="dialog" aria-labelledby="deleteLinkModalLabel" aria-hidden="true"
+									div.modal-dialog role="document"
+										div.modal-content
+											div.modal-header
+												h5.modal-title id="deleteLinkModalLabel" Delete Link now
+												button.close type="button" data-dismiss="modal" aria-label="Close"
+													span.fa.fa-fw.fa-close
+											div.modal-body
+													p This will expire this link and remove the secret from the SecretPush database forever.  Are you sure?
+													a href="#{request.url}" data-method="delete" 
+														button.btn.btn-primary type="submit" 
+															| Yes, delete now
+								
+						div.row
+							div.col-md-12.mb-4.text-center
+								a href="../.." You want to share a secret too
+			
 = content_for :extraTail do
   = javascript_include_tag "show"
+  
+= content_for :siteTitle do
+	- if @first_view
+		| Share your secret - SecretPush
+	- else
+		| A secret for you - SecretPush
