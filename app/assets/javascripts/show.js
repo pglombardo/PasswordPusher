@@ -1,71 +1,42 @@
-//CSP-Fix
-//= require_tree ./show
+var oldTextUrl;
+var oldTextRPayload;
 
-
-if (document.getElementById("url") != null) {
-  document.getElementById("url").addEventListener("focus",function(){
-     $(this).focus(); $(this).select();
-   });
-
-  document.getElementById("url").addEventListener("click",function(){
-    $(this).select();
-  });
+function copyUrlInClipboard()
+{
+	$("#url").select();
+	document.execCommand("copy");
+	
+	$("#btnCopyUrl").text("URL copied!");
+	setTimeout(function(){
+		$("#btnCopyUrl").text(oldTextUrl);
+	}, 1500);
+	
 }
 
-  if (document.getElementById("copyButton") != null) {
-  new Clipboard('#copyButton');
-  } 
+function copyPayloadInClipboard()
+{
+	$("#payload").attr("type","text");
+	$("#payload").select();
+	document.execCommand("copy");
+	$("#payload").attr("type","password");
+	
+	$("#btnCopyPayload").text("Password copied!");
+	setTimeout(function(){
+		$("#btnCopyPayload").text(oldTextRPayload);
+	}, 1500);
+}
 
-
-  var myTimeOut;
-  
-  if ((p_div = document.getElementById("payload_div") )!= null) {
-    var myTooltip = new Tooltip(document.getElementById("below_spoiler"), {
-      placement: 'top',
-      trigger: 'manual',
-      title: function(){if (document.queryCommandSupported("copy")){
-          return "Password has been saved to your Clipboard!";
-       } else {
-         return "Press CTRL+v to copy the Password to your Clipboard!";
-       }},
-
-    });
-  $spoiler = $($('spoiler, .spoiler'))
-  new Clipboard('#payload_div')
-  p_div.addEventListener("click",function(){
-    if ($spoiler.data('spoiler-state') == 'revealed') {
-      clearTimeout(myTimeOut);
-      p_div.dispatchEvent(new Event('switchBlur'));
-    } else {
-      var height = (p_div.getBoundingClientRect().height)/2;
-      myTooltip.options.offset='0,'+height.toString() + 'px';
-      myTooltip.show();
-      myTimeOut = setTimeout(myTooltip.hide
-      ,2000)
-    
-  }
-  });
-
-
-  if ((cLink = document.getElementById("copyLink")) != null){
-    cLink.addEventListener("click", function(){
-      if ($spoiler.data('spoiler-state') == 'shrouded') {
-        p_div.dispatchEvent(new Event('switchBlur'))
-      
-        myTimeOut = setTimeout(function(){
-          if ($spoiler.data('spoiler-state') == 'revealed') {
-            p_div.dispatchEvent(new Event('switchBlur'))
-          }
-        },10000)
-    }
-    })
-  }
-
-  }
-
-
-   
-   
-   
-
-
+$(document).ready(function() {
+	
+	// Events
+	$("#btnCopyUrl").click(function(){
+		copyUrlInClipboard();
+	});
+	$('#btnCopyPayload').click(function () {
+		copyPayloadInClipboard();
+	});
+	
+	oldTextUrl = $("#btnCopyUrl").text();
+	oldTextRPayload = $("#btnCopyPayload").text();
+	
+});

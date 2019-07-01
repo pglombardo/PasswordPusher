@@ -4,52 +4,6 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery3
+//= require_tree ./libs
 //= require jquery_ujs
-//= require_tree ./sitewide
-
-function showDaysValue(newValue)
-{
-  if (newValue > 24) {
-  	document.getElementById("daysrange").innerHTML= (newValue - 23) + ' Days';
-  } else if (newValue == 24)  {
-  	document.getElementById("daysrange").innerHTML=(newValue - 23) + ' Day';
-  } else if (newValue == 1) {
-    document.getElementById("daysrange").innerHTML=newValue + ' Hour';
-  } else {
-    document.getElementById("daysrange").innerHTML=newValue + ' Hours';
-  }
-}
-
-function showViewsValue(newValue)
-{
-  if (newValue > 1) {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' Views';
-  } else {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' View';
-  }
-}
-
-
-msg = "Enter the Secret to be Shared"
-function prepareTextField(e) {
-  if (e) {
-    if (e.value == msg) {
-      e.value = '';
-    }
-  }
-}
-
-function revertTextField(e) {
-  if (e)
-    if (e.value == '') {
-      e.value = msg;
-    }
-}
-
-function setCopied() {
-	$('#clip_tip').text('copied!');
-}
-
-$('spoiler, .spoiler').spoilerAlert({max: 16, partial: 14, hintText: "Click to copy"})
-
+//= require_tree ./sh

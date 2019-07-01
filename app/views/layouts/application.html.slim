@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title SecretPush
+    title = yield :siteTitle
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    "application"
@@ -13,8 +13,14 @@ html
     link  rel="apple-touch-icon" sizes="114x114" href=(asset_path("apple-touch-icon-iphone4.png") ) 
     link  rel="apple-touch-icon" sizes="144x144" href=(asset_path("apple-touch-icon-ipad3.png") ) 
   body
-    .content
-      = yield
-
-    = javascript_include_tag "application"
+    div.loader
+		div.page-loader
+	div.page-content
+		div.content.clearfix
+			div.container.mb-5 id="logo"
+				div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto.text-right
+					 = image_tag('logo.png', width: "48px", alt: "", height: "auto")
+			= yield
+	
+	= javascript_include_tag "application"
     = yield :extraTail
