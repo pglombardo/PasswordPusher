@@ -36,6 +36,10 @@ $(document).ready(function() {
 		copyPayloadInClipboard();
 	});
 	
+	$("#form-show-payload").submit(function(e){
+        e.preventDefault();
+    });
+	
 	oldTextUrl = $("#btnCopyUrl").text();
 	oldTextRPayload = $("#btnCopyPayload").text();
 	
