@@ -110,12 +110,18 @@ class PasswordsController < ApplicationController
       @password = Password.find_by_url_token!(params[:id])
     end
 
-    # Redirect to root if we couldn't find password or
-    # the found password wasn't market as deletable
-    unless @password || @password.deletable_by_viewer
+    # Redirect to root if we couldn't find password
+    unless @password
       redirect_to :root
       return
     end
+	
+    # Redirect to root if the found password wasn't 
+	# market as deletable
+	if (!@password.deletable_by_viewer)
+      redirect_to :root
+      return
+	end
 
     @password.expired = true
     @password.payload = nil
