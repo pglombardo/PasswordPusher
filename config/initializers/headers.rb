@@ -17,7 +17,7 @@ if !Rails.env.production?
       policy.report_uri "https://d44c6675f6f03f85482859e657572968.report-uri.com/r/t/csp/enforce; report-to default"
       end
   
-      Rails.application.config.content_security_policy_report_only = false
+      Rails.application.config.content_security_policy_report_only = true
 
     # Remaining Headers
 
