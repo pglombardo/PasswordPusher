@@ -47,7 +47,7 @@
 		div.example.col-lg-8.col-md-10.ml-auto.mr-auto
 			div.row.mb-5
 				div.col-md-12
-					form 
+					form id="form-show-payload"
 						div.row
 							div.form-group.col-md-12
 								input.form-control.form-control-lg type="password" id="payload" name="password" data-toggle="password" value="#{@payload}"
@@ -55,26 +55,26 @@
 						div.row
 							div.col-md-12.mb-4
 								button.btn.btn-primary.btn-lg.btn-block type="button" id="btnCopyPayload" Copy to clipboard 
-						- if @password.deletable_by_viewer
-							div.row
-								div.col-md-12.mb-4.text-center
-									a href="#" data-toggle="modal" data-target="#deleteLinkModal" Delete this link now
-								div.modal.fade id="deleteLinkModal" tabindex="-1" role="dialog" aria-labelledby="deleteLinkModalLabel" aria-hidden="true"
-									div.modal-dialog role="document"
-										div.modal-content
-											div.modal-header
-												h5.modal-title id="deleteLinkModalLabel" Delete Link now
-												button.close type="button" data-dismiss="modal" aria-label="Close"
-													span.fa.fa-fw.fa-close
-											div.modal-body
-													p This will expire this link and remove the secret from the SecretPush database forever.  Are you sure?
-													a href="#{request.url}" data-method="delete" 
-														button.btn.btn-primary type="submit" 
-															| Yes, delete now
-								
+					- if @password.deletable_by_viewer
 						div.row
 							div.col-md-12.mb-4.text-center
-								a href="../.." You want to share a secret too
+								a href="#" data-toggle="modal" data-target="#deleteLinkModal" Delete this link now
+							div.modal.fade id="deleteLinkModal" tabindex="-1" role="dialog" aria-labelledby="deleteLinkModalLabel" aria-hidden="true"
+								div.modal-dialog role="document"
+									div.modal-content
+										div.modal-header
+											h5.modal-title id="deleteLinkModalLabel" Delete Link now
+											button.close type="button" data-dismiss="modal" aria-label="Close"
+												span.fa.fa-fw.fa-close
+										div.modal-body
+												p This will expire this link and remove the secret from the SecretPush database forever.  Are you sure?
+												a href="#{request.url}" data-method="delete" 
+													button.btn.btn-primary type="submit" 
+														| Yes, delete now
+							
+					div.row
+						div.col-md-12.mb-4.text-center
+							a href="../.." You want to share a secret too
 			
 = content_for :extraTail do
   = javascript_include_tag "show"
