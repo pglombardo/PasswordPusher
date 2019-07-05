@@ -77,12 +77,12 @@
   $(document).ready(function() {
 
     // Hide the loader and show the elements.
-    setTimeout(function () {
-      $('.loader').addClass('hidden').delay(100).remove();
-      $('.slide-in').each(function() {
-        $(this).addClass('visible');
-      });
-    }, 1900);
+    //setTimeout(function () {
+      //$('.loader').addClass('hidden').delay(100).remove();
+      //$('.slide-in').each(function() {
+        //$(this).addClass('visible');
+      //});
+    //}, 1900);
 
     // Enable popovers everywhere.
     $('[data-toggle="popover"]').popover();
