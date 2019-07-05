@@ -14,7 +14,7 @@ end
 
 gem 'json', '~>2.0'
 gem 'slim-rails'
-gem 'therubyracer'
+gem 'mini_racer'
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 #gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
@@ -26,6 +26,8 @@ gem 'uglifier'
 gem 'foreman'
 gem 'unicorn'
 gem 'jquery-rails'
+gem 'popper_js'
+gem 'bootstrap'
 
 gem 'listen'
 
