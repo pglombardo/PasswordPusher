@@ -40,5 +40,13 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 #
 DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
 
+# ALLOWED_DOMAINS
+#
+# Only this domains are allowed to run. 
+# Other domains get a 500 Error
+# In development and test mode is this not active.
+ALLOWED_DOMAINS = ["secpush.adesso-service.com", "secpush.smarthouse.de"]
+
+
 # Initialize the rails application
 Rails.application.initialize!

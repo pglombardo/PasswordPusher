@@ -6,6 +6,8 @@ class PasswordsController < ApplicationController
   # GET /passwords/1
   # GET /passwords/1.json
   def show
+	check_host()
+	
     if params.has_key?(:id)
       @password = Password.find_by_url_token!(params[:id])
 
@@ -45,6 +47,7 @@ class PasswordsController < ApplicationController
   # GET /passwords/new
   # GET /passwords/new.json
   def new
+    check_host()
     @password = Password.new
     expires_in 3.hours, :public => true, 'max-stale' => 0
 	
@@ -57,6 +60,7 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
+    check_host()
     if params[:password][:payload].blank? or params[:password][:payload] == PAYLOAD_INITIAL_TEXT
       redirect_to '/'
       return
@@ -102,6 +106,7 @@ class PasswordsController < ApplicationController
   end
 
   def destroy
+    check_host()
     if params.has_key?(:id)
       @password = Password.find_by_url_token!(params[:id])
     end
@@ -185,5 +190,13 @@ class PasswordsController < ApplicationController
     decrypted = cipher.update(decodedData[16..-1])
     decrypted << cipher.final
     return decrypted
+  end
+  
+  def check_host()
+	if ! ALLOWED_DOMAINS.include? request.host
+		if ! Rails.env.test? && ! Rails.env.development?
+			raise ActionController::ActionControllerError.new('Server Error')
+		end
+	end
   end
 end

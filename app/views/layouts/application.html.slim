@@ -17,7 +17,10 @@ html
 		div.content.clearfix
 			div.container.mb-5 id="logo"
 				div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto.text-right
-					 = image_tag('logo.png', width: "48px", alt: "", height: "auto")
+					-if request.host == "secpush.adesso-service.com"
+						= image_tag('logo-3as.png', width: "150px", alt: "", height: "auto")
+					-else
+						= image_tag('logo-sh.png', width: "48px", alt: "", height: "auto")
 			= yield
 	
 	= javascript_include_tag "application"
