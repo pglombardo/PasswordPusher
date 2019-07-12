@@ -24,25 +24,20 @@ div.container.mb-5  id="forms"
 						div.col-md-6.mb-4
 							label Expire link in
 							select.custom-select id="password_expire_after_time" name="password[expire_after_time]"
-								option value="1" 1 hour
-								option value="6" 6 hours
-								option value="12" 12 hours
-								option value="24" 1 day
-								option value="25" 2 days
-								option value="26" 3 days
-								option value="27" 4 days
-								option value="28" 5 days
+								/ To change adjust EXPIRE_AFTER_TIME_ALLOWED in config/environment.rb
+								- EXPIRE_AFTER_TIME_ALLOWED.each do |time|
+									option value="#{time}" 
+										-if time < 24
+											= time == 1 ? "#{time} hour" : "#{time} hours"
+										-else
+											= time == 24 ? "#{time/24} day" : "#{time/24} days"
 						div.col-md-6.mb-4
 							label Expire link after
 							select.custom-select id="password_expire_after_views" name="password[expire_after_views]"
-								option value="1" 1 view
-								option value="2" 2 views
-								option value="3" 3 views
-								option value="4" 4 views
-								option value="5" 5 views
-								option value="6" 6 views
-								option value="7" 7 views
-								option value="8" 8 views
+								/ To change adjust EXPIRE_AFTER_VIEWS_ALLOWED in config/environment.rb
+								- EXPIRE_AFTER_VIEWS_ALLOWED.each do |view|
+									option value="#{view}" 
+										= view == 1 ? "#{view} view" : "#{view} views"
 					div.row
 						div.col-md-12.mb-4
 							fieldset

@@ -30,20 +30,14 @@ class Password < ActiveRecord::Base
     self.expire_after_time  ||= EXPIRE_AFTER_TIME_DEFAULT
     self.expire_after_views ||= EXPIRE_AFTER_VIEWS_DEFAULT
 
-    if EXPIRE_AFTER_TIME_MAX < 24
-      max_time = EXPIRE_AFTER_TIME_MAX
-    else
-      max_time = (24*(EXPIRE_AFTER_TIME_MAX-23))
-    end
-
-    unless self.expire_after_time.between?(EXPIRE_AFTER_TIME_MIN, max_time)
+	unless EXPIRE_AFTER_TIME_ALLOWED.include? self.expire_after_time
       self.expire_after_time = EXPIRE_AFTER_TIME_DEFAULT
-    end
-
-    unless self.expire_after_views.between?(EXPIRE_AFTER_VIEWS_MIN, EXPIRE_AFTER_VIEWS_MAX)
+	end
+	
+	unless EXPIRE_AFTER_VIEWS_ALLOWED.include? self.expire_after_views
       self.expire_after_views = EXPIRE_AFTER_VIEWS_DEFAULT
-    end
-
+	end
+	
     unless self.new_record?
       if (self.hours_old >= self.expire_after_time) or (self.views.count >= self.expire_after_views)
         # This password has hit max age or max views - expire it

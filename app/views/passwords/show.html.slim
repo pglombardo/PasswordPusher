@@ -39,7 +39,13 @@
 						span A secret for you
 			p.lead 
 				| This link will be expire in 
-				b #{pluralize(@password.hours_remaining, 'hour')} 
+				-if @password.hours_remaining < 24
+					b #{pluralize(@password.hours_remaining, 'hour')} 
+				-else 
+					-if @password.hours_remaining % 24 == 0
+						b #{pluralize(@password.hours_remaining/24, 'day')} 
+					-else
+						b #{pluralize(@password.hours_remaining/24, 'day')} and #{pluralize(@password.hours_remaining%24, 'hour')} 
 				| or after 
 				strong #{pluralize(@password.views_remaining, 'more view')}
 				|   whichever occurs first. Please obtain and securely store this secret elsewhere.

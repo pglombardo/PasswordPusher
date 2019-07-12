@@ -47,7 +47,7 @@ class PasswordsController < ApplicationController
   def new
     @password = Password.new
     expires_in 3.hours, :public => true, 'max-stale' => 0
-
+	
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @password }
@@ -69,11 +69,7 @@ class PasswordsController < ApplicationController
 
     @password = Password.new
     time = params[:password][:expire_after_time]
-    if Integer(time) < 24
-      @password.expire_after_time = time
-    else
-      @password.expire_after_time = (24*(Integer(time)-23)).to_s
-    end
+    @password.expire_after_time = time
     @password.expire_after_views = params[:password][:expire_after_views]
 
     if DELETABLE_BY_VIEWER_PASSWORDS && params[:password].key?(:deletable_by_viewer)
