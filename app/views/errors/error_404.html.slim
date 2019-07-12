@@ -1,21 +1,12 @@
-p
-  .spacer  style=('height: 100px;' ) 
-
-  h1 #404
-
-  p
-    | Unfortunately we couldn't find that password.  The link you followed may be bad
-    br/
-    | or we just screwed up.
-  
-  p
-    | Double check that the link you followed is correct and is what appears in your URL bar.
-
-  .spacer  style=('height: 100px;' ) 
-
-  - if Rails.env == "production" or Rails.env == "development"
-    p.notes
-      p= link_to "Back to the front page.", "/"
-      p
-        == ...or if you think this page is in error, you could always log
-        = link_to "an issue on Github.", "https://github.com/smarthouse/PasswordPusher/issues?state=open", :target => "_blank"
+div.container.mb-5 id="introduction"
+	div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+		div.heading-title
+			h1
+				span Error 404
+	div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
+		p.lead Unfortunately we couldn't find that password.  The link you followed may be bad.
+		br
+		a href="/" back to front page
+		
+= content_for :siteTitle do
+	| Error 404 - SecretPush
