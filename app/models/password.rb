@@ -1,6 +1,6 @@
 class Password < ActiveRecord::Base
   has_many :views, :dependent => :destroy
-
+	
   def to_param
     self.url_token.to_s
   end

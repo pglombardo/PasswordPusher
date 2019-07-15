@@ -26,7 +26,57 @@ function copyPayloadInClipboard()
 	}, 1500);
 }
 
-$(document).ready(function() {
+function decryptPayload()
+{
+	try
+	{
+		var hash = window.location.hash;
+		var parts = hash.replace("#","").split(";");
+		
+		var keyHex = parts[0]
+		var keyArray = []
+		
+		while(keyHex != "")
+		{
+			var singleByte = parseInt(keyHex.substring(0,2), 16)
+			keyArray.push(singleByte);
+			keyHex = keyHex.slice(2)
+		}
+		
+		var ivHex = parts[1]
+		var ivArray = []
+		
+		while(ivHex != "")
+		{
+			var singleByte = parseInt(ivHex.substring(0,2), 16)
+			ivArray.push(singleByte);
+			ivHex = ivHex.slice(2)
+		}
+		
+		cipherObject = 
+		{
+			key: keyArray,
+			iv: ivArray,
+			padding: parts[2],
+			payload: $("#payload").val()
+		}
+		secret = decryptSecret(cipherObject);
+		$("#payload").val(secret);
+	}
+	catch (error)
+	{
+		$("#alertPostdError").fadeIn();
+	}
+}
+
+function setFullLinknInput()
+{
+	var fullUrl = $("#url").val() + window.location.hash;
+	$("#url").val(fullUrl);
+}
+
+
+$(document).ready(function(){
 	
 	// Events
 	$("#btnCopyUrl").click(function(){
@@ -42,5 +92,8 @@ $(document).ready(function() {
 	
 	oldTextUrl = $("#btnCopyUrl").text();
 	oldTextRPayload = $("#btnCopyPayload").text();
+	
+	decryptPayload();
+	setFullLinknInput();
 	
 });

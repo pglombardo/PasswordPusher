@@ -10,7 +10,7 @@ div.container.mb-5  id="forms"
 	div.example.col-lg-8.col-md-10.ml-auto.mr-auto
 		div.row.mb-5
 			div.col-md-12
-				form id="new_password" action="/p" accept-charset="UTF-8" method="post"
+				form id="new_password" 
 					div.row
 						div.form-group.col-md-12
 							input.form-control.form-control-lg type="password" id="password_payload" name="password[payload]" data-toggle="password" placeholder="Enter the secret to be shared"
@@ -46,7 +46,14 @@ div.container.mb-5  id="forms"
 									label.custom-control-label for="password_deletable_by_viewer" Allow viewers to optionally delete secret before expiration
 					div.row
 						div.col-md-12.mb-4
-							button.btn.btn-primary.btn-lg.btn-block type="submit" id="btnSubmit" Push it 
+							button.btn.btn-primary.btn-lg.btn-block type="button" id="btnSubmit" Push it
+					div.row
+						div.col-md-12.mb-4
+							div.alert.alert-danger.d-none.first-hidden-alert id="alertPostdError"
+								p 
+									b Something went bad on the Server... 
+									br
+									| Please reload and do it again or contact an administrator.
 					div.row
 						div.col-md-12.mb-4.text-center
 							a id="btnSaveExpirations" href="#" Save these settings as default in a browser cookie

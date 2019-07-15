@@ -29,6 +29,9 @@
 							div.col-md-12.mb-4
 								button.btn.btn-primary.btn-lg.btn-block type="button" id="btnCopyUrl" Copy to clipboard
 						p This note won't be shown again! Don't believe me? Go ahead and hit reload.
+						p 
+							| b Note
+							| Your secrec is lost without trace if the full link is lost!
     div.container.mb-5 id="introduction"
 		div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto
 			div.heading-title
@@ -61,6 +64,13 @@
 						div.row
 							div.col-md-12.mb-4
 								button.btn.btn-primary.btn-lg.btn-block type="button" id="btnCopyPayload" Copy to clipboard 
+						div.row
+							div.col-md-12.mb-4
+								div.alert.alert-danger.d-none.first-hidden-alert id="alertPostdError"
+									p 
+										b Something went bad ...
+										br
+										| Your link seems to be broken. the Secret can't decrypt!							
 					- if @password.deletable_by_viewer
 						div.row
 							div.col-md-12.mb-4.text-center

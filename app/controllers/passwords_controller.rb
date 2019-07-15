@@ -1,6 +1,7 @@
 require 'openssl'
 require 'digest/sha2'
 require 'base64'
+require 'json'
 
 class PasswordsController < ApplicationController
   # GET /passwords/1
@@ -65,8 +66,10 @@ class PasswordsController < ApplicationController
       redirect_to '/'
       return
     end
-
-    if params[:password][:payload].length > 250
+	
+	# User can input a secret with a length of 250 chars. After the first encrypton 
+	# on client site the payload will be longer up to 703 chars
+    if params[:password][:payload].length > 730
       redirect_to '/', :error => "That password is too long."
       return
     end
@@ -92,14 +95,20 @@ class PasswordsController < ApplicationController
     @password.payload = encrypt(CRYPT_KEY,CRYPT_SALT,params[:password][:payload])
 
     @password.validate!
-
+	
+	if @password.save
+	  response = {'success' => 1, 'token' => @password.url_token}
+	else
+	  response = {'success' => 0}
+	end
+	
     respond_to do |format|
       if @password.save
-        format.html { redirect_to @password, :notice => "The password has been pushed." }
+        format.html { render :json => response.to_json }
         @password.payload = params[:password][:payload]
         format.json { render :json => @password, :status => :created }
       else
-        format.html { render :action => "new" }
+        format.html { render :json => response.to_json }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
       end
     end
