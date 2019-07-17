@@ -65,6 +65,7 @@ function decryptPayload()
 	}
 	catch (error)
 	{
+		$("#payload").val("");
 		$("#alertPostdError").fadeIn();
 	}
 }
