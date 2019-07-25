@@ -204,6 +204,7 @@ class PasswordsController < ApplicationController
   def check_host()
 	if ! ALLOWED_DOMAINS.include? request.host
 		if ! Rails.env.test? && ! Rails.env.development?
+			unkonw_host_error(request.host)
 			raise ActionController::ActionControllerError.new('Server Error')
 		end
 	end

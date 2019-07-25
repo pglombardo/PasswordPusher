@@ -20,7 +20,7 @@ function copyPayloadInClipboard()
 	document.execCommand("copy");
 	$("#payload").attr("type","password");
 	
-	$("#btnCopyPayload").text("Password copied!");
+	$("#btnCopyPayload").text("Secret copied!");
 	setTimeout(function(){
 		$("#btnCopyPayload").text(oldTextRPayload);
 	}, 1500);
@@ -31,6 +31,7 @@ function decryptPayload()
 	try
 	{
 		var hash = window.location.hash;
+		// TODO remove middle of the august 2019
 		if (hash == "")
 		{
 			return
@@ -66,6 +67,7 @@ function decryptPayload()
 		}
 		secret = decryptSecret(cipherObject);
 		$("#payload").val(secret);
+		disableValueCahnges();
 	}
 	catch (error)
 	{
@@ -74,15 +76,33 @@ function decryptPayload()
 	}
 }
 
+function disableValueCahnges()
+{
+	var originalValue = $("#payload").val();
+	$('#payload').on('input', function () {
+		$(this).val(originalValue);
+	});
+}
+
 function setFullLinknInput()
 {
 	var fullUrl = $("#url").val() + window.location.hash;
 	$("#url").val(fullUrl);
 }
 
+function setFocus()
+{
+	if($("#btnCopyUrl").length)
+	{
+		$("#btnCopyUrl").focus();
+	}
+	else
+	{
+		$("#btnCopyPayload").focus();
+	}
+}
 
 $(document).ready(function(){
-	
 	// Events
 	$("#btnCopyUrl").click(function(){
 		copyUrlInClipboard();
@@ -101,4 +121,5 @@ $(document).ready(function(){
 	decryptPayload();
 	setFullLinknInput();
 	
+	setFocus();
 });

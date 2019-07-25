@@ -154,6 +154,7 @@ $(document).ready(function() {
 	
 	$("#new_password").submit(function(e){
         e.preventDefault();
+		sendSecret();
     });
 	
 	oldTextSave = $("#btnSaveExpirations").text();
