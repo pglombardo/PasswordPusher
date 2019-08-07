@@ -42,17 +42,22 @@
 					- else
 						span A secret for you
 			p.lead 
-				| This link will be expire in 
-				-if @password.hours_remaining < 24
-					b #{pluralize(@password.hours_remaining, 'hour')} 
-				-else 
-					-if @password.hours_remaining % 24 == 0
-						b #{pluralize(@password.hours_remaining/24, 'day')} 
-					-else
-						b #{pluralize(@password.hours_remaining/24, 'day')} and #{pluralize(@password.hours_remaining%24, 'hour')} 
-				| or after 
-				strong #{pluralize(@password.views_remaining, 'more view')}
-				|   whichever occurs first. Please obtain and securely store this secret elsewhere.
+				-if @password.views_remaining > 0
+					| This link will be expire in 
+					-if @password.hours_remaining < 24
+						b #{pluralize(@password.hours_remaining, 'hour')} 
+					-else 
+						-if @password.hours_remaining % 24 == 0
+							b #{pluralize(@password.hours_remaining/24, 'day')} 
+						-else
+							b #{pluralize(@password.hours_remaining/24, 'day')} and #{pluralize(@password.hours_remaining%24, 'hour')} 
+					| or after 
+					strong #{pluralize(@password.views_remaining, 'more view')}
+					|   whichever occurs first. Please obtain and securely store this secret elsewhere.
+				-else
+					| This is the 
+					strong last view 
+					| for this link. The Secret will deltetd in the database after this view.
 	div.container.mb-5 id="forms"
 		div.example.col-lg-8.col-md-10.ml-auto.mr-auto
 			div.row.mb-5
