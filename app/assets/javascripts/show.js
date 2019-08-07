@@ -102,6 +102,52 @@ function setFocus()
 	}
 }
 
+function startCountdownToClear()
+{
+	if($("#pTimeUntilClear").length != 0)
+	{
+		var secondsUntilClear = $("#spanCountdown").attr("data-countdown");
+		countDownToClear(secondsUntilClear);
+	}
+}
+
+function countDownToClear(secondsUntilClear)
+{
+	window.setTimeout(function(){
+		var newCountdown = secondsUntilClear - 1;
+		updateCountdownHtml(newCountdown);
+		if(newCountdown > 0)
+		{
+			countDownToClear(newCountdown);
+		}
+		else
+		{
+			clearSecret();
+		}
+	},1000);
+}
+
+function updateCountdownHtml(countdown)
+{
+	var seconds = countdown % 60;
+	var minutes = (countdown - seconds) / 60;
+	var formatedCountdown = (minutes > 9 ? minutes : "0" + minutes) + ":" + (seconds > 9 ? seconds : "0" + seconds);
+	var formatedCountdown = minutes + ":" + (seconds > 9 ? seconds : "0" + seconds);
+	$("#spanCountdown").text(formatedCountdown);
+	
+	if(countdown <= 60)
+	{
+		$("#spanCountdown").addClass("countdownWarning");
+	}
+}
+
+function clearSecret()
+{
+	$("#pTimeUntilClear").text("Time's up! The secret is cleard!");
+	$("#pTimeUntilClear").addClass("countdownWarning");
+	$("#payload").val("");
+}
+
 $(document).ready(function(){
 	// Events
 	$("#btnCopyUrl").click(function(){
@@ -122,4 +168,6 @@ $(document).ready(function(){
 	setFullLinknInput();
 	
 	setFocus();
+	
+	startCountdownToClear();
 });

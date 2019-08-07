@@ -47,6 +47,12 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') =
 # In development and test mode is this not active.
 ALLOWED_DOMAINS = ["secpush.adesso-service.com", "secpush.smarthouse.de"]
 
+# TIME_UNTIL_CLEAR
+#
+# Seconds until the secret in the password fiel will cleard
+# from JavaScript. Only on open a view link.
+TIME_UNTIL_CLEAR = 600
+
 
 # Initialize the rails application
 Rails.application.initialize!
