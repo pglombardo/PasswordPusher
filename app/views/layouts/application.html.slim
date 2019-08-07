@@ -7,7 +7,10 @@ html
     = stylesheet_link_tag    "application"
     = yield :extraHead
     meta name="description" content=("SecretPush is an application to securely communicate secrets the web. Links to secrets expire after a certain number of views and/or time has passed.") 
-    link  rel="shortcut icon"    href=(asset_path("favicon.ico")) type=("image/x-icon" )
+	-if request.host == "secpush.adesso-service.com"
+		link  rel="shortcut icon"    href=(asset_path("favicon-3as.png")) type=("image/x-icon" )
+	-else
+		link  rel="shortcut icon"    href=(asset_path("favicon-sh.png")) type=("image/x-icon" )
   body
 	div.page-content
 		div.content.clearfix
