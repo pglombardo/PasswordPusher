@@ -31,11 +31,7 @@ function decryptPayload()
 	try
 	{
 		var hash = window.location.hash;
-		// TODO remove middle of the august 2019
-		if (hash == "")
-		{
-			return
-		}
+		
 		var parts = hash.replace("#","").split(";");
 		
 		var keyHex = parts[0]
@@ -73,6 +69,7 @@ function decryptPayload()
 	{
 		$("#payload").val("");
 		$("#alertPostdError").fadeIn();
+		$("#pTimeUntilClear").hide();
 	}
 }
 
