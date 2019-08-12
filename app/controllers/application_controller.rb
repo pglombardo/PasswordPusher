@@ -20,12 +20,13 @@ class ApplicationController < ActionController::Base
   #         ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
   #         with: lambda { |exception| render_error 404, exception }
   # end
-  rescue_from ActionController::RoutingError,
-      ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
-      with: lambda { |exception| log_error 404, exception }
 
   rescue_from ActionController::ActionControllerError,
       with: lambda { |exception| log_error 500, exception }
+	  
+  rescue_from ActionController::RoutingError,
+      ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
+      with: lambda { |exception| log_error 404, exception }
 
   private
   def log_error(status, exception)

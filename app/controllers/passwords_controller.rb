@@ -10,8 +10,14 @@ class PasswordsController < ApplicationController
 	check_host()
 	
     if params.has_key?(:id)
+	
       @password = Password.find_by_url_token!(params[:id])
 
+	  # Show 404 if the password coma from a other host
+	  if (@password.host != request.host)
+	    not_found
+	  end
+	
       # If this is the first view, update record.  Otherwise, record a view.
       @first_view = @password.first_view
 
@@ -20,6 +26,7 @@ class PasswordsController < ApplicationController
       else
         @password.views = View.where(:password_id => @password.id, :successful => true)
       end
+    # Redirect to root if the password is from diffrent host
     else
       redirect_to :root
       return
@@ -96,6 +103,8 @@ class PasswordsController < ApplicationController
 
     @password.validate!
 	
+    @password.host = request.host
+	
 	if @password.save
 	  response = {'success' => 1, 'token' => @password.url_token}
 	else
@@ -125,6 +134,11 @@ class PasswordsController < ApplicationController
       redirect_to :root
       return
     end
+	
+    # Redirect to root if the password is from diffrent host
+	if (@password.host != request.host)
+      redirect_to :root
+	end
 	
     # Redirect to root if the found password wasn't 
 	# market as deletable
