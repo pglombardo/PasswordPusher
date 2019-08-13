@@ -138,6 +138,7 @@ class PasswordsController < ApplicationController
     # Redirect to root if the password is from diffrent host
 	if (@password.host != request.host)
       redirect_to :root
+      return
 	end
 	
     # Redirect to root if the found password wasn't 
