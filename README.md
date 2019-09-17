@@ -15,7 +15,7 @@ The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpush
 
 ## Deploy to Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
 ## Deploy in Containers
 
