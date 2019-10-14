@@ -115,7 +115,10 @@ class PasswordsController < ApplicationController
       if @password.save
         format.html { render :json => response.to_json }
         @password.payload = params[:password][:payload]
-        format.json { render :json => @password, :status => :created }
+        format.json do 
+			@password.url_token += "#noClientEncryption"
+			render :json => @password, :status => :created
+		end
       else
         format.html { render :json => response.to_json }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
