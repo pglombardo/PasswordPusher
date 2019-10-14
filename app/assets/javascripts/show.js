@@ -32,6 +32,11 @@ function decryptPayload()
 	{
 		var hash = window.location.hash;
 		
+		if(hash == "#noClientEncryption")
+		{
+			return 0;
+		}
+		
 		var parts = hash.replace("#","").split(";");
 		
 		var keyHex = parts[0]
