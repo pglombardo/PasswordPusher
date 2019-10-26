@@ -35,7 +35,7 @@ group :production do
 end
 
 group :private do
-  gem "sqlite3"
+  gem "sqlite3", '< 1.4.0'
 end
 
 gem "instana"
