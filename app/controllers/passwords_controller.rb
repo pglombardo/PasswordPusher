@@ -78,9 +78,13 @@ class PasswordsController < ApplicationController
 
     @password.url_token = rand(36**16).to_s(36)
 
-    # The first view on new passwords are free since we redirect
-    # the passwd creator to the password itself (and don't burn up a view).
-    @password.first_view = true
+    if params[:password].key?(:first_view)
+      @password.first_view = (params[:password][:first_view].downcase == "true")
+    else
+      # The first view on new passwords are free since we redirect
+      # the passwd creator to the password itself (and don't burn up a view).
+      @password.first_view = true
+    end
 
     # Encrypt the passwords
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
