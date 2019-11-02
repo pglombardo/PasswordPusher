@@ -7,6 +7,9 @@ gem 'rails', '~> 4.0'
 gem 'rack-attack'
 
 group :development, :test do
+  gem "minitest"
+  gem "minitest-reporters"
+  gem "minitest-rails", "~> 2.0"
   gem 'pry'
   gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
 end
