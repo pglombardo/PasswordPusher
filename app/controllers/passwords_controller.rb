@@ -122,7 +122,7 @@ class PasswordsController < ApplicationController
     respond_to do |format|
       if @password.save
         format.html { redirect_to @password, :notice => "The password has been deleted." }
-        format.json { render :json => @password, :status => :destroyed }
+        format.json { render :json => @password, :status => :ok }
       else
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
