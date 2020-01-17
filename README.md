@@ -15,6 +15,8 @@ The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpush
 
 ## Deploy to Heroku
 
+One click deploy to Heroku and get a fully configured running private instance of PasswordPusher immediately.
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
 ## Deploy in Containers
