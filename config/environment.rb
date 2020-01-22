@@ -45,7 +45,7 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') =
 # Only this domains are allowed to run. 
 # Other domains get a 500 Error
 # In development and test mode is this not active.
-ALLOWED_DOMAINS = ["secpush.adesso-service.com", "secpush.smarthouse.de"]
+ALLOWED_DOMAINS = ["secpush.adesso-service.com", "secpush.smarthouse.de", "secpush.adesso.de"]
 
 # TIME_UNTIL_CLEAR
 #

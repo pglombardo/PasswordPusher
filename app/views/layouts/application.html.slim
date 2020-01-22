@@ -7,19 +7,23 @@ html
     = stylesheet_link_tag    "application"
     = yield :extraHead
     meta name="description" content=("SecretPush is an application to securely communicate secrets the web. Links to secrets expire after a certain number of views and/or time has passed.") 
-	-if request.host == "secpush.adesso-service.com"
-		link  rel="shortcut icon"    href=(asset_path("favicon-3as.png")) type=("image/x-icon" )
-	-else
+	- if request.host == "secpush.smarthouse.de"
 		link  rel="shortcut icon"    href=(asset_path("favicon-sh.png")) type=("image/x-icon" )
+	- else
+		link  rel="shortcut icon"    href=(asset_path("favicon-3as.png")) type=("image/x-icon" )
+
   body
 	div.page-content
 		div.content.clearfix
 			div.container.mb-5 id="logo"
 				div.section-title.col-lg-8.col-md-10.ml-auto.mr-auto.text-right
-					-if request.host == "secpush.adesso-service.com"
+					- if request.host == "secpush.adesso.de"
+						= image_tag('logo-adesso.png', width: "250px", alt: "", height: "auto")
+					- elsif request.host == "secpush.smarthouse.de"
+						= image_tag('logo-adesso.png', width: "150px", alt: "", height: "auto")
+					- else
 						= image_tag('logo-3as.png', width: "150px", alt: "", height: "auto")
-					-else
-						= image_tag('logo-sh.png', width: "48px", alt: "", height: "auto")
+
 			= yield
 	
 	= javascript_include_tag "application"

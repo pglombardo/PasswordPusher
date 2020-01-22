@@ -8,7 +8,6 @@ class PasswordsController < ApplicationController
   # GET /passwords/1.json
   def show
 	check_host()
-	
     if params.has_key?(:id)
 	
       @password = Password.find_by_url_token!(params[:id])

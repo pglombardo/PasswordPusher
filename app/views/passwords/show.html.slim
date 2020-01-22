@@ -11,6 +11,14 @@
 				| The link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the SecretPush database.
 			  - elsif @password.hours_remaining == 0
 				| The link has hit its maximum age (#{@password.expire_after_time} hours) and the secret has been deleted from the SecretPush database.
+			-if request.host == "secpush.smarthouse.de"
+				p.color-for-warning.lead
+					b This Domain will be disabled soon
+					br
+					| Please use 
+					b
+						| secpush.adesso.de 
+					| in the future
 			p 
 				a href="../.." You want to share a secret too
 
@@ -41,6 +49,14 @@
 						span Your secret is
 					- else
 						span A secret for you
+			-if request.host == "secpush.smarthouse.de"
+				p.color-for-warning.lead
+					b This Domain will be disabled soon
+					br
+					| Please use 
+					b
+						| secpush.adesso.de 
+					| in the future
 			p.lead 
 				-if @password.views_remaining > 0
 					| This link will be expire in 
