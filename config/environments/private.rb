@@ -5,7 +5,7 @@ PasswordPusher::Application.configure do
   config.assets.js_compressor = :uglifier
   config.assets.compile = true
   config.assets.digest = true
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
   config.active_support.deprecation = :notify
   config.eager_load = false
 end
