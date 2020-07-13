@@ -6,7 +6,7 @@ PasswordPusher::Application.configure do
   config.assets.js_compressor = :uglifier
   config.assets.compile = false
   config.assets.digest = true
-  config.force_ssl = ENV.key?('PWPUSH_COM') ? true : false
+  config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
   config.eager_load = true
