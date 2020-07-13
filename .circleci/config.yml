@@ -1,0 +1,46 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  ruby26:
+    docker:
+      - image: circleci/ruby:2.6.3-stretch-node
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: gem system updates
+          command: |
+            gem update --system
+            gem update bundler
+            gem --version
+
+      - restore_cache:
+          keys:
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+            - gem-cache-v1
+
+      - run: bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Rails Migrate
+          command: bundle exec rake db:migrate RAILS_ENV=test
+      - run:
+          name: Run Tests
+          command: bundle exec rake test
+
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - ruby26
+
