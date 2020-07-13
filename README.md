@@ -15,6 +15,8 @@ The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpush
 
 ## Deploy to Heroku
 
+One click deploy to Heroku and get a fully configured running private instance of PasswordPusher immediately.
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
 ## Deploy in Containers
@@ -99,7 +101,7 @@ Thanks to:
 
 ## See Also
 
-[Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/push-pwpush.ps1) for Password Pusher.
+[Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
 
 [lnfnunes](https://github.com/lnfnunes) created a [NodeJS CLI](https://github.com/lnfnunes/pwpush-cli) wrapper for Password Pusher to be easily used in the terminal.
 
@@ -109,4 +111,3 @@ Thanks to:
 
 [bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
 
-  
