@@ -16,9 +16,20 @@ jobs:
             gem update --system
             gem update bundler
             gem --version
-      - run:
-          name: Bundle install
-          command: bundle install
+
+      - restore_cache:
+          keys:
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+            - gem-cache-v1
+
+      - run: bundle install --path vendor/bundle
+
+      - save_cache:
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
       - run:
           name: Rails Migrate
           command: bundle exec rake db:migrate RAILS_ENV=test
