@@ -17,6 +17,9 @@ jobs:
             gem update bundler
             gem --version
       - run:
+          name: Bundle install
+          command: bundle install
+      - run:
           name: Rails Migrate
           command: bundle exec rake db:migrate RAILS_ENV=test
       - run:
