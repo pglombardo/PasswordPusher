@@ -6,8 +6,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 
 I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
 
-[![Build Status](https://travis-ci.org/pglombardo/PasswordPusher.svg?branch=master)](https://travis-ci.org/pglombardo/PasswordPusher)
-
+[![CircleCI](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master.svg?style=svg)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
 
 ## See Also
 

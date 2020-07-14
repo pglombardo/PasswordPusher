@@ -34,7 +34,7 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 #   1. Sets the default check state for the "Allow viewers to
 #       optionally delete password before expiration" checkbox
 #   2. Sets the default value for newly pushed passwords if
-#       if unspecified (such as with a json request)
+#       unspecified (such as with a json request)
 #
 DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
 
@@ -45,7 +45,7 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') =
 # in the Slack integration installation process (see /slack_direct_install).
 #
 # Users wishing to create their own Slack integrations that point to their
-# own indipendently hosted versions of PasswordPusher can set this environment
+# own independently hosted versions of PasswordPusher can set this environment
 # variable.  e.g. For slack integrations that don't use pwpush.com
 SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', "pwpush: NotSetInEnv")
 
