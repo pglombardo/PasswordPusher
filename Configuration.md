@@ -9,11 +9,20 @@ See also `config/environment.rb`.
 
 These variables set the encryption key and salt used with EZCrypto library to write passwords to the database.  If not set, the application will use default values.
 
-
 | Variable | Description |
 | --------- | ------------------ |
 | CRYPT_KEY | Set the encryption key for the application |
 | CRYPT_SALT | And the salt |
+
+To generate a new key and salt, you can use any sufficiently random string or generate one with the application:
+
+```ruby
+bundle exec rails console
+key = EzCrypto::Key.generate
+key.encode
+```
+
+You can read more about [EzCrypto here](https://github.com/pglombardo/ezcrypto).
 
 ## Application Defaults
 
