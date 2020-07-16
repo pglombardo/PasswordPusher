@@ -8,9 +8,9 @@ I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/co
 
 [![CircleCI](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master.svg?style=svg)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
 
-## See Also
+# 💾 Installation & Deployment
 
-The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
+PasswordPusher can be run from source, on Heroku or in Docker containers. Heroku is by far the simplest for those just wishing to try out the application for themselves.
 
 ## Deploy to Heroku
 
@@ -24,7 +24,7 @@ PasswordPusher can be deployed to [Kubernetes](https://kubernetes.io/), [OpenShi
 
 See the [containerization directory](https://github.com/pglombardo/PasswordPusher/tree/master/containerization) for details.  Docker images hosted in [docker.io/r/pglombardo](https://hub.docker.com/r/pglombardo/).
 
-## Deploy Manually
+## Deploy from Source
 
 Make sure you have git and Ruby installed and then:
 
@@ -43,9 +43,9 @@ Then view the site @ [http://localhost:5000/](http://localhost:5000/).
 _Note: You can change the listening port by modifying the
 [Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
 
-### Troubleshooting
+# 🔦 Troubleshooting
 
-#### Command not found: bundle
+## Command not found: bundle
 
 If you get something like `Command not found: bundle`, then you need to run
 
@@ -53,7 +53,7 @@ If you get something like `Command not found: bundle`, then you need to run
 
 _If you get something like 'Command not found: gem', then you need to install Ruby. :)_
 
-#### SQLite3
+## SQLite3
 
 If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to install the sqlite3 packages for your operating system.  For Ubuntu, the command is:
 
@@ -61,14 +61,14 @@ If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to i
 sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
 ```
 
-## Other Information
+# 📝 Other Information
 
 * How to use the [Password API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
 * How to [Change the Front Page Default Values](https://github.com/pglombardo/PasswordPusher/wiki/Changing-the-Front-Page-Default-Values)
 * How to [Switch to Production Environment](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Production-Environment)
 * How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database)
 
-### Tip
+## Tip
 
 With the internal deploy process described above, SQLite3 is provided by default for a quick and easy setup of the application.
 
@@ -86,7 +86,7 @@ If you're already hosting your own private instance of PasswordPusher, make sure
 
 You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
 
-## Credits
+# 📼 Credits
 
 Thanks to:
 
@@ -98,7 +98,9 @@ Thanks to:
 
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
-## See Also
+# 📡 See Also
+
+The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
 
 [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
 
