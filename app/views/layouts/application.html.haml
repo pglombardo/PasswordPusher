@@ -2,6 +2,7 @@
 %html
   %head
     %title PasswordPusher
+    = render :partial => "layouts/ga" if Rails.env == "production"
     = csrf_meta_tags
     = stylesheet_link_tag    "application"
     %meta{:name => "description", :content => "PasswordPusher is an application to securely communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed."}
@@ -36,4 +37,3 @@
       = yield
 
     = javascript_include_tag "application"
-    = render :partial => "layouts/ga" if Rails.env == "production"
