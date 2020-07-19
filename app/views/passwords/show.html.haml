@@ -1,15 +1,15 @@
 - if @password.expired
-  %p
-    We apologize but...
-  %div.payload
-    This secret link has expired.
+  %p.large-yellow-font
+    We apologize but this secret link has expired.
   %p
     - if @password.deleted
       This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
     - elsif @password.views_remaining == 0
-      == The secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
+      == This secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
     - elsif @password.days_remaining == 0
-      == The secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
+      == This secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
+  %p
+    If needed, please contact the person or organization who gave you this secret URL.
 
 - else
   - if @first_view
