@@ -1,51 +1,50 @@
-%div.content
-  - if @password.expired
-    %p
-      We apologize but...
-    %div.payload
-      This secret link has expired.
-    %p
-      - if @password.deleted
-        This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
-      - elsif @password.views_remaining == 0
-        == The secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
-      - elsif @password.days_remaining == 0
-        == The secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
+- if @password.expired
+  %p.large-yellow-font
+    We apologize but this secret link has expired.
+  %p
+    - if @password.deleted
+      This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
+    - elsif @password.views_remaining == 0
+      == This secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
+    - elsif @password.days_remaining == 0
+      == This secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
+  %p
+    If needed, please contact the person or organization who gave you this secret URL.
 
-  - else
-    - if @first_view
-      .share_note
-        == This is your password.  Use this secret link to share it:
-        %p.url
-          %div.input_group
-            %input#url{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();', :readonly => true }
-            %button.btn.btn-link{ "data-clipboard-target" => "#url" }
-              = image_tag('button_up.png')
-        %span.note
-          This note won't be shown again...
-          %br/
-          Don't believe me?  Go ahead.  Hit reload...
-    %p
-      Your password is...
+- else
+  - if @first_view
+    .share_note
+      == This is your password.  Use this secret link to share it:
+      %div.input_group
+        %input#url{ :value => "#{request.url}", :spellcheck => "false", :onfocus => '$(this).focus(); $(this).select();', :onclick => '$(this).select();', :readonly => true }
+        %button.btn.btn-link{ "data-clipboard-target" => "#url" }
+          = image_tag('button_up.png')
+      %span.note
+        This note won't be shown again...
+        %br/
+        Don't believe me?  Go ahead.  Hit reload...
+  %p
+    Your password is...
 
-    %div.payload.spoiler#pass<
-      = @payload
+  %div.payload.spoiler#pass<
+    = @payload
 
-    %button.btn.btn-copy{ "data-clipboard-target" => "#pass" }
-      %p Copy Password to Clipboard
+  %button.btn.btn-copy{ "data-clipboard-target" => "#pass" }
+    %p Copy Password to Clipboard
 
-    %p.pwinstructions
-      Please obtain and securely store this password elsewhere, ideally in a password manager.
+  %p.pwinstructions
+    Please obtain and securely store this password elsewhere, ideally in a password manager.
 
-    %p
-      - if @password.views_remaining == 0
-        == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
-      - else
-        == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')}
-        == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
-    - if @password.deletable_by_viewer
-      %p{ :style => 'font-size: .85em;' }
-        = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
+  %p
+    - if @password.views_remaining == 0
+      == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
+    - else
+      == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')}
+      == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
+  - if @password.deletable_by_viewer
+    %p{ :style => 'font-size: .85em;' }
+      = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
+
 %div.footer_note
   This
   - if @password.expired

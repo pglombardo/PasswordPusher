@@ -11,7 +11,7 @@ group :development, :test do
   gem "minitest-reporters"
   gem "minitest-rails", "~> 2.0"
   gem 'pry'
-  gem 'pry-byebug', :platforms => [ :mri_20, :mri_21, :mri_22 ]
+  gem 'pry-byebug', :platforms => [ :mri ]
 end
 
 gem 'web-console', '~> 2.0', :group => :development
