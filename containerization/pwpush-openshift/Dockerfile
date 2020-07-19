@@ -14,9 +14,11 @@ RUN apt-get update -qq && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
     touch ${APP_ROOT}/log/production.log && \
     cd ${APP_ROOT} && \
-    gem install bundler && \
-    gem install thor && \
     chown -R 1001:root ${APP_ROOT}
+
+RUN gem update --system &&\
+    gem install bundler -v 1.17.3 && \
+    gem install thor
 
 EXPOSE 5000
 

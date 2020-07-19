@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:18.04
+FROM docker.io/ubuntu:bionic
 
 # Use the following 2 env variables if you need proxy support in your environment
 #ENV https_proxy=http://10.0.2.2:3128
@@ -13,14 +13,17 @@ RUN apt-get update -qq && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
     touch ${APP_ROOT}/log/private.log && \
     cd ${APP_ROOT} && \
-    gem install bundler && \
-    gem install thor && \
     chown -R 1001:root ${APP_ROOT}
 
 EXPOSE 5000
 
+RUN gem update --system
+RUN gem install bundler -v 1.17.3 && \
+    gem install thor
+
 USER 1001
 WORKDIR ${APP_ROOT}
+
 RUN bundle install --without development production test --deployment && \
     bundle exec rake assets:precompile && \
     RAILS_ENV=private bundle exec rake db:setup
