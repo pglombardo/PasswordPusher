@@ -31,7 +31,7 @@ function showViewsValue(newValue)
 msg = "Enter the Password to be Shared"
 function prepareTextField(e) {
   if (e) {
-    if (e.value == msg) {
+    if (e.value === msg) {
       e.value = '';
     }
   }
@@ -39,7 +39,7 @@ function prepareTextField(e) {
 
 function revertTextField(e) {
   if (e)
-    if (e.value == '') {
+    if (e.value === '') {
       e.value = msg;
     }
 }
