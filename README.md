@@ -42,7 +42,7 @@ Included in this repository is `containerization/pwpush-postgres/docker-compose.
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres)
 
-# On Kubernetes
+## On Kubernetes
 
 We currently don't supply a prebuilt Kubernetes YAML file but you can deploy the above Docker images using [this documentation](https://docs.docker.com/get-started/kube-deploy/).
 
