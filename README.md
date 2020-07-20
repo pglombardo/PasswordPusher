@@ -11,42 +11,29 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 # 💾 Running your own Instance of PasswordPusher
 
 
-## Heroku
+## On Heroku
 
 One click deploy to Heroku and get a fully configured running private instance of PasswordPusher immediately.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
-## Docker
+## On Docker
 
 Docker images of PasswordPusher are available on [Docker hub](https://hub.docker.com/u/pglombardo).
 
-### Ephemeral
+**➜ ephemeral**
 
     docker run -d -p "5000:5000" pglombardo/pwpush-ephemeral:latest
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-ephemeral)
 
-
-### With an External Postgres Database
+**➜ using an External Postgres Database**
 
     docker run -d -p "5000:5000" pglombardo/pwpush-postgres:latest
-    
-This container uses a default database URL of:
-
-    DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
-    
-You can either configure your PostgreSQL server to use these credentials or override the env var in the command line:
-
-    docker run -d -p "5000:5000" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
-    
-_Note: Providing a postgres password on the command line is far less than ideal_
-
-Lastly, you can also rebuild the container image from Dockerfile.  See the `containerization` folder.
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres-external-database)
 
-### Docker Compose
+## With Docker Compose
 
 Included in this repository is `containerization/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
 
@@ -55,11 +42,12 @@ Included in this repository is `containerization/pwpush-postgres/docker-compose.
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres)
 
-PasswordPusher can be deployed to [Kubernetes](https://kubernetes.io/), [OpenShift](https://openshift.com/) or any [Docker](https://www.docker.com/) host.
+# On Kubernetes
 
-See the [containerization directory](https://github.com/pglombardo/PasswordPusher/tree/master/containerization) for details.  Docker images hosted in [docker.io/r/pglombardo](https://hub.docker.com/r/pglombardo/).
+We currently don't supply a prebuilt Kubernetes YAML file but you can deploy the above Docker images using [this documentation](https://docs.docker.com/get-started/kube-deploy/).
 
-## OpenShift
+
+## On OpenShift
 
 See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-openshift).
 
