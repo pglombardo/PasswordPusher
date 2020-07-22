@@ -44,8 +44,11 @@ Included in this repository is `containerization/pwpush-postgres/docker-compose.
 
 ## On Kubernetes
 
-We currently don't supply a prebuilt Kubernetes YAML file but you can deploy the above Docker images using [this documentation](https://docs.docker.com/get-started/kube-deploy/).
+We currently don't supply a prebuilt Kubernetes YAML file yet but you can deploy the above Docker images using [this documentation](https://docs.docker.com/get-started/kube-deploy/).
 
+## On Microsoft Azure
+
+See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-containers/) on how to deploy PasswordPusher to Azure by Craig McLaren.
 
 ## On OpenShift
 
