@@ -1,4 +1,4 @@
-class CreatePasswords < ActiveRecord::Migration
+class CreatePasswords < ActiveRecord::Migration[4.2]
   def change
     create_table :passwords do |t|
       t.string :payload

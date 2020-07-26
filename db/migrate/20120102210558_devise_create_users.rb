@@ -1,4 +1,4 @@
-class DeviseCreateUsers < ActiveRecord::Migration
+class DeviseCreateUsers < ActiveRecord::Migration[4.2]
   def change
     create_table(:users) do |t|
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
