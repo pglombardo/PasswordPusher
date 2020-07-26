@@ -1,5 +1,5 @@
 class Password < ApplicationRecord
-  attr_accessible :payload, :expire_after_days, :expire_after_views, :deletable_by_viewer
+  #attr_accessible :payload, :expire_after_days, :expire_after_views, :deletable_by_viewer
   has_many :views, :dependent => :destroy
 
   def to_param

@@ -5,7 +5,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
 
-    post "/p", :password => { payload: "testpw" }
+    post "/p", params: { :password => { payload: "testpw" } }
     assert_response :redirect
     follow_redirect!
     assert_response :success
@@ -14,7 +14,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_json_password_deletion
-    post "/p.json", :password => { payload: "testpw" }
+    post "/p.json", params: { :password => { payload: "testpw" } }
     assert_response :success
 
     res = JSON.parse(@response.body)
