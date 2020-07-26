@@ -18,9 +18,9 @@ function saveExpirations()
 }
 
 $(document).ready(function() {
-  let clipboard = new ClipboardJS('.copy-to-clipboard');
+  var clipboard = new ClipboardJS('.copy-to-clipboard');
   clipboard.on('success', function(e) {
-    let clipboardButton = document.getElementById("clipboard-button");
+    var clipboardButton = document.getElementById("clipboard-button");
     clipboardButton.innerText = "Copied!"
     setTimeout(function() {
           clipboardButton.innerText = "Copy to Clipboard";
