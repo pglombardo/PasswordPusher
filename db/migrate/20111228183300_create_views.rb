@@ -1,4 +1,4 @@
-class CreateViews < ActiveRecord::Migration
+class CreateViews < ActiveRecord::Migration[4.2]
   def self.up
     create_table :views do |t|
       t.integer :password_id

@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end
@@ -11,9 +9,10 @@ class ApplicationController < ActionController::Base
   #         ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
   #         with: lambda { |exception| render_error 404, exception }
   # end
-  rescue_from ActionController::RoutingError, ActionController::UnknownController,
-      ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
-      with: lambda { |exception| render_error 404, exception }
+  # rescue_from ApplicationController::RoutingError, ApplicationController::UnknownController,
+  #     ::AbstractController::ActionNotFound, ApplicationRecord::RecordNotFound,
+  #     with: lambda { |exception| render_error 404, exception }
+
 
   private
   def render_error(status, exception)

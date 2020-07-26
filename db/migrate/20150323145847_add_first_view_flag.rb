@@ -1,4 +1,4 @@
-class AddFirstViewFlag < ActiveRecord::Migration
+class AddFirstViewFlag < ActiveRecord::Migration[4.2]
   def up
     add_column :passwords, :first_view, :boolean, :default => false
   end

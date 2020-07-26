@@ -32,10 +32,10 @@ jobs:
 
       - run:
           name: Rails Migrate
-          command: bundle exec rake db:migrate RAILS_ENV=test
+          command: ./bin/rails db:migrate RAILS_ENV=test
       - run:
           name: Run Tests
-          command: bundle exec rake test
+          command: ./bin/rails test
 
 
 workflows:

@@ -1,4 +1,4 @@
-class View < ActiveRecord::Base
+class View < ApplicationRecord
   belongs_to :password
-  attr_accessible :password_id, :ip, :user_agent
+  #attr_accessible :password_id, :ip, :user_agent
 end

@@ -1,5 +1,5 @@
-# Load the rails application
-require File.expand_path('../application', __FILE__)
+# Load the Rails application.
+require_relative 'application'
 
 PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Password to be Shared')
 
@@ -49,5 +49,5 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') =
 # variable.  e.g. For slack integrations that don't use pwpush.com
 SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', "pwpush: NotSetInEnv")
 
-# Initialize the rails application
-PasswordPusher::Application.initialize!
+# Initialize the Rails application.
+Rails.application.initialize!
