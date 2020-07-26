@@ -18,9 +18,13 @@ function saveExpirations()
 }
 
 $(document).ready(function() {
-  var clipboard = new Clipboard('.btn');
+  let clipboard = new ClipboardJS('.copy-to-clipboard');
   clipboard.on('success', function(e) {
-    alert("Copied to clipboard!");
+    let clipboardButton = document.getElementById("clipboard-button");
+    clipboardButton.innerText = "Copied!"
+    setTimeout(function() {
+          clipboardButton.innerText = "Copy to Clipboard";
+    }, 2000);
     e.clearSelection();
   });
 
