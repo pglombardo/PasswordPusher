@@ -23,14 +23,14 @@
         This note won't be shown again...
         %br/
         Don't believe me?  Go ahead.  Hit reload...
-  %p
+  %p.normal-yellow-font
     Your password is...
 
   %div.payload.spoiler#pass<
     = @payload
 
-  %button.btn.btn-copy{ "data-clipboard-target" => "#pass" }
-    %p Copy Password to Clipboard
+  %button#clipboard-button.copy-to-clipboard{ "data-clipboard-target" => "#pass" }
+    Copy to Clipboard
 
   %p.pwinstructions
     Please obtain and securely store this password elsewhere, ideally in a password manager.
@@ -44,11 +44,3 @@
   - if @password.deletable_by_viewer
     %p{ :style => 'font-size: .85em;' }
       = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
-
-%div.footer_note
-  This
-  - if @password.expired
-    (unfortunately expired)
-  password link is brought to you by
-  = link_to "Password Pusher", "/"
-  and viewers like you.
