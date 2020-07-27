@@ -88,14 +88,19 @@ class PasswordsController < ApplicationController
 
     # Encrypt the passwords
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @password.payload = @key.encrypt64(params[:password][:payload])
+    clear_password = params[:password][:payload]
+    @password.payload = @key.encrypt64(clear_password)
 
     @password.validate!
 
     respond_to do |format|
       if @password.save
         format.html { redirect_to @password, :notice => "The password has been pushed." }
-        format.json { render :json => @password, :status => :created }
+        format.json {
+          # For JSON, return the password record with the original clear text password back to the user
+          @password.payload = clear_password
+          render :json => @password, :status => :created
+        }
       else
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }

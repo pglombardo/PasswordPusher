@@ -8,6 +8,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("id")
     assert res.key?("payload")
+    assert_equal "testpw", res["payload"]
     assert res.key?("url_token")
     assert res.key?("first_view")
     assert_equal true, res["first_view"]
@@ -17,6 +18,10 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
     assert_equal false, res["deletable_by_viewer"]
+    assert res.key?("days_remaining")
+    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res["days_remaining"]
+    assert res.key?("views_remaining")
+    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res["views_remaining"]
 
     # These should be default values since we didn't specify them in the params
     assert res.key?("expire_after_days")
@@ -32,6 +37,9 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("id")
 
+    assert res.key?("days_remaining")
+    assert_equal 1, res["days_remaining"]
+
     assert res.key?("expire_after_days")
     assert_equal 1, res['expire_after_days']
   end
@@ -42,6 +50,9 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("id")
+
+    assert res.key?("views_remaining")
+    assert_equal 5, res["views_remaining"]
 
     assert res.key?("expire_after_days")
     assert_equal 5, res['expire_after_views']

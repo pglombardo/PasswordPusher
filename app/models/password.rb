@@ -18,6 +18,14 @@ class Password < ApplicationRecord
     [(self.expire_after_views - self.views.count), 0].max
   end
 
+  # Override to_json so that we can add in <days_remaining> and <views_remaining>
+  def to_json(*args)
+    attr_hash = self.attributes
+    attr_hash["days_remaining"] = self.days_remaining
+    attr_hash["views_remaining"] = self.views_remaining
+    attr_hash.to_json
+  end
+
   ##
   # validate!
   #
