@@ -18,6 +18,21 @@ class Password < ApplicationRecord
     [(self.expire_after_views - self.views.count), 0].max
   end
 
+  # Override to_json so that we can add in <days_remaining>, <views_remaining>
+  # and show the clear password
+  def to_json(*args)
+    attr_hash = self.attributes
+
+    if !self.expired and !self.payload.nil?
+      key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
+      attr_hash["payload"] = key.decrypt64(attr_hash["payload"])
+    end
+
+    attr_hash["days_remaining"] = self.days_remaining
+    attr_hash["views_remaining"] = self.views_remaining
+    attr_hash.to_json
+  end
+
   ##
   # validate!
   #

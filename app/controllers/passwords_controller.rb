@@ -26,14 +26,11 @@ class PasswordsController < ApplicationController
       # Decrypt the passwords
       @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
       @payload = @key.decrypt64(@password.payload)
-
-      # For JSON API, set the raw password in the @password object to make it available in the JSON response
-      @password.payload = @payload
     end
 
     log_view(@password) unless @first_view
 
-    expires_now()
+    expires_now
 
     respond_to do |format|
       format.html # show.html.erb
@@ -86,7 +83,7 @@ class PasswordsController < ApplicationController
       @password.first_view = true
     end
 
-    # Encrypt the passwords
+    # Encrypt the password
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
     @password.payload = @key.encrypt64(params[:password][:payload])
 
