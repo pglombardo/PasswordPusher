@@ -26,14 +26,11 @@ class PasswordsController < ApplicationController
       # Decrypt the passwords
       @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
       @payload = @key.decrypt64(@password.payload)
-
-      # For JSON API, set the raw password in the @password object to make it available in the JSON response
-      @password.payload = @payload
     end
 
     log_view(@password) unless @first_view
 
-    expires_now()
+    expires_now
 
     respond_to do |format|
       format.html # show.html.erb
@@ -86,21 +83,16 @@ class PasswordsController < ApplicationController
       @password.first_view = true
     end
 
-    # Encrypt the passwords
+    # Encrypt the password
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    clear_password = params[:password][:payload]
-    @password.payload = @key.encrypt64(clear_password)
+    @password.payload = @key.encrypt64(params[:password][:payload])
 
     @password.validate!
 
     respond_to do |format|
       if @password.save
         format.html { redirect_to @password, :notice => "The password has been pushed." }
-        format.json {
-          # For JSON, return the password record with the original clear text password back to the user
-          @password.payload = clear_password
-          render :json => @password, :status => :created
-        }
+        format.json { render :json => @password, :status => :created }
       else
         format.html { render :action => "new" }
         format.json { render :json => @password.errors, :status => :unprocessable_entity }
