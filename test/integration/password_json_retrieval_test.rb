@@ -28,6 +28,12 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
+    assert res.key?("expired")
+    assert_equal false, res["expired"]
+    assert res.key?("deleted")
+    assert_equal false, res["deleted"]
+    assert res.key?("payload")
+    assert_equal "testpw", res["payload"]
     assert res.key?("views_remaining")
     assert_equal 1, res["views_remaining"]
     assert res.key?("expire_after_views")
@@ -38,6 +44,12 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
+    assert res.key?("expired")
+    assert_equal false, res["expired"]
+    assert res.key?("deleted")
+    assert_equal false, res["deleted"]
+    assert res.key?("payload")
+    assert_equal "testpw", res["payload"]
     assert res.key?("views_remaining")
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
@@ -50,6 +62,8 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("expired")
     assert_equal true, res["expired"]
+    assert res.key?("deleted")
+    assert_equal false, res["deleted"]
     assert res.key?("payload")
     assert_nil res["payload"]
     assert res.key?("views_remaining")
