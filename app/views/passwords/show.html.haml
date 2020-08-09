@@ -3,11 +3,11 @@
     We apologize but this secret link has expired.
   %p
     - if @password.deleted
-      This secret link was manually expired by one of its viewers and the password has been deleted from the PasswordPusher database.
+      This secret link was manually expired by one of its viewers and the password has been deleted from the database.
     - elsif @password.views_remaining == 0
-      == This secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the PasswordPusher database.
+      == This secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the database.
     - elsif @password.days_remaining == 0
-      == This secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the PasswordPusher database.
+      == This secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the database.
   %p
     If needed, please contact the person or organization who gave you this secret URL.
 
@@ -43,4 +43,4 @@
       == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
   - if @password.deletable_by_viewer
     %p{ :style => 'font-size: .85em;' }
-      = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
+      = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the database forever.  Are you sure?' }
