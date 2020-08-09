@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "pwpush"
   spec.version       = '0.1.0'
   spec.authors       = ["Peter Giacomo Lombardo"]
-  spec.email         = ["pglombardo@gmail.com"]
+  spec.email         = ["nosis@rbx.run"]
 
-  spec.summary       = %q{PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web.}
-  spec.description   = %q{Links to passwords expire after a certain number of views and/or time has passed. Hosted at pwpush.com but you can also easily run your own instance internally or on Heroku with just a few steps.}
+  spec.summary       = %q{PasswordPusher is an application to securely communicate passwords over the web.}
+  spec.description   = %q{Passwords automatically expire after a certain number of views and/or time has passed.}
   spec.homepage      = "https://pwpush.com"
   spec.license       = "GPLv3"
 
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler" ">= 2.0.0"
+  spec.add_development_dependency "rake", ">= 12.3.3"
   spec.add_development_dependency "minitest"
 end
