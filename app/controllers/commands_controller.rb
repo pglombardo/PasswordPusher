@@ -70,7 +70,7 @@ class CommandsController < ApplicationController
                 "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}"
       render :text => message, :layout => false
     else
-      render :text => @password.errors, :layout => false
+      render :simple => @password.errors, :layout => false
     end
   end
 end
