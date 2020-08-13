@@ -27,6 +27,11 @@ $(document).ready(function() {
     }, 2000);
     e.clearSelection();
   });
+  
+  var clipboard_url = new ClipboardJS('.url-to-clipboard');
+  clipboard_url.on('success', function(e) {
+    var clipboardBtn = document.getElementById("url-button")
+  });
 
   days = $.cookie('pwpush_days');
   views = $.cookie('pwpush_views');
