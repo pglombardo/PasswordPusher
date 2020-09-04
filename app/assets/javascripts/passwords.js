@@ -18,8 +18,10 @@ function saveExpirations()
 }
 
 $(document).ready(function() {
-  var clipboard = new ClipboardJS('.copy-to-clipboard');
-  clipboard.on('success', function(e) {
+  var secret_url_clipboard = new ClipboardJS('.copy-secret-url');
+
+  var pw_clipboard = new ClipboardJS('.copy-to-clipboard');
+  pw_clipboard.on('success', function(e) {
     var clipboardButton = document.getElementById("clipboard-button");
     clipboardButton.innerText = "Copied!"
     setTimeout(function() {
@@ -33,32 +35,38 @@ $(document).ready(function() {
 
   de = document.getElementById("password_expire_after_days")
   dr = document.getElementById("daysrange")
-  if (days) {
-    de.value = days
-    dr.innerHTML = days + " Days"
-  } else {
-    showDaysValue(de.value)
+  if (de) {
+    if (days) {
+      de.value = days
+      dr.innerHTML = days + " Days"
+    } else {
+      showDaysValue(de.value)
+    }
   }
 
   ve = document.getElementById("password_expire_after_views")
   vr = document.getElementById("viewsrange")
-  if (views) {
-    ve.value = views
-    vr.innerHTML = views + " Views"
-  } else {
-    showViewsValue(ve.value)
+  if (ve) {
+    if (views) {
+      ve.value = views
+      vr.innerHTML = views + " Views"
+    } else {
+      showViewsValue(ve.value)
+    }
   }
 
   dbv_checkbox = document.getElementById('password_deletable_by_viewer')
   dbv_check_state = $.cookie('pwpush_dbv')
-  if (dbv_check_state) {
-    if (dbv_check_state == "false") {
-      dbv = false
-    } else {
-      dbv = true
-    }
-    if (dbv_checkbox.checked != dbv) {
-      dbv_checkbox.click()
+  if (dbv_checkbox) {
+    if (dbv_check_state) {
+      if (dbv_check_state == "false") {
+        dbv = false
+      } else {
+        dbv = true
+      }
+      if (dbv_checkbox.checked != dbv) {
+        dbv_checkbox.click()
+      }
     }
   }
 });
