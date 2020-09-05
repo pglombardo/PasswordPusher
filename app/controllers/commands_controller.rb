@@ -26,7 +26,7 @@ class CommandsController < ApplicationController
 
   def create
     if !params.key?(:command) || !params.key?(:text) || params[:command] != '/pwpush'
-      render :text => "Unknown command: #{params.inspect}", layout: false, content_type: 'text/plain'
+      render plain: "Unknown command: #{params.inspect}", layout: false
       return
     end
 
@@ -36,16 +36,16 @@ class CommandsController < ApplicationController
     end
 
     if ["help", '-h', 'usage'].include?(secret.downcase)
-      render :text => "Usage /pwpush <password> [days,views]", :layout => false
+      render plain: "Usage /pwpush <password> [days,views]", layout: false
       return
     elsif BAD_PASSWORDS.include?(secret.downcase)
-      render :text => "Come on.  Do you really want to use that password?  Put in a bit of effort and try again.", :layout => false
+      render plain: "Come on.  Do you really want to use that password?  Put in a bit of effort and try again.", layout: false
       return
     elsif ["april1st", "easter", "egg", "picklerick"].include?(secret.downcase)
-      render :text => RANDOM_THINGS.sample, :layout => false
+      render plain: RANDOM_THINGS.sample, layout: false
       return
     elsif ["instana"].include?(secret.downcase)
-      render :text => STAN_URLS.sample, :layout => false
+      render plain: STAN_URLS.sample, layout: false
       return
 
     end
@@ -68,9 +68,9 @@ class CommandsController < ApplicationController
     if @password.save
       message = "Pushed password with #{days} days and #{views} views expiration: " +
                 "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}"
-      render :text => message, :layout => false
+      render plain: message, layout: false
     else
-      render :simple => @password.errors, :layout => false
+      render plain: @password.errors, layout: false
     end
   end
 end
