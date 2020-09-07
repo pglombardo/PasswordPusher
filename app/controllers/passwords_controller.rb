@@ -2,7 +2,7 @@ class PasswordsController < ApplicationController
   # GET /passwords/1
   # GET /passwords/1.json
   def show
-    if params.has_key?(:id)
+    if params.key?(:id)
       @password = Password.find_by_url_token!(params[:id])
 
       # If this is the first view, update record.  Otherwise, record a view.
@@ -67,16 +67,18 @@ class PasswordsController < ApplicationController
     @password.expire_after_days = params[:password][:expire_after_days]
     @password.expire_after_views = params[:password][:expire_after_views]
 
-    if DELETABLE_BY_VIEWER_PASSWORDS && params[:password].key?(:deletable_by_viewer)
-      @password.deletable_by_viewer = true
-    else
-      @password.deletable_by_viewer = false
+    if DELETABLE_BY_VIEWER_PASSWORDS == true && params[:password].key?(:deletable_by_viewer)
+      if params[:password][:deletable_by_viewer] == 'true'
+        @password.deletable_by_viewer = true
+      elsif params[:password][:deletable_by_viewer] == 'false'
+        @password.deletable_by_viewer = false
+      end
     end
 
     @password.url_token = rand(36**16).to_s(36)
 
     if params[:password].key?(:first_view)
-      @password.first_view = (params[:password][:first_view].downcase == "true")
+      @password.first_view = (params[:password][:first_view].downcase == 'true')
     else
       # The first view on new passwords are free since we redirect
       # the passwd creator to the password itself (and don't burn up a view).
@@ -91,17 +93,17 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       if @password.save
-        format.html { redirect_to @password, :notice => "The password has been pushed." }
-        format.json { render :json => @password, :status => :created }
+        format.html { redirect_to @password, notice: 'The password has been pushed.' }
+        format.json { render json: @password, status: :created }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @password.errors, :status => :unprocessable_entity }
+        format.html { render action: 'new' }
+        format.json { render json: @password.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    if params.has_key?(:id)
+    if params.key?(:id)
       @password = Password.find_by_url_token!(params[:id])
     end
 
