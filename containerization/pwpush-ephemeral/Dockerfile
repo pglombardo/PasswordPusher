@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:bionic
+FROM docker.io/ubuntu:focal
 
 # Use the following 2 env variables if you need proxy support in your environment
 #ENV https_proxy=http://10.0.2.2:3128
@@ -6,9 +6,10 @@ FROM docker.io/ubuntu:bionic
 
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
+
 RUN ln -fs /usr/share/zoneinfo/Europe/Paris > /etc/localtime
 RUN apt-get update -qq && \
-    apt-get install -y --assume-yes build-essential git curl ruby2.5 ruby2.5-dev tzdata sqlite3 ruby-sqlite3 libsqlite3-dev zlib1g-dev && \
+    apt-get install -y --assume-yes build-essential libpq-dev git curl ruby2.7 ruby2.7-dev tzdata sqlite3 ruby-sqlite3 libsqlite3-dev zlib1g-dev nodejs yarnpkg && \
     cd /opt && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
     touch ${APP_ROOT}/log/private.log && \
@@ -18,15 +19,19 @@ RUN apt-get update -qq && \
 EXPOSE 5000
 
 RUN gem update --system
-RUN gem install bundler -v 1.17.3 && \
-    gem install thor
+RUN gem install bundler
+RUN gem install thor
 
 USER 1001
 WORKDIR ${APP_ROOT}
 
-RUN bundle install --without development production test --deployment && \
-    bundle exec rake assets:precompile && \
-    RAILS_ENV=private bundle exec rake db:setup
+ENV RAILS_ENV=private
+RUN bundle config set without 'development production test'
+RUN bundle config set deployment 'true'
+
+RUN bundle install
+RUN bundle exec rake assets:precompile
+RUN bundle exec rake db:setup
 
 USER root
 RUN chmod -R u+x ${APP_ROOT} && \
