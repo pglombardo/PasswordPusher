@@ -67,18 +67,22 @@ class PasswordsController < ApplicationController
     @password.expire_after_days = params[:password][:expire_after_days]
     @password.expire_after_views = params[:password][:expire_after_views]
 
-    if DELETABLE_BY_VIEWER_PASSWORDS == true && params[:password].key?(:deletable_by_viewer)
-      if params[:password][:deletable_by_viewer] == 'true'
-        @password.deletable_by_viewer = true
-      elsif params[:password][:deletable_by_viewer] == 'false'
-        @password.deletable_by_viewer = false
+    if DELETABLE_BY_VIEWER_PASSWORDS == true
+      if params[:password].key?(:deletable_by_viewer)
+        @password.deletable_by_viewer = params[:password][:deletable_by_viewer].to_s.casecmp('true').zero?
+      else
+        # Not specified or unrecognized value: Use the app configured default
+        @password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
       end
+    else
+      # DELETABLE_BY_VIEWER_PASSWORDS not enabled
+      @password.deletable_by_viewer = false
     end
 
     @password.url_token = rand(36**16).to_s(36)
 
     if params[:password].key?(:first_view)
-      @password.first_view = (params[:password][:first_view].downcase == 'true')
+      @password.first_view = params[:password][:first_view].to_s.casecmp('true').zero?
     else
       # The first view on new passwords are free since we redirect
       # the passwd creator to the password itself (and don't burn up a view).
