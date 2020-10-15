@@ -17,7 +17,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert_equal false, res["deletable_by_viewer"]
+    assert_equal DELETABLE_BY_VIEWER_DEFAULT, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
     assert_equal 2, res["views_remaining"]
     assert res.key?("expire_after_days")
