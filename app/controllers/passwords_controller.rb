@@ -69,10 +69,20 @@ class PasswordsController < ApplicationController
 
     if DELETABLE_BY_VIEWER_PASSWORDS == true
       if params[:password].key?(:deletable_by_viewer)
-        @password.deletable_by_viewer = params[:password][:deletable_by_viewer].to_s.casecmp('true').zero?
+        # User form data or json API request: :deletable_by_viewer can
+        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
+        user_dvb = params[:password][:deletable_by_viewer].to_s.downcase
+        @password.deletable_by_viewer = %w[on yes checked true].include?(user_dvb)
       else
-        # Not specified or unrecognized value: Use the app configured default
-        @password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
+        if request.format.html?
+          # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
+          # at all so we set false - NOT deletable by viewers
+          @password.deletable_by_viewer = false
+        else
+          # The JSON API is implicit so if it's not specified, use the app
+          # configured default
+          @password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
+        end
       end
     else
       # DELETABLE_BY_VIEWER_PASSWORDS not enabled

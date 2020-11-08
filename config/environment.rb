@@ -33,8 +33,8 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 # true, this option does two things:
 #   1. Sets the default check state for the "Allow viewers to
 #       optionally delete password before expiration" checkbox
-#   2. Sets the default value for newly pushed passwords if
-#       unspecified (such as with a json request)
+#   2. JSON API: Sets the default value for newly pushed passwords if
+#       unspecified
 #
 DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
 
