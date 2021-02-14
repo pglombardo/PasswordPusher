@@ -2,6 +2,15 @@
 
 All container images are available on Docker hub: [hub.docker.com/u/pglombardo/](https://hub.docker.com/u/pglombardo/)
 
+## tldr
+
+To run an ephemeral version that saves no data on port 8000:
+`docker run -p "8000:5000" pglombardo/pwpush-ephemeral:latest`
+
+To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/containerization/pwpush-postgres/docker-compose.yaml).
+
+For everything else, read on...
+
 ## Build/prerequisites details:
 All the builds and tests on host machine were done using rpm packages (no pip packages) :
   - CentOS Linux release 7.4.1708 (Core)
