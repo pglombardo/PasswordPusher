@@ -8,4 +8,5 @@ PasswordPusher::Application.configure do
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
   config.eager_load = false
+  config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
 end
