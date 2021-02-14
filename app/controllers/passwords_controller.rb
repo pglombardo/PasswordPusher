@@ -32,6 +32,12 @@ class PasswordsController < ApplicationController
 
     expires_now
 
+    if ENV.key?('FORCE_SSL') && !request.ssl?
+      @request_url = request.url.gsub(/http/i, "https")
+    else
+      @request_url = request.url
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @password }
