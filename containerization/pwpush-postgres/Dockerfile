@@ -27,6 +27,7 @@ USER 1001
 WORKDIR ${APP_ROOT}
 
 ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
 RUN bundle config set without 'development private test'
 RUN bundle config set deployment 'true'
 
