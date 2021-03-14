@@ -1,6 +1,7 @@
 base: &base
   adapter: sqlite3
   timeout: 5000
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
 
 development:
   database: db/development.sqlite3
