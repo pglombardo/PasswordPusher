@@ -13,7 +13,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 
 ## On Heroku
 
-One click deploy to Heroku and get a fully configured running private instance of PasswordPusher immediately.
+One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
