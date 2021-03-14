@@ -82,7 +82,6 @@ gem "timers", '4.3.0'
 gem 'sprockets', '~>3.0'
 gem 'foreman'
 gem 'jquery-rails'
-gem 'unicorn'
 gem 'puma'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
