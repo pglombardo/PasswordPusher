@@ -42,7 +42,7 @@ You can read more about [EzCrypto here](https://github.com/pglombardo/ezcrypto).
 
 | Variable | Description |
 | --------- | ------------------ |
-| FORCE_SSL | The existence of this variable will set `config.force_ssl` to true
+| FORCE_SSL | The existence of this variable will set `config.force_ssl` to true and generate HTTPS based secret URLs
 
 ## Google Analytics
 
