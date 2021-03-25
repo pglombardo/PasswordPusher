@@ -88,7 +88,7 @@ class PasswordsController < ApplicationController
                   end
 
     respond_to do |format|
-      format.html { render action: 'preview', layout: 'naked' }
+      format.html { render action: 'preview' }
       format.json { render json: @password, status: :ok }
     end
   end
