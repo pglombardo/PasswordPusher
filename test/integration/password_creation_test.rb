@@ -5,16 +5,18 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { :password => { payload: 'testpw' } }
+    post '/p', params: { password: { payload: 'testpw' } }
     assert_response :redirect
 
+    # Preview page
     follow_redirect!
     assert_response :success
+    assert_select 'p', 'Your password has been pushed.'
+
+    # Password page
+    get request.url.sub('/preview', '')
+    assert_response :success
     assert_select 'p', 'Your password is...'
-    # Validate the first view share note
-    div = css_select 'div.share_note'
-    assert(div.length == 1)
-    assert(div.first.content.include?('Use this secret link'))
 
     # Assert that the right password is in the page
     divs = css_select 'div#pass'
@@ -67,10 +69,14 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { :password => { payload: 'testpw', deletable_by_viewer: 'on' } }
+    post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect
 
     follow_redirect!
+    assert_response :success
+
+    # Password page
+    get request.url.sub('/preview', '')
     assert_response :success
     assert_select 'p', 'Your password is...'
 
@@ -84,11 +90,16 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { :password => { payload: 'testpw' } }
+    post '/p', params: { password: { payload: 'testpw' } }
     assert_response :redirect
 
     follow_redirect!
     assert_response :success
+
+    # Password page
+    get request.url.sub('/preview', '')
+    assert_response :success
+
     assert_select 'p', 'Your password is...'
 
     password_id = request.path.split('/')[2]

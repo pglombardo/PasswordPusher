@@ -1,46 +1,21 @@
-- if @password.expired
-  %p.large-yellow-font
-    We apologize but this secret link has expired.
-  %p
-    - if @password.deleted
-      This secret link was manually expired by one of its viewers and the password has been deleted from the database.
-    - elsif @password.views_remaining == 0
-      == This secret link has hit its maximum view count (#{@password.expire_after_views}) and the password has been deleted from the database.
-    - elsif @password.days_remaining == 0
-      == This secret link has hit its maximum age (#{@password.expire_after_days} days) and the password has been deleted from the database.
-  %p
-    If needed, please contact the person or organization who gave you this secret URL.
+%p.normal-yellow-font
+  Your password is...
 
-- else
-  - if @first_view
-    .share_note
-      == This is your password.  Use this secret link to share it:
-      %div.input_group
-        %input#secret_url{ :value => "#{@request_url}", :spellcheck => "false", :readonly => true }
-        %button.copy-secret-url{ "data-clipboard-target" => "#secret_url" }
-          = image_tag('button_up.png')
-      %span.note
-        This note won't be shown again...
-        %br/
-        Don't believe me?  Go ahead.  Hit reload...
-  %p.normal-yellow-font
-    Your password is...
+%div.payload.spoiler.notranslate#pass{ "translate" => "no" }<
+  = @payload
 
-  %div.payload.spoiler.notranslate#pass{ "translate" => "no" }<
-    = @payload
+%button#clipboard-button.copy-to-clipboard{ "data-clipboard-target" => "#pass" }
+  Copy to Clipboard
 
-  %button#clipboard-button.copy-to-clipboard{ "data-clipboard-target" => "#pass" }
-    Copy to Clipboard
+%p.pwinstructions
+  Please obtain and securely store this password elsewhere, ideally in a password manager.
 
-  %p.pwinstructions
-    Please obtain and securely store this password elsewhere, ideally in a password manager.
-
-  %p
-    - if @password.views_remaining == 0
-      == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
-    - else
-      == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')}
-      == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
-  - if @password.deletable_by_viewer
-    %p{ :style => 'font-size: .85em;' }
-      = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the database forever.  Are you sure?' }
+%p
+  - if @password.views_remaining == 0
+    == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')} or #{@password.views_remaining} more views (this is the last view).
+  - else
+    == This secret link will be deleted in #{pluralize(@password.days_remaining, 'day')}
+    == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
+- if @password.deletable_by_viewer
+  %p{ :style => 'font-size: .85em;' }
+    = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the database forever.  Are you sure?' }

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   def test_deletion
+    # Create password
     post "/p.json", params: { :password => { payload: "testpw" } }
     assert_response :success
 
@@ -20,7 +21,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("views_remaining")
     assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res["views_remaining"]
 
-    # Get the new password via json e.g. /p/<url_token>.json
+    # Delete the new password via json e.g. /p/<url_token>.json
     delete "/p/" + res["url_token"] + ".json"
     assert_response :success
 
@@ -58,6 +59,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("days_remaining")
     assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res["days_remaining"]
     assert res.key?("views_remaining")
-    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res["views_remaining"]
+    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT-1, res["views_remaining"]
   end
 end
