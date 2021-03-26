@@ -1,15 +1,35 @@
 
 @import url("https://fonts.googleapis.com/css?family=Crete+Round:400,400italic");
 
+html {
+  height: 100%;
+}
+
 body {
   text-align: center;
-  background: #000000 image-url('outlets.png') repeat;
+  background: #000000;
   font-family: "Crete Round", Tahoma, Georgia, Verdana, serif;
   color: #ddd;
   width: 95%;
   font-size: 16px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 100%;
+}
+
+body::after{ content:''; display:block; height:100px; }
+
+footer { 
+  position:absolute;
+  text-align: center;
+  margin-top: 2em;
+  left: 0;
+  width:100%; 
+  height:100px; 
+}
+
+article {
+  text-align: left;
 }
 
 a:link, a:visited, a:active {
@@ -20,24 +40,6 @@ a:link, a:visited, a:active {
 a:hover {
   color: #00CC00;
   text-decoration: none;
-}
-
-.auth_providers_area {
-  width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.auth_provider img {
-  display: block;
-}
-
-.auth_provider {
-  display: inline-block;
-  text-decoration: none;
-  margin-right: 20px;
-  text-align: center;
-  margin-bottom: 10px;
 }
 
 .normal-yellow-font {
@@ -55,7 +57,7 @@ a:hover {
 }
 
 .footer {
-  font-size: 80%;
+  float: bottom;
 }
 
 .about_content {

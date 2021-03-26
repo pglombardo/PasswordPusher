@@ -1,0 +1,54 @@
+<%= form_for @password do |f| %>
+    <p class='payload'>
+    <%=f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)", :autocomplete => "off" })%>
+    </p>
+
+    <p>
+    Expire secret link and delete the stored password after:
+
+    <p class='slider_box'>
+    <%=range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)", :oninput => "showDaysValue(this.value)"})%>
+    <span id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
+    </p>
+
+    <p class='slider_box'>
+    <%=range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)", :oninput => "showViewsValue(this.value)"})%>
+    <span id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
+    </p>
+
+    <br><span class='note'>(whichever comes first)</span></br>
+
+    <% if DELETABLE_BY_VIEWER_PASSWORDS %>
+    <p class='notes'>
+        <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT%>
+        Allow viewers to optionally delete password before expiration
+    </p>
+    <% end %>
+
+    <p>
+    <span>
+    <div class='cookie-save' id='cookie-save'>
+    <a href='#' onclick='saveExpirations()'>Save</a> these settings as
+    <i>default</i> in a browser cookie.
+    </div>
+    </span>
+    </p>
+
+    <p>
+    <%=f.submit(:value => "Push it!", :class => "pushit", 'data-disable-with' => "Pushing...")%>
+    </p>
+<% end %>
+
+<p class='notes'>
+<span class='tip'>
+* Tip: Only enter the password into the box.  Other identifying information can compromise security.
+</span>
+<p></p>
+<span class='note'>
+All passwords are encrypted prior to storage and are available to only those with the secret link.
+</span>
+<br>
+<span class='note'>
+Once expired, encrypted passwords are unequivocally deleted from the database.
+</span>
+</p>

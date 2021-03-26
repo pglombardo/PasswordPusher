@@ -12,7 +12,7 @@ class PasswordsController < ApplicationController
     if @password.expired
       log_view(@password)
       respond_to do |format|
-        format.html { render template: 'passwords/show_expired' }
+        format.html { render template: 'passwords/show_expired', layout: 'naked' }
         format.json { render json: @password }
       end
       return
@@ -26,7 +26,7 @@ class PasswordsController < ApplicationController
     expires_now
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render layout: 'naked' }
       format.json { render json: @password }
     end
   end
@@ -88,7 +88,7 @@ class PasswordsController < ApplicationController
                   end
 
     respond_to do |format|
-      format.html { render action: 'preview' }
+      format.html { render action: 'preview', layout: 'naked' }
       format.json { render json: @password, status: :ok }
     end
   end
@@ -98,7 +98,7 @@ class PasswordsController < ApplicationController
 
     # Redirect to root if we couldn't find password or
     # the found password wasn't market as deletable
-    unless @password || @password.deletable_by_viewer
+    if @password.deletable_by_viewer == false
       redirect_to :root
       return
     end

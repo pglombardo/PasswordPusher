@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>PasswordPusher</title>
+<%= render :partial => "layouts/ga" if Rails.env == "production" %>
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag "application" %>
+
+<meta content='PasswordPusher is an application to securely communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+
+<link href='<%=asset_path("favicon.ico")%>' rel='shortcut icon' type='image/x-icon'>
+<link href='<%=asset_path("apple-touch-icon-iphone.png")%>' rel='apple-touch-icon'>
+<link href='<%=asset_path("apple-touch-icon-ipad.png")%>' rel='apple-touch-icon' sizes='72x72'>
+<link href='<%=asset_path("apple-touch-icon-iphone4.png")%>' rel='apple-touch-icon' sizes='114x114'>
+<link href='<%=asset_path("apple-touch-icon-ipad3.png")%>' rel='apple-touch-icon' sizes='144x144'>
+
+<script>
+    // Set up the yepnope (Modernizr.load) directives...
+    Modernizr.load([
+    { // Test if Input Range is supported using Modernizr
+        test: Modernizr.inputtypes.range,
+        // If ranges are not supported, load the slider script and CSS file
+        nope: [
+            // The slider CSS file
+            "css!<%=asset_path('fd-slider.css')%>",
+            // Javascript file for slider
+            "<%=asset_path('fd-slider.js')%>"
+        ],
+        callback: function(id, testResult) {
+            // If the slider file has loaded then fire the onDomReady event
+            if("fdSlider" in window && typeof (fdSlider.onDomReady) != "undefined") {
+                    try { fdSlider.onDomReady(); } catch(err) {};
+            };
+        }
+    }
+    ]);
+</script>
+</head>
+
+<body>
+<p>
+  <div class='title'>
+  <span class='title'>PasswordPusher</span>
+  <br/>
+  <span class='tagline'>Go Ahead.  Email Another Password.</span>
+  </div>
+</p>
+<%= yield %> 
+<%= render partial: 'shared/footer' %>
+<%= javascript_include_tag "application"%>
+</body>
+</html>

@@ -2,11 +2,13 @@ require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_password_deletion
+    assert DELETABLE_BY_VIEWER_PASSWORDS == true
+
     get '/'
     assert_response :success
 
     # create
-    post '/p', params: { password: { payload: 'testpw' } }
+    post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect
 
     # preview
@@ -23,7 +25,9 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(divs)
     assert(divs.first.content.include?('testpw'))
 
-    # Delete the password
+    assert_select 'a', 'Nah. I\'ve got it. Delete this secret link now.'
+
+    # Delete the passworda
     delete request.url
     assert_response :redirect
 

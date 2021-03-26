@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>PasswordPusher</title>
+<%= render :partial => "layouts/ga" if Rails.env == "production" %>
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag "application" %>
+
+<meta content='PasswordPusher is an application to securely communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+
+<link href='<%=asset_path("favicon.ico")%>' rel='shortcut icon' type='image/x-icon'>
+<link href='<%=asset_path("apple-touch-icon-iphone.png")%>' rel='apple-touch-icon'>
+<link href='<%=asset_path("apple-touch-icon-ipad.png")%>' rel='apple-touch-icon' sizes='72x72'>
+<link href='<%=asset_path("apple-touch-icon-iphone4.png")%>' rel='apple-touch-icon' sizes='114x114'>
+<link href='<%=asset_path("apple-touch-icon-ipad3.png")%>' rel='apple-touch-icon' sizes='144x144'>
+</head>
+
+<body>
+<%= yield %> 
+<%= javascript_include_tag "application"%>
+</body>
+</html>
