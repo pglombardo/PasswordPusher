@@ -32,8 +32,6 @@ group :development, :test do
 end
 
 gem 'rack-attack'
-gem 'haml'
-gem 'haml-rails'
 
 # OSX: ../src/utils.h:33:10: fatal error: 'climits' file not found
 # From:
