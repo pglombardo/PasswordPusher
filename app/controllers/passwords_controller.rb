@@ -12,7 +12,7 @@ class PasswordsController < ApplicationController
     if @password.expired
       log_view(@password)
       respond_to do |format|
-        format.html { render template: 'passwords/show_expired' }
+        format.html { render template: 'passwords/show_expired', layout: 'naked' }
         format.json { render json: @password }
       end
       return
@@ -26,7 +26,7 @@ class PasswordsController < ApplicationController
     expires_now
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render layout: 'naked' }
       format.json { render json: @password }
     end
   end
