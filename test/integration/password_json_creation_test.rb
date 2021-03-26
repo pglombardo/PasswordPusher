@@ -48,6 +48,16 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal false, res['deletable_by_viewer']
   end
 
+  def test_deletable_by_viewer_absent_is_default
+    post '/p.json', params: { password: { payload: 'testpw' } }
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?('id')
+    assert res.key?('deletable_by_viewer')
+    assert_equal DELETABLE_BY_VIEWER_PASSWORDS, res['deletable_by_viewer']
+  end
+
   def test_custom_days_expiration
     post '/p.json', params: { password: { payload: 'testpw', expire_after_days: 1 } }
     assert_response :success

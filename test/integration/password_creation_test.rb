@@ -86,7 +86,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(delete_link.first.child.content.include?("Nah. I've got it. Delete this secret link now."))
   end
 
-  def test_deletable_by_viewer_honored_when_false
+  def test_deletable_by_viewer_falls_back_to_default
     get '/'
     assert_response :success
 

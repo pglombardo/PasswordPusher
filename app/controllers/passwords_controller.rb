@@ -98,7 +98,7 @@ class PasswordsController < ApplicationController
 
     # Redirect to root if we couldn't find password or
     # the found password wasn't market as deletable
-    unless @password || @password.deletable_by_viewer
+    if @password.deletable_by_viewer == false
       redirect_to :root
       return
     end

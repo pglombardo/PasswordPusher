@@ -22,9 +22,11 @@ Please obtain and securely store this password elsewhere, ideally in a password 
 <% end %>
 </p>
 
-<p style='font-size: .85em;'>
-<a id="<%=@password.url_token%>" 
-   data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?" 
-   rel="nofollow" data-method="delete" 
-   href="<%=password_path%>">Nah. I've got it. Delete this secret link now.</a>
-</p>
+<% if @password.deletable_by_viewer %>
+    <p style='font-size: .85em;'>
+    <a id="<%=@password.url_token%>"
+    data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?"
+    rel="nofollow" data-method="delete"
+    href="<%=password_path%>">Nah. I've got it. Delete this secret link now.</a>
+    </p>
+<% end %>
