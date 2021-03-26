@@ -1,0 +1,17 @@
+<p class="large-yellow-font">
+  We apologize but this secret link has expired.
+  <p>
+    This secret link
+
+    <% if @password.deleted %>
+      was manually expired by one of its viewers 
+    <% elsif @password.views_remaining == 0 %>
+      has hit its maximum view count (<%=@password.expire_after_views%>)
+    <% elsif @password.days_remaining == 0 %>
+      has hit its maximum age (<%=@password.expire_after_days%> days) 
+    <% end %>
+
+    and the password has been deleted from the database.
+  </p>
+  <p>If needed, please contact the person or organization who gave you this secret URL.</p>
+</p>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :p, :controller => :passwords, :as => :passwords, :except => [ :index, :edit, :update ]
-  resources :c, :controller => :commands, :as => :commands, :allow => [ :create ]
+  resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
+    get 'preview', on: :member
+  end
+  resources :c, controller: :commands, as: :commands, allow: %i[create]
   get '/slack_direct_install', to: redirect("https://slack.com/oauth/authorize?client_id=#{SLACK_CLIENT_ID}&scope=commands", status: 302)
-  root :to => 'passwords#new'
+  root to: 'passwords#new'
 end

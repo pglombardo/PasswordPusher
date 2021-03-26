@@ -1,0 +1,29 @@
+<p class="large-yellow-font">Your password has been pushed.</p>
+
+<p>
+  Use this secret link to share it:
+</p>
+<span class='input_group'>
+    <input id='secret_url' value='<%=@secret_url%>' spellcheck='false' readonly='true'>
+    <button class='copy-secret-url' data-clipboard-target='#secret_url'>
+        <%= image_tag('button_up.png') %>
+    </button>
+</span>
+
+<p style="height: 50px"/>
+
+<p>
+This newly pushed password will expire after <span class='normal-yellow-font'><%=@password.expire_after_views%> views</span> or 
+<span class='normal-yellow-font'><%=@password.expire_after_days%> days</span> (whichever comes first)
+
+<% if @password.deletable_by_viewer %>
+  and <span class='normal-yellow-font'>can be</span> deleted by viewers.
+<% else %>
+  and <span class='normal-yellow-font'>can NOT be</span> deleted by viewers.
+<% end %>
+</p>
+
+<p style="height: 50px"/>
+
+<p>
+<%=link_to "View This Password Now", @secret_url %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>

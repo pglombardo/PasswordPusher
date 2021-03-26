@@ -1,28 +1,27 @@
 class CommandsController < ApplicationController
-
   # Some random images featuring Stan (Instana)
   STAN_URLS = [
-    "https://s3.amazonaws.com/instana/stan+the+author.jpg",
-    "https://s3.amazonaws.com/instana/Stan+billboard.jpg",
-    "https://s3.amazonaws.com/instana/stan+on+ghost+tv.gif",
-    "https://s3.amazonaws.com/instana/Stan+in+coffee.jpg",
-    "https://s3.amazonaws.com/instana/stan+interview.jpg",
-    "https://s3.amazonaws.com/instana/stasrtup-instana.jpg",
-  ]
+    'https://s3.amazonaws.com/instana/stan+the+author.jpg',
+    'https://s3.amazonaws.com/instana/Stan+billboard.jpg',
+    'https://s3.amazonaws.com/instana/stan+on+ghost+tv.gif',
+    'https://s3.amazonaws.com/instana/Stan+in+coffee.jpg',
+    'https://s3.amazonaws.com/instana/stan+interview.jpg',
+    'https://s3.amazonaws.com/instana/stasrtup-instana.jpg'
+  ].freeze
 
-  RANDOM_THINGS =    [ '🦄', '(👍≖‿‿≖)👍 👍(≖‿‿≖👍)', '¯\_(ツ)_/¯ ', ' (╯︵╰,)',
-                       'ಥ_ಥ', '♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪',
-                       '┻━┻ ︵ヽ(`Д´)ﾉ︵﻿ ┻━┻', 'ᕙ(^▿^-ᕙ)',
-                       '─=≡Σ((( つ◕ل͜◕)つ', '＼（＾ ＾）／', 'Yᵒᵘ Oᶰˡʸ Lᶤᵛᵉ Oᶰᶜᵉ',
-                       '◕_◕', ' -`ღ´-', '(-(-_(-_-)_-)-)', '⁀⊙﹏☉⁀']
+  RANDOM_THINGS = ['🦄', '(👍≖‿‿≖)👍 👍(≖‿‿≖👍)', '¯\_(ツ)_/¯ ', ' (╯︵╰,)',
+                   'ಥ_ಥ', '♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪',
+                   '┻━┻ ︵ヽ(`Д´)ﾉ︵﻿ ┻━┻', 'ᕙ(^▿^-ᕙ)',
+                   '─=≡Σ((( つ◕ل͜◕)つ', '＼（＾ ＾）／', 'Yᵒᵘ Oᶰˡʸ Lᶤᵛᵉ Oᶰᶜᵉ',
+                   '◕_◕', ' -`ღ´-', '(-(-_(-_-)_-)-)', '⁀⊙﹏☉⁀'].freeze
 
   # Rough (& incomplete) list of passwords that should never be used.
   # Feel free to send PRs to add to this list although we'll never be
   # comprehensive here.  We can't save everyone from bad passwords.
-  BAD_PASSWORDS   = [ "1234", "12345", "123456", "1234567", "password",
-                      "qwerty", "football", "baseball", "welcome", "abc123",
-                      "dragon", "secret", "solo", "princess", "letmein",
-                      "welcome", "asdf"]
+  BAD_PASSWORDS = %w[1234 12345 123456 1234567 password
+                     qwerty football baseball welcome abc123
+                     dragon secret solo princess letmein
+                     welcome asdf].freeze
 
   def create
     if !params.key?(:command) || !params.key?(:text) || params[:command] != '/pwpush'
@@ -47,7 +46,6 @@ class CommandsController < ApplicationController
     elsif ["instana"].include?(secret.downcase)
       render plain: STAN_URLS.sample, layout: false
       return
-
     end
 
     days ||= EXPIRE_AFTER_DAYS_DEFAULT
