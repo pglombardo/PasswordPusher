@@ -87,18 +87,13 @@ Thanks to:
 
 # 📡 See Also
 
-* I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
-
 * The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
 
 * [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
 
 * [lnfnunes](https://github.com/lnfnunes) created a [NodeJS CLI](https://github.com/lnfnunes/pwpush-cli) wrapper for Password Pusher to be easily used in the terminal.
 
+* [CLI written in Python](https://github.com/abkierstein/pwpush) that uses pwpush.com as a backend
+
 * [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
-
-* [phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) based off of PasswordPusher
-
-* [bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
-
 
