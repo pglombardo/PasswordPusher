@@ -1,14 +1,14 @@
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
-PasswordPusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. 
+Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally on Docker, Kubernetes, OpenShift or on Heroku with just a few steps.
 
-[Follow PasswordPusher on Twitter](https://twitter.com/pwpush) for the latest news, updates and changes.
+[Follow Password Pusher on Twitter](https://twitter.com/pwpush) for the latest news, updates and changes.
 
 [![CircleCI](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master.svg?style=svg)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
 
-# 💾 Running your own Instance of PasswordPusher
+# 💾 Running your own Instance of Password Pusher
 
 
 ## On Heroku
@@ -17,9 +17,15 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
+## On Digital Ocean
+
+One click deploy to [Digital Ocean App Platform](https://www.digitalocean.com/docs/app-platform/) without having to set up servers.
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)
+
 ## On Docker
 
-Docker images of PasswordPusher are available on [Docker hub](https://hub.docker.com/u/pglombardo).
+Docker images of Password Pusher are available on [Docker hub](https://hub.docker.com/u/pglombardo).
 
 **➜ ephemeral**
 
@@ -48,7 +54,7 @@ We currently don't supply a prebuilt Kubernetes YAML file yet but you can deploy
 
 ## On Microsoft Azure
 
-See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-containers/) on how to deploy PasswordPusher to Azure by Craig McLaren.
+See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-containers/) on how to deploy Password Pusher to Azure by Craig McLaren.
 
 ## On OpenShift
 
@@ -87,7 +93,7 @@ Thanks to:
 
 # 📡 See Also
 
-* The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
+* The [Password Pusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
 
 * [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
 
@@ -95,5 +101,5 @@ Thanks to:
 
 * [CLI written in Python](https://github.com/abkierstein/pwpush) that uses pwpush.com as a backend
 
-* [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
+* [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of Password Pusher
 
