@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Peter Giacomo Lombardo"]
   spec.email         = ["nosis@rbx.run"]
 
-  spec.summary       = %q{PasswordPusher is an application to securely communicate passwords over the web.}
+  spec.summary       = %q{Password Pusher is an application to securely communicate passwords over the web.}
   spec.description   = %q{Passwords automatically expire after a certain number of views and/or time has passed.}
   spec.homepage      = "https://pwpush.com"
   spec.license       = "GPLv3"
