@@ -8,6 +8,19 @@ spec:
       repo_clone_url: https://github.com/pglombardo/PasswordPusher.git
     build_command: "bundle exec bin/rails db:migrate"
     envs:
+    # Private
+    - key: RAILS_ENV
+      scope: RUN_AND_BUILD_TIME
+      type: GENERAL
+      value: "private"
+    - key: RACK_ENV
+      scope: RUN_AND_BUILD_TIME
+      type: GENERAL
+      value: "private"
+    - key: BUNDLE_WITHOUT
+      scope: RUN_AND_BUILD_TIME
+      type: GENERAL
+      value: "development:test"
     # CRYPT key
     - key: CRYPT_KEY
       scope: RUN_TIME
