@@ -6,7 +6,6 @@ spec:
     git:
       branch: digitalocean
       repo_clone_url: https://github.com/pglombardo/PasswordPusher.git
-    # build_command: 'bundle exec bin/rails db:migrate'
     envs:
     # Private
     - key: RAILS_ENV
@@ -86,3 +85,6 @@ spec:
   databases:
   - name: 'pwpush-db'
     engine: PG
+  jobs:
+  - name: 'migrations'
+    build_command: "bundle exec bin/rails db:migrate"
