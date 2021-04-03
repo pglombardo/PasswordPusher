@@ -4,7 +4,7 @@ spec:
   - name: pwpush
     environment_slug: ruby-on-rails
     git:
-      branch: master
+      branch: digitalocean
       repo_clone_url: https://github.com/pglombardo/PasswordPusher.git
     build_command: "bundle exec bin/rails db:migrate"
     envs:
@@ -81,3 +81,6 @@ spec:
       scope: RUN_TIME
       type: GENERAL
       value: "true"
+    databases:
+    - name: "pwpush-db"
+      engine: "pg"
