@@ -21,7 +21,7 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 One click deploy to [Digital Ocean App Platform](https://www.digitalocean.com/docs/app-platform/) without having to set up servers.
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/digitalocean)
 
 ## On Docker
 
