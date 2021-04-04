@@ -17,11 +17,7 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
-## On Digital Ocean
-
-One click deploy to [Digital Ocean App Platform](https://www.digitalocean.com/docs/app-platform/) without having to set up servers.
-
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)
+_This option will deploy a production PasswordPusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
 
 ## On Docker
 
