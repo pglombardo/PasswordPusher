@@ -85,21 +85,21 @@ spec:
   databases:
   - name: 'pwpush-db'
     engine: PG
-jobs:
-- environment_slug: ruby-on-rails
-  envs:
-  - key: RACK_ENV
-    scope: RUN_AND_BUILD_TIME
-    value: production
-  - key: RAILS_ENV
-    scope: RUN_AND_BUILD_TIME
-    value: production
-  github:
-    branch: master
-    deploy_on_push: true
-    repo: pglombardo/PasswordPusher
-  instance_count: 1
-  instance_size_slug: basic-xxs
-  kind: POST_DEPLOY
-  name: run_migrations_after_deploys
-  run_command: bundle exec rails db:migrate
+  jobs:
+  - environment_slug: ruby-on-rails
+    envs:
+    - key: RACK_ENV
+      scope: RUN_AND_BUILD_TIME
+      value: production
+    - key: RAILS_ENV
+      scope: RUN_AND_BUILD_TIME
+      value: production
+    github:
+      branch: master
+      deploy_on_push: true
+      repo: pglombardo/PasswordPusher
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    kind: POST_DEPLOY
+    name: run_migrations_after_deploys
+    run_command: bundle exec rails db:migrate
