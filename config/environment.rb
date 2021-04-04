@@ -17,6 +17,17 @@ EXPIRE_AFTER_VIEWS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_DEFAULT', 5))
 EXPIRE_AFTER_VIEWS_MIN = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MIN', 1))
 EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 100))
 
+# RETRIEVAL_STEP_ENABLED
+# Is the option to offer a password retrieval step enabled?
+RETRIEVAL_STEP_ENABLED = ENV.fetch('RETRIEVAL_STEP_ENABLED', 'true') == 'true'
+
+# RETRIEVAL_STEP_REQUIRED_DEFAULT
+# Will pushed passwords require an extra click through to get to the actual password?
+#
+# When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
+# requiring a click to view the page /p/xxxxxxxx
+RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_REQUIRED_DEFAULT', 'false') == 'false'
+
 # DELETABLE_BY_VIEWER_PASSWORDS
 # Can passwords be deleted by viewers?
 #
