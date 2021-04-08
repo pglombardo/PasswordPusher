@@ -1,95 +1,67 @@
 ![Password Pusher Front Page](https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo_2014.png)
 
-PasswordPusher is an opensource Ruby on Rails application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed. Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally or on Heroku with just a few steps.
+This is a heavily modified fork of the [PasswordPusher](https://github.com/pglombardo/PasswordPusher) project.
+It is no longer compatible with the official documentation of the API, but supports new features like E2E-encryption.
 
-I previously posted this project on [Reddit](http://www.reddit.com/r/sysadmin/comments/pfda0/do_you_email_out_passwords_i_wrote_this_utility/) which provided some great feedback - most of which has been implemented.
+# API
 
-## See Also
+PasswordPusher allows creating passwords using the API endpoint.
+Please consider that passwords which have been created using the API will not benefit from the JavaScript E2E-encryption.
 
-The [PasswordPusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
-
-## Deploy to Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Deploy Internally
-
-Make sure you have git and Ruby installed and then:
-
-```sh
-git clone git@github.com:pglombardo/PasswordPusher.git
-cd PasswordPusher
-gem install bundler
-bundle install --without development production test --deployment
-bundle exec rake assets:precompile
-RAILS_ENV=private bundle exec rake db:setup
-foreman start internalweb
+The following POST data is required for Content-Type: `application/x-www-form-urlencoded`:
+```
+password[payload]: mypassword
+password[expire_after_time]: 6
+password[expire_after_views]: 2
 ```
 
-Then view the site @ [http://localhost:5000/](http://localhost:5000/).
+### Properties
 
-_Note: You can change the listening port by modifying the
-[Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
+#### password[payload]
+This will be your password.
 
-### Troubleshooting
+#### password[expire_after_time]
+Defines the amount of time after which the password will expire.
+The following values are allowed:
 
-#### Command not found: bundle
 
-If you get something like `Command not found: bundle`, then you need to run
+| `expire_after_time` value  | Time span |
+| ------------- | ------------- |
+| 1  | 1 hour  |
+| 6  | 6 hours  |
+| 12  | 12 hours  |
+| 24  | 1 day  |
+| 48  | 2 days  |
+| 72  | 3 days  |
+| 96  | 4 days  |
+| 120  | 5 days  |
 
-    gem install bundler
+#### password[expire_after_views]
+Defines the amount of views after which the password will expire.
+The value is allowed to be between `1` and `100`.
 
-_If you get something like 'Command not found: gem', then you need to install Ruby. :)_
+### Request examples
 
-#### SQLite3
-
-If the 'bundle install' fails with 'checking for sqlite3.h... no', you have to install the sqlite3 packages for your operating system.  For Ubuntu, the command is:
-
-```sh
-sudo apt-get install sqlite3 ruby-sqlite3 libsqlite3-ruby libsqlite3-dev
+An example `curl` request might look like this:
+```
+curl -X POST --data "password[payload]=mypassword&password[expire_after_time]=1&password[expire_after_views]=10" https://passwordpusher.example/p.json
 ```
 
-## Other Information
-
-* How to use the [Password API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
-* How to [Change the Front Page Default Values](https://github.com/pglombardo/PasswordPusher/wiki/Changing-the-Front-Page-Default-Values)
-* How to [Switch to Production Environment](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Production-Environment)
-* How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database)
-
-### Tip
-
-With the internal deploy process described above, SQLite3 is provided by default for a quick and easy setup of the application.
-
-If you plan to use PasswordPusher internally at your organization and expect to have multiple users concurrently creating passwords, it's advised to move away from SQLite3 as it doesn't support write concurrency and errors will occur.  
-
-For example, on [https://pwpush.com](https://pwpush.com), I run the application with a Postgres database.
-
-*Initiated from [this discussion](http://www.reddit.com/r/sysadmin/comments/yxps8/passwordpusher_best_way_to_deliver_passwords_to/c5zwts9) on reddit.*
-
-See How to [Switch to Another Backend Database](https://github.com/pglombardo/PasswordPusher/wiki/Switch-to-Another-Backend-Database) for details.
-
-## Note for Existing Users
-
-If you're already hosting your own private instance of PasswordPusher, make sure to do a periodic `git pull` from time to time to always get the latest updates. 
-
-You can always checkout out the [latest commits](https://github.com/pglombardo/PasswordPusher/commits/master) to see what's been updated recently.
-
-## Credits
-
-Thanks to:
-
-* [@iandunn](https://github.com/iandunn) for better password form security.
-
-* [Kasper 'kapöw' Grubbe](https://github.com/kaspergrubbe) for the [JSON POST fix](https://github.com/pglombardo/PasswordPusher/pull/3).
-
-* [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
-
-## See Also
-
-[quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of PasswordPusher
-
-[phanaster](https://github.com/phanaster) created a [Coupon Pushing application](https://github.com/phanaster/cpsh.me) ([cpsh.me](http://cpsh.me/)) based off of PasswordPusher
-
-[bemosior](https://github.com/bemosior) put together a PHP port of PasswordPusher: [PHPasswordPusher](https://github.com/bemosior/PHPasswordPusher)
-
-
+The request produces the following result:
+```
+{
+   "expire_after_time" : 1,
+   "updated_at" : "2020-05-26T13:06:02.688Z",
+   "payload" : "mypassword",
+   "user_id" : null,
+   "deletable_by_viewer" : false,
+   "deleted" : false,
+   "created_at" : "2020-05-26T13:06:02.688Z",
+   "expired" : false,
+   "id" : 5322,
+   "first_view" : true,
+   "host" : "passwordpusher.example",
+   "url_token" : "dsleq6htuicxnlbr#noClientEncryption",
+   "expire_after_views" : 10
+}
+```
