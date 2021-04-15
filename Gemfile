@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-ruby "2.6.3"
+ruby "~> 2.6"
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2'
 
 group :development, :test do
-  gem 'pry', '~> 0.12.2'
-  gem 'pry-byebug', '~> 3.7.0', :platforms => [ :mri_20, :mri_21, :mri_22 ]
+  gem 'pry', '~> 0.12'
+  gem 'pry-byebug', '~> 3.7', :platforms => [ :mri_20, :mri_21, :mri_22 ]
 end
 
 

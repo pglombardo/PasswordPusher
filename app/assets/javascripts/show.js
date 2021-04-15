@@ -145,7 +145,7 @@ function updateCountdownHtml(countdown)
 
 function clearSecret()
 {
-	$("#pTimeUntilClear").text("Time's up! The secret is cleard!");
+	$("#pTimeUntilClear").text("Time's up! The secret has been cleared!");
 	$("#pTimeUntilClear").addClass("countdownWarning");
 	$("#payload").val("");
 }
