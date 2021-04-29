@@ -99,3 +99,4 @@ Thanks to:
 
 * [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of Password Pusher
 
+* [chesire](https://github.com/chesire) created an Android application [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) which calls through to pwpush.com and copies the resulting url to the clipboard
