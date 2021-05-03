@@ -31,6 +31,7 @@ group :development, :test do
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
+gem 'rack-cors'
 gem 'rack-attack'
 
 # OSX: ../src/utils.h:33:10: fatal error: 'climits' file not found
