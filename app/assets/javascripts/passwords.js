@@ -19,6 +19,15 @@ function saveExpirations()
 
 $(document).ready(function() {
   var secret_url_clipboard = new ClipboardJS('.copy-secret-url');
+  secret_url_clipboard.on('success', function(e) {
+    var clipboardButton = document.getElementById("clipboard-secret-url");
+    var copyIcon = clipboardButton.innerHTML;
+    clipboardButton.innerText = "Copied!"
+    setTimeout(function() {
+          clipboardButton.innerHTML = copyIcon;
+    }, 1000);
+    e.clearSelection();
+  });
 
   var pw_clipboard = new ClipboardJS('.copy-to-clipboard');
   pw_clipboard.on('success', function(e) {
