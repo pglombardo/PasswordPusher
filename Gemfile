@@ -47,7 +47,6 @@ gem 'rack-attack'
 #gem 'therubyracer'
 #
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
-gem 'modernizr-rails', :git => 'https://github.com/russfrisch/modernizr-rails.git'
 gem "high_voltage"
 
 # Reduces boot times through caching; required in config/boot.rb
