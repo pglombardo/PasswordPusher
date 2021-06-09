@@ -14,27 +14,22 @@ You can access PasswordPusher at [pwpush.com](https://pwpush.com) or alternative
 
 To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) in the next section.
 
-## 👮‍♂️ Official
-
-### Extensions
-
-* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
-
-## 📡 Community
-
-Applications, utilities and extensions built by the community.
-
-### Android Apps
-
-*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
-
-### Command Line Utilities
+## Command Line Utilities
 
 *  [kprocyszyn/.Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a Powershell based CLI
 
 *  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
 
 * [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
+
+## Android Apps
+
+*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
+
+
+## Extensions
+
+* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
 
 # 💾 Run Your Own Instance
