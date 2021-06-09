@@ -2,13 +2,42 @@
 
 Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
-Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own instance internally on Docker, Kubernetes, OpenShift or on Heroku with just a few steps.
+Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
 [Follow Password Pusher on Twitter](https://twitter.com/pwpush) for the latest news, updates and changes.
 
 [![CircleCI](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master.svg?style=svg)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
 
-# 💾 Running your own Instance of Password Pusher
+# How to Use
+
+You can access PasswordPusher at [pwpush.com](https://pwpush.com) or alternatively use one of the tools below.
+
+To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) in the next section.
+
+## 👮‍♂️ Official
+
+### Extensions
+
+* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
+
+## 📡 Community
+
+Applications, utilities and extensions built by the community.
+
+### Android Apps
+
+*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
+
+### Command Line Utilities
+
+*  [kprocyszyn/.Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a Powershell based CLI
+
+*  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
+
+* [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
+
+
+# 💾 Run Your Own Instance
 
 
 ## On Heroku
@@ -87,16 +116,3 @@ Thanks to:
 
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
-# 📡 See Also
-
-* The [Password Pusher Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
-
-* [Kamil Procyszyn](https://twitter.com/kprocyszyn/status/970413009511251968) put together a nice [PowerShell script](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1) for Password Pusher.
-
-* [lnfnunes](https://github.com/lnfnunes) created a [NodeJS CLI](https://github.com/lnfnunes/pwpush-cli) wrapper for Password Pusher to be easily used in the terminal.
-
-* [CLI written in Python](https://github.com/abkierstein/pwpush) that uses pwpush.com as a backend
-
-* [quasarj](https://github.com/quasarj) created a [django application](https://github.com/quasarj/projectgiraffe) based off of Password Pusher
-
-* [chesire](https://github.com/chesire) created an Android application [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) which calls through to pwpush.com and copies the resulting url to the clipboard
