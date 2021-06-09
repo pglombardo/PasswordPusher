@@ -42,4 +42,4 @@ RUN chmod -R u+x ${APP_ROOT} && \
 
 USER 1001
 WORKDIR ${APP_ROOT}
-ENTRYPOINT ["containerization/pwpush-postgres/entrypoint.sh"]
+ENTRYPOINT ["docker/pwpush-postgres/entrypoint.sh"]

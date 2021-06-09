@@ -14,27 +14,22 @@ You can access PasswordPusher at [pwpush.com](https://pwpush.com) or alternative
 
 To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) in the next section.
 
-## 👮‍♂️ Official
-
-### Extensions
-
-* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users.
-
-## 📡 Community
-
-Applications, utilities and extensions built by the community.
-
-### Android Apps
-
-*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
-
-### Command Line Utilities
+## Command Line Utilities
 
 *  [kprocyszyn/.Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a Powershell based CLI
 
 *  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
 
 * [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
+
+## Android Apps
+
+*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
+
+
+## Extensions
+
+* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
 
 # 💾 Run Your Own Instance
@@ -56,22 +51,22 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
     docker run -d -p "5000:5000" pglombardo/pwpush-ephemeral:latest
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-ephemeral)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
 
     docker run -d -p "5000:5000" pglombardo/pwpush-postgres:latest
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres-external-database)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres-external-database)
 
 ## With Docker Compose
 
-Included in this repository is `containerization/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
+Included in this repository is `docker/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
 
     docker-compose up -d
     docker-compose down
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres)
 
 ## On Kubernetes
 
@@ -83,7 +78,7 @@ See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-cont
 
 ## On OpenShift
 
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-openshift).
+See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-openshift).
 
 ## From Source
 
