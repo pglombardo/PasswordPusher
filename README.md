@@ -51,22 +51,22 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
     docker run -d -p "5000:5000" pglombardo/pwpush-ephemeral:latest
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-ephemeral)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
 
     docker run -d -p "5000:5000" pglombardo/pwpush-postgres:latest
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres-external-database)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres-external-database)
 
 ## With Docker Compose
 
-Included in this repository is `containerization/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
+Included in this repository is `docker/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
 
     docker-compose up -d
     docker-compose down
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-postgres)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres)
 
 ## On Kubernetes
 
@@ -78,7 +78,7 @@ See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-cont
 
 ## On OpenShift
 
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containerization#pwpush-openshift).
+See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-openshift).
 
 ## From Source
 

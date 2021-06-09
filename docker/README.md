@@ -7,7 +7,7 @@ All container images are available on Docker hub: [hub.docker.com/u/pglombardo/]
 To run an ephemeral version that saves no data on port 8000:
 `docker run -p "8000:5000" pglombardo/pwpush-ephemeral:latest`
 
-To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/containerization/pwpush-postgres/docker-compose.yaml).
+To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/docker/pwpush-postgres/docker-compose.yaml).
 
 For everything else, read on...
 
@@ -63,7 +63,7 @@ You can run PasswordPusher in OpenShift in 2 ways:
     ```
     oc login https://your_openshift_url
     oc new-project passwordpusher
-    cd ~ && git clone https://github.com/pglombardo/PasswordPusher.git && cd ~/PasswordPusher/containerization/passwordpusher-openshift
+    cd ~ && git clone https://github.com/pglombardo/PasswordPusher.git && cd ~/PasswordPusher/docker/passwordpusher-openshift
     oc create -f template-with-buildconfig.yaml
     oc new-app postgresql-persistent -p MEMORY_LIMIT=512Mi -p NAMESPACE=openshift -p DATABASE_SERVICE_NAME=postgresql -p POSTGRESQL_USER=passwordpusher_user -p POSTGRESQL_PASSWORD=passwordpusher_passwd -p POSTGRESQL_DATABASE=passwordpusher_db -p VOLUME_CAPACITY=1Gi -p POSTGRESQL_VERSION=9.5
     oc new-app --template=passwordpusher
@@ -71,4 +71,4 @@ You can run PasswordPusher in OpenShift in 2 ways:
 OpenShift observations:
 - your cluster needs persistent storage for PostgreSQL to save the data
 - if you want the PasswordPusher template to be available to ALL the projects (Other category in the catalog) in the cluster you need to create the template in the OpenShift namespace: `oc create -f template-with-buildconfig.yaml -n openshift`
-- if you want to change the PostgreSQL credentials, modify the `DATABASE_URL` environment variable in the `containerization/passwordpusher-openshift/Dockerfile` and also update the credentials when you launch the PostgreSQL installation a few lines above
+- if you want to change the PostgreSQL credentials, modify the `DATABASE_URL` environment variable in the `docker/passwordpusher-openshift/Dockerfile` and also update the credentials when you launch the PostgreSQL installation a few lines above
