@@ -48,6 +48,7 @@ gem 'rack-attack'
 #
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 gem "high_voltage"
+gem 'kramdown', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

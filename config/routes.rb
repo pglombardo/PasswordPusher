@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   end
   resources :c, controller: :commands, as: :commands, allow: %i[create]
   get '/slack_direct_install', to: redirect("https://slack.com/oauth/authorize?client_id=#{SLACK_CLIENT_ID}&scope=commands", status: 302)
+  # config/routes.rb
+  get "/pages/*id" => 'pages#show', as: :page, format: false
   root to: 'passwords#new'
 end
