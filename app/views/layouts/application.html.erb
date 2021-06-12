@@ -6,8 +6,9 @@
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
 <%= csrf_meta_tags %>
 <%= stylesheet_link_tag "application" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<meta content='PasswordPusher is an application to securely communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
+<meta content='PasswordPusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 
 <link href='<%=asset_path("favicon.ico")%>' rel='shortcut icon' type='image/x-icon'>
@@ -19,12 +20,7 @@
 
 <body>
 
-<div class='title'>
-  <p>
-    Password Pusher
-    <span>Go Ahead.  Email Another Password.</span>
-  </p>
-</div>
+<%= link_to image_tag('horizontal-logo-small.png'), '/' %>
 
 <%= yield %> 
 <%= render partial: 'shared/footer' %>
