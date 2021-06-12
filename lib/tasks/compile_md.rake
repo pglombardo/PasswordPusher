@@ -1,4 +1,4 @@
-SOURCE_FILES = %w[faq tools].freeze
+SOURCE_FILES = %w[faq tools about].freeze
 
 desc 'Compile markdown files into ERB HighVoltage pages'
 task :compile_markdown do

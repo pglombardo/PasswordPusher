@@ -35,11 +35,11 @@ Yes - many other users utilize either Slack or the command line to push and dist
 
 ## How many requests can I send to Password Pusher?
 
-There is no limits in effect currently and I don't want to add any.  To make sure the site is always up and running well, Password Pusher is configured with a rate limiter by default (both for pwpush.com and privately run instances).
+There is no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.
 
 ## How can I run my own version for my organization?
 
-Run it on your host, in Docker or in the cloud... we support it all.  See our Installation documentation for more details.
+See our Installation documentation for more details.
 
 ## Are there any licensing restrictions for me, my company or my organization?
 
@@ -47,9 +47,7 @@ The source code is release under the GNU General Public License v3.0.  I take gr
 
 ## Can I use Password Pusher in my talk/presentation/conference?
 
-Absolutely.  I hold no requirements or limitations around this.  Sending me a link to the talk/presentation/conference would be nice though so I could share it on Twitter.
-
-
+Absolutely.  I hold no requirements or limitations around this.  Sending me a link to the talk/presentation/conference would be appreciated though so I could share it on Twitter.
 
 ## Could you add a specific feature for my organization?
 
