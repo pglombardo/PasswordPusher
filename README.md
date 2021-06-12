@@ -10,7 +10,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 
 # How to Use
 
-You can access PasswordPusher at [pwpush.com](https://pwpush.com) or alternatively use one of the tools below.
+You can access Password Pusher at [pwpush.com](https://pwpush.com) or alternatively use one of the tools below.
 
 To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) in the next section.
 
@@ -49,7 +49,7 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
-_This option will deploy a production PasswordPusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
+_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
 
 ## On Docker
 
