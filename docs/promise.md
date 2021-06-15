@@ -24,6 +24,6 @@ As of June 2020, we now have automated docker builds and support a large number 
 
 This is mostly self-explanatory.  Most of the changes in the last few years were at the request of users.  This is great and will continue.
 
-## Other
+## What else?
 
-Anything else you would like to see?  [Let me know](https://github.com/pglombardo/PasswordPusher/issues/new).
+Is there anything else you would like to see here?  [Let me know](https://github.com/pglombardo/PasswordPusher/issues/new).
