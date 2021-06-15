@@ -1,4 +1,4 @@
-SOURCE_FILES = %w[faq tools about promise].freeze
+SOURCE_FILES = %w[faq tools about promise why help].freeze
 
 desc 'Compile markdown files into ERB HighVoltage pages'
 task :compile_markdown do
