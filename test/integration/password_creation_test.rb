@@ -83,7 +83,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     password_id = request.path.split('/')[2]
     delete_link = css_select "a##{password_id}"
     assert(delete_link.length == 1)
-    assert(delete_link.first.child.content.include?("Nah. I've got it. Delete this secret link now."))
+    assert(delete_link.first.child.content.include?('Delete this secret link now'))
   end
 
   def test_deletable_by_viewer_falls_back_to_default

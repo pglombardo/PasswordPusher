@@ -25,7 +25,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(divs)
     assert(divs.first.content.include?('testpw'))
 
-    assert_select 'a', 'Nah. I\'ve got it. Delete this secret link now.'
+    assert_select 'a', 'Delete this secret link now'
 
     # Delete the passworda
     delete request.url

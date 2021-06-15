@@ -31,11 +31,11 @@ Absolutely.  Password Pusher has a fair number of applications and command line 
 
 ## Can I automate my password distribution?
 
-Yes - many other users utilize either Slack or the command line to push and distribute passwords.  See our [Tools & Applications](/pages/tools) page for more details.
+Yes - many users utilize either Slack or the command line to push and distribute passwords.  See our [Tools & Applications](/pages/tools) page for more details.
 
 ## How many requests can I send to Password Pusher?
 
-There is no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.
+There are no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.
 
 ## How can I run my own version for my organization?
 
@@ -43,7 +43,7 @@ See our Installation documentation for more details.
 
 ## Are there any licensing restrictions for me, my company or my organization?
 
-The source code is release under the GNU General Public License v3.0.  I take great pride in the number of people using the software so if you have any questions, I'd be more than happy to help out.
+The source code is released under the GNU General Public License v3.0.  I take great pride in the number of people using the software so if you have any questions, I'd be more than happy to help out.
 
 ## Can I use Password Pusher in my talk/presentation/conference?
 
@@ -55,6 +55,8 @@ Very likely.  I love to hear all ideas & feedback. If you have any, please submi
 
 ## How do you make money?
 
-I don't. This is just a pet project I work on in my spare time built for the community. Monthly costs are $17/month for Heroku hosting and any time/effort that I've put in or will put in developing the tool is voluntary/donated.
+I don't. This is just a pet project I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I've put in or will put in developing the tool is voluntary/donated.
 
-I've thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc... But in all honesty, that $20/month just for SSL is kind of aggrevating.
+I've thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc...
+
+**2021 Update**:  The traffic has grown to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month. 

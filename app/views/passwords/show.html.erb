@@ -1,5 +1,5 @@
 <div class="payload-page">
-<p class='normal-yellow-font'>Your password is...</p>
+Your password is...
 
 <div class='payload spoiler notranslate' id='pass' translate='no'><%=@payload%></div>
 
@@ -13,11 +13,11 @@ Please obtain and securely store this password elsewhere, ideally in a password 
 
 <p>
 <% if @password.views_remaining == 0 %>
-    This secret link will be deleted in <%=pluralize(@password.days_remaining, 'day')%>
-     or 0 more views (this is the last view).
+    This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+     or <strong>0 more views</strong> (this is the last view).
 <% else %>
-    This secret link will be deleted in <%=pluralize(@password.days_remaining, 'day')%>
-     or <%=pluralize(@password.views_remaining, 'more view')%> (whichever occurs first).
+    This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+     or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
 <% end %>
 </p>
 
@@ -26,7 +26,7 @@ Please obtain and securely store this password elsewhere, ideally in a password 
     <a id="<%=@password.url_token%>"
     data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?"
     rel="nofollow" data-method="delete"
-    href="<%=password_path%>">Nah. I've got it. Delete this secret link now.</a>
+    href="<%=password_path%>">Delete this secret link now</a>
     </p>
 <% end %>
 </div>
