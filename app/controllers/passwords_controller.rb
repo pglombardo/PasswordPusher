@@ -62,6 +62,7 @@ class PasswordsController < ApplicationController
     @password.url_token = rand(36**16).to_s(36)
 
     create_detect_deletable_by_viewer(@password, params)
+    create_detect_retrieval_step(@password, params)
 
     @password.payload = encrypt_password(params[:password][:payload])
     @password.validate!
@@ -87,8 +88,26 @@ class PasswordsController < ApplicationController
                     password_url(@password)
                   end
 
+    @secret_url += '/r' if @password.retrieval_step
+
     respond_to do |format|
       format.html { render action: 'preview', layout: 'naked' }
+      format.json { render json: @password, status: :ok }
+    end
+  end
+
+  def preliminary
+    @password = Password.find_by_url_token!(params[:id])
+
+    # Support forced https links with FORCE_SSL env var
+    @secret_url = if ENV.key?('FORCE_SSL') && !request.ssl?
+                    password_url(@password).gsub(/http/i, 'https')
+                  else
+                    password_url(@password)
+                  end
+
+    respond_to do |format|
+      format.html { render action: 'preliminary', layout: 'naked' }
       format.json { render json: @password, status: :ok }
     end
   end
@@ -139,6 +158,32 @@ class PasswordsController < ApplicationController
 
     password.views << view
     password
+  end
+
+  # Since determining this value between and HTML forms and JSON API requests can be a bit
+  # tricky, we break this out to it's own function.
+  def create_detect_retrieval_step(password, params)
+    if RETRIEVAL_STEP_ENABLED == true
+      if params[:password].key?(:retrieval_step)
+        # User form data or json API request: :deletable_by_viewer can
+        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
+        user_rs = params[:password][:retrieval_step].to_s.downcase
+        password.retrieval_step = %w[on yes checked true].include?(user_rs)
+      else
+        if request.format.html?
+          # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
+          # at all so we set false - NOT deletable by viewers
+          password.retrieval_step = false
+        else
+          # The JSON API is implicit so if it's not specified, use the app
+          # configured default
+          password.retrieval_step = RETRIEVAL_STEP_DEFAULT
+        end
+      end
+    else
+      # RETRIEVAL_STEP_ENABLED not enabled
+      password.retrieval_step = false
+    end
   end
 
   # Since determining this value between and HTML forms and JSON API requests can be a bit
