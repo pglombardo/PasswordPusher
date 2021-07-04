@@ -11,7 +11,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'p', 'Your password has been pushed.'
+    assert_select 'h2', 'Your password has been pushed.'
 
     # Password page
     get request.url.sub('/preview', '')
@@ -81,9 +81,9 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'Your password is...'
 
     password_id = request.path.split('/')[2]
-    delete_link = css_select "a##{password_id}"
+    delete_link = css_select "button.red-button"
     assert(delete_link.length == 1)
-    assert(delete_link.first.child.content.include?("Nah. I've got it. Delete this secret link now."))
+    assert(delete_link.first.child.content.include?('Delete This Secret Link Now'))
   end
 
   def test_deletable_by_viewer_falls_back_to_default

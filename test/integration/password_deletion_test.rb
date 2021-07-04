@@ -14,7 +14,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select 'p', 'Your password has been pushed.'
+    assert_select 'h2', 'Your password has been pushed.'
 
     # view the password
     get request.url.sub('/preview', '')
@@ -25,7 +25,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(divs)
     assert(divs.first.content.include?('testpw'))
 
-    assert_select 'a', 'Nah. I\'ve got it. Delete this secret link now.'
+    assert_select 'a', 'Delete This Secret Link Now'
 
     # Delete the passworda
     delete request.url

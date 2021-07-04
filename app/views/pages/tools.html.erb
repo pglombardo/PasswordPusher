@@ -1,35 +1,71 @@
-<article>
-<h1>Related Tools & Utilities</h2>
+<h1 id="tools--applications">Tools &amp; Applications</h1>
+
+<p>Using the JSON API, various tools exist to interface with Password Pusher to automate password distribution.</p>
+
+<p>We have no limits on how many passwords you can push (and have no intentions of adding limits) but we do have a rate limiter so the site doesn’t get taken down by bad scripts or bad actors.  Limit your tools to maximum 1 password every few seconds and you should be fine.</p>
+
+<h1 id="slack">Slack</h1>
+
+<p>We don’t have an official Slack application but it’s fairly simple to add a custom slash command: <a href="https://github.com/pglombardo/PasswordPusher/wiki/PasswordPusher-&amp;-Slack:-Custom-Slash-Command">Slack: How to Add a Custom Slash Command</a></p>
+
+<p><img src="https://disznc.s3.amazonaws.com/pwpush-slack.png" alt="" /></p>
+
+<h2 id="command-line-utilities">Command Line Utilities</h2>
+
+<p>Some great command line utilities written by the community.</p>
+
 <ul>
   <li>
-      The PasswordPusher
-      <%= link_to "JSON API", "https://github.com/pglombardo/PasswordPusher/wiki/Password-API" %>
+    <p><a href="https://github.com/pgarm/pwposh">pgarm/pwposh</a>: a PowerShell module available in the <a href="https://www.powershellgallery.com/packages/PwPoSh/">PowerShell Gallery</a></p>
   </li>
   <li>
-      An
-      <%= link_to "Alfred App Workflow", "http://www.packal.org/workflow/passwordpusher" %>
-      to quickly push passwords from your Mac
+    <p><a href="https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1">kprocyszyn/.Get-PasswordLink.ps1</a>: a PowerShell based CLI</p>
   </li>
   <li>
-      <%= link_to "PwPoSh", "https://github.com/pgarm/pwposh" %>
-      - Password-related scriptlets module to help with account provisioning or password resets
+    <p><a href="https://github.com/lnfnunes/pwpush-cli">lnfnunes/pwpush-cli</a>: a Node.js based CLI</p>
   </li>
   <li>
-      <%= link_to "Example in SWIFT", "https://github.com/pglombardo/PasswordPusher/issues/94#issuecomment-427871524" %>
-      to utilize the JSON API.
+    <p><a href="https://github.com/abkierstein/pwpush">abkierstein/pwpush</a>: a Python based CLI</p>
   </li>
-  <li>
-      A
-      <%= link_to "PowerShell script", "https://github.com/kprocyszyn/tools" %>
-      for Password Pusher by
-      <%= link_to "Kamil Procyszyn", "https://twitter.com/kprocyszyn/status/970413009511251968" %>
-  </li>
-  <li>
-      A
-      <%= link_to "nodeJS CLI wrapper", "https://github.com/lnfnunes/pwpush-cli" %>
-      to easily push passwords to pwpush.com
-  </li>
-
 </ul>
-</article>
 
+<h2 id="android-apps">Android Apps</h2>
+
+<ul>
+  <li><a href="https://play.google.com/store/apps/details?id=com.chesire.pushie">Pushie</a> by <a href="https://github.com/chesire">chesire</a></li>
+</ul>
+
+<h2 id="other">Other</h2>
+
+<ul>
+  <li><a href="http://www.packal.org/workflow/passwordpusher">Alfred Workflow</a> for Mac users</li>
+</ul>
+
+<h2 id="raw-api">Raw API</h2>
+
+<p>This API allows you to interface with Password Pusher via JSON.  This can be utilized by existing utilities such as curl, wget or even javascript.  See the examples below for some ideas.</p>
+
+<ul>
+  <li><a href="https://github.com/pglombardo/PasswordPusher/wiki/Password-API">The Password Pusher JSON API</a></li>
+</ul>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="curl">Curl</h4>
+
+<p><code>
+curl -X POST --data "password[payload]=mypassword&amp;password[expire_after_days]=2&amp;password[expire_after_views]=10" https://pwpush.com/p.json
+</code></p>
+
+<h4 id="browser-js-console">Browser JS Console</h4>
+
+<p>You can test this in your browsers’ Javascript console by going to the front page of Password Pusher and enter:</p>
+
+<p><code>
+$.post('https://pwpush.com/p.json',
+         { 'password[payload]': 'mypassword', 'password[expire_after_days]': '2',
+           'password[expire_after_views]': '10' }, 
+           function(data) { alert(data.url_token) } )
+</code></p>
+
+<p>See more explanation and examples in our <a href="https://github.com/pglombardo/PasswordPusher/wiki/Password-API">Github Wiki</a>.</p>
