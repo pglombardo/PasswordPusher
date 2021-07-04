@@ -1,6 +1,8 @@
 # Promise
 
-As we're coming up now on **10 years of Password Pusher**, there are some guiding principles that have always been followed but haven't been documented (until now).
+July 2021
+
+As we're coming up now on [10 years of Password Pusher](https://twitter.com/pwpush/status/1402331907824701447), there are some guiding principles that have always been followed but haven't been documented (until now).
 
 As I continue to develop Password Pusher, adding new features and functionality, there are some tenets that I will continue to stay true to:
 
@@ -18,7 +20,7 @@ So in this vein, we will always make sure to keep the password reveal page as si
 
 Password Pusher is by origins an opensource application that is forked, modified and deployed internally (and externally) at various organizations.  This is great and as always I'll continue to support this as I've done in the past.
 
-As of June 2020, we now have automated docker builds and support a large number of deployment targets.
+As of June 2021, we now have automated docker builds and support a large number of deployment targets.
 
 **3. Prioritize features requested by the community of users**
 

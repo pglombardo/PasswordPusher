@@ -31,11 +31,11 @@ See our Installation documentation for more details.
 
 ## Are there any licensing restrictions for me, my company or my organization?
 
-The source code is released under the GNU General Public License v3.0.  I take great pride in the number of people using the software so if you have any questions, I'd be more than happy to help out.
+The source code is released under the GNU General Public License v3.0 and that pretty much defines any and all limitations. There are quite a few rebranded & redesigned clone sites of Password Pusher and I welcome them all.
 
 ## Can I use Password Pusher in my talk/presentation/conference?
 
-Absolutely.  I hold no requirements or limitations around this.  Sending me a link to the talk/presentation/conference would be appreciated though so I could share it on Twitter.
+Absolutely.  Sending me a link to the talk/presentation/conference would be appreciated so I could share it on Twitter.
 
 ## Could you add a specific feature for my organization?
 
