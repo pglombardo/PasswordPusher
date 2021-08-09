@@ -27,7 +27,7 @@ There are no limits currently and I have no intention of adding any.  To minimal
 
 ## How can I run my own version for my organization?
 
-See our Installation documentation for more details.
+See our [Installation documentation](https://github.com/pglombardo/PasswordPusher#-run-your-own-instance) for more details.
 
 ## Are there any licensing restrictions for me, my company or my organization?
 
@@ -43,8 +43,8 @@ Very likely.  I love to hear all ideas & feedback. If you have any, please submi
 
 ## How do you make money?
 
-I don't. This is just a pet project I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I've put in or will put in developing the tool is voluntary/donated.
+I don't. This is just a project that I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I've put in or will put in developing the tool is voluntary/donated.
 
 I've thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc...
 
-**2021 Update**:  The traffic has grown to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month. 
+**2021 Update**:  The [traffic has grown](https://twitter.com/pwpush/status/1390407791941201927) to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month.   Longer term I need to find a way to lower costs - maybe an eventual migrate to Digital Ocean which has [much better performance](https://twitter.com/pwpush/status/1376194351605383172)...
