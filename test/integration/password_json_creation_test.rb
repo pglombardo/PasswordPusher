@@ -28,6 +28,33 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['expire_after_views']
   end
 
+  def test_json_creation_with_uncommon_characters
+    post '/p.json', params: { password: { payload: '£¬' } }
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?('id')
+    assert res.key?('payload')
+    assert_equal '£¬', res['payload']
+    assert res.key?('url_token')
+    assert res.key?('expired')
+    assert_equal false, res['expired']
+    assert res.key?('deleted')
+    assert_equal false, res['deleted']
+    assert res.key?('deletable_by_viewer')
+    assert_equal DELETABLE_BY_VIEWER_DEFAULT, res['deletable_by_viewer']
+    assert res.key?('days_remaining')
+    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['days_remaining']
+    assert res.key?('views_remaining')
+    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['views_remaining']
+
+    # These should be default values since we didn't specify them in the params
+    assert res.key?('expire_after_days')
+    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['expire_after_days']
+    assert res.key?('expire_after_views')
+    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['expire_after_views']
+  end
+
   def test_deletable_by_viewer
     post '/p.json', params: { password: { payload: 'testpw', deletable_by_viewer: 'true' } }
     assert_response :success
