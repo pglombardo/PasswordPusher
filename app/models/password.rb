@@ -37,7 +37,7 @@ class Password < ApplicationRecord
 
     attr_hash['days_remaining'] = days_remaining
     attr_hash['views_remaining'] = views_remaining
-    attr_hash.to_json
+    Oj.dump attr_hash
   end
 
   ##

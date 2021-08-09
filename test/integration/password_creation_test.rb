@@ -36,6 +36,41 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(divs.first.content.include?('testpw'))
   end
 
+  def test_password_creation_uncommon_characters
+    get '/'
+    assert_response :success
+
+    post '/p', params: { password: { payload: '£' } }
+    assert_response :redirect
+
+    # Preview page
+    follow_redirect!
+    assert_response :success
+    assert_select 'h2', 'Your password has been pushed.'
+
+    # Password page
+    get request.url.sub('/preview', '')
+    assert_response :success
+    assert_select 'p', 'Your password is...'
+
+    # Assert that the right password is in the page
+    divs = css_select 'div#pass'
+    assert(divs)
+    assert(divs.first.content.include?('£'))
+
+    # Reload the password page, we should not have the first view share note
+    get request.url
+    assert_response :success
+    assert_select 'p', 'Your password is...'
+    div = css_select 'div.share_note'
+    assert div.length.zero?
+
+    # Assert that the right password is in the page
+    divs = css_select 'div#pass'
+    assert(divs)
+    assert(divs.first.content.include?('£'))
+  end
+
   def test_deletable_by_viewer_enabled_or_not
     get '/'
     assert_response :success
