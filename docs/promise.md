@@ -18,9 +18,9 @@ So in this vein, we will always make sure to keep the password reveal page as si
 
 **2. An Accessible and Easy to Deploy Application**
 
-Password Pusher is by origins an opensource application that is forked, modified and deployed internally (and externally) at various organizations.  This is great and as always I'll continue to support this as I've done in the past.
+Password Pusher is by origins an [opensource application](https://github.com/pglombardo/PasswordPusher) that is often forked, modified and deployed internally (and externally) at various organizations.  This is great and as always I'll continue to support this as I've done in the past.
 
-As of June 2021, we now have automated docker builds and support a large number of deployment targets.
+As of June 2021, we now have [automated docker builds](https://hub.docker.com/u/pglombardo) and support a [large number of deployment targets](https://github.com/pglombardo/PasswordPusher#-run-your-own-instance).
 
 **3. Prioritize features requested by the community of users**
 

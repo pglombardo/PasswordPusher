@@ -6,8 +6,9 @@ With that said, if anyone has the urge to give back to support Password Pusher, 
 1. Share and suggest Password Pusher to colleagues and friends on social media and off
 2. Follow me ([Twitter](https://twitter.com/pwpush), [Github](https://github.com/pglombardo)) and [star the Github project](https://github.com/pglombardo/PasswordPusher) (no value but it's fun to see the numbers)
 3. If you're inclined, you could always contribute code, fixes, improvements or documentation [via Github](https://github.com/pglombardo/PasswordPusher).
+4. You could buy something at my [completely unrelated store](https://oldschool.shopping).
 
-Thank you for the support
+Thank you for supporting Password Pusher!
 
 Peter Giacomo Lombardo
 
