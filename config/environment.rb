@@ -19,14 +19,14 @@ EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 100))
 
 # RETRIEVAL_STEP_ENABLED
 # Is the option to offer a password retrieval step enabled?
-RETRIEVAL_STEP_ENABLED = ENV.fetch('RETRIEVAL_STEP_ENABLED', 'true') == 'true'
+RETRIEVAL_STEP_ENABLED = ENV.fetch('RETRIEVAL_STEP_ENABLED', 'true').downcase == 'true'
 
-# RETRIEVAL_STEP_REQUIRED_DEFAULT
+# RETRIEVAL_STEP_DEFAULT
 # Will pushed passwords require an extra click through to get to the actual password?
 #
 # When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
 # requiring a click to view the page /p/xxxxxxxx
-RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_REQUIRED_DEFAULT', 'false') == 'false'
+RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_DEFAULT', 'false').downcase == 'false'
 
 # DELETABLE_BY_VIEWER_PASSWORDS
 # Can passwords be deleted by viewers?
@@ -36,7 +36,7 @@ RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_REQUIRED_DEFAULT', 'false') =
 # When pushing a new password, this option will also add a
 # checkbox to conditionally enable/disable this feature on
 # a per-password basis.
-DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true') == 'true'
+DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true').downcase == 'true'
 
 # DELETABLE_BY_VIEWER_DEFAULT
 #
@@ -47,7 +47,7 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 #   2. JSON API: Sets the default value for newly pushed passwords if
 #       unspecified
 #
-DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
+DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true').downcase == 'true'
 
 # SLACK_CLIENT_ID
 #

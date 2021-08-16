@@ -38,6 +38,9 @@ You can read more about [EzCrypto here](https://github.com/pglombardo/ezcrypto).
 | DELETABLE_BY_VIEWER_PASSWORDS | Can passwords be deleted by viewers? When true, passwords will have a link to optionally delete the password being viewed | False |
 | DELETABLE_BY_VIEWER_DEFAULT | When the above is true, this sets the default value for the option. |
 
+| RETRIEVAL_STEP_ENABLED | When true, adds an option to have a preliminary step to retrieve passwords.  | True |
+| RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | False |
+
 ## SSL
 
 | Variable | Description |
