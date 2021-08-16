@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Load the Rails application.
 require_relative 'application'
 
@@ -26,7 +28,7 @@ RETRIEVAL_STEP_ENABLED = ENV.fetch('RETRIEVAL_STEP_ENABLED', 'true').downcase ==
 #
 # When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
 # requiring a click to view the page /p/xxxxxxxx
-RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_DEFAULT', 'false').downcase == 'false'
+RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_DEFAULT', 'false').downcase == 'true'
 
 # DELETABLE_BY_VIEWER_PASSWORDS
 # Can passwords be deleted by viewers?
@@ -58,7 +60,7 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true').d
 # Users wishing to create their own Slack integrations that point to their
 # own independently hosted versions of PasswordPusher can set this environment
 # variable.  e.g. For slack integrations that don't use pwpush.com
-SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', "pwpush: NotSetInEnv")
+SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', 'pwpush: NotSetInEnv')
 
 # Initialize the Rails application.
 Rails.application.initialize!
