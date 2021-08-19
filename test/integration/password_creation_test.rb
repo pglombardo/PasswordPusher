@@ -16,7 +16,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Password page
     get request.url.sub('/preview', '')
     assert_response :success
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
 
     # Assert that the right password is in the page
     divs = css_select 'div#pass'
@@ -26,7 +26,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Reload the password page, we should not have the first view share note
     get request.url
     assert_response :success
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
     div = css_select 'div.share_note'
     assert div.length.zero?
 
@@ -51,7 +51,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Password page
     get request.url.sub('/preview', '')
     assert_response :success
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
 
     # Assert that the right password is in the page
     divs = css_select 'div#pass'
@@ -61,7 +61,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Reload the password page, we should not have the first view share note
     get request.url
     assert_response :success
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
     div = css_select 'div.share_note'
     assert div.length.zero?
 
@@ -113,7 +113,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Password page
     get request.url.sub('/preview', '')
     assert_response :success
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
 
     password_id = request.path.split('/')[2]
     delete_link = css_select "button.red-button"
@@ -135,7 +135,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get request.url.sub('/preview', '')
     assert_response :success
 
-    assert_select 'p', 'Your password is...'
+    assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
 
     password_id = request.path.split('/')[2]
     delete_link = css_select "a##{password_id}"

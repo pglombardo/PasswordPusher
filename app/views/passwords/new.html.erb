@@ -18,12 +18,17 @@
 
     <br><span class='note'>(whichever comes first)</span></br>
 
-    <% if DELETABLE_BY_VIEWER_PASSWORDS %>
     <p class='notes'>
-        <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT%>
-        Allow viewers to optionally delete password before expiration
+        <% if RETRIEVAL_STEP_ENABLED %>
+            <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT %>
+            Use a 1-click retrieval step to avoid having views eaten up by URL scanners
+        <% end %>
+        <% if DELETABLE_BY_VIEWER_PASSWORDS %>
+            <br/>
+            <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT %>
+            Allow viewers to optionally delete password before expiration
+        <% end %>
     </p>
-    <% end %>
 
     <p>
     <span>

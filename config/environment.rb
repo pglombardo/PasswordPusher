@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Load the Rails application.
 require_relative 'application'
 
@@ -17,6 +19,17 @@ EXPIRE_AFTER_VIEWS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_DEFAULT', 5))
 EXPIRE_AFTER_VIEWS_MIN = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MIN', 1))
 EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 100))
 
+# RETRIEVAL_STEP_ENABLED
+# Is the option to offer a password retrieval step enabled?
+RETRIEVAL_STEP_ENABLED = ENV.fetch('RETRIEVAL_STEP_ENABLED', 'true').downcase == 'true'
+
+# RETRIEVAL_STEP_DEFAULT
+# Will pushed passwords require an extra click through to get to the actual password?
+#
+# When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
+# requiring a click to view the page /p/xxxxxxxx
+RETRIEVAL_STEP_DEFAULT = ENV.fetch('RETRIEVAL_STEP_DEFAULT', 'false').downcase == 'true'
+
 # DELETABLE_BY_VIEWER_PASSWORDS
 # Can passwords be deleted by viewers?
 #
@@ -25,7 +38,7 @@ EXPIRE_AFTER_VIEWS_MAX = Integer(ENV.fetch('EXPIRE_AFTER_VIEWS_MAX', 100))
 # When pushing a new password, this option will also add a
 # checkbox to conditionally enable/disable this feature on
 # a per-password basis.
-DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true') == 'true'
+DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true').downcase == 'true'
 
 # DELETABLE_BY_VIEWER_DEFAULT
 #
@@ -36,7 +49,7 @@ DELETABLE_BY_VIEWER_PASSWORDS = ENV.fetch('DELETABLE_BY_VIEWER_PASSWORDS', 'true
 #   2. JSON API: Sets the default value for newly pushed passwords if
 #       unspecified
 #
-DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') == 'true'
+DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true').downcase == 'true'
 
 # SLACK_CLIENT_ID
 #
@@ -47,7 +60,7 @@ DELETABLE_BY_VIEWER_DEFAULT = ENV.fetch('DELETABLE_BY_VIEWER_DEFAULT', 'true') =
 # Users wishing to create their own Slack integrations that point to their
 # own independently hosted versions of PasswordPusher can set this environment
 # variable.  e.g. For slack integrations that don't use pwpush.com
-SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', "pwpush: NotSetInEnv")
+SLACK_CLIENT_ID = ENV.fetch('SLACK_CLIENT_ID', 'pwpush: NotSetInEnv')
 
 # Initialize the Rails application.
 Rails.application.initialize!
