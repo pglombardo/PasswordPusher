@@ -1,3 +1,4 @@
+# pwpush-openshift
 FROM docker.io/ubuntu:18.04
 
 # Use the following 2 env variables if you need proxy support in your environment
