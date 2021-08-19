@@ -5,7 +5,7 @@ All container images are available on Docker hub: [hub.docker.com/u/pglombardo/]
 ## tldr
 
 To run an ephemeral version that saves no data on port 8000:
-`docker run -p "8000:5000" pglombardo/pwpush-ephemeral:latest`
+`docker run -p "8000:5100" pglombardo/pwpush-ephemeral:latest`
 
 To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/docker/pwpush-postgres/docker-compose.yaml).
 
@@ -24,7 +24,7 @@ This scenario runs the app in a single container using sqlite3 with no persisten
 
   - this image works also with [OpenShift](https://openshift.com/) and [Kubernetes](https://kubernetes.io/) (without persistent storage)
   - Docker image located here: [docker.io/pglombardo/pwpush-ephemeral](https://hub.docker.com/r/pglombardo/pwpush-ephemeral/)
-  - run it with: `docker run -p 5000:5000 -d docker.io/pglombardo/pwpush-ephemeral`
+  - run it with: `docker run -p 5100:5100 -d docker.io/pglombardo/pwpush-ephemeral`
 
 [https://hub.docker.com/r/pglombardo/pwpush-ephemeral/](https://hub.docker.com/r/pglombardo/pwpush-ephemeral/)
 
@@ -47,7 +47,7 @@ This container uses a default database URL of:
     
 You can either configure your PostgreSQL server to use these credentials or override the environment var in the command line:
 
-    docker run -d -p "5000:5000" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
+    docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
     
 _Note: Providing a postgres password on the command line is far less than ideal_
 
