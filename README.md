@@ -44,14 +44,6 @@ To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) i
 
 _Note: Password Pusher can be largely configured by environment variables so after you pick your deployment method below, make sure to read [the configuration page](Configuration.md)._
 
-## On Heroku
-
-One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
-
-_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
-
 ## On Docker
 
 Docker images of Password Pusher are available on [Docker hub](https://hub.docker.com/u/pglombardo).
@@ -88,6 +80,14 @@ See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-cont
 ## On OpenShift
 
 See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-openshift).
+
+## On Heroku
+
+One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
+
+_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
 
 ## From Source
 
