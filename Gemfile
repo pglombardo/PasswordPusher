@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ">=2.7.0"
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.1.4'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -71,10 +71,6 @@ gem "webpacker"
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-#
 
 gem 'sprockets', '~>4.0'
 gem 'foreman'
