@@ -58,13 +58,13 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
 **➜ ephemeral**
 
-    docker run -d -p "5000:5000" pglombardo/pwpush-ephemeral:latest
+    docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:latest
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
 
-    docker run -d -p "5000:5000" pglombardo/pwpush-postgres:latest
+    docker run -d -p "5100:5100" pglombardo/pwpush-postgres:latest
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres-external-database)
 
@@ -103,7 +103,7 @@ RAILS_ENV=private bundle exec rake db:setup
 foreman start internalweb
 ```
 
-Then view the site @ [http://localhost:5000/](http://localhost:5000/).
+Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 _Note: You can change the listening port by modifying the
 [Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
