@@ -1,32 +1,58 @@
-<div class="center-content">
-<p>Your password is blurred below.  Click to reveal it.</p>
 
-<div class='payload spoiler notranslate' id='pass' translate='no'><%=@payload%></div>
+<div class="container h-100">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center py-5">
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card text-center" style="width: 18rem; height: 12rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Store Safely</h5>
+                        <p class="card-text">Please obtain and securely store this password elsewhere, ideally in a password manager.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-center" style="width: 18rem; height: 12rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Retrieve</h5>
+                        <p class="card-text">Your password is blurred below.  Click to reveal it.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-center" style="width: 18rem; height: 12rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Expiration</h5>
+                        <p class="card-text">
+                            <% if @password.views_remaining == 0 %>
+                                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+                                or <strong>0 more views</strong> (this is the last view).
+                            <% else %>
+                                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+                                or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
+                            <% end %>
+                            <% if @password.deletable_by_viewer %>
+                                <a id="<%=@password.url_token%>"
+                                data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?"
+                                rel="nofollow" data-method="delete"
+                                href="<%=password_path%>">
+                                <button class="btn btn-danger mt-3">Delete This Secret Link Now</button>
+                                </a>
+                            <% end %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class='payload spoiler notranslate p-5 mb-3 border border-5 w-100' id='password_payload' translate='no'><%=@payload%></div>
 
-<button class='copy-to-clipboard' data-clipboard-target='#pass' id='clipboard-button'>
-Copy to Clipboard
-</button>
-
-<p class='pwinstructions'>
-Please obtain and securely store this password elsewhere, ideally in a password manager.
-</p>
-
-<p>
-<% if @password.views_remaining == 0 %>
-    This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-     or <strong>0 more views</strong> (this is the last view).
-<% else %>
-    This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-     or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
-<% end %>
-</p>
-
-<% if @password.deletable_by_viewer %>
-    <a id="<%=@password.url_token%>"
-    data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?"
-    rel="nofollow" data-method="delete"
-    href="<%=password_path%>">
-    <button class="red-button">Delete This Secret Link Now</button>
-    </a>
-<% end %>
+                <div class="fixed-bottom w-100 d-grid gap-2">
+                    <button class='btn btn-primary' data-clipboard-target='#pass' id='clipboard-button'>
+                    Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

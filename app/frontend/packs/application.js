@@ -15,4 +15,11 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+// console.log('Hello World from Webpacker')
+
+import 'clipboard'
+import 'spoiler-alert/spoiler'
+import '../js/bootstrap_js_files.js'
+import '../js/passwords.js'
+
+const images = require.context('../img', true)
