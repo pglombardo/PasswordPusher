@@ -6,7 +6,7 @@
             <div class='mb5'>
                 <%=f.text_area(:payload, { :class => "form-control", rows: 8, placeholder: PAYLOAD_INITIAL_TEXT, autocomplete: "off", autofocus: true })%>
                 <div class='mb3 position-relative'>
-                    <div id="the-count" class="position-absolute bottom-0 end-0 m-2">
+                    <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 fw-light opacity-50">
                         <span id="current">0</span>
                         <span id="maximum">/ 1048576 Characters</span>
                     </div>
@@ -14,7 +14,6 @@
             </div>
         </div>
     </div>
-    
     <div class='row'>
         <div class='col-8 p-3 mt-4'>
             <p> Expire secret link and delete after:</p>
@@ -53,9 +52,9 @@
                     </span>
                     </label>
                 <% end %>
-                <% if DELETABLE_BY_VIEWER_PASSWORDS %>
+                <% if DELETABLE_PASSWORDS_ENABLED %>
                     <label class="list-group-item d-flex gap-2">
-                    <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT, { class: 'form-check-input flex-shrink-0' }  %>
+                    <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT, { class: 'form-check-input flex-shrink-0' }  %>
                     <span>
                         Allow immediate deletion option 
                         <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>

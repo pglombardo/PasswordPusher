@@ -1,58 +1,55 @@
 
-<div class="container h-100">
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center py-5">
-        <div class="row mb-3">
-            <div class="col">
-                <div class="card text-center" style="width: 18rem; height: 12rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Store Safely</h5>
-                        <p class="card-text">Please obtain and securely store this password elsewhere, ideally in a password manager.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center" style="width: 18rem; height: 12rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Retrieve</h5>
-                        <p class="card-text">Your password is blurred below.  Click to reveal it.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card text-center" style="width: 18rem; height: 12rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Expiration</h5>
-                        <p class="card-text">
-                            <% if @password.views_remaining == 0 %>
-                                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-                                or <strong>0 more views</strong> (this is the last view).
-                            <% else %>
-                                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-                                or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
-                            <% end %>
-                            <% if @password.deletable_by_viewer %>
-                                <a id="<%=@password.url_token%>"
-                                data-confirm="This will expire this secret link and remove the password from the database forever.  Are you sure?"
-                                rel="nofollow" data-method="delete"
-                                href="<%=password_path%>">
-                                <button class="btn btn-danger mt-3">Delete This Secret Link Now</button>
-                                </a>
-                            <% end %>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class='payload spoiler notranslate p-5 mb-3 border border-5 w-100' id='password_payload' translate='no'><%=@payload%></div>
+<div class="container-fluid h-100 mx-0 py-5 px-0 bg-light">
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
+        <p class="text-center"><strong>Please obtain and securely store this password elsewhere, ideally in a password manager.</strong></p>
+        <p class="text-center text-muted">Your password is blurred out.  Click below to reveal it.</p>
+        <pre class='w-100'>
+        <% if /\n/.match(@payload) == true %>
+            <%= render partial: 'shared/show-text' %>
+        <% else %>
+            <%= render partial: 'shared/show-password' %>
+        <% end %>
+        </pre>
+        <p class="lead">
+            <% if @password.views_remaining == 0 %>
+                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+                or <strong>0 more views</strong> (this is the last view).
+            <% else %>
+                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+                or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
+            <% end %>
+        </p>
+        <% if @password.deletable_by_viewer %>
+            <p>
+                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete This Secret Link Now
+                </button>
+            </p>
+        <% end %>
 
-                <div class="fixed-bottom w-100 d-grid gap-2">
-                    <button class='btn btn-primary' data-clipboard-target='#pass' id='clipboard-button'>
-                    Copy to Clipboard
-                    </button>
-                </div>
-            </div>
+        <div class="fixed-bottom w-100 d-grid gap-2">
+            <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
+            <em class="bi bi-clipboard-check"></em> Copy to Clipboard
+            </button>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete This Password?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        This will expire this secret link and <strong>remove the password from the database forever</strong>.  Are you sure?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: 'Processing...' %>
+      </div>
+    </div>
+  </div>
 </div>

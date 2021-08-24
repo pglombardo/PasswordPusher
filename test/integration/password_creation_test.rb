@@ -75,12 +75,13 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    # DELETABLE_BY_VIEWER_PASSWORDS enables or disables the ability for users
+    # DELETABLE_PASSWORDS_ENABLED enables or disables the ability for users
     # to delete passwords when viewing
-    dvb_checkbox = css_select 'p.notes'
-    assert(dvb_checkbox.length > 1)
 
-    found = DELETABLE_BY_VIEWER_PASSWORDS
+    deletable_checkbox = css_select '#password_deletable_by_viewer'
+    assert(deletable_checkbox)
+
+    found = DELETABLE_PASSWORDS_ENABLED
     dvb_checkbox.each do |item|
       if item.content.include?('Allow viewers to optionally delete password before expiration')
         found = true
@@ -88,12 +89,12 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     end
     assert found
 
-    # Assert default value on form: DELETABLE_BY_VIEWER_DEFAULT
+    # Assert default value on form: DELETABLE_PASSWORDS_DEFAULT
     dvb_checkbox = css_select 'input#password_deletable_by_viewer'
     assert(dvb_checkbox.length == 1)
 
-    # DELETABLE_BY_VIEWER_DEFAULT determines initial check state
-    if DELETABLE_BY_VIEWER_DEFAULT == true
+    # DELETABLE_PASSWORDS_DEFAULT determines initial check state
+    if DELETABLE_PASSWORDS_DEFAULT == true
       assert(dvb_checkbox.first.attributes['checked'].value == 'checked')
     else
       assert(dvb_checkbox.first.attributes['checked'].nil?)
@@ -116,7 +117,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_select 'p', 'Your password is blurred below.  Click to reveal it.'
 
     password_id = request.path.split('/')[2]
-    delete_link = css_select "button.red-button"
+    delete_link = css_select 'button.btn-danger'
     assert(delete_link.length == 1)
     assert(delete_link.first.child.content.include?('Delete This Secret Link Now'))
   end

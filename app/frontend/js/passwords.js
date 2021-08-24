@@ -123,35 +123,24 @@ function setupSliderEventListeners()
 function ready() {
   restoreFormValuesFromCookie();
 
-  var secret_url_clipboard = new ClipboardJS('#clipboard-secret-url');
+  var secret_url_clipboard = new ClipboardJS('#copy-to-clipboard-button');
   secret_url_clipboard.on('success', function(e) {
-    var clipboardButton = document.getElementById("clipboard-secret-url");
-    var copyIcon = clipboardButton.innerHTML;
-    clipboardButton.innerText = "Copied!"
+    var copyIcon = $('#copy-to-clipboard-button').html();
+    $('#copy-to-clipboard-button').text('Copied!');
     setTimeout(function() {
-          clipboardButton.innerHTML = copyIcon;
+      $('#copy-to-clipboard-button').html(copyIcon);
     }, 1000);
     e.clearSelection();
   });
 
-  var pw_clipboard = new ClipboardJS('#clipboard-button');
-  pw_clipboard.on('success', function(e) {
-    var clipboardButton = document.getElementById("clipboard-button");
-    clipboardButton.innerText = "Copied!"
-    setTimeout(function() {
-          clipboardButton.innerText = "Copy to Clipboard";
-    }, 2000);
-    e.clearSelection();
-  });
-
   // "Save these settings as default in a cookie"
-  document.getElementById("save-defaults").addEventListener('click', saveFormValuesToCookie);
+  $('#save-defaults').on('click', saveFormValuesToCookie);
 
   // Range sliders update their labels on change
   setupSliderEventListeners()
 
   // Password Payload character count
-  document.getElementById('password_payload').addEventListener('change', updateCharCount);
+  $('#password_payload').on('change input', updateCharCount);
 
   // Enable Payload Blur
   spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
@@ -170,41 +159,16 @@ document.addEventListener("DOMContentLoaded", ready);
 
 
 function updateCharCount() {
-    
-  var characterCount = $(this).val().length,
-      current = $('#current'),
-      maximum = $('#maximum'),
-      theCount = $('#the-count');
+  var characterCount = $('#password_payload').val().length;
+  var current = $('#current');
+  var maximum = $('#maximum');
     
   current.text(characterCount);
  
-  
-  /*This isn't entirely necessary, just playin around*/
-  if (characterCount < 70) {
-    current.css('color', '#666');
+  if (characterCount >= 1048576) {
+    maximum.css('color', '#F91A00');
+    current.css('color', '#F91A00');
   }
-  if (characterCount > 70 && characterCount < 90) {
-    current.css('color', '#6d5555');
-  }
-  if (characterCount > 90 && characterCount < 100) {
-    current.css('color', '#793535');
-  }
-  if (characterCount > 100 && characterCount < 120) {
-    current.css('color', '#841c1c');
-  }
-  if (characterCount > 120 && characterCount < 139) {
-    current.css('color', '#8f0001');
-  }
-  
-  if (characterCount >= 140) {
-    maximum.css('color', '#8f0001');
-    current.css('color', '#8f0001');
-    theCount.css('font-weight','bold');
-  } else {
-    maximum.css('color','#666');
-    theCount.css('font-weight','normal');
-  }
-  
 }
 
 function showDaysValue(newValue)

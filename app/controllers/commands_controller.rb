@@ -54,7 +54,7 @@ class CommandsController < ApplicationController
     @password = Password.new
     @password.expire_after_days = days
     @password.expire_after_views = views
-    @password.deletable_by_viewer = DELETABLE_BY_VIEWER_PASSWORDS
+    @password.deletable_by_viewer = DELETABLE_PASSWORDS_ENABLED
 
     # Encrypt the passwords
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT

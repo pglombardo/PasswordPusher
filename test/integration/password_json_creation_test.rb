@@ -15,7 +15,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('deleted')
     assert_equal false, res['deleted']
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_BY_VIEWER_DEFAULT, res['deletable_by_viewer']
+    assert_equal DELETABLE_PASSWORDS_DEFAULT, res['deletable_by_viewer']
     assert res.key?('days_remaining')
     assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['days_remaining']
     assert res.key?('views_remaining')
@@ -42,7 +42,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('deleted')
     assert_equal false, res['deleted']
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_BY_VIEWER_DEFAULT, res['deletable_by_viewer']
+    assert_equal DELETABLE_PASSWORDS_DEFAULT, res['deletable_by_viewer']
     assert res.key?('days_remaining')
     assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['days_remaining']
     assert res.key?('views_remaining')
@@ -82,7 +82,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?('id')
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_BY_VIEWER_PASSWORDS, res['deletable_by_viewer']
+    assert_equal DELETABLE_PASSWORDS_ENABLED, res['deletable_by_viewer']
   end
 
   def test_custom_days_expiration

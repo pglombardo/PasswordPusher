@@ -17,6 +17,8 @@
 
 // console.log('Hello World from Webpacker')
 
+import 'jquery'
+import {} from 'jquery-ujs'
 import 'clipboard'
 import 'spoiler-alert/spoiler'
 import '../js/bootstrap_js_files.js'
