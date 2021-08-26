@@ -120,44 +120,6 @@ function setupSliderEventListeners()
   }
 }
 
-function ready() {
-  restoreFormValuesFromCookie();
-
-  var secret_url_clipboard = new ClipboardJS('#copy-to-clipboard-button');
-  secret_url_clipboard.on('success', function(e) {
-    var copyIcon = $('#copy-to-clipboard-button').html();
-    $('#copy-to-clipboard-button').text('Copied!');
-    setTimeout(function() {
-      $('#copy-to-clipboard-button').html(copyIcon);
-    }, 1000);
-    e.clearSelection();
-  });
-
-  // "Save these settings as default in a cookie"
-  $('#save-defaults').on('click', saveFormValuesToCookie);
-
-  // Range sliders update their labels on change
-  setupSliderEventListeners()
-
-  // Password Payload character count
-  $('#password_payload').on('change input', updateCharCount);
-
-  // Enable Payload Blur
-  spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
-}
-
-document.addEventListener("DOMContentLoaded", ready);
-
-// $('#password_payload').keypress(function() {
-//   if ($('#password_payload').val().length > 250) {
-//     noty({text: 'Passwords can be up to 250 characters maximum in length.', type: 'warning'});
-//     $.noty.clearQueue()
-//     return false;
-//   }
-// });
-
-
-
 function updateCharCount() {
   var characterCount = $('#password_payload').val().length;
   var current = $('#current');
@@ -193,3 +155,49 @@ function setCopied() {
 	$('#clip_tip').text('copied!');
 }
 
+
+function ready() {
+  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+  if (prefersDarkScheme.matches) {
+    document.body.classList.add('dark-mode')
+  }
+
+  restoreFormValuesFromCookie();
+
+  // Primary Clipboard button
+  var clipboard_button = new ClipboardJS('#copy-to-clipboard-button');
+  clipboard_button.on('success', function(e) {
+    var copyIcon = $('#copy-to-clipboard-button').html();
+    $('#copy-to-clipboard-button').text('Copied!');
+    setTimeout(function() {
+      $('#copy-to-clipboard-button').html(copyIcon);
+    }, 1000);
+    e.clearSelection();
+  });
+ 
+  // Secondary Clipboard button on the Password#Show page
+  var clipboard_button_2 = new ClipboardJS('#copy-to-clipboard-button-2');
+  clipboard_button_2.on('success', function(e) {
+    var copyIcon = $('#copy-to-clipboard-button-2').html();
+    $('#copy-to-clipboard-button-2').text('Copied!');
+    setTimeout(function() {
+      $('#copy-to-clipboard-button-2').html(copyIcon);
+    }, 1000);
+    e.clearSelection();
+  });
+
+  // "Save these settings as default in a cookie"
+  $('#save-defaults').on('click', saveFormValuesToCookie);
+
+  // Range sliders update their labels on change
+  setupSliderEventListeners()
+
+  // Password Payload character count
+  $('#password_payload').on('change input', updateCharCount);
+
+  // Enable Payload Blur
+  spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
+}
+
+document.addEventListener("DOMContentLoaded", ready);

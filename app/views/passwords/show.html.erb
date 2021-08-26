@@ -1,37 +1,46 @@
 
 <div class="container-fluid h-100 mx-0 py-5 px-0 bg-light">
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
-        <p class="text-center"><strong>Please obtain and securely store this password elsewhere, ideally in a password manager.</strong></p>
-        <p class="text-center text-muted">Your password is blurred out.  Click below to reveal it.</p>
-        <pre class='w-100 p-0 m-0'>
-        <% if /\n/.match(@payload) == true %>
-            <%= render partial: 'shared/show-text' %>
+        <div class='text-center m-3'>
+          <p class=""><strong>Please obtain and securely store this password elsewhere, ideally in a password manager.</strong></p>
+          <p class="text-muted">Your password is blurred out.  Click below to reveal it.</p>
+          <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
+            <em class="bi bi-clipboard-check"></em> Copy to Clipboard
+          </button>
+        </div>
+
+        <% if @payload.match?(/\n/) && @payload.length > 100 %>
+          <div
+          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white' 
+          id='password_payload' 
+          translate='no'><pre class='w-100 text-break mb-5 mt-5'><%=@payload%></div>
         <% else %>
-            <%= render partial: 'shared/show-password' %>
-        <% end %>
-        </pre>
-        <p class="lead">
-            <% if @password.views_remaining == 0 %>
-                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-                or <strong>0 more views</strong> (this is the last view).
-            <% else %>
-                This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-                or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
-            <% end %>
+          <div
+          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
+          id='password_payload' 
+          translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=@payload%></div>
+        <% end%>
+      <div class='text-center m-3'>
+        <p class="text-muted">
+          <% if @password.views_remaining == 0 %>
+              This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+              or <strong>0 more views</strong> (this is the last view).
+          <% else %>
+              This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
+              or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
+          <% end %>
         </p>
         <% if @password.deletable_by_viewer %>
-            <p>
-                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Delete This Secret Link Now
-                </button>
-            </p>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <em class="bi bi-trash"></em> Delete This Secret Link Now
+          </button>
         <% end %>
-
-        <div class="fixed-bottom w-100 d-grid gap-2">
-            <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
-            <em class="bi bi-clipboard-check"></em> Copy to Clipboard
-            </button>
-        </div>
+      </div>
+    </div>
+    <div class="fixed-bottom w-100 d-grid gap-2">
+      <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button-2'>
+      <em class="bi bi-clipboard-check"></em> Copy to Clipboard
+      </button>
     </div>
 </div>
 
