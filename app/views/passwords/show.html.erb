@@ -9,7 +9,7 @@
           </button>
         </div>
 
-        <% if @payload.match?(/\n/) && @payload.length > 100 %>
+        <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
           <div
           class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white' 
           id='password_payload' 
