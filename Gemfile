@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby ">=2.7.0"
+ruby ENV['CUSTOM_RUBY_VERSION'] || ">=2.7.0"
 
 gem 'rails', '~> 6.1.4'
 
