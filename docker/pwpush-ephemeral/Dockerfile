@@ -1,29 +1,28 @@
 # pwpush-ephemeral
-FROM docker.io/ubuntu:focal
+FROM ruby:3.0.2
 
-# Use the following 2 env variables if you need proxy support in your environment
-#ENV https_proxy=http://10.0.2.2:3128
-#ENV http_proxy=http://10.0.2.2:3128
+LABEL maintainer='pglombardo@hey.com'
 
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
-RUN ln -fs /usr/share/zoneinfo/Europe/Paris > /etc/localtime
+# For the latest yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# Required packages
 RUN apt-get update -qq && \
-    apt-get install -y --assume-yes build-essential libpq-dev git curl ruby2.7 ruby2.7-dev tzdata sqlite3 ruby-sqlite3 libsqlite3-dev zlib1g-dev nodejs yarnpkg && \
+    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn && \
     cd /opt && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
-    touch ${APP_ROOT}/log/private.log && \
-    cd ${APP_ROOT} && \
-    chown -R 1001:root ${APP_ROOT}
+    cd PasswordPusher && \
+    git checkout re-redesign && \
+    touch ${APP_ROOT}/log/private.log
 
-EXPOSE 5000
+EXPOSE 5100
 
-RUN gem update --system
 RUN gem install bundler
-RUN gem install thor
 
-USER 1001
 WORKDIR ${APP_ROOT}
 
 ENV RACK_ENV=private
@@ -32,13 +31,8 @@ RUN bundle config set without 'development production test'
 RUN bundle config set deployment 'true'
 
 RUN bundle install
-RUN bundle exec rake assets:precompile
+RUN yarn install
+RUN bundle exec rails webpacker:compile
 RUN bundle exec rake db:setup
 
-USER root
-RUN chmod -R u+x ${APP_ROOT} && \
-    chgrp -R 0 ${APP_ROOT} && \
-    chmod -R g=u ${APP_ROOT} /etc/passwd
-
-USER 1001
 ENTRYPOINT [ "bundle", "exec", "foreman", "start", "internalweb" ]
