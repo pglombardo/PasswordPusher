@@ -51,10 +51,10 @@ class PasswordsController < ApplicationController
       return
     end
 
-    # if params[:password][:payload].length > 250
-    #   redirect_to '/', error: 'That password is too long.'
-    #   return
-    # end
+    if params[:password][:payload].length > 1.megabyte
+      redirect_to '/', error: 'That password is too long.'
+      return
+    end
 
     @password = Password.new
     @password.expire_after_days = params[:password][:expire_after_days]
