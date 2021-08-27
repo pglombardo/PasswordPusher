@@ -1,40 +1,37 @@
-<h2>Your password has been pushed.</h2>
+<div class="container h-75">
+    <div class="d-flex flex-column justify-content-center align-items-center">
 
-<p>&nbsp;</p>
+      <h2 class='mt-5'>Your password has been pushed.</h2>
 
-<p>
-  Use this secret link to share it:
-</p>
-<span class='input_group'>
-    <input id='secret_url' value='<%=@secret_url%>' spellcheck='false' readonly='true'>
-    <button id='clipboard-secret-url' class='copy-secret-url' data-clipboard-target='#secret_url'>
-        <%= image_tag('button_up.png') %>
-    </button>
-</span>
+      <p class='mt-5'> Use this secret link to share it: </p>
 
-<p style="height: 50px"/>
+      <div class='input-group mb-5'>
+          <input class='form-control', id='secret_url' value='<%=@secret_url%>' spellcheck='false' readonly='true'>
+          <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
+                  data-clipboard-target='#secret_url' alt="Copy to Clipboard">
+              <em class="bi bi-clipboard-check"></em>
+          </button>
+      </div>
 
-<p>
-This newly pushed password will expire after 
-<strong><%=@password.expire_after_days%> days</strong> 
-or 
-<strong><%=@password.expire_after_views%> views</strong> 
-(whichever comes first)
+      <p class='mb-5'>
+        This newly pushed password will expire after 
+        <strong><%=@password.expire_after_days%> days</strong> 
+        or 
+        <strong><%=@password.expire_after_views%> views</strong> 
+        (whichever comes first)
 
-<% if @password.deletable_by_viewer %>
-  and <strong>can be</strong> deleted by viewers.
-<% else %>
-  and <strong>can NOT be</strong> deleted by viewers.
-<% end %>
-</p>
+        <% if @password.deletable_by_viewer %>
+          and <strong>can be</strong> deleted by viewers.
+        <% else %>
+          and <strong>can NOT be</strong> deleted by viewers.
+        <% end %>
+      </p>
 
-<% if @password.retrieval_step == true %>
-<p>
-It also includes a <strong>1-click preliminary retrieval step</strong>.
-</p>
-<% end %>
+      <% if @password.retrieval_step == true %>
+        <p class='mb-5'> It also includes a <strong>1-click preliminary retrieval step</strong>.  </p>
+      <% end %>
 
-<p style="height: 50px"/>
+      <p class='mb-5'> <%=link_to "View This Password Now", @secret_url %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
 
-<p>
-<%=link_to "View This Password Now", @secret_url %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
+  </div>
+</div>

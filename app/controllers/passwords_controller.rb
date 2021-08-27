@@ -26,7 +26,7 @@ class PasswordsController < ApplicationController
     expires_now
 
     respond_to do |format|
-      format.html { render layout: 'naked' }
+      format.html { render layout: 'bare' }
       format.json { render json: @password }
     end
   end
@@ -51,7 +51,7 @@ class PasswordsController < ApplicationController
       return
     end
 
-    if params[:password][:payload].length > 250
+    if params[:password][:payload].length > 1.megabyte
       redirect_to '/', error: 'That password is too long.'
       return
     end
@@ -189,7 +189,7 @@ class PasswordsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_deletable_by_viewer(password, params)
-    if DELETABLE_BY_VIEWER_PASSWORDS == true
+    if DELETABLE_PASSWORDS_ENABLED == true
       if params[:password].key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -203,11 +203,11 @@ class PasswordsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          password.deletable_by_viewer = DELETABLE_BY_VIEWER_DEFAULT
+          password.deletable_by_viewer = DELETABLE_PASSWORDS_DEFAULT
         end
       end
     else
-      # DELETABLE_BY_VIEWER_PASSWORDS not enabled
+      # DELETABLE_PASSWORDS_ENABLED not enabled
       password.deletable_by_viewer = false
     end
   end

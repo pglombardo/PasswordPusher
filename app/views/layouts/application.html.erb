@@ -5,38 +5,40 @@
 <title>Password Pusher</title>
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
 <%= csrf_meta_tags %>
-<%= stylesheet_link_tag "application" %>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<%= csp_meta_tag %>
 
-<meta content='PasswordPusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
+<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+<meta content='Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 
-<link rel="apple-touch-icon" sizes="57x57" href="<%=asset_path('apple-icon-57x57.png')%>">
-<link rel="apple-touch-icon" sizes="60x60" href="<%=asset_path('apple-icon-60x60.png')%>">
-<link rel="apple-touch-icon" sizes="72x72" href="<%=asset_path('apple-icon-72x72.png')%>">
-<link rel="apple-touch-icon" sizes="76x76" href="<%=asset_path('apple-icon-76x76.png')%>">
-<link rel="apple-touch-icon" sizes="114x114" href="<%=asset_path('apple-icon-114x114.png')%>">
-<link rel="apple-touch-icon" sizes="120x120" href="<%=asset_path('apple-icon-120x120.png')%>">
-<link rel="apple-touch-icon" sizes="144x144" href="<%=asset_path('apple-icon-144x144.png')%>">
-<link rel="apple-touch-icon" sizes="152x152" href="<%=asset_path('apple-icon-152x152.png')%>">
-<link rel="apple-touch-icon" sizes="180x180" href="<%=asset_path('apple-icon-180x180.png')%>">
-<link rel="icon" type="image/png" sizes="192x192"  href="<%=asset_path('android-icon-192x192.png')%>">
-<link rel="icon" type="image/png" sizes="32x32" href="<%=asset_path('favicon-32x32.png')%>">
-<link rel="icon" type="image/png" sizes="96x96" href="<%=asset_path('favicon-96x96.png')%>">
-<link rel="icon" type="image/png" sizes="16x16" href="<%=asset_path('favicon-16x16.png')%>">
-<link rel="manifest" href="<%=asset_path('manifest.json')%>">
+<link rel="apple-touch-icon" sizes="57x57" href="<%=asset_pack_path('media/img/apple-icon-57x57.png')%>">
+<link rel="apple-touch-icon" sizes="60x60" href="<%=asset_pack_path('media/img/apple-icon-60x60.png')%>">
+<link rel="apple-touch-icon" sizes="72x72" href="<%=asset_pack_path('media/img/apple-icon-72x72.png')%>">
+<link rel="apple-touch-icon" sizes="76x76" href="<%=asset_pack_path('media/img/apple-icon-76x76.png')%>">
+<link rel="apple-touch-icon" sizes="114x114" href="<%=asset_pack_path('media/img/apple-icon-114x114.png')%>">
+<link rel="apple-touch-icon" sizes="120x120" href="<%=asset_pack_path('media/img/apple-icon-120x120.png')%>">
+<link rel="apple-touch-icon" sizes="144x144" href="<%=asset_pack_path('media/img/apple-icon-144x144.png')%>">
+<link rel="apple-touch-icon" sizes="152x152" href="<%=asset_pack_path('media/img/apple-icon-152x152.png')%>">
+<link rel="apple-touch-icon" sizes="180x180" href="<%=asset_pack_path('media/img/apple-icon-180x180.png')%>">
+<link rel="icon" type="image/png" sizes="192x192"  href="<%=asset_pack_path('media/img/android-icon-192x192.png')%>">
+<link rel="icon" type="image/png" sizes="32x32" href="<%=asset_pack_path('media/img/favicon-32x32.png')%>">
+<link rel="icon" type="image/png" sizes="96x96" href="<%=asset_pack_path('media/img/favicon-96x96.png')%>">
+<link rel="icon" type="image/png" sizes="16x16" href="<%=asset_pack_path('media/img/favicon-16x16.png')%>">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="<%=asset_path('ms-icon-144x144.png')%>">
+<meta name="msapplication-TileImage" content="<%=asset_pack_path('media/img/ms-icon-144x144.png')%>">
 <meta name="theme-color" content="#ffffff">
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<%= link_to image_tag('horizontal-logo-small.png', class: 'horizontal-logo'), '/' %>
-
-<%= yield %> 
+<%= render partial: 'shared/header' %>
+  <div class="container">
+    <%= yield %> 
+  </div>
 <%= render partial: 'shared/footer' %>
-<%= javascript_include_tag "application"%>
+
 </body>
 </html>

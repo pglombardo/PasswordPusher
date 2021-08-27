@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_password_deletion
-    assert DELETABLE_BY_VIEWER_PASSWORDS == true
+    assert DELETABLE_PASSWORDS_ENABLED == true
 
     get '/'
     assert_response :success
@@ -21,11 +21,9 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Assert that the right password is in the page
-    divs = css_select 'div#pass'
-    assert(divs)
-    assert(divs.first.content.include?('testpw'))
-
-    assert_select 'a', 'Delete This Secret Link Now'
+    pre = css_select 'pre'
+    assert(pre)
+    assert(pre.first.content.include?('testpw'))
 
     # Delete the passworda
     delete request.url

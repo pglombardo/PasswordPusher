@@ -24,15 +24,20 @@ jobs:
             - gem-cache-v1
 
       - run: bundle install --path vendor/bundle
+      - run: yarn install
 
       - save_cache:
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+            - node_modules
 
       - run:
           name: Rails Migrate
           command: ./bin/rails db:migrate RAILS_ENV=test
+      - run:
+          name: Webpacker Compile
+          command: ./bin/rails webpacker:compile RAILS_ENV=test
       - run:
           name: Run Tests
           command: ./bin/rails test

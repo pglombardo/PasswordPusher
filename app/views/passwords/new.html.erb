@@ -1,59 +1,90 @@
+<div class='container'>
 <%= form_for @password do |f| %>
-    <p class='payload-entry'>
-    <%=f.text_field(:payload, { :class => "password", :value => PAYLOAD_INITIAL_TEXT, :onfocus => "prepareTextField(this)", :onblur => "revertTextField(this)", :autocomplete => "off" })%>
-    </p>
 
-    <p>
-    Expire secret link and delete the stored password after:
-
-    <p class='slider_box'>
-    <%=range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "slider", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1", :onchange => "showDaysValue(this.value)", :oninput => "showDaysValue(this.value)"})%>
-    <span id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
-    </p>
-
-    <p class='slider_box'>
-    <%=range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "slider", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1", :onchange => "showViewsValue(this.value)", :oninput => "showViewsValue(this.value)"})%>
-    <span id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
-    </p>
-
-    <br><span class='note'>(whichever comes first)</span></br>
-
-    <p class='notes'>
-        <% if RETRIEVAL_STEP_ENABLED %>
-            <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT %>
-            Use a 1-click retrieval step to avoid having views eaten up by URL scanners
-        <% end %>
-        <% if DELETABLE_BY_VIEWER_PASSWORDS %>
-            <br/>
-            <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_BY_VIEWER_DEFAULT %>
-            Allow viewers to optionally delete password before expiration
-        <% end %>
-    </p>
-
-    <p>
-    <span>
-    <div class='cookie-save' id='cookie-save'>
-    <a href='#' onclick='saveExpirations()'>Save</a> these settings as
-    <i>default</i> in a browser cookie.
+    <div class='row'>
+        <div class='col'>
+            <div class='mb5'>
+                <%=f.text_area(:payload, { :class => "form-control", rows: 8, placeholder: PAYLOAD_INITIAL_TEXT, autocomplete: "off", autofocus: true })%>
+                <div class='mb3 position-relative'>
+                    <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
+                        <span id="current">0</span>
+                        <span id="maximum">/ 1048576 Characters</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </span>
-    </p>
+    <div class='row'>
+        <div class='col-8 p-3 mt-4'>
+            <p> Expire secret link and delete after:</p>
 
-    <p>
-    <%=f.submit(:value => "Push it!", :class => "pushit", 'data-disable-with' => "Pushing...")%>
-    </p>
+            <div class='row'>
+                <div class='col-8'>
+                    <%=range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "form-range", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1" })%>
+                </div>
+                
+                <div class='col'>
+                    <label for='password_expire_after_days', id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class='col-8'>
+                    <%=range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "form-range", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1" })%>
+                </div>
+                
+                <div class='col'>
+                    <label for='password_expire_after_views', id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
+                </div>
+            </div>
+
+            <div class='mb3'>
+                <p class='text-center fw-lighter'>(whichever comes first)</p>
+            </div>
+
+            <div class="list-group mx-0">
+                <% if RETRIEVAL_STEP_ENABLED %>
+                    <label class="list-group-item d-flex gap-2">
+                    <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT, { class: 'form-check-input flex-shrink-0' } %>
+                    <span>
+                        Use a 1-click retrieval step
+                        <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
+                    </span>
+                    </label>
+                <% end %>
+                <% if DELETABLE_PASSWORDS_ENABLED %>
+                    <label class="list-group-item d-flex gap-2">
+                    <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT, { class: 'form-check-input flex-shrink-0' }  %>
+                    <span>
+                        Allow immediate deletion
+                        <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
+                    </span>
+                    </label>
+                <% end %>
+            </div>
+
+            <p class='mb-5'> 
+                <div id='cookie-save'>
+                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+                </div>
+            </p>
+
+
+            <p class='my-3'> 
+                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
+            </p>
+        </div>
+        <div class='col p-3 mt-4'>
+            <p class='fst-italic'>
+                Tip: Only enter the password into the box.  Other identifying information can compromise security.
+            </p>
+
+            <p class='fst-italic fw-light'>
+                All passwords are encrypted prior to storage and are available to only those with the secret link.
+                Once expired, encrypted passwords are unequivocally deleted from the database.
+            </p>
+        </div>
+    </div>
 <% end %>
-
-<p class='notes'>
-<span class='tip'>
-* Tip: Only enter the password into the box.  Other identifying information can compromise security.
-</span>
-<p></p>
-<span class='note'>
-All passwords are encrypted prior to storage and are available to only those with the secret link.
-</span>
-<br>
-<span class='note'>
-Once expired, encrypted passwords are unequivocally deleted from the database.
-</span>
-</p>
+    
+</div>
