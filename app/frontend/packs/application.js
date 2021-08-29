@@ -23,6 +23,5 @@ import 'clipboard'
 import 'spoiler-alert/spoiler'
 import '../js/bootstrap_js_files.js'
 import '../js/passwords.js'
-import '../js/global.js'
 
 const images = require.context('../img', true)

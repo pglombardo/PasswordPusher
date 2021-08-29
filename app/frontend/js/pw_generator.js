@@ -40,27 +40,27 @@ class PasswordGenerator {
         $('#generate_password').on('click', () => {
             $('#password_payload').val(generatePassword(this.config)).trigger('input');
         });
-        
+
         // Configure Generator: Generate Password button
         $('#configure_generate_password').on('click', () => {
             $('#configure_password_payload').text(generatePassword(this.config));
         });
-        
+
         // hasNumbers
         $('#include_numbers').on('change', () => {
             this.config.hasNumbers = $('#include_numbers').prop('checked');
         });
-        
+
         // titlecased
         $('#use_titlecase').on('change', () => {
             this.config.titlecased = $('#use_titlecase').prop('checked');
         });
-        
+
         // separators
         $('#use_separators').on('change', () => {
             let is_checked = $('#use_separators').prop('checked');
             this.config.use_separators = is_checked;
-            
+
             if (is_checked) {
                 this.config.separators = this.config_defaults.separators;
                 $('#separators').val(this.config.separators);
@@ -69,13 +69,13 @@ class PasswordGenerator {
                 $('#separators').val('');
             }
         });
-        
+
         // separators
         $('#separators').on('change input', () => {
             this.config.separators = $('#separators').val()
         });
-        
-        
+
+
         // num_syllables
         $('#num_syllables').on('change input', () => {
             var num_syllables_as_int = parseInt($('#num_syllables').val());
@@ -83,7 +83,7 @@ class PasswordGenerator {
                 this.config.syllablesCount = num_syllables_as_int;
             }
         });
-        
+
         // min_syllable_length
         $('#min_syllable_length').on('change input', () => {
             var min_syllable_length_as_int = parseInt($('#min_syllable_length').val());
@@ -91,7 +91,7 @@ class PasswordGenerator {
                 this.config.minSyllableLength = min_syllable_length_as_int;
             }
         });
-        
+
         // max_syllable_length
         $('#max_syllable_length').on('change input', () => {
             var max_syllable_length_as_int = parseInt($('#max_syllable_length').val());
@@ -99,23 +99,23 @@ class PasswordGenerator {
                 this.config.maxSyllableLength = max_syllable_length_as_int;
             }
         });
-        
+
         // vowels
         $('#vowels').on('change input', () => {
             this.config.vowels = $('#vowels').val()
         });
-        
+
         // consonants
         $('#consonants').on('change input', () => {
            this.config.consonants = $('#consonants').val()
         });
-        
+
         // Reset to defaults
         $('#reset_to_defaults').on('click', () => {
             this.resetToDefaults();
             this.updateForm();
         });
-        
+
         $('#save_configure').on('click', () => {
             // Save options to cookie and close
             this.saveValuesToCookie();
@@ -149,7 +149,7 @@ class PasswordGenerator {
         } else {
             this.config.titlecased = this.config_defaults.titlecased;
         }
-        
+
         let use_separators = Cookies.get('use_separators');
         if (use_separators) {
             this.config.use_separators = toBoolean(use_separators);
@@ -179,9 +179,9 @@ class PasswordGenerator {
         this.config.minSyllableLength = this.config_defaults.minSyllableLength;
         this.config.syllablesCount = this.config_defaults.syllablesCount;
     }
-    
+
     updateForm(with_defaults = false) {
-       
+
         let candidate = this.config;
         if (with_defaults) {
             candidate = this.config_defaults;

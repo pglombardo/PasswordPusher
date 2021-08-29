@@ -20,7 +20,13 @@
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT, {:name => "password[expire_after_days]", :class => "form-range", :min => EXPIRE_AFTER_DAYS_MIN, :max => EXPIRE_AFTER_DAYS_MAX, :step => "1" })%>
+                    <%= range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT,
+                                        { :name => "password[expire_after_days]",
+                                          :class => "form-range",
+                                          :min => EXPIRE_AFTER_DAYS_MIN,
+                                          :max => EXPIRE_AFTER_DAYS_MAX,
+                                          :x_default => EXPIRE_AFTER_DAYS_DEFAULT,
+                                          :step => "1" })%>
                 </div>
 
                 <div class='col'>
@@ -30,7 +36,13 @@
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT, {:name => "password[expire_after_views]", :class => "form-range", :min => EXPIRE_AFTER_VIEWS_MIN, :max => EXPIRE_AFTER_VIEWS_MAX, :step => "1" })%>
+                    <%=range_field_tag("password_expire_after_views", EXPIRE_AFTER_VIEWS_DEFAULT,
+                                       { :name => "password[expire_after_views]",
+                                         :class => "form-range",
+                                         :min => EXPIRE_AFTER_VIEWS_MIN,
+                                         :max => EXPIRE_AFTER_VIEWS_MAX,
+                                         :x_default => EXPIRE_AFTER_VIEWS_DEFAULT,
+                                         :step => "1" })%>
                 </div>
 
                 <div class='col'>
@@ -45,7 +57,9 @@
             <div class="list-group mx-0">
                 <% if RETRIEVAL_STEP_ENABLED %>
                     <label class="list-group-item d-flex gap-2">
-                    <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT, { class: 'form-check-input flex-shrink-0' } %>
+                    <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT,
+                                     { class: 'form-check-input flex-shrink-0',
+                                       x_default: RETRIEVAL_STEP_DEFAULT } %>
                     <span>
                         Use a 1-click retrieval step
                         <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
@@ -54,7 +68,9 @@
                 <% end %>
                 <% if DELETABLE_PASSWORDS_ENABLED %>
                     <label class="list-group-item d-flex gap-2">
-                    <%=check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT, { class: 'form-check-input flex-shrink-0' }  %>
+                    <%= check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT,
+                                      { class: 'form-check-input flex-shrink-0',
+                                        x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
                     <span>
                         Allow immediate deletion
                         <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
