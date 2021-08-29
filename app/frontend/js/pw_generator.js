@@ -36,12 +36,32 @@ class PasswordGenerator {
     }
 
     setupPwGeneratorEvents() {
+        var ga_enabled = false;
+
+        if ($('meta[name=ga_enabled]').attr('content') == "true") {
+            ga_enabled = true;
+        }
+
         // Generate Password button
         $('#generate_password').on('click', () => {
             $('#password_payload').val(generatePassword(this.config)).trigger('input');
+            if (ga_enabled) {
+                gtag('event', 'generate_password',
+                     { 'event_category' : 'engagement',
+                       'event_label' : 'Generate a Password' });
+            }
         });
 
-        // Configure Generator: Generate Password button
+        // Configure Generator Button
+        if (ga_enabled) {
+            $('#configure_generator').on('click', () => {
+                gtag('event', 'configure_pw_generator',
+                     { 'event_category' : 'engagement',
+                       'event_label' : 'Configure Password Generator Dialog' });
+            });
+        }
+
+        // Configure Generator Dialog: Generate Password button
         $('#configure_generate_password').on('click', () => {
             $('#configure_password_payload').text(generatePassword(this.config));
         });
