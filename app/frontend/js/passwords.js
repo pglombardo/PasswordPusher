@@ -163,8 +163,7 @@ function ready() {
     e.clearSelection();
   });
 
-  PasswordGenerator.setupPwGeneratorEvents();
-  PasswordGenerator.updateForm();
+  PasswordGenerator.onReady();
 
   // "Save these settings as default in a cookie"
   $('#save-defaults').on('click', saveFormValuesToCookie);

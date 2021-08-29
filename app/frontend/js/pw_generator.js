@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import generatePassword from "omgopass";
 
 class PasswordGenerator {
@@ -27,6 +28,12 @@ class PasswordGenerator {
         };
     }
 
+    onReady() {
+        this.loadValuesFromCookie();
+        this.setupPwGeneratorEvents();
+        this.updateForm();
+    }
+
     setupPwGeneratorEvents() {
         // Generate Password button
         $('#generate_password').on('click', () => {
@@ -52,7 +59,6 @@ class PasswordGenerator {
         $('#use_separators').on('change', () => {
             let is_checked = $('#use_separators').prop('checked');
             this.config.use_separators = is_checked;
-
             
             if (is_checked) {
                 this.config.separators = this.config_defaults.separators;
@@ -106,11 +112,76 @@ class PasswordGenerator {
         // Reset to defaults
         $('#reset_to_defaults').on('click', () => {
             this.resetToDefaults();
+            this.updateForm();
         });
         
         $('#save_configure').on('click', () => {
             // Save options to cookie and close
+            this.saveValuesToCookie();
         });
+    }
+
+    saveValuesToCookie() {
+        console.log('Saving these values to a cookie');
+        console.log(this.config);
+
+        Cookies.set('hasNumbers',        this.config.hasNumbers.toString(), { expires: 365 });
+        Cookies.set('titlecased',        this.config.titlecased.toString(), { expires: 365 });
+        Cookies.set('use_separators',    this.config.use_separators.toString(), { expires: 365 });
+        Cookies.set('consonants',        this.config.consonants, { expires: 365 });
+        Cookies.set('vowels',            this.config.vowels, { expires: 365 });
+        Cookies.set('separators',        this.config.separators, { expires: 365 });
+        Cookies.set('maxSyllableLength', this.config.maxSyllableLength, { expires: 365 });
+        Cookies.set('minSyllableLength', this.config.minSyllableLength, { expires: 365 });
+        Cookies.set('syllablesCount',    this.config.syllablesCount, { expires: 365 });
+    }
+
+    loadValuesFromCookie() {
+        // Booleans
+        let has_numbers = Cookies.get('hasNumbers');
+        if (has_numbers) {
+            this.config.hasNumbers = this.toBoolean(has_numbers);
+        } else {
+            this.config.hasNumbers = this.config_defaults.hasNumbers;
+        }
+
+        let titlecased = Cookies.get('titlecased');
+        if (titlecased) {
+            this.config.titlecased = this.toBoolean(titlecased);
+        } else {
+            this.config.titlecased = this.config_defaults.titlecased;
+        }
+        
+        let use_separators = Cookies.get('use_separators');
+        if (use_separators) {
+            this.config.use_separators = this.toBoolean(use_separators);
+        } else {
+            this.config.use_separators = this.config_defaults.use_separators;
+        }
+
+        // Strings
+        this.config.consonants = Cookies.get('consonants') || this.config_defaults.consonants;
+        this.config.vowels = Cookies.get('vowels') || this.config_defaults.vowels;
+        this.config.separators = Cookies.get('separators') || this.config_defaults.separators;
+
+        // Integers
+        this.config.maxSyllableLength = parseInt(Cookies.get('maxSyllableLength'), 10) || this.config_defaults.maxSyllableLength;
+        this.config.minSyllableLength = parseInt(Cookies.get('minSyllableLength'), 10) || this.config_defaults.minSyllableLength;
+        this.config.syllablesCount = parseInt(Cookies.get('syllablesCount'), 10) || this.config_defaults.syllablesCount;
+
+        console.log('loaded these values from a cookie');
+        console.log(this.config);
+    }
+
+    toBoolean(candidate) {
+        if (candidate) {
+            if (typeof candidate === 'string') {
+                return candidate == 'true';
+            } else if (typeof candidate === 'boolean') {
+                return candidate;
+            }
+        }
+        return null;
     }
 
     resetToDefaults() {
@@ -123,8 +194,6 @@ class PasswordGenerator {
         this.config.maxSyllableLength = this.config_defaults.maxSyllableLength;
         this.config.minSyllableLength = this.config_defaults.minSyllableLength;
         this.config.syllablesCount = this.config_defaults.syllablesCount;
-
-        this.updateForm(true);
     }
     
     updateForm(with_defaults = false) {
@@ -133,6 +202,9 @@ class PasswordGenerator {
         if (with_defaults) {
             candidate = this.config_defaults;
         }
+
+        console.log('updating form with these values');
+        console.log(candidate);
         
         $('#separators').val(candidate.separators)
         $('#consonants').val(candidate.consonants)
