@@ -6,6 +6,7 @@
       <p class='text-center'>
           This secret link
 
+          <em>
           <% if @password.deleted %>
             was manually expired by one of its viewers 
           <% elsif @password.views_remaining == 0 %>
@@ -13,6 +14,7 @@
           <% elsif @password.days_remaining == 0 %>
             has hit its maximum age (<%=@password.expire_after_days%> days) 
           <% end %>
+          </em>
 
           and the password has been deleted from the database.
         </p>

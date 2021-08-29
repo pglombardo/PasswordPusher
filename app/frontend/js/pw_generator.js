@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import generatePassword from "omgopass";
+import toBoolean from '../js/toolbox'
 
 class PasswordGenerator {
     constructor() {
@@ -122,9 +123,6 @@ class PasswordGenerator {
     }
 
     saveValuesToCookie() {
-        console.log('Saving these values to a cookie');
-        console.log(this.config);
-
         Cookies.set('hasNumbers',        this.config.hasNumbers.toString(), { expires: 365 });
         Cookies.set('titlecased',        this.config.titlecased.toString(), { expires: 365 });
         Cookies.set('use_separators',    this.config.use_separators.toString(), { expires: 365 });
@@ -140,21 +138,21 @@ class PasswordGenerator {
         // Booleans
         let has_numbers = Cookies.get('hasNumbers');
         if (has_numbers) {
-            this.config.hasNumbers = this.toBoolean(has_numbers);
+            this.config.hasNumbers = toBoolean(has_numbers);
         } else {
             this.config.hasNumbers = this.config_defaults.hasNumbers;
         }
 
         let titlecased = Cookies.get('titlecased');
         if (titlecased) {
-            this.config.titlecased = this.toBoolean(titlecased);
+            this.config.titlecased = toBoolean(titlecased);
         } else {
             this.config.titlecased = this.config_defaults.titlecased;
         }
         
         let use_separators = Cookies.get('use_separators');
         if (use_separators) {
-            this.config.use_separators = this.toBoolean(use_separators);
+            this.config.use_separators = toBoolean(use_separators);
         } else {
             this.config.use_separators = this.config_defaults.use_separators;
         }
@@ -168,20 +166,6 @@ class PasswordGenerator {
         this.config.maxSyllableLength = parseInt(Cookies.get('maxSyllableLength'), 10) || this.config_defaults.maxSyllableLength;
         this.config.minSyllableLength = parseInt(Cookies.get('minSyllableLength'), 10) || this.config_defaults.minSyllableLength;
         this.config.syllablesCount = parseInt(Cookies.get('syllablesCount'), 10) || this.config_defaults.syllablesCount;
-
-        console.log('loaded these values from a cookie');
-        console.log(this.config);
-    }
-
-    toBoolean(candidate) {
-        if (candidate) {
-            if (typeof candidate === 'string') {
-                return candidate == 'true';
-            } else if (typeof candidate === 'boolean') {
-                return candidate;
-            }
-        }
-        return null;
     }
 
     resetToDefaults() {
@@ -203,9 +187,6 @@ class PasswordGenerator {
             candidate = this.config_defaults;
         }
 
-        console.log('updating form with these values');
-        console.log(candidate);
-        
         $('#separators').val(candidate.separators)
         $('#consonants').val(candidate.consonants)
         $('#vowels').val(candidate.vowels)
