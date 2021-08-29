@@ -1,160 +1,79 @@
 import 'spoiler-alert/spoiler'
 
-import ClipboardJS from 'clipboard'
-
-function setCookie(name,value,days) {
-  var expires = "";
-  if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-
-  for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-  }
-  return null;
-}
+import Cookies from 'js-cookie'
+import PasswordGenerator from '../js/pw_generator'
+import setupClipboardButton from './clipboard_buttons'
+import toBoolean from '../js/toolbox'
 
 function restoreFormValuesFromCookie() {
-  var days = getCookie('pwpush_days');
-  var views = getCookie('pwpush_views');
 
-  var de = document.getElementById("password_expire_after_days")
-  var dr = document.getElementById("daysrange")
-  if (de) {
-    if (days) {
-      de.value = days
-      dr.innerText = days + " Days"
-    } else {
-      showDaysValue(de.value)
-    }
+  let default_days_expiration = $('#password_expire_after_days').attr('x_default');
+  let days_expiration = Cookies.get('pwpush_days') || default_days_expiration;
+
+  $('#password_expire_after_days').val(days_expiration);
+  if (days_expiration > 1) {
+    $('#daysrange').text(days_expiration + ' Days');
+  } else {
+    $('#daysrange').text(days_expiration + ' Day');
   }
 
-  var ve = document.getElementById("password_expire_after_views")
-  var vr = document.getElementById("viewsrange")
-  if (ve) {
-    if (views) {
-      ve.value = views
-      vr.innerText = views + " Views"
-    } else {
-      showViewsValue(ve.value)
-    }
+  let default_views_expiration = $('#password_expire_after_views').attr('x_default');
+  let views_expiration = Cookies.get('pwpush_views') || default_views_expiration;
+
+  $('#password_expire_after_views').val(views_expiration);
+  if (views_expiration > 1) {
+    $('#viewsrange').text(days_expiration + ' Views');
+  } else {
+    $('#viewsrange').text(days_expiration + ' View');
   }
 
-  var dbv_checkbox = document.getElementById('password_deletable_by_viewer')
-  var dbv_check_state = getCookie('pwpush_dbv')
-  if (dbv_checkbox) {
-    var new_value = true;
-    if (dbv_check_state) {
-      if (dbv_check_state == "false") {
-        new_value = false
-      }
-      if (dbv_checkbox.checked != new_value) {
-        dbv_checkbox.click()
-      }
-    }
-  }
-  
-  var retrieval_checkbox = document.getElementById('password_retrieval_step')
-  var retrieval_check_state = getCookie('pwpush_retrieval')
-  if (retrieval_checkbox) {
-    var new_value = true;
-    if (retrieval_check_state) {
-      if (retrieval_check_state == "false") {
-        new_value = false
-      }
-      if (retrieval_checkbox.checked != new_value) {
-        retrieval_checkbox.click()
-      }
-    }
+  let default_deleteable_by_viewer = $('#password_deletable_by_viewer').attr('x_default');
+  let deletable_by_viewer = Cookies.get('pwpush_dbv');
+
+  if (deletable_by_viewer) {
+    $('#password_deletable_by_viewer').prop('checked', toBoolean(deletable_by_viewer));
+  } else {
+    $('#password_deletable_by_viewer').prop('checked', default_deleteable_by_viewer);
   }
 
+  let default_retrieval_step = $('#password_retrieval').attr('x_default');
+  let retrieval_step = Cookies.get('pwpush_retrieval');
+
+  if (retrieval_step) {
+    $('#password_retrieval_step').prop('checked', toBoolean(retrieval_step));
+  } else {
+    $('#password_retrieval_step').prop('checked', default_retrieval_step);
+  }
 }
 
 function saveFormValuesToCookie() {
-  var days_value  = document.getElementById("password_expire_after_days").value
-  var views_value = document.getElementById("password_expire_after_views").value
-  var dbv         = document.getElementById("password_deletable_by_viewer")
-  var retrieval   = document.getElementById("password_retrieval_step")
+  Cookies.set('pwpush_days', $('#password_expire_after_days').val(), { expires: 365 });
+  Cookies.set('pwpush_views', $('#password_expire_after_views').val(), { expires: 365 });
+  Cookies.set('pwpush_dbv', $('#password_deletable_by_viewer').prop('checked').toString(), { expires: 365 });
+  Cookies.set('pwpush_retrieval', $('#password_retrieval_step').prop('checked').toString(), { expires: 365 });
 
-  setCookie('pwpush_days',  days_value, 365);
-  setCookie('pwpush_views', views_value, 365);
-  setCookie('pwpush_dbv', dbv.checked.toString(), 365);
-  setCookie('pwpush_retrieval', retrieval.checked.toString(), 365);
-
-  let e = document.getElementById("cookie-save")
-  e.innerHTML = "Saved!  <em>Defaults updated.</em>"
+  $('#cookie-save').html('Saved!  <em>Defaults updated.</em>');
   return true;
 }
 
 function setupSliderEventListeners()
 {
-  var slider_days = document.getElementById('password_expire_after_days');
-  var slider_views = document.getElementById('password_expire_after_views');
+  $('#password_expire_after_days').on('change input', function() {
+    if (this.value > 1) {
+      $('#daysrange').text(this.value + ' Days');
+    } else {
+      $('#daysrange').text(this.value + ' Day');
+    }
+  });
 
-  if (slider_days) {
-    slider_days.addEventListener("change", function() {
-      document.getElementById("daysrange").innerText=slider_days.value + ' Days';
-    })
-    slider_days.addEventListener("input", function() {
-      document.getElementById("daysrange").innerText=slider_days.value + ' Days';
-    })
-  }
-  
-  if (slider_views) {
-    slider_views.addEventListener("change", function() {
-      document.getElementById("viewsrange").innerText=slider_views.value + ' Days';
-    })
-    slider_views.addEventListener("input", function() {
-      document.getElementById("viewsrange").innerText=slider_views.value + ' Days';
-    })
-  }
+  $('#password_expire_after_views').on('change input', function() {
+    if (this.value > 1) {
+      $('#viewsrange').text(this.value + ' Views');
+    } else {
+      $('#viewsrange').text(this.value + ' View');
+    }
+  });
 }
-
-function updateCharCount() {
-  var characterCount = $('#password_payload').val().length;
-  var current = $('#current');
-  var maximum = $('#maximum');
-    
-  current.text(characterCount);
- 
-  if (characterCount >= 1048576) {
-    maximum.css('color', '#F91A00');
-    current.css('color', '#F91A00');
-  }
-}
-
-function showDaysValue(newValue)
-{
-  if (newValue > 1) {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Days';
-  } else {
-  	document.getElementById("daysrange").innerHTML=newValue + ' Day';
-  }
-}
-
-function showViewsValue(newValue)
-{
-  if (newValue > 1) {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' Views';
-  } else {
-  	document.getElementById("viewsrange").innerHTML=newValue + ' View';
-  }
-}
-
-function setCopied() {
-	$('#clip_tip').text('copied!');
-}
-
 
 function ready() {
   const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -165,27 +84,10 @@ function ready() {
 
   restoreFormValuesFromCookie();
 
-  // Primary Clipboard button
-  var clipboard_button = new ClipboardJS('#copy-to-clipboard-button');
-  clipboard_button.on('success', function(e) {
-    var copyIcon = $('#copy-to-clipboard-button').html();
-    $('#copy-to-clipboard-button').text('Copied!');
-    setTimeout(function() {
-      $('#copy-to-clipboard-button').html(copyIcon);
-    }, 1000);
-    e.clearSelection();
-  });
- 
-  // Secondary Clipboard button on the Password#Show page
-  var clipboard_button_2 = new ClipboardJS('#copy-to-clipboard-button-2');
-  clipboard_button_2.on('success', function(e) {
-    var copyIcon = $('#copy-to-clipboard-button-2').html();
-    $('#copy-to-clipboard-button-2').text('Copied!');
-    setTimeout(function() {
-      $('#copy-to-clipboard-button-2').html(copyIcon);
-    }, 1000);
-    e.clearSelection();
-  });
+  setupClipboardButton('#copy-to-clipboard-button');
+  setupClipboardButton('#copy-to-clipboard-button-2');
+
+  PasswordGenerator.onReady();
 
   // "Save these settings as default in a cookie"
   $('#save-defaults').on('click', saveFormValuesToCookie);
@@ -194,7 +96,18 @@ function ready() {
   setupSliderEventListeners()
 
   // Password Payload character count
-  $('#password_payload').on('change input', updateCharCount);
+  $('#password_payload').on('change input', function() {
+    var characterCount = $('#password_payload').val().length;
+    var current = $('#current');
+    var maximum = $('#maximum');
+
+    current.text(characterCount);
+
+    if (characterCount >= 1048576) {
+      maximum.css('color', '#F91A00');
+      current.css('color', '#F91A00');
+    }
+  });
 
   // Enable Payload Blur
   spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
