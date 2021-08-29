@@ -1,29 +1,9 @@
 import 'spoiler-alert/spoiler'
 
+import { getCookie, setCookie } from '../js/cookie'
+
 import ClipboardJS from 'clipboard'
-import generatePassword from "omgopass";
-
-function setCookie(name,value,days) {
-  var expires = "";
-  if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-
-  for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-  }
-  return null;
-}
+import PasswordGenerator from '../js/pw_generator'
 
 function restoreFormValuesFromCookie() {
   var days = getCookie('pwpush_days');
@@ -152,108 +132,6 @@ function showViewsValue(newValue)
   }
 }
 
-function setCopied() {
-	$('#clip_tip').text('copied!');
-}
-
-var passwordGeneratorConfig = {
-  hasNumbers: true,
-  titlecased: true,
-  use_separators: true,
-  consonants: 'bcdfghklmnprstvz',
-  vowels: 'aeiouy',
-  separators: '-_=',
-  maxSyllableLength: 3,
-  minSyllableLength: 1,
-  syllablesCount: 3,
-
-  // Defaults
-  default_hasNumbers: true,
-  default_titlecased: true,
-  default_use_separators: true,
-  default_consonants: 'bcdfghklmnprstvz',
-  default_vowels: 'aeiouy',
-  default_separators: '-_=',
-  default_maxSyllableLength: 3,
-  default_minSyllableLength: 1,
-  default_syllablesCount: 3,
-};
-
-function configurePasswordGeneratorHooks() {
-
-  // Configure Generator: Generate Password button
-  $('#configure_generate_password').on('click', function(e) {
-    $('#configure_password_payload').text(generatePassword(passwordGeneratorConfig));
-  });
-
-  // hasNumbers
-  $('#include_numbers').prop('checked', passwordGeneratorConfig.hasNumbers);
-  $('#include_numbers').on('change', function(e) {
-    passwordGeneratorConfig.hasNumbers = $('#include_numbers').prop('checked');
-  });
-
-  // titlecased
-  $('#use_titlecase').prop('checked', passwordGeneratorConfig.titlecased);
-  $('#use_titlecase').on('change', function(e) {
-    passwordGeneratorConfig.titlecased = $('#use_titlecase').prop('checked');
-  });
-
-  // separators
-  $('#use_separators').prop('checked', passwordGeneratorConfig.use_separators);
-  $('#use_separators').on('change', function(e) {
-    passwordGeneratorConfig.use_separators = $('#use_separators').prop('checked');
-    // if (passwordGeneratorConfig.use_separators) {
-    //   // passwordGeneratorConfig.separators =
-    // }
-  });
-
-  // num_syllables
-  $('#num_syllables').val(passwordGeneratorConfig.syllablesCount)
-  $('#num_syllables').on('change input', function(e) {
-    var num_syllables_as_int = parseInt($('#num_syllables').val());
-    if (typeof num_syllables_as_int === 'number') {
-      passwordGeneratorConfig.syllablesCount = num_syllables_as_int;
-    }
-  });
-
-  // min_syllable_length
-  $('#min_syllable_length').val(passwordGeneratorConfig.minSyllableLength)
-  $('#min_syllable_length').on('change input', function(e) {
-    var min_syllable_length_as_int = parseInt($('#min_syllable_length').val());
-    if (typeof min_syllable_length_as_int === 'number') {
-      passwordGeneratorConfig.minSyllableLength = min_syllable_length_as_int;
-    }
-  });
-
-  // max_syllable_length
-  $('#max_syllable_length').val(passwordGeneratorConfig.maxSyllableLength)
-  $('#max_syllable_length').on('change input', function(e) {
-    var max_syllable_length_as_int = parseInt($('#max_syllable_length').val());
-    if (typeof max_syllable_length_as_int === 'number') {
-      passwordGeneratorConfig.maxSyllableLength = max_syllable_length_as_int;
-    }
-  });
-
-  // vowels
-  $('#vowels').val(passwordGeneratorConfig.vowels)
-  $('#vowels').on('change input', function(e) {
-    passwordGeneratorConfig.vowels = $('#vowels').val()
-  });
-
-  // consonants
-  $('#consonants').val(passwordGeneratorConfig.consonants)
-  $('#consonants').on('change input', function(e) {
-    passwordGeneratorConfig.consonants = $('#consonants').val()
-  });
-
-  // separators
-  $('#separators').val(passwordGeneratorConfig.separators)
-  $('#separators').on('change input', function(e) {
-    passwordGeneratorConfig.separators = $('#separators').val()
-  });
-}
-
-
 function ready() {
   const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -285,12 +163,8 @@ function ready() {
     e.clearSelection();
   });
 
-  // Generate Password button
-  $('#generate_password').on('click', function(e) {
-    $('#password_payload').val(generatePassword(passwordGeneratorConfig)).trigger('input');
-  });
-
-  configurePasswordGeneratorHooks();
+  PasswordGenerator.setupPwGeneratorEvents();
+  PasswordGenerator.updateForm();
 
   // "Save these settings as default in a cookie"
   $('#save-defaults').on('click', saveFormValuesToCookie);
