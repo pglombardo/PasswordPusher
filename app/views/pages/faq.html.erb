@@ -1,7 +1,9 @@
 
-<h2 class='border-bottom mb-5 py-3'><em class="bi bi-patch-question"></em> Frequently Asked Questions</h2>
+<h2 class='mb-3'>Frequently Asked Questions</h2>
 
-<div class="accordion" id="accordionFAQ">
+<h3 class='border-bottom mb-5 py-3'><em class="bi bi-lock"></em> Trust &amp; Security</h2>
+
+<div class="accordion" id="trust-security">
   <div class="accordion-item">
     <h2 class="accordion-header" id="purpose-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#purpose-answer" aria-expanded="false" aria-controls="purpose-answer">
@@ -27,7 +29,7 @@
 
         <p>For each password posted to Password Pusher, <strong>a unique URL is generated that only you will know</strong>. Additionally, <strong>passwords expire after a predefined set of views are hit or time passed</strong>. Once expired, passwords are unequivocally deleted.</p>
 
-        <p>If that sounds interesting to you, <a href="/">try it out</a> or see our other <a href="/pages/faq">Frequently Asked Questions</a>.</p>
+        <p>If that sounds interesting to you, <a href="/">try it out</a> or see the other frequently asked questions below.</p>
       </div>
     </div>
   </div>
@@ -41,14 +43,23 @@
       <div class="accordion-body">
         <p>And rightfully so. All good security begins with healthy skepticism of all involved components.</p>
 
-        <p>Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist in email archives in perpetuity. It does not exist as a end-all security solution.</p>
+        <p>
+          Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist
+          in email archives in perpetuity. It does not exist as a end-all security solution.
+        </p>
 
-        <p><strong>Password Pusher is opensource so the source can be publicly reviewed and can alternatively be run internally in your organization.</strong></p>
+        <p>
+          <%= link_to "Password Pusher is opensource", "http://www.rubyonrails.org/", target: "_blank" %> so the
+          source can be publicly reviewed and can alternatively be run internally in your organization.
+        </p>
 
-        <p><strong>Passwords are entirely deleted from the database once they expire.</strong> Additionally, random URL tokens are generated on the fly and passwords are posted without context (what they go to).</p>
+        <p>
+          <strong>Passwords are unequivocally deleted from the database once they expire.</strong>
+          Additionally, random URL tokens are generated on the fly and passwords are posted without context for their use.
+        </p>
 
-        <p><em>A note for those with an interest in extreme security:</em> there is no way I can reliably prove that the opensource 
-        code is the same that runs on <a href="https://pwpush.com/", target="_blank">pwpush.com</a> (this is true for all sites in reality). The only 
+        <p><em>A note for those with an interest in extreme security:</em> there is no way I can reliably prove that the opensource
+        code is the same that runs on <a href="https://pwpush.com/", target="_blank">pwpush.com</a> (this is true for all sites in reality). The only
         thing I can provide in this respect is my public reputation on <a href="https://github.com/pglombardo", target="_blank">Github</a>,
         <a href="https://www.linkedin.com/in/peterlombardo/", target="_blank">LinkedIn</a>, <a href="https://twitter.com/pglombardo", target="_blank">Twitter</a>
         and <a href="https://the0x00.dev", target="_blank">my blog</a>. If this is a concern for you, feel free to review the code, post any questions
@@ -57,6 +68,12 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<h3 class='border-bottom my-5 py-3'><em class="bi bi-tools"></em> Tools, Utilities &amp; Applications</h2>
+
+<div class="accordion" id="tools">
   <div class="accordion-item">
     <h2 class="accordion-header" id="access-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#access-answer" aria-expanded="false" aria-controls="access-answer">
@@ -65,7 +82,9 @@
     </h2>
     <div id="access-answer" class="accordion-collapse collapse" aria-labelledby="access-question">
       <div class="accordion-body">
-        <p>Absolutely.  Password Pusher has a fair number of applications and command line utilities that interface with pwpush.com or alternatively privately run instances.  See our <a href="/pages/tools">Tools &amp; Applications</a> page for more details.</p>
+        <p>Absolutely.  Password Pusher has a number of <em>applications and command line utilities</em> (CLI) that interface with pwpush.com or
+          privately run instances.  Push passwords from the CLI, Slack, Alfred App and more.</p>
+        <p>See our <a href="/pages/tools">Tools &amp; Applications</a> page for more details.</p>
       </div>
     </div>
   </div>
@@ -77,7 +96,8 @@
     </h2>
     <div id="automate-answer" class="accordion-collapse collapse" aria-labelledby="automate-question">
       <div class="accordion-body">
-        <p>Yes - many users utilize either Slack or the command line to push and distribute passwords.  See our <a href="/pages/tools">Tools &amp; Applications</a> page for more details.</p>
+        <p>Yes. Using the previously mentioned tools, many users &amp; organizations integrate Password Pusher into their security policies and processes.</p>
+        <p>The <a href="/pages/tools">Tools</a> page outlines the resources available to automate the secure distribution of passwords.</p>
       </div>
     </div>
   </div>
@@ -93,6 +113,11 @@
       </div>
     </div>
   </div>
+</div>
+
+<h3 class='border-bottom my-5 py-3'><em class="bi bi-eye-slash"></em> Running Your Own Private Instance</h2>
+
+<div class="accordion" id="private">
   <div class="accordion-item">
     <h2 class="accordion-header" id="run-internal-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#run-internal-answer" aria-expanded="false" aria-controls="run-internal-answer">
@@ -101,7 +126,14 @@
     </h2>
     <div id="run-internal-answer" class="accordion-collapse collapse" aria-labelledby="run-internal-question">
       <div class="accordion-body">
-        <p>Yes.  See our <a href="https://github.com/pglombardo/PasswordPusher#-run-your-own-instance">Installation documentation</a> for more details.</p>
+        <p>
+          Yes.  We provide <a href="https://hub.docker.com/u/pglombardo" target="_blank">Docker containers</a> and
+          <a href="https://github.com/pglombardo/PasswordPusher#-run-your-own-instance" target="_blank">installation instructions</a>
+          for a wide variety of platforms and services.
+        </p>
+        <p>
+          hint: <code>docker run -p 5100:5100 pglombardo/pwpush-ephemeral:latest</code>
+        </p>
       </div>
     </div>
   </div>
@@ -118,6 +150,30 @@
     </div>
   </div>
   <div class="accordion-item">
+    <h2 class="accordion-header" id="why-private-question">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#why-private-answer" aria-expanded="false" aria-controls="why-private-answer">
+        Why would I want to run my own private instance of Password Pusher?
+      </button>
+    </h2>
+    <div id="why-private-answer" class="accordion-collapse collapse" aria-labelledby="why-private-question">
+      <div class="accordion-body">
+        <p>
+          Some organizations are bound by security policies that prohibit the use of public services for sensitive
+          information such as passwords.  There are even organizations that require all tools to be on private intranets without
+          access to the outside world.
+        </p>
+        <p>
+          It's for these reasons that we provide the ability (and encourage) users &amp; organizations to run private instances when needed.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 class='border-bottom my-5 py-3'><em class="bi bi-sunglasses"></em> Other</h2>
+
+<div class="accordion" id="other">
+  <div class="accordion-item">
     <h2 class="accordion-header" id="presentation-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#presentation-answer" aria-expanded="false" aria-controls="presentation-answer">
         Can I use Password Pusher in my talk/presentation/conference?
@@ -125,7 +181,7 @@
     </h2>
     <div id="presentation-answer" class="accordion-collapse collapse" aria-labelledby="presentation-question">
       <div class="accordion-body">
-        <p>Absolutely.  Sending me a link to the talk/presentation/conference would be appreciated so I could share it on Twitter.</p>
+        <p>Absolutely.  If you need any resources such as statistics, graphics or anything else, don't hesitate to contact me: pglombardo at hey.com.</p>
       </div>
     </div>
   </div>
@@ -137,7 +193,7 @@
     </h2>
     <div id="new-features-answer" class="accordion-collapse collapse" aria-labelledby="new-features-question">
       <div class="accordion-body">
-        <p>Very likely.  I love to hear all ideas &amp; feedback. If you have any, please submit them to the <a href="https://github.com/pglombardo/Password Pusher">Github repository</a> and I will respond as soon as possible.</p>
+        <p>Very likely.  I love to hear all ideas &amp; feedback. If you have any, please submit them to the <a href="https://github.com/pglombardo/PasswordPusher">Github repository</a> and I will respond as soon as possible.</p>
       </div>
     </div>
   </div>
@@ -157,13 +213,4 @@
       </div>
     </div>
   </div>
-</div>
-
-
-
-
-
-
-
-
-
+  
