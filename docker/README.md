@@ -58,7 +58,7 @@ Lastly, you can also rebuild the container image from Dockerfile.  See `Dockerfi
 ##### pwpush-openshift
 
 You can run PasswordPusher in OpenShift in 2 ways:
-  - ephemeral (with no persistent storage): `oc new-app docker.io/pglombardo/pwpush-ephemeral:1.0`
+  - ephemeral (with no persistent storage): `oc new-app docker.io/pglombardo/pwpush-ephemeral:latest`
   - from an OpenShift template/buildconfig/deploymentconfig and PostgreSQL persistent from the official OpenShift template:
     ```
     oc login https://your_openshift_url
