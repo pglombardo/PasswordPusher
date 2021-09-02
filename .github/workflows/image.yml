@@ -3,6 +3,8 @@ name: Build docker containers
 on:
   push:
     branches: build_containers
+    tags:
+      - v*
 
 jobs:
   pwpush-ephemeral:
@@ -23,13 +25,23 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: name/app
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern=pglombardo/pwpush-ephemeral:{{version}}
+
       - name: Build and push pwpush-ephemeral Docker images
         uses: docker/build-push-action@v2.7.0
         with:
           context: ./docker/pwpush-ephemeral/.
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: pglombardo/pwpush-ephemeral:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   pwpush-postgres:
     runs-on: ubuntu-latest
@@ -49,10 +61,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: name/app
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern=pglombardo/pwpush-postgres:{{version}}
+
       - name: Build and push pwpush-postgres Docker images
         uses: docker/build-push-action@v2.7.0
         with:
           context: ./docker/pwpush-postgres/.
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: pglombardo/pwpush-postgres:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
