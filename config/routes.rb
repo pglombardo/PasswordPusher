@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
   resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
     get 'preview', on: :member
     get 'r', on: :member, as: 'preliminary', action: 'preliminary'

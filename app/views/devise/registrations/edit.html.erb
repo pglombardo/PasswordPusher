@@ -1,0 +1,56 @@
+<main class="devise-form text-center">
+  <a href="/">
+    <picture>
+      <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+      <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+      <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 120px;' />
+    </picture>
+  </a>
+    
+  <h2 class='my-3'>Edit Account</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <p class='my-3 p-3 lead border-bottom'>Update Email</p>
+    <div class="form-floating">
+      <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.org" %>
+      <%= f.label :change_email, for: :user_email %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <p class='my-3 p-3 lead border-bottom'>Change Password</p>
+    <p>
+      Leave blank if you don't want to change it.
+      <% if @minimum_password_length %>
+        <br />
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </p>
+    <div class="form-floating">
+      <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: 'New Password' %>
+      <%= f.label :password, for: :user_password %>
+    </div>
+
+    <div class="form-floating">
+      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: 'password' %>
+      <%= f.label :password_confirmation, for: :user_password_confirmation %>
+    </div>
+
+    <div class="form-floating">
+      <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: 'password' %>
+      <%= f.label :current_password, for: :user_current_password %> <em>(we need your current password to confirm your changes)</em>
+    </div>
+
+    <div class="form-floating">
+      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Update</button>
+    </div>
+  <% end %>
+
+  <p class='my-3 p-3 lead border-bottom'>Cancel Account</p>
+
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+</main>

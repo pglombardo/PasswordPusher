@@ -5,14 +5,43 @@
         <picture>
           <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
           <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 40px;' />
+          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 50px;' />
         </picture>
         </div>
-        <span class="fs-4 display-1">Password Pusher</span>
+        <div>
+          <span class="fs-4 display-1">Password Pusher</span>
+          <br/>
+          <span class="fs-6 text-muted">Go Ahead.  Email Another Password.</span>
+        </div>
       </a>
 
+
       <ul class="nav nav-pills align-items-center">
-        <li class="nav-item lead">Go Ahead.  Email another password.</li>
-      </ul>
+          <% if current_user %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="fa fa-user"></div>
+                  <%= current_user.email %>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to edit_user_registration_path, class: "dropdown-item #{'active fw-bold' if current_page?(edit_user_registration_path)}" do %>
+                    <div class="fa fa-cog"></div>
+                    Account settings
+                  <% end %>
+                  <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                    <div class="fa fa-sign-out-alt"></div>
+                    Sign out
+                  <% end %>
+                </ul>
+              </li>
+            <% else %>
+              <li class="nav-item lead">
+                <%= link_to "Log in", new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
+              </li>
+              <li class="nav-item lead">
+                <%= link_to "Sign up", new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
+              </li>
+            <% end %>
+        </ul>
     </header>
 </div>

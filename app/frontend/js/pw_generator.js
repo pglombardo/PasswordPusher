@@ -51,6 +51,19 @@ class PasswordGenerator {
                        'event_label' : 'Generate a Password' });
             }
         });
+        
+        // Generate Password button on the sign up form
+        $('#generate_password_sign_up').on('click', () => {
+            var candidate = generatePassword(this.config);
+            $('#user_password').val(candidate).trigger('input');
+            $('#user_password_confirmation').val(candidate).trigger('input');
+            if (ga_enabled) {
+                gtag('event', 'generate_password_sign_up',
+                     { 'event_category' : 'engagement',
+                       'event_label' : 'Generate a Password' });
+            }
+        });
+
 
         // Configure Generator Button
         if (ga_enabled) {

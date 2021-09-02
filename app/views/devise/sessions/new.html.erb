@@ -1,0 +1,39 @@
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
+  <main class="devise-form text-center">
+    <a href="/">
+    <picture>
+      <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+      <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+      <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 120px;' />
+    </picture>
+    </a>
+      
+    <h2 class='my-3'>Log In</h1>
+    
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-floating">
+        <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.com" %>
+        <%= f.label :email, for: 'user_email' %>
+      </div>
+      
+      <div class="form-floating">
+        <%= f.password_field :password, class: 'form-control', autocomplete: "current-password", placeholder: 'password' %>
+        <%= f.label :password, for: 'user_password' %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="checkbox mt-3">
+          <label>
+            <%= f.check_box :remember_me %> Remember me
+          </label>
+        </div>
+      <% end %>
+
+      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Sign in</button>
+    <% end %>
+
+    <div class='my-3'>
+      <%= render "devise/shared/links" %>
+    </div>
+  </main>
+</div>
