@@ -35,7 +35,7 @@ jobs:
 
       - name: Figure out docker image tag
         if: ${{ github.ref == 'refs/heads/build_containers' }}
-        run: echo ("DOCKER_TAG=latest") >> $env:GITHUB_ENV
+        run: echo "DOCKER_TAG=latest" >> $env:GITHUB_ENV
       
       - run: echo ${{ env.DOCKER_TAG }}
 
