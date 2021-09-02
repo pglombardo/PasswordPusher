@@ -5,12 +5,12 @@ on:
     branches: build_containers
 
 jobs:
-  docker:
+  pwpush-ephemeral:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -23,10 +23,36 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker images
+      - name: Build and push pwpush-ephemeral Docker images
         uses: docker/build-push-action@v2.7.0
         with:
           context: ./docker/pwpush-ephemeral/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-ephemeral:latest
+
+  pwpush-postgres:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push pwpush-postgres Docker images
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: ./docker/pwpush-postgres/.
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: pglombardo/pwpush-postgres:latest
