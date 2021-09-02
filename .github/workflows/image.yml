@@ -35,9 +35,9 @@ jobs:
 
       - name: Figure out docker image tag
         if: ${{ github.ref == 'refs/heads/build_containers' }}
-        run: echo "DOCKER_TAG=latest" >> $env:GITHUB_ENV
+        run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
       
-      - run: echo ${{ env.DOCKER_TAG }}
+      - run: echo "${{ env.DOCKER_TAG}}"
 
       # - name: Build and push pwpush-ephemeral Docker images
       #   uses: docker/build-push-action@v2.7.0
