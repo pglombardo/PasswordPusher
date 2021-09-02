@@ -30,17 +30,12 @@ jobs:
 
       - run: echo ${{ steps.get_version.outputs.version }}
       - run: echo ${{ steps.get_version.outputs.version-without-v }}
-
-      - name: Github actions really suck in usability 
-      - run: |
-        chcp 65001 # set code page to utf-8
-        echo ("DOCKER_TAG=" + ${{ steps.get_version.outputs.version-without-v }}) >> $env:GITHUB_ENV
+      
+      - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
 
       - name: Figure out docker image tag
         if: ${{ github.ref == 'refs/heads/build_containers' }}
-      - run: |
-        chcp 65001 # set code page to utf-8
-        echo ("DOCKER_TAG=latest") >> $env:GITHUB_ENV
+        run: echo ("DOCKER_TAG=latest") >> $env:GITHUB_ENV
       
       - run: echo ${{ env.DOCKER_TAG }}
 
