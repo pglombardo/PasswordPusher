@@ -10,8 +10,8 @@ jobs:
   pwpush-ephemeral:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      # - name: Checkout
+      #   uses: actions/checkout@v2
 
       # - name: Set up QEMU
       #   uses: docker/setup-qemu-action@v1
@@ -30,14 +30,24 @@ jobs:
       - run: echo ${{ steps.get_version.outputs.version }}
       - run: echo ${{ steps.get_version.outputs.version-without-v }}
 
+      - name: Github actions really suck in usability 
+        env:
+            DOCKER_TAG: ${{ steps.get_version.outputs.version-without-v }}
+
+      - name: Figure out docker image tag
+        if: ${{ github.ref == 'refs/heads/master' }}
+        env:
+            DOCKER_TAG: latest
+      
+      - run: echo ${{ env.DOCKER_TAG }}
+
       # - name: Build and push pwpush-ephemeral Docker images
       #   uses: docker/build-push-action@v2.7.0
       #   with:
-      #     image: pattern=pglombardo/pwpush-pwpush-ephemeral
       #     context: ./docker/pwpush-ephemeral/.
       #     platforms: linux/amd64,linux/arm64
       #     push: true
-      #     tags: ${{ steps.meta.outputs.tags }}
+      #     tags: pattern=pglombardo/pwpush-pwpush-ephemeral${{ env.DOCKER_TAG }}
 
   # pwpush-postgres:
   #   runs-on: ubuntu-latest
