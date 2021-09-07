@@ -118,9 +118,6 @@ foreman start internalweb
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
-_Note: You can change the listening port by modifying the
-[Procfile](https://github.com/pglombardo/PasswordPusher/blob/master/Procfile#L2)_
-
 # 📼 Credits
 
 Thanks to:
