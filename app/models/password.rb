@@ -15,13 +15,22 @@ class Password < ApplicationRecord
   end
 
   def views_remaining
-    [(expire_after_views - views.size), 0].max
+    [(expire_after_views - views.where(kind: 0).size), 0].max
+  end
+
+  def successful_views
+    views.where(successful: true, kind: 0).order(:created_at)
+  end
+
+  def failed_views
+    views.where(successful: false, kind: 0).order(:created_at)
   end
 
   # Expire this password, delete the password and save the record
   def expire
     self.expired = true
     self.payload = nil
+    self.expired_on = Time.now
     save
   end
 

@@ -24,13 +24,14 @@
                   <%= current_user.email %>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%=link_to '/d', class: 'dropdown-item' do %>
+                    <em class="bi bi-inboxes-fill"></em> Dashboard 
+                  <% end %>
                   <%= link_to edit_user_registration_path, class: "dropdown-item #{'active fw-bold' if current_page?(edit_user_registration_path)}" do %>
-                    <div class="fa fa-cog"></div>
-                    Account settings
+                    <em class="bi bi-pencil"></em> Edit Account 
                   <% end %>
                   <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
-                    <div class="fa fa-sign-out-alt"></div>
-                    Sign out
+                    <em class="bi bi-lock"></em> Log Out
                   <% end %>
                 </ul>
               </li>

@@ -6,7 +6,7 @@
       <p class='mt-5'> Use this secret link to share it: </p>
 
       <div class='input-group mb-5'>
-          <input class='form-control', id='secret_url' value='<%=@secret_url%>' spellcheck='false' readonly='true'>
+          <input class='form-control' id='secret_url' value="<%=secret_url(@password)%>" spellcheck='false' readonly='true'>
           <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
                   data-clipboard-target='#secret_url' alt="Copy to Clipboard">
               <em class="bi bi-clipboard-check"></em>
@@ -31,7 +31,7 @@
         <p class='mb-5'> It also includes a <strong>1-click preliminary retrieval step</strong>.  </p>
       <% end %>
 
-      <p class='mb-5'> <%=link_to "View This Password Now", @secret_url %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
+      <p class='mb-5'> <%=link_to "View This Password Now", secret_url(@password) %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
 
   </div>
 </div>

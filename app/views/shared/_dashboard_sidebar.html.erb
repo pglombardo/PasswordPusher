@@ -1,0 +1,26 @@
+
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+    <li class="nav-item">
+
+        <%= link_to dashboard_overview_path, class: "nav-link#{ ' active' if request.path == dashboard_overview_path}", :'aria-current' => :page do %>
+            <em class='bi-house'></em>
+            Overview 
+        <% end %>
+    </li>
+    <li class="nav-item">
+        <%= link_to dashboard_active_path, class: "nav-link#{ ' active' if request.path == dashboard_active_path}" do %>
+            <em class='bi-bookmark-check-fill'></em>
+            Active Pushes 
+        <% end %>
+    </li>
+    <li class="nav-item">
+        <%= link_to dashboard_expired_path, class: "nav-link#{ ' active' if request.path == dashboard_expired_path}" do %>
+            <em class='bi-x-circle'></em>
+            Expired Pushes 
+        <% end %>
+    </li>
+    </ul>
+</div>
+</nav>
