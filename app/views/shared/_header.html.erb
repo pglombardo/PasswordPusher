@@ -18,22 +18,8 @@
 
       <ul class="nav nav-pills align-items-center">
           <% if current_user %>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <div class="fa fa-user"></div>
-                  <%= current_user.email %>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <%=link_to '/d', class: 'dropdown-item' do %>
-                    <em class="bi bi-inboxes-fill"></em> Dashboard 
-                  <% end %>
-                  <%= link_to edit_user_registration_path, class: "dropdown-item #{'active fw-bold' if current_page?(edit_user_registration_path)}" do %>
-                    <em class="bi bi-pencil"></em> Edit Account 
-                  <% end %>
-                  <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
-                    <em class="bi bi-lock"></em> Log Out
-                  <% end %>
-                </ul>
+              <li class="nav-item lead">
+                <%= link_to "Dashboard", dashboard_overview_path, class: "btn btn-primary" %>
               </li>
             <% else %>
               <li class="nav-item lead">

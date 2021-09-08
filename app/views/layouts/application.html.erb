@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <title>Password Pusher</title>
@@ -34,13 +34,24 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
 <%= render partial: 'shared/header' %>
-  <div class="container">
-    <%= yield %> 
-  </div>
+
+<div class="container">
+  <% if notice %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% elsif alert %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+
+  <%= yield %> 
+</div>
+
 <%= render partial: 'shared/footer' %>
 
 </body>

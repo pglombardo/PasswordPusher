@@ -20,6 +20,7 @@ class PasswordsController < ApplicationController
       return
     else
       # Decrypt the passwords
+      # FIXME: Don't need to recreate key everytime
       @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
       @payload = @key.decrypt64(@password.payload)
     end
@@ -37,7 +38,10 @@ class PasswordsController < ApplicationController
   # GET /passwords/new.json
   def new
     @password = Password.new
-    expires_in 3.hours, :public => true, 'max-stale' => 0
+
+    unless user_signed_in?
+      expires_in 3.hours, :public => true, 'max-stale' => 0
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -66,9 +70,7 @@ class PasswordsController < ApplicationController
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
 
-    if user_signed_in?
-      @password.user_id = current_user.id
-    end
+    @password.user_id = current_user.id if user_signed_in?
 
     @password.payload = encrypt_password(params[:password][:payload])
     @password.validate!
@@ -108,7 +110,7 @@ class PasswordsController < ApplicationController
     @password = Password.find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: "That push doesn't belong to you"
+      redirect_to :root, notice: "That push doesn't belong to you."
       return
     end
   end
@@ -122,15 +124,13 @@ class PasswordsController < ApplicationController
       if @password.user_id == current_user.id
         is_owner = true
       else
-        redirect_to :root, notice: "That push doesn't belong to you"
+        redirect_to :root, notice: 'That push does not belong to you.'
         return
       end
-    else
+    elsif @password.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
-      if @password.deletable_by_viewer == false
-        redirect_to :root, notice: "That push is not deletable by viewers."
-        return
-      end
+      redirect_to :root, notice: 'That push is not deletable by viewers.'
+      return
     end
 
     log_deletion_view(@password)
@@ -138,15 +138,17 @@ class PasswordsController < ApplicationController
     @password.expired = true
     @password.payload = nil
     @password.deleted = true
-    @password.expired_on = Time.now 
+    @password.expired_on = Time.now
 
     respond_to do |format|
       if @password.save
-        format.html { 
+        format.html {
           if is_owner
-            redirect_to audit_password_path(@password), notice: 'The password has been deleted.' 
+            redirect_to audit_password_path(@password),
+                        notice: 'The password has been deleted and secret URL expired.'
           else
-            redirect_to @password, notice: 'The password has been deleted.' 
+            redirect_to @password,
+                        notice: 'The password has been deleted and secret URL expired.'
           end
         }
         format.json { render json: @password, status: :ok }
@@ -166,12 +168,9 @@ class PasswordsController < ApplicationController
   #
   def log_view(password)
     view = View.new
-    
-    view.kind = 0 # standard user view
 
-    if user_signed_in?
-      view.user_id = current_user.id
-    end
+    view.kind = 0 # standard user view
+    view.user_id = current_user.id if user_signed_in?
 
     view.password_id = password.id
     view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
@@ -186,15 +185,12 @@ class PasswordsController < ApplicationController
     password.views << view
     password
   end
-  
+
   def log_deletion_view(password)
     view = View.new
 
     view.kind = 1 # deletion
-
-    if user_signed_in?
-      view.user_id = current_user.id
-    end
+    view.user_id = current_user.id if user_signed_in?
 
     view.password_id = password.id
     view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']

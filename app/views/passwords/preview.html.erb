@@ -33,5 +33,9 @@
 
       <p class='mb-5'> <%=link_to "View This Password Now", secret_url(@password) %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
 
+      <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+        <em class='bi-card-list'></em> View Audit Log
+      <% end %>
+
   </div>
 </div>

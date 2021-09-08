@@ -1,5 +1,4 @@
 class View < ApplicationRecord
   belongs_to :password
-  belongs_to :user
-  #attr_accessible :password_id, :ip, :user_agent
+  belongs_to :user, optional: true
 end

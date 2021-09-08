@@ -9,15 +9,14 @@
     </a>
       
     <h2 class='my-3'>Sign Up</h1>
+      
+    <%= render "devise/shared/error_messages", resource: resource %>
     
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-
       <div class="form-floating">
         <input class="form-control" autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email" required>
         <%= f.label :email, for: :user_email %>
       </div>
-
 
       <div class="form-floating">
         <input class="form-control" autocomplete="new-password" type="password" name="user[password]" id="user_password" required>
@@ -29,12 +28,12 @@
         <%= f.label :password_confirmation, for: :user_password_confirmation %>
       </div>
 
+      <p class="text-muted">Passwords must have minimum 6 characters.</p>
+
       <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Create Account</button>
     <% end %>
     <div class='my-3 text-center'>
       <%= render "devise/shared/links" %>
     </div>
   </main>
-
-  <%= render partial: 'shared/pw_generator_modal' %>
 </div>
