@@ -1,7 +1,7 @@
-ENV["RAILS_ENV"] = "test"
-require File.expand_path("../../config/environment", __FILE__)
-require "rails/test_help"
-require "minitest/rails"
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../config/environment', __dir__)
+require 'rails/test_help'
+require 'minitest/rails'
 
 # To add Capybara feature tests add `gem "minitest-rails-capybara"`
 # to the test group in the Gemfile and uncomment the following:
@@ -16,13 +16,12 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-
 # Debugging helper method
 #
 def pry!
   # Only valid for development or test environments
-  #env = ENV['RACK_ENV'] || ENV['RAILS_ENV']
-  #return unless %w(development, test).include? env
+  # env = ENV['RACK_ENV'] || ENV['RAILS_ENV']
+  # return unless %w(development, test).include? env
   require 'pry-byebug'
 
   if defined?(PryByebug)
