@@ -1,10 +1,6 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
 
-  def overview
-    nil
-  end
-
   def active
     @active_payloads = Password.where(user_id: current_user.id, expired: false)
                                .paginate(page: params[:page], per_page: 30)

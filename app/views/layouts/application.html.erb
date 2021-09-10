@@ -37,18 +37,7 @@
 <%= render partial: 'shared/header' %>
 
 <div class="container">
-  <% if notice %>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% elsif alert %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%= alert %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
-
+  <%= render partial: 'shared/alerts' %>
   <%= yield %> 
 </div>
 

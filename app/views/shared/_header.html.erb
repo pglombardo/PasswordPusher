@@ -19,8 +19,25 @@
       <ul class="nav nav-pills align-items-center">
           <% if current_user %>
               <li class="nav-item lead">
-                <%= link_to "Dashboard", dashboard_overview_path, class: "btn btn-primary" %>
+                <%= link_to "Dashboard", dashboard_active_path, class: "btn btn-primary" %>
               </li>
+              <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account 
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                  Edit
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                  Log Out
+              <% end %>
+            </li>
+          </ul>
+        </li>
             <% else %>
               <li class="nav-item lead">
                 <%= link_to "Log in", new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>

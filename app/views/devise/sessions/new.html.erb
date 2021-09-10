@@ -1,4 +1,5 @@
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
+  <%= render partial: 'shared/alerts' %>
   <main class="devise-form text-center">
     <a href="/">
     <picture>
@@ -12,12 +13,12 @@
     
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-floating">
-        <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.com" %>
+        <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.com", required: true %>
         <%= f.label :email, for: 'user_email' %>
       </div>
       
       <div class="form-floating">
-        <%= f.password_field :password, class: 'form-control', autocomplete: "current-password", placeholder: 'password' %>
+        <%= f.password_field :password, class: 'form-control', autocomplete: "current-password", placeholder: 'password', required: true %>
         <%= f.label :password, for: 'user_password' %>
       </div>
 

@@ -1,6 +1,8 @@
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h4 class='mb-5'>Details</h4>
+    <h4 class=''>Audit Log for <code><%= @password.url_token %></code></h4>
+    <p class='text-muted mb-5'>Pushed on <%= @password.created_at.to_s(:long) %> UTC</p>
+
 
     <p>Secret URL for this push:</p>
     <div class='input-group mb-5 w-75'>
@@ -48,10 +50,11 @@
                 <span>
                     <% if @password.expired %>
                         State: <strong class='text-danger'>Expired</strong>
+                        <small class="d-block text-muted">This push content has been deleted.</small>
                     <% else %>
                         State: <strong class='text-success'>Active</strong>
+                        <small class="d-block text-muted">Active and still available for viewing.</small>
                     <% end %>
-                    <small class="d-block text-muted">Expiration status.</small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
@@ -76,67 +79,77 @@
         </div>
     </div>
     
-    <% if @password.expired == false %>
-        <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <em class="bi bi-trash"></em> Expire Now
-        </button>
-        
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete This Password?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                This will expire this secret link and <strong>remove the password from the database forever</strong>.  The audit log (including future attempted views) will still be maintained going forward.  Are you sure?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: 'Processing...' %>
-            </div>
-            </div>
-        </div>
-        </div>
-    <% end %>
-    
-    <h4 class='my-5'>Audit Log</h4>
-
-    <div class="list-group w-100">
-        <div class="list-group-item list-group-item-action list-group-item-secondary">Start of Audit Log</div>
-        <div class="list-group-item list-group-item-action list-group-item-primary">Push created on <%= @password.created_at.to_s(:long_ordinal) %> UTC</div>
-
-        <% for view in @password.views %>
-            <% if view.kind == 1 %>
-                <div class="list-group-item list-group-item-action list-group-item-danger">
-                    <% if view.user_id %>
-                        Password manually expired by user <strong><%= view.user.email %></strong> at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
-                    <% else %>
-                        Password manually expired by an anonymous user at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
-                    <% end %>
-                    <br/>
-                    User Agent: <code><%= view.user_agent %></code>
-                    <br/>
-                    Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+    <div class='row w-100'>
+        <div class='col'>
+            <% if @password.expired == false %>
+                <div class='text-center'>
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <em class="bi bi-trash"></em> Expire Now
+                </button>
                 </div>
-            <% elsif view.successful %>
-                <div class="list-group-item list-group-item-action list-group-item-success">
-                    Successful view from IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
-                    <br/>
-                    User Agent: <code><%= view.user_agent %></code>
-                    <br/>
-                    Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete This Password?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This will expire this secret link and <strong>remove the password from the database forever</strong>.</p>
+                        <p>The audit log (including future attempted views) will still be maintained going forward.</p>
+                        <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: 'Processing...' %>
+                    </div>
+                    </div>
                 </div>
-            <% else %>
-                <div class="list-group-item list-group-item-action list-group-item-warning">
-                    Failed view attempt (already expired) by <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %>
-                    <br/>
-                    User Agent: <code><%= view.user_agent %></code>
-                    <br/>
-                    Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
                 </div>
             <% end %>
-        <% end %>
-        <div class="list-group-item list-group-item-action list-group-item-secondary">End of Audit Log</div>
+        </div>
+    </div>
+    
+    <div class='row w-100 mt-3'>
+        <div class='col'>
+            <div class="list-group w-100">
+                <div class="list-group-item list-group-item-action list-group-item-secondary">Start of Audit Log</div>
+                <div class="list-group-item list-group-item-action list-group-item-primary">Push created on <%= @password.created_at.to_s(:long_ordinal) %> UTC</div>
+
+                <% for view in @password.views %>
+                    <% if view.kind == 1 %>
+                        <div class="list-group-item list-group-item-action list-group-item-danger">
+                            <% if view.user_id %>
+                                Password manually expired by user <strong><%= view.user.email %></strong> at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
+                            <% else %>
+                                Password manually expired by an anonymous user at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
+                            <% end %>
+                            <br/>
+                            User Agent: <code><%= view.user_agent %></code>
+                            <br/>
+                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                        </div>
+                    <% elsif view.successful %>
+                        <div class="list-group-item list-group-item-action list-group-item-success">
+                            Successful view from IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
+                            <br/>
+                            User Agent: <code><%= view.user_agent %></code>
+                            <br/>
+                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                        </div>
+                    <% else %>
+                        <div class="list-group-item list-group-item-action list-group-item-warning">
+                            Failed view attempt (already expired) by <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %>
+                            <br/>
+                            User Agent: <code><%= view.user_agent %></code>
+                            <br/>
+                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                        </div>
+                    <% end %>
+                <% end %>
+                <div class="list-group-item list-group-item-action list-group-item-secondary">End of Audit Log</div>
+            </div>
+        </div>
     </div>
 </div>
