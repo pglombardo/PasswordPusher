@@ -15,10 +15,9 @@
         </div>
     </div>
     <div class='row'>
-        <div class='col-8 p-3 mt-4'>
-            <p> Expire secret link and delete after:</p>
-
+        <div class='col-12 col-sm-8 p-3 mt-4'>
             <div class='row'>
+                <p> Expire secret link and delete after:</p>
                 <div class='col-8'>
                     <%= range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT,
                                         { :name => "password[expire_after_days]",
@@ -28,8 +27,7 @@
                                           :x_default => EXPIRE_AFTER_DAYS_DEFAULT,
                                           :step => "1" })%>
                 </div>
-
-                <div class='col'>
+                <div class='col-4'>
                     <label for='password_expire_after_days', id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
                 </div>
             </div>
@@ -45,57 +43,55 @@
                                          :step => "1" })%>
                 </div>
 
-                <div class='col'>
+                <div class='col-4'>
                     <label for='password_expire_after_views', id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
                 </div>
             </div>
-
-            <div class='mb3'>
-                <p class='text-center fw-lighter'>(whichever comes first)</p>
-            </div>
-
-            <div class="list-group mx-0">
-                <% if RETRIEVAL_STEP_ENABLED %>
-                    <label class="list-group-item d-flex gap-2">
-                    <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT,
-                                     { class: 'form-check-input flex-shrink-0',
-                                       x_default: RETRIEVAL_STEP_DEFAULT } %>
-                    <span>
-                        Use a 1-click retrieval step
-                        <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
-                    </span>
-                    </label>
-                <% end %>
-                <% if DELETABLE_PASSWORDS_ENABLED %>
-                    <label class="list-group-item d-flex gap-2">
-                    <%= check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT,
-                                      { class: 'form-check-input flex-shrink-0',
-                                        x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
-                    <span>
-                        Allow immediate deletion
-                        <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
-                    </span>
-                    </label>
-                <% end %>
-            </div>
-
-            <p class='mb-5'>
-                <div id='cookie-save'>
-                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+            <div class='row'>
+                <div class='col'>
+                    <div class='mb3'>
+                        <p class='text-center fw-lighter'>(whichever comes first)</p>
+                    </div>
                 </div>
-            </p>
+            </div>
 
-
-            <p class='my-3'>
-                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
-            </p>
+            <div class='row'>
+                <div class='col'>
+                    <div class="list-group mx-0">
+                        <% if RETRIEVAL_STEP_ENABLED %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT,
+                                            { class: 'form-check-input flex-shrink-0',
+                                            x_default: RETRIEVAL_STEP_DEFAULT } %>
+                            <span>
+                                Use a 1-click retrieval step
+                                <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
+                            </span>
+                            </label>
+                        <% end %>
+                        <% if DELETABLE_PASSWORDS_ENABLED %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%= check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT,
+                                            { class: 'form-check-input flex-shrink-0',
+                                                x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
+                            <span>
+                                Allow immediate deletion
+                                <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
+                            </span>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class='col p-3 mt-4'>
-            <div class="mb-3 w-100">
-                <button class="btn btn-primary w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> Generate Password</button>
-                <button class="btn btn-primary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
-                    <em class="bi bi-gear"></em>
-                </button>
+        <div class='col-12 col-sm-4 p-3 mt-4'>
+            <div class="mb-3 text-end">
+                <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown">
+                    <button class="btn btn-primary active w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> Generate Password</button>
+                    <button class="btn btn-primary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
+                        <em class="bi bi-gear"></em>
+                    </button>
+                </div>
             </div>
             <p class='fst-italic'>
                 Tip: Only enter the password into the box.  Other identifying information can compromise security.
@@ -104,6 +100,22 @@
             <p class='fst-italic fw-light'>
                 All passwords are encrypted prior to storage and are available to only those with the secret link.
                 Once expired, encrypted passwords are unequivocally deleted from the database.
+            </p>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='mb-3'>
+                <div id='cookie-save'>
+                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='my-3'>
+                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
             </p>
         </div>
     </div>

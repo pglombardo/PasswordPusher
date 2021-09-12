@@ -9,14 +9,14 @@
       <%= link_to 'Push Something Now', root_path, class: 'btn btn-primary' %>
     </p>
   <% else %>
-    <div class="table-responsive">
-    <table class="table table-striped table-sm table-hover" aria-label='Expired Pushes'>
+    <table class="table table-striped table-sm table-hover caption-top" aria-label='Expired Pushes'>
+      <caption>Expired Pushes</caption>
       <thead>
       <tr>
           <th scope="col">Push ID</th>
           <th scope="col">Expired On</th>
-          <th scope="col">Expiration Cause</th>
-          <th scope="col">Controls</th>
+          <th scope="col">Cause</th>
+          <th scope="col"><em class='bi-tools'></em></th>
       </tr>
       </thead>
       <tbody>
@@ -40,7 +40,6 @@
       <% end %>
       </tbody>
     </table>
-    </div>
     <%= will_paginate @expired_payloads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
   <% end %>
 </main>
