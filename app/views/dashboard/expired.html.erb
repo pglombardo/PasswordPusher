@@ -14,7 +14,7 @@
       <thead>
       <tr>
           <th scope="col">Push ID</th>
-          <th scope="col">Expired On</th>
+          <th scope="col">Expired</th>
           <th scope="col">Cause</th>
           <th scope="col"><em class='bi-tools'></em></th>
       </tr>
@@ -23,7 +23,7 @@
       <% for payload in @expired_payloads do %>
         <tr>
           <td><%= payload.url_token %></td>
-          <td><%= payload.expired_on %></td>
+          <td><%= payload.expired_on.strftime("%B %d, %Y %H:%M %Z") %></td>
           <td>
             <% if payload.deleted %>
               Manually Deleted

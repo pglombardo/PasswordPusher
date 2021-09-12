@@ -13,7 +13,7 @@
       <thead>
       <tr>
           <th scope="col">Push ID</th>
-          <th scope="col">Created On</th>
+          <th scope="col">Created</th>
           <th scope="col">Views</th>
           <th scope="col">Days</th>
           <th scope="col"><em class='bi-tools'></em></th>
@@ -23,7 +23,7 @@
       <% for payload in @active_payloads do %>
         <tr>
           <td><%= payload.url_token %></td>
-          <td><%= payload.created_at.to_s(:db) %> UTC</td>
+          <td><%= payload.created_at.strftime("%B %d, %Y %H:%M %Z") %></td>
           <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
           <td><%= "#{payload.days_old}/#{payload.expire_after_days}"%></td>
           <td>
