@@ -1,38 +1,5 @@
 <%= render partial: 'shared/dashboard_header' %>
 <main>
-  <div class="table-responsive">
-  <table class="table table-striped table-sm table-hover" aria-label='Active Pushes'>
-    <thead>
-    <tr>
-        <th scope="col">Secret URL Token</th>
-        <th scope="col">Created On</th>
-        <th scope="col">Views</th>
-        <th scope="col">Days</th>
-        <th scope="col"><em class='bi-tools'></em></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for payload in @active_payloads do %>
-      <tr>
-        <td><%= payload.url_token %></td>
-        <td><%= payload.created_at.to_s(:db) %> UTC</td>
-        <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
-        <td><%= "#{payload.days_old}/#{payload.expire_after_days}"%></td>
-        <td>
-          <%= link_to preview_password_path(payload), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-            Preview
-          <% end %>
-          <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-            Audit Log
-          <% end %>
-
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  </div>
-    
   <% if @active_payloads.empty? %>
     <p class='text-center mt-3'>
       You currently have no active pushes.
@@ -40,5 +7,38 @@
     <p class='text-center'>
       <%= link_to 'Push Something Now', root_path, class: 'btn btn-primary' %>
     </p>
+  <% else %>
+    <div class="table-responsive">
+    <table class="table table-striped table-sm table-hover" aria-label='Active Pushes'>
+      <thead>
+      <tr>
+          <th scope="col">Push ID</th>
+          <th scope="col">Created On</th>
+          <th scope="col">Views</th>
+          <th scope="col">Days</th>
+          <th scope="col"><em class='bi-tools'></em></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for payload in @active_payloads do %>
+        <tr>
+          <td><%= payload.url_token %></td>
+          <td><%= payload.created_at.to_s(:db) %> UTC</td>
+          <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
+          <td><%= "#{payload.days_old}/#{payload.expire_after_days}"%></td>
+          <td>
+            <%= link_to preview_password_path(payload), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+              Preview
+            <% end %>
+            <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+              Audit Log
+            <% end %>
+
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
   <% end %>
 </main>

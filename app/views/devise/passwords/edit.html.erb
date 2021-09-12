@@ -1,25 +1,22 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: user_password_path, html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+  <div class="form-floating">
+    <%= f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "new-password", required: true %>
+    <%= f.label :password, "New password", for: :password %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-floating">
+    <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", required: true %>
+    <%= f.label :password_confirmation, "Confirm new password", for: :password_confirmation %>
   </div>
+    
+  <% if @minimum_password_length %>
+    <p class='text-muted mt-3 fs-7'>* A minimum of <%= @minimum_password_length %> characters is required but the more the better.</em></p>
+  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
+  <div class="form-floating">
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Send Reset Instructions</button>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

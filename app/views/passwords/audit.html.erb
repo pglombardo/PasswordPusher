@@ -117,6 +117,13 @@
                 <div class="list-group-item list-group-item-action list-group-item-secondary">Start of Audit Log</div>
                 <div class="list-group-item list-group-item-action list-group-item-primary">Push created on <%= @password.created_at.to_s(:long_ordinal) %> UTC</div>
 
+                <% if @password.views.empty? && !@password.expired %>
+                    <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
+                        As the push receives views, a log of each with identifying information will show up here.
+                    </div>
+
+                <% end %>
+
                 <% for view in @password.views %>
                     <% if view.kind == 1 %>
                         <div class="list-group-item list-group-item-action list-group-item-danger">
