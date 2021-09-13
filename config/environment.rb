@@ -3,6 +3,9 @@
 # Load the Rails application.
 require_relative 'application'
 
+APPLICATION_NAME = 'Password Pusher'
+APPLICATION_SHORT_NAME = 'pwpush'
+
 PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT',
                                  'Enter the Password (or text) to be Shared')
 
