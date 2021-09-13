@@ -75,4 +75,21 @@ class Password < ApplicationRecord
     expire unless days_remaining.positive?
     expire unless views_remaining.positive?
   end
+
+  def encrypt(payload)
+    # FIXME: Don't need to recreate key everytime
+    key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
+    key.encrypt64(payload)
+  end
+
+  def decrypt(payload)
+    return '' if !payload.is_a?(String) || payload.empty?
+
+    # FIXME: Don't need to recreate key everytime
+    key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
+    key.decrypt64(payload)
+  rescue OpenSSL::Cipher::CipherError => e
+    Rails.logger.warn("Couldn't decrypt: #{e}")
+    payload
+  end
 end

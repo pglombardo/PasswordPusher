@@ -19,10 +19,7 @@ class PasswordsController < ApplicationController
       end
       return
     else
-      # Decrypt the passwords
-      # FIXME: Don't need to recreate key everytime
-      @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-      @payload = @key.decrypt64(@password.payload)
+      @payload = @password.decrypt(@password.payload)
     end
 
     log_view(@password)
@@ -72,7 +69,10 @@ class PasswordsController < ApplicationController
 
     @password.user_id = current_user.id if user_signed_in?
 
-    @password.payload = encrypt_password(params[:password][:payload])
+    if params[:password][:note].is_a?(String) && !params[:password][:note].empty?
+      @password.note = @password.encrypt(params[:password][:note])
+    end
+    @password.payload = @password.encrypt(params[:password][:payload])
     @password.validate!
 
     respond_to do |format|
@@ -256,10 +256,5 @@ class PasswordsController < ApplicationController
       # DELETABLE_PASSWORDS_ENABLED not enabled
       password.deletable_by_viewer = false
     end
-  end
-
-  def encrypt_password(password)
-    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @key.encrypt64(password)
   end
 end

@@ -15,6 +15,7 @@
       <tr>
           <th scope="col">Push ID</th>
           <th scope="col">Expired</th>
+          <th scope="col">Note</th>
           <th scope="col">Cause</th>
           <th scope="col"><em class='bi-tools'></em></th>
       </tr>
@@ -25,6 +26,13 @@
           <td><%= payload.url_token %></td>
           <td><%= payload.expired_on.strftime("%B %d, %Y %H:%M %Z") %></td>
           <td>
+            <% if payload.note.empty? %>
+              None
+            <% else %>
+              <%= payload.decrypt(payload.note).truncate(15) %>
+            <% end %>
+          </td>
+          <td>
             <% if payload.deleted %>
               Manually Deleted
             <% else %>
@@ -33,7 +41,7 @@
           </td>
           <td>
             <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-              Audit Log
+              Audit
             <% end %>
           </td>
         </tr>

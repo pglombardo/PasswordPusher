@@ -14,6 +14,7 @@
       <tr>
           <th scope="col">Push ID</th>
           <th scope="col">Created</th>
+          <th scope="col">Note</th>
           <th scope="col">Views</th>
           <th scope="col">Days</th>
           <th scope="col"><em class='bi-tools'></em></th>
@@ -24,15 +25,24 @@
         <tr>
           <td><%= payload.url_token %></td>
           <td><%= payload.created_at.strftime("%B %d, %Y %H:%M %Z") %></td>
+          <td>
+            <% if payload.note.empty? %>
+              None
+            <% else %>
+              <%= payload.decrypt(payload.note).truncate(15) %>
+            <% end %>
+          </td>
           <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
           <td><%= "#{payload.days_old}/#{payload.expire_after_days}"%></td>
           <td>
-            <%= link_to preview_password_path(payload), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-              Preview
-            <% end %>
-            <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-              Audit Log
-            <% end %>
+            <div class="btn-group" role="group" aria-label="Push Controls">
+              <%= link_to preview_password_path(payload), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+                Preview
+              <% end %>
+              <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+                Audit
+              <% end %>
+            </div>
 
           </td>
         </tr>

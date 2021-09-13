@@ -7,15 +7,29 @@
     <p>Secret URL for this push:</p>
     <div class='input-group mb-5 w-75'>
         <input class='form-control', id='secret_url' value='<%= secret_url(@password) %>' spellcheck='false' readonly='true'>
-        <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
+        <button id='copy-to-clipboard-button' class='input-group-text btn-secondary'
                 data-clipboard-target='#secret_url' alt="Copy to Clipboard">
             <em class="bi bi-clipboard-check"></em>
         </button>
     </div>
 
     <div class='row w-100'>
+        <div class='col mb-3'>
+            <p class='h4 border-bottom py-3'>
+                Reference Note
+            <span class='h6 text-muted float-end'>Visible Only To You</span>
+            </p>
+            <% if @password.note.empty? %>
+                <pre><code>None</code></pre>
+            <% else %>
+                <pre><code><%= @password.decrypt(@password.note) %></code></pre>
+            <% end %>
+        </div>
+    </div>
+
+    <div class='row w-100'>
         <div class='col'>
-            <h4>Settings</h4>
+            <h4 class="border-bottom py-3">Settings</h4>
             <div class="list-group mx-0 my-3">
                 <label class="list-group-item d-flex gap-2">
                 <span>
@@ -44,13 +58,13 @@
             </div>
         </div>
         <div class='col'>
-            <h4>Current Status</h4>
+            <h4 class="border-bottom py-3">Current Status</h4>
             <div class="list-group mx-0 my-3">
                 <label class="list-group-item d-flex gap-2">
                 <span>
                     <% if @password.expired %>
                         State: <strong class='text-danger'>Expired</strong>
-                        <small class="d-block text-muted">This push content has been deleted.</small>
+                        <small class="d-block text-muted">The push content has been deleted and the secret URL expired.</small>
                     <% else %>
                         State: <strong class='text-success'>Active</strong>
                         <small class="d-block text-muted">Active and still available for viewing.</small>
@@ -78,7 +92,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class='row w-100'>
         <div class='col'>
             <% if @password.expired == false %>
@@ -87,7 +101,7 @@
                 <em class="bi bi-trash"></em> Expire Now
                 </button>
                 </div>
-                
+
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -110,7 +124,7 @@
             <% end %>
         </div>
     </div>
-    
+
     <div class='row w-100 mt-3'>
         <div class='col'>
             <div class="list-group w-100">
