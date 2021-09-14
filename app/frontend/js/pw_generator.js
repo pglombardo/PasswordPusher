@@ -51,26 +51,20 @@ class PasswordGenerator {
                        'event_label' : 'Generate a Password' });
             }
         });
-        
-        // Generate Password button on the sign up form
-        $('#generate_password_sign_up').on('click', () => {
-            var candidate = generatePassword(this.config);
-            $('#user_password').val(candidate).trigger('input');
-            $('#user_password_confirmation').val(candidate).trigger('input');
-            if (ga_enabled) {
-                gtag('event', 'generate_password_sign_up',
-                     { 'event_category' : 'engagement',
-                       'event_label' : 'Generate a Password' });
-            }
-        });
 
-
-        // Configure Generator Button
         if (ga_enabled) {
+            // Configure Generator Button
             $('#configure_generator').on('click', () => {
                 gtag('event', 'configure_pw_generator',
                      { 'event_category' : 'engagement',
                        'event_label' : 'Configure Password Generator Dialog' });
+            });
+
+            // Create Account Button
+            $('#create_account_button').on('click', () => {
+                gtag('event', 'create_account',
+                     { 'event_category' : 'engagement',
+                       'event_label' : 'New Account Creation' });
             });
         }
 
