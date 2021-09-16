@@ -1,5 +1,5 @@
 module ApplicationHelper
   def title(content)
-    content_for(:html_title) { "#{APPLICATION_SHORT_NAME} | #{content}" }
+    content_for(:html_title) { "#{content} | Password Pusher" }
   end
 end

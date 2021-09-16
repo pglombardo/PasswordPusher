@@ -3,8 +3,9 @@
 # Load the Rails application.
 require_relative 'application'
 
-APPLICATION_NAME = 'Password Pusher'
-APPLICATION_SHORT_NAME = 'pwpush'
+# The login system is temporarily disabled by default for private instances until
+# we have a good strategy to make it functional outside of pwpush.com
+DISABLE_LOGINS = ENV.fetch('DISABLE_LOGINS', 'true').downcase == 'true'
 
 PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT',
                                  'Enter the Password (or text) to be Shared')
