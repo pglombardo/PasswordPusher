@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
+  devise_for :users, skip: :registrations, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations',
     passwords: 'users/passwords',
     unlocks: 'users/unlocks',
     confirmations: 'users/confirmations'
   }
+
+  devise_scope :user do
+    resource  :registration,
+              only: %i[new create edit update],
+              path: 'users',
+              path_names: { new: 'sign_up' },
+              controller: 'users/registrations',
+              as: :user_registration do
+                get :cancel
+              end
+  end
 
   get '/d/active' => 'dashboard#active', as: :dashboard_active
   get '/d/expired' => 'dashboard#expired', as: :dashboard_expired
