@@ -81,8 +81,8 @@ Rails.application.configure do
     password: Settings.mail.smtp_password,
     authentication: Settings.mail.smtp_authentication,
     enable_starttls_auto: Settings.mail.smtp_starttls,
-    open_timeout: Settings.mail.open_timeout,
-    read_timeout: Settings.mail.read_timeout
+    open_timeout: Settings.mail.smtp_open_timeout,
+    read_timeout: Settings.mail.smtp_read_timeout
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

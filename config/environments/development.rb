@@ -31,7 +31,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
 
   config.action_mailer.perform_caching = false
@@ -45,8 +44,8 @@ Rails.application.configure do
     password: Settings.mail.smtp_password,
     authentication: Settings.mail.smtp_authentication,
     enable_starttls_auto: Settings.mail.smtp_starttls,
-    open_timeout: Settings.mail.open_timeout,
-    read_timeout: Settings.mail.read_timeout
+    open_timeout: Settings.mail.smtp_open_timeout,
+    read_timeout: Settings.mail.smtp_read_timeout
   }
 
   # Print deprecation notices to the Rails logger.
