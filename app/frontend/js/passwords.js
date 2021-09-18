@@ -22,9 +22,9 @@ function restoreFormValuesFromCookie() {
 
   $('#password_expire_after_views').val(views_expiration);
   if (views_expiration > 1) {
-    $('#viewsrange').text(days_expiration + ' Views');
+    $('#viewsrange').text(views_expiration + ' Views');
   } else {
-    $('#viewsrange').text(days_expiration + ' View');
+    $('#viewsrange').text(views_expiration + ' View');
   }
 
   let default_deleteable_by_viewer = $('#password_deletable_by_viewer').attr('x_default');
