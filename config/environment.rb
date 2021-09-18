@@ -3,7 +3,12 @@
 # Load the Rails application.
 require_relative 'application'
 
-PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT', 'Enter the Password (or text) to be Shared')
+PAYLOAD_INITIAL_TEXT = ENV.fetch('PAYLOAD_INITIAL_TEXT',
+                                 'Enter the Password (or text) to be Shared')
+
+NOTE_INITIAL_TEXT = ENV.fetch('NOTE_INITIAL_TEXT',
+                              '(Optional) Reference Note. Encrypted & Visible Only to You. ' \
+                              'E.g. Employee, Record or Ticket ID etc..')
 
 # If deploying PasswordPusher yourself, you should change these CRYPT values.
 CRYPT_KEY = ENV.fetch('CRYPT_KEY', '}s-#2R0^/+2wEXc47\$9Eb')

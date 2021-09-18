@@ -12,6 +12,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  
+  # Visual Studio Additions
+  gem 'rubocop'
+  gem 'ruby-debug-ide'
+  gem 'debase', '0.2.5.beta2'
 end
 
 group :test do
@@ -66,6 +71,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'json', '~> 2.0' # Legacy carry-over
 gem "webpacker"
+gem 'will_paginate', '~> 3.3.0'
+gem 'will_paginate-bootstrap-style'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -77,6 +84,8 @@ gem 'foreman'
 gem 'jquery-rails'
 gem 'puma'
 gem 'oj'
+gem 'devise'
+gem 'config'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

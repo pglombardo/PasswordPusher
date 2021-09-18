@@ -1,3 +1,5 @@
+<% title('Your Password has been Pushed') %>
+
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
@@ -6,7 +8,7 @@
       <p class='mt-5'> Use this secret link to share it: </p>
 
       <div class='input-group mb-5'>
-          <input class='form-control', id='secret_url' value='<%=@secret_url%>' spellcheck='false' readonly='true'>
+          <input class='form-control' id='secret_url' value="<%=secret_url(@password)%>" spellcheck='false' readonly='true'>
           <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
                   data-clipboard-target='#secret_url' alt="Copy to Clipboard">
               <em class="bi bi-clipboard-check"></em>
@@ -31,7 +33,13 @@
         <p class='mb-5'> It also includes a <strong>1-click preliminary retrieval step</strong>.  </p>
       <% end %>
 
-      <p class='mb-5'> <%=link_to "View This Password Now", @secret_url %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
+      <p class='mb-5'> <%=link_to "View This Password Now", secret_url(@password) %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
+
+      <% if user_signed_in? %>
+        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+          <em class='bi-card-list'></em> View Audit Log
+        <% end %>
+      <% end %>
 
   </div>
 </div>

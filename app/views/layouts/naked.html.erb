@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
-<title>Password Pusher</title>
+<title><%= content_for?(:html_title) ? yield(:html_title) : 'Password Pusher' %></title>
+
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
@@ -35,6 +36,7 @@
 <body class="d-flex flex-column min-vh-100">
 
 <div class="container">
+  <%= render partial: 'shared/alerts' %>
   <%= yield %> 
 </div>
 

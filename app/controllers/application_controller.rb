@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   #     ::AbstractController::ActionNotFound, ApplicationRecord::RecordNotFound,
   #     with: lambda { |exception| render_error 404, exception }
 
-
   private
+
   def render_error(status, exception)
     respond_to do |format|
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }

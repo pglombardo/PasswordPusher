@@ -1,4 +1,6 @@
 class PasswordsController < ApplicationController
+  helper PasswordsHelper
+
   # GET /passwords/1
   # GET /passwords/1.json
   def show
@@ -17,9 +19,7 @@ class PasswordsController < ApplicationController
       end
       return
     else
-      # Decrypt the passwords
-      @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-      @payload = @key.decrypt64(@password.payload)
+      @payload = @password.decrypt(@password.payload)
     end
 
     log_view(@password)
@@ -35,7 +35,10 @@ class PasswordsController < ApplicationController
   # GET /passwords/new.json
   def new
     @password = Password.new
-    expires_in 3.hours, :public => true, 'max-stale' => 0
+
+    unless user_signed_in?
+      expires_in 3.hours, :public => true, 'max-stale' => 0
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -64,7 +67,12 @@ class PasswordsController < ApplicationController
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
 
-    @password.payload = encrypt_password(params[:password][:payload])
+    @password.user_id = current_user.id if user_signed_in?
+
+    if params[:password][:note].is_a?(String) && !params[:password][:note].empty?
+      @password.note = @password.encrypt(params[:password][:note])
+    end
+    @password.payload = @password.encrypt(params[:password][:payload])
     @password.validate!
 
     respond_to do |format|
@@ -81,15 +89,6 @@ class PasswordsController < ApplicationController
   def preview
     @password = Password.find_by_url_token!(params[:id])
 
-    # Support forced https links with FORCE_SSL env var
-    @secret_url = if ENV.key?('FORCE_SSL') && !request.ssl?
-                    password_url(@password).gsub(/http/i, 'https')
-                  else
-                    password_url(@password)
-                  end
-
-    @secret_url += '/r' if @password.retrieval_step
-
     respond_to do |format|
       format.html { render action: 'preview' }
       format.json { render json: @password, status: :ok }
@@ -99,36 +98,59 @@ class PasswordsController < ApplicationController
   def preliminary
     @password = Password.find_by_url_token!(params[:id])
 
-    # Support forced https links with FORCE_SSL env var
-    @secret_url = if ENV.key?('FORCE_SSL') && !request.ssl?
-                    password_url(@password).gsub(/http/i, 'https')
-                  else
-                    password_url(@password)
-                  end
-
     respond_to do |format|
       format.html { render action: 'preliminary', layout: 'naked' }
       format.json { render json: @password, status: :ok }
     end
   end
 
-  def destroy
+  def audit
+    authenticate_user!
+
     @password = Password.find_by_url_token!(params[:id])
 
-    # Redirect to root if we couldn't find password or
-    # the found password wasn't market as deletable
-    if @password.deletable_by_viewer == false
-      redirect_to :root
+    if @password.user_id != current_user.id
+      redirect_to :root, notice: "That push doesn't belong to you."
       return
     end
+  end
+
+  def destroy
+    @password = Password.find_by_url_token!(params[:id])
+    is_owner = false
+
+    if user_signed_in?
+      # Check if logged in user owns the password to be expired
+      if @password.user_id == current_user.id
+        is_owner = true
+      else
+        redirect_to :root, notice: 'That push does not belong to you.'
+        return
+      end
+    elsif @password.deletable_by_viewer == false
+      # Anonymous user - assure deletable_by_viewer enabled
+      redirect_to :root, notice: 'That push is not deletable by viewers.'
+      return
+    end
+
+    log_deletion_view(@password)
 
     @password.expired = true
     @password.payload = nil
     @password.deleted = true
+    @password.expired_on = Time.now
 
     respond_to do |format|
       if @password.save
-        format.html { redirect_to @password, notice: 'The password has been deleted.' }
+        format.html {
+          if is_owner
+            redirect_to audit_password_path(@password),
+                        notice: 'The password has been deleted and secret URL expired.'
+          else
+            redirect_to @password,
+                        notice: 'The password has been deleted and secret URL expired.'
+          end
+        }
         format.json { render json: @password, status: :ok }
       else
         format.html { render action: 'new' }
@@ -146,6 +168,30 @@ class PasswordsController < ApplicationController
   #
   def log_view(password)
     view = View.new
+
+    view.kind = 0 # standard user view
+    view.user_id = current_user.id if user_signed_in?
+
+    view.password_id = password.id
+    view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
+
+    # Limit retrieved values to 256 characters
+    view.user_agent  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
+    view.referrer    = request.env['HTTP_REFERER'].to_s[0, 255]
+
+    view.successful  = password.expired ? false : true
+    view.save
+
+    password.views << view
+    password
+  end
+
+  def log_deletion_view(password)
+    view = View.new
+
+    view.kind = 1 # deletion
+    view.user_id = current_user.id if user_signed_in?
+
     view.password_id = password.id
     view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
 
@@ -210,10 +256,5 @@ class PasswordsController < ApplicationController
       # DELETABLE_PASSWORDS_ENABLED not enabled
       password.deletable_by_viewer = false
     end
-  end
-
-  def encrypt_password(password)
-    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @key.encrypt64(password)
   end
 end

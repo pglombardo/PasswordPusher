@@ -1,10 +1,17 @@
+<% title('Securely Send a Password') %>
+
 <div class='container'>
 <%= form_for @password do |f| %>
 
     <div class='row'>
         <div class='col'>
             <div class='mb5'>
-                <%=f.text_area(:payload, { :class => "form-control", rows: 8, placeholder: PAYLOAD_INITIAL_TEXT, autocomplete: "off", autofocus: true })%>
+                <%= f.text_area(:payload, { class: "form-control",
+                                            rows: 8,
+                                            placeholder: PAYLOAD_INITIAL_TEXT,
+                                            autocomplete: "off",
+                                            autofocus: true,
+                                            required: true }) %>
                 <div class='mb3 position-relative'>
                     <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
                         <span id="current">0</span>
@@ -15,10 +22,19 @@
         </div>
     </div>
     <div class='row'>
-        <div class='col-8 p-3 mt-4'>
-            <p> Expire secret link and delete after:</p>
-
+        <div class='col-12 col-sm-8 p-3 mt-4'>
+            <% if user_signed_in? %>
+                <div class='row mb-3'>
+                    <div class='col'>
+                        <%= f.text_area(:note, { class: "form-control",
+                                                 rows: 2,
+                                                 placeholder: NOTE_INITIAL_TEXT,
+                                                 autocomplete: "off" }) %>
+                    </div>
+                </div>
+            <% end %>
             <div class='row'>
+                <p> Expire secret link and delete after:</p>
                 <div class='col-8'>
                     <%= range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT,
                                         { :name => "password[expire_after_days]",
@@ -28,8 +44,7 @@
                                           :x_default => EXPIRE_AFTER_DAYS_DEFAULT,
                                           :step => "1" })%>
                 </div>
-
-                <div class='col'>
+                <div class='col-4'>
                     <label for='password_expire_after_days', id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
                 </div>
             </div>
@@ -45,57 +60,55 @@
                                          :step => "1" })%>
                 </div>
 
-                <div class='col'>
+                <div class='col-4'>
                     <label for='password_expire_after_views', id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
                 </div>
             </div>
-
-            <div class='mb3'>
-                <p class='text-center fw-lighter'>(whichever comes first)</p>
-            </div>
-
-            <div class="list-group mx-0">
-                <% if RETRIEVAL_STEP_ENABLED %>
-                    <label class="list-group-item d-flex gap-2">
-                    <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT,
-                                     { class: 'form-check-input flex-shrink-0',
-                                       x_default: RETRIEVAL_STEP_DEFAULT } %>
-                    <span>
-                        Use a 1-click retrieval step
-                        <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
-                    </span>
-                    </label>
-                <% end %>
-                <% if DELETABLE_PASSWORDS_ENABLED %>
-                    <label class="list-group-item d-flex gap-2">
-                    <%= check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT,
-                                      { class: 'form-check-input flex-shrink-0',
-                                        x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
-                    <span>
-                        Allow immediate deletion
-                        <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
-                    </span>
-                    </label>
-                <% end %>
-            </div>
-
-            <p class='mb-5'>
-                <div id='cookie-save'>
-                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+            <div class='row'>
+                <div class='col'>
+                    <div class='mb3'>
+                        <p class='text-center fw-lighter'>(whichever comes first)</p>
+                    </div>
                 </div>
-            </p>
+            </div>
 
-
-            <p class='my-3'>
-                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
-            </p>
+            <div class='row'>
+                <div class='col'>
+                    <div class="list-group mx-0">
+                        <% if RETRIEVAL_STEP_ENABLED %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%=check_box_tag "password[retrieval_step]", nil, RETRIEVAL_STEP_DEFAULT,
+                                            { class: 'form-check-input flex-shrink-0',
+                                            x_default: RETRIEVAL_STEP_DEFAULT } %>
+                            <span>
+                                Use a 1-click retrieval step
+                                <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
+                            </span>
+                            </label>
+                        <% end %>
+                        <% if DELETABLE_PASSWORDS_ENABLED %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%= check_box_tag "password[deletable_by_viewer]", nil, DELETABLE_PASSWORDS_DEFAULT,
+                                            { class: 'form-check-input flex-shrink-0',
+                                                x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
+                            <span>
+                                Allow immediate deletion
+                                <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
+                            </span>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class='col p-3 mt-4'>
-            <div class="mb-3 w-100">
-                <button class="btn btn-primary w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> Generate Password</button>
-                <button class="btn btn-primary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
-                    <em class="bi bi-gear"></em>
-                </button>
+        <div class='col-12 col-sm-4 p-3 mt-4'>
+            <div class="mb-3 text-end">
+                <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown">
+                    <button class="btn btn-primary active w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> Generate Password</button>
+                    <button class="btn btn-primary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
+                        <em class="bi bi-gear"></em>
+                    </button>
+                </div>
             </div>
             <p class='fst-italic'>
                 Tip: Only enter the password into the box.  Other identifying information can compromise security.
@@ -107,81 +120,24 @@
             </p>
         </div>
     </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='mb-3'>
+                <div id='cookie-save'>
+                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='my-3'>
+                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
+            </p>
+        </div>
+    </div>
 <% end %>
 
-<div class="modal fade" id="configureModal" tabindex="-1" aria-labelledby="configureModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="configureModalLabel">Configure Password Generation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class='display-6 p-3 mb-3 text-center text-break text-wrap border' id='configure_password_payload'>
-        Test Area
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="mb-3">
-                    <label for="num_syllables" class="form-label">Number of Syllables</label>
-                    <input type="number" class="form-control" id="num_syllables">
-                </div>
-                <div class="mb-3">
-                    <label for="syllable_length" class="form-label">Minimum Syllable Length</label>
-                    <input type="number" class="form-control" id="min_syllable_length">
-                </div>
-                <div class="mb-3">
-                    <label for="syllable_length" class="form-label">Maximum Syllable Length</label>
-                    <input type="number" class="form-control" id="max_syllable_length">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="include_numbers">
-                    <label class="form-check-label" for="include_numbers">Include numbers</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="use_titlecase" checked>
-                    <label class="form-check-label" for="use_titlecase">Use Titlecase</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="use_separators" checked>
-                    <label class="form-check-label" for="use_separators">Use Separators</label>
-                </div>
-                <div class="d-grid gap-2 m-3 mt-5">
-                    <button class="btn btn-primary" type="button" id='configure_generate_password'>Test</button>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="mb-3 row">
-                    <label for="separators" class="col-sm-3 col-form-label">Separators</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" id='separators' aria-label="default input example">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="vowels" class="col-sm-3 col-form-label">Vowels</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" id='vowels' aria-label="default input example">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="consonants" class="col-sm-3 col-form-label">Consonants</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" id='consonants' aria-label="default input example">
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id='reset_to_defaults'>Reset to Defaults</button>
-        <button type="button" class="btn btn-primary" id='save_configure' data-bs-dismiss="modal">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: 'shared/pw_generator_modal' %>
 
 </div>

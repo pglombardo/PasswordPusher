@@ -1,0 +1,54 @@
+<% title('Expired Pushes') %>
+
+<%= render partial: 'shared/dashboard_header' %>
+<main>
+  <% if @expired_payloads.empty? %>
+    <p class='text-center'>
+      You currently have no expired pushes.
+    </p>
+    <p class='text-center'>
+      <%= link_to 'Push Something Now', root_path, class: 'btn btn-primary' %>
+    </p>
+  <% else %>
+    <table class="table table-striped table-sm table-hover caption-top" aria-label='Expired Pushes'>
+      <caption>Expired Pushes</caption>
+      <thead>
+      <tr>
+          <th scope="col">Push ID</th>
+          <th scope="col">Expired</th>
+          <th scope="col">Note</th>
+          <th scope="col">Cause</th>
+          <th scope="col"><em class='bi-tools'></em></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for payload in @expired_payloads do %>
+        <tr>
+          <td><%= payload.url_token %></td>
+          <td><%= payload.expired_on.strftime("%B %d, %Y %H:%M %Z") %></td>
+          <td>
+            <% if payload.note.empty? %>
+              None
+            <% else %>
+              <%= payload.decrypt(payload.note).truncate(15) %>
+            <% end %>
+          </td>
+          <td>
+            <% if payload.deleted %>
+              Manually Deleted
+            <% else %>
+              Expired
+            <% end %>
+          </td>
+          <td>
+            <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+              Audit
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @expired_payloads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
+  <% end %>
+</main>

@@ -1,0 +1,38 @@
+# Global Application Defaults
+
+# This is initially for internal settings.  If all goes well using
+# this new config gem, then we'll migrate entirely to the new Settings
+# format for private instances too.
+
+# Logins are not yet supported in private instances yet due to a bit more support work
+# that needs to be done first.
+#   e.g. how to hook up an email MTA.  Coming soon.
+enable_logins: false
+
+# The domain (without protocol) where this instance is hosted
+# Used in generating fully qualified URLs.
+# host_domain: 'pwpush.com'
+
+# The protocol to reach the domain above
+# Used in generating fully qualified URLs.
+host_protocol: 'https'
+
+# When logins are enabled, an SMTP server is required to send emails to users
+# for things such as forgot password, unlock account, confirm account etc.
+# If `enable_logins` is set to true above, the following _are required_ to be
+# filled out with valid values.
+mail:
+  raise_delivery_errors: false
+  # smtp_address: smtp.example.com
+  # smtp_user_name: 'apikey'
+  # smtp_password: ''
+  smtp_port: 587
+  smtp_authentication: 'plain'
+  smtp_starttls: true
+  smtp_open_timeout: 10
+  smtp_read_timeout: 10
+
+  # Configure the e-mail address which will be shown as 'From' in emails
+  # See config/initializers/devise.rb where this is used
+  # mailer_sender: '"Password Pusher" <pglombardo@pwpush.com>'
+

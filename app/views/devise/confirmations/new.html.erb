@@ -1,0 +1,16 @@
+<% title('Resend Confirmation Instructions') %>
+
+<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <p class='my-3 py-3 lead border-bottom'>Resend Confirmation Instructions</p>
+
+  <div class="form-floating">
+    <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), required: true %>
+    <%= f.label :email, for: :email %>
+  </div>
+  
+  <div class="form-floating">
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Resend</button>
+  </div>
+<% end %>

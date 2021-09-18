@@ -1,4 +1,6 @@
-<h2 class='border-bottom mb-5 py-3'><em class="bi bi-tools"></em> Tools & Applications</h2>
+<% title('Tools & Applications') %>
+
+<h4 class='border-bottom mb-5 py-3'><em class="bi bi-tools"></em> Tools & Applications</h4>
 
 <p>Using the JSON API, various tools exist to interface with Password Pusher to automate password distribution.</p>
 
@@ -6,7 +8,7 @@
 
 <div class="row">
   <div class="col">
-    <h3 class='border-bottom mb-5 py-3'><em class="bi bi-keyboard"></em> Command Line Utilities</h2>
+    <h5 class='border-bottom mb-5 py-3'><em class="bi bi-keyboard"></em> Command Line Utilities</h5>
 
     <div class="list-group">
       <a href="https://www.npmjs.com/package/pwpush-cli" class="list-group-item list-group-item-action">
@@ -44,7 +46,7 @@
     </div>
   </div>
   <div class="col">
-    <h3 class='border-bottom mb-5 py-3'><em class="bi bi-phone"></em> Applications</h2>
+    <h5 class='border-bottom mb-5 py-3'><em class="bi bi-phone"></em> Applications</h5>
 
     <div class="list-group">
       <a href="https://github.com/pglombardo/PasswordPusher/wiki/PasswordPusher-&-Slack:-Custom-Slash-Command" class="list-group-item list-group-item-action" aria-current="true">
@@ -76,7 +78,7 @@
 </div>
 
 
-<h3 class='border-bottom my-3 py-3'><em class="bi bi-gear-wide-connected"></em> JSON API</h2>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-gear-wide-connected"></em> JSON API</h5>
 
 <p>This API allows you to interface with Password Pusher via JSON.  This can be utilized by existing utilities such as curl, wget or any programming language.  See the examples below for some ideas.</p>
 
@@ -84,20 +86,18 @@
   <li><a href="https://github.com/pglombardo/PasswordPusher/wiki/Password-API">The Password Pusher JSON API</a></li>
 </ul>
 
-<h4 class='border-bottom my-3 py-3'><em class="bi bi-speedometer"></em> Examples</h2>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-speedometer"></em> Examples</h5>
 
-<h5 class='border-bottom my-3 py-3'>Curl</h2>
+<h6 class='border-bottom my-3 py-3'>Curl</h6>
 
-<pre class="border p-3"><code>
-curl -X POST --data "password[payload]=mypassword&amp;password[expire_after_days]=2&amp;password[expire_after_views]=10" https://pwpush.com/p.json
+<pre class="border p-3"><code>curl -X POST --data "password[payload]=mypassword&amp;password[expire_after_days]=2&amp;password[expire_after_views]=10" https://pwpush.com/p.json
 </code></pre>
 
-<h5 class='border-bottom my-3 py-3'>Browser Dev Console</h2>
+<h6 class='border-bottom my-3 py-3'>Browser Dev Console</h6>
 
-<p>You can test this in your browsers’ Javascript console by going to the front page of Password Pusher and enter:</p>
+<p>You can test this in your browser Javascript console by going to the front page of Password Pusher and enter:</p>
 
-<pre class="border p-3"><code>
-$.post('https://pwpush.com/p.json',
+<pre class="border p-3"><code> $.post('https://pwpush.com/p.json',
          { 'password[payload]': 'mypassword', 'password[expire_after_days]': '2',
            'password[expire_after_views]': '10' }, 
            function(data) { console.log('Share this secret URL: https://pwpush.com/p/' + data.url_token) } )

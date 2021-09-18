@@ -1,0 +1,44 @@
+<% title('Edit Account') %>
+
+<main class=''>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <p class='my-3 py-3 lead border-bottom'>Update Email</p>
+    <div class="form-floating">
+      <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.org" %>
+      <%= f.label :change_email, for: :user_email %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <p class='my-3 py-3 lead border-bottom'>Change Password</p>
+    <p class=''>Leave blank if you don't want to change it.</p>
+    <div class="form-floating">
+      <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: 'New Password' %>
+      <%= f.label "New Password", for: :user_password %>
+    </div>
+    <div class="form-floating">
+      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: 'password' %>
+      <%= f.label "New Password Confirmation", for: :user_password_confirmation %>
+    </div>
+    <% if @minimum_password_length %>
+      <p class='text-muted mt-3 fs-7'>* A minimum of <%= @minimum_password_length %> characters are required but the more the better.</em></p>
+    <% end %>
+
+
+    <p class='my-3 py-3 lead border-bottom'>Verification</p>
+    <p class='text-muted'>Enter your current password to validate the changes above.</p>
+
+    <div class="form-floating">
+      <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: 'password' %>
+      <%= f.label "Current Password", for: :user_current_password %>
+    </div>
+
+    <div class="form-floating my-3">
+      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Update Account</button>
+    </div>
+  <% end %>
+</main>

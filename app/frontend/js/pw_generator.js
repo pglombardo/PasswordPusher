@@ -52,12 +52,19 @@ class PasswordGenerator {
             }
         });
 
-        // Configure Generator Button
         if (ga_enabled) {
+            // Configure Generator Button
             $('#configure_generator').on('click', () => {
                 gtag('event', 'configure_pw_generator',
                      { 'event_category' : 'engagement',
                        'event_label' : 'Configure Password Generator Dialog' });
+            });
+
+            // Create Account Button
+            $('#create_account_button').on('click', () => {
+                gtag('event', 'create_account',
+                     { 'event_category' : 'engagement',
+                       'event_label' : 'New Account Creation' });
             });
         }
 

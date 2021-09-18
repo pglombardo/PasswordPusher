@@ -1,4 +1,9 @@
 class User < ApplicationRecord
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :email, :password, :password_confirmation, :remember_me
+  # Include default devise modules. Others available are:
+  # :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :trackable, :confirmable, :lockable
+
+  has_many :passwords
 end
