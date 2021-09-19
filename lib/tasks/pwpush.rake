@@ -7,18 +7,34 @@ task :daily_expiration, [:batch_size] => :environment do |_, args|
     exit
   end
 
-  expiration_count = 0
-  unexpired = Password.where(expired: false).order(:created_at).limit(args[:batch_size])
+  counter = 0
 
-  unexpired.each do |push|
-    push.validate!
-    if push.expired
-      puts "Push #{push.url_token} created on #{push.created_at.to_s(:long)} has expired."
-      expiration_count += 1
-    else
-      puts "Push #{push.url_token} created on #{push.created_at.to_s(:long)} is still active."
+  Kernel.loop do
+    expiration_count = 0
+    unexpired = Password.where(expired: false).order(:created_at).limit(args[:batch_size])
+
+    # This shouldn't happen but just in case.
+    break if unexpired.empty?
+
+    unexpired.each do |push|
+      counter += 1
+
+      push.validate!
+      if push.expired
+        puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} has expired."
+        expiration_count += 1
+      else
+        puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} is still active."
+      end
     end
+
+    puts "Batch of #{args[:batch_size]}: #{expiration_count} total pushes expired."
+
+    # Nothing was expired on this run so we are done
+    break if expiration_count.zero?
   end
 
-  puts "Batch of #{args[:batch_size]}: #{expiration_count} total pushes expired."
+  puts ''
+  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
+  puts ''
 end
