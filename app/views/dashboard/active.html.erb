@@ -10,7 +10,7 @@
       <%= link_to 'Push Something Now', root_path, class: 'btn btn-primary' %>
     </p>
   <% else %>
-    <table class="table table-striped table-sm table-hover caption-top" aria-label='Active Pushes'>
+    <table class="table table-striped table-sm table-hover caption-top align-middle" aria-label='Active Pushes'>
       <caption>Active Pushes</caption>
       <thead>
       <tr>
@@ -31,7 +31,7 @@
             <% if payload.note.empty? %>
               None
             <% else %>
-              <%= payload.decrypt(payload.note).truncate(15) %>
+              <%= payload.decrypt(payload.note).truncate(100) %>
             <% end %>
           </td>
           <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
