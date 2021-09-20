@@ -26,9 +26,9 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 
-  gem "minitest"
-  gem "minitest-reporters"
-  gem "minitest-rails"
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'minitest-rails'
 end
 
 group :development, :test do
@@ -53,7 +53,7 @@ gem 'rack-attack'
 #gem 'therubyracer'
 #
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
-gem "high_voltage"
+gem 'high_voltage'
 gem 'kramdown', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -70,7 +70,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'json', '~> 2.0' # Legacy carry-over
-gem "webpacker"
+gem 'webpacker'
 gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap-style'
 
@@ -97,5 +97,5 @@ group :production do
 end
 
 group :private do
-  gem "sqlite3"
+  gem 'sqlite3'
 end

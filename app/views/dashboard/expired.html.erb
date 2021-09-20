@@ -2,7 +2,7 @@
 
 <%= render partial: 'shared/dashboard_header' %>
 <main>
-  <% if @expired_payloads.empty? %>
+  <% if @expired_pushes.empty? %>
     <p class='text-center'>
       You currently have no expired pushes.
     </p>
@@ -22,26 +22,26 @@
       </tr>
       </thead>
       <tbody>
-      <% for payload in @expired_payloads do %>
+      <% for push in @expired_pushes do %>
         <tr>
-          <td><%= payload.url_token %></td>
-          <td><%= payload.expired_on.strftime("%B %d, %Y %H:%M %Z") %></td>
+          <td><%= push.url_token %></td>
+          <td><%= push.expired_on.strftime("%B %d, %Y %H:%M %Z") %></td>
           <td>
-            <% if payload.note.empty? %>
+            <% if push.note.empty? %>
               None
             <% else %>
-              <%= payload.decrypt(payload.note).truncate(100) %>
+              <%= push.decrypt(push.note).truncate(100) %>
             <% end %>
           </td>
           <td>
-            <% if payload.deleted %>
+            <% if push.deleted %>
               Manually Deleted
             <% else %>
               Expired
             <% end %>
           </td>
           <td>
-            <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+            <%= link_to audit_password_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
               Audit
             <% end %>
           </td>
@@ -49,6 +49,6 @@
       <% end %>
       </tbody>
     </table>
-    <%= will_paginate @expired_payloads, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
+    <%= will_paginate @expired_pushes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-center) %>
   <% end %>
 </main>
