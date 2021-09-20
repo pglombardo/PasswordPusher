@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CreateAccountTest < ActionDispatch::IntegrationTest
   def test_account_creation
+    skip('Until we support logins for private instances')
     get root_path
     assert_response :success
 
@@ -19,7 +20,6 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
                                                    password: '123456',
                                                    password_confirmation: '123456' } }
     assert_response :redirect
-    pry!
 
     # Preview page
     follow_redirect!
