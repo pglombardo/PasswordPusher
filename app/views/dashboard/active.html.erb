@@ -2,7 +2,7 @@
 
 <%= render partial: 'shared/dashboard_header' %>
 <main>
-  <% if @active_payloads.empty? %>
+  <% if @active_pushes.empty? %>
     <p class='text-center mt-3'>
       You currently have no active pushes.
     </p>
@@ -23,25 +23,25 @@
       </tr>
       </thead>
       <tbody>
-      <% for payload in @active_payloads do %>
+      <% for push in @active_pushes do %>
         <tr>
-          <td><%= payload.url_token %></td>
-          <td><%= payload.created_at.strftime("%B %d, %Y %H:%M %Z") %></td>
+          <td><%= push.url_token %></td>
+          <td><%= push.created_at.strftime("%B %d, %Y %H:%M %Z") %></td>
           <td>
-            <% if payload.note.empty? %>
+            <% if push.note.empty? %>
               None
             <% else %>
-              <%= payload.decrypt(payload.note).truncate(100) %>
+              <%= push.decrypt(push.note).truncate(100) %>
             <% end %>
           </td>
-          <td><%= "#{payload.views.count}/#{payload.expire_after_views}"%></td>
-          <td><%= "#{payload.days_old}/#{payload.expire_after_days}"%></td>
+          <td><%= "#{push.views.count}/#{push.expire_after_views}"%></td>
+          <td><%= "#{push.days_old}/#{push.expire_after_days}"%></td>
           <td>
             <div class="btn-group" role="group" aria-label="Push Controls">
-              <%= link_to preview_password_path(payload), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+              <%= link_to preview_password_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
                 Preview
               <% end %>
-              <%= link_to audit_password_path(payload), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
+              <%= link_to audit_password_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
                 Audit
               <% end %>
             </div>

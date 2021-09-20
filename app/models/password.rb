@@ -72,8 +72,7 @@ class Password < ApplicationRecord
 
     return if new_record?
 
-    expire unless days_remaining.positive?
-    expire unless views_remaining.positive?
+    expire if !days_remaining.positive? || !views_remaining.positive?
   end
 
   def encrypt(payload)
