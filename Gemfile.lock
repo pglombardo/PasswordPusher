@@ -147,6 +147,25 @@ GEM
       dry-schema (~> 1.8, >= 1.8.0)
     erubi (1.10.0)
     execjs (2.8.1)
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
     ffi (1.15.4)
     foreman (0.87.2)
     globalid (0.5.2)
@@ -186,6 +205,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     msgpack (1.4.2)
+    multipart-post (2.1.1)
     nio4r (2.5.8)
     nokogiri (1.12.4)
       mini_portile2 (~> 2.6.1)
@@ -269,6 +289,7 @@ GEM
     ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -284,6 +305,16 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sentry-rails (4.7.2)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 4.7.0)
+    sentry-ruby (4.7.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      faraday (>= 1.0)
+      sentry-ruby-core (= 4.7.2)
+    sentry-ruby-core (4.7.2)
+      concurrent-ruby
+      faraday
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -364,6 +395,8 @@ DEPENDENCIES
   ruby-debug-ide
   sass-rails (~> 6.0)
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (~> 4.0)
@@ -380,4 +413,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.22
+   2.2.27

@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
-ruby ENV['CUSTOM_RUBY_VERSION'] || ">=2.7.0"
+ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
 gem 'rails', '~> 6.1.4'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  #gem 'listen', '>= 3.0.5', '< 3.2'
+  # gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  
+
   # Visual Studio Additions
   gem 'rubocop'
   gem 'ruby-debug-ide'
@@ -26,9 +26,9 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 
-  gem "minitest"
-  gem "minitest-reporters"
-  gem "minitest-rails"
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'minitest-rails'
 end
 
 group :development, :test do
@@ -50,10 +50,10 @@ gem 'rack-attack'
 # $ gem install therubyracer -- --with-v8-dir=/usr/local/opt/v8@315
 # # 4. Install the remaining dependencies
 # $ bundle install
-#gem 'therubyracer'
+# gem 'therubyracer'
 #
 gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
-gem "high_voltage"
+gem 'high_voltage'
 gem 'kramdown', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -70,7 +70,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'json', '~> 2.0' # Legacy carry-over
-gem "webpacker"
+gem 'webpacker'
 gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap-style'
 
@@ -94,8 +94,10 @@ group :production do
   gem 'rack-timeout'
   gem 'rack-throttle'
   gem 'pg'
+  gem 'sentry-ruby'
+  gem 'sentry-rails'
 end
 
 group :private do
-  gem "sqlite3"
+  gem 'sqlite3'
 end
