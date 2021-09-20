@@ -25,6 +25,7 @@ WORKDIR ${APP_ROOT}
 
 ENV RACK_ENV=private
 ENV RAILS_ENV=private
+
 RUN bundle config set without 'development production test'
 RUN bundle config set deployment 'true'
 
@@ -33,4 +34,4 @@ RUN yarn install
 RUN bundle exec rails webpacker:compile
 RUN bundle exec rake db:setup
 
-ENTRYPOINT [ "bundle", "exec", "foreman", "start", "internalweb" ]
+ENTRYPOINT ["bundle", "exec", "puma", "-C", "config/puma.rb", "-e", "private"]
