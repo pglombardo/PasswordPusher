@@ -1,6 +1,6 @@
 <div class="container">
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none' do %>
       <div class='me-2'>
       <picture>
         <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
@@ -9,11 +9,11 @@
       </picture>
       </div>
       <div>
-        <span class="fs-4 display-1">Password Pusher</span>
+        <span class="fs-4 display-1"><%= I18n.t('site_name') %></span>
         <br/>
-        <span class="fs-6 text-muted">Go Ahead.  Email Another Password.</span>
+        <span class="fs-6 text-muted"><%= I18n.t('tagline') %></span>
       </div>
-    </a>
+    <% end %>
 
     <% if Settings.enable_logins %>
       <ul class="nav nav-pills align-items-center">
@@ -23,27 +23,23 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Account 
+              <%= I18n.t('header.account') %> 
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
-                    Edit
-                <% end %>
+                <%= link_to I18n.t('header.edit'), edit_user_registration_path, class: "dropdown-item" %>
               </li>
               <li>
-                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
-                    Log Out
-                <% end %>
+                <%= link_to I18n.t('header.logout'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
               </li>
             </ul>
           </li>
         <% else %>
           <li class="nav-item lead">
-            <%= link_to "Log in", new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
+            <%= link_to I18n.t('header.login'), new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
           </li>
           <li class="nav-item lead">
-            <%= link_to "Sign up", new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
+            <%= link_to I18n.t('header.sign_up'), new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
           </li>
         <% end %>
       </ul>

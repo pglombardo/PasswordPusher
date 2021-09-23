@@ -13,10 +13,20 @@
       </a>
 
       <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="/pages/tools" class="nav-link px-2 text-muted">Tools</a></li>
-        <li class="nav-item"><a href="/pages/faq" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="/pages/about" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><%= link_to I18n.t('footer.home'), root_path, class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item"><%= link_to I18n.t('footer.tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item"><%= link_to I18n.t('footer.faq'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item"><%= link_to I18n.t('footer.about'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Language 
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class='dropdown-item'><%= link_to "Español", url_for(locale: 'es'), hreflang: 'es', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+            <li class='dropdown-item'><%= link_to "English", url_for(locale: 'en'), hreflang: 'en', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+            <li class='dropdown-item'><%= link_to "Italiano", url_for(locale: 'it'), hreflang: 'it', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+          </ul>
+        </li>
       </ul>
     </footer>
   </div>
