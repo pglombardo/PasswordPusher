@@ -112,4 +112,12 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('expire_after_days')
     assert_equal 5, res['expire_after_views']
   end
+
+  def test_bad_request
+    post '/p.json', params: {}
+    assert_response :bad_request
+
+    res = JSON.parse(@response.body)
+    assert res.empty? == true
+  end
 end

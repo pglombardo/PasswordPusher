@@ -49,30 +49,36 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
-    if params[:password][:payload].blank? || params[:password][:payload] == PAYLOAD_INITIAL_TEXT
-      redirect_to '/'
-      return
-    end
+    # params[:password] has to exist
+    # params[:password][:payload] has to exist
+    # params[:password][:payload] can't be blank
+    # params[:password][:payload] can't be longer than 1 megabyte
 
-    if params[:password][:payload].length > 1.megabyte
-      redirect_to '/', error: 'That password is too long.'
+    payload_param = params.fetch(:password, {}).fetch(:payload, '')
+    if payload_param.blank? || payload_param.length > 1.megabyte
+
+      respond_to do |format|
+        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.json { render json: '{}', status: :bad_request }
+      end
       return
     end
 
     @password = Password.new
-    @password.expire_after_days = params[:password][:expire_after_days]
-    @password.expire_after_views = params[:password][:expire_after_views]
+    @password.expire_after_days = params[:password].fetch(:expire_after_days,
+                                                          EXPIRE_AFTER_DAYS_DEFAULT)
+    @password.expire_after_views = params[:password].fetch(:expire_after_views,
+                                                           EXPIRE_AFTER_VIEWS_DEFAULT)
+    @password.user_id = current_user.id if user_signed_in?
     @password.url_token = rand(36**16).to_s(36)
-
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
+    @password.payload = @password.encrypt(params[:password][:payload])
 
-    @password.user_id = current_user.id if user_signed_in?
-
-    if params[:password][:note].is_a?(String) && !params[:password][:note].empty?
+    unless params[:password].fetch(:note, '').blank?
       @password.note = @password.encrypt(params[:password][:note])
     end
-    @password.payload = @password.encrypt(params[:password][:payload])
+
     @password.validate!
 
     respond_to do |format|
