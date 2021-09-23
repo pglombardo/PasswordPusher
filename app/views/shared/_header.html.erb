@@ -1,110 +1,52 @@
 <div class="container">
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-    <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none' do %>
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
       <div class='me-2'>
       <picture>
-        <% if Settings.brand.nil? || Settings.brand.light_logo.nil? %>
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;' />
-        <% else %>
-          <source srcset="<%= Settings.brand.light_logo %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= Settings.brand.dark_logo %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= Settings.brand.light_logo %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;' />
-        <% end %>
+        <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+        <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+        <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Market Scan Password Pusher Logo", style='height: 50px;' />
       </picture>
       </div>
       <div>
-        <% if Settings.brand.title %>
-          <span class="fs-4 display-1"><%= Settings.brand.title %></span>
-        <% else %>
-          <span class="fs-4 display-1"><%= _('Password Pusher') %></span>
-        <% end %>
+        <span class="fs-4 display-1">Market Scan Password Pusher</span>
         <br/>
-        <% if Settings.brand.tagline%>
-          <span class="fs-6 text-muted"><%= Settings.brand.tagline %></span>
-        <% else %>
-          <span class="fs-6 text-muted"><%= _('Go Ahead.  Email Another Password.') %></span>
-        <% end %>
+        <span class="fs-6 text-muted">Powered by Peter Giacomo Lombardo's Password Pusher.</span>
       </div>
-    <% end %>
+    </a>
 
+    <% if Settings.enable_logins %>
       <ul class="nav nav-pills align-items-center">
-        <% if Settings.enable_logins %>
-          <% if current_user %>
-            <li class="nav-item lead">
-              <%= link_to _('Dashboard'), active_passwords_path, class: "btn btn-primary" %>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <em class='bi-file-person'></em>
-                <%= _('Account') %>
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  <%= link_to _('Edit Login Details'), edit_user_registration_path, class: "dropdown-item" %>
-                </li>
-                <li>
-                  <%= link_to _('API Token'), token_user_registration_path, class: "dropdown-item" %>
-                </li>
-                <li>
-                  <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-                </li>
-              </ul>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to _('Log In'), new_user_session_path, class: "nav-link lead" %>
-            </li>
-            <% if !Settings.disable_signups %>
-              <li class="nav-item">
-                <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
-              </li>
-            <% end %>
-          <% end %>
-        <% end %>
-        <li class="nav-item">
-          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#languageModal">
-            <em class='bi-translate'></em>
-            <%= _('Language') %>
-          </button>
-        </li>
-      </ul>
-
-
-    <!-- Language Selector Modal -->
-    <div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="languageModalLabel"><%= _('Select your language') %></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <% if Settings.language_codes %>
-              <% I18n.available_locales.each_slice(3) do |group| %>
-                <div class="row">
-                <% group.each do |lang| %>
-                    <div class="col-4 m-0 p-0">
-                      <div class="card text-center">
-                        <div class="card-body p-1">
-                          <p class="card-text">
-                              <%= link_to url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link text-muted" do %>
-                                <em class="fi fi-<%= Settings.country_codes[lang] %>"></em>
-                                <br/>
-                                <%= Settings.language_codes[lang] %>
-                              <% end %>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+        <% if current_user %>
+          <li class="nav-item lead">
+            <%= link_to "Dashboard", dashboard_active_path, class: "btn btn-primary" %>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Account 
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                    Edit
                 <% end %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+                    Log Out
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item lead">
+            <%= link_to "Log in", new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
+          </li>
+          <li class="nav-item lead">
+            <%= link_to "Sign up", new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </header>
 </div>
