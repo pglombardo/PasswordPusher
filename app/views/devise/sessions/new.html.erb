@@ -1,24 +1,24 @@
-<% title('Log In') %>
-<h2 class='my-3'>Log In</h1>
+<% title(I18n.t('devise.general.login')) %>
+<h2 class='my-3'><%= I18n.t('devise.general.login') %></h1>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-floating">
     <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.com", required: true %>
-    <%= f.label :email, for: 'user_email' %>
+    <%= f.label :email, _('Email'), for: 'user_email' %>
   </div>
   
   <div class="form-floating">
     <%= f.password_field :password, class: 'form-control', autocomplete: "current-password", placeholder: 'password', required: true %>
-    <%= f.label :password, for: 'user_password' %>
+    <%= f.label :password, _('Password'), for: 'user_password' %>
   </div>
 
   <% if devise_mapping.rememberable? %>
     <div class="checkbox mt-3">
       <label>
-        <%= f.check_box :remember_me %> Remember me
+        <%= f.check_box :remember_me %> <%= I18n.t('devise.general.remember_me') %>
       </label>
     </div>
   <% end %>
 
-  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Sign in</button>
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.general.login') %></button>
 <% end %>

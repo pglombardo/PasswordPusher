@@ -1,4 +1,4 @@
-i<% title('Reset Password') %>
+<% title(I18n.t('devise.passwords.reset_title')) %>
 
 <%= form_for(resource, as: resource_name, url: user_password_path, html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -6,19 +6,21 @@ i<% title('Reset Password') %>
 
   <div class="form-floating">
     <%= f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "new-password", required: true %>
-    <%= f.label :password, "New password", for: :password %>
+    <%= f.label :password, _('New password'), for: :password %>
   </div>
 
   <div class="form-floating">
     <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", required: true %>
-    <%= f.label :password_confirmation, "Confirm new password", for: :password_confirmation %>
+    <%= f.label :password_confirmation, _('Confirm new password'), for: :password_confirmation %>
   </div>
     
   <% if @minimum_password_length %>
-    <p class='text-muted mt-3 fs-7'>* A minimum of <%= @minimum_password_length %> characters is required but the more the better.</em></p>
+    <p class='text-muted mt-3 fs-7'>
+      * <%= sprintf(_('A minimum of %d characters is required but the more the better.'), @minimum_password_length) %>
+    </p>
   <% end %>
 
   <div class="form-floating">
-    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Send Reset Instructions</button>
+    <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.passwords.reset_button') %></button>
   </div>
 <% end %>

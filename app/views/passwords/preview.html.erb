@@ -1,48 +1,47 @@
-<% title("#{I18n.t('passwords.preview.title')}") %>
+<% title(_('Your Password has been Pushed')) %>
 
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <h2 class='mt-5'><%= I18n.t('passwords.preview.header') %></h2>
+      <h2 class='mt-5'><%= _('Your password has been pushed.') %></h2>
 
-      <p class='mt-5'><%= I18n.t('passwords.preview.secret_link') %></p>
+      <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
 
       <div class='input-group mb-5'>
           <input class='form-control' id='secret_url' value="<%=secret_url(@password)%>" spellcheck='false' readonly='true'>
           <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
-                  data-clipboard-target='#secret_url' alt="<%= I18n.t('passwords.preview.copy_to_clipboard') %>">
+                  data-clipboard-target='#secret_url' alt="<%= _('Copy to Clipboard') %>">
               <em class="bi bi-clipboard-check"></em>
           </button>
       </div>
 
       <p class='mb-5'>
-        <%= I18n.t('passwords.preview.newly') %> 
-        <strong><%=@password.expire_after_days%> <%= I18n.t('passwords.preview.days') %></strong> 
-        or 
-        <strong><%=@password.expire_after_views%> <%= I18n.t('passwords.preview.views') %></strong> 
-        <%= I18n.t('passwords.preview.whichever') %>
+        <%= _('This newly pushed password will expire after') %> 
+        <strong><%=@password.expire_after_days%> <%= n_('day', 'days', @password.expire_after_days) %></strong> 
+        <%= _('or') %>
+        <strong><%=@password.expire_after_views%> <%= n_('view', 'views', @password.expire_after_views) %></strong> 
+        <%= _('(whichever comes first)') %>
 
         <% if @password.deletable_by_viewer %>
-          <%= I18n.t('passwords.preview.and') %> <strong><%= I18n.t('passwords.preview.can_be') %></strong> <%= I18n.t('passwords.preview.deleted_by_viewers') %>
+          <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
         <% else %>
-          <%= I18n.t('passwords.preview.and') %> <strong><%= I18n.t('passwords.preview.cannot_be') %></strong> <%= I18n.t('passwords.preview.deleted_by_viewers') %>
+          <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
         <% end %>
       </p>
 
       <% if @password.retrieval_step == true %>
-        <p class='mb-5'><%= I18n.t('passwords.preview.also_includes') %> <strong><%= I18n.t('passwords.preview.retrieval_step') %></strong>.  </p>
+        <p class='mb-5'><%= _('It also includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.  </p>
       <% end %>
 
       <p class='mb-5'>
-        <%=link_to I18n.t('passwords.preview.view_now'), secret_url(@password) %> <%= I18n.t('passwords.preview.will_burn') %> 
-        <%=link_to I18n.t('passwords.preview.push_another'), root_path %>
+        <%=link_to _('View This Password Now'), secret_url(@password) %> <%= _('(will burn a view) or') %> 
+        <%=link_to _('Push Another Password'), root_path %>
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-          <em class='bi-card-list'></em> <%= I18n.t('passwords.preview.audit_button') %>%
+        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+          <em class='bi-card-list'></em> <%= _('View Audit Log') %>
         <% end %>
       <% end %>
-
   </div>
 </div>

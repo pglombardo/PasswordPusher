@@ -1,44 +1,46 @@
-<% title('Edit Account') %>
+<% title(I18n.t('devise.registrations.edit_account')) %>
 
 <main class=''>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <p class='my-3 py-3 lead border-bottom'>Update Email</p>
+    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.update_email') %></p>
     <div class="form-floating">
       <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.org" %>
-      <%= f.label :change_email, for: :user_email %>
+      <%= f.label _('Change Email'), for: :user_email %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div><%= I18n.t('devise.registrations.currently_waiting') %>: <%= resource.unconfirmed_email %></div>
     <% end %>
 
-    <p class='my-3 py-3 lead border-bottom'>Change Password</p>
-    <p class=''>Leave blank if you don't want to change it.</p>
+    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.change_password') %></p>
+    <p class=''><%= I18n.t('devise.registrations.change_password_hint') %></p>
     <div class="form-floating">
-      <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: 'New Password' %>
-      <%= f.label "New Password", for: :user_password %>
+      <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.new_password') %>
+      <%= f.label I18n.t('devise.registrations.new_password'), for: :user_password %>
     </div>
     <div class="form-floating">
-      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: 'password' %>
-      <%= f.label "New Password Confirmation", for: :user_password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.password') %>
+      <%= f.label I18n.t('devise.registrations.new_password_confirmation'), for: :user_password_confirmation %>
     </div>
     <% if @minimum_password_length %>
-      <p class='text-muted mt-3 fs-7'>* A minimum of <%= @minimum_password_length %> characters are required but the more the better.</em></p>
+      <p class='text-muted mt-3 fs-7'>
+      * <%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
+      </p>
     <% end %>
 
 
-    <p class='my-3 py-3 lead border-bottom'>Verification</p>
-    <p class='text-muted'>Enter your current password to validate the changes above.</p>
+    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.verification') %></p>
+    <p class='text-muted'><%= I18n.t('devise.registrations.verification_text') %></p>
 
     <div class="form-floating">
-      <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: 'password' %>
-      <%= f.label "Current Password", for: :user_current_password %>
+      <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: I18n.t('devise.registrations.password') %>
+      <%= f.label _("Current Password"), for: :user_current_password %>
     </div>
 
     <div class="form-floating my-3">
-      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Update Account</button>
+      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.registrations.update_account') %></button>
     </div>
   <% end %>
 </main>

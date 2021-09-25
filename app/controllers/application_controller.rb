@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   around_action :set_locale_from_url
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError.new(_('Not Found'))
   end
 
   # unless Rails.application.config.consider_all_requests_local

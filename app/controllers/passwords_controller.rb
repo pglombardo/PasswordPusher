@@ -49,13 +49,13 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
-    if params[:password][:payload].blank? || params[:password][:payload] == PAYLOAD_INITIAL_TEXT
+    if params[:password][:payload].blank?
       redirect_to '/'
       return
     end
 
     if params[:password][:payload].length > 1.megabyte
-      redirect_to '/', error: 'That password is too long.'
+      redirect_to '/', error: _('That password is too long.')
       return
     end
 
@@ -110,7 +110,7 @@ class PasswordsController < ApplicationController
     @password = Password.find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: "That push doesn't belong to you."
+      redirect_to :root, notice: _("That push doesn't belong to you.")
       return
     end
   end
@@ -124,12 +124,12 @@ class PasswordsController < ApplicationController
       if @password.user_id == current_user.id
         is_owner = true
       else
-        redirect_to :root, notice: 'That push does not belong to you.'
+        redirect_to :root, notice: _('That push does not belong to you.')
         return
       end
     elsif @password.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
-      redirect_to :root, notice: 'That push is not deletable by viewers.'
+      redirect_to :root, notice: _('That push is not deletable by viewers.')
       return
     end
 
@@ -145,10 +145,10 @@ class PasswordsController < ApplicationController
         format.html {
           if is_owner
             redirect_to audit_password_path(@password),
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           else
             redirect_to @password,
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           end
         }
         format.json { render json: @password, status: :ok }

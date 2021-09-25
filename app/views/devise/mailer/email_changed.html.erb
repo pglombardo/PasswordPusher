@@ -1,9 +1,14 @@
-<p>Hello,</p>
+<p><%= _('Hello') %>,</p>
 
-<% if @resource.try(:unconfirmed_email?) %>
-  <p>We're contacting you to notify you that your email at <a href="<%= root_url %>">Password Pusher</a> is being changed to <%= @resource.unconfirmed_email %>.</p>
-<% else %>
-  <p>We're contacting you to notify you that your email at <a href="<%= root_url %>">Password Pusher</a> has been changed to <%= @resource.email %>.</p>
-<% end %>
+<p>
+  <%= _('We\'re contacting you to notify you that your email at') %> 
+  <%= link_to _('Password Pusher'), root_url %>
+
+  <% if @resource.try(:unconfirmed_email?) %>
+    <%= sprintf(_('is being changed to %s', @resource.unconfirmed_email) %>.
+  <% else %>
+    <%= sprintf(_('has been changed to %s', @resource.email) %>.
+  <% end %>
+</p>
 
 <%= render 'shared/email_footer' %>

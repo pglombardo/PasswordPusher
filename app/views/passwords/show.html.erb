@@ -1,12 +1,12 @@
-<% plain_title("Your Secret Link") %>
+<% plain_title(_('Your Secret Link')) %>
 
 <div class="container-fluid h-100 mx-0 py-5 px-0 bg-light">
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
         <div class='text-center m-3'>
-          <p class=""><strong>Please obtain and securely store this password elsewhere, ideally in a password manager.</strong></p>
-          <p class="text-muted">Your password is blurred out.  Click below to reveal it.</p>
+          <p class=""><strong><%= _('Please obtain and securely store this password elsewhere, ideally in a password manager.') %></strong></p>
+          <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
           <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
-            <em class="bi bi-clipboard-check"></em> Copy to Clipboard
+            <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
           </button>
         </div>
 
@@ -24,23 +24,28 @@
       <div class='text-center m-3'>
         <p class="text-muted">
           <% if @password.views_remaining == 0 %>
-              This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-              or <strong>0 more views</strong> (this is the last view).
+              <%= _("This secret link will be deleted in") %>
+              <strong><%= @password.days_remaining.to_s + ' ' + n_('day', 'days', @password.days_remaining) %></strong>
+              <%= _('or') %> <strong><%= _('0 more views') %></strong>
+              <%= _('(this is the last view).') %>
           <% else %>
-              This secret link will be deleted in <strong><%=pluralize(@password.days_remaining, 'day')%></strong>
-              or <strong><%=pluralize(@password.views_remaining, 'more view')%></strong> (whichever occurs first).
+              <%= _("This secret link will be deleted in") %>
+              <strong><%= @password.days_remaining.to_s + ' ' + n_('day', 'days', @password.days_remaining) %></strong>
+              <%= _('or') %>
+              <strong><%= @password.views_remaining.to_s + ' ' + n_('more view', 'more views', @password.views_remaining) %></strong>
+              <%= _('(whichever occurs first).') %>
           <% end %>
         </p>
         <% if @password.deletable_by_viewer %>
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <em class="bi bi-trash"></em> Delete This Secret Link Now
+            <em class="bi bi-trash"></em> <%= _('Delete This Secret Link Now') %>
           </button>
         <% end %>
       </div>
     </div>
     <div class="fixed-bottom w-100 d-grid gap-2">
       <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button-2'>
-      <em class="bi bi-clipboard-check"></em> Copy to Clipboard
+      <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
       </button>
     </div>
 </div>
@@ -50,15 +55,17 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete This Password?</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete This Password?') %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        This will expire this secret link and <strong>remove the password from the database forever</strong>.  Are you sure?
+        <%= _('This will expire this secret link and ') %>
+        <strong><%= _('remove the password from the database forever') %></strong>.
+        <%= _('Are you sure?') %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: 'Processing...' %>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+        <%= link_to _('Delete'), @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: _('Processing...') %>
       </div>
     </div>
   </div>
