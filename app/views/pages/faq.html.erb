@@ -1,139 +1,150 @@
-<% title('FAQ') %>
+<% title(_('FAQ')) %>
 
-<h4 class='mb-3'>Frequently Asked Questions</h4>
+<h4 class='mb-3'><%= _('Frequently Asked Questions') %></h4>
 
-<h5 class='border-bottom my-3 py-3'><em class="bi bi-lock"></em> Trust &amp; Security</h5>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-lock"></em> <%= _('Trust and Security') %></h5>
 
 <div class="accordion" id="trust-security">
   <div class="accordion-item">
     <h2 class="accordion-header" id="purpose-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#purpose-answer" aria-expanded="false" aria-controls="purpose-answer">
-        What purpose does Password Pusher serve?
+        <%= _('What purpose does Password Pusher serve?') %>
       </button>
     </h2>
     <div id="purpose-answer" class="accordion-collapse collapse" aria-labelledby="purpose-question">
       <div class="accordion-body">
-        <p>Password Pusher exists as a better alternative to emailing passwords.</p>
+        <p><%= _('Password Pusher exists as a better alternative to emailing passwords.') %></p>
 
-        <p><strong>Emailing passwords is inherently insecure.</strong> The greatest risks include:</p>
+        <p><strong><%= _('Emailing passwords is inherently insecure.') %></strong> <%= _('The greatest risks include') %>:</p>
 
         <ul>
-          <li>Emailed passwords are usually sent with context to what they go to or can potentially be derived from email username, domain etc…</li>
-          <li>Email is inherently insecure and can be intercepted at multiple points by malicious entitities.</li>
-          <li>Emailed passwords live in perpetuity (read: forever) in email archives</li>
-          <li>Passwords in email can be retrieved and used later on if an email account is stolen, cracked etc..</li>
+          <li><%= _('Emailed passwords are usually sent with context to what they go to or can potentially be derived from email username, domain etc…') %></li>
+          <li><%= _('Email is inherently insecure and can be intercepted at multiple points by malicious entitities.') %></li>
+          <li><%= _('Emailed passwords live in perpetuity (read: forever) in email archives.') %></li>
+          <li><%= _('Passwords in email can be retrieved and used later on if an email account is stolen, cracked etc..') %></li>
         </ul>
 
-        <p>The same risks persist when sending passwords via SMS, WhatsApp, Telegram, Chat etc…  The data can and is often perpetual and out of your control.</p>
+        <p><%= _('The same risks persist when sending passwords via SMS, WhatsApp, Telegram, Chat etc…  The data can and is often perpetual and out of your control.') %></p>
 
-        <p><strong>By using Password Pusher, you bypass all of this.</strong></p>
+        <p><strong><%= _('By using Password Pusher, you bypass all of this.') %></strong></p>
 
-        <p>For each password posted to Password Pusher, <strong>a unique URL is generated that only you will know</strong>. Additionally, <strong>passwords expire after a predefined set of views are hit or time passed</strong>. Once expired, passwords are unequivocally deleted.</p>
+        <p><%= _('For each password posted to Password Pusher, ') %>
+          <strong><%= _('a unique URL is generated that only you will know') %></strong>. 
+          <%= _('Additionally, ') %>
+          <strong>
+            <%= _('passwords expire after a predefined set of views are hit or time passed.') %>
+          </strong> 
+          <%= _('Once expired, passwords are unequivocally deleted.') %>
+        </p>
 
-        <p>If that sounds interesting to you, <a href="/">try it out</a> or see the other frequently asked questions below.</p>
+        <p><%= _('If that sounds interesting to you, try it out or see the other frequently asked questions below.') %></p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="trust-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#trust-answer" aria-expanded="false" aria-controls="trust-answer">
-        Trust is a concern. Why should I use Password Pusher?
+        <%= _('Trust is a concern. Why should I use Password Pusher?') %>
       </button>
     </h2>
     <div id="trust-answer" class="accordion-collapse collapse" aria-labelledby="trust-question">
       <div class="accordion-body">
-        <p>And rightfully so. All good security begins with healthy skepticism of all involved components.</p>
+        <p><%= _('And rightfully so. All good security begins with healthy skepticism of all involved components.') %></p>
 
         <p>
-          Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist
-          in email archives in perpetuity. It does not exist as a end-all security solution.
+          <%= _('Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist in email archives in perpetuity. It does not exist as a end-all security solution.') %>
         </p>
 
         <p>
-          <%= link_to "Password Pusher is opensource", "http://www.rubyonrails.org/", target: "_blank" %> so the
-          source can be publicly reviewed and can alternatively be run internally in your organization.
+          <%= link_to _('Password Pusher is opensource'), "http://www.rubyonrails.org/", target: "_blank" %>
+          <%= _('so the source can be publicly reviewed and can alternatively be run internally in your organization.') %>
         </p>
 
         <p>
-          <strong>Passwords are unequivocally deleted from the database once they expire.</strong>
-          Additionally, random URL tokens are generated on the fly and passwords are posted without context for their use.
+          <strong><%= _('Passwords are unequivocally deleted from the database once they expire.') %></strong>
+          <%= _('Additionally, random URL tokens are generated on the fly and passwords are posted without context for their use.') %>
         </p>
 
-        <p><em>A note for those with an interest in extreme security:</em> there is no way I can reliably prove that the opensource
-        code is the same that runs on <a href="https://pwpush.com/", target="_blank">pwpush.com</a> (this is true for all sites in reality). The only
-        thing I can provide in this respect is my public reputation on <a href="https://github.com/pglombardo", target="_blank">Github</a>,
-        <a href="https://www.linkedin.com/in/peterlombardo/", target="_blank">LinkedIn</a>, <a href="https://twitter.com/pglombardo", target="_blank">Twitter</a>
-        and <a href="https://the0x00.dev", target="_blank">my blog</a>. If this is a concern for you, feel free to review the code, post any questions
-        that you may have and consider <a href="https://github.com/pglombardo/PasswordPusher#-run-your-own-instance", target="_blank">
-        running it internally at your organization</a> instead.</p>
+        <p>
+          <em><%= _('A note for those with an interest in extreme security:') %></em> 
+          <%= _('there is no way I can reliably prove that the opensource code is the same that runs on pwpush.com (this is true for all sites in reality).') %>
+          <%= _('The only thing I can provide in this respect is my public reputation on') %> <a href="https://github.com/pglombardo", target="_blank">Github</a>,
+          <a href="https://www.linkedin.com/in/peterlombardo/", target="_blank">LinkedIn</a>, <a href="https://twitter.com/pglombardo", target="_blank">Twitter</a>
+          <%= _('and') %>
+          <a href="https://the0x00.dev", target="_blank"><%= _('my blog') %></a>.
+          <%= _('If this is a concern for you, feel free to review the code, post any questions that you may have and consider running it internally at your organization instead.') %>
+        </p>
       </div>
     </div>
   </div>
 </div>
 
 
-<h5 class='border-bottom my-3 py-3'><em class="bi bi-tools"></em> Tools, Utilities &amp; Applications</h5>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-tools"></em> <%= _('Tools, Utilities and Applications') %></h5>
 
 <div class="accordion" id="tools">
   <div class="accordion-item">
     <h2 class="accordion-header" id="access-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#access-answer" aria-expanded="false" aria-controls="access-answer">
-        Are there other ways I can access Password Pusher outside of a browser?
+        <%= _('Are there other ways I can access Password Pusher outside of a browser?') %>
       </button>
     </h2>
     <div id="access-answer" class="accordion-collapse collapse" aria-labelledby="access-question">
       <div class="accordion-body">
-        <p>Absolutely.  Password Pusher has a number of <em>applications and command line utilities</em> (CLI) that interface with pwpush.com or
-          privately run instances.  Push passwords from the CLI, Slack, Alfred App and more.</p>
-        <p>See our <a href="/pages/tools">Tools &amp; Applications</a> page for more details.</p>
+        <p>
+          <%= _('Absolutely.  Password Pusher has a number of applications and command line utilities (CLI) that interface with pwpush.com or privately run instances.  Push passwords from the CLI, Slack, Alfred App and more.') %>
+        </p>
+        <p><%= _('See our') %> <a href="/pages/tools"><%= _('Tools and Applications') %></a> <%= _('page for more details.') %></p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="automate-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#automate-answer" aria-expanded="false" aria-controls="automate-answer">
-        Can I automate my password distribution?
+        <%= _('Can I automate my password distribution?') %>
       </button>
     </h2>
     <div id="automate-answer" class="accordion-collapse collapse" aria-labelledby="automate-question">
       <div class="accordion-body">
-        <p>Yes. Using the previously mentioned tools, many users &amp; organizations integrate Password Pusher into their security policies and processes.</p>
-        <p>The <a href="/pages/tools">Tools</a> page outlines the resources available to automate the secure distribution of passwords.</p>
+        <p><%= _('Yes. Using the previously mentioned tools, many users and organizations integrate Password Pusher into their security policies and processes.') %></p>
+        <p><%= _('The') %> <a href="/pages/tools"><%= _('Tools') %></a> <%= _('page outlines the resources available to automate the secure distribution of passwords.') %></p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="rate-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rate-answer" aria-expanded="false" aria-controls="rate-answer">
-        How many requests can I send to Password Pusher?
+        <%= _('How many requests can I send to Password Pusher?') %>
       </button>
     </h2>
     <div id="rate-answer" class="accordion-collapse collapse" aria-labelledby="rate-question">
       <div class="accordion-body">
-        <p>There are no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.</p>
+        <p><%= _('There are no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.') %></p>
       </div>
     </div>
   </div>
 </div>
 
-<h5 class='border-bottom my-3 py-3'><em class="bi bi-eye-slash"></em> Running Your Own Private Instance</h5>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-eye-slash"></em> <%= _('Running Your Own Private Instance') %></h5>
 
 <div class="accordion" id="private">
   <div class="accordion-item">
     <h2 class="accordion-header" id="run-internal-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#run-internal-answer" aria-expanded="false" aria-controls="run-internal-answer">
-        Can I run my own version for my organization internally?
+        <%= _('Can I run my own version for my organization internally?') %>
       </button>
     </h2>
     <div id="run-internal-answer" class="accordion-collapse collapse" aria-labelledby="run-internal-question">
       <div class="accordion-body">
         <p>
-          Yes.  We provide <a href="https://hub.docker.com/u/pglombardo" target="_blank">Docker containers</a> and
-          <a href="https://github.com/pglombardo/PasswordPusher#-run-your-own-instance" target="_blank">installation instructions</a>
-          for a wide variety of platforms and services.
+          <%= _('Yes.  We provide') %> 
+          <a href="https://hub.docker.com/u/pglombardo" target="_blank"><%= _('Docker containers') %></a> 
+          <%= _('and') %>
+          <a href="https://github.com/pglombardo/PasswordPusher#-run-your-own-instance" target="_blank"><%= _('installation instructions') %></a>
+          <%= _('for a wide variety of platforms and services.') %>
         </p>
         <p>
-          hint: <code>docker run -p 5100:5100 pglombardo/pwpush-ephemeral:latest</code>
+          <%= _('hint:') %> <code>docker run -p 5100:5100 pglombardo/pwpush-ephemeral:latest</code>
         </p>
       </div>
     </div>
@@ -141,76 +152,81 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="licensing-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#licensing-answer" aria-expanded="false" aria-controls="licensing-answer">
-        Are there any licensing restrictions for me, my company or my organization?
+        <%= _('Are there any licensing restrictions for me, my company or my organization?') %>
       </button>
     </h2>
     <div id="licensing-answer" class="accordion-collapse collapse" aria-labelledby="licensing-question">
       <div class="accordion-body">
-        <p>The source code is released under the GNU General Public License v3.0 and that pretty much defines any and all limitations. There are quite a few rebranded &amp; redesigned clone sites of Password Pusher and I welcome them all.</p>
+        <p>
+          <%= _('The source code is released under the GNU General Public License v3.0 and that pretty much defines any and all limitations. There are quite a few rebranded and redesigned clone sites of Password Pusher and I welcome them all.') %>
+        </p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="why-private-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#why-private-answer" aria-expanded="false" aria-controls="why-private-answer">
-        Why would I want to run my own private instance of Password Pusher?
+        <%= _('Why would I want to run my own private instance of Password Pusher?') %>
       </button>
     </h2>
     <div id="why-private-answer" class="accordion-collapse collapse" aria-labelledby="why-private-question">
       <div class="accordion-body">
         <p>
-          Some organizations are bound by security policies that prohibit the use of public services for sensitive
-          information such as passwords.  There are even organizations that require all tools to be on private intranets without
-          access to the outside world.
+          <%= _('Some organizations are bound by security policies that prohibit the use of public services for sensitive information such as passwords.  There are even organizations that require all tools to be on private intranets without access to the outside world.') %>
         </p>
         <p>
-          It's for these reasons that we provide the ability (and encourage) users &amp; organizations to run private instances when needed.
+          <%= _('It\'s for these reasons that we provide the ability (and encourage) users and organizations to run private instances when needed.') %>
         </p>
       </div>
     </div>
   </div>
 </div>
 
-<h5 class='border-bottom my-3 py-3'><em class="bi bi-sunglasses"></em> Other</h5>
+<h5 class='border-bottom my-3 py-3'><em class="bi bi-sunglasses"></em> <%= _('Other') %></h5>
 
 <div class="accordion" id="other">
   <div class="accordion-item">
     <h2 class="accordion-header" id="presentation-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#presentation-answer" aria-expanded="false" aria-controls="presentation-answer">
-        Can I use Password Pusher in my talk/presentation/conference?
+        <%= _('Can I use Password Pusher in my talk/presentation/conference?') %>
       </button>
     </h2>
     <div id="presentation-answer" class="accordion-collapse collapse" aria-labelledby="presentation-question">
       <div class="accordion-body">
-        <p>Absolutely.  If you need any resources such as statistics, graphics or anything else, don't hesitate to contact me: pglombardo at hey.com.</p>
+        <p><%= _('Absolutely.  If you need any resources such as statistics, graphics or anything else, don\'t hesitate to contact me: pglombardo at pwpush.com.') %></p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="new-features-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#new-features-answer" aria-expanded="false" aria-controls="new-features-answer">
-        Could you add a specific feature for my organization?
+        <%= _('Could you add a specific feature for my organization?') %>
       </button>
     </h2>
     <div id="new-features-answer" class="accordion-collapse collapse" aria-labelledby="new-features-question">
       <div class="accordion-body">
-        <p>Very likely.  I love to hear all ideas &amp; feedback. If you have any, please submit them to the <a href="https://github.com/pglombardo/PasswordPusher">Github repository</a> and I will respond as soon as possible.</p>
+        <p><%= _('Very likely.  I love to hear all ideas and feedback. If you have any, please submit them to the ') %>
+        <a href="https://github.com/pglombardo/PasswordPusher"><%= _('Github repository') %></a> <%= _('and I will respond as soon as possible.') %></p>
       </div>
     </div>
   </div>
   <div class="accordion-item">
     <h2 class="accordion-header" id="money-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#money-answer" aria-expanded="false" aria-controls="money-answer">
-        How do you make money?
+        <%= _('How do you make money?') %>
       </button>
     </h2>
     <div id="money-answer" class="accordion-collapse collapse" aria-labelledby="money-question">
       <div class="accordion-body">
-        <p>I don’t. This is just a project that I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I’ve put in or will put in developing the tool is voluntary/donated.</p>
+        <p><%= _('I don’t. This is just a project that I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I’ve put in or will put in developing the tool is voluntary/donated.') %></p>
 
-        <p>I’ve thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc…</p>
+        <p><%= _('I’ve thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc…') %></p>
 
-        <p><strong>2021 Update</strong>:  The <a href="https://twitter.com/pwpush/status/1390407791941201927">traffic has grown</a> to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month.   Longer term I need to find a way to lower costs - maybe an eventual migrate to Digital Ocean which has <a href="https://twitter.com/pwpush/status/1376194351605383172">much better performance</a>…</p>
+        <p><strong><%= _('2021 Update:') %></strong>
+        <%= _('The') %> 
+        <a href="https://twitter.com/pwpush/status/1390407791941201927"><%= _('traffic has grown') %></a>
+        <%= _('to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month.   Longer term I need to find a way to lower costs - maybe an eventual migrate to Digital Ocean which has') %>
+        <a href="https://twitter.com/pwpush/status/1376194351605383172"><%= _('much better performance') %></a>…</p>
       </div>
     </div>
   </div>
