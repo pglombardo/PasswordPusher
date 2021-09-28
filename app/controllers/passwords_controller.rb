@@ -36,10 +36,6 @@ class PasswordsController < ApplicationController
   def new
     @password = Password.new
 
-    unless user_signed_in?
-      expires_in 3.hours, :public => true, 'max-stale' => 0
-    end
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @password }

@@ -17,16 +17,6 @@
         <li class="nav-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
         <li class="nav-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
         <li class="nav-item"><%= link_to _('About'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= _('Language') %>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <% I18n.available_locales.each do |lang| %>
-              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
-            <% end %>
-          </ul>
-        </li>
       </ul>
     </footer>
   </div>

@@ -15,34 +15,44 @@
       </div>
     <% end %>
 
-    <% if Settings.enable_logins %>
       <ul class="nav nav-pills align-items-center">
-        <% if current_user %>
-          <li class="nav-item lead">
-            <%= link_to _('Dashboard'), dashboard_active_path, class: "btn btn-primary" %>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= _('Account') %> 
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <%= link_to _('Edit'), edit_user_registration_path, class: "dropdown-item" %>
-              </li>
-              <li>
-                <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li class="nav-item lead">
-            <%= link_to _('Log In'), new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
-          </li>
-          <li class="nav-item lead">
-            <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
-          </li>
+        <% if Settings.enable_logins %>
+          <% if current_user %>
+            <li class="nav-item lead">
+              <%= link_to _('Dashboard'), dashboard_active_path, class: "btn btn-primary" %>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= _('Account') %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                  <%= link_to _('Edit'), edit_user_registration_path, class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item lead">
+              <%= link_to _('Log In'), new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
+            </li>
+            <li class="nav-item lead">
+              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
+            </li>
+          <% end %>
         <% end %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= _('Language') %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <% I18n.available_locales.each do |lang| %>
+              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+            <% end %>
+          </ul>
+        </li>
       </ul>
-    <% end %>
   </header>
 </div>
