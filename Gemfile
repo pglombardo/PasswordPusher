@@ -88,6 +88,7 @@ gem 'devise'
 gem 'config'
 gem 'route_translator'
 gem 'translation'
+gem 'mail_form'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
