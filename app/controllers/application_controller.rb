@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
+  around_action :set_locale_from_url
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError.new(_('Not Found'))
   end
 
   # unless Rails.application.config.consider_all_requests_local

@@ -6,11 +6,13 @@ class DashboardControllerTest < ActionDispatch::IntegrationTest
   test 'should redirect anonymous to user sign in' do
     get dashboard_active_path
     assert_response :redirect
-    assert response.body.include?('href="http://www.example.com/users/sign_in')
+    follow_redirect!
+    assert response.body.include?('You need to sign in or sign up before continuing.')
 
     get dashboard_expired_path
     assert_response :redirect
-    assert response.body.include?('href="http://www.example.com/users/sign_in')
+    follow_redirect!
+    assert response.body.include?('You need to sign in or sign up before continuing.')
   end
 
   test 'logged in gets the goods' do

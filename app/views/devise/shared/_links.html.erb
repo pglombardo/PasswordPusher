@@ -1,25 +1,49 @@
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
-<% end %>
 
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_user_password_path %><br />
-<% end %>
-
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %><br />
+<footer class="footer mt-auto py-3">
+<ul class="list-group">
+  <%- if controller_name != 'sessions' %>
+    <li class="list-group-item list-group-item-action">
+      <%= link_to I18n.t('devise.general.login'), new_session_path(resource_name), class: 'nav-link px-2 text-muted' %>
+    </li>
   <% end %>
-<% end %>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <li class="list-group-item list-group-item-action">
+      <%= link_to I18n.t('devise.general.sign_up'), new_registration_path(resource_name), class: 'nav-link px-2 text-muted' %>
+    </li>
+  <% end %>
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <li class="list-group-item list-group-item-action">
+      <%= link_to I18n.t('devise.general.forgot_your'), new_user_password_path, class: 'nav-link px-2 text-muted' %>
+    </li>
+  <% end %>
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <li class="list-group-item list-group-item-action">
+      <%= link_to I18n.t('devise.general.didnt_confirmation'), new_confirmation_path(resource_name), class: 'nav-link px-2 text-muted' %>
+    </li>
+  <% end %>
+  <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+    <li class="list-group-item list-group-item-action">
+      <%= link_to I18n.t('devise.general.didnt_unlock'), new_unlock_path(resource_name), class: 'nav-link px-2 text-muted' %>
+    </li>
+  <% end %>
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <li class="list-group-item list-group-item-action">
+        <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post, class: 'nav-link px-2 text-muted' %>
+      </li>
+    <% end %>
+  <% end %>
+  <li class="list-group-item dropdown list-group-item-action">
+    <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <%= _('Language') %>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+      <li class='dropdown-item'><%= link_to "Español", url_for(locale: 'es'), hreflang: 'es', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+      <li class='dropdown-item'><%= link_to "English", url_for(locale: 'en'), hreflang: 'en', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+      <li class='dropdown-item'><%= link_to "Italiano", url_for(locale: 'it'), hreflang: 'it', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+      <li class='dropdown-item'><%= link_to "Nederlands", url_for(locale: 'nl'), hreflang: 'nl', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+    </ul>
+  </li>
+</ul>
+</footer>

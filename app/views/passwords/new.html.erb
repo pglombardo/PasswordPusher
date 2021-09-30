@@ -1,4 +1,4 @@
-<% title('Securely Send a Password') %>
+<% title(_('Securely Send a Password')) %>
 
 <div class='container'>
 <%= form_for @password do |f| %>
@@ -8,14 +8,14 @@
             <div class='mb5'>
                 <%= f.text_area(:payload, { class: "form-control",
                                             rows: 8,
-                                            placeholder: PAYLOAD_INITIAL_TEXT,
+                                            placeholder: _('Enter the Password (or text) to be Shared'),
                                             autocomplete: "off",
                                             autofocus: true,
                                             required: true }) %>
                 <div class='mb3 position-relative'>
                     <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
                         <span id="current">0</span>
-                        <span id="maximum">/ 1048576 Characters</span>
+                        <span id="maximum">/ 1048576 <%= _('Characters') %></span>
                     </div>
                 </div>
             </div>
@@ -28,13 +28,13 @@
                     <div class='col'>
                         <%= f.text_area(:note, { class: "form-control",
                                                  rows: 2,
-                                                 placeholder: NOTE_INITIAL_TEXT,
+                                                 placeholder: _('(Optional) Reference Note. Encrypted & Visible Only to You. E.g. Employee, Record or Ticket ID etc..'),
                                                  autocomplete: "off" }) %>
                     </div>
                 </div>
             <% end %>
             <div class='row'>
-                <p> Expire secret link and delete after:</p>
+                <p><%= _('Expire secret link and delete after:') %></p>
                 <div class='col-8'>
                     <%= range_field_tag("password_expire_after_days", EXPIRE_AFTER_DAYS_DEFAULT,
                                         { :name => "password[expire_after_days]",
@@ -45,7 +45,7 @@
                                           :step => "1" })%>
                 </div>
                 <div class='col-4'>
-                    <label for='password_expire_after_days', id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%> Days</span>
+                    <label for='password_expire_after_days', id='daysrange'><%=EXPIRE_AFTER_DAYS_DEFAULT%></label>
                 </div>
             </div>
 
@@ -61,13 +61,13 @@
                 </div>
 
                 <div class='col-4'>
-                    <label for='password_expire_after_views', id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> Views</span>
+                    <label for='password_expire_after_views', id='viewsrange'><%=EXPIRE_AFTER_VIEWS_DEFAULT%> <%= _('Views') %></label>
                 </div>
             </div>
             <div class='row'>
                 <div class='col'>
                     <div class='mb3'>
-                        <p class='text-center fw-lighter'>(whichever comes first)</p>
+                        <p class='text-center fw-lighter'><%= _('(whichever comes first)') %></p>
                     </div>
                 </div>
             </div>
@@ -81,8 +81,8 @@
                                             { class: 'form-check-input flex-shrink-0',
                                             x_default: RETRIEVAL_STEP_DEFAULT } %>
                             <span>
-                                Use a 1-click retrieval step
-                                <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
+                                <%= _('Use a 1-click retrieval step') %>
+                                <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
                             </span>
                             </label>
                         <% end %>
@@ -92,8 +92,8 @@
                                             { class: 'form-check-input flex-shrink-0',
                                                 x_default: DELETABLE_PASSWORDS_DEFAULT }  %>
                             <span>
-                                Allow immediate deletion
-                                <small class="d-block text-muted">Allow users to delete passwords once retrieved.</small>
+                                <%= _('Allow immediate deletion') %>
+                                <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
                             </span>
                             </label>
                         <% end %>
@@ -104,27 +104,21 @@
         <div class='col-12 col-sm-4 p-3 mt-4'>
             <div class="mb-3 text-end">
                 <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown">
-                    <button class="btn btn-primary active w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> Generate Password</button>
+                    <button class="btn btn-primary active w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
                     <button class="btn btn-primary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
                         <em class="bi bi-gear"></em>
                     </button>
                 </div>
             </div>
-            <p class='fst-italic'>
-                Tip: Only enter the password into the box.  Other identifying information can compromise security.
-            </p>
-
-            <p class='fst-italic fw-light'>
-                All passwords are encrypted prior to storage and are available to only those with the secret link.
-                Once expired, encrypted passwords are unequivocally deleted from the database.
-            </p>
+            <p class='fst-italic'><%= _('Tip: Only enter the password into the box.  Other identifying information can compromise security.') %></p>
+            <p class='fst-italic fw-light'><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link.  Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
         </div>
     </div>
     <div class='row'>
         <div class='col'>
             <p class='mb-3'>
                 <div id='cookie-save'>
-                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+                    <a href='#' id='save-defaults'><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
                 </div>
             </p>
         </div>
@@ -132,7 +126,7 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "Push it!", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => "Pushing...")%>
+                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => _('Pushing...'))%>
             </p>
         </div>
     </div>

@@ -11,21 +11,13 @@ function restoreFormValuesFromCookie() {
   let days_expiration = Cookies.get('pwpush_days') || default_days_expiration;
 
   $('#password_expire_after_days').val(days_expiration);
-  if (days_expiration > 1) {
-    $('#daysrange').text(days_expiration + ' Days');
-  } else {
-    $('#daysrange').text(days_expiration + ' Day');
-  }
+  updateDaysSlider(days_expiration);
 
   let default_views_expiration = $('#password_expire_after_views').attr('x_default');
   let views_expiration = Cookies.get('pwpush_views') || default_views_expiration;
 
   $('#password_expire_after_views').val(views_expiration);
-  if (views_expiration > 1) {
-    $('#viewsrange').text(views_expiration + ' Views');
-  } else {
-    $('#viewsrange').text(views_expiration + ' View');
-  }
+  updateViewsSlider(views_expiration);
 
   let default_deleteable_by_viewer = $('#password_deletable_by_viewer').attr('x_default');
   let deletable_by_viewer = Cookies.get('pwpush_dbv');
@@ -56,22 +48,30 @@ function saveFormValuesToCookie() {
   return true;
 }
 
+function updateDaysSlider(days) {
+  if (days > 1) {
+    $('#daysrange').text(days + $('#lang_days').text());
+  } else {
+    $('#daysrange').text(days + $('#lang_day').text());
+  }
+}
+
+function updateViewsSlider(views) {
+  if (views > 1) {
+    $('#viewsrange').text(views + $('#lang_views').text());
+  } else {
+    $('#viewsrange').text(views + $('#lang_view').text());
+  }
+}
+
 function setupSliderEventListeners()
 {
   $('#password_expire_after_days').on('change input', function() {
-    if (this.value > 1) {
-      $('#daysrange').text(this.value + ' Days');
-    } else {
-      $('#daysrange').text(this.value + ' Day');
-    }
+    updateDaysSlider(this.value);
   });
 
   $('#password_expire_after_views').on('change input', function() {
-    if (this.value > 1) {
-      $('#viewsrange').text(this.value + ' Views');
-    } else {
-      $('#viewsrange').text(this.value + ' View');
-    }
+    updateViewsSlider(this.value);
   });
 }
 

@@ -1,15 +1,29 @@
-<% title("Audit Log for #{@password.url_token}") %>
+<% title(_('Audit Log for %s') % @password.url_token) %>
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h4 class=''>Audit Log for <code><%= @password.url_token %></code></h4>
-    <p class='text-muted mb-5'>Pushed on <%= @password.created_at.to_s(:long) %> UTC</p>
+    <h4 class=''><%= _('Audit Log for') %> <code><%= @password.url_token %></code></h4>
+    <p class='text-muted mb-5'>
+        <%= _('Pushed on %s') % @password.created_at.strftime(I18n.t('time.formats.long')) %>
+    </p>
 
 
-    <p>Secret URL for this push:</p>
+    <p><%= _('Secret URL for this push') %>:</p>
     <div class='input-group mb-5 w-75'>
         <input class='form-control', id='secret_url' value='<%= secret_url(@password) %>' spellcheck='false' readonly='true'>
-        <button id='copy-to-clipboard-button' class='input-group-text btn-secondary'
-                data-clipboard-target='#secret_url' alt="Copy to Clipboard">
+        <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
+            <li><hr class="dropdown-divider"></li>
+            <% I18n.available_locales.each do |lang| %>
+                <li class='dropdown-item' style='display: none;'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], audit_password_path(@password, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+            <% end %>
+        </ul>
+        <button id='copy-to-clipboard-button' class='input-group-text btn-success'
+                data-clipboard-target='#secret_url' alt=<%= _('Copy to Clipboard') %>>
             <em class="bi bi-clipboard-check"></em>
         </button>
     </div>
@@ -17,11 +31,11 @@
     <div class='row w-100'>
         <div class='col mb-3'>
             <p class='h4 border-bottom py-3'>
-                Reference Note
-            <span class='h6 text-muted float-end'>Visible Only To You</span>
+                <%= _('Reference Note') %>
+            <span class='h6 text-muted float-end'><%= _('Visible Only To You') %></span>
             </p>
             <% if @password.note.empty? %>
-                <pre><code>None</code></pre>
+                <pre><code><%= _('None') %></code></pre>
             <% else %>
                 <pre><code><%= @password.decrypt(@password.note) %></code></pre>
             <% end %>
@@ -30,64 +44,85 @@
 
     <div class='row w-100'>
         <div class='col'>
-            <h4 class="border-bottom py-3">Settings</h4>
+            <h4 class="border-bottom py-3"><%= _('Settings') %></h4>
             <div class="list-group mx-0 my-3">
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Expire after <strong><%= pluralize(@password.expire_after_views, 'View') %></strong>
-                    <small class="d-block text-muted">Password expires after this number of views.</small>
+                    <%= _('Expire after') %>:
+                    <strong>
+                        <%= sprintf("%s %s", @password.expire_after_views, n_('View', 'Views', @password.expire_after_views)) %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('Password expires after this number of views.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Expire after <strong><%= pluralize(@password.expire_after_days, 'Day') %> </strong>
-                    <small class="d-block text-muted">Password expires after this number of days.</small>
+                    <%= _('Expire after') %>:
+                    <strong>
+                        <%= sprintf("%s %s", @password.expire_after_days, n_('Day', 'Days', @password.expire_after_days)) %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('Password expires after this number of days.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Deletable by Viewers: <strong><%= @password.deletable_by_viewer.to_s.capitalize %></strong>
-                    <small class="d-block text-muted">This allows end users to delete passwords once retrieved.</small>
+                    <%= _('Deletable by Viewers') %>:
+                    <strong>
+                        <% if @password.deletable_by_viewer %>
+                            <%= _('True') %>
+                        <% else %>
+                            <%= _('False') %>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('This allows end users to delete passwords once retrieved.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    1-click Retrieval Step: <strong><%= @password.retrieval_step.to_s.capitalize %></strong>
-                    <small class="d-block text-muted">Helps to avoid chat systems and URL scanners from eating up views.</small>
+                    <%= _('1-click Retrieval Step') %>:
+                    <strong>
+                        <% if @password.retrieval_step %>
+                            <%= _('True') %>
+                        <% else %>
+                            <%= _('False') %>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
                 </span>
                 </label>
             </div>
         </div>
         <div class='col'>
-            <h4 class="border-bottom py-3">Current Status</h4>
+            <h4 class="border-bottom py-3"><%= _('Current Status') %></h4>
             <div class="list-group mx-0 my-3">
                 <label class="list-group-item d-flex gap-2">
                 <span>
+                    <%= _('State:') %>
                     <% if @password.expired %>
-                        State: <strong class='text-danger'>Expired</strong>
-                        <small class="d-block text-muted">The push content has been deleted and the secret URL expired.</small>
+                        <strong class='text-danger'><%= _('Expired') %></strong>
+                        <small class="d-block text-muted"><%= _('The push content has been deleted and the secret URL expired.') %></small>
                     <% else %>
-                        State: <strong class='text-success'>Active</strong>
-                        <small class="d-block text-muted">Active and still available for viewing.</small>
+                        <strong class='text-success'><%= _('Active') %></strong>
+                        <small class="d-block text-muted"><%= _('Active and still available for viewing.') %></small>
                     <% end %>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Successful Views: <strong class='text-success'><%= @password.successful_views.count%></strong>
-                    <small class="d-block text-muted">The number of times this password has been viewed before expiration.</small>
+                    <%= _('Successful Views') %>: <strong class='text-success'><%= @password.successful_views.count%></strong>
+                    <small class="d-block text-muted"><%= _('The number of times this password has been viewed before expiration.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Failed View Attempts: <strong class='text-warning'><%= @password.failed_views.count%></strong>
-                    <small class="d-block text-muted">The number of times this password has been viewed after expiration.</small>
+                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @password.failed_views.count%></strong>
+                    <small class="d-block text-muted"><%= _('The number of times this password has been viewed after expiration.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    Days Remaining: <strong><%= @password.days_remaining%></strong>
-                    <small class="d-block text-muted">Number of days until this push expires if the maximum view count isn't reached.</small>
+                    <%= _('Days Remaining') %>: <strong><%= @password.days_remaining%></strong>
+                    <small class="d-block text-muted"><%= _('Number of days until this push expires if the maximum view count isn\'t reached.') %></small>
                 </span>
                 </label>
             </div>
@@ -99,7 +134,7 @@
             <% if @password.expired == false %>
                 <div class='text-center'>
                 <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <em class="bi bi-trash"></em> Expire Now
+                <em class="bi bi-trash"></em> <%= _('Expire Now') %>
                 </button>
                 </div>
 
@@ -107,17 +142,17 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete This Password?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete This Password?') %></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>This will expire this secret link and <strong>remove the password from the database forever</strong>.</p>
-                        <p>The audit log (including future attempted views) will still be maintained going forward.</p>
-                        <p>Are you sure?</p>
+                        <p><%= _('This will expire this secret link and') %> <strong><%= _('remove the password from the database forever') %></strong>.</p>
+                        <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
+                        <p><%= _('Are you sure?') %></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: 'Processing...' %>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+                        <%= link_to 'Delete', @password, method: :delete, id: @password.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: _('Processing...') %>
                     </div>
                     </div>
                 </div>
@@ -129,48 +164,53 @@
     <div class='row w-100 mt-3'>
         <div class='col'>
             <div class="list-group w-100">
-                <div class="list-group-item list-group-item-action list-group-item-secondary">Start of Audit Log</div>
-                <div class="list-group-item list-group-item-action list-group-item-primary">Push created on <%= @password.created_at.to_s(:long_ordinal) %> UTC</div>
+                <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
+                <div class="list-group-item list-group-item-action list-group-item-primary"><%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %></div>
 
                 <% if @password.views.empty? && !@password.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
-                        As the push receives views, a log of each with identifying information will show up here.
+                        <%= _('As the push receives views, a log of each with identifying information will show up here.') %>
                     </div>
-
                 <% end %>
 
                 <% for view in @password.views %>
                     <% if view.kind == 1 %>
                         <div class="list-group-item list-group-item-action list-group-item-danger">
                             <% if view.user_id %>
-                                Password manually expired by user <strong><%= view.user.email %></strong> at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
-                            <% else %>
-                                Password manually expired by an anonymous user at IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
+                                <%= _('Password manually expired by user') %>
+                                <strong><%= view.user.email %></strong>
+                                <%= _('at IP address') %> <strong><%= view.ip %></strong>
                             <% end %>
                             <br/>
-                            User Agent: <code><%= view.user_agent %></code>
+                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
-                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
                         </div>
                     <% elsif view.successful %>
                         <div class="list-group-item list-group-item-action list-group-item-success">
-                            Successful view from IP address <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %> UTC
+                            <%= _('Successful view from IP address') %>
+                            <strong><%= view.ip %></strong>
+                            <%= _('on') %>
+                            <%= view.created_at.strftime(I18n.t('time.formats.default')) %>
                             <br/>
-                            User Agent: <code><%= view.user_agent %></code>
+                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
-                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
                         </div>
                     <% else %>
                         <div class="list-group-item list-group-item-action list-group-item-warning">
-                            Failed view attempt (already expired) by <strong><%= view.ip %></strong> on <%= view.created_at.to_s(:long_ordinal) %>
+                            <%= _('Failed view attempt (already expired) by') %>
+                            <strong><%= view.ip %></strong>
+                            <%= _('on') %>
+                            <%= view.created_at.strftime(I18n.t('time.formats.default')) %>
                             <br/>
-                            User Agent: <code><%= view.user_agent %></code>
+                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
-                            Referrer: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
+                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
                         </div>
                     <% end %>
                 <% end %>
-                <div class="list-group-item list-group-item-action list-group-item-secondary">End of Audit Log</div>
+                <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('End of Audit Log') %></div>
             </div>
         </div>
     </div>

@@ -1,26 +1,27 @@
-<% title('Sign Up') %>
-
-<h2 class='my-3'>Sign Up</h1>
+<% title(I18n.t('devise.general.sign_up')) %>
+<h2 class='my-3'><%= I18n.t('devise.general.sign_up') %></h1>
   
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <div class="form-floating">
     <input class="form-control" autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email" required>
-    <%= f.label :email, for: :user_email %>
+    <%= f.label I18n.t('devise.registrations.email'), for: :user_email %>
   </div>
 
   <div class="form-floating">
     <input class="form-control" autocomplete="new-password" type="password" name="user[password]" id="user_password" required>
-    <%= f.label :password, for: :user_password %>
+    <%= f.label I18n.t('devise.registrations.password'), for: :user_password %>
   </div>
 
   <div class="form-floating">
     <input class="form-control" autocomplete="new-password" type="password" name="user[password_confirmation]" id="user_password_confirmation" required>
-    <%= f.label :password_confirmation, for: :user_password_confirmation %>
+    <%= f.label I18n.t('devise.registrations.password_confirmation'), for: :user_password_confirmation %>
   </div>
 
   <% if @minimum_password_length %>
-    <p class="text-muted">Passwords must have a minimum of <%= @minimum_password_length %> characters.</p>
+    <p class="text-muted">
+      * <%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
+    </p>
   <% end %>
 
-  <button class="w-100 btn btn-lg btn-primary mt-3" id="create_account_button" type="submit">Create Account</button>
+  <button class="w-100 btn btn-lg btn-primary mt-3" id="create_account_button" type="submit"><%= I18n.t('devise.registrations.create_account') %></button>
 <% end %>

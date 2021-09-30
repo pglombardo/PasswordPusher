@@ -36,10 +36,6 @@ class PasswordsController < ApplicationController
   def new
     @password = Password.new
 
-    unless user_signed_in?
-      expires_in 3.hours, :public => true, 'max-stale' => 0
-    end
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @password }
@@ -116,7 +112,7 @@ class PasswordsController < ApplicationController
     @password = Password.find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: "That push doesn't belong to you."
+      redirect_to :root, notice: _("That push doesn't belong to you.")
       return
     end
   end
@@ -130,12 +126,12 @@ class PasswordsController < ApplicationController
       if @password.user_id == current_user.id
         is_owner = true
       else
-        redirect_to :root, notice: 'That push does not belong to you.'
+        redirect_to :root, notice: _('That push does not belong to you.')
         return
       end
     elsif @password.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
-      redirect_to :root, notice: 'That push is not deletable by viewers.'
+      redirect_to :root, notice: _('That push is not deletable by viewers.')
       return
     end
 
@@ -151,10 +147,10 @@ class PasswordsController < ApplicationController
         format.html {
           if is_owner
             redirect_to audit_password_path(@password),
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           else
             redirect_to @password,
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           end
         }
         format.json { render json: @password, status: :ok }

@@ -46,4 +46,10 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+  # config.action_view.raise_on_missing_translations = true
+  #
+  # DEPRECATION WARNING: action_view.raise_on_missing_translations is deprecated and will be
+  # removed in Rails 6.2. Set i18n.raise_on_missing_translations instead. Note that this new
+  # setting also affects how missing translations are handled in controllers.
+  config.i18n.raise_on_missing_translations = true
 end

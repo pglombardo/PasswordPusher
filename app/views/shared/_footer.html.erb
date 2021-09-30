@@ -2,21 +2,39 @@
 <footer class="footer mt-auto py-3">
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <p class="col-md-4 mb-0 text-muted">&copy; 2021 Peter Giacomo Lombardo</p>
+      <p class="col-md-5 mb-0 text-muted">&copy; 2021 <%= _('Peter') %> Giacomo Lombardo</p>
 
-      <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <%= link_to root_path, class: "col-md-2 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" do %>
         <picture>
           <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
           <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 40px;' />
+          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="Password Pusher Logo" style='height: 40px;' />
         </picture>
-      </a>
+      <% end %>
 
-      <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="/pages/tools" class="nav-link px-2 text-muted">Tools</a></li>
-        <li class="nav-item"><a href="/pages/faq" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="/pages/about" class="nav-link px-2 text-muted">About</a></li>
+      <ul class="nav col-md-5 justify-content-end">
+        <li class="nav-item"><%= link_to _('Front Page'), root_path, class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= _('Resources') %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
+            <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
+            <li class="dropdown-item"><%= link_to _('Source Code'), 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
+            <li class="dropdown-item"><%= link_to _('Docker Containers'), 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= _('About') %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
+            <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
+            <li class="dropdown-item"><%= link_to _('Send Feeback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
+          </ul>
+        </li>
       </ul>
     </footer>
   </div>

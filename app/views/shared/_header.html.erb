@@ -1,52 +1,58 @@
 <div class="container">
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none' do %>
       <div class='me-2'>
       <picture>
         <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
         <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-        <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>", alt="Password Pusher Logo", style='height: 50px;' />
+        <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt=<%= _('Password Pusher Logo') %> style='height: 50px;' />
       </picture>
       </div>
       <div>
-        <span class="fs-4 display-1">Password Pusher</span>
+        <span class="fs-4 display-1"><%= _('Password Pusher') %></span>
         <br/>
-        <span class="fs-6 text-muted">Go Ahead.  Email Another Password.</span>
+        <span class="fs-6 text-muted"><%= _('Go Ahead.  Email Another Password.') %></span>
       </div>
-    </a>
-
-    <% if Settings.enable_logins %>
-      <ul class="nav nav-pills align-items-center">
-        <% if current_user %>
-          <li class="nav-item lead">
-            <%= link_to "Dashboard", dashboard_active_path, class: "btn btn-primary" %>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Account 
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
-                    Edit
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
-                    Log Out
-                <% end %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li class="nav-item lead">
-            <%= link_to "Log in", new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
-          </li>
-          <li class="nav-item lead">
-            <%= link_to "Sign up", new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
-          </li>
-        <% end %>
-      </ul>
     <% end %>
+
+      <ul class="nav nav-pills align-items-center">
+        <% if Settings.enable_logins %>
+          <% if current_user %>
+            <li class="nav-item lead">
+              <%= link_to _('Dashboard'), dashboard_active_path, class: "btn btn-primary" %>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= _('Account') %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                  <%= link_to _('Edit'), edit_user_registration_path, class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to _('Log In'), new_user_session_path, class: "nav-link lead" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
+            </li>
+          <% end %>
+        <% end %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= _('Language') %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <% I18n.available_locales.each do |lang| %>
+              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link text-muted" %></li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
   </header>
 </div>

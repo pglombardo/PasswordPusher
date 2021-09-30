@@ -1,26 +1,27 @@
-<% plain_title("Your Secret Link Has Expired") %>
+<% plain_title(_('Your Secret Link Has Expired')) %>
 
 <div class="container h-100">
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <p class="display-1 text-center p-3 border-bottom">
-        We apologize but this secret link has expired.
+        <%= _('We apologize but this secret link has expired.') %>
       </p>
       <p class='text-center'>
-          This secret link
+          <%= _('This secret link') %>
 
           <em>
           <% if @password.deleted %>
-            was manually expired by one of its viewers
+            <%= _('was manually expired by one of its viewers') %>
           <% elsif @password.views_remaining == 0 %>
-            has hit its maximum view count (<%=@password.expire_after_views%>)
+            <%= _("has hit its maximum view count (%d)") % @password.expire_after_views %>
           <% elsif @password.days_remaining == 0 %>
-            has hit its maximum age (<%=@password.expire_after_days%> days)
+            <%= n_("has hit its maximum age (%d day)", "has hit its maximum age (%d days)",
+                   @password.expire_after_days) % @password.expire_after_days %>
           <% end %>
           </em>
 
-          and the password has been deleted from the database.
+          <%= _('and the password has been deleted from the database.') %>
         </p>
-        <p class='text-center'>If needed, please contact the person or organization who gave you this secret URL.</p>
+        <p class='text-center'><%= _('If needed, please contact the person or organization who gave you this secret URL.') %></p>
       </p>
     </div>
 </div>

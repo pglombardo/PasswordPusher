@@ -4,7 +4,7 @@ export default function setupClipboardButton(id) {
     var clipboard_button = new ClipboardJS(id);
     clipboard_button.on('success', function(e) {
       var copyIcon = $(id).html();
-      $(id).text('Copied!');
+      $(id).text($('#lang_copied').text());
       setTimeout(function() {
         $(id).html(copyIcon);
       }, 1000);
