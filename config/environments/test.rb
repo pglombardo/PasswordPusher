@@ -36,8 +36,6 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_view.raise_on_missing_translations = true
-
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
@@ -48,4 +46,10 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+  # config.action_view.raise_on_missing_translations = true
+  #
+  # DEPRECATION WARNING: action_view.raise_on_missing_translations is deprecated and will be
+  # removed in Rails 6.2. Set i18n.raise_on_missing_translations instead. Note that this new
+  # setting also affects how missing translations are handled in controllers.
+  config.i18n.raise_on_missing_translations = true
 end
