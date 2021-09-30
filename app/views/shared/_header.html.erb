@@ -35,11 +35,11 @@
               </ul>
             </li>
           <% else %>
-            <li class="nav-item lead">
-              <%= link_to _('Log In'), new_user_session_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_session_path)}" %>
+            <li class="nav-item">
+              <%= link_to _('Log In'), new_user_session_path, class: "nav-link lead" %>
             </li>
-            <li class="nav-item lead">
-              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link #{'active fw-bold' if current_page?(new_user_registration_path)}" %>
+            <li class="nav-item">
+              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
             </li>
           <% end %>
         <% end %>
@@ -49,7 +49,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% I18n.available_locales.each do |lang| %>
-              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link text-muted" %></li>
             <% end %>
           </ul>
         </li>
