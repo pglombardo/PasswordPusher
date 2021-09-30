@@ -56,11 +56,11 @@ function updateDaysSlider(days) {
   }
 }
 
-function updateViewsSlider(days) {
-  if (days > 1) {
-    $('#viewsrange').text(days + $('#lang_views').text());
+function updateViewsSlider(views) {
+  if (views > 1) {
+    $('#viewsrange').text(views + $('#lang_views').text());
   } else {
-    $('#viewsrange').text(days + $('#lang_view').text());
+    $('#viewsrange').text(views + $('#lang_view').text());
   }
 }
 
