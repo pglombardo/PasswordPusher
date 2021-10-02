@@ -17,7 +17,7 @@ Password Pusher is an opensource application to communicate passwords over the w
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
-[Follow Password Pusher on Twitter](https://twitter.com/pwpush) for the latest news, updates and changes.
+Follow Password Pusher [on Twitter](https://twitter.com/pwpush) or [on Facebook](https://www.facebook.com/pwpush) for the latest news, updates and changes.
 
 </div>
 
