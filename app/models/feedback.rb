@@ -10,7 +10,7 @@ class Feedback < MailForm::Base
     {
       subject: _('Password Pusher Feedback'),
       to: 'feedback@pwpush.com',
-      from: %("#{name}" <#{email}>)
+      from: 'Password Pusher Feedback <pglombardo@pwpush.com>'
     }
   end
 end
