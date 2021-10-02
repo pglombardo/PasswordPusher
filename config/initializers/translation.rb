@@ -7,7 +7,7 @@ I18n.default_locale = :en
 TranslationIO.configure do |config|
   config.api_key        = 'cc6a66a15e02433aa9d0afeb39835b8c'
   config.source_locale  = 'en'
-  config.target_locales = %i[es it nl]
+  config.target_locales = %i[es it nl sr]
 
   # Uncomment this if you don't want to use gettext
   # config.disable_gettext = true
