@@ -5,7 +5,7 @@ class PasswordsController < ApplicationController
   # GET /passwords/1.json
   def show
     redirect_to :root && return unless params.key?(:id)
-    @password = Password.find_by_url_token!(params[:id])
+    @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     # This password may have expired since the last view.  Validate the password
     # expiration before doing anything.
@@ -109,7 +109,7 @@ class PasswordsController < ApplicationController
   def audit
     authenticate_user!
 
-    @password = Password.find_by_url_token!(params[:id])
+    @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
       redirect_to :root, notice: _("That push doesn't belong to you.")
