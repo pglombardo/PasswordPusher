@@ -3,7 +3,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
     <h4 class=''><%= _('Audit Log for') %> <code><%= @password.url_token %></code></h4>
     <p class='text-muted mb-5'>
-        <%= _('Pushed on %s') % @password.created_at.strftime(I18n.t('time.formats.long')) %>
+        <%= _('Pushed on %s') % I18n.l(@password.created_at, format: :long) %>
     </p>
 
 

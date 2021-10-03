@@ -2,7 +2,7 @@
 
 <%= render partial: 'shared/dashboard_header' %>
 <main>
-  <% if @active_pushes.empty? %>
+  <% if @active_pushes.length.zero? %>
     <p class='text-center mt-3'>
       <%= _('You currently have no active pushes.') %>
     </p>
@@ -26,7 +26,7 @@
       <% for push in @active_pushes do %>
         <tr>
           <td><%= push.url_token %></td>
-          <td><%= push.created_at.strftime("%B %d, %Y %H:%M %Z") %></td>
+          <td><%= I18n.l push.created_at, format: :long %></td>
           <td>
             <% if push.note.empty? %>
               <%= _('None') %>
@@ -34,7 +34,7 @@
               <%= push.decrypt(push.note).truncate(100) %>
             <% end %>
           </td>
-          <td><%= "#{push.views.count}/#{push.expire_after_views}"%></td>
+          <td><%= "#{push.views.size}/#{push.expire_after_views}"%></td>
           <td><%= "#{push.days_old}/#{push.expire_after_days}"%></td>
           <td>
             <div class="btn-group" role="group" aria-label="<%= _('Push Controls') %>">

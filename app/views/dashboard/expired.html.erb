@@ -2,7 +2,7 @@
 
 <%= render partial: 'shared/dashboard_header' %>
 <main>
-  <% if @expired_pushes.empty? %>
+  <% if @expired_pushes.length.zero? %>
     <p class='text-center'>
       <%= _('You currently have no expired pushes.') %>
     </p>
@@ -25,7 +25,7 @@
       <% for push in @expired_pushes do %>
         <tr>
           <td><%= push.url_token %></td>
-          <td><%= push.expired_on.strftime(I18n.t('time.formats.default')) %></td>
+          <td><%= I18n.l push.expired_on, format: :long %></td>
           <td>
             <% if push.note.empty? %>
               <%= _('None') %>
