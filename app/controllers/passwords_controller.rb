@@ -135,7 +135,7 @@ class PasswordsController < ApplicationController
       return
     end
 
-    log_deletion_view(@password)
+    log_view(@password, manual_expiration: true)
 
     @password.expired = true
     @password.payload = nil
@@ -168,43 +168,23 @@ class PasswordsController < ApplicationController
   #
   # Record that a view is being made for a password
   #
-  def log_view(password)
-    view = View.new
+  def log_view(password, manual_expiration: false)
+    record = {}
 
-    view.kind = 0 # standard user view
-    view.user_id = current_user.id if user_signed_in?
+    # 0 - standard user view
+    # 1 - manual expiration
+    record[:kind] = manual_expiration ? 1 : 0
 
-    view.password_id = password.id
-    view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
-
-    # Limit retrieved values to 256 characters
-    view.user_agent  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
-    view.referrer    = request.env['HTTP_REFERER'].to_s[0, 255]
-
-    view.successful  = password.expired ? false : true
-    view.save
-
-    password.views << view
-    password
-  end
-
-  def log_deletion_view(password)
-    view = View.new
-
-    view.kind = 1 # deletion
-    view.user_id = current_user.id if user_signed_in?
-
-    view.password_id = password.id
-    view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
+    record[:user_id] = current_user.id if user_signed_in?
+    record[:ip] = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
 
     # Limit retrieved values to 256 characters
-    view.user_agent  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
-    view.referrer    = request.env['HTTP_REFERER'].to_s[0, 255]
+    record[:user_agent]  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
+    record[:referrer]    = request.env['HTTP_REFERER'].to_s[0, 255]
 
-    view.successful  = password.expired ? false : true
-    view.save
+    record[:successful]  = password.expired ? false : true
 
-    password.views << view
+    password.views.create(record)
     password
   end
 
