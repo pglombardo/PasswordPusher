@@ -39,16 +39,19 @@ task :delete_old_expired_and_anonymous, [:limit] => :environment do |_, args|
     exit
   end
 
+  limit = args[:limit].to_i
   counter = 0
 
   Password.includes(:views)
           .where(expired: true)
           .where(user_id: nil)
           .order(:created_at)
+          .limit(limit)
           .find_each do |push|
     counter += 1
     puts "#{counter}: Deleting old, expired and anonymous push #{push.url_token} created on " +
-         "#{push.created_at.to_s(:long)} with #{push.views.size} views."
+         "#{push.created_at.to_s(:long)} with #{push.views.size} views " +
+         "and user_id #{push.user_id}."
     push.destroy
   end
 
