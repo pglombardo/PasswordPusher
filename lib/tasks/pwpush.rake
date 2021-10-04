@@ -31,3 +31,30 @@ task :daily_expiration, [:batch_size] => :environment do |_, args|
   puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
   puts ''
 end
+
+desc 'Delete old, expired and anonymous pushes.'
+task :delete_old_expired_and_anonymous, [:limit] => :environment do |_, args|
+  unless args.key?(:limit)
+    puts 'Please specify the limit size. e.g. rails delete_old_anonymous[100]'
+    exit
+  end
+
+  counter = 0
+
+  Password.includes(:views)
+          .where(expired: true)
+          .where(user_id: nil)
+          .order(:created_at)
+          .find_each do |push|
+    counter += 1
+    puts "#{counter}: Deleting old, expired and anonymous push #{push.url_token} created on " +
+         "#{push.created_at.to_s(:long)} with #{push.views.size} views."
+    push.destroy
+  end
+
+  puts "#{counter} total pushes deleted."
+
+  puts ''
+  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
+  puts ''
+end
