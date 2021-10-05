@@ -1,4 +1,7 @@
 class Feedback < MailForm::Base
+  include MailForm::Delivery
+  append :remote_ip, :user_agent, :referrer
+
   attribute :name,      validate: true
   attribute :email,     validate: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
   attribute :message,   validate: true
