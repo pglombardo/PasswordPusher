@@ -7,22 +7,22 @@
 ---
 de:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: abbrechen
+    passwords: Passwörter
+    new: neu
+    active: aktiv
+    expired: abgelaufen
+    preview: Vorschau
+    audit: prüfen
+    pages: Seiten
+    users: Benutzer
+    sign_in: Anmelden
+    sign_out: Abmelden
+    sign_up: Registrieren
+    password: Passwort
+    edit: bearbeiten
+    confirmation: bestätigen
+    unlock: Entsperren
   date:
     day_names:
     - Sonntag
@@ -82,15 +82,15 @@ de:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Tausend
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          million: Millionen
+          billion: Billionen
+          trillion: Trillionen
+          quadrillion: Quadrillionen
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -133,9 +133,14 @@ de:
       not_saved:
         one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
         other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |
+      Sitzung %{id} ist nicht mehr im Speicher verfügbar.
+
+      Wenn Ihre Anwendung auf einem Multi-Process-Server (wie Unicorn oder Puma) läuft, wird der Prozess, der diese Anforderung betrifft, %{id} nicht im Speicher gehalten. Ändern Sie die Anzahl von Prozessen/Workern auf einen (1) oder benutzen sie für die Entwicklung einen anderen Server.
+    unacceptable_request: Eine unterstützte Version wird im Accept-Header erwartet.
+    connection_refused: |-
+      Hoppla! Konnte keine Verbindung zur Web-Konsolen-Middleware herstellen.
+      Bitte stellen Sie sicher, dass ein Rails-Entwicklung-Server läuft.
   activerecord:
     errors:
       messages:
@@ -198,8 +203,8 @@ de:
     previous_label: "← Vorige"
     next_label: Weiter →
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Seitennummerierung
+    page_aria_label: Seite %{page}
     page_entries_info:
       single_page:
         zero: Kein(e) %{model} gefunden
@@ -215,12 +220,12 @@ de:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} wurde erfolgreich erstellt."
       update:
-        notice:
+        notice: "%{resource_name} wurde erfolgreich aktualisiert."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} wurde erfolgreich gelöscht."
+        alert: "%{resource_name} konnte nicht gelöscht werden."
   devise:
     confirmations:
       confirmed: Ihre E-Mail-Adresse wurde erfolgreich bestätigt.
@@ -229,9 +234,9 @@ de:
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert,
         erhalten Sie in wenigen Minuten eine E-Mail, mit der Sie Ihre Registrierung
         bestätigen können.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Anleitung zur Bestätigung Ihres Kontos erneut senden
+      resend_header: Anleitung zur Bestätigung Ihres Kontos erneut senden
+      resend_button: Erneut senden
     failure:
       already_authenticated: Sie sind bereits angemeldet.
       inactive: Ihr Konto ist noch nicht aktiv.
@@ -268,14 +273,15 @@ de:
         Passwort zurücksetzen können.
       updated: Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.
       updated_not_active: Ihr Passwort wurde erfolgreich geändert.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Passwort zurücksetzen
+      reset_button: Konto aktualisieren
+      forgot_title: Passwort vergessen
+      forgot_header: Passwort vergessen
+      forgot_button: Sende Anleitung für das Zurücksetzen des Passworts
     registrations:
       destroyed: Ihr Konto wurde gelöscht. Wir hoffen, dass wir Sie bald wiedersehen.
-      signed_up: Sie haben sich erfolgreich registriert.
+      signed_up: Willkommen. Sie haben sich erfolgreich registriert. Bitte prüfen
+        Sie Ihre E-Mails und klicken Sie auf den Aktivierungslink.
       signed_up_but_inactive: Sie haben sich erfolgreich registriert. Wir konnten
         Sie jedoch nicht anmelden, weil Ihr Konto noch nicht aktiviert ist.
       signed_up_but_locked: Sie haben sich erfolgreich registriert. Wir konnten Sie
@@ -288,22 +294,24 @@ de:
         mit der Sie die Änderung Ihrer E-Mail-Adresse abschließen können.
       updated: Ihre Daten wurden aktualisiert.
       updated_but_not_signed_in: Ihre Daten wurden aktualisiert, aber da sich Ihr
-        Passwort geändert hat, müssen Sie sich erneut anmelden
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+        Passwort geändert hat, müssen Sie sich erneut anmelden.
+      update_email: E-Mail aktualisieren
+      currently_waiting: Warte auf Bestätigung für
+      change_password: Passwort ändern
+      change_password_hint: Leer lassen, wenn Sie nichts ändern möchten
+      new_password: Neues Passwort
+      new_password_confirmation: Neues Passwort bestätigen
+      password: Passwort
+      password_minimum: Es sind mindestens %d Zeichen erforderlich, aber je mehr,
+        desto besser.
+      verification: Prüfung
+      verification_text: Bitte bestätigen Sie die Änderung der Daten durch die Eingabe
+        Ihres Passwortes.
+      update_account: Konto aktualisieren
+      edit_account: Konto bearbeiten
+      create_account: Konto erstellen
+      email: E-Mail
+      password_confirmation: Passwort-Bestätigung
     unlocks:
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung,
         wie Sie Ihr Konto entsperren können.
@@ -311,14 +319,14 @@ de:
         erhalten Sie in wenigen Minuten eine E-Mail, mit der Anleitung, wie Sie Ihr
         Konto entsperren können.
       unlocked: Ihr Konto wurde entsperrt. Bitte melden Sie sich an, um fortzufahren.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Anleitung für die Konto-Freischaltung erneut senden
+      unlock_header: Anleitung für die Konto-Freischaltung erneut senden
+      unlock_button: Erneut senden
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Anmeldedaten merken
+      login: Anmelden
+      sign_up: Konto erstellen
+      forgot_your: Passwort vergessen?
+      didnt_confirmation: Sie haben keine Anleitung zur Bestätigung Ihres Kontos erhalten?
+      didnt_unlock: Sie haben keine Anleitung zur Freischaltung Ihres Kontos erhalten?
+      email: E-Mail
