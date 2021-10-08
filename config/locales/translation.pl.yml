@@ -7,22 +7,22 @@
 ---
 pl:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: anuluj
+    passwords: hasła
+    new: nowy
+    active: aktywne
+    expired: przedawnione
+    preview: podgląd
+    audit: audyt
+    pages: strony
+    users: users
+    sign_in: sign_in
+    sign_out: sign_out
+    sign_up: sign_up
+    password: hasło
+    edit: edycja
+    confirmation: potwierdzenie
+    unlock: unlock
   date:
     day_names:
     - niedziela
@@ -82,8 +82,8 @@ pl:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Tysiąc
@@ -94,7 +94,7 @@ pl:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid:
+      model_invalid: 'Sprawdzanie poprawności nie powiodło się: %{errors}'
       inclusion: nie znajduje się na liście dopuszczalnych wartości
       exclusion: jest zarezerwowane
       invalid: jest nieprawidłowe
@@ -133,9 +133,17 @@ pl:
       not_saved:
         one: "%{resource} nie został zapisany z powodu jednego błędu:"
         other: "%{resource} nie został zapisany z powodu %{count} błędów:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |-
+      Session %{id} is no longer available in memory.
+
+      If you happen to run on a multi-process server (like Unicorn or Puma) the process
+      this request hit doesn't store %{id} in memory. Consider turning the number of
+      processes/workers to one (1) or using a different server in development.
+    unacceptable_request: W nagłówku Accept oczekiwana jest wartość dla wspieranej
+      wersji.
+    connection_refused: |
+      Ups! Nie można połączyć się z middleware Web Console.
+      Proszę upewnij się, że serwer deweloperski rails jest uruchomiony.
   activerecord:
     errors:
       messages:
@@ -197,15 +205,15 @@ pl:
     previous_label: "&#8592; Poprzednia"
     next_label: Następna &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Stronicowanie
+    page_aria_label: Strona %{page}
     page_entries_info:
       single_page:
-        zero:
+        zero: Nie znaleziono %{model}
         one: Wyświetlam 1 %{model}
         other: Wyświetlam wszystkie %{count} %{model}
       single_page_html:
-        zero:
+        zero: Nie znaleziono %{model}
         one: Wyświetlam <b>1</b> %{model}
         other: wyświetlam <b>wszystkie&nbsp;%{count}</b> %{model}
       multi_page: Wyświetlam %{model} %{from} - %{to} z %{count} wszystkich
@@ -214,12 +222,12 @@ pl:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} został pomyślnie utworzony."
       update:
-        notice:
+        notice: "%{resource_name} został pomyślnie zaktualizowany."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} został pomyślnie zniszczony."
+        alert: "%{resource_name} nie może zostać zniszczony."
   devise:
     confirmations:
       confirmed: Twój adres e-mail został potwierdzony.
@@ -227,9 +235,9 @@ pl:
         na podany adres e-mail.
       send_paranoid_instructions: Jeśli Twój adres e-mail istnieje w naszej bazie,
         w ciągu najbliższych minut otrzymasz instrukcje jak aktywować konto.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Wyślij ponownie instrukcje potwierdzenia
+      resend_header: Wyślij ponownie instrukcje potwierdzenia
+      resend_button: Wyślij ponownie
     failure:
       already_authenticated: Jesteś już zalogowany.
       inactive: Twoje konto nie zostało jeszcze aktywowane.
@@ -263,11 +271,11 @@ pl:
         otrzymasz zaraz wiadomość z instrukcjami odzyskiwania hasła.
       updated: Hasło zmienione poprawnie. Zostałeś automatycznie zalogowany.
       updated_not_active: Twoje hasło zmienione poprawnie.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Zresetuj hasło
+      reset_button: Aktualizacja konta
+      forgot_title: Zapomniane hasło
+      forgot_header: Zapomniane hasło
+      forgot_button: Wyślij instrukcje resetowania
     registrations:
       destroyed: Twoje konto zostało usunięte.
       signed_up: Witaj! Rejestracja zakończyła się pomyślnie.
@@ -283,35 +291,35 @@ pl:
       updated: Konto zostało pomyślnie zaktualizowane.
       updated_but_not_signed_in: Twoje konto zostało pomyślnie zaktualizowane, ale
         ponieważ hasło zostało zmienione, musisz się ponownie zalogować
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      update_email: Zaktualizuj e-mail
+      currently_waiting: Obecnie czekam na potwierdzenie
+      change_password: Zmień hasło
+      change_password_hint: Pozostaw puste jeśli nie chcesz zmieniać.
+      new_password: Nowe hasło
+      new_password_confirmation: Powtórz nowe hasło
+      password: hasło
+      password_minimum: Wymagane jest minimum %d znaków, ale im więcej, tym lepiej.
+      verification: Weryfikacja
+      verification_text: Wprowadź swoje aktualne hasło, aby zatwierdzić powyższe zmiany.
+      update_account: Zaktualizuj konto
+      edit_account: Edytuj konto
+      create_account: Utwórz konto
+      email: E-mail
+      password_confirmation: Potwierdzenie hasła
     unlocks:
       send_instructions: Wkrótce powinieneś otrzymać e-mail z instrukcjami jak odblokować
         swoje konto.
       send_paranoid_instructions: Jeśli Twoje konto istnieje w naszej bazie, otrzymasz
         zaraz e-mail z instrukcjami jak odblokować swoje konto.
       unlocked: Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Wyślij ponownie instrukcje odblokowania
+      unlock_header: Wyślij ponownie instrukcje odblokowania
+      unlock_button: Wyślij ponownie
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Zapamiętaj mnie
+      login: Zaloguj się
+      sign_up: Utwórz konto
+      forgot_your: Zapomniałeś hasła?
+      didnt_confirmation: Nie otrzymałeś instrukcji potwierdzenia?
+      didnt_unlock: Nie otrzymałeś instrukcji odblokowania?
+      email: E-mail
