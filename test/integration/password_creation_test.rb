@@ -30,6 +30,35 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(pre.first.content.include?('testpw'))
   end
 
+  def test_ascii_8bit_password_creation
+    get '/'
+    assert_response :success
+
+    post '/p', params: { password: { payload: 'æ ¼ ö ç ý' } }
+    assert_response :redirect
+
+    # Preview page
+    follow_redirect!
+    assert_response :success
+    assert_select 'h2', 'Your password has been pushed.'
+
+    # Password page
+    get request.url.sub('/preview', '')
+    assert_response :success
+
+    # Validate some elements
+    p_tags = assert_select 'p'
+    assert p_tags[0].text == 'Please obtain and securely store this password elsewhere, ' \
+                             'ideally in a password manager.'
+    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
+    assert p_tags[2].text.include?('This secret link will be deleted')
+
+    # Assert that the right password is in the page
+    pre = css_select 'pre'
+    assert(pre)
+    assert(pre.first.content.include?('æ ¼ ö ç ý'))
+  end
+
   def test_password_creation_uncommon_characters
     get '/'
     assert_response :success
