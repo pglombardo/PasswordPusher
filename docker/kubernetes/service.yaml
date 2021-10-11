@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pwpush
+    component: ingress-controller
+    type: nginx
+  name: pwpush-http
+  namespace: pwpush
+spec:
+  ports:
+  - name: pwpush-http
+    port: 5100
+    protocol: TCP
+    targetPort: 5100
+  selector:
+    app: pwpush
+    component: ingress-controller
+    type: nginx
+  sessionAffinity: None
+  type: ClusterIP
+...
