@@ -35,7 +35,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: '127.0.0.1:5000', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: '127.0.0.1:5100', protocol: 'https' }
 
   config.action_mailer.smtp_settings = {
     address: Settings.mail.smtp_address,
