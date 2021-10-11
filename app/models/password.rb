@@ -85,7 +85,9 @@ class Password < ApplicationRecord
 
     # FIXME: Don't need to recreate key everytime
     key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    key.decrypt64(payload)
+    # Force UTF-8 encoding so ASCII-8BIT characters like 'æ' will get converted
+    # Note: This may break when we add support for MBCS.  TBD.
+    key.decrypt64(payload).force_encoding('UTF-8')
   rescue OpenSSL::Cipher::CipherError => e
     Rails.logger.warn("Couldn't decrypt: #{e}")
     payload
