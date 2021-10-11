@@ -122,6 +122,15 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 # 📼 Credits
 
+## Translators
+
+Thanks to our great translators.  We'll fill this area out more as we add more languages.
+
+* [drpt](https://github.com/drpt) for Polish
+
+
+## Other
+
 Thanks to:
 
 * [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
