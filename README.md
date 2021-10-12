@@ -129,12 +129,17 @@ Thanks to our great translators.  We'll fill this area out more as we add more l
 
 * [drpt](https://github.com/drpt) for Polish
 
+## Containers
+
+Thanks to:
+
+* [@fiskhest](https://github.com/fiskhest) the [Kubernetes installation instructions and manifests](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
+
+* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
 ## Other
 
 Thanks to:
-
-* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
 * [@iandunn](https://github.com/iandunn) for better password form security.
 
@@ -142,3 +147,4 @@ Thanks to:
 
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
+...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
