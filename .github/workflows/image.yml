@@ -44,7 +44,7 @@ jobs:
       - name: Build and push pwpush-ephemeral Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./docker/pwpush-ephemeral/.
+          context: ./containers/docker/pwpush-ephemeral/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-ephemeral:${{ env.DOCKER_TAG }}
@@ -82,7 +82,7 @@ jobs:
       - name: Build and push pwpush-postgres Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./docker/pwpush-postgres/.
+          context: ./containers/docker/pwpush-postgres/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-postgres:${{ env.DOCKER_TAG }}
