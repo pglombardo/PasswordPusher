@@ -65,28 +65,29 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
     docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:1.9.1
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-ephemeral)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
 
     docker run -d -p "5100:5100" pglombardo/pwpush-postgres:1.9.1
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres-external-database)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres-external-database)
 
 _Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Use the [version'd tags](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
 
 ## With Docker Compose
 
-Included in this repository is `docker/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
+Included in this repository is `containers/docker/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
 
     docker-compose up -d
     docker-compose down
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-postgres)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres)
 
 ## On Kubernetes
 
-We currently don't supply a prebuilt Kubernetes YAML file yet but you can deploy the above Docker images using [this documentation](https://docs.docker.com/get-started/kube-deploy/).
+Instructions and explanation of a Kubernetes setup [can be found
+here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
 
 ## On Microsoft Azure
 
@@ -94,7 +95,7 @@ See [this blog post](https://tamethe.cloud/pwpush-host-your-own-using-azure-cont
 
 ## On OpenShift
 
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/docker#pwpush-openshift).
+See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-openshift).
 
 ## On Heroku
 
@@ -128,12 +129,17 @@ Thanks to our great translators.  We'll fill this area out more as we add more l
 
 * [drpt](https://github.com/drpt) for Polish
 
+## Containers
+
+Thanks to:
+
+* [@fiskhest](https://github.com/fiskhest) the [Kubernetes installation instructions and manifests](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
+
+* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
 ## Other
 
 Thanks to:
-
-* [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
 * [@iandunn](https://github.com/iandunn) for better password form security.
 
@@ -141,3 +147,4 @@ Thanks to:
 
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
+...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
