@@ -124,7 +124,7 @@ de:
       even: muss gerade sein
       required: muss ausgefüllt werden
       taken: ist bereits vergeben
-      already_confirmed: wurde bereits bestätigt; bitte versuchen Sie, sich anzumelden
+      already_confirmed: wurde bereits bestätigt, bitte versuchen sich anzumelden
       confirmation_period_expired: musste innerhalb von %{period} bestätigt werden,
         bitte neu anfordern.
       expired: ist abgelaufen, bitte neu anfordern
@@ -139,14 +139,14 @@ de:
       Wenn Ihre Anwendung auf einem Multi-Process-Server (wie Unicorn oder Puma) läuft, wird der Prozess, der diese Anforderung betrifft, %{id} nicht im Speicher gehalten. Ändern Sie die Anzahl von Prozessen/Workern auf einen (1) oder benutzen sie für die Entwicklung einen anderen Server.
     unacceptable_request: Eine unterstützte Version wird im Accept-Header erwartet.
     connection_refused: |-
-      Hoppla! Konnte keine Verbindung zur Web-Konsolen-Middleware herstellen.
-      Bitte stellen Sie sicher, dass ein Rails-Entwicklung-Server läuft.
+      Hoppla! Die Verbindung zur Web Console-Middleware konnte nicht hergestellt werden.
+      Bitte sicherstellen, dass der Rails-Entwicklungsserver ausgeführt wird.
   activerecord:
     errors:
       messages:
-        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+        record_invalid: 'Validierung fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
-          has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
+          has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}
             existiert.
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
   datetime:
@@ -222,7 +222,7 @@ de:
       create:
         notice: "%{resource_name} wurde erfolgreich erstellt."
       update:
-        notice: "%{resource_name} wurde erfolgreich aktualisiert."
+        notice: "%{resource_name} erfolgreich aktualisiert."
       destroy:
         notice: "%{resource_name} wurde erfolgreich gelöscht."
         alert: "%{resource_name} konnte nicht gelöscht werden."
@@ -238,15 +238,14 @@ de:
       resend_header: Anleitung zur Bestätigung Ihres Kontos erneut senden
       resend_button: Erneut senden
     failure:
-      already_authenticated: Sie sind bereits angemeldet.
+      already_authenticated: Du bist bereits angemeldet.
       inactive: Ihr Konto ist noch nicht aktiv.
       invalid: "%{authentication_keys} oder Passwort ungültig."
       locked: Ihr Konto ist gesperrt.
-      last_attempt: Sie haben noch einen Versuch, bis Ihr Konto gesperrt wird.
+      last_attempt: Noch 1 Versuch, bis das Konto gesperrt wird.
       not_found_in_database: "%{authentication_keys} oder Passwort ungültig."
-      timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.
-      unauthenticated: Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren
-        können.
+      timeout: Die Sitzung ist abgelaufen. Bitte neu anmelden.
+      unauthenticated: Bitte anmelden oder registrieren um fortfahren zu können.
       unconfirmed: Sie müssen Ihr Konto bestätigen, bevor Sie fortfahren können.
     mailer:
       confirmation_instructions:
@@ -260,8 +259,8 @@ de:
       password_change:
         subject: Passwort geändert
     omniauth_callbacks:
-      failure: Sie konnten nicht mit Ihrem %{kind}-Konto angemeldet werden, weil "%{reason}".
-      success: Sie haben sich erfolgreich mit Ihrem %{kind}-Konto angemeldet.
+      failure: '%{kind}-Konto konnte nicht authentifiziert werden. Grund: "%{reason}".'
+      success: "%{kind}-Konto wurde erfolgreich authentifiziert."
     passwords:
       no_token: Sie können sich nicht auf dieser Seite anmelden, wenn Sie nicht von
         einer Passwort-Zurücksetzen-E-Mail kommen. Wenn Sie von solch einer E-Mail
@@ -279,22 +278,21 @@ de:
       forgot_header: Passwort vergessen
       forgot_button: Sende Anleitung für das Zurücksetzen des Passworts
     registrations:
-      destroyed: Ihr Konto wurde gelöscht. Wir hoffen, dass wir Sie bald wiedersehen.
-      signed_up: Willkommen. Sie haben sich erfolgreich registriert. Bitte prüfen
-        Sie Ihre E-Mails und klicken Sie auf den Aktivierungslink.
-      signed_up_but_inactive: Sie haben sich erfolgreich registriert. Wir konnten
-        Sie jedoch nicht anmelden, weil Ihr Konto noch nicht aktiviert ist.
-      signed_up_but_locked: Sie haben sich erfolgreich registriert. Wir konnten Sie
-        jedoch nicht anmelden, weil Ihr Konto gesperrt ist.
-      signed_up_but_unconfirmed: Sie erhalten in wenigen Minuten eine E-Mail mit einem
-        Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihr
-        Konto zu aktivieren.
+      destroyed: Das Konto wurde gelöscht! Bis bald!
+      signed_up: Willkommen! Die Registrierung war erfolgreich. Bitte E-Maileingang
+        prüfen und auf den Aktivierungslink anklicken.
+      signed_up_but_inactive: Die Registrierung war erfolgreich. Die Anmeldung schlug
+        fehl, da das Konto noch nicht aktiviert wurde.
+      signed_up_but_locked: Die Registrierung war erfolgreich. Die Anmeldung schlug
+        fehl, da das Konto gesperrt ist.
+      signed_up_but_unconfirmed: Es wurde eine Nachricht mit einem Aktivierungslink
+        an die E-Mail-Adresse gesendet. Bitte Link anklicken um das Konto zu aktivieren.
       update_needs_confirmation: Ihre Daten wurden aktualisiert, aber Sie müssen Ihre
         neue E-Mail-Adresse bestätigen. Sie erhalten in wenigen Minuten eine E-Mail,
         mit der Sie die Änderung Ihrer E-Mail-Adresse abschließen können.
       updated: Ihre Daten wurden aktualisiert.
-      updated_but_not_signed_in: Ihre Daten wurden aktualisiert, aber da sich Ihr
-        Passwort geändert hat, müssen Sie sich erneut anmelden.
+      updated_but_not_signed_in: Die Daten wurden aktualisiert. Die Passwortänderung
+        erfordert eine Neuanmeldung.
       update_email: E-Mail aktualisieren
       currently_waiting: Warte auf Bestätigung für
       change_password: Passwort ändern
@@ -318,7 +316,7 @@ de:
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert,
         erhalten Sie in wenigen Minuten eine E-Mail, mit der Anleitung, wie Sie Ihr
         Konto entsperren können.
-      unlocked: Ihr Konto wurde entsperrt. Bitte melden Sie sich an, um fortzufahren.
+      unlocked: Das Konto wurde entsperrt. Bitte melden, um fortzufahren.
       unlock_title: Anleitung für die Kontofreischaltung erneut senden
       unlock_header: Anleitung für die Konto-Freischaltung erneut senden
       unlock_button: Erneut senden
@@ -327,6 +325,6 @@ de:
       login: Anmeldung
       sign_up: Konto erstellen
       forgot_your: Passwort vergessen?
-      didnt_confirmation: Sie haben keine Anleitung zur Bestätigung Ihres Kontos erhalten?
-      didnt_unlock: Sie haben keine Anleitung zur Freischaltung Ihres Kontos erhalten?
+      didnt_confirmation: Keine Anleitung zur Bestätigung Ihres Kontos erhalten?
+      didnt_unlock: Keine Anleitung zur Freischaltung des Kontos erhalten?
       email: E-Mail
