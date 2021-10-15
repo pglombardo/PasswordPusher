@@ -7,7 +7,7 @@ All container images are available on Docker hub: [hub.docker.com/u/pglombardo/]
 To run an ephemeral version that saves no data on port 8000:
 `docker run -p "8000:5100" pglombardo/pwpush-ephemeral:latest`
 
-To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/docker/pwpush-postgres/docker-compose.yaml).
+To run a version with postgres, use [this docker-compose.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yaml).
 
 For everything else, read on...
 
@@ -44,11 +44,11 @@ This scenario uses `docker-compose` and runs the app using two containers on a s
 This container uses a default database URL of:
 
     DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
-    
+
 You can either configure your PostgreSQL server to use these credentials or override the environment var in the command line:
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
-    
+
 _Note: Providing a postgres password on the command line is far less than ideal_
 
 Lastly, you can also rebuild the container image from Dockerfile.  See `Dockerfile` and the `entrypoint.sh` files in the `pwpush-postgres` folder.
