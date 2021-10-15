@@ -33,4 +33,4 @@ RUN bundle install
 RUN yarn install
 RUN bundle exec rails webpacker:compile
 
-ENTRYPOINT ["docker/pwpush-postgres/entrypoint.sh"]
+ENTRYPOINT ["containers/docker/pwpush-postgres/entrypoint.sh"]
