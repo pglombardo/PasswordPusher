@@ -16,7 +16,6 @@ RUN apt-get update -qq && \
     apt-get install -qq -y --assume-yes build-essential apt-utils git curl tzdata zlib1g-dev nodejs yarn && \
     cd /opt && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
-    git checkout mysql %% \
     touch ${APP_ROOT}/log/production.log
 
 EXPOSE 5100
@@ -24,6 +23,8 @@ EXPOSE 5100
 RUN gem install bundler
 
 WORKDIR ${APP_ROOT}
+
+RUN git checkout mysql
 
 ENV BUNDLE_GEMFILE=./gemfiles/Gemfile-mysql
 
