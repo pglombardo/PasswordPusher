@@ -127,7 +127,10 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 Thanks to our great translators.  We'll fill this area out more as we add more languages.
 
-* [drpt](https://github.com/drpt) for Polish
+* Łukasz ([Github](https://github.com/drpt)) for Polish
+* Thomas @ confluencepoint ([Github](https://github.com/confluencepoint/) | [Twitter](https://twitter.com/confluencepoint)) for German
+
+Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
 
 ## Containers
 
