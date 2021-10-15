@@ -5,7 +5,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
-ENV DATABASE_URL=mysql://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
+ENV DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
 
 
 # For the latest yarn
@@ -38,4 +38,4 @@ RUN bundle install
 RUN yarn install
 RUN bundle exec rails webpacker:compile
 
-ENTRYPOINT ["docker/pwpush-mysql/entrypoint.sh"]
+ENTRYPOINT ["containers/docker/pwpush-mysql/entrypoint.sh"]
