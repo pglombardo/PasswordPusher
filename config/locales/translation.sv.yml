@@ -82,8 +82,8 @@ sv:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Tusen
@@ -96,22 +96,22 @@ sv:
     messages:
       model_invalid: 'Validering misslyckades: %{errors}'
       inclusion: finns inte i listan
-      exclusion: är reserverat
-      invalid: har fel format
-      confirmation: stämmer inte överens
-      accepted: måste vara accepterad
+      exclusion: är reserverad
+      invalid: är ogiltig
+      confirmation: matchar inte %{attribute}
+      accepted: måste accepteras
       empty: får ej vara tom
       blank: måste anges
       present: får inte anges
       too_long:
-        one:
-        other:
+        one: är för lång (max 1 tecken)
+        other: är för lång (max %{count} tecken)
       too_short:
-        one:
-        other:
+        one: är för kort (minimum är 1 tecken)
+        other: är för kort (minimum är %{count} tecken)
       wrong_length:
-        one:
-        other:
+        one: har fel längd (bör vara 1 tecken)
+        other: är fel längd (bör vara %{count} tecken)
       not_a_number: är inte ett nummer
       not_an_integer: måste vara ett heltal
       greater_than: måste vara större än %{count}
@@ -124,25 +124,31 @@ sv:
       even: måste vara jämnt
       required: måste finnas
       taken: används redan
-      already_confirmed: är redan bekräftad, vänligen logga in igen
-      confirmation_period_expired: behöver bekräftas inom %{period}. Vänligen begär
+      already_confirmed: är redan bekräftad, vänligen försök logga in
+      confirmation_period_expired: behöver bekräftas inom %{period}, vänligen begär
         en ny
-      expired: är inte längre giltig. Vänligen begär en ny
+      expired: har gått ut, vänligen begär en ny
       not_found: hittades inte
       not_locked: var inte låst
       not_saved:
-        one: '1 fel hindrade denna %{resource} från att sparas:'
+        one: 'Ett fel hindrade denna %{resource} från att sparas:'
         other: "%{count} fel hindrade denna %{resource} från att sparas:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |-
+      Sessionen %{id} är inte längre tillgänglig i minnet.
+
+      Om du råkar köra på en multi-process-server (som Unicorn eller Puma) processen
+      den här förfrågan träffade har inte %{id} i minnet. Överväg att ändra antalet
+      processer / arbetare till en (1) eller använd en annan server i utveckling.
+    unacceptable_request: En version som stöds förväntas i Accept-headern.
+    connection_refused: Hoppsan! Kan inte ansluta till Web Console-middleware. Vänligen
+      verifiera att en rails-utvecklingsserver körs.
   activerecord:
     errors:
       messages:
-        record_invalid: 'Ett fel uppstod: %{errors}'
+        record_invalid: 'Validering misslyckades: %{errors}'
         restrict_dependent_destroy:
           has_one: Kan inte ta bort post då beroende %{record} finns
-          has_many: Kan inte ta bort poster då beroende %{record} finns
+          has_many: Kan inte ta bort post då beroende %{record} finns
   datetime:
     distance_in_words:
       half_a_minute: en halv minut
@@ -198,7 +204,7 @@ sv:
     next_label: Nästa &#8594;
     page_gap: "&hellip;"
     container_aria_label:
-    page_aria_label:
+    page_aria_label: Sida %{page}
     page_entries_info:
       single_page:
         zero: Inga %{model} hittades
@@ -208,29 +214,28 @@ sv:
         zero: Inga %{model} hittades
         one: Visar <b>1</b> %{model}
         other: Visar <b>alla&nbsp;%{count}</b> %{model}
-      multi_page: Visar %{model} %{from} - %{to} av %{count} totalt
-      multi_page_html: Visar %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> av <b>%{count}</b>
-        totalt
+      multi_page: Visar %{model} %{from} - %{to} av totalt %{count}
+      multi_page_html: Visar %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> av totalt <b>%{count}</b>
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} skapades."
       update:
-        notice:
+        notice: "%{resource_name} har uppdaterats."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} är förstörd."
+        alert: "%{resource_name} kunde inte förstöras."
   devise:
     confirmations:
-      confirmed: Ditt konto har bekräftats. Du är nu inloggad.
-      send_instructions: Du kommer att få epost med instruktioner om hur du kan bekräfta
-        ditt konto inom några minuter.
-      send_paranoid_instructions: Om din epostadress finns i vår databas, kommer du
-        att få ett epost-meddelande inom några minuter med instruktioner om hur du
+      confirmed: Din e-postadress är bekräftad.
+      send_instructions: Inom några minuter kommer du att få ett e-postmeddelande
+        med instruktioner om hur bekräftar ditt konto.
+      send_paranoid_instructions: Om din e-postadress finns i vår databas kommer du
+        att inom några minuter få ett e-postmeddelande med instruktioner om hur du
         ska göra för att aktivera ditt konto igen.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Skicka om bekräftelseinstruktioner
+      resend_header: Skicka om bekräftelseinstruktioner
+      resend_button: Skicka igen
     failure:
       already_authenticated: Du är redan inloggad.
       inactive: Ditt konto har inte aktiverats ännu.
@@ -240,7 +245,7 @@ sv:
       not_found_in_database: Ogiltig %{authentication_keys} eller lösenord
       timeout: Din session är inte längre giltig, vänligen logga in igen för att fortsätta.
       unauthenticated: Du måste logga in eller skapa ett konto innan du kan fortsätta.
-      unconfirmed: Du måste bekräfta ditt konto innan du kan fortsätta.
+      unconfirmed: Du måste bekräfta din e-postadress innan du kan fortsätta.
     mailer:
       confirmation_instructions:
         subject: Instruktioner för bekräftning av konto
@@ -249,72 +254,74 @@ sv:
       unlock_instructions:
         subject: Instruktioner för upplåsning av konto
       email_changed:
-        subject: E-post ändrades
+        subject: E-post ändrad
       password_change:
-        subject: Lösenorded uppdaterades
+        subject: Lösenordet ändrat
     omniauth_callbacks:
-      failure: Kunde inte autentisera dig med %{kind} för "%{reason}".
+      failure: Kunde inte autentisera dig från %{kind} eftersom "%{reason}".
       success: Autentiserat med %{kind}-konto.
     passwords:
       no_token: Tillgång till den här sidan kräver att du kommer från ett mejl som
-        sätter tillbaka ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ
-        att du har använt hela URL:en.
-      send_instructions: Du kommer få epost med instruktioner för hur du kan återställa
-        ditt lösenord inom några minuter.
-      send_paranoid_instructions: Om din epostadress finns i vår databas kommer du
-        att få en lösenordslänk skickad till din epost.
+        återställer ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ att
+        du har använt hela URL:en.
+      send_instructions: Inom några minuter kommer du att få ett e-postmeddelande
+        med instruktioner om hur återställer ditt lösenord.
+      send_paranoid_instructions: Om din e-postadress finns i vår databas kommer du
+        att få en länk för återställning av lösenord skickad till din e-post.
       updated: Ditt lösenord har uppdaterats. Du är nu inloggad.
       updated_not_active: Ditt lösenord uppdaterades.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Återställ lösenord
+      reset_button: Uppdatera konto
+      forgot_title: Glömt lösenord
+      forgot_header: Glömt lösenord
+      forgot_button: Skicka återställningsinstruktioner
     registrations:
       destroyed: Hej då! Ditt konto har avregistrerats. Vi hoppas få se dig snart
         igen.
-      signed_up: Välkommen! Ditt nya konto har skapats.
+      signed_up: Välkommen! Ditt nya konto har skapats. Kontrollera din e-post för
+        en bekräftelselänk.
       signed_up_but_inactive: Du är nu registrerad. Däremot kunde vi inte logga in
-        dig, eftersom ditt konto ännu inte aktiverats.
-      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig,
+        dig eftersom ditt konto ännu inte aktiverats.
+      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig
         eftersom ditt konto är låst.
       signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering
-        har skickats till din epostadress. Följ länken för att aktivera ditt konto.
+        har skickats till din e-postadress. Följ länken för att aktivera ditt konto.
       update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera
-        din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta
-        din nya epostadress.
+        din nya e-postadress. Kontrollera din e-post och klicka på länken för att
+        bekräfta din nya adress.
       updated: Ditt konto har uppdaterats.
-      updated_but_not_signed_in: Kontot uppdaterades, men eftersom att lösenordet
-        ändrades behöver ni logga in igen
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      updated_but_not_signed_in: Ditt kontot har uppdaterats, men eftersom att ditt
+        lösenord har ändrats behöver du logga in igen.
+      update_email: Uppdatera e-post
+      currently_waiting: Väntar på bekräftelse av
+      change_password: Ändra lösenord
+      change_password_hint: Lämna tomt om du inte vill ändra det.
+      new_password: Nytt lösenord
+      new_password_confirmation: Bekräftelse av nytt lösenord
+      password: lösenord
+      password_minimum: Minst %d tecken krävs men ju fler desto bättre.
+      verification: Verifiering
+      verification_text: Ange ditt nuvarande lösenord för att bekräfta ändringarna
+        ovan.
+      update_account: Uppdatera konto
+      edit_account: Ändra kontoinställningar
+      create_account: Skapa konto
+      email: E-post
+      password_confirmation: Bekräftelse av lösenord
     unlocks:
-      send_instructions: Du kommer få epost med instruktioner om hur du kan låsa upp
-        ditt konto inom några minuter.
-      send_paranoid_instructions: Om ditt konto finns, kommer du att få ett email
-        med instruktioner om hur du låser upp det inom några minuter.
-      unlocked: Ditt konto har låsts upp. Du är nu inloggad.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      send_instructions: Inom några minuter kommer du att få ett e-postmeddelande
+        med instruktioner om hur du kan låsa upp ditt konto.
+      send_paranoid_instructions: Om ditt konto finns kommer du att få e-post med
+        instruktioner om hur du låser upp det inom några minuter.
+      unlocked: Ditt konto har låsts upp. Vänligen logga in för att fortsätta.
+      unlock_title: Skicka om återställningsinstruktioner
+      unlock_header: Skicka om återställningsinstruktioner
+      unlock_button: Skicka igen
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Kom ihåg mig
+      login: Logga in
+      sign_up: Registrera dig
+      forgot_your: Glömt ditt lösenord?
+      didnt_confirmation: Har du inte fått instruktioner för bekräftning?
+      didnt_unlock: Har du inte fått instruktioner för upplåsning?
+      email: E-post
