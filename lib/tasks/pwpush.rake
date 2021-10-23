@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
-desc 'Run through and expire user owned passwords.'
-task :daily_user_expiration, [:limit] => :environment do |_, args|
-  unless args.key?(:limit)
-    puts 'Please specify the limit size. e.g. rails daily_expiration[100]'
-    exit
-  end
-
+# A task that should be run periodically (daily/weekly) to run through all unexpired
+# pushes and run .validate! which will determine if a push has expired or not.
+#
+# Note: .validate! is also run on each attempt to view an unexpired secret URL so this task is
+# a preemptive measure to expire pushes periodically.  It saves some CPU and DB calls
+# on live requests.
+#
+desc 'Run through, validate and conditionally expire passwords.'
+task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
-  limit = args[:limit].to_i
 
-  Password.where.not(user_id: nil)
-          .where(expired: false)
-          .limit(limit)
-          .find_each do |push|
+  Password.where(expired: false).find_each do |push|
     counter += 1
 
     push.validate!
@@ -33,58 +31,35 @@ task :daily_user_expiration, [:limit] => :environment do |_, args|
   puts ''
 end
 
-desc 'Run through and expire anonymous passwords.'
-task :daily_anonymous_expiration, [:limit] => :environment do |_, args|
-  unless args.key?(:limit)
-    puts 'Please specify the limit size. e.g. rails daily_expiration[100]'
-    exit
-  end
-
-  counter = 0
-  expiration_count = 0
-  limit = args[:limit].to_i
-
-  Password.where(user_id: nil)
-          .where(expired: false)
-          .limit(limit)
-          .find_each do |push|
-    counter += 1
-
-    push.validate!
-    if push.expired
-      puts "#{counter}: Anonymous push #{push.url_token} created on #{push.created_at.to_s(:long)} has expired."
-      expiration_count += 1
-    else
-      puts "#{counter}: Anonymous push #{push.url_token} created on #{push.created_at.to_s(:long)} is still active."
-    end
-  end
-
-  puts "#{expiration_count} total pushes expired."
-
-  puts ''
-  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
-  puts ''
-end
-
-desc 'Delete old, expired and anonymous pushes.'
-task :delete_old_expired_and_anonymous, [:limit] => :environment do |_, args|
-  unless args.key?(:limit)
-    puts 'Please specify the limit size. e.g. rails delete_old_expired_and_anonymous[100]'
-    exit
-  end
-
-  limit = args[:limit].to_i
+# When a Password expires, the payload is deleted but the metadata record still exists.  This
+# includes information such as creation date, views, duration etc..  When the record
+# was created by an anonymous user, this data is no longer needed (and we don't want it).
+#
+# If a user attempts to retrieve a secret link that doesn't exist, we still show the standard
+# "This secret link has expired" message.  This strategy provides two benefits:
+#
+# 1. It hides the fact that if a secret ever exists or not (more secure)
+# 2. It allows us to delete data that we don't want
+#
+# This task will run through all expired and anonymous records and delete them entirely.
+#
+# Because of the above, expired and anonymous secret URLs still will show the same
+# expiration message
+#
+# Note: This applies to anonymous pushes.  For logged-in user records, we don't do this
+# to maintain user audit logs.
+#
+desc 'Delete expired and anonymous pushes.'
+task delete_expired_and_anonymous: :environment do
   counter = 0
 
   Password.includes(:views)
           .where(expired: true)
           .where(user_id: nil)
-          .limit(limit)
           .find_each do |push|
     counter += 1
-    puts "#{counter}: Deleting old, expired and anonymous push #{push.url_token} created on " +
-         "#{push.created_at.to_s(:long)} with #{push.views.size} views " +
-         "and user_id #{push.user_id}."
+    puts "#{counter}: Deleting expired and anonymous push #{push.url_token} created on " \
+         "#{push.created_at.to_s(:long)} with #{push.views.size} views."
     push.destroy
   end
 
