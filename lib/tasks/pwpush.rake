@@ -69,3 +69,18 @@ task delete_expired_and_anonymous: :environment do
   puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
   puts ''
 end
+
+desc 'Generate robots.txt.'
+task generate_robots_txt: :environment do
+  contents = "User-Agent: *\nDisallow: /p/\n"
+
+  I18n.available_locales.each do |lang|
+    contents += "Disallow: /#{lang}/p/\n"
+  end
+
+  File.open('./public/robots.txt', 'w') { |file| file.write(contents) }
+
+  puts ''
+  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
+  puts ''
+end
