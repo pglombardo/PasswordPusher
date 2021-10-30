@@ -7,13 +7,13 @@
 ---
 fr:
   routes:
-    cancel:
+    cancel: annuler
     passwords: mots de passe
     new: Nouveau
-    active:
+    active: actif
     expired: expiré
     preview: aperçu
-    audit:
+    audit: audit
     pages: pages
     users: utilisateurs
     sign_in: s'authentifier
@@ -21,7 +21,7 @@ fr:
     sign_up: s'inscrire
     password: mot de passe
     edit: Editer
-    confirmation:
+    confirmation: confirmation
     unlock: débloquer
   date:
     day_names:
@@ -135,9 +135,18 @@ fr:
           :'
         other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être
           enregistré(e) :"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |
+      La session %{id} n'est plus disponible en mémoire.
+
+      Si vous utilisez un serveur multi-processus (comme Unicorn ou Puma), le processus
+      de cet appel de requête ne stocke pas %{id} en mémoire. Pensez à fixer le nombre de processus / workers à un (1) ou à utiliser un serveur différent en développement.
+    unacceptable_request: 'Une version prise en charge est attendue dans le header
+      Accept.
+
+      '
+    connection_refused: |
+      Oups! Impossible de se connecter à la console Web middleware.
+      Assurez-vous qu'un serveur de développement RAIL est en cours d'exécution.
   activerecord:
     errors:
       messages:
@@ -218,12 +227,12 @@ fr:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} a été créé avec succès."
       update:
-        notice:
+        notice: "%{resource_name} a été mis à jour avec succès."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} a été détruit avec succès."
+        alert: "%{resource_name} n'a pas pu être détruit."
   devise:
     confirmations:
       confirmed: Votre compte a bien été confirmé.
@@ -232,9 +241,9 @@ fr:
       send_paranoid_instructions: Si votre email existe sur notre base de données,
         vous recevrez sous quelques minutes un message avec des instructions pour
         confirmer votre compte.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Renvoyer les instructions de confirmation
+      resend_header: Renvoyer les instructions de confirmation
+      resend_button: Renvoyer
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n’est pas encore activé.
@@ -244,10 +253,10 @@ fr:
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous enregistrer pour continuer.
-      unconfirmed: Vous devez confirmer votre compte par email.
+      unconfirmed: Vous devez confirmer votre adresse email pour continuer.
     mailer:
       confirmation_instructions:
-        subject: Instructions de confirmation
+        subject: Comment confirmer
       reset_password_instructions:
         subject: Instructions pour changer le mot de passe
       unlock_instructions:
@@ -271,7 +280,7 @@ fr:
       updated: Votre mot de passe a bien été modifié. Vous êtes maintenant connecté(e).
       updated_not_active: Votre mot de passe a bien été modifié.
       reset_title: Réinitialiser le mot de passe
-      reset_button: Mettre à jour les infos du compte
+      reset_button: Mettre à jour le compte
       forgot_title: Mot de passe Oublié
       forgot_header: Mot de passe oublié
       forgot_button: M'envoyer les infos de réinitialisation
@@ -292,14 +301,14 @@ fr:
       updated_but_not_signed_in: Votre compte a été mis à jour avec succès. Vous devez
         vous reconnecter car votre mot de passe a été modifié.
       update_email: Changer l'email
-      currently_waiting:
+      currently_waiting: En attente de confirmation pour
       change_password: Changer le mot de passe
       change_password_hint: Laissez vide si vous ne voulez pas le changer.
       new_password: Nouveau mot de passe
       new_password_confirmation: Confirmation du nouveau mot de passe
       password: mot de passe
-      password_minimum: Un minimum de %d caractères est requis mais en avoir plus
-        est mieux.
+      password_minimum: Un minimum de %d caractères est requis mais plus il y en a,
+        mieux c'est.
       verification: Vérification
       verification_text: Entrez votre mot de passe actuel pour valider les modifications.
       update_account: Mettre à jour les infos du compte
@@ -314,8 +323,8 @@ fr:
         vous recevrez sous quelques minutes un message avec des instructions pour
         déverrouiller votre compte.
       unlocked: Votre compte a bien été déverrouillé. Veuillez vous connecter.
-      unlock_title:
-      unlock_header:
+      unlock_title: Renvoyer les instructions de déblocage
+      unlock_header: Renvoyer les instructions de déblocage
       unlock_button: Renvoyer
     general:
       remember_me: Se rappeler de moi
