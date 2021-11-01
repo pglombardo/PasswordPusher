@@ -63,17 +63,17 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
 **➜ ephemeral**
 
-    docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:1.10.0
+    docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:release
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
 
-    docker run -d -p "5100:5100" pglombardo/pwpush-postgres:1.10.0
+    docker run -d -p "5100:5100" pglombardo/pwpush-postgres:release
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres-external-database)
 
-_Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Use the [version'd tags](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
+_Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
 
 ## With Docker Compose
 

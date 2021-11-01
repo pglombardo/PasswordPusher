@@ -65,7 +65,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: passwordpusher:latest
+        name: passwordpusher:release
 
 - apiVersion: v1
   kind: DeploymentConfig
@@ -84,7 +84,7 @@ objects:
           - passwordpusher
           from:
             kind: ImageStreamTag
-            name: passwordpusher:latest
+            name: passwordpusher:release
     strategy:
       type: Rolling
     revisionHistoryLimit: 1
@@ -95,7 +95,7 @@ objects:
       spec:
         containers:
         - name: passwordpusher
-          image: passwordpusher:latest
+          image: passwordpusher:release
           imagePullPolicy: Always
           livenessProbe:
             exec:
