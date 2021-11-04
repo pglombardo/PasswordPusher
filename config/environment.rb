@@ -3,7 +3,7 @@
 # Load the Rails application.
 require_relative 'application'
 
-# If deploying PasswordPusher yourself, you should change these CRYPT values.
+# DEPRECATED: These encryption keys are legacy and will be removed in a future version
 CRYPT_KEY = ENV.fetch('CRYPT_KEY', '}s-#2R0^/+2wEXc47\$9Eb')
 CRYPT_SALT = ENV.fetch('CRYPT_SALT', ',2_%4?[+:3774>f')
 
