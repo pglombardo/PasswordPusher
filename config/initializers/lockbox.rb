@@ -21,6 +21,6 @@
 #   > rails c
 #   > Lockbox.gnerate_key
 #
-# or go to https://pwpush.com/generate_key
+# or go to https://pwpush.com/pages/generate_key
 #
 Lockbox.master_key = ENV.fetch('PWPUSH_MASTER_KEY', '749b1022e1cb83fb04f3022eacaf3bfef60c6d47f83e6fb41f534a05fc69929f')
