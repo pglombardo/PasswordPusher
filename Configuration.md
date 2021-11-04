@@ -7,22 +7,30 @@ See also `config/environment.rb`.
 
 ## Application Encryption
 
-These variables set the encryption key and salt used with EZCrypto library to write passwords to the database.  If not set, the application will use default values.
+Password Pusher encrypts sensitive data in the database. This requires a randomly generated encryption key for each application instance.
 
-| Variable | Description |
-| --------- | ------------------ |
-| CRYPT_KEY | Set the encryption key for the application |
-| CRYPT_SALT | And the salt |
+To set a custom encryption key for your application, set the environment variable `PWPUSH_MASTER_KEY`:
 
-To generate a new key and salt, you can use any sufficiently random string or generate one with the application:
+    PWPUSH_MASTER_KEY=0c110f7f9d93d2122f36debf8a24bf835f33f248681714776b336849b801f693
+
+### Generate a New Encryption Key
+
+Key generation can be done through the [helper tool](https://pwpush.com/pages/generate_key) or on the command line in the application source using `Lockbox.generate_key`:
 
 ```ruby
-bundle exec rails console
-key = EzCrypto::Key.generate
-key.encode
+bundle
+rails c
+Lockbox.generate_key
 ```
 
-You can read more about [EzCrypto here](https://github.com/pglombardo/ezcrypto).
+Notes:
+
+* If an encryption key isn't provided, a default key will be used.
+* The best security for private instances of Password Pusher is to use your own custom encryption key although it is not required.
+* The risk in using the default key is lessened if you keep your instance secure and your push expirations short. e.g. 1 day/1 view versus 100 days/100 views.
+* Once a push expires, all encrypted data is deleted.
+* Changing an encryption key where old pushes already exist will make those older pushes unreadable. In other words, the payloads will be garbled. New pushes going forward will work fine.
+
 
 ## Application Defaults
 

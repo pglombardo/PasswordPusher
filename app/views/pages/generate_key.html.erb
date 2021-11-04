@@ -3,11 +3,15 @@
 <h4 class='mb-3'><%= _('Generate an Encryption Key') %></h4>
 
 <p>
+<%= _('This page is used as a helper tool to generate a random encryption key for privately hosted instances of Password Pusher.') %>
+</p>
+
+<p>
 <%= _('Password Pusher encrypts sensitive data in the database.  This requires a randomly generated encryption key for each application instance.') %>
 </p>
 
 <p>
-<%= _('This page is used as a helper tool to generate a random encryption key for privately hosted instances of Password Pusher.') %>  
+<%= _('You can use the randomly generated code below to configure your Password Pusher instance.') %>
 </p>
 
 <p>
@@ -36,22 +40,22 @@
         <em class="bi bi-clipboard-check"></em>
     </button>
 </div>
-        
+
 <p>
 <em><%= _('Reload this page to re-generate a new key.') %></em>
 </p>
 
 <p>
-<%= _('Notes:') %>  
+<%= _('Notes:') %>
 <ul>
     <li>
         <%= _('If an encryption key isn\'t provided, a default key will be used.') %>
     </li>
     <li>
-        <%= _('The best security is to use your own custom encryption key although it is not required.') %>
+        <%= _('The best security for private instances of Password Pusher is to use your own custom encryption key although it is not required.') %>
     </li>
     <li>
-        <%= _('The risk in using the default key is lessened if you keep your instance secure and keep your push expirations short.  e.g.  1 day/1 view versus 100 days/100 views.') %>
+        <%= _('The risk in using the default key is lessened if you keep your instance secure and your push expirations short.  e.g.  1 day/1 view versus 100 days/100 views.') %>
     </li>
     <li>
         <%= _('Once a push expires, all encrypted data is deleted.') %>
@@ -60,7 +64,7 @@
         <%= _('Changing an encryption key where old pushes already exist will make those older pushes unreadable.  In other words, the payloads will be garbled.  New pushes going forward will work fine.') %>
     </li>
     <li>
-        <%= _('Key generation can also be done from the command line in the application source by executing: ') %>  
+        <%= _('Key generation can also be done from the command line in the application source by executing: ') %>
         <code>Lockbox.generate_key</code>.
         <pre><code>
         > bundle
