@@ -12,12 +12,8 @@
   },
   "env": {
     "BUNDLE_WITHOUT": "development:test:private",
-    "CRYPT_KEY": {
-      "description": "CRYPT key",
-      "generator": "secret"
-    },
-    "CRYPT_SALT": {
-      "description": "CRYPT salt",
+    "PWPUSH_MASTER_KEY": {
+      "description": "Application Encryption Key",
       "generator": "secret"
     },
     "WEB_CONCURRENCY": {
@@ -58,6 +54,14 @@
     },
     "DELETABLE_PASSWORDS_DEFAULT": {
       "description": "When the option DELETABLE_PASSWORDS_ENABLED is set to true, this option does two things: 1. Sets the default check state for the \"Allow viewers to optionally delete password before expiration\" checkbox. 2. Sets the default value for newly pushed passwords if unspecified (such as with a json request)",
+      "value": "true"
+    },
+    "RETRIEVAL_STEP_ENABLED": {
+      "description": "An option to require an extra click through to get to the actual password?",
+      "value": "true"
+    },
+    "RETRIEVAL_STEP_DEFAULT": {
+      "description": "The default value for the 1-click retrieval step option.",
       "value": "true"
     }
   }
