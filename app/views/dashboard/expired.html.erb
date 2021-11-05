@@ -27,10 +27,10 @@
           <td><%= push.url_token %></td>
           <td><%= I18n.l push.expired_on, format: :long %></td>
           <td>
-            <% if push.note.empty? %>
-              <%= _('None') %>
+            <% if push.note.blank? && push.note_legacy.blank? %>
+              <span class='text-muted'><%= _('None') %></span>
             <% else %>
-              <%= push.decrypt(push.note).truncate(100) %>
+              <%= (push.note.blank? ? push.decrypt(push.note_legacy) : push.note).truncate(100) %>
             <% end %>
           </td>
           <td>

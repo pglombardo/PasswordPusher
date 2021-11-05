@@ -85,13 +85,12 @@ class PasswordsController < ApplicationController
                                                            EXPIRE_AFTER_VIEWS_DEFAULT)
     @password.user_id = current_user.id if user_signed_in?
     @password.url_token = rand(36**16).to_s(36)
+
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
-    @password.payload = params[:password][:payload]
 
-    unless params[:password].fetch(:note, '').blank?
-      @password.note = @password.encrypt(params[:password][:note])
-    end
+    @password.payload = params[:password][:payload]
+    @password.note = params[:password][:note] unless params[:password].fetch(:note, '').blank?
 
     @password.validate!
 
