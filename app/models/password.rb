@@ -46,8 +46,6 @@ class Password < ApplicationRecord
       attr_hash['payload'] = key.decrypt64(payload_legacy)
     end
 
-    attr_hash['note'] = key.decrypt64(note_legacy) if note.blank? && !note_legacy.blank?
-
     attr_hash['days_remaining'] = days_remaining
     attr_hash['views_remaining'] = views_remaining
 
@@ -61,6 +59,7 @@ class Password < ApplicationRecord
 
     # FIXME: Never show note until we have JSON authentication
     # Only the push owner can see the note
+    # attr_hash['note'] = key.decrypt64(note_legacy) if note.blank? && !note_legacy.blank?
     attr_hash.delete('note')
 
     Oj.dump attr_hash
