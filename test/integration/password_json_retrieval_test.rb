@@ -2,15 +2,13 @@ require 'test_helper'
 
 class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
   def test_view_expiration
-    post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2, first_view: false  }}
+    post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2 }}
     assert_response :success
 
     res = JSON.parse(@response.body)
     assert res.key?("payload")
     assert_equal "testpw", res["payload"]
     assert res.key?("url_token")
-    assert res.key?("first_view")
-    assert_equal false, res["first_view"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
