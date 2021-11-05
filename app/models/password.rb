@@ -1,6 +1,6 @@
 class Password < ApplicationRecord
   has_many :views, dependent: :destroy
-  encrypts :payload
+  encrypts :payload, :note
 
   def to_param
     url_token.to_s
@@ -46,8 +46,19 @@ class Password < ApplicationRecord
       attr_hash['payload'] = key.decrypt64(payload_legacy)
     end
 
+    attr_hash['note'] = key.decrypt64(note_legacy) if note.blank? && !note_legacy.blank?
+
     attr_hash['days_remaining'] = days_remaining
     attr_hash['views_remaining'] = views_remaining
+
+    # Remove unnecessary fields
+    attr_hash.delete('payload_ciphertext')
+    attr_hash.delete('payload_legacy')
+    attr_hash.delete('note_ciphertext')
+    attr_hash.delete('note_legacy')
+    attr_hash.delete('user_id')
+    attr_hash.delete('id')
+
     Oj.dump attr_hash
   end
 
