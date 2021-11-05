@@ -59,6 +59,10 @@ class Password < ApplicationRecord
     attr_hash.delete('user_id')
     attr_hash.delete('id')
 
+    # FIXME: Never show note until we have JSON authentication
+    # Only the push owner can see the note
+    attr_hash.delete('note')
+
     Oj.dump attr_hash
   end
 
