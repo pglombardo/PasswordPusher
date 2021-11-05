@@ -1,5 +1,6 @@
 class Password < ApplicationRecord
   has_many :views, dependent: :destroy
+  encrypts :payload
 
   def to_param
     url_token.to_s
@@ -29,6 +30,7 @@ class Password < ApplicationRecord
   def expire
     self.expired = true
     self.payload = nil
+    self.payload_legacy = nil
     self.expired_on = Time.now
     save
   end
@@ -38,9 +40,10 @@ class Password < ApplicationRecord
   def to_json(*args)
     attr_hash = attributes
 
-    if !expired && !payload.nil?
+    if !expired && payload.nil?
+      # Use legacy decryption
       key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-      attr_hash['payload'] = key.decrypt64(attr_hash['payload'])
+      attr_hash['payload'] = key.decrypt64(payload_legacy)
     end
 
     attr_hash['days_remaining'] = days_remaining
@@ -72,12 +75,6 @@ class Password < ApplicationRecord
     return if new_record?
 
     expire if !days_remaining.positive? || !views_remaining.positive?
-  end
-
-  def encrypt(payload)
-    # FIXME: Don't need to recreate key everytime
-    key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    key.encrypt64(payload)
   end
 
   def decrypt(payload)

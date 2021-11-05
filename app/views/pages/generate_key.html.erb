@@ -1,0 +1,81 @@
+<% title(_('Generate Key')) %>
+
+<h4 class='mb-3'><%= _('Generate an Encryption Key') %></h4>
+
+<p class='text-muted'>
+<%= _('This page is used as a helper tool to generate a random encryption key for privately hosted instances of Password Pusher.') %>
+</p>
+
+<p>
+<%= _('Password Pusher encrypts sensitive data in the database.  This requires a randomly generated encryption key for each application instance.') %>
+</p>
+
+<p>
+<%= _('You can use the randomly generated code below to configure your Password Pusher instance.') %>
+</p>
+
+<p>
+</p>
+
+<% new_master_key = Lockbox.generate_key %>
+
+<p class='lead my-3'><%= _('Generated Encryption Key') %></p>
+<div class='input-group mb-3'>
+    <input class='form-control' id='generated_key' value="<%= new_master_key %>" spellcheck='false' readonly='true'>
+    <button id='copy-to-clipboard-button' class='input-group-text btn-success'
+            data-clipboard-target='#generated_key' alt="<%= _('Copy to Clipboard') %>">
+        <em class="bi bi-clipboard-check"></em>
+    </button>
+</div>
+
+<p>
+<%= _('You can apply this key to your application by setting the environment variable') %>
+<code>PWPUSH_MASTER_KEY</code>.
+</p>
+
+<div class='input-group mb-3'>
+    <input class='form-control' id='env_key' value="PWPUSH_MASTER_KEY=<%= new_master_key %>" spellcheck='false' readonly='true'>
+    <button id='copy-to-clipboard-button-2' class='input-group-text btn-success'
+            data-clipboard-target='#env_key' alt="<%= _('Copy to Clipboard') %>">
+        <em class="bi bi-clipboard-check"></em>
+    </button>
+</div>
+
+<p>
+<em><%= _('Reload this page to re-generate a new key.') %></em>
+</p>
+
+<p>
+<%= _('Notes:') %>
+<ul>
+    <li>
+        <%= _('If an encryption key isn\'t provided, a default key will be used.') %>
+    </li>
+    <li>
+        <%= _('The best security for private instances of Password Pusher is to use your own custom encryption key although it is not required.') %>
+    </li>
+    <li>
+        <%= _('The risk in using the default key is lessened if you keep your instance secure and your push expirations short.  e.g.  1 day/1 view versus 100 days/100 views.') %>
+    </li>
+    <li>
+        <%= _('Once a push expires, all encrypted data is deleted.') %>
+    </li>
+    <li>
+        <%= _('Changing an encryption key where old pushes already exist will make those older pushes unreadable.  In other words, the payloads will be garbled.  New pushes going forward will work fine.') %>
+    </li>
+    <li>
+        <%= _('Key generation can also be done from the command line in the application source by executing: ') %>
+        <code>Lockbox.generate_key</code>.
+        <pre><code>
+        > bundle
+        > rails c
+        > Lockbox.generate_key
+        </code></pre>
+    </li>
+</ul>
+</p>
+
+
+<p>
+See also the Password Pusher <a href='https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md' target='_blank'>Configuration documentation</a>.
+</p>

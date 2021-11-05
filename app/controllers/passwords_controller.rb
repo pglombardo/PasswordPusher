@@ -37,7 +37,7 @@ class PasswordsController < ApplicationController
       end
       return
     else
-      @payload = @password.decrypt(@password.payload)
+      @payload = @password.payload.nil? ? @password.decrypt(@password.payload_legacy) : @password.payload
     end
 
     log_view(@password)
@@ -87,7 +87,7 @@ class PasswordsController < ApplicationController
     @password.url_token = rand(36**16).to_s(36)
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
-    @password.payload = @password.encrypt(params[:password][:payload])
+    @password.payload = params[:password][:payload]
 
     unless params[:password].fetch(:note, '').blank?
       @password.note = @password.encrypt(params[:password][:note])
