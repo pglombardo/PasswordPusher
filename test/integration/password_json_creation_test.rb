@@ -6,7 +6,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
     assert res.key?('payload')
     assert_equal 'testpw', res['payload']
     assert res.key?('url_token')
@@ -33,7 +32,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
     assert res.key?('payload')
     assert_equal '£¬', res['payload']
     assert res.key?('url_token')
@@ -60,7 +58,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
     assert res.key?('deletable_by_viewer')
     assert_equal true, res['deletable_by_viewer']
   end
@@ -70,7 +67,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
     assert res.key?('deletable_by_viewer')
     assert_equal false, res['deletable_by_viewer']
   end
@@ -80,7 +76,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
     assert res.key?('deletable_by_viewer')
     assert_equal DELETABLE_PASSWORDS_ENABLED, res['deletable_by_viewer']
   end
@@ -90,7 +85,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
 
     assert res.key?('days_remaining')
     assert_equal 1, res['days_remaining']
@@ -104,7 +98,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('id')
 
     assert res.key?('views_remaining')
     assert_equal 5, res['views_remaining']
