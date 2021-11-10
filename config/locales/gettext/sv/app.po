@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-11-05 15:34+0100\n"
-"PO-Revision-Date: 2021-11-05 15:34+0100\n"
+"POT-Creation-Date: 2021-11-10 12:45+0100\n"
+"PO-Revision-Date: 2021-11-10 12:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -38,21 +38,21 @@ msgstr "Feedback skickad!"
 msgid "Could not send feedback.  Try again?"
 msgstr "Det gick inte att skicka feedback. Försök igen?"
 
-#: ../../../app/controllers/passwords_controller.rb:133
+#: ../../../app/controllers/passwords_controller.rb:132
 msgid "That push doesn't belong to you."
 msgstr "Den pushen tillhör inte dig."
 
-#: ../../../app/controllers/passwords_controller.rb:147
+#: ../../../app/controllers/passwords_controller.rb:146
 msgid "That push does not belong to you."
 msgstr "Den pushen tillhör inte dig."
 
-#: ../../../app/controllers/passwords_controller.rb:152
+#: ../../../app/controllers/passwords_controller.rb:151
 msgid "That push is not deletable by viewers."
 msgstr ""
 "Det här värdet kan inte raderas av personer med läsbehörighet.\n"
 
-#: ../../../app/controllers/passwords_controller.rb:168
-#: ../../../app/controllers/passwords_controller.rb:171
+#: ../../../app/controllers/passwords_controller.rb:167
+#: ../../../app/controllers/passwords_controller.rb:170
 msgid "The password has been deleted and secret URL expired."
 msgstr "Lösenordet har raderats och den hemliga URL har löpt ut."
 
@@ -340,7 +340,7 @@ msgid ""
 msgstr ""
 "Password Pusher är ett program för att säkert skicka lösenord över webben. Län"
 "kar till lösenord upphör att gälla efter att ett visst antal visningar och/ell"
-"er tid har gått."
+"er en viss tid har gått."
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -976,33 +976,39 @@ msgstr "mycket bättre prestanda"
 
 #: ../../../app/views/pages/generate_key.html.erb:1
 msgid "Generate Key"
-msgstr ""
+msgstr "Skapa nyckel"
 
 #: ../../../app/views/pages/generate_key.html.erb:3
 msgid "Generate an Encryption Key"
-msgstr ""
+msgstr "Skapa en krypteringsnyckel"
 
 #: ../../../app/views/pages/generate_key.html.erb:6
 msgid ""
 "This page is used as a helper tool to generate a random encryption key for pri"
 "vately hosted instances of Password Pusher."
 msgstr ""
+"Den här sidan används som hjälp för att skapa en slumptalsgenererad kryptering"
+"snyckel för egna instanser av Password Pusher."
 
 #: ../../../app/views/pages/generate_key.html.erb:10
 msgid ""
 "Password Pusher encrypts sensitive data in the database.  This requires a rand"
 "omly generated encryption key for each application instance."
 msgstr ""
+"Password Pusher krytperar känslig data i databasen. Det krävs en slumptals gen"
+"ererad krypteringsnyckel för varje instans av applikationen."
 
 #: ../../../app/views/pages/generate_key.html.erb:14
 msgid ""
 "You can use the randomly generated code below to configure your Password Pushe"
 "r instance."
 msgstr ""
+"Du kan använda den slumpvis genererade koden nedan för att konfigurera din ins"
+"tans av Password Pusher."
 
 #: ../../../app/views/pages/generate_key.html.erb:22
 msgid "Generated Encryption Key"
-msgstr ""
+msgstr "Genererad krypteringsnyckel"
 
 #: ../../../app/views/pages/generate_key.html.erb:26
 #: ../../../app/views/pages/generate_key.html.erb:39
@@ -1015,25 +1021,28 @@ msgstr "Kopiera till urklipp"
 
 #: ../../../app/views/pages/generate_key.html.erb:32
 msgid "You can apply this key to your application by setting the environment variable"
-msgstr ""
+msgstr "Du kan använda den här nyckeln i din applikation genom att ange miljövariablen"
 
 #: ../../../app/views/pages/generate_key.html.erb:45
 msgid "Reload this page to re-generate a new key."
-msgstr ""
+msgstr "Ladda om den här sidan för att skapa en ny nyckel."
 
 #: ../../../app/views/pages/generate_key.html.erb:49
 msgid "Notes:"
-msgstr ""
+msgstr "Anteckningar: "
 
 #: ../../../app/views/pages/generate_key.html.erb:52
 msgid "If an encryption key isn't provided, a default key will be used."
-msgstr ""
+msgstr "Om en krypteringsnyckel inte läggs till så används den förvalda istället."
 
 #: ../../../app/views/pages/generate_key.html.erb:55
 msgid ""
 "The best security for private instances of Password Pusher is to use your own "
 "custom encryption key although it is not required."
 msgstr ""
+"För att uppnå högsta säkerhet i egna installationer av Password Pusher rekomme"
+"nderar vi att ni använder en egen krypteringsnyckel, även om det inte är nödvä"
+"ndigt."
 
 #: ../../../app/views/pages/generate_key.html.erb:58
 msgid ""
@@ -1041,10 +1050,13 @@ msgid ""
 " and your push expirations short.  e.g.  1 day/1 view versus 100 days/100 view"
 "s."
 msgstr ""
+"Risken med att använda den förvalda nyckeln minskar om du håller din instans s"
+"äker och anger utgångstiden för en push till 1 dag/1 visning jämfört med 100 d"
+"agar/100 visningar."
 
 #: ../../../app/views/pages/generate_key.html.erb:61
 msgid "Once a push expires, all encrypted data is deleted."
-msgstr ""
+msgstr "När en push går ut så raderas all krypterad data i den. "
 
 #: ../../../app/views/pages/generate_key.html.erb:64
 msgid ""
@@ -1052,12 +1064,14 @@ msgid ""
 "r pushes unreadable.  In other words, the payloads will be garbled.  New pushe"
 "s going forward will work fine."
 msgstr ""
+"När krypteringsnyckeln ändras kommer existerande pusher bli oläsliga. Med andr"
+"a ord så kommer innehållet att bli förändrat. Nya pusher fungerar bra."
 
 #: ../../../app/views/pages/generate_key.html.erb:67
 msgid ""
 "Key generation can also be done from the command line in the application sourc"
 "e by executing: "
-msgstr ""
+msgstr "Det går också att skapa en nyckel från kommandoprompten genom att köra: "
 
 #: ../../../app/views/pages/tools.html.erb:1
 #: ../../../app/views/pages/tools.html.erb:3
@@ -1409,7 +1423,7 @@ msgstr ""
 
 #: ../../../app/views/passwords/audit.html.erb:180
 msgid "Password manually expired by user"
-msgstr "Lösenordet manuellt utgånget av användaren"
+msgstr "Lösenordet är marketat som utgånget av användaren"
 
 #: ../../../app/views/passwords/audit.html.erb:182
 msgid "at IP address"
@@ -1466,7 +1480,7 @@ msgstr ""
 
 #: ../../../app/views/passwords/new.html.erb:37
 msgid "Expire secret link and delete after:"
-msgstr "Förfall hemlig länk och ta bort efter:"
+msgstr "Låt länken förfalla vid och ta bort efter:"
 
 #: ../../../app/views/passwords/new.html.erb:70
 #: ../../../app/views/passwords/preview.html.erb:35
@@ -1696,7 +1710,7 @@ msgstr "Docker-containers"
 
 #: ../../../app/views/shared/_footer.html.erb:26
 msgid "Key Generator"
-msgstr ""
+msgstr "Nyckelgenerator"
 
 #: ../../../app/views/shared/_footer.html.erb:34
 msgid "Overview"
@@ -1712,7 +1726,7 @@ msgstr "Password Pusher-logga"
 
 #: ../../../app/views/shared/_header.html.erb:14
 msgid "Go Ahead.  Email Another Password."
-msgstr "Kom Igen. Skicka Ett Till Lösenord."
+msgstr "Kom igen. Skicka ett till lösenord."
 
 #: ../../../app/views/shared/_header.html.erb:22
 msgid "Dashboard"
