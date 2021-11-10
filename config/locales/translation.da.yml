@@ -7,39 +7,67 @@
 ---
 da:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: fortryd
+    passwords: kodeord
+    new: ny
+    active: aktiv
+    expired: udløbet
+    preview: forhåndsvisning
+    audit: revidere
+    pages: sider
+    users: brugere
+    sign_in: log_ind
+    sign_out: log_ud
+    sign_up: opret
+    password: kodeord
+    edit: redigere
+    confirmation: bekræftelse
+    unlock: låse op
   date:
     day_names:
-    - søndag
-    - mandag
-    - tirsdag
-    - onsdag
-    - torsdag
-    - fredag
-    - lørdag
+    - 'søndag
+
+      '
+    - 'mandag
+
+      '
+    - 'tirsdag
+
+      '
+    - 'onsdag
+
+      '
+    - 'torsdag
+
+      '
+    - 'fredag
+
+      '
+    - 'lørdag
+
+      '
     abbr_day_names:
-    - søn
-    - man
-    - tir
-    - ons
-    - tor
-    - fre
-    - lør
+    - 'søn
+
+      '
+    - 'man
+
+      '
+    - 'tir
+
+      '
+    - 'ons
+
+      '
+    - 'tor
+
+      '
+    - 'fre
+
+      '
+    - 'lør
+
+      '
     month_names:
     -
     - januar
@@ -51,26 +79,52 @@ da:
     - juli
     - august
     - september
-    - oktober
+    - 'oktober
+
+      '
     - november
     - december
     abbr_month_names:
     -
-    - jan
-    - feb
-    - mar
-    - apr
-    - maj
-    - jun
-    - jul
-    - aug
-    - sep
-    - okt
-    - nov
-    - dec
+    - 'jan
+
+      '
+    - 'feb
+
+      '
+    - 'mar
+
+      '
+    - 'apr
+
+      '
+    - 'maj
+
+      '
+    - 'jun
+
+      '
+    - 'jul
+
+      '
+    - 'aug
+
+      '
+    - 'sep
+
+      '
+    - 'okt
+
+      '
+    - 'nov
+
+      '
+    - 'dec
+
+      '
   time:
-    am:
-    pm:
+    am: am
+    pm: pm
   number:
     human:
       storage_units:
@@ -83,7 +137,7 @@ da:
           gb: GB
           tb: TB
           pb:
-          eb:
+          eb: EB
       decimal_units:
         units:
           thousand: Tusind
@@ -133,13 +187,20 @@ da:
       not_saved:
         one: 'En fejl medførte, at denne %{resource} ikke kunne gemmes:'
         other: "%{count} fejl medførte, at denne %{resource} ikke kunne gemmes:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: "Session %{id} er ikke længere tilgængelig i hukommelsen.\nHvis
+      du benytter en multi-proces server (som Unicorn eller Puma). \nDenne forespørgsels
+      \ gemmes ikke %{id} i hukommelsen. Overvej at ændre antallet af processer /
+      workers til en (1) eller benyt en anden server til at udvikle på.\n"
+    unacceptable_request: "En understøttet version forventes i Accept header. \n"
+    connection_refused: |
+      Ups! Det lykkedes ikke at oprette forbindelse til internettet Console middleware.
+      Sørg for at en "rails" udviklingserver kører.
   activerecord:
     errors:
       messages:
-        record_invalid: 'Godkendelse gik galt: %{errors}'
+        record_invalid: 'Godkendelse fejlede: %{errors}
+
+          '
         restrict_dependent_destroy:
           has_one: Kunne ikke slette posten fordi en afhængig %{record} findes
           has_many: Kunne ikke slette posten fordi afhængige %{record} findes
@@ -165,7 +226,9 @@ da:
         one: en dag
         other: "%{count} dage"
       about_x_months:
-        one: cirka en måned
+        one: 'cirka en måned
+
+          '
         other: cirka %{count} måneder
       x_months:
         one: en måned
@@ -197,28 +260,29 @@ da:
     previous_label: "← forrige"
     next_label: næste →
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Sideopdel
+    page_aria_label: Side %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Ingen %{model} fundet
+        one: Viser 1 %{model}
+        other: Viser alle %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
+        zero: Ingen %{model} fundet
+        one: Viser <b>1</b> %{model}
+        other: Viser <b>all&nbsp;%{count}</b> %{model}
       multi_page: Viser %{model} %{from} - %{to} af ialt %{count}
-      multi_page_html:
+      multi_page_html: Viser %{model} <b>%{from} - %{to}</b> af <b>%{count}</b> i
+        alt
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} blev oprettet med succes."
       update:
-        notice:
+        notice: "%{resource_name} blev opdateret med succes."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} blev slettet med succes."
+        alert: "%{resource_name} kunne ikke slettes."
   devise:
     confirmations:
       confirmed: Din e-mail er nu bekræftet.
@@ -227,9 +291,9 @@ da:
       send_paranoid_instructions: Hvis din e-mail findes i vores database, vil du
         i løbet af få minutter modtage en mail med instruktioner om, hvordan du bekræfter
         din e-mail.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Send bekræftelsesinstruktionerne igen
+      resend_header: Send bekræftelsesinstruktionerne igen
+      resend_button: Send igen
     failure:
       already_authenticated: Du er allerede logget ind.
       inactive: Din konto er endnu ikke aktiveret.
@@ -244,13 +308,13 @@ da:
       confirmation_instructions:
         subject: Bekræftelsesinstruktioner
       reset_password_instructions:
-        subject: Skift-adgangskode-instruktioner
+        subject: Vejledning i skift af adgangskode
       unlock_instructions:
         subject: Låse-op-instruktioner
       email_changed:
-        subject: E-mail ændret
+        subject: E-mail blev ændret
       password_change:
-        subject: Adgangskode ændret
+        subject: Adgangskoden er ændret
     omniauth_callbacks:
       failure: Kunne ikke godkende %{kind} fordi "%{reason}".
       success: Godkendt %{kind} konto.
@@ -265,11 +329,11 @@ da:
         din adgangskode.
       updated: Din adgangskode er ændret, og du er nu logget ind.
       updated_not_active: Din adgangskode er ændret.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Nulstille kodeord
+      reset_button: Opdater konto
+      forgot_title: Glemt din adgangskode?
+      forgot_header: Glemt din adgangskode?
+      forgot_button: Send nulstillingsinstruktioner
     registrations:
       destroyed: Din konto er nu lukket.
       signed_up: Velkommen! Din konto er nu oprettet.
@@ -283,22 +347,26 @@ da:
         din nye e-mail. Tjek venligst din mail og tryk på bekræftelses-linket for
         at godkende.
       updated: Din konto er opdateret.
-      updated_but_not_signed_in:
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      updated_but_not_signed_in: Din konto er blevet opdateret, men da din adgangskode
+        blev ændret, skal du logge ind igen.
+      update_email: Opdater e-mail
+      currently_waiting: 'Afventer i øjeblikket bekræftelse på
+
+        '
+      change_password: Skift kodeord
+      change_password_hint: Efterlad feltet tomt såfremt du ikke ønsker at ændre indholdet
+      new_password: Nyt kodeord
+      new_password_confirmation: Bekræftelse af ny adgangskode
+      password: kodeord
+      password_minimum: Der kræves et minimum på %d tegn, men jo flere tegn jo bedre.
+      verification: 'Bekræftelse '
+      verification_text: Indtast din nuværende adgangskode for at bekræfte ændringerne
+        ovenfor.
+      update_account: Opdater konto
+      edit_account: Rediger konto
+      create_account: Opret konto
+      email: Email
+      password_confirmation: Bekræftelse af kodeord
     unlocks:
       send_instructions: Du vil i løbet af få minutter modtage en mail med instruktioner
         om, hvordan du låser din konto op.
@@ -306,14 +374,16 @@ da:
         i løbet af få minutter modtage en mail med instruktioner om, hvordan du låser
         din konto op.
       unlocked: Din konto er nu låst op. Venligst log ind for at fortsætte.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Send oplåsningsinstruktionerne igen
+      unlock_header: Send oplåsningsinstruktionerne igen
+      unlock_button: Send igen
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Husk mig
+      login: Log ind
+      sign_up: Tilmelding
+      forgot_your: Glemt din adgangskode?
+      didnt_confirmation: Modtog du ikke en bekræftelse?
+      didnt_unlock: 'Modtog du ikke en instruktioner på oplåsning?
+
+        '
+      email: Email
