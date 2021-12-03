@@ -18,12 +18,10 @@ RUN apt-get update -qq && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
     touch ${APP_ROOT}/log/production.log
 
+WORKDIR ${APP_ROOT}
 EXPOSE 5100
 
 RUN gem install bundler
-
-WORKDIR ${APP_ROOT}
-
 ENV BUNDLE_GEMFILE=./gemfiles/Gemfile-mysql
 
 ENV RACK_ENV=production
