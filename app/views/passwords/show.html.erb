@@ -1,26 +1,57 @@
 <% plain_title(_('Your Secret Link')) %>
 
-<div class="container-fluid h-100 mx-0 py-5 px-0 bg-light">
+<div class="container-fluid h-100 mx-0 py-0 px-0 bg-light">
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
-        <div class='text-center m-3'>
-          <p class=""><strong><%= _('Please obtain and securely store this password elsewhere, ideally in a password manager.') %></strong></p>
-          <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
-        </div>
+      <% unless @password.payload.empty? %>
+          <div class='text-center m-3'>
+            <p class=""><strong><%= _('Please obtain and securely store this content in a secure manner, such as in a password manager.') %></strong></p>
+            <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
+            <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
+              <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
+            </button>
+          </div>
 
-        <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
-          <div
-          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white' 
-          id='password_payload' 
-          translate='no'><pre class='w-100 text-break mb-5 mt-5'><%=@payload%></div>
-        <% else %>
-          <div
-          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
-          id='password_payload' 
-          translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=@payload%></div>
-        <% end%>
-        <div class='text-center m-3'>
-          <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button'>
-            <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
+          <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
+            <div
+            class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white' 
+            id='password_payload' 
+            translate='no'><pre class='w-100 text-break mb-5 mt-5'><%=@payload%></div>
+          <% else %>
+            <div
+            class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
+            id='password_payload' 
+            translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=@payload%></div>
+          <% end%>
+      <% end %>
+      <div class='text-center m-3'>
+        <% if @password.files.attached? %>
+          <p><strong>Attached Files</strong></p>
+            <% @password.files.each do |file| %>
+              <div class="list-group">
+                  <%= link_to rails_blob_url(file), target: '_blank', class: 'list-group-item list-group-item-action' do %>
+                    <%= file.filename %>
+                    (<%= filesize(file.blob.byte_size) %>)
+                    &nbsp;
+                    <em class="bi bi-box-arrow-up-right"></em>
+                  <% end %>
+              </div>
+            <% end %>
+        <% end %>
+        <p class="text-muted mt-5">
+          <%= _("This secret link and all content will be deleted in") %>
+          <strong><%= @password.days_remaining.to_s + ' ' + n_('day', 'days', @password.days_remaining) %></strong>
+          <% if @password.views_remaining == 0 %>
+              <%= _('or') %> <strong><%= _('0 more views') %></strong>
+              <%= _('(this is the last view).') %>
+          <% else %>
+              <%= _('or') %>
+              <strong><%= @password.views_remaining.to_s + ' ' + n_('more view', 'more views', @password.views_remaining) %></strong>
+              <%= _('(whichever occurs first).') %>
+          <% end %>
+        </p>
+        <% if @password.deletable_by_viewer %>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <em class="bi bi-trash"></em> <%= _('Delete This Secret Link Now') %>
           </button>
         </div>
         <div class='text-center m-3'>
@@ -45,11 +76,13 @@
           <% end %>
         </div>
     </div>
-    <div class="fixed-bottom w-100 d-grid gap-2">
-      <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button-2'>
-      <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
-      </button>
-    </div>
+    <% unless @password.payload.empty? %>
+      <div class="fixed-bottom w-100 d-grid gap-2">
+        <button class='btn btn-primary' data-clipboard-target='#password_payload' id='copy-to-clipboard-button-2'>
+        <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
+        </button>
+      </div>
+    <% end %>
 </div>
 
 

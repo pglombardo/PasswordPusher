@@ -5,15 +5,15 @@
 
     <div class='row'>
         <div class='col'>
-            <div class='mb5'>
+            <div class=''>
                 <%= f.text_area(:payload, { class: "form-control",
-                                            rows: 8,
+                                            rows: 6,
                                             placeholder: _('Enter the Password (or text) to be Shared'),
                                             autocomplete: "off",
                                             spellcheck: "false",
                                             autofocus: true,
                                             required: true }) %>
-                <div class='mb3 position-relative'>
+                <div class='position-relative'>
                     <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
                         <span id="current">0</span>
                         <span id="maximum">/ 1048576 <%= _('Characters') %></span>
@@ -25,6 +25,15 @@
     <div class='row'>
         <div class='col-12 col-sm-8 p-3 mt-4'>
             <% if user_signed_in? %>
+                <div class='row mb-3'>
+                    <div data-controller="multi-upload">
+                        <div data-multi-upload-target="files" class="list-group"></div>
+                        <div class="file my-3">
+                            <%= f.file_field :files, :multiple => true, :data => {:action => "multi-upload#addFile"} %>
+                        </div>
+
+                    </div>
+                </div>
                 <div class='row mb-3'>
                     <div class='col'>
                         <%= f.text_area(:note, { class: "form-control",
