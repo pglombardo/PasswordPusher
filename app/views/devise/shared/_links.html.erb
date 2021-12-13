@@ -38,6 +38,9 @@
       <%= _('Language') %>
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <% I18n.available_locales.each do |lang| %>
+        <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
+      <% end %>
 
       <li class='dropdown-item'><%= link_to "Español", url_for(locale: 'es'), hreflang: 'es', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
       <li class='dropdown-item'><%= link_to "English", url_for(locale: 'en'), hreflang: 'en', rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
