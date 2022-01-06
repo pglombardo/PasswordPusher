@@ -13,13 +13,30 @@
 [![Semantic Versions](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--versions-e10079.svg)](https://github.com/pglombardo/pwpush-cli/releases)
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/pwpush/blob/master/LICENSE)
 
+</div>
+
+__Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
+
 Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
-Follow Password Pusher [on Twitter](https://twitter.com/pwpush) or [on Facebook](https://www.facebook.com/pwpush) for the latest news, updates and changes.
+* __Easy-to-install:__ Host your own via Docker, a cloud service or just use [pwpush.com](https://pwpush.com)
+* __Opensource:__ No blackbox code.  Only trusted, tested and reviewed opensource code.
+* __Audit logging:__ Track and control what you've shared and see who has viewed it.
+* __Encrypted storage:__ All sensitive data is stored encrypted and is deleted once expired.
+* __Host your own:__ Database backed or ephemeral, run your instance isolated from the world.
+* __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
+* __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
+* __Internationalized:__ Included is support for 10 languages
+* __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
+* __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
+* __10 Years Old:__ Password Pusher has securely delivered many millions of passwords in it's 10 year history.
+* __Honest Software:__  Opensource written by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
-</div>
+Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) or [on Facebook](https://www.facebook.com/pwpush) for the latest news, updates and changes.
+
+-----
 
 # How to Use
 
