@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 

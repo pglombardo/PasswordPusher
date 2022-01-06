@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class CommandsController < ApplicationController
   # Some random images featuring Stan (Instana)
   STAN_URLS = [
