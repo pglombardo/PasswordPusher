@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class CommandsController < ApplicationController
   # Some random images featuring Stan (Instana)
   STAN_URLS = [
@@ -60,7 +62,7 @@ class CommandsController < ApplicationController
     @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
     @password.payload = @key.encrypt64(secret)
 
-    @password.url_token = rand(36**16).to_s(36)
+    @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
     @password.validate!
 
     if @password.save

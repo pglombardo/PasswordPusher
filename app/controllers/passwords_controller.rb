@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 
@@ -84,7 +86,7 @@ class PasswordsController < ApplicationController
     @password.expire_after_views = params[:password].fetch(:expire_after_views,
                                                            EXPIRE_AFTER_VIEWS_DEFAULT)
     @password.user_id = current_user.id if user_signed_in?
-    @password.url_token = rand(36**16).to_s(36)
+    @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
