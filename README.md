@@ -57,6 +57,10 @@ To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) i
 
 * [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
 
+## Libraries & APIs
+
+* [oyale/PwPush-PHP](https://github.com/oyale/PwPush-PHP): a PHP library wrapper to easily push passwords to any Password Pusher instance
+
 ## Android Apps
 
 *  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
