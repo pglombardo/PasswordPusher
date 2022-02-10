@@ -2,6 +2,7 @@
 <h2 class='my-3'><%= I18n.t('devise.general.sign_up') %></h1>
   
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="form-floating">
     <input class="form-control" autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email" required>
     <%= f.label I18n.t('devise.registrations.email'), for: :user_email %>
