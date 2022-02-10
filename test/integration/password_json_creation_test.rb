@@ -117,6 +117,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
-    assert res.empty? == true
+    assert res == {"error"=>"No password, text or files provided.  Try again."}
   end
 end
