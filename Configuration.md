@@ -72,8 +72,26 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | PWP__HOST_PROTOCOL | The protocol to access your Password Pusher instance.  HTTPS advised. | `https` |
 | PWP__MAIL__MAILER_SENDER | This is the "From" address in sent emails. | '"Company Name" <user@example.com>' |
 
-* [External Documentation on mailer configuration](https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration) for the underlying technology.
+## Shell Example
+
+```
+export PWP__ENABLE_LOGINS=true
+export PWP__MAIL__RAISE_DELIVERY_ERRORS=true
+export PWP__MAIL__SMTP_ADDRESS=smtp.mycompany.org
+export PWP__MAIL__SMTP_PORT=587
+export PWP__MAIL__SMTP_USER_NAME=yolo
+export PWP__MAIL__SMTP_PASSWORD=secret
+export PWP__MAIL__SMTP_AUTHENTICATION=plain
+export PWP__MAIL__SMTP_STARTTLS=true
+export PWP__MAIL__OPEN_TIMEOUT=10
+export PWP__MAIL__READ_TIMEOUT=10
+export PWP__HOST_DOMAIN=pwpush.mycompany.org
+export PWP__HOST_PROTOCOL=https
+export PWP__MAIL__MAILER_SENDER='"Spiderman" <thespider@mycompany.org>'
+```
+
 * See also this [Github discussion](https://github.com/pglombardo/PasswordPusher/issues/265#issuecomment-964432942).
+* [External Documentation on mailer configuration](https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration) for the underlying technology if you need more details for configuration issues.
 
 # Forcing SSL Links
 
