@@ -103,18 +103,25 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 
     docker run -d -p "5100:5100" pglombardo/pwpush-postgres:release
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres-external-database)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres)
+
+**➜ using an External MariaDB (MySQL) Database**
+
+    docker run -d -p "5100:5100" pglombardo/pwpush-mysql:release
+
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-mysql)
 
 _Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
 
 ## With Docker Compose
 
-Included in this repository is `containers/docker/pwpush-postgres/docker-compose.yaml` which can be used by simply running:
+Included in this repository are Docker Compose YAML files which can be used by simply running:
 
     docker-compose up -d
     docker-compose down
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres)
+- [Docker Compose for a MariaDB (MySQL)](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-mysql/docker-compose.yaml) backed instance.
+- [Docker Compose for a Postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yaml) backed instance.
 
 ## On Kubernetes
 
@@ -125,7 +132,7 @@ here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubern
 
 _There used to be a 3rd party blog post with instructions but it's been deleted.  If anyone has instructions they would like to contribute, it would be greatly appreciated._
 
-See issue #277
+See [issue #277](https://github.com/pglombardo/PasswordPusher/issues/277)
 
 ## On OpenShift
 
