@@ -41,6 +41,14 @@ Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https:/
 
 -----
 
+[![](./app/frontend/img/features/front-page-thumb.png)](./app/frontend/img/features/front-page-large.png)
+[![](./app/frontend/img/features/audit-log-thumb.png)](./app/frontend/img/features/audit-log-large.png)
+[![](./app/frontend/img/features/secret-url-languages-thumb.png)](./app/frontend/img/features/secret-url-languages-large.png)
+[![](./app/frontend/img/features/password-generator-thumb.png)](./app/frontend/img/features/password-generator-large.png)
+[![](./app/frontend/img/features/dark-theme-thumb.png)](./app/frontend/img/features/dark-theme.gif)
+[![](./app/frontend/img/features/preliminary-step-thumb.png)](./app/frontend/img/features/preliminary-step.gif)
+
+
 # How to Use
 
 You can access Password Pusher at [pwpush.com](https://pwpush.com) or alternatively use one of the tools below.
