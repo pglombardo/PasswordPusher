@@ -1,6 +1,6 @@
 <div align="center">
 
-![Password Pusher Front Page](https://disznc.s3.amazonaws.com/Screen-Shot-2021-07-04-at-9.04.09-PM.png)
+![Password Pusher Front Page](https://pwpush.s3.eu-west-1.amazonaws.com/pwpush-horizontal-logo.png)
 
 __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
     
