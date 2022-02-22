@@ -7,22 +7,22 @@
 ---
 pt-BR:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: cancelar
+    passwords: senhas
+    new: novo
+    active: ativo
+    expired: expirado
+    preview: visualizar
+    audit: auditoria
+    pages: páginas
+    users: usuários
+    sign_in: entrar
+    sign_out: sair
+    sign_up: inscrever-se
+    password: senha
+    edit: editar
+    confirmation: confirmação
+    unlock: desbloquear
   date:
     day_names:
     - domingo
@@ -69,8 +69,8 @@ pt-BR:
     - nov
     - dez
   time:
-    am:
-    pm:
+    am: am
+    pm: pm
   number:
     human:
       storage_units:
@@ -87,10 +87,10 @@ pt-BR:
       decimal_units:
         units:
           thousand: mil
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          million: Milhão
+          billion: Bilhão
+          trillion: Trilhão
+          quadrillion: Quadrilhão
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -133,13 +133,18 @@ pt-BR:
       not_saved:
         one: 'Não foi possível salvar %{resource}: 1 erro'
         other: 'Não foi possível salvar %{resource}: %{count} erros.'
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: A sessão %{id} não está mais disponível na memória. Se acontecer
+      de você executar em um servidor multi-processo (como Unicorn ou Puma), o processo
+      deste hit de solicitação não armazena %{id} na memória. Considere aumentar o
+      número de processos/trabalhadores para um (1) ou usar um servidor diferente
+      em desenvolvimento.
+    unacceptable_request: Uma versão com suporte é esperada no cabeçalho Accept.
+    connection_refused: Ops! Falha ao conectar-se ao middleware do console da web.
+      Certifique-se de que um servidor de desenvolvimento Rails esteja em execução.
   activerecord:
     errors:
       messages:
-        record_invalid: 'A validação falhou: %{errors}'
+        record_invalid: 'Falha na validação: %{errors}'
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente
           has_many: Não é possível excluir o registro pois existem %{record} dependentes
@@ -197,8 +202,8 @@ pt-BR:
     previous_label: "&#8592; Anteriores"
     next_label: Próximos &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Paginação
+    page_aria_label: Página %{page}
     page_entries_info:
       single_page:
         zero: Nenhum %{model} encontrado
@@ -214,12 +219,12 @@ pt-BR:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} foi criado com sucesso."
       update:
-        notice:
+        notice: "%{resource_name} foi atualizado com sucesso."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} foi destruído com sucesso."
+        alert: "%{resource_name} não pôde ser destruído."
   devise:
     confirmations:
       confirmed: A sua conta foi confirmada com sucesso.
@@ -228,9 +233,9 @@ pt-BR:
       send_paranoid_instructions: Se o seu e-mail existir em nosso banco de dados,
         você receberá um email com instruções sobre como confirmar sua conta em alguns
         minutos.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Reenviar instruções de confirmação
+      resend_header: Reenviar instruções de confirmação
+      resend_button: Reenviar
     failure:
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
@@ -265,11 +270,11 @@ pt-BR:
         você receberá um email com um link para recuperação da senha.
       updated: A sua senha foi alterada com sucesso. Você está autenticado.
       updated_not_active: Sua senha foi alterada com sucesso.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Redefinir senha
+      reset_button: Atualizar conta
+      forgot_title: Esqueci a senha
+      forgot_header: Esqueci a senha
+      forgot_button: Enviar instruções de redefinição
     registrations:
       destroyed: Adeus! A sua conta foi cancelada com sucesso. Esperamos vê-lo novamente
         em breve.
@@ -286,35 +291,36 @@ pt-BR:
       updated: A sua conta foi atualizada com sucesso.
       updated_but_not_signed_in: Sua conta foi atualizada com sucesso, uma vez que
         sua senha foi alterada será necessário realizar o login novamente.
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      update_email: Atualizar e-mail
+      currently_waiting: Atualmente aguardando confirmação para
+      change_password: Mudar senha
+      change_password_hint: Deixe em branco se não quiser alterá-lo.
+      new_password: Nova Senha
+      new_password_confirmation: Nova confirmação de senha
+      password: senha
+      password_minimum: São necessários no mínimo %d caracteres, mas quanto mais,
+        melhor.
+      verification: Verificação
+      verification_text: Digite sua senha atual para validar as alterações acima.
+      update_account: Atualizar conta
+      edit_account: Editar conta
+      create_account: Criar uma conta
+      email: E-mail
+      password_confirmation: Confirmação se senha
     unlocks:
       send_instructions: Dentro de minutos, você receberá um e-mail com instruções
         de desbloqueio da sua conta.
       send_paranoid_instructions: Se sua conta existir em nosso banco de dados, você
         receberá em breve um e-mail com instruções para desbloquear ela.
       unlocked: A sua conta foi desbloqueada com sucesso. Efetue login para continuar.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Reenviar instruções de desbloqueio
+      unlock_header: Reenviar instruções de desbloqueio
+      unlock_button: Reenviar
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Lembre-me
+      login: Log In
+      sign_up: Inscrever-se
+      forgot_your: Esqueceu sua senha?
+      didnt_confirmation: Não recebeu as instruções de confirmação?
+      didnt_unlock: Não recebeu instruções de desbloqueio?
+      email: E-mail
