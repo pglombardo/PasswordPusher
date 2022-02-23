@@ -88,7 +88,7 @@ class PasswordTest < Minitest::Test
     assert push.views_remaining == 1
     assert !push.expired
 
-    # 1 View shoud expire
+    # 1 View should expire
     push = Password.new(payload: 'asdf', expire_after_views: 1)
     push.save
     push.validate!
