@@ -115,13 +115,13 @@ _Note: The `latest` Docker container tag builds nightly off of the latest code c
 
 ## With Docker Compose
 
-Included in this repository are Docker Compose YAML files which can be used by simply running:
+**➜ One-liner Password Pusher with a Postgres Database**
 
-    docker-compose up -d
-    docker-compose down
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yaml && docker compose up -d
 
-- [Docker Compose for a MariaDB (MySQL)](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-mysql/docker-compose.yaml) backed instance.
-- [Docker Compose for a Postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yaml) backed instance.
+**➜ One-liner Password Pusher with a MariaDB (MySQL) Database**
+
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yaml && docker compose up -d
 
 ## On Kubernetes
 
