@@ -156,8 +156,8 @@ cd PasswordPusher
 gem install bundler
 bundle install --without development production test --deployment
 bundle exec rake assets:precompile
-RAILS_ENV=private bundle exec rake db:setup
-foreman start internalweb
+RAILS_ENV=private ./bin/rake db:setup
+./bin/rails server --environment=private
 ```
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
