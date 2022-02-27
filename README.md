@@ -162,6 +162,20 @@ RAILS_ENV=private ./bin/rake db:setup
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
+# Internationalization
+
+Password Pusher is currently available in **13 languages** with more languages being added often as volunteers apply.
+
+From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
+
+## Changing the Default Language
+
+The default language can be changed by setting an environment variable with the appropriate language code:
+
+    PWP__DEFAULT_LOCALE=es
+
+For more details, a list of supported language codes and further explanation, see the bottom of this [configuration file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml).
+
 # 📼 Credits
 
 ## Translators

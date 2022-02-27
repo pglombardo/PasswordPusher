@@ -31,6 +31,6 @@ Rails.application.routes.draw do
     get '/slack_direct_install', to: redirect("https://slack.com/oauth/authorize?client_id=#{SLACK_CLIENT_ID}&scope=commands", status: 302)
     get '/pages/*id' => 'pages#show', as: :page, format: false
     resources :feedbacks, only: %i[new create]
-    root to: 'passwords#new'
+    root to: 'passwords#new', :locale => I18n.default_locale
   end
 end
