@@ -164,9 +164,9 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 # Internationalization
 
-Password Pusher is currently available in **13 languages** with more languages being added often.
+Password Pusher is currently available in **13 languages** with more languages being added often as volunteers apply.
 
-From within the application, the language is selectable from menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
+From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
 ## Changing the Default Language
 
