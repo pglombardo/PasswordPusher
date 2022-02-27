@@ -2,7 +2,7 @@
 I18n.available_locales = %i[ca da de en es fr it nl no pl pt-BR sr sv]
 
 # Set default locale to something other than :en
-I18n.default_locale = :en
+I18n.default_locale = Settings.default_locale
 
 TranslationIO.configure do |config|
   config.api_key        = 'cc6a66a15e02433aa9d0afeb39835b8c'
