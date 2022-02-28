@@ -1,5 +1,5 @@
 # pwpush-postgres
-FROM ruby:3.1.0
+FROM ruby:3.0.3
 
 LABEL maintainer='pglombardo@hey.com'
 
