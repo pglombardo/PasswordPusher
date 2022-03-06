@@ -49,41 +49,17 @@ Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https:/
 [![](./app/frontend/img/features/preliminary-step-thumb.png)](./app/frontend/img/features/preliminary-step.gif)
 
 
-# How to Use
+# Quickstart
 
-You can access Password Pusher at [pwpush.com](https://pwpush.com) or alternatively use one of the tools below.
+→ Go to [pwpush.com](https://pwpush.com) and try it out.
 
-To run your own instance, see [Run Your Own Instance](#-run-your-own-instance) in the next section.
+_or_
 
-## Command Line Utilities
+→ Run your own instance with one command: `docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:release` then go to http://localhost:5100
 
-* [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
+_or_
 
-*  [kprocyszyn/Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a PowerShell based CLI
-
-*  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
-
-* [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
-
-## Libraries & APIs
-
-* [oyale/PwPush-PHP](https://github.com/oyale/PwPush-PHP): a PHP library wrapper to easily push passwords to any Password Pusher instance
-
-## Android Apps
-
-*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
-
-## Application Integrations
-
-* [Slack: How to Add a Custom Slash Command](https://github.com/pglombardo/PasswordPusher/wiki/PasswordPusher-&-Slack:-Custom-Slash-Command)
-
-* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
-
-## API
-
-* [JSON API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
-
-
+→ Use one of the [3rd party tools](#3rd-party-tools) that interface with Password Pusher.
 
 # 💾 Run Your Own Instance
 
@@ -94,18 +70,21 @@ _Note: Password Pusher can be largely configured by environment variables so aft
 Docker images of Password Pusher are available on [Docker hub](https://hub.docker.com/u/pglombardo).
 
 **➜ ephemeral**
+_Temporary database that is wiped on container restart._
 
     docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:release
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-ephemeral)
 
 **➜ using an External Postgres Database**
+_Postgres database backed instance._
 
     docker run -d -p "5100:5100" pglombardo/pwpush-postgres:release
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres)
 
 **➜ using an External MariaDB (MySQL) Database**
+_Mariadb database backed instance._
 
     docker run -d -p "5100:5100" pglombardo/pwpush-mysql:release
 
@@ -161,6 +140,36 @@ RAILS_ENV=private ./bin/rake db:setup
 ```
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
+
+# 3rd Party Tools
+
+## Command Line Utilities
+
+* [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
+
+*  [kprocyszyn/Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a PowerShell based CLI
+
+*  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
+
+* [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
+
+## Libraries & APIs
+
+* [oyale/PwPush-PHP](https://github.com/oyale/PwPush-PHP): a PHP library wrapper to easily push passwords to any Password Pusher instance
+
+## Android Apps
+
+*  [Pushie](https://play.google.com/store/apps/details?id=com.chesire.pushie) by [chesire](https://github.com/chesire)
+
+## Application Integrations
+
+* [Slack: How to Add a Custom Slash Command](https://github.com/pglombardo/PasswordPusher/wiki/PasswordPusher-&-Slack:-Custom-Slash-Command)
+
+* [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
+
+# The Password Pusher API
+
+* [JSON API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
 
 # Internationalization
 
