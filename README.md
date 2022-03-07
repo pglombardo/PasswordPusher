@@ -214,7 +214,7 @@ If you would like to volunteer and assist in translating, see [this page](https:
 
 * Portuguese
   * [Jair Henrique](https://github.com/jairhenrique/)
-  * ifabriciorodrigues
+  * [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)
   * [Ivan Freitas](https://github.com/IvanMFreitas)
   * Sara Faria
 
