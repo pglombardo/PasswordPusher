@@ -165,6 +165,8 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * [Slack: How to Add a Custom Slash Command](https://github.com/pglombardo/PasswordPusher/wiki/PasswordPusher-&-Slack:-Custom-Slash-Command)
 
+* [Unraid Application](https://forums.unraid.net/topic/104128-support-passwordpusher-pwpush-corneliousjd-repo/)
+
 * [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
 # The Password Pusher API
