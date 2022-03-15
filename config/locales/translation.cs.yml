@@ -94,23 +94,23 @@ cs:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Validace je neúspešná: %{errors}'
-      inclusion: není v seznamu povolených hodnot
-      exclusion: je vyhrazeno pro jiný účel
-      invalid: není platná hodnota
-      confirmation: nebylo potvrzeno
+      model_invalid: 'Neúspešná validace: %{errors}'
+      inclusion: není v seznamu hodnot
+      exclusion: je vyhrazeno
+      invalid: neplatná hodnota
+      confirmation: neodpovídá
       accepted: musí být potvrzeno
-      empty: nesmí být prázdný/á/é
-      blank: je povinná položka
-      present: musí být prázdný/á/é
+      empty: povinná položka
+      blank: povinná položka
+      present: musí být prázdné
       too_long:
-        one:
-        other:
+        one: je příliš dlouhé (maximum je jeden znak)
+        other: 'je příliš dlouhé (maximum znaků je: %{count})'
       too_short:
-        one:
-        other:
+        one: je příliš krátké (minimum je jeden znak)
+        other: 'je příliš krátké (minimum znaků je: %{count})'
       wrong_length:
-        one:
+        one: je špatné délky (musí být jeden znak)
         other:
       not_a_number: není číslo
       not_an_integer: musí být celé číslo
@@ -119,23 +119,24 @@ cs:
       equal_to: musí být rovno %{count}
       less_than: musí být méně než %{count}
       less_than_or_equal_to: musí být méně nebo rovno %{count}
-      other_than: musí být rozdílný/á/é od %{count}
+      other_than: musí být jiný než %{count}
       odd: musí být liché číslo
-      even: musí být sudé číslo
+      even: musí být shodné
       required: musí existovat
-      taken: již databáze obsahuje
+      taken: již bylo použito
       already_confirmed: byl již potvrzen, zkuste se přihlásit
       confirmation_period_expired: Je potřeba potvrdit do %{period},  požádejte o
-        novou
-      expired: vypršela, požádejte o nové
+        další
+      expired: vypršelo, požádejte o nové
       not_found: nenalezen
       not_locked: nebyl uzamčen
       not_saved:
-        one: "%{resource} nebyl uložen kvůli chybě:"
-        other: "%{resource} nebyl uložen kvůli %{count} chybám:"
+        one: 'Chyba zabránila %{resource} v uložení:'
+        other: 'Počet chyb: %{count}. Nelze uložit %{resource}:'
     unavailable_session:
     unacceptable_request:
-    connection_refused:
+    connection_refused: Jejda! Nepodařilo se připojit k middlewar web consoli. Ujistěte
+      se, že běží vývojový Rails server.
   activerecord:
     errors:
       messages:
@@ -286,7 +287,8 @@ cs:
         ověřit svou novou e-mailovou adresu. Zkontrolujte svou schránku a klikněte
         na odkaz pro dokončení ověření Vaší nové e-mailové adresy.
       updated: Váš účet byl úspěšně aktualizován.
-      updated_but_not_signed_in:
+      updated_but_not_signed_in: Váš účet byl úspěšně aktualizován, ale protože bylo
+        změněno vaše heslo, musíte se znovu přihlásit.
       update_email: Upravit e-mail
       currently_waiting: Nyní se čeká na potvrzení
       change_password: Změnit heslo
@@ -295,8 +297,8 @@ cs:
       new_password_confirmation: Potvrzení nového hesla
       password: heslo
       password_minimum: Je vyžadováno minimálně %d znaků, ale čím více, tím lépe.
-      verification:
-      verification_text:
+      verification: Ověření
+      verification_text: Pro ověření výše uvedených změn zadejte své aktuální heslo.
       update_account: Upravit účet
       edit_account: Upravit účet
       create_account: Vytvořit účet
@@ -307,10 +309,10 @@ cs:
         svůj účet.
       send_paranoid_instructions: Pokud Váš e-mail existuje v naší databázi, za několik
         minut obdržíte e-mail s instrukcemi pro odemknutí účtu.
-      unlocked: Váš účet byl úspěšně odblokován.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlocked: Váš účet byl úspěšně odblokován. Pro pokračování se prosím přihlašte.
+      unlock_title: Přeposlat pokyny k odemknutí
+      unlock_header: Přeposlat pokyny k odemknutí
+      unlock_button: Přeposlat
     general:
       remember_me: Pamatuj si mě
       login: Přihlásit
