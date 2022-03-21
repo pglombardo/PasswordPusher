@@ -49,11 +49,10 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
-      - run: cp ./containers/docker/pwpush-ephemeral/Dockerfile .
-
       - name: Build and push pwpush-ephemeral Docker images
         uses: docker/build-push-action@v2.7.0
         with:
+          file: ./containers/docker/pwpush-ephemeral/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-ephemeral:${{ env.DOCKER_TAG }}
