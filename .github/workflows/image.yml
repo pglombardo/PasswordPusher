@@ -42,9 +42,13 @@ jobs:
 
       - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
 
-      - name: Figure out docker image tag
+      - name: Should docker tag be latest?
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+
+      - name: Manually configured docker tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
@@ -80,9 +84,13 @@ jobs:
 
       - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
 
-      - name: Figure out docker image tag
+      - name: Should docker tag be latest?
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+
+      - name: Manually configured docker tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
@@ -118,9 +126,13 @@ jobs:
 
       - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
 
-      - name: Figure out docker image tag
+      - name: Should docker tag be latest?
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+
+      - name: Manually configured docker tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
