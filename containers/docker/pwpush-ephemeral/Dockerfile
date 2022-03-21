@@ -12,10 +12,10 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 # Required packages
 RUN apt-get update -qq && \
-    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn && \
-    cd /opt && \
-    git clone https://github.com/pglombardo/PasswordPusher.git && \
-    touch ${APP_ROOT}/log/private.log
+    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn
+
+RUN mkdir -p ${APP_ROOT}
+ADD ./ ${APP_ROOT}/
 
 EXPOSE 5100
 
