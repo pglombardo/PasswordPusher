@@ -5,6 +5,13 @@ on:
     tags:
       - "v*.*.*"
 
+  workflow_dispatch:
+    inputs:
+      dockerTagName:
+        description: 'What Docker tag to create? e.g. development-0xdeadbeef'     
+        required: true
+        default: 'development-0xdeadbeef'
+
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'latest' docker containers
@@ -42,10 +49,11 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
+      - run: cp ./containers/docker/pwpush-ephemeral/Dockerfile .
+
       - name: Build and push pwpush-ephemeral Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./containers/docker/pwpush-ephemeral/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-ephemeral:${{ env.DOCKER_TAG }}
@@ -80,10 +88,11 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
+      - run: cp ./containers/docker/pwpush-postgres/Dockerfile .
+
       - name: Build and push pwpush-postgres Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./containers/docker/pwpush-postgres/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-postgres:${{ env.DOCKER_TAG }}
@@ -118,10 +127,11 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
+      - run: cp ./containers/docker/pwpush-mysql/Dockerfile .
+
       - name: Build and push pwpush-mysql Docker images
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./containers/docker/pwpush-mysql/.
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-mysql:${{ env.DOCKER_TAG }}
