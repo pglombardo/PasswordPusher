@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       dockerTagName:
-        description: 'What Docker tag to create? e.g. development-0xdeadbeef'     
+        description: 'What Docker tag to create?'
         required: true
         default: 'development-0xdeadbeef'
 
@@ -87,11 +87,10 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
-      - run: cp ./containers/docker/pwpush-postgres/Dockerfile .
-
       - name: Build and push pwpush-postgres Docker images
         uses: docker/build-push-action@v2.7.0
         with:
+          file: ./containers/docker/pwpush-postgres/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-postgres:${{ env.DOCKER_TAG }}
@@ -126,11 +125,10 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
-      - run: cp ./containers/docker/pwpush-mysql/Dockerfile .
-
       - name: Build and push pwpush-mysql Docker images
         uses: docker/build-push-action@v2.7.0
         with:
+          file: ./containers/docker/pwpush-mysql/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: pglombardo/pwpush-mysql:${{ env.DOCKER_TAG }}
