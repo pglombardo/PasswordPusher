@@ -7,22 +7,22 @@
 ---
 hu:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: mégsem
+    passwords: jelszavak
+    new: új
+    active: aktív
+    expired: lejárt
+    preview: előnézet
+    audit: ellenőrzés
+    pages: oldalak
+    users: felhasználók
+    sign_in: bejelentkezés
+    sign_out: kijelentkezés
+    sign_up: regisztráció
+    password: jelszó
+    edit: szerkesztés
+    confirmation: megerősítés
+    unlock: feloldás
   date:
     day_names:
     - vasárnap
@@ -82,8 +82,8 @@ hu:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: ezer
@@ -94,55 +94,60 @@ hu:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: Sikertelen validálás %{errors}
-      inclusion: nincs a listában
-      exclusion: nem elérhető
-      invalid: nem megfelelő
-      confirmation: nem egyezik
-      accepted: nincs elfogadva
-      empty: nincs megadva
-      blank: nincs megadva
-      present:
+      model_invalid: 'Az érvényesítés sikertelen: %{errors}'
+      inclusion: nem szerepel a listán
+      exclusion: foglalt
+      invalid: érvénytelen
+      confirmation: nem egyezik %{attribute}
+      accepted: el kell fogadni
+      empty: nem lehet üres
+      blank: nem lehet üres
+      present: üresnek kell lennie
       too_long:
-        one:
-        other:
+        one: túl hosszú (maximum 1 karakter)
+        other: túl hosszú (maximum %{count} karakter)
       too_short:
-        one:
-        other:
+        one: túl rövid (legalább 1 karakter)
+        other: túl rövid (minimum %{count} karakter)
       wrong_length:
-        one:
-        other:
+        one: rossz hosszúságú (1 karakterből kell állnia)
+        other: rossz hosszúságú (%{count} karakterből kell állnia)
       not_a_number: nem szám
       not_an_integer: egész számnak kell lennie
-      greater_than: nagyobb kell legyen, mint %{count}
+      greater_than: nagyobbnak kell lennie, mint %{count}
       greater_than_or_equal_to: legalább %{count} kell legyen
       equal_to: pontosan %{count} kell legyen
       less_than: kevesebb, mint %{count} kell legyen
       less_than_or_equal_to: legfeljebb %{count} lehet
-      other_than:
+      other_than: másnak kell lennie, mint %{count}
       odd: páratlan kell legyen
       even: páros kell legyen
-      required:
+      required: léteznie kell
       taken: már foglalt
-      already_confirmed: már meg van erősítve
-      confirmation_period_expired: "%{period} letelte előtt kell megerősíteni, igényelj
+      already_confirmed: már megerősítették, próbáljon meg bejelentkezni
+      confirmation_period_expired: "%{period} letelte előtt kell megerősíteni, igényeljen
         egy újat"
-      expired: lejárt, igényelj egy újat
+      expired: lejárt, kérjen újat
       not_found: nem található
       not_locked: nincs zárolva
       not_saved:
         one: '1 hiba miatt %{resource} mentése nem lehetséges:'
         other: "%{count} hiba miatt %{resource} mentése nem lehetséges:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: Az %{id} munkamenet már nem érhető el a memóriában. Ha történetesen
+      többfolyamatos szerveren fut (mint például az Unicorn vagy a Puma), a kérés
+      lekérése nem tárolja az %{id} értéket a memóriában. Fontolja meg a folyamatok/munkavállalók
+      számának 1-re csökkentését, vagy egy másik szerver használatát a fejlesztés
+      alatt.
+    unacceptable_request: Egy támogatott verzióra számítok az Accept fejlécben
+    connection_refused: Hoppá! Nem sikerült csatlakozni a webkonzol köztes szoftveréhez.
+      Kérjük, ellenőrizze, hogy fut-e egy Rails fejlesztői szerver.
   activerecord:
     errors:
       messages:
-        record_invalid: Sikertelen validálás %{errors}
+        record_invalid: 'Az érvényesítés sikertelen: %{errors}'
         restrict_dependent_destroy:
-          has_one:
-          has_many:
+          has_one: 'A rekord nem törölhető, mert létezik egy függőség: %{record}'
+          has_many: 'A rekord nem törölhető, mert létezik függőség: %{record}'
   datetime:
     distance_in_words:
       half_a_minute: fél perce
@@ -180,76 +185,77 @@ hu:
         one: majdnem 1 éve
         other: majdnem %{count} éve
     prompts:
-      year: Év
-      month: Hónap
-      day: Nap
-      hour: Óra
-      minute: Perc
-      second: Másodperc
+      year: év
+      month: hónap
+      day: nap
+      hour: óra
+      minute: perc
+      second: másodperc
   helpers:
     select:
       prompt: Válasszon
     submit:
-      create: Új %{model}
+      create: "%{model} létrehozása"
       update: "%{model} módosítása"
       submit: "%{model} mentése"
   will_paginate:
-    previous_label: "← előző"
-    next_label: következő →
+    previous_label: "← Előző"
+    next_label: Következő &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Lapozás
+    page_aria_label: "%{page}. oldal"
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Nem található %{model}
+        one: 1 %{model} megjelenítése
+        other: Összes (%{count}) %{model} megjelenítése
       single_page_html:
-        zero:
-        one:
-        other:
-      multi_page:
-      multi_page_html:
+        zero: Nem található %{model}
+        one: "<b>1</b> %{model} megjelenítése"
+        other: Az <b>összes (%{count})</b> %{model} megjelenítése
+      multi_page: "%{model} %{from} - %{to} / %{count} megjelenítése"
+      multi_page_html: "%{model} <b>%{from} - %{to}</b> / <b>%{count}</b> megjelenítése"
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} sikeresen létrehozva."
       update:
-        notice:
+        notice: "%{resource_name} sikeresen frissítve."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} sikeresen megsemmisült."
+        alert: "%{resource_name} nem semmisíthető meg."
   devise:
     confirmations:
-      confirmed: Fiók megerősítve. Bejelentkezve a felhasználói fiókba.
-      send_instructions: A megadott címre egy email érkezik a megerősítő linkkel.
-      send_paranoid_instructions: Ha az email cím már létezik az adatbázisban, egy
-        emailt küldtünk a további teendőkkel a fiók megerősítéséhez.
-      resend_title:
-      resend_header:
-      resend_button:
+      confirmed: E-mail címét sikeresen megerősítettük.
+      send_instructions: Néhány percen belül kapni fog egy e-mailt, amely tartalmazza
+        az e-mail-cím megerősítésének módját.
+      send_paranoid_instructions: Ha az Ön e-mail címe szerepel adatbázisunkban, akkor
+        néhány percen belül e-mailt fog kapni, amely tartalmazza az e-mail cím megerősítését.
+      resend_title: A megerősítési utasítások újraküldése
+      resend_header: A megerősítési utasítások újraküldése
+      resend_button: Újraküldés
     failure:
       already_authenticated: Már belépett.
       inactive: A fiók még nincs aktiválva.
-      invalid:
+      invalid: Érvénytelen %{authentication_keys} vagy jelszó.
       locked: A fiók zárolva lett.
       last_attempt: Már csak egy próbálkozási lehetőség maradt, mielőtt a fiók zárolásra
         kerül.
-      not_found_in_database:
+      not_found_in_database: Érvénytelen %{authentication_keys} vagy jelszó.
       timeout: A munkafolyamat lejárt. Újboli bejelentkezés szükséges.
-      unauthenticated: A folytatáshoz bejelentkezés szükséges.
+      unauthenticated: A folytatás előtt be kell jelentkeznie vagy regisztrálnia kell.
       unconfirmed: A folytatáshoz az email cím megerősítése szükséges.
     mailer:
       confirmation_instructions:
-        subject: Email cím megerősítés
+        subject: Megerősítő utasítások
       reset_password_instructions:
-        subject: Jelszó megváltoztatása
+        subject: Jelszó visszaállítási utasítások
       unlock_instructions:
-        subject: Fiók zárolásának megszüntetése
+        subject: Feloldási utasítások
       email_changed:
-        subject:
+        subject: E-mail megváltozott
       password_change:
-        subject:
+        subject: A jelszó megváltozott
     omniauth_callbacks:
       failure: 'Nem sikerült azonosítani %{kind} fiókkal, az ok: "%{reason}".'
       success: Sikeres azonosítás %{kind} fiókkal.
@@ -257,60 +263,62 @@ hu:
       no_token: Ezt az oldalt csak a jelszóváltoztató e-mailben küldött linkre kattintva
         lehet elérni, és ellenőrizni kell, hogy a címsorban az e-mailben található
         teljes webcím szerepel-e.
-      send_instructions: A megadott címre egy email érkezik hamarosan a további teendőkről.
-      send_paranoid_instructions: Ha az email cím már létezik az adatbázisban, egy
-        jelszó-visszaállító emailt küldtünk a megadott címre.
-      updated: A jelszó megváltozott. Bejelentkezve a felhasználói fiókba
-      updated_not_active: A jelszó megváltozott
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      send_instructions: Néhány percen belül kapni fog egy e-mailt, amelyben útmutatást
+        nyújt a jelszó visszaállításához.
+      send_paranoid_instructions: Ha az Ön e-mail címe szerepel adatbázisunkban, néhány
+        percen belül egy jelszó-helyreállító linket kap e-mail címére.
+      updated: Jelszava sikeresen megváltozott. Ön most bejelentkezett.
+      updated_not_active: Jelszava sikeresen megváltozott.
+      reset_title: Jelszó visszaállítása
+      reset_button: Fiók frissítése
+      forgot_title: Elfelejtett jelszó
+      forgot_header: Elfelejtett jelszó
+      forgot_button: Küldje el a visszaállítási utasításokat
     registrations:
-      destroyed: Felhasználói fiók törölve. Reméljük, még visszatér hozzánk.
-      signed_up: Sikeres regisztráció.
-      signed_up_but_inactive: A regisztráció sikerült, azonban a bejelentkezés még
-        nem lehetséges, mert a fiók nincs aktiválva.
-      signed_up_but_locked: A regisztráció sikerült, azonban a bejelentkezés még nem
-        lehetséges, mert a fiók zárolt.
-      signed_up_but_unconfirmed: Egy megerősítő linket küldtünk a megadott e-mail
-        címre. Nézze meg az e-mailjeit, és kattintson a küldött linkre a fiók aktiválásához.
-      update_needs_confirmation: A fiók módosítása sikeres, de meg kell erősíteni
-        az e-mail címet. Nézze meg az e-mailjeit, és kattintson a küldött linkre hogy
-        megerősítse az e-mail cím létezését.
-      updated: Sikeres fiók módosítás.
-      updated_but_not_signed_in:
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      destroyed: Viszlát! Fiókját sikeresen töröltük. Reméljük hamarosan újra találkozunk.
+      signed_up: Üdvözöljük! Sikeresen regisztrált. Kérjük, nézze meg e-mailjeit a
+        megerősítő linkért.
+      signed_up_but_inactive: Sikeresen regisztrált. Azonban nem tudjuk bejelentkezni,
+        mert fiókja még nincs aktiválva.
+      signed_up_but_locked: Sikeresen regisztrált. Azonban nem tudjuk bejelentkezni,
+        mert fiókja zárolva van.
+      signed_up_but_unconfirmed: Megerősítő linket tartalmazó üzenetet küldtünk az
+        Ön e-mail címére. Kérjük, kövesse a linket fiókja aktiválásához.
+      update_needs_confirmation: Sikeresen frissítette fiókját, de igazolnunk kell
+        új e-mail címét. Kérjük, ellenőrizze e-mailjeit, és kövesse a megerősítő linket
+        az új e-mail cím megerősítéséhez.
+      updated: Fiókja sikeresen frissítve.
+      updated_but_not_signed_in: Fiókja frissítése sikeres volt, de mivel a jelszava
+        megváltozott, újra be kell jelentkeznie.
+      update_email: E-mail frissítése
+      currently_waiting: Jelenleg megerősítésre vár
+      change_password: Jelszó módosítása
+      change_password_hint: Ha nem szeretné módosítani, hagyja üresen.
+      new_password: Új jelszó
+      new_password_confirmation: Új jelszó megerősítése
+      password: jelszó
+      password_minimum: Minimum %d karakter szükséges, de minél több, annál jobb.
+      verification: Ellenőrzés
+      verification_text: Adja meg jelenlegi jelszavát a fenti módosítások érvényesítéséhez.
+      update_account: Fiók frissítése
+      edit_account: Fiók szerkesztése
+      create_account: Fiók létrehozása
+      email: email
+      password_confirmation: Jelszó megerősítése
     unlocks:
-      send_instructions: Hamarosan a megadott címre érkezik egy email a fiók zárolásának
-        megszüntetésével kapcsolatban.
-      send_paranoid_instructions: Ha a fiók létezik, egy emailt küldtünk a további
-        teendőkkel a fiók zárolásának megszüntetéséhez.
-      unlocked: A felhasználói fiók zárolása megszűnt. Bejelentkezve a felhasználói
-        fiókba.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      send_instructions: Néhány percen belül kapni fog egy utasításokat tartalmazó
+        e-mailt a fiók zárolásának feloldásához.
+      send_paranoid_instructions: Ha létezik fiókja, néhány percen belül e-mailt kap
+        a zárolás feloldásához.
+      unlocked: Fiókja sikeresen feloldva. Kérjük, jelentkezzen be a folytatáshoz.
+      unlock_title: Küldje el újra a feloldási utasításokat
+      unlock_header: Küldje el újra a feloldási utasításokat
+      unlock_button: Újraküldés
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Emlékezz rám
+      login: Belépés
+      sign_up: Regisztráció
+      forgot_your: Elfelejtette a jelszavát?
+      didnt_confirmation: Nem kapott megerősítő utasítást?
+      didnt_unlock: Nem kapta meg a feloldási utasításokat?
+      email: email
