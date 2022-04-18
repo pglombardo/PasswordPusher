@@ -1,0 +1,43 @@
+<% title(_('Send Feedback')) %>
+<h4 class='mt-3 mb-5'><%= _('Send Feedback') %></h1>
+
+<%= form_for @feedback do |f| %>
+  <div class="my-3">
+    <%= f.text_area(:message, { class: "form-control",
+                                rows: 8,
+                                placeholder: _('Have an idea or wish?  Something you don\'t like?  Want to help out?  We want to hear it!'),
+                                autocomplete: "off",
+                                autofocus: true,
+                                required: true }) %>
+  </div>
+
+  <div class="mt-5 mb-3">
+    <%= f.label :name, _('Your Name'), for: 'feedback_name', class: 'form-label' %>
+    <%= f.text_field :name, { class: "form-control", required: true } %>
+  </div>
+
+  <div class="my-3">
+    <%= f.label :email, _('Email'), for: 'user_email', class: 'form-label' %>
+    <% if user_signed_in? %>
+      <%= f.email_field :email, { class: 'form-control', autocomplete: "email", value: current_user.email, required: true } %>
+    <% else %>
+      <%= f.email_field :email, { class: 'form-control', autocomplete: "email", placeholder: "name@example.com", required: true } %>
+    <% end %>
+  </div>
+  
+  <div class="my-3">
+    <%= f.label :name, _('Humanity Test: What is 2 plus 2?'), for: 'feedback_control', class: 'form-label' %>
+    <%= f.text_field :control, { class: "form-control", required: true } %>
+  </div>
+
+  <p>
+  <em><%= _('Tip: Copy your message to the clipboard in the unlikely chance submission fails.') %></em>
+  </p>
+
+  <div class= "d-none">
+    <%= f.label :nickname %>
+    <%= f.text_field :nickname, :placeholder => _('Leave this field blank!') %>
+  </div>
+
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= _('Send Feedback') %></button>
+<% end %>

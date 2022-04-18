@@ -1,0 +1,29 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: pwpush
+    component: ingress-controller
+    type: nginx
+  name: pwpush-ingress
+  namespace: pwpush
+spec:
+  rules:
+  - host: pwpush.domain.tld
+    http:
+      paths:
+      - backend:
+          serviceName: pwpush-http
+          servicePort: 5100
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - pwpush.domain.tld
+    secretName: pwpush.domain.tld
+...

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%=I18n.locale%>">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title><%= content_for?(:html_title) ? yield(:html_title) : 'Password Pusher' %></title>
+<title><%= content_for?(:html_title) ? yield(:html_title) : _('Password Pusher') %></title>
 
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
+
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 
 <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-<meta content='Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.' name='description'>
+<meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 
 <link rel="apple-touch-icon" sizes="57x57" href="<%=asset_pack_path('media/img/apple-icon-57x57.png')%>">
@@ -34,6 +36,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+<%= render partial: 'shared/js_lang_strings' %>
 
 <div class="container-fluid m-0 p-0">
   <%= yield %> 

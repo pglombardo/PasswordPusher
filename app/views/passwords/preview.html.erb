@@ -1,45 +1,63 @@
-<% title('Your Password has been Pushed') %>
+<% title(_('Your Password has been Pushed')) %>
 
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <h2 class='mt-5'>Your password has been pushed.</h2>
+      <h2 class='mt-5'><%= _('Your password has been pushed.') %></h2>
 
-      <p class='mt-5'> Use this secret link to share it: </p>
+      <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
 
       <div class='input-group mb-5'>
-          <input class='form-control' id='secret_url' value="<%=secret_url(@password)%>" spellcheck='false' readonly='true'>
-          <button id='copy-to-clipboard-button' class='input-group-text btn-secondary' 
-                  data-clipboard-target='#secret_url' alt="Copy to Clipboard">
+          <input class='form-control' id='secret_url' value="<%= secret_url(@password) %>" spellcheck='false' readonly='true'>
+          <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
+            <li><hr class="dropdown-divider"></li>
+            <% I18n.available_locales.each do |lang| %>
+              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_password_path(@password, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+
+            <% end %>
+          </ul>
+          <button id='copy-to-clipboard-button' class='input-group-text btn-success'
+                  data-clipboard-target='#secret_url' alt="<%= _('Copy to Clipboard') %>">
               <em class="bi bi-clipboard-check"></em>
           </button>
       </div>
 
       <p class='mb-5'>
-        This newly pushed password will expire after 
-        <strong><%=@password.expire_after_days%> days</strong> 
-        or 
-        <strong><%=@password.expire_after_views%> views</strong> 
-        (whichever comes first)
+        <%= _('This newly pushed password will expire after') %>
+        <strong><%=@password.expire_after_days%> <%= n_('day', 'days', @password.expire_after_days) %></strong>
+        <%= _('or') %>
+        <strong><%=@password.expire_after_views%> <%= n_('view', 'views', @password.expire_after_views) %></strong>
+        <%= _('(whichever comes first)') %>
 
         <% if @password.deletable_by_viewer %>
-          and <strong>can be</strong> deleted by viewers.
+          <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
         <% else %>
-          and <strong>can NOT be</strong> deleted by viewers.
+          <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
         <% end %>
       </p>
 
       <% if @password.retrieval_step == true %>
-        <p class='mb-5'> It also includes a <strong>1-click preliminary retrieval step</strong>.  </p>
+        <p class='mb-5'><%= _('It also includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.  </p>
       <% end %>
 
-      <p class='mb-5'> <%=link_to "View This Password Now", secret_url(@password) %> (will burn a view) or <%=link_to "Push Another Password", root_path%></p>
+      <p class='mb-5'>
+        <%=link_to _('View This Password Now'), secret_url(@password) %> <%= _('(will burn a view) or') %>
+        <%=link_to _('Push Another Password'), root_path %>
+      </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: 'Processing...' do %>
-          <em class='bi-card-list'></em> View Audit Log
+        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+          <em class='bi-card-list'></em> <%= _('View Audit Log') %>
         <% end %>
       <% end %>
 
+      <p class='mt-5 small'>
+        <%= _('Tip: Pushing to an international user?  Change the secret link language using the dropdown menu to the right of the URL.') %>
+      </p>
   </div>
 </div>

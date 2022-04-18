@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pwpush
+    component: ingress-controller
+    type: nginx
+  name: pwpush
+  namespace: pwpush
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pwpush
+      component: ingress-controller
+      type: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pwpush
+        component: ingress-controller
+        type: nginx
+    spec:
+      containers:
+      - image: docker.io/pglombardo/pwpush-postgres
+        imagePullPolicy: Always
+        name: pwpush
+        env:
+          - name: DATABASE_URL
+            value: postgres://passwordpusher_user:passwordpusher_passwd@localhost:5432/passwordpusher_db
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - image: docker.io/postgres:10
+        imagePullPolicy: Always
+        name: postgres
+        env:
+          - name: POSTGRES_USER
+            value: passwordpusher_user
+          - name: POSTGRES_PASSWORD
+            value: passwordpusher_passwd
+          - name: POSTGRES_DB
+            value: passwordpusher_db
+        volumeMounts:
+          - name: pwpush-database-data
+            mountPath: /var/lib/postgresql/data
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: pwpush-database-data
+        persistentVolumeClaim:
+          claimName: pwpush-data-pvc
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

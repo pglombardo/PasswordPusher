@@ -4,9 +4,10 @@
 # this new config gem, then we'll migrate entirely to the new Settings
 # format for private instances too.
 
-# Logins are not yet supported in private instances yet due to a bit more support work
-# that needs to be done first.
-#   e.g. how to hook up an email MTA.  Coming soon.
+# Logins are disabled by default since they require an MTA (email) server
+# available to send emails through.
+# For instructions on how to enable logins, see this page:
+# https://github.com/pglombardo/PasswordPusher/discussions/276
 enable_logins: false
 
 # The domain (without protocol) where this instance is hosted
@@ -35,4 +36,31 @@ mail:
   # Configure the e-mail address which will be shown as 'From' in emails
   # See config/initializers/devise.rb where this is used
   # mailer_sender: '"Password Pusher" <pglombardo@pwpush.com>'
+
+# List of supported languages indexed by language code.  This is used
+# to build the in application language menu.
+#
+# <language code>: '<language name>'
+language_codes:
+  ca: 'Català'
+  cs: 'Čeština'
+  da: 'Dansk'
+  de: 'Deutsch'
+  en: 'English'
+  es: 'Español'
+  fr: 'Français'
+  hu: 'Magyar'
+  it: 'Italiano'
+  nl: 'Nederlands'
+  'no': 'Norsk' # _no_ keyword in Ruby evaluates to false :-(
+  pl: 'Polski'
+  'pt-BR': 'Português'
+  sr: 'Српски'
+  sv: 'Svenska'
+
+# The default language for the application.  This must be one of the
+# valid/supported language codes from the list above.
+# Example: default_locale: :es
+# Environment Variable Override: PWP__DEFAULT_LOCALE='es'
+default_locale: :en
 

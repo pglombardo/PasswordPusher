@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 
@@ -5,7 +7,25 @@ class PasswordsController < ApplicationController
   # GET /passwords/1.json
   def show
     redirect_to :root && return unless params.key?(:id)
-    @password = Password.find_by_url_token!(params[:id])
+
+    begin
+      @password = Password.includes(:views).find_by_url_token!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # Showing a 404 reveals that this Secret URL never existed
+      # which is an information leak (not a secret anymore)
+      # We also don't want data in general. We entirely delete old pushes that:
+      # 1. have expired (payloads already deleted long ago)
+      # 2. are anonymous/not linked to a user account (audit log not needed)
+      # Old, expired & anonymous pushes have no value to anybody.
+      # When not found, show the 'expired' page so even very old secret URLs
+      # when clicked they will be accurate - this secret URL has expired.
+      # No easy fix for JSON unfortunately as we don't have a record to show.
+      respond_to do |format|
+        format.html { render template: 'passwords/show_expired', layout: 'naked' }
+        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+      end
+      return
+    end
 
     # This password may have expired since the last view.  Validate the password
     # expiration before doing anything.
@@ -19,7 +39,7 @@ class PasswordsController < ApplicationController
       end
       return
     else
-      @payload = @password.decrypt(@password.payload)
+      @payload = @password.payload.nil? ? @password.decrypt(@password.payload_legacy) : @password.payload
     end
 
     log_view(@password)
@@ -36,10 +56,6 @@ class PasswordsController < ApplicationController
   def new
     @password = Password.new
 
-    unless user_signed_in?
-      expires_in 3.hours, :public => true, 'max-stale' => 0
-    end
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @password }
@@ -49,30 +65,35 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
-    if params[:password][:payload].blank? || params[:password][:payload] == PAYLOAD_INITIAL_TEXT
-      redirect_to '/'
-      return
-    end
+    # params[:password] has to exist
+    # params[:password][:payload] has to exist
+    # params[:password][:payload] can't be blank
+    # params[:password][:payload] can't be longer than 1 megabyte
 
-    if params[:password][:payload].length > 1.megabyte
-      redirect_to '/', error: 'That password is too long.'
+    payload_param = params.fetch(:password, {}).fetch(:payload, '')
+    if payload_param.blank? || payload_param.length > 1.megabyte
+
+      respond_to do |format|
+        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.json { render json: '{}', status: :bad_request }
+      end
       return
     end
 
     @password = Password.new
-    @password.expire_after_days = params[:password][:expire_after_days]
-    @password.expire_after_views = params[:password][:expire_after_views]
-    @password.url_token = rand(36**16).to_s(36)
+    @password.expire_after_days = params[:password].fetch(:expire_after_days,
+                                                          EXPIRE_AFTER_DAYS_DEFAULT)
+    @password.expire_after_views = params[:password].fetch(:expire_after_views,
+                                                           EXPIRE_AFTER_VIEWS_DEFAULT)
+    @password.user_id = current_user.id if user_signed_in?
+    @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
     create_detect_deletable_by_viewer(@password, params)
     create_detect_retrieval_step(@password, params)
 
-    @password.user_id = current_user.id if user_signed_in?
+    @password.payload = params[:password][:payload]
+    @password.note = params[:password][:note] unless params[:password].fetch(:note, '').blank?
 
-    if params[:password][:note].is_a?(String) && !params[:password][:note].empty?
-      @password.note = @password.encrypt(params[:password][:note])
-    end
-    @password.payload = @password.encrypt(params[:password][:payload])
     @password.validate!
 
     respond_to do |format|
@@ -107,10 +128,10 @@ class PasswordsController < ApplicationController
   def audit
     authenticate_user!
 
-    @password = Password.find_by_url_token!(params[:id])
+    @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: "That push doesn't belong to you."
+      redirect_to :root, notice: _("That push doesn't belong to you.")
       return
     end
   end
@@ -124,16 +145,16 @@ class PasswordsController < ApplicationController
       if @password.user_id == current_user.id
         is_owner = true
       else
-        redirect_to :root, notice: 'That push does not belong to you.'
+        redirect_to :root, notice: _('That push does not belong to you.')
         return
       end
     elsif @password.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
-      redirect_to :root, notice: 'That push is not deletable by viewers.'
+      redirect_to :root, notice: _('That push is not deletable by viewers.')
       return
     end
 
-    log_deletion_view(@password)
+    log_view(@password, manual_expiration: true)
 
     @password.expired = true
     @password.payload = nil
@@ -145,10 +166,10 @@ class PasswordsController < ApplicationController
         format.html {
           if is_owner
             redirect_to audit_password_path(@password),
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           else
             redirect_to @password,
-                        notice: 'The password has been deleted and secret URL expired.'
+                        notice: _('The password has been deleted and secret URL expired.')
           end
         }
         format.json { render json: @password, status: :ok }
@@ -166,43 +187,23 @@ class PasswordsController < ApplicationController
   #
   # Record that a view is being made for a password
   #
-  def log_view(password)
-    view = View.new
+  def log_view(password, manual_expiration: false)
+    record = {}
 
-    view.kind = 0 # standard user view
-    view.user_id = current_user.id if user_signed_in?
+    # 0 - standard user view
+    # 1 - manual expiration
+    record[:kind] = manual_expiration ? 1 : 0
 
-    view.password_id = password.id
-    view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
-
-    # Limit retrieved values to 256 characters
-    view.user_agent  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
-    view.referrer    = request.env['HTTP_REFERER'].to_s[0, 255]
-
-    view.successful  = password.expired ? false : true
-    view.save
-
-    password.views << view
-    password
-  end
-
-  def log_deletion_view(password)
-    view = View.new
-
-    view.kind = 1 # deletion
-    view.user_id = current_user.id if user_signed_in?
-
-    view.password_id = password.id
-    view.ip = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
+    record[:user_id] = current_user.id if user_signed_in?
+    record[:ip] = request.env['HTTP_X_FORWARDED_FOR'].nil? ? request.env['REMOTE_ADDR'] : request.env['HTTP_X_FORWARDED_FOR']
 
     # Limit retrieved values to 256 characters
-    view.user_agent  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
-    view.referrer    = request.env['HTTP_REFERER'].to_s[0, 255]
+    record[:user_agent]  = request.env['HTTP_USER_AGENT'].to_s[0, 255]
+    record[:referrer]    = request.env['HTTP_REFERER'].to_s[0, 255]
 
-    view.successful  = password.expired ? false : true
-    view.save
+    record[:successful]  = password.expired ? false : true
 
-    password.views << view
+    password.views.create(record)
     password
   end
 

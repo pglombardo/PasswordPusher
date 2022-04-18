@@ -7,7 +7,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("id")
     assert res.key?("payload")
     assert res.key?("url_token")
     assert res.key?("expired")
@@ -26,7 +25,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("id")
     assert res.key?("payload")
     assert_nil res["payload"]
     assert res.key?("url_token")
@@ -46,7 +44,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("id")
     assert res.key?("payload")
     assert_nil res["payload"]
     assert res.key?("url_token")

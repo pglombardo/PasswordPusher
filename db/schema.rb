@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_13_083515) do
+ActiveRecord::Schema.define(version: 2021_12_03_124450) do
 
   create_table "passwords", force: :cascade do |t|
-    t.text "payload"
+    t.text "payload_legacy"
     t.integer "expire_after_days"
     t.integer "expire_after_views"
     t.boolean "expired", default: false
@@ -22,11 +22,13 @@ ActiveRecord::Schema.define(version: 2021_09_13_083515) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.boolean "deleted", default: false
-    t.boolean "first_view", default: false
     t.boolean "deletable_by_viewer", default: true
     t.boolean "retrieval_step", default: false
     t.datetime "expired_on"
-    t.text "note", default: ""
+    t.text "note_legacy", default: ""
+    t.text "payload_ciphertext", limit: 16777215
+    t.text "note_ciphertext"
+    t.index ["url_token"], name: "index_passwords_on_url_token", unique: true
     t.index ["user_id"], name: "index_passwords_on_user_id"
   end
 
