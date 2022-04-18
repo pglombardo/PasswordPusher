@@ -1,0 +1,56 @@
+\app\views\passwords\new.html.erb
+	# Line 10 (change '8' to '3')
+                                            rows: 3,
+
+
+
+
+
+\app\views\passwords\show.html.erb
+	# Line 6 (added above 'Please obtain and securely store this password elsewhere, ideally in a password manager.')
+          <p class="" style="color: var(--bs-orange);"><strong><%=_('WARNING: <em>Refreshing this page will consume a view!') %></em></strong></p>
+
+
+
+
+
+\app\views\shared\_email_footer.html.erb
+	# Line 4 change 'Your Friendly Neighborhood' to 'Market Scan Information Systems'
+<%= _('Market Scan Information Systems') %>
+
+
+
+
+
+\app\views\shared\_footer.html.erb
+	# Line 5 
+      <p class="col-md-4 mb-0 text-muted">&copy; <%= Time.current.year %> Market Scan Information Systems</p>
+
+	# Line 11 change alt="Market Scan Password Pusher Logo"
+          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="Market Scan Password Pusher Logo" style='height: 40px;' />
+
+	# Line 15 change col-md-5 to col-md-4
+      <ul class="nav col-md-4 justify-content-end">
+
+	# Lines 21-26 (MUST ADD link to "How To" page | also comment out other pages)
+            <li class="dropdown-item"><%= link_to _('How To'), page_path('howto'), class: 'nav-link px-2 text-muted' %></li>
+			<!-- <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li> -->
+            <!-- <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li> -->
+            <!-- <li class="dropdown-item"><%= link_to _('Source Code'), 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' %></li> -->
+            <!-- <li class="dropdown-item"><%= link_to _('Docker Containers'), 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' %></li> -->
+            <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
+
+
+
+
+
+\app\views\shared\_header.html.erb
+	# Lines 8-14
+        <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Market Scan Password Pusher Logo') %>" style='height: 50px;' />
+      </picture>
+      </div>
+      <div>
+        <span class="fs-4 display-1"><%= _('Market Scan Password Pusher') %></span>
+        <br/>
+        <span class="fs-6 text-muted"><%= _('Powered by Peter Giacomo Lombardo's Password Pusher.') %></span>
+
