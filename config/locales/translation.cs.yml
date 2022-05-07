@@ -82,8 +82,8 @@ cs:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Tisíc
@@ -94,12 +94,12 @@ cs:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Neúspešná validace: %{errors}'
+      model_invalid: 'Neúspešné ověření: %{errors}'
       inclusion: není v seznamu hodnot
       exclusion: je vyhrazeno
       invalid: neplatná hodnota
-      confirmation: neodpovídá
-      accepted: musí být potvrzeno
+      confirmation: neodpovídá %{attribute}
+      accepted: musí být odsouhlaseno
       empty: povinná položka
       blank: povinná položka
       present: musí být prázdné
@@ -111,7 +111,7 @@ cs:
         other: 'je příliš krátké (minimum znaků je: %{count})'
       wrong_length:
         one: je špatné délky (musí být jeden znak)
-        other:
+        other: nemá správnou délku (mělo by být %{count} znaků)
       not_a_number: není číslo
       not_an_integer: musí být celé číslo
       greater_than: musí být větší než %{count}
@@ -126,24 +126,27 @@ cs:
       taken: již bylo použito
       already_confirmed: byl již potvrzen, zkuste se přihlásit
       confirmation_period_expired: Je potřeba potvrdit do %{period},  požádejte o
-        další
+        nový
       expired: vypršelo, požádejte o nové
       not_found: nenalezen
       not_locked: nebyl uzamčen
       not_saved:
-        one: 'Chyba zabránila %{resource} v uložení:'
+        one: '1 chyba zabránila %{resource} v uložení:'
         other: 'Počet chyb: %{count}. Nelze uložit %{resource}:'
-    unavailable_session:
-    unacceptable_request:
+    unavailable_session: |-
+      Relace %{id} již není v paměti dostupná.
+
+      Pokud používáte více procesorový server (jako Unicorn nebo Puma) tak proces, který tento požadavek dostal, neukládá %{id} v paměti. Zvažte úpravu čísla procesů/workerů na jedna (1) nebo pro vývoj použijte jiný server.
+    unacceptable_request: Podporováná verze je očekávaná v hlavičce Accept.
     connection_refused: Jejda! Nepodařilo se připojit k middlewar web consoli. Ujistěte
       se, že běží vývojový Rails server.
   activerecord:
     errors:
       messages:
-        record_invalid: 'Neúspešná validace: %{errors}'
+        record_invalid: 'Ověření selhalo: %{errors}'
         restrict_dependent_destroy:
-          has_one: Nemůžu smazat položku protože existuje závislá %{record}
-          has_many: Nelze smazat položku protože existuje závislá %{record}
+          has_one: Položku nelze smazat protože na ni závisí položka %{record}
+          has_many: Položku nelze smazat protože na ni závisí položka %{record}
   datetime:
     distance_in_words:
       half_a_minute: půl minuty
@@ -198,8 +201,8 @@ cs:
     previous_label: "&#8592; Předchozí"
     next_label: Další &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Stránkování
+    page_aria_label: Strana %{page}
     page_entries_info:
       single_page:
         zero: Žádný %{model} nenalezen
@@ -215,35 +218,32 @@ cs:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} byl úspěšně vytvořen."
       update:
-        notice:
+        notice: "%{resource_name} byl úspěšně upraven."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} byl úspěšně smazán."
+        alert: "%{resource_name} nelze smazat."
   devise:
     confirmations:
       confirmed: Vaše e-mailová adresa byla úspěšně potvrzena.
-      send_instructions: Za několik minut obdržíte e-mail s instrukcemi jak potvrdit
-        Váši e-mailovou adresu.
-      send_paranoid_instructions: Pokud Váš e-mail již v naší databázi existuje, za
-        několik minut obdržíte e-mail s pokyny o tom, jak potvrdit svůji e-mailovou
-        adresu.
-      resend_title: Přeposlat potvrzující instrukce
-      resend_header: Přeposlat potvrzující instrukce
+      send_instructions: Za několik minut obdržíte e-mail s instrukcemi pro potvrzení
+        vaší e-mailové adresy.
+      send_paranoid_instructions: Pokud se již vaše e-mailová adresa v naší databázi
+        nachází, obdržíte e-mail s instrukcemi pro potvrzení během pár minut.
+      resend_title: Přeposlat instrukce pro potvrzení
+      resend_header: Přeposlat instrukce pro potvrzení
       resend_button: Přeposlat
     failure:
-      already_authenticated: Jste již přihlášen(a).
+      already_authenticated: Už jste přihlášen(a).
       inactive: Váš účet ještě nebyl aktivován.
       invalid: Neplatné %{authentication_keys} nebo heslo.
       locked: Váš účet je uzamčen.
-      last_attempt: Máte ještě jeden pokus než bude Váš účet uzamčen.
+      last_attempt: Máte ještě jeden pokus než bude váš účet uzamčen.
       not_found_in_database: Neplatné %{authentication_keys} nebo heslo.
-      timeout: Vaše relace vypršela, přihlaste se znovu, pak budete moct pokračovat.
-      unauthenticated: Musíte se zaregistrovat nebo přihlásit, teprve poté budete
-        moct pokračovat.
-      unconfirmed: Musíte potvrdit svoji e-mailovou adresu, teprve poté budete moct
-        pokračovat.
+      timeout: Vaše relace vypršela, pro pokračování se znovu přihlaste.
+      unauthenticated: Před pokračováním se musíte zaregistrovat nebo přihlásit.
+      unconfirmed: Před pokračováním musíte potvrdit svou e-mailovou adresu.
     mailer:
       confirmation_instructions:
         subject: Instrukce k potvrzení
@@ -264,7 +264,7 @@ cs:
         celou poskytnutou URL adresu.
       send_instructions: Za několik minut obdržíte e-mail s instrukcemi pro nastavení
         nového hesla.
-      send_paranoid_instructions: Pokud v naší databázi existuje Vaše e-mailová adresa,
+      send_paranoid_instructions: Pokud v naší databázi existuje vaše e-mailová adresa,
         za několik minut obdržíte e-mail s instrukcemi pro nastavení nového hesla.
       updated: Vaše heslo bylo úspěšně změněno. Nyní jste přihlášen(a).
       updated_not_active: Vaše heslo bylo úspěšně změněno.
@@ -272,7 +272,7 @@ cs:
       reset_button: Aktualizovat účet
       forgot_title: Zapomenuté heslo
       forgot_header: Zapomenuté heslo
-      forgot_button: Poslat reset instrukce
+      forgot_button: Poslat instrukce pro reset hesla
     registrations:
       destroyed: Mějte se! Váš účet byl úspěšně zrušen. Doufáme, že se brzy opět uvidíme.
       signed_up: Vítejte! Úspěšně jste se zaregistrovali. Zkontrolujte prosím svůj
@@ -307,7 +307,7 @@ cs:
     unlocks:
       send_instructions: Za několik minut obdržíte e-mail s instrukcemi, jak odemknout
         svůj účet.
-      send_paranoid_instructions: Pokud Váš e-mail existuje v naší databázi, za několik
+      send_paranoid_instructions: Pokud váš e-mail existuje v naší databázi, za několik
         minut obdržíte e-mail s instrukcemi pro odemknutí účtu.
       unlocked: Váš účet byl úspěšně odblokován. Pro pokračování se prosím přihlašte.
       unlock_title: Přeposlat pokyny k odemknutí
