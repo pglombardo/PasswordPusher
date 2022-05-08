@@ -93,14 +93,6 @@ export PWP__MAIL__MAILER_SENDER='"Spiderman" <thespider@mycompany.org>'
 * See also this [Github discussion](https://github.com/pglombardo/PasswordPusher/issues/265#issuecomment-964432942).
 * [External Documentation on mailer configuration](https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration) for the underlying technology if you need more details for configuration issues.
 
-# Forcing SSL Links
-
-See also the Proxies section below.
-
-| Environment Variable | Description |
-| --------- | ------------------ |
-| FORCE_SSL | The existence of this variable will set `config.force_ssl` to `true` and generate HTTPS based secret URLs
-
 # Google Analytics
 
 | Environment Variable | Description |
@@ -109,6 +101,14 @@ See also the Proxies section below.
 | GA_ACCOUNT | The Google Analytics account id.  E.g. `UA-XXXXXXXX-X` |
 | GA_DOMAIN | The domain where the application is hosted.  E.g. `pwpush.com` |
 
+# Forcing SSL Links
+
+See also the Proxies section below.
+
+| Environment Variable | Description |
+| --------- | ------------------ |
+| FORCE_SSL | The existence of this variable will set `config.force_ssl` to `true` and generate HTTPS based secret URLs
+
 # Proxies
 
 An occasional issue is that when using Password Pusher behind a proxy, the generated secret URLs are incorrect.  They often have the backend URL & port instead of the public fully qualified URL - or use HTTP instead of HTTPS (or all of the preceding).
@@ -116,3 +116,9 @@ An occasional issue is that when using Password Pusher behind a proxy, the gener
 To resolve this, make sure your proxy properly forwards the `X-Forwarded-Host`, `X-Forwarded-Port` and `X-Forwarded-Proto` headers.
 
 The values in these headers represent the front end request.  When these headers are sent, Password Pusher can then build the correct URLs.
+
+If you are unable to have these headers passed to the application for any reason, you could instead force an override of the base URL using the `PWP__OVERRIDE_BASE_URL` environment variable.
+
+| Environment Variable | Description | Example Value |
+| --------- | ------------------ | --- |
+| PWP__OVERRIDE_BASE_URL | Set this value (without a trailing slash) to force the base URL of generated links. | 'https://subdomain.domain.dev'
