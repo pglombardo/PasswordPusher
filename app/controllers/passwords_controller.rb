@@ -39,7 +39,7 @@ class PasswordsController < ApplicationController
       end
       return
     else
-      @payload = @password.payload.nil? ? @password.decrypt(@password.payload_legacy) : @password.payload
+      @payload = @password.payload
     end
 
     log_view(@password)

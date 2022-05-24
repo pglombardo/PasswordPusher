@@ -30,7 +30,6 @@ class Password < ApplicationRecord
   def expire
     self.expired = true
     self.payload = nil
-    self.payload_legacy = nil
     self.expired_on = Time.now
     save
   end
@@ -40,26 +39,17 @@ class Password < ApplicationRecord
   def to_json(*args)
     attr_hash = attributes
 
-    if !expired && payload.nil?
-      # Use legacy decryption
-      key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-      attr_hash['payload'] = key.decrypt64(payload_legacy)
-    end
-
     attr_hash['days_remaining'] = days_remaining
     attr_hash['views_remaining'] = views_remaining
 
     # Remove unnecessary fields
     attr_hash.delete('payload_ciphertext')
-    attr_hash.delete('payload_legacy')
     attr_hash.delete('note_ciphertext')
-    attr_hash.delete('note_legacy')
     attr_hash.delete('user_id')
     attr_hash.delete('id')
 
     # FIXME: Never show note until we have JSON authentication
     # Only the push owner can see the note
-    # attr_hash['note'] = key.decrypt64(note_legacy) if note.blank? && !note_legacy.blank?
     attr_hash.delete('note')
 
     Oj.dump attr_hash
@@ -89,18 +79,5 @@ class Password < ApplicationRecord
     return if new_record?
 
     expire if !days_remaining.positive? || !views_remaining.positive?
-  end
-
-  def decrypt(payload)
-    return '' if !payload.is_a?(String) || payload.empty?
-
-    # FIXME: Don't need to recreate key everytime
-    key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    # Force UTF-8 encoding so ASCII-8BIT characters like 'æ' will get converted
-    # Note: This may break when we add support for MBCS.  TBD.
-    key.decrypt64(payload).force_encoding('UTF-8')
-  rescue OpenSSL::Cipher::CipherError => e
-    Rails.logger.warn("Couldn't decrypt: #{e}")
-    payload
   end
 end

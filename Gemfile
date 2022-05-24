@@ -52,7 +52,6 @@ gem 'rack-attack'
 # $ bundle install
 # gem 'therubyracer'
 #
-gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 gem 'lockbox'
 gem 'high_voltage'
 gem 'kramdown', require: false

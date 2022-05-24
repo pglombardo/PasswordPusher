@@ -3,10 +3,6 @@
 # Load the Rails application.
 require_relative 'application'
 
-# DEPRECATED: These encryption keys are legacy and will be removed in a future version
-CRYPT_KEY = ENV.fetch('CRYPT_KEY', '}s-#2R0^/+2wEXc47\$9Eb')
-CRYPT_SALT = ENV.fetch('CRYPT_SALT', ',2_%4?[+:3774>f')
-
 # Controls the "Expire After Days" form settings in Password#new
 EXPIRE_AFTER_DAYS_DEFAULT = Integer(ENV.fetch('EXPIRE_AFTER_DAYS_DEFAULT', 7))
 EXPIRE_AFTER_DAYS_MIN = Integer(ENV.fetch('EXPIRE_AFTER_DAYS_MIN', 1))

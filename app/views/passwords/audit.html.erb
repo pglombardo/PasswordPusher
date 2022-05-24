@@ -34,10 +34,10 @@
                 <%= _('Reference Note') %>
             <span class='h6 text-muted float-end'><%= _('Visible Only To You') %></span>
             </p>
-            <% if @password.note.blank? && @password.note_legacy.blank? %>
+            <% if @password.note.blank? %>
                 <span class='text-muted'><%= _('None') %></span>
             <% else %>
-                <pre><code><%= (@password.note.blank? ? @password.decrypt(@password.note_legacy) : @password.note).truncate(100) %></code></pre>
+                <pre><code><%= @password.note.truncate(100) %></code></pre>
             <% end %>
         </div>
     </div>
