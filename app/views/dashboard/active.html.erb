@@ -28,10 +28,10 @@
           <td><%= push.url_token %></td>
           <td><%= I18n.l push.created_at, format: :long %></td>
           <td>
-            <% if push.note.blank? && push.note_legacy.blank? %>
+            <% if push.note.blank? %>
               <span class='text-muted'><%= _('None') %></span>
             <% else %>
-              <%= (push.note.blank? ? push.decrypt(push.note_legacy) : push.note).truncate(100) %>
+              <%= push.note.truncate(100) %>
             <% end %>
           </td>
           <td><%= "#{push.views.size}/#{push.expire_after_views}"%></td>

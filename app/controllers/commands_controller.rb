@@ -58,9 +58,7 @@ class CommandsController < ApplicationController
     @password.expire_after_views = views
     @password.deletable_by_viewer = DELETABLE_PASSWORDS_ENABLED
 
-    # Encrypt the passwords
-    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @password.payload = @key.encrypt64(secret)
+    @password.payload = secret
 
     @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
     @password.validate!
