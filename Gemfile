@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 6.1.6'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -21,7 +21,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '>= 3.37.1', '< 4.0'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
@@ -79,9 +79,9 @@ gem 'will_paginate-bootstrap-style'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'sprockets', '~>4.0'
+gem 'sprockets', '~> 4.0', '>= 4.0.3'
 gem 'foreman'
-gem 'jquery-rails', '>= 4.4.0'
+gem 'jquery-rails', '>= 4.5.0'
 gem 'puma'
 gem 'oj'
 gem 'devise', '>= 4.8.1'
@@ -98,7 +98,7 @@ group :production do
   gem 'rack-throttle'
   gem 'pg'
   gem 'sentry-ruby'
-  gem 'sentry-rails', '>= 5.0.2'
+  gem 'sentry-rails', '>= 5.3.1'
 end
 
 group :private do
