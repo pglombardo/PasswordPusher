@@ -54,6 +54,10 @@ class PasswordsController < ApplicationController
   # GET /passwords/new
   # GET /passwords/new.json
   def new
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
     @password = Password.new
 
     respond_to do |format|
@@ -65,6 +69,10 @@ class PasswordsController < ApplicationController
   # POST /passwords
   # POST /passwords.json
   def create
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
     # params[:password] has to exist
     # params[:password][:payload] has to exist
     # params[:password][:payload] can't be blank

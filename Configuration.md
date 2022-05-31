@@ -59,6 +59,7 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | Environment Variable | Description | Value |
 | --------- | ------------------ | --- |
 | PWP__ENABLE_LOGINS | On/Off switch for logins. | `true` |
+| PWP__ALLOW_ANONYMOUS | When false, requires a login for the front page (to push new passwords). | `true` |
 | PWP__MAIL__RAISE_DELIVERY_ERRORS | Email delivery errors will be shown in the application | `true` |
 | PWP__MAIL__SMTP_ADDRESS | Allows you to use a remote mail server. Just change it from its default "localhost" setting. | `smtp.domain.com` |
 | PWP__MAIL__SMTP_PORT | Port of the SMTP server | `587` |
