@@ -30,7 +30,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
-* __Internationalized:__ 10 language translations are bundled in.  Easily selectable via UI or URL
+* __Internationalized:__ 14 language translations are bundled in.  Easily selectable via UI or URL
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
