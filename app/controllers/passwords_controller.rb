@@ -79,7 +79,7 @@ class PasswordsController < ApplicationController
     # params[:password][:payload] can't be longer than 1 megabyte
 
     payload_param = params.fetch(:password, {}).fetch(:payload, '')
-    if payload_param.blank? || payload_param.length > 1.megabyte
+    if !payload_param.is_a?(String) || payload_param.blank? || payload_param.length > 1.megabyte
 
       respond_to do |format|
         format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
