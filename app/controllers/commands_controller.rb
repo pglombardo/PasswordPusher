@@ -52,6 +52,7 @@ class CommandsController < ApplicationController
 
     days ||= EXPIRE_AFTER_DAYS_DEFAULT
     views ||= EXPIRE_AFTER_VIEWS_DEFAULT
+    retrieval = (RETRIEVAL_STEP_ENABLED && RETRIEVAL_STEP_DEFAULT) ? '/r' : ''
 
     @password = Password.new
     @password.expire_after_days = days
@@ -65,7 +66,7 @@ class CommandsController < ApplicationController
 
     if @password.save
       message = "Pushed password with #{days} days and #{views} views expiration: " +
-                "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}"
+                "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}#{retrieval}"
       render plain: message, layout: false
     else
       render plain: @password.errors, layout: false
