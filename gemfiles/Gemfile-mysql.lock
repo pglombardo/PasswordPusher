@@ -108,6 +108,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    digest (3.1.0)
     dry-configurable (0.15.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
@@ -195,6 +196,12 @@ GEM
       ruby-progressbar
     msgpack (1.5.2)
     mysql2 (0.5.4)
+    net-protocol (0.1.3)
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -295,7 +302,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.3.0)
+    selenium-webdriver (4.2.1)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -325,6 +332,7 @@ GEM
     text (1.3.1)
     thor (1.2.1)
     tilt (2.0.10)
+    timeout (0.3.0)
     translation (1.32)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.3)
     turbolinks (5.2.1)
@@ -383,6 +391,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   mysql2
+  net-smtp
   oj
   pry-byebug
   puma
@@ -395,7 +404,7 @@ DEPENDENCIES
   rubocop
   ruby-debug-ide
   sass-rails (~> 6.0)
-  selenium-webdriver
+  selenium-webdriver (= 4.2.1)
   sentry-rails
   sentry-ruby
   spring
