@@ -108,6 +108,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    digest (3.1.0)
     dry-configurable (0.15.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
@@ -121,7 +122,7 @@ GEM
     dry-logic (1.2.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.9.2)
+    dry-schema (1.9.3)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.13, >= 0.13.0)
       dry-core (~> 0.5, >= 0.5)
@@ -184,7 +185,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    minitest (5.15.0)
+    minitest (5.16.1)
     minitest-rails (6.1.0)
       minitest (~> 5.10)
       railties (~> 6.1.0)
@@ -195,6 +196,12 @@ GEM
       ruby-progressbar
     msgpack (1.5.2)
     mysql2 (0.5.4)
+    net-protocol (0.1.3)
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -224,8 +231,8 @@ GEM
       rack (>= 2.0.0)
     rack-proxy (0.7.2)
       rack
-    rack-test (1.1.0)
-      rack (>= 1.0, < 3)
+    rack-test (2.0.0)
+      rack (>= 1.3)
     rack-throttle (0.7.0)
       bundler (>= 1.0.0)
       rack (>= 1.0.0)
@@ -314,17 +321,18 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (4.0.3)
+    sprockets (4.1.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
+    sqlite3 (1.4.4)
     text (1.3.1)
     thor (1.2.1)
     tilt (2.0.10)
+    timeout (0.3.0)
     translation (1.32)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.3)
     turbolinks (5.2.1)
@@ -334,7 +342,7 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (2.1.0)
+    unicode-display_width (2.2.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -356,7 +364,7 @@ GEM
       will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   ruby
@@ -383,6 +391,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   mysql2
+  net-smtp
   oj
   pry-byebug
   puma
@@ -395,7 +404,7 @@ DEPENDENCIES
   rubocop
   ruby-debug-ide
   sass-rails (~> 6.0)
-  selenium-webdriver
+  selenium-webdriver (= 4.2.1)
   sentry-rails
   sentry-ruby
   spring
@@ -415,4 +424,4 @@ RUBY VERSION
    ruby 3.0.4p208
 
 BUNDLED WITH
-   2.2.33
+   2.3.3
