@@ -69,7 +69,7 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | PWP__MAIL__SMTP_STARTTLS | Use STARTTLS when connecting to your SMTP server and fail if unsupported. | `true` |
 | PWP__MAIL__OPEN_TIMEOUT | Number of seconds to wait while attempting to open a connection. | `10` |
 | PWP__MAIL__READ_TIMEOUT | Number of seconds to wait until timing-out a read(2) call. | `10` |
-| PWP__HOST_DOMAIN | Used to buld fully qualified URLs in emails.  Where is your instance hosted? | `pwpush.com` |
+| PWP__HOST_DOMAIN | Used to build fully qualified URLs in emails.  Where is your instance hosted? | `pwpush.com` |
 | PWP__HOST_PROTOCOL | The protocol to access your Password Pusher instance.  HTTPS advised. | `https` |
 | PWP__MAIL__MAILER_SENDER | This is the "From" address in sent emails. | '"Company Name" <user@example.com>' |
 
