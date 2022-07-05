@@ -22,10 +22,10 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  config.middleware.use Rack::Throttle::Daily,    max: 1000  # requests
-  config.middleware.use Rack::Throttle::Hourly,   max: 100   # requests
-  config.middleware.use Rack::Throttle::Minute,   max: 30    # requests
-  config.middleware.use Rack::Throttle::Second,   max: 2     # requests
+  config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
+  config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
+  config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
+  config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
