@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
-gem 'rails', '~> 6.1.6'
+gem 'rails', '~> 6.1.6', '>= 6.1.6.1'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
