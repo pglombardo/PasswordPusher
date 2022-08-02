@@ -96,8 +96,6 @@ gem 'net-smtp'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
-  gem 'rack-timeout'
-  gem 'rack-throttle'
   gem 'sentry-ruby'
   gem 'sentry-rails'
   gem 'mysql2'
@@ -105,4 +103,9 @@ end
 
 group :private do
   gem 'sqlite3'
+end
+
+group :production, :private do
+  gem 'rack-timeout'
+  gem 'rack-throttle'
 end

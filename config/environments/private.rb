@@ -18,6 +18,11 @@ PasswordPusher::Application.configure do
     protocol: Settings.host_protocol
   }
 
+  config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
+  config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
+  config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
+  config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
+
   config.action_mailer.smtp_settings = {
     address: Settings.mail.smtp_address,
     port: Settings.mail.smtp_port,
