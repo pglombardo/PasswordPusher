@@ -7,22 +7,22 @@
 ---
 fi:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
+    cancel: peruuta
+    passwords: salasanat
+    new: uusi
+    active: aktiivinen
+    expired: vanhentunut
+    preview: esikatselu
     audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    pages: sivut
+    users: kayttäjat
+    sign_in: kirjaudu_sisaan
+    sign_out: kirjaudu_ulos
+    sign_up: luo_tili
+    password: salasana
+    edit: muokkaa
+    confirmation: vahvistus
+    unlock: avaa
   date:
     day_names:
     - sunnuntai
@@ -82,8 +82,8 @@ fi:
           mb: Mt
           gb: Gt
           tb: Tt
-          pb:
-          eb:
+          pb: Pt
+          eb: Et
       decimal_units:
         units:
           thousand: tuhatta
@@ -119,7 +119,7 @@ fi:
       equal_to: täytyy olla yhtä suuri kuin %{count}
       less_than: täytyy olla pienempi kuin %{count}
       less_than_or_equal_to: täytyy olla pienempi tai yhtä suuri kuin %{count}
-      other_than:
+      other_than: on oltava muu kuin %{count}
       odd: täytyy olla pariton
       even: täytyy olla parillinen
       required: täytyy olla
@@ -133,9 +133,13 @@ fi:
       not_saved:
         one: '1 virhe esti %{resource} tallentamisen:'
         other: "%{count} virhettä esti %{resource} tallentamisen:"
-    unavailable_session:
+    unavailable_session: Istunto %{id} ei ole enää käytettävissä muistissa. Jos käytät
+      moniprosessipalvelinta (kuten Unicorn tai Puma), tämä pyyntöosuma ei tallenna
+      %{id}:tä muistiin. Harkitse prosessien määrän kääntämistä yhteen (1) tai toisen
+      palvelimen käyttöä kehitysvaiheessa.
     unacceptable_request:
-    connection_refused:
+    connection_refused: Oho! Yhteyden muodostaminen verkkokonsolin väliohjelmistoon
+      epäonnistui. Varmista, että Rails-kehityspalvelin on käynnissä.
   activerecord:
     errors:
       messages:
@@ -197,15 +201,15 @@ fi:
     previous_label: "&#8592; Edellinen"
     next_label: Seuraava &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Sivunumerointi
+    page_aria_label: Sivu %{page}
     page_entries_info:
       single_page:
-        zero:
+        zero: "%{model} ei löytynyt"
         one: Näytetään 1 %{model}
         other: Näytetään kaikki %{count} %{model}
       single_page_html:
-        zero:
+        zero: "%{model} ei löytynyt"
         one: Näytetään <b>1</b> %{model}
         other: Näytetään <b>kaikki %{count}</v> %{model}
       multi_page: Näytetään %{model} %{from} - %{to} joita on yhteensä %{count}
@@ -214,12 +218,12 @@ fi:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} luotiin onnistuneesti."
       update:
-        notice:
+        notice: "%{resource_name} päivitettiin onnistuneesti."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} tuhottiin onnistuneesti."
+        alert: "%{resource_name} ei voitu tuhota."
   devise:
     confirmations:
       confirmed: Sähköpostiosoitteesi on nyt vahvistettu.
@@ -287,30 +291,30 @@ fi:
       updated: Käyttäjätunnuksesi on päivitetty.
       updated_but_not_signed_in: Käyttäjätunnuksesi on päivitetty, mutta koska salasanasi
         on vaihdettu, pitää sinun kirjautua sisään uudelleen
-      update_email:
-      currently_waiting:
+      update_email: Päivitä sähköposti
+      currently_waiting: Tällä hetkellä odotetaan vahvistusta rekisteröinnille
       change_password: Vaihda salasana
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      change_password_hint: Jätä tyhjäksi, jos et halua muuttaa sitä.
+      new_password: uusi salasana
+      new_password_confirmation: Uuden salasanan vahvistus
+      password: Salasana
+      password_minimum: Vähintään %d merkkiä vaaditaan, mutta mitä enemmän, sen parempi.
+      verification: Vahvistus
+      verification_text: Vahvista yllä olevat muutokset antamalla nykyinen salasanasi.
+      update_account: Päivitä tili
+      edit_account: Muokkaa tiliä
+      create_account: Luo tili
+      email: Sähköposti
+      password_confirmation: Salasanan vahvistus
     unlocks:
       send_instructions: Saat hetken kuluttua sähköpostiisi ohjeet käyttäjätunnuksesi
         lukituksen poistoon.
       send_paranoid_instructions: Jos käyttäjätunnuksesi on olemassa, lähetämme ohjeet
         lukituksen poistamiseksi sähköpostiisi muutaman minuutin kuluessa.
       unlocked: Käyttäjätunnuksesi on nyt avattu. Olet kirjautuneena sisälle.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Lähetä palautusohjeet
+      unlock_header: Lähetä palautusohjeet
+      unlock_button: Lähetä uudelleen
     general:
       remember_me: Muista minut
       login: Kirjaudu sisään
