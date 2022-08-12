@@ -6,37 +6,45 @@
 
       <%= link_to root_path, class: "col-md-2 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" do %>
         <picture>
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="Password Pusher Logo" style='height: 40px;' />
+          <% if Settings.brand.light_logo.nil? %>
+            <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+            <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+            <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style='height: 40px;' />
+          <% else %>
+            <source srcset="<%= Settings.brand.light_logo %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+            <source srcset="<%= Settings.brand.dark_logo %>" media="(prefers-color-scheme: dark)">
+            <img src="<%= Settings.brand.light_logo %>" alt="<%= _('Password Pusher Logo') %>" style='height: 40px;' />
+          <% end %>
         </picture>
       <% end %>
 
-      <ul class="nav col-md-5 justify-content-end">
-        <li class="nav-item"><%= link_to _('Front Page'), root_path, class: 'nav-link px-2 text-muted' %></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= _('Resources') %>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
-            <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
-            <li class="dropdown-item"><%= link_to _('Source Code'), 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
-            <li class="dropdown-item"><%= link_to _('Docker Containers'), 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
-            <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= _('About') %>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
-            <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
-            <li class="dropdown-item"><%= link_to _('Send Feedback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
-          </ul>
-        </li>
-      </ul>
+      <% if Settings.brand.show_footer_menu %>
+        <ul class="nav col-md-5 justify-content-end">
+          <li class="nav-item"><%= link_to _('Front Page'), root_path, class: 'nav-link px-2 text-muted' %></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= _('Resources') %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Source Code'), 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
+              <li class="dropdown-item"><%= link_to _('Docker Containers'), 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' %></li>
+              <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= _('About') %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Send Feedback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
+            </ul>
+          </li>
+        </ul>
+      <% end %>
     </footer>
   </div>
 </footer>
