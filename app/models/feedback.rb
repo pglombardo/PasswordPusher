@@ -12,8 +12,8 @@ class Feedback < MailForm::Base
   # in ActionMailer accepts.
   def headers
     {
-      subject: _('Password Pusher Feedback'),
-      to: 'feedback@pwpush.com',
+      subject: _(Settings.brand.title + ' Feedback'),
+      to: Settings.feedback.email,
       from: Settings.mail.mailer_sender
     }
   end
