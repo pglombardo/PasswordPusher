@@ -34,6 +34,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
+* __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
 * __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
