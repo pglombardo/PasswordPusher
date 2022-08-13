@@ -94,6 +94,23 @@ export PWP__MAIL__MAILER_SENDER='"Spiderman" <thespider@mycompany.org>'
 * See also this [Github discussion](https://github.com/pglombardo/PasswordPusher/issues/265#issuecomment-964432942).
 * [External Documentation on mailer configuration](https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration) for the underlying technology if you need more details for configuration issues.
 
+# Rebranding
+
+Password Pusher has the ability to be [re-branded](https://twitter.com/pwpush/status/1557658305325109253) with your own site title, tagline and logo.
+
+This can be done with the following environment variables:
+
+| Environment Variable | Description | Default Value |
+| --------- | ------------------ | --- |
+| PWP__BRAND__TITLE | Title for the site. | `Password Pusher` |
+| PWP__BRAND__TAGLINE | Tagline for the site.  | `Go Ahead.  Email Another Password.` |
+| PWP__BRAND__SHOW_FOOTER | On/Off switch for the footer menu. | `true` |
+| PWP__BRAND__LIGHT_LOGO | Site logo image for the light theme. | `media/img/logo-transparent-sm-bare.png` |
+| PWP__BRAND__DARK_LOGO | Site logo image for the dark theme. | `media/img/logo-transparent-sm-bare.png` |
+
+See the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
+
+
 # Google Analytics
 
 | Environment Variable | Description |
