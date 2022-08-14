@@ -1,66 +1,81 @@
 # Global Application Configuration
-
+#
+# This file uses YAML syntax.  Indentation must be 2 spaces (not tabs).
+#
 # See also https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md
 # for a further explanation of the larger settings available here.
 
 brand:
+  ### Site Title
+  #
   # Environment variable override: PWP__BRAND__TITLE='Acme Corp.'
-  title: 'Password Pusher'
+  # 
+  # title: 'Password Pusher'
 
+  ### Site Tagline
+  # 
   # Environment variable override: PWP__BRAND__TAGLINE='Security First'
-  tagline: 'Go Ahead.  Email Another Password.'
+  # 
+  # tagline: 'Go Ahead.  Email Another Password.'
 
+  ### Show Footer Menu Toggle
+  #
   # Environment variable override: PWP__BRAND__SHOW_FOOTER='true'
+  # 
   show_footer_menu: true
 
-  # Site logo for both a light and dark theme
-
+  ### Site logo
+  #
+  # ..for both a light and dark theme
+  #
   # You can also replace these relative paths with fully qualified HTTP links to
   # external resources such as Amazon S3 etc.
   # e.g. PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/some-image.png'
-
+  #
   # Environment variable override: PWP__BRAND__LIGHT_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
-  # light_logo: 'media/img/logo-transparent-sm-bare.png'
-
   # Environment variable override: PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
+  # 
+  # light_logo: 'media/img/logo-transparent-sm-bare.png'
   # dark_logo: 'media/img/logo-transparent-sm-dark-bare.png'
 
-  # Icon images for mobile.  When people on mobile (phones/tablets), bookmark
+  ### Icon images for mobile.  When people on mobile (phones/tablets), bookmark
   # the site or it is shown in history, these icons are used.
-
+  #
   # You can also replace these relative paths with fully qualified HTTP links to
   # external resources such as Amazon S3 etc.
   # e.g. PWP__BRAND__ICON_57x57='https://mys3bucket.amazonaws.com/a/some-image.png'
-
+  #
   # Environment variable override: PWP__BRAND__ICON_57x57='/path/to/image'
-  icon_57x57: 'media/img/apple-icon-57x57.png'
+  # icon_57x57: 'media/img/apple-icon-57x57.png'
   # Environment variable override: PWP__BRAND__ICON_60x60='/path/to/image'
-  icon_60x60: 'media/img/apple-icon-60x60.png'
+  # icon_60x60: 'media/img/apple-icon-60x60.png'
   # Environment variable override: PWP__BRAND__ICON_72x72='/path/to/image'
-  icon_72x72: 'media/img/apple-icon-72x72.png'
+  # icon_72x72: 'media/img/apple-icon-72x72.png'
   # Environment variable override: PWP__BRAND__ICON_76x76='/path/to/image'
-  icon_76x76: 'media/img/apple-icon-76x76.png'
+  # icon_76x76: 'media/img/apple-icon-76x76.png'
   # Environment variable override: PWP__BRAND__ICON_114x114='/path/to/image'
-  icon_114x114: 'media/img/apple-icon-114x114.png'
+  # icon_114x114: 'media/img/apple-icon-114x114.png'
   # Environment variable override: PWP__BRAND__ICON_120x120='/path/to/image'
-  icon_120x120: 'media/img/apple-icon-120x120.png'
+  # icon_120x120: 'media/img/apple-icon-120x120.png'
   # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
-  icon_144x144: 'media/img/apple-icon-144x144.png'
+  # icon_144x144: 'media/img/apple-icon-144x144.png'
   # Environment variable override: PWP__BRAND__ICON_152x152='/path/to/image'
-  icon_152x152: 'media/img/apple-icon-152x152.png'
+  # icon_152x152: 'media/img/apple-icon-152x152.png'
   # Environment variable override: PWP__BRAND__ICON_180x180='/path/to/image'
-  icon_180x180: 'media/img/apple-icon-180x180.png'
+  # icon_180x180: 'media/img/apple-icon-180x180.png'
   # Environment variable override: PWP__BRAND__ICON_192x192='/path/to/image'
-  icon_192x192: 'media/img/android-icon-192x192.png'
+  # icon_192x192: 'media/img/android-icon-192x192.png'
   # Environment variable override: PWP__BRAND__ICON_32x32='/path/to/image'
-  icon_32x32: 'media/img/favicon-32x32.png'
+  # icon_32x32: 'media/img/favicon-32x32.png'
   # Environment variable override: PWP__BRAND__ICON_96x96='/path/to/image'
-  icon_96x96: 'media/img/favicon-96x96.png'
+  # icon_96x96: 'media/img/favicon-96x96.png'
   # Environment variable override: PWP__BRAND__ICON_16x16='/path/to/image'
-  icon_16x16: 'media/img/favicon-16x16.png'
+  # icon_16x16: 'media/img/favicon-16x16.png'
   # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
-  ms_icon_144x144: 'media/img/ms-icon-144x144.png'
+  # ms_icon_144x144: 'media/img/ms-icon-144x144.png'
 
+### Logins (User accounts)
+#
 # Logins are disabled by default since they require an MTA (email) server
 # available to send emails through.
 #
@@ -74,6 +89,8 @@ brand:
 #
 enable_logins: false
 
+### Allow Anonymous
+#
 # By default, Password Pusher can be used by anonymous users to push
 # new passwords and generate secret URLs.  If you want to limit functionality
 # to logged in  users only, set the following value to true.
@@ -86,6 +103,8 @@ enable_logins: false
 #
 allow_anonymous: true
 
+### Host Domain
+#
 # The domain (without protocol) where this instance is hosted
 # Used in generating fully qualified URLs.
 #
@@ -94,6 +113,8 @@ allow_anonymous: true
 #
 # host_domain: 'pwpush.com'
 
+### Host Protocol
+#
 # The protocol to reach the domain above
 # Used in generating fully qualified URLs.
 #
@@ -102,6 +123,8 @@ allow_anonymous: true
 #
 host_protocol: 'https'
 
+### Base URL Override
+#
 # Set the following value to force the base URL of generated links.
 #
 # Environment variable override:
@@ -114,7 +137,8 @@ host_protocol: 'https'
 #
 # override_base_url: 'https://pwpush.mydomain.com'
 
-
+### Throttling
+#
 # Configure the application throttling limits.
 #
 # Throttling enforces a minimum time interval
@@ -155,6 +179,8 @@ throttling:
   second: 2
 
 
+### Mail Server Configuration
+#
 # When logins are enabled, an SMTP server is required to send emails to users
 # for things such as forgot password, unlock account, confirm account etc.
 # If `enable_logins` is set to true above, the following _are required_ to be
@@ -206,11 +232,19 @@ mail:
   # Environment Variable Override: PWP__MAIL__MAILER_SENDER='"Password Pusher" <pglombardo@pwpush.com>'
   # mailer_sender: '"Password Pusher" <pglombardo@pwpush.com>'
 
-
+### Feedback Form
 feedback:
+  # The email that will receive the information filled out by users in the
+  # Feedback form.
+  #
+  # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
 
+### Language & Internationalization
+#
+# This should not be touched for 99% of use cases..
+#
 # List of supported languages indexed by language code.  This is used
 # to build the in application language menu.
 #
@@ -233,6 +267,8 @@ language_codes:
   sr: 'Српски'
   sv: 'Svenska'
 
+### Site Default Locale
+#
 # The default language for the application.  This must be one of the
 # valid/supported language codes from the list above.
 #
@@ -240,4 +276,3 @@ language_codes:
 #
 # Environment Variable Override: PWP__DEFAULT_LOCALE='es'
 default_locale: :en
-

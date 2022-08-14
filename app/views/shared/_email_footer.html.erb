@@ -2,5 +2,9 @@
 <p>
 -- <br/>
 <%= _('Your Friendly Neighborhood') %>
-<%= link_to _(Settings.brand.title), root_url %>
+<% if Settings.brand.title %>
+    <%= link_to Settings.brand.title, root_url %>
+<% else %>
+    <%= link_to _('Password Pusher'), root_url %>
+<% end %>
 </p>
