@@ -11,10 +11,17 @@ class Feedback < MailForm::Base
   # Declare the e-mail headers. It accepts anything the mail method
   # in ActionMailer accepts.
   def headers
-    {
-      subject: _(Settings.brand.title + ' Feedback'),
+    headers = {
       to: Settings.feedback.email,
       from: Settings.mail.mailer_sender
     }
+
+    if Settings.brand.title
+      headers[:subject] = Settings.brand.title + ' Feedback'
+    else
+      headers[:subject] = _('Password Pusher Feedback')
+    end
+
+    headers
   end
 end
