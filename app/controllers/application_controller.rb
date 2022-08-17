@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
   around_action :set_locale_from_url
 
+  acts_as_token_authentication_handler_for User
+
   def not_found
     raise ActionController::RoutingError.new(_('Not Found'))
   end
