@@ -37,7 +37,14 @@ class Password < ApplicationRecord
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
   # and show the clear password
   def to_json(*args)
+  # def to_json(owner: false, payload: false)
     attr_hash = attributes
+
+    owner = false
+    payload = false
+
+    owner = args.first[:owner] if args.first.key?(:owner)
+    payload = args.first[:payload] if args.first.key?(:payload)
 
     attr_hash['days_remaining'] = days_remaining
     attr_hash['views_remaining'] = views_remaining
@@ -48,9 +55,8 @@ class Password < ApplicationRecord
     attr_hash.delete('user_id')
     attr_hash.delete('id')
 
-    # FIXME: Never show note until we have JSON authentication
-    # Only the push owner can see the note
-    attr_hash.delete('note')
+    attr_hash.delete('note') unless owner
+    attr_hash.delete('payload') unless payload
 
     Oj.dump attr_hash
   end

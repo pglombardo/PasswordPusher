@@ -3,6 +3,9 @@ require 'securerandom'
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 
+  acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
+  acts_as_token_authentication_handler_for User, only: [:audit]
+
   # GET /passwords/1
   # GET /passwords/1.json
   def show
@@ -35,7 +38,7 @@ class PasswordsController < ApplicationController
       log_view(@password)
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: @password }
+        format.json { render json: @password.to_json(payload: true) }
       end
       return
     else
@@ -47,7 +50,7 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: 'bare' }
-      format.json { render json: @password }
+      format.json { render json: @password.to_json(payload: true) }
     end
   end
 
@@ -134,8 +137,6 @@ class PasswordsController < ApplicationController
   end
 
   def audit
-    authenticate_user!
-
     @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
