@@ -15,7 +15,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 # Required packages
 RUN apt-get update -qq && \
-    apt-get install -qq -y --assume-yes build-essential apt-utils git curl tzdata zlib1g-dev nodejs yarn
+    apt-get install -qq -y --assume-yes build-essential apt-utils git curl tzdata zlib1g-dev nodejs yarn default-libmysqlclient-dev
 
 RUN mkdir -p ${APP_ROOT}
 ADD ./ ${APP_ROOT}/
