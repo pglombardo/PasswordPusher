@@ -185,6 +185,11 @@ throttling:
 # for things such as forgot password, unlock account, confirm account etc.
 # If `enable_logins` is set to true above, the following _are required_ to be
 # filled out with valid values.
+#
+# These values are passed through to ActionMailer configuration.  The documentation
+# for ActionMailer is at:
+# https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+#
 mail:
   # Email delivery errors will be shown in the application
   # Environment Variable Override: PWP__MAIL__RAISE_DELIVERY_ERRORS='false'
@@ -202,6 +207,10 @@ mail:
   # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
   # smtp_password: ''
 
+  # If you need to specify a HELO domain, you can do it here.
+  # Environment Variable Override: PWP__MAIL__SMTP_DOMAIN='xyz.dev'
+  # smtp_domain: ''
+
   # Port of the SMTP server
   # Environment Variable Override: PWP__MAIL__SMTP_PORT='587'
   smtp_port: 587
@@ -217,7 +226,11 @@ mail:
 
   # Use STARTTLS when connecting to your SMTP server and fail if unsupported.
   # Environment Variable Override: PWP__MAIL__SMTP_STARTTLS='true'
-  smtp_starttls: true
+  # smtp_starttls: false
+
+  # Detects if STARTTLS is enabled in your SMTP server and starts to use it. Defaults to true.
+  # Environment Variable Override: PWP__MAIL__SMTP_ENABLE_STARTTLS_AUTO='false'
+  smtp_enable_starttls_auto: true
 
   # Number of seconds to wait while attempting to open a connection.
   # Environment Variable Override: PWP__MAIL__SMTP_OPEN_TIMEOUT='10'
@@ -226,6 +239,12 @@ mail:
   # Number of seconds to wait until timing-out a read(2) call.
   # Environment Variable Override: PWP__MAIL__SMTP_READ_TIMEOUT='10'
   smtp_read_timeout: 10
+
+  # When using TLS, you can set how OpenSSL checks the certificate. This is
+  # useful if you need to validate a self-signed and/or a wildcard certificate.
+  # This can be one of the OpenSSL verify constants, :none or :peer
+  # Environment Variable Override: PWP__MAIL__SMTP_OPENSSL_VERIFY_MODE='none'
+  # smtp_openssl_verify_mode: 'peer'
 
   # Configure the e-mail address which will be shown as 'From' in emails
   # See config/initializers/devise.rb where this is used

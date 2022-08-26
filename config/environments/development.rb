@@ -43,10 +43,22 @@ Rails.application.configure do
     user_name: Settings.mail.smtp_user_name,
     password: Settings.mail.smtp_password,
     authentication: Settings.mail.smtp_authentication,
-    enable_starttls_auto: Settings.mail.smtp_starttls,
+    enable_starttls_auto: Settings.mail.smtp_enable_starttls_auto,
     open_timeout: Settings.mail.smtp_open_timeout,
     read_timeout: Settings.mail.smtp_read_timeout
   }
+
+  if Settings.mail.smtp_domain
+    config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain
+  end
+
+  if Settings.mail.smtp_openssl_verify_mode
+    config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
+  end
+
+  if Settings.mail.smtp_enable_starttls
+    config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
+  end
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
