@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   localized do
     devise_for :users, skip: :registrations, controllers: {
       sessions: 'users/sessions',
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
                 controller: 'users/registrations',
                 as: :user_registration do
                   get :cancel
+                  get :token
+                  delete :token, action: :regen_token
                 end
     end
 

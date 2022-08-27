@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'application', only: %i[edit update]
-  layout 'login', except: %i[edit update]
+  layout 'application', only: %i[edit update token]
+  layout 'login', except: %i[edit update token]
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -40,6 +40,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+
+  # GET /resource/token
+  def token
+    redirect_to user_session_path unless user_signed_in?
+
+    respond_to do |format|
+      format.html {}
+    end
+  end
+
+  # PUT /resource/token
+  def regen_token
+    redirect_to user_session_path unless user_signed_in?
+    current_user.authentication_token = nil
+    current_user.save
+
+    redirect_to token_user_registration_path
+  end
 
   # protected
 

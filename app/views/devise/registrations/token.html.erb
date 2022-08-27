@@ -1,0 +1,60 @@
+    <div class='text-center m-3'>
+        <h2><%= _('API Token') %></h1>
+        <p class="lead mt-5">
+        <%= _('This token is specific to your account.  It can be used with command line applications, the JSON API, 3rd party integrations and more.') %>
+        </p>
+        <p>
+        <em><%= _('Make sure to keep this token secure.  It provides full access to your account.') %></em>
+        </p>
+        <p>
+        <%= _('If needed, you can regenerate a new token below which will invalidate this existing token.') %>
+        </p>
+    </div>
+    
+    <div class='text-center mt-5 mb-5'>
+        <p class="text-muted"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
+        <div
+        class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
+        id='authentication_token' 
+        translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=current_user.authentication_token%></div>
+        <div class='text-center m-3 mb-5'>
+            <button class='btn btn-primary' data-clipboard-target='#authentication_token' id='copy-to-clipboard-button'>
+            <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
+            </button>
+        </div>
+    </div>
+
+    <div class='text-center m-3'>
+        <p>
+        <%= _('To delete this token and regenerate a new one, use the button below.') %>
+        </p>
+        <p>
+        <%= _('Note that this will invalidate any tools that may be using the existing key and will have to be updated with the new token.') %>
+        </p>
+    <div class="text-center mt-5">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#regenerateModal">
+            <em class="bi bi-trash"></em> <%= _('Regenerate Token') %>
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete and generate a new API token?') %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= _('This will delete this token and ') %>
+        <strong><%= _('invalidate any tools that may be using it') %></strong>.
+        <%= _('A new token will be generated in its place.') %>
+        <%= _('Are you sure?') %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+        <%= link_to _('Delete & Regenerate'), token_user_registration_path, method: :delete, class: 'btn btn-danger', rel: 'nofollow', disable_with: _('Processing...') %>
+      </div>
+    </div>
+  </div>
+</div>

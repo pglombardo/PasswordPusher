@@ -3,8 +3,19 @@ require 'securerandom'
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 
-  # GET /passwords/1
-  # GET /passwords/1.json
+  acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
+  acts_as_token_authentication_handler_for User, only: [:audit]
+
+  resource_description do
+    name 'Pushes'
+    short 'Interact directly with pushes.'
+  end
+
+  api :GET, '/p/:url_token.json', 'Retrieve a push.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json'
+  description "Retrieves a push including it's payload and details.  If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
   def show
     redirect_to :root && return unless params.key?(:id)
 
@@ -35,7 +46,7 @@ class PasswordsController < ApplicationController
       log_view(@password)
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: @password }
+        format.json { render json: @password.to_json(payload: true) }
       end
       return
     else
@@ -47,12 +58,11 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: 'bare' }
-      format.json { render json: @password }
+      format.json { render json: @password.to_json(payload: true) }
     end
   end
 
   # GET /passwords/new
-  # GET /passwords/new.json
   def new
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
@@ -62,12 +72,20 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @password }
     end
   end
 
-  # POST /passwords
-  # POST /passwords.json
+  api :POST, '/p.json', 'Create a new push.'
+  param :password, Hash, "Push details", required: true do
+    param :payload, String, desc: 'The password or secret text to share.', required: true
+    param :note, String, desc: 'If authenticated, the note to label this push.', allow_blank: true
+    param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
+    param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
+    param :deletable_by_viewer, [true, false], desc: "Allow users to delete passwords once retrieved."
+    param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
+  end
+  formats ['json']
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "password[payload]=mypassword&password[expire_after_days]=2&password[expire_after_views]=10" https://pwpush.com/p.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
@@ -115,12 +133,19 @@ class PasswordsController < ApplicationController
     end
   end
 
+  api :GET, '/p/:url_token/preview.json', 'Helper endpoint to retrieve the fully qualified secret URL of a push.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/preview.json'
+  description ""
   def preview
     @password = Password.find_by_url_token!(params[:id])
 
+    @secret_url = helpers.secret_url(@password)
+
     respond_to do |format|
       format.html { render action: 'preview' }
-      format.json { render json: @password, status: :ok }
+      format.json { render json: { url: @secret_url }, status: :ok }
     end
   end
 
@@ -129,21 +154,38 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html { render action: 'preliminary', layout: 'naked' }
-      format.json { render json: @password, status: :ok }
     end
   end
 
+  api :GET, '/p/:url_token/audit.json', 'Retrieve the logged views for a push.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/audit.json'
+  description "This will return array of views including IP, referrer and other such metadata.  The _successful_ field indicates whether the view was made while the push was still active (and not expired)."
   def audit
-    authenticate_user!
-
     @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
+      respond_to do |format|
+        format.html { redirect_to :root, notice: _("That push doesn't belong to you.") }
+        format.json { render json: { "error": "That push doesn't belong to you." } }
+      end
       return
+    end
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        render json: { views: @password.views }.to_json(except: [:user_id, :password_id, :id])
+      }
     end
   end
 
+  api :DELETE, '/p/:url_token.json', 'Expire a push: delete the payload and expire the secret URL.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fkwjfvhall92.json'
+  description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must have been created with _deleteable_by_viewer_."
   def destroy
     @password = Password.find_by_url_token!(params[:id])
     is_owner = false

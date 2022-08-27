@@ -6,8 +6,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('payload')
-    assert_equal 'testpw', res['payload']
+    assert res.key?('payload') == false # No payload on create response
     assert res.key?('url_token')
     assert res.key?('expired')
     assert_equal false, res['expired']
@@ -32,8 +31,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?('payload')
-    assert_equal '£¬', res['payload']
+    assert res.key?('payload') == false # No payload on create response
     assert res.key?('url_token')
     assert res.key?('expired')
     assert_equal false, res['expired']
@@ -51,6 +49,14 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['expire_after_days']
     assert res.key?('expire_after_views')
     assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['expire_after_views']
+
+    # Validate payload
+    get "/p/#{res["url_token"]}.json"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?('payload')
+    assert_equal '£¬', res['payload']
   end
 
   def test_deletable_by_viewer
