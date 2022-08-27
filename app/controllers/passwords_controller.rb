@@ -6,8 +6,16 @@ class PasswordsController < ApplicationController
   acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
   acts_as_token_authentication_handler_for User, only: [:audit]
 
-  # GET /passwords/1
-  # GET /passwords/1.json
+  resource_description do
+    name 'Pushes'
+    short 'Interact directly with pushes.'
+  end
+
+  api :GET, '/p/:url_token.json', 'Retrieve a push.'
+  param :url_token, String, desc: 'Secret URL token for previously created push.', :required => true
+  formats ['json']
+  example "curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json"
+  description "If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
   def show
     redirect_to :root && return unless params.key?(:id)
 
@@ -69,8 +77,17 @@ class PasswordsController < ApplicationController
     end
   end
 
-  # POST /passwords
-  # POST /passwords.json
+  api :POST, '/p.json', 'Create a new push.'
+  param :password, Hash, "Push details", required: true do
+    param :payload, String, desc: 'The password or secret text to share.', required: true
+    param :note, String, desc: 'If authenticated, the note to label this push.', allow_blank: true
+    param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
+    param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
+    param :deletable_by_viewer, [true, false], desc: "Allow users to delete passwords once retrieved."
+    param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
+  end
+  formats ['json']
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "password[payload]=mypassword&password[expire_after_days]=2&password[expire_after_views]=10" https://pwpush.com/p.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
@@ -123,7 +140,7 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html { render action: 'preview' }
-      format.json { render json: @password, status: :ok }
+      format.json { render json: @password.to_json(payload: false), status: :ok }
     end
   end
 
@@ -145,6 +162,11 @@ class PasswordsController < ApplicationController
     end
   end
 
+  api :DELETE, '/p/:url_token.json', 'Expire a push: delete the payload and expire the secret URL.'
+  param :url_token, String, desc: 'Secret URL token for previously created push.', :required => true
+  formats ['json']
+  example 'curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fkwjfvhall92.json'
+  description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must have been created with _deleteable_by_viewer_."
   def destroy
     @password = Password.find_by_url_token!(params[:id])
     is_owner = false

@@ -90,6 +90,7 @@ gem 'route_translator', '>= 12.1.0'
 gem 'translation'
 gem 'mail_form', '>= 1.9.0'
 gem 'net-smtp'
+gem 'apipie-rails'
 
 gem 'simple_token_authentication', '~> 1.0'
 

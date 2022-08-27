@@ -1,6 +1,14 @@
 class DashboardController < ApplicationController
   acts_as_token_authentication_handler_for User
 
+  resource_description do
+    short 'View your previously created pushes.'
+  end
+
+  api :GET, '/d/active.json', 'Retrieve your active pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/d/active.json'
+  description "Returns the list of pushes that you previously pushed which are still active."
   def active
     @active_pushes = Password.includes(:views)
                              .where(user_id: current_user.id, expired: false)
@@ -19,6 +27,10 @@ class DashboardController < ApplicationController
     end
   end
 
+  api :GET, '/d/active.json', 'Retrieve your expired pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/d/expired.json'
+  description "Returns the list of pushes that you previously pushed which have expired."
   def expired
     @expired_pushes = Password.where(user_id: current_user.id, expired: true)
                               .paginate(page: params[:page], per_page: 30)
