@@ -27,7 +27,7 @@ class DashboardController < ApplicationController
     end
   end
 
-  api :GET, '/d/active.json', 'Retrieve your expired pushes.'
+  api :GET, '/d/expired.json', 'Retrieve your expired pushes.'
   formats ['json']
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/d/expired.json'
   description "Returns the list of pushes that you previously pushed which have expired."

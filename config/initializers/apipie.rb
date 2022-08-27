@@ -11,7 +11,7 @@ Apipie.configure do |config|
 
     This API allows for both anonymous and authenticated access.
 
-    To authenticate, get your API token from _/users/token_ and then apply it in your
+    To authenticate, get your API token from {the API token page}[/en/users/token] and then apply it in your
     API calls as request headers:
 
 

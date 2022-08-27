@@ -12,10 +12,10 @@ class PasswordsController < ApplicationController
   end
 
   api :GET, '/p/:url_token.json', 'Retrieve a push.'
-  param :url_token, String, desc: 'Secret URL token for previously created push.', :required => true
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json'
-  description "If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
+  description "Retrieves a push including it's payload and details.  If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
   def show
     redirect_to :root && return unless params.key?(:id)
 
@@ -133,6 +133,11 @@ class PasswordsController < ApplicationController
     end
   end
 
+  api :GET, '/p/:url_token/preview.json', 'Helper endpoint to retrieve the fully qualified secret URL of a push.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/preview.json'
+  description ""
   def preview
     @password = Password.find_by_url_token!(params[:id])
 
@@ -152,6 +157,11 @@ class PasswordsController < ApplicationController
     end
   end
 
+  api :GET, '/p/:url_token/audit.json', 'Retrieve the logged views for a push.'
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/audit.json'
+  description "This will return array of views including IP, referrer and other such metadata.  The _successful_ field indicates whether the view was made while the push was still active (and not expired)."
   def audit
     @password = Password.includes(:views).find_by_url_token!(params[:id])
 
@@ -172,7 +182,7 @@ class PasswordsController < ApplicationController
   end
 
   api :DELETE, '/p/:url_token.json', 'Expire a push: delete the payload and expire the secret URL.'
-  param :url_token, String, desc: 'Secret URL token for previously created push.', :required => true
+  param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fkwjfvhall92.json'
   description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must have been created with _deleteable_by_viewer_."
