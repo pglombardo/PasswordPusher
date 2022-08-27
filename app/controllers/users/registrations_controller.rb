@@ -43,10 +43,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/token
   def token
+    redirect_to user_session_path unless user_signed_in?
+
+    respond_to do |format|
+      format.html {}
+    end
   end
 
   # PUT /resource/token
   def regen_token
+    redirect_to user_session_path unless user_signed_in?
     current_user.authentication_token = nil
     current_user.save
 
