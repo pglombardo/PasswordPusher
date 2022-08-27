@@ -14,7 +14,7 @@ class PasswordsController < ApplicationController
   api :GET, '/p/:url_token.json', 'Retrieve a push.'
   param :url_token, String, desc: 'Secret URL token for previously created push.', :required => true
   formats ['json']
-  example "curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json"
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json'
   description "If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
   def show
     redirect_to :root && return unless params.key?(:id)
@@ -63,7 +63,6 @@ class PasswordsController < ApplicationController
   end
 
   # GET /passwords/new
-  # GET /passwords/new.json
   def new
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
@@ -73,7 +72,6 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @password }
     end
   end
 
@@ -138,9 +136,11 @@ class PasswordsController < ApplicationController
   def preview
     @password = Password.find_by_url_token!(params[:id])
 
+    @secret_url = helpers.secret_url(@password)
+
     respond_to do |format|
       format.html { render action: 'preview' }
-      format.json { render json: @password.to_json(payload: false), status: :ok }
+      format.json { render json: { url: @secret_url }, status: :ok }
     end
   end
 
@@ -149,7 +149,6 @@ class PasswordsController < ApplicationController
 
     respond_to do |format|
       format.html { render action: 'preliminary', layout: 'naked' }
-      format.json { render json: @password, status: :ok }
     end
   end
 
@@ -157,8 +156,18 @@ class PasswordsController < ApplicationController
     @password = Password.includes(:views).find_by_url_token!(params[:id])
 
     if @password.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
+      respond_to do |format|
+        format.html { redirect_to :root, notice: _("That push doesn't belong to you.") }
+        format.json { render json: { "error": "That push doesn't belong to you." } }
+      end
       return
+    end
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        render json: { views: @password.views }.to_json(except: [:user_id, :password_id, :id])
+      }
     end
   end
 
