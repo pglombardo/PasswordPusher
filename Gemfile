@@ -91,7 +91,6 @@ gem 'translation'
 gem 'mail_form', '>= 1.9.0'
 gem 'net-smtp'
 gem 'apipie-rails'
-
 gem 'simple_token_authentication', '~> 1.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
