@@ -89,9 +89,14 @@ gem 'config'
 gem 'route_translator', '>= 12.1.0'
 gem 'translation'
 gem 'mail_form', '>= 1.9.0'
-gem 'net-smtp'
 gem 'apipie-rails'
 gem 'simple_token_authentication', '~> 1.0'
+
+# Fix for https://github.com/pglombardo/PasswordPusher/issues/397
+# In place until Rails 7.0.1 upgrade
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
