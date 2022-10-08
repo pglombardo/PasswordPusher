@@ -91,6 +91,7 @@ gem 'translation'
 gem 'mail_form', '>= 1.9.0'
 gem 'apipie-rails'
 gem 'simple_token_authentication', '~> 1.0'
+gem 'lograge'
 
 # Fix for https://github.com/pglombardo/PasswordPusher/issues/397
 # In place until Rails 7.0.1 upgrade
