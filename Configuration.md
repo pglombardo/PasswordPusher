@@ -119,6 +119,14 @@ See the `brand` section of [settings.yml](https://github.com/pglombardo/Password
 | GA_ACCOUNT | The Google Analytics account id.  E.g. `UA-XXXXXXXX-X` |
 | GA_DOMAIN | The domain where the application is hosted.  E.g. `pwpush.com` |
 
+# Logging
+
+
+| Environment Variable | Description |
+| --------- | ------------------ |
+| PWP__LOG_LEVEL | Set the logging level for the application.  Valid values are: `debug`, `info`, `warn`, `error` and `fatal`.  Note: lowercase.
+
+
 # Forcing SSL Links
 
 See also the Proxies section below.

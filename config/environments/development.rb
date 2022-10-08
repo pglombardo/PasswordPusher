@@ -60,6 +60,8 @@ Rails.application.configure do
     config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
   end
 
+  config.log_level = :debug
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
