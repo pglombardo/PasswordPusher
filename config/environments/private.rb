@@ -9,7 +9,7 @@ PasswordPusher::Application.configure do
   config.active_support.deprecation = :notify
   config.eager_load = false
   config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
-  config.log_level = ENV.key?('LOG_LEVEL') ? ENV['LOG_LEVEL'].to_sym : :warn
+  config.log_level = Settings.log_level.downcase.to_sym
 
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors

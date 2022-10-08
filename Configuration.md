@@ -124,7 +124,7 @@ See the `brand` section of [settings.yml](https://github.com/pglombardo/Password
 
 | Environment Variable | Description |
 | --------- | ------------------ |
-| LOG_LEVEL | Set the logging level for the application.  Valid values are: `debug`, `info`, `warn`, `error` and `fatal`.  Note: lowercase.
+| PWP__LOG_LEVEL | Set the logging level for the application.  Valid values are: `debug`, `info`, `warn`, `error` and `fatal`.  Note: lowercase.
 
 
 # Forcing SSL Links
