@@ -120,8 +120,22 @@ See the `brand` section of [settings.yml](https://github.com/pglombardo/Password
 | GA_ACCOUNT | The Google Analytics account id.  E.g. `UA-XXXXXXXX-X` |
 | GA_DOMAIN | The domain where the application is hosted.  E.g. `pwpush.com` |
 
-# Logging
+# Throttling
 
+Throttling enforces a minimum time interval
+between subsequent HTTP requests from a particular client, as
+well as by defining a maximum number of allowed HTTP requests
+per a given time period (per second, minute, hourly, or daily).
+
+| Environment Variable | Description | Default Value |
+| --------- | ------------------ | --- |
+| PWP__THROTTLING__DAILY | The maximum number of allowed HTTP requests per day | `1000` |
+| PWP__THROTTLING__HOURLY | The maximum number of allowed HTTP requests per hour | `100` |
+| PWP__THROTTLING__MINUTE | The maximum number of allowed HTTP requests per minute | `30` |
+| PWP__THROTTLING__SECOND | The maximum number of allowed HTTP requests per second | `2` |
+
+
+# Logging
 
 | Environment Variable | Description |
 | --------- | ------------------ |
