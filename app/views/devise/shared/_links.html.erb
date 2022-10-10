@@ -6,7 +6,7 @@
       <%= link_to I18n.t('devise.general.login'), new_session_path(resource_name), class: 'nav-link px-2 text-muted' %>
     </li>
   <% end %>
-  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' && !Settings.disable_signups %>
     <li class="list-group-item list-group-item-action">
       <%= link_to I18n.t('devise.general.sign_up'), new_registration_path(resource_name), class: 'nav-link px-2 text-muted' %>
     </li>
