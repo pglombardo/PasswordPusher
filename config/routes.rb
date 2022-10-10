@@ -12,9 +12,15 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
     }
 
+    if Settings.disable_signups
+      allowed_reg_routes = %i[edit update]
+    else
+      allowed_reg_routes = %i[new create edit update]
+    end
+
     devise_scope :user do
       resource  :registration,
-                only: %i[new create edit update],
+                only: allowed_reg_routes,
                 path: 'users',
                 path_names: { new: 'sign_up' },
                 controller: 'users/registrations',

@@ -56,9 +56,11 @@
             <li class="nav-item">
               <%= link_to _('Log In'), new_user_session_path, class: "nav-link lead" %>
             </li>
-            <li class="nav-item">
-              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
-            </li>
+            <% if !Settings.disable_signups %>
+              <li class="nav-item">
+                <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
+              </li>
+            <% end %>
           <% end %>
         <% end %>
         <li class="nav-item dropdown">
