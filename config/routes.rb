@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  if ENV.key?('PWPUSH_COM')
+    match '(*any)', to: redirect(subdomain: ''), via: :all, constraints: {subdomain: 'www'}
+  end
+
   apipie
   localized do
     devise_for :users, skip: :registrations, controllers: {
