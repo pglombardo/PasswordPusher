@@ -72,6 +72,7 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | PWP__HOST_DOMAIN | Used to build fully qualified URLs in emails.  Where is your instance hosted? | `pwpush.com` |
 | PWP__HOST_PROTOCOL | The protocol to access your Password Pusher instance.  HTTPS advised. | `https` |
 | PWP__MAIL__MAILER_SENDER | This is the "From" address in sent emails. | '"Company Name" <user@example.com>' |
+| PWP__DISABLE_SIGNUPS| Once your user accounts are created, you can set this disable any further user account creation.  Sign up links and related backend functionality is disabled when `true`. | `false` |
 
 ## Shell Example
 
