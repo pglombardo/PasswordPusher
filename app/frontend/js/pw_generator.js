@@ -6,25 +6,25 @@ class PasswordGenerator {
     constructor() {
         this.config = {
             hasNumbers: true,
-            titlecased: true,
+            titlecased: false,
             use_separators: true,
-            consonants: 'bcdfghklmnprstvz',
-            vowels: 'aeiouy',
+            consonants: 'bcDdFfGgHhKkLMmNnPpRrsTtVvZz',
+            vowels: 'AaEeioUuYy',
             separators: '-_=',
-            maxSyllableLength: 3,
-            minSyllableLength: 1,
+            maxSyllableLength: 5,
+            minSyllableLength: 3,
             syllablesCount: 3
         }
 
         this.config_defaults = {
             hasNumbers: true,
-            titlecased: true,
+            titlecased: false,
             use_separators: true,
-            consonants: 'bcdfghklmnprstvz',
-            vowels: 'aeiouy',
+            consonants: 'bcDdFfGgHhKkLMmNnPpRrsTtVvZz',
+            vowels: 'AaEeioUuYy',
             separators: '-_=',
-            maxSyllableLength: 3,
-            minSyllableLength: 1,
+            maxSyllableLength: 5,
+            minSyllableLength: 3,
             syllablesCount: 3,
         };
     }
