@@ -1,7 +1,7 @@
 module ApplicationHelper
   # Set the HTML title for the page with a trailing site identifier.
   def title(content)
-    if Settings.brand.title
+    if Settings.brand && Settings.brand.title
       return content_for(:html_title) { "#{content} | #{Settings.brand.title}" }
     else
       return content_for(:html_title) { "#{content} | #{_('Password Pusher')}" }

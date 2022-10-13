@@ -3,7 +3,7 @@ I18n.available_locales = %i[ca cs da de en es fi fr hu it nl no pl pt-BR sr sv]
 
 # Ability to set default locale to something other than :en
 # See config/settings.yml
-I18n.default_locale = Settings.default_locale
+I18n.default_locale = Settings.default_locale ? Settings.default_locale : 'en'
 
 TranslationIO.configure do |config|
   config.api_key        = 'cc6a66a15e02433aa9d0afeb39835b8c'
