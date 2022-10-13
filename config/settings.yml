@@ -1,42 +1,281 @@
-# Global Application Defaults
+# Global Application Configuration
+#
+# This file uses YAML syntax.  Indentation must be 2 spaces (not tabs).
+#
+# See also https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md
+# for a further explanation of the larger settings available here.
 
-# This is initially for internal settings.  If all goes well using
-# this new config gem, then we'll migrate entirely to the new Settings
-# format for private instances too.
+brand:
+  ### Site Title
+  #
+  # Environment variable override: PWP__BRAND__TITLE='Acme Corp.'
+  #
+  # title: 'Password Pusher'
 
+  ### Site Tagline
+  #
+  # Environment variable override: PWP__BRAND__TAGLINE='Security First'
+  #
+  # tagline: 'Go Ahead.  Email Another Password.'
+
+  ### Show Footer Menu Toggle
+  #
+  # Environment variable override: PWP__BRAND__SHOW_FOOTER_MENU='true'
+  #
+  show_footer_menu: true
+
+  ### Site logo
+  #
+  # ..for both a light and dark theme
+  #
+  # You can also replace these relative paths with fully qualified HTTP links to
+  # external resources such as Amazon S3 etc.
+  # e.g. PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/some-image.png'
+  #
+  # Environment variable override: PWP__BRAND__LIGHT_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
+  # Environment variable override: PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
+  #
+  # light_logo: 'media/img/logo-transparent-sm-bare.png'
+  # dark_logo: 'media/img/logo-transparent-sm-dark-bare.png'
+
+  ### Icon images for mobile.  When people on mobile (phones/tablets), bookmark
+  # the site or it is shown in history, these icons are used.
+  #
+  # You can also replace these relative paths with fully qualified HTTP links to
+  # external resources such as Amazon S3 etc.
+  # e.g. PWP__BRAND__ICON_57x57='https://mys3bucket.amazonaws.com/a/some-image.png'
+  #
+  # Environment variable override: PWP__BRAND__ICON_57x57='/path/to/image'
+  # icon_57x57: 'media/img/apple-icon-57x57.png'
+  # Environment variable override: PWP__BRAND__ICON_60x60='/path/to/image'
+  # icon_60x60: 'media/img/apple-icon-60x60.png'
+  # Environment variable override: PWP__BRAND__ICON_72x72='/path/to/image'
+  # icon_72x72: 'media/img/apple-icon-72x72.png'
+  # Environment variable override: PWP__BRAND__ICON_76x76='/path/to/image'
+  # icon_76x76: 'media/img/apple-icon-76x76.png'
+  # Environment variable override: PWP__BRAND__ICON_114x114='/path/to/image'
+  # icon_114x114: 'media/img/apple-icon-114x114.png'
+  # Environment variable override: PWP__BRAND__ICON_120x120='/path/to/image'
+  # icon_120x120: 'media/img/apple-icon-120x120.png'
+  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
+  # icon_144x144: 'media/img/apple-icon-144x144.png'
+  # Environment variable override: PWP__BRAND__ICON_152x152='/path/to/image'
+  # icon_152x152: 'media/img/apple-icon-152x152.png'
+  # Environment variable override: PWP__BRAND__ICON_180x180='/path/to/image'
+  # icon_180x180: 'media/img/apple-icon-180x180.png'
+  # Environment variable override: PWP__BRAND__ICON_192x192='/path/to/image'
+  # icon_192x192: 'media/img/android-icon-192x192.png'
+  # Environment variable override: PWP__BRAND__ICON_32x32='/path/to/image'
+  # icon_32x32: 'media/img/favicon-32x32.png'
+  # Environment variable override: PWP__BRAND__ICON_96x96='/path/to/image'
+  # icon_96x96: 'media/img/favicon-96x96.png'
+  # Environment variable override: PWP__BRAND__ICON_16x16='/path/to/image'
+  # icon_16x16: 'media/img/favicon-16x16.png'
+  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
+  # ms_icon_144x144: 'media/img/ms-icon-144x144.png'
+
+### Logins (User accounts)
+#
 # Logins are disabled by default since they require an MTA (email) server
 # available to send emails through.
+#
+# If enabling logins, make sure to fill out the 'mail' section below.
+#
 # For instructions on how to enable logins, see this page:
 # https://github.com/pglombardo/PasswordPusher/discussions/276
+#
+# Environment variable override:
+# PWP__ENABLE_LOGINS='false'
+#
 enable_logins: false
 
+## Disable Signups
+#
+# Disallow new user accounts to be created in the application.
+#
+# Set this after you have your desired user accounts created.  It will
+# not allow any further user account creation.
+#
+# Environment variable override:
+# PWP__DISABLE_SIGNUPS='false'
+#
+disable_signups: false
+
+### Allow Anonymous
+#
+# By default, Password Pusher can be used by anonymous users to push
+# new passwords and generate secret URLs.  If you want to limit functionality
+# to logged in  users only, set the following value to true.
+#
+# This does not affect password secret URLs themselves as anonymous is always
+# allowed there.
+#
+# Environment variable override:
+# PWP__ALLOW_ANONYMOUS='true'
+#
+allow_anonymous: true
+
+### Host Domain
+#
 # The domain (without protocol) where this instance is hosted
 # Used in generating fully qualified URLs.
+#
+# Environment variable override:
+# PWP__HOST_DOMAIN='pwpush.com'
+#
 # host_domain: 'pwpush.com'
 
+### Host Protocol
+#
 # The protocol to reach the domain above
 # Used in generating fully qualified URLs.
+#
+# Environment variable override:
+# PWP__HOST_PROTOCOL='https'
+#
 host_protocol: 'https'
 
+### Base URL Override
+#
+# Set the following value to force the base URL of generated links.
+#
+# Environment variable override:
+# PWP__OVERRIDE_BASE_URL='https://pwpush.mydomain.com'
+#
+# You could even add a port if needed:
+# PWP__OVERRIDE_BASE_URL='https://pwpush.mydomain.com:5100'
+#
+# Set this value without a trailing slash ('/').
+#
+# override_base_url: 'https://pwpush.mydomain.com'
+
+### Throttling
+#
+# Configure the application throttling limits.
+#
+# Throttling enforces a minimum time interval
+# between subsequent HTTP requests from a particular client, as
+# well as by defining a maximum number of allowed HTTP requests
+# per a given time period (per second, minute, hourly, or daily).
+#
+# See https://github.com/dryruby/rack-throttle#throttling-strategies
+# for a description of function.
+#
+throttling:
+  # ..maximum number of allowed HTTP requests per day
+  #
+  # Default: 1000
+  #
+  # Environment Variable Override: PWP__THROTTLING__DAILY='1000'
+  daily: 1000
+
+  # ..maximum number of allowed HTTP requests per hour
+  #
+  # Default: 100
+  #
+  # Environment Variable Override: PWP__THROTTLING__HOURLY='100'
+  hourly: 100
+
+  # ..maximum number of allowed HTTP requests per minute
+  #
+  # Default: 30
+  #
+  # Environment Variable Override: PWP__THROTTLING__MINUTE='30'
+  minute: 30
+
+  # ..maximum number of allowed HTTP requests per second
+  #
+  # Default: 2
+  #
+  # Environment Variable Override: PWP__THROTTLING__SECOND='2'
+  second: 2
+
+
+### Mail Server Configuration
+#
 # When logins are enabled, an SMTP server is required to send emails to users
 # for things such as forgot password, unlock account, confirm account etc.
 # If `enable_logins` is set to true above, the following _are required_ to be
 # filled out with valid values.
+#
+# These values are passed through to ActionMailer configuration.  The documentation
+# for ActionMailer is at:
+# https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+#
 mail:
+  # Email delivery errors will be shown in the application
+  # Environment Variable Override: PWP__MAIL__RAISE_DELIVERY_ERRORS='false'
   raise_delivery_errors: false
+
+  # Allows you to use a remote mail server. Just change it from its default "localhost" setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_ADDRESS='smtp.example.com'
   # smtp_address: smtp.example.com
+
+  # If your mail server requires authentication, set the username in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_USER_NAME='apikey'
   # smtp_user_name: 'apikey'
+
+  # If your mail server requires authentication, set the password in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
   # smtp_password: ''
+
+  # If you need to specify a HELO domain, you can do it here.
+  # Environment Variable Override: PWP__MAIL__SMTP_DOMAIN='xyz.dev'
+  # smtp_domain: ''
+
+  # Port of the SMTP server
+  # Environment Variable Override: PWP__MAIL__SMTP_PORT='587'
   smtp_port: 587
+
+  # If your mail server requires authentication, you need to specify the
+  # authentication type here. This is a string and one of :plain (will send
+  # the password in the clear), :login (will send password Base64 encoded)
+  # or :cram_md5 (combines a Challenge/Response mechanism to exchange
+  # information and a cryptographic Message Digest 5 algorithm to hash
+  # important information)
+  # Environment Variable Override: PWP__MAIL__SMTP_AUTHENTICATION='plain'
   smtp_authentication: 'plain'
-  smtp_starttls: true
+
+  # Use STARTTLS when connecting to your SMTP server and fail if unsupported.
+  # Environment Variable Override: PWP__MAIL__SMTP_STARTTLS='true'
+  # smtp_starttls: false
+
+  # Detects if STARTTLS is enabled in your SMTP server and starts to use it. Defaults to true.
+  # Environment Variable Override: PWP__MAIL__SMTP_ENABLE_STARTTLS_AUTO='false'
+  smtp_enable_starttls_auto: true
+
+  # Number of seconds to wait while attempting to open a connection.
+  # Environment Variable Override: PWP__MAIL__SMTP_OPEN_TIMEOUT='10'
   smtp_open_timeout: 10
+
+  # Number of seconds to wait until timing-out a read(2) call.
+  # Environment Variable Override: PWP__MAIL__SMTP_READ_TIMEOUT='10'
   smtp_read_timeout: 10
+
+  # When using TLS, you can set how OpenSSL checks the certificate. This is
+  # useful if you need to validate a self-signed and/or a wildcard certificate.
+  # This can be one of the OpenSSL verify constants, :none or :peer
+  # Environment Variable Override: PWP__MAIL__SMTP_OPENSSL_VERIFY_MODE='none'
+  # smtp_openssl_verify_mode: 'peer'
 
   # Configure the e-mail address which will be shown as 'From' in emails
   # See config/initializers/devise.rb where this is used
+  # Environment Variable Override: PWP__MAIL__MAILER_SENDER='"Password Pusher" <pglombardo@pwpush.com>'
   # mailer_sender: '"Password Pusher" <pglombardo@pwpush.com>'
 
+### Feedback Form
+feedback:
+  # The email that will receive the information filled out by users in the
+  # Feedback form.
+  #
+  # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
+  email: 'feedback@pwpush.com'
+
+
+### Language & Internationalization
+#
+# This should not be touched for 99% of use cases..
+#
 # List of supported languages indexed by language code.  This is used
 # to build the in application language menu.
 #
@@ -48,6 +287,7 @@ language_codes:
   de: 'Deutsch'
   en: 'English'
   es: 'Español'
+  fi: 'Suomi'
   fr: 'Français'
   hu: 'Magyar'
   it: 'Italiano'
@@ -58,9 +298,22 @@ language_codes:
   sr: 'Српски'
   sv: 'Svenska'
 
+### Site Default Locale
+#
 # The default language for the application.  This must be one of the
 # valid/supported language codes from the list above.
+#
 # Example: default_locale: :es
+#
 # Environment Variable Override: PWP__DEFAULT_LOCALE='es'
 default_locale: :en
 
+# Configure the logging verbosity of the application.
+#
+# Valid values are: debug, info, warn, error, fatal
+log_level: 'warn'
+
+# In containers, it is usually desired to log to stdout
+# instead of using log files (e.g. log/production.log).
+#
+log_to_stdout: false

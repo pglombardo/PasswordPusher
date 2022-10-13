@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 6.1.6'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -22,7 +22,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '4.2.1'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 
@@ -52,7 +52,6 @@ gem 'rack-attack'
 # $ bundle install
 # gem 'therubyracer'
 #
-gem 'ezcrypto', :git => 'https://github.com/pglombardo/ezcrypto.git'
 gem 'lockbox'
 gem 'high_voltage'
 gem 'kramdown', require: false
@@ -87,21 +86,32 @@ gem 'puma'
 gem 'oj'
 gem 'devise', '>= 4.8.1'
 gem 'config'
-gem 'route_translator', '>= 12.1.0'
+gem 'route_translator', '>= 13.0.0'
 gem 'translation'
 gem 'mail_form', '>= 1.9.0'
+gem 'apipie-rails'
+gem 'simple_token_authentication', '~> 1.0'
+gem 'lograge'
+gem 'rollbar'
+
+# Fix for https://github.com/pglombardo/PasswordPusher/issues/397
+# In place until Rails 7.0.1 upgrade
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
-  gem 'rack-timeout'
-  gem 'rack-throttle'
   gem 'pg'
-  gem 'sentry-ruby'
-  gem 'sentry-rails', '>= 5.0.2'
 end
 
 group :private do
   gem 'sqlite3'
+end
+
+group :production, :private do
+  gem 'rack-timeout'
+  gem 'rack-throttle'
 end

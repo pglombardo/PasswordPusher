@@ -3,9 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title><%= content_for?(:html_title) ? yield(:html_title) : _('Password Pusher') %></title>
+<% if Settings.brand && Settings.brand.title %>
+  <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>
+<% else %>
+  <title><%= content_for?(:html_title) ? yield(:html_title) : _('Password Pusher') %></title>
+<% end %>
 
-<%= render :partial => "layouts/ga" if Rails.env == "production" %>
+<%= render partial: "layouts/ga" if Rails.env == "production" %>
 
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
@@ -16,22 +20,7 @@
 <meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 
-<link rel="apple-touch-icon" sizes="57x57" href="<%=asset_pack_path('media/img/apple-icon-57x57.png')%>">
-<link rel="apple-touch-icon" sizes="60x60" href="<%=asset_pack_path('media/img/apple-icon-60x60.png')%>">
-<link rel="apple-touch-icon" sizes="72x72" href="<%=asset_pack_path('media/img/apple-icon-72x72.png')%>">
-<link rel="apple-touch-icon" sizes="76x76" href="<%=asset_pack_path('media/img/apple-icon-76x76.png')%>">
-<link rel="apple-touch-icon" sizes="114x114" href="<%=asset_pack_path('media/img/apple-icon-114x114.png')%>">
-<link rel="apple-touch-icon" sizes="120x120" href="<%=asset_pack_path('media/img/apple-icon-120x120.png')%>">
-<link rel="apple-touch-icon" sizes="144x144" href="<%=asset_pack_path('media/img/apple-icon-144x144.png')%>">
-<link rel="apple-touch-icon" sizes="152x152" href="<%=asset_pack_path('media/img/apple-icon-152x152.png')%>">
-<link rel="apple-touch-icon" sizes="180x180" href="<%=asset_pack_path('media/img/apple-icon-180x180.png')%>">
-<link rel="icon" type="image/png" sizes="192x192"  href="<%=asset_pack_path('media/img/android-icon-192x192.png')%>">
-<link rel="icon" type="image/png" sizes="32x32" href="<%=asset_pack_path('media/img/favicon-32x32.png')%>">
-<link rel="icon" type="image/png" sizes="96x96" href="<%=asset_pack_path('media/img/favicon-96x96.png')%>">
-<link rel="icon" type="image/png" sizes="16x16" href="<%=asset_pack_path('media/img/favicon-16x16.png')%>">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="<%=asset_pack_path('media/img/ms-icon-144x144.png')%>">
-<meta name="theme-color" content="#ffffff">
+<%= render partial: "shared/layout_icons" %>
 
 </head>
 

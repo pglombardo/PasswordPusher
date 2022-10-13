@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
   #     ::AbstractController::ActionNotFound, ApplicationRecord::RecordNotFound,
   #     with: lambda { |exception| render_error 404, exception }
 
+  def append_info_to_payload(payload)
+    super
+    payload[:request_id] = request.uuid
+    payload[:user_id] = current_user.id if current_user
+  end
+
   private
 
   def render_error(status, exception)

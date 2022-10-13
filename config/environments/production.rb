@@ -22,10 +22,12 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  config.middleware.use Rack::Throttle::Daily,    max: 1000  # requests
-  config.middleware.use Rack::Throttle::Hourly,   max: 100   # requests
-  config.middleware.use Rack::Throttle::Minute,   max: 30    # requests
-  config.middleware.use Rack::Throttle::Second,   max: 2     # requests
+  if Settings.throttling
+    config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
+    config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
+    config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
+    config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
+  end
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -51,12 +53,8 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :warn
-
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.logger = Logger.new(STDOUT) if Settings.log_to_stdout
+  config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -65,25 +63,39 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "password_pusher_production"
 
-  config.action_mailer.perform_caching = false
+  if Settings.mail
+    config.action_mailer.perform_caching = false
 
-  config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
+    config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
 
-  config.action_mailer.default_url_options = {
-    host: Settings.host_domain,
-    protocol: Settings.host_protocol
-  }
+    config.action_mailer.default_url_options = {
+      host: Settings.host_domain,
+      protocol: Settings.host_protocol
+    }
 
-  config.action_mailer.smtp_settings = {
-    address: Settings.mail.smtp_address,
-    port: Settings.mail.smtp_port,
-    user_name: Settings.mail.smtp_user_name,
-    password: Settings.mail.smtp_password,
-    authentication: Settings.mail.smtp_authentication,
-    enable_starttls_auto: Settings.mail.smtp_starttls,
-    open_timeout: Settings.mail.smtp_open_timeout,
-    read_timeout: Settings.mail.smtp_read_timeout
-  }
+    config.action_mailer.smtp_settings = {
+      address: Settings.mail.smtp_address,
+      port: Settings.mail.smtp_port,
+      user_name: Settings.mail.smtp_user_name,
+      password: Settings.mail.smtp_password,
+      authentication: Settings.mail.smtp_authentication,
+      enable_starttls_auto: Settings.mail.smtp_enable_starttls_auto,
+      open_timeout: Settings.mail.smtp_open_timeout,
+      read_timeout: Settings.mail.smtp_read_timeout
+    }
+
+    if Settings.mail.smtp_domain
+      config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain
+    end
+
+    if Settings.mail.smtp_openssl_verify_mode
+      config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
+    end
+
+    if Settings.mail.smtp_enable_starttls
+      config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
+    end
+  end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -91,19 +103,6 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
-
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

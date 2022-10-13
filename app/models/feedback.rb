@@ -6,15 +6,22 @@ class Feedback < MailForm::Base
   attribute :email,     validate: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
   attribute :message,   validate: true
   attribute :nickname,  captcha: true
-  attribute :control,   validate: /4/
+  attribute :control,   validate: /\A9\z/
 
   # Declare the e-mail headers. It accepts anything the mail method
   # in ActionMailer accepts.
   def headers
-    {
-      subject: _('Password Pusher Feedback'),
-      to: 'feedback@pwpush.com',
+    headers = {
+      to: Settings.feedback.email,
       from: Settings.mail.mailer_sender
     }
+
+    if Settings.brand && Settings.brand.title
+      headers[:subject] = Settings.brand.title + ' Feedback'
+    else
+      headers[:subject] = _('Password Pusher Feedback')
+    end
+
+    headers
   end
 end

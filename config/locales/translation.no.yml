@@ -7,22 +7,22 @@
 ---
 'no':
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: Avbryt
+    passwords: passord
+    new: ny
+    active: aktiv
+    expired: utløpt
+    preview: forhåndsvisning
+    audit: revidere
+    pages: sider
+    users: brukere
+    sign_in: Logg_inn
+    sign_out: logg_ut
+    sign_up: meld_deg_inn
+    password: passord
+    edit: redigere
+    confirmation: bekreftelse
+    unlock: låse opp
   date:
     day_names:
     - Søndag
@@ -69,28 +69,28 @@
     - Nov
     - Des
   time:
-    am:
-    pm:
+    am: am
+    pm: pm
   number:
     human:
       storage_units:
         units:
           byte:
-            one:
-            other:
-          kb:
-          mb:
-          gb:
-          tb:
-          pb:
-          eb:
+            one: Bit
+            other: Bits
+          kb: KB
+          mb: MB
+          gb: GB
+          tb: TB
+          pb: PB
+          eb: EB
       decimal_units:
         units:
-          thousand:
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          thousand: Tusen
+          million: Million
+          billion: milliarder
+          trillion: Trillion
+          quadrillion: Quadrillion
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -108,10 +108,10 @@
         other: er for lang (maksimalt er %{count} tegn)
       too_short:
         one: er for kort (minimum er ett tegn)
-        other:
+        other: er for kort (minimum er %{count} tegn)
       wrong_length:
         one: er feil lengde (bør være 1 tegn)
-        other:
+        other: er feil lengde (bør være %{count} tegn)
       not_a_number: ikke er et tall
       not_an_integer: må være et heltall
       greater_than: må være større enn %{count}
@@ -133,8 +133,11 @@
       not_saved:
         one: 'Én feil gjorde at %{resource} ikke kunne lagres:'
         other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
-    unavailable_session:
-    unacceptable_request:
+    unavailable_session: Sesjon %{id} er ikke lenger tilgjengelig i minnet. Hvis du
+      tilfeldigvis kjører på en multiprosessserver (som Unicorn eller Puma), lagrer
+      ikke prosessen denne forespørselen %{id} i minnet. Vurder å gjøre om antallet
+      prosesser/arbeidere til én (1) eller bruke en annen server under utvikling.
+    unacceptable_request: En støttet versjon forventes i Accept-overskriften.
     connection_refused: |
       Oops! Kan ikke koble til Web Console mellomvare den.
       Sørg for at Rails utviklingsserveren kjører.
@@ -144,7 +147,8 @@
         record_invalid: 'Validering mislyktes: %{errors}'
         restrict_dependent_destroy:
           has_one: Kan ikke slette oppføring fordi det eksisterer en avhengighet %{record}
-          has_many: Kan ikke slette oppføring fordi avhengig %{record} eksisterer
+          has_many: Kan ikke slette oppføring fordi det eksisterer en avhengighet
+            %{record}
   datetime:
     distance_in_words:
       half_a_minute: et halvt minutt
@@ -190,37 +194,37 @@
       second: Sekunder
   helpers:
     select:
-      prompt:
+      prompt: Vennligst velg
     submit:
-      create:
-      update:
-      submit:
+      create: Opprett %{model}
+      update: Oppdater %{model}
+      submit: Lagre %{model}
   will_paginate:
-    previous_label:
-    next_label:
-    page_gap:
-    container_aria_label:
-    page_aria_label:
+    previous_label: "← Forrige"
+    next_label: Neste →
+    page_gap: "&hellip;\n"
+    container_aria_label: Paginering
+    page_aria_label: Side %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Ingen %{model} funnet
+        one: Viser 1 %{model}
+        other: Viser alle %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
-      multi_page:
-      multi_page_html:
+        zero: Ingen %{model} funnet
+        one: Viser <b>1</b> %{model}
+        other: Viser <b>alle %{count}</b> %{model}
+      multi_page: Viser %{model} %{from} - %{to} av %{count} totalt
+      multi_page_html: Viser %{model} <b>%{from} - %{to}</b> av <b>%{count}</b> totalt
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} ble opprettet."
       update:
-        notice:
+        notice: "%{resource_name} ble oppdatert."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} ble vellykket ødelagt."
+        alert: "%{resource_name} kunne ikke ødelegges."
   devise:
     confirmations:
       confirmed: Din e-postadresse har blitt bekreftet.
@@ -320,3 +324,34 @@
       didnt_confirmation: Har du ikke mottatt instruksjoner for bekreftelse?
       didnt_unlock: Har du ikke mottatt instruksjoner for å låse opp kontoen din?
       email: E-post
+  apipie:
+    resources: Ressurser
+    resource:
+    description:
+    no_docs_found:
+    no_docs_found_descr:
+    follow_instructions_html:
+    follow_instructions_href:
+    oops:
+    resource_not_found_html:
+    method_not_found_html:
+    goto_homepage_html:
+    goto_homepage_href:
+    required:
+    optional:
+    nil_allowed:
+    param_name:
+    params:
+    examples: Eksempler
+    metadata:
+    errors:
+    error_code:
+    error_description:
+    error_metadata:
+    supported_formats:
+    enable_javascript_html:
+    comments_powered_by_disqus:
+    api_documentation:
+    headers:
+    header_name:
+    code:

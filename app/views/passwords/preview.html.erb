@@ -8,17 +8,20 @@
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
 
       <div class='input-group mb-5'>
-          <input class='form-control' id='secret_url' value="<%= secret_url(@password) %>" spellcheck='false' readonly='true'>
-          <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
+          <input class='form-control' id='secret_url' value="<%=@secret_url%>" spellcheck='false' readonly='true'>
+          <% if Settings.language_codes %>
+            <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
+          <% end %>
           <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
             <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
             <li><hr class="dropdown-divider"></li>
-            <% I18n.available_locales.each do |lang| %>
-              <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_password_path(@password, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
-
+            <% if Settings.language_codes %>
+              <% I18n.available_locales.each do |lang| %>
+                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_password_path(@password, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+              <% end %>
             <% end %>
           </ul>
           <button id='copy-to-clipboard-button' class='input-group-text btn-success'

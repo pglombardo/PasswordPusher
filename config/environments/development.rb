@@ -31,22 +31,35 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
+  if Settings.mail
+    config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
 
-  config.action_mailer.perform_caching = false
+    config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: '127.0.0.1:5100', protocol: 'https' }
+    config.action_mailer.default_url_options = { host: '127.0.0.1:5100', protocol: 'https' }
 
-  config.action_mailer.smtp_settings = {
-    address: Settings.mail.smtp_address,
-    port: Settings.mail.smtp_port,
-    user_name: Settings.mail.smtp_user_name,
-    password: Settings.mail.smtp_password,
-    authentication: Settings.mail.smtp_authentication,
-    enable_starttls_auto: Settings.mail.smtp_starttls,
-    open_timeout: Settings.mail.smtp_open_timeout,
-    read_timeout: Settings.mail.smtp_read_timeout
-  }
+    config.action_mailer.smtp_settings = {
+      address: Settings.mail.smtp_address,
+      port: Settings.mail.smtp_port,
+      user_name: Settings.mail.smtp_user_name,
+      password: Settings.mail.smtp_password,
+      authentication: Settings.mail.smtp_authentication,
+      enable_starttls_auto: Settings.mail.smtp_enable_starttls_auto,
+      open_timeout: Settings.mail.smtp_open_timeout,
+      read_timeout: Settings.mail.smtp_read_timeout
+    }
+
+    config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain
+
+    if Settings.mail.smtp_openssl_verify_mode
+      config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
+    end
+
+    config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
+  end
+
+  config.logger = Logger.new(STDOUT) if Settings.log_to_stdout
+  config.log_level = :debug
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

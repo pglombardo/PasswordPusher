@@ -50,7 +50,7 @@ You can either configure your PostgreSQL server to use these credentials or over
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
 
-_Note: Providing a postgres password on the command line is far less than ideal_
+_Note: Providing a PostgreSQL password on the command line is far less than ideal_
 
 Available on Docker hub: [pwpush-postgres](https://hub.docker.com/repository/docker/pglombardo/pwpush-postgres)
 
@@ -64,7 +64,7 @@ You can either configure your MySQL server to use these credentials or override 
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=mysql2://pwpush_user:pwpush_passwd@mysql:3306/pwpush_db" pglombardo/pwpush-mysql:latest
 
-_Note: Providing a postgres password on the command line is far less than ideal_
+_Note: Providing a MySQL password on the command line is far less than ideal_
 
 Available on Docker hub: [pwpush-mysql](https://hub.docker.com/repository/docker/pglombardo/pwpush-mysql)
 

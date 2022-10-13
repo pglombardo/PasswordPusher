@@ -9,20 +9,20 @@ nl:
   routes:
     cancel: Annuleren
     passwords: wachtwoorden
-    new: Nieuw
+    new: nieuw
     active: Actief
-    expired: Verlopen
-    preview: Voorbeeld
-    audit: auditie
+    expired: verlopen
+    preview: voorbeeld
+    audit: audit
     pages: pagina's
-    users: Gebruikers
-    sign_in: Inloggen
+    users: gebruikers
+    sign_in: inloggen
     sign_out: afmelden
     sign_up: inschrijven
-    password: Wachtwoord
-    edit: Uitgeven
+    password: wachtwoord
+    edit: bewerken
     confirmation: Bevestiging
-    unlock: ontsluiten
+    unlock: ontgrendelen
   date:
     day_names:
     - zondag
@@ -100,14 +100,14 @@ nl:
       invalid: is ongeldig
       confirmation: komt niet overeen met %{attribute}
       accepted: moet worden geaccepteerd
-      empty: moet opgegeven zijn
+      empty: kan niet leeg zijn
       blank: moet opgegeven zijn
       present: moet leeg zijn
       too_long:
-        one: is te lang (maximaal %{count} teken)
+        one: is te lang (maximaal 1 teken)
         other: is te lang (maximaal %{count} tekens)
       too_short:
-        one: is te kort (minimaal %{count} teken)
+        one: is te kort (minimaal 1 teken)
         other: is te kort (minimaal %{count} tekens)
       wrong_length:
         one: heeft onjuiste lengte (moet 1 teken lang zijn)
@@ -121,7 +121,7 @@ nl:
       less_than_or_equal_to: moet minder dan of gelijk zijn aan %{count}
       other_than: moet anders zijn dan %{count}
       odd: moet oneven zijn
-      even: moet even zijn
+      even: moet gelijk zijn
       required: moet bestaan
       taken: is al in gebruik
       already_confirmed: is reeds bevestigd
@@ -129,19 +129,16 @@ nl:
         a.u.b. een nieuw verzoek
       expired: is verlopen, vraag een nieuwe aan
       not_found: niet gevonden
-      not_locked: is niet gesloten
+      not_locked: was niet vergrendeld
       not_saved:
         one: 'Een fout verhinderde het opslaan van deze %{resource}:'
-        other: "%{count} fouten verhinderde het opslaan van deze %{resource}:"
+        other: "%{count} fouten verhinderden het opslaan van deze %{resource}:"
     unavailable_session: |
       Sessie %{id} is niet langer beschikbaar in het geheugen.
 
-      Als je toevallig op een multi-processerver (zoals Unicorn of Puma) werkt, het proces
-      deze aanvrage slaat %{id} niet op in het geheugen. Overweeg om het aantal keren te wijzigen
-      processen / werknemers naar een (1) of met behulp van een andere server in ontwikkeling.
-    unacceptable_request: 'Een ondersteunde versie wordt verwacht in de Accept header.
-
-      '
+      Als je toevallig op een multi-processerver (zoals Unicorn of Puma) werkt, dan slaat het proces
+      van deze aanvraag %{id} niet op in het geheugen. Overweeg om het aantal processen/workers naar een (1) te wijzigen of met gebruik een andere server in ontwikkeling.
+    unacceptable_request: Er wordt een ondersteunde versie verwacht in de Accept-header.
     connection_refused: |
       Oeps! Kan geen verbinding maken met de Web Console middleware.
       Zorg ervoor dat een rails ontwikkeling server draait.
@@ -150,7 +147,8 @@ nl:
       messages:
         record_invalid: 'Validatie mislukt: %{errors}'
         restrict_dependent_destroy:
-          has_one: Kan item niet verwijderen omdat %{record} afhankelijk is
+          has_one: Kan record niet verwijderen omdat er een afhankelijke %{record}
+            bestaat
           has_many: Kan item niet verwijderen omdat afhankelijke %{record} bestaan
   datetime:
     distance_in_words:
@@ -223,7 +221,7 @@ nl:
   flash:
     actions:
       create:
-        notice: "%{resource_name} is succesvol gemaakt."
+        notice: "%{resource_name} is succesvol aangemaakt."
       update:
         notice: "%{resource_name} is succesvol bijgewerkt."
       destroy:
@@ -232,14 +230,13 @@ nl:
   devise:
     confirmations:
       confirmed: Je account is bevestigd.
-      send_instructions: Je ontvangt via e-mail instructies hoe je je account kan
-        bevestigen.
-      send_paranoid_instructions: Als we je e-mailadres terugvinden in onze database,
-        zal je binnen enkele ogenblikken een e-mail ontvangen met instructies hoe
-        je je account kan bevestigen.
-      resend_title: Opnieuw te Verzenden Bevestiging Instructies
-      resend_header: Opnieuw te Verzenden Bevestiging Instructies
-      resend_button: Opnieuw te verzenden
+      send_instructions: U ontvangt binnen enkele minuten een e-mail met instructies
+        om uw e-mailadres te bevestigen.
+      send_paranoid_instructions: Als uw e-mailadres in onze database bestaat, ontvangt
+        u binnen enkele minuten een e-mail met instructies om uw e-mailadres te bevestigen.
+      resend_title: Bevestigingsinstructies opnieuw verzenden
+      resend_header: Bevestigingsinstructies opnieuw verzenden
+      resend_button: Opnieuw verzenden
     failure:
       already_authenticated: Je bent reeds aangemeld.
       inactive: Je account is nog niet geactiveerd.
@@ -252,13 +249,13 @@ nl:
       unconfirmed: Je dient eerst je account te bevestigen.
     mailer:
       confirmation_instructions:
-        subject: Bevestiging
+        subject: Instructies ter bevestiging
       reset_password_instructions:
         subject: Instructies om je wachtwoord opnieuw in te stellen
       unlock_instructions:
-        subject: Ontgrendelinstructies
+        subject: Ontgrendel instructies
       email_changed:
-        subject: E-mailadres veranderd
+        subject: E-mail gewijzigd
       password_change:
         subject: Je wachtwoord is gewijzigd
     omniauth_callbacks:
@@ -309,7 +306,7 @@ nl:
       update_account: Account Bijwerken
       edit_account: Bewerk Account
       create_account: Account Aanmaken
-      email: Email
+      email: E-mail
       password_confirmation: Wachtwoord Bevestigen
     unlocks:
       send_instructions: Je ontvangt via e-mail instructies hoe je je account kan
@@ -318,14 +315,45 @@ nl:
         zal je binnen enkele ogenblikken een e-mail ontvangen met instructies hoe
         je je account kan ontgrendelen.
       unlocked: Je account is ontgrendeld. Je kan nu weer inloggen.
-      unlock_title: Opnieuw Ontgrendelen Instructies
-      unlock_header: Opnieuw Ontgrendelen Instructies
+      unlock_title: Ontgrendelinstructies opnieuw verzenden
+      unlock_header: Ontgrendelinstructies opnieuw verzenden
       unlock_button: Opnieuw te Verzenden
     general:
-      remember_me: Remember Me
+      remember_me: Onthoud mij
       login: Log in
       forgot_your: Wachtwoord vergeten?
-      didnt_confirmation: Had je de bevestiging niet ontvangen?
-      didnt_unlock: Niet unlock instructies te ontvangen?
+      didnt_confirmation: Geen bevestigingsinstructies ontvangen?
+      didnt_unlock: Geen ontgrendelingsinstructies ontvangen?
       sign_up: Registreren
-      email: Email
+      email: E-mail
+  apipie:
+    resources: Middelen
+    resource:
+    description:
+    no_docs_found:
+    no_docs_found_descr:
+    follow_instructions_html:
+    follow_instructions_href:
+    oops:
+    resource_not_found_html:
+    method_not_found_html:
+    goto_homepage_html:
+    goto_homepage_href:
+    required:
+    optional:
+    nil_allowed:
+    param_name:
+    params:
+    examples: Voorbeelden
+    metadata:
+    errors:
+    error_code:
+    error_description:
+    error_metadata:
+    supported_formats:
+    enable_javascript_html:
+    comments_powered_by_disqus:
+    api_documentation:
+    headers:
+    header_name:
+    code:

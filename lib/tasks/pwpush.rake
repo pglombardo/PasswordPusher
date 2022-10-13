@@ -19,8 +19,8 @@ task daily_expiration: :environment do
     if push.expired
       puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
       expiration_count += 1
-    else
-      puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} is still active."
+    # else
+    #   puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} is still active."
     end
   end
 

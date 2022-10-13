@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  if ENV.key?('PWPUSH_COM')
+    match '(*any)', to: redirect(subdomain: ''), via: :all, constraints: {subdomain: 'www'}
+  end
+
+  apipie
   localized do
     devise_for :users, skip: :registrations, controllers: {
       sessions: 'users/sessions',
@@ -7,14 +12,22 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations'
     }
 
+    if Settings.disable_signups
+      allowed_reg_routes = %i[edit update]
+    else
+      allowed_reg_routes = %i[new create edit update]
+    end
+
     devise_scope :user do
       resource  :registration,
-                only: %i[new create edit update],
+                only: allowed_reg_routes,
                 path: 'users',
                 path_names: { new: 'sign_up' },
                 controller: 'users/registrations',
                 as: :user_registration do
                   get :cancel
+                  get :token
+                  delete :token, action: :regen_token
                 end
     end
 
@@ -31,6 +44,6 @@ Rails.application.routes.draw do
     get '/slack_direct_install', to: redirect("https://slack.com/oauth/authorize?client_id=#{SLACK_CLIENT_ID}&scope=commands", status: 302)
     get '/pages/*id' => 'pages#show', as: :page, format: false
     resources :feedbacks, only: %i[new create]
-    root to: 'passwords#new', :locale => I18n.default_locale
+    root to: 'passwords#new'
   end
 end

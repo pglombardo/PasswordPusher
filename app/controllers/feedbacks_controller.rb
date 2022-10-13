@@ -14,7 +14,7 @@ class FeedbacksController < ApplicationController
       if @feedback.deliver
         flash.now[:notice] = _('Feedback sent!')
       else
-        flash[:alert] = _('Could not send feedback.  Try again?')
+        flash[:alert] = _('Could not send feedback.  Did you pass the Humanity Test?  Valid email?  Try again?')
         render :new
       end
     end

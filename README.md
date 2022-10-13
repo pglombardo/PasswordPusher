@@ -30,10 +30,11 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
-* __Internationalized:__ 10 language translations are bundled in.  Easily selectable via UI or URL
+* __Internationalized:__ 14 language translations are bundled in.  Easily selectable via UI or URL
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
+* __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
 * __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
@@ -123,7 +124,7 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
-_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
+_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  Heroku used to offer free dynos but that is [no longer the case](https://blog.heroku.com/next-chapter) from November 28, 2022.  Hosting charges will be incurred._
 
 ## From Source
 
@@ -175,7 +176,7 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 # Internationalization
 
-Password Pusher is currently available in **13 languages** with more languages being added often as volunteers apply.
+Password Pusher is currently available in **14 languages** with more languages being added often as volunteers apply.
 
 From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
