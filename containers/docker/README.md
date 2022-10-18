@@ -50,9 +50,14 @@ You can either configure your PostgreSQL server to use these credentials or over
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
 
-_Note: Providing a PostgreSQL password on the command line is far less than ideal_
-
 Available on Docker hub: [pwpush-postgres](https://hub.docker.com/repository/docker/pglombardo/pwpush-postgres)
+
+### Better Security with Password Files
+
+Providing a PostgreSQL password on the command line such as in the preceeding is less than ideal.  The Postgres Docker image also supports the idea of password files.
+
+See [this section on Docker Secrets](https://github.com/docker-library/docs/blob/master/postgres/README.md#docker-secrets) on how to avoid passing credentials on the command line.  Further, also [consider this example](https://github.com/pglombardo/PasswordPusher/issues/412) provided by [Viajaz](https://github.com/Viajaz).
+
 
 ## pwpush-mysql
 
