@@ -6,7 +6,7 @@ I18n.available_locales = %i[ca cs da de en es fi fr hu it nl no pl pt-BR sr sv]
 I18n.default_locale = Settings.default_locale ? Settings.default_locale : 'en'
 
 TranslationIO.configure do |config|
-  config.api_key        = 'cc6a66a15e02433aa9d0afeb39835b8c'
+  config.api_key        = ENV.key?('TRANSLATION_IO_API_KEY') ? ENV['TRANSLATION_IO_API_KEY'] : nil
   config.source_locale  = 'en'
   config.target_locales = %i[ca cs da de es fi fr hu it nl no pl pt-BR sr sv]
 
