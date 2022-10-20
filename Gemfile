@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
-gem 'rails', '~> 6.1.6'
+gem 'rails', '~> 6.1.7'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -21,7 +21,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '>= 3.37.1', '< 4.0'
   gem 'selenium-webdriver', '4.2.1'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
@@ -68,7 +68,7 @@ gem 'coffee-rails', '~> 5.0', '>= 5.0.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 gem 'json', '~> 2.0' # Legacy carry-over
 gem 'webpacker', '>= 5.4.3'
 gem 'will_paginate', '~> 3.3.0'
@@ -81,7 +81,7 @@ gem 'will_paginate-bootstrap-style'
 
 gem 'sprockets', '~>4.0'
 gem 'foreman'
-gem 'jquery-rails', '>= 4.4.0'
+gem 'jquery-rails', '>= 4.5.0'
 gem 'puma'
 gem 'oj'
 gem 'devise', '>= 4.8.1'
@@ -90,7 +90,7 @@ gem 'route_translator', '>= 13.0.0'
 gem 'translation'
 gem 'mail_form', '>= 1.9.0'
 gem 'apipie-rails'
-gem 'simple_token_authentication', '~> 1.0'
+gem 'simple_token_authentication', '~> 1.17', '>= 1.17.0'
 gem 'lograge'
 gem 'rollbar'
 
