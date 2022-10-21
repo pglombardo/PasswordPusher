@@ -144,7 +144,7 @@
           <%= _('for a wide variety of platforms and services.') %>
         </p>
         <p>
-          <%= _('hint:') %> <code>docker run -p 5100:5100 pglombardo/pwpush-ephemeral:latest</code>
+          <%= _('tldr;') %> <code>docker run -p 5100:5100 pglombardo/pwpush-ephemeral:release</code>
         </p>
       </div>
     </div>
@@ -201,6 +201,31 @@
 
 <div class="accordion" id="other">
   <div class="accordion-item">
+    <h2 class="accordion-header" id="link-scanner-question">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#link-scanner-answer" aria-expanded="false" aria-controls="link-scanner-answer">
+        <%= _('The URL I sent link seems to have not worked by the time it was received.  Does this happen occasionally and is there a way to prevent this?') %>
+      </button>
+    </h2>
+    <div id="link-scanner-answer" class="accordion-collapse collapse" aria-labelledby="link-scanner-question">
+      <div class="accordion-body">
+        <p>
+          <%= _('Some systems such as email, firewalls and chat systems often have link scanners that can eat up views.') %>
+          <%= _('This is done for security or to simply generate a "preview" for chat systems.') %>
+        </p>
+        <p>
+          <%= _('To prevent this, use the 1-click retrieval step option when pushing passwords.') %>
+          <%= _('This requires the users to click through a preliminary page to protect views from such scanners.') %>
+        </p>
+        <p><img alt="1-click option" src="<%= asset_pack_path("media/img/features/one-click-option.png") %>"/></p>
+        <p>
+          <%= _('As an additional preventative measure, if you create an account, an audit log is provided for every push created.') %>
+          <%= _('This audit log can reveal by who and when the push was viewed.') %>
+        </p>
+        <p><img alt="Audit Log Partial" src="<%= asset_pack_path("media/img/features/audit-log-partial.png") %>"/></p>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
     <h2 class="accordion-header" id="presentation-question">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#presentation-answer" aria-expanded="false" aria-controls="presentation-answer">
         <%= _('Can I use Password Pusher in my talk/presentation/conference?') %>
@@ -233,15 +258,28 @@
     </h2>
     <div id="money-answer" class="accordion-collapse collapse" aria-labelledby="money-question">
       <div class="accordion-body">
-        <p><%= _('I don’t. This is just a project that I work on in my spare time built for the community. Monthly costs are $34/month for Heroku hosting and any time/effort that I’ve put in or will put in developing the tool is voluntary/donated.') %></p>
+        <p><%= _('This is an opensource project made out of love for technology and a desire to improve the security (and daily lives) of the tech community.') %></p>
 
-        <p><%= _('I’ve thought about moving the site to a Digital Ocean droplet but Heroku just makes it so easy. No configuring Apache/nginx, deploy scripts, monitoring services etc…') %></p>
+        <p>
+          <%= _('It doesn\'t make any money but it does incur hosting that are about $50/month for pwpush.com.') %>
+          <%= _('These are happily paid out of pocket by myself for more than 10 years.') %>
+        </p>
 
-        <p><strong><%= _('2021 Update:') %></strong>
-        <%= _('The') %>
-        <a href="https://twitter.com/pwpush/status/1390407791941201927"><%= _('traffic has grown') %></a>
-        <%= _('to an amount where 1 Heroku dyno no longer is sufficient. 2x professional dynos and the postgres add-on now has the project up to $59/month.   Longer term I need to find a way to lower costs - maybe an eventual migrate to Digital Ocean which has') %>
-        <a href="https://twitter.com/pwpush/status/1376194351605383172"><%= _('much better performance') %></a>…</p>
+        <p>
+          <%= _('If you feel inclined to support Password Pusher, you can sign up to Digital Ocean using the badge below.') %>
+          <%= _('Password Pusher will get a hosting credit for the first $25 you spend.') %>
+        </p>
+
+        <a href="https://www.digitalocean.com/?refcode=f4ea6ef24c13&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank">
+          <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" />
+        </a>
+
+        <p></p>
+        <p>
+          <%= _('For other ways to support Password Pusher, see also the "Want to help out?" section') %>
+          <%= link_to _('on the about page'), page_path('about') %>.
+          <%= _('Thank you!') %> ❤️
+        </p>
       </div>
     </div>
   </div>
