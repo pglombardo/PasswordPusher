@@ -188,6 +188,16 @@ The default language can be changed by setting an environment variable with the 
 
 For more details, a list of supported language codes and further explanation, see the bottom of this [configuration file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml).
 
+# 🛟 Help Out
+
+[pwpush.com](https://pwpush.com) is hosted on Digital Ocean and is happily paid out of pocket by myself for more than 10 years.
+
+__But you could help out greatly__ by signing up to Digital Ocean with [this link](https://m.do.co/c/f4ea6ef24c13) (and get $200 credit).  In return, Password Pusher gets a helpful hosting credit.
+
+**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), get $200 credit for free and help Password Pusher out.
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=f4ea6ef24c13&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
 # 📼 Credits
 
 ## Translators
