@@ -20,8 +20,8 @@
 
 ############ Password Generator Presets ############
 	## TODO: 
-	## Verify if this can be adjusted in config/settings for instance instead 
-	##
+	## 	Verify if this can be adjusted in config/settings for instance 
+	## 	https://github.com/pglombardo/PasswordPusher/issues/435
 \app\frontend\js\pw_generator.js
 	# Lines 9-30 change default generator constructor values for: titlecased, consonants, vowels, maxSyllableLength, minSyllableLength
     constructor() {
@@ -69,46 +69,30 @@
 
 
 
-############ Footer Slogan ############
-\app\views\shared\_email_footer.html.erb
-	# Line 4 change 'Your Friendly Neighborhood' to 'Market Scan Information Systems'
-<%= _('Market Scan Information Systems') %>
-
-
-
-
-############ Footer copyright, logo, number of columns, site navigation (add HowTo, remove others) ############
+############ Footer copyright year, logo, site navigation (add HowTo, remove others) ############
 \app\views\shared\_footer.html.erb
 	# Line 5 
-      <p class="col-md-4 mb-0 text-muted">&copy; <%= Time.current.year %> Market Scan Information Systems</p>
+	  <p class="col-md-5 mb-0 text-muted">&copy; <%= Time.current.year %> Market Scan Information Systems</p>
 
-	# Line 11 change alt="Market Scan Password Pusher Logo"
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="Market Scan Password Pusher Logo" style='height: 40px;' />
+	# Line 12 change alt="Market Scan Password Pusher Logo"
+            <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Market Scan Password Pusher Logo') %>" style='height: 40px;' />
 
-	# Line 15 change col-md-5 to col-md-4
-      <ul class="nav col-md-4 justify-content-end">
+	# Line 16 change alt="Market Scan Password Pusher Logo"
+            <img src="<%= Settings.brand.light_logo %>" alt="<%= _('Market Scan Password Pusher Logo') %>" style='height: 40px;' />
 
-	# Lines 21-26 (MUST ADD link to "How To" page | also comment out other pages)
-            <li class="dropdown-item"><%= link_to _('How To'), page_path('howto'), class: 'nav-link px-2 text-muted' %></li>
-			<!-- <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li> -->
-            <!-- <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li> -->
-            <!-- <li class="dropdown-item"><%= link_to _('Source Code'), 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' %></li> -->
-            <!-- <li class="dropdown-item"><%= link_to _('Docker Containers'), 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' %></li> -->
-            <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
+	# Line 21 move to line 26 (if statement to hide footer links) and ADD Line 24 (Link to How To page)
+        <ul class="nav col-md-5 justify-content-end">
+          <li class="nav-item"><%= link_to _('Front Page'), root_path, class: 'nav-link px-2 text-muted' %></li>
+		  <li class="nav-item"><%= link_to _('How To'), page_path('howto'), class: 'nav-link px-2 text-muted' %></li>
+          
+		  <% if Settings.brand && Settings.brand.show_footer_menu %>
+			  <li class="nav-item dropdown">
 
-
-
-
-############ Header Logo & Slogan ############
-\app\views\shared\_header.html.erb
-	# Lines 8-14
-        <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Market Scan Password Pusher Logo') %>" style='height: 50px;' />
-      </picture>
-      </div>
-      <div>
-        <span class="fs-4 display-1"><%= _('Market Scan Password Pusher') %></span>
-        <br/>
-        <span class="fs-6 text-muted"><%= _('Powered by Peter Giacomo Lombardo's Password Pusher.') %></span>
+	# Line 50 move to line 49 Fixes statement close to the correct element level caused by moving start of statement
+			  </li>
+		  <% end %>
+        </ul>
+    </footer>
 
 
 
@@ -118,3 +102,55 @@
 	
 	# HowTo page
 	\app\views\pages\howto.html.erb
+
+
+
+
+############ ENVIRONMENT / CONFIG VARIABLES ############
+https://dashboard.heroku.com/apps/msispwpush/settings
+	Config Vars --> click [Reveal Config Vars] button
+Config Vars
+BUNDLE_WITHOUT	development:test:private
+CRYPT_KEY	ca0f3995a8d4d3ea06026c477e85fc6fd5288aa67e9f3a7a406753ab7bf28943
+CRYPT_SALT	e2eed4d1941850c45376cdac0dee678b5a3795aff31b4b39c702f67f50db9609
+DATABASE_URL	postgres://zspqeacvctrezv:b5fa4c883928f0940d86118471b8fdb30f09a54971c6b41b61cb3935181f5a2d@ec2-34-233-105-94.compute-1.amazonaws.com:5432/ddi97sd0p8rs07
+DELETABLE_PASSWORDS_DEFAULT	true
+DELETABLE_PASSWORDS_ENABLED	true
+EXPIRE_AFTER_DAYS_DEFAULT	7
+EXPIRE_AFTER_DAYS_MAX	14
+EXPIRE_AFTER_DAYS_MIN	1
+EXPIRE_AFTER_VIEWS_DEFAULT	5
+EXPIRE_AFTER_VIEWS_MAX	10
+EXPIRE_AFTER_VIEWS_MIN	1
+LANG	en_US.UTF-8
+PAPERTRAIL_API_TOKEN	wo6siZp6tlRPsI6q6Eh
+PAYLOAD_INITIAL_TEXT	Enter the Password to be Shared
+PWP__ALLOW_ANONYMOUS	true
+PWP__BRAND__SHOW_FOOTER_MENU	false
+PWP__BRAND__TAGLINE	secure.marketscan.com - Send a Password, Securely.
+PWP__BRAND__TITLE	Market Scan Password Pusher
+PWP__DISABLE_SIGNUPS	false
+PWP__ENABLE_LOGINS	true
+PWP__HOST_DOMAIN	secure.marketscan.com
+PWP__HOST_PROTOCOL	http
+PWP__LOG_TO_STDOUT	true
+PWP__MAIL__MAILER_SENDER	"Secure PW" <securePW@marketscan.com>
+PWP__MAIL__OPEN_TIMEOUT	10
+PWP__MAIL__RAISE_DELIVERY_ERRORS	true
+PWP__MAIL__READ_TIMEOUT	10
+PWP__MAIL__SMTP_ADDRESS	marketscan-com.mail.protection.outlook.com
+PWP__MAIL__SMTP_PORT	25
+PWP__MAIL__SMTP_STARTTLS	false
+RACK_ENV	production
+RAILS_ENV	production
+RAILS_LOG_TO_STDOUT	enabled
+RAILS_SERVE_STATIC_FILES	enabled
+RETRIEVAL_STEP_DEFAULT	true
+SECRET_KEY_BASE	8ec6e4bce427a76491d772942e7a03cd1d585e1fa28f89ce1d5cc843859d3d278e623dc41e5fc2b344a6e5ba6f6aa1093f32b092b9886053d051fece8dffb7b1
+SLACK_CLIENT_ID	358006997714.2511874001831
+WEB_CONCURRENCY	3
+
+
+
+
+############  ############
