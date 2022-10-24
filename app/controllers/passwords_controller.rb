@@ -91,14 +91,23 @@ class PasswordsController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
+    # binding.pry
     # params[:password] has to exist
+    # params[:password] has to be a ActionController::Parameters (Hash)
+    password_param = params.fetch(:password, {})
+    if !password_param.respond_to?(:fetch)
+      respond_to do |format|
+        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.json { render json: '{}', status: :bad_request }
+      end
+      return
+    end
+
     # params[:password][:payload] has to exist
     # params[:password][:payload] can't be blank
-    # params[:password][:payload] can't be longer than 1 megabyte
-
-    payload_param = params.fetch(:password, {}).fetch(:payload, '')
-    if !payload_param.is_a?(String) || payload_param.blank? || payload_param.length > 1.megabyte
-
+    # params[:password][:payload] must have a length between 1 and 1 megabyte
+    payload_param = password_param.fetch(:payload, '')
+    unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
       respond_to do |format|
         format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
         format.json { render json: '{}', status: :bad_request }
