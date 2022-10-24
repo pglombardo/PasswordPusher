@@ -153,4 +153,13 @@ WEB_CONCURRENCY	3
 
 
 
-############  ############
+############ SLACK_CLIENT_ID for Bots ############
+## TODO
+##   As of 10/24/2022 I am getting this message in the logs at https://my.papertrailapp.com/systems/msispwpush/events
+##   WARN -- : Can't verify CSRF token authenticity.
+
+msispwpush
+	SLACK_CLIENT_ID	358006997714.2511874001831
+
+securepw
+	SLACK_CLIENT_ID	358006997714.4253371584919
