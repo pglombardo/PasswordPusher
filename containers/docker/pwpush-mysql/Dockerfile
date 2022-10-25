@@ -24,7 +24,7 @@ WORKDIR ${APP_ROOT}
 EXPOSE 5100
 
 RUN gem install bundler
-ENV BUNDLE_GEMFILE=./gemfiles/Gemfile-mysql
+ENV BUNDLE_GEMFILE=./gemfiles/mysql/Gemfile
 
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
