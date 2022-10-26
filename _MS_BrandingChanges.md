@@ -1,8 +1,10 @@
 ############ Imagery ############
+
 	## TODO: 
 	## I had initially replaced all iconography at \app\frontend\img
 	## with built-in branding I need to see if this is still needed
 	##
+
 \app\frontend\img
 	ALL android-icon
 	ALL apple-icon
@@ -19,10 +21,13 @@
 
 
 ############ Password Generator Presets ############
+
 	## TODO: 
 	## 	Verify if this can be adjusted in config/settings for instance 
 	## 	https://github.com/pglombardo/PasswordPusher/issues/435
+
 \app\frontend\js\pw_generator.js
+
 	# Lines 9-30 change default generator constructor values for: titlecased, consonants, vowels, maxSyllableLength, minSyllableLength
     constructor() {
         this.config = {
@@ -54,7 +59,9 @@
 
 
 ############ Height of Password entry field ############
+
 \app\views\passwords\new.html.erb
+
 	# Line 10 (change '8' to '3')
                                             rows: 3,
 
@@ -62,7 +69,9 @@
 
 
 ############ Password View Page WARNING ############
+
 \app\views\passwords\show.html.erb
+
 	# Line 6 (added above 'Please obtain and securely store this password elsewhere, ideally in a password manager.')
           <p class="" style="color: var(--bs-orange);"><strong><%=_('WARNING: <em>Refreshing this page will consume a view!') %></em></strong></p>
 
@@ -70,7 +79,9 @@
 
 
 ############ Footer copyright year, logo, site navigation (add HowTo, remove others) ############
+
 \app\views\shared\_footer.html.erb
+
 	# Line 5 
 	  <p class="col-md-5 mb-0 text-muted">&copy; <%= Time.current.year %> Market Scan Information Systems</p>
 
@@ -98,6 +109,7 @@
 
 
 ############ ADDED FILE(S) ############
+
 	# This file `_MS_BrandingChanges.md` located in the root
 	
 	# HowTo page
@@ -107,12 +119,13 @@
 
 
 ############ ENVIRONMENT / CONFIG VARIABLES ############
+
 https://dashboard.heroku.com/apps/msispwpush/settings
 	Config Vars --> click [Reveal Config Vars] button
 Config Vars
 BUNDLE_WITHOUT	development:test:private
-CRYPT_KEY	ca0f3995a8d4d3ea06026c477e85fc6fd5288aa67e9f3a7a406753ab7bf28943
-CRYPT_SALT	e2eed4d1941850c45376cdac0dee678b5a3795aff31b4b39c702f67f50db9609
+CRYPT_KEY	<hidden>
+CRYPT_SALT	<hidden>
 DATABASE_URL	postgres://zspqeacvctrezv:b5fa4c883928f0940d86118471b8fdb30f09a54971c6b41b61cb3935181f5a2d@ec2-34-233-105-94.compute-1.amazonaws.com:5432/ddi97sd0p8rs07
 DELETABLE_PASSWORDS_DEFAULT	true
 DELETABLE_PASSWORDS_ENABLED	true
@@ -146,17 +159,17 @@ RAILS_ENV	production
 RAILS_LOG_TO_STDOUT	enabled
 RAILS_SERVE_STATIC_FILES	enabled
 RETRIEVAL_STEP_DEFAULT	true
-SECRET_KEY_BASE	8ec6e4bce427a76491d772942e7a03cd1d585e1fa28f89ce1d5cc843859d3d278e623dc41e5fc2b344a6e5ba6f6aa1093f32b092b9886053d051fece8dffb7b1
-SLACK_CLIENT_ID	358006997714.2511874001831
+SECRET_KEY_BASE	<hidden>
+SLACK_CLIENT_ID	<see below>
 WEB_CONCURRENCY	3
 
 
 
 
 ############ SLACK_CLIENT_ID for Bots ############
-## TODO
-##   As of 10/24/2022 I am getting this message in the logs at https://my.papertrailapp.com/systems/msispwpush/events
-##   WARN -- : Can't verify CSRF token authenticity.
+	## TODO
+	##   As of 10/24/2022 I am getting this message in the logs at https://my.papertrailapp.com/systems/msispwpush/events
+	##   WARN -- : Can't verify CSRF token authenticity.
 
 msispwpush
 	SLACK_CLIENT_ID	358006997714.2511874001831
