@@ -146,6 +146,8 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 ## Command Line Utilities
 
+* The almost official [pwpush-cli](https://github.com/pglombardo/pwpush-cli) (in pre-beta): CLI for Password Pusher with authentication support
+
 * [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
 
 *  [kprocyszyn/Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a PowerShell based CLI
@@ -170,9 +172,12 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
+_See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
+
 # The Password Pusher API
 
-* [JSON API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+* [JSON API Documentation](https://pwpush.com/api)
+* [Walkthrough & Examples](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
 
 # Internationalization
 
