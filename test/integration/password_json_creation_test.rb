@@ -13,17 +13,17 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('deleted')
     assert_equal false, res['deleted']
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_PASSWORDS_DEFAULT, res['deletable_by_viewer']
+    assert_equal Settings.deletable_pushes_default, res['deletable_by_viewer']
     assert res.key?('days_remaining')
-    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['days_remaining']
+    assert_equal Settings.expire_after_days_default, res['days_remaining']
     assert res.key?('views_remaining')
-    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['views_remaining']
+    assert_equal Settings.expire_after_views_default, res['views_remaining']
 
     # These should be default values since we didn't specify them in the params
     assert res.key?('expire_after_days')
-    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['expire_after_days']
+    assert_equal Settings.expire_after_days_default, res['expire_after_days']
     assert res.key?('expire_after_views')
-    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['expire_after_views']
+    assert_equal Settings.expire_after_views_default, res['expire_after_views']
   end
 
   def test_json_creation_with_uncommon_characters
@@ -38,17 +38,17 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('deleted')
     assert_equal false, res['deleted']
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_PASSWORDS_DEFAULT, res['deletable_by_viewer']
+    assert_equal Settings.deletable_pushes_default, res['deletable_by_viewer']
     assert res.key?('days_remaining')
-    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['days_remaining']
+    assert_equal Settings.expire_after_days_default, res['days_remaining']
     assert res.key?('views_remaining')
-    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['views_remaining']
+    assert_equal Settings.expire_after_views_default, res['views_remaining']
 
     # These should be default values since we didn't specify them in the params
     assert res.key?('expire_after_days')
-    assert_equal EXPIRE_AFTER_DAYS_DEFAULT, res['expire_after_days']
+    assert_equal Settings.expire_after_days_default, res['expire_after_days']
     assert res.key?('expire_after_views')
-    assert_equal EXPIRE_AFTER_VIEWS_DEFAULT, res['expire_after_views']
+    assert_equal Setting.expire_after_views_default, res['expire_after_views']
 
     # Validate payload
     get "/p/#{res["url_token"]}.json"
@@ -83,7 +83,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?('deletable_by_viewer')
-    assert_equal DELETABLE_PASSWORDS_ENABLED, res['deletable_by_viewer']
+    assert_equal Settings.enable_deletable_pushes, res['deletable_by_viewer']
   end
 
   def test_custom_days_expiration
