@@ -1,27 +1,53 @@
 
 # Overview
 
-Password Pusher can largely be configured by environment variables.  These can modify behaviour, enable & disable features and change application defaults.
-
-See the following sections for the area you are interested in.
+Configure everything from defaults, features, branding, languages and more.
 
 # How to Configure the Application
 
-_The easiest way to configure Password Pusher is by environment variables._
+Password Pusher uses a centralized configuration that is stored in [config/settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml).  This file contains all of the settings that is configurable for the application.
 
-Password Pusher uses a centralized [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file for application configuration.  Values in that file can be modified by the environment variables listed below.
+There are two ways to modify the settings in this file:
 
-The [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file also itself contains comments with explanations.
+1. Use environment variable that override this file
+2. Modify the file itself
 
-## Alternative: Configuration with a Custom settings.yml File
+For a few modifications, environment variables are the easy route.  For more extensive configuration, it's suggested to maintain your own custom `settings.yml` file across updates.
+
+Read on for details on both methods.
+
+## Configuring via Environment variables
+
+The settings in the `config/settings.yml` file can be overridden by environment variables.  A listing and description of these environment variables is available in this documentation below and also in the [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file itself.
+
+### Shell Example
+
+```sh
+# Change the default language for the application to French
+export PWP_DEFAULT_LOCALE='fr'
+```
+### Docker Example
+
+```sh
+# Change the default language for the application to French
+docker run -d --env PWP_DEFAULT_LOCALE=fr -p "5100:5100" pglombardo/pwpush-ephemeral:release
+```
+
+## Configuring via a Custom `settings.yml` File
 
 If you prefer, you can take the [default settings.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml), modify it and apply it to the Password Pusher Docker container.
 
-Inside the Password Pusher Docker container, the application code exists in the path `/opt/PasswordPusher/` and the `settings.yml` file is located at `/opt/PasswordPusher/config/settings.yml`.
+Inside the Password Pusher Docker container:
+* application code exists in the path `/opt/PasswordPusher/`
+* the `settings.yml` file is located at `/opt/PasswordPusher/config/settings.yml`
 
 To replace this file with your own custom version, you can launch the Docker container with a bind mount option:
 
-    --mount type=bind,source=/path/settings.yml,target=/opt/PasswordPusher/config/settings.yml
+```sh
+    docker run -d \
+      --mount type=bind,source=/path/settings.yml,target=/opt/PasswordPusher/config/settings.yml \
+      -p "5100:5100" pglombardo/pwpush-ephemeral:release
+```
 
 # Application Encryption
 
