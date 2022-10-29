@@ -5,74 +5,85 @@
 # See also https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md
 # for a further explanation of the larger settings available here.
 
-brand:
-  ### Site Title
-  #
-  # Environment variable override: PWP__BRAND__TITLE='Acme Corp.'
-  #
-  # title: 'Password Pusher'
+### Application Defaults
+#
+# Expire After XX Days
+#
+# Controls the "Expire After Days" form settings in Password#new
+#
+# Environment variable overrides:
+# PWP__EXPIRE_AFTER_DAYS_DEFAULT=7
+# PWP__EXPIRE_AFTER_DAYS_MIN=1
+# PWP__EXPIRE_AFTER_DAYS_MAX=90
+#
+expire_after_days_default: 7
+expire_after_days_min: 1
+expire_after_days_max: 90
 
-  ### Site Tagline
-  #
-  # Environment variable override: PWP__BRAND__TAGLINE='Security First'
-  #
-  # tagline: 'Go Ahead.  Email Another Password.'
+# Expire After XX Views
+#
+# Controls the "Expire After Views" form settings in Password#new
+#
+# Environment variable overrides:
+# PWP__EXPIRE_AFTER_VIEWS_DEFAULT=7
+# PWP__EXPIRE_AFTER_VIEWS_MIN=1
+# PWP__EXPIRE_AFTER_VIEWS_MAX=90
+#
+expire_after_views_default: 7
+expire_after_views_min: 1
+expire_after_views_max: 90
 
-  ### Show Footer Menu Toggle
-  #
-  # Environment variable override: PWP__BRAND__SHOW_FOOTER_MENU='true'
-  #
-  show_footer_menu: true
+# Retrieval Step
+#
+# Enables and disables the option to offer a password retrieval step for pushes
+#
+# Environment variable override:
+# PWP__ENABLE_RETRIEVAL_STEP='false'
+#
+enable_retrieval_step: true
 
-  ### Site logo
-  #
-  # ..for both a light and dark theme
-  #
-  # You can also replace these relative paths with fully qualified HTTP links to
-  # external resources such as Amazon S3 etc.
-  # e.g. PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/some-image.png'
-  #
-  # Environment variable override: PWP__BRAND__LIGHT_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
-  # Environment variable override: PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
-  #
-  # light_logo: 'media/img/logo-transparent-sm-bare.png'
-  # dark_logo: 'media/img/logo-transparent-sm-dark-bare.png'
+# Default Form Value for the Retrieval Step
+#
+# When the retrieval step is enabled (above), what is the default value on the form?
+#
+# When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
+# requiring a click to view the page /p/xxxxxxxx
+#
+# Environment variable override:
+# PWP__RETRIEVAL_STEP_DEFAULT='true'
+#
+retrieval_step_default: false
 
-  ### Icon images for mobile.  When people on mobile (phones/tablets), bookmark
-  # the site or it is shown in history, these icons are used.
-  #
-  # You can also replace these relative paths with fully qualified HTTP links to
-  # external resources such as Amazon S3 etc.
-  # e.g. PWP__BRAND__ICON_57x57='https://mys3bucket.amazonaws.com/a/some-image.png'
-  #
-  # Environment variable override: PWP__BRAND__ICON_57x57='/path/to/image'
-  # icon_57x57: 'media/img/apple-icon-57x57.png'
-  # Environment variable override: PWP__BRAND__ICON_60x60='/path/to/image'
-  # icon_60x60: 'media/img/apple-icon-60x60.png'
-  # Environment variable override: PWP__BRAND__ICON_72x72='/path/to/image'
-  # icon_72x72: 'media/img/apple-icon-72x72.png'
-  # Environment variable override: PWP__BRAND__ICON_76x76='/path/to/image'
-  # icon_76x76: 'media/img/apple-icon-76x76.png'
-  # Environment variable override: PWP__BRAND__ICON_114x114='/path/to/image'
-  # icon_114x114: 'media/img/apple-icon-114x114.png'
-  # Environment variable override: PWP__BRAND__ICON_120x120='/path/to/image'
-  # icon_120x120: 'media/img/apple-icon-120x120.png'
-  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
-  # icon_144x144: 'media/img/apple-icon-144x144.png'
-  # Environment variable override: PWP__BRAND__ICON_152x152='/path/to/image'
-  # icon_152x152: 'media/img/apple-icon-152x152.png'
-  # Environment variable override: PWP__BRAND__ICON_180x180='/path/to/image'
-  # icon_180x180: 'media/img/apple-icon-180x180.png'
-  # Environment variable override: PWP__BRAND__ICON_192x192='/path/to/image'
-  # icon_192x192: 'media/img/android-icon-192x192.png'
-  # Environment variable override: PWP__BRAND__ICON_32x32='/path/to/image'
-  # icon_32x32: 'media/img/favicon-32x32.png'
-  # Environment variable override: PWP__BRAND__ICON_96x96='/path/to/image'
-  # icon_96x96: 'media/img/favicon-96x96.png'
-  # Environment variable override: PWP__BRAND__ICON_16x16='/path/to/image'
-  # icon_16x16: 'media/img/favicon-16x16.png'
-  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
-  # ms_icon_144x144: 'media/img/ms-icon-144x144.png'
+# Deletable Pushes
+#
+# default: true
+#
+# Can passwords be deleted by viewers?
+#
+# When true, passwords will have a link to optionally delete the password being viewed.
+#
+# When pushing a new password, this option will also add a  checkbox to conditionally
+# enable/disable this feature on a per-password basis.
+#
+# Environment variable override:
+# PWP__ENABLE_DELETABLE_PUSHES='false'
+#
+enable_deletable_pushes: true
+
+# Deletable Pushes - Default Value
+#
+# default: true
+#
+# When this is set to true, this option does two things:
+#   1. Sets the default check state for the "Allow viewers to
+#       optionally delete password before expiration" checkbox
+#   2. JSON API: Sets the default value for newly pushed passwords if
+#       unspecified
+#
+# Environment variable override:
+# PWP__DELETABLE_PUSHES_DEFAULT='false'
+#
+deletable_pushes_default: true
 
 ### Logins (User accounts)
 #
@@ -148,6 +159,76 @@ host_protocol: 'https'
 # Set this value without a trailing slash ('/').
 #
 # override_base_url: 'https://pwpush.mydomain.com'
+
+
+brand:
+  ### Site Title
+  #
+  # Environment variable override: PWP__BRAND__TITLE='Acme Corp.'
+  #
+  # title: 'Password Pusher'
+
+  ### Site Tagline
+  #
+  # Environment variable override: PWP__BRAND__TAGLINE='Security First'
+  #
+  # tagline: 'Go Ahead.  Email Another Password.'
+
+  ### Show Footer Menu Toggle
+  #
+  # Environment variable override: PWP__BRAND__SHOW_FOOTER_MENU='true'
+  #
+  show_footer_menu: true
+
+  ### Site logo
+  #
+  # ..for both a light and dark theme
+  #
+  # You can also replace these relative paths with fully qualified HTTP links to
+  # external resources such as Amazon S3 etc.
+  # e.g. PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/some-image.png'
+  #
+  # Environment variable override: PWP__BRAND__LIGHT_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
+  # Environment variable override: PWP__BRAND__DARK_LOGO='https://mys3bucket.amazonaws.com/a/lea+giuliana.png'
+  #
+  # light_logo: 'media/img/logo-transparent-sm-bare.png'
+  # dark_logo: 'media/img/logo-transparent-sm-dark-bare.png'
+
+  ### Icon images for mobile.  When people on mobile (phones/tablets), bookmark
+  # the site or it is shown in history, these icons are used.
+  #
+  # You can also replace these relative paths with fully qualified HTTP links to
+  # external resources such as Amazon S3 etc.
+  # e.g. PWP__BRAND__ICON_57x57='https://mys3bucket.amazonaws.com/a/some-image.png'
+  #
+  # Environment variable override: PWP__BRAND__ICON_57x57='/path/to/image'
+  # icon_57x57: 'media/img/apple-icon-57x57.png'
+  # Environment variable override: PWP__BRAND__ICON_60x60='/path/to/image'
+  # icon_60x60: 'media/img/apple-icon-60x60.png'
+  # Environment variable override: PWP__BRAND__ICON_72x72='/path/to/image'
+  # icon_72x72: 'media/img/apple-icon-72x72.png'
+  # Environment variable override: PWP__BRAND__ICON_76x76='/path/to/image'
+  # icon_76x76: 'media/img/apple-icon-76x76.png'
+  # Environment variable override: PWP__BRAND__ICON_114x114='/path/to/image'
+  # icon_114x114: 'media/img/apple-icon-114x114.png'
+  # Environment variable override: PWP__BRAND__ICON_120x120='/path/to/image'
+  # icon_120x120: 'media/img/apple-icon-120x120.png'
+  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
+  # icon_144x144: 'media/img/apple-icon-144x144.png'
+  # Environment variable override: PWP__BRAND__ICON_152x152='/path/to/image'
+  # icon_152x152: 'media/img/apple-icon-152x152.png'
+  # Environment variable override: PWP__BRAND__ICON_180x180='/path/to/image'
+  # icon_180x180: 'media/img/apple-icon-180x180.png'
+  # Environment variable override: PWP__BRAND__ICON_192x192='/path/to/image'
+  # icon_192x192: 'media/img/android-icon-192x192.png'
+  # Environment variable override: PWP__BRAND__ICON_32x32='/path/to/image'
+  # icon_32x32: 'media/img/favicon-32x32.png'
+  # Environment variable override: PWP__BRAND__ICON_96x96='/path/to/image'
+  # icon_96x96: 'media/img/favicon-96x96.png'
+  # Environment variable override: PWP__BRAND__ICON_16x16='/path/to/image'
+  # icon_16x16: 'media/img/favicon-16x16.png'
+  # Environment variable override: PWP__BRAND__ICON_144x144='/path/to/image'
+  # ms_icon_144x144: 'media/img/ms-icon-144x144.png'
 
 ### Throttling
 #
@@ -271,7 +352,6 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
-
 ### Language & Internationalization
 #
 # This should not be touched for 99% of use cases..
@@ -317,3 +397,4 @@ log_level: 'warn'
 # instead of using log files (e.g. log/production.log).
 #
 log_to_stdout: false
+
