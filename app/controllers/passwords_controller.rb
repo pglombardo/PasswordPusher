@@ -91,7 +91,6 @@ class PasswordsController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    # binding.pry
     # params[:password] has to exist
     # params[:password] has to be a ActionController::Parameters (Hash)
     password_param = params.fetch(:password, {})

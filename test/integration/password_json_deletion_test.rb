@@ -16,8 +16,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deletable_by_viewer")
     assert_equal Settings.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
-    require 'pry-byebug'
-    binding.pry
     assert_equal Settings.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.expire_after_views_default, res["views_remaining"]

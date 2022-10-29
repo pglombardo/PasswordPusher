@@ -48,7 +48,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?('expire_after_days')
     assert_equal Settings.expire_after_days_default, res['expire_after_days']
     assert res.key?('expire_after_views')
-    assert_equal Setting.expire_after_views_default, res['expire_after_views']
+    assert_equal Settings.expire_after_views_default, res['expire_after_views']
 
     # Validate payload
     get "/p/#{res["url_token"]}.json"
