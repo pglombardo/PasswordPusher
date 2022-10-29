@@ -42,7 +42,7 @@ Config.setup do |config|
 
   # Parse numeric values as integers instead of strings.
   #
-  # config.env_parse_values = true
+  config.env_parse_values = true
 
   # Validate presence and type of specific config values. Check https://github.com/dry-rb/dry-validation for details.
   #
