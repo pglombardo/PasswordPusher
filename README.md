@@ -264,3 +264,22 @@ Thanks to:
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
 ...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
+
+## 🛡 License
+
+[![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE)
+
+This project is licensed under the terms of the `GNU General Public License v3.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE) for more details.
+
+## 📃 Citation
+
+```bibtex
+@misc{PasswordPusher,
+  author = {Peter Giacomo Lombardo},
+  title = {An application to securely communicate passwords over the web. Passwords automatically expire after a certain number of views and/or time has passed.},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/pglombardo/PasswordPusher}}
+}
+```
