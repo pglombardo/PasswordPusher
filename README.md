@@ -50,7 +50,7 @@ Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https:/
 [![](./app/frontend/img/features/preliminary-step-thumb.png)](./app/frontend/img/features/preliminary-step.gif)
 
 
-# Quickstart
+# ⚡️ Quickstart
 
 → Go to [pwpush.com](https://pwpush.com) and try it out.
 
@@ -142,7 +142,7 @@ RAILS_ENV=private ./bin/rake db:setup
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
-# 3rd Party Tools
+# 🔨 3rd Party Tools
 
 ## Command Line Utilities
 
@@ -174,12 +174,12 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 _See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
-# The Password Pusher API
+# 📡 The Password Pusher API
 
 * [JSON API Documentation](https://pwpush.com/api)
 * [Walkthrough & Examples](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
 
-# Internationalization
+# 🇮🇹 Internationalization
 
 Password Pusher is currently available in **14 languages** with more languages being added often as volunteers apply.
 
@@ -265,13 +265,13 @@ Thanks to:
 
 ...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
 
-## 🛡 License
+# 🛡 License
 
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE)
 
 This project is licensed under the terms of the `GNU General Public License v3.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE) for more details.
 
-## 📃 Citation
+# 📃 Citation
 
 ```bibtex
 @misc{PasswordPusher,
