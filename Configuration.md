@@ -5,6 +5,24 @@ Password Pusher can largely be configured by environment variables.  These can m
 
 See the following sections for the area you are interested in.
 
+# How to Configure the Application
+
+_The easiest way to configure Password Pusher is by environment variables._
+
+Password Pusher uses a centralized [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file for application configuration.  Values in that file can be modified by the environment variables listed below.
+
+The [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file also itself contains comments with explanations.
+
+## Alternative: Configuration with a Custom settings.yml File
+
+If you prefer, you can take the [default settings.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml), modify it and apply it to the Password Pusher Docker container.
+
+Inside the Password Pusher Docker container, the application code exists in the path `/opt/PasswordPusher/` and the `settings.yml` file is located at `/opt/PasswordPusher/config/settings.yml`.
+
+To replace this file with your own custom version, you can launch the Docker container with a bind mount option:
+
+    --mount type=bind,source=/path/settings.yml,target=/opt/PasswordPusher/config/settings.yml
+
 # Application Encryption
 
 Password Pusher encrypts sensitive data in the database. This requires a randomly generated encryption key for each application instance.
