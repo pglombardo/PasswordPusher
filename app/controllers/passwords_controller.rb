@@ -184,11 +184,13 @@ class PasswordsController < ApplicationController
     end
   end
 
-  api :GET, '/p/:url_token/audit.json', 'Retrieve the logged views for a push.'
+  api :GET, '/p/:url_token/audit.json', 'Retrieve the audit log for a push.'
   param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/audit.json'
-  description "This will return array of views including IP, referrer and other such metadata.  The _successful_ field indicates whether the view was made while the push was still active (and not expired)."
+  description "This will return array of views including IP, referrer and other such metadata.  The _successful_ field indicates whether " +
+    "the view was made while the push was still active (and not expired).  Note that you must be the owner of the push to retrieve " +
+    "the audit log and this call will always return 401 Unauthorized for pushes not owned by the credentials provided."
   def audit
     @password = Password.includes(:views).find_by_url_token!(params[:id])
 

@@ -6,7 +6,7 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
     
 [![](https://badgen.net/twitter/follow/pwpush)](https://twitter.com/pwpush)
 ![](https://badgen.net/github/stars/pglombardo/PasswordPusher)
-![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)
+[![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)](https://stats.uptimerobot.com/6xJjNtPr93)
 [![](https://badgen.net/docker/pulls/pglombardo/pwpush-ephemeral)](https://hub.docker.com/repositories)
 
 [![Github CI](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml/badge.svg)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml)
@@ -50,7 +50,7 @@ Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https:/
 [![](./app/frontend/img/features/preliminary-step-thumb.png)](./app/frontend/img/features/preliminary-step.gif)
 
 
-# Quickstart
+# ⚡️ Quickstart
 
 → Go to [pwpush.com](https://pwpush.com) and try it out.
 
@@ -142,9 +142,11 @@ RAILS_ENV=private ./bin/rake db:setup
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
-# 3rd Party Tools
+# 🔨 3rd Party Tools
 
 ## Command Line Utilities
+
+* The almost official [pwpush-cli](https://github.com/pglombardo/pwpush-cli) (in pre-beta): CLI for Password Pusher with authentication support
 
 * [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
 
@@ -170,11 +172,14 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
-# The Password Pusher API
+_See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
-* [JSON API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+# 📡 The Password Pusher API
 
-# Internationalization
+* [JSON API Documentation](https://pwpush.com/api)
+* [Walkthrough & Examples](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+
+# 🇮🇹 Internationalization
 
 Password Pusher is currently available in **14 languages** with more languages being added often as volunteers apply.
 
@@ -259,3 +264,22 @@ Thanks to:
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
 ...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
+
+# 🛡 License
+
+[![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE)
+
+This project is licensed under the terms of the `GNU General Public License v3.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE) for more details.
+
+# 📃 Citation
+
+```bibtex
+@misc{PasswordPusher,
+  author = {Peter Giacomo Lombardo},
+  title = {An application to securely communicate passwords over the web. Passwords automatically expire after a certain number of views and/or time has passed.},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/pglombardo/PasswordPusher}}
+}
+```

@@ -1,9 +1,53 @@
 
 # Overview
 
-Password Pusher can largely be configured by environment variables.  These can modify behaviour, enable & disable features and change application defaults.
+Configure everything from defaults, features, branding, languages and more.
 
-See the following sections for the area you are interested in.
+# How to Configure the Application
+
+Password Pusher uses a centralized configuration that is stored in [config/settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml).  This file contains all of the settings that is configurable for the application.
+
+There are two ways to modify the settings in this file:
+
+1. Use environment variable that override this file
+2. Modify the file itself
+
+For a few modifications, environment variables are the easy route.  For more extensive configuration, it's suggested to maintain your own custom `settings.yml` file across updates.
+
+Read on for details on both methods.
+
+## Configuring via Environment variables
+
+The settings in the `config/settings.yml` file can be overridden by environment variables.  A listing and description of these environment variables is available in this documentation below and also in the [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) file itself.
+
+### Shell Example
+
+```sh
+# Change the default language for the application to French
+export PWP__DEFAULT_LOCALE='fr'
+```
+### Docker Example
+
+```sh
+# Change the default language for the application to French
+docker run -d --env PWP__DEFAULT_LOCALE=fr -p "5100:5100" pglombardo/pwpush-ephemeral:release
+```
+
+## Configuring via a Custom `settings.yml` File
+
+If you prefer, you can take the [default settings.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml), modify it and apply it to the Password Pusher Docker container.
+
+Inside the Password Pusher Docker container:
+* application code exists in the path `/opt/PasswordPusher/`
+* the `settings.yml` file is located at `/opt/PasswordPusher/config/settings.yml`
+
+To replace this file with your own custom version, you can launch the Docker container with a bind mount option:
+
+```sh
+    docker run -d \
+      --mount type=bind,source=/path/settings.yml,target=/opt/PasswordPusher/config/settings.yml \
+      -p "5100:5100" pglombardo/pwpush-ephemeral:release
+```
 
 # Application Encryption
 
@@ -36,16 +80,16 @@ Notes:
 
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
-| EXPIRE_AFTER_DAYS_DEFAULT | Controls the "Expire After Days" default value in Password#new | `7` |
-| EXPIRE_AFTER_DAYS_MIN | Controls the "Expire After Days" minimum value in Password#new | `1` |
-| EXPIRE_AFTER_DAYS_MAX | Controls the "Expire After Days" maximum value in Password#new | `90` |
-| EXPIRE_AFTER_VIEWS_DEFAULT | Controls the "Expire After Views" default value in Password#new | `5` |
-| EXPIRE_AFTER_VIEWS_MIN | Controls the "Expire After Views" minimum value in Password#new | `1` |
-| EXPIRE_AFTER_VIEWS_MAX | Controls the "Expire After Views" maximum value in Password#new | `100` |
-| DELETABLE_PASSWORDS_ENABLED | Can passwords be deleted by viewers? When true, passwords will have a link to optionally delete the password being viewed | `false` |
-| DELETABLE_PASSWORDS_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
-| RETRIEVAL_STEP_ENABLED | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
-| RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
+| PWP__EXPIRE_AFTER_DAYS_DEFAULT | Controls the "Expire After Days" default value in Password#new | `7` |
+| PWP__EXPIRE_AFTER_DAYS_MIN | Controls the "Expire After Days" minimum value in Password#new | `1` |
+| PWP__EXPIRE_AFTER_DAYS_MAX | Controls the "Expire After Days" maximum value in Password#new | `90` |
+| PWP__EXPIRE_AFTER_VIEWS_DEFAULT | Controls the "Expire After Views" default value in Password#new | `5` |
+| PWP__EXPIRE_AFTER_VIEWS_MIN | Controls the "Expire After Views" minimum value in Password#new | `1` |
+| PWP__EXPIRE_AFTER_VIEWS_MAX | Controls the "Expire After Views" maximum value in Password#new | `100` |
+| PWP__ENABLE_DELETABLE_PUSHES | Can passwords be deleted by viewers? When true, passwords will have a link to optionally delete the password being viewed | `false` |
+| PWP__DELETABLE_PASSWORDS_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
+| PWP__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
+| PWP__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
 | PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
 
 # Enabling Logins
