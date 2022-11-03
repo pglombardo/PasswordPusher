@@ -6,7 +6,7 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
     
 [![](https://badgen.net/twitter/follow/pwpush)](https://twitter.com/pwpush)
 ![](https://badgen.net/github/stars/pglombardo/PasswordPusher)
-![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)
+[![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)](https://stats.uptimerobot.com/6xJjNtPr93)
 [![](https://badgen.net/docker/pulls/pglombardo/pwpush-ephemeral)](https://hub.docker.com/repositories)
 
 [![Github CI](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml/badge.svg)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml)
