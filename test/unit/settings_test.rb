@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class SettingsTest < Minitest::Test
+  def teardown
+    Settings.reload!
+  end
+
   def test_defaults_same_as_settings
     # Make sure these two files are always the same.
     # If a user overlays config/settings.yml with an older version of the settings file
