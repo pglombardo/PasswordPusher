@@ -31,11 +31,11 @@ class PasswordTest < Minitest::Test
     push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago, payload: 'asdf')
     push.validate!
 
-    assert push.expire_after_days == EXPIRE_AFTER_DAYS_DEFAULT
-    assert push.expire_after_views == EXPIRE_AFTER_VIEWS_DEFAULT
+    assert push.expire_after_days == Settings.expire_after_days_default
+    assert push.expire_after_views == Settings.expire_after_views_default
 
-    assert push.retrieval_step == RETRIEVAL_STEP_DEFAULT if RETRIEVAL_STEP_ENABLED
-    assert push.deletable_by_viewer == DELETABLE_PASSWORDS_DEFAULT if DELETABLE_PASSWORDS_ENABLED
+    assert push.retrieval_step == Settings.retrieval_step_default if Settings.enable_retrieval_step
+    assert push.deletable_by_viewer == Settings.deletable_pushes_default if Settings.enable_deletable_pushes
   end
 
   def test_days_expiration

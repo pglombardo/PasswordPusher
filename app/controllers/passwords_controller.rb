@@ -91,7 +91,6 @@ class PasswordsController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    # binding.pry
     # params[:password] has to exist
     # params[:password] has to be a ActionController::Parameters (Hash)
     password_param = params.fetch(:password, {})
@@ -116,10 +115,8 @@ class PasswordsController < ApplicationController
     end
 
     @password = Password.new
-    @password.expire_after_days = params[:password].fetch(:expire_after_days,
-                                                          EXPIRE_AFTER_DAYS_DEFAULT)
-    @password.expire_after_views = params[:password].fetch(:expire_after_views,
-                                                           EXPIRE_AFTER_VIEWS_DEFAULT)
+    @password.expire_after_days = params[:password].fetch(:expire_after_days, Settings.expire_after_days_default)
+    @password.expire_after_views = params[:password].fetch(:expire_after_views, Settings.expire_after_views_default)
     @password.user_id = current_user.id if user_signed_in?
     @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
@@ -289,7 +286,7 @@ class PasswordsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(password, params)
-    if RETRIEVAL_STEP_ENABLED == true
+    if Settings.enable_retrieval_step == true
       if params[:password].key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -303,7 +300,7 @@ class PasswordsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          password.retrieval_step = RETRIEVAL_STEP_DEFAULT
+          password.retrieval_step = Settings.retrieval_step_default
         end
       end
     else
@@ -315,7 +312,7 @@ class PasswordsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_deletable_by_viewer(password, params)
-    if DELETABLE_PASSWORDS_ENABLED == true
+    if Settings.enable_deletable_pushes == true
       if params[:password].key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -329,7 +326,7 @@ class PasswordsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          password.deletable_by_viewer = DELETABLE_PASSWORDS_DEFAULT
+          password.deletable_by_viewer = Settings.deletable_pushes_default
         end
       end
     else
