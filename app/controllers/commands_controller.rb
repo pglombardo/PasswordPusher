@@ -50,14 +50,14 @@ class CommandsController < ApplicationController
       return
     end
 
-    days ||= EXPIRE_AFTER_DAYS_DEFAULT
-    views ||= EXPIRE_AFTER_VIEWS_DEFAULT
-    retrieval = (RETRIEVAL_STEP_ENABLED && RETRIEVAL_STEP_DEFAULT) ? '/r' : ''
+    days ||= Settings.expire_after_days_default
+    views ||= Settings.expire_after_views_default
+    retrieval = (Settings.enable_retrieval_step && Settings.retrieval_step_default) ? '/r' : ''
 
     @password = Password.new
     @password.expire_after_days = days
     @password.expire_after_views = views
-    @password.deletable_by_viewer = DELETABLE_PASSWORDS_ENABLED
+    @password.deletable_by_viewer = Settings.enable_deletable_pushes
 
     @password.payload = secret
 
