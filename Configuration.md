@@ -78,6 +78,14 @@ Notes:
 
 # Changing Application Defaults
 
+## Application Wide
+
+| Environment Variable | Description | Default Value |
+| --------- | ------------------ | --- |
+| PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
+
+## Push Form Defaults
+
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
 | PWP__EXPIRE_AFTER_DAYS_DEFAULT | Controls the "Expire After Days" default value in Password#new | `7` |
@@ -90,7 +98,22 @@ Notes:
 | PWP__DELETABLE_PASSWORDS_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
 | PWP__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
 | PWP__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
-| PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
+
+## Password Generator Defaults
+
+_Note: Due to a bug (that will be resolved soon), these values can be configured by environment variable only.  Changes to these settings in the `settings.yml` file has no affect (for the time being)._
+
+| Environment Variable | Description | Default Value |
+| --------- | ------------------ | --- |
+| PWP__GEN__HAS_NUMBERS | Controls whether generated passwords have numbers | `true` |
+| PWP__GEN__TITLE_CASED | Controls whether generated passwords will be title cased | `true` |
+| PWP__GEN__USE_SEPARATORS | Controls whether generated passwords will use separators between syllables| `true` |
+| PWP__GEN__CONSONANTS | List of consonants to generate from | `bcdfghklmnprstvz` |
+| PWP__GEN__VOWELS | List of vowels to generate from | `aeiouy` |
+| PWP__GEN__SEPARATORS | If `use_separators` is enabled above, the list of separators to use (randomly) | `-_=` |
+| PWP__GEN__MAX_SYLLABLE_LENGTH | The maximum length of each syllable that a generated password can have | `3` |
+| PWP__GEN__MIN_SYLLABLE_LENGTH | The minimum length of each syllable that a generated password can have | `1` |
+| PWP__GEN__SYLLABLE_COUNT | The exact number of syllables that a generated password will have | `3` |
 
 # Enabling Logins
 
