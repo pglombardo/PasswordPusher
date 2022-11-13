@@ -35,4 +35,4 @@ RUN yarn install
 RUN bundle exec rails webpacker:compile
 RUN bundle exec rake db:setup
 
-ENTRYPOINT ["bundle", "exec", "puma", "-C", "config/puma.rb", "-e", "private"]
+ENTRYPOINT ["containers/docker/pwpush-ephemeral/entrypoint.sh"]
