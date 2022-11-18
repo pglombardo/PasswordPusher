@@ -1,24 +1,30 @@
-PasswordPusher::Application.configure do
-  config.cache_classes = false
-  config.action_controller.perform_caching = false
-  config.serve_static_files = true
-  config.assets.js_compressor = :uglifier
-  config.assets.compile = true
-  config.assets.digest = true
-  config.i18n.fallbacks = true
-  config.active_support.deprecation = :notify
-  config.eager_load = false
-  config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
+require "active_support/core_ext/integer/time"
 
-  config.logger = Logger.new(STDOUT) if Settings.log_to_stdout
-  config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
-  
+Rails.application.configure do
+  config.cache_classes = true
+  config.eager_load = true
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
+
+  # config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+
   if Settings.throttling
     config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
     config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
     config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
     config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
   end
+
+  config.assets.css_compressor = :sass
+  config.assets.js_compressor = :uglifier
+  config.assets.compile = false
+  config.active_storage.service = :local
+
+  config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
+
+  config.logger = Logger.new(STDOUT) if Settings.log_to_stdout
+  config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
+  config.log_tags = [ :request_id ]
 
   if Settings.mail
     config.action_mailer.perform_caching = false
@@ -52,4 +58,16 @@ PasswordPusher::Application.configure do
       config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
     end
   end
+
+  config.i18n.fallbacks = true
+  config.active_support.report_deprecations = false
+  config.log_formatter = ::Logger::Formatter.new
+
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
+
+  config.active_record.dump_schema_after_migration = false
 end
