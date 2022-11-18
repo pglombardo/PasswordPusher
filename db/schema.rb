@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_16_102729) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_194839) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.integer "record_id", null: false
     t.integer "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -28,9 +27,9 @@ ActiveRecord::Schema.define(version: 2022_08_16_102729) do
     t.string "content_type"
     t.text "metadata"
     t.string "service_name", null: false
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.integer "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -45,13 +44,13 @@ ActiveRecord::Schema.define(version: 2022_08_16_102729) do
     t.integer "expire_after_views"
     t.boolean "expired", default: false
     t.string "url_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "user_id"
     t.boolean "deleted", default: false
     t.boolean "deletable_by_viewer", default: true
     t.boolean "retrieval_step", default: false
-    t.datetime "expired_on"
+    t.datetime "expired_on", precision: nil
     t.text "payload_ciphertext", limit: 16777215
     t.text "note_ciphertext"
     t.index ["url_token"], name: "index_passwords_on_url_token", unique: true
@@ -62,22 +61,22 @@ ActiveRecord::Schema.define(version: 2022_08_16_102729) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "admin", default: false
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.string "authentication_token", limit: 30
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
@@ -93,8 +92,8 @@ ActiveRecord::Schema.define(version: 2022_08_16_102729) do
     t.string "user_agent"
     t.string "referrer"
     t.boolean "successful"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "kind", default: 0
     t.integer "user_id"
   end
