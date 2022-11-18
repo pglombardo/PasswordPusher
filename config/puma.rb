@@ -2,7 +2,7 @@ workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
-rackup DefaultRackup
+rackup "config.ru"
 
 environment ENV.fetch('RACK_ENV', 'development')
 port ENV.fetch('PORT', 5100)
