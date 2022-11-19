@@ -24,8 +24,8 @@ When in doubt, use `release`.
 
 For a quick boot of a database backed application, see the available Docker Compose files:
 
-* [pwpush-postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yaml)
-* [pwpush-mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-mysql/docker-compose.yaml)
+* [pwpush-postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yml)
+* [pwpush-mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-mysql/docker-compose.yml)
 
 # Docker Containers
 
@@ -39,6 +39,8 @@ To run an ephemeral version of Password Pusher that saves no data after a contai
 _This example is set to listen on port 8000 for requests e.g. http://0.0.0.0:8000._
 
 Available on Docker hub: [pwpush-ephemeral](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral)
+
+See also this discussion if you want to persist data across container restarts: [pwpush-ephemeral: How to Add Persistence?](https://github.com/pglombardo/PasswordPusher/discussions/448)
 
 ## pwpush-postgres
 
@@ -77,6 +79,8 @@ Available on Docker hub: [pwpush-mysql](https://hub.docker.com/repository/docker
 
 ### OpenShift
 
+_Note: The OpenShift container hasn't been maintained.  It may still work but likely has fallen behind on dependencies and updates.  If you want an updated OpenShift container, please let me know by filing a Github issue stating so.  Thanks!_
+
 You can run Password Pusher in OpenShift in 2 ways:
   - ephemeral (with no persistent storage): `oc new-app docker.io/pglombardo/pwpush-ephemeral:latest`
   - from an OpenShift template/buildconfig/deploymentconfig and PostgreSQL persistent from the official OpenShift template:
@@ -89,6 +93,6 @@ You can run Password Pusher in OpenShift in 2 ways:
     oc new-app --template=passwordpusher
     ```
 OpenShift observations:
-- your cluster needs persistent storage for PostgreSQL to save the data
-- if you want the Password Pusher template to be available to ALL the projects (Other category in the catalog) in the cluster you need to create the template in the OpenShift namespace: `oc create -f template-with-buildconfig.yaml -n openshift`
-- if you want to change the PostgreSQL credentials, modify the `DATABASE_URL` environment variable in the `docker/passwordpusher-openshift/Dockerfile` and also update the credentials when you launch the PostgreSQL installation a few lines above
+    - your cluster needs persistent storage for PostgreSQL to save the data
+    - if you want the Password Pusher template to be available to ALL the projects (Other category in the catalog) in the cluster you need to create the template in the OpenShift namespace: `oc create -f template-with-buildconfig.yaml -n openshift`
+    - if you want to change the PostgreSQL credentials, modify the `DATABASE_URL` environment variable in the `docker/passwordpusher-openshift/Dockerfile` and also update the credentials when you launch the PostgreSQL installation a few lines above
