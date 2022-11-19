@@ -97,11 +97,11 @@ _Note: The `latest` Docker container tag builds nightly off of the latest code c
 
 **➜ One-liner Password Pusher with a Postgres Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yaml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yml && docker compose up -d
 
 **➜ One-liner Password Pusher with a MariaDB (MySQL) Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yaml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yml && docker compose up -d
 
 ## On Kubernetes
 
