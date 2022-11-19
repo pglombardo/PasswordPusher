@@ -63,7 +63,7 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
   config.log_formatter = ::Logger::Formatter.new
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
