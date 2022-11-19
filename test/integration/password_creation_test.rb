@@ -1,6 +1,26 @@
 require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
+  def test_textarea_has_safeties
+    get '/'
+    assert_response :success
+
+    # Validate some elements
+    text_area = css_select 'textarea#password_payload.form-control'
+
+    assert text_area.attribute('spellcheck')
+    assert text_area.attribute('spellcheck').value == "false"
+
+    assert text_area.attribute('autocomplete')
+    assert text_area.attribute('autocomplete').value == "off"
+
+    assert text_area.attribute('autofocus')
+    assert text_area.attribute('autofocus').value == "autofocus"
+
+    assert text_area.attribute('required')
+    assert text_area.attribute('required').value == "required"
+  end
+
   def test_password_creation
     get '/'
     assert_response :success
