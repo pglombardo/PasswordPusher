@@ -7,22 +7,22 @@
 ---
 zh-CN:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: 取消
+    passwords: 密码
+    new: 新建
+    active: 活动的
+    expired: 已到期
+    preview: 预览
+    audit: 审计
+    pages: 页数
+    users: 用户
+    sign_in: 登入
+    sign_out: 登出
+    sign_up: 注册
+    password: 密码
+    edit: 编辑
+    confirmation: 确认
+    unlock: 解锁
   date:
     day_names:
     - 星期日
@@ -76,8 +76,8 @@ zh-CN:
       storage_units:
         units:
           byte:
-            one:
-            other:
+            one: 字节
+            other: 字节
           kb: KB
           mb: MB
           gb: GB
@@ -104,14 +104,14 @@ zh-CN:
       blank: 不能为空字符
       present: 必须是空白
       too_long:
-        one:
-        other:
+        one: 太长（最多1个字符）
+        other: 太长（最多 %{count} 个字符）
       too_short:
-        one:
-        other:
+        one: 太短（最少 1 个字符）
+        other: 太短（最少为 %{count} 个字符）
       wrong_length:
-        one:
-        other:
+        one: 长度错误（应该是 1 个字符）
+        other: 长度错误（应该是 %{count} 个字符）
       not_a_number: 不是数字
       not_an_integer: 必须是整数
       greater_than: 必须大于 %{count}
@@ -133,9 +133,10 @@ zh-CN:
       not_saved:
         one: 发生 1 个错误，导致%{resource}保存失败：
         other: 发生 %{count} 个错误，导致%{resource}保存失败：
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: 会话 %{id} 在内存中不再可用。如果您碰巧在多进程服务器（如 Unicorn 或 Puma）上运行，则此请求命中的进程不会将
+      %{id} 存储在内存中。考虑将进程/worker进程的数量变成一 (1) 个或在开发中使用不同的服务器。
+    unacceptable_request: Accept 标头中应包含受支持的版本号。
+    connection_refused: 糟糕！无法连接到 Web 控制台中间件。请确保 Rails 开发服务器正在运行。
   activerecord:
     errors:
       messages:
@@ -177,8 +178,8 @@ zh-CN:
         one: 1年以上
         other: 超过 %{count} 年
       almost_x_years:
-        one:
-        other:
+        one: 将近1年
+        other: 差不多 %{count} 年
     prompts:
       year: 年
       month: 月
@@ -197,8 +198,8 @@ zh-CN:
     previous_label: 上一页
     next_label: 下一页
     page_gap: "…"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: 分页
+    page_aria_label: 第 %{page} 页
     page_entries_info:
       single_page:
         zero: 暂无%{model}记录
@@ -213,12 +214,12 @@ zh-CN:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} 已被成功创建。"
       update:
-        notice:
+        notice: "%{resource_name} 已被成功更新。"
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} 被成功销毁。"
+        alert: "%{resource_name} 无法被销毁。"
   devise:
     confirmations:
       confirmed: 成功验证您的邮箱。
@@ -257,11 +258,11 @@ zh-CN:
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封找回密码的邮件。
       updated: 您的密码已修改成功，您现在已登录。
       updated_not_active: 密码修改成功。
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: 重设密码
+      reset_button: 更新账户
+      forgot_title: 忘记密码
+      forgot_header: 忘记密码
+      forgot_button: 发送重置指南
     registrations:
       destroyed: 再见！您的帐户已成功注销。我们希望很快可以再见到您。
       signed_up: 欢迎您！您已注册成功。
@@ -271,36 +272,36 @@ zh-CN:
       update_needs_confirmation: 新的帐户信息已成功提交，确认邮件已经发至您的邮箱，请点击其中的链接以使您的新电子邮箱地址生效。
       updated: 帐户资料更新成功。
       updated_but_not_signed_in: 帐号资料更新成功。由于密码已修改，请重新登录。
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      update_email: 更新电子邮件
+      currently_waiting: 目前正在等待确认
+      change_password: 更改密码
+      change_password_hint: 留空保持不修改。
+      new_password: 新密码
+      new_password_confirmation: 再次输入新密码
+      password: 密码
+      password_minimum: 至少需要 %d 个字符，且越多越好。
+      verification: 确认
+      verification_text: 输入您当前的密码以授权确认上述更改。
+      update_account: 更新账户
+      edit_account: 编辑账户
+      create_account: 创建账户
+      email: 电子邮件
+      password_confirmation: 确认密码
     unlocks:
       send_instructions: 几分钟后，您将收到一封解锁帐户的邮件。
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封解锁帐户的邮件。
       unlocked: 您的帐户已成功解锁，现在已登录。
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: 再次发送解锁指南
+      unlock_header: 再次发送解锁指南
+      unlock_button: 再次发送
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: 记住账号
+      login: 登录
+      sign_up: 注册账号
+      forgot_your: 忘记密码？
+      didnt_confirmation: 没有收到确认指南？
+      didnt_unlock: 没有收到解锁指南？
+      email: 电子邮件
   apipie:
     resources: 资源
     resource: 资源
@@ -316,7 +317,7 @@ zh-CN:
     goto_homepage_href: "%{app_name} API 文档主页"
     required: 必需的
     optional: 可选的
-    nil_allowed:
+    nil_allowed: 不允许
     param_name: 参数名称
     params: 参数
     examples: 举例
@@ -326,9 +327,9 @@ zh-CN:
     error_description: 描述
     error_metadata: 元数据
     supported_formats: 支持的格式
-    enable_javascript_html:
+    enable_javascript_html: 请启用 JavaScript 以查看 %{comments_href}。
     comments_powered_by_disqus:
     api_documentation: API文档
-    headers:
-    header_name:
+    headers: 标头
+    header_name: 标头名称
     code: 代码
