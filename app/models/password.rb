@@ -15,7 +15,11 @@ class Password < ApplicationRecord
   end
 
   def views_remaining
-    [(expire_after_views - views.where(kind: 0).size), 0].max
+    [(expire_after_views - view_count), 0].max
+  end
+
+  def view_count
+    views.where(kind: 0).size
   end
 
   def successful_views
