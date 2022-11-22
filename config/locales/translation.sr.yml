@@ -7,22 +7,22 @@
 ---
 sr:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: поништити, отказати
+    passwords: лозинке
+    new: Нова
+    active: активан
+    expired: истекао
+    preview: превиев
+    audit: ревизија
+    pages: странице
+    users: корисника
+    sign_in: Пријавите се
+    sign_out: Одјава
+    sign_up: пријави се
+    password: Лозинка
+    edit: Уредити
+    confirmation: потврда
+    unlock: откључати
   date:
     day_names:
     - Недеља
@@ -82,8 +82,8 @@ sr:
           mb: МБ
           gb: ГБ
           tb: ТБ
-          pb:
-          eb:
+          pb: ПБ
+          eb: ЕБ
       decimal_units:
         units:
           thousand: Хиљаду
@@ -133,10 +133,14 @@ sr:
       not_saved:
         one: '1 greška sprečava snimanje %{resource}:'
         other: "%{count} grešaka sprečavaju snimanje %{resource}:"
-      in:
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+      in: мора бити у %{count}
+    unavailable_session: Сесија %{id} више није доступна у меморији. Ако се случајно
+      покренете на вишепроцесном серверу (као што је Уницорн или Пума), процес који
+      је погодио овај захтев не чува %{id} у меморији. Размислите о претварању броја
+      процеса/радника на један (1) или коришћењу другог сервера у развоју.
+    unacceptable_request: Подржана верзија се очекује у заглављу Прихвати.
+    connection_refused: Упс! Повезивање са међуверским софтвером Веб конзоле није
+      успело. Уверите се да је раилс развојни сервер покренут.
   activerecord:
     errors:
       messages:
@@ -195,31 +199,32 @@ sr:
       update: Измени %{model}
       submit: Сачувај %{model}
   will_paginate:
-    previous_label:
-    next_label:
-    page_gap:
-    container_aria_label:
-    page_aria_label:
+    previous_label: "← Претходно"
+    next_label: Следеће →
+    page_gap: "…"
+    container_aria_label: Пагинација
+    page_aria_label: Страница %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Није пронађен %{model}.
+        one: Приказује се 1 %{model}
+        other: Приказ свих %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
-      multi_page:
-      multi_page_html:
+        zero: Није пронађен %{model}.
+        one: Приказује се <b>1</b> %{model}
+        other: Приказ <b>свих %{count}</b> %{model}
+      multi_page: Приказивање %{model} %{from} - %{to} од %{count} укупно
+      multi_page_html: Приказивање %{model} <b>%{from} - %{to}</b> од <b>%{count}</b>
+        укупно
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} је успешно креиран."
       update:
-        notice:
+        notice: "%{resource_name} је успешно ажуриран."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} је успешно уништен."
+        alert: "%{resource_name} није могао бити уништен."
   devise:
     confirmations:
       confirmed: Vaš nalog je uspešno potvrđen. Sada ste prijavljeni.
@@ -228,16 +233,16 @@ sr:
       send_paranoid_instructions: Ukoliko se Vaša adresa ePošte nalazi u našoj bazi
         u roku od nekoliko minuta primićete ePoruku sa uputstvom kako potvrditi Vaš
         nalog.
-      resend_title:
-      resend_header:
-      resend_button:
+      resend_title: Поново пошаљите упутства за потврду
+      resend_header: Поново пошаљите упутства за потврду
+      resend_button: Поново послати
     failure:
       already_authenticated: Već ste prijavljeni.
       inactive: Vaš nalog još nije aktiviran.
-      invalid:
+      invalid: Неважећи %{authentication_keys} или лозинка.
       locked: Vaš nalog je zaključan.
       last_attempt: Imate još jedan pokušaj pre nego što Vaš nalog bude zaključan.
-      not_found_in_database:
+      not_found_in_database: Неважећи %{authentication_keys} или лозинка.
       timeout: Vreme trajanja Vaše sesije je isteklo. Za nastavak prijavite se ponovo.
       unauthenticated: Za nastavak se morate prijaviti ili registrovati.
       unconfirmed: Pre nastavka morate potvrditi svoj nalog.
@@ -249,9 +254,9 @@ sr:
       unlock_instructions:
         subject: Uputstvo za otključavanje korisničkog naloga
       email_changed:
-        subject:
+        subject: Емаил промењен
       password_change:
-        subject:
+        subject: Лозинка промењена
     omniauth_callbacks:
       failure: Nismo u mogućnosti autorizovati Vas sa %{kind} nalogom zbog "%{reason}".
       success: Uspešna autorizacija sa %{kind} naloga.
@@ -264,11 +269,11 @@ sr:
         na istu ćete u roku od nekoliko minuta primiti link za resetovanje lozinke.
       updated: Vaša lozinka je uspešno promenjena. Sada ste prijavljeni.
       updated_not_active: Vaša lozinka je uspešno promenjena.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Ресетуј шифру
+      reset_button: Ажурирајте налог
+      forgot_title: Заборавили сте лозинку
+      forgot_header: Заборавили сте лозинку
+      forgot_button: Пошаљите упутства за ресетовање
     registrations:
       destroyed: Pozdrav! Vaš nalog je uspešno obrisan. Nadamo se da ćete se uskoro
         vratiti.
@@ -283,67 +288,69 @@ sr:
         Vašu adresu ePošte. Proverite svoje sanduče sa porukama i kliknite na vezu
         za potvrdu.
       updated: Uspešno ste izmenili svoj nalog.
-      updated_but_not_signed_in:
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      updated_but_not_signed_in: Ваш налог је успешно ажуриран, али пошто је ваша
+        лозинка промењена, морате поново да се пријавите.
+      update_email: Ажурирајте е-пошту
+      currently_waiting: Тренутно се чека потврда за
+      change_password: Промени лозинку
+      change_password_hint: Оставите празно ако не желите да га промените.
+      new_password: Нова лозинка
+      new_password_confirmation: Нова потврда лозинке
+      password: Лозинка
+      password_minimum: Потребно је најмање %д знакова, али што више, то боље.
+      verification: Верификација
+      verification_text: Унесите своју тренутну лозинку да бисте потврдили горенаведене
+        промене.
+      update_account: Ажурирајте налог
+      edit_account: Уреди налог
+      create_account: Региструј се
+      email: Емаил
+      password_confirmation: Потврда шифре
     unlocks:
       send_instructions: U roku od nekoliko minuta ćete primiti ePoruku sa uputstvom
         za otključavanje Vašeg naloga.
       send_paranoid_instructions: Ako Vaš nalog postoji, na adresu svoje ePošte ćete
         u roku od nekoliko minuta primiti uputstvo kako ga otključati.
       unlocked: Vaš nalog je uspešno otključan. Sada se možete prijaviti.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Поново пошаљите упутства за откључавање
+      unlock_header: Поново пошаљите упутства за откључавање
+      unlock_button: Поново послати
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Сети ме се
+      login: Пријавите се
+      sign_up: Пријави се
+      forgot_your: Заборавили сте лозинку?
+      didnt_confirmation: Нисте добили упутства за потврду?
+      didnt_unlock: Нисте добили упутства за откључавање?
+      email: Емаил
   apipie:
-    resources:
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
-    examples:
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    resources: Ресурси
+    resource: Ресурс
+    description: Опис
+    no_docs_found: Није пронађена документација
+    no_docs_found_descr: Нисмо пронашли никакву документацију за ваш АПИ.
+    follow_instructions_html: Пратите %{href} како да опишете своје контролере.
+    follow_instructions_href: даља упутства
+    oops: Упс!!
+    resource_not_found_html: Ресурс %{resource} није пронађен.
+    method_not_found_html: Метод %{method} није пронађен за ресурс %{resource}.
+    goto_homepage_html: Покушајте да одете на %{href}
+    goto_homepage_href: "%{app_name} Почетна страница документације АПИ-ја"
+    required: потребан
+    optional: опционо
+    nil_allowed: нула дозвољено
+    param_name: Име парама
+    params: Парамс
+    examples: Примери
+    metadata: Метаподаци
+    errors: Грешке
+    error_code: Код
+    error_description: Опис
+    error_metadata: Метаподаци
+    supported_formats: Подржани формати
+    enable_javascript_html: Омогућите ЈаваСцрипт да бисте видели %{comments_href}.
+    comments_powered_by_disqus: коментари поверед би %{disqus}
+    api_documentation: АПИ документација
+    headers: Заглавља
+    header_name: Име заглавља
+    code: Код
