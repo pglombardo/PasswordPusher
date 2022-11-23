@@ -64,18 +64,40 @@
           <% end %>
         <% end %>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#languageModal">
             <em class='bi-translate'></em>
             <%= _('Language') %>
-          </a>
+          </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <% if Settings.language_codes %>
-              <% I18n.available_locales.each do |lang| %>
-                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link text-muted" %></li>
-              <% end %>
-            <% end %>
           </ul>
         </li>
       </ul>
+
+
+<!-- Modal -->
+<div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="languageModalLabel"><%= _('Select your language') %></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if Settings.language_codes %>
+          <% I18n.available_locales.each_slice(3) do |group| %>
+            <ul class="list-group list-group-horizontal w-auto">
+              <% group.each do |lang| %>
+                <li class='list-group-item w-100'>
+                  <em class="flag flag-us"></em>
+                  <%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link text-muted" %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
   </header>
 </div>
