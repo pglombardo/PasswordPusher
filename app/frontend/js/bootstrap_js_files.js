@@ -16,4 +16,5 @@
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import '../css/bootstrap-litera';
+import '../css/bootstrap-litera'
+import '/node_modules/flag-icons/css/flag-icons.min.css'
