@@ -140,42 +140,44 @@ lv:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Pārbaude neizdevās: %{errors}'
+        record_invalid: 'Validācija neizdevās: %{errors}
+
+          '
         restrict_dependent_destroy:
           has_one:
-          has_many:
+          has_many: Ierakstu nevar izdzēst, jo pastāv atkarīgais %{record}
   datetime:
     distance_in_words:
       half_a_minute: pusminūte
       less_than_x_seconds:
-        one: mazāk par %{count} sekundi
+        one: mazāk par sekundi
         other: mazāk par %{count} sekundēm
       x_seconds:
-        one: "%{count} sekunde"
+        one: sekunde
         other: "%{count} sekundes"
       less_than_x_minutes:
-        one: mazāk par %{count} minūti
+        one: mazāk par minūti
         other: mazāk par %{count} minūtēm
       x_minutes:
-        one: "%{count} minūte"
+        one: minūte
         other: "%{count} minūtes"
       about_x_hours:
         one: apmēram %{count} stunda
         other: apmēram %{count} stundas
       x_days:
-        one: "%{count} diena"
+        one: diena
         other: "%{count} dienas"
       about_x_months:
         one: apmēram %{count} mēnesis
         other: apmēram %{count} mēneši
       x_months:
-        one: "%{count} mēnesis"
+        one: mēnesis
         other: "%{count} mēneši"
       about_x_years:
         one: apmēram %{count} gads
         other: apmēram %{count} gadi
       over_x_years:
-        one: vairāk kā %{count} gads
+        one: vairāk kā gads
         other: vairāk kā %{count} gadi
       almost_x_years:
         one: gandrīz %{count} gads
@@ -222,88 +224,96 @@ lv:
         alert:
   devise:
     confirmations:
-      confirmed: Jūsu lietotājs ir veiksmīgi apstiprināts. Jūs esat pieslēdzies.
-      send_instructions: Pāris minūšu laikā uz Jūsu epastu tiks nosūtīts apraksts,
-        kā apstiprināt Jūsu lietotāju.
-      send_paranoid_instructions: Ja Jūsu parole eksistē mūsu datubāzē, tad pāris
-        minūšu laikā uz Jūsu epastu tiks nosūtīts apraksts, kā apstiprināt Jūsu lietotāju.
-      resend_title:
-      resend_header:
-      resend_button:
+      confirmed: Jūsu e-pasta adrese ir veiksmīgi apstiprināta.
+      send_instructions: 'Pēc dažām minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem,
+        kā apstiprināt savu e-pasta adresi.
+
+        '
+      send_paranoid_instructions: "Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pāris
+        minūšu laikā Jūs saņemsiet e-pasta ziņojumu ar norādījumiem, kā apstiprināt
+        savu e-pasta adresi.\n\n"
+      resend_title: Atkārtoti nosūtīt apstiprinājuma instrukcijas
+      resend_header: Atkārtoti nosūtīt apstiprinājuma instrukcijas
+      resend_button: Atkārtoti nosūtīt
     failure:
       already_authenticated: Jūs jau esiet pieslēdzies.
-      inactive: Jūsu lietotājs vēl nav aktivizēts.
+      inactive: Jūsu konts vēl nav aktivizēts.
       invalid: Nepareizs %{authentication_keys} vai parole.
-      locked: Jūsu lietotājs ir nobloķēts.
-      last_attempt: Jums ir atlicis pēdējais mēģinājums, pirms jūsu lietotājs tiks
-        bloķēts.
+      locked: Jūsu konts ir nobloķēts.
+      last_attempt: Jums ir atlicis pēdējais mēģinājums, pirms jūsu konts tiks bloķēts.
       not_found_in_database: Nepareizs %{authentication_keys} vai parole.
       timeout: Jūsu sesijas laiks ir beidzies. Lūdzu, pieslēdzieties vēlreiz, lai
         turpinātu.
-      unauthenticated: Jums ir jāpieslēdzas vai jāreģistrējas, lai turpinātu.
-      unconfirmed: Jums ir jāapstiprina reģistrācijas epasts, lai turpinātu.
+      unauthenticated: 'Lai turpinātu, pieslēdzieties vai reģistrējieties. '
+      unconfirmed: 'Lai turpinātu, nepieciešams apstiprināt e-pasta adresi.
+
+        '
     mailer:
       confirmation_instructions:
-        subject: Apstiprināšanas apraksts
+        subject: Apstiprinājuma norādījumi
       reset_password_instructions:
-        subject: Paroles nomainīšanas apraksts
+        subject: Paroles atiestatīšanas noteikumi
       unlock_instructions:
-        subject: Atbloķēšanas apraksts
+        subject: Atbloķēšanas noteikumi
       email_changed:
-        subject: Epasts nomainīts
+        subject: E-pasts nomainīts
       password_change:
         subject: Parole nomainīta
     omniauth_callbacks:
-      failure: 'Neizdevās autorizēties ar %{kind} lietotāju. Iemesls: "%{reason}".'
-      success: Veiksmīgi autorizējis ar %{kind} lietotāju.
+      failure: 'Neizdevās autorizēties ar %{kind} lietotāja kontu. Iemesls: "%{reason}".'
+      success: Veiksmīgi autorizējis ar %{kind} lietotāja kontu.
     passwords:
-      no_token: Šī lapa ir pieejama tikai no paroles maiņas e-pasta. Ja Jūs atvērāt
-        šo lapu no e-pasta, tad pārliecinieties, ka izmantojāt pilno URL adresi.
-      send_instructions: Pāris minūšu laikā uz Jūsu epastu tiks nosūtīts apraksts,
-        kā nomainīt jūsu paroli.
-      send_paranoid_instructions: Ja Jūsu parole eksistē mūsu datubāzē, tad jums tiks
-        nosūtīts paroles atjaunošanas apraksts uz epastu
+      no_token: 'Šī lapa ir pieejama tikai no paroles atiestatīšanas e-pasta ziņojuma.
+        Ja esat saņēmis paroles atiestatīšanas e-pasta ziņojumu, lūdzu, pārliecinieties,
+        ka izmantojāt pilno URL adresi. '
+      send_instructions: 'Pēc dažām minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem,
+        kā atiestatīt paroli. '
+      send_paranoid_instructions: 'Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pāris
+        minūšu laikā uz e-pasta adresi saņemsiet paroles atkopšanas saiti. '
       updated: Jūsu parole ir veiksmīgi nomainīta. Jūs esat pieslēdzies.
       updated_not_active: Jūsu parole ir veiksmīgi nomainīta.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Atiestatīt paroli
+      reset_button: Atjaunināt kontu
+      forgot_title: Aizmirsu paroli
+      forgot_header: Aizmirsu paroli
+      forgot_button: Nosūtīt atiestatīšanas noteikumus
     registrations:
-      destroyed: Uz redzēšanos! Jūsu lietotājs ir veiksmīgi dzēsts. Ceram Jūs drīzumā
+      destroyed: Uz redzēšanos! Jūsu konts ir veiksmīgi dzēsts. Ceram Jūs drīzumā
         redzēt atkal.
-      signed_up: Laipni lūgti! Jūs esiet veiksmīgi reģistrējies.
-      signed_up_but_inactive: Jūs esat veiksmīgi reģistrējies. Tomēr Jūs neesat pieslēdzies,
-        jo Jūsu lietotājs vēl nav aktivizēts.
-      signed_up_but_locked: Jūs esat veiksmīgi reģistrējies. Tomēr Jūs neesat pieslēdzies,
-        jo Jūsu lietotājs ir nobloķēts.
-      signed_up_but_unconfirmed: Jums ir nosūtīts e-pasts ar reģistrācijas apstiprinājuma
-        saiti. Lūdzu, atveriet šo saiti, lai aktivizētu Jūsu lietotāju.
-      update_needs_confirmation: Jūsu labotās izmaiņas ir veiksmīgi saglabātas, bet
-        mums ir jāpārbauda Jūsu jaunā e-pasta adrese. Lūdzu, pārbaudiet Jūsu e-pastu
-        un uzklikšķiniet uz apstiprinājuma saites, lai pabeigtu Jūsu jaunās e-pasta
-        adreses apstiprināšanu.
-      updated: Jūsu labotās izmaiņas ir veiksmīgi saglabātas.
-      updated_but_not_signed_in:
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      signed_up: Laipni lūdzam! Jūs esat veiksmīgi reģistrējies. Lai atrastu apstiprinājuma
+        saiti, pārbaudiet savu e-pastu.
+      signed_up_but_inactive: "Jūs esat veiksmīgi reģistrējies. Tomēr pierakstīšanās
+        nav izdevusies. Jūsu konts nav aktivizēts.\n\n"
+      signed_up_but_locked: Jūs esat veiksmīgi reģistrējies. Tomēr pierakstīšanās
+        nav izdevusies. Jūsu konts ir nobloķēts.
+      signed_up_but_unconfirmed: Uz jūsu e-pasta adresi ir nosūtīts ziņojums ar apstiprinājuma
+        saiti. Lūdzu, atveriet šo saiti, lai aktivizētu savu kontu.
+      update_needs_confirmation: Jūsu konts ir veiksmīgi atjaunināts, tomēr ir nepieciešams
+        pārbaudīt Jūsu jauno e-pasta adresi. Lūdzu, pārbaudiet e-pastu un uzklikšķiniet
+        uz apstiprinājuma saites, lai pabeigtu jaunās e-pasta adreses apstiprināšanu.
+      updated: Jūsu konts ir veiksmīgi atjaunināts.
+      updated_but_not_signed_in: Jūsu konts ir veiksmīgi atjaunināts, taču, tā kā
+        parole tika mainīta, ir nepieciešams pierakstīties vēlreiz.
+      update_email: Atjaunināt e-pastu
+      currently_waiting: Pašlaik tiek gaidīts apstiprinājums
+      change_password: Mainīt paroli
+      change_password_hint: Ja nevēlaties to mainīt, atstājiet tukšu.
+      new_password: Jaunā parole
+      new_password_confirmation: Jaunās paroles apstiprināšana
+      password: parole
+      password_minimum: Nepieciešamas vismaz %d rakstzīmes. Jo vairāk rakstzīmes,
+        jo labāk.
+      verification: 'Verificēsana '
+      verification_text: Ievadiet savu pašreizējo paroli, lai apstiprinātu iepriekš
+        minētās izmaiņas.
+      update_account: Atjaunināt kontu
+      edit_account: Rediģēt kontu
+      create_account: Izveidot kontu
+      email: E-pasts
+      password_confirmation: Paroles apstiprināšana
     unlocks:
-      send_instructions: Pāris minūšu laikā uz Jūsu epastu tiks nosūtīts apraksts,
-        kā atbloķēt Jūsu lietotāju.
+      send_instructions: Pēc dažām minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem,
+        kā atbloķēt savu kontu.
       send_paranoid_instructions: Ja Jūsu parole eksistē mūsu datubāzē, tad pāris
         minūšu laikā uz Jūsu epastu tiks nosūtīts apraksts, kā atbloķēt jūsu lietotāju.
       unlocked: Jūsu lietotājs ir veiksmīgi atbloķēts. Jūs esat pieslēdzies.
@@ -311,41 +321,52 @@ lv:
       unlock_header:
       unlock_button:
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Atcerēties mani
+      login: Pieslēgties
+      sign_up: Reģistrēties
+      forgot_your: Aizmirsi paroli?
+      didnt_confirmation: Nesaņēmāt apstiprinājuma norādījumus?
+      didnt_unlock: Nesaņēmāt atbloķēšanas norādījumus?
+      email: E-pasts
   apipie:
-    resources:
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
+    resources: Resursi
+    resource: Resurss
+    description: 'Apraksts
+
+      '
+    no_docs_found: Dokumentācija nav atrasta
+    no_docs_found_descr: 'Neviena Jūsu API dokumentācija nav atrasta.
+
+      '
     follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
-    examples:
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    follow_instructions_href: "turpmāki norādījumi\n\n"
+    oops: Ups!!
+    resource_not_found_html: Resurss %{resource} nav atrasts.
+    method_not_found_html: "Metode %{method} resursam %{resource} nav atrasta.\n\n"
+    goto_homepage_html: Mēģiniet doties uz %{href}
+    goto_homepage_href: "%{app_name} Lietojumprogrammu saskarnes (API) dokumentācijas
+      sākumlapa\n"
+    required: obligāts
+    optional: neobligāts
+    nil_allowed: nulle atļauta
+    param_name: Parametra nosaukums
+    params: Parametri
+    examples: Piemēri
+    metadata: Metadati
+    errors: Kļūdas
+    error_code: 'Kods
+
+      '
+    error_description: Apraksts
+    error_metadata: Metadati
+    supported_formats: Atbalstītie formāti
+    enable_javascript_html: Lūdzu, iespējojiet JavaScript, lai skatītu %{comments_href}.
+    comments_powered_by_disqus: 'komentārus nodrošina %{disqus}
+
+      '
+    api_documentation: 'Lietojumprogrammu saskarnes (API) dokumentācija
+
+      '
+    headers: Galvene
+    header_name: Galvenes nosaukums
+    code: Kods
