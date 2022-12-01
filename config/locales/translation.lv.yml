@@ -7,22 +7,22 @@
 ---
 lv:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: atcelt
+    passwords: paroles
+    new: jauns
+    active: aktīvs
+    expired: beidzies derīguma termiņš
+    preview: priekšskatījums
+    audit: audits
+    pages: lapas
+    users: lietotāji
+    sign_in: Pieslēgties
+    sign_out: izrakstīties
+    sign_up: reģistrēties
+    password: parole
+    edit: rediģēt
+    confirmation: apstiprinājums
+    unlock: atbloķēt
   date:
     day_names:
     - svētdiena
@@ -82,36 +82,36 @@ lv:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
-          thousand:
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          thousand: Tūkstoš
+          million: Miljons
+          billion: Miljards
+          trillion: Kvintiljons
+          quadrillion: Kvadriljons
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Pārbaude neizdevās: %{errors}'
+      model_invalid: 'Validācija neizdevās: %{errors}'
       inclusion: nav iekļauts sarakstā
       exclusion: nav pieejams
       invalid: nav derīgs
-      confirmation: nesakrīt ar apstiprinājumu
+      confirmation: Nesakrīt ar %{attribute}
       accepted: ir jāpiekrīt
       empty: ir jābūt aizpildītam
       blank: ir jābūt aizpildītam
-      present:
+      present: jābūt neaizpildītam
       too_long:
-        one: ir par garu (maksimums ir %{count} simbols)
-        other: ir par garu (maksimums ir %{count} simboli)
+        one: ir par garu (maksimums ir %{count} rakstzīme)
+        other: ir par garu (maksimums ir %{count} rakstzīmes)
       too_short:
-        one: ir par īsu (minimums ir %{count} simbols)
-        other: ir par īsu (minimums ir %{count} simboli)
+        one: ir par īsu (minimums ir %{count} rakstzīme)
+        other: ir par īsu (minimums ir %{count} rakstzīmes)
       wrong_length:
-        one: ir nepareizs garums (jābūt %{count} simbolam)
-        other: ir nepareizs garums (jābūt %{count} simboliem)
+        one: ir nepareizs garums (jābūt %{count} rasktzīmei)
+        other: ir nepareizs garums (jābūt %{count} rakstzīmēm)
       not_a_number: nav skaitlis
       not_an_integer: ir jābūt veselam skaitlim
       greater_than: ir jābūt lielākam par %{count}
@@ -119,24 +119,28 @@ lv:
       equal_to: ir jābūt vienādam ar %{count}
       less_than: ir jābūt mazākam par %{count}
       less_than_or_equal_to: ir jābūt mazākam vai vienādam ar %{count}
-      other_than:
-      in:
+      other_than: jābūt citam, nevis %{count}
+      in: jābūt %{count}
       odd: ir jābūt nepāra skaitlim
       even: ir jābūt pāra skaitlim
-      required:
-      taken: ir jau aizņemts
+      required: ir jābūt
+      taken: jau ir aizņemts
       already_confirmed: ir jau apstiprināts, lūdzu, mēģiniet pieslēgties
       confirmation_period_expired: nepieciešama apstiprināšana %{period} laikā, lūdzu,
         piesakieties jaunam
-      expired: derīgums beidzies, lūdzu, piesakieties jaunam
-      not_found: netika atrasts
+      expired: derīguma termiņš beidzies, lūdzu, piesakieties jaunam
+      not_found: nav atrasts
       not_locked: netika nobloķēts
       not_saved:
         one: "%{resource} netika saglabāts %{count} kļūdas dēļ:"
         other: "%{resource} netika saglabāts %{count} kļūdu dēļ:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: 'Sesija %{id} vairs nav pieejama atmiņā. Ja izmantojat vairāku
+      procesu serveri (piemēram, Unicorn vai Puma), šis pieprasījuma trāpījums nesaglabājas
+      %{id} atmiņā. Apsveriet iespēju palielināt procesu/strādņu skaitu uz vienu (1)
+      vai izmantot citu serveri izstrādes procesā. '
+    unacceptable_request: Atbalstīta versija ir paredzēta galvenē Piekrist
+    connection_refused: Ak vai! Neizdevās izveidot savienojumu ar tīmekļa konsoles
+      starpprogrammatūru. Lūdzu, pārliecinieties, vai darbojas Rails izstrādes serveris.
   activerecord:
     errors:
       messages:
@@ -144,7 +148,7 @@ lv:
 
           '
         restrict_dependent_destroy:
-          has_one:
+          has_one: Ierakstu nevar izdzēst, jo pastāv atkarīgais %{record}
           has_many: Ierakstu nevar izdzēst, jo pastāv atkarīgais %{record}
   datetime:
     distance_in_words:
@@ -191,37 +195,37 @@ lv:
       second: sekunde
   helpers:
     select:
-      prompt: Lūdzu izvēlies
+      prompt: Lūdzu, izvēlieties
     submit:
       create: Izveidot %{model}
       update: Atjaunināt %{model}
       submit: Saglabāt %{model}
   will_paginate:
-    previous_label:
-    next_label:
-    page_gap:
-    container_aria_label:
-    page_aria_label:
+    previous_label: "&#8592; Iepriekšējais\n"
+    next_label: Nākamais &#8594;
+    page_gap: "&hellip;\n"
+    container_aria_label: Lapdale
+    page_aria_label: Lapa %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: "%{model} nav atrasts"
+        one: Tiek attēlots %{model}
+        other: Tiek attēloti visi %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
-      multi_page:
-      multi_page_html:
+        zero: "%{model} nav atrasts"
+        one: Tiek attēlots <b>1</b> %{model}
+        other: 'Tiek attēlots <b>all&nbsp;%{count}</b> %{model} '
+      multi_page: Kopā tiek attēlots %{model} %{from} - %{to} no %{count}
+      multi_page_html: Kopā tiek attēlots %{model} <b>%{from} - %{to}</b> no <b>%{count}</b>
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} tika veiksmīgi izveidots."
       update:
-        notice:
+        notice: "%{resource_name} tika veiksmīgi atjaunināts."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} tika veiksmīgi iznīcināts."
+        alert: "%{resource_name} nevarēja iznīcināt."
   devise:
     confirmations:
       confirmed: Jūsu e-pasta adrese ir veiksmīgi apstiprināta.
@@ -229,17 +233,17 @@ lv:
         kā apstiprināt savu e-pasta adresi.
 
         '
-      send_paranoid_instructions: "Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pāris
-        minūšu laikā Jūs saņemsiet e-pasta ziņojumu ar norādījumiem, kā apstiprināt
+      send_paranoid_instructions: "Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pēc
+        dažām minūtēm Jūs saņemsiet e-pasta ziņojumu ar norādījumiem, kā apstiprināt
         savu e-pasta adresi.\n\n"
-      resend_title: Atkārtoti nosūtīt apstiprinājuma instrukcijas
-      resend_header: Atkārtoti nosūtīt apstiprinājuma instrukcijas
+      resend_title: Atkārtoti nosūtīt apstiprinājuma norādījumus
+      resend_header: Atkārtoti nosūtīt apstiprinājuma norādījumus
       resend_button: Atkārtoti nosūtīt
     failure:
       already_authenticated: Jūs jau esiet pieslēdzies.
       inactive: Jūsu konts vēl nav aktivizēts.
       invalid: Nepareizs %{authentication_keys} vai parole.
-      locked: Jūsu konts ir nobloķēts.
+      locked: Jūsu konts ir bloķēts.
       last_attempt: Jums ir atlicis pēdējais mēģinājums, pirms jūsu konts tiks bloķēts.
       not_found_in_database: Nepareizs %{authentication_keys} vai parole.
       timeout: Jūsu sesijas laiks ir beidzies. Lūdzu, pieslēdzieties vēlreiz, lai
@@ -252,9 +256,9 @@ lv:
       confirmation_instructions:
         subject: Apstiprinājuma norādījumi
       reset_password_instructions:
-        subject: Paroles atiestatīšanas noteikumi
+        subject: Paroles atiestatīšanas norādījumi
       unlock_instructions:
-        subject: Atbloķēšanas noteikumi
+        subject: Atbloķēšanas norādījumi
       email_changed:
         subject: E-pasts nomainīts
       password_change:
@@ -268,15 +272,15 @@ lv:
         ka izmantojāt pilno URL adresi. '
       send_instructions: 'Pēc dažām minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem,
         kā atiestatīt paroli. '
-      send_paranoid_instructions: 'Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pāris
-        minūšu laikā uz e-pasta adresi saņemsiet paroles atkopšanas saiti. '
+      send_paranoid_instructions: 'Ja Jūsu e-pasta adrese ir mūsu datubāzē, tad pēc
+        dažām minūtēm uz e-pasta adresi saņemsiet paroles atkopšanas saiti. '
       updated: Jūsu parole ir veiksmīgi nomainīta. Jūs esat pieslēdzies.
       updated_not_active: Jūsu parole ir veiksmīgi nomainīta.
       reset_title: Atiestatīt paroli
       reset_button: Atjaunināt kontu
       forgot_title: Aizmirsu paroli
       forgot_header: Aizmirsu paroli
-      forgot_button: Nosūtīt atiestatīšanas noteikumus
+      forgot_button: Nosūtīt atiestatīšanas norādījumus
     registrations:
       destroyed: Uz redzēšanos! Jūsu konts ir veiksmīgi dzēsts. Ceram Jūs drīzumā
         redzēt atkal.
@@ -295,7 +299,7 @@ lv:
       updated_but_not_signed_in: Jūsu konts ir veiksmīgi atjaunināts, taču, tā kā
         parole tika mainīta, ir nepieciešams pierakstīties vēlreiz.
       update_email: Atjaunināt e-pastu
-      currently_waiting: Pašlaik tiek gaidīts apstiprinājums
+      currently_waiting: Pašlaik gaida apstiprinājumu
       change_password: Mainīt paroli
       change_password_hint: Ja nevēlaties to mainīt, atstājiet tukšu.
       new_password: Jaunā parole
@@ -303,7 +307,7 @@ lv:
       password: parole
       password_minimum: Nepieciešamas vismaz %d rakstzīmes. Jo vairāk rakstzīmes,
         jo labāk.
-      verification: 'Verificēsana '
+      verification: Verifikācija
       verification_text: Ievadiet savu pašreizējo paroli, lai apstiprinātu iepriekš
         minētās izmaiņas.
       update_account: Atjaunināt kontu
@@ -316,9 +320,9 @@ lv:
         kā atbloķēt savu kontu.
       send_paranoid_instructions: Ja Jūsu konts eksistē mūsu datubāzē, tad pēc dažām
         minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem, kā atbloķēt savu kontu.
-      unlocked: Jūsu lietotājs ir veiksmīgi atbloķēts. Jūs esat pieslēdzies.
-      unlock_title:
-      unlock_header:
+      unlocked: Jūsu lietotājs ir veiksmīgi atbloķēts. Lūdzu, pierakstieties.
+      unlock_title: Atkārtoti nosūtīt atbloķēšanas norādījumus
+      unlock_header: Atkārtoti nosūtīt atbloķēšanas norādījumus
       unlock_button: Atkārtoti nosūtīt
     general:
       remember_me: Atcerēties mani
@@ -338,7 +342,7 @@ lv:
     no_docs_found_descr: 'Neviena Jūsu API dokumentācija nav atrasta.
 
       '
-    follow_instructions_html:
+    follow_instructions_html: Sekojiet %{href}, lai aprakstītu Jūsu kontrollerus.
     follow_instructions_href: "turpmāki norādījumi\n\n"
     oops: Ups!!
     resource_not_found_html: Resurss %{resource} nav atrasts.
