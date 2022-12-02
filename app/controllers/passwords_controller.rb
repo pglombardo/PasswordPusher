@@ -60,6 +60,9 @@ class PasswordsController < ApplicationController
       format.html { render layout: 'bare' }
       format.json { render json: @password.to_json(payload: true) }
     end
+
+    # Expire if this is the last view for this push
+    @password.expire if !@password.views_remaining.positive?
   end
 
   # GET /passwords/new

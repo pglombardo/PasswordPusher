@@ -5,6 +5,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2 }}
     assert_response :success
 
+    # Push a password with two views
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
@@ -50,6 +51,12 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res['expire_after_views']
+
+    # Check the record directly; it should be expired after the last view
+    password = Password.find_by_url_token!(res["url_token"])
+    assert password.expired
+    assert_nil password.payload
+    assert_equal 0, password.views_remaining
 
     # With the third view, we should have an expired password
     get "/p/" + res["url_token"] + ".json"
