@@ -62,7 +62,7 @@ class PasswordsController < ApplicationController
     end
 
     # Expire if this is the last view for this push
-    @password.expire if @password.views_remaining == 0
+    @password.expire if !@password.views_remaining.positive?
   end
 
   # GET /passwords/new
