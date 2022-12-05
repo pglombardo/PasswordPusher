@@ -12,16 +12,15 @@ task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
 
-  Password.where(expired: false)
-          .in_batches(of: 500) do |batch|
-    batch.each do |push|
-      counter += 1
+  Password.where(expired: false).find_each do |push|
+    counter += 1
 
-      push.validate!
-      if push.expired
-        puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
-        expiration_count += 1
-      end
+    push.validate!
+    if push.expired
+      puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
+      expiration_count += 1
+    # else
+    #   puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} is still active."
     end
   end
 
@@ -57,13 +56,11 @@ task delete_expired_and_anonymous: :environment do
   Password.includes(:views)
           .where(expired: true)
           .where(user_id: nil)
-          .in_batches(of: 500) do |batch|
-    batch.each do |push|
-      counter += 1
-      puts "#{counter}: Deleting expired and anonymous push #{push.url_token} created on " \
-          "#{push.created_at.to_s(:long)} with #{push.views.size} views."
-      push.destroy
-    end
+          .find_each do |push|
+    counter += 1
+    puts "#{counter}: Deleting expired and anonymous push #{push.url_token} created on " \
+         "#{push.created_at.to_s(:long)} with #{push.views.size} views."
+    push.destroy
   end
 
   puts "#{counter} total pushes deleted."
