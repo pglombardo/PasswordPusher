@@ -217,6 +217,9 @@ If you would like to volunteer and assist in translating, see [this page](https:
 * Danish
   * Finn Skaaning
 
+* Finnish
+  * [Mihail Tchetchelnitski](https://github.com/mtchetch)
+
 * French
   * [Thibaut](https://github.com/tibo59)
 
