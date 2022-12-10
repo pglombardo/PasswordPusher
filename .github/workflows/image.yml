@@ -54,7 +54,7 @@ jobs:
         run: echo "${{ env.DOCKER_TAG}}"
 
       - name: Build and push pwpush-ephemeral Docker images
-        uses: docker/build-push-action@v2.7.0
+        uses: docker/build-push-action@v3.2.0
         with:
           file: ./containers/docker/pwpush-ephemeral/Dockerfile
           platforms: linux/amd64,linux/arm64
@@ -96,7 +96,7 @@ jobs:
         run: echo "${{ env.DOCKER_TAG}}"
 
       - name: Build and push pwpush-postgres Docker images
-        uses: docker/build-push-action@v2.7.0
+        uses: docker/build-push-action@v3.2.0
         with:
           file: ./containers/docker/pwpush-postgres/Dockerfile
           platforms: linux/amd64,linux/arm64
@@ -138,7 +138,7 @@ jobs:
         run: echo "${{ env.DOCKER_TAG}}"
 
       - name: Build and push pwpush-mysql Docker images
-        uses: docker/build-push-action@v2.7.0
+        uses: docker/build-push-action@v3.2.0
         with:
           file: ./containers/docker/pwpush-mysql/Dockerfile
           platforms: linux/amd64,linux/arm64
