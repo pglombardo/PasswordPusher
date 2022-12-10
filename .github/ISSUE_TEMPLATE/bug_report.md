@@ -8,6 +8,8 @@ assignees:
 
 ## 🐛 Bug Report
 
+<!-- If something isn't working for you, we definitely want to know.  Thanks for filing an issue! -->
+
 <!-- A clear and concise description of what the bug is. -->
 
 ## 🔬 How To Reproduce
@@ -22,12 +24,23 @@ Steps to reproduce the behavior:
 
 ### Environment
 
-* OS: [e.g. Linux / Windows / macOS]
-* Python version, get it with:
+Where are you running/using Password Pusher?
 
-```bash
-python --version
-```
+- [ ] pwpush.com
+- [ ] Docker
+  - [ ] pwpush-ephemeral
+  - [ ] pwpush-mysql
+  - [ ] pwpush-postgres
+  - [ ] custom image
+- [ ] Heroku
+- [ ] Digital Ocean
+- [ ] Microsoft Azure
+- [ ] Google Cloud
+- [ ] AWS
+- [ ] Source Code
+- [ ] Other (please specify)
+
+If applicable, what version of Password Pusher?
 
 ### Screenshots
 
