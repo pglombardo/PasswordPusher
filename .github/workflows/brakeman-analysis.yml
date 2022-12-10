@@ -27,7 +27,10 @@ jobs:
       with:
         ruby-version: '3.0'
 
-    - name: Brakeman linter
-      uses: devmasx/brakeman-linter-action@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Run brakeman with reviewdog
+      uses: reviewdog/action-brakeman@v2.4.0
+      # env:
+      #   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        reporter: github-pr-review
+
