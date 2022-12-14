@@ -213,21 +213,21 @@ If you would like to volunteer and assist in translating, see [this page](https:
 
 | Name   | Language  | |
 |---|---|---|
-| [Oyale](https://github.com/oyale) | Catalan | |
-| Finn Skaaning  |  Danish | |
-| [Mihail Tchetchelnitski](https://github.com/mtchetch)  | Finnish  | |
-| [Thibaut](https://github.com/tibo59) | French | |
-| Thomas Wölk | German | [Github](https://github.com/confluencepoint/), [Twitter](https://twitter.com/confluencepoint) |
-| Martin Otto |German | |
-| Robin Jørgensen |Norwegian | |
-| [Łukasz](https://github.com/drpt)|Polish | |
-| [Jair Henrique](https://github.com/jairhenrique/) | Portuguese | |
-| [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)| Portuguese | |
-| [Ivan Freitas](https://github.com/IvanMFreitas)| Portuguese | |
-| Sara Faria| Portuguese | |
-| [Oyale](https://github.com/oyale) |Spanish | |
-| johan323 |Swedish | |
-| Fredrik Arvas|Swedish | |
+| [Oyale](https://github.com/oyale) | [Catalan](https://pwpush.com/ca) | |
+| Finn Skaaning  |  [Danish](https://pwpush.com/da/p/ny) | |
+| [Mihail Tchetchelnitski](https://github.com/mtchetch)  | [Finnish](https://pwpush.com/fi/p/uusi)  | |
+| [Thibaut](https://github.com/tibo59) | [French](https://pwpush.com/fr/p/Nouveau) | |
+| Thomas Wölk | [German](https://pwpush.com/de/p/neu) | [Github](https://github.com/confluencepoint/), [Twitter](https://twitter.com/confluencepoint) |
+| Martin Otto |[German](https://pwpush.com/de/p/neu) | |
+| Robin Jørgensen |[Norwegian](https://pwpush.com/no/p/ny) | |
+| [Łukasz](https://github.com/drpt)|[Polish](https://pwpush.com/pl/p/nowy) | |
+| [Jair Henrique](https://github.com/jairhenrique/) | [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Ivan Freitas](https://github.com/IvanMFreitas)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| Sara Faria| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Oyale](https://github.com/oyale) |[Spanish](https://pwpush.com/pt-br/p/novo) | |
+| johan323 |[Swedish](https://pwpush.com/sv/p/ny) | |
+| Fredrik Arvas|[Swedish](https://pwpush.com/sv/p/ny) | |
 
 Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
 
