@@ -211,40 +211,23 @@ Thanks to our great translators!
 
 If you would like to volunteer and assist in translating, see [this page](https://pwpush.com/en/pages/translate).
 
-* Catalan
-  * [Oyale](https://github.com/oyale)
-
-* Danish
-  * Finn Skaaning
-
-* Finnish
-  * [Mihail Tchetchelnitski](https://github.com/mtchetch)
-
-* French
-  * [Thibaut](https://github.com/tibo59)
-
-* German
-  * Thomas Wölk: [Github](https://github.com/confluencepoint/) | [Twitter](https://twitter.com/confluencepoint)
-  * Martin Otto
-
-* Norwegian
-  * Robin Jørgensen
-
-* Polish
-  * [Łukasz](https://github.com/drpt)
-
-* Portuguese
-  * [Jair Henrique](https://github.com/jairhenrique/)
-  * [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)
-  * [Ivan Freitas](https://github.com/IvanMFreitas)
-  * Sara Faria
-
-* Spanish
-  * [Oyale](https://github.com/oyale)
-
-* Swedish
-  * johan323
-  * Fredrik Arvas
+| Name   | Language  | |
+|---|---|---|
+| [Oyale](https://github.com/oyale) | Catalan | |
+| Finn Skaaning  |  Danish | |
+| [Mihail Tchetchelnitski](https://github.com/mtchetch)  | Finnish  | |
+| [Thibaut](https://github.com/tibo59) | French | |
+| Thomas Wölk | German | [Github](https://github.com/confluencepoint/), [Twitter](https://twitter.com/confluencepoint) |
+| Martin Otto |German | |
+| Robin Jørgensen |Norwegian | |
+| [Łukasz](https://github.com/drpt)|Polish | |
+| [Jair Henrique](https://github.com/jairhenrique/) | Portuguese | |
+| [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)| Portuguese | |
+| [Ivan Freitas](https://github.com/IvanMFreitas)| Portuguese | |
+| Sara Faria| Portuguese | |
+| [Oyale](https://github.com/oyale) |Spanish | |
+| johan323 |Swedish | |
+| Fredrik Arvas|Swedish | |
 
 Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
 
