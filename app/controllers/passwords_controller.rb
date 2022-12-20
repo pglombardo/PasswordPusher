@@ -105,30 +105,15 @@ class PasswordsController < ApplicationController
       return
     end
 
-        # Rejected change - TBD
-        # payload_param = params.fetch(:password, {}).fetch(:payload, '')
-        # files_param = params.fetch(:password, {}).fetch(:files, [])
-    
-        # if payload_param.blank? && files_param.empty?
-        #   error_text = { error: 'No password, text or files provided.  Try again.' }
-
-    # params[:password][:payload] has to exist
+    # params[:password][:payload] || params[:password][:payload] has to exist
     # params[:password][:payload] can't be blank
     # params[:password][:payload] must have a length between 1 and 1 megabyte
     payload_param = password_param.fetch(:payload, '')
-    unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
+    files_param   = password_param.fetch(:files, [])
+    unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty?
       respond_to do |format|
-        format.html { render action: 'new', status: :ok, error: error_text[:error] }
-        format.json { render json: error_text.to_json, status: :bad_request }
-      end
-      return
-    end
-
-    if payload_param.length > 1.megabyte
-      respond_to do |format|
-        error_text = { error: 'Text payload is too long (max 1MB).' }
-        format.html { render action: 'new', status: :ok, error: error_text[:error]  }
-        format.json { render json: error_text.to_json, status: :bad_request }
+        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.json { render json: '{}', status: :bad_request }
       end
       return
     end
