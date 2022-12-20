@@ -425,9 +425,42 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
+files:
+  # Option to control whether file uploads are enabled
+  enabled: false
+
+  # File Storage
+  #
+  # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
+  # or Microsoft Azure.
+  #
+  # Choose your file storage preference by setting the following option to
+  # one of the following values:
+  #   * local     - use local disk (likely won't work in container environments)
+  #   * amazon    - use Amazon S3 (and provide credentials below)
+  #   * google    - use Google Cloud Services (and provide credentials below)
+  #   * microsoft - use Microsoft Azure (and provide credentials below)
+  #
+  storage: 'local'
+  #
+  # amazon:
+  #   access_key_id:
+  #   secret_access_key:
+  #   region: 'us-east-1'
+  #   bucket: 'local-pwpush-prod'
+  #
+  # google:
+  #   project:
+  #   credentials:
+  #   bucket:
+  #
+  # microsoft:
+  #   storage_account_name:
+  #   storage_access_key:
+  #   container:
+
+
 ### Language & Internationalization
-#
-# This should not be touched for 99% of use cases..
 #
 # List of supported languages indexed by language code.  This is used
 # to build the in application language menu.
