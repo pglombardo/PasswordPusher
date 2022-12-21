@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
 
     apipie
+
     localized do
       devise_for :users, skip: :registrations, controllers: {
         sessions: 'users/sessions',
@@ -51,9 +52,11 @@ Rails.application.routes.draw do
 
   # This allows for running the application in a subfolder.  See config/settings.yml (relative_root)
   if Settings.relative_root
-    scope(:path => Settings.relative_root) do
+    scope("#{Settings.relative_root}/:locale") do
       routes_config.call
     end
+    # Remap the root to the default locale
+    get Settings.relative_root, to: redirect("/#{Settings.relative_root}/#{I18n.default_locale}", status: 302)
   else
     routes_config.call
   end
