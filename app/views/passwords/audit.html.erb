@@ -6,7 +6,6 @@
         <%= _('Pushed on %s') % I18n.l(@password.created_at, format: :long) %>
     </p>
 
-
     <p><%= _('Secret URL for this push') %>:</p>
     <div class='input-group mb-5 w-75'>
         <input class='form-control', id='secret_url' value='<%= secret_url(@password) %>' spellcheck='false' readonly='true'>
@@ -135,6 +134,71 @@
 
     <div class='row w-100'>
         <div class='col'>
+            <h4 class="border-bottom py-3"><%= _('Payload') %></h4>
+            <div class="list-group mx-0 my-3">
+                <label class="list-group-item d-flex gap-2">
+                <span>
+                    <%= _('Contains Text Payload') %>:
+                    <strong>
+                        <% if @password.payload.nil? or @password.payload.empty? %>
+                            <strong class=''><%= _('No') %></strong>
+                        <% else %>
+                            <strong class='text-success'><%= _('Yes') %></strong>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('Has a text payload been added to this push?') %></small>
+                </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                <span>
+                    <%= _('Payload Length') %>:
+                    <strong>
+                        <% if @password.payload.nil? or @password.payload.empty? %>
+                            <%= _('Not Applicable') %>
+                        <% else %>
+                            <%= @password.payload.length %>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('The length of the attached text payload.') %></small>
+                </span>
+                </label>
+                <label class="list-group-item d-flex gap-2">
+                <span>
+                    <%= _('Number of Files Attached') %>:
+                    <strong>
+                        <% if @password.files.count.positive? %>
+                            <strong class='text-success'><%= @password.files.count %></strong>
+                        <% else %>
+                            <strong class=''><%= @password.files.count %></strong>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('The number of files attached to this push.') %></small>
+                </span>
+                </label>
+            </div>
+        </div>
+        <div class='col'>
+            <h4 class="border-bottom py-3"><%= _('Attached Files') %></h4>
+            <div class="list-group mx-0 my-3">
+                <% if @password.files.count.positive? %>
+                    <% @password.files.each do |file| %>
+                        <label class="list-group-item d-flex gap-2">
+                        <span>
+                            <%= _('Filename:') %>
+                            <strong class=''><%= file.filename %></strong>
+                            <small class="d-block text-muted"><%= _('Size: ') + filesize(file.blob.byte_size) %></small>
+                        </span>
+                        </label>
+                    <% end %>
+                <% else %>
+                    <small class="d-block text-muted"><%= _('None') %></small>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+    <div class='row w-100'>
+        <div class='col'>
             <% if @password.expired == false %>
                 <div class='text-center'>
                 <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -169,11 +233,13 @@
         <div class='col'>
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
-                <div class="list-group-item list-group-item-action list-group-item-primary"><%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %></div>
+                <div class="list-group-item list-group-item-action list-group-item-primary">
+                    <%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %> by <%= @password.user.email %>
+                </div>
 
                 <% if @password.views.empty? && !@password.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
-                        <%= _('As the push receives views, a log of each with identifying information will show up here.') %>
+                        <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
                     </div>
                 <% end %>
 
@@ -185,6 +251,8 @@
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
                             <% end %>
+                            <br/>
+                            <%= _('The push payload & files have been deleted and secret URL expired.') %>
                             <br/>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
