@@ -425,10 +425,22 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
-files:
-  # Option to control whether file uploads are enabled
-  enabled: false
 
+### File Uploads
+#
+# File uploads are disabled by default since they require a place to store
+# those files.
+#
+# If enabling file uploads, make sure to fill out the 'files' section below.
+#
+# Environment variable override:
+# PWP__ENABLE_FILE_UPLOADS='false'
+#
+enable_file_uploads: false
+
+### File Upload: Storage Settings
+#
+files:
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
@@ -437,27 +449,45 @@ files:
   # Choose your file storage preference by setting the following option to
   # one of the following values:
   #   * local     - use local disk (likely won't work in container environments)
-  #   * amazon    - use Amazon S3 (and provide credentials below)
-  #   * google    - use Google Cloud Services (and provide credentials below)
-  #   * microsoft - use Microsoft Azure (and provide credentials below)
+  #   * amazon    - use Amazon S3 (and provide 's3' credentials below)
+  #   * google    - use Google Cloud Storage (and provide 'gcs' credentials below)
+  #   * microsoft - use Microsoft Azure Storage (and provide 'as' credentials below)
+  #
+  # Environment variable override:
+  # PWP__FILES_STORAGE='local'
   #
   storage: 'local'
-  #
-  # amazon:
-  #   access_key_id:
-  #   secret_access_key:
-  #   region: 'us-east-1'
-  #   bucket: 'local-pwpush-prod'
-  #
-  # google:
-  #   project:
-  #   credentials:
-  #   bucket:
-  #
-  # microsoft:
-  #   storage_account_name:
-  #   storage_access_key:
-  #   container:
+
+  # Amazon S3 Storage Credentials
+  s3:
+    # Environment Variable Override: PWP__FILES__S3__ENDPOINT=''
+    endpoint: ''
+    # Environment Variable Override: PWP__FILES__S3__ACCESS_KEY_ID=''
+    access_key_id: '_'
+    # Environment Variable Override: PWP__FILES__S3__SECRET_ACCESS_KEY=''
+    secret_access_key: ''
+    # Environment Variable Override: PWP__FILES__S3__REGION=''
+    region: 'us-east-1'
+    # Environment Variable Override: PWP__FILES__S3__BUCKET=''
+    bucket: 'pwpush-s3'
+
+  # Google Cloud Storage Credentials
+  gcs:
+    # Environment Variable Override: PWP__FILES__GCS__PROJECT=''
+    project: ''
+    # Environment Variable Override: PWP__FILES__GCS__CREDENTIALS=''
+    credentials: ''
+    # Environment Variable Override: PWP__FILES__GCS__BUCKET=''
+    bucket: ''
+
+  # Microsoft Azure Storage Credentials
+  as:
+    # Environment Variable Override: PWP__FILES__AS__STORAGE_ACCOUNT_NAME=''
+    storage_account_name: ''
+    # Environment Variable Override: PWP__FILES__AS__STORAGE_ACCESS_KEY=''
+    storage_access_key: ''
+    # Environment Variable Override: PWP__FILES__AS__CONTAINER=''
+    container: ''
 
 
 ### Language & Internationalization
