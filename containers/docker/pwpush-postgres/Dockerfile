@@ -3,6 +3,15 @@ FROM ruby:3-slim
 
 LABEL maintainer='pglombardo@hey.com'
 
+# Create a user and group to run the application
+ARG UID=1000
+ARG GID=1000
+
+RUN groupadd -g "${GID}" pwpusher \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
+
+USER pwpusher
+
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
