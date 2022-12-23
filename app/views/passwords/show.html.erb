@@ -12,15 +12,13 @@
         </div>
 
         <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
-          <div
-          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white' 
-          id='password_payload' 
-          translate='no'><pre class='w-100 text-break mb-5 mt-5'><%=@payload%></div>
+          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center' id='password_payload' translate='no'>
+            <pre class='text-break my-5'><%=@payload%></pre>
+          </div>
         <% else %>
-          <div
-          class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
-          id='password_payload' 
-          translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=@payload%></div>
+          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' id='password_payload' translate='no'>
+            <pre class='w-100 text-break text-wrap my-5 text-center'><%=@payload%></pre>
+          </div>
         <% end%>
     <% end %>
     <div class='text-center m-3'>
