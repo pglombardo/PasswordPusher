@@ -2,6 +2,7 @@
 
 <div class='container'>
 <%= render partial: "shared/topnav" %>
+
 <%= form_for @push do |f| %>
     <div class='row'>
         <div class='col-sm-8'>
@@ -13,7 +14,7 @@
                             <div data-controller="multi-upload">
                                 <div data-multi-upload-target="files" class="list-group"></div>
                                 <div class="file my-3">
-                                    <%= f.file_field :files, :multiple => true, :data => {:action => "multi-upload#addFile"},  :class => "form-control" %>
+                                    <%= f.file_field :files, { :multiple => true, :data => {:action => "multi-upload#addFile"},  :class => "form-control", :required => true } %>
                                 </div>
                             </div>
                         </div>
@@ -22,7 +23,7 @@
             </div>
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
-                <div class='col-8'>
+                <div class='col-8'> 
                     <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
                                         { :name => "file_push[expire_after_days]",
                                           :class => "form-range",
@@ -89,6 +90,19 @@
             </div>
         </div>
         <div class='col'>
+            <% if ENV.key?('PWPUSH_COM') %>
+                <div class='row mb-3'>
+                    <div class="alert alert-success" role="alert">
+                        <p>
+                            Note: This is a new feature in beta and limited to 5 pushes per account on pwpush.com.
+                            Feedback is appreciated 
+                            <a href="<%= new_feedback_path %>" class="alert-link">here</a> or in
+                            <a href="https://github.com/pglombardo/PasswordPusher/discussions/568" class="alert-link">Github Discussions</a>!
+                        </p>
+                    </div>
+                </div>
+            <% end %>
+
             <div class='row mb-3'>
                 <label for="file_push_payload" class="form-label">Message</label>
                 <%= f.text_area(:payload, { class: "form-control",
@@ -110,18 +124,9 @@
             </div>
             <div class='row mb-3'>
                 <span class="text-muted">
-                    <%= _('An audit log of activity will be maintained for this push indefinitely until deleted.') %>
+                    <%= _('An audit log of activity will be maintained for this push.') %>
                 </span>
             </div>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col'>
-            <p class='mb-3'>
-                <div id='cookie-save'>
-                    <a href='#' id='save-defaults'><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
-                </div>
-            </p>
         </div>
     </div>
     <div class='row'>

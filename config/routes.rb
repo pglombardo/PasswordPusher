@@ -33,8 +33,9 @@ Rails.application.routes.draw do
                   end
       end
 
-      get '/d/active' => 'dashboard#active', as: :dashboard_active
-      get '/d/expired' => 'dashboard#expired', as: :dashboard_expired
+      # Dashboard controller has been removed.  Maintain these redirects for now.
+      get '/d/active', to: redirect('/p/active')
+      get '/d/expired', to: redirect('/p/expired')
 
       resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
         get 'preview', on: :member
