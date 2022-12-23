@@ -1,14 +1,14 @@
-<% title(_('Your Password has been Pushed')) %>
+<% title(_('Your Push Has Been Created')) %>
 
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <h2 class='mt-5'><%= _('Your password has been pushed.') %></h2>
+      <h2 class='mt-5'><%= _('Your push has been created.') %></h2>
 
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
 
       <div class='input-group mb-5'>
-          <input class='form-control' id='secret_url' value="<%=@secret_url%>" spellcheck='false' readonly='true'>
+          <input class='form-control' id='secret_url' value="<%= @secret_url %>" spellcheck='false' readonly='true'>
           <% if Settings.language_codes %>
             <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
           <% end %>
@@ -20,7 +20,7 @@
             <li><hr class="dropdown-divider"></li>
             <% if Settings.language_codes %>
               <% I18n.available_locales.each do |lang| %>
-                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_password_path(@password, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_file_push_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
               <% end %>
             <% end %>
           </ul>
@@ -31,30 +31,30 @@
       </div>
 
       <p class='mb-5'>
-        <%= _('This newly pushed password will expire after') %>
-        <strong><%=@password.expire_after_days%> <%= n_('day', 'days', @password.expire_after_days) %></strong>
+        <%= _('This push will expire after') %>
+        <strong><%=@push.expire_after_days%> <%= n_('day', 'days', @push.expire_after_days) %></strong>
         <%= _('or') %>
-        <strong><%=@password.expire_after_views%> <%= n_('view', 'views', @password.expire_after_views) %></strong>
+        <strong><%=@push.expire_after_views%> <%= n_('view', 'views', @push.expire_after_views) %></strong>
         <%= _('(whichever comes first)') %>
 
-        <% if @password.deletable_by_viewer %>
+        <% if @push.deletable_by_viewer %>
           <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
         <% else %>
           <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
         <% end %>
       </p>
 
-      <% if @password.retrieval_step == true %>
+      <% if @push.retrieval_step == true %>
         <p class='mb-5'><%= _('It also includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.  </p>
       <% end %>
 
       <p class='mb-5'>
-        <%=link_to _('View This Password Now'), secret_url(@password) %> <%= _('(will burn a view) or') %>
-        <%=link_to _('Push Another Password'), new_password_path %>
+        <%=link_to _('View This Push Now'), file_push_secret_url(@push) %> <%= _('(will burn a view) or') %>
+        <%=link_to _('Push Another'), new_file_push_path %>
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_password_path(@password), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+        <%= link_to audit_file_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
           <em class='bi-card-list'></em> <%= _('View Audit Log') %>
         <% end %>
       <% end %>

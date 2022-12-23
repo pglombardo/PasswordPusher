@@ -13,4 +13,9 @@ module ApplicationHelper
   def plain_title(content)
     content_for(:html_title) { content }
   end
+
+  # Used in the topname to set the active tab
+  def current_controller?(names)
+    names.include?(params[:controller])
+  end
 end

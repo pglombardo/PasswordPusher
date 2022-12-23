@@ -441,6 +441,17 @@ enable_file_uploads: false
 ### File Upload: Storage Settings
 #
 files:
+  # Require Login
+  #
+  # To push files, optionally require users to be logged in to use the feature.
+  #
+  # Default: true
+  #
+  # Environment variable override:
+  # PWP__FILES__REQUIRE_LOGIN='true'
+  #
+  require_login: true
+
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
@@ -469,7 +480,7 @@ files:
     # Environment Variable Override: PWP__FILES__S3__REGION=''
     region: 'us-east-1'
     # Environment Variable Override: PWP__FILES__S3__BUCKET=''
-    bucket: 'pwpush-s3'
+    bucket: 'pwpush-files'
 
   # Google Cloud Storage Credentials
   gcs:

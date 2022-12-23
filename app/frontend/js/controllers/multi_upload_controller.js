@@ -22,7 +22,7 @@ export default class extends Controller {
       var fileName = originalInput.files[i].name + ' (' + formatBytes(originalInput.files[i].size) + ')'
   
       const selectedFile = document.createElement("li")
-      selectedFile.classList = "list-group-item selected-file list-group-item-primary"
+      selectedFile.classList = "list-group-item selected-file list-group-item-primary small"
       selectedFile.append(originalInput)
 
       var trashIcon = document.createElement("em")
