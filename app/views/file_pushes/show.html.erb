@@ -2,7 +2,13 @@
 
 <div class="container-fluid h-100 mx-0 py-0 px-0 bg-light">
   <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
-    <% unless @push.payload.empty? %>
+    <% if @push.payload.empty? %>
+        <div class='text-center m-3'>
+          <p class="display-5"><%= _('The following files have been sent to you.') %></p>
+          <p class="text-muted"><%= _('Please download and store in a secure area.') %></p>
+          <hr>
+        </div>
+    <% else %>
         <div class='text-center m-3'>
           <p class=""><strong><%= _('The following message has been sent to you along with the files below.') %></strong></p>
           <p class="text-muted"><%= _('The message is blurred out.  Click below to reveal it.') %></p>

@@ -9,8 +9,8 @@ class FilePushesController < ApplicationController
   else
     # Use auth token (for JSON) if it's there but don't fall back to devise session
     acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
-    # Audit always requires a login
-    acts_as_token_authentication_handler_for User, only: [:audit]
+    # Audit & index always requires a login
+    acts_as_token_authentication_handler_for User, only: [:audit, :index]
   end
 
   resource_description do
@@ -273,6 +273,75 @@ class FilePushesController < ApplicationController
         format.html { render action: 'new' }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def index
+    if !Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @active_pushes = FilePush.includes(:views)
+                             .where(user_id: current_user.id, expired: false)
+                             .paginate(page: params[:page], per_page: 30)
+                             .order(created_at: :desc)
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        json_parts = []
+        @active_pushes.each do |push|
+          json_parts << push.to_json(owner: true, payload: false)
+        end
+        render json: "[" + json_parts.join(",") + "]"
+      }
+    end
+  end
+
+  def active
+    if !Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = Password.includes(:views)
+                      .where(user_id: current_user.id, expired: false)
+                      .paginate(page: params[:page], per_page: 30)
+                      .order(created_at: :desc)
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        json_parts = []
+        @pushes.each do |push|
+          json_parts << push.to_json(owner: true, payload: false)
+        end
+        render json: "[" + json_parts.join(",") + "]"
+      }
+    end
+  end
+  
+  def expired 
+    if !Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = Password.includes(:views)
+                      .where(user_id: current_user.id, expired: true)
+                      .paginate(page: params[:page], per_page: 30)
+                      .order(created_at: :desc)
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        json_parts = []
+        @pushes.each do |push|
+          json_parts << push.to_json(owner: true, payload: false)
+        end
+        render json: "[" + json_parts.join(",") + "]"
+      }
     end
   end
 

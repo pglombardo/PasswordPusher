@@ -259,6 +259,52 @@ class PasswordsController < ApplicationController
     end
   end
 
+  def active
+    if !Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = Password.includes(:views)
+                      .where(user_id: current_user.id, expired: false)
+                      .paginate(page: params[:page], per_page: 30)
+                      .order(created_at: :desc)
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        json_parts = []
+        @pushes.each do |push|
+          json_parts << push.to_json(owner: true, payload: false)
+        end
+        render json: "[" + json_parts.join(",") + "]"
+      }
+    end
+  end
+  
+  def expired 
+    if !Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = Password.includes(:views)
+                      .where(user_id: current_user.id, expired: true)
+                      .paginate(page: params[:page], per_page: 30)
+                      .order(created_at: :desc)
+
+    respond_to do |format|
+      format.html { }
+      format.json {
+        json_parts = []
+        @pushes.each do |push|
+          json_parts << push.to_json(owner: true, payload: false)
+        end
+        render json: "[" + json_parts.join(",") + "]"
+      }
+    end
+  end
+
   private
 
   ##
