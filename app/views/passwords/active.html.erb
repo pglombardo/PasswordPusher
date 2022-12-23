@@ -5,10 +5,10 @@
 <main>
   <% if @pushes.length.zero? %>
     <p class='text-center mt-3'>
-      <%= _('You currently have no active file pushes.') %>
+      <%= _('You currently have no active password pushes.') %>
     </p>
     <p class='text-center'>
-      <%= link_to _('Push Something Now'), root_path, class: 'btn btn-primary' %>
+      <%= link_to _('Push Something Now'), new_password_path, class: 'btn btn-primary' %>
     </p>
   <% else %>
     <div class="text-center my-3">
@@ -41,10 +41,10 @@
           <td><%= "#{push.days_old}/#{push.expire_after_days}"%></td>
           <td>
             <div class="btn-group" role="group" aria-label="<%= _('Push Controls') %>">
-              <%= link_to preview_file_push_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+              <%= link_to preview_password_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
                 <%= _('Preview') %>
               <% end %>
-              <%= link_to audit_file_push_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+              <%= link_to audit_password_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
                 <%= _('Audit') %>
               <% end %>
             </div>

@@ -40,12 +40,16 @@ Rails.application.routes.draw do
         get 'preview', on: :member
         get 'r', on: :member, as: 'preliminary', action: 'preliminary'
         get 'audit', on: :member
+        get 'active', on: :collection
+        get 'expired', on: :collection
       end
-    
+
       resources :f, controller: :file_pushes, as: :file_pushes, except: %i[index edit update] do
         get 'preview', on: :member
         get 'r', on: :member, as: 'preliminary', action: 'preliminary'
         get 'audit', on: :member
+        get 'active', on: :collection
+        get 'expired', on: :collection
       end
 
       resources :c, controller: :commands, as: :commands, allow: %i[create]

@@ -305,7 +305,7 @@ class FilePushesController < ApplicationController
       return
     end
 
-    @pushes = Password.includes(:views)
+    @pushes = FilePush.includes(:views)
                       .where(user_id: current_user.id, expired: false)
                       .paginate(page: params[:page], per_page: 30)
                       .order(created_at: :desc)
@@ -328,7 +328,7 @@ class FilePushesController < ApplicationController
       return
     end
 
-    @pushes = Password.includes(:views)
+    @pushes = FilePush.includes(:views)
                       .where(user_id: current_user.id, expired: true)
                       .paginate(page: params[:page], per_page: 30)
                       .order(created_at: :desc)
