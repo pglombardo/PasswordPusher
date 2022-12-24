@@ -18,7 +18,7 @@ class FilePushesController < ApplicationController
     short 'Interact directly with file pushes.'
   end
 
-  api :GET, '/f/:url_token.json', 'Retrieve a push.'
+  api :GET, '/f/:url_token.json', 'Retrieve a file push.'
   param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/fk27vnslkd.json'
@@ -92,7 +92,7 @@ class FilePushesController < ApplicationController
 
   end
 
-  api :POST, '/p.json', 'Create a new push.'
+  api :POST, '/f.json', 'Create a new file push.'
   param :file_push, Hash, "Push details", required: true do
     param :payload, String, desc: 'The file_push or secret text to share.', required: true
     param :note, String, desc: 'If authenticated, the note to label this push.', allow_blank: true
@@ -102,37 +102,45 @@ class FilePushesController < ApplicationController
     param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
   end
   formats ['json']
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "file_push[payload]=myfile_push&file_push[expire_after_days]=2&file_push[expire_after_views]=10" https://pwpush.com/p.json'
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "file_push[payload]=myfile_push&file_push[expire_after_days]=2&file_push[expire_after_views]=10" https://pwpush.com/f.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
+    @push = FilePush.new
 
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
     file_push_param = params.fetch(:file_push, {})
     if !file_push_param.respond_to?(:fetch)
       respond_to do |format|
-        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.html { render :new, status: :bad_request }
         format.json { render json: '{}', status: :bad_request }
       end
       return
     end
 
-    # params[:file_push][:payload] || params[:file_push][:payload] has to exist
-    # params[:file_push][:payload] can't be blank
     # params[:file_push][:payload] must have a length between 1 and 1 megabyte
     payload_param = file_push_param.fetch(:payload, '')
     files_param   = file_push_param.fetch(:files, [])
     unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty?
       respond_to do |format|
-        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.html { render :new, status: :bad_request }
         format.json { render json: '{}', status: :bad_request }
       end
       return
     end
 
-    @push = FilePush.new
+    @push_count = FilePush.where(user_id: current_user.id, expired: false).count
+    if @push_count >= 5
+      respond_to do |format|
+        format.html { render :new, status: :bad_request }
+        format.json { render json: '{}', status: :bad_request }
+      end
+      return
+    end
+
     @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.expire_after_days_default)
     @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.expire_after_views_default)
     @push.user_id = current_user.id if user_signed_in?
@@ -276,29 +284,6 @@ class FilePushesController < ApplicationController
     end
   end
 
-  def index
-    if !Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @active_pushes = FilePush.includes(:views)
-                             .where(user_id: current_user.id, expired: false)
-                             .paginate(page: params[:page], per_page: 30)
-                             .order(created_at: :desc)
-
-    respond_to do |format|
-      format.html { }
-      format.json {
-        json_parts = []
-        @active_pushes.each do |push|
-          json_parts << push.to_json(owner: true, payload: false)
-        end
-        render json: "[" + json_parts.join(",") + "]"
-      }
-    end
-  end
-
   def active
     if !Settings.enable_logins
       redirect_to :root
@@ -321,8 +306,8 @@ class FilePushesController < ApplicationController
       }
     end
   end
-  
-  def expired 
+
+  def expired
     if !Settings.enable_logins
       redirect_to :root
       return

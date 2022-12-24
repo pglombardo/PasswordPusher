@@ -17,6 +17,8 @@ export default class extends Controller {
     const originalInput = event.target
     const originalParent = originalInput.parentNode
 
+    originalInput.removeAttribute('required');
+
     var arrayLength = event.target.files.length;
     for (var i = 0; i < arrayLength; i++) {
       var fileName = originalInput.files[i].name + ' (' + formatBytes(originalInput.files[i].size) + ')'
@@ -50,6 +52,5 @@ export default class extends Controller {
 
     list.removeChild(listItem)
   }
-  
 
 }

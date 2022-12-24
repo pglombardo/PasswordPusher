@@ -90,19 +90,6 @@
             </div>
         </div>
         <div class='col'>
-            <% if ENV.key?('PWPUSH_COM') %>
-                <div class='row mb-3'>
-                    <div class="alert alert-success" role="alert">
-                        <p>
-                            Note: This is a new feature in beta and limited to 5 pushes per account on pwpush.com.
-                            Feedback is appreciated 
-                            <a href="<%= new_feedback_path %>" class="alert-link">here</a> or in
-                            <a href="https://github.com/pglombardo/PasswordPusher/discussions/568" class="alert-link">Github Discussions</a>!
-                        </p>
-                    </div>
-                </div>
-            <% end %>
-
             <div class='row mb-3'>
                 <label for="file_push_payload" class="form-label">Message</label>
                 <%= f.text_area(:payload, { class: "form-control",
@@ -127,6 +114,11 @@
                     <%= _('An audit log of activity will be maintained for this push.') %>
                 </span>
             </div>
+            <% if ENV.key?('PWPUSH_COM') %>
+                <div class="row text-bg-warning p-3">
+                    <%= _('Note: This new feature is temporarily limited to 5 active file pushes per user while in beta.') %>
+                </div>
+            <% end %>
         </div>
     </div>
     <div class='row'>
