@@ -11,19 +11,26 @@
                     <div class="card">
                         <h5 class="card-header">Add Files...</h5>
                         <div class="card-body">
+                            <div id="progress-bars" class="list-group"></div>
                             <div data-controller="multi-upload">
-                                <div data-multi-upload-target="files" class="list-group"></div>
+                                <div id="selected-files" data-multi-upload-target="files" class="list-group"></div>
                                 <div class="file my-3">
-                                    <%= f.file_field :files, { :multiple => true, :data => {:action => "multi-upload#addFile"},  :class => "form-control", :required => true } %>
+                                    <%= f.file_field :files,
+                                                     multiple: true,
+                                                     required: true,
+                                                     direct_upload: true,
+                                                     class: "form-control",
+                                                     data: { action: "multi-upload#addFile" } %>
                                 </div>
                             </div>
                         </div>
+                        <div id="file-count-footer" class="card-footer text-muted"> <%= _('You can upload up to 10 files per push.') %> </div>
                     </div>
                 </div>
             </div>
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
-                <div class='col-8'> 
+                <div class='col-8'>
                     <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
                                         { :name => "file_push[expire_after_days]",
                                           :class => "form-range",
@@ -115,8 +122,8 @@
                 </span>
             </div>
             <% if ENV.key?('PWPUSH_COM') %>
-                <div class="row text-bg-warning p-3">
-                    <%= _('Note: This new feature is temporarily limited to 5 active file pushes per user while in beta.') %>
+                <div class="row text-bg-info rounded-3 p-3">
+                    <%= _('Note: This new feature is temporarily limited to 10 active file pushes per user while in beta.') %>
                 </div>
             <% end %>
         </div>

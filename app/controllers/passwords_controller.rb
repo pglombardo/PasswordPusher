@@ -245,10 +245,10 @@ class PasswordsController < ApplicationController
         format.html {
           if is_owner
             redirect_to audit_password_path(@password),
-                        notice: _('The push payload & content have been deleted and the secret URL expired.')
+                        notice: _('The push content has been deleted and the secret URL expired.')
           else
             redirect_to @password,
-                        notice: _('The push payload & content have been deleted and the secret URL expired.')
+                        notice: _('The push content has been deleted and the secret URL expired.')
           end
         }
         format.json { render json: @password, status: :ok }

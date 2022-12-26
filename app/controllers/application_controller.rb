@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
   around_action :set_locale_from_url
 
+  add_flash_types :info, :error, :success, :warning
+
   def not_found
     raise ActionController::RoutingError.new(_('Not Found'))
   end

@@ -136,16 +136,16 @@
         <div class='col'>
             <% if @password.expired == false %>
                 <div class='text-center'>
-                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
                 <em class="bi bi-trash"></em> <%= _('Expire Now') %>
                 </button>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete This Password?') %></h5>
+                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Password?') %></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -187,7 +187,7 @@
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
                             <% end %>
                             <br/>
-                            <%= _('The push payload & content have been deleted and the secret URL expired.') %>
+                            <%= _('The push content has been deleted and the secret URL expired.') %>
                             <br/>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>

@@ -53,7 +53,7 @@
         <% end %>
       </p>
       <% if @push.deletable_by_viewer %>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
           <em class="bi bi-trash"></em> <%= _('Delete This Secret Link Now') %>
         </button>
       <% end %>
@@ -61,22 +61,24 @@
   </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete?') %></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= _('This will expire this secret link and ') %>
-        <strong><%= _('delete all related content from the database forever') %></strong>.
-        <%= _('Are you sure?') %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-        <%= link_to _('Delete'), @push, method: :delete, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: _('Processing...') %>
+<% if @push.deletable_by_viewer %>
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel"><%= _('Delete?') %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= _('This will expire this secret link and ') %>
+          <strong><%= _('delete all related content from the database forever') %></strong>.
+          <%= _('Are you sure?') %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+          <%= link_to _('Delete'), @push, method: :delete, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow', 'data-disable-with': _('Processing...') %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

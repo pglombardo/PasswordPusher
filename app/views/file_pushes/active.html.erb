@@ -20,6 +20,7 @@
           <th scope="col"><%= _('Push ID') %></th>
           <th scope="col"><%= _('Created') %></th>
           <th scope="col"><%= _('Note') %></th>
+          <th scope="col" class="text-center"><%= _('File Count') %></th>
           <th scope="col" class="text-center"><%= _('Views') %></th>
           <th scope="col" class="text-center"><%= _('Days') %></th>
           <th scope="col" class="text-center"><em class='bi-tools'></em></th>
@@ -39,6 +40,7 @@
               </div>
             <% end %>
           </td>
+          <td class="text-center"><%= "#{push.files.size}" %></td>
           <td class="text-center"><%= "#{push.views.size}/#{push.expire_after_views}"%></td>
           <td class="text-center"><%= "#{push.days_old}/#{push.expire_after_days}"%></td>
           <td class="text-center">

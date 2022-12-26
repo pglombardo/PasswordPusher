@@ -68,8 +68,11 @@ class FilePushesController < ApplicationController
       format.json { render json: @push.to_json(payload: true) }
     end
 
-    # Expire if this is the last view for this push
-    @push.expire if !@push.views_remaining.positive?
+    # We can't expire in this case because the attached files would be deleted and
+    # downloading wouldn't work.
+    # TODO: ActiveJob delete in 15 minutes after last view is shown.
+    # # Expire if this is the last view for this push
+    # @push.expire if !@push.views_remaining.positive?
   end
 
   # GET /file_pushes/new
@@ -108,8 +111,6 @@ class FilePushesController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    @push = FilePush.new
-
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
     file_push_param = params.fetch(:file_push, {})
@@ -133,13 +134,19 @@ class FilePushesController < ApplicationController
     end
 
     @push_count = FilePush.where(user_id: current_user.id, expired: false).count
-    if @push_count >= 5
+    if @push_count >= 10
+      @push = FilePush.new(file_push_params)
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
+        format.html {
+          flash.now[:warning] = _('Only 10 active pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
+          render :new, status: :bad_request
+        }
         format.json { render json: '{}', status: :bad_request }
       end
       return
     end
+
+    @push = FilePush.new
 
     @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.expire_after_days_default)
     @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.expire_after_views_default)
@@ -270,10 +277,10 @@ class FilePushesController < ApplicationController
         format.html {
           if is_owner
             redirect_to audit_file_push_path(@push),
-                        notice: _('The push payload & content have been deleted and the secret URL expired.')
+                        notice: _('The push content has been deleted and the secret URL expired.')
           else
             redirect_to @push,
-                        notice: _('The push payload & content have been deleted and the secret URL expired.')
+                        notice: _('The push content has been deleted and the secret URL expired.')
           end
         }
         format.json { render json: @push, status: :ok }
