@@ -3,9 +3,12 @@ require 'securerandom'
 class PasswordsController < ApplicationController
   helper PasswordsHelper
 
+  # Use auth token (for JSON) if it's there but don't fall back to devise session
   acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
-  acts_as_token_authentication_handler_for User, only: [:audit]
 
+  # Audit & dashboard views (active & expired) always requires a login
+  acts_as_token_authentication_handler_for User, only: [:audit, :active, :expired]
+  
   resource_description do
     name 'Pushes'
     short 'Interact directly with pushes.'

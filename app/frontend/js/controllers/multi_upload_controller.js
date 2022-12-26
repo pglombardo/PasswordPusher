@@ -24,6 +24,7 @@ export default class extends Controller {
     var arrayLength = event.target.files.length
     for (var i = 0; i < arrayLength; i++) {
       if (fileCount >= 10) {
+        this.updateFilesFooter()
         alert("You can only upload 10 files at a time.")
         return
       }
@@ -49,12 +50,16 @@ export default class extends Controller {
       this.filesTarget.append(selectedFile)
     }
 
-    const footer = document.getElementById("file-count-footer")
-    footer.innerHTML = fileCount + " file(s) selected. You can upload up to 10 files per push."
+    this.updateFilesFooter()
 
     const newInput = originalInput.cloneNode()
     newInput.value = ""
     originalParent.append(newInput)
+  }
+
+  updateFilesFooter() {
+    const footer = document.getElementById("file-count-footer")
+    footer.innerHTML = fileCount + " file(s) selected. You can upload up to 10 files per push."
   }
 
   removeFile(event) {

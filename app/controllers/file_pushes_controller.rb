@@ -110,6 +110,8 @@ class FilePushesController < ApplicationController
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      
+    @push = FilePush.new(file_push_params)
 
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
@@ -135,7 +137,6 @@ class FilePushesController < ApplicationController
 
     @push_count = FilePush.where(user_id: current_user.id, expired: false).count
     if @push_count >= 10
-      @push = FilePush.new(file_push_params)
       respond_to do |format|
         format.html {
           flash.now[:warning] = _('Only 10 active pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
