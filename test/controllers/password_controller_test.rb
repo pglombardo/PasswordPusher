@@ -6,6 +6,11 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   setup do
     Settings.enable_logins = true
   end
+  
+  teardown do
+    @luca = users(:luca)
+    sign_out @luca
+  end
 
   test 'New push form is available anonymous' do
     get new_password_path

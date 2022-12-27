@@ -1,12 +1,10 @@
 require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
-  def test_password_deletion
+  def test_anonymous_password_deletion
+    sign_out :user
+
     assert Settings.enable_deletable_pushes == true
-
-    get '/'
-    assert_response :success
-
     # create
     post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect

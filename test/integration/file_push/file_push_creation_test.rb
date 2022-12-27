@@ -12,6 +12,10 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     sign_in @luca
   end
 
+  teardown do
+    sign_out :user
+  end
+
   def test_textarea_has_safeties
     get new_file_push_path
     assert_response :success

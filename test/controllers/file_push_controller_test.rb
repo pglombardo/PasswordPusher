@@ -9,6 +9,11 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  teardown do
+    @luca = users(:luca)
+    sign_out @luca
+  end
+
   test 'New push form is NOT available anonymous' do
     get new_file_push_path
     assert_response :redirect
