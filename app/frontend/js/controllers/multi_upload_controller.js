@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-var fileCount = 0
+let fileCount = 0
 
 function formatBytes(bytes, decimals = 2) {
   if (bytes === 0) return '0 Bytes'
@@ -19,37 +19,37 @@ export default class extends Controller {
     const originalInput = event.target
     const originalParent = originalInput.parentNode
 
-    originalInput.removeAttribute('required')
+    let arrayLength = event.target.files.length
+    if (arrayLength > 10 || fileCount + arrayLength > 10) {
+      alert("You can only upload 10 files at a time.")
+      originalInput.value = ''
+      return
+    }
 
-    var arrayLength = event.target.files.length
-    for (var i = 0; i < arrayLength; i++) {
-      if (fileCount >= 10) {
-        this.updateFilesFooter()
-        alert("You can only upload 10 files at a time.")
-        return
-      }
+    for (let i = 0; i < arrayLength; i++) {
       fileCount += 1
 
-      var fileName = originalInput.files[i].name + ' (' + formatBytes(originalInput.files[i].size) + ')'
+      let fileName = originalInput.files[i].name + ' (' + formatBytes(originalInput.files[i].size) + ')'
 
       const selectedFile = document.createElement("li")
       selectedFile.classList = "list-group-item selected-file list-group-item-primary small"
       selectedFile.append(originalInput)
 
-      var trashIcon = document.createElement("em")
+      let trashIcon = document.createElement("em")
       trashIcon.classList = 'bi bi-trash me-2'
 
-      var trashLink = document.createElement("a")
+      let trashLink = document.createElement("a")
       trashLink.setAttribute('data-action', 'multi-upload#removeFile')
       trashLink.appendChild(trashIcon)
       selectedFile.appendChild(trashLink)
 
-      var textElement = document.createTextNode(fileName);
+      let textElement = document.createTextNode(fileName);
       selectedFile.appendChild(textElement)
 
       this.filesTarget.append(selectedFile)
     }
 
+    originalInput.removeAttribute('required')
     this.updateFilesFooter()
 
     const newInput = originalInput.cloneNode()
