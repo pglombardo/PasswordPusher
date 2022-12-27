@@ -8,7 +8,10 @@
       <%= _('You currently have no active password pushes.') %>
     </p>
     <p class='text-center'>
-      <%= link_to _('Push Something Now'), new_password_path, class: 'btn btn-primary' %>
+      <%= link_to new_password_path, class: 'btn btn-primary' do %>
+        <em class="bi bi-stars"></em>
+        <%= _('Push a Password Now') %>
+      <% end %>
     </p>
   <% else %>
     <div class="text-center my-3">
