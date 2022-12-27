@@ -24,6 +24,11 @@
             <%= link_to _('Expired'), expired_file_pushes_path, class: "btn btn-primary #{ 'active' if current_page?(expired_file_pushes_path) }" %>
         <% end%>
       </div>
+      <% if current_controller?('passwords') %>
+            <%= link_to _('New'), new_password_path, class: "btn btn-success ms-3" %>
+      <% elsif current_controller?('file_pushes') %>
+            <%= link_to _('New'), new_file_push_path, class: "btn btn-success ms-3" %>
+      <% end%>
     </div>
   </div>
 </nav>

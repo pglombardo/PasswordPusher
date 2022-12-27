@@ -238,6 +238,7 @@
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
                 <div class="list-group-item list-group-item-action list-group-item-primary">
+                    <em class="bi bi-stars"></em>
                     <%= _('Push created on') %> <%= @push.created_at.strftime(I18n.t('time.formats.default')) %> by <%= @push.user.email %>
                 </div>
 
@@ -250,6 +251,7 @@
                 <% for view in @push.views.sort_by(&:created_at) %>
                     <% if view.kind == 1 %>
                         <div class="list-group-item list-group-item-action list-group-item-danger">
+                            <em class="bi bi-trash3-fill"></em>
                             <% if view.user_id %>
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
@@ -264,6 +266,7 @@
                         </div>
                     <% elsif view.successful %>
                         <div class="list-group-item list-group-item-action list-group-item-success">
+                            <em class="bi bi-check2-square"></em>
                             <%= _('Successful view from IP address') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
@@ -275,6 +278,7 @@
                         </div>
                     <% else %>
                         <div class="list-group-item list-group-item-action list-group-item-warning">
+                            <em class="bi bi-x-octagon"></em>
                             <%= _('Failed view attempt (already expired) by') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>

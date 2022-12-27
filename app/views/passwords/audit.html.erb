@@ -169,6 +169,7 @@
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
                 <div class="list-group-item list-group-item-action list-group-item-primary">
+                    <em class="bi bi-stars"></em>
                     <%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %> by <%= @password.user.email %>
                 </div>
 
@@ -181,11 +182,15 @@
                 <% for view in @password.views.sort_by(&:created_at) %>
                     <% if view.kind == 1 %>
                         <div class="list-group-item list-group-item-action list-group-item-danger">
+                            <em class="bi bi-trash3-fill"></em>
                             <% if view.user_id %>
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                            <% else %>
+                                <%= _('Password manually expired by an anonymous user') %>
                             <% end %>
+                            <%= _('at IP address') %> <strong><%= view.ip %></strong>
                             <br/>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
                             <br/>
@@ -195,6 +200,7 @@
                         </div>
                     <% elsif view.successful %>
                         <div class="list-group-item list-group-item-action list-group-item-success">
+                            <em class="bi bi-check2-square"></em>
                             <%= _('Successful view from IP address') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
@@ -206,6 +212,7 @@
                         </div>
                     <% else %>
                         <div class="list-group-item list-group-item-action list-group-item-warning">
+                            <em class="bi bi-x-octagon"></em>
                             <%= _('Failed view attempt (already expired) by') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>

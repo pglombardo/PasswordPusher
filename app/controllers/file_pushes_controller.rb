@@ -2,16 +2,9 @@ require 'securerandom'
 
 class FilePushesController < ApplicationController
   helper FilePushesHelper
-
-  if Settings.files.require_login
-    # Require login for all actions except showing to the receiving party
-    acts_as_token_authentication_handler_for User, except: [:show, :new]
-  else
-    # Use auth token (for JSON) if it's there but don't fall back to devise session
-    acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
-    # Audit & index always requires a login
-    acts_as_token_authentication_handler_for User, only: [:audit, :index]
-  end
+ 
+  # Authentication always except for :show
+  acts_as_token_authentication_handler_for User, except: [:show]
 
   resource_description do
     name 'File Pushes'

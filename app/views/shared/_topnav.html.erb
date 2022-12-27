@@ -1,10 +1,12 @@
-<ul class="nav nav-tabs mb-3">
-  <li class="nav-item">
-    <a class="nav-link <%= current_controller?("passwords") ? 'active' : '' %>" aria-current="page" href="/">Passwords</a>
-  </li>
-  <% if Settings.enable_file_uploads %>
+<% if Settings.enable_logins %>
+  <ul class="nav nav-tabs mb-3">
     <li class="nav-item">
-      <a class="nav-link <%= current_controller?("file_pushes") ? 'active' : '' %>" href="<%= new_file_push_path %>">Files (beta)</a>
+      <a class="nav-link <%= current_controller?("passwords") ? 'active' : '' %>" aria-current="page" href="/">Passwords</a>
     </li>
-  <% end %>
-</ul>
+    <% if Settings.enable_file_uploads %>
+      <li class="nav-item">
+        <a class="nav-link <%= current_controller?("file_pushes") ? 'active' : '' %>" href="<%= new_file_push_path %>">Files (beta)</a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

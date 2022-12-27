@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PasswordControllerTest < ActionDispatch::IntegrationTest
+class FilePushControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
    
   setup do

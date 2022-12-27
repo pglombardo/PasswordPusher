@@ -11,7 +11,7 @@ class PasswordsController < ApplicationController
   
   resource_description do
     name 'Pushes'
-    short 'Interact directly with pushes.'
+    short 'Interact directly with password pushes.'
   end
 
   api :GET, '/p/:url_token.json', 'Retrieve a push.'
@@ -233,6 +233,14 @@ class PasswordsController < ApplicationController
     elsif @password.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
       redirect_to :root, notice: _('That push is not deletable by viewers.')
+      return
+    end
+
+    if @password.expired
+      respond_to do |format|
+        format.html { redirect_to :root, notice: _('That push is already expired.') }
+        format.json { render json: { 'error': _('That push is already expired.') }, status: :unprocessable_entity }
+      end
       return
     end
 
