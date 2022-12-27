@@ -1,0 +1,66 @@
+<% title(_('Your Push Has Been Created')) %>
+
+<div class="container h-75">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+
+      <h2 class='mt-5'><%= _('Your push has been created.') %></h2>
+
+      <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
+
+      <div class='input-group mb-5'>
+          <input class='form-control' id='secret_url' value="<%= @secret_url %>" spellcheck='false' readonly='true'>
+          <% if Settings.language_codes %>
+            <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
+          <% end %>
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
+            <li><hr class="dropdown-divider"></li>
+            <% if Settings.language_codes %>
+              <% I18n.available_locales.each do |lang| %>
+                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_file_push_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+              <% end %>
+            <% end %>
+          </ul>
+          <button id='copy-to-clipboard-button' class='input-group-text btn-success'
+                  data-clipboard-target='#secret_url' alt="<%= _('Copy to Clipboard') %>">
+              <em class="bi bi-clipboard-check"></em>
+          </button>
+      </div>
+
+      <p class='mb-5'>
+        <%= _('This push will expire after') %>
+        <strong><%=@push.expire_after_days%> <%= n_('day', 'days', @push.expire_after_days) %></strong>
+        <%= _('or') %>
+        <strong><%=@push.expire_after_views%> <%= n_('view', 'views', @push.expire_after_views) %></strong>
+        <%= _('(whichever comes first)') %>
+
+        <% if @push.deletable_by_viewer %>
+          <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
+        <% else %>
+          <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
+        <% end %>
+      </p>
+
+      <% if @push.retrieval_step == true %>
+        <p class='mb-5'><%= _('It also includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.  </p>
+      <% end %>
+
+      <p class='mb-5'>
+        <%=link_to _('View This Push Now'), file_push_secret_url(@push) %> <%= _('(will burn a view) or') %>
+        <%=link_to _('Push Another'), new_file_push_path %>
+      </p>
+
+      <% if user_signed_in? %>
+        <%= link_to audit_file_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+          <em class='bi-card-list'></em> <%= _('View Audit Log') %>
+        <% end %>
+      <% end %>
+
+      <p class='mt-5 small'>
+        <%= _('Tip: Pushing to an international user?  Change the secret link language using the dropdown menu to the right of the URL.') %>
+      </p>
+  </div>
+</div>

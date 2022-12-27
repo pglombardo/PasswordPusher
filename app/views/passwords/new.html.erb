@@ -1,36 +1,37 @@
 <% title(_('Securely Send a Password')) %>
 
 <div class='container'>
+<%= render partial: "shared/topnav" %>
 <%= form_for @password do |f| %>
-
     <div class='row'>
         <div class='col'>
-            <div class='mb5'>
-                <%= f.text_area(:payload, { class: "form-control",
-                                            rows: 8,
-                                            placeholder: _('Enter the Password (or text) to be Shared'),
-                                            autocomplete: "off",
-                                            spellcheck: "false",
-                                            autofocus: true,
-                                            required: true }) %>
-                <div class='mb3 position-relative'>
-                    <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
-                        <span id="current">0</span>
-                        <span id="maximum">/ 1048576 <%= _('Characters') %></span>
-                    </div>
+            <%= f.text_area(:payload, { class: "form-control",
+                                        rows: 6,
+                                        placeholder: _('Enter the Password (or text) to be Shared'),
+                                        autocomplete: "off",
+                                        spellcheck: "false",
+                                        autofocus: true,
+                                        required: true }) %>
+            <div class='position-relative'>
+                <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
+                    <span id="current">0</span>
+                    <span id="maximum">/ 1048576 <%= _('Characters') %></span>
                 </div>
             </div>
         </div>
     </div>
     <div class='row'>
-        <div class='col-12 col-sm-8 p-3 mt-4'>
+        <div class='col-12 col-sm-8 p-3 mt-3'>
             <% if user_signed_in? %>
                 <div class='row mb-3'>
                     <div class='col'>
-                        <%= f.text_area(:note, { class: "form-control",
-                                                 rows: 2,
-                                                 placeholder: _('(Optional) Reference Note. Encrypted & Visible Only to You. E.g. Employee, Record or Ticket ID etc..'),
-                                                 autocomplete: "off" }) %>
+                        <div class="input-group">
+                            <span class="input-group-text">📝</span>
+                            <%= f.text_area(:note, { class: "form-control",
+                                                    rows: 2,
+                                                    placeholder: _('Reference. Encrypted & Visible Only to You.'),
+                                                    autocomplete: "off" }) %>
+                        </div>
                     </div>
                 </div>
             <% end %>
@@ -102,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div class='col-12 col-sm-4 p-3 mt-4'>
+        <div class='col-12 col-sm-4 p-3 mt-3'>
             <div class="mb-3 text-end">
                 <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown">
                     <button class="btn btn-secondary w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>

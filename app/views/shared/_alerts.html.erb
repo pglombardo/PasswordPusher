@@ -1,11 +1,42 @@
-<% if notice && !notice.include?("translation missing") %>
-  <div class="alert alert-warning alert-dismissible fade show mx-2" role="alert">
+<% # !alert.include?("translation missing") %>
+<% if notice %>
+  <div class="alert alert-info alert-dismissible fade show my-3" role="alert">
     <%= notice %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-<% elsif alert && !alert.include?("translation missing") %>
-  <div class="alert alert-danger alert-dismissible fade show mx-2" role="alert">
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
     <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if info %>
+  <div class="alert alert-info alert-dismissible fade show my-3" role="alert">
+    <%= info %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if error %>
+  <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if success %>
+  <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+    <%= success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if warning %>
+  <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+    <%= warning %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>

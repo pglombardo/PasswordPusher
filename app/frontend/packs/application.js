@@ -22,6 +22,8 @@ import {} from 'jquery-ujs'
 import 'clipboard'
 import 'spoiler-alert/spoiler'
 import '../js/bootstrap_js_files.js'
+import '../js/stimulus.js'
 import '../js/passwords.js'
+import '../js/activestorage.js'
 
 const images = require.context('../img', true)

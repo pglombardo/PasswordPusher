@@ -2,6 +2,8 @@ class Password < ApplicationRecord
   has_many :views, dependent: :destroy
   has_encrypted :payload, :note
 
+  belongs_to :user, optional: true
+  
   def to_param
     url_token.to_s
   end

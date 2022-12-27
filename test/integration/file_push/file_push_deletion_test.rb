@@ -2,6 +2,7 @@ require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_password_deletion
+    sign_out :user
     assert Settings.enable_deletable_pushes == true
 
     get '/'

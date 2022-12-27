@@ -1,0 +1,140 @@
+<% title(_('Securely Send Files')) %>
+
+<div class='container'>
+<%= render partial: "shared/topnav" %>
+
+<%= form_for @push do |f| %>
+    <div class='row'>
+        <div class='col-sm-8'>
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="card">
+                        <h5 class="card-header">Add Files...</h5>
+                        <div class="card-body">
+                            <div id="progress-bars" class="list-group"></div>
+                            <div data-controller="multi-upload">
+                                <div id="selected-files" data-multi-upload-target="files" class="list-group"></div>
+                                <div class="file my-3">
+                                    <%= f.file_field :files,
+                                                     multiple: true,
+                                                     required: true,
+                                                     direct_upload: true,
+                                                     class: "form-control",
+                                                     data: { action: "multi-upload#addFile" } %>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="file-count-footer" class="card-footer text-muted"> <%= _('You can upload up to 10 files per push.') %> </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <p><%= _('Expire secret link and delete after:') %></p>
+                <div class='col-8'>
+                    <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
+                                        { :name => "file_push[expire_after_days]",
+                                          :class => "form-range",
+                                          :min => Settings.expire_after_days_min,
+                                          :max => Settings.expire_after_days_max,
+                                          :x_default => Settings.expire_after_days_default,
+                                          :step => "1" })%>
+                </div>
+                <div class='col-4'>
+                    <label for='password_expire_after_days' id='daysrange'><%=Settings.expire_after_days_default %></label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col-8'>
+                    <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
+                                       { :name => "file_push[expire_after_views]",
+                                         :class => "form-range",
+                                         :min => Settings.expire_after_views_min,
+                                         :max => Settings.expire_after_views_max,
+                                         :x_default => Settings.expire_after_views_default,
+                                         :step => "1" })%>
+                </div>
+
+                <div class='col-4'>
+                    <label for='password_expire_after_views' id='viewsrange'><%= Settings.expire_after_views_default %> <%= _('Views') %></label>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <div class='mb3'>
+                        <p class='text-center text-muted'><%= _('(whichever comes first)') %></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    <div class="list-group mx-0">
+                        <% if Settings.enable_retrieval_step %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%=check_box_tag "file_push[retrieval_step]", nil, Settings.retrieval_step_default,
+                                            { class: 'form-check-input flex-shrink-0',
+                                            x_default: Settings.retrieval_step_default } %>
+                            <span>
+                                <%= _('Use a 1-click retrieval step') %>
+                                <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
+                            </span>
+                            </label>
+                        <% end %>
+                        <% if Settings.enable_deletable_pushes %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%= check_box_tag "file_push[deletable_by_viewer]", nil, Settings.deletable_pushes_default,
+                                            { class: 'form-check-input flex-shrink-0',
+                                                x_default: Settings.deletable_pushes_default }  %>
+                            <span>
+                                <%= _('Allow immediate deletion') %>
+                                <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
+                            </span>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col'>
+            <div class='row mb-3'>
+                <label for="file_push_payload" class="form-label">Message</label>
+                <%= f.text_area(:payload, { class: "form-control",
+                                        rows: 5,
+                                        placeholder: _('Encrypted and visible to the receiving party.'),
+                                        spellcheck: false,
+                                        autocomplete: "off" }) %>
+            </div>
+            <div class='row mb-3'>
+                <label for="file_push_note" class="form-label">Reference</label>
+                <%= f.text_area(:note, { class: "form-control",
+                                        rows: 3,
+                                        placeholder: _('Encrypted and visible only to you.'),
+                                        autocomplete: "off" }) %>
+            </div>
+            <div class='row mb-3'>
+                <span class="text-muted">
+                    <%= _('Once expired, all files and content of the push will be deleted immediately and entirely.') %>
+                </span>
+            </div>
+            <div class='row mb-3'>
+                <span class="text-muted">
+                    <%= _('An audit log of activity will be available.') %>
+                </span>
+            </div>
+            <% if ENV.key?('PWPUSH_COM') %>
+                <div class="row text-bg-info rounded-3 p-3">
+                    <%= _('Note: This new feature is temporarily limited to 10 active file pushes per user while in beta.') %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='my-3'>
+                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => _('Pushing...'))%>
+            </p>
+        </div>
+    </div>
+<% end %>
+</div>

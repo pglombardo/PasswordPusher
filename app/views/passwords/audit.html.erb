@@ -6,7 +6,6 @@
         <%= _('Pushed on %s') % I18n.l(@password.created_at, format: :long) %>
     </p>
 
-
     <p><%= _('Secret URL for this push') %>:</p>
     <div class='input-group mb-5 w-75'>
         <input class='form-control', id='secret_url' value='<%= secret_url(@password) %>' spellcheck='false' readonly='true'>
@@ -17,7 +16,7 @@
             <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
+            <li><span class="dropdown-item-text"><%= _('Secret Link Language') %></span></li>
             <li><hr class="dropdown-divider"></li>
             <% if Settings.language_codes %>
                 <% I18n.available_locales.each do |lang| %>
@@ -41,7 +40,7 @@
             <% if @password.note.blank? %>
                 <span class='text-muted'><%= _('None') %></span>
             <% else %>
-                <pre><code><%= @password.note.truncate(100) %></code></pre>
+                <pre><code><%= @password.note %></code></pre>
             <% end %>
         </div>
     </div>
@@ -137,20 +136,20 @@
         <div class='col'>
             <% if @password.expired == false %>
                 <div class='text-center'>
-                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
                 <em class="bi bi-trash"></em> <%= _('Expire Now') %>
                 </button>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><%= _('Delete This Password?') %></h5>
+                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Password?') %></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p><%= _('This will expire this secret link and') %> <strong><%= _('remove the password from the database forever') %></strong>.</p>
+                        <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
                         <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
                         <p><%= _('Are you sure?') %></p>
                     </div>
@@ -169,22 +168,31 @@
         <div class='col'>
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
-                <div class="list-group-item list-group-item-action list-group-item-primary"><%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %></div>
+                <div class="list-group-item list-group-item-action list-group-item-primary">
+                    <em class="bi bi-stars"></em>
+                    <%= _('Push created on') %> <%= @password.created_at.strftime(I18n.t('time.formats.default')) %> by <%= @password.user.email %>
+                </div>
 
                 <% if @password.views.empty? && !@password.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
-                        <%= _('As the push receives views, a log of each with identifying information will show up here.') %>
+                        <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
                     </div>
                 <% end %>
 
                 <% for view in @password.views.sort_by(&:created_at) %>
                     <% if view.kind == 1 %>
                         <div class="list-group-item list-group-item-action list-group-item-danger">
+                            <em class="bi bi-trash"></em>
                             <% if view.user_id %>
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                            <% else %>
+                                <%= _('Password manually expired by an anonymous user') %>
                             <% end %>
+                            <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                            <br/>
+                            <%= _('The push content has been deleted and the secret URL expired.') %>
                             <br/>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
@@ -192,6 +200,7 @@
                         </div>
                     <% elsif view.successful %>
                         <div class="list-group-item list-group-item-action list-group-item-success">
+                            <em class="bi bi-check2-square"></em>
                             <%= _('Successful view from IP address') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
@@ -203,6 +212,7 @@
                         </div>
                     <% else %>
                         <div class="list-group-item list-group-item-action list-group-item-warning">
+                            <em class="bi bi-x-octagon"></em>
                             <%= _('Failed view attempt (already expired) by') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>

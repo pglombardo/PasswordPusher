@@ -1,8 +1,34 @@
-<ul class="nav nav-tabs mb-3">
-  <li class="nav-item">
-    <%= link_to _('Active'), dashboard_active_path, class: "nav-link #{ 'active' if current_page?(dashboard_active_path) }" %>
-  </li>
-  <li class="nav-item">
-    <%= link_to _('Expired'), dashboard_expired_path, class: "nav-link #{ 'active' if current_page?(dashboard_expired_path) }" %>
-  </li>
-</ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-3 mb-5">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">📊 Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to _('Passwords'), active_passwords_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('passwords') }" %>
+        </li>
+        <% if Settings.enable_file_pushes %>
+          <li class="nav-item">
+            <%= link_to _('Files'), active_file_pushes_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('file_pushes') }" %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="btn-group">
+        <% if current_controller?('passwords') %>
+            <%= link_to _('Active'), active_passwords_path, class: "btn btn-primary #{ 'active' if current_page?(active_passwords_path) }" %>
+            <%= link_to _('Expired'), expired_passwords_path, class: "btn btn-primary #{ 'active' if current_page?(expired_passwords_path) }" %>
+        <% elsif current_controller?('file_pushes') %>
+            <%= link_to _('Active'), active_file_pushes_path, class: "btn btn-primary #{ 'active' if current_page?(active_file_pushes_path) }" %>
+            <%= link_to _('Expired'), expired_file_pushes_path, class: "btn btn-primary #{ 'active' if current_page?(expired_file_pushes_path) }" %>
+        <% end%>
+      </div>
+      <% if current_controller?('passwords') %>
+            <%= link_to _('New'), new_password_path, class: "btn btn-success ms-3" %>
+      <% elsif current_controller?('file_pushes') %>
+            <%= link_to _('New'), new_file_push_path, class: "btn btn-success ms-3" %>
+      <% end%>
+    </div>
+  </div>
+</nav>

@@ -33,8 +33,10 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.hosts << "bbe0-82-49-121-102.eu.ngrok.io"
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = Settings.files.storage
 
   if Settings.mail
     config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
