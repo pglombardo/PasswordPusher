@@ -103,7 +103,7 @@ class PasswordsController < ApplicationController
     if !password_param.respond_to?(:fetch)
       respond_to do |format|
         format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
-        format.json { render json: '{}', status: :bad_request }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
       end
       return
     end
@@ -115,7 +115,7 @@ class PasswordsController < ApplicationController
     unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
       respond_to do |format|
         format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
-        format.json { render json: '{}', status: :bad_request }
+        format.json { render json: { "error": "Payload length must be between 1 and 1_048_576." }, status: :bad_request }
       end
       return
     end

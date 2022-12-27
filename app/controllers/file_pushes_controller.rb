@@ -112,7 +112,7 @@ class FilePushesController < ApplicationController
     if !file_push_param.respond_to?(:fetch)
       respond_to do |format|
         format.html { render :new, status: :bad_request }
-        format.json { render json: '{}', status: :bad_request }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
       end
       return
     end
@@ -123,19 +123,20 @@ class FilePushesController < ApplicationController
     unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty?
       respond_to do |format|
         format.html { render :new, status: :bad_request }
-        format.json { render json: '{}', status: :bad_request }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
       end
       return
     end
 
     @push_count = FilePush.where(user_id: current_user.id, expired: false).count
     if @push_count >= 10
+      msg = _('Only 10 active pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
       respond_to do |format|
         format.html {
-          flash.now[:warning] = _('Only 10 active pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
+          flash.now[:warning] = msg
           render :new, status: :bad_request
         }
-        format.json { render json: '{}', status: :bad_request }
+        format.json { render json: { "error": msg }, status: :bad_request }
       end
       return
     end

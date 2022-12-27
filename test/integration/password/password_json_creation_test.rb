@@ -117,6 +117,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
-    assert res == {"error"=>"No password, text or files provided.  Try again."}
+    assert res == { "error" => "Payload length must be between 1 and 1_048_576." }
   end
 end
