@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       end
 
       # File pushes only enabled when logins are enabled.
-      if Settings.enable_logins
+      if Settings.enable_logins && Settings.enable_file_pushes
         resources :f, controller: :file_pushes, as: :file_pushes, except: %i[index edit update] do
           get 'preview', on: :member
           get 'r', on: :member, as: 'preliminary', action: 'preliminary'
