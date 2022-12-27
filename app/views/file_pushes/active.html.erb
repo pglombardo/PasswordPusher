@@ -8,7 +8,10 @@
       <%= _('You currently have no active file pushes.') %>
     </p>
     <p class='text-center'>
-      <%= link_to _('Push Something Now'), root_path, class: 'btn btn-primary' %>
+      <%= link_to new_file_push_path, class: 'btn btn-primary' do %>
+        <em class="bi bi-stars"></em>
+        <%= _('Push Some Files Now') %>
+      <% end %>
     </p>
   <% else %>
     <div class="text-center my-3">

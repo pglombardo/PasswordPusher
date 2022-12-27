@@ -120,7 +120,7 @@ class FilePushesController < ApplicationController
     # params[:file_push][:payload] must have a length between 1 and 1 megabyte
     payload_param = file_push_param.fetch(:payload, '')
     files_param   = file_push_param.fetch(:files, [])
-    unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty?
+    unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty? || files_param.size > 10
       respond_to do |format|
         format.html { render :new, status: :bad_request }
         format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
