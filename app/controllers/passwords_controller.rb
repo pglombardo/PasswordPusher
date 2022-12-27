@@ -8,7 +8,7 @@ class PasswordsController < ApplicationController
 
   # Audit & dashboard views (active & expired) always requires a login
   acts_as_token_authentication_handler_for User, only: [:audit, :active, :expired]
-  
+
   resource_description do
     name 'Pushes'
     short 'Interact directly with password pushes.'
@@ -270,6 +270,10 @@ class PasswordsController < ApplicationController
     end
   end
 
+  api :GET, '/p/active.json', 'Retrieve your active pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/active.json'
+  description "Returns the list of password pushes that you previously pushed which are still active."
   def active
     if !Settings.enable_logins
       redirect_to :root
@@ -292,8 +296,12 @@ class PasswordsController < ApplicationController
       }
     end
   end
-  
-  def expired 
+
+  api :GET, '/p/expired.json', 'Retrieve your expired pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/expired.json'
+  description "Returns the list of password pushes that you previously pushed which have expired."
+  def expired
     if !Settings.enable_logins
       redirect_to :root
       return

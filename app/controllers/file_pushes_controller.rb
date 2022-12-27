@@ -2,13 +2,13 @@ require 'securerandom'
 
 class FilePushesController < ApplicationController
   helper FilePushesHelper
- 
+
   # Authentication always except for :show
   acts_as_token_authentication_handler_for User, except: [:show]
 
   resource_description do
     name 'File Pushes'
-    short 'Interact directly with file pushes.'
+    short 'Interact directly with file pushes.  This feature (and corresponding API) is currently in beta.'
   end
 
   api :GET, '/f/:url_token.json', 'Retrieve a file push.'
@@ -103,7 +103,7 @@ class FilePushesController < ApplicationController
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      
+
     @push = FilePush.new(file_push_params)
 
     # params[:file_push] has to exist
@@ -235,7 +235,7 @@ class FilePushesController < ApplicationController
     end
   end
 
-  api :DELETE, '/f/:url_token.json', 'Expire a push: delete the payload and expire the secret URL.'
+  api :DELETE, '/f/:url_token.json', 'Expire a push: delete the files, payload and expire the secret URL.'
   param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/fkwjfvhall92.json'
@@ -285,6 +285,10 @@ class FilePushesController < ApplicationController
     end
   end
 
+  api :GET, '/f/active.json', 'Retrieve your active file pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/active.json'
+  description "Returns the list of file pushes that you previously pushed which are still active."
   def active
     if !Settings.enable_logins
       redirect_to :root
@@ -308,6 +312,10 @@ class FilePushesController < ApplicationController
     end
   end
 
+  api :GET, '/f/expired.json', 'Retrieve your expired file pushes.'
+  formats ['json']
+  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/expired.json'
+  description "Returns the list of file pushes that you previously pushed which have expired."
   def expired
     if !Settings.enable_logins
       redirect_to :root
