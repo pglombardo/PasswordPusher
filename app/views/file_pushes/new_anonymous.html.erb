@@ -2,9 +2,32 @@
 
 <div class='container'>
     <%= render partial: "shared/topnav" %>
-    <div class="d-flex flex-column mh-100 justify-content-center align-items-center" style="height: 300px;">
-        <p class="lead text-center">
-            <%= _('Please log in to use this feature.') %>
-        </p>
+    <div class="card text-center w-50 my-5 mx-auto">
+        <div class="card-header">
+            <em class="bi bi-info-circle"></em>
+            <%= _('This Feature is In BETA') %>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <%= _('Securely Send Files That Delete Automatically') %>
+                </h5>
+            <p class="card-text">
+                <%= _('Until stable, this feature is in beta and requires a log in.') %>
+            </p>
+            <% if ENV.key?('PWPUSH_COM') %>
+                <p class="card-text">
+                    <%= _('I would appreciate any feedback you have in the') %>
+                    <%= link_to _("feedback form"), new_feedback_path %>
+                    <%= _('or') %>
+                    <%= link_to _("in this Github Discussion"), "https://github.com/pglombardo/PasswordPusher/discussions/568" %>.
+                </p>
+                <p class="card-text">
+                    <%= _('See this') %>
+                    <%= link_to _("Twitter thread"), "https://twitter.com/pwpush/status/1608047208686821377" %>
+                    <%= _('for more information and screenshots.') %>
+                </p>
+            <% end %>
+            <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
+        </div>
     </div>
 </div>

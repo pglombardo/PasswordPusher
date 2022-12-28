@@ -16,11 +16,8 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test 'New push form is NOT available anonymous' do
     get new_file_push_path
-    assert_response :redirect
-
-    follow_redirect!
     assert_response :success
-    assert response.body.include?('You need to sign in or sign up before continuing.')
+    assert response.body.include?('This Feature is In BETA')
   end
 
   test '"active" and "expired" should redirect anonymous to user sign in' do

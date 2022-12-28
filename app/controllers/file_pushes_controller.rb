@@ -4,7 +4,7 @@ class FilePushesController < ApplicationController
   helper FilePushesHelper
 
   # Authentication always except for :show
-  acts_as_token_authentication_handler_for User, except: [:show]
+  acts_as_token_authentication_handler_for User, except: [:show, :new]
 
   resource_description do
     name 'File Pushes'
@@ -70,10 +70,6 @@ class FilePushesController < ApplicationController
 
   # GET /file_pushes/new
   def new
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
     if user_signed_in?
       @push = FilePush.new
 
@@ -85,7 +81,6 @@ class FilePushesController < ApplicationController
         format.html { render template: 'file_pushes/new_anonymous' }
       end
     end
-
   end
 
   api :POST, '/f.json', 'Create a new file push.'
