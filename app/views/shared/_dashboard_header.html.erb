@@ -14,6 +14,9 @@
             <%= link_to _('Files'), active_file_pushes_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('file_pushes') }" %>
           </li>
         <% end %>
+        <li class="nav-item">
+          <%= link_to _('URLs'), active_urls_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('urls') }" %>
+        </li>
       </ul>
       <div class="btn-group">
         <% if current_controller?('passwords') %>
@@ -22,12 +25,17 @@
         <% elsif current_controller?('file_pushes') %>
             <%= link_to _('Active'), active_file_pushes_path, class: "btn btn-primary #{ 'active' if current_page?(active_file_pushes_path) }" %>
             <%= link_to _('Expired'), expired_file_pushes_path, class: "btn btn-primary #{ 'active' if current_page?(expired_file_pushes_path) }" %>
+        <% elsif current_controller?('urls') %>
+            <%= link_to _('Active'), active_urls_path, class: "btn btn-primary #{ 'active' if current_page?(active_urls_path) }" %>
+            <%= link_to _('Expired'), expired_urls_path, class: "btn btn-primary #{ 'active' if current_page?(expired_urls_path) }" %>
         <% end%>
       </div>
       <% if current_controller?('passwords') %>
             <%= link_to _('New'), new_password_path, class: "btn btn-success ms-3" %>
       <% elsif current_controller?('file_pushes') %>
             <%= link_to _('New'), new_file_push_path, class: "btn btn-success ms-3" %>
+      <% elsif current_controller?('urls') %>
+            <%= link_to _('New'), new_url_path, class: "btn btn-success ms-3" %>
       <% end%>
     </div>
   </div>

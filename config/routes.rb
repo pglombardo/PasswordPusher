@@ -4,9 +4,8 @@ Rails.application.routes.draw do
       match '(*any)', to: redirect(subdomain: ''), via: :all, constraints: {subdomain: 'www'}
     end
 
-    apipie
-
     localized do
+      apipie
       devise_for :users, skip: :registrations, controllers: {
         sessions: 'users/sessions',
         passwords: 'users/passwords',
@@ -54,6 +53,14 @@ Rails.application.routes.draw do
           get 'active', on: :collection
           get 'expired', on: :collection
         end
+      end
+
+      resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
+        get 'preview', on: :member
+        get 'r', on: :member, as: 'preliminary', action: 'preliminary'
+        get 'audit', on: :member
+        get 'active', on: :collection
+        get 'expired', on: :collection
       end
 
       resources :c, controller: :commands, as: :commands, allow: %i[create]

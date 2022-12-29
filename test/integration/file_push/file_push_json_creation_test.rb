@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   def test_basic_json_creation
-    post '/p.json', params: { password: { payload: 'testpw' } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw' } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -27,7 +27,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_json_creation_with_uncommon_characters
-    post '/p.json', params: { password: { payload: '£¬' } }
+    post passwords_path(format: :json), params: { password: { payload: '£¬' } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -60,7 +60,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_deletable_by_viewer
-    post '/p.json', params: { password: { payload: 'testpw', deletable_by_viewer: 'true' } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw', deletable_by_viewer: 'true' } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -69,7 +69,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_not_deletable_by_viewer
-    post '/p.json', params: { password: { payload: 'testpw', deletable_by_viewer: 'false' } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw', deletable_by_viewer: 'false' } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -78,7 +78,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_deletable_by_viewer_absent_is_default
-    post '/p.json', params: { password: { payload: 'testpw' } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw' } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -87,7 +87,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_days_expiration
-    post '/p.json', params: { password: { payload: 'testpw', expire_after_days: 1 } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw', expire_after_days: 1 } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -100,7 +100,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_views_expiration
-    post '/p.json', params: { password: { payload: 'testpw', expire_after_views: 5 } }
+    post passwords_path(format: :json), params: { password: { payload: 'testpw', expire_after_views: 5 } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -113,7 +113,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_bad_request
-    post '/p.json', params: {}
+    post passwords_path(format: :json), params: {}
     assert_response :bad_request
 
     res = JSON.parse(@response.body)

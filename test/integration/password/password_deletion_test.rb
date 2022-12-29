@@ -6,7 +6,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     assert Settings.enable_deletable_pushes == true
     # create
-    post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
+    post passwords_path, params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect
 
     # preview

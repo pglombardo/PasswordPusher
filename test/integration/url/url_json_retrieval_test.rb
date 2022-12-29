@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
+class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
   def test_view_expiration
-    post passwords_path(format: :json), params: { :password => { payload: "testpw", expire_after_views: 2 }}
+    post urls_path(format: :json), params: { :url => { payload: "https://the0x00.dev", expire_after_views: 2 }}
     assert_response :success
 
-    # Push a password with two views
+    # Push a url with two views
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
@@ -20,8 +20,8 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("expire_after_days")
     assert_equal 2, res['expire_after_views']
 
-    # Now try to retrieve the password for the first time
-    get "/p/" + res["url_token"] + ".json"
+    # Now try to retrieve the url for the first time
+    get "/r/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -30,14 +30,14 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
-    assert_equal "testpw", res["payload"]
+    assert_equal "https://the0x00.dev", res["payload"]
     assert res.key?("views_remaining")
     assert_equal 1, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res['expire_after_views']
 
     # ...and the second view
-    get "/p/" + res["url_token"] + ".json"
+    get "/r/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -46,20 +46,20 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
-    assert_equal "testpw", res["payload"]
+    assert_equal "https://the0x00.dev", res["payload"]
     assert res.key?("views_remaining")
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res['expire_after_views']
 
     # Check the record directly; it should be expired after the last view
-    password = Password.find_by_url_token!(res["url_token"])
-    assert password.expired
-    assert_nil password.payload
-    assert_equal 0, password.views_remaining
+    url = Url.find_by_url_token!(res["url_token"])
+    assert url.expired
+    assert_nil url.payload
+    assert_equal 0, url.views_remaining
 
-    # With the third view, we should have an expired password
-    get "/p/" + res["url_token"] + ".json"
+    # With the third view, we should have an expired url
+    get "/r/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)

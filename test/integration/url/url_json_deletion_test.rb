@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
+class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   def test_deletion
-    # Create password
-    post passwords_path(format: :json), params: { :password => { payload: "testpw" } }
+    # Create url
+    post urls_path(format: :json), params: { :url => { payload: "https://the0x00.dev" } }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -20,8 +20,8 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("views_remaining")
     assert_equal Settings.expire_after_views_default, res["views_remaining"]
 
-    # Delete the new password via json e.g. /p/<url_token>.json
-    delete "/p/" + res["url_token"] + ".json"
+    # Delete the new url via json e.g. /r/<url_token>.json
+    delete "/r/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -38,8 +38,8 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("views_remaining")
     assert_equal Settings.expire_after_views_default, res["views_remaining"]
 
-    # Now try to retrieve the password again
-    get "/p/" + res["url_token"] + ".json"
+    # Now try to retrieve the url again
+    get "/r/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)
