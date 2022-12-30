@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-12-28 11:36+0100\n"
-"PO-Revision-Date: 2022-12-28 11:36+0100\n"
+"POT-Creation-Date: 2022-12-30 11:53+0100\n"
+"PO-Revision-Date: 2022-12-30 11:53+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hungarian\n"
 "Language: hu\n"
@@ -51,16 +51,19 @@ msgstr ""
 
 #: ../../../app/controllers/file_pushes_controller.rb:220
 #: ../../../app/controllers/passwords_controller.rb:202
+#: ../../../app/controllers/urls_controller.rb:198
 msgid "That push doesn't belong to you."
 msgstr "Ez a küldés nem önhöz tartozik."
 
 #: ../../../app/controllers/file_pushes_controller.rb:248
 #: ../../../app/controllers/passwords_controller.rb:230
+#: ../../../app/controllers/urls_controller.rb:226
 msgid "That push does not belong to you."
 msgstr "Ez a küldés nem önhöz tartozik."
 
 #: ../../../app/controllers/file_pushes_controller.rb:253
 #: ../../../app/controllers/passwords_controller.rb:235
+#: ../../../app/controllers/urls_controller.rb:231
 msgid "That push is not deletable by viewers."
 msgstr "Ez a küldés nem törölhető a nézők által."
 
@@ -68,16 +71,24 @@ msgstr "Ez a küldés nem törölhető a nézők által."
 #: ../../../app/controllers/file_pushes_controller.rb:273
 #: ../../../app/controllers/passwords_controller.rb:259
 #: ../../../app/controllers/passwords_controller.rb:262
+#: ../../../app/controllers/urls_controller.rb:247
+#: ../../../app/controllers/urls_controller.rb:250
 #: ../../../app/views/file_pushes/audit.html.erb:106
 #: ../../../app/views/file_pushes/audit.html.erb:261
 #: ../../../app/views/passwords/audit.html.erb:106
 #: ../../../app/views/passwords/audit.html.erb:195
+#: ../../../app/views/urls/audit.html.erb:106
+#: ../../../app/views/urls/audit.html.erb:192
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "A küldés tartalmát törölték, és a titkos URL lejárt."
 
 #: ../../../app/controllers/passwords_controller.rb:241
 #: ../../../app/controllers/passwords_controller.rb:242
 msgid "That push is already expired."
+msgstr ""
+
+#: ../../../app/controllers/urls_controller.rb:110
+msgid "Invalid URL: Must be a valid URL and start with http:// or https://"
 msgstr ""
 
 #: ../../../app/helpers/application_helper.rb:7
@@ -103,6 +114,8 @@ msgstr "Password Pusher visszajelzés"
 #: ../../../app/views/file_pushes/expired.html.erb:16
 #: ../../../app/views/passwords/active.html.erb:20
 #: ../../../app/views/passwords/expired.html.erb:17
+#: ../../../app/views/urls/active.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:16
 msgid "Active Pushes"
 msgstr "Aktív küldések"
 
@@ -121,12 +134,14 @@ msgstr "Küldj valamit most"
 #: ../../../app/views/dashboard/expired.html.erb:17
 #: ../../../app/views/file_pushes/active.html.erb:23
 #: ../../../app/views/passwords/active.html.erb:23
+#: ../../../app/views/urls/active.html.erb:23
 msgid "Push ID"
 msgstr "Push ID"
 
 #: ../../../app/views/dashboard/active.html.erb:18
 #: ../../../app/views/file_pushes/active.html.erb:24
 #: ../../../app/views/passwords/active.html.erb:24
+#: ../../../app/views/urls/active.html.erb:24
 msgid "Created"
 msgstr "Létrehozva"
 
@@ -136,6 +151,8 @@ msgstr "Létrehozva"
 #: ../../../app/views/file_pushes/expired.html.erb:20
 #: ../../../app/views/passwords/active.html.erb:25
 #: ../../../app/views/passwords/expired.html.erb:21
+#: ../../../app/views/urls/active.html.erb:25
+#: ../../../app/views/urls/expired.html.erb:20
 msgid "Note"
 msgstr "jegyzet"
 
@@ -145,6 +162,8 @@ msgstr "jegyzet"
 #: ../../../app/views/passwords/active.html.erb:26
 #: ../../../app/views/passwords/new.html.erb:66
 #: ../../../app/views/shared/_js_lang_strings.html.erb:6
+#: ../../../app/views/urls/active.html.erb:26
+#: ../../../app/views/urls/new.html.erb:55
 msgid "Views"
 msgstr "megtekintés"
 
@@ -152,6 +171,7 @@ msgstr "megtekintés"
 #: ../../../app/views/file_pushes/active.html.erb:28
 #: ../../../app/views/passwords/active.html.erb:27
 #: ../../../app/views/shared/_js_lang_strings.html.erb:4
+#: ../../../app/views/urls/active.html.erb:27
 msgid "Days"
 msgstr "nap"
 
@@ -167,12 +187,18 @@ msgstr "nap"
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
 #: ../../../app/views/passwords/expired.html.erb:32
+#: ../../../app/views/urls/active.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:41
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
+#: ../../../app/views/urls/expired.html.erb:31
 msgid "None"
 msgstr "Egyik sem"
 
 #: ../../../app/views/dashboard/active.html.erb:40
 #: ../../../app/views/file_pushes/active.html.erb:50
 #: ../../../app/views/passwords/active.html.erb:48
+#: ../../../app/views/urls/active.html.erb:48
 msgid "Push Controls"
 msgstr "Push Controls"
 
@@ -191,12 +217,19 @@ msgstr "Push Controls"
 #: ../../../app/views/passwords/audit.html.erb:158
 #: ../../../app/views/passwords/preview.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/active.html.erb:49
+#: ../../../app/views/urls/active.html.erb:52
+#: ../../../app/views/urls/audit.html.erb:158
+#: ../../../app/views/urls/expired.html.erb:40
+#: ../../../app/views/urls/preview.html.erb:57
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Processing..."
 msgstr "Feldolgozás..."
 
 #: ../../../app/views/dashboard/active.html.erb:42
 #: ../../../app/views/file_pushes/active.html.erb:52
 #: ../../../app/views/passwords/active.html.erb:50
+#: ../../../app/views/urls/active.html.erb:50
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -204,6 +237,7 @@ msgstr "Előnézet"
 #: ../../../app/views/dashboard/expired.html.erb:45
 #: ../../../app/views/file_pushes/active.html.erb:55
 #: ../../../app/views/passwords/active.html.erb:53
+#: ../../../app/views/urls/active.html.erb:53
 msgid "Audit"
 msgstr "Ellenőrzés"
 
@@ -221,8 +255,10 @@ msgstr "Jelenleg nincs lejárt küldése."
 #: ../../../app/views/dashboard/expired.html.erb:40
 #: ../../../app/views/file_pushes/audit.html.erb:105
 #: ../../../app/views/passwords/audit.html.erb:105
-#: ../../../app/views/shared/_dashboard_header.html.erb:21
-#: ../../../app/views/shared/_dashboard_header.html.erb:24
+#: ../../../app/views/shared/_dashboard_header.html.erb:26
+#: ../../../app/views/shared/_dashboard_header.html.erb:29
+#: ../../../app/views/shared/_dashboard_header.html.erb:32
+#: ../../../app/views/urls/audit.html.erb:105
 msgid "Expired"
 msgstr "Lejárt"
 
@@ -383,6 +419,8 @@ msgstr "A token el van homályosítva. Kattintson az alábbiakra, hogy felfedje.
 #: ../../../app/views/passwords/preview.html.erb:28
 #: ../../../app/views/passwords/show.html.erb:10
 #: ../../../app/views/passwords/show.html.erb:48
+#: ../../../app/views/urls/audit.html.erb:29
+#: ../../../app/views/urls/preview.html.erb:28
 msgid "Copy to Clipboard"
 msgstr "Másolja a vágólapra"
 
@@ -425,6 +463,8 @@ msgstr "Egy új token jön létre helyette."
 #: ../../../app/views/file_pushes/show.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:154
 #: ../../../app/views/passwords/show.html.erb:64
+#: ../../../app/views/urls/audit.html.erb:154
+#: ../../../app/views/urls/show.html.erb:75
 msgid "Are you sure?"
 msgstr "Biztos vagy ebben?"
 
@@ -433,6 +473,8 @@ msgstr "Biztos vagy ebben?"
 #: ../../../app/views/file_pushes/show.html.erb:78
 #: ../../../app/views/passwords/audit.html.erb:157
 #: ../../../app/views/passwords/show.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:157
+#: ../../../app/views/urls/show.html.erb:78
 msgid "Cancel"
 msgstr "Mégsem"
 
@@ -512,41 +554,47 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:1
 #: ../../../app/views/passwords/audit.html.erb:1
+#: ../../../app/views/urls/audit.html.erb:1
 msgid "Audit Log for %s"
 msgstr "Ellenőrzési napló %s részére"
 
 #: ../../../app/views/file_pushes/audit.html.erb:4
-#: ../../../app/views/passwords/audit.html.erb:4
-msgid "Audit Log for"
-msgstr "Ellenőrzési napló"
+msgid "Audit Log for File Push"
+msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:6
 #: ../../../app/views/passwords/audit.html.erb:6
+#: ../../../app/views/urls/audit.html.erb:6
 msgid "Pushed on %s"
 msgstr "Küldve %s"
 
 #: ../../../app/views/file_pushes/audit.html.erb:9
 #: ../../../app/views/passwords/audit.html.erb:9
+#: ../../../app/views/urls/audit.html.erb:9
 msgid "Secret URL for this push"
 msgstr "A küldés titkos URL-je"
 
 #: ../../../app/views/file_pushes/audit.html.erb:19
 #: ../../../app/views/passwords/audit.html.erb:19
+#: ../../../app/views/urls/audit.html.erb:19
 msgid "Secret Link Language"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:37
 #: ../../../app/views/passwords/audit.html.erb:37
+#: ../../../app/views/urls/audit.html.erb:37
 msgid "Reference Note"
 msgstr "Referencia jegyzet"
 
 #: ../../../app/views/file_pushes/audit.html.erb:38
 #: ../../../app/views/passwords/audit.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:38
 msgid "Visible Only To You"
 msgstr "Csak Önnek látható"
 
 #: ../../../app/views/file_pushes/audit.html.erb:50
 #: ../../../app/views/passwords/audit.html.erb:50
+#: ../../../app/views/urls/audit.html.erb:50
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -554,35 +602,42 @@ msgstr "Beállítások"
 #: ../../../app/views/file_pushes/audit.html.erb:63
 #: ../../../app/views/passwords/audit.html.erb:54
 #: ../../../app/views/passwords/audit.html.erb:63
+#: ../../../app/views/urls/audit.html.erb:54
+#: ../../../app/views/urls/audit.html.erb:63
 msgid "Expire after"
 msgstr "Lejárat"
 
 #: ../../../app/views/file_pushes/audit.html.erb:56
 #: ../../../app/views/passwords/audit.html.erb:56
 #: ../../../app/views/shared/_js_lang_strings.html.erb:5
+#: ../../../app/views/urls/audit.html.erb:56
 msgid "View"
 msgid_plural "Views"
 msgstr[0] "Megtekintés"
 msgstr[1] "Megtekintések"
 
 #: ../../../app/views/file_pushes/audit.html.erb:58
+#: ../../../app/views/urls/audit.html.erb:58
 msgid "The push expires after this number of views."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:65
 #: ../../../app/views/passwords/audit.html.erb:65
 #: ../../../app/views/shared/_js_lang_strings.html.erb:3
+#: ../../../app/views/urls/audit.html.erb:65
 msgid "Day"
 msgid_plural "Days"
 msgstr[0] "nap"
 msgstr[1] "nap"
 
 #: ../../../app/views/file_pushes/audit.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:67
 msgid "The push expires after this number of days."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:72
 #: ../../../app/views/passwords/audit.html.erb:72
+#: ../../../app/views/urls/audit.html.erb:72
 msgid "Deletable by Viewers"
 msgstr "A nézők törölhetik"
 
@@ -590,6 +645,8 @@ msgstr "A nézők törölhetik"
 #: ../../../app/views/file_pushes/audit.html.erb:88
 #: ../../../app/views/passwords/audit.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:88
+#: ../../../app/views/urls/audit.html.erb:75
+#: ../../../app/views/urls/audit.html.erb:88
 msgid "True"
 msgstr "Igaz"
 
@@ -597,15 +654,19 @@ msgstr "Igaz"
 #: ../../../app/views/file_pushes/audit.html.erb:90
 #: ../../../app/views/passwords/audit.html.erb:77
 #: ../../../app/views/passwords/audit.html.erb:90
+#: ../../../app/views/urls/audit.html.erb:77
+#: ../../../app/views/urls/audit.html.erb:90
 msgid "False"
 msgstr "Hamis"
 
 #: ../../../app/views/file_pushes/audit.html.erb:80
+#: ../../../app/views/urls/audit.html.erb:80
 msgid "This allows end users to delete content once retrieved."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:85
 #: ../../../app/views/passwords/audit.html.erb:85
+#: ../../../app/views/urls/audit.html.erb:85
 msgid "1-click Retrieval Step"
 msgstr "1-kattintásos visszaállítási lépés"
 
@@ -613,6 +674,7 @@ msgstr "1-kattintásos visszaállítási lépés"
 #: ../../../app/views/file_pushes/new.html.erb:80
 #: ../../../app/views/passwords/audit.html.erb:93
 #: ../../../app/views/passwords/new.html.erb:87
+#: ../../../app/views/urls/audit.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Segít elkerülni, hogy a csevegőrendszerek és az URL-szkennerek elhasználják a "
@@ -620,51 +682,62 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:99
 #: ../../../app/views/passwords/audit.html.erb:99
+#: ../../../app/views/urls/audit.html.erb:99
 msgid "Current Status"
 msgstr "Jelenlegi állapot"
 
 #: ../../../app/views/file_pushes/audit.html.erb:103
 #: ../../../app/views/passwords/audit.html.erb:103
+#: ../../../app/views/urls/audit.html.erb:103
 msgid "State:"
 msgstr "Állapot:"
 
 #: ../../../app/views/file_pushes/audit.html.erb:108
 #: ../../../app/views/passwords/audit.html.erb:108
-#: ../../../app/views/shared/_dashboard_header.html.erb:20
-#: ../../../app/views/shared/_dashboard_header.html.erb:23
+#: ../../../app/views/shared/_dashboard_header.html.erb:25
+#: ../../../app/views/shared/_dashboard_header.html.erb:28
+#: ../../../app/views/shared/_dashboard_header.html.erb:31
+#: ../../../app/views/urls/audit.html.erb:108
 msgid "Active"
 msgstr "Aktív"
 
 #: ../../../app/views/file_pushes/audit.html.erb:109
 #: ../../../app/views/passwords/audit.html.erb:109
+#: ../../../app/views/urls/audit.html.erb:109
 msgid "Active and still available for viewing."
 msgstr "Aktív és még megtekinthető."
 
 #: ../../../app/views/file_pushes/audit.html.erb:115
 #: ../../../app/views/passwords/audit.html.erb:115
+#: ../../../app/views/urls/audit.html.erb:115
 msgid "Successful Views"
 msgstr "Sikeres megtekintések"
 
 #: ../../../app/views/file_pushes/audit.html.erb:116
+#: ../../../app/views/urls/audit.html.erb:116
 msgid "The number of times this push has been viewed before expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:121
 #: ../../../app/views/passwords/audit.html.erb:121
+#: ../../../app/views/urls/audit.html.erb:121
 msgid "Failed View Attempts"
 msgstr "Sikertelen megtekintési kísérletek"
 
 #: ../../../app/views/file_pushes/audit.html.erb:122
+#: ../../../app/views/urls/audit.html.erb:122
 msgid "The number of times this push has been viewed after expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:127
 #: ../../../app/views/passwords/audit.html.erb:127
+#: ../../../app/views/urls/audit.html.erb:127
 msgid "Days Remaining"
 msgstr "Hátralévő napok"
 
 #: ../../../app/views/file_pushes/audit.html.erb:128
 #: ../../../app/views/passwords/audit.html.erb:128
+#: ../../../app/views/urls/audit.html.erb:128
 msgid ""
 "Number of days until this push expires if the maximum view count isn't reached"
 "."
@@ -735,6 +808,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:140
+#: ../../../app/views/urls/audit.html.erb:140
 msgid "Expire Now"
 msgstr "Lejár most"
 
@@ -745,16 +819,19 @@ msgstr "Törli ezt a jelszót?"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "This will expire this secret link and"
 msgstr "Ezzel lejár ez a titkos link és"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "remove all content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:222
 #: ../../../app/views/passwords/audit.html.erb:153
+#: ../../../app/views/urls/audit.html.erb:153
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -764,16 +841,19 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:239
 #: ../../../app/views/passwords/audit.html.erb:170
+#: ../../../app/views/urls/audit.html.erb:170
 msgid "Start of Audit Log"
 msgstr "Ellenőrzési napló eleje"
 
 #: ../../../app/views/file_pushes/audit.html.erb:242
 #: ../../../app/views/passwords/audit.html.erb:173
+#: ../../../app/views/urls/audit.html.erb:173
 msgid "Push created on"
 msgstr "Létrehozva"
 
 #: ../../../app/views/file_pushes/audit.html.erb:247
 #: ../../../app/views/passwords/audit.html.erb:178
+#: ../../../app/views/urls/audit.html.erb:178
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -787,6 +867,7 @@ msgstr "A jelszó manuálisan lejárt a felhasználó által"
 #: ../../../app/views/file_pushes/audit.html.erb:258
 #: ../../../app/views/passwords/audit.html.erb:189
 #: ../../../app/views/passwords/audit.html.erb:193
+#: ../../../app/views/urls/audit.html.erb:189
 msgid "at IP address"
 msgstr "IP címen"
 
@@ -796,6 +877,9 @@ msgstr "IP címen"
 #: ../../../app/views/passwords/audit.html.erb:197
 #: ../../../app/views/passwords/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:221
+#: ../../../app/views/urls/audit.html.erb:194
+#: ../../../app/views/urls/audit.html.erb:206
+#: ../../../app/views/urls/audit.html.erb:218
 msgid "User Agent"
 msgstr "Felhasználói ügynök"
 
@@ -805,11 +889,15 @@ msgstr "Felhasználói ügynök"
 #: ../../../app/views/passwords/audit.html.erb:199
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
+#: ../../../app/views/urls/audit.html.erb:196
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
 msgid "Referrer"
 msgstr "Hivatkozó"
 
 #: ../../../app/views/file_pushes/audit.html.erb:270
 #: ../../../app/views/passwords/audit.html.erb:204
+#: ../../../app/views/urls/audit.html.erb:201
 msgid "Successful view from IP address"
 msgstr "Sikeres megtekintés IP-címről"
 
@@ -817,16 +905,20 @@ msgstr "Sikeres megtekintés IP-címről"
 #: ../../../app/views/file_pushes/audit.html.erb:284
 #: ../../../app/views/passwords/audit.html.erb:206
 #: ../../../app/views/passwords/audit.html.erb:218
+#: ../../../app/views/urls/audit.html.erb:203
+#: ../../../app/views/urls/audit.html.erb:215
 msgid "on"
 msgstr "tovább"
 
 #: ../../../app/views/file_pushes/audit.html.erb:282
 #: ../../../app/views/passwords/audit.html.erb:216
+#: ../../../app/views/urls/audit.html.erb:213
 msgid "Failed view attempt (already expired) by"
 msgstr "Sikertelen megtekintési kísérlet (már lejárt)"
 
 #: ../../../app/views/file_pushes/audit.html.erb:293
 #: ../../../app/views/passwords/audit.html.erb:227
+#: ../../../app/views/urls/audit.html.erb:224
 msgid "End of Audit Log"
 msgstr "Ellenőrzési napló vége"
 
@@ -841,21 +933,25 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:19
 #: ../../../app/views/passwords/expired.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:19
 msgid "ID"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:21
 #: ../../../app/views/passwords/expired.html.erb:22
+#: ../../../app/views/urls/expired.html.erb:21
 msgid "Expired On"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:41
 #: ../../../app/views/passwords/expired.html.erb:42
+#: ../../../app/views/urls/expired.html.erb:41
 msgid "Audit Log"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:1
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:1
+#: ../../../app/views/urls/new_anonymous.html.erb:1
 msgid "Securely Send Files"
 msgstr ""
 
@@ -865,6 +961,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:32
 #: ../../../app/views/passwords/new.html.erb:39
+#: ../../../app/views/urls/new.html.erb:28
 msgid "Expire secret link and delete after:"
 msgstr ""
 "A titkos link érvénytelenítése és törlése a következő feltételek teljesülése u"
@@ -874,11 +971,14 @@ msgstr ""
 #: ../../../app/views/file_pushes/preview.html.erb:38
 #: ../../../app/views/passwords/new.html.erb:72
 #: ../../../app/views/passwords/preview.html.erb:38
+#: ../../../app/views/urls/new.html.erb:61
+#: ../../../app/views/urls/preview.html.erb:38
 msgid "(whichever comes first)"
 msgstr "(amelyik előbb jön)"
 
 #: ../../../app/views/file_pushes/new.html.erb:79
 #: ../../../app/views/passwords/new.html.erb:86
+#: ../../../app/views/urls/new.html.erb:75
 msgid "Use a 1-click retrieval step"
 msgstr "Kattintás után lehessen megtekinteni a jelszót"
 
@@ -898,6 +998,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:112
 #: ../../../app/views/passwords/new.html.erb:32
+#: ../../../app/views/urls/new.html.erb:89
 msgid "Encrypted and visible only to you."
 msgstr ""
 
@@ -908,6 +1009,7 @@ msgid ""
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:122
+#: ../../../app/views/urls/new.html.erb:100
 msgid "An audit log of activity will be available."
 msgstr ""
 
@@ -919,15 +1021,18 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Push It!"
 msgstr "Küldjük!"
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Pushing..."
 msgstr "Küldés..."
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:8
+#: ../../../app/views/urls/new_anonymous.html.erb:8
 msgid "This Feature is In BETA"
 msgstr ""
 
@@ -936,14 +1041,17 @@ msgid "Securely Send Files That Delete Automatically"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:15
+#: ../../../app/views/urls/new_anonymous.html.erb:15
 msgid "Until stable, this feature is in beta and requires a log in."
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:19
+#: ../../../app/views/urls/new_anonymous.html.erb:19
 msgid "I would appreciate any feedback you have in the"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:20
+#: ../../../app/views/urls/new_anonymous.html.erb:20
 msgid "feedback form"
 msgstr ""
 
@@ -956,10 +1064,15 @@ msgstr ""
 #: ../../../app/views/passwords/preview.html.erb:36
 #: ../../../app/views/passwords/show.html.erb:31
 #: ../../../app/views/passwords/show.html.erb:34
+#: ../../../app/views/urls/new_anonymous.html.erb:21
+#: ../../../app/views/urls/preview.html.erb:36
+#: ../../../app/views/urls/show.html.erb:47
+#: ../../../app/views/urls/show.html.erb:50
 msgid "or"
 msgstr "vagy"
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:22
+#: ../../../app/views/urls/new_anonymous.html.erb:22
 msgid "in this Github Discussion"
 msgstr ""
 
@@ -981,24 +1094,29 @@ msgid "Click Here to View the Password"
 msgstr "Kattintson ide a jelszó megtekintéséhez"
 
 #: ../../../app/views/file_pushes/preview.html.erb:1
+#: ../../../app/views/urls/preview.html.erb:1
 msgid "Your Push Has Been Created"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:6
+#: ../../../app/views/urls/preview.html.erb:6
 msgid "Your push has been created."
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:8
 #: ../../../app/views/passwords/preview.html.erb:8
+#: ../../../app/views/urls/preview.html.erb:8
 msgid "Use this secret link to share it:"
 msgstr "Használja ezt a titkos linket a megosztáshoz:"
 
 #: ../../../app/views/file_pushes/preview.html.erb:19
 #: ../../../app/views/passwords/preview.html.erb:19
+#: ../../../app/views/urls/preview.html.erb:19
 msgid "Secret Link Lanugage"
 msgstr "Titkos link nyelve"
 
 #: ../../../app/views/file_pushes/preview.html.erb:34
+#: ../../../app/views/urls/preview.html.erb:34
 msgid "This push will expire after"
 msgstr ""
 
@@ -1006,6 +1124,8 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:44
 #: ../../../app/views/passwords/preview.html.erb:35
 #: ../../../app/views/passwords/show.html.erb:28
+#: ../../../app/views/urls/preview.html.erb:35
+#: ../../../app/views/urls/show.html.erb:44
 msgid "day"
 msgid_plural "days"
 msgstr[0] "nap"
@@ -1013,6 +1133,7 @@ msgstr[1] "nap"
 
 #: ../../../app/views/file_pushes/preview.html.erb:37
 #: ../../../app/views/passwords/preview.html.erb:37
+#: ../../../app/views/urls/preview.html.erb:37
 msgid "view"
 msgid_plural "views"
 msgstr[0] "megtekitnés"
@@ -1025,11 +1146,14 @@ msgstr[1] "megtekitnések"
 #: ../../../app/views/pages/faq.html.erb:142
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "and"
 msgstr "és"
 
 #: ../../../app/views/file_pushes/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:41
 msgid "can be"
 msgstr "lehet"
 
@@ -1037,44 +1161,54 @@ msgstr "lehet"
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "deleted by viewers."
 msgstr "törölte a megtekintő"
 
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "can NOT be"
 msgstr "NEM lehet"
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "It also includes a"
 msgstr "Ide tartozik még a"
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "1-click preliminary retrieval step"
 msgstr "1-kattintásos előzetes visszaállítási lépés"
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "View This Push Now"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
 #: ../../../app/views/passwords/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "(will burn a view) or"
 msgstr "(nézetet fog égetni) ill"
 
 #: ../../../app/views/file_pushes/preview.html.erb:53
+#: ../../../app/views/urls/preview.html.erb:53
 msgid "Push Another"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:58
 #: ../../../app/views/passwords/preview.html.erb:58
+#: ../../../app/views/urls/preview.html.erb:58
 msgid "View Audit Log"
 msgstr "Ellenőrzési napló megtekintése"
 
 #: ../../../app/views/file_pushes/preview.html.erb:63
 #: ../../../app/views/passwords/preview.html.erb:63
+#: ../../../app/views/urls/preview.html.erb:63
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -1084,42 +1218,51 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:1
 #: ../../../app/views/passwords/show.html.erb:1
+#: ../../../app/views/urls/show.html.erb:1
 msgid "Your Secret Link"
 msgstr "Titkos linkje"
 
 #: ../../../app/views/file_pushes/show.html.erb:7
+#: ../../../app/views/urls/show.html.erb:7
 msgid "The following files have been sent to you."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:8
+#: ../../../app/views/urls/show.html.erb:8
 msgid "Please download and store in a secure area."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:13
+#: ../../../app/views/urls/show.html.erb:13
 msgid "The following message has been sent to you along with the files below."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:14
+#: ../../../app/views/urls/show.html.erb:14
 msgid "The message is blurred out.  Click below to reveal it."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:42
 #: ../../../app/views/passwords/show.html.erb:26
+#: ../../../app/views/urls/show.html.erb:42
 msgid "This secret link and all content will be deleted in"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:47
 #: ../../../app/views/passwords/show.html.erb:31
+#: ../../../app/views/urls/show.html.erb:47
 msgid "0 more views"
 msgstr "0 további megtekintés"
 
 #: ../../../app/views/file_pushes/show.html.erb:48
 #: ../../../app/views/passwords/show.html.erb:32
+#: ../../../app/views/urls/show.html.erb:48
 msgid "(this is the last view)."
 msgstr "(ez az utolsó nézet)."
 
 #: ../../../app/views/file_pushes/show.html.erb:51
 #: ../../../app/views/passwords/show.html.erb:35
+#: ../../../app/views/urls/show.html.erb:51
 msgid "more view"
 msgid_plural "more views"
 msgstr[0] "több megtekintés"
@@ -1127,46 +1270,55 @@ msgstr[1] "több megtekintés"
 
 #: ../../../app/views/file_pushes/show.html.erb:52
 #: ../../../app/views/passwords/show.html.erb:36
+#: ../../../app/views/urls/show.html.erb:52
 msgid "(whichever occurs first)."
 msgstr "(amelyik előbb bekövetkezik)."
 
 #: ../../../app/views/file_pushes/show.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:41
+#: ../../../app/views/urls/show.html.erb:57
 msgid "Delete This Secret Link Now"
 msgstr "Törölje ezt a titkos linket most"
 
 #: ../../../app/views/file_pushes/show.html.erb:69
 #: ../../../app/views/passwords/show.html.erb:58
+#: ../../../app/views/urls/show.html.erb:69
 msgid "Delete?"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:73
 #: ../../../app/views/passwords/show.html.erb:62
+#: ../../../app/views/urls/show.html.erb:73
 msgid "This will expire this secret link and "
 msgstr "Ezzel lejár ez a titkos link és"
 
 #: ../../../app/views/file_pushes/show.html.erb:74
 #: ../../../app/views/passwords/show.html.erb:63
+#: ../../../app/views/urls/show.html.erb:74
 msgid "delete all related content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:79
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Delete"
 msgstr "Töröl"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:1
 #: ../../../app/views/passwords/show_expired.html.erb:1
+#: ../../../app/views/urls/show_expired.html.erb:1
 msgid "Your Secret Link Has Expired"
 msgstr "Titkos linkje lejárt"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:6
 #: ../../../app/views/passwords/show_expired.html.erb:6
+#: ../../../app/views/urls/show_expired.html.erb:6
 msgid "We apologize but this secret link has expired."
 msgstr "Elnézést kérünk, de ez a titkos link lejárt."
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:8
 #: ../../../app/views/passwords/show_expired.html.erb:8
+#: ../../../app/views/urls/show_expired.html.erb:8
 msgid ""
 "If needed, please contact the person or organization who gave you this secret "
 "URL."
@@ -2129,6 +2281,10 @@ msgstr ""
 msgid "Push a Password Now"
 msgstr ""
 
+#: ../../../app/views/passwords/audit.html.erb:4
+msgid "Audit Log for Password Push"
+msgstr ""
+
 #: ../../../app/views/passwords/audit.html.erb:58
 msgid "Password expires after this number of views."
 msgstr "A jelszó ennyi megtekintés után lejár."
@@ -2251,8 +2407,14 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:28
-#: ../../../app/views/shared/_dashboard_header.html.erb:30
+#: ../../../app/views/shared/_dashboard_header.html.erb:19
+#: ../../../app/views/shared/_topnav.html.erb:13
+msgid "URLs"
+msgstr ""
+
+#: ../../../app/views/shared/_dashboard_header.html.erb:36
+#: ../../../app/views/shared/_dashboard_header.html.erb:38
+#: ../../../app/views/shared/_dashboard_header.html.erb:40
 msgid "New"
 msgstr ""
 
@@ -2379,3 +2541,70 @@ msgstr "Mássalhangzók"
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:69
 msgid "Reset to Defaults"
 msgstr "Állítsa vissza az alapértelmezett értékeket"
+
+#: ../../../app/views/urls/active.html.erb:1
+#: ../../../app/views/urls/active.html.erb:18
+msgid "Active URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:8
+msgid "You currently have no active URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:13
+#: ../../../app/views/urls/expired.html.erb:10
+msgid "Push a URL Now"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:4
+msgid "Audit Log for URL Push"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:148
+msgid "Delete This URL Push?"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:187
+msgid "URL Push manually expired by user"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:1
+#: ../../../app/views/urls/expired.html.erb:14
+msgid "Expired URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:7
+msgid "You currently have no expired URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:1
+msgid "Securely Send URLs"
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:16
+msgid "Enter the URL to redirect to..."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:23
+msgid "Specify a URL to redirect to."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:76
+msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:94
+msgid "A secret URL will be generated that will redirect to the URL specified."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:99
+msgid "Upon expiration, the push redirect will be deleted entirely."
+msgstr ""
+
+#: ../../../app/views/urls/new_anonymous.html.erb:12
+msgid "Securely Send Redirect URLs That Automatically Expire"
+msgstr ""
+
+#: ../../../app/views/urls/preliminary.html.erb:3
+msgid "Click Here to Proceed"
+msgstr ""
