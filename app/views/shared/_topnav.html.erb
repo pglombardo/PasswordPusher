@@ -8,8 +8,10 @@
         <a class="nav-link <%= current_controller?("file_pushes") ? 'active' : '' %>" href="<%= new_file_push_path %>"><%= _('Files') %></a>
       </li>
     <% end %>
-    <li class="nav-item">
-      <a class="nav-link <%= current_controller?("urls") ? 'active' : '' %>" aria-current="page" href="<%= new_url_path %>"><%= _('URLs') %></a>
-    </li>
+    <% if Settings.enable_url_pushes %>
+      <li class="nav-item">
+        <a class="nav-link <%= current_controller?("urls") ? 'active' : '' %>" aria-current="page" href="<%= new_url_path %>"><%= _('URLs') %></a>
+      </li>
+    <% end %>
   </ul>
 <% end %>

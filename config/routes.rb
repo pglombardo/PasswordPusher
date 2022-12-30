@@ -55,12 +55,15 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
-        get 'preview', on: :member
-        get 'r', on: :member, as: 'preliminary', action: 'preliminary'
-        get 'audit', on: :member
-        get 'active', on: :collection
-        get 'expired', on: :collection
+      # URL based pushes can only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_url_pushes
+        resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
+          get 'preview', on: :member
+          get 'r', on: :member, as: 'preliminary', action: 'preliminary'
+          get 'audit', on: :member
+          get 'active', on: :collection
+          get 'expired', on: :collection
+        end
       end
 
       resources :c, controller: :commands, as: :commands, allow: %i[create]

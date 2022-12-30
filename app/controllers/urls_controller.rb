@@ -3,11 +3,8 @@ require 'securerandom'
 class UrlsController < ApplicationController
   helper UrlsHelper
 
-  # Use auth token (for JSON) if it's there but don't fall back to devise session
-  acts_as_token_authentication_handler_for User, fallback: :none, only: [:create, :destroy]
-
-  # Audit & dashboard views (active & expired) always requires a login
-  acts_as_token_authentication_handler_for User, only: [:audit, :active, :expired]
+  # Authentication always except for :show, :new
+  acts_as_token_authentication_handler_for User, except: [:show, :new]
 
   resource_description do
     name 'URL Pushes'
@@ -67,14 +64,20 @@ class UrlsController < ApplicationController
 
   # GET /urles/new
   def new
-    @push = Url.new
+    if user_signed_in?
+      @push = Url.new
 
-    respond_to do |format|
-      format.html # new.html.erb
+      respond_to do |format|
+        format.html # new.html.erb
+      end
+    else
+      respond_to do |format|
+        format.html { render template: 'urls/new_anonymous' }
+      end
     end
   end
 
-  api :POST, '/f.json', 'Create a new URL push.'
+  api :POST, '/r.json', 'Create a new URL push.'
   param :url, Hash, "Push details", required: true do
     param :payload, String, desc: 'The URL to redirect to.', required: true
     param :note, String, desc: 'If authenticated, the note to label this push.', allow_blank: true
@@ -83,7 +86,7 @@ class UrlsController < ApplicationController
     param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
   end
   formats ['json']
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "url[payload]=myurl&url[expire_after_days]=2&url[expire_after_views]=10" https://pwpush.com/f.json'
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "url[payload]=myurl&url[expire_after_days]=2&url[expire_after_views]=10" https://pwpush.com/r.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
