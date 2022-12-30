@@ -14,9 +14,11 @@
             <%= link_to _('Files'), active_file_pushes_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('file_pushes') }" %>
           </li>
         <% end %>
-        <li class="nav-item">
-          <%= link_to _('URLs'), active_urls_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('urls') }" %>
-        </li>
+        <% if Settings.enable_url_pushes %>
+          <li class="nav-item">
+            <%= link_to _('URLs'), active_urls_path, class: "nav-link #{ 'active text-decoration-underline' if current_controller?('urls') }" %>
+          </li>
+        <% end %>
       </ul>
       <div class="btn-group">
         <% if current_controller?('passwords') %>
