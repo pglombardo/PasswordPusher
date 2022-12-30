@@ -4,9 +4,8 @@ Rails.application.routes.draw do
       match '(*any)', to: redirect(subdomain: ''), via: :all, constraints: {subdomain: 'www'}
     end
 
-    apipie
-
     localized do
+      apipie
       devise_for :users, skip: :registrations, controllers: {
         sessions: 'users/sessions',
         passwords: 'users/passwords',
@@ -48,6 +47,17 @@ Rails.application.routes.draw do
       # File pushes only enabled when logins are enabled.
       if Settings.enable_logins && Settings.enable_file_pushes
         resources :f, controller: :file_pushes, as: :file_pushes, except: %i[index edit update] do
+          get 'preview', on: :member
+          get 'r', on: :member, as: 'preliminary', action: 'preliminary'
+          get 'audit', on: :member
+          get 'active', on: :collection
+          get 'expired', on: :collection
+        end
+      end
+
+      # URL based pushes can only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_url_pushes
+        resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
           get 'preview', on: :member
           get 'r', on: :member, as: 'preliminary', action: 'preliminary'
           get 'audit', on: :member

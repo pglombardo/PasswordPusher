@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
   def test_view_expiration
-    post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2 }}
+    post passwords_path(format: :json), params: { :password => { payload: "testpw", expire_after_views: 2 }}
     assert_response :success
 
     # Push a password with two views

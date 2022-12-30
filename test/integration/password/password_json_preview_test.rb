@@ -3,7 +3,7 @@ require 'uri'
 
 class PasswordJsonPreviewTest < ActionDispatch::IntegrationTest
   def test_preview_anonymous_response
-    post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2 }}
+    post passwords_path(format: :json), params: { :password => { payload: "testpw", expire_after_views: 2 }}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -22,7 +22,7 @@ class PasswordJsonPreviewTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     @luca.confirm
 
-    post "/p.json", params: { :password => { payload: "testpw", expire_after_views: 2 }}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
+    post passwords_path(format: :json), params: { :password => { payload: "testpw", expire_after_views: 2 }}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_textarea_has_safeties
-    get '/'
+    get new_password_path 
     assert_response :success
 
     # Validate some elements
@@ -22,10 +22,10 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_password_creation
-    get '/'
+    get new_password_path
     assert_response :success
 
-    post '/p', params: { password: { payload: 'testpw' } }
+    post passwords_path, params: { password: { payload: 'testpw' } }
     assert_response :redirect
 
     # Preview page
@@ -53,7 +53,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { password: { payload: 'æ ¼ ö ç ý' } }
+    post passwords_path, params: { password: { payload: 'æ ¼ ö ç ý' } }
     assert_response :redirect
 
     # Preview page
@@ -81,7 +81,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { password: { payload: '£' } }
+    post passwords_path, params: { password: { payload: '£' } }
     assert_response :redirect
 
     # Preview page
@@ -139,7 +139,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
+    post passwords_path, params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect
 
     follow_redirect!
@@ -164,7 +164,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { password: { payload: 'testpw' } }
+    post passwords_path, params: { password: { payload: 'testpw' } }
     assert_response :redirect
 
     follow_redirect!

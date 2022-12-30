@@ -9,7 +9,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # create
-    post '/p', params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
+    post passwords_path, params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
     assert_response :redirect
 
     # preview

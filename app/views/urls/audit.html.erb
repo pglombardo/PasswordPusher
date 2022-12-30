@@ -1,14 +1,14 @@
 <% title(_('Audit Log for %s') % @push.url_token) %>
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h4 class=''><%= _('Audit Log for File Push') %> <code><%= @push.url_token %></code></h4>
+    <h4 class=''><%= _('Audit Log for URL Push') %> <code><%= @push.url_token %></code></h4>
     <p class='text-muted mb-5'>
         <%= _('Pushed on %s') % I18n.l(@push.created_at, format: :long) %>
     </p>
 
     <p><%= _('Secret URL for this push') %>:</p>
     <div class='input-group mb-5 w-75'>
-        <input class='form-control', id='secret_url' value='<%= file_push_secret_url(@push) %>' spellcheck='false' readonly='true'>
+        <input class='form-control', id='secret_url' value='<%= url_secret_url(@push) %>' spellcheck='false' readonly='true'>
         <% if Settings.language_codes %>
             <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
         <% end %>
@@ -21,7 +21,7 @@
             <% if Settings.language_codes %>
                 <% I18n.available_locales.each do |lang| %>
                     <li class='dropdown-item' style='display: none;'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
-                    <li class='dropdown-item'><%= link_to Settings.language_codes[lang], audit_file_push_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
+                    <li class='dropdown-item'><%= link_to Settings.language_codes[lang], audit_url_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
                 <% end %>
             <% end %>
         </ul>
@@ -134,75 +134,6 @@
 
     <div class='row w-100'>
         <div class='col'>
-            <h4 class="border-bottom py-3"><%= _('Payload') %></h4>
-            <div class="list-group mx-0 my-3">
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Contains Message for Receiver') %>:
-                    <strong>
-                        <% if @push.expired %>
-                            <strong class=''><%= _('Deleted') %></strong>
-                        <% elsif @push.payload.nil? or @push.payload.empty? %>
-                            <strong class=''><%= _('No') %></strong>
-                        <% else %>
-                            <strong class='text-success'><%= _('Yes') %></strong>
-                        <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('Has a text payload been added to this push?') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Message Length') %>:
-                    <strong>
-                        <% if @push.expired %>
-                            <strong class=''><%= _('Deleted') %></strong>
-                        <% elsif @push.payload.nil? or @push.payload.empty? %>
-                            <%= _('Not Applicable') %>
-                        <% else %>
-                            <%= @push.payload.length %>
-                        <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('The length of the attached text payload.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Number of Files Attached') %>:
-                    <strong>
-                        <% if @push.files.count.positive? %>
-                            <strong class='text-success'><%= @push.files.count %></strong>
-                        <% else %>
-                            <strong class=''><%= @push.files.count %></strong>
-                        <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('The number of files attached to this push. This value will be 0 when expired.') %></small>
-                </span>
-                </label>
-            </div>
-        </div>
-        <div class='col'>
-            <h4 class="border-bottom py-3"><%= _('Attached Files') %></h4>
-            <div class="list-group mx-0 my-3">
-                <% if @push.files.count.positive? %>
-                    <% @push.files.each do |file| %>
-                        <label class="list-group-item d-flex gap-2">
-                        <span>
-                            <%= _('Filename:') %>
-                            <strong class=''><%= file.filename %></strong>
-                            <small class="d-block text-muted"><%= _('Size: ') + filesize(file.blob.byte_size) %></small>
-                        </span>
-                        </label>
-                    <% end %>
-                <% else %>
-                    <small class="d-block text-muted"><%= _('All attached files have been deleted.') %></small>
-                <% end %>
-            </div>
-        </div>
-    </div>
-
-    <div class='row w-100'>
-        <div class='col'>
             <% if @push.expired == false %>
                 <div class='text-center'>
                 <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
@@ -214,7 +145,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Password?') %></h5>
+                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This URL Push?') %></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -253,7 +184,7 @@
                         <div class="list-group-item list-group-item-action list-group-item-danger">
                             <em class="bi bi-trash"></em>
                             <% if view.user_id %>
-                                <%= _('Password manually expired by user') %>
+                                <%= _('URL Push manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
                             <% end %>

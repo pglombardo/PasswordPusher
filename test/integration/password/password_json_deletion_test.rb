@@ -3,7 +3,7 @@ require 'test_helper'
 class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
   def test_deletion
     # Create password
-    post "/p.json", params: { :password => { payload: "testpw" } }
+    post passwords_path(format: :json), params: { :password => { payload: "testpw" } }
     assert_response :success
 
     res = JSON.parse(@response.body)

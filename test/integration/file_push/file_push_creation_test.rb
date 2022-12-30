@@ -172,7 +172,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
 
-    post '/p', params: { password: { payload: 'testpw' } }
+    post passwords_path, params: { password: { payload: 'testpw' } }
     assert_response :redirect
 
     follow_redirect!
