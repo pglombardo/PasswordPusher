@@ -78,13 +78,12 @@ Notes:
 
 # Changing Application Defaults
 
-## Application Wide
+## Application General
 
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
 | PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
 | PWP__RELATIVE_ROOT | Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
-
 
 ## Push Form Defaults
 
@@ -109,9 +108,9 @@ To use logins, you should be running a databased backed version of Password Push
 
 _All_ of the following environments need to be set (except SMTP authentication if none) for application logins to function properly.
 
-| Environment Variable | Description | Value |
+| Environment Variable | Description | Default |
 | --------- | ------------------ | --- |
-| PWP__ENABLE_LOGINS | On/Off switch for logins. | `true` |
+| PWP__ENABLE_LOGINS | On/Off switch for logins. | `false` |
 | PWP__ALLOW_ANONYMOUS | When false, requires a login for the front page (to push new passwords). | `true` |
 | PWP__MAIL__RAISE_DELIVERY_ERRORS | Email delivery errors will be shown in the application | `true` |
 | PWP__MAIL__SMTP_ADDRESS | Allows you to use a remote mail server. Just change it from its default "localhost" setting. | `smtp.domain.com` |
@@ -147,6 +146,55 @@ export PWP__MAIL__MAILER_SENDER='"Spiderman" <thespider@mycompany.org>'
 
 * See also this [Github discussion](https://github.com/pglombardo/PasswordPusher/issues/265#issuecomment-964432942).
 * [External Documentation on mailer configuration](https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration) for the underlying technology if you need more details for configuration issues.
+
+# Enabling File Pushes
+
+To enable file uploads (File Pushes) in your instance of Password Pusher, you must have logins enabled (see above) and specify a place to store uploaded files.
+
+The following settings enable/disable the feature and specify where to store uploaded files.
+
+This feature can store uploads on local disk (not valid for Docker containers), Amazon S3, Google Cloud Storage or Azure Storage.
+
+## General Settings
+
+| Environment Variable | Description | Value(s) |
+| --------- | ------------------ | --- |
+| PWP__ENABLE_FILE_PUSHES | On/Off switch for File Pushes. | `false` |
+| PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `s3`, `gcs` or `as` |
+
+## Amazon S3
+
+| Environment Variable | Description | Value(s) |
+| --------- | ------------------ | --- |
+| PWP__FILES__S3__ENDPOINT | S3 Endpoint | None |
+| PWP__FILES__S3__ACCESS_KEY_ID | Access Key ID | None |
+| PWP__FILES__S3__SECRET_ACCESS_KEY | Secret Access Key| None |
+| PWP__FILES__S3__REGION | S3 Region| None |
+| PWP__FILES__S3__BUCKET | The S3 bucket name | None |
+
+## Google Cloud Storage
+
+| Environment Variable | Description | Value(s) |
+| --------- | ------------------ | --- |
+| PWP__FILES__GCS__PROJECT | GCS Project | None |
+| PWP__FILES__GCS__CREDENTIALS | GCS Credentials | None |
+| PWP__FILES__GCS__BUCKET | The GCS bucket name | None |
+
+## Azure Storage
+
+| Environment Variable | Description | Value(s) |
+| --------- | ------------------ | --- |
+| PWP__FILES__AS__STORAGE_ACCOUNT_NAME | Azure Storage Account Name | None |
+| PWP__FILES__AS__STORAGE_ACCESS_KEY | Azure Storage Account Key | None |
+| PWP__FILES__AS__CONTAINER | Azure Storage Container Name | None |
+
+# Enabling URL Pushes
+
+Similar to file pushes, URL pushes also require logins to be enabled.
+
+| Environment Variable | Description | Default |
+| --------- | ------------------ | --- |
+| PWP__ENABLE_URL_PUSHES | On/Off switch for URL Pushes. | `false` |
 
 # Rebranding
 
