@@ -27,8 +27,8 @@
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
                 <div class='col-8'>
-                    <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
-                                        { :name => "file_push[expire_after_days]",
+                    <%= range_field_tag("url_expire_after_days", Settings.expire_after_days_default,
+                                        { :name => "url[expire_after_days]",
                                           :class => "form-range",
                                           :min => Settings.expire_after_days_min,
                                           :max => Settings.expire_after_days_max,
@@ -36,14 +36,14 @@
                                           :step => "1" })%>
                 </div>
                 <div class='col-4'>
-                    <label for='password_expire_after_days' id='daysrange'><%=Settings.expire_after_days_default %></label>
+                    <label for='url_expire_after_days' id='daysrange'><%=Settings.expire_after_days_default %></label>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
-                                       { :name => "file_push[expire_after_views]",
+                    <%=range_field_tag("url_expire_after_views", Settings.expire_after_views_default,
+                                       { :name => "url[expire_after_views]",
                                          :class => "form-range",
                                          :min => Settings.expire_after_views_min,
                                          :max => Settings.expire_after_views_max,
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class='col-4'>
-                    <label for='password_expire_after_views' id='viewsrange'><%= Settings.expire_after_views_default %> <%= _('Views') %></label>
+                    <label for='url_expire_after_views' id='viewsrange'><%= Settings.expire_after_views_default %> <%= _('Views') %></label>
                 </div>
             </div>
             <div class='row'>
