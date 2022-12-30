@@ -2,20 +2,20 @@ require 'test_helper'
 require 'uri'
 
 class UrlJsonPreviewTest < ActionDispatch::IntegrationTest
-  def test_preview_anonymous_response
-    post urls_path(format: :json), params: { :url => { payload: "https://the0x00.dev", expire_after_views: 2 }}
-    assert_response :success
+  include Devise::Test::IntegrationHelpers
 
-    res = JSON.parse(@response.body)
-    assert res.key?("url_token")
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
     
-    get "/r/#{res['url_token']}/preview.json"
-    assert_response :success
-
-    res = JSON.parse(@response.body)
-    assert res.key?("url")
+    @luca = users(:luca)
+    @luca.confirm
   end
-  
+
+  teardown do
+  end
+
   def test_authenticated_preview_response
     Settings.enable_logins = true
 

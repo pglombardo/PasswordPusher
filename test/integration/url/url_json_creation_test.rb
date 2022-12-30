@@ -1,8 +1,22 @@
 require 'test_helper'
 
 class UrlJsonCreationTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
+
+    @luca = users(:luca)
+    @luca.confirm
+  end
+
+  teardown do
+  end
+
   def test_basic_json_creation
-    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev' } }
+    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev' } }, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -27,7 +41,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_days_expiration
-    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev', expire_after_days: 1 } }
+    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev', expire_after_days: 1 } }, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -40,7 +54,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_views_expiration
-    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev', expire_after_views: 5 } }
+    post urls_path(format: :json), params: { url: { payload: 'https://the0x00.dev', expire_after_views: 5 } }, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -53,7 +67,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_bad_request
-    post urls_path(format: :json), params: {}
+    post urls_path(format: :json), params: {}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :bad_request
 
     res = JSON.parse(@response.body)

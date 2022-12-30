@@ -5,6 +5,8 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
    
   setup do
     Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
   end
   
   teardown do
@@ -12,10 +14,10 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     sign_out @luca
   end
 
-  test 'New push form is available anonymous' do
+  test 'New push form is NOT available anonymous' do
     get new_url_path
     assert_response :success
-    assert response.body.include?('Specify a URL to redirect to.')
+    assert response.body.include?('requires a log in')
   end
 
   test '"active" and "expired" should redirect anonymous to user sign in' do

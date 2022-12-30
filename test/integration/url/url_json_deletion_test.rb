@@ -1,9 +1,23 @@
 require 'test_helper'
 
 class UrlJsonCreationTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
+    
+    @luca = users(:luca)
+    @luca.confirm
+  end
+
+  teardown do
+  end
+
   def test_deletion
     # Create url
-    post urls_path(format: :json), params: { :url => { payload: "https://the0x00.dev" } }
+    post urls_path(format: :json), params: { :url => { payload: "https://the0x00.dev" } }, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -21,7 +35,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.expire_after_views_default, res["views_remaining"]
 
     # Delete the new url via json e.g. /r/<url_token>.json
-    delete "/r/" + res["url_token"] + ".json"
+    delete "/r/" + res["url_token"] + ".json", headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)

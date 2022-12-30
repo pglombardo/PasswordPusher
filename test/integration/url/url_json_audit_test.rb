@@ -2,10 +2,17 @@ require 'test_helper'
 
 class UrlJsonAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
+  end
+
+  teardown do
+  end
 
   def test_audit_response_for_authenticated
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     @luca.confirm
 
@@ -82,45 +89,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     assert_nil res["payload"]
 
     # Get the Audit Log without a token
-    get "/r/#{url_token}/audit.json", as: :json
-    assert_response :unauthorized
-
-    res = JSON.parse(@response.body)
-    assert res.key?("error")
-    assert res["error"] == "You need to sign in or sign up before continuing."
-  end
-  
-  def test_no_audit_log_for_anonymous_pushes
-    Settings.enable_logins = true
-
-    @luca = users(:luca)
-    @luca.confirm
-
-    # Create an anonymous push
-    post urls_path, params: { :url => { payload: "https://the0x00.dev", expire_after_views: 2 }}, as: :json
-    assert_response :success
-
-    res = JSON.parse(@response.body)
-    assert res.key?("url_token")
-    url_token = res['url_token']
-  
-    # Generate views on that push
-    get "/r/#{url_token}.json"
-    assert_response :success
-    res = JSON.parse(@response.body)
-    assert_equal "https://the0x00.dev", res["payload"]
-
-    get "/r/#{url_token}.json"
-    assert_response :success
-    res = JSON.parse(@response.body)
-    assert_equal "https://the0x00.dev", res["payload"]
-
-    get "/r/#{url_token}.json"
-    assert_response :success
-    res = JSON.parse(@response.body)
-    assert_nil res["payload"]
-
-    # Get the Audit Log with a token
     get "/r/#{url_token}/audit.json", as: :json
     assert_response :unauthorized
 
