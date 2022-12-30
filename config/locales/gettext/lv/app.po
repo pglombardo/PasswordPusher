@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-12-28 11:36+0100\n"
-"PO-Revision-Date: 2022-12-28 11:36+0100\n"
+"POT-Creation-Date: 2022-12-30 11:53+0100\n"
+"PO-Revision-Date: 2022-12-30 11:53+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Latvian\n"
 "Language: lv\n"
@@ -52,16 +52,19 @@ msgstr ""
 
 #: ../../../app/controllers/file_pushes_controller.rb:220
 #: ../../../app/controllers/passwords_controller.rb:202
+#: ../../../app/controllers/urls_controller.rb:198
 msgid "That push doesn't belong to you."
 msgstr "Šī nosūtītā paroles saite nepieder Jums"
 
 #: ../../../app/controllers/file_pushes_controller.rb:248
 #: ../../../app/controllers/passwords_controller.rb:230
+#: ../../../app/controllers/urls_controller.rb:226
 msgid "That push does not belong to you."
 msgstr "Šī nosūtītā paroles saite nepieder Jums"
 
 #: ../../../app/controllers/file_pushes_controller.rb:253
 #: ../../../app/controllers/passwords_controller.rb:235
+#: ../../../app/controllers/urls_controller.rb:231
 msgid "That push is not deletable by viewers."
 msgstr "Šo nosūtīto paroli skatītāji nevar dzēst."
 
@@ -69,16 +72,24 @@ msgstr "Šo nosūtīto paroli skatītāji nevar dzēst."
 #: ../../../app/controllers/file_pushes_controller.rb:273
 #: ../../../app/controllers/passwords_controller.rb:259
 #: ../../../app/controllers/passwords_controller.rb:262
+#: ../../../app/controllers/urls_controller.rb:247
+#: ../../../app/controllers/urls_controller.rb:250
 #: ../../../app/views/file_pushes/audit.html.erb:106
 #: ../../../app/views/file_pushes/audit.html.erb:261
 #: ../../../app/views/passwords/audit.html.erb:106
 #: ../../../app/views/passwords/audit.html.erb:195
+#: ../../../app/views/urls/audit.html.erb:106
+#: ../../../app/views/urls/audit.html.erb:192
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir beidzies."
 
 #: ../../../app/controllers/passwords_controller.rb:241
 #: ../../../app/controllers/passwords_controller.rb:242
 msgid "That push is already expired."
+msgstr ""
+
+#: ../../../app/controllers/urls_controller.rb:110
+msgid "Invalid URL: Must be a valid URL and start with http:// or https://"
 msgstr ""
 
 #: ../../../app/helpers/application_helper.rb:7
@@ -105,6 +116,8 @@ msgstr "Password Pusher atsauksmes"
 #: ../../../app/views/file_pushes/expired.html.erb:16
 #: ../../../app/views/passwords/active.html.erb:20
 #: ../../../app/views/passwords/expired.html.erb:17
+#: ../../../app/views/urls/active.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:16
 msgid "Active Pushes"
 msgstr "Aktīvie sūtījumi "
 
@@ -123,12 +136,14 @@ msgstr "Nosūtīt kaut ko tūlīt"
 #: ../../../app/views/dashboard/expired.html.erb:17
 #: ../../../app/views/file_pushes/active.html.erb:23
 #: ../../../app/views/passwords/active.html.erb:23
+#: ../../../app/views/urls/active.html.erb:23
 msgid "Push ID"
 msgstr "Paroles saites ID"
 
 #: ../../../app/views/dashboard/active.html.erb:18
 #: ../../../app/views/file_pushes/active.html.erb:24
 #: ../../../app/views/passwords/active.html.erb:24
+#: ../../../app/views/urls/active.html.erb:24
 msgid "Created"
 msgstr "Izveidots"
 
@@ -138,6 +153,8 @@ msgstr "Izveidots"
 #: ../../../app/views/file_pushes/expired.html.erb:20
 #: ../../../app/views/passwords/active.html.erb:25
 #: ../../../app/views/passwords/expired.html.erb:21
+#: ../../../app/views/urls/active.html.erb:25
+#: ../../../app/views/urls/expired.html.erb:20
 msgid "Note"
 msgstr "Piezīme"
 
@@ -147,6 +164,8 @@ msgstr "Piezīme"
 #: ../../../app/views/passwords/active.html.erb:26
 #: ../../../app/views/passwords/new.html.erb:66
 #: ../../../app/views/shared/_js_lang_strings.html.erb:6
+#: ../../../app/views/urls/active.html.erb:26
+#: ../../../app/views/urls/new.html.erb:55
 msgid "Views"
 msgstr "Skatījumi"
 
@@ -154,6 +173,7 @@ msgstr "Skatījumi"
 #: ../../../app/views/file_pushes/active.html.erb:28
 #: ../../../app/views/passwords/active.html.erb:27
 #: ../../../app/views/shared/_js_lang_strings.html.erb:4
+#: ../../../app/views/urls/active.html.erb:27
 msgid "Days"
 msgstr "Dienas"
 
@@ -169,12 +189,18 @@ msgstr "Dienas"
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
 #: ../../../app/views/passwords/expired.html.erb:32
+#: ../../../app/views/urls/active.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:41
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
+#: ../../../app/views/urls/expired.html.erb:31
 msgid "None"
 msgstr "Nav"
 
 #: ../../../app/views/dashboard/active.html.erb:40
 #: ../../../app/views/file_pushes/active.html.erb:50
 #: ../../../app/views/passwords/active.html.erb:48
+#: ../../../app/views/urls/active.html.erb:48
 msgid "Push Controls"
 msgstr "Paroles sūtīšanas vadīkla"
 
@@ -193,12 +219,19 @@ msgstr "Paroles sūtīšanas vadīkla"
 #: ../../../app/views/passwords/audit.html.erb:158
 #: ../../../app/views/passwords/preview.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/active.html.erb:49
+#: ../../../app/views/urls/active.html.erb:52
+#: ../../../app/views/urls/audit.html.erb:158
+#: ../../../app/views/urls/expired.html.erb:40
+#: ../../../app/views/urls/preview.html.erb:57
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Processing..."
 msgstr "Notiek apstrāde..."
 
 #: ../../../app/views/dashboard/active.html.erb:42
 #: ../../../app/views/file_pushes/active.html.erb:52
 #: ../../../app/views/passwords/active.html.erb:50
+#: ../../../app/views/urls/active.html.erb:50
 msgid "Preview"
 msgstr "Priekšskatījums"
 
@@ -206,6 +239,7 @@ msgstr "Priekšskatījums"
 #: ../../../app/views/dashboard/expired.html.erb:45
 #: ../../../app/views/file_pushes/active.html.erb:55
 #: ../../../app/views/passwords/active.html.erb:53
+#: ../../../app/views/urls/active.html.erb:53
 msgid "Audit"
 msgstr "Audits"
 
@@ -225,8 +259,10 @@ msgstr ""
 #: ../../../app/views/dashboard/expired.html.erb:40
 #: ../../../app/views/file_pushes/audit.html.erb:105
 #: ../../../app/views/passwords/audit.html.erb:105
-#: ../../../app/views/shared/_dashboard_header.html.erb:21
-#: ../../../app/views/shared/_dashboard_header.html.erb:24
+#: ../../../app/views/shared/_dashboard_header.html.erb:26
+#: ../../../app/views/shared/_dashboard_header.html.erb:29
+#: ../../../app/views/shared/_dashboard_header.html.erb:32
+#: ../../../app/views/urls/audit.html.erb:105
 msgid "Expired"
 msgstr "Beidzies derīguma termiņš"
 
@@ -388,6 +424,8 @@ msgstr "Jūsu API marķieris ir aizmiglots. Noklikšķiniet zemāk, lai to atkl�
 #: ../../../app/views/passwords/preview.html.erb:28
 #: ../../../app/views/passwords/show.html.erb:10
 #: ../../../app/views/passwords/show.html.erb:48
+#: ../../../app/views/urls/audit.html.erb:29
+#: ../../../app/views/urls/preview.html.erb:28
 msgid "Copy to Clipboard"
 msgstr "Kopēt starpliktuvē"
 
@@ -429,6 +467,8 @@ msgstr "Tā vietā tiks ģenerēts jauns marķieris."
 #: ../../../app/views/file_pushes/show.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:154
 #: ../../../app/views/passwords/show.html.erb:64
+#: ../../../app/views/urls/audit.html.erb:154
+#: ../../../app/views/urls/show.html.erb:75
 msgid "Are you sure?"
 msgstr "Vai esat pārliecināts?"
 
@@ -437,6 +477,8 @@ msgstr "Vai esat pārliecināts?"
 #: ../../../app/views/file_pushes/show.html.erb:78
 #: ../../../app/views/passwords/audit.html.erb:157
 #: ../../../app/views/passwords/show.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:157
+#: ../../../app/views/urls/show.html.erb:78
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -516,41 +558,47 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:1
 #: ../../../app/views/passwords/audit.html.erb:1
+#: ../../../app/views/urls/audit.html.erb:1
 msgid "Audit Log for %s"
 msgstr "Auditācijas pieraksti %s"
 
 #: ../../../app/views/file_pushes/audit.html.erb:4
-#: ../../../app/views/passwords/audit.html.erb:4
-msgid "Audit Log for"
-msgstr "Auditācijas pieraksti "
+msgid "Audit Log for File Push"
+msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:6
 #: ../../../app/views/passwords/audit.html.erb:6
+#: ../../../app/views/urls/audit.html.erb:6
 msgid "Pushed on %s"
 msgstr "Nosūtīta %s"
 
 #: ../../../app/views/file_pushes/audit.html.erb:9
 #: ../../../app/views/passwords/audit.html.erb:9
+#: ../../../app/views/urls/audit.html.erb:9
 msgid "Secret URL for this push"
 msgstr "Slepenais URL šai paroles saitei"
 
 #: ../../../app/views/file_pushes/audit.html.erb:19
 #: ../../../app/views/passwords/audit.html.erb:19
+#: ../../../app/views/urls/audit.html.erb:19
 msgid "Secret Link Language"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:37
 #: ../../../app/views/passwords/audit.html.erb:37
+#: ../../../app/views/urls/audit.html.erb:37
 msgid "Reference Note"
 msgstr "Atsauces piezīme"
 
 #: ../../../app/views/file_pushes/audit.html.erb:38
 #: ../../../app/views/passwords/audit.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:38
 msgid "Visible Only To You"
 msgstr "Redzams tikai jums"
 
 #: ../../../app/views/file_pushes/audit.html.erb:50
 #: ../../../app/views/passwords/audit.html.erb:50
+#: ../../../app/views/urls/audit.html.erb:50
 msgid "Settings"
 msgstr "Iestatījumi"
 
@@ -558,12 +606,15 @@ msgstr "Iestatījumi"
 #: ../../../app/views/file_pushes/audit.html.erb:63
 #: ../../../app/views/passwords/audit.html.erb:54
 #: ../../../app/views/passwords/audit.html.erb:63
+#: ../../../app/views/urls/audit.html.erb:54
+#: ../../../app/views/urls/audit.html.erb:63
 msgid "Expire after"
 msgstr "Derīguma termiņš beigsies pēc "
 
 #: ../../../app/views/file_pushes/audit.html.erb:56
 #: ../../../app/views/passwords/audit.html.erb:56
 #: ../../../app/views/shared/_js_lang_strings.html.erb:5
+#: ../../../app/views/urls/audit.html.erb:56
 msgid "View"
 msgid_plural "Views"
 msgstr[0] "Skatījums"
@@ -571,12 +622,14 @@ msgstr[1] "Skatījumi"
 msgstr[2] ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:58
+#: ../../../app/views/urls/audit.html.erb:58
 msgid "The push expires after this number of views."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:65
 #: ../../../app/views/passwords/audit.html.erb:65
 #: ../../../app/views/shared/_js_lang_strings.html.erb:3
+#: ../../../app/views/urls/audit.html.erb:65
 msgid "Day"
 msgid_plural "Days"
 msgstr[0] "Diena"
@@ -584,11 +637,13 @@ msgstr[1] "Dienas"
 msgstr[2] ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:67
 msgid "The push expires after this number of days."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:72
 #: ../../../app/views/passwords/audit.html.erb:72
+#: ../../../app/views/urls/audit.html.erb:72
 msgid "Deletable by Viewers"
 msgstr "Dzēšams skatītājiem"
 
@@ -596,6 +651,8 @@ msgstr "Dzēšams skatītājiem"
 #: ../../../app/views/file_pushes/audit.html.erb:88
 #: ../../../app/views/passwords/audit.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:88
+#: ../../../app/views/urls/audit.html.erb:75
+#: ../../../app/views/urls/audit.html.erb:88
 msgid "True"
 msgstr "Taisnība"
 
@@ -603,15 +660,19 @@ msgstr "Taisnība"
 #: ../../../app/views/file_pushes/audit.html.erb:90
 #: ../../../app/views/passwords/audit.html.erb:77
 #: ../../../app/views/passwords/audit.html.erb:90
+#: ../../../app/views/urls/audit.html.erb:77
+#: ../../../app/views/urls/audit.html.erb:90
 msgid "False"
 msgstr "Nepatiesi"
 
 #: ../../../app/views/file_pushes/audit.html.erb:80
+#: ../../../app/views/urls/audit.html.erb:80
 msgid "This allows end users to delete content once retrieved."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:85
 #: ../../../app/views/passwords/audit.html.erb:85
+#: ../../../app/views/urls/audit.html.erb:85
 msgid "1-click Retrieval Step"
 msgstr "Viena klikšķa izguves darbība"
 
@@ -619,6 +680,7 @@ msgstr "Viena klikšķa izguves darbība"
 #: ../../../app/views/file_pushes/new.html.erb:80
 #: ../../../app/views/passwords/audit.html.erb:93
 #: ../../../app/views/passwords/new.html.erb:87
+#: ../../../app/views/urls/audit.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Palīdz izvairīties no tā, ka tērzēšanas programmas un URL skeneri patērē skatī"
@@ -626,51 +688,62 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:99
 #: ../../../app/views/passwords/audit.html.erb:99
+#: ../../../app/views/urls/audit.html.erb:99
 msgid "Current Status"
 msgstr "Pašreizējais statuss"
 
 #: ../../../app/views/file_pushes/audit.html.erb:103
 #: ../../../app/views/passwords/audit.html.erb:103
+#: ../../../app/views/urls/audit.html.erb:103
 msgid "State:"
 msgstr "Valsts:"
 
 #: ../../../app/views/file_pushes/audit.html.erb:108
 #: ../../../app/views/passwords/audit.html.erb:108
-#: ../../../app/views/shared/_dashboard_header.html.erb:20
-#: ../../../app/views/shared/_dashboard_header.html.erb:23
+#: ../../../app/views/shared/_dashboard_header.html.erb:25
+#: ../../../app/views/shared/_dashboard_header.html.erb:28
+#: ../../../app/views/shared/_dashboard_header.html.erb:31
+#: ../../../app/views/urls/audit.html.erb:108
 msgid "Active"
 msgstr "Aktīvs"
 
 #: ../../../app/views/file_pushes/audit.html.erb:109
 #: ../../../app/views/passwords/audit.html.erb:109
+#: ../../../app/views/urls/audit.html.erb:109
 msgid "Active and still available for viewing."
 msgstr "Aktīvs un joprojām apskatāms."
 
 #: ../../../app/views/file_pushes/audit.html.erb:115
 #: ../../../app/views/passwords/audit.html.erb:115
+#: ../../../app/views/urls/audit.html.erb:115
 msgid "Successful Views"
 msgstr "Veiksmīgi skatījumi"
 
 #: ../../../app/views/file_pushes/audit.html.erb:116
+#: ../../../app/views/urls/audit.html.erb:116
 msgid "The number of times this push has been viewed before expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:121
 #: ../../../app/views/passwords/audit.html.erb:121
+#: ../../../app/views/urls/audit.html.erb:121
 msgid "Failed View Attempts"
 msgstr "Neveiksmīgi skatīšanas mēģinājumi"
 
 #: ../../../app/views/file_pushes/audit.html.erb:122
+#: ../../../app/views/urls/audit.html.erb:122
 msgid "The number of times this push has been viewed after expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:127
 #: ../../../app/views/passwords/audit.html.erb:127
+#: ../../../app/views/urls/audit.html.erb:127
 msgid "Days Remaining"
 msgstr "Atlikušās dienas"
 
 #: ../../../app/views/file_pushes/audit.html.erb:128
 #: ../../../app/views/passwords/audit.html.erb:128
+#: ../../../app/views/urls/audit.html.erb:128
 msgid ""
 "Number of days until this push expires if the maximum view count isn't reached"
 "."
@@ -741,6 +814,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:140
+#: ../../../app/views/urls/audit.html.erb:140
 msgid "Expire Now"
 msgstr "Derīguma termiņš beigsies tagad"
 
@@ -751,16 +825,19 @@ msgstr "Dzēst šo paroli?"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "This will expire this secret link and"
 msgstr "Tas izbeigs šīs slepenās saites derīguma termiņu un"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "remove all content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:222
 #: ../../../app/views/passwords/audit.html.erb:153
+#: ../../../app/views/urls/audit.html.erb:153
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -770,16 +847,19 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:239
 #: ../../../app/views/passwords/audit.html.erb:170
+#: ../../../app/views/urls/audit.html.erb:170
 msgid "Start of Audit Log"
 msgstr "Auditācijas pierakstu sākums"
 
 #: ../../../app/views/file_pushes/audit.html.erb:242
 #: ../../../app/views/passwords/audit.html.erb:173
+#: ../../../app/views/urls/audit.html.erb:173
 msgid "Push created on"
 msgstr "Paroles saite izveidota "
 
 #: ../../../app/views/file_pushes/audit.html.erb:247
 #: ../../../app/views/passwords/audit.html.erb:178
+#: ../../../app/views/urls/audit.html.erb:178
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -793,6 +873,7 @@ msgstr "Lietotājs manuāli beidzis paroles derīguma termiņu"
 #: ../../../app/views/file_pushes/audit.html.erb:258
 #: ../../../app/views/passwords/audit.html.erb:189
 #: ../../../app/views/passwords/audit.html.erb:193
+#: ../../../app/views/urls/audit.html.erb:189
 msgid "at IP address"
 msgstr "uz IP adresi"
 
@@ -802,6 +883,9 @@ msgstr "uz IP adresi"
 #: ../../../app/views/passwords/audit.html.erb:197
 #: ../../../app/views/passwords/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:221
+#: ../../../app/views/urls/audit.html.erb:194
+#: ../../../app/views/urls/audit.html.erb:206
+#: ../../../app/views/urls/audit.html.erb:218
 msgid "User Agent"
 msgstr "Lietotāja aģents"
 
@@ -811,11 +895,15 @@ msgstr "Lietotāja aģents"
 #: ../../../app/views/passwords/audit.html.erb:199
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
+#: ../../../app/views/urls/audit.html.erb:196
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
 msgid "Referrer"
 msgstr "Referents"
 
 #: ../../../app/views/file_pushes/audit.html.erb:270
 #: ../../../app/views/passwords/audit.html.erb:204
+#: ../../../app/views/urls/audit.html.erb:201
 msgid "Successful view from IP address"
 msgstr "Veiksmīgs skatījums no IP adreses"
 
@@ -823,16 +911,20 @@ msgstr "Veiksmīgs skatījums no IP adreses"
 #: ../../../app/views/file_pushes/audit.html.erb:284
 #: ../../../app/views/passwords/audit.html.erb:206
 #: ../../../app/views/passwords/audit.html.erb:218
+#: ../../../app/views/urls/audit.html.erb:203
+#: ../../../app/views/urls/audit.html.erb:215
 msgid "on"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:282
 #: ../../../app/views/passwords/audit.html.erb:216
+#: ../../../app/views/urls/audit.html.erb:213
 msgid "Failed view attempt (already expired) by"
 msgstr "Neveiksmīgs skatīšanas mēģinājums (beidzies derīguma termiņš), tā autors "
 
 #: ../../../app/views/file_pushes/audit.html.erb:293
 #: ../../../app/views/passwords/audit.html.erb:227
+#: ../../../app/views/urls/audit.html.erb:224
 msgid "End of Audit Log"
 msgstr "Auditācijas pierakstu beigas"
 
@@ -847,21 +939,25 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:19
 #: ../../../app/views/passwords/expired.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:19
 msgid "ID"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:21
 #: ../../../app/views/passwords/expired.html.erb:22
+#: ../../../app/views/urls/expired.html.erb:21
 msgid "Expired On"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:41
 #: ../../../app/views/passwords/expired.html.erb:42
+#: ../../../app/views/urls/expired.html.erb:41
 msgid "Audit Log"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:1
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:1
+#: ../../../app/views/urls/new_anonymous.html.erb:1
 msgid "Securely Send Files"
 msgstr ""
 
@@ -871,6 +967,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:32
 #: ../../../app/views/passwords/new.html.erb:39
+#: ../../../app/views/urls/new.html.erb:28
 msgid "Expire secret link and delete after:"
 msgstr "Beigt slepenās saites derīguma termiņu un dzēst pēc:"
 
@@ -878,11 +975,14 @@ msgstr "Beigt slepenās saites derīguma termiņu un dzēst pēc:"
 #: ../../../app/views/file_pushes/preview.html.erb:38
 #: ../../../app/views/passwords/new.html.erb:72
 #: ../../../app/views/passwords/preview.html.erb:38
+#: ../../../app/views/urls/new.html.erb:61
+#: ../../../app/views/urls/preview.html.erb:38
 msgid "(whichever comes first)"
 msgstr "(atkarībā no tā, kurš ir pirmais)"
 
 #: ../../../app/views/file_pushes/new.html.erb:79
 #: ../../../app/views/passwords/new.html.erb:86
+#: ../../../app/views/urls/new.html.erb:75
 msgid "Use a 1-click retrieval step"
 msgstr "Izmantojiet viena klikšķa izguves darbību"
 
@@ -902,6 +1002,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:112
 #: ../../../app/views/passwords/new.html.erb:32
+#: ../../../app/views/urls/new.html.erb:89
 msgid "Encrypted and visible only to you."
 msgstr ""
 
@@ -912,6 +1013,7 @@ msgid ""
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:122
+#: ../../../app/views/urls/new.html.erb:100
 msgid "An audit log of activity will be available."
 msgstr ""
 
@@ -923,15 +1025,18 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Push It!"
 msgstr "Sūtīt!"
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Pushing..."
 msgstr "Notiek sūtīšana..."
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:8
+#: ../../../app/views/urls/new_anonymous.html.erb:8
 msgid "This Feature is In BETA"
 msgstr ""
 
@@ -940,14 +1045,17 @@ msgid "Securely Send Files That Delete Automatically"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:15
+#: ../../../app/views/urls/new_anonymous.html.erb:15
 msgid "Until stable, this feature is in beta and requires a log in."
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:19
+#: ../../../app/views/urls/new_anonymous.html.erb:19
 msgid "I would appreciate any feedback you have in the"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:20
+#: ../../../app/views/urls/new_anonymous.html.erb:20
 msgid "feedback form"
 msgstr ""
 
@@ -960,10 +1068,15 @@ msgstr ""
 #: ../../../app/views/passwords/preview.html.erb:36
 #: ../../../app/views/passwords/show.html.erb:31
 #: ../../../app/views/passwords/show.html.erb:34
+#: ../../../app/views/urls/new_anonymous.html.erb:21
+#: ../../../app/views/urls/preview.html.erb:36
+#: ../../../app/views/urls/show.html.erb:47
+#: ../../../app/views/urls/show.html.erb:50
 msgid "or"
 msgstr "vai"
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:22
+#: ../../../app/views/urls/new_anonymous.html.erb:22
 msgid "in this Github Discussion"
 msgstr ""
 
@@ -985,24 +1098,29 @@ msgid "Click Here to View the Password"
 msgstr "Klikšķiniet šeit, lai skatītu paroli"
 
 #: ../../../app/views/file_pushes/preview.html.erb:1
+#: ../../../app/views/urls/preview.html.erb:1
 msgid "Your Push Has Been Created"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:6
+#: ../../../app/views/urls/preview.html.erb:6
 msgid "Your push has been created."
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:8
 #: ../../../app/views/passwords/preview.html.erb:8
+#: ../../../app/views/urls/preview.html.erb:8
 msgid "Use this secret link to share it:"
 msgstr "Izmantojiet šo slepeno saiti, lai to kopīgotu:"
 
 #: ../../../app/views/file_pushes/preview.html.erb:19
 #: ../../../app/views/passwords/preview.html.erb:19
+#: ../../../app/views/urls/preview.html.erb:19
 msgid "Secret Link Lanugage"
 msgstr "Slepenās saites valoda"
 
 #: ../../../app/views/file_pushes/preview.html.erb:34
+#: ../../../app/views/urls/preview.html.erb:34
 msgid "This push will expire after"
 msgstr ""
 
@@ -1010,6 +1128,8 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:44
 #: ../../../app/views/passwords/preview.html.erb:35
 #: ../../../app/views/passwords/show.html.erb:28
+#: ../../../app/views/urls/preview.html.erb:35
+#: ../../../app/views/urls/show.html.erb:44
 msgid "day"
 msgid_plural "days"
 msgstr[0] "Diena"
@@ -1018,6 +1138,7 @@ msgstr[2] ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:37
 #: ../../../app/views/passwords/preview.html.erb:37
+#: ../../../app/views/urls/preview.html.erb:37
 msgid "view"
 msgid_plural "views"
 msgstr[0] "skatījums"
@@ -1031,11 +1152,14 @@ msgstr[2] ""
 #: ../../../app/views/pages/faq.html.erb:142
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "and"
 msgstr "un"
 
 #: ../../../app/views/file_pushes/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:41
 msgid "can be"
 msgstr "var būt"
 
@@ -1043,44 +1167,54 @@ msgstr "var būt"
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "deleted by viewers."
 msgstr "dzēsuši skatītāji."
 
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "can NOT be"
 msgstr "nevar būt"
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "It also includes a"
 msgstr "Ietver arī "
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "1-click preliminary retrieval step"
 msgstr "Viena klikšķa iepriekšējā izguves darbība"
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "View This Push Now"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
 #: ../../../app/views/passwords/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "(will burn a view) or"
 msgstr "(patērēs skatījumu) vai arī"
 
 #: ../../../app/views/file_pushes/preview.html.erb:53
+#: ../../../app/views/urls/preview.html.erb:53
 msgid "Push Another"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:58
 #: ../../../app/views/passwords/preview.html.erb:58
+#: ../../../app/views/urls/preview.html.erb:58
 msgid "View Audit Log"
 msgstr "Skatīt auditācijas pierakstus"
 
 #: ../../../app/views/file_pushes/preview.html.erb:63
 #: ../../../app/views/passwords/preview.html.erb:63
+#: ../../../app/views/urls/preview.html.erb:63
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -1090,42 +1224,51 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:1
 #: ../../../app/views/passwords/show.html.erb:1
+#: ../../../app/views/urls/show.html.erb:1
 msgid "Your Secret Link"
 msgstr "Jūsu slepenā saite"
 
 #: ../../../app/views/file_pushes/show.html.erb:7
+#: ../../../app/views/urls/show.html.erb:7
 msgid "The following files have been sent to you."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:8
+#: ../../../app/views/urls/show.html.erb:8
 msgid "Please download and store in a secure area."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:13
+#: ../../../app/views/urls/show.html.erb:13
 msgid "The following message has been sent to you along with the files below."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:14
+#: ../../../app/views/urls/show.html.erb:14
 msgid "The message is blurred out.  Click below to reveal it."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:42
 #: ../../../app/views/passwords/show.html.erb:26
+#: ../../../app/views/urls/show.html.erb:42
 msgid "This secret link and all content will be deleted in"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:47
 #: ../../../app/views/passwords/show.html.erb:31
+#: ../../../app/views/urls/show.html.erb:47
 msgid "0 more views"
 msgstr "Vēl 0 skatījumu"
 
 #: ../../../app/views/file_pushes/show.html.erb:48
 #: ../../../app/views/passwords/show.html.erb:32
+#: ../../../app/views/urls/show.html.erb:48
 msgid "(this is the last view)."
 msgstr "(šis ir pēdējais skatījums)."
 
 #: ../../../app/views/file_pushes/show.html.erb:51
 #: ../../../app/views/passwords/show.html.erb:35
+#: ../../../app/views/urls/show.html.erb:51
 msgid "more view"
 msgid_plural "more views"
 msgstr[0] "skatījums"
@@ -1134,46 +1277,55 @@ msgstr[2] ""
 
 #: ../../../app/views/file_pushes/show.html.erb:52
 #: ../../../app/views/passwords/show.html.erb:36
+#: ../../../app/views/urls/show.html.erb:52
 msgid "(whichever occurs first)."
 msgstr "(atkarībā no tā, kas notiks vispirms)."
 
 #: ../../../app/views/file_pushes/show.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:41
+#: ../../../app/views/urls/show.html.erb:57
 msgid "Delete This Secret Link Now"
 msgstr "Izdzēsiet šo slepeno saiti tūlīt"
 
 #: ../../../app/views/file_pushes/show.html.erb:69
 #: ../../../app/views/passwords/show.html.erb:58
+#: ../../../app/views/urls/show.html.erb:69
 msgid "Delete?"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:73
 #: ../../../app/views/passwords/show.html.erb:62
+#: ../../../app/views/urls/show.html.erb:73
 msgid "This will expire this secret link and "
 msgstr "Tas izbeigs šīs slepenās saites derīguma termiņu un"
 
 #: ../../../app/views/file_pushes/show.html.erb:74
 #: ../../../app/views/passwords/show.html.erb:63
+#: ../../../app/views/urls/show.html.erb:74
 msgid "delete all related content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:79
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Delete"
 msgstr "Dzēst"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:1
 #: ../../../app/views/passwords/show_expired.html.erb:1
+#: ../../../app/views/urls/show_expired.html.erb:1
 msgid "Your Secret Link Has Expired"
 msgstr "Jūsu slepenās saites derīguma termiņš ir beidzies"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:6
 #: ../../../app/views/passwords/show_expired.html.erb:6
+#: ../../../app/views/urls/show_expired.html.erb:6
 msgid "We apologize but this secret link has expired."
 msgstr "Mēs atvainojamies, bet šīs slepenās saites derīguma termiņš ir beidzies."
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:8
 #: ../../../app/views/passwords/show_expired.html.erb:8
+#: ../../../app/views/urls/show_expired.html.erb:8
 msgid ""
 "If needed, please contact the person or organization who gave you this secret "
 "URL."
@@ -2177,6 +2329,10 @@ msgstr ""
 msgid "Push a Password Now"
 msgstr ""
 
+#: ../../../app/views/passwords/audit.html.erb:4
+msgid "Audit Log for Password Push"
+msgstr ""
+
 #: ../../../app/views/passwords/audit.html.erb:58
 msgid "Password expires after this number of views."
 msgstr "Paroles derīguma termiņš beidzas pēc šāda skatījumu skaita."
@@ -2298,8 +2454,14 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:28
-#: ../../../app/views/shared/_dashboard_header.html.erb:30
+#: ../../../app/views/shared/_dashboard_header.html.erb:19
+#: ../../../app/views/shared/_topnav.html.erb:13
+msgid "URLs"
+msgstr ""
+
+#: ../../../app/views/shared/_dashboard_header.html.erb:36
+#: ../../../app/views/shared/_dashboard_header.html.erb:38
+#: ../../../app/views/shared/_dashboard_header.html.erb:40
 msgid "New"
 msgstr ""
 
@@ -2427,3 +2589,70 @@ msgstr "Līdzskaņi"
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:69
 msgid "Reset to Defaults"
 msgstr "Atiestatīt uz noklusējuma iestatījumiem"
+
+#: ../../../app/views/urls/active.html.erb:1
+#: ../../../app/views/urls/active.html.erb:18
+msgid "Active URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:8
+msgid "You currently have no active URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:13
+#: ../../../app/views/urls/expired.html.erb:10
+msgid "Push a URL Now"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:4
+msgid "Audit Log for URL Push"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:148
+msgid "Delete This URL Push?"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:187
+msgid "URL Push manually expired by user"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:1
+#: ../../../app/views/urls/expired.html.erb:14
+msgid "Expired URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:7
+msgid "You currently have no expired URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:1
+msgid "Securely Send URLs"
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:16
+msgid "Enter the URL to redirect to..."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:23
+msgid "Specify a URL to redirect to."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:76
+msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:94
+msgid "A secret URL will be generated that will redirect to the URL specified."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:99
+msgid "Upon expiration, the push redirect will be deleted entirely."
+msgstr ""
+
+#: ../../../app/views/urls/new_anonymous.html.erb:12
+msgid "Securely Send Redirect URLs That Automatically Expire"
+msgstr ""
+
+#: ../../../app/views/urls/preliminary.html.erb:3
+msgid "Click Here to Proceed"
+msgstr ""

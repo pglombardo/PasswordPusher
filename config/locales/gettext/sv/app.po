@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-12-28 11:36+0100\n"
-"PO-Revision-Date: 2022-12-28 11:36+0100\n"
+"POT-Creation-Date: 2022-12-30 11:53+0100\n"
+"PO-Revision-Date: 2022-12-30 11:53+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -49,16 +49,19 @@ msgstr ""
 
 #: ../../../app/controllers/file_pushes_controller.rb:220
 #: ../../../app/controllers/passwords_controller.rb:202
+#: ../../../app/controllers/urls_controller.rb:198
 msgid "That push doesn't belong to you."
 msgstr "Den pushen tillhör inte dig."
 
 #: ../../../app/controllers/file_pushes_controller.rb:248
 #: ../../../app/controllers/passwords_controller.rb:230
+#: ../../../app/controllers/urls_controller.rb:226
 msgid "That push does not belong to you."
 msgstr "Den pushen tillhör inte dig."
 
 #: ../../../app/controllers/file_pushes_controller.rb:253
 #: ../../../app/controllers/passwords_controller.rb:235
+#: ../../../app/controllers/urls_controller.rb:231
 msgid "That push is not deletable by viewers."
 msgstr ""
 "Det här värdet kan inte raderas av personer med läsbehörighet.\n"
@@ -67,16 +70,24 @@ msgstr ""
 #: ../../../app/controllers/file_pushes_controller.rb:273
 #: ../../../app/controllers/passwords_controller.rb:259
 #: ../../../app/controllers/passwords_controller.rb:262
+#: ../../../app/controllers/urls_controller.rb:247
+#: ../../../app/controllers/urls_controller.rb:250
 #: ../../../app/views/file_pushes/audit.html.erb:106
 #: ../../../app/views/file_pushes/audit.html.erb:261
 #: ../../../app/views/passwords/audit.html.erb:106
 #: ../../../app/views/passwords/audit.html.erb:195
+#: ../../../app/views/urls/audit.html.erb:106
+#: ../../../app/views/urls/audit.html.erb:192
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Det pushade innehållet har tagits bort och den hemliga URLen har löpt ut."
 
 #: ../../../app/controllers/passwords_controller.rb:241
 #: ../../../app/controllers/passwords_controller.rb:242
 msgid "That push is already expired."
+msgstr ""
+
+#: ../../../app/controllers/urls_controller.rb:110
+msgid "Invalid URL: Must be a valid URL and start with http:// or https://"
 msgstr ""
 
 #: ../../../app/helpers/application_helper.rb:7
@@ -102,6 +113,8 @@ msgstr "Password Pusher-feedback"
 #: ../../../app/views/file_pushes/expired.html.erb:16
 #: ../../../app/views/passwords/active.html.erb:20
 #: ../../../app/views/passwords/expired.html.erb:17
+#: ../../../app/views/urls/active.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:16
 msgid "Active Pushes"
 msgstr "Aktiva pushningar"
 
@@ -120,12 +133,14 @@ msgstr "Pusha nånting nu"
 #: ../../../app/views/dashboard/expired.html.erb:17
 #: ../../../app/views/file_pushes/active.html.erb:23
 #: ../../../app/views/passwords/active.html.erb:23
+#: ../../../app/views/urls/active.html.erb:23
 msgid "Push ID"
 msgstr "Push-ID"
 
 #: ../../../app/views/dashboard/active.html.erb:18
 #: ../../../app/views/file_pushes/active.html.erb:24
 #: ../../../app/views/passwords/active.html.erb:24
+#: ../../../app/views/urls/active.html.erb:24
 msgid "Created"
 msgstr "Skapad"
 
@@ -135,6 +150,8 @@ msgstr "Skapad"
 #: ../../../app/views/file_pushes/expired.html.erb:20
 #: ../../../app/views/passwords/active.html.erb:25
 #: ../../../app/views/passwords/expired.html.erb:21
+#: ../../../app/views/urls/active.html.erb:25
+#: ../../../app/views/urls/expired.html.erb:20
 msgid "Note"
 msgstr "Notera"
 
@@ -144,6 +161,8 @@ msgstr "Notera"
 #: ../../../app/views/passwords/active.html.erb:26
 #: ../../../app/views/passwords/new.html.erb:66
 #: ../../../app/views/shared/_js_lang_strings.html.erb:6
+#: ../../../app/views/urls/active.html.erb:26
+#: ../../../app/views/urls/new.html.erb:55
 msgid "Views"
 msgstr "Visningar"
 
@@ -151,6 +170,7 @@ msgstr "Visningar"
 #: ../../../app/views/file_pushes/active.html.erb:28
 #: ../../../app/views/passwords/active.html.erb:27
 #: ../../../app/views/shared/_js_lang_strings.html.erb:4
+#: ../../../app/views/urls/active.html.erb:27
 msgid "Days"
 msgstr "Dagar"
 
@@ -166,12 +186,18 @@ msgstr "Dagar"
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
 #: ../../../app/views/passwords/expired.html.erb:32
+#: ../../../app/views/urls/active.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:41
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
+#: ../../../app/views/urls/expired.html.erb:31
 msgid "None"
 msgstr "Ingen"
 
 #: ../../../app/views/dashboard/active.html.erb:40
 #: ../../../app/views/file_pushes/active.html.erb:50
 #: ../../../app/views/passwords/active.html.erb:48
+#: ../../../app/views/urls/active.html.erb:48
 msgid "Push Controls"
 msgstr "Push-kontroller"
 
@@ -190,12 +216,19 @@ msgstr "Push-kontroller"
 #: ../../../app/views/passwords/audit.html.erb:158
 #: ../../../app/views/passwords/preview.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/active.html.erb:49
+#: ../../../app/views/urls/active.html.erb:52
+#: ../../../app/views/urls/audit.html.erb:158
+#: ../../../app/views/urls/expired.html.erb:40
+#: ../../../app/views/urls/preview.html.erb:57
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Processing..."
 msgstr "Bearbetar..."
 
 #: ../../../app/views/dashboard/active.html.erb:42
 #: ../../../app/views/file_pushes/active.html.erb:52
 #: ../../../app/views/passwords/active.html.erb:50
+#: ../../../app/views/urls/active.html.erb:50
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -203,6 +236,7 @@ msgstr "Förhandsgranska"
 #: ../../../app/views/dashboard/expired.html.erb:45
 #: ../../../app/views/file_pushes/active.html.erb:55
 #: ../../../app/views/passwords/active.html.erb:53
+#: ../../../app/views/urls/active.html.erb:53
 msgid "Audit"
 msgstr "Granska"
 
@@ -220,8 +254,10 @@ msgstr "Du har för närvarande inga utgångna pushar."
 #: ../../../app/views/dashboard/expired.html.erb:40
 #: ../../../app/views/file_pushes/audit.html.erb:105
 #: ../../../app/views/passwords/audit.html.erb:105
-#: ../../../app/views/shared/_dashboard_header.html.erb:21
-#: ../../../app/views/shared/_dashboard_header.html.erb:24
+#: ../../../app/views/shared/_dashboard_header.html.erb:26
+#: ../../../app/views/shared/_dashboard_header.html.erb:29
+#: ../../../app/views/shared/_dashboard_header.html.erb:32
+#: ../../../app/views/urls/audit.html.erb:105
 msgid "Expired"
 msgstr "Utgånget"
 
@@ -378,6 +414,8 @@ msgstr ""
 #: ../../../app/views/passwords/preview.html.erb:28
 #: ../../../app/views/passwords/show.html.erb:10
 #: ../../../app/views/passwords/show.html.erb:48
+#: ../../../app/views/urls/audit.html.erb:29
+#: ../../../app/views/urls/preview.html.erb:28
 msgid "Copy to Clipboard"
 msgstr "Kopiera till urklipp"
 
@@ -416,6 +454,8 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:154
 #: ../../../app/views/passwords/show.html.erb:64
+#: ../../../app/views/urls/audit.html.erb:154
+#: ../../../app/views/urls/show.html.erb:75
 msgid "Are you sure?"
 msgstr "Är du säker?"
 
@@ -424,6 +464,8 @@ msgstr "Är du säker?"
 #: ../../../app/views/file_pushes/show.html.erb:78
 #: ../../../app/views/passwords/audit.html.erb:157
 #: ../../../app/views/passwords/show.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:157
+#: ../../../app/views/urls/show.html.erb:78
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -503,41 +545,47 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:1
 #: ../../../app/views/passwords/audit.html.erb:1
+#: ../../../app/views/urls/audit.html.erb:1
 msgid "Audit Log for %s"
 msgstr "Granskningslogg för %s"
 
 #: ../../../app/views/file_pushes/audit.html.erb:4
-#: ../../../app/views/passwords/audit.html.erb:4
-msgid "Audit Log for"
-msgstr "Granskningslogg för"
+msgid "Audit Log for File Push"
+msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:6
 #: ../../../app/views/passwords/audit.html.erb:6
+#: ../../../app/views/urls/audit.html.erb:6
 msgid "Pushed on %s"
 msgstr "Pushad %s"
 
 #: ../../../app/views/file_pushes/audit.html.erb:9
 #: ../../../app/views/passwords/audit.html.erb:9
+#: ../../../app/views/urls/audit.html.erb:9
 msgid "Secret URL for this push"
 msgstr "Hemlig URL"
 
 #: ../../../app/views/file_pushes/audit.html.erb:19
 #: ../../../app/views/passwords/audit.html.erb:19
+#: ../../../app/views/urls/audit.html.erb:19
 msgid "Secret Link Language"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:37
 #: ../../../app/views/passwords/audit.html.erb:37
+#: ../../../app/views/urls/audit.html.erb:37
 msgid "Reference Note"
 msgstr "Referens"
 
 #: ../../../app/views/file_pushes/audit.html.erb:38
 #: ../../../app/views/passwords/audit.html.erb:38
+#: ../../../app/views/urls/audit.html.erb:38
 msgid "Visible Only To You"
 msgstr "Bara synligt för dig"
 
 #: ../../../app/views/file_pushes/audit.html.erb:50
 #: ../../../app/views/passwords/audit.html.erb:50
+#: ../../../app/views/urls/audit.html.erb:50
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -545,35 +593,42 @@ msgstr "Inställningar"
 #: ../../../app/views/file_pushes/audit.html.erb:63
 #: ../../../app/views/passwords/audit.html.erb:54
 #: ../../../app/views/passwords/audit.html.erb:63
+#: ../../../app/views/urls/audit.html.erb:54
+#: ../../../app/views/urls/audit.html.erb:63
 msgid "Expire after"
 msgstr "Går ut efter"
 
 #: ../../../app/views/file_pushes/audit.html.erb:56
 #: ../../../app/views/passwords/audit.html.erb:56
 #: ../../../app/views/shared/_js_lang_strings.html.erb:5
+#: ../../../app/views/urls/audit.html.erb:56
 msgid "View"
 msgid_plural "Views"
 msgstr[0] "Visning"
 msgstr[1] "Visningar"
 
 #: ../../../app/views/file_pushes/audit.html.erb:58
+#: ../../../app/views/urls/audit.html.erb:58
 msgid "The push expires after this number of views."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:65
 #: ../../../app/views/passwords/audit.html.erb:65
 #: ../../../app/views/shared/_js_lang_strings.html.erb:3
+#: ../../../app/views/urls/audit.html.erb:65
 msgid "Day"
 msgid_plural "Days"
 msgstr[0] "Dag"
 msgstr[1] "Dagar"
 
 #: ../../../app/views/file_pushes/audit.html.erb:67
+#: ../../../app/views/urls/audit.html.erb:67
 msgid "The push expires after this number of days."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:72
 #: ../../../app/views/passwords/audit.html.erb:72
+#: ../../../app/views/urls/audit.html.erb:72
 msgid "Deletable by Viewers"
 msgstr "Kan tas bort av tittare"
 
@@ -581,6 +636,8 @@ msgstr "Kan tas bort av tittare"
 #: ../../../app/views/file_pushes/audit.html.erb:88
 #: ../../../app/views/passwords/audit.html.erb:75
 #: ../../../app/views/passwords/audit.html.erb:88
+#: ../../../app/views/urls/audit.html.erb:75
+#: ../../../app/views/urls/audit.html.erb:88
 msgid "True"
 msgstr "Sant"
 
@@ -588,15 +645,19 @@ msgstr "Sant"
 #: ../../../app/views/file_pushes/audit.html.erb:90
 #: ../../../app/views/passwords/audit.html.erb:77
 #: ../../../app/views/passwords/audit.html.erb:90
+#: ../../../app/views/urls/audit.html.erb:77
+#: ../../../app/views/urls/audit.html.erb:90
 msgid "False"
 msgstr "Falsk"
 
 #: ../../../app/views/file_pushes/audit.html.erb:80
+#: ../../../app/views/urls/audit.html.erb:80
 msgid "This allows end users to delete content once retrieved."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:85
 #: ../../../app/views/passwords/audit.html.erb:85
+#: ../../../app/views/urls/audit.html.erb:85
 msgid "1-click Retrieval Step"
 msgstr "1-klickhämtning"
 
@@ -604,56 +665,68 @@ msgstr "1-klickhämtning"
 #: ../../../app/views/file_pushes/new.html.erb:80
 #: ../../../app/views/passwords/audit.html.erb:93
 #: ../../../app/views/passwords/new.html.erb:87
+#: ../../../app/views/urls/audit.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "Hjälper till att undvika att chattsystem och URL-skannrar äter upp visningar."
 
 #: ../../../app/views/file_pushes/audit.html.erb:99
 #: ../../../app/views/passwords/audit.html.erb:99
+#: ../../../app/views/urls/audit.html.erb:99
 msgid "Current Status"
 msgstr "Nuvarande status"
 
 #: ../../../app/views/file_pushes/audit.html.erb:103
 #: ../../../app/views/passwords/audit.html.erb:103
+#: ../../../app/views/urls/audit.html.erb:103
 msgid "State:"
 msgstr "Status:"
 
 #: ../../../app/views/file_pushes/audit.html.erb:108
 #: ../../../app/views/passwords/audit.html.erb:108
-#: ../../../app/views/shared/_dashboard_header.html.erb:20
-#: ../../../app/views/shared/_dashboard_header.html.erb:23
+#: ../../../app/views/shared/_dashboard_header.html.erb:25
+#: ../../../app/views/shared/_dashboard_header.html.erb:28
+#: ../../../app/views/shared/_dashboard_header.html.erb:31
+#: ../../../app/views/urls/audit.html.erb:108
 msgid "Active"
 msgstr "Aktiv"
 
 #: ../../../app/views/file_pushes/audit.html.erb:109
 #: ../../../app/views/passwords/audit.html.erb:109
+#: ../../../app/views/urls/audit.html.erb:109
 msgid "Active and still available for viewing."
 msgstr "Aktiv och fortfarande tillgänglig för visning."
 
 #: ../../../app/views/file_pushes/audit.html.erb:115
 #: ../../../app/views/passwords/audit.html.erb:115
+#: ../../../app/views/urls/audit.html.erb:115
 msgid "Successful Views"
 msgstr "Lyckade visningar"
 
 #: ../../../app/views/file_pushes/audit.html.erb:116
+#: ../../../app/views/urls/audit.html.erb:116
 msgid "The number of times this push has been viewed before expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:121
 #: ../../../app/views/passwords/audit.html.erb:121
+#: ../../../app/views/urls/audit.html.erb:121
 msgid "Failed View Attempts"
 msgstr "Misslyckade visningsförsök"
 
 #: ../../../app/views/file_pushes/audit.html.erb:122
+#: ../../../app/views/urls/audit.html.erb:122
 msgid "The number of times this push has been viewed after expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:127
 #: ../../../app/views/passwords/audit.html.erb:127
+#: ../../../app/views/urls/audit.html.erb:127
 msgid "Days Remaining"
 msgstr "Dagar kvar"
 
 #: ../../../app/views/file_pushes/audit.html.erb:128
 #: ../../../app/views/passwords/audit.html.erb:128
+#: ../../../app/views/urls/audit.html.erb:128
 msgid ""
 "Number of days until this push expires if the maximum view count isn't reached"
 "."
@@ -724,6 +797,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:140
+#: ../../../app/views/urls/audit.html.erb:140
 msgid "Expire Now"
 msgstr "Förfall nu"
 
@@ -734,16 +808,19 @@ msgstr "Ta bort det här lösenordet?"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "This will expire this secret link and"
 msgstr "Detta kommer att upphöra den hemliga länken och"
 
 #: ../../../app/views/file_pushes/audit.html.erb:221
 #: ../../../app/views/passwords/audit.html.erb:152
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "remove all content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:222
 #: ../../../app/views/passwords/audit.html.erb:153
+#: ../../../app/views/urls/audit.html.erb:153
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -753,16 +830,19 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:239
 #: ../../../app/views/passwords/audit.html.erb:170
+#: ../../../app/views/urls/audit.html.erb:170
 msgid "Start of Audit Log"
 msgstr "Start av granskningslogg"
 
 #: ../../../app/views/file_pushes/audit.html.erb:242
 #: ../../../app/views/passwords/audit.html.erb:173
+#: ../../../app/views/urls/audit.html.erb:173
 msgid "Push created on"
 msgstr "Push skapad"
 
 #: ../../../app/views/file_pushes/audit.html.erb:247
 #: ../../../app/views/passwords/audit.html.erb:178
+#: ../../../app/views/urls/audit.html.erb:178
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -776,6 +856,7 @@ msgstr "Lösenordet är marketat som utgånget av användaren"
 #: ../../../app/views/file_pushes/audit.html.erb:258
 #: ../../../app/views/passwords/audit.html.erb:189
 #: ../../../app/views/passwords/audit.html.erb:193
+#: ../../../app/views/urls/audit.html.erb:189
 msgid "at IP address"
 msgstr "på IP-adressen"
 
@@ -785,6 +866,9 @@ msgstr "på IP-adressen"
 #: ../../../app/views/passwords/audit.html.erb:197
 #: ../../../app/views/passwords/audit.html.erb:209
 #: ../../../app/views/passwords/audit.html.erb:221
+#: ../../../app/views/urls/audit.html.erb:194
+#: ../../../app/views/urls/audit.html.erb:206
+#: ../../../app/views/urls/audit.html.erb:218
 msgid "User Agent"
 msgstr "Användaragent"
 
@@ -794,11 +878,15 @@ msgstr "Användaragent"
 #: ../../../app/views/passwords/audit.html.erb:199
 #: ../../../app/views/passwords/audit.html.erb:211
 #: ../../../app/views/passwords/audit.html.erb:223
+#: ../../../app/views/urls/audit.html.erb:196
+#: ../../../app/views/urls/audit.html.erb:208
+#: ../../../app/views/urls/audit.html.erb:220
 msgid "Referrer"
 msgstr "Referent"
 
 #: ../../../app/views/file_pushes/audit.html.erb:270
 #: ../../../app/views/passwords/audit.html.erb:204
+#: ../../../app/views/urls/audit.html.erb:201
 msgid "Successful view from IP address"
 msgstr "Lyckad visning från IP-adress"
 
@@ -806,16 +894,20 @@ msgstr "Lyckad visning från IP-adress"
 #: ../../../app/views/file_pushes/audit.html.erb:284
 #: ../../../app/views/passwords/audit.html.erb:206
 #: ../../../app/views/passwords/audit.html.erb:218
+#: ../../../app/views/urls/audit.html.erb:203
+#: ../../../app/views/urls/audit.html.erb:215
 msgid "on"
 msgstr "på"
 
 #: ../../../app/views/file_pushes/audit.html.erb:282
 #: ../../../app/views/passwords/audit.html.erb:216
+#: ../../../app/views/urls/audit.html.erb:213
 msgid "Failed view attempt (already expired) by"
 msgstr "Misslyckat visningsförsök (redan utgånget) av"
 
 #: ../../../app/views/file_pushes/audit.html.erb:293
 #: ../../../app/views/passwords/audit.html.erb:227
+#: ../../../app/views/urls/audit.html.erb:224
 msgid "End of Audit Log"
 msgstr "Slut på granskningslogg"
 
@@ -830,21 +922,25 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:19
 #: ../../../app/views/passwords/expired.html.erb:20
+#: ../../../app/views/urls/expired.html.erb:19
 msgid "ID"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:21
 #: ../../../app/views/passwords/expired.html.erb:22
+#: ../../../app/views/urls/expired.html.erb:21
 msgid "Expired On"
 msgstr ""
 
 #: ../../../app/views/file_pushes/expired.html.erb:41
 #: ../../../app/views/passwords/expired.html.erb:42
+#: ../../../app/views/urls/expired.html.erb:41
 msgid "Audit Log"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:1
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:1
+#: ../../../app/views/urls/new_anonymous.html.erb:1
 msgid "Securely Send Files"
 msgstr ""
 
@@ -854,6 +950,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:32
 #: ../../../app/views/passwords/new.html.erb:39
+#: ../../../app/views/urls/new.html.erb:28
 msgid "Expire secret link and delete after:"
 msgstr "Låt länken förfalla vid och ta bort efter:"
 
@@ -861,11 +958,14 @@ msgstr "Låt länken förfalla vid och ta bort efter:"
 #: ../../../app/views/file_pushes/preview.html.erb:38
 #: ../../../app/views/passwords/new.html.erb:72
 #: ../../../app/views/passwords/preview.html.erb:38
+#: ../../../app/views/urls/new.html.erb:61
+#: ../../../app/views/urls/preview.html.erb:38
 msgid "(whichever comes first)"
 msgstr "(det som kommer först)"
 
 #: ../../../app/views/file_pushes/new.html.erb:79
 #: ../../../app/views/passwords/new.html.erb:86
+#: ../../../app/views/urls/new.html.erb:75
 msgid "Use a 1-click retrieval step"
 msgstr "Använd 1-klicksteg för hämtning"
 
@@ -885,6 +985,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:112
 #: ../../../app/views/passwords/new.html.erb:32
+#: ../../../app/views/urls/new.html.erb:89
 msgid "Encrypted and visible only to you."
 msgstr ""
 
@@ -895,6 +996,7 @@ msgid ""
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:122
+#: ../../../app/views/urls/new.html.erb:100
 msgid "An audit log of activity will be available."
 msgstr ""
 
@@ -906,15 +1008,18 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Push It!"
 msgstr "Pusha!"
 
 #: ../../../app/views/file_pushes/new.html.erb:135
 #: ../../../app/views/passwords/new.html.erb:132
+#: ../../../app/views/urls/new.html.erb:108
 msgid "Pushing..."
 msgstr "Pushar..."
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:8
+#: ../../../app/views/urls/new_anonymous.html.erb:8
 msgid "This Feature is In BETA"
 msgstr ""
 
@@ -923,14 +1028,17 @@ msgid "Securely Send Files That Delete Automatically"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:15
+#: ../../../app/views/urls/new_anonymous.html.erb:15
 msgid "Until stable, this feature is in beta and requires a log in."
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:19
+#: ../../../app/views/urls/new_anonymous.html.erb:19
 msgid "I would appreciate any feedback you have in the"
 msgstr ""
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:20
+#: ../../../app/views/urls/new_anonymous.html.erb:20
 msgid "feedback form"
 msgstr ""
 
@@ -943,10 +1051,15 @@ msgstr ""
 #: ../../../app/views/passwords/preview.html.erb:36
 #: ../../../app/views/passwords/show.html.erb:31
 #: ../../../app/views/passwords/show.html.erb:34
+#: ../../../app/views/urls/new_anonymous.html.erb:21
+#: ../../../app/views/urls/preview.html.erb:36
+#: ../../../app/views/urls/show.html.erb:47
+#: ../../../app/views/urls/show.html.erb:50
 msgid "or"
 msgstr "eller"
 
 #: ../../../app/views/file_pushes/new_anonymous.html.erb:22
+#: ../../../app/views/urls/new_anonymous.html.erb:22
 msgid "in this Github Discussion"
 msgstr ""
 
@@ -968,24 +1081,29 @@ msgid "Click Here to View the Password"
 msgstr "Klicka här för att se lösenordet"
 
 #: ../../../app/views/file_pushes/preview.html.erb:1
+#: ../../../app/views/urls/preview.html.erb:1
 msgid "Your Push Has Been Created"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:6
+#: ../../../app/views/urls/preview.html.erb:6
 msgid "Your push has been created."
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:8
 #: ../../../app/views/passwords/preview.html.erb:8
+#: ../../../app/views/urls/preview.html.erb:8
 msgid "Use this secret link to share it:"
 msgstr "Använd den här hemliga länken för att dela den:"
 
 #: ../../../app/views/file_pushes/preview.html.erb:19
 #: ../../../app/views/passwords/preview.html.erb:19
+#: ../../../app/views/urls/preview.html.erb:19
 msgid "Secret Link Lanugage"
 msgstr "Språk för den hemliga länken"
 
 #: ../../../app/views/file_pushes/preview.html.erb:34
+#: ../../../app/views/urls/preview.html.erb:34
 msgid "This push will expire after"
 msgstr ""
 
@@ -993,6 +1111,8 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:44
 #: ../../../app/views/passwords/preview.html.erb:35
 #: ../../../app/views/passwords/show.html.erb:28
+#: ../../../app/views/urls/preview.html.erb:35
+#: ../../../app/views/urls/show.html.erb:44
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dag"
@@ -1000,6 +1120,7 @@ msgstr[1] "dagar"
 
 #: ../../../app/views/file_pushes/preview.html.erb:37
 #: ../../../app/views/passwords/preview.html.erb:37
+#: ../../../app/views/urls/preview.html.erb:37
 msgid "view"
 msgid_plural "views"
 msgstr[0] "visning"
@@ -1012,11 +1133,14 @@ msgstr[1] "visningar"
 #: ../../../app/views/pages/faq.html.erb:142
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "and"
 msgstr "och"
 
 #: ../../../app/views/file_pushes/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:41
 msgid "can be"
 msgstr "kan vara"
 
@@ -1024,44 +1148,54 @@ msgstr "kan vara"
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:41
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:41
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "deleted by viewers."
 msgstr "raderas av tittarna."
 
 #: ../../../app/views/file_pushes/preview.html.erb:43
 #: ../../../app/views/passwords/preview.html.erb:43
+#: ../../../app/views/urls/preview.html.erb:43
 msgid "can NOT be"
 msgstr "kan INTE vara"
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "It also includes a"
 msgstr "Den innehåller också en"
 
 #: ../../../app/views/file_pushes/preview.html.erb:48
 #: ../../../app/views/passwords/preview.html.erb:48
+#: ../../../app/views/urls/preview.html.erb:48
 msgid "1-click preliminary retrieval step"
 msgstr "Preliminär 1-klickhämtning"
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "View This Push Now"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:52
 #: ../../../app/views/passwords/preview.html.erb:52
+#: ../../../app/views/urls/preview.html.erb:52
 msgid "(will burn a view) or"
 msgstr "(kommer att bränna en visning) eller"
 
 #: ../../../app/views/file_pushes/preview.html.erb:53
+#: ../../../app/views/urls/preview.html.erb:53
 msgid "Push Another"
 msgstr ""
 
 #: ../../../app/views/file_pushes/preview.html.erb:58
 #: ../../../app/views/passwords/preview.html.erb:58
+#: ../../../app/views/urls/preview.html.erb:58
 msgid "View Audit Log"
 msgstr "Visa granskningslogg"
 
 #: ../../../app/views/file_pushes/preview.html.erb:63
 #: ../../../app/views/passwords/preview.html.erb:63
+#: ../../../app/views/urls/preview.html.erb:63
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -1071,42 +1205,51 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:1
 #: ../../../app/views/passwords/show.html.erb:1
+#: ../../../app/views/urls/show.html.erb:1
 msgid "Your Secret Link"
 msgstr "Din hemliga länk"
 
 #: ../../../app/views/file_pushes/show.html.erb:7
+#: ../../../app/views/urls/show.html.erb:7
 msgid "The following files have been sent to you."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:8
+#: ../../../app/views/urls/show.html.erb:8
 msgid "Please download and store in a secure area."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:13
+#: ../../../app/views/urls/show.html.erb:13
 msgid "The following message has been sent to you along with the files below."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:14
+#: ../../../app/views/urls/show.html.erb:14
 msgid "The message is blurred out.  Click below to reveal it."
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:42
 #: ../../../app/views/passwords/show.html.erb:26
+#: ../../../app/views/urls/show.html.erb:42
 msgid "This secret link and all content will be deleted in"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:47
 #: ../../../app/views/passwords/show.html.erb:31
+#: ../../../app/views/urls/show.html.erb:47
 msgid "0 more views"
 msgstr "Inga fler visningar"
 
 #: ../../../app/views/file_pushes/show.html.erb:48
 #: ../../../app/views/passwords/show.html.erb:32
+#: ../../../app/views/urls/show.html.erb:48
 msgid "(this is the last view)."
 msgstr "(detta är sista visningen)."
 
 #: ../../../app/views/file_pushes/show.html.erb:51
 #: ../../../app/views/passwords/show.html.erb:35
+#: ../../../app/views/urls/show.html.erb:51
 msgid "more view"
 msgid_plural "more views"
 msgstr[0] "fler visning"
@@ -1114,46 +1257,55 @@ msgstr[1] "fler visningar"
 
 #: ../../../app/views/file_pushes/show.html.erb:52
 #: ../../../app/views/passwords/show.html.erb:36
+#: ../../../app/views/urls/show.html.erb:52
 msgid "(whichever occurs first)."
 msgstr "(vilket som än händer först)."
 
 #: ../../../app/views/file_pushes/show.html.erb:57
 #: ../../../app/views/passwords/show.html.erb:41
+#: ../../../app/views/urls/show.html.erb:57
 msgid "Delete This Secret Link Now"
 msgstr "Ta bort den här hemliga länken nu"
 
 #: ../../../app/views/file_pushes/show.html.erb:69
 #: ../../../app/views/passwords/show.html.erb:58
+#: ../../../app/views/urls/show.html.erb:69
 msgid "Delete?"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:73
 #: ../../../app/views/passwords/show.html.erb:62
+#: ../../../app/views/urls/show.html.erb:73
 msgid "This will expire this secret link and "
 msgstr "Detta kommer att upphöra den hemliga länken och"
 
 #: ../../../app/views/file_pushes/show.html.erb:74
 #: ../../../app/views/passwords/show.html.erb:63
+#: ../../../app/views/urls/show.html.erb:74
 msgid "delete all related content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/show.html.erb:79
 #: ../../../app/views/passwords/show.html.erb:68
+#: ../../../app/views/urls/show.html.erb:79
 msgid "Delete"
 msgstr "Ta bort"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:1
 #: ../../../app/views/passwords/show_expired.html.erb:1
+#: ../../../app/views/urls/show_expired.html.erb:1
 msgid "Your Secret Link Has Expired"
 msgstr "Din hemliga länk har upphört"
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:6
 #: ../../../app/views/passwords/show_expired.html.erb:6
+#: ../../../app/views/urls/show_expired.html.erb:6
 msgid "We apologize but this secret link has expired."
 msgstr "Vi ber om ursäkt, men denna hemliga länk har upphört att gälla."
 
 #: ../../../app/views/file_pushes/show_expired.html.erb:8
 #: ../../../app/views/passwords/show_expired.html.erb:8
+#: ../../../app/views/urls/show_expired.html.erb:8
 msgid ""
 "If needed, please contact the person or organization who gave you this secret "
 "URL."
@@ -2102,6 +2254,10 @@ msgstr ""
 msgid "Push a Password Now"
 msgstr ""
 
+#: ../../../app/views/passwords/audit.html.erb:4
+msgid "Audit Log for Password Push"
+msgstr ""
+
 #: ../../../app/views/passwords/audit.html.erb:58
 msgid "Password expires after this number of views."
 msgstr "Lösenordet löper ut efter detta antal visningar."
@@ -2222,8 +2378,14 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:28
-#: ../../../app/views/shared/_dashboard_header.html.erb:30
+#: ../../../app/views/shared/_dashboard_header.html.erb:19
+#: ../../../app/views/shared/_topnav.html.erb:13
+msgid "URLs"
+msgstr ""
+
+#: ../../../app/views/shared/_dashboard_header.html.erb:36
+#: ../../../app/views/shared/_dashboard_header.html.erb:38
+#: ../../../app/views/shared/_dashboard_header.html.erb:40
 msgid "New"
 msgstr ""
 
@@ -2350,3 +2512,70 @@ msgstr "Konsonanter"
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:69
 msgid "Reset to Defaults"
 msgstr "Återställ till standard"
+
+#: ../../../app/views/urls/active.html.erb:1
+#: ../../../app/views/urls/active.html.erb:18
+msgid "Active URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:8
+msgid "You currently have no active URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/active.html.erb:13
+#: ../../../app/views/urls/expired.html.erb:10
+msgid "Push a URL Now"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:4
+msgid "Audit Log for URL Push"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:148
+msgid "Delete This URL Push?"
+msgstr ""
+
+#: ../../../app/views/urls/audit.html.erb:187
+msgid "URL Push manually expired by user"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:1
+#: ../../../app/views/urls/expired.html.erb:14
+msgid "Expired URL Pushes"
+msgstr ""
+
+#: ../../../app/views/urls/expired.html.erb:7
+msgid "You currently have no expired URL pushes."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:1
+msgid "Securely Send URLs"
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:16
+msgid "Enter the URL to redirect to..."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:23
+msgid "Specify a URL to redirect to."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:76
+msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:94
+msgid "A secret URL will be generated that will redirect to the URL specified."
+msgstr ""
+
+#: ../../../app/views/urls/new.html.erb:99
+msgid "Upon expiration, the push redirect will be deleted entirely."
+msgstr ""
+
+#: ../../../app/views/urls/new_anonymous.html.erb:12
+msgid "Securely Send Redirect URLs That Automatically Expire"
+msgstr ""
+
+#: ../../../app/views/urls/preliminary.html.erb:3
+msgid "Click Here to Proceed"
+msgstr ""
