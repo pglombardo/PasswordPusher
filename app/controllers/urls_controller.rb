@@ -32,7 +32,7 @@ class UrlsController < ApplicationController
       # when clicked they will be accurate - this secret URL has expired.
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
-        format.html { render template: 'urles/show_expired', layout: 'naked' }
+        format.html { render template: 'urls/show_expired', layout: 'naked' }
         format.json { render json: { error: 'not-found' }.to_json, status: 404 }
       end
       return
@@ -45,7 +45,7 @@ class UrlsController < ApplicationController
     if @push.expired
       log_view(@push)
       respond_to do |format|
-        format.html { render template: 'urles/show_expired', layout: 'naked' }
+        format.html { render template: 'urls/show_expired', layout: 'naked' }
         format.json { render json: @push.to_json(payload: true) }
       end
       return
@@ -62,7 +62,7 @@ class UrlsController < ApplicationController
     @push.expire if !@push.views_remaining.positive?
   end
 
-  # GET /urles/new
+  # GET /urls/new
   def new
     if user_signed_in?
       @push = Url.new
@@ -172,7 +172,7 @@ class UrlsController < ApplicationController
       # when clicked they will be accurate - this secret URL has expired.
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
-        format.html { render template: 'urles/show_expired', layout: 'naked' }
+        format.html { render template: 'urls/show_expired', layout: 'naked' }
         format.json { render json: { error: 'not-found' }.to_json, status: 404 }
       end
       return
