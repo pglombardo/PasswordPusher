@@ -1,9 +1,10 @@
 import 'spoiler-alert/spoiler'
+import 'jquery'
 
 import Cookies from 'js-cookie'
-import PasswordGenerator from '../js/pw_generator'
+import PasswordGenerator from './pw_generator'
 import setupClipboardButton from './clipboard_buttons'
-import toBoolean from '../js/toolbox'
+import toBoolean from './toolbox'
 
 function restoreFormValuesFromCookie() {
 

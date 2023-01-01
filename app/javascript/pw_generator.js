@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import generatePassword from "omgopass";
-import toBoolean from '../js/toolbox'
+import toBoolean from './toolbox'
 
 class PasswordGenerator {
     constructor() {
@@ -16,15 +16,15 @@ class PasswordGenerator {
             syllablesCount: 3,
         };
 
-        if (process.env.PWP__GEN__HAS_NUMBERS)         { this.config_defaults.hasNumbers = (process.env.PWP__GEN__HAS_NUMBERS == 'true'); }
-        if (process.env.PWP__GEN__TITLE_CASED)         { this.config_defaults.titlecased = (process.env.PWP__GEN__TITLE_CASED == 'true'); }
-        if (process.env.PWP__GEN__USE_SEPARATORS)      { this.config_defaults.use_separators = (process.env.PWP__GEN__USE_SEPARATORS == 'true'); }
-        if (process.env.PWP__GEN__CONSONANTS)          { this.config_defaults.consonants = process.env.PWP__GEN__CONSONANTS; }
-        if (process.env.PWP__GEN__VOWELS)              { this.config_defaults.vowels = process.env.PWP__GEN__VOWELS; }
-        if (process.env.PWP__GEN__SEPARATORS)          { this.config_defaults.separators = process.env.PWP__GEN__SEPARATORS; }
-        if (process.env.PWP__GEN__MAX_SYLLABLE_LENGTH) { this.config_defaults.maxSyllableLength = process.env.PWP__GEN__MAX_SYLLABLE_LENGTH; }
-        if (process.env.PWP__GEN__MIN_SYLLABLE_LENGTH) { this.config_defaults.minSyllableLength = process.env.PWP__GEN__MIN_SYLLABLE_LENGTH; }
-        if (process.env.PWP__GEN__SYLLABLE_COUNT)      { this.config_defaults.syllablesCount = process.env.PWP__GEN__SYLLABLE_COUNT; }
+        // if (process.env.PWP__GEN__HAS_NUMBERS)         { this.config_defaults.hasNumbers = (process.env.PWP__GEN__HAS_NUMBERS == 'true'); }
+        // if (process.env.PWP__GEN__TITLE_CASED)         { this.config_defaults.titlecased = (process.env.PWP__GEN__TITLE_CASED == 'true'); }
+        // if (process.env.PWP__GEN__USE_SEPARATORS)      { this.config_defaults.use_separators = (process.env.PWP__GEN__USE_SEPARATORS == 'true'); }
+        // if (process.env.PWP__GEN__CONSONANTS)          { this.config_defaults.consonants = process.env.PWP__GEN__CONSONANTS; }
+        // if (process.env.PWP__GEN__VOWELS)              { this.config_defaults.vowels = process.env.PWP__GEN__VOWELS; }
+        // if (process.env.PWP__GEN__SEPARATORS)          { this.config_defaults.separators = process.env.PWP__GEN__SEPARATORS; }
+        // if (process.env.PWP__GEN__MAX_SYLLABLE_LENGTH) { this.config_defaults.maxSyllableLength = process.env.PWP__GEN__MAX_SYLLABLE_LENGTH; }
+        // if (process.env.PWP__GEN__MIN_SYLLABLE_LENGTH) { this.config_defaults.minSyllableLength = process.env.PWP__GEN__MIN_SYLLABLE_LENGTH; }
+        // if (process.env.PWP__GEN__SYLLABLE_COUNT)      { this.config_defaults.syllablesCount = process.env.PWP__GEN__SYLLABLE_COUNT; }
 
         this.config = Object.assign({}, this.config_defaults);
     }

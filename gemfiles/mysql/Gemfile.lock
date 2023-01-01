@@ -94,6 +94,8 @@ GEM
       actionpack (>= 5.0)
       activesupport (>= 5.0)
     ast (2.4.2)
+    autoprefixer-rails (10.4.7.0)
+      execjs (~> 2)
     aws-eventstream (1.2.0)
     aws-partitions (1.690.0)
     aws-sdk-core (3.168.4)
@@ -122,8 +124,11 @@ GEM
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
+    bootstrap (5.1.3)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 2.9.3, < 3)
+      sassc-rails (>= 2.0.0)
     builder (3.2.4)
-    byebug (11.1.3)
     capybara (3.38.0)
       addressable
       matrix
@@ -135,14 +140,6 @@ GEM
       xpath (~> 3.2)
     case_transform (0.2)
       activesupport
-    coderay (1.1.3)
-    coffee-rails (5.0.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 5.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.10)
     config (4.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -150,9 +147,9 @@ GEM
     connection_pool (2.3.0)
     crass (1.0.6)
     date (3.3.3)
-    debase (0.2.5.beta2)
-      debase-ruby_core_source (>= 0.10.12)
-    debase-ruby_core_source (3.2.0)
+    debug (1.7.1)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     declarative (0.0.20)
     deep_merge (1.2.2)
     devise (4.8.1)
@@ -270,14 +267,16 @@ GEM
     httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.5)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
+    io-console (0.6.0)
+    irb (1.6.2)
+      reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
-    jquery-rails (4.5.1)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     json (2.6.3)
     jsonapi-renderer (0.2.2)
     jwt (2.6.0)
@@ -344,15 +343,10 @@ GEM
     parallel (1.22.1)
     parser (3.2.0.0)
       ast (~> 2.4.1)
+    popper_js (2.11.6)
     prime (0.1.2)
       forwardable
       singleton
-    pry (0.14.2)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
-    pry-byebug (3.10.1)
-      byebug (~> 11.0)
-      pry (>= 0.13, < 0.15)
     public_suffix (5.0.1)
     puma (6.0.2)
       nio4r (~> 2.0)
@@ -362,8 +356,6 @@ GEM
       rack (>= 1.0, < 3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-proxy (0.7.4)
-      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rack-throttle (0.7.0)
@@ -402,6 +394,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.6.1)
+    reline (0.3.2)
+      io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -448,7 +442,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     signet (0.17.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -464,6 +457,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.5.4)
       mini_portile2 (~> 2.8.0)
+    stimulus-rails (1.2.1)
+      railties (>= 6.0.0)
     text (1.3.1)
     thor (1.2.1)
     tilt (2.0.11)
@@ -471,6 +466,10 @@ GEM
     trailblazer-option (0.1.2)
     translation (1.34)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.3)
+    turbo-rails (1.3.2)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -491,11 +490,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.7.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
@@ -516,17 +510,16 @@ DEPENDENCIES
   aws-sdk-s3
   azure-storage-blob (~> 2.0)
   bootsnap (>= 1.4.4)
-  byebug
+  bootstrap (~> 5.1.3)
   capybara (>= 3.37.1, < 4.0)
-  coffee-rails (~> 5.0, >= 5.0.0)
   config
-  debase (= 0.2.5.beta2)
+  debug
   devise (>= 4.8.1)
   foreman
   google-cloud-storage (~> 1.11)
   high_voltage
-  jbuilder (~> 2.11, >= 2.11.5)
-  jquery-rails (>= 4.5.0)
+  importmap-rails
+  jbuilder
   json (~> 2.0)
   kramdown
   listen
@@ -538,7 +531,6 @@ DEPENDENCIES
   minitest-reporters
   mysql2
   oj
-  pry-byebug
   puma
   rack-attack
   rack-cors
@@ -553,13 +545,14 @@ DEPENDENCIES
   selenium-webdriver (= 4.7.1)
   simple_token_authentication (~> 1.18, >= 1.18.0)!
   sqlite3
+  stimulus-rails
   translation
+  turbo-rails
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 4.0)
   web-console (>= 4.2.0)
   webdrivers (~> 5.0)
-  webpacker (>= 5.4.3)
   will_paginate (~> 3.3.0)
   will_paginate-bootstrap-style
 
