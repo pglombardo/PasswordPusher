@@ -33,7 +33,11 @@
         <% if Settings.enable_logins %>
           <% if current_user %>
             <li class="nav-item lead">
-              <%= link_to _('Dashboard'), active_passwords_path, class: "btn btn-primary" %>
+              <%= link_to active_passwords_path, class: "btn btn-primary" do %>
+                <em class='bi bi-clipboard-data'></em>
+                <%= _('Dashboard') %>
+              <% end %>
+
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,7 +52,7 @@
                   <%= link_to _('API Token'), token_user_registration_path, class: "dropdown-item" %>
                 </li>
                 <li>
-                  <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                  <%= link_to _('Log Out'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
                 </li>
               </ul>
             </li>
