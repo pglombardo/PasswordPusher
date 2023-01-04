@@ -28,20 +28,8 @@
 
 \app\frontend\js\pw_generator.js
 
-	# Lines 9-30 change default generator constructor values for: titlecased, consonants, vowels, maxSyllableLength, minSyllableLength
+	# Lines 6-17 change default generator constructor values for: titlecased, consonants, vowels, maxSyllableLength, minSyllableLength
     constructor() {
-        this.config = {
-            hasNumbers: true,
-            titlecased: false,
-            use_separators: true,
-            consonants: 'bcDdFfGgHhKkLMmNnPpRrsTtVvZz',
-            vowels: 'AaEeioUuYy',
-            separators: '-_=',
-            maxSyllableLength: 5,
-            minSyllableLength: 3,
-            syllablesCount: 3
-        }
-
         this.config_defaults = {
             hasNumbers: true,
             titlecased: false,
