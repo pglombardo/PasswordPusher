@@ -24,10 +24,6 @@ export default class extends Controller {
     }
 
     connect() {
-        console.log("defaultDays: " + this.defaultDaysValue)
-        console.log("defaultViews: " + this.defaultViewsValue)
-        console.log("langDays: " + this.langDaysValue)
-        console.log("langDay: " + this.langDayValue)
         this.loadSettings()
     }
 

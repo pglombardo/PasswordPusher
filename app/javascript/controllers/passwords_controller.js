@@ -18,7 +18,7 @@ export default class extends Controller {
     updateCharacterCount(event) {
         let characterCount = this.payloadInputTarget.value.length;
         this.currentCharsTarget.textContent = characterCount;
-            
+
         if (characterCount >= 1048576) {
             this.maximumCharsTarget.style.color = '#F91A00'
             this.currentCharsTarget.style.color = '#F91A00'
