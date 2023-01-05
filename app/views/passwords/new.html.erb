@@ -9,10 +9,10 @@
     data-knobs-lang-view-value=<%= _('View') %>
     data-knobs-lang-views-value=<%= _('Views') %>
     data-knobs-default-views-value=<%= Settings.expire_after_views_default %>
-    
+
     data-knobs-default-retrieval-step-value=<%= Settings.retrieval_step_default %>
     data-knobs-default-deletable-by-viewer-value=<%= Settings.deletable_pushes_default %>
-    
+
     data-pwgen-use-numbers-default-value="<%= Settings.gen.has_numbers %>"
     data-pwgen-title-cased-default-value="<%= Settings.gen.title_cased %>"
     data-pwgen-use-separators-default-value="<%= Settings.gen.use_separators %>"
@@ -22,7 +22,7 @@
     data-pwgen-min-syllable-length-default-value="<%= Settings.gen.min_syllable_length %>"
     data-pwgen-max-syllable-length-default-value="<%= Settings.gen.max_syllable_length %>"
     data-pwgen-syllables-count-default-value="<%= Settings.gen.syllables_count %>"
-    
+
     data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
 >
 <%= render partial: "shared/topnav" %>
@@ -90,7 +90,7 @@
                                             :class => "form-range",
                                             :min => Settings.expire_after_views_min,
                                             :max => Settings.expire_after_views_max,
-                                            :step => "1", 
+                                            :step => "1",
                                             "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                             "data-knobs-target" => "viewsRange"
                                         })%>
@@ -142,8 +142,8 @@
         <div class='col-12 col-sm-4 p-3 mt-3'>
             <div class="mb-3 text-end">
                 <div class="btn-group w-100" role="group" aria-label="Password Generator button group with nested dropdown">
-                    <button class="btn btn-secondary w-75" type="button" 
-                        id='generate_password' 
+                    <button class="btn btn-secondary w-75" type="button"
+                        id='generate_password'
                         data-knobs-target="generatePasswordButton"
                         data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
                     <button class="btn btn-secondary" type="button" id='configure_generator'

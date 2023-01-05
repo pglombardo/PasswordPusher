@@ -135,6 +135,6 @@ export default class extends Controller {
 
     list.removeChild(listItem)
     fileCount -= 1
+    this.updateFilesFooter()
   }
-
 }
