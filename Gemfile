@@ -58,8 +58,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'json', '~> 2.0' # Legacy carry-over
 gem 'will_paginate', '~> 3.3.0'
