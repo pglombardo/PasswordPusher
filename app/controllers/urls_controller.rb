@@ -148,7 +148,6 @@ class UrlsController < ApplicationController
   description ""
   def preview
     @push = Url.find_by_url_token!(params[:id])
-
     @secret_url = helpers.url_secret_url(@push)
 
     respond_to do |format|
@@ -160,6 +159,7 @@ class UrlsController < ApplicationController
   def preliminary
     begin
       @push = Url.find_by_url_token!(params[:id])
+      @secret_url = helpers.raw_secret_url(@push)
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -200,6 +200,8 @@ class UrlsController < ApplicationController
       end
       return
     end
+
+    @secret_url = helpers.url_secret_url(@push)
 
     respond_to do |format|
       format.html { }
