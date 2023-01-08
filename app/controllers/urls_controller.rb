@@ -234,6 +234,14 @@ class UrlsController < ApplicationController
       return
     end
 
+    if @push.expired
+      respond_to do |format|
+        format.html { redirect_to :root, notice: _('That push is already expired.') }
+        format.json { render json: { 'error': _('That push is already expired.') }, status: :unprocessable_entity }
+      end
+      return
+    end
+
     log_view(@push, manual_expiration: true)
 
     @push.expired = true
