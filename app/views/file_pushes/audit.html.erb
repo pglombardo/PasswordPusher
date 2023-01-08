@@ -234,6 +234,8 @@
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                                <%= _('on') %>
+                                <%= view.created_at.strftime(I18n.t('time.formats.default')) %>
                             <% end %>
                             <br/>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
