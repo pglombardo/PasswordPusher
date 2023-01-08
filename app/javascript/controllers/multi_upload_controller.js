@@ -18,6 +18,9 @@ export default class extends Controller {
   static targets = ["files"]
 
   connect() {
+    // Reset the file count
+    fileCount = 0
+
     ActiveStorage.start()
 
     addEventListener("direct-upload:initialize", event => {
