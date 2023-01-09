@@ -148,7 +148,7 @@ class UrlsController < ApplicationController
   description ""
   def preview
     @push = Url.find_by_url_token!(params[:id])
-    @secret_url = helpers.url_secret_url(@push)
+    @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
       format.html { render action: 'preview' }
@@ -201,7 +201,7 @@ class UrlsController < ApplicationController
       return
     end
 
-    @secret_url = helpers.url_secret_url(@push)
+    @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
       format.html { }
