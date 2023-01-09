@@ -162,6 +162,14 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 | PWP__ENABLE_FILE_PUSHES | On/Off switch for File Pushes. | `false` |
 | PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `s3`, `gcs` or `as` |
 
+## Local Storage
+
+The default location for local storage is `./storage`.
+
+If using containers and you prefer local storage, you can add a volume mount to the container at the path `/opt/PasswordPusher/storage`:
+
+`docker run -d -p "5100:5100" -v /var/lib/pwpush/files:/opt/PasswordPusher/storage pglombardo/pwpush-postgres:release`
+
 ## Amazon S3
 
 | Environment Variable | Description | Value(s) |
