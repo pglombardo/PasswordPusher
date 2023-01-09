@@ -150,13 +150,18 @@ export default class extends Controller {
             minSyllableLength: Number(this.minSyllableLengthInputTarget.value),
             syllablesCount: Number(this.numSyllablesInputTarget.value)
         }
+        if (testConfig.use_separators === false) {
+            testConfig.separators = ''
+        }
         this.testPayloadAreaTarget.innerText = generatePassword(testConfig)
     }
 
     producePassword(event) {
+        if (this.config.use_separators === false) {
+            this.config.separators = ''
+        }
         this.payloadInputTarget.value = generatePassword(this.config)
         
-        // event.target.trigger('input')
         if (this.gaEnabledValue) {
             gtag('event', 'generate_password',
                     { 'event_category' : 'engagement',
