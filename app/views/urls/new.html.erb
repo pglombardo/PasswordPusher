@@ -1,7 +1,7 @@
 <% title(_('Securely Send URLs')) %>
 
 <div class='container'
-    data-controller="knobs passwords"
+    data-controller="knobs passwords form"
     data-knobs-lang-day-value=<%= _('Day') %>
     data-knobs-lang-days-value=<%= _('Days') %>
     data-knobs-default-days-value=<%= Settings.expire_after_days_default %>
@@ -127,7 +127,7 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => _('Pushing...'))%>
+                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', data: { action: 'click->form#disableWith', 'disable-with' => _('Pushing...') } )%>
             </p>
         </div>
     </div>

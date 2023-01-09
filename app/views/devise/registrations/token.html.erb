@@ -35,7 +35,7 @@
         </button>
     </div>
 
-<div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="regenModalLabel" aria-hidden="true">
+<div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="regenModalLabel" aria-hidden="true" data-controller="form">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,7 +50,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-        <%= link_to _('Delete & Regenerate'), token_user_registration_path, data: { turbo_method: :delete, 'disable-with': _('Processing...') }, class: 'btn btn-danger', rel: 'nofollow' %>
+        <%= link_to _('Delete & Regenerate'), token_user_registration_path, data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, class: 'btn btn-danger', rel: 'nofollow' %>
       </div>
     </div>
   </div>

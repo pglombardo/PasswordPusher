@@ -47,7 +47,7 @@
 </div>
 
 <% if @push.deletable_by_viewer %>
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" data-controller="form">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,7 +61,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-          <%= link_to _('Delete'), @push, data: { turbo_method: :delete, 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' %>
+          <%= link_to _('Delete'), @push, data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' %>
         </div>
       </div>
     </div>

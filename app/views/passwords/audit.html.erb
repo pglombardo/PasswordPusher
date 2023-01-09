@@ -114,27 +114,27 @@
         <div class='col'>
             <% if @push.expired == false %>
                 <div class='text-center'>
-                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
-                <em class="bi bi-trash"></em> <%= _('Expire Now') %>
-                </button>
+                    <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
+                        <em class="bi bi-trash"></em> <%= _('Expire Now') %>
+                    </button>
                 </div>
 
-                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Password?') %></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
-                        <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
-                        <p><%= _('Are you sure?') %></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-                        <%= link_to _('Delete'), @push, data: {turbo_method: :delete}, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow', disable_with: _('Processing...') %>
-                    </div>
+                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true"  data-controller="form">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Password?') %></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
+                            <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
+                            <p><%= _('Are you sure?') %></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+                            <%= link_to _('Delete'), @push, data: {turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' %>
+                        </div>
                     </div>
                 </div>
                 </div>
