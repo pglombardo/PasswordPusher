@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import Cookies from 'js-cookie'
 
 export default class extends Controller {
-    static targets = [ 
+    static targets = [
         "daysRange", "daysRangeLabel",
         "viewsRange", "viewsRangeLabel",
         "saveSettings",
@@ -18,6 +18,9 @@ export default class extends Controller {
         langView: String,
         langViews: String,
         defaultViews: Number,
+
+        langSave: String,
+        langSaved: String,
 
         defaultRetrievalStep: Boolean,
         defaultDeletableByViewer: Boolean,
@@ -50,7 +53,7 @@ export default class extends Controller {
         this.daysRangeLabelTarget.innerText = this.daysRangeTarget.value + " " + this.langDaysValue
         this.viewsRangeTarget.value = Cookies.get('pwpush_views') || this.defaultViewsValue
         this.viewsRangeLabelTarget.innerText = this.viewsRangeTarget.value + " " + this.langViewsValue
-       
+
         if (this.hasRetrievalStepCheckboxTarget) {
             let checkboxValue = Cookies.get('pwpush_retrieval_step')
             if (typeof checkboxValue == 'string') {
@@ -80,10 +83,12 @@ export default class extends Controller {
         if (this.hasRetrievalStepCheckboxTarget) {
             Cookies.set('pwpush_retrieval_step', this.retrievalStepCheckboxTarget.checked, { expires: 365 })
         }
-        event.target.innerHTML = 'Saved!'
+
+        let defaultTextValue = this.langSaveValue
+        event.target.innerHTML = this.langSavedValue
 
         setTimeout(function() {
-            event.target.innerText = "Save";
+            event.target.innerText = defaultTextValue
         }, 1000);
         return false
     }
