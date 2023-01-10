@@ -9,13 +9,9 @@ ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5
 
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg
 
-# Required to get the Node.js yarn tool
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
 # Required packages
 RUN apt-get update -qq && \
-    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata zlib1g-dev nodejs yarn
+    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata zlib1g-dev
 
 RUN mkdir -p ${APP_ROOT}
 ADD ./ ${APP_ROOT}/
@@ -32,7 +28,6 @@ RUN bundle config set without 'development private test'
 RUN bundle config set deployment 'true'
 
 RUN bundle install
-RUN yarn install
 RUN bundle exec rails assets:precompile
 
 ENTRYPOINT ["containers/docker/pwpush-postgres/entrypoint.sh"]
