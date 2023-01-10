@@ -1,4 +1,4 @@
-# pwpush-postgres
+# pwpush-openshift
 FROM ruby:3-slim
 
 LABEL maintainer='pglombardo@hey.com'
@@ -9,12 +9,8 @@ ENV DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres
 
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg
 
-# Required to get the Node.js yarn tool
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
 RUN apt-get update -qq && \
-    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn && \
+    apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev && \
     cd /opt && \
     git clone https://github.com/pglombardo/PasswordPusher.git && \
     touch ${APP_ROOT}/log/production.log
@@ -32,7 +28,6 @@ RUN bundle config set without 'development private test'
 RUN bundle config set deployment 'true'
 
 RUN bundle install
-RUN yarn install
 RUN bundle exec rails assets:precompile
 
 ENTRYPOINT ["containers/docker/pwpush-postgres/entrypoint.sh"]
