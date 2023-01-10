@@ -1,8 +1,32 @@
 <% title(_('Securely Send a Password')) %>
 
-<div class='container'>
+<div class='container'
+    data-controller="knobs pwgen passwords form"
+    data-knobs-lang-day-value=<%= _('Day') %>
+    data-knobs-lang-days-value=<%= _('Days') %>
+    data-knobs-default-days-value=<%= Settings.expire_after_days_default %>
+
+    data-knobs-lang-view-value=<%= _('View') %>
+    data-knobs-lang-views-value=<%= _('Views') %>
+    data-knobs-default-views-value=<%= Settings.expire_after_views_default %>
+
+    data-knobs-default-retrieval-step-value=<%= Settings.retrieval_step_default %>
+    data-knobs-default-deletable-by-viewer-value=<%= Settings.deletable_pushes_default %>
+
+    data-pwgen-use-numbers-default-value="<%= Settings.gen.has_numbers %>"
+    data-pwgen-title-cased-default-value="<%= Settings.gen.title_cased %>"
+    data-pwgen-use-separators-default-value="<%= Settings.gen.use_separators %>"
+    data-pwgen-consonants-default-value="<%= Settings.gen.consonants %>"
+    data-pwgen-vowels-default-value="<%= Settings.gen.vowels %>"
+    data-pwgen-separators-default-value="<%= Settings.gen.separators%>"
+    data-pwgen-min-syllable-length-default-value="<%= Settings.gen.min_syllable_length %>"
+    data-pwgen-max-syllable-length-default-value="<%= Settings.gen.max_syllable_length %>"
+    data-pwgen-syllables-count-default-value="<%= Settings.gen.syllables_count %>"
+
+    data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
+>
 <%= render partial: "shared/topnav" %>
-<%= form_for @password do |f| %>
+<%= form_for @push do |f| %>
     <div class='row'>
         <div class='col'>
             <%= f.text_area(:payload, { class: "form-control",
@@ -11,11 +35,15 @@
                                         autocomplete: "off",
                                         spellcheck: "false",
                                         autofocus: true,
-                                        required: true }) %>
+                                        required: true,
+                                        "data-pwgen-target" => "payloadInput",
+                                        "data-passwords-target" => "payloadInput",
+                                        "data-action" => "input->passwords#updateCharacterCount"
+                                         }) %>
             <div class='position-relative'>
                 <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
-                    <span id="current">0</span>
-                    <span id="maximum">/ 1048576 <%= _('Characters') %></span>
+                    <span id="current" data-passwords-target="currentChars">0</span>
+                    <span id="maximum" data-passwords-target="maximumChars">/ 1048576 <%= _('Characters') %></span>
                 </div>
             </div>
         </div>
@@ -43,27 +71,35 @@
                                           :class => "form-range",
                                           :min => Settings.expire_after_days_min,
                                           :max => Settings.expire_after_days_max,
-                                          :x_default => Settings.expire_after_days_default,
-                                          :step => "1" })%>
+                                          :step => "1",
+                                          "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
+                                          "data-knobs-target" => "daysRange"
+                                        })%>
                 </div>
                 <div class='col-4'>
-                    <label for='password_expire_after_days' id='daysrange'><%=Settings.expire_after_days_default %></label>
+                    <label for='password_expire_after_days' data-knobs-target="daysRangeLabel">
+                        <%=Settings.expire_after_days_default %> <%= _('Days') %>
+                    </label>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-8'>
                     <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
-                                       { :name => "password[expire_after_views]",
-                                         :class => "form-range",
-                                         :min => Settings.expire_after_views_min,
-                                         :max => Settings.expire_after_views_max,
-                                         :x_default => Settings.expire_after_views_default,
-                                         :step => "1" })%>
+                                        { :name => "password[expire_after_views]",
+                                            :class => "form-range",
+                                            :min => Settings.expire_after_views_min,
+                                            :max => Settings.expire_after_views_max,
+                                            :step => "1",
+                                            "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
+                                            "data-knobs-target" => "viewsRange"
+                                        })%>
                 </div>
 
                 <div class='col-4'>
-                    <label for='password_expire_after_views' id='viewsrange'><%= Settings.expire_after_views_default %> <%= _('Views') %></label>
+                    <label for='password_expire_after_views' data-knobs-target="viewsRangeLabel">
+                        <%= Settings.expire_after_views_default %> <%= _('Views') %>
+                    </label>
                 </div>
             </div>
             <div class='row'>
@@ -79,9 +115,9 @@
                     <div class="list-group mx-0">
                         <% if Settings.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%=check_box_tag "password[retrieval_step]", nil, Settings.retrieval_step_default,
+                            <%= check_box_tag "password[retrieval_step]", nil, Settings.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.retrieval_step_default } %>
+                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
@@ -92,7 +128,7 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "password[deletable_by_viewer]", nil, Settings.deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                                x_default: Settings.deletable_pushes_default }  %>
+                                              "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
                                 <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
@@ -105,9 +141,14 @@
         </div>
         <div class='col-12 col-sm-4 p-3 mt-3'>
             <div class="mb-3 text-end">
-                <div class="btn-group w-100" role="group" aria-label="Button group with nested dropdown">
-                    <button class="btn btn-secondary w-75" type="button" id='generate_password'><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
-                    <button class="btn btn-secondary" type="button" id='configure_generator' data-bs-toggle="modal" data-bs-target="#configureModal">
+                <div class="btn-group w-100" role="group" aria-label="Password Generator button group with nested dropdown">
+                    <button class="btn btn-secondary w-75" type="button"
+                        id='generate_password'
+                        data-knobs-target="generatePasswordButton"
+                        data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
+                    <button class="btn btn-secondary" type="button" id='configure_generator'
+                        data-action="pwgen#configureGenerator"
+                        data-bs-toggle="modal" data-bs-target="#configureModal">
                         <em class="bi bi-gear"></em>
                     </button>
                 </div>
@@ -121,7 +162,7 @@
         <div class='col'>
             <p class='mb-3'>
                 <div id='cookie-save'>
-                    <a href='#' id='save-defaults'><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                    <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
                 </div>
             </p>
         </div>
@@ -129,7 +170,7 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => _('Pushing...'))%>
+                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', data: { action: 'click->form#disableWith', 'disable-with' => _('Pushing...') } )%>
             </p>
         </div>
     </div>

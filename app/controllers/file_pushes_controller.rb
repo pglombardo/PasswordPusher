@@ -125,7 +125,7 @@ class FilePushesController < ApplicationController
 
     @push_count = FilePush.where(user_id: current_user.id, expired: false).count
     if @push_count >= 10
-      msg = _('Only 10 active pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
+      msg = _('Only 10 active file pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
       respond_to do |format|
         format.html {
           flash.now[:warning] = msg
@@ -170,8 +170,7 @@ class FilePushesController < ApplicationController
   description ""
   def preview
     @push = FilePush.find_by_url_token!(params[:id])
-
-    @secret_url = helpers.file_push_secret_url(@push)
+    @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
       format.html { render action: 'preview' }
@@ -200,6 +199,8 @@ class FilePushesController < ApplicationController
       return
     end
 
+    @secret_url = helpers.raw_secret_url(@push)
+
     respond_to do |format|
       format.html { render action: 'preliminary', layout: 'naked' }
     end
@@ -222,6 +223,8 @@ class FilePushesController < ApplicationController
       end
       return
     end
+
+    @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
       format.html { }
@@ -251,6 +254,14 @@ class FilePushesController < ApplicationController
     elsif @push.deletable_by_viewer == false
       # Anonymous user - assure deletable_by_viewer enabled
       redirect_to :root, notice: _('That push is not deletable by viewers.')
+      return
+    end
+
+    if @push.expired
+      respond_to do |format|
+        format.html { redirect_to :root, notice: _('That push is already expired.') }
+        format.json { render json: { 'error': _('That push is already expired.') }, status: :unprocessable_entity }
+      end
       return
     end
 

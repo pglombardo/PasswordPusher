@@ -33,6 +33,6 @@ RUN bundle config set deployment 'true'
 
 RUN bundle install
 RUN yarn install
-RUN bundle exec rails webpacker:compile
+RUN bundle exec rails assets:precompile
 
 ENTRYPOINT ["containers/docker/pwpush-postgres/entrypoint.sh"]

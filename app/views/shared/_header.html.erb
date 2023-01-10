@@ -4,9 +4,9 @@
       <div class='me-2'>
       <picture>
         <% if Settings.brand.nil? || Settings.brand.light_logo.nil? %>
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= asset_pack_path('media/img/logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_pack_path('media/img/logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;' />
+          <source srcset="<%= asset_path('logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+          <source srcset="<%= asset_path('logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+          <img src="<%= asset_path('logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;' />
         <% else %>
           <source srcset="<%= Settings.brand.light_logo %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
           <source srcset="<%= Settings.brand.dark_logo %>" media="(prefers-color-scheme: dark)">
@@ -33,7 +33,11 @@
         <% if Settings.enable_logins %>
           <% if current_user %>
             <li class="nav-item lead">
-              <%= link_to _('Dashboard'), active_passwords_path, class: "btn btn-primary" %>
+              <%= link_to active_passwords_path, class: "btn btn-primary" do %>
+                <em class='bi bi-clipboard-data'></em>
+                <%= _('Dashboard') %>
+              <% end %>
+
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,7 +52,7 @@
                   <%= link_to _('API Token'), token_user_registration_path, class: "dropdown-item" %>
                 </li>
                 <li>
-                  <%= link_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                  <%= link_to _('Log Out'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
                 </li>
               </ul>
             </li>

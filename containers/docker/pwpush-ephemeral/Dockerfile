@@ -32,7 +32,7 @@ RUN bundle config set deployment 'true'
 
 RUN bundle install
 RUN yarn install
-RUN bundle exec rails webpacker:compile
+RUN bundle exec rails assets:precompile
 RUN bundle exec rake db:setup
 
 ENTRYPOINT ["containers/docker/pwpush-ephemeral/entrypoint.sh"]

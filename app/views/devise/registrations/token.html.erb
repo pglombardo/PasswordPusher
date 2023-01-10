@@ -11,16 +11,14 @@
         </p>
     </div>
     
-    <div class='text-center mt-5 mb-5'>
+    <div class='text-center mt-5 mb-5' data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!')%>">
         <p class="text-muted"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
         <div
         class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' 
-        id='authentication_token' 
+        id='authentication_token'  data-copy-target="payloadDiv"
         translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%=current_user.authentication_token%></div>
         <div class='text-center m-3 mb-5'>
-            <button class='btn btn-primary' data-clipboard-target='#authentication_token' id='copy-to-clipboard-button'>
-            <em class="bi bi-clipboard-check"></em> <%= _('Copy to Clipboard') %>
-            </button>
+          <%= render partial: 'shared/copy_button' %>
         </div>
     </div>
 
@@ -36,9 +34,8 @@
             <em class="bi bi-trash"></em> <%= _('Regenerate Token') %>
         </button>
     </div>
-</div>
 
-<div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="regenModalLabel" aria-hidden="true">
+<div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="regenModalLabel" aria-hidden="true" data-controller="form">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,7 +50,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-        <%= link_to _('Delete & Regenerate'), token_user_registration_path, method: :delete, class: 'btn btn-danger', rel: 'nofollow', 'data-disable-with': _('Processing...') %>
+        <%= link_to _('Delete & Regenerate'), token_user_registration_path, data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, class: 'btn btn-danger', rel: 'nofollow' %>
       </div>
     </div>
   </div>

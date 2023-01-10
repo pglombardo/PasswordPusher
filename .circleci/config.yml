@@ -36,8 +36,8 @@ jobs:
           name: Rails Migrate
           command: ./bin/rails db:migrate RAILS_ENV=test
       - run:
-          name: Webpacker Compile
-          command: ./bin/rails webpacker:compile RAILS_ENV=test
+          name: Assets Precompile
+          command: ./bin/rails assets:precompile RAILS_ENV=test
       - run:
           name: Run Tests
           command: ./bin/rails test
