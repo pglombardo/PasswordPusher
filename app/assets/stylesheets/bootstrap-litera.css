@@ -11,7 +11,6 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Slab:wght@600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
   --bs-blue: #4582ec;
@@ -65,16 +64,67 @@
   --bs-body-color: #343a40;
   --bs-body-bg: #fff;
 }
+.accordion-button {
+  color: var(--bs-dark);
+  background-color: var(--bs-body-bg);
+}
+  
+.accordion-item {
+  color: var(--bs-dark);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  line-height: var(--bs-body-line-height);
+  color: var(--bs-body-color);
+  text-align: var(--bs-body-text-align);
+  background-color: var(--bs-body-bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.display-1 {
+  font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.lead {
+  font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1em;
+}
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+ }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bs-blue: #2a9fd6;
+    /* --bs-blue: #2a9fd6; */
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
     --bs-pink: #e83e8c;
     --bs-red: #c00;
     --bs-orange: #fd7e14;
-    --bs-yellow: yellow;
+    --bs-yellow: #FFFF00;
     --bs-green: #77b300;
     --bs-teal: #20c997;
     --bs-cyan: #93c;
@@ -90,7 +140,7 @@
     --bs-gray-700: #282828;
     --bs-gray-800: #222;
     --bs-gray-900: #212529;
-    --bs-primary: #2a9fd6;
+    --bs-primary: #4169E1;
     --bs-secondary: #555;
     --bs-success: #77b300;
     --bs-info: #93c;
@@ -117,6 +167,7 @@
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: var(--bs-gray-300);
+    --bs-link-color: var(--bs-yellow);
     --bs-body-bg: #060606;
   }
 
@@ -190,7 +241,7 @@
 
   .display-1 {
     font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    color: var(--bs-yellow) !important;
+    color: var(--bs-yellow);
   }
 
   .display-2 {
@@ -210,45 +261,3 @@
     background-color: var(--bs-body-bg);
   }
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    scroll-behavior: smooth;
-  }
-}
-
-body {
-  margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.display-1 {
-  font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-}
-
-.lead {
-  font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  font-size: 1em;
-}
-
-pre {
-  white-space: pre-wrap;       /* css-3 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
- }
