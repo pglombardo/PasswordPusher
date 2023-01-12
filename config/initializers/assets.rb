@@ -10,6 +10,11 @@ Rails.application.config.assets.version = "1.0"
 # Rails.application.config.assets.paths << Rails.root.join("node_modules/flag-icons/flags/1x1")
 # Rails.application.config.assets.paths << Rails.root.join("node_modules/flag-icons/flags/4x3")
 
+Rails.application.config.assets.paths << Rails.root.join("vendor", "stylesheets")
+Rails.application.config.assets.paths << Rails.root.join("vendor", "stylesheets", "@fontsource", "roboto", "files")
+Rails.application.config.assets.paths << Rails.root.join("vendor", "stylesheets", "@fontsource", "roboto-slab", "files")
+Rails.application.config.assets.paths << Rails.root.join("vendor", "stylesheets", "@fontsource", "roboto-mono", "files")
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
