@@ -28,11 +28,11 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert_equal Settings.deletable_pushes_default, res["deletable_by_viewer"]
+    assert_equal Settings.url.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
-    assert_equal Settings.expire_after_days_default, res["days_remaining"]
+    assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
-    assert_equal Settings.expire_after_views_default, res["views_remaining"]
+    assert_equal Settings.url.expire_after_views_default, res["views_remaining"]
 
     # Delete the new url via json e.g. /r/<url_token>.json
     delete "/r/" + res["url_token"] + ".json", headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
@@ -46,11 +46,11 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert_equal Settings.deletable_pushes_default, res["deletable_by_viewer"]
+    assert_equal Settings.url.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
-    assert_equal Settings.expire_after_days_default, res["days_remaining"]
+    assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
-    assert_equal Settings.expire_after_views_default, res["views_remaining"]
+    assert_equal Settings.url.expire_after_views_default, res["views_remaining"]
 
     # Now try to retrieve the url again
     get "/r/" + res["url_token"] + ".json"
@@ -65,10 +65,10 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert_equal Settings.deletable_pushes_default, res["deletable_by_viewer"]
+    assert_equal Settings.url.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
-    assert_equal Settings.expire_after_days_default, res["days_remaining"]
+    assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
-    assert_equal Settings.expire_after_views_default-1, res["views_remaining"]
+    assert_equal Settings.url.expire_after_views_default-1, res["views_remaining"]
   end
 end

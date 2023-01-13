@@ -102,102 +102,102 @@ class SettingsTest < Minitest::Test
 
   def test_legacy_RETRIEVAL_STEP_ENABLED
     Settings.reload!
-    assert Settings.enable_retrieval_step == true
+    assert Settings.pw.enable_retrieval_step == true
 
     ENV['RETRIEVAL_STEP_ENABLED'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_retrieval_step == false
+    assert Settings.pw.enable_retrieval_step == false
 
     ENV['RETRIEVAL_STEP_ENABLED'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_retrieval_step == true
+    assert Settings.pw.enable_retrieval_step == true
 
     ENV.delete('RETRIEVAL_STEP_ENABLED')
   end
   
   def test_legacy_RETRIEVAL_STEP_DEFAULT
     Settings.reload!
-    assert Settings.retrieval_step_default == false
+    assert Settings.pw.retrieval_step_default == false
 
     ENV['RETRIEVAL_STEP_DEFAULT'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.retrieval_step_default == false
+    assert Settings.pw.retrieval_step_default == false
 
     ENV['RETRIEVAL_STEP_DEFAULT'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.retrieval_step_default == true
+    assert Settings.pw.retrieval_step_default == true
 
     ENV.delete('RETRIEVAL_STEP_DEFAULT')
   end
   
   def test_legacy_DELETABLE_PASSWORDS_ENABLED
     Settings.reload!
-    assert Settings.enable_deletable_pushes == true
+    assert Settings.pw.enable_deletable_pushes == true
 
     ENV['DELETABLE_PASSWORDS_ENABLED'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_deletable_pushes == false
+    assert Settings.pw.enable_deletable_pushes == false
 
     ENV['DELETABLE_PASSWORDS_ENABLED'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_deletable_pushes == true
+    assert Settings.pw.enable_deletable_pushes == true
 
     ENV.delete('DELETABLE_PASSWORDS_ENABLED')
   end
   
   def test_legacy_DELETABLE_BY_VIEWER_PASSWORDS
     Settings.reload!
-    assert Settings.enable_deletable_pushes == true
+    assert Settings.pw.enable_deletable_pushes == true
 
     ENV['DELETABLE_BY_VIEWER_PASSWORDS'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_deletable_pushes == false
+    assert Settings.pw.enable_deletable_pushes == false
 
     ENV['DELETABLE_BY_VIEWER_PASSWORDS'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.enable_deletable_pushes == true
+    assert Settings.pw.enable_deletable_pushes == true
 
     ENV.delete('DELETABLE_BY_VIEWER_PASSWORDS')
   end
 
   def test_legacy_DELETABLE_PASSWORDS_DEFAULT
     Settings.reload!
-    assert Settings.deletable_pushes_default == true
+    assert Settings.pw.deletable_pushes_default == true
 
     ENV['DELETABLE_PASSWORDS_DEFAULT'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.deletable_pushes_default == false
+    assert Settings.pw.deletable_pushes_default == false
 
     ENV['DELETABLE_PASSWORDS_DEFAULT'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.deletable_pushes_default == true
+    assert Settings.pw.deletable_pushes_default == true
 
     ENV.delete('DELETABLE_PASSWORDS_DEFAULT')
   end
   
   def test_legacy_DELETABLE_BY_VIEWER_DEFAULT
     Settings.reload!
-    assert Settings.deletable_pushes_default == true
+    assert Settings.pw.deletable_pushes_default == true
 
     ENV['DELETABLE_BY_VIEWER_DEFAULT'] = 'false'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.deletable_pushes_default == false
+    assert Settings.pw.deletable_pushes_default == false
 
     ENV['DELETABLE_BY_VIEWER_DEFAULT'] = 'true'
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.deletable_pushes_default == true
+    assert Settings.pw.deletable_pushes_default == true
 
     ENV.delete('DELETABLE_BY_VIEWER_DEFAULT')
   end

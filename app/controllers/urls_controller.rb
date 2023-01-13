@@ -118,8 +118,8 @@ class UrlsController < ApplicationController
       return
     end
 
-    @push.expire_after_days = params[:url].fetch(:expire_after_days, Settings.expire_after_days_default)
-    @push.expire_after_views = params[:url].fetch(:expire_after_views, Settings.expire_after_views_default)
+    @push.expire_after_days = params[:url].fetch(:expire_after_days, Settings.url.expire_after_days_default)
+    @push.expire_after_views = params[:url].fetch(:expire_after_views, Settings.url.expire_after_views_default)
     @push.user_id = current_user.id if user_signed_in?
     @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
@@ -352,7 +352,7 @@ class UrlsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(url, params)
-    if Settings.enable_retrieval_step == true
+    if Settings.url.enable_retrieval_step == true
       if params[:url].key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -366,7 +366,7 @@ class UrlsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          url.retrieval_step = Settings.retrieval_step_default
+          url.retrieval_step = Settings.url.retrieval_step_default
         end
       end
     else
