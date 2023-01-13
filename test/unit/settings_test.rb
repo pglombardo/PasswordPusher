@@ -20,12 +20,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_DAYS_DEFAULT'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 7
+    assert Settings.pw.method(legacy_env_var.downcase).call == 7
 
     ENV[legacy_env_var] = "9"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 9
+    assert Settings.pw.method(legacy_env_var.downcase).call == 9
 
     ENV.delete(legacy_env_var)
   end
@@ -34,12 +34,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_DAYS_MIN'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 1
+    assert Settings.pw.method(legacy_env_var.downcase).call == 1
 
     ENV[legacy_env_var] = "3"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 3
+    assert Settings.pw.method(legacy_env_var.downcase).call == 3
 
     ENV.delete(legacy_env_var)
   end
@@ -48,12 +48,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_DAYS_MAX'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 90
+    assert Settings.pw.method(legacy_env_var.downcase).call == 90
 
     ENV[legacy_env_var] = "5"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 5
+    assert Settings.pw.method(legacy_env_var.downcase).call == 5
 
     ENV.delete(legacy_env_var)
   end
@@ -62,12 +62,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_VIEWS_DEFAULT'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 5
+    assert Settings.pw.method(legacy_env_var.downcase).call == 5
 
     ENV[legacy_env_var] = "9"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 9
+    assert Settings.pw.method(legacy_env_var.downcase).call == 9
 
     ENV.delete(legacy_env_var)
   end
@@ -76,12 +76,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_VIEWS_MIN'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 1
+    assert Settings.pw.method(legacy_env_var.downcase).call == 1
 
     ENV[legacy_env_var] = "3"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 3
+    assert Settings.pw.method(legacy_env_var.downcase).call == 3
 
     ENV.delete(legacy_env_var)
   end
@@ -90,12 +90,12 @@ class SettingsTest < Minitest::Test
     legacy_env_var = 'EXPIRE_AFTER_VIEWS_MAX'
 
     Settings.reload!
-    assert Settings.method(legacy_env_var.downcase).call == 100
+    assert Settings.pw.method(legacy_env_var.downcase).call == 100
 
     ENV[legacy_env_var] = "100"
     Settings.reload!
     load_legacy_environment_variables
-    assert Settings.method(legacy_env_var.downcase).call == 100
+    assert Settings.pw.method(legacy_env_var.downcase).call == 100
 
     ENV.delete(legacy_env_var)
   end

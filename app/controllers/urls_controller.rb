@@ -228,9 +228,8 @@ class UrlsController < ApplicationController
         redirect_to :root, notice: _('That push does not belong to you.')
         return
       end
-    elsif @push.deletable_by_viewer == false
-      # Anonymous user - assure deletable_by_viewer enabled
-      redirect_to :root, notice: _('That push is not deletable by viewers.')
+    else
+      redirect_to :root, notice: _('That push does not belong to you.')
       return
     end
 
@@ -354,14 +353,14 @@ class UrlsController < ApplicationController
   def create_detect_retrieval_step(url, params)
     if Settings.url.enable_retrieval_step == true
       if params[:url].key?(:retrieval_step)
-        # User form data or json API request: :deletable_by_viewer can
+        # User form data or json API request: :retrieval_step can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
         user_rs = params[:url][:retrieval_step].to_s.downcase
         url.retrieval_step = %w[on yes checked true].include?(user_rs)
       else
         if request.format.html?
           # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
-          # at all so we set false - NOT deletable by viewers
+          # at all so we set false - NO retrieval step 
           url.retrieval_step = false
         else
           # The JSON API is implicit so if it's not specified, use the app
