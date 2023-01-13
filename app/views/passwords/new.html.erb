@@ -4,17 +4,17 @@
     data-controller="knobs pwgen passwords form"
     data-knobs-lang-day-value=<%= _('Day') %>
     data-knobs-lang-days-value=<%= _('Days') %>
-    data-knobs-default-days-value=<%= Settings.expire_after_days_default %>
+    data-knobs-default-days-value=<%= Settings.pw.expire_after_days_default %>
 
     data-knobs-lang-view-value=<%= _('View') %>
     data-knobs-lang-views-value=<%= _('Views') %>
-    data-knobs-default-views-value=<%= Settings.expire_after_views_default %>
+    data-knobs-default-views-value=<%= Settings.pw.expire_after_views_default %>
 
     data-knobs-lang-save-value=<%= _('Save') %>
     data-knobs-lang-saved-value=<%= _('Saved!') %>
 
-    data-knobs-default-retrieval-step-value=<%= Settings.retrieval_step_default %>
-    data-knobs-default-deletable-by-viewer-value=<%= Settings.deletable_pushes_default %>
+    data-knobs-default-retrieval-step-value=<%= Settings.pw.retrieval_step_default %>
+    data-knobs-default-deletable-by-viewer-value=<%= Settings.pw.deletable_pushes_default %>
 
     data-pwgen-use-numbers-default-value="<%= Settings.gen.has_numbers %>"
     data-pwgen-title-cased-default-value="<%= Settings.gen.title_cased %>"
@@ -69,11 +69,11 @@
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
                 <div class='col-8'>
-                    <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
+                    <%= range_field_tag("password_expire_after_days", Settings.pw.expire_after_days_default,
                                         { :name => "password[expire_after_days]",
                                           :class => "form-range",
-                                          :min => Settings.expire_after_days_min,
-                                          :max => Settings.expire_after_days_max,
+                                          :min => Settings.pw.expire_after_days_min,
+                                          :max => Settings.pw.expire_after_days_max,
                                           :step => "1",
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
@@ -81,18 +81,18 @@
                 </div>
                 <div class='col-4'>
                     <label for='password_expire_after_days' data-knobs-target="daysRangeLabel">
-                        <%=Settings.expire_after_days_default %> <%= _('Days') %>
+                        <%=Settings.pw.expire_after_days_default %> <%= _('Days') %>
                     </label>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
+                    <%=range_field_tag("password_expire_after_views", Settings.pw.expire_after_views_default,
                                         { :name => "password[expire_after_views]",
                                             :class => "form-range",
-                                            :min => Settings.expire_after_views_min,
-                                            :max => Settings.expire_after_views_max,
+                                            :min => Settings.pw.expire_after_views_min,
+                                            :max => Settings.pw.expire_after_views_max,
                                             :step => "1",
                                             "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                             "data-knobs-target" => "viewsRange"
@@ -101,7 +101,7 @@
 
                 <div class='col-4'>
                     <label for='password_expire_after_views' data-knobs-target="viewsRangeLabel">
-                        <%= Settings.expire_after_views_default %> <%= _('Views') %>
+                        <%= Settings.pw.expire_after_views_default %> <%= _('Views') %>
                     </label>
                 </div>
             </div>
@@ -116,9 +116,9 @@
             <div class='row'>
                 <div class='col'>
                     <div class="list-group mx-0">
-                        <% if Settings.enable_retrieval_step %>
+                        <% if Settings.pw.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "password[retrieval_step]", nil, Settings.retrieval_step_default,
+                            <%= check_box_tag "password[retrieval_step]", nil, Settings.pw.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
@@ -127,9 +127,9 @@
                             </span>
                             </label>
                         <% end %>
-                        <% if Settings.enable_deletable_pushes%>
+                        <% if Settings.pw.enable_deletable_pushes%>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "password[deletable_by_viewer]", nil, Settings.deletable_pushes_default,
+                            <%= check_box_tag "password[deletable_by_viewer]", nil, Settings.pw.deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>

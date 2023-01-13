@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_161228) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_173429) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -83,7 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_161228) do
     t.string "url_token"
     t.integer "user_id"
     t.boolean "deleted", default: false
-    t.boolean "deletable_by_viewer", default: true
     t.boolean "retrieval_step", default: false
     t.datetime "expired_on"
     t.text "payload_ciphertext", limit: 2097152

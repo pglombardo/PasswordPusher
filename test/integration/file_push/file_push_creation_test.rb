@@ -122,7 +122,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     deletable_checkbox = css_select '#password_deletable_by_viewer'
     assert(deletable_checkbox)
 
-    found = Settings.enable_deletable_pushes
+    found = Settings.files.enable_deletable_pushes
     deletable_checkbox.each do |item|
       if item.content.include?('Allow viewers to optionally delete password before expiration')
         found = true
@@ -135,7 +135,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(deletable_checkbox.length == 1)
 
     # DELETABLE_PASSWORDS_DEFAULT determines initial check state
-    if Settings.deletable_pushes_default == true
+    if Settings.files.deletable_pushes_default == true
       assert(deletable_checkbox.first.attributes['checked'].value == 'checked')
     else
       assert(deletable_checkbox.first.attributes['checked'].nil?)
