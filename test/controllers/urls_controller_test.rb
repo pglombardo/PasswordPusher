@@ -17,7 +17,7 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
   test 'New push form is NOT available anonymous' do
     get new_url_path
     assert_response :success
-    assert response.body.include?('requires a log in')
+    assert response.body.include?('Please login or sign up to use this feature.')
   end
 
   test '"active" and "expired" should redirect anonymous to user sign in' do
