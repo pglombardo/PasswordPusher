@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2023-01-13 15:32+0100\n"
-"PO-Revision-Date: 2023-01-13 15:32+0100\n"
+"POT-Creation-Date: 2023-01-14 11:20+0100\n"
+"PO-Revision-Date: 2023-01-14 11:20+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -58,12 +58,12 @@ msgstr "Die push is niet van jou."
 #: ../../../app/controllers/file_pushes_controller.rb:251
 #: ../../../app/controllers/passwords_controller.rb:232
 #: ../../../app/controllers/urls_controller.rb:228
+#: ../../../app/controllers/urls_controller.rb:232
 msgid "That push does not belong to you."
 msgstr "Die push is niet van jou."
 
 #: ../../../app/controllers/file_pushes_controller.rb:256
 #: ../../../app/controllers/passwords_controller.rb:237
-#: ../../../app/controllers/urls_controller.rb:233
 msgid "That push is not deletable by viewers."
 msgstr "Die push is niet te verwijderen door kijkers."
 
@@ -71,8 +71,8 @@ msgstr "Die push is niet te verwijderen door kijkers."
 #: ../../../app/controllers/file_pushes_controller.rb:263
 #: ../../../app/controllers/passwords_controller.rb:243
 #: ../../../app/controllers/passwords_controller.rb:244
+#: ../../../app/controllers/urls_controller.rb:238
 #: ../../../app/controllers/urls_controller.rb:239
-#: ../../../app/controllers/urls_controller.rb:240
 msgid "That push is already expired."
 msgstr ""
 
@@ -80,14 +80,14 @@ msgstr ""
 #: ../../../app/controllers/file_pushes_controller.rb:284
 #: ../../../app/controllers/passwords_controller.rb:261
 #: ../../../app/controllers/passwords_controller.rb:264
-#: ../../../app/controllers/urls_controller.rb:257
-#: ../../../app/controllers/urls_controller.rb:260
+#: ../../../app/controllers/urls_controller.rb:256
+#: ../../../app/controllers/urls_controller.rb:259
 #: ../../../app/views/file_pushes/audit.html.erb:84
 #: ../../../app/views/file_pushes/audit.html.erb:241
 #: ../../../app/views/passwords/audit.html.erb:84
 #: ../../../app/views/passwords/audit.html.erb:175
-#: ../../../app/views/urls/audit.html.erb:84
-#: ../../../app/views/urls/audit.html.erb:170
+#: ../../../app/views/urls/audit.html.erb:71
+#: ../../../app/views/urls/audit.html.erb:157
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "De push-inhoud is verwijderd en de geheime URL is verlopen."
 
@@ -290,7 +290,7 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:76
 #: ../../../app/views/passwords/audit.html.erb:132
 #: ../../../app/views/passwords/show.html.erb:60
-#: ../../../app/views/urls/audit.html.erb:132
+#: ../../../app/views/urls/audit.html.erb:119
 msgid "Are you sure?"
 msgstr "Ben je zeker?"
 
@@ -299,7 +299,7 @@ msgstr "Ben je zeker?"
 #: ../../../app/views/file_pushes/show.html.erb:79
 #: ../../../app/views/passwords/audit.html.erb:135
 #: ../../../app/views/passwords/show.html.erb:63
-#: ../../../app/views/urls/audit.html.erb:135
+#: ../../../app/views/urls/audit.html.erb:122
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -312,7 +312,7 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:80
 #: ../../../app/views/passwords/audit.html.erb:136
 #: ../../../app/views/passwords/show.html.erb:64
-#: ../../../app/views/urls/audit.html.erb:136
+#: ../../../app/views/urls/audit.html.erb:123
 msgid "Processing..."
 msgstr "Verwerken..."
 
@@ -424,7 +424,7 @@ msgstr ""
 #: ../../../app/views/passwords/new.html.erb:104
 #: ../../../app/views/urls/active.html.erb:26
 #: ../../../app/views/urls/new.html.erb:10
-#: ../../../app/views/urls/new.html.erb:76
+#: ../../../app/views/urls/new.html.erb:75
 msgid "Views"
 msgstr "Weergaven"
 
@@ -436,7 +436,7 @@ msgstr "Weergaven"
 #: ../../../app/views/passwords/new.html.erb:84
 #: ../../../app/views/urls/active.html.erb:27
 #: ../../../app/views/urls/new.html.erb:6
-#: ../../../app/views/urls/new.html.erb:56
+#: ../../../app/views/urls/new.html.erb:55
 msgid "Days"
 msgstr "Dagen"
 
@@ -452,8 +452,8 @@ msgstr "Dagen"
 #: ../../../app/views/passwords/expired.html.erb:32
 #: ../../../app/views/urls/active.html.erb:38
 #: ../../../app/views/urls/audit.html.erb:19
-#: ../../../app/views/urls/audit.html.erb:186
-#: ../../../app/views/urls/audit.html.erb:198
+#: ../../../app/views/urls/audit.html.erb:173
+#: ../../../app/views/urls/audit.html.erb:185
 #: ../../../app/views/urls/expired.html.erb:31
 msgid "None"
 msgstr "Geen"
@@ -559,7 +559,6 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:50
 #: ../../../app/views/passwords/audit.html.erb:50
-#: ../../../app/views/urls/audit.html.erb:50
 msgid "Deletable by Viewers"
 msgstr "Verwijderbaar door Kijkers"
 
@@ -568,7 +567,6 @@ msgstr "Verwijderbaar door Kijkers"
 #: ../../../app/views/passwords/audit.html.erb:53
 #: ../../../app/views/passwords/audit.html.erb:66
 #: ../../../app/views/urls/audit.html.erb:53
-#: ../../../app/views/urls/audit.html.erb:66
 msgid "True"
 msgstr "Waar"
 
@@ -577,18 +575,16 @@ msgstr "Waar"
 #: ../../../app/views/passwords/audit.html.erb:55
 #: ../../../app/views/passwords/audit.html.erb:68
 #: ../../../app/views/urls/audit.html.erb:55
-#: ../../../app/views/urls/audit.html.erb:68
 msgid "False"
 msgstr "Fout"
 
 #: ../../../app/views/file_pushes/audit.html.erb:58
-#: ../../../app/views/urls/audit.html.erb:58
 msgid "This allows end users to delete content once retrieved."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:63
 #: ../../../app/views/passwords/audit.html.erb:63
-#: ../../../app/views/urls/audit.html.erb:63
+#: ../../../app/views/urls/audit.html.erb:50
 msgid "1-click Retrieval Step"
 msgstr "Opvragen met 1 klik"
 
@@ -596,19 +592,19 @@ msgstr "Opvragen met 1 klik"
 #: ../../../app/views/file_pushes/new.html.erb:102
 #: ../../../app/views/passwords/audit.html.erb:71
 #: ../../../app/views/passwords/new.html.erb:126
-#: ../../../app/views/urls/audit.html.erb:71
+#: ../../../app/views/urls/audit.html.erb:58
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "Helpt voorkomen dat chatsystemen en URL-scanners weergaven opeten."
 
 #: ../../../app/views/file_pushes/audit.html.erb:77
 #: ../../../app/views/passwords/audit.html.erb:77
-#: ../../../app/views/urls/audit.html.erb:77
+#: ../../../app/views/urls/audit.html.erb:64
 msgid "Current Status"
 msgstr "Huidige Status"
 
 #: ../../../app/views/file_pushes/audit.html.erb:81
 #: ../../../app/views/passwords/audit.html.erb:81
-#: ../../../app/views/urls/audit.html.erb:81
+#: ../../../app/views/urls/audit.html.erb:68
 msgid "State:"
 msgstr "Staat:"
 
@@ -617,7 +613,7 @@ msgstr "Staat:"
 #: ../../../app/views/shared/_dashboard_header.html.erb:26
 #: ../../../app/views/shared/_dashboard_header.html.erb:29
 #: ../../../app/views/shared/_dashboard_header.html.erb:32
-#: ../../../app/views/urls/audit.html.erb:83
+#: ../../../app/views/urls/audit.html.erb:70
 msgid "Expired"
 msgstr "Verlopen"
 
@@ -626,47 +622,47 @@ msgstr "Verlopen"
 #: ../../../app/views/shared/_dashboard_header.html.erb:25
 #: ../../../app/views/shared/_dashboard_header.html.erb:28
 #: ../../../app/views/shared/_dashboard_header.html.erb:31
-#: ../../../app/views/urls/audit.html.erb:86
+#: ../../../app/views/urls/audit.html.erb:73
 msgid "Active"
 msgstr "Actief"
 
 #: ../../../app/views/file_pushes/audit.html.erb:87
 #: ../../../app/views/passwords/audit.html.erb:87
-#: ../../../app/views/urls/audit.html.erb:87
+#: ../../../app/views/urls/audit.html.erb:74
 msgid "Active and still available for viewing."
 msgstr "Actief en nog te bezichtigen."
 
 #: ../../../app/views/file_pushes/audit.html.erb:93
 #: ../../../app/views/passwords/audit.html.erb:93
-#: ../../../app/views/urls/audit.html.erb:93
+#: ../../../app/views/urls/audit.html.erb:80
 msgid "Successful Views"
 msgstr "Succesvolle Weergaven"
 
 #: ../../../app/views/file_pushes/audit.html.erb:94
-#: ../../../app/views/urls/audit.html.erb:94
+#: ../../../app/views/urls/audit.html.erb:81
 msgid "The number of times this push has been viewed before expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:99
 #: ../../../app/views/passwords/audit.html.erb:99
-#: ../../../app/views/urls/audit.html.erb:99
+#: ../../../app/views/urls/audit.html.erb:86
 msgid "Failed View Attempts"
 msgstr "Mislukte Weergavepogingen"
 
 #: ../../../app/views/file_pushes/audit.html.erb:100
-#: ../../../app/views/urls/audit.html.erb:100
+#: ../../../app/views/urls/audit.html.erb:87
 msgid "The number of times this push has been viewed after expiration."
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:105
 #: ../../../app/views/passwords/audit.html.erb:105
-#: ../../../app/views/urls/audit.html.erb:105
+#: ../../../app/views/urls/audit.html.erb:92
 msgid "Days Remaining"
 msgstr "Resterende Dagen"
 
 #: ../../../app/views/file_pushes/audit.html.erb:106
 #: ../../../app/views/passwords/audit.html.erb:106
-#: ../../../app/views/urls/audit.html.erb:106
+#: ../../../app/views/urls/audit.html.erb:93
 msgid ""
 "Number of days until this push expires if the maximum view count isn't reached"
 "."
@@ -737,7 +733,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:187
 #: ../../../app/views/passwords/audit.html.erb:118
-#: ../../../app/views/urls/audit.html.erb:118
+#: ../../../app/views/urls/audit.html.erb:105
 msgid "Expire Now"
 msgstr "Nu laten verlopen"
 
@@ -748,19 +744,19 @@ msgstr "Dit Wachtwoord Verwijderen?"
 
 #: ../../../app/views/file_pushes/audit.html.erb:199
 #: ../../../app/views/passwords/audit.html.erb:130
-#: ../../../app/views/urls/audit.html.erb:130
+#: ../../../app/views/urls/audit.html.erb:117
 msgid "This will expire this secret link and"
 msgstr "Hierdoor verloopt deze geheime link en"
 
 #: ../../../app/views/file_pushes/audit.html.erb:199
 #: ../../../app/views/passwords/audit.html.erb:130
-#: ../../../app/views/urls/audit.html.erb:130
+#: ../../../app/views/urls/audit.html.erb:117
 msgid "remove all content from the database forever"
 msgstr ""
 
 #: ../../../app/views/file_pushes/audit.html.erb:200
 #: ../../../app/views/passwords/audit.html.erb:131
-#: ../../../app/views/urls/audit.html.erb:131
+#: ../../../app/views/urls/audit.html.erb:118
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -772,25 +768,25 @@ msgstr ""
 #: ../../../app/views/file_pushes/show.html.erb:80
 #: ../../../app/views/passwords/audit.html.erb:136
 #: ../../../app/views/passwords/show.html.erb:64
-#: ../../../app/views/urls/audit.html.erb:136
+#: ../../../app/views/urls/audit.html.erb:123
 msgid "Delete"
 msgstr "Verwijderen"
 
 #: ../../../app/views/file_pushes/audit.html.erb:217
 #: ../../../app/views/passwords/audit.html.erb:148
-#: ../../../app/views/urls/audit.html.erb:148
+#: ../../../app/views/urls/audit.html.erb:135
 msgid "Start of Audit Log"
 msgstr "Begin van Auditlogboek"
 
 #: ../../../app/views/file_pushes/audit.html.erb:220
 #: ../../../app/views/passwords/audit.html.erb:151
-#: ../../../app/views/urls/audit.html.erb:151
+#: ../../../app/views/urls/audit.html.erb:138
 msgid "Push created on"
 msgstr "Push aangemaakt op"
 
 #: ../../../app/views/file_pushes/audit.html.erb:225
 #: ../../../app/views/passwords/audit.html.erb:156
-#: ../../../app/views/urls/audit.html.erb:156
+#: ../../../app/views/urls/audit.html.erb:143
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -804,7 +800,7 @@ msgstr "Wachtwoord handmatig verlopen door gebruiker"
 #: ../../../app/views/file_pushes/audit.html.erb:236
 #: ../../../app/views/passwords/audit.html.erb:167
 #: ../../../app/views/passwords/audit.html.erb:173
-#: ../../../app/views/urls/audit.html.erb:167
+#: ../../../app/views/urls/audit.html.erb:154
 msgid "at IP address"
 msgstr "op IP-adres"
 
@@ -814,8 +810,8 @@ msgstr "op IP-adres"
 #: ../../../app/views/passwords/audit.html.erb:168
 #: ../../../app/views/passwords/audit.html.erb:186
 #: ../../../app/views/passwords/audit.html.erb:198
-#: ../../../app/views/urls/audit.html.erb:181
-#: ../../../app/views/urls/audit.html.erb:193
+#: ../../../app/views/urls/audit.html.erb:168
+#: ../../../app/views/urls/audit.html.erb:180
 msgid "on"
 msgstr "op"
 
@@ -825,9 +821,9 @@ msgstr "op"
 #: ../../../app/views/passwords/audit.html.erb:177
 #: ../../../app/views/passwords/audit.html.erb:189
 #: ../../../app/views/passwords/audit.html.erb:201
-#: ../../../app/views/urls/audit.html.erb:172
-#: ../../../app/views/urls/audit.html.erb:184
-#: ../../../app/views/urls/audit.html.erb:196
+#: ../../../app/views/urls/audit.html.erb:159
+#: ../../../app/views/urls/audit.html.erb:171
+#: ../../../app/views/urls/audit.html.erb:183
 msgid "User Agent"
 msgstr "Gebruikersagent"
 
@@ -837,27 +833,27 @@ msgstr "Gebruikersagent"
 #: ../../../app/views/passwords/audit.html.erb:179
 #: ../../../app/views/passwords/audit.html.erb:191
 #: ../../../app/views/passwords/audit.html.erb:203
-#: ../../../app/views/urls/audit.html.erb:174
-#: ../../../app/views/urls/audit.html.erb:186
-#: ../../../app/views/urls/audit.html.erb:198
+#: ../../../app/views/urls/audit.html.erb:161
+#: ../../../app/views/urls/audit.html.erb:173
+#: ../../../app/views/urls/audit.html.erb:185
 msgid "Referrer"
 msgstr "Verwijzer"
 
 #: ../../../app/views/file_pushes/audit.html.erb:250
 #: ../../../app/views/passwords/audit.html.erb:184
-#: ../../../app/views/urls/audit.html.erb:179
+#: ../../../app/views/urls/audit.html.erb:166
 msgid "Successful view from IP address"
 msgstr "Succesvolle weergave vanaf IP-adres"
 
 #: ../../../app/views/file_pushes/audit.html.erb:262
 #: ../../../app/views/passwords/audit.html.erb:196
-#: ../../../app/views/urls/audit.html.erb:191
+#: ../../../app/views/urls/audit.html.erb:178
 msgid "Failed view attempt (already expired) by"
 msgstr "Mislukte kijkpoging (reeds verlopen) door"
 
 #: ../../../app/views/file_pushes/audit.html.erb:273
 #: ../../../app/views/passwords/audit.html.erb:207
-#: ../../../app/views/urls/audit.html.erb:202
+#: ../../../app/views/urls/audit.html.erb:189
 msgid "End of Audit Log"
 msgstr "Einde van Auditlogboek"
 
@@ -905,7 +901,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:46
 #: ../../../app/views/passwords/new.html.erb:70
-#: ../../../app/views/urls/new.html.erb:42
+#: ../../../app/views/urls/new.html.erb:41
 msgid "Expire secret link and delete after:"
 msgstr "Laat de geheime link verlopen en verwijderen na:"
 
@@ -913,14 +909,14 @@ msgstr "Laat de geheime link verlopen en verwijderen na:"
 #: ../../../app/views/file_pushes/preview.html.erb:16
 #: ../../../app/views/passwords/new.html.erb:111
 #: ../../../app/views/passwords/preview.html.erb:16
-#: ../../../app/views/urls/new.html.erb:83
+#: ../../../app/views/urls/new.html.erb:82
 #: ../../../app/views/urls/preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(wat het eerst komt)"
 
 #: ../../../app/views/file_pushes/new.html.erb:101
 #: ../../../app/views/passwords/new.html.erb:125
-#: ../../../app/views/urls/new.html.erb:97
+#: ../../../app/views/urls/new.html.erb:96
 msgid "Use a 1-click retrieval step"
 msgstr "Een ophaalstap met één klik gebruiken"
 
@@ -940,7 +936,7 @@ msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:134
 #: ../../../app/views/passwords/new.html.erb:63
-#: ../../../app/views/urls/new.html.erb:111
+#: ../../../app/views/urls/new.html.erb:110
 msgid "Encrypted and visible only to you."
 msgstr ""
 
@@ -951,19 +947,19 @@ msgid ""
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:144
-#: ../../../app/views/urls/new.html.erb:122
+#: ../../../app/views/urls/new.html.erb:121
 msgid "An audit log of activity will be available."
 msgstr ""
 
 #: ../../../app/views/file_pushes/new.html.erb:152
 #: ../../../app/views/passwords/new.html.erb:176
-#: ../../../app/views/urls/new.html.erb:130
+#: ../../../app/views/urls/new.html.erb:129
 msgid "Push It!"
 msgstr "Genereer link (Push)!"
 
 #: ../../../app/views/file_pushes/new.html.erb:152
 #: ../../../app/views/passwords/new.html.erb:176
-#: ../../../app/views/urls/new.html.erb:130
+#: ../../../app/views/urls/new.html.erb:129
 msgid "Pushing..."
 msgstr "Genereren..."
 
@@ -2472,11 +2468,11 @@ msgstr ""
 msgid "Audit Log for URL Push"
 msgstr ""
 
-#: ../../../app/views/urls/audit.html.erb:126
+#: ../../../app/views/urls/audit.html.erb:113
 msgid "Delete This URL Push?"
 msgstr ""
 
-#: ../../../app/views/urls/audit.html.erb:165
+#: ../../../app/views/urls/audit.html.erb:152
 msgid "URL Push manually expired by user"
 msgstr ""
 
@@ -2493,23 +2489,23 @@ msgstr ""
 msgid "Securely Send URLs"
 msgstr ""
 
-#: ../../../app/views/urls/new.html.erb:30
+#: ../../../app/views/urls/new.html.erb:29
 msgid "Enter the URL to redirect to..."
 msgstr ""
 
-#: ../../../app/views/urls/new.html.erb:37
+#: ../../../app/views/urls/new.html.erb:36
 msgid "Specify a URL to redirect to."
 msgstr ""
 
-#: ../../../app/views/urls/new.html.erb:98
+#: ../../../app/views/urls/new.html.erb:97
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 
-#: ../../../app/views/urls/new.html.erb:116
+#: ../../../app/views/urls/new.html.erb:115
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr ""
 
-#: ../../../app/views/urls/new.html.erb:121
+#: ../../../app/views/urls/new.html.erb:120
 msgid "Upon expiration, the push redirect will be deleted entirely."
 msgstr ""
 
