@@ -2,13 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = [
+        "pushit",
     ]
 
     static values = {
     }
 
     disableWith(event) {
-        debugger
         let disableText = event.target.getAttribute('data-disable-with')
 
         if (disableText === null) {
@@ -21,11 +21,21 @@ export default class extends Controller {
             event.target.innerText = disableText
         }
         event.target.disabled = true
-
-        let form = event.target.form
-        if (typeof form !== 'undefined') {
-            form.submit()
-        }
     }
 
+    submit(event) {
+        let submitButton = this.pushitTarget;
+        let disableText = submitButton.getAttribute('data-disable-with')
+
+        if (disableText === null) {
+            disableText = 'Processing...'
+        }
+
+        if (submitButton.tagName == 'INPUT') {
+            submitButton.value = disableText
+        } else {
+            submitButton.innerText = disableText
+        }
+        submitButton.disabled = true
+    }
 }

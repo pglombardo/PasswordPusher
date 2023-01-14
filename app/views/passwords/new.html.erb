@@ -29,7 +29,7 @@
     data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
 >
 <%= render partial: "shared/topnav" %>
-<%= form_for @push do |f| %>
+<%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <div class='row'>
         <div class='col'>
             <%= f.text_area(:payload, { class: "form-control",
@@ -173,7 +173,7 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', data: { action: 'click->form#disableWith', 'disable-with' => _('Pushing...') } )%>
+                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', data: { 'form-target': 'pushit', 'disable-with' => _('Pushing...') } )%>
             </p>
         </div>
     </div>

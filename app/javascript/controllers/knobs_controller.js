@@ -59,7 +59,7 @@ export default class extends Controller {
             if (typeof checkboxValue == 'string') {
                 this.retrievalStepCheckboxTarget.checked = this.toBoolean(checkboxValue)
             } else {
-                this.retrievalStepCheckboxTarget.checked = this.defaultRetrievalStep
+                this.retrievalStepCheckboxTarget.checked = this.defaultRetrievalStepValue
             }
         }
         if (this.hasDeletableByViewerCheckboxTarget) {
@@ -67,7 +67,7 @@ export default class extends Controller {
             if (typeof checkboxValue == 'string') {
                 this.deletableByViewerCheckboxTarget.checked = this.toBoolean(checkboxValue)
             } else {
-                this.deletableByViewerCheckboxTarget.checked = this.defaultDeletableByViewer
+                this.deletableByViewerCheckboxTarget.checked = this.defaultDeletableByViewerValue
             }
         }
     }
