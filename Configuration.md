@@ -100,6 +100,20 @@ Notes:
 | PWP__PW__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
 | PWP__PW__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
 
+## Password Generator Settings
+
+| Environment Variable | Description | Default Value |
+| --------- | ------------------ | --- |
+| PWP__GEN__HAS_NUMBERS | Controls whether generated passwords have numbers | `true` |
+| PWP__GEN__TITLE_CASED | Controls whether generated passwords will be title cased | `true` |
+| PWP__GEN__USE_SEPARATORS | Controls whether generated passwords will use separators between syllables | `true` |
+| PWP__GEN__CONSONANTS | The list of consonants to generate from | `bcdfghklmnprstvz` |
+| PWP__GEN__VOWELS | The list of vowels to generate from | `aeiouy` |
+| PWP__GEN__SEPARATORS | If `use_separators` is enabled above, the list of separators to use (randomly) | `-_=` |
+| PWP__GEN__MAX_SYLLABLE_LENGTH | The maximum length of each syllable that a generated password can have | `3` |
+| PWP__GEN__MIN_SYLLABLE_LENGTH | The minimum length of each syllable that a generated password can have | `1` |
+| PWP__GEN__SYLLABLES_COUNT | The exact number of syllables that a generated password will have | `3` |
+
 # Enabling Logins
 
 To enable logins in your instance of Password Pusher, you must have an SMTP server available to send emails through.  These emails are sent for events such as password reset, unlock, registration etc..
