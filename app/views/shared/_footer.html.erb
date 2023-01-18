@@ -1,7 +1,7 @@
 
 <footer class="footer mt-auto py-3">
   <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
       <p class="col-md-5 mb-0 text-muted">&copy; 2023 <%= _('Peter') %> Giacomo Lombardo</p>
 
       <%= link_to root_path(locale: locale.to_s), class: "col-md-2 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" do %>
@@ -22,10 +22,10 @@
         <ul class="nav col-md-5 justify-content-end">
           <li class="nav-item"><%= link_to _('Front Page'), root_path(locale: locale.to_s), class: 'nav-link px-2 text-muted' %></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="resourcesDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <%= _('Resources') %>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <ul class="dropdown-menu" aria-labelledby="resourcesDropdownMenuLink">
               <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
               <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
               <li class="dropdown-item">
@@ -44,10 +44,10 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="aboutDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <%= _('About') %>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <ul class="dropdown-menu" aria-labelledby="aboutDropdownMenuLink">
               <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
               <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
               <li class="dropdown-item"><%= link_to _('Send Feedback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
@@ -55,6 +55,6 @@
           </li>
         </ul>
       <% end %>
-    </footer>
+    </div>
   </div>
 </footer>
