@@ -77,15 +77,15 @@ class Url < ApplicationRecord
     return if expired
 
     # Range checking
-    self.expire_after_days  ||= Settings.expire_after_days_default
-    self.expire_after_views ||= Settings.expire_after_views_default
+    self.expire_after_days  ||= Settings.url.expire_after_days_default
+    self.expire_after_views ||= Settings.url.expire_after_views_default
 
-    unless expire_after_days.between?(Settings.expire_after_days_min, Settings.expire_after_days_max)
-      self.expire_after_days = Settings.expire_after_days_default
+    unless expire_after_days.between?(Settings.url.expire_after_days_min, Settings.url.expire_after_days_max)
+      self.expire_after_days = Settings.url.expire_after_days_default
     end
 
-    unless expire_after_views.between?(Settings.expire_after_views_min, Settings.expire_after_views_max)
-      self.expire_after_views = Settings.expire_after_views_default
+    unless expire_after_views.between?(Settings.url.expire_after_views_min, Settings.url.expire_after_views_max)
+      self.expire_after_views = Settings.url.expire_after_views_default
     end
 
     return if new_record?

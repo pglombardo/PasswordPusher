@@ -56,8 +56,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 4.0'
+gem "terser", "~> 1.1"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'json', '~> 2.0' # Legacy carry-over
 gem 'will_paginate', '~> 3.3.0'
@@ -111,3 +110,4 @@ group :production, :private do
   gem 'rack-timeout'
   gem 'rack-throttle'
 end
+

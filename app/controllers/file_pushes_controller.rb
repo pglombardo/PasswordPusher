@@ -138,8 +138,8 @@ class FilePushesController < ApplicationController
 
     @push = FilePush.new
 
-    @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.expire_after_days_default)
-    @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.expire_after_views_default)
+    @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.files.expire_after_days_default)
+    @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.files.expire_after_views_default)
     @push.user_id = current_user.id if user_signed_in?
     @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
@@ -376,7 +376,7 @@ class FilePushesController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(file_push, params)
-    if Settings.enable_retrieval_step == true
+    if Settings.files.enable_retrieval_step == true
       if params[:file_push].key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -390,7 +390,7 @@ class FilePushesController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          file_push.retrieval_step = Settings.retrieval_step_default
+          file_push.retrieval_step = Settings.files.retrieval_step_default
         end
       end
     else
@@ -402,7 +402,7 @@ class FilePushesController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_deletable_by_viewer(file_push, params)
-    if Settings.enable_deletable_pushes == true
+    if Settings.files.enable_deletable_pushes == true
       if params[:file_push].key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -416,7 +416,7 @@ class FilePushesController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          file_push.deletable_by_viewer = Settings.deletable_pushes_default
+          file_push.deletable_by_viewer = Settings.files.deletable_pushes_default
         end
       end
     else

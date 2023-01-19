@@ -1,23 +1,22 @@
 <% title(_('Securely Send URLs')) %>
 
 <div class='container'
-    data-controller="knobs passwords form"
+    data-controller="knobs form"
     data-knobs-lang-day-value=<%= _('Day') %>
     data-knobs-lang-days-value=<%= _('Days') %>
-    data-knobs-default-days-value=<%= Settings.expire_after_days_default %>
+    data-knobs-default-days-value=<%= Settings.url.expire_after_days_default %>
 
     data-knobs-lang-view-value=<%= _('View') %>
     data-knobs-lang-views-value=<%= _('Views') %>
-    data-knobs-default-views-value=<%= Settings.expire_after_views_default %>
+    data-knobs-default-views-value=<%= Settings.url.expire_after_views_default %>
 
-    data-knobs-default-retrieval-step-value=<%= Settings.retrieval_step_default %>
-    data-knobs-default-deletable-by-viewer-value=<%= Settings.deletable_pushes_default %>
+    data-knobs-default-retrieval-step-value=<%= Settings.url.retrieval_step_default %>
 
     data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
 >
 <%= render partial: "shared/topnav" %>
 
-<%= form_for @push do |f| %>
+<%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <div class='row'>
         <div class='col-sm-8'>
             <div class='row mb-3'>
@@ -41,30 +40,30 @@
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
                 <div class='col-8'>
-                    <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
+                    <%= range_field_tag("url_expire_after_days", Settings.url.expire_after_days_default,
                                         { :name => "url[expire_after_days]",
                                           :class => "form-range",
-                                          :min => Settings.expire_after_days_min,
-                                          :max => Settings.expire_after_days_max,
+                                          :min => Settings.url.expire_after_days_min,
+                                          :max => Settings.url.expire_after_days_max,
                                           :step => "1",
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
                                           })%>
                 </div>
                 <div class='col-4'>
-                    <label for='password_expire_after_days' data-knobs-target="daysRangeLabel">
-                        <%=Settings.expire_after_days_default %> <%= _('Days') %>
+                    <label for='url_expire_after_days' data-knobs-target="daysRangeLabel">
+                        <%=Settings.url.expire_after_days_default %> <%= _('Days') %>
                     </label>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
+                    <%=range_field_tag("url_expire_after_views", Settings.url.expire_after_views_default,
                                        { :name => "url[expire_after_views]",
                                          :class => "form-range",
-                                         :min => Settings.expire_after_views_min,
-                                         :x_default => Settings.expire_after_views_default,
+                                         :min => Settings.url.expire_after_views_min,
+                                         :x_default => Settings.url.expire_after_views_default,
                                          :step => "1",
                                          "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                          "data-knobs-target" => "viewsRange"
@@ -72,8 +71,8 @@
                 </div>
 
                 <div class='col-4'>
-                    <label for='password_expire_after_views' data-knobs-target="viewsRangeLabel">
-                        <%= Settings.expire_after_views_default %> <%= _('Views') %>
+                    <label for='url_expire_after_views' data-knobs-target="viewsRangeLabel">
+                        <%= Settings.url.expire_after_views_default %> <%= _('Views') %>
                     </label>
                 </div>
             </div>
@@ -88,11 +87,11 @@
             <div class='row'>
                 <div class='col'>
                     <div class="list-group mx-0">
-                        <% if Settings.enable_retrieval_step %>
+                        <% if Settings.url.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%=check_box_tag "url[retrieval_step]", nil, Settings.retrieval_step_default,
+                            <%=check_box_tag "url[retrieval_step]", nil, Settings.url.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.retrieval_step_default } %>
+                                            x_default: Settings.url.retrieval_step_default } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up redirects.') %></small>
@@ -127,7 +126,7 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', data: { action: 'click->form#disableWith', 'disable-with' => _('Pushing...') } )%>
+                <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="Pushing..."><%= _('Push It!') %></button>
             </p>
         </div>
     </div>

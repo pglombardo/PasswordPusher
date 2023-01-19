@@ -16,7 +16,7 @@ Rails.application.configure do
   end
 
   config.assets.css_compressor = :sass
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = :terser
   config.assets.compile = false
   config.active_storage.service = Settings.files.storage
 

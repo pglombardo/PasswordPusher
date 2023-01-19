@@ -181,7 +181,7 @@ _See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
 # 🇮🇹 Internationalization
 
-Password Pusher is currently available in **14 languages** with more languages being added often as volunteers apply.
+Password Pusher is currently available in **18 languages** with more languages being added often as volunteers apply.
 
 From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
@@ -199,7 +199,7 @@ For more details, a list of supported language codes and further explanation, se
 
 __But you could help out greatly__ by signing up to Digital Ocean with [this link](https://m.do.co/c/f4ea6ef24c13) (and get $200 credit).  In return, Password Pusher gets a helpful hosting credit.
 
-**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), get $200 credit for free and help Password Pusher out.
+**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), **get a $200 credit for free** and help Password Pusher out.
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=f4ea6ef24c13&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 

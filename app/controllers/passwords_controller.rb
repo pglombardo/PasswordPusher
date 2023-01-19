@@ -102,7 +102,7 @@ class PasswordsController < ApplicationController
     password_param = params.fetch(:password, {})
     if !password_param.respond_to?(:fetch)
       respond_to do |format|
-        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.html { redirect_to root_path(locale: locale.to_s), status: :bad_request, notice: 'Bad Request' }
         format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
       end
       return
@@ -114,15 +114,15 @@ class PasswordsController < ApplicationController
     payload_param = password_param.fetch(:payload, '')
     unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
       respond_to do |format|
-        format.html { redirect_to root_path, status: :bad_request, notice: 'Bad Request' }
+        format.html { redirect_to root_path(locale: locale.to_s), status: :bad_request, notice: 'Bad Request' }
         format.json { render json: { "error": "Payload length must be between 1 and 1_048_576." }, status: :bad_request }
       end
       return
     end
 
     @push = Password.new
-    @push.expire_after_days = params[:password].fetch(:expire_after_days, Settings.expire_after_days_default)
-    @push.expire_after_views = params[:password].fetch(:expire_after_views, Settings.expire_after_views_default)
+    @push.expire_after_days = params[:password].fetch(:expire_after_days, Settings.pw.expire_after_days_default)
+    @push.expire_after_views = params[:password].fetch(:expire_after_views, Settings.pw.expire_after_views_default)
     @push.user_id = current_user.id if user_signed_in?
     @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
@@ -356,7 +356,7 @@ class PasswordsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(password, params)
-    if Settings.enable_retrieval_step == true
+    if Settings.pw.enable_retrieval_step == true
       if params[:password].key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -370,7 +370,7 @@ class PasswordsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          password.retrieval_step = Settings.retrieval_step_default
+          password.retrieval_step = Settings.pw.retrieval_step_default
         end
       end
     else
@@ -382,7 +382,7 @@ class PasswordsController < ApplicationController
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_deletable_by_viewer(password, params)
-    if Settings.enable_deletable_pushes == true
+    if Settings.pw.enable_deletable_pushes == true
       if params[:password].key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -396,7 +396,7 @@ class PasswordsController < ApplicationController
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          password.deletable_by_viewer = Settings.deletable_pushes_default
+          password.deletable_by_viewer = Settings.pw.deletable_pushes_default
         end
       end
     else
