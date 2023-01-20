@@ -10,8 +10,6 @@ ARG GID=1000
 RUN groupadd -g "${GID}" pwpusher \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
 
-USER pwpusher
-
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 ENV DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
@@ -26,8 +24,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update -qq && \
     apt-get install -qq -y --assume-yes build-essential apt-utils git curl tzdata zlib1g-dev nodejs yarn default-libmysqlclient-dev
 
-RUN mkdir -p ${APP_ROOT}
-ADD ./ ${APP_ROOT}/
+RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
+COPY --chown=pwpusher:pwpusher ./ ${APP_ROOT}/
+USER pwpusher
 
 WORKDIR ${APP_ROOT}
 EXPOSE 5100
