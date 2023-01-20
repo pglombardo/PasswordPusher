@@ -10,8 +10,6 @@ ARG GID=1000
 RUN groupadd -g "${GID}" pwpusher \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
 
-USER pwpusher
-
 ENV APP_ROOT=/opt/PasswordPusher
 ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -24,8 +22,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 # Required packages
 RUN apt-get update && apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn
 
-RUN mkdir -p ${APP_ROOT}
-ADD ./ ${APP_ROOT}/
+RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
+COPY --chown=pwpusher:pwpusher ./ ${APP_ROOT}/
+USER pwpusher
 
 EXPOSE 5100
 
