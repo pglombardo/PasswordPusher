@@ -14,13 +14,15 @@ RUN apt-get update -qq && \
     apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata zlib1g-dev nodejs yarn
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
-ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
 RUN mkdir -p ${APP_ROOT}
 COPY ./ ${APP_ROOT}/
 
-
 WORKDIR ${APP_ROOT}
+
+# Setting DATABASE_URL is necessary for building. Otherwise sqlite adapter will be used
+# To resolve this issue maybe database.yml needs to be improved
+ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
 RUN gem install bundler
 
@@ -40,6 +42,7 @@ RUN rm -rf node_modules tmp/cache vendor/assets spec \
     && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
 
 ################## Build done ##################
+
 FROM ruby:3.2-slim
 
 LABEL maintainer='pglombardo@hey.com'
@@ -57,13 +60,13 @@ RUN groupadd -g "${GID}" pwpusher \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
-ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
+WORKDIR ${APP_ROOT}
+ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
 
 RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
-WORKDIR ${APP_ROOT}
 
-ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
+ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 RUN bundle config set without 'development private test' && bundle config set deployment 'true'
 
 USER pwpusher
