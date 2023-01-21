@@ -29,6 +29,7 @@ RUN gem install bundler
 ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
 
 RUN bundle config set without 'development private test' \
+    && bundle config set with 'driverpg'
     && bundle config set deployment 'true' \
     && bundle install \
     && yarn install

@@ -25,12 +25,12 @@ WORKDIR ${APP_ROOT}
 ENV DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
 
 RUN gem install bundler
-ENV BUNDLE_GEMFILE=./gemfiles/mysql/Gemfile
 
 ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
 
 RUN bundle config set without 'development private test' \
     && bundle config set deployment 'true' \
+    && bundle config set with 'drivermysql'
     && bundle install \
     && yarn install
 
