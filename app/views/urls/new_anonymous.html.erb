@@ -9,13 +9,16 @@
             <%= _('Securely Send URLs That Expire Automatically') %>
         </div>
         <div class="card-body">
-            <h5 class="card-title">
-                <%= _('Please login or sign up to use this feature.') %>
-            </h5>
-            <p class="card-text">
-            </p>
-            <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
-            <a href="<%= new_user_registration_path %>" class="btn btn-success">Sign Up</a>
+            <% if Settings.disable_signups %>
+                <h5 class="card-title"><%= _('Please login to use this feature.') %></h5>
+                <p class="card-text"></p>
+                <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
+            <% else %>
+                <h5 class="card-title"><%= _('Please login or sign up to use this feature.') %></h5>
+                <p class="card-text"></p>
+                <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
+                <a href="<%= new_user_registration_path %>" class="btn btn-success">Sign Up</a>
+            <% end %>
         </div>
     </div>
 </div>
