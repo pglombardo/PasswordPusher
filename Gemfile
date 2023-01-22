@@ -98,11 +98,11 @@ gem "google-cloud-storage", "~> 1.11", require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-group :driverpg, optional: true do
+group :postgres, optional: true do
   gem 'pg'
 end
 
-group :drivermysql, optional: true do
+group :mysql, optional: true do
   gem 'mysql2'
 end
 
