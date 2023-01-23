@@ -106,7 +106,7 @@ group :mysql, optional: true do
   gem 'mysql2'
 end
 
-group :private do
+group :sqlite, optional:true do
   gem 'sqlite3'
 end
 

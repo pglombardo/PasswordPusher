@@ -3,6 +3,17 @@ FROM ruby:3.2-slim AS build-env
 
 LABEL maintainer='pglombardo@hey.com'
 
+# Create a user and group to run the application
+ARG UID=1000
+ARG GID=1000
+
+RUN groupadd -g "${GID}" pwpusher \
+  && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
+
+ENV APP_ROOT=/opt/PasswordPusher
+ENV PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
+ENV DATABASE_URL=sqlite3:db/db.sqlite3
+
 RUN apt-get update && apt-get install -y curl ca-certificates gnupg
 
 # Required to get the Node.js yarn tool
@@ -58,7 +69,9 @@ RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 
-RUN bundle config set without 'development production test' && bundle config set deployment 'true'
+RUN bundle config set without 'development production test' 
+    && bundle config set with 'sqlite'
+    && bundle config set deployment 'true'
 
 USER pwpusher
 EXPOSE 5100
