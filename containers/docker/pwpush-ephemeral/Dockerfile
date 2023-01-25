@@ -42,7 +42,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apt-get update \
-    && apt-get upgrade \
+    && apt-get upgrade -y --assume-yes \
     && apt-get install -y --assume-yes tzdata bash nodejs
 
 # Create a user and group to run the application
