@@ -20,8 +20,7 @@ COPY ./ ${APP_ROOT}/
 
 WORKDIR ${APP_ROOT}
 
-# Setting DATABASE_URL is necessary for building. Otherwise sqlite adapter will be used
-# To resolve this issue maybe database.yml needs to be improved
+# Setting DATABASE_URL is necessary for building.
 ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
 RUN gem install bundler
@@ -29,7 +28,7 @@ RUN gem install bundler
 ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
 
 RUN bundle config set without 'development private test' \
-    && bundle config set with 'postgres'
+    && bundle config set with 'postgres' \
     && bundle config set deployment 'true' \
     && bundle install \
     && yarn install
@@ -50,7 +49,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apt-get update \
-    && apt-get upgrade -y --assume-yes\
+    && apt-get upgrade -y --assume-yes \
     && apt-get install -y --assume-yes tzdata bash nodejs libpq5
 
 # Create a user and group to run the application
@@ -68,7 +67,9 @@ RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 
 ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
-RUN bundle config set without 'development private test' && bundle config set deployment 'true'
+RUN bundle config set without 'development private test' \
+    && bundle config set with 'postgres' \
+    && bundle config set deployment 'true'
 
 USER pwpusher
 EXPOSE 5100
