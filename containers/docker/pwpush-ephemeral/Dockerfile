@@ -10,21 +10,30 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Required packages
-RUN apt-get update && apt-get install -qq -y --assume-yes build-essential apt-utils libpq-dev git curl tzdata libsqlite3-0 libsqlite3-dev zlib1g-dev nodejs yarn
+RUN apt-get update && apt-get install -qq -y --assume-yes bash build-essential apt-utils git tzdata nodejs yarn zlib1g-dev libsqlite3-0 libsqlite3-dev
 
-ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT} RACK_ENV=private RAILS_ENV=private
+ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
 RUN mkdir -p ${APP_ROOT}
 COPY ./ ${APP_ROOT}/
 
+WORKDIR ${APP_ROOT}
+
+
+
+
+
+
+
 RUN gem install bundler
 
-WORKDIR ${APP_ROOT}
+
+ENV RACK_ENV=private RAILS_ENV=private RAILS_SERVE_STATIC_FILES=true
 
 RUN bundle config set without 'development production test' \
     && bundle config set deployment 'true' \
-    && bundle install \
-    && yarn install
+    && bundle install
+
 
 RUN bundle exec rails assets:precompile && bundle exec rake db:setup
 
@@ -42,8 +51,8 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apt-get update \
-    && apt-get upgrade -y --assume-yes \
-    && apt-get install -y --assume-yes tzdata bash nodejs
+    && apt-get upgrade -y --assume-yes 
+
 
 # Create a user and group to run the application
 ARG UID=1000
@@ -52,11 +61,13 @@ ARG GID=1000
 RUN groupadd -g "${GID}" pwpusher \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" pwpusher
 
-ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT} RACK_ENV=private RAILS_ENV=private
+ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
+ENV RACK_ENV=private RAILS_ENV=private RAILS_SERVE_STATIC_FILES=true
+
+WORKDIR ${APP_ROOT}
 
 RUN mkdir -p ${APP_ROOT} && chown -R pwpusher:pwpusher ${APP_ROOT}
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
-WORKDIR ${APP_ROOT}
 
 RUN bundle config set without 'development production test' && bundle config set deployment 'true'
 

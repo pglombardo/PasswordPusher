@@ -114,10 +114,6 @@ _There used to be a 3rd party blog post with instructions but it's been deleted.
 
 See [issue #277](https://github.com/pglombardo/PasswordPusher/issues/277)
 
-## On OpenShift
-
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-openshift).
-
 ## On Heroku
 
 One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
