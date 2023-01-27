@@ -114,10 +114,6 @@ _There used to be a 3rd party blog post with instructions but it's been deleted.
 
 See [issue #277](https://github.com/pglombardo/PasswordPusher/issues/277)
 
-## On OpenShift
-
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-openshift).
-
 ## On Heroku
 
 One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
@@ -134,6 +130,7 @@ Make sure you have git and Ruby installed and then:
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 gem install bundler
+bundle config set with 'sqlite' # Or 'postgres' or 'mysql'
 bundle install --without development production test --deployment
 bundle exec rake assets:precompile
 RAILS_ENV=private ./bin/rake db:setup
@@ -238,6 +235,8 @@ Thanks to:
 * [@fiskhest](https://github.com/fiskhest) the [Kubernetes installation instructions and manifests](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
 
 * [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
+
+* [*sirux88](https://github.com/sirux88) for cleaning up the Docker files and adding multistage builds.
 
 ## Other
 
