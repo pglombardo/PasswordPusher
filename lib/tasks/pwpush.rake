@@ -18,23 +18,21 @@ task daily_expiration: :environment do
     counter += 1
     push.validate!
     if push.expired
-      # puts "#{counter}: Password push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
       expiration_count += 1
     end
   end
 
-  puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} pushes expired..."
+  puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired..."
 
   if Settings.enable_file_pushes
     FilePush.where(expired: false).find_each do |push|
       counter += 1
       push.validate!
       if push.expired
-        # puts "#{counter}: File push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
         expiration_count += 1
       end
     end
-    puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} pushes expired..."
+    puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
   end
   
 
@@ -43,11 +41,10 @@ task daily_expiration: :environment do
       counter += 1
       push.validate!
       if push.expired
-        # puts "#{counter}: URL push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
         expiration_count += 1
       end
     end
-    puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} pushes expired..."
+    puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
   end
 
   puts "  -> #{expiration_count} total pushes expired."
@@ -84,8 +81,6 @@ task delete_expired_and_anonymous: :environment do
           .where(user_id: nil)
           .find_each do |push|
     counter += 1
-    # puts "#{counter}: Deleting expired and anonymous password push #{push.url_token} created on " \
-        #  "#{push.created_at.to_s(:long)} with #{push.views.size} views."
     push.destroy
   end
     
@@ -95,8 +90,6 @@ task delete_expired_and_anonymous: :environment do
             .where(user_id: nil)
             .find_each do |push|
       counter += 1
-      # puts "#{counter}: Deleting expired and anonymous file push #{push.url_token} created on " \
-          #  "#{push.created_at.to_s(:long)} with #{push.views.size} views."
       push.destroy
     end
   end
@@ -107,13 +100,11 @@ task delete_expired_and_anonymous: :environment do
             .where(user_id: nil)
             .find_each do |push|
       counter += 1
-      # puts "#{counter}: Deleting expired and anonymous URL push #{push.url_token} created on " \
-          #  "#{push.created_at.to_s(:long)} with #{push.views.size} views."
       push.destroy
     end
   end
 
-  puts "  -> #{counter} anonymous and expired pushes deleted."
+  puts "  -> #{counter} total anonymous and expired pushes deleted."
   puts "  -> Finished delete_expired_and_anonymous on #{Time.now}"
 end
 
