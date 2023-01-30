@@ -19,45 +19,45 @@
       <% end %>
 
       
-        <ul class="nav col-md-5 justify-content-end">
-          <li class="nav-item"><%= link_to _('Front Page'), root_path(locale: locale.to_s), class: 'nav-link px-2 text-muted' %></li>
-		      <li class="nav-item"><%= link_to _('How To'), page_path('howto'), class: 'nav-link px-2 text-muted' %></li>
-          
-		  <% if Settings.brand && Settings.brand.show_footer_menu %>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="resourcesDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				  <%= _('Resources') %>
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="resourcesDropdownMenuLink">
-				  <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
-				  <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
-				  <li class="dropdown-item">
+      <ul class="nav col-md-5 justify-content-end">
+        <li class="nav-item"><%= link_to _('Front Page'), root_path(locale: locale.to_s), class: 'nav-link px-2 text-muted' %></li>
+        <li class="nav-item"><%= link_to _('How To'), page_path('howto'), class: 'nav-link px-2 text-muted' %></li>
+        
+        <% if Settings.brand && Settings.brand.show_footer_menu %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="resourcesDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= _('Resources') %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="resourcesDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to _('FAQ'), page_path('faq'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Tools'), page_path('tools'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item">
                 <%= link_to 'https://github.com/pglombardo/PasswordPusher', class: 'nav-link px-2 text-muted', target: '_blank' do %>
                   <%= _('Source Code') %>
                   <em class="bi bi-box-arrow-up-right ms-2"></em>
                 <% end %>
               </li>
-				  <li class="dropdown-item">
+              <li class="dropdown-item">
                 <%= link_to 'https://hub.docker.com/u/pglombardo', class: 'nav-link px-2 text-muted', target: '_blank' do %>
                   <%= _('Docker Containers') %>
                   <em class="bi bi-box-arrow-up-right ms-2"></em>
                 <% end %>
               </li>
-				  <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
-				</ul>
-			  </li>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="aboutDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				  <%= _('About') %>
-				</a>
-				<ul class="dropdown-menu" aria-labelledby="aboutDropdownMenuLink">
-				  <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
-				  <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
-				  <li class="dropdown-item"><%= link_to _('Send Feedback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
-				</ul>
-			  </li>
-		  <% end %>
-        </ul>
+              <li class="dropdown-item"><%= link_to _('Key Generator'), page_path('generate_key'), class: 'nav-link px-2 text-muted' %></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-muted" href="#" id="aboutDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= _('About') %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="aboutDropdownMenuLink">
+              <li class="dropdown-item"><%= link_to _('Overview'), page_path('about'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Help Translate!'), page_path('translate'), class: 'nav-link px-2 text-muted' %></li>
+              <li class="dropdown-item"><%= link_to _('Send Feedback'), new_feedback_path, class: 'nav-link px-2 text-muted' %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </footer>
