@@ -1,6 +1,6 @@
 ############ Imagery ############
 
-	## TODO: 
+	## TODO: icons for branding
 	## I had initially replaced all iconography at \app\frontend\img
 	## with built-in branding I need to see if this is still needed
 	##
@@ -22,7 +22,7 @@
 
 ############ Password Generator Presets ############
 
-	## TODO: 
+	## TODO: password generator settings
 	## 	Verify if this can be adjusted in config/settings for instance 
 	## 	https://github.com/pglombardo/PasswordPusher/issues/435
 
