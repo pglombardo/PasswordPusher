@@ -1,7 +1,7 @@
 {
-  "name": "PasswordPusher",
+  "name": "MarketScanPasswordPusher",
   "description": "An application to communicate passwords over the web. Passwords expire after a certain number of views and/or time has passed.",
-  "repository": "https://github.com/pglombardo/PasswordPusher",
+  "repository": "https://github.com/MarketScan/PasswordPusher",
   "logo": "https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo.png",
   "keywords": ["password", "security", "expire"],
   "addons": [
@@ -10,6 +10,7 @@
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   },
+  "stack": "heroku-20",
   "env": {
     "BUNDLE_WITHOUT": "development:test:private",
     "PWPUSH_MASTER_KEY": {
@@ -22,7 +23,7 @@
     },
     "PWP__EXPIRE_AFTER_DAYS_DEFAULT": {
       "description": "Default value for expire after days",
-      "value": "7"
+      "value": "5"
     },
     "PWP__EXPIRE_AFTER_DAYS_MIN": {
       "description": "Expire after days minimum value",
@@ -30,7 +31,7 @@
     },
     "PWP__EXPIRE_AFTER_DAYS_MAX": {
       "description": "Expire after days maximum value",
-      "value": "90"
+      "value": "14"
     },
     "PWP__EXPIRE_AFTER_VIEWS_DEFAULT": {
       "description": "Expire after views default value",
@@ -38,11 +39,11 @@
     },
     "PWP__EXPIRE_AFTER_VIEWS_MIN": {
       "description": "Expire after views minimum value",
-      "value": "1"
+      "value": "2"
     },
     "PWP__EXPIRE_AFTER_VIEWS_MAX": {
       "description": "Expire after views maximum value",
-      "value": "100"
+      "value": "10"
     },
     "PWP__ENABLE_DELETABLE_PUSHES": {
       "description": "When true, passwords will have a link to optionally delete the password being viewed. When pushing a new password, this option will also add a checkbox to conditionally enable/disable this feature on a per-password basis.",
