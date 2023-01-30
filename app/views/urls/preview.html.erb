@@ -6,29 +6,7 @@
       <h2 class='mt-5'><%= _('Your push has been created.') %></h2>
 
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
-
-      <div class='input-group mb-5'>
-          <input class='form-control' id='secret_url' value="<%= @secret_url %>" spellcheck='false' readonly='true'>
-          <% if Settings.language_codes %>
-            <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
-          <% end %>
-          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="visually-hidden">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><span class="dropdown-item-text"><%= _('Secret Link Lanugage') %></span></li>
-            <li><hr class="dropdown-divider"></li>
-            <% if Settings.language_codes %>
-              <% I18n.available_locales.each do |lang| %>
-                <li class='dropdown-item'><%= link_to Settings.language_codes[lang], preview_url_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
-              <% end %>
-            <% end %>
-          </ul>
-          <button id='copy-to-clipboard-button' class='input-group-text btn-success'
-                  data-clipboard-target='#secret_url' alt="<%= _('Copy to Clipboard') %>">
-              <em class="bi bi-clipboard-check"></em>
-          </button>
-      </div>
+      <%= render partial: 'shared/secret_url_bar' %>
 
       <p class='mb-5'>
         <%= _('This push will expire after') %>
@@ -43,12 +21,12 @@
       <% end %>
 
       <p class='mb-5'>
-        <%=link_to _('View This Push Now'), url_secret_url(@push) %> <%= _('(will burn a view) or') %>
+        <%=link_to _('View This Push Now'), @secret_url %> <%= _('(will burn a view) or') %>
         <%=link_to _('Push Another'), new_url_path %>
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_url_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow', disable_with: _('Processing...') do %>
+        <%= link_to audit_url_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
           <em class='bi-card-list'></em> <%= _('View Audit Log') %>
         <% end %>
       <% end %>

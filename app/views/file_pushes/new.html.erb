@@ -1,9 +1,23 @@
 <% title(_('Securely Send Files')) %>
 
-<div class='container'>
+<div class='container'
+    data-controller="knobs form"
+    data-knobs-lang-day-value=<%= _('Day') %>
+    data-knobs-lang-days-value=<%= _('Days') %>
+    data-knobs-default-days-value=<%= Settings.files.expire_after_days_default %>
+
+    data-knobs-lang-view-value=<%= _('View') %>
+    data-knobs-lang-views-value=<%= _('Views') %>
+    data-knobs-default-views-value=<%= Settings.files.expire_after_views_default %>
+
+    data-knobs-default-retrieval-step-value=<%= Settings.files.retrieval_step_default %>
+    data-knobs-default-deletable-by-viewer-value=<%= Settings.files.deletable_pushes_default %>
+
+    data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
+>
 <%= render partial: "shared/topnav" %>
 
-<%= form_for @push do |f| %>
+<%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <div class='row'>
         <div class='col-sm-8'>
             <div class='row mb-3'>
@@ -31,32 +45,40 @@
             <div class='row'>
                 <p><%= _('Expire secret link and delete after:') %></p>
                 <div class='col-8'>
-                    <%= range_field_tag("password_expire_after_days", Settings.expire_after_days_default,
+                    <%= range_field_tag("file_push_expire_after_days", Settings.files.deletable_pushes_default,
                                         { :name => "file_push[expire_after_days]",
                                           :class => "form-range",
-                                          :min => Settings.expire_after_days_min,
-                                          :max => Settings.expire_after_days_max,
-                                          :x_default => Settings.expire_after_days_default,
-                                          :step => "1" })%>
+                                          :min => Settings.files.expire_after_days_min,
+                                          :max => Settings.files.expire_after_days_max,
+                                          :step => "1",
+                                          "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
+                                          "data-knobs-target" => "daysRange"
+                                          })%>
                 </div>
                 <div class='col-4'>
-                    <label for='password_expire_after_days' id='daysrange'><%=Settings.expire_after_days_default %></label>
+                    <label for='file_push_expire_after_days' data-knobs-target="daysRangeLabel">
+                        <%=Settings.files.deletable_pushes_default %> <%= _('Days') %>
+                    </label>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-8'>
-                    <%=range_field_tag("password_expire_after_views", Settings.expire_after_views_default,
+                    <%=range_field_tag("file_push_expire_after_views", Settings.files.expire_after_views_default,
                                        { :name => "file_push[expire_after_views]",
                                          :class => "form-range",
-                                         :min => Settings.expire_after_views_min,
-                                         :max => Settings.expire_after_views_max,
-                                         :x_default => Settings.expire_after_views_default,
-                                         :step => "1" })%>
+                                         :min => Settings.files.expire_after_views_min,
+                                         :max => Settings.files.expire_after_views_max,
+                                         :step => "1",
+                                         "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
+                                         "data-knobs-target" => "viewsRange"
+                                         })%>
                 </div>
 
                 <div class='col-4'>
-                    <label for='password_expire_after_views' id='viewsrange'><%= Settings.expire_after_views_default %> <%= _('Views') %></label>
+                    <label for='file_push_expire_after_views' data-knobs-target="viewsRangeLabel">
+                        <%= Settings.files.expire_after_views_default %> <%= _('Views') %>
+                    </label>
                 </div>
             </div>
             <div class='row'>
@@ -70,22 +92,22 @@
             <div class='row'>
                 <div class='col'>
                     <div class="list-group mx-0">
-                        <% if Settings.enable_retrieval_step %>
+                        <% if Settings.files.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%=check_box_tag "file_push[retrieval_step]", nil, Settings.retrieval_step_default,
+                            <%=check_box_tag "file_push[retrieval_step]", nil, Settings.files.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.retrieval_step_default } %>
+                                            x_default: Settings.files.retrieval_step_default } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
                             </span>
                             </label>
                         <% end %>
-                        <% if Settings.enable_deletable_pushes %>
+                        <% if Settings.files.enable_deletable_pushes %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "file_push[deletable_by_viewer]", nil, Settings.deletable_pushes_default,
+                            <%= check_box_tag "file_push[deletable_by_viewer]", nil, Settings.files.deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                                x_default: Settings.deletable_pushes_default }  %>
+                                                x_default: Settings.files.deletable_pushes_default }  %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
                                 <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
@@ -122,17 +144,12 @@
                     <%= _('An audit log of activity will be available.') %>
                 </span>
             </div>
-            <% if ENV.key?('PWPUSH_COM') %>
-                <div class="row text-bg-info rounded-3 p-3">
-                    <%= _('Note: This new feature is temporarily limited to 10 active file pushes per user while in beta.') %>
-                </div>
-            <% end %>
         </div>
     </div>
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <%=f.submit(:value => "#{_('Push It!')}", :class => "form-control btn btn-primary", type: 'submit', 'data-disable-with' => _('Pushing...'))%>
+                <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="Pushing..."><%= _('Push It!') %></button>
             </p>
         </div>
     </div>

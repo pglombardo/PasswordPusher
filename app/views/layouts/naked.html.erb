@@ -9,23 +9,24 @@
   <title><%= content_for?(:html_title) ? yield(:html_title) : _('Password Pusher') %></title>
 <% end %>
 
-<%= render partial: "layouts/ga" if Rails.env == "production" %>
-
-<%= csrf_meta_tags %>
-<%= csp_meta_tag %>
-
-<%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
 <meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
 <meta content='width=device-width, initial-scale=1' name='viewport'>
 
 <%= render partial: "shared/layout_icons" %>
 
+<%= render partial: "layouts/ga" if Rails.env == "production" %>
+
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
+
+<%= javascript_importmap_tags %>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-<%= render partial: 'shared/js_lang_strings' %>
 
 <div class="container">
   <%= render partial: 'shared/alerts' %>

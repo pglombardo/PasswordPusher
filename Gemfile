@@ -1,11 +1,10 @@
-source 'https://rubygems.org'.freeze
+source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
 gem 'rails', '~> 7.0.4'
 
 group :development do
-  gem 'debase', '0.2.5.beta2'
   gem 'listen'
 
   # Visual Studio Additions
@@ -23,14 +22,14 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'minitest-rails', '>= 6.1.0'
-  gem 'selenium-webdriver', '4.7.1'
+  gem 'selenium-webdriver', '4.8.0'
   gem 'webdrivers', '~> 5.0', require: false
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'debug', platforms: %i[ mri mingw x64_mingw ]
+  gem 'debase', '>= 0.2.5.beta2', platforms: %i[ mri mingw x64_mingw ]
 end
 
 gem 'rack-cors'
@@ -57,18 +56,21 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 4.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 5.0', '>= 5.0.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem "terser", "~> 1.1"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11', '>= 2.11.5'
 gem 'json', '~> 2.0' # Legacy carry-over
-gem 'webpacker', '>= 5.4.3'
 gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap-style'
+gem 'bootstrap', '~> 5.2', '>= 5.2.3'
+
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -76,7 +78,6 @@ gem 'will_paginate-bootstrap-style'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'foreman'
-gem 'jquery-rails', '>= 4.5.0'
 gem 'puma'
 gem 'oj'
 gem 'devise', '>= 4.8.1'
@@ -97,11 +98,15 @@ gem "google-cloud-storage", "~> 1.11", require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-group :production do
+group :postgres, optional: true do
   gem 'pg'
 end
 
-group :private do
+group :mysql, optional: true do
+  gem 'mysql2'
+end
+
+group :sqlite, optional:true do
   gem 'sqlite3'
 end
 
@@ -109,3 +114,4 @@ group :production, :private do
   gem 'rack-timeout'
   gem 'rack-throttle'
 end
+

@@ -114,10 +114,6 @@ _There used to be a 3rd party blog post with instructions but it's been deleted.
 
 See [issue #277](https://github.com/pglombardo/PasswordPusher/issues/277)
 
-## On OpenShift
-
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-openshift).
-
 ## On Heroku
 
 One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
@@ -134,6 +130,7 @@ Make sure you have git and Ruby installed and then:
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 gem install bundler
+bundle config set with 'sqlite' # Or 'postgres' or 'mysql'
 bundle install --without development production test --deployment
 bundle exec rake assets:precompile
 RAILS_ENV=private ./bin/rake db:setup
@@ -181,7 +178,7 @@ _See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
 # 🇮🇹 Internationalization
 
-Password Pusher is currently available in **14 languages** with more languages being added often as volunteers apply.
+Password Pusher is currently available in **18 languages** with more languages being added often as volunteers apply.
 
 From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
@@ -199,7 +196,7 @@ For more details, a list of supported language codes and further explanation, se
 
 __But you could help out greatly__ by signing up to Digital Ocean with [this link](https://m.do.co/c/f4ea6ef24c13) (and get $200 credit).  In return, Password Pusher gets a helpful hosting credit.
 
-**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), get $200 credit for free and help Password Pusher out.
+**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), **get a $200 credit for free** and help Password Pusher out.
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=f4ea6ef24c13&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
@@ -238,6 +235,8 @@ Thanks to:
 * [@fiskhest](https://github.com/fiskhest) the [Kubernetes installation instructions and manifests](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
 
 * [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
+
+* [*sirux88](https://github.com/sirux88) for cleaning up the Docker files and adding multistage builds.
 
 ## Other
 

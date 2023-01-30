@@ -1,28 +1,24 @@
-<% title(_('Securely Send Files')) %>
+<% title(_('Securely Share URLs')) %>
 
 <div class='container'>
     <%= render partial: "shared/topnav" %>
     <div class="card text-center w-50 my-5 mx-auto">
         <div class="card-header">
-            <em class="bi bi-info-circle"></em>
-            <%= _('This Feature is In BETA') %>
+            <em class="bi bi-send-check"></em>
+            &nbsp;
+            <%= _('Securely Send URLs That Expire Automatically') %>
         </div>
         <div class="card-body">
-            <h5 class="card-title">
-                <%= _('Securely Send Redirect URLs That Automatically Expire') %>
-                </h5>
-            <p class="card-text">
-                <%= _('Until stable, this feature is in beta and requires a log in.') %>
-            </p>
-            <% if ENV.key?('PWPUSH_COM') %>
-                <p class="card-text">
-                    <%= _('I would appreciate any feedback you have in the') %>
-                    <%= link_to _("feedback form"), new_feedback_path %>
-                    <%= _('or') %>
-                    <%= link_to _("in this Github Discussion"), "https://github.com/pglombardo/PasswordPusher/discussions/594" %>.
-                </p>
+            <% if Settings.disable_signups %>
+                <h5 class="card-title"><%= _('Please login to use this feature.') %></h5>
+                <p class="card-text"></p>
+                <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
+            <% else %>
+                <h5 class="card-title"><%= _('Please login or sign up to use this feature.') %></h5>
+                <p class="card-text"></p>
+                <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
+                <a href="<%= new_user_registration_path %>" class="btn btn-success">Sign Up</a>
             <% end %>
-            <a href="<%= new_user_session_path %>" class="btn btn-primary">Log In</a>
         </div>
     </div>
 </div>

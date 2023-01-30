@@ -5,8 +5,16 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', '<%= ENV['GA_ACCOUNT'] %>');
   </script>
-  <meta name="ga_enabled" content="true">
+
+  <script type="module">
+    let isInitialLoad = true;
+    document.addEventListener('turbolinks:load', () => {
+      if (isInitialLoad){isInitialLoad = false; return;}
+      gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {
+        page_path: window.location.pathname,
+      });
+    });
+  </script>
 <% end %>

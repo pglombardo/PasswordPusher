@@ -27,8 +27,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal false, res["expired"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
-    assert res.key?("deletable_by_viewer")
-    assert_equal Settings.deletable_pushes_default, res["deletable_by_viewer"]
+    assert !res.key?("deletable_by_viewer")
     assert res.key?("days_remaining")
     assert_equal 2, res["views_remaining"]
     assert res.key?("expire_after_days")

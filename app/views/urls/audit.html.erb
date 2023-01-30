@@ -7,29 +7,7 @@
     </p>
 
     <p><%= _('Secret URL for this push') %>:</p>
-    <div class='input-group mb-5 w-75'>
-        <input class='form-control', id='secret_url' value='<%= url_secret_url(@push) %>' spellcheck='false' readonly='true'>
-        <% if Settings.language_codes %>
-            <button type="button" class="btn btn-primary"><%= Settings.language_codes[params["push_locale"] || I18n.locale] %></button>
-        <% end %>
-        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="visually-hidden">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><span class="dropdown-item-text"><%= _('Secret Link Language') %></span></li>
-            <li><hr class="dropdown-divider"></li>
-            <% if Settings.language_codes %>
-                <% I18n.available_locales.each do |lang| %>
-                    <li class='dropdown-item' style='display: none;'><%= link_to Settings.language_codes[lang], url_for(locale: lang.to_s), hreflang: lang.to_s, rel: 'alternate', class: "nav-link px-2 text-muted" %></li>
-                    <li class='dropdown-item'><%= link_to Settings.language_codes[lang], audit_url_path(@push, push_locale: lang), class: "nav-link px-2 text-muted" %></li>
-                <% end %>
-            <% end %>
-        </ul>
-        <button id='copy-to-clipboard-button' class='input-group-text btn-success'
-                data-clipboard-target='#secret_url' alt=<%= _('Copy to Clipboard') %>>
-            <em class="bi bi-clipboard-check"></em>
-        </button>
-    </div>
+    <%= render partial: 'shared/secret_url_bar' %>
 
     <div class='row w-100'>
         <div class='col mb-3'>
@@ -65,19 +43,6 @@
                         <%= sprintf("%s %s", @push.expire_after_days, n_('Day', 'Days', @push.expire_after_days)) %>
                     </strong>
                     <small class="d-block text-muted"><%= _('The push expires after this number of days.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Deletable by Viewers') %>:
-                    <strong>
-                        <% if @push.deletable_by_viewer %>
-                            <%= _('True') %>
-                        <% else %>
-                            <%= _('False') %>
-                        <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('This allows end users to delete content once retrieved.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
@@ -136,27 +101,27 @@
         <div class='col'>
             <% if @push.expired == false %>
                 <div class='text-center'>
-                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
-                <em class="bi bi-trash"></em> <%= _('Expire Now') %>
-                </button>
+                    <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
+                        <em class="bi bi-trash"></em> <%= _('Expire Now') %>
+                    </button>
                 </div>
 
-                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This URL Push?') %></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
-                        <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
-                        <p><%= _('Are you sure?') %></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-                        <%= link_to 'Delete', @push, method: :delete, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow', 'data-disable-with' => _('Processing...') %>
-                    </div>
+                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true"  data-controller="form">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This URL Push?') %></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
+                            <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
+                            <p><%= _('Are you sure?') %></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+                            <%= link_to _('Delete'), @push, data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' %>
+                        </div>
                     </div>
                 </div>
                 </div>
