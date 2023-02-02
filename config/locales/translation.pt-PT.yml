@@ -7,67 +7,67 @@
 ---
 pt-PT:
   routes:
-    cancel:
-    passwords:
-    new:
-    active:
-    expired:
-    preview:
-    audit:
-    pages:
-    users:
-    sign_in:
-    sign_out:
-    sign_up:
-    password:
-    edit:
-    confirmation:
-    unlock:
+    cancel: cancelar
+    passwords: palavras-passe
+    new: novo
+    active: ativo
+    expired: expirado
+    preview: pré-visualizar
+    audit: auditoria
+    pages: páginas
+    users: utilizadores
+    sign_in: entrar
+    sign_out: sair
+    sign_up: inscrever-se
+    password: palavra-passe
+    edit: editar
+    confirmation: confirmação
+    unlock: desbloquear
   date:
     day_names:
-    - domingo
-    - segunda-feira
-    - terça-feira
-    - quarta-feira
-    - quinta-feira
-    - sexta-feira
-    - sábado
+    - Domingo
+    - Segunda-feira
+    - Terça-feira
+    - Quarta-feira
+    - Quinta-feira
+    - Sexta-feira
+    - Sábado
     abbr_day_names:
-    - dom
-    - seg
-    - ter
-    - qua
-    - qui
-    - sex
-    - sáb
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
     month_names:
     -
-    - janeiro
-    - fevereiro
-    - março
-    - abril
-    - maio
-    - junho
-    - julho
-    - agosto
-    - setembro
-    - outubro
-    - novembro
-    - dezembro
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
     abbr_month_names:
     -
-    - jan
-    - fev
-    - mar
-    - abr
-    - mai
-    - jun
-    - jul
-    - ago
-    - set
-    - out
-    - nov
-    - dez
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
   time:
     am: am
     pm: pm
@@ -86,32 +86,32 @@ pt-PT:
           eb: EB
       decimal_units:
         units:
-          thousand: mil
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          thousand: Mil
+          million: Milhão
+          billion: Bilião
+          trillion: Trilião
+          quadrillion: Quatrilião
   errors:
     format: "%{attribute} %{message}"
     messages:
       model_invalid: 'A validação falhou: %{errors}'
       inclusion: não está incluído na lista
-      exclusion: é reservado
+      exclusion: está reservado
       invalid: é inválido
-      confirmation: não coincide com a confirmação
+      confirmation: não corresponde a %{attribute}
       accepted: tem de ser aceite
       empty: não pode estar vazio
       blank: não pode estar em branco
       present: não pode estar em branco
       too_long:
-        one:
-        other:
+        one: é muito longo (o máximo é 1 caractere)
+        other: é muito longo (o máximo é %{count} caracteres)
       too_short:
-        one:
-        other:
+        one: é muito curto (mínimo é 1 caráter)
+        other: é muito curto (o mínimo são %{count} caracteres)
       wrong_length:
-        one:
-        other:
+        one: é o comprimento errado (deve ser 1 caractere)
+        other: é o comprimento errado (deve ser %{count} caracteres)
       not_a_number: não é um número
       not_an_integer: tem de ser um inteiro
       greater_than: tem de ser maior que %{count}
@@ -120,23 +120,27 @@ pt-PT:
       less_than: tem de ser menor que %{count}
       less_than_or_equal_to: tem de ser menor ou igual a %{count}
       other_than: tem de ser diferente de %{count}
-      in:
+      in: deve estar em %{count}
       odd: tem de ser ímpar
       even: tem de ser par
-      required: é obrigatório
-      taken: não está disponível
-      already_confirmed: já foi confirmado, por favor tente efetuar a autenticação
-      confirmation_period_expired: necessitava de confirmação até %{period}, por favor
-        faça um novo pedido
+      required: tem que existir
+      taken: já foi tomada
+      already_confirmed: já foi confirmado, por favor tente iniciar a sessão
+      confirmation_period_expired: necessita ser confirmado dentro de %{period}, por
+        favor solicite um novo
       expired: expirou, por favor solicite um novo
       not_found: não foi encontrado
       not_locked: não foi bloqueado
       not_saved:
-        one: "%{count} erro impediu %{resource} de ser gravado:"
+        one: '1 erro impediu este %{resource} de ser gravado:'
         other: "%{count} erros impediram %{resource} de ser gravado:"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: "A sessão %{id} não está mais disponível na memória. \n\nSe
+      estive a executar num servidor multi-processo (como Unicorn ou Puma), o processo
+      que este pedido atingiu não armazena %{id} na memória. Considere alterar o número
+      de processos/workers em um (1) ou usar um servidor diferente no desenvolvimento."
+    unacceptable_request: Uma versão suportada é esperada no cabeçalho Accept.
+    connection_refused: Oops! Falha de conexão ao Web Console middleware. Por favor,
+      certifique-se que o servidor de desenvolvimento Rails está em execução.
   activerecord:
     errors:
       messages:
@@ -189,49 +193,49 @@ pt-PT:
       second: Segundo
   helpers:
     select:
-      prompt: Por favor seleccione
+      prompt: Por favor selecione
     submit:
       create: Criar %{model}
       update: Actualizar %{model}
       submit: Gravar %{model}
   will_paginate:
-    previous_label: "← anterior"
-    next_label: próximo →
+    previous_label: "&#8592; Anterior"
+    next_label: Próximo &#8594;
     page_gap: "&hellip;"
-    container_aria_label:
-    page_aria_label:
+    container_aria_label: Paginação
+    page_aria_label: Página %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Nenhum %{model} encontrado
+        one: Exibindo 1 %{model}
+        other: Exibindo todos %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
+        zero: Nenhum %{model} encontrado
+        one: Exibindo <b>1</b> %{model}
+        other: Exibindo <b>todos %{count}</b> %{model}
       multi_page: Mostrando %{model} %{from} - %{to} de %{count} no total
       multi_page_html: Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
         no total
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} foi criado com sucesso."
       update:
-        notice:
+        notice: "%{resource_name} foi atualizado com sucesso."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} foi destruído com sucesso."
+        alert: "%{resource_name} não pôde ser destruído."
   devise:
     confirmations:
-      confirmed: A sua conta foi confirmada com sucesso.
+      confirmed: O seu endereço de e-mail foi confirmado com sucesso.
       send_instructions: Dentro de alguns minutos irá receber um email com instruções
-        para confirmar a sua conta.
-      send_paranoid_instructions: Se o seu email existir na nossa base de dados, irá
-        receber dentro de alguns minutos um email com instruções para confirmar a
-        sua conta.
-      resend_title:
-      resend_header:
-      resend_button:
+        para confirmar o seu endereço de e-mail.
+      send_paranoid_instructions: Se o seu endereço de e-mail existir na nossa base
+        de dados, irá receber dentro de alguns minutos um email com instruções para
+        confirmar o mesmo.
+      resend_title: Reenviar instruções de confirmação
+      resend_header: Reenviar instruções de confirmação
+      resend_button: Reenviar
     failure:
       already_authenticated: Já se encontra autenticado.
       inactive: A sua conta ainda não foi ativada.
@@ -250,103 +254,107 @@ pt-PT:
       unlock_instructions:
         subject: Instruções de desbloqueio
       email_changed:
-        subject: Endereço de email alterado
+        subject: Endereço de e-mail alterado
       password_change:
         subject: Palavra-passe alterada
     omniauth_callbacks:
       failure: Não foi possível autenticar a sua conta por %{kind} porque "%{reason}".
       success: A sua conta foi autenticada por %{kind} com sucesso.
     passwords:
-      no_token: Não pode aceder a esta página sem vir do email de recuperação da palavra-passe.
-        Se vem de um email para recuperar a palavra-passe, por favor certifique-se
-        que usou o URL completo que foi enviado.
-      send_instructions: Dentro de alguns minutos irá receber um email com instruções
-        de reinicialização da palavra-passe.
+      no_token: Não pode aceder a esta página sem vir do e-mail de recuperação da
+        palavra-passe. Se vem de um e-mail para recuperar a palavra-passe, por favor
+        certifique-se que usou o URL completo que foi enviado.
+      send_instructions: Dentro de alguns minutos irá receber um e-mail com instruções
+        de reposição da palavra-passe.
       send_paranoid_instructions: Se o seu e-mail existir na nossa base de dados,
         irá receber dentro de alguns minutos um e-mail com instruções para recuperar
         a sua palavra-passe.
       updated: A sua palavra-passe foi alterada com sucesso. Agora está autenticado.
       updated_not_active: A sua password foi alterada com sucesso.
-      reset_title:
-      reset_button:
-      forgot_title:
-      forgot_header:
-      forgot_button:
+      reset_title: Repor Palavra-passe
+      reset_button: Atualizar conta
+      forgot_title: Esqueceu a palavra-passe
+      forgot_header: Esqueceu a palavra-passe
+      forgot_button: Enviar instruções de reposição
     registrations:
-      destroyed: A sua conta foi cancelada com sucesso.
-      signed_up: Bemvindo! A autenticação foi efetuada com sucesso.
-      signed_up_but_inactive: Registou-se com sucesso. No entanto, não podemos iniciar
-        a sua sessão porque ainda não confirmou a sua conta.
-      signed_up_but_locked: Registou-se com sucesso. No entanto, não podemos iniciar
+      destroyed: Tchau! A sua conta foi cancelada com sucesso. Esperamos vê-lo em
+        breve novamente.
+      signed_up: Bem-vindo! A autenticação foi efetuada com sucesso.
+      signed_up_but_inactive: Registou-se com sucesso. No entanto, não é possível
+        iniciar a sua sessão porque ainda não confirmou a sua conta.
+      signed_up_but_locked: Registou-se com sucesso. No entanto, não é possível iniciar
         a sua sessão porque a sua conta encontra-se bloqueada.
-      signed_up_but_unconfirmed: Foi enviado um email com um link para confirmar o
-        seu email. Por favor abra o link para ativar a sua conta.
-      update_needs_confirmation: A sua conta foi atualizada com sucesso, mas precisamos
-        de confirmar o seu email. Por favor veja o seu email e clique no link para
-        finalizar a confirmação do seu email.
+      signed_up_but_unconfirmed: Foi enviado um link de confirmação para o seu e-mail.
+        Por favor abra o link para ativar a sua conta.
+      update_needs_confirmation: A sua conta foi atualizada com sucesso, mas é necessário
+        confirmar o seu e-mail primeiro. Por favor, verifique o seu e-mail e clique
+        no link enviado para finalizar a confirmação do seu email.
       updated: A sua conta foi atualizada com sucesso.
-      updated_but_not_signed_in:
-      update_email:
-      currently_waiting:
-      change_password:
-      change_password_hint:
-      new_password:
-      new_password_confirmation:
-      password:
-      password_minimum:
-      verification:
-      verification_text:
-      update_account:
-      edit_account:
-      create_account:
-      email:
-      password_confirmation:
+      updated_but_not_signed_in: A sua conta foi atualizada com sucesso, mas como
+        a palavra-passe for alterada, é necessário inicia a sessão de novo.
+      update_email: Atualizar E-mail
+      currently_waiting: A aguardar confirmação para
+      change_password: Alterar Palavra-passe
+      change_password_hint: Deixe em branco se não pretender alterar.
+      new_password: Nova Palavra-passe
+      new_password_confirmation: Nova Confirmação de Palavra-passe
+      password: palavra-passe
+      password_minimum: É necessário um mínimo de %d caracteres, mas quanto mais,
+        melhor.
+      verification: Verificação
+      verification_text: Insira a palavra-passe atual para validar as alterações em
+        cima.
+      update_account: Atualizar Conta
+      edit_account: Editar conta
+      create_account: Criar Conta
+      email: E-mail
+      password_confirmation: Confirmação de Palavra-passe
     unlocks:
-      send_instructions: Dentro de alguns minutos irá receber um email com as instruções
+      send_instructions: Dentro de alguns minutos irá receber um e-mail com as instruções
         para desbloquear a sua conta.
       send_paranoid_instructions: Se a sua conta existir, irá receber dentro de alguns
-        minutos um email com instruções para a desbloquear.
-      unlocked: A sua conta foi desbloqueada com sucesso. Por favor autentique-se
+        minutos um e-mail com instruções para a desbloquear.
+      unlocked: A sua conta foi desbloqueada com sucesso. Por favor inicie a sessão
         para continuar.
-      unlock_title:
-      unlock_header:
-      unlock_button:
+      unlock_title: Reenviar instruções de desbloqueio
+      unlock_header: Reenviar instruções de desbloqueio
+      unlock_button: Reenviar
     general:
-      remember_me:
-      login:
-      sign_up:
-      forgot_your:
-      didnt_confirmation:
-      didnt_unlock:
-      email:
+      remember_me: Lembrar dados
+      login: Iniciar sessão
+      sign_up: Inscrever-se
+      forgot_your: Esqueceu a sua palavra-passe?
+      didnt_confirmation: Não recebeu instruções de confirmação?
+      didnt_unlock: Não recebeu instruções de desbloqueio?
+      email: E-mail
   apipie:
-    resources:
-    resource:
+    resources: Recursos
+    resource: Recurso
     description: Descrição
-    no_docs_found:
-    no_docs_found_descr:
+    no_docs_found: Sem documentação encontrada
+    no_docs_found_descr: Não encontramos nenhuma documentação para sua API.
     follow_instructions_html: Siga %{href} sobre como descrever os seus controladores.
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
+    follow_instructions_href: mais instruções
+    oops: Oops!!
+    resource_not_found_html: Recurso %{resource} não encontrado.
     method_not_found_html:
-    goto_homepage_html:
+    goto_homepage_html: Tente ir para %{href}
     goto_homepage_href: "%{app_name} Página inicial da documentação da API"
-    required:
-    optional:
+    required: requeridos
+    optional: opcional
     nil_allowed:
-    param_name:
-    params:
+    param_name: Nome do parâmetro
+    params: Parâmetros
     examples: Exemplos
     metadata: Metadados
     errors: Erros
-    error_code:
+    error_code: Código
     error_description: Descrição
     error_metadata: Metadados
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
+    supported_formats: Formatos suportados
+    enable_javascript_html: Por favor, ative o JavaScript para visualizar o %{comments_href}.
+    comments_powered_by_disqus: comentários sustentados por %{disqus}
+    api_documentation: documentação do API
     headers: Cabeçalhos
     header_name: Nome do cabeçalho
-    code:
+    code: Código
