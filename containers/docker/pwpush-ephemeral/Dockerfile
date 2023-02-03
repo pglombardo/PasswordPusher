@@ -4,9 +4,8 @@ FROM ruby:3.2-alpine AS build-env
 LABEL maintainer='pglombardo@hey.com'
 
 # Required packages
-RUN apk update \
-    && apk upgrade \ 
-    && apk add build-base git curl tzdata sqlite-libs sqlite-dev zlib-dev nodejs yarn
+RUN apk upgrade --no-cache \ 
+    && apk add  --no-cache build-base git curl tzdata sqlite-libs sqlite-dev zlib-dev nodejs yarn
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -43,9 +42,8 @@ FROM ruby:3.2-alpine
 LABEL maintainer='pglombardo@hey.com'
 
 # install packages
-RUN apk update \
-    && apk upgrade \
-    && apk add tzdata bash nodejs
+RUN apk upgrade --no-cache \
+    && apk add --no-cache tzdata bash nodejs
 
 # Create a user and group to run the application
 ARG UID=1000
