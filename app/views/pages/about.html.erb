@@ -84,6 +84,9 @@
 
     </div>
     <div class="col">
+        <% if ENV.key?('PWPUSH_COM') %>
+            <%= render partial: 'shared/newsletter_sign_up' %>
+        <% end %>
         <div class="card mb-3">
             <h5 class="card-header"><em class="bi bi-stars"></em> <%= _('Birthday') %></h5>
             <div class="card-body">
