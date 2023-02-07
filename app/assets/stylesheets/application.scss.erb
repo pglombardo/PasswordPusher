@@ -30,7 +30,8 @@ $accordion-color: #fff;
 @import "@fontsource/roboto-mono/300";
 
 @import "bootstrap";
-@import "bootstrap-litera";
+
+@import "themes/<%= ENV.fetch('PWP_THEME', 'default') %>";
 
 a em.bi.bi-trash:hover {
     cursor:pointer;
@@ -43,3 +44,5 @@ input[type='file'] {
 .selected-file input[type='file'] {
     display: none;
 }
+
+@import "custom";
