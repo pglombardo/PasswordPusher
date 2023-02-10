@@ -228,6 +228,7 @@ If you would like to volunteer and assist in translating, see [this page](https:
 | [Oyale](https://github.com/oyale) |[Spanish](https://pwpush.com/pt-br/p/novo) | |
 | johan323 |[Swedish](https://pwpush.com/sv/p/ny) | |
 | Fredrik Arvas|[Swedish](https://pwpush.com/sv/p/ny) | |
+| Pedro Marques | [European Portuguese](https://pwpush.com/pt-pt/p/novo) | |
 
 Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
 
