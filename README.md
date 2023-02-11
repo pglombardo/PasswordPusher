@@ -26,13 +26,14 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Easy-to-install:__ Host your own via Docker, a cloud service or just use [pwpush.com](https://pwpush.com)
 * __Opensource:__ No blackbox code.  Only trusted, tested and reviewed opensource code.
 * __Audit logging:__ Track and control what you've shared and see who has viewed it.
-* __Encrypted storage:__ All sensitive data is stored encrypted and is deleted once expired.
+* __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
 * __Internationalized:__ 17 language translations are bundled in.  Easily selectable via UI or URL
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
+* __Extensive:__ Push passwords, text, files and URLs.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
 * __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
@@ -238,7 +239,7 @@ Thanks to:
 
 * [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
 
-* [*sirux88](https://github.com/sirux88) for cleaning up the Docker files and adding multistage builds.
+* [sirux88](https://github.com/sirux88) for cleaning up the Docker files and adding multistage builds.
 
 ## Other
 

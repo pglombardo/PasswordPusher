@@ -1,12 +1,13 @@
 if !Rails.env.development? && !Rails.env.test?
     Rails.application.configure do
         config.lograge.enabled = true
-        
-        config.lograge.custom_options = lambda do |event|
-            options = event.payload.slice(:request_id, :user_id)
-            options[:params] = event.payload[:params].except("controller", "action")
-            options[:time] = Time.now
+
+        config.lograge.custom_payload do |controller|
+            options = {}
+            options[:user_id] = controller.current_user.id if controller.current_user
+            options[:ip] = controller.request.ip
+            options[:forwarded_for] = controller.request.x_forwarded_for if controller.request.x_forwarded_for
             options
-        end
+          end
     end
 end
