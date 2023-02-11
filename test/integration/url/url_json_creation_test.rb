@@ -67,7 +67,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_bad_request
     post urls_path(format: :json), params: {}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
-    assert_response :bad_request
+    assert_response :unprocessable_entity
 
     res = JSON.parse(@response.body)
     assert_equal "No URL or note provided.", res["error"]

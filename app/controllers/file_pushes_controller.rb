@@ -104,8 +104,8 @@ class FilePushesController < ApplicationController
     file_push_param = params.fetch(:file_push, {})
     if !file_push_param.respond_to?(:fetch)
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
-        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :unprocessable_entity }
       end
       return
     end
@@ -115,8 +115,8 @@ class FilePushesController < ApplicationController
     files_param   = file_push_param.fetch(:files, [])
     unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty? || files_param.size > 10
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
-        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :unprocessable_entity }
       end
       return
     end
@@ -127,9 +127,9 @@ class FilePushesController < ApplicationController
       respond_to do |format|
         format.html {
           flash.now[:warning] = msg
-          render :new, status: :bad_request
+          render :new, status: :unprocessable_entity
         }
-        format.json { render json: { "error": msg }, status: :bad_request }
+        format.json { render json: { "error": msg }, status: :unprocessable_entity }
       end
       return
     end
@@ -155,7 +155,7 @@ class FilePushesController < ApplicationController
         format.html { redirect_to preview_file_push_path(@push) }
         format.json { render json: @push, status: :created }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
@@ -284,7 +284,7 @@ class FilePushesController < ApplicationController
         }
         format.json { render json: @push, status: :ok }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
