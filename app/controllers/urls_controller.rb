@@ -97,8 +97,8 @@ class UrlsController < ApplicationController
     rescue ActionController::ParameterMissing => e
       @push = Url.new
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
-        format.json { render json: { "error": "No URL or note provided." }, status: :bad_request }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { "error": "No URL or note provided." }, status: :unprocessable_entity}
       end
       return
     end
@@ -111,9 +111,9 @@ class UrlsController < ApplicationController
       respond_to do |format|
         format.html { 
           flash.now[:error] = msg
-          render :new, status: :bad_request
+          render :new, status: :unprocessable_entity
         }
-        format.json { render json: { "error": msg }, status: :bad_request }
+        format.json { render json: { "error": msg }, status: :unprocessable_entity }
       end
       return
     end
@@ -135,7 +135,7 @@ class UrlsController < ApplicationController
         format.html { redirect_to preview_url_path(@push) }
         format.json { render json: @push, status: :created }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
@@ -261,7 +261,7 @@ class UrlsController < ApplicationController
         }
         format.json { render json: @push, status: :ok }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end

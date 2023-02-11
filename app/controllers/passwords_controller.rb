@@ -102,8 +102,8 @@ class PasswordsController < ApplicationController
     password_param = params.fetch(:password, {})
     if !password_param.respond_to?(:fetch)
       respond_to do |format|
-        format.html { redirect_to root_path(locale: locale.to_s), status: :bad_request, notice: 'Bad Request' }
-        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
+        format.html { redirect_to root_path(locale: locale.to_s), status: :unprocessable_entity, notice: 'Bad Request' }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :unprocessable_entity}
       end
       return
     end
@@ -114,8 +114,8 @@ class PasswordsController < ApplicationController
     payload_param = password_param.fetch(:payload, '')
     unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
       respond_to do |format|
-        format.html { redirect_to root_path(locale: locale.to_s), status: :bad_request, notice: 'Bad Request' }
-        format.json { render json: { "error": "Payload length must be between 1 and 1_048_576." }, status: :bad_request }
+        format.html { redirect_to root_path(locale: locale.to_s), status: :unprocessable_entity, notice: 'Bad Request' }
+        format.json { render json: { "error": "Payload length must be between 1 and 1_048_576." }, status: :unprocessable_entity}
       end
       return
     end
@@ -139,7 +139,7 @@ class PasswordsController < ApplicationController
         format.html { redirect_to preview_password_path(@push) }
         format.json { render json: @push, status: :created }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
@@ -266,7 +266,7 @@ class PasswordsController < ApplicationController
         }
         format.json { render json: @push, status: :ok }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
