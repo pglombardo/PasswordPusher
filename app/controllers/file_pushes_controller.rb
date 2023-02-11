@@ -93,13 +93,11 @@ class FilePushesController < ApplicationController
     param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
   end
   formats ['json']
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "file_push[payload]=myfile_push&file_push[expire_after_days]=2&file_push[expire_after_views]=10" https://pwpush.com/f.json'
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" -F "file_push[filee][]=@/path/to/file/file1.extension" -F "file_push[files][]=@/path/to/file/file2.extension" https://pwpush.com/f.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
-    @push = FilePush.new(file_push_params)
 
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
@@ -146,7 +144,7 @@ class FilePushesController < ApplicationController
     create_detect_deletable_by_viewer(@push, params)
     create_detect_retrieval_step(@push, params)
 
-    @push.payload = params[:file_push][:payload]
+    @push.payload = params[:file_push][:payload] || ''
     @push.note = params[:file_push][:note] unless params[:file_push].fetch(:note, '').blank?
     @push.files.attach(params[:file_push][:files])
 
