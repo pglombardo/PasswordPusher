@@ -5,7 +5,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # Required packages
 RUN apk upgrade --no-cache \
-    && apk add --no-cache build-base libpq-dev git curl tzdata zlib-dev nodejs yarn
+    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat libpq-dev
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -43,7 +43,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apk upgrade --no-cache \
-    && apk add --no-cache tzdata bash nodejs libpq
+    && apk add --no-cache tzdata bash nodejs libc6-compat libpq
 
 # Create a user and group to run the application
 ARG UID=1000
