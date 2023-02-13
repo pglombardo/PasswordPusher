@@ -1,5 +1,3 @@
-// Import and register all your controllers from the importmap under controllers/*
-
 import CopyController from "./copy_controller"
 import FormController from "./form_controller"
 import KnobsController from "./knobs_controller"
