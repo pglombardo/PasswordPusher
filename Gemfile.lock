@@ -1,4 +1,16 @@
 GIT
+  remote: https://github.com/heartcombo/devise.git
+  revision: 8e2e3f6fda1ceabe2eff08cf34a6e663527c438b
+  branch: main
+  specs:
+    devise (4.9.0.alpha)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+
+GIT
   remote: https://github.com/pglombardo/simple_token_authentication.git
   revision: 47db3936689c5d93b4226f85c3ca71c182ec0580
   branch: rails7-support
@@ -90,14 +102,14 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     ansi (1.5.0)
-    apipie-rails (0.9.1)
+    apipie-rails (0.9.2)
       actionpack (>= 5.0)
       activesupport (>= 5.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.706.0)
+    aws-partitions (1.710.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -155,12 +167,6 @@ GEM
       reline (>= 0.3.1)
     declarative (0.0.20)
     deep_merge (1.2.2)
-    devise (4.8.1)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     digest-crc (0.6.4)
       rake (>= 12.0.0, < 14.0.0)
     dry-configurable (1.0.1)
@@ -232,7 +238,7 @@ GEM
       text (>= 1.3.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    google-apis-core (0.10.0)
+    google-apis-core (0.11.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.16.2, < 2.a)
       httpclient (>= 2.8.1, < 3.a)
@@ -270,9 +276,6 @@ GEM
     httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.1.5)
-      actionpack (>= 6.0.0)
-      railties (>= 6.0.0)
     io-console (0.6.0)
     irb (1.6.2)
       reline (>= 0.3.0)
@@ -340,11 +343,11 @@ GEM
     nokogiri (1.14.1)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    oj (3.14.1)
+    oj (3.14.2)
     orm_adapter (0.5.0)
     os (1.1.4)
     parallel (1.22.1)
-    parser (3.2.0.0)
+    parser (3.2.1.0)
       ast (~> 2.4.1)
     pg (1.4.5)
     popper_js (2.11.6)
@@ -352,7 +355,7 @@ GEM
       forwardable
       singleton
     public_suffix (5.0.1)
-    puma (6.0.2)
+    puma (6.1.0)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.2)
@@ -397,7 +400,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    regexp_parser (2.6.2)
+    regexp_parser (2.7.0)
     reline (0.3.2)
       io-console (~> 0.5)
     representable (3.2.0)
@@ -415,7 +418,7 @@ GEM
     route_translator (13.1.0)
       actionpack (>= 5.2, < 7.1)
       activesupport (>= 5.2, < 7.1)
-    rubocop (1.44.1)
+    rubocop (1.45.1)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -425,8 +428,8 @@ GEM
       rubocop-ast (>= 1.24.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.24.1)
-      parser (>= 3.1.1.0)
+    rubocop-ast (1.26.0)
+      parser (>= 3.2.1.0)
     ruby-debug-ide (0.7.3)
       rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
@@ -501,7 +504,7 @@ GEM
       will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
@@ -516,11 +519,10 @@ DEPENDENCIES
   config
   debase (>= 0.2.5.beta2)
   debug
-  devise (>= 4.8.1)
+  devise!
   foreman
   google-cloud-storage (~> 1.11)
   high_voltage
-  importmap-rails
   jbuilder
   json (~> 2.0)
   kramdown

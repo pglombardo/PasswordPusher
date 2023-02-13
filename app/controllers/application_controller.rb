@@ -8,22 +8,6 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new(_('Not Found'))
   end
 
-  # unless Rails.application.config.consider_all_requests_local
-  #   rescue_from Exception, with: lambda { |exception| render_error 500, exception }
-  #   rescue_from ActionController::RoutingError, ActionController::UnknownController,
-  #         ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
-  #         with: lambda { |exception| render_error 404, exception }
-  # end
-  # rescue_from ApplicationController::RoutingError, ApplicationController::UnknownController,
-  #     ::AbstractController::ActionNotFound, ApplicationRecord::RecordNotFound,
-  #     with: lambda { |exception| render_error 404, exception }
-
-  def append_info_to_payload(payload)
-    super
-    payload[:request_id] = request.uuid
-    payload[:user_id] = current_user.id if current_user
-  end
-
   private
 
   def render_error(status, exception)
