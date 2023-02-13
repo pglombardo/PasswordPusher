@@ -24,6 +24,8 @@ task daily_expiration: :environment do
 
   puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired..."
 
+  counter = 0
+  expiration_count = 0
   if Settings.enable_file_pushes
     FilePush.where(expired: false).find_each do |push|
       counter += 1
@@ -35,7 +37,8 @@ task daily_expiration: :environment do
     puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
   end
   
-
+  counter = 0
+  expiration_count = 0
   if Settings.enable_url_pushes
     Url.where(expired: false).find_each do |push|
       counter += 1
@@ -47,7 +50,6 @@ task daily_expiration: :environment do
     puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
   end
 
-  puts "  -> #{expiration_count} total pushes expired."
   puts "  -> Finished daily expiration on #{Time.now}"
 end
 
