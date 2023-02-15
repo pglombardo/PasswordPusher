@@ -5,18 +5,12 @@ on:
     tags:
       - "v*.*.*"
 
-  pull_request:
-    paths:
-      - 'containers/docker/pwpush-ephemeral/**'
-      - 'containers/docker/pwpush-postgres/**'
-      - 'containers/docker/pwpush-mysql/**'
-
   workflow_dispatch:
     inputs:
       dockerTagName:
         description: 'What Docker tag to create?'
         required: true
-        default: 'dev-0xdeadbeef'
+        default: 'development-0xdeadbeef'
 
   schedule:
     # * is a special character in YAML so you have to quote this string
@@ -52,11 +46,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
 
-      - name: Pull Request - use 'dev' docker tag
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "DOCKER_TAG=devpr{{ github.event.number }}" >> $GITHUB_ENV
-
-      - name: Default docker tag
+      - name: Manually configured docker tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
@@ -99,11 +89,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
 
-      - name: Pull Request - use 'dev' docker tag
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "DOCKER_TAG=devpr{{ github.event.number }}" >> $GITHUB_ENV
-
-      - name: Default docker tag
+      - name: Manually configured docker tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
@@ -146,11 +132,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
 
-      - name: Pull Request - use 'dev' docker tag
-        if: ${{ github.event_name == 'pull_request' }}
-        run: echo "DOCKER_TAG=devpr{{ github.event.number }}" >> $GITHUB_ENV
-
-      - name: Default docker tag
+      - name: Manually configured docker tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
 
