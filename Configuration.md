@@ -271,6 +271,8 @@ This can be done with the following environment variables:
 
 # Themes
 
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/themes%2Fquartz-theme-pwpush.com.png)
+
 Password Pusher supports a 26 themes out of the box.  These themes are taken directly from the great [Bootswatch](https://bootswatch.com) project and are unmodified.
 
 As such, themes mostly work although there may be a rare edge cases where fonts may not be clear or something doesn't display correctly.  If this is the case you can add custom CSS styles to fix any such issues.  See the next section on how to add custom styling.
