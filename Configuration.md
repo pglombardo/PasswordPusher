@@ -252,6 +252,8 @@ Similar to file pushes, URL pushes also require logins to be enabled.
 
 Password Pusher has the ability to be [re-branded](https://twitter.com/pwpush/status/1557658305325109253) with your own site title, tagline and logo.
 
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding%2Fpwpush-brand-example.png)
+
 This can be done with the following environment variables:
 
 | Environment Variable | Description | Default Value |
@@ -273,8 +275,9 @@ Password Pusher supports a 26 themes out of the box.  These themes are taken dir
 
 As such, themes mostly work although there may be a rare edge cases where fonts may not be clear or something doesn't display correctly.  If this is the case you can add custom CSS styles to fix any such issues.  See the next section on how to add custom styling.
 
-The Bootswatch themes are licensed under the MIT license.
+Checkout the [Themes Gallery](Themes.md)!
 
+The Bootswatch themes are licensed under the MIT license.
 
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
@@ -282,11 +285,11 @@ The Bootswatch themes are licensed under the MIT license.
 
 # Custom CSS Styles
 
-Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over built in themes and styling.
+Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over all built in themes and styling.
 
 This file can either be modified directly or in the case of Docker containers, a new file mounted over the existing one.
 
-When using this file, make sure to set the precompile option `PWP_PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
+When changing this file inside a Docker container, make sure to set the precompile option `PWP_PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
 
 An example Docker command to override that file would be:
 
