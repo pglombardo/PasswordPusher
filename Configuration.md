@@ -273,15 +273,15 @@ This can be done with the following environment variables:
 
 ![](https://pwpush.fra1.cdn.digitaloceanspaces.com/themes%2Fquartz-theme-pwpush.com.png)
 
-Password Pusher supports a 26 themes out of the box.  These themes are taken directly from the great [Bootswatch](https://bootswatch.com) project and are unmodified.
+Password Pusher supports **26 themes out of the box**.  These themes are taken directly from the great [Bootswatch](https://bootswatch.com) project and are unmodified.
 
 As such, themes mostly work although there may be a rare edge cases where fonts may not be clear or something doesn't display correctly.  If this is the case you can add custom CSS styles to fix any such issues.  See the next section on how to add custom styling.
 
-Checkout the [Themes Gallery](Themes.md)!
+---> Checkout the [Themes Gallery](Themes.md)!
 
 The Bootswatch themes are licensed under the MIT license.
 
-| Environment Variable | Description | Default Value |
+| Environment Variable | Description | Value |
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
 
