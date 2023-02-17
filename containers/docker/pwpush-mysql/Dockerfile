@@ -5,7 +5,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # Required packages
 RUN apk upgrade --no-cache \
-    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn mariadb-dev
+    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat mariadb-dev
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -43,7 +43,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apk upgrade --no-cache \
-    && apk add --no-cache tzdata bash nodejs mariadb-connector-c
+    && apk add --no-cache tzdata bash nodejs libc6-compat mariadb-connector-c
 
 # Create a user and group to run the application
 ARG UID=1000

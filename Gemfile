@@ -63,8 +63,6 @@ gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap-style'
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -111,7 +109,7 @@ group :mysql, optional: true do
 end
 
 group :sqlite, optional:true do
-  gem 'sqlite3'
+  gem 'sqlite3', force_ruby_platform: true
 end
 
 group :production, :private do
