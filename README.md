@@ -125,6 +125,10 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 _This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  Heroku used to offer free dynos but that is [no longer the case](https://blog.heroku.com/next-chapter) from November 28, 2022.  Hosting charges will be incurred._
 
+## With Nginx
+
+See the prebuilt [Docker Compose example here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/examples/pwpush-and-nginx).
+
 ## From Source
 
 Make sure you have git and Ruby installed and then:
