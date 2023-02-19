@@ -99,6 +99,8 @@ Notes:
 | PWP__PW__DELETABLE_PUSHES_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
 | PWP__PW__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
 | PWP__PW__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
+| PWP__PW__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a push payload to the user. | `true` |
+
 
 ## Password Generator Settings
 
