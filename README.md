@@ -19,21 +19,24 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
 ------
 
+Give your users the tools to be secure by default.
+
 Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
 * __Easy-to-install:__ Host your own via Docker, a cloud service or just use [pwpush.com](https://pwpush.com)
 * __Opensource:__ No blackbox code.  Only trusted, tested and reviewed opensource code.
+* __Versatile:__ Push passwords, text, files or URLs that autoexpire and self delete.
 * __Audit logging:__ Track and control what you've shared and see who has viewed it.
 * __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
-* __Internationalized:__ 17 language translations are bundled in.  Easily selectable via UI or URL
+* __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
+* __Internationalized:__ 19 language translations are bundled in.  Easily selectable via UI or URL
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
-* __Extensive:__ Push passwords, text, files and URLs.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
 * __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
@@ -124,6 +127,10 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
 _This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  Heroku used to offer free dynos but that is [no longer the case](https://blog.heroku.com/next-chapter) from November 28, 2022.  Hosting charges will be incurred._
+
+## With Nginx
+
+See the prebuilt [Docker Compose example here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/examples/pwpush-and-nginx).
 
 ## From Source
 

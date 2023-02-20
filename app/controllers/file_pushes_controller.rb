@@ -93,21 +93,19 @@ class FilePushesController < ApplicationController
     param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
   end
   formats ['json']
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" --data "file_push[payload]=myfile_push&file_push[expire_after_days]=2&file_push[expire_after_views]=10" https://pwpush.com/f.json'
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" -F "file_push[filee][]=@/path/to/file/file1.extension" -F "file_push[files][]=@/path/to/file/file2.extension" https://pwpush.com/f.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
-    @push = FilePush.new(file_push_params)
 
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
     file_push_param = params.fetch(:file_push, {})
     if !file_push_param.respond_to?(:fetch)
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
-        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :unprocessable_entity }
       end
       return
     end
@@ -117,8 +115,8 @@ class FilePushesController < ApplicationController
     files_param   = file_push_param.fetch(:files, [])
     unless (payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)) || !files_param.empty? || files_param.size > 10
       respond_to do |format|
-        format.html { render :new, status: :bad_request }
-        format.json { render json: { "error": "No password, text or files provided." }, status: :bad_request }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { "error": "No password, text or files provided." }, status: :unprocessable_entity }
       end
       return
     end
@@ -129,9 +127,9 @@ class FilePushesController < ApplicationController
       respond_to do |format|
         format.html {
           flash.now[:warning] = msg
-          render :new, status: :bad_request
+          render :new, status: :unprocessable_entity
         }
-        format.json { render json: { "error": msg }, status: :bad_request }
+        format.json { render json: { "error": msg }, status: :unprocessable_entity }
       end
       return
     end
@@ -146,7 +144,7 @@ class FilePushesController < ApplicationController
     create_detect_deletable_by_viewer(@push, params)
     create_detect_retrieval_step(@push, params)
 
-    @push.payload = params[:file_push][:payload]
+    @push.payload = params[:file_push][:payload] || ''
     @push.note = params[:file_push][:note] unless params[:file_push].fetch(:note, '').blank?
     @push.files.attach(params[:file_push][:files])
 
@@ -157,7 +155,7 @@ class FilePushesController < ApplicationController
         format.html { redirect_to preview_file_push_path(@push) }
         format.json { render json: @push, status: :created }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
@@ -286,7 +284,7 @@ class FilePushesController < ApplicationController
         }
         format.json { render json: @push, status: :ok }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new', status: :unprocessable_entity }
         format.json { render json: @push.errors, status: :unprocessable_entity }
       end
     end
