@@ -19,8 +19,15 @@ on:
 
 
 jobs:
-  pwpush-ephemeral:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dbType: ephemeral
+          - dbType: postgres
+          - dbType: mysql
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -53,97 +60,11 @@ jobs:
       - name: Show us the DOCKER_TAG
         run: echo "${{ env.DOCKER_TAG}}"
 
-      - name: Build and push pwpush-ephemeral Docker images
+      - name: Build and push pwpush-${{ matrix.dbType }} Docker images
         uses: docker/build-push-action@v4.0.0
         with:
-          file: ./containers/docker/pwpush-ephemeral/Dockerfile
+          file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
-          tags: pglombardo/pwpush-ephemeral:${{ env.DOCKER_TAG }}
-
-  pwpush-postgres:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
-      - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
-
-      - name: Should docker tag be latest?
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
-
-      - name: Manually configured docker tag
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
-
-      - name: Show us the DOCKER_TAG
-        run: echo "${{ env.DOCKER_TAG}}"
-
-      - name: Build and push pwpush-postgres Docker images
-        uses: docker/build-push-action@v4.0.0
-        with:
-          file: ./containers/docker/pwpush-postgres/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          provenance: false
-          push: true
-          tags: pglombardo/pwpush-postgres:${{ env.DOCKER_TAG }}
-
-  pwpush-mysql:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
-      - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
-
-      - name: Should docker tag be latest?
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
-
-      - name: Manually configured docker tag
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: echo "DOCKER_TAG={{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
-
-      - name: Show us the DOCKER_TAG
-        run: echo "${{ env.DOCKER_TAG}}"
-
-      - name: Build and push pwpush-mysql Docker images
-        uses: docker/build-push-action@v4.0.0
-        with:
-          file: ./containers/docker/pwpush-mysql/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          provenance: false
-          push: true
-          tags: pglombardo/pwpush-mysql:${{ env.DOCKER_TAG }}
+          tags: pglombardo/pwpush-${{ matrix.dbType }}:${{ env.DOCKER_TAG }}
