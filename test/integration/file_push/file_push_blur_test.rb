@@ -16,6 +16,7 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
 
   teardown do
     sign_out :user
+    Settings.files.enable_blur = true
   end
 
   def test_blur_enabled

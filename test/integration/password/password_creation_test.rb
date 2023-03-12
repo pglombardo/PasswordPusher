@@ -6,7 +6,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Validate some elements
-    text_area = css_select 'textarea#push_payload.form-control'
+    text_area = css_select 'textarea#password_payload.form-control'
 
     assert text_area.attribute('spellcheck')
     assert text_area.attribute('spellcheck').value == "false"

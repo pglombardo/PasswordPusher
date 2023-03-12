@@ -8,6 +8,7 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
+    Settings.pw.enable_blur = true
   end
 
   def test_blur_enabled
