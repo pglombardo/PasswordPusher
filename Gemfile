@@ -114,6 +114,6 @@ end
 
 group :production, :private do
   gem 'rack-timeout'
-  gem 'rack-throttle'
+  gem 'rack-throttle', '0.7.0'
 end
 
