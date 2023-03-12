@@ -54,6 +54,7 @@ RUN addgroup -g "${GID}" pwpusher \
 
 
 
+ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 WORKDIR ${APP_ROOT}
 ENV RACK_ENV=private RAILS_ENV=private
