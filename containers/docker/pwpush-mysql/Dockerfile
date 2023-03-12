@@ -52,6 +52,7 @@ ARG GID=1000
 RUN addgroup -g "${GID}" pwpusher \
   && adduser -D -u "${UID}" -G pwpusher pwpusher
 
+ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 WORKDIR ${APP_ROOT}
 ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
