@@ -114,6 +114,10 @@ _Note: The `latest` Docker container tag builds nightly off of the latest code c
 Instructions and explanation of a Kubernetes setup [can be found
 here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
 
+## On Kubernetes with Helm
+
+A basic helm chart with instructions [can be found here](containers/helm/).
+
 ## On Microsoft Azure
 
 _There used to be a 3rd party blog post with instructions but it's been deleted.  If anyone has instructions they would like to contribute, it would be greatly appreciated._
