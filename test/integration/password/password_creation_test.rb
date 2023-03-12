@@ -6,7 +6,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Validate some elements
-    text_area = css_select 'textarea#password_payload.form-control'
+    text_area = css_select 'textarea#push_payload.form-control'
 
     assert text_area.attribute('spellcheck')
     assert text_area.attribute('spellcheck').value == "false"
@@ -31,7 +31,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your password has been pushed.'
+    assert_select 'h2', 'Your push has been created.'
 
     # Password page
     get request.url.sub('/preview', '')
@@ -59,7 +59,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your password has been pushed.'
+    assert_select 'h2', 'Your push has been created.'
 
     # Password page
     get request.url.sub('/preview', '')
@@ -87,7 +87,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your password has been pushed.'
+    assert_select 'h2', 'Your push has been created.'
 
     # Password page
     get request.url.sub('/preview', '')

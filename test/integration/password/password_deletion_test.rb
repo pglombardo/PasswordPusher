@@ -12,7 +12,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your password has been pushed.'
+    assert_select 'h2', 'Your push has been created.'
 
     # view the password
     get request.url.sub('/preview', '')
