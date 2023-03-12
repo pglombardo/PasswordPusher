@@ -79,9 +79,7 @@ gem 'foreman'
 gem 'puma'
 gem 'oj'
 
-# Use latest devise for Turbo fixes
-# gem 'devise', '>= 4.8.1'
-gem 'devise', git: "https://github.com/heartcombo/devise.git", branch: 'main'
+gem 'devise', '>= 4.9.0'
 
 gem 'config'
 gem 'route_translator', '>= 13.0.0'
