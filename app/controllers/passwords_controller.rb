@@ -59,8 +59,8 @@ class PasswordsController < ApplicationController
     log_view(@push)
     expires_now
 
-    # Optionally blur the password
-    @use_blur = Settings.pw.enable_blur ? 'spoiler' : ''
+    # Optionally blur the text payload
+    @blur_css_class = Settings.pw.enable_blur ? 'spoiler' : ''
 
     respond_to do |format|
       format.html { render layout: 'bare' }
