@@ -99,6 +99,8 @@ Notes:
 | PWP__PW__DELETABLE_PUSHES_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
 | PWP__PW__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
 | PWP__PW__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
+| PWP__PW__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a push payload to the user. | `true` |
+
 
 ## Password Generator Settings
 
@@ -175,6 +177,7 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 | --------- | ------------------ | --- |
 | PWP__ENABLE_FILE_PUSHES | On/Off switch for File Pushes. | `false` |
 | PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `s3`, `gcs` or `as` |
+| PWP__FILES__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a text payload to the user. | `true` |
 
 ## File Push Expiration Settings
 

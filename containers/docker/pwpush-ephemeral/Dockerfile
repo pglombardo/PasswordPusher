@@ -5,7 +5,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # Required packages
 RUN apk upgrade --no-cache \ 
-    && apk add  --no-cache build-base git curl tzdata sqlite-libs sqlite-dev zlib-dev nodejs yarn
+    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat sqlite-dev 
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -43,7 +43,7 @@ LABEL maintainer='pglombardo@hey.com'
 
 # install packages
 RUN apk upgrade --no-cache \
-    && apk add --no-cache tzdata bash nodejs
+    && apk add --no-cache tzdata bash nodejs libc6-compat
 
 # Create a user and group to run the application
 ARG UID=1000
@@ -54,6 +54,7 @@ RUN addgroup -g "${GID}" pwpusher \
 
 
 
+ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 WORKDIR ${APP_ROOT}
 ENV RACK_ENV=private RAILS_ENV=private

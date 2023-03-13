@@ -5,14 +5,16 @@
     <% unless @push.payload.empty? %>
         <div class='text-center m-3'>
           <p class=""><strong><%= _('Please obtain and securely store this content in a secure manner, such as in a password manager.') %></strong></p>
-          <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
+          <% if Settings.pw.enable_blur %>
+            <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
+          <% end %>
           <%= render partial: 'shared/copy_button' %>
         </div>
 
         <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
-          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center' id='password_payload' translate='no' data-copy-target="payloadDiv"><pre class='text-break my-5'><%=@payload%></pre></div>
+          <div class='payload <%= @blur_css_class %> notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='text-break my-5'><%=@payload%></pre></div>
         <% else %>
-          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' id='password_payload' translate='no' data-copy-target="payloadDiv"><pre class='w-100 text-break text-wrap my-5 text-center'><%=@payload%></pre></div>
+          <div class='payload <%= @blur_css_class%> notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='w-100 text-break text-wrap my-5 text-center'><%=@payload%></pre></div>
         <% end%>
     <% end %>
     <div class='text-center m-3'>

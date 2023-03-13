@@ -22,7 +22,7 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'minitest-rails', '>= 6.1.0'
-  gem 'selenium-webdriver', '4.8.0'
+  gem 'selenium-webdriver', '4.8.1'
   gem 'webdrivers', '~> 5.0', require: false
 end
 
@@ -79,9 +79,7 @@ gem 'foreman'
 gem 'puma'
 gem 'oj'
 
-# Use latest devise for Turbo fixes
-# gem 'devise', '>= 4.8.1'
-gem 'devise', git: "https://github.com/heartcombo/devise.git", branch: 'main'
+gem 'devise', '>= 4.9.0'
 
 gem 'config'
 gem 'route_translator', '>= 13.0.0'
@@ -109,11 +107,11 @@ group :mysql, optional: true do
 end
 
 group :sqlite, optional:true do
-  gem 'sqlite3'
+  gem 'sqlite3', force_ruby_platform: true
 end
 
 group :production, :private do
   gem 'rack-timeout'
-  gem 'rack-throttle'
+  gem 'rack-throttle', '0.7.0'
 end
 

@@ -11,13 +11,15 @@
     <% else %>
         <div class='text-center m-3'>
           <p class=""><strong><%= _('The following message has been sent to you along with the files below.') %></strong></p>
-          <p class="text-muted"><%= _('The message is blurred out.  Click below to reveal it.') %></p>
+          <% if Settings.files.enable_blur %>
+            <p class="text-muted"><%= _('The message is blurred out.  Click below to reveal it.') %></p>
+          <% end %>
         </div>
 
         <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
-          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center mb-3' id='password_payload' translate='no' data-copy-target="payloadDiv"><pre class='text-break my-5'><%=@payload%></pre></div>
+          <div class='payload <%= @blur_css_class %> notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center mb-3' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='text-break my-5'><%=@payload%></pre></div>
         <% else %>
-          <div class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2 mb-3' id='password_payload' translate='no' data-copy-target="payloadDiv"><pre class='w-100 text-break text-wrap my-5 text-center'><%=@payload%></pre></div>
+          <div class='payload <%= @blur_css_class %> notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2 mb-3' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='w-100 text-break text-wrap my-5 text-center'><%=@payload%></pre></div>
         <% end%>
         <%= render partial: 'shared/copy_button' %>
     <% end %>
