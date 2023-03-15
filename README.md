@@ -35,11 +35,14 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
 * __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
 * __Internationalized:__ 19 language translations are bundled in.  Easily selectable via UI or URL
+* __Themes:__ [26 themes](./Themes.md) bundled in courtesy of Bootswatch.  Select with a simple environment variable.
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
-* __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
+* __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
 * __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
+* __Custom CSS:__ Bundle in your own custom CSS to add your own design.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
+* __Actively Maintained:__ I happily work for the good karma of the great IT/Security community.
 * __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
 💌 --> Sign up for [the newsletter](https://buttondown.email/pwpush?tag=github) to get updates on big releases, security issues, new features, integrations, tips and more.

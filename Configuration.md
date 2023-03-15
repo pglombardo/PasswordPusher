@@ -288,6 +288,8 @@ The Bootswatch themes are licensed under the MIT license.
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
 
+__Note:__ The theme can only be selected by setting the `PWP__THEME` environment variable.
+
 # Custom CSS Styles
 
 Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over all built in themes and styling.
