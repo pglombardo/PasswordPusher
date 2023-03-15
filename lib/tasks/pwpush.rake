@@ -132,3 +132,43 @@ namespace :active_storage do
     ActiveStorage::Blob.unattached.where("active_storage_blobs.created_at <= ?", 2.days.ago).find_each(&:purge)
   end
 end
+
+desc 'Pull updated themes from Bootswatch.'
+task update_themes: :environment do
+  puts 'Updating themes...'
+
+  themes = [
+    'cerulean',
+    'cosmo',
+    'cyborg',
+    'darkly',
+    'flatly',
+    'journal',
+    'litera',
+    'lumen',
+    'lux',
+    'materia',
+    'minty',
+    'morph',
+    'pulse',
+    'quartz',
+    'sandstone',
+    'simplex',
+    'sketchy',
+    'slate',
+    'solar',
+    'spacelab',
+    'superhero',
+    'united',
+    'vapor',
+    'yeti',
+    'zephyr'
+  ]
+
+  for name in themes do
+    puts "Pulling #{name}...and sleeping 3 seconds..."
+    `curl -s -o app/assets/stylesheets/themes/#{name}.css https://bootswatch.com/5/#{name}/bootstrap.css`
+    # Be nice - don't hammer the server
+    sleep 3
+  end
+end

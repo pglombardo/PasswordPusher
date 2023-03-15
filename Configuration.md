@@ -255,6 +255,8 @@ Similar to file pushes, URL pushes also require logins to be enabled.
 
 Password Pusher has the ability to be [re-branded](https://twitter.com/pwpush/status/1557658305325109253) with your own site title, tagline and logo.
 
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding%2Fpwpush-brand-example.png)
+
 This can be done with the following environment variables:
 
 | Environment Variable | Description | Default Value |
@@ -270,6 +272,52 @@ This can be done with the following environment variables:
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
 * [this issue comment](https://github.com/pglombardo/PasswordPusher/issues/432#issuecomment-1282158006) on how to mount images into the contianer and set your environment variables accordingly
 
+# Themes
+
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/themes%2Fquartz-theme-pwpush.com.png)
+
+Password Pusher supports **26 themes out of the box**.  These themes are taken directly from the great [Bootswatch](https://bootswatch.com) project and are unmodified.
+
+As such, themes mostly work although there may be a rare edge cases where fonts may not be clear or something doesn't display correctly.  If this is the case you can add custom CSS styles to fix any such issues.  See the next section on how to add custom styling.
+
+---> Checkout the [Themes Gallery](Themes.md)!
+
+The Bootswatch themes are licensed under the MIT license.
+
+| Environment Variable | Description | Value |
+| --------- | ------------------ | --- |
+| PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
+
+# Custom CSS Styles
+
+Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over all built in themes and styling.
+
+This file can either be modified directly or in the case of Docker containers, a new file mounted over the existing one.
+
+When changing this file inside a Docker container, make sure to set the precompile option `PWP_PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
+
+An example Docker command to override that file would be:
+
+```
+docker run -e PWP_PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush-ephemeral:release
+```
+or the `docker-compose.yml` equivalent:
+
+```
+version: '2.1'
+services:
+
+  pwpush:
+    image: docker.io/pglombardo/pwpush-ephemeral:release
+    ports:
+      - "5100:5100"
+    environment:
+      PWP_PRECOMPILE: 'true'
+    volumes:
+      - type: bind
+        source: /path/to/my/custom.css
+        target: /opt/PasswordPusher/app/assets/stylesheets/custom.css
+```
 
 # Google Analytics
 
