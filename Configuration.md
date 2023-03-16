@@ -284,7 +284,7 @@ As such, themes mostly work although there may be a rare edge cases where fonts 
 
 The Bootswatch themes are licensed under the MIT license.
 
-# Configuring a Theme
+## Configuring a Theme
 
 To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
 
@@ -330,7 +330,7 @@ This would cause that CSS file to be loaded and used as the theme for the site. 
 
 Remember that after the new theme is configured, assets must be precompiled again.  See the the previous section for instructions
 
-# Custom CSS Styles
+# How to Add Custom CSS
 
 Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over all built in themes and styling.
 
