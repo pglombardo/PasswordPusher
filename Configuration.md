@@ -284,11 +284,29 @@ As such, themes mostly work although there may be a rare edge cases where fonts 
 
 The Bootswatch themes are licensed under the MIT license.
 
+# Configuring a Theme
+
+To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
+
 | Environment Variable | Description | Value |
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
 
-__Note:__ The theme can only be selected by setting the `PWP__THEME` environment variable.
+__Note:__ Since the theme is a boot level selection, the theme can only be selected by setting the `PWP__THEME` environment variable (and not modifying `settings.yml`).
+
+So to set the `quartz` theme for a Docker container:
+
+```bash
+docker run --env PWP__THEME=quartz --env PWP_PRECOMPILE=true -p "5100:5100" pglombardo/pwpush-ephemeral:1.26.10
+```
+
+or alternatively for source code:
+
+```bash
+export PWP__THEME=quartz
+bin/rails asset:precompile # manually recompile assets
+bin/rails server
+```
 
 # Custom CSS Styles
 
