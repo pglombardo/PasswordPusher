@@ -288,9 +288,11 @@ The Bootswatch themes are licensed under the MIT license.
 
 To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
 
-| Environment Variable | Description | Value |
+| Environment Variable | Description | Possible Values |
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
+
+---> See the [Themes Gallery](Themes.md) for examples of each.
 
 __Note:__ Since the theme is a boot level selection, the theme can only be selected by setting the `PWP__THEME` environment variable (and not modifying `settings.yml`).
 
@@ -307,6 +309,26 @@ export PWP__THEME=quartz
 bin/rails asset:precompile # manually recompile assets
 bin/rails server
 ```
+
+## How to Precompile CSS Assets
+
+Password Pusher has a pre-compilation step of assets.  This is used to fingerprint assets and pre-process CSS code for better performance.
+
+If using Docker containers, you can simply set the `PWP_PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
+
+To manually precompile assets run `bin/rails assets:precompile`.
+
+## Adding an entirely new theme from scratch
+
+The `PWP__THEME` environment variable simply causes the application to load a css file from `app/assets/stylesheets/themes/{$PWP__THEME}.css`.  If you were to place a completely custom CSS file into that directory, you could then set the `PWP__THEME` environment variable to the filename that you added.
+
+For example:
+
+Add `app/assets/stylesheets/themes/mynewtheme.css` and set `PWP__THEME=mynewtheme`.
+
+This would cause that CSS file to be loaded and used as the theme for the site.  Please refer to existing themes if you would like to author your theme for Password Pusher.
+
+Remember that after the new theme is configured, assets must be precompiled again.  See the the previous section for instructions
 
 # Custom CSS Styles
 
@@ -338,6 +360,10 @@ services:
         source: /path/to/my/custom.css
         target: /opt/PasswordPusher/app/assets/stylesheets/custom.css
 ```
+
+Remember that when doing this, this new CSS code has to be precompiled.
+
+To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
 
 # Google Analytics
 
