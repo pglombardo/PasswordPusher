@@ -190,7 +190,7 @@ export RAILS_ENV=production
 DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
 bundle config set with 'postgres' # or 'mysql'
-bundle install --without development production test
+bundle install --without development private test
 ./bin/rails assets:precompile
 ./bin/rails db:setup
 ./bin/rails server --environment=production
