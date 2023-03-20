@@ -141,20 +141,63 @@ See the prebuilt [Docker Compose example here](https://github.com/pglombardo/Pas
 
 ## From Source
 
-Make sure you have git and Ruby installed and then:
+I generally don't suggest building this application from source code for casual use.  The is due to the complexities in the toolset across platforms.  Running from source code is best when you plan to develop the application.
+
+For quick and easy, use the Docker containers instead.
+
+But if you're resolute & brave, continue on!
+
+### Dependencies
+
+* Ruby 3.0 or greater (2.7 may work)
+* Recent Node.js stable & Yarn
+* Compiler tools: gcc g++ make
+* Other: git
+
+### SQLite3 backend
+
+* Make sure to install sqlite3 development libraries: `apt install libsqlite3-dev sqlite3`
 
 ```sh
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 gem install bundler
-bundle config set with 'sqlite' # Or 'postgres' or 'mysql'
-bundle install --without development production test --deployment
-bundle exec rake assets:precompile
-RAILS_ENV=private ./bin/rake db:setup
+
+export RAILS_ENV=private
+
+bundle config set with 'sqlite'
+bundle config set --local deployment 'true'
+bundle install --without development production test
+./bin/rails assets:precompile
+./bin/rails db:setup
 ./bin/rails server --environment=private
 ```
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
+
+### Postgres, MySQL or Mariadb backend
+
+* Make sure to install related database driver development libraries: e.g. postgres-dev or libmariadb-dev
+
+```sh
+git clone git@github.com:pglombardo/PasswordPusher.git
+cd PasswordPusher
+gem install bundler
+
+export RAILS_ENV=production
+
+# Update the following line to point to your Postgres (or MySQL/Mariadb) instance
+DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
+
+bundle config set with 'postgres' # or 'mysql'
+bundle install --without development production test
+./bin/rails assets:precompile
+./bin/rails db:setup
+./bin/rails server --environment=production
+```
+
+Then view the site @ [http://localhost:5100/](http://localhost:5100/).
+
 
 # 🔨 3rd Party Tools
 
