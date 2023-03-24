@@ -267,6 +267,31 @@ This can be done with the following environment variables:
 | PWP__BRAND__LIGHT_LOGO | Site logo image for the light theme. | `logo-transparent-sm-bare.png` |
 | PWP__BRAND__DARK_LOGO | Site logo image for the dark theme. | `logo-transparent-sm-bare.png` |
 
+The values for the `*_LOGO` images can either be:
+
+1. Fully qualified HTTP(s) URLS such as `https://pwpush.fra1.cdn.digitaloceanspaces.com/dev%2Facme-logo.jpg` (easiest)
+2. Relative path that is mounted inside the container
+
+As an example for #2 above, say you place your logo images locally into `/var/lib/pwpush/logos/`.  You would then mount that directory into the container:
+
+`docker run -d -p "5100:5100" -v /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos pglombardo/pwpush-postgres:release`
+
+or alternatively for a `docker-compose.yml` file:
+
+```yaml
+volumes:
+  # Example of a persistent volume for the storage directory (file uploads)
+  - /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos:r
+```
+
+See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yml) for a larger Docker Compose explanation.
+
+With this setup, you can then set your `LOGO` environment variables (or `settings.yml` options) to:
+
+```
+PWP__BRAND__LIGHT_LOGO=/logos/mylogo.png
+```
+
 ## See Also
 
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
