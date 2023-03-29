@@ -8,7 +8,7 @@
       <% if current_user.nil? %>
         gtag('config', '<%= ENV['GA_ACCOUNT'] %>');
       <% else %>
-        gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {'user_id': current_user.id });
+        gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {'user_id': '<%= current_user.id %>' });
       <% end %>
   </script>
 
@@ -23,7 +23,7 @@
       <% else %>
         gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {
           page_path: window.location.pathname,
-          user_id: current_user.id
+          user_id: '<%= current_user.id %>'
         });
       <% end %>
     });
