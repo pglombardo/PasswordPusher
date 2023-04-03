@@ -176,7 +176,7 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
 | PWP__ENABLE_FILE_PUSHES | On/Off switch for File Pushes. | `false` |
-| PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `s3`, `gcs` or `as` |
+| PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `amazon`, `google` or `microsoft` |
 | PWP__FILES__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a text payload to the user. | `true` |
 
 ## File Push Expiration Settings
@@ -196,6 +196,8 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 
 ## Local Storage
 
+`PWP__FILES__STORAGE=local`
+
 The default location for local storage is `./storage`.
 
 If using containers and you prefer local storage, you can add a volume mount to the container at the path `/opt/PasswordPusher/storage`:
@@ -206,6 +208,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `amazon` |
 | PWP__FILES__S3__ENDPOINT | S3 Endpoint | None |
 | PWP__FILES__S3__ACCESS_KEY_ID | Access Key ID | None |
 | PWP__FILES__S3__SECRET_ACCESS_KEY | Secret Access Key| None |
@@ -216,6 +219,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `google` |
 | PWP__FILES__GCS__PROJECT | GCS Project | None |
 | PWP__FILES__GCS__CREDENTIALS | GCS Credentials | None |
 | PWP__FILES__GCS__BUCKET | The GCS bucket name | None |
@@ -224,6 +228,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `microsoft` |
 | PWP__FILES__AS__STORAGE_ACCOUNT_NAME | Azure Storage Account Name | None |
 | PWP__FILES__AS__STORAGE_ACCESS_KEY | Azure Storage Account Key | None |
 | PWP__FILES__AS__CONTAINER | Azure Storage Container Name | None |
