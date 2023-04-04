@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*"
+      - "release"
 
   workflow_dispatch:
     inputs:
@@ -52,6 +53,10 @@ jobs:
       - name: Should docker tag be latest?
         if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+
+      - name: Should docker tag be release?
+        if: ${{ github.ref == 'refs/tags/release' }}
+        run: echo "DOCKER_TAG=release" >> $GITHUB_ENV
 
       - name: Manually configured docker tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
