@@ -18,7 +18,7 @@ class PasswordsController < ApplicationController
   param :url_token, String, desc: 'Secret URL token of a previously created push.', :required => true
   formats ['json']
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd.json'
-  description "Retrieves a push including it's payload and details.  If the push is still active, this will burn a view and the transaction will be logged in the push audit log."
+  description "Retrieves a push including it's payload and details.  If the push is still active, this will burn a view and the transaction will be logged in the push audit log.  If the push has a passphrase, provide it in a ?passphrase=xxx GET parameter."
   def show
     redirect_to :root && return unless params.key?(:id)
 
@@ -59,6 +59,34 @@ class PasswordsController < ApplicationController
     log_view(@push)
     expires_now
 
+    # Passphrase handling
+    unless @push.passphrase.blank?
+      # Construct the passphrase cookie name
+      name = @push.url_token + '-' + 'p'
+
+      # The passphrase can be passed in the params or in the cookie (default)
+      # JSON requests must pass the passphrase in the params
+      if params.key?(:passphrase)
+        candidate_passphrase = params[:passphrase]
+      else
+        candidate_passphrase = cookies[name]
+      end
+
+      # If the passphrase cookie is set, then we can skip the passphrase page
+      if candidate_passphrase != @push.passphrase
+        # Passphrase cookie is invalid
+        # Redirect to the passphrase page
+        respond_to do |format|
+          format.html { redirect_to passphrase_password_path(@push.url_token) }
+          format.json { render json: { error: "This push has a passphrase that was incorrect or not provided." } }
+        end
+        return
+      end
+
+      # Delete the cookie
+      cookies.delete name
+    end
+
     # Optionally blur the text payload
     @blur_css_class = Settings.pw.enable_blur ? 'spoiler' : ''
 
@@ -69,6 +97,73 @@ class PasswordsController < ApplicationController
 
     # Expire if this is the last view for this push
     @push.expire if !@push.views_remaining.positive?
+  end
+
+  # GET /p/:url_token/passphrase
+  def passphrase
+    begin
+      @push = Password.find_by_url_token!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # Showing a 404 reveals that this Secret URL never existed
+      # which is an information leak (not a secret anymore)
+      #
+      # We also don't want data in general. We entirely delete old pushes that:
+      # 1. have expired (payloads already deleted long ago)
+      # 2. are anonymous/not linked to a user account (audit log not needed)
+      #
+      # When not found, show the 'expired' page so even very old secret URLs
+      # when clicked they will be accurate - this secret URL has expired.
+      # No easy fix for JSON unfortunately as we don't have a record to show.
+      respond_to do |format|
+        format.html { render template: 'passwords/show_expired', layout: 'naked' }
+        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+      end
+      return
+    end
+
+    respond_to do |format|
+      format.html { render action: 'passphrase', layout: 'naked' }
+    end
+  end
+
+  # POST /p/:url_token/access
+  def access
+    begin
+      @push = Password.find_by_url_token!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # Showing a 404 reveals that this Secret URL never existed
+      # which is an information leak (not a secret anymore)
+      #
+      # We also don't want data in general. We entirely delete old pushes that:
+      # 1. have expired (payloads already deleted long ago)
+      # 2. are anonymous/not linked to a user account (audit log not needed)
+      #
+      # When not found, show the 'expired' page so even very old secret URLs
+      # when clicked they will be accurate - this secret URL has expired.
+      # No easy fix for JSON unfortunately as we don't have a record to show.
+      respond_to do |format|
+        format.html { render template: 'passwords/show_expired', layout: 'naked' }
+        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+      end
+      return
+    end
+
+    # Construct the passphrase cookie name
+    name = @push.url_token + '-' + 'p'
+
+    # Validate the passphrase
+    if @push.passphrase == params[:passphrase]
+      # Passphrase is valid
+      # Set the passphrase cookie
+      cookies[name] = { value: @push.passphrase, expires: 10.minutes.from_now }
+      # Redirect to the payload
+      redirect_to password_path(@push.url_token)
+    else
+      # Passphrase is invalid
+      # Redirect to the passphrase page
+      flash[:alert] = _('That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.')
+      redirect_to passphrase_password_path(@push.url_token)
+    end
   end
 
   # GET /passwords/new
@@ -132,8 +227,9 @@ class PasswordsController < ApplicationController
     create_detect_deletable_by_viewer(@push, params)
     create_detect_retrieval_step(@push, params)
 
-    @push.payload = params[:password][:payload]
-    @push.note = params[:password][:note] unless params[:password].fetch(:note, '').blank?
+    @push.payload    = params[:password][:payload]
+    @push.note       = params[:password].fetch(:note, '')
+    @push.passphrase = params[:password].fetch(:passphrase, '')
 
     @push.validate!
 
