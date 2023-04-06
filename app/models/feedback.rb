@@ -16,11 +16,7 @@ class Feedback < MailForm::Base
       from: Settings.mail.mailer_sender
     }
 
-    if Settings.brand.title
-      headers[:subject] = Settings.brand.title + ' Feedback'
-    else
-      headers[:subject] = _('Password Pusher Feedback')
-    end
+    headers[:subject] = Settings.brand.title + ' Feedback'
 
     headers
   end

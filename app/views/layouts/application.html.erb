@@ -3,11 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-  <% if Settings.brand.title %>
-    <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>
-  <% else %>
-    <title><%= content_for?(:html_title) ? yield(:html_title) : _('Password Pusher') %></title>
-  <% end %>
+  <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>
 
   <meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
   <meta content='width=device-width, initial-scale=1' name='viewport'>

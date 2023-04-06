@@ -1,9 +1,49 @@
-<p><%= _('Hello') %>,</p>
+<!DOCTYPE html>
+<html lang="<%=I18n.locale%>">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<p><%= _('Your account has been locked due to an excessive number of unsuccessful sign in attempts.') %></p>
+  <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>
 
-<p><%= _('Click the link below to unlock your account') %>:</p>
+  <meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
+  <meta content='width=device-width, initial-scale=1' name='viewport'>
 
-<p><%= link_to _('Unlock my account'), unlock_url(@resource, unlock_token: @token) %></p>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
 
+<body class="d-flex flex-column min-vh-100">
+
+<div class="container">
+
+
+
+<h1>Unlock your account</h1>
+
+<p>
+<%= _('Your account has been locked due to an excessive number of unsuccessful sign in attempts.') %>
+</p>
+
+<p>
+<%= link_to _('Click this link'), unlock_url(@resource, unlock_token: @token) %>
+<%= _('to unlock your account or by copying and pasting the following URL into your browser:') %>
+</p>
+
+<pre class="chroma">
+<%= unlock_url(@resource, unlock_token: @token) %>
+</pre>
+</p>
 <%= render 'shared/email_footer' %>
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
