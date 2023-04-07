@@ -20,11 +20,11 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
         passphrase: 'asdf',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -63,16 +63,16 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
     assert p_tags[2].text == "Attached Files"
   end
-  
+
   def test_file_bad_passphrase
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
         passphrase: 'asdf',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }

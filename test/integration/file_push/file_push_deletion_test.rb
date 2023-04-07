@@ -22,10 +22,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -49,4 +49,45 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
   end
+
+  def test_end_user_deletion_when_enabled
+    assert Settings.files.enable_deletable_pushes == true
+
+    get new_file_push_path
+    assert_response :success
+
+    post file_pushes_path, params: {
+      file_push: {
+        payload: 'Message',
+        deletable_by_viewer: true,
+        files: [
+          fixture_file_upload('monkey.png', 'image/jpeg')
+        ]
+      }
+    }
+    assert_response :redirect
+
+    # preview
+    follow_redirect!
+    assert_response :success
+    assert_select 'h2', 'Your push has been created.'
+
+    # view the password
+    get request.url.sub('/preview', '')
+    assert_response :success
+
+    # Sign out user to test anonymous end user deletion
+    sign_out :user
+
+    # Delete the file_push
+    delete request.url
+    assert_response :redirect
+
+    # Get redirected to the password that is now expired
+    follow_redirect!
+    assert_response :success
+
+    assert_select 'p', 'We apologize but this secret link has expired.'
+  end
+
 end
