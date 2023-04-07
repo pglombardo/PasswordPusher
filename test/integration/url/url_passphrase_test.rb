@@ -45,17 +45,13 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     input = css_select 'input#passphrase.form-control'
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
 
-    # Provide the value passphrase
+    # Provide a valid passphrase
     post forms.first.attributes["action"].value, params: { passphrase: 'asdf' }
     assert_response :redirect
     follow_redirect!
-    assert_response :success
 
-    # We should be on the url#show page now
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a url manager."
-    assert p_tags[1].text == 'Your url is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    assert_response :see_other
+    assert_equal "https://pwpush.com", response.headers["Location"]
   end
   
   def test_url_bad_passphrase
@@ -86,7 +82,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     input = css_select 'input#passphrase.form-control'
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
 
-    # Provide the value passphrase
+    # Provide a bad passphrase
     post forms.first.attributes["action"].value, params: { passphrase: 'bad-passphrase' }
     assert_response :redirect
     follow_redirect!
