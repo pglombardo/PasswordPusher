@@ -202,7 +202,7 @@ class UrlsController < ApplicationController
     payload_param = url_param.fetch(:payload, '')
 
     unless helpers.valid_url?(payload_param)
-      msg = _('Invalid URL: Must be a valid URL and start with http:// or https://')
+      msg = _('Invalid URL: Must have a valid URI scheme.')
       respond_to do |format|
         format.html {
           flash.now[:error] = msg

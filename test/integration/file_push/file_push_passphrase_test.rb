@@ -1,11 +1,34 @@
 require 'test_helper'
 
-class PasswordPassphraseTest < ActionDispatch::IntegrationTest
-  def test_password_passphrase
-    get new_password_path
+class PasswordCreationTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+  end
+
+  teardown do
+    sign_out :user
+  end
+
+  def test_file_passphrase
+    get new_file_push_path
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'testpw', passphrase: 'asdf' } }
+    post file_pushes_path, params: { 
+      file_push: { 
+        payload: 'Message',
+        passphrase: 'asdf',
+        files: [ 
+          fixture_file_upload('monkey.png', 'image/jpeg')
+        ]
+      }
+    }
     assert_response :redirect
 
     # Preview page
@@ -13,11 +36,10 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h2', 'Your push has been created.'
 
-    # Attempt to retrieve the password without the passphrase 
+    # Attempt to access the file push page
     get request.url.sub('/preview', '')
     assert_response :redirect
-   
-    # We should get redirected to the passphrase page
+
     follow_redirect!
     assert_response :success
 
@@ -37,16 +59,24 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
 
     # We should be on the password#show page now
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
+    assert p_tags[2].text == "Attached Files"
   end
   
-  def test_password_bad_passphrase
-    get new_password_path
+  def test_file_bad_passphrase
+    get new_file_push_path
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'testpw', passphrase: 'asdf' } }
+    post file_pushes_path, params: { 
+      file_push: { 
+        payload: 'Message',
+        passphrase: 'asdf',
+        files: [ 
+          fixture_file_upload('monkey.png', 'image/jpeg')
+        ]
+      }
+    }
     assert_response :redirect
 
     # Preview page
@@ -54,11 +84,10 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h2', 'Your push has been created.'
 
-    # Attempt to retrieve the password without the passphrase 
+    # Attempt to access the file push page
     get request.url.sub('/preview', '')
     assert_response :redirect
-   
-    # We should get redirected to the passphrase page
+
     follow_redirect!
     assert_response :success
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PasswordCreationTest < ActionDispatch::IntegrationTest
+class FilePushCreationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -159,7 +159,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    # Password page
+    # File Push page
     get request.url.sub('/preview', '')
     assert_response :success
 
