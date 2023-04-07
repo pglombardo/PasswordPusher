@@ -56,9 +56,6 @@ class PasswordsController < ApplicationController
       @payload = @push.payload
     end
 
-    log_view(@push)
-    expires_now
-
     # Passphrase handling
     unless @push.passphrase.blank?
       # Construct the passphrase cookie name
@@ -86,6 +83,9 @@ class PasswordsController < ApplicationController
       # Delete the cookie
       cookies.delete name
     end
+
+    log_view(@push)
+    expires_now
 
     # Optionally blur the text payload
     @blur_css_class = Settings.pw.enable_blur ? 'spoiler' : ''
