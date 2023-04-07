@@ -24,13 +24,14 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
-    }
+    },
+    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
     assert res.key?("url_token")
 
-    get "/f/#{res['url_token']}/preview.json"
+    get preview_file_push_path(res['url_token'], format: :json), headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -38,11 +39,6 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
   end
 
   def test_authenticated_preview_response
-    Settings.enable_logins = true
-
-    @luca = users(:luca)
-    @luca.confirm
-
     post file_pushes_path(format: :json), params: {
       file_push: {
         payload: 'testpw',
@@ -51,9 +47,8 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
-    }
-
-    post passwords_path(format: :json), params: { :password => { payload: "testpw", expire_after_views: 2 }}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
+    },
+    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -61,7 +56,7 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
 
     url_token = res['url_token']
 
-    get "/p/#{url_token}/preview.json", headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
+    get preview_file_push_path(url_token, format: :json), headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
