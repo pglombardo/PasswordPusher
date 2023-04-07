@@ -1,9 +1,31 @@
 require 'test_helper'
 
-class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
+class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+    @luca = users(:luca)
+    @luca.confirm
+  end
+
+  teardown do
+  end
+
   def test_deletion
-    # Create password
-    post passwords_path(format: :json), params: { :password => { payload: "testpw" } }
+    post file_pushes_path(format: :json),
+      params: {
+        file_push: {
+          payload: 'Message',
+          files: [
+            fixture_file_upload('monkey.png', 'image/jpeg')
+          ]
+        }
+      },
+      headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -20,8 +42,8 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("views_remaining")
     assert_equal Settings.files.expire_after_views_default, res["views_remaining"]
 
-    # Delete the new password via json e.g. /p/<url_token>.json
-    delete "/p/" + res["url_token"] + ".json"
+    # Delete the new push via json e.g. /f/<url_token>.json
+    delete "/f/" + res["url_token"] + ".json", headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -39,7 +61,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.files.expire_after_views_default, res["views_remaining"]
 
     # Now try to retrieve the password again
-    get "/p/" + res["url_token"] + ".json"
+    get "/f/" + res["url_token"] + ".json"
     assert_response :success
 
     res = JSON.parse(@response.body)

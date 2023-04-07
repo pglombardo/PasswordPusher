@@ -4,7 +4,7 @@ class FilePushesController < ApplicationController
   helper FilePushesHelper
 
   # Authentication always except for :show
-  acts_as_token_authentication_handler_for User, except: [:show, :new]
+  acts_as_token_authentication_handler_for User, except: [:show, :new, :preliminary, :destroy]
 
   resource_description do
     name 'File Pushes'
