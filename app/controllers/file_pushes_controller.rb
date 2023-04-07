@@ -53,6 +53,35 @@ class FilePushesController < ApplicationController
       @payload = @push.payload
     end
 
+    # Passphrase handling
+    unless @push.passphrase.blank?
+      # Construct the passphrase cookie name
+      name = @push.url_token + '-' + 'f'
+
+      # The passphrase can be passed in the params or in the cookie (default)
+      # JSON requests must pass the passphrase in the params
+      if params.key?(:passphrase)
+        candidate_passphrase = params[:passphrase]
+      else
+        candidate_passphrase = cookies[name]
+      end
+
+      # If the passphrase cookie is set, then we can skip the passphrase page
+      if candidate_passphrase != @push.passphrase
+        # Passphrase cookie is invalid
+        # Redirect to the passphrase page
+        respond_to do |format|
+          format.html { redirect_to passphrase_file_push_path(@push.url_token) }
+          format.json { render json: { error: "This push has a passphrase that was incorrect or not provided." } }
+        end
+        return
+      end
+
+      # Delete the cookie
+      cookies.delete name
+    end
+
+
     log_view(@push)
     expires_now
 
@@ -69,6 +98,73 @@ class FilePushesController < ApplicationController
     # TODO: ActiveJob delete in 15 minutes after last view is shown.
     # # Expire if this is the last view for this push
     # @push.expire if !@push.views_remaining.positive?
+  end
+
+  # GET /f/:url_token/passphrase
+  def passphrase
+    begin
+      @push = FilePush.find_by_url_token!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # Showing a 404 reveals that this Secret URL never existed
+      # which is an information leak (not a secret anymore)
+      #
+      # We also don't want data in general. We entirely delete old pushes that:
+      # 1. have expired (payloads already deleted long ago)
+      # 2. are anonymous/not linked to a user account (audit log not needed)
+      #
+      # When not found, show the 'expired' page so even very old secret URLs
+      # when clicked they will be accurate - this secret URL has expired.
+      # No easy fix for JSON unfortunately as we don't have a record to show.
+      respond_to do |format|
+        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
+        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+      end
+      return
+    end
+
+    respond_to do |format|
+      format.html { render action: 'passphrase', layout: 'naked' }
+    end
+  end
+
+  # POST /f/:url_token/access
+  def access
+    begin
+      @push = FilePush.find_by_url_token!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # Showing a 404 reveals that this Secret URL never existed
+      # which is an information leak (not a secret anymore)
+      #
+      # We also don't want data in general. We entirely delete old pushes that:
+      # 1. have expired (payloads already deleted long ago)
+      # 2. are anonymous/not linked to a user account (audit log not needed)
+      #
+      # When not found, show the 'expired' page so even very old secret URLs
+      # when clicked they will be accurate - this secret URL has expired.
+      # No easy fix for JSON unfortunately as we don't have a record to show.
+      respond_to do |format|
+        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
+        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+      end
+      return
+    end
+
+    # Construct the passphrase cookie name
+    name = @push.url_token + '-' + 'f'
+
+    # Validate the passphrase
+    if @push.passphrase == params[:passphrase]
+      # Passphrase is valid
+      # Set the passphrase cookie
+      cookies[name] = { value: @push.passphrase, expires: 10.minutes.from_now }
+      # Redirect to the payload
+      redirect_to file_push_path(@push.url_token)
+    else
+      # Passphrase is invalid
+      # Redirect to the passphrase page
+      flash[:alert] = _('That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.')
+      redirect_to passphrase_file_push_path(@push.url_token)
+    end
   end
 
   # GET /file_pushes/new
@@ -149,6 +245,7 @@ class FilePushesController < ApplicationController
 
     @push.payload = params[:file_push][:payload] || ''
     @push.note = params[:file_push][:note] unless params[:file_push].fetch(:note, '').blank?
+    @push.passphrase = params[:file_push].fetch(:passphrase, '')
     @push.files.attach(params[:file_push][:files])
 
     @push.validate!

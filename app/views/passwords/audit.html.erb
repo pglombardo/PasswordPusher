@@ -71,6 +71,19 @@
                     <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
                 </span>
                 </label>
+                <label class="list-group-item d-flex gap-2">
+                <span>
+                    <%= _('Passphrase Lockdown') %>:
+                    <strong>
+                        <% if @push.passphrase.blank? %>
+                            <%= _('No') %>
+                        <% else %>
+                            <%= _('Yes') %>
+                        <% end %>
+                    </strong>
+                    <small class="d-block text-muted"><%= _('Require recipients to enter a passphrase to view this push.') %></small>
+                </span>
+                </label>
             </div>
         </div>
         <div class='col'>
