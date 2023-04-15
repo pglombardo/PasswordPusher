@@ -1,0 +1,54 @@
+version: '2.1'
+
+services:
+  db:
+    image: mariadb:10.6.5
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_USER: 'passwordpusher_user'
+      MARIADB_PASSWORD: 'passwordpusher_passwd'
+      MARIADB_DATABASE: 'passwordpusher_db'
+      MARIADB_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - /var/lib/pwpush-mariadb/data:/var/lib/mysql
+
+  pwpush:
+    image: docker.io/pglombardo/pwpush-mysql:release
+    ports:
+      - "5100:5100"
+    depends_on:
+      - db
+    links:
+     - db:mysql
+    # You can set environment variables here, or in a .env file.  See:
+    # https://docs.docker.com/compose/environment-variables/
+    #
+    # Password Pusher provides an example Docker environment file:
+    # https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/pwpush-docker-env-file
+    #
+    # See also the Password Pusher Configuration documentation
+    # https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md
+    #
+    # Uncomment the following lines to set environment variables and add your own.
+    # environment:
+    #   PWP__PW__EXPIRE_AFTER_DAYS_DEFAULT: "1"
+    #   PWP__PW__EXPIRE_AFTER_VIEWS_MIN: "1"
+    #   PWP__PW__RETRIEVAL_STEP_DEFAULT: "true"
+    #
+    # Uncomment the following lines to mount a volume.
+    # volumes:
+    #   # Example of a persistent volume for the storage directory (file uploads)
+    #   - /path/to/directory:/opt/PasswordPusher/storage:rw
+    #
+    # Or you could override a single file in the container with a bind mount:
+    # volumes:
+    #   - type: bind
+    #     source: /path/to/my/custom/settings.yml
+    #     target: /opt/PasswordPusher/config/settings.yml
+    #
+    # To customise the application via configuration file, see settings.yml:
+    # https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml
+    #
+    # Then you can use the above bind mount to overlay the file into the container on boot.
+
