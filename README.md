@@ -135,6 +135,12 @@ One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set
 
 _This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  Heroku used to offer free dynos but that is [no longer the case](https://blog.heroku.com/next-chapter) from November 28, 2022.  Hosting charges will be incurred._
 
+## On PikaPods
+
+One click deploy to [PikaPods](https://www.pikapods.com/) from $1/month. Start free with $5 welcome credit.
+
+[![Run on PikaPods](https://www.pikapods.com/static/run-button.svg)](https://www.pikapods.com/pods?run=pwpush)
+
 ## With Nginx
 
 See the prebuilt [Docker Compose example here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/examples/pwpush-and-nginx).
