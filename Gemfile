@@ -78,18 +78,19 @@ gem "jbuilder"
 gem 'foreman'
 gem 'puma'
 gem 'oj'
-
 gem 'devise', '>= 4.9.0'
-
 gem 'config'
-gem 'route_translator', '>= 13.0.0'
-gem 'translation'
-gem 'i18n-tasks', '~> 1.0.12'
 gem 'mail_form', '>= 1.9.0'
 gem 'apipie-rails'
 gem 'simple_token_authentication', '~> 1.18', '>= 1.18.0', git: "https://github.com/pglombardo/simple_token_authentication.git", branch: 'rails7-support'
 gem 'lograge'
 gem 'rollbar'
+
+
+gem 'route_translator', '>= 13.0.0'
+gem 'translation'
+gem 'i18n-tasks', '~> 1.0.12'
+gem 'devise-i18n'
 
 # For File Uploads
 gem "aws-sdk-s3", require: false

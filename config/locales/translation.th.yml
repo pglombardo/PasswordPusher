@@ -145,6 +145,35 @@ th:
         restrict_dependent_destroy:
           has_one: ไม่สามารถลบบันทึกได้เนื่องจากมี %{record} ที่อ้างอิงอยู่
           has_many: ไม่สามารถลบบันทึกได้เนื่องจากมี %{record} ที่อ้างอิงอยู่
+    attributes:
+      user:
+        confirmation_sent_at: คำแนะนำในการยืนยันตัวตนถูกส่งไปเมื่อ
+        confirmation_token: รหัสลับสำหรับยืนยันตัวตน
+        confirmed_at: ยืนยันตัวตนเมื่อ
+        created_at: สร้างขึ้นเมื่อ
+        current_password: รหัสผ่านปัจจุบัน
+        current_sign_in_at: เข็าสู่ระบบเมื่อ
+        current_sign_in_ip: IP ที่ใช้เข้าสู่ระบบ
+        email: อีเมล
+        encrypted_password: รหัสผ่านที่ถูกเข้ารหัส
+        failed_attempts: การเข้าสู่ระบบล้มเหลว
+        last_sign_in_at: เข้าสู่ระบบล่าสุดเมื่อ
+        last_sign_in_ip: IP ที่เข้าสู่ระบบล่าสุด
+        locked_at: ถูกล็อกเมื่อ
+        password: รหัสผ่าน
+        password_confirmation: ยืนยันรหัสผ่าน
+        remember_created_at: การจำผู้ใช้ครั้งล่าสุด
+        remember_me: จำชื่อผู้ใช้
+        reset_password_sent_at: คำสั่งการเปลี่ยนรหัสผ่านถูกส่งไปเมื่อ
+        reset_password_token: รหัสลับสำหรับการเปลี่ยนรหัสผ่าน
+        sign_in_count: จำนวนครั้งที่เข้าสู่ระบบ
+        unconfirmed_email: อีเมลที่ไม่ได้รับการยืนยัน
+        unlock_token: รหัสลับสำหรับปลดล็อก
+        updated_at: แก้ไขเมื่อ
+    models:
+      user:
+        one: ผู้ใช้
+        other: ผู้ใช้
   datetime:
     distance_in_words:
       half_a_minute: ครึ่งนาที
@@ -229,6 +258,8 @@ th:
       resend_title: ส่งคำแนะนำการยืนยันอีกครั้ง
       resend_header: ส่งคำแนะนำการยืนยันอีกครั้ง
       resend_button: ส่งซ้ำ
+      new:
+        resend_confirmation_instructions: ส่งยืนยันคำขออีกครั้ง
     failure:
       already_authenticated: คุณเข้าสู่ระบบแล้ว
       inactive: บัญชีของคุณยังไม่ถูกเปิดใช้งาน
@@ -242,14 +273,33 @@ th:
     mailer:
       confirmation_instructions:
         subject: คำแนะนำการยืนยัน
+        action: ยืนยันบัญชีของฉัน
+        greeting: ยินดีต้อนรับคุณ %{recipient}!
+        instruction: 'คุณสามารถยืนยันอีเมล์ที่ใช้สมัครสมาชิกได้จากลิงค์ข้างล่างนี้:'
       reset_password_instructions:
         subject: คำแนะนำการตั้งค่ารหัสผ่าน
+        action: เปลี่ยนรหัสผ่านของฉัน
+        greeting: สวัสดีคุณ%{recipient}!
+        instruction: ทางเวบได้รับคำขอเปลี่ยนรหัสผ่านของคุณ และคุณสามารถตั้งรหัสผ่านใหม่จากลิงค์ข้างล่างนี้
+        instruction_2: ถ้าคุณไม่ได้ขอเปลี่ยนรหัสผ่าน กรุณาเพิกเฉยต่อเมล์ฉบับนี้
+        instruction_3: รหัสผ่านของคุณยังไม่ได้ถูกเปลี่ยนแปลง จนกว่าคุณจะเข้าลิงค์ด้านบนนี้และตั้งรหัสผ่านใหม่
       unlock_instructions:
         subject: คำแนะนำการปลดล็อก
+        action: ปลดล็อคบัญชีของฉัน
+        greeting: สวัสดีคุณ%{recipient}!
+        instruction: 'คลิกลิงค์ทางด้านล่างนี้เพื่อปลดล็อคบัญชีของคุณ:'
+        message: บัญชีของคุณโดนล็อค เนื่องจากคุณใส่รหัสผ่านผิดเกินจำนวนครั้งที่ทางเรากำหนด
       email_changed:
         subject: การเปลี่ยนแปลงอีเมลสำเร็จ
+        greeting: สวัสดี %{recipient}
+        message: เราติดต่อคุณในครั้งนี้เพื่อแจ้งให้ทราบว่าอีเมลของคุณได้ถูกเปลี่ยนเป็น
+          %{email} สำเร็จแล้ว
+        message_unconfirmed: เรากำลังติดต่อคุณเพื่อแจ้งให้ทราบว่าอีเมลของคุณกำลังจะเปลี่ยนเป็น
+          %{email}
       password_change:
         subject: การเปลี่ยนแปลงรหัสผ่านสำเร็จ
+        greeting: สวัสดี %{recipient}
+        message: เราติดต่อคุณในครั้งนี้เพื่อแจ้งให้ทราบว่ารหัสผ่านของคุณได้ถูกเปลี่ยนสำเร็จแล้ว
     omniauth_callbacks:
       failure: ไม่สามารถยืนยันตัวคุณจาก %{kind} เพราะ "%{reason}"
       success: ยืนยันตัวตนจากบัญชี %{kind}
@@ -265,6 +315,14 @@ th:
       forgot_title: ลืมรหัสผ่าน
       forgot_header: ลืมรหัสผ่าน
       forgot_button: ส่งคำแนะนำการรีเซ็ต
+      edit:
+        change_my_password: เปลี่ยนรหัสผ่านของคุณ
+        change_your_password: เปลี่ยนรหัสผ่านของคุณ
+        confirm_new_password: ยืนยันรหัสผ่านใหม่
+        new_password: รหัสผ่านใหม่
+      new:
+        forgot_your_password: ลืมรหัสผ่าน?
+        send_me_reset_password_instructions: ส่งคำขอตั้งรหัสผ่านใหม่
     registrations:
       destroyed: ลาก่อน! บัญชีของคุณถูกยกเลิกเรียบร้อยแล้ว เราหวังว่าจะได้พบคุณใหม่ในไม่ช้า
       signed_up: ยินดีต้อนรับ! คุณลงทะเบียนเรียบร้อยแล้ว
@@ -292,6 +350,18 @@ th:
       create_account: สร้างบัญชี
       email: อีเมล
       password_confirmation: การยืนยันรหัสผ่าน
+      edit:
+        are_you_sure: คุณแน่ใจหรือไม่?
+        cancel_my_account: ยกเลิกบัญชีของฉัน
+        currently_waiting_confirmation_for_email: ขณะนี้ ระบบรอการยืนยันอีเมล์ %{email}
+          อยู่
+        leave_blank_if_you_don_t_want_to_change_it: เว้นว่างไว้ถ้าคุณไม่ต้องการจะเปลี่ยนแปลง
+        title: แก้ไข%{resource}
+        unhappy: ไม่พอใจ
+        update: ปรับข้อมูล
+        we_need_your_current_password_to_confirm_your_changes: เราต้องการรหัสผ่านปัจจุบันเพื่อยืนยันการเปลี่ยนรหัสของคุณ
+      new:
+        sign_up: ออกจากระบบ
     unlocks:
       send_instructions: คุณจะได้รับอีเมล์แนะนำการปลดล็อกบัญชีในไม่ช้า
       send_paranoid_instructions: หากบัญชีของคุณมีอยู่ในระบบแล้ว คุณจะได้รับอีเมล์แนะนำวิธีการปลดล็อกบัญชีในไม่ช้า
@@ -299,6 +369,8 @@ th:
       unlock_title: ส่งคำแนะนำในการปลดล็อกอีกครั้ง
       unlock_header: ส่งคำแนะนำในการปลดล็อกอีกครั้ง
       unlock_button: ส่งซ้ำ
+      new:
+        resend_unlock_instructions: ส่งคำขอปลดล็อคอีกครั้ง
     general:
       remember_me: จดจำฉัน
       login: เข้าสู่ระบบ
@@ -307,6 +379,21 @@ th:
       didnt_confirmation: ไม่ได้รับคำแนะนำในการยืนยัน?
       didnt_unlock: ไม่ได้รับคำแนะนำในการปลดล็อค?
       email: อีเมล
+    sessions:
+      new:
+        sign_in: เข้าสู่ระบบ
+    shared:
+      links:
+        back: กลับ
+        didn_t_receive_confirmation_instructions: ไม่ได้รับการยืนยันคำขอ?
+        didn_t_receive_unlock_instructions: ไม่ได้รับคำขอปลดล็อค?
+        forgot_your_password: ลืมรหัสผ่าน?
+        sign_in: เข้าสู่ระบบ
+        sign_in_with_provider: เข้าสู่ระบบด้วย%{provider}
+        sign_up: ออกจากระบบ
+      minimum_password_length:
+        one: "(%{count} ตัวอักษรขั้นต่ำ)"
+        other: "(%{count} ตัวอักษรขั้นต่ำ)"
   apipie:
     resources: ทรัพยากร
     resource: ทรัพยากร
@@ -345,3 +432,122 @@ th:
         deprecated_in: เลิกใช้แล้วใน
         sunset_at: พระอาทิตย์ตกที่
         info: ข้อมูล
+  i18n_tasks:
+    add_missing:
+      added:
+        one: เพิ่มคีย์ %{count}
+        other: เพิ่มคีย์ %{count}
+    cmd:
+      args:
+        default_text: 'ค่าเริ่มต้น: %{value}'
+        desc:
+          all_locales: อย่าคาดหวังว่ารูปแบบคีย์จะขึ้นต้นด้วยโลแคล ให้ใช้กับโลแคลทั้งหมดแทน
+          config: แทนที่ตำแหน่งการกำหนดค่า
+          confirm: ยืนยันโดยอัตโนมัติ
+          data_format: 'รูปแบบข้อมูล: %{valid_text}'
+          keep_order: รักษาลำดับของคีย์
+          key_pattern: กรองตามรูปแบบคีย์ (เช่น 'common.*')
+          key_pattern_to_rename: คีย์แบบเต็ม (รูปแบบ) เพื่อเปลี่ยนชื่อ ที่จำเป็น
+          locale_to_translate_from: ภาษาที่จะแปลจาก
+          locales_filter: 'โลแคลที่จะประมวลผล พิเศษ: ฐาน'
+          missing_types: 'กรองตามประเภท: %{valid}'
+          new_key_name: ชื่อใหม่ สอดแทรกชื่อเดิมเป็น %{key} ที่จำเป็น
+          nostdin: อย่าอ่านจาก stdin
+          out_format: 'รูปแบบเอาต์พุต: %{valid_text}'
+          pattern_router: 'ใช้เราเตอร์รูปแบบ: ย้ายคีย์ต่อ config data.write'
+          strict: หลีกเลี่ยงการอนุมานการใช้ไดนามิกคีย์ เช่น t("cats.#{cat}.name")
+            มีความสำคัญเหนือการตั้งค่า config หากตั้งค่าไว้
+          translation_backend: แบ็กเอนด์การแปล (google หรือ deepl)
+          value: 'ค่า. Interpolates: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
+            %{value_or_default_or_human_key}'
+      desc:
+        add_missing: เพิ่มคีย์ที่ขาดหายไปให้กับข้อมูลตำแหน่งที่ตั้ง เลือกจับคู่รูปแบบ
+        check_consistent_interpolations: ตรวจสอบว่าการแปลทั้งหมดใช้ตัวแปรการแก้ไขที่ถูกต้อง
+        check_normalized: ตรวจสอบว่าข้อมูลการแปลทั้งหมดได้รับการทำให้เป็นมาตรฐาน
+        config: แสดงการกำหนดค่างาน i18n
+        data: แสดงข้อมูลสถานที่
+        data_merge: รวมข้อมูลสถานที่กับต้นไม้
+        data_remove: ลบคีย์ที่อยู่ในแผนผังออกจากข้อมูล
+        data_write: แทนที่ข้อมูลโลแคลด้วยทรี
+        eq_base: แสดงการแปลเท่ากับค่าฐาน
+        find: แสดงตำแหน่งที่ใช้คีย์ในรหัส
+        gem_path: แสดงเส้นทางสู่อัญมณี
+        health: ทุกอย่างเรียบร้อยดีไหม
+        irb: เริ่มเซสชัน REPL ภายในบริบทงาน i18n
+        missing: แสดงคำแปลที่ขาดหายไป เลือกจับคู่รูปแบบ
+        mv: เปลี่ยนชื่อ/รวมคีย์ในข้อมูลโลแคลที่ตรงกับรูปแบบที่กำหนด
+        normalize: 'ปรับข้อมูลการแปลให้เป็นมาตรฐาน: จัดเรียงและย้ายไปยังไฟล์ที่ถูกต้อง'
+        remove_unused: ลบคีย์ที่ไม่ได้ใช้
+        rm: ลบคีย์ในข้อมูลโลแคลที่ตรงกับรูปแบบที่กำหนด
+        translate_missing: แปลคีย์ที่หายไปด้วย Google Translate หรือ DeepL Pro โดยเลือกจับคู่รูปแบบได้
+        tree_convert: แปลงต้นไม้ระหว่างรูปแบบ
+        tree_filter: กรองต้นไม้ตามรูปแบบคีย์
+        tree_merge: รวมต้นไม้
+        tree_mv_key: เปลี่ยนชื่อ/รวม/ลบคีย์ที่ตรงกับรูปแบบที่กำหนด
+        tree_set_value: กำหนดค่าของคีย์ เลือกจับคู่รูปแบบ
+        tree_subtract: ต้นไม้ A ลบคีย์ในต้นไม้ B
+        tree_translate: Google แปลต้นไม้เป็นภาษารูท
+        unused: แสดงคำแปลที่ไม่ได้ใช้
+      encourage:
+      - ดีมาก!
+      - ทำได้ดี!
+      - สมบูรณ์แบบ!
+      enum_list_opt:
+        invalid: "%{invalid} ไม่ได้อยู่ใน: %{valid}"
+      enum_opt:
+        invalid: "%{invalid} ไม่ใช่หนึ่งใน: %{valid}"
+      errors:
+        invalid_format: 'รูปแบบไม่ถูกต้อง: %{invalid} ถูกต้อง: %{valid}.'
+        invalid_locale: 'ภาษาไม่ถูกต้อง: %{invalid}'
+        invalid_missing_type:
+          one: 'ประเภทไม่ถูกต้อง: %{invalid} ถูกต้อง: %{valid}.'
+          other: 'ประเภทที่ไม่รู้จัก: %{invalid} ถูกต้อง: %{valid}.'
+        pass_forest: ผ่านป่าโลแคล
+    common:
+      continue_q: ดำเนินการต่อ?
+      key: สำคัญ
+      locale: สถานที่
+      n_more: "%{count} เพิ่มเติม"
+      value: ค่า
+    data_stats:
+      text: มีคีย์ %{key_count} ข้ามโลแคล %{locale_count} โดยเฉลี่ยแล้ว ค่าจะมีความยาวอักขระ
+        %{value_chars_avg} ตัว คีย์มีส่วน %{key_segments_avg} ส่วนโลแคลมีคีย์ %{per_locale_avg}
+      text_single_locale: มีคีย์ %{key_count} ทั้งหมด โดยเฉลี่ยแล้ว ค่าจะมีความยาวอักขระ
+        %{value_chars_avg} ตัว คีย์มีส่วน %{key_segments_avg}
+      title: ป่า (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: ตั้งค่าคีย์ DeepL Pro API ผ่านตัวแปรสภาพแวดล้อม DEEPL_AUTH_KEY
+          หรือ translate.deepl_api_key ใน config/i18n-tasks.yml รับรหัสที่ https://www.deepl.com/pro
+        no_results: DeepL ไม่แสดงผลลัพธ์
+    google_translate:
+      errors:
+        no_api_key: ตั้งค่าคีย์ Google API ผ่านตัวแปรสภาพแวดล้อม GOOGLE_TRANSLATE_API_KEY
+          หรือ translate.google_translate_api_key ใน config/i18n-tasks.yml รับรหัสที่
+          https://code.google.com/apis/console
+        no_results: Google แปลภาษาไม่แสดงผลลัพธ์ ตรวจสอบให้แน่ใจว่าตั้งค่าข้อมูลการเรียกเก็บเงินไว้ที่
+          https://code.google.com/apis/console
+    health:
+      no_keys_detected: ไม่พบคีย์ ตรวจสอบ data.read ใน config/i18n-tasks.yml
+    inconsistent_interpolations:
+      none: ไม่พบการแก้ไขที่ไม่สอดคล้องกัน
+    missing:
+      details_title: ค่าในพื้นที่หรือแหล่งที่มาอื่น
+      none: ไม่มีคำแปลขาดหายไป
+    remove_unused:
+      confirm:
+        one: การแปล %{count} จะถูกลบออกจาก %{locales}
+        other: การแปล %{count} จะถูกลบออกจาก %{locales}
+      noop: ไม่มีคีย์ที่ไม่ได้ใช้ที่จะลบ
+      removed: ลบคีย์ %{count}
+    translate_missing:
+      translated: คีย์ %{count} ที่แปลแล้ว
+    unused:
+      none: มีการใช้งานการแปลทุกครั้ง
+    usages:
+      none: ไม่พบการใช้คีย์
+    yandex_translate:
+      errors:
+        no_api_key: ตั้งค่าคีย์ Yandex API ผ่านตัวแปรสภาพแวดล้อม YANDEX_API_KEY หรือ
+          translate.yandex_api_key ใน config/i18n-tasks.yml รับรหัสที่ https://tech.yandex.com/translate
+        no_results: ยานเดกซ์ไม่แสดงผลลัพธ์
