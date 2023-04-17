@@ -10,8 +10,8 @@ class PasswordsController < ApplicationController
   acts_as_token_authentication_handler_for User, only: [:audit, :active, :expired]
 
   resource_description do
-    name 'Pushes'
-    short 'Interact directly with password pushes.'
+    name 'Text Pushes'
+    short 'Interact directly with text pushes.'
   end
 
   api :GET, '/p/:url_token.json', 'Retrieve a push.'

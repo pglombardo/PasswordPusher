@@ -144,6 +144,35 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      user:
+        confirmation_sent_at: パスワード確認送信時刻
+        confirmation_token: パスワード確認用トークン
+        confirmed_at: パスワード確認時刻
+        created_at: 作成日
+        current_password: 現在のパスワード
+        current_sign_in_at: 現在のログイン時刻
+        current_sign_in_ip: 現在のログインIPアドレス
+        email: Eメール
+        encrypted_password: 暗号化パスワード
+        failed_attempts: 失敗したログイン試行回数
+        last_sign_in_at: 最終ログイン時刻
+        last_sign_in_ip: 最終ログインIPアドレス
+        locked_at: ロック時刻
+        password: パスワード
+        password_confirmation: パスワード（確認用）
+        remember_created_at: ログイン記憶時刻
+        remember_me: ログインを記憶する
+        reset_password_sent_at: パスワードリセット送信時刻
+        reset_password_token: パスワードリセット用トークン
+        sign_in_count: ログイン回数
+        unconfirmed_email: 未確認Eメール
+        unlock_token: ロック解除用トークン
+        updated_at: 更新日
+    models:
+      user:
+        one: ユーザー
+        other: ユーザー
   datetime:
     distance_in_words:
       half_a_minute: 30秒前後
@@ -228,6 +257,8 @@ ja:
       resend_title: 確認手順の再送信
       resend_header: 確認手順の再送信
       resend_button: 再送
+      new:
+        resend_confirmation_instructions: アカウント確認メール再送
     failure:
       already_authenticated: すでにログインしています。
       inactive: アカウントが有効化されていません。メールに記載された手順にしたがって、アカウントを有効化してください。
@@ -241,14 +272,31 @@ ja:
     mailer:
       confirmation_instructions:
         subject: メールアドレス確認メール
+        action: メールアドレスの確認
+        greeting: "%{recipient}様"
+        instruction: 以下のリンクをクリックし、メールアドレスの確認手続を完了させてください。
       reset_password_instructions:
         subject: パスワードの再設定について
+        action: パスワード変更
+        greeting: "%{recipient}様"
+        instruction: パスワード再設定の依頼を受けたため、メールを送信しています。下のリンクからパスワードの再設定ができます。
+        instruction_2: パスワード再設定の依頼をしていない場合、このメールを無視してください。
+        instruction_3: パスワードの再設定は、上のリンクから新しいパスワードを登録するまで完了しません。
       unlock_instructions:
         subject: アカウントのロック解除について
+        action: アカウントのロック解除
+        greeting: "%{recipient}様"
+        instruction: アカウントのロックを解除するには下のリンクをクリックしてください。
+        message: ログイン失敗が繰り返されたため、アカウントはロックされています。
       email_changed:
         subject: メール変更完了
+        greeting: こんにちは、%{recipient}様。
+        message: あなたのメールの変更（%{email}）をお知らせいたします。
+        message_unconfirmed: メールアドレスが %{email} に変更されたことをお知らせするために、ご連絡を差し上げております。
       password_change:
         subject: パスワードの変更について
+        greeting: "%{recipient}様"
+        message: パスワードが再設定されました。
     omniauth_callbacks:
       failure: "%{kind} アカウントによる認証に失敗しました。理由：（%{reason}）"
       success: "%{kind} アカウントによる認証に成功しました。"
@@ -263,6 +311,14 @@ ja:
       forgot_title: パスワードをお忘れですか
       forgot_header: パスワードをお忘れですか
       forgot_button: リセット指示を送信
+      edit:
+        change_my_password: パスワードを変更する
+        change_your_password: パスワードを変更
+        confirm_new_password: 確認用新しいパスワード
+        new_password: 新しいパスワード
+      new:
+        forgot_your_password: パスワードを忘れましたか？
+        send_me_reset_password_instructions: パスワードの再設定方法を送信する
     registrations:
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       signed_up: アカウント登録が完了しました。
@@ -287,6 +343,17 @@ ja:
       create_account: アカウントを作成する
       email: Eメール
       password_confirmation: パスワードの確認
+      edit:
+        are_you_sure: 本当によろしいですか？
+        cancel_my_account: アカウント削除
+        currently_waiting_confirmation_for_email: "%{email} の確認待ち"
+        leave_blank_if_you_don_t_want_to_change_it: 空欄のままなら変更しません
+        title: "%{resource}編集"
+        unhappy: 気に入りません
+        update: 更新
+        we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
+      new:
+        sign_up: アカウント登録
     unlocks:
       send_instructions: アカウントのロック解除方法を数分以内にメールでご連絡します。
       send_paranoid_instructions: アカウントが見つかった場合、アカウントのロック解除方法を数分以内にメールでご連絡します。
@@ -294,6 +361,8 @@ ja:
       unlock_title: ロック解除手順を再送信
       unlock_header: ロック解除手順を再送信
       unlock_button: 再送
+      new:
+        resend_unlock_instructions: アカウントのロック解除方法を再送する
     general:
       remember_me: 私を覚えてますか
       login: ログイン
@@ -302,6 +371,21 @@ ja:
       didnt_confirmation: 確認の指示を受け取りませんでしたか?
       didnt_unlock: ロック解除の指示を受けていませんか?
       email: Eメール
+    sessions:
+      new:
+        sign_in: ログイン
+    shared:
+      links:
+        back: 戻る
+        didn_t_receive_confirmation_instructions: アカウント確認のメールを受け取っていませんか？
+        didn_t_receive_unlock_instructions: アカウントのロック解除方法のメールを受け取っていませんか？
+        forgot_your_password: パスワードを忘れましたか？
+        sign_in: ログイン
+        sign_in_with_provider: "%{provider}でログイン"
+        sign_up: アカウント登録
+      minimum_password_length:
+        one: "(%{count} 文字以上)"
+        other: "(%{count} 文字以上)"
   apipie:
     resources: 資力
     resource: リソース
@@ -340,3 +424,120 @@ ja:
         deprecated_in: 非推奨
         sunset_at: 日没
         info: 情報
+  i18n_tasks:
+    add_missing:
+      added:
+        one: "%{count} キーを追加"
+        other: "%{count} キーを追加"
+    cmd:
+      args:
+        default_text: 'デフォルト: %{value}'
+        desc:
+          all_locales: キーパターンがロケールで始まるとは思わず、すべてのロケールに暗黙的に適用してください。
+          config: 構成の場所をオーバーライドする
+          confirm: 自動確認
+          data_format: 'データ形式: %{valid_text}。'
+          keep_order: キーの順番を守る
+          key_pattern: 'キーパターンでフィルタリング (例: 「common.*」)'
+          key_pattern_to_rename: 名前を変更する完全なキー (パターン)。必要
+          locale_to_translate_from: 翻訳元のロケール
+          locales_filter: 処理するロケール。スペシャル：ベース
+          missing_types: 'タイプによるフィルター: %{valid}'
+          new_key_name: 新しい名前。元の名前を %{key} として補間します。必要
+          nostdin: 標準入力から読み取らない
+          out_format: 出力フォーマット：%{valid_text}
+          pattern_router: 'パターン ルーターを使用: キーは構成 data.write ごとに移動されます'
+          strict: t("cats.#{cat}.name") などの動的なキーの使用法を推測することは避けてください。設定されている場合は、config
+            設定よりも優先されます。
+          translation_backend: 翻訳バックエンド（googleまたはdeepl）
+          value: '価値。補間: %{value}、%{human_key}、%{key}、%{default}、%{value_or_human_key}、%{value_or_default_or_human_key}'
+      desc:
+        add_missing: 欠落しているキーをロケール データに追加し、オプションでパターンに一致させます
+        check_consistent_interpolations: すべての翻訳で正しい補間変数が使用されていることを確認する
+        check_normalized: すべての翻訳データが正規化されていることを確認する
+        config: i18n タスクの設定を表示する
+        data: ロケールデータを表示
+        data_merge: ロケール データをツリーとマージする
+        data_remove: ツリーに存在するキーをデータから削除する
+        data_write: ロケール データをツリーに置き換える
+        eq_base: ベース値に等しい翻訳を表示
+        find: コード内でキーが使用されている場所を表示する
+        gem_path: gem へのパスを表示する
+        health: 大丈夫ですか？
+        irb: i18n-task コンテキスト内で REPL セッションを開始する
+        missing: 欠落している翻訳を表示し、オプションでパターンに一致させます
+        mv: 指定されたパターンに一致するロケール データ内のキーの名前変更/マージ
+        normalize: '翻訳データの正規化: 正しいファイルへの並べ替えと移動'
+        remove_unused: 未使用のキーを削除する
+        rm: 指定されたパターンに一致するロケール データのキーを削除します
+        translate_missing: 不足しているキーを Google 翻訳または DeepL Pro で翻訳し、オプションでパターンを照合します
+        tree_convert: ツリーをフォーマット間で変換する
+        tree_filter: キーパターンによるツリーのフィルタリング
+        tree_merge: 木をマージする
+        tree_mv_key: 指定されたパターンに一致するキーの名前変更/マージ/削除
+        tree_set_value: キーの値を設定し、オプションでパターンに一致させます
+        tree_subtract: ツリー A からツリー B のキーを引いたもの
+        tree_translate: ツリーをルート ロケールに Google 翻訳する
+        unused: 未使用の翻訳を表示
+      encourage:
+      - よくできた！
+      - 素晴らしい！
+      - 完全！
+      enum_list_opt:
+        invalid: "%{invalid} はありません: %{valid}。"
+      enum_opt:
+        invalid: "%{invalid} は、%{valid} のいずれでもありません。"
+      errors:
+        invalid_format: '無効な形式: %{invalid}。有効: %{valid}。'
+        invalid_locale: '無効なロケール: %{invalid}'
+        invalid_missing_type:
+          one: '無効なタイプ: %{invalid}。有効: %{valid}。'
+          other: '不明なタイプ: %{invalid}。有効: %{valid}。'
+        pass_forest: ロケールの森を渡す
+    common:
+      continue_q: 継続する？
+      key: 鍵
+      locale: ロケール
+      n_more: "%{count} もっと"
+      value: 価値
+    data_stats:
+      text: "%{locale_count} ロケール全体で %{key_count} キーを持っています。平均して、値の長さは %{value_chars_avg}
+        文字で、キーには %{key_segments_avg} セグメントがあり、ロケールには %{per_locale_avg} キーがあります。"
+      text_single_locale: 合計で %{key_count} キーがあります。平均して、値の長さは %{value_chars_avg} 文字で、キーには
+        %{key_segments_avg} セグメントがあります。
+      title: フォレスト (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: config/i18n-tasks.ymlのDEEPL_AUTH_KEY環境変数またはtranslation.deepl_api_keyを介してDeepLProAPIキーを設定します。
+          https://www.deepl.com/proでキーを取得します。
+        no_results: DeepLは結果を返しませんでした。
+    google_translate:
+      errors:
+        no_api_key: GOOGLE_TRANSLATE_API_KEY 環境変数または config/i18n-tasks.yml の translation.google_translate_api_key
+          を介して Google API キーを設定します。 https://code.google.com/apis/console でキーを取得します。
+        no_results: Google 翻訳は結果を返しませんでした。お支払い情報が https://code.google.com/apis/console
+          に設定されていることを確認してください。
+    health:
+      no_keys_detected: キーが検出されませんでした。 config/i18n-tasks.yml の data.read を確認してください。
+    inconsistent_interpolations:
+      none: 矛盾する補間は見つかりませんでした。
+    missing:
+      details_title: 他のロケールまたはソースでの値
+      none: 欠落している翻訳はありません。
+    remove_unused:
+      confirm:
+        one: "%{count} 変換は %{locales} から削除されます。"
+        other: "%{count} 変換は %{locales} から削除されます。"
+      noop: 削除する未使用のキーはありません
+      removed: "%{count} キーを削除"
+    translate_missing:
+      translated: 翻訳された %{count} キー
+    unused:
+      none: すべての翻訳が使用されています。
+    usages:
+      none: キーの用途が見つかりません。
+    yandex_translate:
+      errors:
+        no_api_key: YANDEX_API_KEY 環境変数または config/i18n-tasks.yml の translation.yandex_api_key
+          を介して Yandex API キーを設定します。 https://tech.yandex.com/translate でキーを取得します。
+        no_results: Yandex は結果を返しませんでした。
