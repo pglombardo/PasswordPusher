@@ -36,6 +36,7 @@ class Url < ApplicationRecord
   def expire
     self.expired = true
     self.payload = nil
+    self.passphrase = nil
     self.expired_on = Time.now
     save
   end
