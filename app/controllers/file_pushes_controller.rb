@@ -4,7 +4,7 @@ class FilePushesController < ApplicationController
   helper FilePushesHelper
 
   # Authentication always except for :show
-  acts_as_token_authentication_handler_for User, except: [:show, :new, :preliminary, :destroy]
+  acts_as_token_authentication_handler_for User, except: [:show, :new, :preliminary, :destroy, :passphrase, :access]
 
   resource_description do
     name 'File Pushes'
@@ -54,21 +54,16 @@ class FilePushesController < ApplicationController
     end
 
     # Passphrase handling
-    unless @push.passphrase.blank?
+    if !@push.passphrase.blank?
       # Construct the passphrase cookie name
       name = @push.url_token + '-' + 'f'
 
       # The passphrase can be passed in the params or in the cookie (default)
       # JSON requests must pass the passphrase in the params
-      if params.key?(:passphrase)
-        candidate_passphrase = params[:passphrase]
-      else
-        candidate_passphrase = cookies[name]
-      end
+      has_passphrase = params.fetch(:passphrase, nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
 
-      # If the passphrase cookie is set, then we can skip the passphrase page
-      if candidate_passphrase != @push.passphrase
-        # Passphrase cookie is invalid
+      if !has_passphrase
+        # Passphrase hasn't been provided or is incorrect
         # Redirect to the passphrase page
         respond_to do |format|
           format.html { redirect_to passphrase_file_push_path(@push.url_token) }
@@ -156,7 +151,7 @@ class FilePushesController < ApplicationController
     if @push.passphrase == params[:passphrase]
       # Passphrase is valid
       # Set the passphrase cookie
-      cookies[name] = { value: @push.passphrase, expires: 10.minutes.from_now }
+      cookies[name] = { value: @push.passphrase_ciphertext, expires: 10.minutes.from_now }
       # Redirect to the payload
       redirect_to file_push_path(@push.url_token)
     else
