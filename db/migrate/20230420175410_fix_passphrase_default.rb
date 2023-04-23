@@ -23,10 +23,5 @@ class FixPassphraseDefault < ActiveRecord::Migration[7.0]
       Rails.logger.warn("Failed to remove default values for passphrase_ciphertext: #{e}")
       Rails.logger.warn("This is expected if you are using MySQL")
     end
-
-    # Change all empty string passphrases to nulls
-    Password.where(passphrase_ciphertext: '').update_all(passphrase_ciphertext: nil)
-    FilePush.where(passphrase_ciphertext: '').update_all(passphrase_ciphertext: nil)
-    Url.where(passphrase_ciphertext: '').update_all(passphrase_ciphertext: nil)
   end
 end
