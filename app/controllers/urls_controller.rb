@@ -52,7 +52,7 @@ class UrlsController < ApplicationController
     end
 
     # Passphrase handling
-    if !@push.passphrase.blank?
+    if !@push.passphrase.nil? && !@push.passphrase.blank?
       # Construct the passphrase cookie name
       name = @push.url_token + '-' + 'r'
 
