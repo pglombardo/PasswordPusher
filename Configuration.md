@@ -318,9 +318,12 @@ The Bootswatch themes are licensed under the MIT license.
 
 To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
 
+**Make sure to set both `PWP__THEME` and `PWP_PRECOMPILE` for the selected theme to work.** 👍
+
 | Environment Variable | Description | Possible Values |
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
+| PWP_PRECOMPILE | Forces a rebuild of the theme CSS on boot. | `true` |
 
 ---> See the [Themes Gallery](Themes.md) for examples of each.
 
