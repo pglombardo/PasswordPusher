@@ -170,6 +170,7 @@ class UrlsController < ApplicationController
   api :POST, '/r.json', 'Create a new URL push.'
   param :url, Hash, "Push details", required: true do
     param :payload, String, desc: 'The URL encoded URL to redirect to.', required: true
+    param :passphrase, String, desc: 'Require recipients to enter this passphrase to view the created push.'
     param :note, String, desc: 'If authenticated, the URL encoded note for this push.  Visible only to the push creator.', allow_blank: true
     param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
     param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
