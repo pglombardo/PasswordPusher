@@ -179,15 +179,15 @@ class FilePushesController < ApplicationController
 
   api :POST, '/f.json', 'Create a new file push.'
   param :file_push, Hash, "Push details", required: true do
-    param :payload, String, desc: 'The file_push or secret text to share.', required: true
-    param :note, String, desc: 'If authenticated, the note to label this push.', allow_blank: true
+    param :payload, String, desc: 'The URL encoded secret text to share.', required: true
+    param :note, String, desc: 'If authenticated, the URL encoded note for this push.  Visible only to the push creator.', allow_blank: true
     param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
     param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
     param :deletable_by_viewer, [true, false], desc: "Allow users to delete the push once retrieved."
     param :retrieval_step, [true, false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
   end
   formats ['json']
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" -F "file_push[filee][]=@/path/to/file/file1.extension" -F "file_push[files][]=@/path/to/file/file2.extension" https://pwpush.com/f.json'
+  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" -F "file_push[files][]=@/path/to/file/file1.extension" -F "file_push[files][]=@/path/to/file/file2.extension" https://pwpush.com/f.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
