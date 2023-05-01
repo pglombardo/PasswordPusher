@@ -147,6 +147,11 @@ it:
     connection_refused: |
       Oops! Impossibile connettersi al middleware console Web.
       Si prega di assicurarsi che un server di sviluppo rotaie è in esecuzione.
+    template:
+      body: 'Ricontrolla i seguenti campi:'
+      header:
+        one: 'Non posso salvare questo %{model}: 1 errore'
+        other: 'Non posso salvare questo %{model}: %{count} errori.'
   activerecord:
     errors:
       messages:
@@ -221,6 +226,9 @@ it:
       almost_x_years:
         one: quasi 1 anno
         other: quasi %{count} anni
+      x_years:
+        one: 1 anno
+        other: "%{count} anni"
     prompts:
       year: Anno
       month: Mese
