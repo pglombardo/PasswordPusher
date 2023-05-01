@@ -177,6 +177,7 @@ class PasswordsController < ApplicationController
   api :POST, '/p.json', 'Create a new push.'
   param :password, Hash, "Push details", required: true do
     param :payload, String, desc: 'The URL encoded password or secret text to share.', required: true
+    param :passphrase, String, desc: 'Require recipients to enter this passphrase to view the created push.'
     param :note, String, desc: 'If authenticated, the URL encoded note for this push.  Visible only to the push creator.', allow_blank: true
     param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
     param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
