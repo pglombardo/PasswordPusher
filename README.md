@@ -41,7 +41,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
 * __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __Custom CSS:__ Bundle in your own custom CSS to add your own design.
-* __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
+* __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 10 year history.
 * __Actively Maintained:__ I happily work for the good karma of the great IT/Security community.
 * __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
@@ -211,7 +211,7 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * The almost official [pwpush-cli](https://github.com/pglombardo/pwpush-cli) (in pre-beta): CLI for Password Pusher with authentication support
 
-* [thekamilpro/kppwpush](https://github.com/thekamilpro/kppwpush): A PowerShell Module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/KpPwpush/0.0.1).  See the livestream of it's creation on [The Kamil Pro's channel](https://www.youtube.com/watch?v=f8_PZOx_KBY&feature=youtu.be).
+* [thekamilpro/kppwpush](https://github.com/thekamilpro/kppwpush): A PowerShell Module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/KpPwpush/0.0.1).  See the livestream of its creation on [The Kamil Pro's channel](https://www.youtube.com/watch?v=f8_PZOx_KBY&feature=youtu.be).
 
 * [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
 
