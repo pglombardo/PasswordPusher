@@ -6,23 +6,6 @@
 #
 ---
 nl:
-  routes:
-    cancel: Annuleren
-    passwords: wachtwoorden
-    new: nieuw
-    active: Actief
-    expired: verlopen
-    preview: voorbeeld
-    audit: audit
-    pages: pagina's
-    users: gebruikers
-    sign_in: inloggen
-    sign_out: afmelden
-    sign_up: inschrijven
-    password: wachtwoord
-    edit: bewerken
-    confirmation: Bevestiging
-    unlock: ontgrendelen
   date:
     day_names:
     - zondag
@@ -133,7 +116,7 @@ nl:
       not_saved:
         one: 'Een fout verhinderde het opslaan van deze %{resource}:'
         other: "%{count} fouten verhinderden het opslaan van deze %{resource}:"
-      in:
+      in: moet in %{count} zijn
     unavailable_session: |
       Sessie %{id} is niet langer beschikbaar in het geheugen.
 
@@ -143,6 +126,11 @@ nl:
     connection_refused: |
       Oeps! Kan geen verbinding maken met de Web Console middleware.
       Zorg ervoor dat een rails ontwikkeling server draait.
+    template:
+      body: 'Er zijn problemen met de volgende velden:'
+      header:
+        one: "%{model} niet opgeslagen: 1 fout gevonden"
+        other: "%{model} niet opgeslagen: %{count} fouten gevonden"
   activerecord:
     errors:
       messages:
@@ -151,6 +139,35 @@ nl:
           has_one: Kan record niet verwijderen omdat er een afhankelijke %{record}
             bestaat
           has_many: Kan item niet verwijderen omdat afhankelijke %{record} bestaan
+    attributes:
+      user:
+        confirmation_sent_at: Bevestiging verstuurd op
+        confirmation_token: Bevestigingstoken
+        confirmed_at: Bevestigd op
+        created_at: Aangemaakt op
+        current_password: Huidig wachtwoord
+        current_sign_in_at: Huidige login op
+        current_sign_in_ip: Huidige login IP
+        email: E-mailadres
+        encrypted_password: Versleuteld wachtwoord
+        failed_attempts: Mislukte pogingen
+        last_sign_in_at: Laatste login op
+        last_sign_in_ip: Laatste login IP
+        locked_at: Vergrendeld op
+        password: Wachtwoord
+        password_confirmation: Bevestig wachtwoord
+        remember_created_at: Herinneren aangemaakt op
+        remember_me: Ingelogd blijven
+        reset_password_sent_at: Reset wachtwoord verstuurd op
+        reset_password_token: Reset wachtwoord token
+        sign_in_count: Aantal logins
+        unconfirmed_email: Onbevestigd e-mailadres
+        unlock_token: Ontgrendel token
+        updated_at: Bijgewerkt op
+    models:
+      user:
+        one: Gebruiker
+        other: Gebruikers
   datetime:
     distance_in_words:
       half_a_minute: een halve minuut
@@ -187,6 +204,9 @@ nl:
       almost_x_years:
         one: bijna een jaar
         other: bijna %{count} jaar
+      x_years:
+        one: 1 jaar
+        other: "%{count} jaar"
     prompts:
       year: jaar
       month: maand
@@ -215,7 +235,7 @@ nl:
       single_page_html:
         zero: Geen %{model} gevonden
         one: "<b>1</b> %{model}"
-        other: "<b>Alle&nbsp;%{count}</b> %{model}"
+        other: "<b>all&nbsp;%{count}</b> %{model}"
       multi_page: "%{from} - %{to} van de in totaal %{count} %{model}"
       multi_page_html: "<b>%{from}&nbsp;-&nbsp;%{to}</b> van de in totaal <b>%{count}</b>
         %{model}"
@@ -238,10 +258,12 @@ nl:
       resend_title: Bevestigingsinstructies opnieuw verzenden
       resend_header: Bevestigingsinstructies opnieuw verzenden
       resend_button: Opnieuw verzenden
+      new:
+        resend_confirmation_instructions: Verstuur bevestiging-instructies opnieuw
     failure:
       already_authenticated: Je bent reeds aangemeld.
       inactive: Je account is nog niet geactiveerd.
-      invalid: Ongeldig %{authentication_keys} of wachtwoord.
+      invalid: Ongeldige %{authentication_keys} of wachtwoord.
       locked: Je account is vergrendeld.
       last_attempt: Je hebt nog één poging voordat je account vergrendeld wordt.
       not_found_in_database: Ongeldig %{authentication_keys} of wachtwoord.
@@ -251,14 +273,36 @@ nl:
     mailer:
       confirmation_instructions:
         subject: Instructies ter bevestiging
+        action: Bevestig mijn account
+        greeting: Welkom %{recipient}!
+        instruction: 'Je kunt je e-mailadres bevestigen via onderstaande link:'
       reset_password_instructions:
         subject: Instructies om je wachtwoord opnieuw in te stellen
+        action: Verander mijn wachtwoord
+        greeting: Hallo %{recipient}!
+        instruction: Iemand heeft een link gevraagd om uw wachtwoord te wijzigen;
+          dit kan via onderstaande link.
+        instruction_2: Als je dit niet zelf hebt gevraagd, negeer deze mail dan alsjeblieft.
+        instruction_3: Je wachtwoord zal niet wijzigen totdat je bovenstaande link
+          hebt gevolgd en een nieuw wachtwoord hebt aangemaakt.
       unlock_instructions:
         subject: Ontgrendel instructies
+        action: Ontgrendel mijn account
+        greeting: Hallo %{recipient}!
+        instruction: 'Je kunt je account ontgrendelen via onderstaande link:'
+        message: Je account is vergrendeld door te veel mislukte pogingen om in te
+          loggen.
       email_changed:
         subject: E-mail gewijzigd
+        greeting: Beste %{recipient}!
+        message: Het e-mailadres van uw account is gewijzigd in %{email}.
+        message_unconfirmed: We nemen contact met u op om u te laten weten dat uw
+          e-mailadres wordt gewijzigd in %{email}.
       password_change:
         subject: Je wachtwoord is gewijzigd
+        greeting: Hallo %{recipient}!
+        message: We stellen je met deze e-mail ervan op de hoogte dat je wachtwoord
+          is gewijzigd.
     omniauth_callbacks:
       failure: We konden je niet aanmelden op je %{kind} omdat "%{reason}".
       success: Je bent succesvol ingelogd op je %{kind} account.
@@ -278,6 +322,14 @@ nl:
       forgot_title: Wachtwoord Vergeten
       forgot_header: Wachtwoord Vergeten
       forgot_button: Instructies voor Resetten Verzenden
+      edit:
+        change_my_password: Verander mijn wachtwoord
+        change_your_password: Wijzig je wachtwoord
+        confirm_new_password: Bevestig nieuw wachtwoord
+        new_password: Nieuw wachtwoord
+      new:
+        forgot_your_password: Wachtwoord vergeten?
+        send_me_reset_password_instructions: Stuur me wachtwoord reset instructies
     registrations:
       destroyed: Je account is verwijderd, wellicht tot ziens!
       signed_up: Je bent ingeschreven.
@@ -309,6 +361,20 @@ nl:
       create_account: Account Aanmaken
       email: E-mail
       password_confirmation: Wachtwoord Bevestigen
+      edit:
+        are_you_sure: Weet je het zeker?
+        cancel_my_account: Annuleer mijn account
+        currently_waiting_confirmation_for_email: 'Aan het wachten op de bevestiging
+          voor: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: laat leeg als je het niet wilt
+          wijzigen
+        title: Bewerk %{resource}
+        unhappy: Niet blij
+        update: Bijwerken
+        we_need_your_current_password_to_confirm_your_changes: we hebben je huidige
+          wachtwoord nodig om je veranderingen te bevestigen
+      new:
+        sign_up: Maak account aan
     unlocks:
       send_instructions: Je ontvangt via e-mail instructies hoe je je account kan
         ontgrendelen.
@@ -319,6 +385,8 @@ nl:
       unlock_title: Ontgrendelinstructies opnieuw verzenden
       unlock_header: Ontgrendelinstructies opnieuw verzenden
       unlock_button: Opnieuw te Verzenden
+      new:
+        resend_unlock_instructions: Verstuur ontgrendel-instructies opnieuw
     general:
       remember_me: Onthoud mij
       login: Log in
@@ -327,34 +395,190 @@ nl:
       didnt_confirmation: Geen bevestigingsinstructies ontvangen?
       didnt_unlock: Geen ontgrendelingsinstructies ontvangen?
       email: E-mail
+    sessions:
+      new:
+        sign_in: Inloggen
+    shared:
+      links:
+        back: Terug
+        didn_t_receive_confirmation_instructions: Geen bevestigingsmail ontvangen?
+        didn_t_receive_unlock_instructions: Geen ontgrendel-instructies ontvangen?
+        forgot_your_password: Wachtwoord vergeten?
+        sign_in: Inloggen
+        sign_in_with_provider: Inloggen met %{provider}
+        sign_up: Maak account aan
+      minimum_password_length:
+        one: "(minimaal %{count} karakter)"
+        other: "(minimaal %{count} karakters)"
   apipie:
-    resources: Middelen
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resources: Bronnen
+    resource: Bron
+    description: Beschrijving
+    no_docs_found: Geen documentatie gevonden
+    no_docs_found_descr: We hebben geen documentatie gevonden voor uw API.
+    follow_instructions_html: Volg %{href} om uw controllers te omschrijven.
+    follow_instructions_href: verdere instructies
+    oops: Oeps!!
+    resource_not_found_html: Bron %{resource} niet gevonden.
+    method_not_found_html: Methode %{method} niet gevonden voor bron %{resource}.
+    goto_homepage_html: Probeer naar %{href} te gaan
+    goto_homepage_href: "%{app_name} API-documentatie startpagina"
+    required: vereist
+    optional: optioneel
+    nil_allowed: nil toegestaan
+    param_name: Parameter naam
+    params: Parameters
     examples: Voorbeelden
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    metadata: Metagegevens
+    errors: Fouten
+    error_code: Code
+    error_description: Beschrijving
+    error_metadata: Metagegevens
+    supported_formats: Ondersteunde formaten
+    enable_javascript_html: Schakel JavaScript in om de %{comments_href} te bekijken.
+    comments_powered_by_disqus: reacties mede mogelijk gemaakt door %{disqus}
+    api_documentation: API documentatie
+    headers: Kopteksten
+    header_name: Kop naam
+    code: Code
+    deprecated: Verouderd
+    deprecation_details: Afschrijvingsdetails
+    deprecation:
+      attributes:
+        deprecated_in: Afgeschaft in
+        sunset_at: Zonsondergang om
+        info: Info
+    returns: Geeft terug
+  i18n_tasks:
+    add_missing:
+      added:
+        one: "%{count}-sleutel toegevoegd"
+        other: "%{count}-sleutels toegevoegd"
+    cmd:
+      args:
+        default_text: 'Standaard: %{value}'
+        desc:
+          all_locales: Verwacht niet dat sleutelpatronen beginnen met een locale,
+            maar pas ze impliciet toe op alle locales.
+          config: Configuratielocatie overschrijven
+          confirm: Automatisch bevestigen
+          data_format: 'Gegevensformaat: %{valid_text}.'
+          keep_order: Houd de volgorde van de sleutels aan
+          key_pattern: Filteren op sleutelpatroon (bijv. 'common.*')
+          key_pattern_to_rename: Volledige sleutel (patroon) om te hernoemen. Vereist
+          locale_to_translate_from: Locale om van te vertalen
+          locales_filter: 'Land(en) om te verwerken. Bijzonder: basis'
+          missing_types: 'Filter op typen: %{valid}'
+          new_key_name: Nieuwe naam, interpoleert oorspronkelijke naam als %{key}.
+            Vereist
+          nostdin: Lees niet van stdin
+          out_format: 'Uitvoerformaat: %{valid_text}'
+          pattern_router: 'Gebruik patroonrouter: sleutels verplaatst per configuratie
+            data.write'
+          strict: Vermijd het afleiden van dynamische sleutelgebruiken zoals t("cats.#{cat}.name").
+            Heeft voorrang op de configuratie-instelling, indien ingesteld.
+          translation_backend: Vertaling backend (google of deepl)
+          value: 'Waarde. Interpoleert: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: ontbrekende sleutels toevoegen aan locale gegevens, optioneel
+          overeenkomen met een patroon
+        check_consistent_interpolations: controleer of alle vertalingen correcte interpolatievariabelen
+          gebruiken
+        check_normalized: controleer of alle vertaalgegevens genormaliseerd zijn
+        config: configuratie van i18n-taken weergeven
+        data: locatiegegevens weergeven
+        data_merge: samenvoeg locale gegevens met bomen
+        data_remove: verwijder sleutels die aanwezig zijn in de boom uit gegevens
+        data_write: plaatsgegevens vervangen door boom
+        eq_base: vertalingen weergeven die gelijk zijn aan de basiswaarde
+        find: laat zien waar sleutels in de code worden gebruikt
+        gem_path: toon pad naar de edelsteen
+        health: is alles goed?
+        irb: start REPL-sessie binnen i18n-tasks-context
+        missing: ontbrekende vertalingen tonen, optioneel overeenkomen met een patroon
+        mv: hernoem/voeg de sleutels samen in locale gegevens die overeenkomen met
+          het gegeven patroon
+        normalize: 'normaliseer vertaalgegevens: sorteer en verplaats naar de juiste
+          bestanden'
+        remove_unused: verwijder ongebruikte sleutels
+        rm: verwijder de sleutels in landgegevens die overeenkomen met het gegeven
+          patroon
+        translate_missing: vertaal ontbrekende sleutels met Google Translate of DeepL
+          Pro, optioneel een patroon matchen
+        tree_convert: boom converteren tussen formaten
+        tree_filter: boom filteren op sleutelpatroon
+        tree_merge: bomen samenvoegen
+        tree_mv_key: hernoem/samenvoeg/verwijder de sleutels die overeenkomen met
+          het gegeven patroon
+        tree_set_value: stel waarden van sleutels in, optioneel overeenkomen met een
+          patroon
+        tree_subtract: boom A minus de sleutels in boom B
+        tree_translate: Google Vertaal een boom om locales te rooten
+        unused: toon ongebruikte vertalingen
+      encourage:
+      - Goed gedaan!
+      - Goed gedaan!
+      - Perfect!
+      enum_list_opt:
+        invalid: "%{invalid} staat niet in: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} is niet een van: %{valid}."
+      errors:
+        invalid_format: 'ongeldig formaat: %{invalid}. geldig: %{valid}.'
+        invalid_locale: 'ongeldige landinstelling: %{invalid}'
+        invalid_missing_type:
+          one: 'ongeldig type: %{invalid}. geldig: %{valid}.'
+          other: 'onbekende typen: %{invalid}. geldig: %{valid}.'
+        pass_forest: passeren plaatselijk bos
+    common:
+      continue_q: Doorgaan?
+      key: Sleutel
+      locale: Lokaal
+      n_more: "%{count} meer"
+      value: Waarde
+    data_stats:
+      text: heeft %{key_count}-sleutels in %{locale_count}-landinstellingen. Waarden
+        zijn gemiddeld %{value_chars_avg} tekens lang, sleutels hebben %{key_segments_avg}
+        segmenten, een locale heeft %{per_locale_avg} sleutels.
+      text_single_locale: heeft in totaal %{key_count}-sleutels. Gemiddeld zijn waarden
+        %{value_chars_avg}-tekens lang, sleutels hebben %{key_segments_avg}-segmenten.
+      title: Bos (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Stel DeepL Pro API-sleutel in via DEEPL_AUTH_KEY omgevingsvariabele
+          of translation.deepl_api_key in config/i18n-tasks.yml. Haal de sleutel op
+          https://www.deepl.com/pro.
+        no_results: DeepL heeft geen resultaten opgeleverd.
+    google_translate:
+      errors:
+        no_api_key: Stel de Google API-sleutel in via de omgevingsvariabele GOOGLE_TRANSLATE_API_KEY
+          of translation.google_translate_api_key in config/i18n-tasks.yml. Download
+          de sleutel op https://code.google.com/apis/console.
+        no_results: Google Translate leverde geen resultaten op. Zorg ervoor dat factureringsgegevens
+          zijn ingesteld op https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Geen sleutels gedetecteerd. Controleer data.read in config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Geen inconsistente interpolaties gevonden.
+    missing:
+      details_title: Waarde in andere landinstellingen of bron
+      none: Er ontbreken geen vertalingen.
+    remove_unused:
+      confirm:
+        one: "%{count}-vertaling wordt verwijderd uit %{locales}."
+        other: "%{count}-vertaling wordt verwijderd uit %{locales}."
+      noop: Geen ongebruikte sleutels om te verwijderen
+      removed: "%{count}-sleutels verwijderd"
+    translate_missing:
+      translated: Vertaalde %{count}-sleutels
+    unused:
+      none: Elke vertaling is in gebruik.
+    usages:
+      none: Geen sleutelgebruik gevonden.
+    yandex_translate:
+      errors:
+        no_api_key: Stel de Yandex API-sleutel in via de omgevingsvariabele YANDEX_API_KEY
+          of translation.yandex_api_key in config/i18n-tasks.yml. Download de sleutel
+          op https://tech.yandex.com/translate.
+        no_results: Yandex heeft geen resultaten geretourneerd.

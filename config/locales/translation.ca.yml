@@ -6,23 +6,6 @@
 #
 ---
 ca:
-  routes:
-    cancel: cancel·la
-    passwords: contrasenyes
-    new: nou
-    active: actiu
-    expired: caducat
-    preview: vista prèvia
-    audit: audit
-    pages: pàgines
-    users: usuaris
-    sign_in: sign_in
-    sign_out: sign_out
-    sign_up: sign_up
-    password: contrasenya
-    edit: edita
-    confirmation: confirmació
-    unlock: desbloca
   date:
     day_names:
     - Diumenge
@@ -146,6 +129,11 @@ ca:
     connection_refused: |
       Oops! No s'ha pogut connectar al middleware de la consola web.
       Assegureu-vos que s'estigui executant un servidor de desenvolupament de Rails.
+    template:
+      body: 'Hi ha hagut problemes amb els següents camps:'
+      header:
+        one: No s'ha pogut desar aquest/a %{model} perquè hi ha 1 error
+        other: No s'ha pogut desar aquest/a %{model} perquè hi ha hagut %{count} errors
   activerecord:
     errors:
       messages:
@@ -156,6 +144,35 @@ ca:
             No es pot suprimir el registre perquè existeix %{record} i es dependent.
           has_many: No es pot esborrar el registre perquè existeix la dependència
             %{record}
+    attributes:
+      user:
+        confirmation_sent_at: S'ha enviat la confirmació a
+        confirmation_token: Token de confirmació
+        confirmed_at: Confirmat a les
+        created_at: Creat a les
+        current_password: Contrasenya actual
+        current_sign_in_at: Inici de sessió actual a les
+        current_sign_in_ip: Sessió actual amb la IP
+        email: Adreça electrònica
+        encrypted_password: Contrasenya xifrada
+        failed_attempts: Intents fallits
+        last_sign_in_at: Darrere inici de sessió a les
+        last_sign_in_ip: Última IP
+        locked_at: Bloquejat a les
+        password: Contrasenya
+        password_confirmation: Confirmar contrasenya
+        remember_created_at: Recorda'm creat a les
+        remember_me: Recorda'm
+        reset_password_sent_at: Restabliment de contrasenya enviat a les
+        reset_password_token: Restabliment de token de la contrasenya
+        sign_in_count: Nombre d'inicis de sessió
+        unconfirmed_email: Correu electrònic no confirmat
+        unlock_token: Desbloquejar el token
+        updated_at: Actualitzat a les
+    models:
+      user:
+        one: Usuari
+        other: Usuaris
   datetime:
     distance_in_words:
       half_a_minute: mig minut
@@ -192,6 +209,9 @@ ca:
       almost_x_years:
         one: quasi 1 any
         other: quasi %{count} anys
+      x_years:
+        one: 1 year
+        other: "%{count} years"
     prompts:
       year: any
       month: mes
@@ -243,6 +263,8 @@ ca:
       resend_title: Reenvia les instruccions de confirmació
       resend_header: Reenvia les instruccions de confirmació
       resend_button: Reenvia
+      new:
+        resend_confirmation_instructions: Reenviar instruccions de confirmació
     failure:
       already_authenticated: Ja teniu sessió iniciada.
       inactive: Encara no heu activat el compte.
@@ -256,14 +278,37 @@ ca:
     mailer:
       confirmation_instructions:
         subject: Instruccions de confirmació
+        action: Confirmar el meu compte
+        greeting: Benvingut %{recipient}!
+        instruction: 'Pots confirmar el correu electrònic del teu compte a través
+          d''aquest enllaç:'
       reset_password_instructions:
         subject: Instruccions de restabliment de contrasenya
+        action: Canviar la meva contrasenya
+        greeting: Hola %{recipient}!
+        instruction: Algú ha sol·licitat un enllaç per a canviar la teva contrasenya,
+          pots fer-ho amb el següent enllaç.
+        instruction_2: Si tu no ho has sol·licitat, si us plau ignora aquest email.
+        instruction_3: La teva contrasenya no serà canviada fins que accedeixis a
+          l'enllaç i en creïs una nova.
       unlock_instructions:
         subject: Instruccions de desbloqueig
+        action: Desbloquejar el meu compte
+        greeting: Hola %{recipient}!
+        instruction: 'Obre el següent enllaç per a desbloquejar el teu compte:'
+        message: El teu compte s'ha bloquejat a causa d'una quantitat excessiva d'intents
+          fallits per a accedir-hi.
       email_changed:
         subject: S'ha canviat l'adreça electrònica
+        greeting: Hola %{recipient}!
+        message: Et contactem per avisar-vos que el vostre correu electrònic s'ha
+          modificat a %{email}.
+        message_unconfirmed: Ens posem en contacte amb tu per notificar-te que el
+          teu correu electrònic s'està canviant a %{email}.
       password_change:
         subject: S'ha canviat la contrasenya
+        greeting: Hola, %{recipient}!
+        message: Us hem contactat per notificar-vos que s'ha modificat la vostra contrasenya.
     omniauth_callbacks:
       failure: No hem pogut autoritzar el compte des de %{kind} perquè "%{reason}".
       success: Autoritzat satisfactoriament el compte des de %{kind}.
@@ -283,6 +328,15 @@ ca:
       forgot_title: Contrasenya oblidada
       forgot_header: Contrasenya oblidada
       forgot_button: Envia les instruccions de restabliment
+      edit:
+        change_my_password: Canviar la meva contrasenya
+        change_your_password: Canviar la teva contrasenya
+        confirm_new_password: Confirmar nova contrasenya
+        new_password: Nova contrasenya
+      new:
+        forgot_your_password: Has oblidat la teva contrasenya?
+        send_me_reset_password_instructions: Enviar les instruccions per a regenerar
+          la meva contrasenya
     registrations:
       destroyed: Adéu! El teu compte ha estat cancel·lat correctament. Esperem tornar-te
         a veure!
@@ -317,6 +371,19 @@ ca:
       create_account: Crea un compte
       email: Correu electrònic
       password_confirmation: Confirmació de la contrasenya
+      edit:
+        are_you_sure: Estàs segur?
+        cancel_my_account: Cancel·lar el meu compte
+        currently_waiting_confirmation_for_email: 'Esperant confirmació de: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: deixa'l en blanc si no el vols
+          canviar
+        title: Editar %{resource}
+        unhappy: Descontent
+        update: Actualitzar
+        we_need_your_current_password_to_confirm_your_changes: necessitem la teva
+          contrasenya actual per a confirmar els canvis
+      new:
+        sign_up: Registrar-se
     unlocks:
       send_instructions: En breu rebràs un correu electrònic amb instruccions sobre
         com desbloquejar el teu compte.
@@ -327,6 +394,8 @@ ca:
       unlock_title: Reenvia instruccions de desbloqueig
       unlock_header: Renvia les instruccions de restabliment
       unlock_button: Reenvia
+      new:
+        resend_unlock_instructions: Reenviar instruccions de desbloqueig
     general:
       remember_me: Recorda'm
       login: Inicia sessió
@@ -335,6 +404,22 @@ ca:
       didnt_confirmation: No heu rebut les instruccions de confirmació?
       didnt_unlock: No heu rebut instruccions de desbloqueig?
       email: Adreça electrònic
+    sessions:
+      new:
+        sign_in: Iniciar sessió
+    shared:
+      links:
+        back: Tornar
+        didn_t_receive_confirmation_instructions: No has rebut les instruccions de
+          confirmació?
+        didn_t_receive_unlock_instructions: No has rebut les instruccions de desbloqueig?
+        forgot_your_password: Has oblidat la teva contrasenya?
+        sign_in: Iniciar sessió
+        sign_in_with_provider: Iniciar sessió amb %{provider}
+        sign_up: Registrar-se
+      minimum_password_length:
+        one: "(mínim %{count} caràcter)"
+        other: "(mínim de %{count} caràcters)"
   apipie:
     resources: Recursos
     resource: Recurs
@@ -366,3 +451,144 @@ ca:
     headers: Capçaleres
     header_name: Nom de la capçalera
     code: Codi
+    deprecated: Obsolet
+    deprecation_details: Detalls de la desaparició
+    deprecation:
+      attributes:
+        deprecated_in: Obsolet a
+        sunset_at: Posta de sol a
+        info: Informació
+    returns: Devolucions
+  i18n_tasks:
+    add_missing:
+      added:
+        one: S'ha afegit la clau %{count}
+        other: S'han afegit claus %{count}
+    cmd:
+      args:
+        default_text: 'Per defecte: %{value}'
+        desc:
+          all_locales: No espereu que els patrons clau comencin amb una configuració
+            regional, en lloc d'aplicar-los a totes les configuracions regionals de
+            manera implícita.
+          config: Anul·la la ubicació de configuració
+          confirm: Confirmeu automàticament
+          data_format: 'Format de dades: %{valid_text}.'
+          keep_order: Mantingueu l'ordre de les claus
+          key_pattern: Filtra per patró de clau (p. ex., "comú.*")
+          key_pattern_to_rename: Clau completa (patró) per canviar el nom. Obligatori
+          locale_to_translate_from: Localització de la qual traduir
+          locales_filter: 'Localització(s) a processar. Especial: base'
+          missing_types: 'Filtra per tipus: %{valid}'
+          new_key_name: Nom nou, interpola el nom original com a %{key}. Obligatori
+          nostdin: No llegiu de stdin
+          out_format: 'Format de sortida: %{valid_text}'
+          pattern_router: 'Utilitzeu l''encaminador de patró: les claus es mouen per
+            dades de configuració.write'
+          strict: Eviteu inferir usos de claus dinàmiques com ara t("cats.#{cat}.name").
+            Té prioritat sobre el paràmetre de configuració si està establert.
+          translation_backend: Backend de traducció (google o deepl)
+          value: 'Valor. Interpola: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
+            %{value_or_default_or_human_key}'
+      desc:
+        add_missing: afegiu les claus que falten a les dades locals, opcionalment
+          coincideix amb un patró
+        check_consistent_interpolations: verificar que totes les traduccions utilitzen
+          variables d'interpolació correctes
+        check_normalized: comproveu que totes les dades de traducció estiguin normalitzades
+        config: mostrar la configuració de les tasques i18n
+        data: mostrar les dades locals
+        data_merge: combinar dades locals amb arbres
+        data_remove: eliminar les claus presents a l'arbre de les dades
+        data_write: substituir les dades locals per l'arbre
+        eq_base: mostra traduccions iguals al valor base
+        find: mostra on s'utilitzen les claus al codi
+        gem_path: mostra el camí cap a la joia
+        health: tot està bé?
+        irb: iniciar la sessió REPL dins del context i18n-tasks
+        missing: mostra les traduccions que falten, opcionalment coincideix amb un
+          patró
+        mv: canviar el nom/combinar les claus a les dades locals que coincideixen
+          amb el patró donat
+        normalize: 'normalitzar les dades de traducció: ordenar i moure''s als fitxers
+          correctes'
+        remove_unused: eliminar les claus no utilitzades
+        rm: elimineu les claus de les dades locals que coincideixen amb el patró donat
+        translate_missing: traduiu les claus que falten amb Google Translate o DeepL
+          Pro, opcionalment coincideix amb un patró
+        tree_convert: convertir l'arbre entre formats
+        tree_filter: filtre l'arbre per patró de clau
+        tree_merge: fusionar arbres
+        tree_mv_key: canviar el nom/combinar/eliminar les claus que coincideixen amb
+          el patró donat
+        tree_set_value: establir valors de claus, opcionalment coincideixen amb un
+          patró
+        tree_subtract: arbre A menys les claus de l'arbre B
+        tree_translate: Google Tradueix un arbre a les configuracions arrel
+        unused: mostrar traduccions no utilitzades
+      encourage:
+      - Bona feina!
+      - Ben fet!
+      - Perfecte!
+      enum_list_opt:
+        invalid: "%{invalid} no és a: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} no és un dels següents: %{valid}."
+      errors:
+        invalid_format: 'format no vàlid: %{invalid}. vàlid: %{valid}.'
+        invalid_locale: 'configuració regional no vàlida: %{invalid}'
+        invalid_missing_type:
+          one: 'tipus no vàlid: %{invalid}. vàlid: %{valid}.'
+          other: 'tipus desconeguts: %{invalid}. vàlid: %{valid}.'
+        pass_forest: passar el bosc local
+    common:
+      continue_q: Continuar?
+      key: clau
+      locale: Localització
+      n_more: "%{count} més"
+      value: Valor
+    data_stats:
+      text: té claus %{key_count} a les configuracions regionals %{locale_count}.
+        De mitjana, els valors tenen caràcters %{value_chars_avg}, les claus tenen
+        segments %{key_segments_avg}, una configuració regional té claus %{per_locale_avg}.
+      text_single_locale: té claus %{key_count} en total. De mitjana, els valors tenen
+        caràcters %{value_chars_avg}, les claus tenen segments %{key_segments_avg}.
+      title: Bosc (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Configura la clau de l'API DeepL Pro mitjançant la variable d'entorn
+          DEEPL_AUTH_KEY o translation.deepl_api_key a config/i18n-tasks.yml. Obteniu
+          la clau a https://www.deepl.com/pro.
+        no_results: DeepL no ha retornat cap resultat.
+    google_translate:
+      errors:
+        no_api_key: Estableix la clau de l'API de Google mitjançant la variable d'entorn
+          GOOGLE_TRANSLATE_API_KEY o translation.google_translate_api_key a config/i18n-tasks.yml.
+          Obteniu la clau a https://code.google.com/apis/console.
+        no_results: Google Translate no ha retornat cap resultat. Assegureu-vos que
+          la informació de facturació estigui configurada a https://code.google.com/apis/console.
+    health:
+      no_keys_detected: No s'han detectat claus. Comproveu data.read a config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: No s'han trobat interpolacions inconsistents.
+    missing:
+      details_title: Valor en altres llocs o font
+      none: No hi falta cap traducció.
+    remove_unused:
+      confirm:
+        one: La traducció d'%{count} s'eliminarà d'%{locales}.
+        other: La traducció d'%{count} s'eliminarà d'%{locales}.
+      noop: No hi ha claus no utilitzades per eliminar
+      removed: S'han eliminat les claus %{count}
+    translate_missing:
+      translated: Claus %{count} traduïdes
+    unused:
+      none: Cada traducció està en ús.
+    usages:
+      none: No s'han trobat usos clau.
+    yandex_translate:
+      errors:
+        no_api_key: Establiu la clau de l'API Yandex mitjançant la variable d'entorn
+          YANDEX_API_KEY o translation.yandex_api_key a config/i18n-tasks.yml. Obteniu
+          la clau a https://tech.yandex.com/translate.
+        no_results: Yandex no ha retornat cap resultat.

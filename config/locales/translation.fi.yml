@@ -6,23 +6,6 @@
 #
 ---
 fi:
-  routes:
-    cancel: peruuta
-    passwords: salasanat
-    new: uusi
-    active: aktiivinen
-    expired: vanhentunut
-    preview: esikatselu
-    audit: Auditointi
-    pages: sivut
-    users: kayttäjat
-    sign_in: kirjaudu_sisaan
-    sign_out: kirjaudu_ulos
-    sign_up: luo_tili
-    password: salasana
-    edit: muokkaa
-    confirmation: vahvistus
-    unlock: avaa
   date:
     day_names:
     - sunnuntai
@@ -133,7 +116,7 @@ fi:
       not_saved:
         one: '1 virhe esti %{resource} tallentamisen:'
         other: "%{count} virhettä esti %{resource} tallentamisen:"
-      in:
+      in: täytyy olla kohdassa %{count}
     unavailable_session: Istunto %{id} ei ole enää käytettävissä muistissa. Jos käytät
       moniprosessipalvelinta (kuten Unicorn tai Puma), tämä pyyntöosuma ei tallenna
       %{id}:tä muistiin. Harkitse prosessien määrän kääntämistä yhteen (1) tai toisen
@@ -141,6 +124,11 @@ fi:
     unacceptable_request: Tuettua versiota odotetaan hyväksyntäotsikossa.
     connection_refused: Oho! Yhteyden muodostaminen verkkokonsolin väliohjelmistoon
       epäonnistui. Varmista, että Rails-kehityspalvelin on käynnissä.
+    template:
+      body: 'Seuraavat kentät aiheuttivat ongelmia:'
+      header:
+        one: Virhe syötteessä esti mallin %{model} tallentamisen
+        other: "%{count} virhettä esti mallin %{model} tallentamisen"
   activerecord:
     errors:
       messages:
@@ -148,6 +136,35 @@ fi:
         restrict_dependent_destroy:
           has_one: Ei voida poistaa mallia koska tästä riippuvainen %{record} löytyy
           has_many: Ei voida poistaa mallia koska tästä riippuvaisia %{record} löytyy
+    attributes:
+      user:
+        confirmation_sent_at: Vahvistus lähetetty
+        confirmation_token: Vahvistuskoodi
+        confirmed_at: Vahvistettu
+        created_at: Luotu
+        current_password: Nykyinen salasana
+        current_sign_in_at: Nykyinen kirjautuminen
+        current_sign_in_ip: Nykyisen kirjautumisen IP
+        email: Sähköposti
+        encrypted_password: Salattu salasana
+        failed_attempts: Epäonnistuneita yrityksiä
+        last_sign_in_at: Viimeinen kirjautuminen
+        last_sign_in_ip: Viimeisen kirjautumisen IP
+        locked_at: Lukittu
+        password: Salasana
+        password_confirmation: Salasanan vahvistus
+        remember_created_at: Muista minut luotu
+        remember_me: Muista minut
+        reset_password_sent_at: Salasanan nollaamistunniste lähetetty
+        reset_password_token: Salasanan nollaamistunniste
+        sign_in_count: Sisäänkirjautumisia
+        unconfirmed_email: Vahvistamaton sähköposti
+        unlock_token: Lukituksen poistotunniste
+        updated_at: Päivitetty
+    models:
+      user:
+        one: Käyttäjä
+        other: Käyttäjät
   datetime:
     distance_in_words:
       half_a_minute: puoli minuuttia
@@ -184,6 +201,9 @@ fi:
       almost_x_years:
         one: melkein yksi vuosi
         other: melkein %{count} vuotta
+      x_years:
+        one: vuosi
+        other: "%{count} vuotta"
     prompts:
       year: Vuosi
       month: Kuukausi
@@ -236,6 +256,8 @@ fi:
       resend_title: Lähetä vahvistusohjeet uudelleen
       resend_header: Lähetä vahvistusohjeet uudelleen
       resend_button: Lähetä uudelleen
+      new:
+        resend_confirmation_instructions: Uudelleenlähetä vahvistusohjeet
     failure:
       already_authenticated: Olet jo kirjautunut sisään.
       inactive: Tunnustasi ei ole vielä aktivoitu.
@@ -251,14 +273,36 @@ fi:
     mailer:
       confirmation_instructions:
         subject: Vahvistusohjeet
+        action: Vahvista käyttäjätunnukseni
+        greeting: Tervetuloa, %{recipient}!
+        instruction: 'Vahvista sähköpostisi painamalla alla olevaa linkkiä:'
       reset_password_instructions:
         subject: Ohjeet salasanan vaihtoon
+        action: Vaihda salasanani
+        greeting: Hei, %{recipient}!
+        instruction: Joku on pyytänyt käyttäjätunnuksesi salasanan vaihtoa. Tämä voidaan
+          suorittaa painamalla linkkiä alla.
+        instruction_2: Jos et pyytänyt tätä, voit jättää tämän sähköpostin huomiotta.
+        instruction_3: Salasanaasi ei vaihdeta ennen kuin painat yllä olevaa linkkiä
+          ja syötät uuden salasanan.
       unlock_instructions:
         subject: Ohjeet tunnuksen lukituksen poistoon
+        action: Poista käyttäjätunnukseni lukitus
+        greeting: Hei, %{recipient}!
+        instruction: 'Paina alla olevaa linkkiä poistaaksesi lukituksen:'
+        message: Käyttäjätunnuksesi on lukittu johtuen liian monesta epäonnistuneesta
+          kirjautumisyrityksestä.
       email_changed:
         subject: Sähköpostiosoite vaihdettu
+        greeting: Hei %{recipient}!
+        message: Tämä on ilmoitus siitä, että sähköpostiosoitteenne on vaihdettu osoitteeksi
+          %{email}.
+        message_unconfirmed: Tämä on ilmoitus siitä, että sähköpostiosoitteenne on
+          vaihtumassa osoitteeksi %{email}.
       password_change:
         subject: Salasana vaihdettu
+        greeting: Hei %{recipient}!
+        message: Tämä on ilmoitus salasananne vaihtumisesta.
     omniauth_callbacks:
       failure: Valtuutus käyttäen palvelua %{kind} epäonnistui, koska "%{reason}".
       success: Onnistuneesti valtuutettu käyttäen palvelua %{kind}.
@@ -276,6 +320,14 @@ fi:
       forgot_title: Unohditko salasanasi?
       forgot_header: Unohditko salasanasi?
       forgot_button: Lähetä palautusohjeet
+      edit:
+        change_my_password: Vaihda salasanani
+        change_your_password: Vaihda salasanasi
+        confirm_new_password: Vahvista uusi salasana
+        new_password: Uusi salasana
+      new:
+        forgot_your_password: Unohditko salasanasi?
+        send_me_reset_password_instructions: Lähetä minulle salasanan vaihto-ohjeet
     registrations:
       destroyed: Näkemiin! Käyttäjätunnuksesi on nyt poistettu. Toivottavasti näemme
         sinut vielä uudelleen.
@@ -307,6 +359,20 @@ fi:
       create_account: Luo tili
       email: Sähköposti
       password_confirmation: Salasanan vahvistus
+      edit:
+        are_you_sure: Oletko varma?
+        cancel_my_account: Poista käyttäjätunnukseni
+        currently_waiting_confirmation_for_email: 'Odotetaan vahvistusta sähköpostille:
+          %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: jätä tämä tyhjäksi, mikäli et
+          halua vaihtaa
+        title: Muokkaa %{resource}
+        unhappy: Onneton?
+        update: Päivitä
+        we_need_your_current_password_to_confirm_your_changes: tarvitsemme nykyisen
+          salasanasi muutoksien vahvistamiseen
+      new:
+        sign_up: Rekisteröidy
     unlocks:
       send_instructions: Saat hetken kuluttua sähköpostiisi ohjeet käyttäjätunnuksesi
         lukituksen poistoon.
@@ -316,6 +382,8 @@ fi:
       unlock_title: Lähetä palautusohjeet
       unlock_header: Lähetä palautusohjeet
       unlock_button: Lähetä uudelleen
+      new:
+        resend_unlock_instructions: Uudelleenlähetä lukituksen poisto -ohjeet
     general:
       remember_me: Muista minut
       login: Kirjaudu sisään
@@ -324,34 +392,185 @@ fi:
       didnt_confirmation: Etkö saanut vahvistusohjeita?
       didnt_unlock: Etkö saanut lukituksen avausohjeita?
       email: Sähköposti
+    sessions:
+      new:
+        sign_in: Kirjaudu sisään
+    shared:
+      links:
+        back: Takaisin
+        didn_t_receive_confirmation_instructions: Vahvistusviesti ei saapunut perille?
+        didn_t_receive_unlock_instructions: Salasanan vaihto -ohjeet eivät saapuneet
+          perille?
+        forgot_your_password: Unohditko salasanasi?
+        sign_in: Kirjaudu sisään
+        sign_in_with_provider: Kirjaudu sisään (%{provider})
+        sign_up: Rekisteröidy
+      minimum_password_length:
+        one: "(vähimmäispituus on %{count} merkki)"
+        other: "(vähimmäispituus on %{count} merkkiä)"
   apipie:
     resources: Resurssit
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resource: Resurssi
+    description: Kuvaus
+    no_docs_found: Asiakirjoja ei löytynyt
+    no_docs_found_descr: Emme löytäneet mitään dokumentaatiota API:llesi.
+    follow_instructions_html: Seuraa %{href}, kuinka voit kuvata ohjaimia.
+    follow_instructions_href: Tarkemmat ohjeet
+    oops: Oho!!
+    resource_not_found_html: Resurssia %{resource} ei löydy.
+    method_not_found_html: Resurssille %{resource} ei löytynyt menetelmää %{method}.
+    goto_homepage_html: Yritä mennä osoitteeseen %{href}
+    goto_homepage_href: "%{app_name} API-dokumentaation kotisivu"
+    required: edellytetään
+    optional: valinnainen
+    nil_allowed: nolla sallittu
+    param_name: Parametrin nimi
+    params: Parametrit
     examples: Esimerkkejä
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
+    metadata: Metatiedot
+    errors: Virheet
+    error_code: Koodi
+    error_description: Kuvaus
+    error_metadata: Metatiedot
+    supported_formats: Tuetut muodot
+    enable_javascript_html: Ota JavaScript käyttöön nähdäksesi %{comments_href}.
+    comments_powered_by_disqus: kommentit tarjoaa %{disqus}
     api_documentation: API-dokumentaatio
-    headers:
-    header_name:
-    code:
+    headers: Otsikot
+    header_name: Otsikon nimi
+    code: Koodi
+    deprecated: Käytöstä poistettu
+    deprecation_details: Poistamisen tiedot
+    deprecation:
+      attributes:
+        deprecated_in: Poistettu käytöstä
+        sunset_at: Auringonlasku klo
+        info: Tiedot
+    returns: Palauttaa
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Lisätty %{count}-avain
+        other: Lisätty %{count}-avaimet
+    cmd:
+      args:
+        default_text: 'Oletus: %{value}'
+        desc:
+          all_locales: Älä odota avainmallien alkavan maa-asetuksilla, vaan käytä
+            niitä implisiittisesti kaikille alueille.
+          config: Ohita asetusten sijainti
+          confirm: Vahvista automaattisesti
+          data_format: 'Tietomuoto: %{valid_text}.'
+          keep_order: Pidä avainten järjestys
+          key_pattern: Suodata avainmallin mukaan (esim. "yleinen.*")
+          key_pattern_to_rename: Täysi avain (kuvio) nimettäväksi. Edellytetään
+          locale_to_translate_from: Kieli, josta käännetään
+          locales_filter: 'Käsiteltävät alueet. Erikois: pohja'
+          missing_types: 'Suodata tyyppien mukaan: %{valid}'
+          new_key_name: Uusi nimi, interpoloi alkuperäisen nimen muodossa %{key}.
+            Edellytetään
+          nostdin: Älä lue stdinistä
+          out_format: 'Tulostusmuoto: %{valid_text}'
+          pattern_router: 'Käytä kuvioreititintä: näppäimiä siirretty konfiguraatiokohtaisesti
+            data.write'
+          strict: Vältä päättelemästä dynaamisia avaimia, kuten t("cats.#{cat}.name").
+            Edellyttää konfigurointiasetusta, jos se on asetettu.
+          translation_backend: Käännösten taustaohjelma (google tai deepl)
+          value: 'Arvo. Interpoloi: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
+            %{value_or_default_or_human_key}'
+      desc:
+        add_missing: lisää puuttuvat avaimet aluetietoihin, valinnaisesti sovita kuvio
+        check_consistent_interpolations: varmista, että kaikissa käännöksissä käytetään
+          oikeita interpolointimuuttujia
+        check_normalized: varmista, että kaikki käännöstiedot on normalisoitu
+        config: näyttää i18n-tehtävien asetukset
+        data: näytä aluetiedot
+        data_merge: yhdistä aluetiedot puihin
+        data_remove: poista puussa olevat avaimet tiedoista
+        data_write: korvaa aluetiedot puulla
+        eq_base: näytä perusarvoa vastaavat käännökset
+        find: näyttää, missä näppäimiä koodissa käytetään
+        gem_path: näytä polku helmiin
+        health: Onko kaikki hyvin?
+        irb: aloita REPL-istunto i18n-tehtävien kontekstissa
+        missing: näytä puuttuvat käännökset, valinnaisesti sovita mallia
+        mv: Nimeä uudelleen/yhdistä avaimet aluetiedoissa, jotka vastaavat annettua
+          mallia
+        normalize: 'normalisoi käännöstiedot: lajittele ja siirry oikeisiin tiedostoihin'
+        remove_unused: poista käyttämättömät avaimet
+        rm: poista avaimet aluetiedoista, jotka vastaavat annettua mallia
+        translate_missing: kääntää puuttuvat avaimet Google Translatella tai DeepL
+          Prolla, valinnaisesti sovita kuvio
+        tree_convert: muuntaa puu muotojen välillä
+        tree_filter: suodatuspuu avainkuvion mukaan
+        tree_merge: yhdistää puita
+        tree_mv_key: Nimeä uudelleen/yhdistä/poista annettua kuviota vastaavat avaimet
+        tree_set_value: aseta näppäinten arvot, valinnaisesti vastaa kuviota
+        tree_subtract: puu A miinus puun B avaimet
+        tree_translate: Google Translate puu juurialueille
+        unused: näytä käyttämättömät käännökset
+      encourage:
+      - Hyvää työtä!
+      - Hyvin tehty!
+      - Täydellinen!
+      enum_list_opt:
+        invalid: "%{invalid} ei ole paikassa: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} ei ole yksi seuraavista: %{valid}."
+      errors:
+        invalid_format: 'virheellinen muoto: %{invalid}. voimassa: %{valid}.'
+        invalid_locale: 'virheellinen maa-asetus: %{invalid}'
+        invalid_missing_type:
+          one: 'virheellinen tyyppi: %{invalid}. voimassa: %{valid}.'
+          other: 'tuntemattomat tyypit: %{invalid}. voimassa: %{valid}.'
+        pass_forest: ohittaa paikallisen metsän
+    common:
+      continue_q: Jatkaa?
+      key: Avain
+      locale: Alue
+      n_more: "%{count} lisää"
+      value: Arvo
+    data_stats:
+      text: sisältää %{key_count}-avaimet %{locale_count}-alueille. Keskimäärin arvot
+        ovat %{value_chars_avg} merkkiä pitkiä, näppäimissä on %{key_segments_avg}-segmenttejä,
+        kielessä on %{per_locale_avg}-avaimia.
+      text_single_locale: on %{key_count} avaimet yhteensä. Arvot ovat keskimäärin
+        %{value_chars_avg} merkkiä pitkiä, näppäimissä on %{key_segments_avg}-segmenttejä.
+      title: Metsä (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Asenna DeepL Pro API -avain ympäristömuuttujan DEEPL_AUTH_KEY
+          tai translation.deepl_api_key kautta tiedostossa config/i18n-tasks.yml.
+          Hanki avain osoitteesta https://www.deepl.com/pro.
+        no_results: DeepL ei palauttanut tuloksia.
+    google_translate:
+      errors:
+        no_api_key: Aseta Google-sovellusliittymäavain ympäristömuuttujan GOOGLE_TRANSLATE_API_KEY
+          avulla tai translation.google_translate_api_key tiedostossa config/i18n-tasks.yml.
+          Hanki avain osoitteesta https://code.google.com/apis/console.
+        no_results: Google-kääntäjä ei antanut tuloksia. Varmista, että laskutustiedot
+          on asetettu osoitteessa https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Avaimia ei havaittu. Tarkista data.read tiedostosta config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Epäjohdonmukaisia interpolaatioita ei löytynyt.
+    missing:
+      details_title: Arvo muilla alueilla tai lähteissä
+      none: Käännöksiä ei puutu.
+    remove_unused:
+      confirm:
+        one: "%{count}-käännös poistetaan %{locales}:stä."
+        other: "%{count}-käännös poistetaan %{locales}:stä."
+      noop: Ei käyttämättömiä avaimia poistettavaksi
+      removed: "%{count}-avaimet poistettu"
+    translate_missing:
+      translated: Käännetty %{count}-avaimet
+    unused:
+      none: Jokainen käännös on käytössä.
+    usages:
+      none: Keskeisiä käyttötapoja ei löytynyt.
+    yandex_translate:
+      errors:
+        no_api_key: Aseta Yandex API-avain YANDEX_API_KEY-ympäristömuuttujan tai translation.yandex_api_key
+          kautta tiedostossa config/i18n-tasks.yml. Hanki avain osoitteesta https://tech.yandex.com/translate.
+        no_results: Yandex ei palauttanut tuloksia.

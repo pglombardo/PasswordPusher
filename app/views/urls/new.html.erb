@@ -22,9 +22,9 @@
             <div class='row mb-3'>
                 <div class='col'>
                     <div class="card">
-                        <h5 class="card-header">URL Redirection</h5>
+                        <h5 class="card-header"><%= _('URL Redirection') %></h5>
                         <div class="card-body">
-                            <div class="my-3">
+                            <div class="input-group">
                                 <%= f.text_field(:payload, { class: "form-control",
                                                             placeholder: _('Enter the URL to redirect to...'),
                                                             autocomplete: "off",
@@ -33,13 +33,12 @@
                                                             required: true }) %>
                             </div>
                         </div>
-                        <div id="file-count-footer" class="card-footer text-muted"> <%= _('Specify a URL to redirect to.') %> </div>
                     </div>
                 </div>
             </div>
             <div class='row'>
-                <p><%= _('Expire secret link and delete after:') %></p>
-                <div class='col-8'>
+                <div><%= _('Expire secret link and delete after:') %></div>
+                <div class='col-10'>
                     <%= range_field_tag("url_expire_after_days", Settings.url.expire_after_days_default,
                                         { :name => "url[expire_after_days]",
                                           :class => "form-range",
@@ -50,19 +49,18 @@
                                           "data-knobs-target" => "daysRange"
                                           })%>
                 </div>
-                <div class='col-4'>
-                    <label for='url_expire_after_days' data-knobs-target="daysRangeLabel">
-                        <%=Settings.url.expire_after_days_default %> <%= _('Days') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%=Settings.url.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
 
             <div class='row'>
-                <div class='col-8'>
+                <div class='col-10'>
                     <%=range_field_tag("url_expire_after_views", Settings.url.expire_after_views_default,
                                        { :name => "url[expire_after_views]",
                                          :class => "form-range",
                                          :min => Settings.url.expire_after_views_min,
+                                         :max => Settings.url.expire_after_views_max,
                                          :x_default => Settings.url.expire_after_views_default,
                                          :step => "1",
                                          "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
@@ -70,21 +68,17 @@
                                          })%>
                 </div>
 
-                <div class='col-4'>
-                    <label for='url_expire_after_views' data-knobs-target="viewsRangeLabel">
-                        <%= Settings.url.expire_after_views_default %> <%= _('Views') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%=Settings.url.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
                 <div class='col'>
-                    <div class='mb3'>
-                        <p class='text-center text-muted'><%= _('(whichever comes first)') %></p>
-                    </div>
+                    <p class='text-center form-text'><%= _('(whichever comes first)') %></p>
                 </div>
             </div>
 
-            <div class='row'>
+            <div class='row mb-3'>
                 <div class='col'>
                     <div class="list-group mx-0">
                         <% if Settings.url.enable_retrieval_step %>
@@ -101,15 +95,29 @@
                     </div>
                 </div>
             </div>
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
+                        <%= f.text_field(:passphrase, { class: "form-control",
+                                                        autocomplete: "off",
+                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class='col'>
             <div class='row mb-3'>
-                <label for="url_note" class="form-label">Reference</label>
-                <%= f.text_area(:note, { class: "form-control",
-                                        rows: 3,
-                                        placeholder: _('Encrypted and visible only to you.'),
-                                        autocomplete: "off" }) %>
+                <div class="input-group">
+                    <span class="input-group-text"><%= _('Reference Note') %></span>
+                    <%= f.text_area(:note, { class: "form-control",
+                                            rows: 1,
+                                            placeholder: _('Optional'),
+                                            autocomplete: "off" }) %>
+                </div>
+                <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
             </div>
+            <div class='row my-3 px-5'> <hr/> </div>
             <div class='row mb-3'>
                 <span class="text-muted">
                     <%= _('A secret URL will be generated that will redirect to the URL specified.') %>
@@ -117,7 +125,7 @@
             </div>
             <div class='row mb-3'>
                 <span class="text-muted">
-                    <%= _('Upon expiration, the push redirect will be deleted entirely.') %>
+                    <%= _('Upon expiration, the push URL will be deleted entirely.') %>
                     <%= _('An audit log of activity will be available.') %>
                 </span>
             </div>

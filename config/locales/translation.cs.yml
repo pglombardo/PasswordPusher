@@ -6,23 +6,6 @@
 #
 ---
 cs:
-  routes:
-    cancel: zrušení
-    passwords: hesla
-    new: Nový
-    active: aktivní
-    expired: platnost vypršela
-    preview: náhled
-    audit: audit
-    pages: stránky
-    users: uživatelů
-    sign_in: přihlásit se
-    sign_out: odhlásit se
-    sign_up: Přihlásit se
-    password: Heslo
-    edit: Upravit
-    confirmation: potvrzení
-    unlock: odemknout
   date:
     day_names:
     - neděle
@@ -141,6 +124,12 @@ cs:
     unacceptable_request: Podporováná verze je očekávaná v hlavičce Accept.
     connection_refused: Jejda! Nepodařilo se připojit k middlewar web consoli. Ujistěte
       se, že běží vývojový Rails server.
+    template:
+      body: 'Následující pole obsahují chybně vyplněné údaje: '
+      header:
+        one: Při ukládání objektu %{model} došlo k chybám a nebylo jej možné uložit
+        other: Při ukládání objektu %{model} došlo ke %{count} chybám a nebylo možné
+          jej uložit
   activerecord:
     errors:
       messages:
@@ -148,6 +137,35 @@ cs:
         restrict_dependent_destroy:
           has_one: Položku nelze smazat protože na ni závisí položka %{record}
           has_many: Položku nelze smazat protože na ni závisí položka %{record}
+    attributes:
+      user:
+        confirmation_sent_at: Potvrzení zasláno
+        confirmation_token: Potvrzovací token
+        confirmed_at: Potvrzeno
+        created_at: Vytvořeno
+        current_password: Současné heslo
+        current_sign_in_at: Současné přihlášení
+        current_sign_in_ip: Současné přihlášení z IP
+        email: E-mail
+        encrypted_password: Zašifrované heslo
+        failed_attempts: Chybných pokusů
+        last_sign_in_at: Poslední přihlášení
+        last_sign_in_ip: Poslední přihlášení z IP
+        locked_at: Uzamčeno
+        password: Heslo
+        password_confirmation: Potvrzení hesla
+        remember_created_at: Zapamatování vytvořeno
+        remember_me: Zapamatuj si mě
+        reset_password_sent_at: Obnova hesla poslána
+        reset_password_token: Token obnovy hesla
+        sign_in_count: Počet přihlášení
+        unconfirmed_email: Nepotvrzený e-mail
+        unlock_token: Odemykací token
+        updated_at: Upraveno
+    models:
+      user:
+        one: Uživatel
+        other: Uživatelé
   datetime:
     distance_in_words:
       half_a_minute: půl minuty
@@ -184,6 +202,9 @@ cs:
       almost_x_years:
         one: téměř rok
         other: téměř %{count} roky
+      x_years:
+        one: 1 rok
+        other: "%{count} let"
     prompts:
       year: Rok
       month: Měsíc
@@ -235,6 +256,8 @@ cs:
       resend_title: Přeposlat instrukce pro potvrzení
       resend_header: Přeposlat instrukce pro potvrzení
       resend_button: Přeposlat
+      new:
+        resend_confirmation_instructions: Opět poslat instrukce pro potvrzení
     failure:
       already_authenticated: Už jste přihlášen(a).
       inactive: Váš účet ještě nebyl aktivován.
@@ -248,14 +271,35 @@ cs:
     mailer:
       confirmation_instructions:
         subject: Instrukce k potvrzení
+        action: Potvrdit můj účet
+        greeting: Vítejte, %{recipient}!
+        instruction: 'Můžete potvrdit e-mailovou adresu pomocí níže uvedeného odkazu:'
       reset_password_instructions:
         subject: Instrukce k nastavení nového hesla
+        action: Změna hesla
+        greeting: Ahoj %{recipient}!
+        instruction: Někdo si vyžádal odkaz pro změnu Vašeho hesla. Změnu můžete provést
+          pomocí odkazu níže.
+        instruction_2: Pokud jste si toto nevyžádali, ignorujte tento e-mail.
+        instruction_3: Vaše heslo se nezmění dokud neotevřete výše uvedený odkaz a
+          nevytvoříte si nové heslo.
       unlock_instructions:
         subject: Instrukce k odemknutí účtu
+        action: Odblokovat můj účet
+        greeting: Ahoj %{recipient}!
+        instruction: 'Účet odblokujete kliknutím na níže uvedený odkazu:'
+        message: Váš účet byl zablokován pro nadměrný počet neúspěšných pokusů o přihlášení.
       email_changed:
         subject: E-mail změněn
+        greeting: Ahoj, %{recipient}!
+        message: Kontaktovali jsme Vás, abychom Vás upozornili, že se Vaše e-mailová
+          adresa mění na %{email}.
+        message_unconfirmed: Obracíme se na vás, abychom vás informovali, že se váš
+          e-mail mění na %{email}.
       password_change:
         subject: Heslo změněno
+        greeting: Ahoj %{recipient}!
+        message: Dáváme vám vědět, že Vaše heslo bylo změněno.
     omniauth_callbacks:
       failure: Není možné Vás autorizovat z %{kind}, protože "%{reason}".
       success: Úspěšná autorizace z účtu %{kind}.
@@ -274,6 +318,14 @@ cs:
       forgot_title: Zapomenuté heslo
       forgot_header: Zapomenuté heslo
       forgot_button: Poslat instrukce pro reset hesla
+      edit:
+        change_my_password: Změnit mé heslo
+        change_your_password: Změna Vašeho hesla
+        confirm_new_password: Potvrdit nové heslo
+        new_password: Nové heslo
+      new:
+        forgot_your_password: Zapomněli jste své heslo?
+        send_me_reset_password_instructions: Poslat instrukce pro obnovení hesla
     registrations:
       destroyed: Mějte se! Váš účet byl úspěšně zrušen. Doufáme, že se brzy opět uvidíme.
       signed_up: Vítejte! Úspěšně jste se zaregistrovali. Zkontrolujte prosím svůj
@@ -305,6 +357,20 @@ cs:
       create_account: Vytvořit účet
       email: E-mail
       password_confirmation: Potvrzení hesla
+      edit:
+        are_you_sure: Jste si jist(á)?
+        cancel_my_account: Zrušit můj účet
+        currently_waiting_confirmation_for_email: 'Momentálně čeká na potvrzení pro:
+          %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: nevyplňujte, pokud ho nechcete
+          měnit
+        title: Upravit %{resource}
+        unhappy: Nejste zde šťastni?
+        update: Aktualizovat
+        we_need_your_current_password_to_confirm_your_changes: Vaše současné heslo
+          je nutné pro potvrzení změn.
+      new:
+        sign_up: Zaregistrovat se
     unlocks:
       send_instructions: Za několik minut obdržíte e-mail s instrukcemi, jak odemknout
         svůj účet.
@@ -314,6 +380,8 @@ cs:
       unlock_title: Přeposlat pokyny k odemknutí
       unlock_header: Přeposlat pokyny k odemknutí
       unlock_button: Přeposlat
+      new:
+        resend_unlock_instructions: Znovu odeslat instrukce pro odblokování
     general:
       remember_me: Pamatuj si mě
       login: Přihlásit
@@ -322,6 +390,21 @@ cs:
       didnt_confirmation: Nedostali jste instrukce k potvrzení?
       didnt_unlock: Nedostali jste instrukce k odemčení účtu?
       email: E-mail
+    sessions:
+      new:
+        sign_in: Přihlásit se
+    shared:
+      links:
+        back: Zpět
+        didn_t_receive_confirmation_instructions: Nedostali jste informace pro potvrzení?
+        didn_t_receive_unlock_instructions: Nedostali jste instrukce pro odblokování?
+        forgot_your_password: Zapomněli jste heslo?
+        sign_in: Přihlásit se
+        sign_in_with_provider: Přihlásit se přes %{provider}
+        sign_up: Zaregistrovat se
+      minimum_password_length:
+        one: "(minimálně %{count} znak)"
+        other: "(minimálně %{count} znaků)"
   apipie:
     resources: Zdroje
     resource: Zdroj
@@ -353,3 +436,140 @@ cs:
     headers: Záhlaví
     header_name: Název záhlaví
     code: Kód
+    deprecated: Zastaralé
+    deprecation_details: Podrobnosti o ukončení podpory
+    deprecation:
+      attributes:
+        deprecated_in: Zastaralé v
+        sunset_at: Západ slunce v
+        info: Info
+    returns: Návraty
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Přidán klíč %{count}
+        other: Přidány klíče %{count}
+    cmd:
+      args:
+        default_text: 'Výchozí: %{value}'
+        desc:
+          all_locales: Neočekávejte, že klíčové vzory budou začínat národním prostředím,
+            místo toho je implicitně aplikujte na všechna národní prostředí.
+          config: Přepsat umístění konfigurace
+          confirm: Potvrďte automaticky
+          data_format: 'Formát dat: %{valid_text}.'
+          keep_order: Dodržujte pořadí klíčů
+          key_pattern: Filtrujte podle klíčového vzoru (např. 'common.*')
+          key_pattern_to_rename: Úplný klíč (vzor) k přejmenování. Požadované
+          locale_to_translate_from: Národní prostředí, ze kterého se má překládat
+          locales_filter: 'Lokality ke zpracování. Speciální: základna'
+          missing_types: 'Filtrovat podle typů: %{valid}'
+          new_key_name: Nový název, interpoluje původní název jako %{key}. Požadované
+          nostdin: Nečtěte ze stdin
+          out_format: 'Výstupní formát: %{valid_text}'
+          pattern_router: 'Použít směrovač vzoru: klíče přesunuty podle konfigurace
+            data.write'
+          strict: Vyvarujte se odvozování použití dynamického klíče, jako je t("cats.#{cat}.name").
+            Má přednost před konfiguračním nastavením, pokud je nastaveno.
+          translation_backend: Překlad backend (google nebo deepl)
+          value: 'Hodnota. Interpolace: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: přidat chybějící klíče k datům národního prostředí, volitelně
+          odpovídat vzoru
+        check_consistent_interpolations: ověřte, že všechny překlady používají správné
+          interpolační proměnné
+        check_normalized: ověřte, zda jsou všechna data překladu normalizována
+        config: zobrazit konfiguraci i18n-tasks
+        data: zobrazit data o místním nastavení
+        data_merge: sloučit data národního prostředí se stromy
+        data_remove: odstranit klíče přítomné ve stromu z dat
+        data_write: nahradit data národního prostředí stromem
+        eq_base: zobrazit překlady rovné základní hodnotě
+        find: ukázat, kde se v kódu používají klíče
+        gem_path: ukázat cestu ke drahokamu
+        health: je všechno v pořádku?
+        irb: spusťte relaci REPL v kontextu i18n-tasks
+        missing: zobrazit chybějící překlady, volitelně odpovídat vzoru
+        mv: přejmenovat/sloučit klíče v datech národního prostředí, které odpovídají
+          danému vzoru
+        normalize: 'normalizovat data překladu: třídit a přesouvat do správných souborů'
+        remove_unused: vyjměte nepoužívané klíče
+        rm: odstraňte klíče v datech národního prostředí, které odpovídají danému
+          vzoru
+        translate_missing: přeložte chybějící klíče pomocí Překladače Google nebo
+          DeepL Pro, případně porovnejte vzor
+        tree_convert: převést strom mezi formáty
+        tree_filter: filtrovat strom podle klíčového vzoru
+        tree_merge: sloučit stromy
+        tree_mv_key: přejmenovat/sloučit/odebrat klíče odpovídající danému vzoru
+        tree_set_value: nastavit hodnoty klíčů, volitelně odpovídat vzoru
+        tree_subtract: strom A mínus klíče ve stromu B
+        tree_translate: Google Translate strom do kořenových národních prostředí
+        unused: zobrazit nepoužité překlady
+      encourage:
+      - Dobrá práce!
+      - Výborně!
+      - Perfektní!
+      enum_list_opt:
+        invalid: "%{invalid} není v: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} není jedno z: %{valid}."
+      errors:
+        invalid_format: 'neplatný formát: %{invalid}. platný: %{valid}.'
+        invalid_locale: 'neplatné národní prostředí: %{invalid}'
+        invalid_missing_type:
+          one: 'neplatný typ: %{invalid}. platný: %{valid}.'
+          other: 'neznámé typy: %{invalid}. platný: %{valid}.'
+        pass_forest: projít místní les
+    common:
+      continue_q: Pokračovat?
+      key: Klíč
+      locale: Locale
+      n_more: "%{count} více"
+      value: Hodnota
+    data_stats:
+      text: má klíče %{key_count} napříč národními prostředími %{locale_count}. V
+        průměru jsou hodnoty dlouhé znaky %{value_chars_avg}, klíče mají segmenty
+        %{key_segments_avg}, národní prostředí má klíče %{per_locale_avg}.
+      text_single_locale: má celkem klíče %{key_count}. V průměru jsou hodnoty dlouhé
+        znaky %{value_chars_avg}, klíče mají segmenty %{key_segments_avg}.
+      title: Les (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Nastavte klíč API DeepL Pro pomocí proměnné prostředí DEEPL_AUTH_KEY
+          nebo klíče translation.deepl_api_key v souboru config/i18n-tasks.yml. Získejte
+          klíč na https://www.deepl.com/pro.
+        no_results: DeepL nevrátil žádné výsledky.
+    google_translate:
+      errors:
+        no_api_key: Nastavte klíč Google API pomocí proměnné prostředí GOOGLE_TRANSLATE_API_KEY
+          nebo translation.google_translate_api_key v souboru config/i18n-tasks.yml.
+          Získejte klíč na https://code.google.com/apis/console.
+        no_results: Překladač Google nevrátil žádné výsledky. Zkontrolujte, zda jsou
+          na https://code.google.com/apis/console nastaveny fakturační údaje.
+    health:
+      no_keys_detected: Nebyly zjištěny žádné klíče. Zkontrolujte data.read v config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Nebyly nalezeny žádné nekonzistentní interpolace.
+    missing:
+      details_title: Hodnota v jiných lokalitách nebo zdrojích
+      none: Nechybí žádné překlady.
+    remove_unused:
+      confirm:
+        one: Překlad %{count} bude odstraněn z %{locales}.
+        other: Překlad %{count} bude odstraněn z %{locales}.
+      noop: Žádné nepoužité klíče k odstranění
+      removed: Odebrány klíče %{count}
+    translate_missing:
+      translated: Přeložené klíče %{count}
+    unused:
+      none: Každý překlad se používá.
+    usages:
+      none: Nebyla nalezena žádná klíčová použití.
+    yandex_translate:
+      errors:
+        no_api_key: Nastavte klíč Yandex API pomocí proměnné prostředí YANDEX_API_KEY
+          nebo translation.yandex_api_key v config/i18n-tasks.yml. Získejte klíč na
+          https://tech.yandex.com/translate.
+        no_results: Yandex nevrátil žádné výsledky.

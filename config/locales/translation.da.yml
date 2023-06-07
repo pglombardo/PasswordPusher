@@ -6,23 +6,6 @@
 #
 ---
 da:
-  routes:
-    cancel: fortryd
-    passwords: kodeord
-    new: ny
-    active: aktiv
-    expired: udløbet
-    preview: forhåndsvisning
-    audit: revidere
-    pages: sider
-    users: brugere
-    sign_in: log_ind
-    sign_out: log_ud
-    sign_up: opret
-    password: kodeord
-    edit: redigere
-    confirmation: bekræftelse
-    unlock: låse op
   date:
     day_names:
     - 'søndag
@@ -187,7 +170,7 @@ da:
       not_saved:
         one: 'En fejl medførte, at denne %{resource} ikke kunne gemmes:'
         other: "%{count} fejl medførte, at denne %{resource} ikke kunne gemmes:"
-      in:
+      in: skal være i %{count}
     unavailable_session: "Session %{id} er ikke længere tilgængelig i hukommelsen.\nHvis
       du benytter en multi-proces server (som Unicorn eller Puma). \nDenne forespørgsels
       \ gemmes ikke %{id} i hukommelsen. Overvej at ændre antallet af processer /
@@ -196,6 +179,11 @@ da:
     connection_refused: |
       Ups! Det lykkedes ikke at oprette forbindelse til internettet Console middleware.
       Sørg for at en "rails" udviklingserver kører.
+    template:
+      body: 'Der var problemer med følgende felter:'
+      header:
+        one: En fejl forhindrede %{model} i at blive gemt
+        other: "%{count} fejl forhindrede %{model} i at blive gemt"
   activerecord:
     errors:
       messages:
@@ -205,6 +193,35 @@ da:
         restrict_dependent_destroy:
           has_one: Kunne ikke slette posten fordi en afhængig %{record} findes
           has_many: Kunne ikke slette posten fordi afhængige %{record} findes
+    attributes:
+      user:
+        confirmation_sent_at: Bekræftelse sendt
+        confirmation_token: Bekræftelsesnøgle
+        confirmed_at: Bekræftet
+        created_at: Oprettet
+        current_password: Nuværende adgangskode
+        current_sign_in_at: Nuværende log ind tidspunkt
+        current_sign_in_ip: Nuværende log ind IP
+        email: E-mail
+        encrypted_password: Krypteret adgangskode
+        failed_attempts: Mislykkede forsøg
+        last_sign_in_at: Sidste log ind tidspunkt
+        last_sign_in_ip: Sidste log ind IP
+        locked_at: Låst
+        password: Adgangskode
+        password_confirmation: Gentag adgangskode
+        remember_created_at: Husk mig tidspunkt
+        remember_me: Husk mig
+        reset_password_sent_at: Nulstil adgangskode
+        reset_password_token: Nulstil adgangskode nøgle
+        sign_in_count: Log ind antal
+        unconfirmed_email: Ubekræftet e-mail
+        unlock_token: Låse-op nøgle
+        updated_at: Opdateret
+    models:
+      user:
+        one: Bruger
+        other: Brugere
   datetime:
     distance_in_words:
       half_a_minute: et halvt minut
@@ -243,6 +260,9 @@ da:
       almost_x_years:
         one: næsten et år
         other: næsten %{count} år
+      x_years:
+        one: et år
+        other: "%{count} år"
     prompts:
       year: År
       month: Måned
@@ -295,6 +315,8 @@ da:
       resend_title: Send bekræftelsesinstruktionerne igen
       resend_header: Send bekræftelsesinstruktionerne igen
       resend_button: Send igen
+      new:
+        resend_confirmation_instructions: Gensend bekræftelsesinstruktioner
     failure:
       already_authenticated: Du er allerede logget ind.
       inactive: Din konto er endnu ikke aktiveret.
@@ -308,14 +330,38 @@ da:
     mailer:
       confirmation_instructions:
         subject: Bekræftelsesinstruktioner
+        action: Bekræft min konto
+        greeting: Velkommen %{recipient}
+        instruction: 'Du kan bekræfte din konto og e-mail via linket herunder:'
       reset_password_instructions:
         subject: Vejledning i skift af adgangskode
+        action: Skift adgangskode
+        greeting: Hej %{recipient}
+        instruction: Der er blevet anmodet om at ændre din adgangskode. Du kan ændre
+          den via linket herunder.
+        instruction_2: Hvis du ikke har anmodet om dette, så se venligst bort fra
+          denne mail.
+        instruction_3: Din adgangskode forbliver uændret, indtil du laver en ny via
+          linket herover.
       unlock_instructions:
         subject: Låse-op-instruktioner
+        action: Lås min konto op
+        greeting: Hej %{recipient}
+        instruction: 'Klik på linket herunder for at låse din konto op:'
+        message: Din konto er blevet låst efter for mange forkerte forsøg på at logge
+          ind.
       email_changed:
         subject: E-mail blev ændret
+        greeting: Hej %{recipient}
+        message: Vi skriver til dig for at oplyse dig om, at din e-mail er blevet
+          ændret til %{email}.
+        message_unconfirmed: Vi kontakter dig for at give dig besked om, at din e-mail
+          bliver ændret til %{email}.
       password_change:
         subject: Adgangskoden er ændret
+        greeting: Hej %{recipient}
+        message: Vi skriver til dig for at oplyse dig om, at din adgangskode er blevet
+          ændret.
     omniauth_callbacks:
       failure: Kunne ikke godkende %{kind} fordi "%{reason}".
       success: Godkendt %{kind} konto.
@@ -335,6 +381,14 @@ da:
       forgot_title: Glemt din adgangskode?
       forgot_header: Glemt din adgangskode?
       forgot_button: Send nulstillingsinstruktioner
+      edit:
+        change_my_password: Skift min adgangskode
+        change_your_password: Skift din adgangskode
+        confirm_new_password: Bekræft ny adgangskode
+        new_password: Ny adgangskode
+      new:
+        forgot_your_password: Glemt adgangskode?
+        send_me_reset_password_instructions: Send mig instruktioner om at skifte adgangskode
     registrations:
       destroyed: Din konto er nu lukket.
       signed_up: Velkommen! Din konto er nu oprettet.
@@ -368,6 +422,19 @@ da:
       create_account: Opret konto
       email: Email
       password_confirmation: Bekræftelse af kodeord
+      edit:
+        are_you_sure: Er du sikker?
+        cancel_my_account: Luk min konto
+        currently_waiting_confirmation_for_email: 'Afventer bekræftelse af: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: 'lad være tomt, hvis du ikke ønsker
+          at ændre '
+        title: Rediger %{resource}
+        unhappy: Utilfreds?
+        update: Opdater
+        we_need_your_current_password_to_confirm_your_changes: vi skal bruge din nuværende
+          adgangskode for at bekræfte ændringerne.
+      new:
+        sign_up: Opret konto
     unlocks:
       send_instructions: Du vil i løbet af få minutter modtage en mail med instruktioner
         om, hvordan du låser din konto op.
@@ -378,6 +445,8 @@ da:
       unlock_title: Send oplåsningsinstruktionerne igen
       unlock_header: Send oplåsningsinstruktionerne igen
       unlock_button: Send igen
+      new:
+        resend_unlock_instructions: Gensend låse-op-instruktioner
     general:
       remember_me: Husk mig
       login: Log ind
@@ -388,34 +457,181 @@ da:
 
         '
       email: Email
+    sessions:
+      new:
+        sign_in: Log ind
+    shared:
+      links:
+        back: Tilbage
+        didn_t_receive_confirmation_instructions: Har du ikke modtaget bekræftelsesinstruktioner?
+        didn_t_receive_unlock_instructions: Har du ikke modtaget låse-op-instruktioner?
+        forgot_your_password: Glemt adgangskode?
+        sign_in: Log ind
+        sign_in_with_provider: Log ind med %{provider}
+        sign_up: Opret konto
+      minimum_password_length:
+        one: "(Mindst %{count} tegn)"
+        other: "(Mindst %{count} tegn)"
   apipie:
     resources: Ressourcer
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resource: Ressource
+    description: Beskrivelse
+    no_docs_found: Ingen dokumentation fundet
+    no_docs_found_descr: Vi har ikke fundet nogen dokumentation for din API.
+    follow_instructions_html: Følg %{href} for at beskrive dine controllere.
+    follow_instructions_href: yderligere instruktioner
+    oops: Ups!!
+    resource_not_found_html: Ressource %{resource} ikke fundet.
+    method_not_found_html: Metode %{method} blev ikke fundet for ressource %{resource}.
+    goto_homepage_html: Prøv at gå til %{href}
+    goto_homepage_href: "%{app_name} Hjemmeside for API-dokumentation"
+    required: påkrævet
+    optional: valgfri
+    nil_allowed: nul tilladt
+    param_name: Param navn
+    params: Params
     examples: Eksempler
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    metadata: Metadata
+    errors: Fejl
+    error_code: Kode
+    error_description: Beskrivelse
+    error_metadata: Metadata
+    supported_formats: Understøttede formater
+    enable_javascript_html: Aktiver venligst JavaScript for at se %{comments_href}.
+    comments_powered_by_disqus: kommentarer drevet af %{disqus}
+    api_documentation: API dokumentation
+    headers: Overskrifter
+    header_name: Overskriftsnavn
+    code: Kode
+    deprecated: Forældet
+    deprecation_details: Detaljer om afskrivning
+    deprecation:
+      attributes:
+        deprecated_in: Forældet i
+        sunset_at: Solnedgang kl
+        info: Info
+    returns: Vender tilbage
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Tilføjet %{count} nøgle
+        other: Tilføjet %{count} nøgler
+    cmd:
+      args:
+        default_text: 'Standard: %{value}'
+        desc:
+          all_locales: Forvent ikke, at nøglemønstre starter med en lokalitet, men
+            anvend dem i stedet for alle lokaliteter implicit.
+          config: Tilsidesæt konfigurationsplacering
+          confirm: Bekræft automatisk
+          data_format: 'Dataformat: %{valid_text}.'
+          keep_order: Hold rækkefølgen af nøglerne
+          key_pattern: Filtrer efter nøglemønster (f.eks. 'common.*')
+          key_pattern_to_rename: Fuld nøgle (mønster) for at omdøbe. Påkrævet
+          locale_to_translate_from: Lokalitet at oversætte fra
+          locales_filter: 'Lokalitet(er), der skal behandles. Speciel: base'
+          missing_types: 'Filtrer efter typer: %{valid}'
+          new_key_name: Nyt navn, interpolerer det oprindelige navn som %{key}. Påkrævet
+          nostdin: Læs ikke fra stdin
+          out_format: 'Outputformat: %{valid_text}'
+          pattern_router: 'Brug mønsterrouter: nøgler flyttet pr. config data.write'
+          strict: Undgå at udlede dynamiske nøgleanvendelser såsom t("cats.#{cat}.name").
+            Har forrang over konfigurationsindstillingen, hvis den er indstillet.
+          translation_backend: Oversættelsesbackend (google eller deepl)
+          value: 'Værdi. Interpolerer: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: tilføje manglende nøgler til lokalitetsdata, match eventuelt
+          et mønster
+        check_consistent_interpolations: verificere, at alle oversættelser bruger
+          korrekte interpolationsvariable
+        check_normalized: verificere, at alle oversættelsesdata er normaliserede
+        config: vise i18n-opgaver konfiguration
+        data: vise lokalitetsdata
+        data_merge: flet lokalitetsdata med træer
+        data_remove: fjern nøgler i træet fra data
+        data_write: erstatte lokalitetsdata med træ
+        eq_base: vis oversættelser lig med basisværdi
+        find: vise, hvor nøgler bruges i koden
+        gem_path: vise vej til ædelstenen
+        health: er alt ok?
+        irb: start REPL session inden for i18n-opgaver kontekst
+        missing: vis manglende oversættelser, match eventuelt et mønster
+        mv: omdøb/flet nøglerne i lokalitetsdata, der matcher det givne mønster
+        normalize: 'normaliser oversættelsesdata: sorter og flyt til de rigtige filer'
+        remove_unused: fjerne ubrugte nøgler
+        rm: fjern nøglerne i lokalitetsdata, der matcher det givne mønster
+        translate_missing: oversæt manglende nøgler med Google Translate eller DeepL
+          Pro, match eventuelt et mønster
+        tree_convert: konverter træ mellem formater
+        tree_filter: filtrer træ efter nøglemønster
+        tree_merge: slå træer sammen
+        tree_mv_key: omdøb/flet/fjern tasterne, der matcher det givne mønster
+        tree_set_value: indstille værdier for nøgler, match eventuelt et mønster
+        tree_subtract: træ A minus nøglerne i træ B
+        tree_translate: Google Oversæt et træ til rodlokaliteter
+        unused: vis ubrugte oversættelser
+      encourage:
+      - Godt arbejde!
+      - Godt klaret!
+      - Perfekt!
+      enum_list_opt:
+        invalid: "%{invalid} er ikke i: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} er ikke en af: %{valid}."
+      errors:
+        invalid_format: 'ugyldigt format: %{invalid}. gyldig: %{valid}.'
+        invalid_locale: 'ugyldig lokalitet: %{invalid}'
+        invalid_missing_type:
+          one: 'ugyldig type: %{invalid}. gyldig: %{valid}.'
+          other: 'ukendte typer: %{invalid}. gyldig: %{valid}.'
+        pass_forest: passere lokalskov
+    common:
+      continue_q: Blive ved?
+      key: Nøgle
+      locale: Lokalitet
+      n_more: "%{count} mere"
+      value: Værdi
+    data_stats:
+      text: har %{key_count}-nøgler på tværs af %{locale_count}-lokaliteter. I gennemsnit
+        er værdier %{value_chars_avg}-tegn lange, nøgler har %{key_segments_avg}-segmenter,
+        en lokalitet har %{per_locale_avg}-nøgler.
+      text_single_locale: har %{key_count} nøgler i alt. I gennemsnit er værdier %{value_chars_avg}-tegn
+        lange, taster har %{key_segments_avg}-segmenter.
+      title: Skov (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Opsæt DeepL Pro API-nøgle via DEEPL_AUTH_KEY miljøvariabel eller
+          translation.deepl_api_key i config/i18n-tasks.yml. Få nøglen på https://www.deepl.com/pro.
+        no_results: DeepL gav ingen resultater.
+    google_translate:
+      errors:
+        no_api_key: Indstil Google API-nøgle via GOOGLE_TRANSLATE_API_KEY miljøvariabel
+          eller translation.google_translate_api_key i config/i18n-tasks.yml. Få nøglen
+          på https://code.google.com/apis/console.
+        no_results: Google Oversæt gav ingen resultater. Sørg for, at faktureringsoplysningerne
+          er angivet på https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Ingen nøgler fundet. Tjek data.read i config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Ingen inkonsistente interpolationer fundet.
+    missing:
+      details_title: Værdi i andre lokaliteter eller kilde
+      none: Der mangler ingen oversættelser.
+    remove_unused:
+      confirm:
+        one: "%{count}-oversættelse vil blive fjernet fra %{locales}."
+        other: "%{count}-oversættelse vil blive fjernet fra %{locales}."
+      noop: Ingen ubrugte nøgler at fjerne
+      removed: Fjernede %{count} nøgler
+    translate_missing:
+      translated: Oversatte %{count} nøgler
+    unused:
+      none: Hver oversættelse er i brug.
+    usages:
+      none: Ingen nøgleanvendelser fundet.
+    yandex_translate:
+      errors:
+        no_api_key: Indstil Yandex API-nøgle via YANDEX_API_KEY miljøvariabel eller
+          translation.yandex_api_key i config/i18n-tasks.yml. Få nøglen på https://tech.yandex.com/translate.
+        no_results: Yandex gav ingen resultater.

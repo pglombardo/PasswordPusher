@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '>=2.7.0'
 
-gem 'rails', '~> 7.0.4'
+gem 'rails', '~> 7.0.5'
 
 group :development do
   gem 'listen'
@@ -22,7 +22,7 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'minitest-rails', '>= 6.1.0'
-  gem 'selenium-webdriver', '4.8.0'
+  gem 'selenium-webdriver', '4.9.0'
   gem 'webdrivers', '~> 5.0', require: false
 end
 
@@ -63,8 +63,6 @@ gem 'will_paginate', '~> 3.3.0'
 gem 'will_paginate-bootstrap-style'
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -80,15 +78,19 @@ gem "jbuilder"
 gem 'foreman'
 gem 'puma'
 gem 'oj'
-gem 'devise', '>= 4.8.1'
+gem 'devise', '>= 4.9.0'
 gem 'config'
-gem 'route_translator', '>= 13.0.0'
-gem 'translation'
 gem 'mail_form', '>= 1.9.0'
 gem 'apipie-rails'
 gem 'simple_token_authentication', '~> 1.18', '>= 1.18.0', git: "https://github.com/pglombardo/simple_token_authentication.git", branch: 'rails7-support'
 gem 'lograge'
 gem 'rollbar'
+
+gem 'route_translator', '>= 13.0.0'
+gem 'translation'
+gem 'rails-i18n', '~> 7.0.7'
+gem 'i18n-tasks', '~> 1.0.12'
+gem 'devise-i18n'
 
 # For File Uploads
 gem "aws-sdk-s3", require: false
@@ -107,11 +109,11 @@ group :mysql, optional: true do
 end
 
 group :sqlite, optional:true do
-  gem 'sqlite3'
+  gem 'sqlite3', force_ruby_platform: true
 end
 
 group :production, :private do
   gem 'rack-timeout'
-  gem 'rack-throttle'
+  gem 'rack-throttle', '0.7.0'
 end
 

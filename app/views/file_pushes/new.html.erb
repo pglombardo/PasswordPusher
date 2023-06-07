@@ -23,7 +23,7 @@
             <div class='row mb-3'>
                 <div class='col'>
                     <div class="card">
-                        <h5 class="card-header">Add Files...</h5>
+                        <h5 class="card-header"><%= _('Add Files...') %></h5>
                         <div class="card-body">
                             <div id="progress-bars" class="list-group"></div>
                             <div data-controller="multi-upload">
@@ -34,7 +34,7 @@
                                                      required: true,
                                                      direct_upload: true,
                                                      class: "form-control",
-                                                     data: { action: "multi-upload#addFile" } %>
+                                                     "data-action": "multi-upload#addFile" %>
                                 </div>
                             </div>
                         </div>
@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class='row'>
-                <p><%= _('Expire secret link and delete after:') %></p>
-                <div class='col-8'>
+                <div><%= _('Expire secret link and delete after:') %></div>
+                <div class='col-10'>
                     <%= range_field_tag("file_push_expire_after_days", Settings.files.deletable_pushes_default,
                                         { :name => "file_push[expire_after_days]",
                                           :class => "form-range",
@@ -55,15 +55,13 @@
                                           "data-knobs-target" => "daysRange"
                                           })%>
                 </div>
-                <div class='col-4'>
-                    <label for='file_push_expire_after_days' data-knobs-target="daysRangeLabel">
-                        <%=Settings.files.deletable_pushes_default %> <%= _('Days') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%=Settings.files.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
 
             <div class='row'>
-                <div class='col-8'>
+                <div class='col-10'>
                     <%=range_field_tag("file_push_expire_after_views", Settings.files.expire_after_views_default,
                                        { :name => "file_push[expire_after_views]",
                                          :class => "form-range",
@@ -75,21 +73,17 @@
                                          })%>
                 </div>
 
-                <div class='col-4'>
-                    <label for='file_push_expire_after_views' data-knobs-target="viewsRangeLabel">
-                        <%= Settings.files.expire_after_views_default %> <%= _('Views') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%=Settings.pw.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
                 <div class='col'>
-                    <div class='mb3'>
-                        <p class='text-center text-muted'><%= _('(whichever comes first)') %></p>
-                    </div>
+                    <p class='text-center form-text'><%= _('(whichever comes first)') %></p>
                 </div>
             </div>
 
-            <div class='row'>
+            <div class='row mb-3'>
                 <div class='col'>
                     <div class="list-group mx-0">
                         <% if Settings.files.enable_retrieval_step %>
@@ -110,30 +104,47 @@
                                                 x_default: Settings.files.deletable_pushes_default }  %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
-                                <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
+                                <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
                             </span>
                             </label>
                         <% end %>
                     </div>
                 </div>
             </div>
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
+                        <%= f.text_field(:passphrase, { class: "form-control",
+                                                        autocomplete: "off",
+                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class='col'>
             <div class='row mb-3'>
-                <label for="file_push_payload" class="form-label">Message</label>
-                <%= f.text_area(:payload, { class: "form-control",
-                                        rows: 5,
-                                        placeholder: _('Encrypted and visible to the receiving party.'),
-                                        spellcheck: false,
-                                        autocomplete: "off" }) %>
+                <div class="input-group">
+                    <span class="input-group-text"><%= _('Message') %></span>
+                    <%= f.text_area(:payload, { class: "form-control",
+                                            rows: 3,
+                                            placeholder: _('Optional: A message to be included with the push'),
+                                            spellcheck: false,
+                                            autocomplete: "off" }) %>
+                </div>
+                <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible to the receiving party') %></div>
             </div>
             <div class='row mb-3'>
-                <label for="file_push_note" class="form-label">Reference</label>
-                <%= f.text_area(:note, { class: "form-control",
-                                        rows: 3,
-                                        placeholder: _('Encrypted and visible only to you.'),
-                                        autocomplete: "off" }) %>
+                <div class="input-group">
+                    <span class="input-group-text"><%= _('Reference Note') %></span>
+                    <%= f.text_area(:note, { class: "form-control",
+                                            rows: 1,
+                                            placeholder: _('Optional'),
+                                            autocomplete: "off" }) %>
+                </div>
+                <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
             </div>
+            <div class='row my-3 px-5'> <hr/> </div>
             <div class='row mb-3'>
                 <span class="text-muted">
                     <%= _('Once expired, all files and content of the push will be deleted immediately and entirely.') %>

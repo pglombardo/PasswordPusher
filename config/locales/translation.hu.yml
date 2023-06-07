@@ -6,23 +6,6 @@
 #
 ---
 hu:
-  routes:
-    cancel: mégsem
-    passwords: jelszavak
-    new: új
-    active: aktív
-    expired: lejárt
-    preview: előnézet
-    audit: ellenőrzés
-    pages: oldalak
-    users: felhasználók
-    sign_in: bejelentkezés
-    sign_out: kijelentkezés
-    sign_up: regisztráció
-    password: jelszó
-    edit: szerkesztés
-    confirmation: megerősítés
-    unlock: feloldás
   date:
     day_names:
     - vasárnap
@@ -133,7 +116,7 @@ hu:
       not_saved:
         one: '1 hiba miatt %{resource} mentése nem lehetséges:'
         other: "%{count} hiba miatt %{resource} mentése nem lehetséges:"
-      in:
+      in: kell lennie %{count}
     unavailable_session: Az %{id} munkamenet már nem érhető el a memóriában. Ha történetesen
       többfolyamatos szerveren fut (mint például az Unicorn vagy a Puma), a kérés
       lekérése nem tárolja az %{id} értéket a memóriában. Fontolja meg a folyamatok/munkavállalók
@@ -142,6 +125,11 @@ hu:
     unacceptable_request: Egy támogatott verzióra számítok az Accept fejlécben
     connection_refused: Hoppá! Nem sikerült csatlakozni a webkonzol köztes szoftveréhez.
       Kérjük, ellenőrizze, hogy fut-e egy Rails fejlesztői szerver.
+    template:
+      body: 'Problémás mezők:'
+      header:
+        one: '1 hiba miatt nem menthető a következő: %{model}'
+        other: "%{count} hiba miatt nem menthető a következő: %{model}"
   activerecord:
     errors:
       messages:
@@ -149,6 +137,35 @@ hu:
         restrict_dependent_destroy:
           has_one: 'A rekord nem törölhető, mert létezik egy függőség: %{record}'
           has_many: 'A rekord nem törölhető, mert létezik egy függőség: %{record}'
+    attributes:
+      user:
+        confirmation_sent_at: 'A visszaigazolás elküldve:'
+        confirmation_token: Megerősítő token
+        confirmed_at: 'Megerősítve:'
+        created_at: 'Létrehozva:'
+        current_password: Jelenlegi jelszó
+        current_sign_in_at: 'Jelenlegi bejelentkezés itt:'
+        current_sign_in_ip: Jelenlegi bejelentkezési IP
+        email: E-mail
+        encrypted_password: Titkosított jelszó
+        failed_attempts: Sikertelen próbálkozások
+        last_sign_in_at: 'Utolsó bejelentkezés:'
+        last_sign_in_ip: Utolsó bejelentkezési IP
+        locked_at: 'Lezárva:'
+        password: Jelszó
+        password_confirmation: Jelszó megerősítése
+        remember_created_at: 'Emlékezz létrehozva:'
+        remember_me: Megjegyez
+        reset_password_sent_at: 'Jelszó visszaállítása elküldve:'
+        reset_password_token: Jelszó token visszaállítása
+        sign_in_count: Bejelentkezési szám
+        unconfirmed_email: Meg nem erősített e-mail
+        unlock_token: Token feloldása
+        updated_at: 'Frissítve:'
+    models:
+      user:
+        one: Felhasználó
+        other: Felhasználók
   datetime:
     distance_in_words:
       half_a_minute: fél perce
@@ -185,6 +202,9 @@ hu:
       almost_x_years:
         one: majdnem 1 éve
         other: majdnem %{count} éve
+      x_years:
+        one: 1 év
+        other: "%{count} év"
     prompts:
       year: év
       month: hónap
@@ -235,6 +255,8 @@ hu:
       resend_title: A megerősítési utasítások újraküldése
       resend_header: A megerősítési utasítások újraküldése
       resend_button: Újraküldés
+      new:
+        resend_confirmation_instructions: Megerősítő levél újraküldése
     failure:
       already_authenticated: Már belépett.
       inactive: A fiók még nincs aktiválva.
@@ -249,14 +271,37 @@ hu:
     mailer:
       confirmation_instructions:
         subject: Megerősítő utasítások
+        action: Fiók megerősítése
+        greeting: Kedves %{recipient}!
+        instruction: 'A fiók megerősítéséhez rá kell kattintani az alábbi linkre:'
       reset_password_instructions:
         subject: Jelszó visszaállítási utasítások
+        action: Jelszó megváltoztatása
+        greeting: Kedves %{recipient}!
+        instruction: Ön, vagy valaki más az ön nevében jelszóváltoztatást kérvényezett,
+          mely a lenti linkre kattintva lehetséges.
+        instruction_2: Amennyiben ön nem kezdeményezte a jelszavának megváltoztatását,
+          kérem hagyja figyelmen kívül ezt a levelet.
+        instruction_3: Amennyiben nem kattint az alábbi linkre, jelszava továbbra
+          is ugyanaz marad, mint eddig.
       unlock_instructions:
         subject: Feloldási utasítások
+        action: Zárolás feloldása
+        greeting: Kedves %{recipient}!
+        instruction: 'A zárolás feloldásához az alábbi linkre kell kattintani:'
+        message: A felhasználói fiókja zárolva lett túl sok sikertelen belépési kísérlet
+          miatt.
       email_changed:
         subject: E-mail megváltozott
+        greeting: Kedves %{recipient}!
+        message: Felvesszük Önnel a kapcsolatot, hogy értesítsük, az e-mail címe %{email}-ra
+          módosult.
+        message_unconfirmed: Felvesszük Önnel a kapcsolatot, hogy értesítsük, az e-mail
+          címe %{email}-ra módosul.
       password_change:
         subject: A jelszó megváltozott
+        greeting: Kedves %{recipient}!
+        message: Felvesszük Önnel a kapcsolatot, hogy értesítsük, hogy jelszava megváltozott.
     omniauth_callbacks:
       failure: 'Nem sikerült azonosítani %{kind} fiókkal, az ok: "%{reason}".'
       success: Sikeres azonosítás %{kind} fiókkal.
@@ -275,6 +320,14 @@ hu:
       forgot_title: Elfelejtett jelszó
       forgot_header: Elfelejtett jelszó
       forgot_button: Küldje el a visszaállítási utasításokat
+      edit:
+        change_my_password: Jelszó megváltoztatása
+        change_your_password: Jelszó megváltoztatása
+        confirm_new_password: Jelszó megerősítése
+        new_password: Új jelszó
+      new:
+        forgot_your_password: Elfelejtette a jelszavát?
+        send_me_reset_password_instructions: Jelszóviszaállítási teendők küldése
     registrations:
       destroyed: Viszlát! Fiókját sikeresen töröltük. Reméljük hamarosan újra találkozunk.
       signed_up: Üdvözöljük! Sikeresen regisztrált. Kérjük, nézze meg e-mailjeit a
@@ -306,6 +359,19 @@ hu:
       create_account: Fiók létrehozása
       email: email
       password_confirmation: Jelszó megerősítése
+      edit:
+        are_you_sure: Biztos benne?
+        cancel_my_account: Fiók megszüntetése
+        currently_waiting_confirmation_for_email: 'Még várjuk a következő e-mail cím
+          megerősítését: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: csak változás esetén kitöltendő
+        title: "%{resource} módosítása"
+        unhappy: Szomorú
+        update: Módosítás
+        we_need_your_current_password_to_confirm_your_changes: a változtatás végrehajtásához
+          szükséges a jelenlegi jelszó
+      new:
+        sign_up: Regisztráció
     unlocks:
       send_instructions: Néhány percen belül kapni fog egy utasításokat tartalmazó
         e-mailt a fiók zárolásának feloldásához.
@@ -315,6 +381,8 @@ hu:
       unlock_title: Küldje el újra a feloldási utasításokat
       unlock_header: Küldje el újra a feloldási utasításokat
       unlock_button: Újraküldés
+      new:
+        resend_unlock_instructions: Feloldási teendők újraküldése
     general:
       remember_me: Emlékezz rám
       login: Belépés
@@ -323,6 +391,21 @@ hu:
       didnt_confirmation: Nem kapott megerősítő utasítást?
       didnt_unlock: Nem kapta meg a feloldási utasításokat?
       email: email
+    sessions:
+      new:
+        sign_in: Belépés
+    shared:
+      links:
+        back: Vissza
+        didn_t_receive_confirmation_instructions: Nem kapta meg a megerősítő levelet?
+        didn_t_receive_unlock_instructions: Nem kapta meg a feloldáshoz a levelet?
+        forgot_your_password: Elfelejtette a jelszavát?
+        sign_in: Belépés
+        sign_in_with_provider: "%{provider} belépés"
+        sign_up: Regisztráció
+      minimum_password_length:
+        one: "(minimum %{count} karakter)"
+        other: "(minimum %{count} karakter)"
   apipie:
     resources: Erőforrások
     resource: Erőforrás
@@ -355,3 +438,146 @@ hu:
     headers: Fejlécek
     header_name: Fejléc neve
     code: Kód
+    deprecated: Elavult
+    deprecation_details: Az elavulás részletei
+    deprecation:
+      attributes:
+        deprecated_in: 'Elavult:'
+        sunset_at: Naplemente órakor
+        info: Info
+    returns: Visszatér
+  i18n_tasks:
+    add_missing:
+      added:
+        one: "%{count} kulcs hozzáadva"
+        other: "%{count} kulcsok hozzáadva"
+    cmd:
+      args:
+        default_text: 'Alapértelmezés: %{value}'
+        desc:
+          all_locales: Ne várja el, hogy a kulcsminták egy területi beállítással kezdődjenek,
+            hanem implicit módon alkalmazza őket minden területi beállításra.
+          config: Konfigurációs hely felülírása
+          confirm: Automatikus megerősítés
+          data_format: 'Adatformátum: %{valid_text}.'
+          keep_order: Tartsa be a kulcsok sorrendjét
+          key_pattern: Szűrés kulcsminta alapján (pl. „gyakori.*”)
+          key_pattern_to_rename: Teljes kulcs (minta) az átnevezéshez. Kívánt
+          locale_to_translate_from: Fordítási nyelv
+          locales_filter: 'Feldolgozandó terület(ek). Különleges: alap'
+          missing_types: 'Szűrés típusok szerint: %{valid}'
+          new_key_name: Új név, az eredeti nevet %{key}-ként interpolálja. Kívánt
+          nostdin: Ne olvasson stdin-ből
+          out_format: 'Kimeneti formátum: %{valid_text}'
+          pattern_router: 'Használja a mintaútválasztót: a kulcsok konfigurációnként
+            mozgatva data.write'
+          strict: Kerülje a dinamikus kulcshasználatok kikövetkeztetését, például
+            a t("cats.#{cat}.name"). Ha be van állítva, elsőbbséget élvez a konfigurációs
+            beállításokkal szemben.
+          translation_backend: Fordítási háttér (google vagy deepl)
+          value: 'Érték. Interpolációk: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: adjon hozzá hiányzó kulcsokat a területi beállításokhoz, és opcionálisan
+          egyezzen meg egy mintát
+        check_consistent_interpolations: ellenőrizze, hogy minden fordítás helyes
+          interpolációs változókat használ-e
+        check_normalized: ellenőrizze, hogy az összes fordítási adat normalizálva
+          van-e
+        config: i18n-tasks konfiguráció megjelenítése
+        data: területi adatok megjelenítése
+        data_merge: egyesítse a területi adatokat a fákkal
+        data_remove: távolítsa el a fában lévő kulcsokat az adatokból
+        data_write: cserélje ki a területi adatokat fára
+        eq_base: az alapértékkel megegyező fordítások megjelenítése
+        find: megmutatja, hogy a kódban hol használnak billentyűket
+        gem_path: mutasd meg a drágakőhöz vezető utat
+        health: minden rendben?
+        irb: REPL munkamenet indítása i18n-tasks környezetben
+        missing: a hiányzó fordítások megjelenítése, opcionálisan egy minta egyezése
+        mv: nevezze át/egyesítse át a kulcsokat a területi beállításokban, amelyek
+          megfelelnek az adott mintának
+        normalize: 'a fordítási adatok normalizálása: rendezze és mozgassa a megfelelő
+          fájlokat'
+        remove_unused: távolítsa el a nem használt kulcsokat
+        rm: távolítsa el az adott mintának megfelelő kulcsokat a területi beállításokból
+        translate_missing: fordítsa le a hiányzó kulcsokat a Google Fordítóval vagy
+          a DeepL Pro-val, opcionálisan egyeztesse meg a mintát
+        tree_convert: konvertálja a fát a formátumok között
+        tree_filter: szűrő fa kulcsminta szerint
+        tree_merge: fákat egyesíteni
+        tree_mv_key: az adott mintának megfelelő kulcsok átnevezése/egyesítése/eltávolítása
+        tree_set_value: állítsa be a billentyűk értékeit, és opcionálisan illeszkedjen
+          egy mintához
+        tree_subtract: A fa mínusz a B fa kulcsai
+        tree_translate: A Google lefordít egy fát a gyökérterületekre
+        unused: fel nem használt fordítások megjelenítése
+      encourage:
+      - Szép munka!
+      - Szép munka!
+      - Tökéletes!
+      enum_list_opt:
+        invalid: 'Az %{invalid} nincs itt: %{valid}.'
+      enum_opt:
+        invalid: 'Az %{invalid} nem a következők egyike: %{valid}.'
+      errors:
+        invalid_format: 'érvénytelen formátum: %{invalid}. érvényes: %{valid}.'
+        invalid_locale: 'érvénytelen területi beállítás: %{invalid}'
+        invalid_missing_type:
+          one: 'érvénytelen típus: %{invalid}. érvényes: %{valid}.'
+          other: 'ismeretlen típusok: %{invalid}. érvényes: %{valid}.'
+        pass_forest: haladjon át a helyi erdőben
+    common:
+      continue_q: Folytatni?
+      key: Kulcs
+      locale: Nyelv
+      n_more: "%{count} még"
+      value: Érték
+    data_stats:
+      text: "%{key_count} kulcsokkal rendelkezik az %{locale_count} nyelveken. Átlagosan
+        az értékek %{value_chars_avg} karakter hosszúak, a billentyűknek %{key_segments_avg}
+        szegmensek, a területi beállításoknak pedig %{per_locale_avg} kulcsok vannak."
+      text_single_locale: összesen %{key_count} kulcsokkal rendelkezik. Az értékek
+        átlagosan %{value_chars_avg} karakter hosszúak, a billentyűk %{key_segments_avg}
+        szegmensekkel rendelkeznek.
+      title: Erdő (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Állítsa be a DeepL Pro API-kulcsot a DEEPL_AUTH_KEY környezeti
+          változóval vagy a translation.deepl_api_key-vel a config/i18n-tasks.yml
+          fájlban. Szerezze meg a kulcsot a https://www.deepl.com/pro címen.
+        no_results: A DeepL nem adott eredményt.
+    google_translate:
+      errors:
+        no_api_key: Állítsa be a Google API-kulcsot a GOOGLE_TRANSLATE_API_KEY környezeti
+          változóval vagy a translation.google_translate_api_key-vel a config/i18n-tasks.yml
+          fájlban. Szerezze meg a kulcsot a https://code.google.com/apis/console címen.
+        no_results: A Google Fordító nem adott eredményt. Győződjön meg arról, hogy
+          a számlázási információk be vannak állítva a https://code.google.com/apis/console
+          oldalon.
+    health:
+      no_keys_detected: Nincsenek kulcsok. Ellenőrizze a data.read fájlt a config/i18n-tasks.yml
+        fájlban.
+    inconsistent_interpolations:
+      none: Nem található inkonzisztens interpoláció.
+    missing:
+      details_title: Érték más nyelveken vagy forrásokban
+      none: Egyetlen fordítás sem hiányzik.
+    remove_unused:
+      confirm:
+        one: Az %{count} fordítás el lesz távolítva az %{locales}-ből.
+        other: Az %{count} fordítás el lesz távolítva az %{locales}-ből.
+      noop: Nincsenek eltávolítható, nem használt kulcsok
+      removed: "%{count} kulcsok eltávolítva"
+    translate_missing:
+      translated: "%{count} kulcsok lefordítása"
+    unused:
+      none: Minden fordítás használatban van.
+    usages:
+      none: Nem találhatók kulcsfelhasználások.
+    yandex_translate:
+      errors:
+        no_api_key: Állítsa be a Yandex API-kulcsot a YANDEX_API_KEY környezeti változóval
+          vagy a translation.yandex_api_key-vel a config/i18n-tasks.yml fájlban. Szerezze
+          meg a kulcsot a https://tech.yandex.com/translate címen.
+        no_results: A Yandex nem adott eredményt.

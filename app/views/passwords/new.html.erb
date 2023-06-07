@@ -32,9 +32,10 @@
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <div class='row'>
         <div class='col'>
+<<<<<<< HEAD
             <%= f.text_area(:payload, { class: "form-control",
                                         rows: 6,
-                                        placeholder: _('Enter the Password (or text) to be Shared'),
+                                        placeholder: _('Enter the Password or Text to push..'),
                                         autocomplete: "off",
                                         spellcheck: "false",
                                         autofocus: true,
@@ -47,25 +48,29 @@
                 <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
                     <span id="current" data-passwords-target="currentChars">0</span>
                     <span id="maximum" data-passwords-target="maximumChars">/ 1048576 <%= _('Characters') %></span>
+=======
+            <div class='mb5'>
+                <%= f.text_area(:payload, { class: "form-control",
+                                            rows: 3,
+                                            placeholder: PAYLOAD_INITIAL_TEXT,
+                                            autocomplete: "off",
+                                            autofocus: true,
+                                            required: true }) %>
+                <div class='mb3 position-relative'>
+                    <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
+                        <span id="current">0</span>
+                        <span id="maximum"> Characters</span>
+                    </div>
+>>>>>>> cdc1ea67 (MSIS initial Branding)
                 </div>
             </div>
         </div>
     </div>
     <div class='row'>
-        <div class='col-12 col-sm-8 p-3 mt-4'>
-            <% if user_signed_in? %>
-                <div class='row mb-3'>
-                    <div class='col'>
-                        <%= f.text_area(:note, { class: "form-control",
-                                                 rows: 2,
-                                                 placeholder: _('(Optional) Reference Note. Encrypted & Visible Only to You. E.g. Employee, Record or Ticket ID etc..'),
-                                                 autocomplete: "off" }) %>
-                    </div>
-                </div>
-            <% end %>
+        <div class='col-12 col-sm-8 p-3'>
             <div class='row'>
-                <p><%= _('Expire secret link and delete after:') %></p>
-                <div class='col-8'>
+                <div><%= _('Expire secret link and delete after:') %></div>
+                <div class='col-10'>
                     <%= range_field_tag("password_expire_after_days", Settings.pw.expire_after_days_default,
                                         { :name => "password[expire_after_days]",
                                           :class => "form-range",
@@ -76,15 +81,12 @@
                                           "data-knobs-target" => "daysRange"
                                         })%>
                 </div>
-                <div class='col-4'>
-                    <label for='password_expire_after_days' data-knobs-target="daysRangeLabel">
-                        <%=Settings.pw.expire_after_days_default %> <%= _('Days') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%=Settings.pw.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
-
             <div class='row'>
-                <div class='col-8'>
+                <div class='col-10'>
                     <%=range_field_tag("password_expire_after_views", Settings.pw.expire_after_views_default,
                                         { :name => "password[expire_after_views]",
                                             :class => "form-range",
@@ -96,21 +98,17 @@
                                         })%>
                 </div>
 
-                <div class='col-4'>
-                    <label for='password_expire_after_views' data-knobs-target="viewsRangeLabel">
-                        <%= Settings.pw.expire_after_views_default %> <%= _('Views') %>
-                    </label>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%=Settings.pw.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
                 <div class='col'>
-                    <div class='mb3'>
-                        <p class='text-center fw-lighter'><%= _('(whichever comes first)') %></p>
-                    </div>
+                    <p class='text-center form-text'><%= _('(whichever comes first)') %></p>
                 </div>
             </div>
 
-            <div class='row'>
+            <div class='row mb-3'>
                 <div class='col'>
                     <div class="list-group mx-0">
                         <% if Settings.pw.enable_retrieval_step %>
@@ -131,17 +129,36 @@
                                               "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
-                                <small class="d-block text-muted"><%= _('Allow users to delete passwords once retrieved.') %></small>
+                                <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
                             </span>
                             </label>
                         <% end %>
                     </div>
                 </div>
             </div>
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
+                        <%= f.text_field(:passphrase, { class: "form-control",
+                                                        autocomplete: "off",
+                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <p class='mb-3'>
+                        <div id='cookie-save'>
+                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                        </div>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class='col-12 col-sm-4 p-3 mt-4'>
-            <div class="mb-3 text-end">
-                <div class="btn-group w-100" role="group" aria-label="Password Generator button group with nested dropdown">
+        <div class='col-12 col-sm-4 p-3 mt-3'>
+            <div class="row mb-3">
+                <div class="btn-group mb-3" role="group" aria-label="Password Generator button group with nested dropdown">
                     <button class="btn btn-secondary w-75" type="button"
                         id='generate_password'
                         data-knobs-target="generatePasswordButton"
@@ -152,18 +169,43 @@
                         <em class="bi bi-gear"></em>
                     </button>
                 </div>
+                <p class='fst-italic fw-light'><%= _('Use the button above to generate a random password.') %></p>
             </div>
-            <p class='fst-italic'><%= _('Tip: Only enter the password into the box.  Other identifying information can compromise security.') %></p>
-            <p class='fst-italic fw-light'><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link.  Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
+<<<<<<< HEAD
+            <% if user_signed_in? %>
+                <div class='row mb-3'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Reference Note') %></span>
+                        <%= f.text_area(:note, { class: "form-control",
+                                                rows: 1,
+                                                placeholder: _('Optional'),
+                                                autocomplete: "off" }) %>
+                    </div>
+                    <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
+=======
+            <p class='fst-italic'>
+                Tip: Only enter the password into the box.  Other identifying information (such as username) can compromise security.
+            </p>
+
+            <p class='fst-italic fw-light'>
+                All passwords are encrypted prior to storage and are available to only those with the secret link.
+                Once expired, encrypted passwords are unequivocally deleted from the database.
+            </p>
         </div>
     </div>
     <div class='row'>
         <div class='col'>
             <p class='mb-3'>
                 <div id='cookie-save'>
-                    <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                    <a href='#' id='save-defaults'>Save</a> these settings as <em>default</em> in a browser cookie.
+>>>>>>> cdc1ea67 (MSIS initial Branding)
                 </div>
-            </p>
+            <% end %>
+            <div class='row my-3 px-5'> <hr/> </div>
+            <div class='row mb-3'>
+                <p class='fst-italic'><%= _('Tip: Only enter a password into the box.  Other identifying information can compromise security.') %></p>
+                <p class='fst-italic fw-light'><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link.  Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
+            </div>
         </div>
     </div>
     <div class='row'>

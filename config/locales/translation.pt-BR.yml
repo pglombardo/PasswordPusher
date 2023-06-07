@@ -6,23 +6,6 @@
 #
 ---
 pt-BR:
-  routes:
-    cancel: cancelar
-    passwords: senhas
-    new: novo
-    active: ativo
-    expired: expirado
-    preview: visualizar
-    audit: auditoria
-    pages: páginas
-    users: usuários
-    sign_in: entrar
-    sign_out: sair
-    sign_up: inscrever-se
-    password: senha
-    edit: editar
-    confirmation: confirmação
-    unlock: desbloquear
   date:
     day_names:
     - Domingo
@@ -133,7 +116,7 @@ pt-BR:
       not_saved:
         one: 'Não foi possível salvar %{resource}: 1 erro'
         other: 'Não foi possível salvar %{resource}: %{count} erros.'
-      in:
+      in: deve estar em %{count}
     unavailable_session: A sessão %{id} não está mais disponível na memória. Se acontecer
       de você executar em um servidor multi-processo (como Unicorn ou Puma), o processo
       deste hit de solicitação não armazena %{id} na memória. Considere aumentar o
@@ -142,6 +125,11 @@ pt-BR:
     unacceptable_request: Uma versão com suporte é esperada no cabeçalho Accept.
     connection_refused: Ops! Falha ao conectar-se ao middleware do console da web.
       Certifique-se de que um servidor de desenvolvimento Rails esteja em execução.
+    template:
+      body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+      header:
+        one: 'Não foi possível gravar %{model}: 1 erro'
+        other: 'Não foi possível gravar %{model}: %{count} erros'
   activerecord:
     errors:
       messages:
@@ -149,6 +137,35 @@ pt-BR:
         restrict_dependent_destroy:
           has_one: Não é possível apagar o registro porque existe um %{record} dependente
           has_many: Não é possível apagar o registro porque existem %{record} dependentes
+    attributes:
+      user:
+        confirmation_sent_at: Confirmação enviada em
+        confirmation_token: Token de confirmação
+        confirmed_at: Confirmado em
+        created_at: Criado em
+        current_password: Senha atual
+        current_sign_in_at: Atualmente logado em
+        current_sign_in_ip: IP do acesso atual
+        email: E-mail
+        encrypted_password: Senha criptografada
+        failed_attempts: Tentativas sem sucesso
+        last_sign_in_at: Último acesso em
+        last_sign_in_ip: Último IP de acesso
+        locked_at: Bloqueado em
+        password: Senha
+        password_confirmation: Confirme sua senha
+        remember_created_at: Lembrar criado em
+        remember_me: Lembre-se de mim
+        reset_password_sent_at: Resetar senha enviado em
+        reset_password_token: Resetar token de senha
+        sign_in_count: Contagem de acessos
+        unconfirmed_email: E-mail não confirmado
+        unlock_token: Token de desbloqueio
+        updated_at: Atualizado em
+    models:
+      user:
+        one: Utilizador
+        other: Utilizadores
   datetime:
     distance_in_words:
       half_a_minute: meio minuto
@@ -185,6 +202,9 @@ pt-BR:
       almost_x_years:
         one: quase 1 ano
         other: quase %{count} anos
+      x_years:
+        one: 1 ano
+        other: "%{count} anos"
     prompts:
       year: Ano
       month: Mês
@@ -237,6 +257,8 @@ pt-BR:
       resend_title: Reenviar instruções de confirmação
       resend_header: Reenviar instruções de confirmação
       resend_button: Reenviar
+      new:
+        resend_confirmation_instructions: Reenviar instruções de confirmação
     failure:
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
@@ -250,14 +272,37 @@ pt-BR:
     mailer:
       confirmation_instructions:
         subject: Instruções de confirmação
+        action: Confirmar minha conta
+        greeting: Bem-vindo %{recipient}!
+        instruction: 'Você pode confirmar sua conta através do link abaixo:'
       reset_password_instructions:
         subject: Instruções de redefinição de senha
+        action: Redefinir minha senha
+        greeting: Olá %{recipient}!
+        instruction: Alguém fez o pedido para redefinir sua senha, e você pode fazer
+          isso clicando no link abaixo.
+        instruction_2: Se você não fez este pedido, por favor ignore este e-mail.
+        instruction_3: Sua senha não será alterada até que você acesse o link acima
+          e crie uma nova.
       unlock_instructions:
         subject: Instruções de desbloqueio
+        action: Desbloquear minha conta
+        greeting: Olá %{recipient}!
+        instruction: 'Clique no link abaixo para desbloquear sua conta:'
+        message: Sua conta foi bloqueada devido ao excessivo número de tentativas
+          acesso inválidas.
       email_changed:
         subject: E-mail alterado
+        greeting: Olá %{recipient}!
+        message: Estamos entrando em contato para notificá-lo de que seu e-mail está
+          sendo alterado para %{email}.
+        message_unconfirmed: Estamos entrando em contato para notificá-lo de que seu
+          e-mail está sendo alterado para %{email}.
       password_change:
         subject: Senha alterada
+        greeting: Olá %{recipient}!
+        message: Estamos entrando em contato para notificá-lo de que sua senha foi
+          alterada.
     omniauth_callbacks:
       failure: Não foi possível autorizar de uma conta de %{kind} porque "%{reason}".
       success: Autorizado com sucesso de uma conta de %{kind}.
@@ -276,6 +321,15 @@ pt-BR:
       forgot_title: Esqueci a senha
       forgot_header: Esqueci a senha
       forgot_button: Enviar instruções de redefinição
+      edit:
+        change_my_password: Alterar minha senha
+        change_your_password: Alterar sua senha
+        confirm_new_password: Confirme sua nova senha
+        new_password: Nova senha
+      new:
+        forgot_your_password: Esqueceu sua senha?
+        send_me_reset_password_instructions: Enviar instruções para redefinição da
+          senha
     registrations:
       destroyed: Adeus! A sua conta foi cancelada com sucesso. Esperamos vê-lo novamente
         em breve.
@@ -308,6 +362,19 @@ pt-BR:
       create_account: Criar uma conta
       email: E-mail
       password_confirmation: Confirmação se senha
+      edit:
+        are_you_sure: Você tem certeza?
+        cancel_my_account: Cancelar minha conta
+        currently_waiting_confirmation_for_email: 'No momento esperando por: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: deixe em branco caso não queira
+          alterá-la
+        title: Editar %{resource}
+        unhappy: Não está contente?
+        update: Atualizar
+        we_need_your_current_password_to_confirm_your_changes: precisamos da sua senha
+          atual para confirmar suas mudanças
+      new:
+        sign_up: Inscrever-se
     unlocks:
       send_instructions: Dentro de minutos, você receberá um e-mail com instruções
         de desbloqueio da sua conta.
@@ -317,6 +384,8 @@ pt-BR:
       unlock_title: Reenviar instruções de desbloqueio
       unlock_header: Reenviar instruções de desbloqueio
       unlock_button: Reenviar
+      new:
+        resend_unlock_instructions: Reenviar instruções de desbloqueio
     general:
       remember_me: Lembre-me
       login: Log In
@@ -325,34 +394,186 @@ pt-BR:
       didnt_confirmation: Não recebeu as instruções de confirmação?
       didnt_unlock: Não recebeu instruções de desbloqueio?
       email: E-mail
+    sessions:
+      new:
+        sign_in: Login
+    shared:
+      links:
+        back: Voltar
+        didn_t_receive_confirmation_instructions: Não recebeu instruções de confirmação?
+        didn_t_receive_unlock_instructions: Não recebeu instruções de desbloqueio?
+        forgot_your_password: Esqueceu sua senha?
+        sign_in: Login
+        sign_in_with_provider: Entrar com %{provider}
+        sign_up: Inscrever-se
+      minimum_password_length:
+        one: "(Mínimo de %{count} caractere)"
+        other: "(Mínimo de %{count} caracteres)"
   apipie:
     resources: Recursos
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resource: Recursos
+    description: Descrição
+    no_docs_found: Nenhuma documentação encontrada
+    no_docs_found_descr: Não encontramos nenhuma documentação para sua API.
+    follow_instructions_html: Siga %{href} sobre como descrever seus controladores.
+    follow_instructions_href: mais instruções
+    oops: Ops!!
+    resource_not_found_html: Recurso %{resource} não encontrado.
+    method_not_found_html: Método %{method} não encontrado para o recurso %{resource}.
+    goto_homepage_html: Tente ir para %{href}
+    goto_homepage_href: "%{app_name} Página inicial da documentação da API"
+    required: requeridos
+    optional: opcional
+    nil_allowed: nada permitido
+    param_name: Nome do parâmetro
+    params: Parâmetros
     examples: Exemplos
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    metadata: Metadados
+    errors: Erros
+    error_code: Código
+    error_description: Descrição
+    error_metadata: Metadados
+    supported_formats: Formatos suportados
+    enable_javascript_html: Ative o JavaScript para visualizar o %{comments_href}.
+    comments_powered_by_disqus: comentários por %{disqus}
+    api_documentation: Documentação da API
+    headers: Cabeçalhos
+    header_name: Nome do cabeçalho
+    code: Código
+    deprecated: Descontinuada
+    deprecation_details: Detalhes de depreciação
+    deprecation:
+      attributes:
+        deprecated_in: Obsoleto em
+        sunset_at: Pôr do sol às
+        info: Informações
+    returns: devoluções
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Adicionada chave %{count}
+        other: Adicionadas chaves %{count}
+    cmd:
+      args:
+        default_text: 'Padrão: %{value}'
+        desc:
+          all_locales: Não espere que os padrões-chave comecem com uma localidade;
+            em vez disso, aplique-os a todas as localidades implicitamente.
+          config: Substituir local de configuração
+          confirm: Confirmar automaticamente
+          data_format: 'Formato de dados: %{valid_text}.'
+          keep_order: Mantenha a ordem das teclas
+          key_pattern: Filtre por padrão de chave (por exemplo, 'common.*')
+          key_pattern_to_rename: Chave completa (padrão) para renomear. Obrigatório
+          locale_to_translate_from: Local de onde traduzir
+          locales_filter: 'Local(is) a processar. Especial: básico'
+          missing_types: 'Filtrar por tipos: %{valid}'
+          new_key_name: Novo nome, interpola o nome original como %{key}. Obrigatório
+          nostdin: Não leia de stdin
+          out_format: 'Formato de saída: %{valid_text}'
+          pattern_router: 'Usar roteador padrão: chaves movidas por configuração data.write'
+          strict: Evite inferir usos de chaves dinâmicas como t("cats.#{cat}.name").
+            Tem precedência sobre a definição de configuração, se definida.
+          translation_backend: Back-end de tradução (google ou deepl)
+          value: 'Valor. Interpola: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
+            %{value_or_default_or_human_key}'
+      desc:
+        add_missing: adicionar chaves ausentes aos dados de localidade, opcionalmente
+          corresponder a um padrão
+        check_consistent_interpolations: verifique se todas as traduções usam variáveis
+          de interpolação corretas
+        check_normalized: verifique se todos os dados de tradução estão normalizados
+        config: exibir configuração i18n-tasks
+        data: mostrar dados de localidade
+        data_merge: mesclar dados de localidade com árvores
+        data_remove: remover as chaves presentes na árvore dos dados
+        data_write: substituir dados de localidade por árvore
+        eq_base: mostrar traduções iguais ao valor base
+        find: mostrar onde as chaves são usadas no código
+        gem_path: mostre o caminho para a gema
+        health: está tudo bem?
+        irb: iniciar sessão REPL dentro do contexto i18n-tasks
+        missing: mostrar traduções ausentes, opcionalmente corresponder a um padrão
+        mv: renomeie/mescle as chaves nos dados de localidade que correspondem ao
+          padrão fornecido
+        normalize: 'normalizar dados de tradução: classificar e mover para os arquivos
+          corretos'
+        remove_unused: remover chaves não utilizadas
+        rm: remova as chaves nos dados de localidade que correspondem ao padrão fornecido
+        translate_missing: traduzir chaves ausentes com o Google Tradutor ou DeepL
+          Pro, opcionalmente corresponder a um padrão
+        tree_convert: converter árvore entre formatos
+        tree_filter: filtrar árvore por padrão de chave
+        tree_merge: mesclar árvores
+        tree_mv_key: renomeie/mescle/remova as chaves correspondentes ao padrão fornecido
+        tree_set_value: definir valores de chaves, opcionalmente corresponder a um
+          padrão
+        tree_subtract: árvore A menos as chaves na árvore B
+        tree_translate: Google Translate uma árvore para localidades raiz
+        unused: mostrar traduções não utilizadas
+      encourage:
+      - Bom trabalho!
+      - Bom trabalho!
+      - Perfeito!
+      enum_list_opt:
+        invalid: "%{invalid} não está em: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} não é um dos seguintes: %{valid}."
+      errors:
+        invalid_format: 'formato inválido: %{invalid}. válido: %{valid}.'
+        invalid_locale: 'localidade inválida: %{invalid}'
+        invalid_missing_type:
+          one: 'tipo inválido: %{invalid}. válido: %{valid}.'
+          other: 'tipos desconhecidos: %{invalid}. válido: %{valid}.'
+        pass_forest: passagem floresta local
+    common:
+      continue_q: Continuar?
+      key: Chave
+      locale: Localidade
+      n_more: "%{count} mais"
+      value: Valor
+    data_stats:
+      text: tem chaves %{key_count} em localidades %{locale_count}. Em média, os valores
+        têm caracteres %{value_chars_avg}, as chaves têm segmentos %{key_segments_avg},
+        uma localidade tem chaves %{per_locale_avg}.
+      text_single_locale: tem chaves %{key_count} no total. Em média, os valores têm
+        caracteres %{value_chars_avg} e as chaves têm segmentos %{key_segments_avg}.
+      title: Floresta (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Configure a chave de API do DeepL Pro por meio da variável de
+          ambiente DEEPL_AUTH_KEY ou translation.deepl_api_key em config/i18n-tasks.yml.
+          Obtenha a chave em https://www.deepl.com/pro.
+        no_results: O DeepL não retornou resultados.
+    google_translate:
+      errors:
+        no_api_key: Defina a chave da API do Google por meio da variável de ambiente
+          GOOGLE_TRANSLATE_API_KEY ou translation.google_translate_api_key em config/i18n-tasks.yml.
+          Obtenha a chave em https://code.google.com/apis/console.
+        no_results: O Google Tradutor não retornou resultados. Certifique-se de que
+          as informações de faturamento estejam definidas em https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Nenhuma chave detectada. Verifique data.read em config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Nenhuma interpolação inconsistente encontrada.
+    missing:
+      details_title: Valor em outras localidades ou fonte
+      none: Nenhuma tradução está faltando.
+    remove_unused:
+      confirm:
+        one: A tradução %{count} será removida de %{locales}.
+        other: A tradução %{count} será removida de %{locales}.
+      noop: Nenhuma chave não utilizada para remover
+      removed: Chaves %{count} removidas
+    translate_missing:
+      translated: Chaves %{count} traduzidas
+    unused:
+      none: Cada tradução está em uso.
+    usages:
+      none: Nenhum uso de chave encontrado.
+    yandex_translate:
+      errors:
+        no_api_key: Defina a chave da API Yandex por meio da variável de ambiente
+          YANDEX_API_KEY ou translation.yandex_api_key em config/i18n-tasks.yml. Obtenha
+          a chave em https://tech.yandex.com/translate.
+        no_results: Yandex não retornou resultados.

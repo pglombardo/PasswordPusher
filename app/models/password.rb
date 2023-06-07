@@ -1,6 +1,6 @@
 class Password < ApplicationRecord
   has_many :views, dependent: :destroy
-  has_encrypted :payload, :note
+  has_encrypted :payload, :note, :passphrase
 
   belongs_to :user, optional: true
   
@@ -36,6 +36,7 @@ class Password < ApplicationRecord
   def expire
     self.expired = true
     self.payload = nil
+    self.passphrase = nil
     self.expired_on = Time.now
     save
   end
@@ -58,9 +59,11 @@ class Password < ApplicationRecord
     # Remove unnecessary fields
     attr_hash.delete('payload_ciphertext')
     attr_hash.delete('note_ciphertext')
+    attr_hash.delete('passphrase_ciphertext')
     attr_hash.delete('user_id')
     attr_hash.delete('id')
 
+    attr_hash.delete('passphrase')
     attr_hash.delete('note') unless owner
     attr_hash.delete('payload') unless payload
 

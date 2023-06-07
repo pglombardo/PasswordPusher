@@ -189,6 +189,27 @@ pw:
   #
   deletable_pushes_default: true
 
+  # Blur Payloads
+  #
+  # default: true
+  #
+  # This option does not affect the JSON API - web UI only.
+  # When this is set to true, this option will display the pushed text payload as
+  # blurred out text.  This is useful for recipients in public places who don't
+  # want to reveal the sensitive information until when they choose.
+  #
+  # The blur is disabled with a single mouse click.
+  #
+  # Setting this option to false will disable the blur feature entirely for password pushes.
+  #
+  # Note: This is a global on/off switch currently.  This may be made configurable per push
+  # in the future by adding a new checkbox and a `blur_default` setting.
+  #
+  # Environment variable override:
+  # PWP__PW__BLUR='false'
+  #
+  enable_blur: true
+
 ## Expiration Settings for URL Pushes
 #
 url:
@@ -318,6 +339,28 @@ files:
   #
   deletable_pushes_default: true
 
+  # Blur Payloads
+  #
+  # default: true
+  #
+  # This option does not affect the JSON API - web UI only.
+  # When this is set to true, this option will display the pushed text payload as
+  # blurred out text.  This is useful for recipients in public places who don't
+  # want to reveal the sensitive information until when they choose.
+  #
+  # The blur is disabled with a single mouse click.
+  #
+  # Setting this option to false will disable the blur feature entirely for file pushes.
+  #
+  # Note: This is a global on/off switch currently.  This may be made configurable per push
+  # in the future by adding a new checkbox and a `blur_default` setting.
+  #
+  # Environment variable override:
+  # PWP__FILES__BLUR='false'
+  #
+  enable_blur: true
+
+
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
@@ -440,13 +483,13 @@ brand:
   #
   # Environment variable override: PWP__BRAND__TITLE='Acme Corp.'
   #
-  # title: 'Password Pusher'
+  title: 'Password Pusher'
 
   ### Site Tagline
   #
   # Environment variable override: PWP__BRAND__TAGLINE='Security First'
   #
-  # tagline: 'Go Ahead.  Email Another Password.'
+  tagline: 'Go Ahead.  Email Another Password.'
 
   ### Show Footer Menu Toggle
   #
@@ -626,10 +669,43 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
+### Docker Precompilation
+#
+# If set to true, the Docker image will precompile assets on container boot.
+#
+# This is useful if you modified the assets (e.g. CSS, JS, images) to customize
+# the theme etc...  Assets are precompiled before serving.
+#
+# Environment Variable Override: PWP_PRECOMPILE='false'
+#
+# precompile: false
+
+### Themes
+#
+# Password Pusher uses Bootswatch themes.  See https://bootswatch.com/
+#
+# The following are the available themes.  The default theme is 'default'.
+#
+#   'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen',
+#   'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex',
+#   'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'
+#
+# To change the theme, set the `theme` value to the name of the theme you
+# want to use.
+#
+# Environment Variable Override: PWP__THEME='default'
+#
+# Important Note: This setting can only be controlled by environment variable. (PWP__THEME)
+#                 It cannot be set in this config file.
+theme: 'default'
+
 ### Language & Internationalization
 #
 # List of supported languages indexed by language code.  This is used
 # to build the in application language menu.
+#
+# To remove the availability of languages from the application entirely,
+# comment out the language code(s) from the list below.
 #
 # <language code>: '<language name>'
 language_codes:
@@ -643,13 +719,18 @@ language_codes:
   fr: 'Français'
   hu: 'Magyar'
   it: 'Italiano'
+  ja: '日本語'
+  ko: '한국어'
   lv: 'Latviski'
   nl: 'Nederlands'
   'no': 'Norsk' # _no_ keyword in Ruby evaluates to false :-(
   pl: 'Polski'
-  'pt-BR': 'Português'
+  pt-BR: 'Português'
+  pt-PT: 'Português'
+  ru: 'Русский'
   sr: 'Српски'
   sv: 'Svenska'
+  th: 'ไทย'
   zh-CN: '中国人'
 
 # Used internally for the language selector model.
@@ -669,14 +750,19 @@ country_codes:
   fr: :fr
   hu: :hu
   it: :it
+  ja: :jp
+  ko: :kr
   lv: :lv
   nl: :nl
-  'no': 'no' # _no_ keyword in Ruby evaluates to false :-(
+  'no': :no # _no_ keyword in Ruby evaluates to false :-(
   pl: :pl
-  'pt-BR': 'br'
-  sr: 'rs'
-  sv: 'se'
-  zh-CN: 'cn'
+  pt-BR: :br
+  pt-PT: :pt
+  ru: :ru
+  sr: :rs
+  sv: :se
+  th: :th
+  zh-CN: :cn
 
 
 ### Site Default Locale

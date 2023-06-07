@@ -6,23 +6,6 @@
 #
 ---
 de:
-  routes:
-    cancel: abbrechen
-    passwords: Passwörter
-    new: neu
-    active: aktiv
-    expired: abgelaufen
-    preview: Vorschau
-    audit: prüfen
-    pages: Seiten
-    users: Benutzer
-    sign_in: Anmelden
-    sign_out: Abmelden
-    sign_up: Registrieren
-    password: Passwort
-    edit: bearbeiten
-    confirmation: bestätigen
-    unlock: Entsperren
   date:
     day_names:
     - Sonntag
@@ -133,7 +116,7 @@ de:
       not_saved:
         one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
         other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
-      in:
+      in: muss in %{count} sein
     unavailable_session: |
       Sitzung %{id} ist nicht mehr im Speicher verfügbar.
 
@@ -142,6 +125,11 @@ de:
     connection_refused: |-
       Hoppla! Die Verbindung zur Web Console-Middleware konnte nicht hergestellt werden.
       Bitte sicherstellen, dass der Rails-Entwicklungsserver ausgeführt wird.
+    template:
+      body: 'Bitte überprüfen Sie die folgenden Felder:'
+      header:
+        one: 'Konnte %{model} nicht speichern: ein Fehler.'
+        other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
   activerecord:
     errors:
       messages:
@@ -150,6 +138,35 @@ de:
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}
             existiert.
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
+    attributes:
+      user:
+        confirmation_sent_at: Bestätigung gesendet am
+        confirmation_token: Bestätigungs-Token
+        confirmed_at: Bestätigt am
+        created_at: Erstellt am
+        current_password: Bisheriges Passwort
+        current_sign_in_at: Aktuelle Anmeldung vom
+        current_sign_in_ip: IP der aktuellen Anmeldung
+        email: E-Mail
+        encrypted_password: Verschlüsseltes Passwort
+        failed_attempts: Fehlversuche
+        last_sign_in_at: Letzte Anmeldung am
+        last_sign_in_ip: IP der letzten Anmeldung
+        locked_at: Gesperrt am
+        password: Passwort
+        password_confirmation: Passwortbestätigung
+        remember_created_at: Angemeldet bleiben vom
+        remember_me: Angemeldet bleiben
+        reset_password_sent_at: Passwort-Zurücksetzen-E-Mail gesendet am
+        reset_password_token: Passwort-Zurücksetzen-Token
+        sign_in_count: Anzahl Anmeldungen
+        unconfirmed_email: Unbestätigte E-Mail-Adresse
+        unlock_token: Entsperrungs-Token
+        updated_at: Aktualisiert am
+    models:
+      user:
+        one: Benutzer
+        other: Benutzer
   datetime:
     distance_in_words:
       half_a_minute: eine halbe Minute
@@ -186,6 +203,9 @@ de:
       almost_x_years:
         one: fast ein Jahr
         other: fast %{count} Jahre
+      x_years:
+        one: ein Jahr
+        other: "%{count} Jahre"
     prompts:
       year: Jahr
       month: Monat
@@ -238,6 +258,8 @@ de:
       resend_title: Anleitung zur Bestätigung des Kontos erneut senden
       resend_header: Anleitung zur Bestätigung Ihres Kontos erneut senden
       resend_button: Erneut senden
+      new:
+        resend_confirmation_instructions: Anleitung zur Bestätigung noch mal schicken
     failure:
       already_authenticated: Du bist bereits angemeldet.
       inactive: Ihr Konto ist noch nicht aktiv.
@@ -251,14 +273,38 @@ de:
     mailer:
       confirmation_instructions:
         subject: Anleitung zur Bestätigung Ihres Kontos
+        action: Mein Konto bestätigen
+        greeting: Willkommen %{recipient}!
+        instruction: 'Folgen Sie dem untenstehenden Link, um Ihr Konto zu bestätigen:'
       reset_password_instructions:
         subject: Anleitung für das Zurücksetzen Ihres Passworts
+        action: Passwort ändern
+        greeting: Hallo %{recipient}!
+        instruction: Jemand hat einen Link angefordert, um Ihr Passwort zu ändern.
+          Klicken Sie auf den unten aufgeführten Link um das Passwort zu ändern.
+        instruction_2: Bitte ignorieren Sie diese E-Mail, wenn Sie kein neues Passwort
+          angefordert haben.
+        instruction_3: Das Passwort wird nicht geändert bis Sie den obenstehenden
+          Link abrufen und ein neues Passwort bestimmen.
       unlock_instructions:
         subject: Anleitung für die Konto-Freischaltung
+        action: Mein Konto entsperren
+        greeting: Hallo %{recipient}!
+        instruction: 'Folgen Sie dem untenstehenden Link, um Ihr Konto zu entsperren:'
+        message: Ihr Konto wurde aufgrund einer großen Anzahl von fehlgeschlagenen
+          Anmeldeversuchen gesperrt.
       email_changed:
         subject: E-Mail-Adresse geändert
+        greeting: Hallo %{recipient}!
+        message: Wir schreiben Ihnen, um Sie darüber zu informieren, dass Ihre E-Mail-Adresse
+          zu %{email} geändert wurde.
+        message_unconfirmed: Wir kontaktieren Sie, um Sie darüber zu informieren,
+          dass Ihre E-Mail-Adresse in %{email} geändert wird.
       password_change:
         subject: Passwort geändert
+        greeting: Hallo %{recipient}!
+        message: Wir schreiben Ihnen, um Sie darüber zu informieren, dass Ihr Passwort
+          geändert wurde.
     omniauth_callbacks:
       failure: '%{kind}-Konto konnte nicht authentifiziert werden. Grund: "%{reason}".'
       success: "%{kind}-Konto wurde erfolgreich authentifiziert."
@@ -278,6 +324,15 @@ de:
       forgot_title: Passwort vergessen
       forgot_header: Passwort vergessen
       forgot_button: Sende Anleitung für das Zurücksetzen des Passworts
+      edit:
+        change_my_password: Ändere mein Passwort
+        change_your_password: Passwort ändern
+        confirm_new_password: Neues Passwort bestätigen
+        new_password: Neues Passwort
+      new:
+        forgot_your_password: Haben Sie Ihr Passwort vergessen?
+        send_me_reset_password_instructions: Schicken Sie mir die Anleitung, mein
+          Passwort zurückzusetzen
     registrations:
       destroyed: Das Konto wurde gelöscht! Bis bald!
       signed_up: Willkommen! Die Registrierung war erfolgreich. Bitte E-Maileingang
@@ -310,6 +365,19 @@ de:
       create_account: Konto erstellen
       email: E-Mail
       password_confirmation: Passwortbestätigung
+      edit:
+        are_you_sure: Sind Sie sicher?
+        cancel_my_account: Konto löschen
+        currently_waiting_confirmation_for_email: Warte auf Bestätigung von %{email}.
+        leave_blank_if_you_don_t_want_to_change_it: freilassen, wenn Sie das nicht
+          ändern wollen
+        title: "%{resource} bearbeiten"
+        unhappy: Unzufrieden?
+        update: Aktualisieren
+        we_need_your_current_password_to_confirm_your_changes: wir benötigen Ihr aktuelles
+          Passwort, um die Änderung zu bestätigen
+      new:
+        sign_up: Registrieren
     unlocks:
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung,
         wie Sie Ihr Konto entsperren können.
@@ -320,6 +388,8 @@ de:
       unlock_title: Anleitung für die Kontofreischaltung erneut senden
       unlock_header: Anleitung für die Konto-Freischaltung erneut senden
       unlock_button: Erneut senden
+      new:
+        resend_unlock_instructions: Anleitung zum Entsperren noch mal schicken
     general:
       remember_me: Anmeldedaten merken
       login: Anmeldung
@@ -328,6 +398,22 @@ de:
       didnt_confirmation: Keine Anleitung zur Bestätigung Ihres Kontos erhalten?
       didnt_unlock: Keine Anleitung zur Freischaltung des Kontos erhalten?
       email: E-Mail
+    sessions:
+      new:
+        sign_in: Anmelden
+    shared:
+      links:
+        back: Zurück
+        didn_t_receive_confirmation_instructions: Keine Anleitung zur Bestätigung
+          erhalten?
+        didn_t_receive_unlock_instructions: Keine Anleitung zum Entsperren erhalten?
+        forgot_your_password: Passwort vergessen?
+        sign_in: Anmelden
+        sign_in_with_provider: Mit %{provider} anmelden
+        sign_up: Registrieren
+      minimum_password_length:
+        one: "(mindestens %{count} Zeichen)"
+        other: "(mindestens %{count} Zeichen)"
   apipie:
     resources: Ressourcen
     resource: Ressource
@@ -344,7 +430,7 @@ de:
     required: erforderlich
     optional: Optional
     nil_allowed: Null erlaubt
-    param_name: Parameter Name
+    param_name: Parametername
     params: Parameter
     examples: Beispiele
     metadata: Metadaten
@@ -359,3 +445,146 @@ de:
     headers: Überschriften
     header_name: Überschriften Namen
     code: Quellcode
+    deprecated: Veraltet
+    deprecation_details: Abschreibungsdetails
+    deprecation:
+      attributes:
+        deprecated_in: Veraltet in
+        sunset_at: Sonnenuntergang um
+        info: Info
+    returns: Kehrt zurück
+  i18n_tasks:
+    add_missing:
+      added:
+        one: "%{count}-Schlüssel hinzugefügt"
+        other: "%{count}-Schlüssel hinzugefügt"
+    cmd:
+      args:
+        default_text: 'Standard: %{value}'
+        desc:
+          all_locales: Erwarten Sie nicht, dass Schlüsselmuster mit einem Gebietsschema
+            beginnen, sondern wenden Sie sie implizit auf alle Gebietsschemas an.
+          config: Konfigurationsspeicherort überschreiben
+          confirm: Automatisch bestätigen
+          data_format: 'Datenformat: %{valid_text}.'
+          keep_order: Halten Sie die Reihenfolge der Tasten ein
+          key_pattern: Filtern nach Tastenmuster (z. B. 'common.*')
+          key_pattern_to_rename: Vollständiger Schlüssel (Muster) zum Umbenennen.
+            Erforderlich
+          locale_to_translate_from: Gebietsschema, aus dem übersetzt werden soll
+          locales_filter: 'Zu verarbeitende(s) Gebietsschema(s). Besonderheit: Basis'
+          missing_types: 'Filtern nach Typen: %{valid}'
+          new_key_name: Neuer Name, interpoliert den ursprünglichen Namen als %{key}.
+            Erforderlich
+          nostdin: Nicht von stdin lesen
+          out_format: 'Ausgabeformat: %{valid_text}'
+          pattern_router: 'Musterrouter verwenden: Schlüssel werden per config data.write
+            verschoben'
+          strict: Vermeiden Sie es, dynamische Schlüsselverwendungen wie t("cats.#{cat}.name")
+            abzuleiten. Hat Vorrang vor der Konfigurationseinstellung, falls festgelegt.
+          translation_backend: Übersetzungs-Backend (google oder deepl)
+          value: 'Wert. Interpoliert: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: fehlende Schlüssel zu Gebietsschemadaten hinzufügen, optional
+          ein Muster abgleichen
+        check_consistent_interpolations: Stellen Sie sicher, dass alle Übersetzungen
+          korrekte Interpolationsvariablen verwenden
+        check_normalized: Stellen Sie sicher, dass alle Übersetzungsdaten normalisiert
+          sind
+        config: i18n-Tasks-Konfiguration anzeigen
+        data: Gebietsschemadaten anzeigen
+        data_merge: Gebietsschemadaten mit Bäumen zusammenführen
+        data_remove: im Baum vorhandene Schlüssel aus den Daten entfernen
+        data_write: Ersetzen Sie die Gebietsschemadaten durch den Baum
+        eq_base: Übersetzungen gleich dem Basiswert anzeigen
+        find: zeigen, wo Schlüssel im Code verwendet werden
+        gem_path: Weg zum Juwel zeigen
+        health: ist alles in Ordnung?
+        irb: Starten Sie die REPL-Sitzung im Kontext von i18n-tasks
+        missing: Fehlende Übersetzungen anzeigen, optional ein Muster abgleichen
+        mv: die Schlüssel in Gebietsschemadaten umbenennen/zusammenführen, die dem
+          gegebenen Muster entsprechen
+        normalize: 'Übersetzungsdaten normalisieren: sortieren und in die richtigen
+          Dateien verschieben'
+        remove_unused: Entfernen Sie unbenutzte Schlüssel
+        rm: Entfernen Sie die Schlüssel in den Gebietsschemadaten, die dem angegebenen
+          Muster entsprechen
+        translate_missing: Übersetzen Sie fehlende Schlüssel mit Google Translate
+          oder DeepL Pro, passen Sie optional ein Muster an
+        tree_convert: Baum zwischen Formaten konvertieren
+        tree_filter: Baum nach Schlüsselmuster filtern
+        tree_merge: Bäume verschmelzen
+        tree_mv_key: Umbenennen/Zusammenführen/Entfernen der Schlüssel, die dem gegebenen
+          Muster entsprechen
+        tree_set_value: Werte von Schlüsseln festlegen, optional ein Muster abgleichen
+        tree_subtract: Baum A abzüglich der Schlüssel in Baum B
+        tree_translate: Google Translate einen Baum in Root-Gebietsschemas
+        unused: ungenutzte Übersetzungen anzeigen
+      encourage:
+      - Gut gemacht!
+      - Gut erledigt!
+      - Perfekt!
+      enum_list_opt:
+        invalid: "%{invalid} ist nicht in: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} ist keiner von: %{valid}."
+      errors:
+        invalid_format: 'ungültiges Format: %{invalid}. gültig: %{valid}.'
+        invalid_locale: 'ungültiges Gebietsschema: %{invalid}'
+        invalid_missing_type:
+          one: 'Ungültiger Typ: %{invalid}. gültig: %{valid}.'
+          other: 'unbekannte Typen: %{invalid}. gültig: %{valid}.'
+        pass_forest: Passieren Sie den Locale-Wald
+    common:
+      continue_q: Fortsetzen?
+      key: Taste
+      locale: Gebietsschema
+      n_more: "%{count} mehr"
+      value: Wert
+    data_stats:
+      text: hat %{key_count}-Schlüssel in %{locale_count}-Gebietsschemas. Im Durchschnitt
+        sind Werte %{value_chars_avg}-Zeichen lang, Schlüssel haben %{key_segments_avg}-Segmente,
+        ein Gebietsschema hat %{per_locale_avg}-Schlüssel.
+      text_single_locale: hat insgesamt %{key_count}-Schlüssel. Im Durchschnitt sind
+        Werte %{value_chars_avg}-Zeichen lang, Schlüssel haben %{key_segments_avg}-Segmente.
+      title: Wald (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Richten Sie den DeepL Pro-API-Schlüssel über die Umgebungsvariable
+          DEEPL_AUTH_KEY oder translation.deepl_api_key in config/i18n-tasks.yml ein.
+          Holen Sie sich den Schlüssel unter https://www.deepl.com/pro.
+        no_results: DeepL hat keine Ergebnisse zurückgegeben.
+    google_translate:
+      errors:
+        no_api_key: Legen Sie den Google-API-Schlüssel über die Umgebungsvariable
+          GOOGLE_TRANSLATE_API_KEY oder translation.google_translate_api_key in config/i18n-tasks.yml
+          fest. Holen Sie sich den Schlüssel unter https://code.google.com/apis/console.
+        no_results: Google Translate hat keine Ergebnisse zurückgegeben. Stellen Sie
+          sicher, dass die Zahlungsinformationen unter https://code.google.com/apis/console
+          eingestellt sind.
+    health:
+      no_keys_detected: Keine Schlüssel erkannt. Überprüfen Sie data.read in config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Keine inkonsistenten Interpolationen gefunden.
+    missing:
+      details_title: Wert in anderen Gebietsschemas oder Quellen
+      none: Es fehlen keine Übersetzungen.
+    remove_unused:
+      confirm:
+        one: Die %{count}-Übersetzung wird aus %{locales} entfernt.
+        other: Die %{count}-Übersetzung wird aus %{locales} entfernt.
+      noop: Keine unbenutzten Schlüssel zum Entfernen
+      removed: "%{count}-Schlüssel entfernt"
+    translate_missing:
+      translated: Übersetzte %{count}-Schlüssel
+    unused:
+      none: Jede Übersetzung wird verwendet.
+    usages:
+      none: Keine Schlüsselverwendungen gefunden.
+    yandex_translate:
+      errors:
+        no_api_key: Legen Sie den Yandex-API-Schlüssel über die Umgebungsvariable
+          YANDEX_API_KEY oder translation.yandex_api_key in config/i18n-tasks.yml
+          fest. Holen Sie sich den Schlüssel unter https://tech.yandex.com/translate.
+        no_results: Yandex hat keine Ergebnisse zurückgegeben.

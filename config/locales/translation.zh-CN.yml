@@ -6,23 +6,6 @@
 #
 ---
 zh-CN:
-  routes:
-    cancel: 取消
-    passwords: 密码
-    new: 新建
-    active: 活动的
-    expired: 已到期
-    preview: 预览
-    audit: 审计
-    pages: 页数
-    users: 用户
-    sign_in: 登入
-    sign_out: 登出
-    sign_up: 注册
-    password: 密码
-    edit: 编辑
-    confirmation: 确认
-    unlock: 解锁
   date:
     day_names:
     - 星期日
@@ -137,6 +120,11 @@ zh-CN:
       %{id} 存储在内存中。考虑将进程/worker进程的数量变成一 (1) 个或在开发中使用不同的服务器。
     unacceptable_request: Accept 标头中应包含受支持的版本号。
     connection_refused: 糟糕！无法连接到 Web 控制台中间件。请确保 Rails 开发服务器正在运行。
+    template:
+      body: 如下字段出现错误：
+      header:
+        one: 1 个错误禁止保存此 %{model}
+        other: "%{count} 错误禁止保存此 %{model}"
   activerecord:
     errors:
       messages:
@@ -144,6 +132,35 @@ zh-CN:
         restrict_dependent_destroy:
           has_one: 由于 %{record} 需要此记录，所以无法移除记录
           has_many: 由于 %{record} 需要此记录，所以无法移除记录
+    attributes:
+      user:
+        confirmation_sent_at: 确认邮件发送于
+        confirmation_token: 确认令牌
+        confirmed_at: 确认于
+        created_at: 创建于
+        current_password: 当前密码
+        current_sign_in_at: 最近登录于
+        current_sign_in_ip: 最近登录 IP
+        email: 电子邮箱
+        encrypted_password: 密码被加密
+        failed_attempts: 失败尝试
+        last_sign_in_at: 最后登录于
+        last_sign_in_ip: 最后登录的 IP
+        locked_at: 锁定于
+        password: 密码
+        password_confirmation: 密码确认
+        remember_created_at: 记住创建于
+        remember_me: 记住登录信息
+        reset_password_sent_at: 重置密码发送于
+        reset_password_token: 密码重置令牌
+        sign_in_count: 登录次数
+        unconfirmed_email: 未确认邮件
+        unlock_token: 帐户解锁令牌
+        updated_at: 更新于
+    models:
+      user:
+        one: 用户
+        other: 用户
   datetime:
     distance_in_words:
       half_a_minute: 半分钟
@@ -180,6 +197,9 @@ zh-CN:
       almost_x_years:
         one: 将近1年
         other: 差不多 %{count} 年
+      x_years:
+        one: 1年
+        other: "%{count}年"
     prompts:
       year: 年
       month: 月
@@ -228,6 +248,8 @@ zh-CN:
       resend_title: 再次发送确认指南
       resend_header: 再次发送确认指南
       resend_button: 再次发送
+      new:
+        resend_confirmation_instructions: 重新发送确认邮件
     failure:
       already_authenticated: 您已经登录。
       inactive: 您的帐户还未激活。
@@ -241,14 +263,31 @@ zh-CN:
     mailer:
       confirmation_instructions:
         subject: 帐户确认信息
+        action: 确认我的帐户
+        greeting: 欢迎 %{recipient}！
+        instruction: 您可以通过下面的链接确认您的帐户的电子邮件：
       reset_password_instructions:
         subject: 重置密码信息
+        action: 更改我的密码
+        greeting: 您好 %{recipient}！
+        instruction: 有人要求更改密码的链接，您可以通过下面的链接更改密码：
+        instruction_2: 如果您没有要求请求更改密码，请忽略此电子邮件。
+        instruction_3: 如果您没有访问上面的链接并更改密码，您的密码就不会被改变。
       unlock_instructions:
         subject: 帐户解锁信息
+        action: 帐户解锁
+        greeting: 您好 %{recipient}！
+        instruction: 点击下面的链接以解锁您的帐户：
+        message: 由于多次登录失败，您的帐户已被锁定。
       email_changed:
         subject: 电子邮件已被修改
+        greeting: 您好 %{recipient}！
+        message: 收到此邮件是因为您的电子邮件地址已被更改为 %{email}。
+        message_unconfirmed: 收到此邮件是因为您的电子邮件地址正被更改为 %{email}。
       password_change:
         subject: 密码已被重置
+        greeting: 您好 %{recipient}！
+        message: 收到此邮件是因为您的帐户密码已被修改。
     omniauth_callbacks:
       failure: 由于%{reason}，无法从%{kind}获得授权。
       success: 成功地从%{kind}获得授权。
@@ -263,6 +302,14 @@ zh-CN:
       forgot_title: 忘记密码
       forgot_header: 忘记密码
       forgot_button: 发送重置指南
+      edit:
+        change_my_password: 更改我的密码
+        change_your_password: 更改您的密码
+        confirm_new_password: 确认新密码
+        new_password: 新密码
+      new:
+        forgot_your_password: 忘记密码？
+        send_me_reset_password_instructions: 请给我发送重设密码的邮件
     registrations:
       destroyed: 再见！您的帐户已成功注销。我们希望很快可以再见到您。
       signed_up: 欢迎您！您已注册成功。
@@ -287,6 +334,17 @@ zh-CN:
       create_account: 创建账户
       email: 电子邮件
       password_confirmation: 确认密码
+      edit:
+        are_you_sure: 您确定吗？
+        cancel_my_account: 注销我的帐户
+        currently_waiting_confirmation_for_email: 等待确认 %{email}
+        leave_blank_if_you_don_t_want_to_change_it: 如不想更改，则无需填写
+        title: 修改%{resource}
+        unhappy: 不喜欢
+        update: 更新
+        we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认更改
+      new:
+        sign_up: 注册
     unlocks:
       send_instructions: 几分钟后，您将收到一封解锁帐户的邮件。
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封解锁帐户的邮件。
@@ -294,6 +352,8 @@ zh-CN:
       unlock_title: 再次发送解锁指南
       unlock_header: 再次发送解锁指南
       unlock_button: 再次发送
+      new:
+        resend_unlock_instructions: 重发解锁邮件
     general:
       remember_me: 记住账号
       login: 登录
@@ -302,6 +362,21 @@ zh-CN:
       didnt_confirmation: 没有收到确认指南？
       didnt_unlock: 没有收到解锁指南？
       email: 电子邮件
+    sessions:
+      new:
+        sign_in: 登录
+    shared:
+      links:
+        back: 返回
+        didn_t_receive_confirmation_instructions: 没有收到确认邮件？
+        didn_t_receive_unlock_instructions: 没有收到解锁邮件？
+        forgot_your_password: 忘记密码？
+        sign_in: 登录
+        sign_in_with_provider: 通过 %{provider} 登录
+        sign_up: 注册
+      minimum_password_length:
+        one: "（最少 %{count} 个字符）"
+        other: "（最少 %{count} 个字符）"
   apipie:
     resources: 资源
     resource: 资源
@@ -333,3 +408,126 @@ zh-CN:
     headers: 标头
     header_name: 标头名称
     code: 代码
+    deprecated: 弃用
+    deprecation_details: 弃用详情
+    deprecation:
+      attributes:
+        deprecated_in: 弃用于
+        sunset_at: 日落时间
+        info: 信息
+    returns: 退货
+  i18n_tasks:
+    add_missing:
+      added:
+        one: 添加了 %{count} 键
+        other: 添加了 %{count} 键
+    cmd:
+      args:
+        default_text: 默认值：%{value}
+        desc:
+          all_locales: 不要期望键模式以语言环境开头，而是隐式地将它们应用于所有语言环境。
+          config: 覆盖配置位置
+          confirm: 自动确认
+          data_format: 数据格式：%{valid_text}。
+          keep_order: 保持键的顺序
+          key_pattern: 按键模式过滤（例如'common.*'）
+          key_pattern_to_rename: 要重命名的完整键（模式）。必需的
+          locale_to_translate_from: 要翻译的语言环境
+          locales_filter: 要处理的语言环境。特殊：基地
+          missing_types: 按类型过滤：%{valid}
+          new_key_name: 新名称，将原始名称插入为 %{key}。必需的
+          nostdin: 不要从标准输入读取
+          out_format: 输出格式：%{valid_text}
+          pattern_router: 使用模式路由器：根据配置 data.write 移动的键
+          strict: 避免推断动态密钥用法，例如 t("cats.#{cat}.name")。如果设置，则优先于配置设置。
+          translation_backend: 翻译后端（google 或 deepl）
+          value: 价值。插值：%{value}、%{human_key}、%{key}、%{default}、%{value_or_human_key}、%{value_or_default_or_human_key}
+      desc:
+        add_missing: 将缺失的键添加到区域设置数据，可选择匹配模式
+        check_consistent_interpolations: 验证所有翻译都使用正确的插值变量
+        check_normalized: 验证所有翻译数据是否已规范化
+        config: 显示 i18n-tasks 配置
+        data: 显示语言环境数据
+        data_merge: 将语言环境数据与树合并
+        data_remove: 从数据中删除树中存在的键
+        data_write: 用树替换语言环境数据
+        eq_base: 显示等于基值的翻译
+        find: 显示代码中使用键的位置
+        gem_path: 显示宝石的路径
+        health: 一切都顺利吗？
+        irb: 在 i18n-tasks 上下文中启动 REPL 会话
+        missing: 显示缺失的翻译，可选择匹配模式
+        mv: 重命名/合并与给定模式匹配的语言环境数据中的键
+        normalize: 标准化翻译数据：排序并移动到正确的文件
+        remove_unused: 删除未使用的密钥
+        rm: 删除语言环境数据中与给定模式匹配的键
+        translate_missing: 使用 Google Translate 或 DeepL Pro 翻译缺失的键，可选择匹配模式
+        tree_convert: 在格式之间转换树
+        tree_filter: 按键模式过滤树
+        tree_merge: 合并树
+        tree_mv_key: 重命名/合并/删除匹配给定模式的键
+        tree_set_value: 设置键的值，可选地匹配模式
+        tree_subtract: 树 A 减去树 B 中的键
+        tree_translate: Google 将树翻译成根语言环境
+        unused: 显示未使用的翻译
+      encourage:
+      - 好工作！
+      - 做得好！
+      - 完美的！
+      enum_list_opt:
+        invalid: "%{invalid} 不在：%{valid} 中。"
+      enum_opt:
+        invalid: "%{invalid} 不是以下之一：%{valid}。"
+      errors:
+        invalid_format: 无效格式：%{invalid}。有效：%{valid}。
+        invalid_locale: 无效的语言环境：%{invalid}
+        invalid_missing_type:
+          one: 无效类型：%{invalid}。有效：%{valid}。
+          other: 未知类型：%{invalid}。有效：%{valid}。
+        pass_forest: 通过语言环境森林
+    common:
+      continue_q: 继续？
+      key: 钥匙
+      locale: 语言环境
+      n_more: "%{count} 更多"
+      value: 价值
+    data_stats:
+      text: 在 %{locale_count} 语言环境中具有 %{key_count} 键。平均而言，值的长度为 %{value_chars_avg}
+        个字符，键具有 %{key_segments_avg} 段，语言环境具有 %{per_locale_avg} 键。
+      text_single_locale: 总共有 %{key_count} 个键。平均而言，值的长度为 %{value_chars_avg} 个字符，键的长度为
+        %{key_segments_avg} 段。
+      title: 森林 (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: 通过 DEEPL_AUTH_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.deepl_api_key
+          设置 DeepL Pro API 密钥。在 https://www.deepl.com/pro 获取密钥。
+        no_results: DeepL 没有返回任何结果。
+    google_translate:
+      errors:
+        no_api_key: 通过 GOOGLE_TRANSLATE_API_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.google_translate_api_key
+          设置 Google API 密钥。从 https://code.google.com/apis/console 获取密钥。
+        no_results: 谷歌翻译没有返回任何结果。确保在 https://code.google.com/apis/console 设置了账单信息。
+    health:
+      no_keys_detected: 未检测到任何键。检查 config/i18n-tasks.yml 中的 data.read。
+    inconsistent_interpolations:
+      none: 未发现不一致的插值。
+    missing:
+      details_title: 其他地区或来源的价值
+      none: 没有翻译丢失。
+    remove_unused:
+      confirm:
+        one: "%{count} 翻译将从 %{locales} 中删除。"
+        other: "%{count} 翻译将从 %{locales} 中删除。"
+      noop: 没有未使用的密钥可以删除
+      removed: 删除了 %{count} 键
+    translate_missing:
+      translated: 翻译的 %{count} 键
+    unused:
+      none: 每个翻译都在使用。
+    usages:
+      none: 未找到关键用法。
+    yandex_translate:
+      errors:
+        no_api_key: 通过 YANDEX_API_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.yandex_api_key
+          设置 Yandex API 密钥。在 https://tech.yandex.com/translate 获取密钥。
+        no_results: Yandex 没有返回任何结果。

@@ -1,6 +1,6 @@
 Apipie.configure do |config|
   config.app_name                = "Password Pusher"
-  config.copyright               = "&copy; 2022 Peter Giacomo Lombardo"
+  config.copyright               = "&copy; 2011-Present Peter Giacomo Lombardo"
   config.api_base_url            = ""
   config.doc_base_url            = "/api"
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/**/*.rb"

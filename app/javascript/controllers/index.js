@@ -1,11 +1,14 @@
-// Import and register all your controllers from the importmap under controllers/*
+import CopyController from "./copy_controller"
+import FormController from "./form_controller"
+import KnobsController from "./knobs_controller"
+import MultiUploadController from "./multi_upload_controller"
+import PWGenController from "./pwgen_controller"
+import PasswordsController from "./passwords_controller"
+import { application } from "./application"
 
-import { application } from "controllers/application"
-// Eager load all controllers defined in the import map under controllers/**/*_controller
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
-
-eagerLoadControllersFrom("controllers", application)
-
-// Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
-// import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
-// lazyLoadControllersFrom("controllers", application)
+application.register("copy", CopyController)
+application.register("pwgen", PWGenController)
+application.register("form", FormController)
+application.register("knobs", KnobsController)
+application.register("passwords", PasswordsController)
+application.register("multi-upload", MultiUploadController)

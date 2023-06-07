@@ -6,23 +6,6 @@
 #
 ---
 'no':
-  routes:
-    cancel: Avbryt
-    passwords: passord
-    new: ny
-    active: aktiv
-    expired: utløpt
-    preview: forhåndsvisning
-    audit: revidere
-    pages: sider
-    users: brukere
-    sign_in: Logg_inn
-    sign_out: logg_ut
-    sign_up: meld_deg_inn
-    password: passord
-    edit: redigere
-    confirmation: bekreftelse
-    unlock: låse opp
   date:
     day_names:
     - Søndag
@@ -133,7 +116,7 @@
       not_saved:
         one: 'Én feil gjorde at %{resource} ikke kunne lagres:'
         other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
-      in:
+      in: må være i %{count}
     unavailable_session: Sesjon %{id} er ikke lenger tilgjengelig i minnet. Hvis du
       tilfeldigvis kjører på en multiprosessserver (som Unicorn eller Puma), lagrer
       ikke prosessen denne forespørselen %{id} i minnet. Vurder å gjøre om antallet
@@ -142,6 +125,11 @@
     connection_refused: |
       Oops! Kan ikke koble til Web Console mellomvare den.
       Sørg for at Rails utviklingsserveren kjører.
+    template:
+      body: 'Det var problemer med følgende felt:'
+      header:
+        one: 1 feil forhindret at denne %{model} ble lagret
+        other: "%{count}-feil forhindret at denne %{model} ble lagret"
   activerecord:
     errors:
       messages:
@@ -150,6 +138,35 @@
           has_one: Kan ikke slette oppføring fordi det eksisterer en avhengighet %{record}
           has_many: Kan ikke slette oppføring fordi det eksisterer en avhengighet
             %{record}
+    attributes:
+      user:
+        confirmation_sent_at: Bekreftelse sendt
+        confirmation_token: Bekreftelsesnøkkel
+        confirmed_at: Bekreftet
+        created_at: Opprettet
+        current_password: Nåværende passord
+        current_sign_in_at: Gjeldende innlogging
+        current_sign_in_ip: Gjeldende innlogget IP
+        email: Epost
+        encrypted_password: Kryptert passord
+        failed_attempts: Mislykkede forsøk
+        last_sign_in_at: Sist innlogget
+        last_sign_in_ip: Sist innlogget IP
+        locked_at: Låst
+        password: Passord
+        password_confirmation: Passordbekreftelse
+        remember_created_at: Huskenøkkel opprettet
+        remember_me: Husk meg
+        reset_password_sent_at: Passordgjenoppretting sendt
+        reset_password_token: Passordgjenopprettingsnøkkel
+        sign_in_count: Antall innlogginger
+        unconfirmed_email: Ubekreftet epost
+        unlock_token: Nøkkelsymbol
+        updated_at: Oppdatert
+    models:
+      user:
+        one: Bruker
+        other: Brukere
   datetime:
     distance_in_words:
       half_a_minute: et halvt minutt
@@ -186,6 +203,9 @@
       almost_x_years:
         one: Nesten 1 år
         other: Nesten %{count} år
+      x_years:
+        one: 1 år
+        other: "%{count} år"
     prompts:
       year: År
       month: Måned
@@ -237,6 +257,8 @@
       resend_title: Send bekreftelsesinstruksjoner på nytt
       resend_header: Send bekreftelsesinstruksjoner på nytt
       resend_button: Send igjen
+      new:
+        resend_confirmation_instructions: Send nye bekreftelsesinstruksjoner
     failure:
       already_authenticated: Du er allerede logget inn.
       inactive: Din konto er ikke aktivert enda.
@@ -250,14 +272,35 @@
     mailer:
       confirmation_instructions:
         subject: Bekreftelsesinstruksjoner
+        action: Bekreft min konto
+        greeting: Velkommen %{recipient}!
+        instruction: 'Du kan bekrefte kontoen din gjennom linken nedenfor:'
       reset_password_instructions:
         subject: Nullstilling av passord
+        action: Endre passord
+        greeting: Hallo %{recipient}!
+        instruction: Noen har bedt om en link til å endre ditt passord og du kan gjøre
+          det her.
+        instruction_2: Hvis du ikke har bedt om dette, vennligst overse denne eposten.
+        instruction_3: Ditt passord vil ikke bli endret med mindre du følger linken
+          ovenfor og oppretter et nytt ett.
       unlock_instructions:
         subject: Gjenåpning av konto
+        action: Lås opp konto
+        greeting: Hallo %{recipient}!
+        instruction: 'Klikk på linken nedenfor for å låse opp kontoen din:'
+        message: Kontoen din har blitt låst på grunn av alt for mange mislykkede påloggingsforsøk.
       email_changed:
         subject: E-post endret
+        greeting: Hallo %{recipient}!
+        message: Vi kontakter deg for å varsle deg om at e-posten din er endret til
+          %{email}.
+        message_unconfirmed: Vi kontakter deg for å varsle deg om at e-posten din
+          endres til %{email}.
       password_change:
         subject: Passord endret
+        greeting: Hallo %{recipient}!
+        message: Vi kontakter deg for å meddele at ditt passord har blitt endret.
     omniauth_callbacks:
       failure: Kunne ikke autorisere deg fra %{kind} fordi "%{reason}".
       success: Vellykket autorisering fra %{kind}.
@@ -277,6 +320,15 @@
       forgot_title: Glemt passord
       forgot_header: Glemt passord
       forgot_button: Send tilbakestillingsinstruksjoner
+      edit:
+        change_my_password: Endre passord
+        change_your_password: Endre ditt passord
+        confirm_new_password: Bekreft nytt passord
+        new_password: Nytt passord
+      new:
+        forgot_your_password: Glemt passord?
+        send_me_reset_password_instructions: Send meg instruksjoner for å sette nytt
+          passord
     registrations:
       destroyed: Farvel! Din konto er nå slettet. Vi håper å se deg igjen snart.
       signed_up: Velkommen! Din registrering er vellykket.
@@ -308,6 +360,19 @@
       create_account: Opprett konto
       email: E-post
       password_confirmation: Passord bekreftelse
+      edit:
+        are_you_sure: Er du sikker?
+        cancel_my_account: Deaktiver konto
+        currently_waiting_confirmation_for_email: 'Venter på bekreftelse for: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: la stå tomt dersom du ikke vil
+          endre det
+        title: Rediger %{resource}
+        unhappy: Misfornøyd?
+        update: Oppdater
+        we_need_your_current_password_to_confirm_your_changes: vi trenger du nåværende
+          passord for å bekrefte endringene du har gjort
+      new:
+        sign_up: Opprett konto
     unlocks:
       send_instructions: Du vil innen få minutter motta en epost med instruksjoner
         for å gjenåpne din konto.
@@ -317,6 +382,8 @@
       unlock_title: Har du ikke mottatt instruksjoner for å låse opp kontoen din?
       unlock_header: Har du ikke mottatt instruksjoner for å låse opp kontoen din?
       unlock_button: Send igjen
+      new:
+        resend_unlock_instructions: Send nye aktiveringsinstruksjoner
     general:
       remember_me: Husk meg
       login: Logg Inn
@@ -325,34 +392,185 @@
       didnt_confirmation: Har du ikke mottatt instruksjoner for bekreftelse?
       didnt_unlock: Har du ikke mottatt instruksjoner for å låse opp kontoen din?
       email: E-post
+    sessions:
+      new:
+        sign_in: Logg inn
+    shared:
+      links:
+        back: Tilbake
+        didn_t_receive_confirmation_instructions: Ikke mottatt bekreftelsesinstruksjoner?
+        didn_t_receive_unlock_instructions: Ikke mottatt aktiveringsinstruksjoner?
+        forgot_your_password: Glemt passord?
+        sign_in: Logg inn
+        sign_in_with_provider: Logg inn med %{provider}
+        sign_up: Opprett konto
+      minimum_password_length:
+        one: "(%{count} tegn minimum)"
+        other: "(%{count} tegn minimum)"
   apipie:
     resources: Ressurser
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resource: Ressurs
+    description: Beskrivelse
+    no_docs_found: Finner ingen dokumentasjon
+    no_docs_found_descr: Vi har ikke funnet noen dokumentasjon for API-en din.
+    follow_instructions_html: Følg %{href} for hvordan du beskriver kontrollerene
+      dine.
+    follow_instructions_href: Ytterligere instruksjoner
+    oops: Oops!!
+    resource_not_found_html: Finner ikke ressurs %{resource}.
+    method_not_found_html: Metode %{method} ikke funnet for ressurs %{resource}.
+    goto_homepage_html: Prøv å gå til %{href}
+    goto_homepage_href: "%{app_name} Hjemmeside for API-dokumentasjon"
+    required: nødvendig
+    optional: valgfri
+    nil_allowed: null tillatt
+    param_name: Param navn
+    params: Params
     examples: Eksempler
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    metadata: Metadata
+    errors: Feil
+    error_code: Kode
+    error_description: Beskrivelse
+    error_metadata: Metadata
+    supported_formats: Støttede formater
+    enable_javascript_html: Aktiver JavaScript for å se %{comments_href}.
+    comments_powered_by_disqus: kommentarer drevet av %{disqus}
+    api_documentation: API-dokumentasjon
+    headers: Overskrifter
+    header_name: Overskriftsnavn
+    code: Kode
+    deprecated: Avviklet
+    deprecation_details: Avskrivningsdetaljer
+    deprecation:
+      attributes:
+        deprecated_in: Avviklet i
+        sunset_at: Solnedgang kl
+        info: Info
+    returns: Returnerer
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Lagt til %{count}-nøkkel
+        other: Lagt til %{count}-nøkler
+    cmd:
+      args:
+        default_text: 'Standard: %{value}'
+        desc:
+          all_locales: Ikke forvent at nøkkelmønstre starter med en lokalitet, bruk
+            dem i stedet på alle lokaliteter implisitt.
+          config: Overstyr konfigurasjonsplassering
+          confirm: Bekreft automatisk
+          data_format: 'Dataformat: %{valid_text}.'
+          keep_order: Hold rekkefølgen på nøklene
+          key_pattern: Filtrer etter nøkkelmønster (f.eks. 'common.*')
+          key_pattern_to_rename: Full nøkkel (mønster) for å gi nytt navn. Obligatorisk
+          locale_to_translate_from: Sted å oversette fra
+          locales_filter: 'Språk(er) som skal behandles. Spesiell: base'
+          missing_types: 'Filtrer etter typer: %{valid}'
+          new_key_name: Nytt navn, interpolerer opprinnelig navn som %{key}. Obligatorisk
+          nostdin: Ikke les fra stdin
+          out_format: 'Utdataformat: %{valid_text}'
+          pattern_router: 'Bruk mønsterruter: nøkler flyttet per config data.write'
+          strict: Unngå å utlede dynamiske nøkkelbruk som t("cats.#{cat}.name"). Har
+            forrang over konfigurasjonsinnstillingen hvis den er angitt.
+          translation_backend: Oversettelsesstøtte (google eller deepl)
+          value: 'Verdi. Interpolerer: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: legg til manglende nøkler til lokalitetsdata, match eventuelt
+          et mønster
+        check_consistent_interpolations: verifiser at alle oversettelser bruker korrekte
+          interpolasjonsvariabler
+        check_normalized: verifisere at alle oversettelsesdata er normalisert
+        config: vise i18n-oppgavekonfigurasjon
+        data: vis lokalitetsdata
+        data_merge: slå sammen lokalitetsdata med trær
+        data_remove: fjerne nøkler som finnes i treet fra data
+        data_write: erstatte lokalitetsdata med tre
+        eq_base: vis oversettelser lik grunnverdi
+        find: vis hvor nøkler brukes i koden
+        gem_path: vis vei til perlen
+        health: er alt ok?
+        irb: start REPL-økten innenfor i18n-oppgaver kontekst
+        missing: vis manglende oversettelser, match eventuelt et mønster
+        mv: gi nytt navn/slå sammen nøklene i lokalitetsdata som samsvarer med det
+          gitte mønsteret
+        normalize: 'normaliser oversettelsesdata: sorter og flytt til de riktige filene'
+        remove_unused: fjerne ubrukte nøkler
+        rm: fjern nøklene i lokalitetsdata som samsvarer med det gitte mønsteret
+        translate_missing: oversett manglende nøkler med Google Translate eller DeepL
+          Pro, match eventuelt et mønster
+        tree_convert: konvertere treet mellom formater
+        tree_filter: filtrer tre etter nøkkelmønster
+        tree_merge: slå sammen trær
+        tree_mv_key: gi nytt navn/slå sammen/fjern tastene som samsvarer med det gitte
+          mønsteret
+        tree_set_value: angi verdier for nøkler, match eventuelt et mønster
+        tree_subtract: tre A minus nøklene i tre B
+        tree_translate: Google Oversett et tre til rotlokaliteter
+        unused: vis ubrukte oversettelser
+      encourage:
+      - Godt jobbet!
+      - Bra gjort!
+      - Perfekt!
+      enum_list_opt:
+        invalid: "%{invalid} er ikke i: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} er ikke en av: %{valid}."
+      errors:
+        invalid_format: 'ugyldig format: %{invalid}. gyldig: %{valid}.'
+        invalid_locale: 'ugyldig lokalitet: %{invalid}'
+        invalid_missing_type:
+          one: 'ugyldig type: %{invalid}. gyldig: %{valid}.'
+          other: 'ukjente typer: %{invalid}. gyldig: %{valid}.'
+        pass_forest: passere lokalskog
+    common:
+      continue_q: Fortsette?
+      key: Nøkkel
+      locale: Språk
+      n_more: "%{count} mer"
+      value: Verdi
+    data_stats:
+      text: har %{key_count}-nøkler på tvers av %{locale_count}-lokaliteter. I gjennomsnitt
+        er verdiene %{value_chars_avg}-tegn lange, nøkler har %{key_segments_avg}-segmenter,
+        en lokalitet har %{per_locale_avg}-nøkler.
+      text_single_locale: har %{key_count} nøkler totalt. I gjennomsnitt er verdiene
+        %{value_chars_avg}-tegn lange, nøkler har %{key_segments_avg}-segmenter.
+      title: Skog (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Sett opp DeepL Pro API-nøkkel via DEEPL_AUTH_KEY miljøvariabel
+          eller translation.deepl_api_key i config/i18n-tasks.yml. Få nøkkelen på
+          https://www.deepl.com/pro.
+        no_results: DeepL ga ingen resultater.
+    google_translate:
+      errors:
+        no_api_key: Angi Google API-nøkkel via GOOGLE_TRANSLATE_API_KEY miljøvariabel
+          eller translation.google_translate_api_key i config/i18n-tasks.yml. Få nøkkelen
+          på https://code.google.com/apis/console.
+        no_results: Google Translate ga ingen resultater. Sørg for at faktureringsinformasjon
+          er angitt på https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Ingen nøkler oppdaget. Sjekk data.read i config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Ingen inkonsistente interpolasjoner funnet.
+    missing:
+      details_title: Verdi i andre lokaliteter eller kilde
+      none: Ingen oversettelser mangler.
+    remove_unused:
+      confirm:
+        one: "%{count}-oversettelse vil bli fjernet fra %{locales}."
+        other: "%{count}-oversettelse vil bli fjernet fra %{locales}."
+      noop: Ingen ubrukte nøkler å fjerne
+      removed: Fjernet %{count}-nøkler
+    translate_missing:
+      translated: Oversatt %{count}-nøkler
+    unused:
+      none: Hver oversettelse er i bruk.
+    usages:
+      none: Ingen nøkkelbruk funnet.
+    yandex_translate:
+      errors:
+        no_api_key: Angi Yandex API-nøkkel via YANDEX_API_KEY miljøvariabel eller
+          translation.yandex_api_key i config/i18n-tasks.yml. Få nøkkelen på https://tech.yandex.com/translate.
+        no_results: Yandex ga ingen resultater.

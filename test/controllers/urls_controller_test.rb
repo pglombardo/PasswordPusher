@@ -53,7 +53,7 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
 
     get new_url_path
     assert_response :success
-    assert response.body.include?('Specify a URL to redirect to.')
+    assert response.body.include?('URL Redirection')
 
     post urls_path params: {
       url: {

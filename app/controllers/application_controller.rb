@@ -1,27 +1,23 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
-  around_action :set_locale_from_url
+  around_action :custom_set_locale_from_url
 
   add_flash_types :info, :error, :success, :warning
 
-  def not_found
-    raise ActionController::RoutingError.new(_('Not Found'))
+  def custom_set_locale_from_url
+    locale_from_url = RouteTranslator.locale_from_params(params) || RouteTranslator::Host.locale_from_host(request.host) || I18n.default_locale
+    if locale_from_url
+      old_locale  = I18n.locale
+      I18n.locale = locale_from_url
+    end
+
+    yield
+  ensure
+    I18n.locale = old_locale if locale_from_url
   end
 
-  # unless Rails.application.config.consider_all_requests_local
-  #   rescue_from Exception, with: lambda { |exception| render_error 500, exception }
-  #   rescue_from ActionController::RoutingError, ActionController::UnknownController,
-  #         ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound,
-  #         with: lambda { |exception| render_error 404, exception }
-  # end
-  # rescue_from ApplicationController::RoutingError, ApplicationController::UnknownController,
-  #     ::AbstractController::ActionNotFound, ApplicationRecord::RecordNotFound,
-  #     with: lambda { |exception| render_error 404, exception }
-
-  def append_info_to_payload(payload)
-    super
-    payload[:request_id] = request.uuid
-    payload[:user_id] = current_user.id if current_user
+  def not_found
+    raise ActionController::RoutingError.new(_('Not Found'))
   end
 
   private

@@ -114,7 +114,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_bad_request
     post passwords_path(format: :json), params: {}
-    assert_response :bad_request
+    assert_response :unprocessable_entity
 
     res = JSON.parse(@response.body)
     assert res == { "error" => "Payload length must be between 1 and 1_048_576." }

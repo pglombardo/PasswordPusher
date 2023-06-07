@@ -99,6 +99,8 @@ Notes:
 | PWP__PW__DELETABLE_PUSHES_DEFAULT | When the above is `true`, this sets the default value for the option. | `true` |
 | PWP__PW__ENABLE_RETRIEVAL_STEP | When `true`, adds an option to have a preliminary step to retrieve passwords.  | `true` |
 | PWP__PW__RETRIEVAL_STEP_DEFAULT | Sets the default value for the retrieval step for newly created passwords. | `false` |
+| PWP__PW__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a push payload to the user. | `true` |
+
 
 ## Password Generator Settings
 
@@ -174,7 +176,8 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
 | PWP__ENABLE_FILE_PUSHES | On/Off switch for File Pushes. | `false` |
-| PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `s3`, `gcs` or `as` |
+| PWP__FILES__STORAGE | Chooses the storage area for uploaded files. | `local`, `amazon`, `google` or `microsoft` |
+| PWP__FILES__ENABLE_BLUR | Enables or disables the 'blur' effect when showing a text payload to the user. | `true` |
 
 ## File Push Expiration Settings
 
@@ -193,6 +196,8 @@ This feature can store uploads on local disk (not valid for Docker containers), 
 
 ## Local Storage
 
+`PWP__FILES__STORAGE=local`
+
 The default location for local storage is `./storage`.
 
 If using containers and you prefer local storage, you can add a volume mount to the container at the path `/opt/PasswordPusher/storage`:
@@ -203,6 +208,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `amazon` |
 | PWP__FILES__S3__ENDPOINT | S3 Endpoint | None |
 | PWP__FILES__S3__ACCESS_KEY_ID | Access Key ID | None |
 | PWP__FILES__S3__SECRET_ACCESS_KEY | Secret Access Key| None |
@@ -213,6 +219,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `google` |
 | PWP__FILES__GCS__PROJECT | GCS Project | None |
 | PWP__FILES__GCS__CREDENTIALS | GCS Credentials | None |
 | PWP__FILES__GCS__BUCKET | The GCS bucket name | None |
@@ -221,6 +228,7 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
+| PWP__FILES__STORAGE | Storage Provider Selection | `microsoft` |
 | PWP__FILES__AS__STORAGE_ACCOUNT_NAME | Azure Storage Account Name | None |
 | PWP__FILES__AS__STORAGE_ACCESS_KEY | Azure Storage Account Key | None |
 | PWP__FILES__AS__CONTAINER | Azure Storage Container Name | None |
@@ -252,6 +260,8 @@ Similar to file pushes, URL pushes also require logins to be enabled.
 
 Password Pusher has the ability to be [re-branded](https://twitter.com/pwpush/status/1557658305325109253) with your own site title, tagline and logo.
 
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding%2Fpwpush-brand-example.png)
+
 This can be done with the following environment variables:
 
 | Environment Variable | Description | Default Value |
@@ -262,11 +272,131 @@ This can be done with the following environment variables:
 | PWP__BRAND__LIGHT_LOGO | Site logo image for the light theme. | `logo-transparent-sm-bare.png` |
 | PWP__BRAND__DARK_LOGO | Site logo image for the dark theme. | `logo-transparent-sm-bare.png` |
 
+The values for the `*_LOGO` images can either be:
+
+1. Fully qualified HTTP(s) URLS such as `https://pwpush.fra1.cdn.digitaloceanspaces.com/dev%2Facme-logo.jpg` (easiest)
+2. Relative path that is mounted inside the container
+
+As an example for #2 above, say you place your logo images locally into `/var/lib/pwpush/logos/`.  You would then mount that directory into the container:
+
+`docker run -d -p "5100:5100" -v /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos pglombardo/pwpush-postgres:release`
+
+or alternatively for a `docker-compose.yml` file:
+
+```yaml
+volumes:
+  # Example of a persistent volume for the storage directory (file uploads)
+  - /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos:r
+```
+
+See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yml) for a larger Docker Compose explanation.
+
+With this setup, you can then set your `LOGO` environment variables (or `settings.yml` options) to:
+
+```
+PWP__BRAND__LIGHT_LOGO=/logos/mylogo.png
+```
+
 ## See Also
 
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
 * [this issue comment](https://github.com/pglombardo/PasswordPusher/issues/432#issuecomment-1282158006) on how to mount images into the contianer and set your environment variables accordingly
 
+# Themes
+
+![](https://pwpush.fra1.cdn.digitaloceanspaces.com/themes%2Fquartz-theme-pwpush.com.png)
+
+Password Pusher supports **26 themes out of the box**.  These themes are taken directly from the great [Bootswatch](https://bootswatch.com) project and are unmodified.
+
+As such, themes mostly work although there may be a rare edge cases where fonts may not be clear or something doesn't display correctly.  If this is the case you can add custom CSS styles to fix any such issues.  See the next section on how to add custom styling.
+
+---> Checkout the [Themes Gallery](Themes.md)!
+
+The Bootswatch themes are licensed under the MIT license.
+
+## Configuring a Theme
+
+To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
+
+**Make sure to set both `PWP__THEME` and `PWP_PRECOMPILE` for the selected theme to work.** 👍
+
+| Environment Variable | Description | Possible Values |
+| --------- | ------------------ | --- |
+| PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
+| PWP_PRECOMPILE | Forces a rebuild of the theme CSS on boot. | `true` |
+
+---> See the [Themes Gallery](Themes.md) for examples of each.
+
+__Note:__ Since the theme is a boot level selection, the theme can only be selected by setting the `PWP__THEME` environment variable (and not modifying `settings.yml`).
+
+So to set the `quartz` theme for a Docker container:
+
+```bash
+docker run --env PWP__THEME=quartz --env PWP_PRECOMPILE=true -p "5100:5100" pglombardo/pwpush-ephemeral:1.26.10
+```
+
+or alternatively for source code:
+
+```bash
+export PWP__THEME=quartz
+bin/rails asset:precompile # manually recompile assets
+bin/rails server
+```
+
+## How to Precompile CSS Assets
+
+Password Pusher has a pre-compilation step of assets.  This is used to fingerprint assets and pre-process CSS code for better performance.
+
+If using Docker containers, you can simply set the `PWP_PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
+
+To manually precompile assets run `bin/rails assets:precompile`.
+
+## Adding an entirely new theme from scratch
+
+The `PWP__THEME` environment variable simply causes the application to load a css file from `app/assets/stylesheets/themes/{$PWP__THEME}.css`.  If you were to place a completely custom CSS file into that directory, you could then set the `PWP__THEME` environment variable to the filename that you added.
+
+For example:
+
+Add `app/assets/stylesheets/themes/mynewtheme.css` and set `PWP__THEME=mynewtheme`.
+
+This would cause that CSS file to be loaded and used as the theme for the site.  Please refer to existing themes if you would like to author your theme for Password Pusher.
+
+Remember that after the new theme is configured, assets must be precompiled again.  See the the previous section for instructions
+
+# How to Add Custom CSS
+
+Password Pusher supports adding custom CSS to the application.  The application hosts a `custom.css` file located at `app/assets/stylesheets/custom.css`.  This file is loaded last so it take precedence over all built in themes and styling.
+
+This file can either be modified directly or in the case of Docker containers, a new file mounted over the existing one.
+
+When changing this file inside a Docker container, make sure to set the precompile option `PWP_PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
+
+An example Docker command to override that file would be:
+
+```
+docker run -e PWP_PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush-ephemeral:release
+```
+or the `docker-compose.yml` equivalent:
+
+```
+version: '2.1'
+services:
+
+  pwpush:
+    image: docker.io/pglombardo/pwpush-ephemeral:release
+    ports:
+      - "5100:5100"
+    environment:
+      PWP_PRECOMPILE: 'true'
+    volumes:
+      - type: bind
+        source: /path/to/my/custom.css
+        target: /opt/PasswordPusher/app/assets/stylesheets/custom.css
+```
+
+Remember that when doing this, this new CSS code has to be precompiled.
+
+To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
 
 # Google Analytics
 

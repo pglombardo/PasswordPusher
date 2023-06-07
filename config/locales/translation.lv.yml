@@ -6,23 +6,6 @@
 #
 ---
 lv:
-  routes:
-    cancel: atcelt
-    passwords: paroles
-    new: jauns
-    active: aktīvs
-    expired: beidzies derīguma termiņš
-    preview: priekšskatījums
-    audit: audits
-    pages: lapas
-    users: lietotāji
-    sign_in: Pieslēgties
-    sign_out: izrakstīties
-    sign_up: reģistrēties
-    password: parole
-    edit: rediģēt
-    confirmation: apstiprinājums
-    unlock: atbloķēt
   date:
     day_names:
     - svētdiena
@@ -141,6 +124,11 @@ lv:
     unacceptable_request: Atbalstīta versija ir paredzēta galvenē Piekrist
     connection_refused: Ak vai! Neizdevās izveidot savienojumu ar tīmekļa konsoles
       starpprogrammatūru. Lūdzu, pārliecinieties, vai darbojas Rails izstrādes serveris.
+    template:
+      body: 'Problēmas ir šajos ievades laukos:'
+      header:
+        one: Dēļ %{count} kļūdas šis %{model} netika saglabāts
+        other: Dēļ %{count} kļūdām šis %{model} netika saglabāts
   activerecord:
     errors:
       messages:
@@ -150,6 +138,35 @@ lv:
         restrict_dependent_destroy:
           has_one: Ierakstu nevar izdzēst, jo pastāv atkarīgais %{record}
           has_many: Ierakstu nevar izdzēst, jo pastāv atkarīgais %{record}
+    attributes:
+      user:
+        confirmation_sent_at: Apstiprinājums nosūtīts
+        confirmation_token: Apstiprinājuma marķieris
+        confirmed_at: Apstiprināts
+        created_at: Izveidots
+        current_password: Tagadējā parole
+        current_sign_in_at: Sesija sākta
+        current_sign_in_ip: Tagadējā IP adrese
+        email: Epasts
+        encrypted_password: Nošifrētā parole
+        failed_attempts: Kļudaini mēģinājumi
+        last_sign_in_at: Pēdējā sesija
+        last_sign_in_ip: Pēdējā IP adrese
+        locked_at: Nobloķēts
+        password: Parole
+        password_confirmation: Apstiprināt paroli
+        remember_created_at: Atcerēties mani atjaunots
+        remember_me: Atcerēties mani
+        reset_password_sent_at: Paroles maiņas ziņojums nosūtīts
+        reset_password_token: Paroles maiņas marķieris
+        sign_in_count: Pierakstīšanās reizes
+        unconfirmed_email: Neapstiprināts epasts
+        unlock_token: Atbloķēšanas marķieris
+        updated_at: Atjaunināts
+    models:
+      user:
+        one: Lietotājs
+        other: Lietotāji
   datetime:
     distance_in_words:
       half_a_minute: pusminūte
@@ -186,6 +203,9 @@ lv:
       almost_x_years:
         one: gandrīz %{count} gads
         other: gandrīz %{count} gadi
+      x_years:
+        one: 1 gads
+        other: "%{count} gadi"
     prompts:
       year: gads
       month: mēnesis
@@ -239,6 +259,8 @@ lv:
       resend_title: Atkārtoti nosūtīt apstiprinājuma norādījumus
       resend_header: Atkārtoti nosūtīt apstiprinājuma norādījumus
       resend_button: Atkārtoti nosūtīt
+      new:
+        resend_confirmation_instructions: Atkārtoti atsūtīt instrukcijas apstiprinājumu
     failure:
       already_authenticated: Jūs jau esiet pieslēdzies.
       inactive: Jūsu konts vēl nav aktivizēts.
@@ -255,14 +277,35 @@ lv:
     mailer:
       confirmation_instructions:
         subject: Apstiprinājuma norādījumi
+        action: Apstiprināt kontu
+        greeting: Sveicināti, %{recipient}!
+        instruction: 'Jūs varat apstiprināt, Jūsu konta epastu caur saiti zemāk:'
       reset_password_instructions:
         subject: Paroles atiestatīšanas norādījumi
+        action: Veikt paroles maiņu
+        greeting: Sveicināti, %{recipient}!
+        instruction: Kāds ir nosūtijis pieprasijumu, Jūsu paroles maiņai, to var veikt
+          caur saiti zemāk.
+        instruction_2: Ja Jūs neveicāt šo pieprasījumu, lūdzu, ignorējiet šo ziņu.
+        instruction_3: Jūsu parole netiks mainīta, kamēr Jūs neapstiprināsiet saiti
+          augstāk un neizveidosiet jaunu.
       unlock_instructions:
         subject: Atbloķēšanas norādījumi
+        action: Atbloķēt kontu
+        greeting: Sveicināti, %{recipient}!
+        instruction: 'Nospiežiet uz saites zemāk, lai atbloķētu kontu:'
+        message: Jūsu konts tika bloķēts vairāku kļūdainu pieteikšanās mēģinājumu
+          rezultātā.
       email_changed:
         subject: E-pasts nomainīts
+        greeting: Sveicināti, %{recipient}!
+        message: Informējam, ka Jūsu epasts ir nomainīts uz %{email}.
+        message_unconfirmed: Mēs sazināmies ar jums, lai informētu, ka jūsu e-pasta
+          adrese tiek mainīta uz %{email}.
       password_change:
         subject: Parole nomainīta
+        greeting: Sveicināti, %{recipient}!
+        message: Informējam, ka Jūsu parole ir nomainīta.
     omniauth_callbacks:
       failure: 'Neizdevās autorizēties ar %{kind} lietotāja kontu. Iemesls: "%{reason}".'
       success: Veiksmīgi autorizējis ar %{kind} lietotāja kontu.
@@ -281,6 +324,14 @@ lv:
       forgot_title: Aizmirsu paroli
       forgot_header: Aizmirsu paroli
       forgot_button: Nosūtīt atiestatīšanas norādījumus
+      edit:
+        change_my_password: Mainīt paroli
+        change_your_password: Paroles maiņa
+        confirm_new_password: Apstiprināt jauno paroli
+        new_password: Jauna parole
+      new:
+        forgot_your_password: Aizmirsāt paroli?
+        send_me_reset_password_instructions: Atsūtīt paroles maiņas instrukciju
     registrations:
       destroyed: Uz redzēšanos! Jūsu konts ir veiksmīgi dzēsts. Ceram Jūs drīzumā
         redzēt atkal.
@@ -315,6 +366,20 @@ lv:
       create_account: Izveidot kontu
       email: E-pasts
       password_confirmation: Paroles apstiprināšana
+      edit:
+        are_you_sure: Vai Jūs esat pārliecināts/-ta?
+        cancel_my_account: Atcelt kontu
+        currently_waiting_confirmation_for_email: 'Pašlaik gaida apstiprinājumu epastam:
+          %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: atstājiet tukšu šo lauku, ja nevēlaties
+          veikt izmaiņas
+        title: Rediģēt %{resource}
+        unhappy: Neapmierināts
+        update: Izmainīt
+        we_need_your_current_password_to_confirm_your_changes: mums ir nepieciešama
+          Jūsu tagadējā parole, lai veiktu izmaiņas
+      new:
+        sign_up: Reģistrēties
     unlocks:
       send_instructions: Pēc dažām minūtēm saņemsiet e-pasta ziņojumu ar norādījumiem,
         kā atbloķēt savu kontu.
@@ -325,6 +390,8 @@ lv:
       unlock_title: Atkārtoti nosūtīt atbloķēšanas norādījumus
       unlock_header: Atkārtoti nosūtīt atbloķēšanas norādījumus
       unlock_button: Atkārtoti nosūtīt
+      new:
+        resend_unlock_instructions: Atkārtoti atsūtīt atbloķēšanas instrukciju
     general:
       remember_me: Atcerēties mani
       login: Pieslēgties
@@ -333,6 +400,21 @@ lv:
       didnt_confirmation: Nesaņēmāt apstiprinājuma norādījumus?
       didnt_unlock: Nesaņēmāt atbloķēšanas norādījumus?
       email: E-pasts
+    sessions:
+      new:
+        sign_in: Pievienoties
+    shared:
+      links:
+        back: Atpakaļ
+        didn_t_receive_confirmation_instructions: Nesaņēmāt apstiprināšanas instrukciju?
+        didn_t_receive_unlock_instructions: Nesaņēmāt atbloķēšanas instrukciju?
+        forgot_your_password: Aizmirsāt paroli?
+        sign_in: Pievienoties
+        sign_in_with_provider: Pievienoties ar %{provider}
+        sign_up: Reģistrēties
+      minimum_password_length:
+        one: "(vismaz %{count} zīme)"
+        other: "(vismaz %{count} zīmes)"
   apipie:
     resources: Resursi
     resource: Resurss
@@ -375,3 +457,141 @@ lv:
     headers: Galvene
     header_name: Galvenes nosaukums
     code: Kods
+    deprecated: Novecojis
+    deprecation_details: Informācija par nolietojumu
+    deprecation:
+      attributes:
+        deprecated_in: Novecojis
+        sunset_at: Saulriets plkst
+        info: Informācija
+    returns: Atgriežas
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Pievienota %{count} atslēga
+        other: Pievienotas %{count} atslēgas
+    cmd:
+      args:
+        default_text: 'Noklusējums: %{value}'
+        desc:
+          all_locales: Negaidiet, ka galvenie modeļi sāksies ar lokalizāciju, tā vietā
+            izmantojiet tos visās lokalizācijās.
+          config: Ignorēt konfigurācijas atrašanās vietu
+          confirm: Apstipriniet automātiski
+          data_format: 'Datu formāts: %{valid_text}.'
+          keep_order: Ievērojiet atslēgu secību
+          key_pattern: Filtrēt pēc atslēgas modeļa (piem., "parasti.*")
+          key_pattern_to_rename: Pilna atslēga (raksts), ko pārdēvēt. Obligāti
+          locale_to_translate_from: Tulkošanas vieta
+          locales_filter: 'Apstrādājamā(-ās) lokalizācija(-as). Īpašs: bāze'
+          missing_types: 'Filtrēt pēc veidiem: %{valid}'
+          new_key_name: Jauns nosaukums, interpolē sākotnējo nosaukumu kā %{key}.
+            Obligāti
+          nostdin: Nelasīt no stdin
+          out_format: 'Izvades formāts: %{valid_text}'
+          pattern_router: 'Izmantot šablonu maršrutētāju: taustiņi pārvietoti pēc
+            konfigurācijas data.write'
+          strict: Neizseciniet dinamisko atslēgu lietojumu, piemēram, t("cats.#{cat}.name").
+            Ja tas ir iestatīts, tam ir prioritāte pār konfigurācijas iestatījumu.
+          translation_backend: Tulkošanas aizmugursistēma (google vai deepl)
+          value: 'Vērtība. Interpolāti: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: pievienojiet trūkstošās atslēgas lokalizācijas datiem, pēc izvēles
+          saskaņojiet modeli
+        check_consistent_interpolations: pārbaudiet, vai visos tulkojumos tiek izmantoti
+          pareizi interpolācijas mainīgie
+        check_normalized: pārbaudiet, vai visi tulkošanas dati ir normalizēti
+        config: parādīt i18n-tasks konfigurāciju
+        data: parādīt lokalizācijas datus
+        data_merge: apvienot lokalizācijas datus ar kokiem
+        data_remove: noņemt kokā esošās atslēgas no datiem
+        data_write: aizstāt lokalizācijas datus ar koku
+        eq_base: parādīt tulkojumus, kas vienādi ar bāzes vērtību
+        find: parādīt, kur kodā tiek izmantoti taustiņi
+        gem_path: parādīt ceļu uz dārgakmeni
+        health: Vai viss kārtībā?
+        irb: sākt REPL sesiju i18n-tasks kontekstā
+        missing: parādīt trūkstošos tulkojumus, pēc izvēles saskaņot modeli
+        mv: pārdēvējiet/apvienojiet atslēgas lokalizācijas datos, kas atbilst dotajam
+          modelim
+        normalize: 'normalizēt tulkošanas datus: kārtojiet un pārejiet uz pareizajiem
+          failiem'
+        remove_unused: noņemiet neizmantotās atslēgas
+        rm: noņemiet atslēgas lokalizācijas datos, kas atbilst dotajam modelim
+        translate_missing: tulkojiet trūkstošās atslēgas, izmantojot Google tulkotāju
+          vai DeepL Pro, pēc izvēles saskaņojiet paraugu
+        tree_convert: konvertēt koku starp formātiem
+        tree_filter: filtrējiet koku pēc atslēgas modeļa
+        tree_merge: apvienot kokus
+        tree_mv_key: pārdēvēt/apvienot/noņemt atslēgas, kas atbilst dotajam modelim
+        tree_set_value: iestatīt taustiņu vērtības, pēc izvēles saskaņot ar modeli
+        tree_subtract: koks A mīnus atslēgas kokā B
+        tree_translate: Google tulkotājs koku saknes lokalizācijām
+        unused: parādīt neizmantotos tulkojumus
+      encourage:
+      - Labs darbs!
+      - Labi padarīts!
+      - Perfekti!
+      enum_list_opt:
+        invalid: "%{invalid} neatrodas šeit: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} nav viens no: %{valid}."
+      errors:
+        invalid_format: 'nederīgs formāts: %{invalid}. derīgs: %{valid}.'
+        invalid_locale: 'nederīga lokalizācija: %{invalid}'
+        invalid_missing_type:
+          one: 'nederīgs veids: %{invalid}. derīgs: %{valid}.'
+          other: 'nezināmi veidi: %{invalid}. derīgs: %{valid}.'
+        pass_forest: iet garām lokālajam mežam
+    common:
+      continue_q: Turpināt?
+      key: Atslēga
+      locale: Lokalizācija
+      n_more: "%{count} vairāk"
+      value: Vērtība
+    data_stats:
+      text: ir %{key_count} atslēgas visās %{locale_count} lokalizācijās. Vidēji vērtības
+        ir %{value_chars_avg} rakstzīmes garas, taustiņiem ir %{key_segments_avg}
+        segmenti, lokalizācijai ir %{per_locale_avg} atslēgas.
+      text_single_locale: kopā ir %{key_count} atslēgas. Vidēji vērtības ir %{value_chars_avg}
+        rakstzīmes garas, taustiņiem ir %{key_segments_avg} segmenti.
+      title: Mežs (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Iestatiet DeepL Pro API atslēgu, izmantojot vides mainīgo DEEPL_AUTH_KEY
+          vai translation.deepl_api_key failā config/i18n-tasks.yml. Iegūstiet atslēgu
+          vietnē https://www.deepl.com/pro.
+        no_results: DeepL neatgrieza rezultātus.
+    google_translate:
+      errors:
+        no_api_key: Iestatiet Google API atslēgu, izmantojot vides mainīgo GOOGLE_TRANSLATE_API_KEY
+          vai translation.google_translate_api_key failā config/i18n-tasks.yml. Iegūstiet
+          atslēgu vietnē https://code.google.com/apis/console.
+        no_results: Google tulkotājs nesniedza rezultātus. Pārliecinieties, vai norēķinu
+          informācija ir iestatīta vietnē https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Nav atrasta neviena atslēga. Pārbaudiet data.read in config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Nav atrasta neviena pretrunīga interpolācija.
+    missing:
+      details_title: Vērtība citās lokalizācijās vai avotā
+      none: Trūkst neviena tulkojuma.
+    remove_unused:
+      confirm:
+        one: "%{count} tulkojums tiks noņemts no %{locales}."
+        other: "%{count} tulkojums tiks noņemts no %{locales}."
+      noop: Nav nelietotu atslēgu, ko noņemt
+      removed: Noņemtas %{count} atslēgas
+    translate_missing:
+      translated: Tulkotas %{count} atslēgas
+    unused:
+      none: Katrs tulkojums tiek izmantots.
+    usages:
+      none: Nav atrasts neviens galvenais lietojums.
+    yandex_translate:
+      errors:
+        no_api_key: Iestatiet Yandex API atslēgu, izmantojot YANDEX_API_KEY vides
+          mainīgo vai translation.yandex_api_key failā config/i18n-tasks.yml. Iegūstiet
+          atslēgu vietnē https://tech.yandex.com/translate.
+        no_results: Yandex nesniedza rezultātus.

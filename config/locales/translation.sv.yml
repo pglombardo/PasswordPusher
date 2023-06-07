@@ -6,23 +6,6 @@
 #
 ---
 sv:
-  routes:
-    cancel: avbryt
-    passwords: losenord
-    new: ny
-    active: aktiv
-    expired: utganget
-    preview: forhandsgranska
-    audit: granska
-    pages: sidor
-    users: anvandare
-    sign_in: logga_in
-    sign_out: logga_ut
-    sign_up: registrera
-    password: losenord
-    edit: redigera
-    confirmation: bekrafta
-    unlock: las_upp
   date:
     day_names:
     - söndag
@@ -133,7 +116,7 @@ sv:
       not_saved:
         one: 'Ett fel hindrade denna %{resource} från att sparas:'
         other: "%{count} fel hindrade denna %{resource} från att sparas:"
-      in:
+      in: måste vara i %{count}
     unavailable_session: |-
       Sessionen %{id} är inte längre tillgänglig i minnet.
 
@@ -143,6 +126,11 @@ sv:
     unacceptable_request: En version som stöds förväntas i Accept-headern.
     connection_refused: Hoppsan! Kan inte ansluta till Web Console-middleware. Vänligen
       verifiera att en rails-utvecklingsserver körs.
+    template:
+      body: 'Det var problem med följande fält:'
+      header:
+        one: Ett fel förhindrade ifrågavarande %{model} från att sparas
+        other: "%{count} fel förhindrade ifrågavarande %{model} från att sparas"
   activerecord:
     errors:
       messages:
@@ -150,6 +138,35 @@ sv:
         restrict_dependent_destroy:
           has_one: Kan inte ta bort post då beroende %{record} finns
           has_many: Kan inte ta bort post då beroende %{record} finns
+    attributes:
+      user:
+        confirmation_sent_at: Bekräftelse skickad
+        confirmation_token: Bekräftelse-token
+        confirmed_at: Bekräftat
+        created_at: Skapad
+        current_password: Nuvarande lösenord
+        current_sign_in_at: Nuvarande inloggning vid
+        current_sign_in_ip: Nuvarande inloggnings-IP
+        email: E-post
+        encrypted_password: Krypterat lösenord
+        failed_attempts: Misslyckade försök
+        last_sign_in_at: Senaste inloggning vid
+        last_sign_in_ip: Senaste inloggnings-IP
+        locked_at: Låst vid
+        password: Lösenord
+        password_confirmation: Bekräfta lösenord
+        remember_created_at: Kom ihåg skapades vid
+        remember_me: Kom ihåg mig
+        reset_password_sent_at: Återställ lösenord skickat vid
+        reset_password_token: Återställ token för lösenord
+        sign_in_count: Antal inloggningar
+        unconfirmed_email: Obekräftad e-post
+        unlock_token: Token för återaktivering
+        updated_at: Uppdaterad
+    models:
+      user:
+        one: Användare
+        other: Användare
   datetime:
     distance_in_words:
       half_a_minute: en halv minut
@@ -186,6 +203,9 @@ sv:
       almost_x_years:
         one: nästan ett år
         other: nästan %{count} år
+      x_years:
+        one: ett år
+        other: "%{count} år"
     prompts:
       year: År
       month: Månad
@@ -237,6 +257,9 @@ sv:
       resend_title: Skicka om bekräftelseinstruktioner
       resend_header: Skicka om bekräftelseinstruktioner
       resend_button: Skicka igen
+      new:
+        resend_confirmation_instructions: Skicka instruktioner för att bekräfta konto
+          igen
     failure:
       already_authenticated: Du är redan inloggad.
       inactive: Ditt konto har inte aktiverats ännu.
@@ -250,14 +273,36 @@ sv:
     mailer:
       confirmation_instructions:
         subject: Instruktioner för bekräftning av konto
+        action: Bekräfta mitt konto
+        greeting: Välkommen %{recipient}!
+        instruction: 'Du kan bekräfta ditt konto med länken nedan:'
       reset_password_instructions:
         subject: Instruktioner för återställning av lösenord
+        action: Byt lösenord
+        greeting: Hej %{recipient}!
+        instruction: Någon har begärt att ändra ditt lösenord. Du kan göra det genom
+          länken nedan.
+        instruction_2: Om ändringen inte begärdes utav dig, var snäll att ignorera
+          detta email.
+        instruction_3: Ditt lösenord ändras ej förrän du följer länken ovan och skapar
+          ett nytt lösenord.
       unlock_instructions:
         subject: Instruktioner för upplåsning av konto
+        action: Lås upp mitt konto
+        greeting: Hej %{recipient}!
+        instruction: 'Följ länken nedan för att låsa upp ditt konto:'
+        message: Ditt konto har låsts på grund av för många felaktiga inloggningsförsök.
       email_changed:
         subject: E-post ändrad
+        greeting: Hej %{recipient}!
+        message: Vi kontaktar dig för att meddela att din e-post ändras till %{email}.
+        message_unconfirmed: Vi kontaktar dig för att meddela dig att din e-postadress
+          ändras till %{email}.
       password_change:
         subject: Lösenordet ändrat
+        greeting: Hej %{recipient}!
+        message: Vi kontaktar dig för att meddela dig att att ditt lösenord har blivit
+          ändrat.
     omniauth_callbacks:
       failure: Kunde inte autentisera dig från %{kind} eftersom "%{reason}".
       success: Autentiserat med %{kind}-konto.
@@ -276,6 +321,15 @@ sv:
       forgot_title: Glömt lösenord
       forgot_header: Glömt lösenord
       forgot_button: Skicka återställningsinstruktioner
+      edit:
+        change_my_password: Ändra mitt lösenord
+        change_your_password: Ändra ditt lösenord
+        confirm_new_password: Bekräfta nytt lösenord
+        new_password: Nytt lösenord
+      new:
+        forgot_your_password: Glömt ditt lösenord?
+        send_me_reset_password_instructions: Skicka instruktion för återställning
+          av lösenord
     registrations:
       destroyed: Hej då! Ditt konto har avregistrerats. Vi hoppas få se dig snart
         igen.
@@ -309,6 +363,19 @@ sv:
       create_account: Skapa konto
       email: E-post
       password_confirmation: Bekräftelse av lösenord
+      edit:
+        are_you_sure: Är du säker?
+        cancel_my_account: Avsluta mitt konto
+        currently_waiting_confirmation_for_email: 'Väntar på bekräftelse för: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: lämna tomt om du inte vill byta
+          det
+        title: Ändra %{resource}
+        unhappy: Missnöjd
+        update: Uppdatera
+        we_need_your_current_password_to_confirm_your_changes: vi behöver ditt nuvarande
+          lösenord för att bekräfta dina ändringar
+      new:
+        sign_up: Registrera dig
     unlocks:
       send_instructions: Inom några minuter kommer du att få ett e-postmeddelande
         med instruktioner om hur du kan låsa upp ditt konto.
@@ -318,6 +385,8 @@ sv:
       unlock_title: Skicka om återställningsinstruktioner
       unlock_header: Skicka om återställningsinstruktioner
       unlock_button: Skicka igen
+      new:
+        resend_unlock_instructions: Skicka instruktioner för upplåsning av konto igen
     general:
       remember_me: Kom ihåg mig
       login: Logga in
@@ -326,34 +395,183 @@ sv:
       didnt_confirmation: Har du inte fått instruktioner för bekräftning?
       didnt_unlock: Har du inte fått instruktioner för upplåsning?
       email: E-post
+    sessions:
+      new:
+        sign_in: Logga in
+    shared:
+      links:
+        back: Tillbaka
+        didn_t_receive_confirmation_instructions: Fick du inga bekräftelseinstruktioner?
+        didn_t_receive_unlock_instructions: Fick du inga instruktioner om hur du låser
+          upp ditt konto?
+        forgot_your_password: Glömt ditt lösenord?
+        sign_in: Logga in
+        sign_in_with_provider: Logga in med %{provider}
+        sign_up: Registrera dig
+      minimum_password_length:
+        one: "(minst %{count} tecken)"
+        other: "(minst %{count} tecken)"
   apipie:
     resources: Resurser
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
+    resource: Resurs
+    description: Beskrivning
+    no_docs_found: Ingen dokumentation hittades
+    no_docs_found_descr: Vi har inte hittat någon dokumentation för ditt API.
+    follow_instructions_html: Följ %{href} för hur du beskriver dina kontroller.
+    follow_instructions_href: vidare instruktioner
+    oops: Hoppsan!!
+    resource_not_found_html: Resurs %{resource} hittades inte.
+    method_not_found_html: Metoden %{method} hittades inte för resursen %{resource}.
+    goto_homepage_html: Försök att gå till %{href}
+    goto_homepage_href: "%{app_name} API-dokumentationshemsida"
+    required: nödvändig
+    optional: frivillig
+    nil_allowed: noll tillåtet
+    param_name: Param namn
+    params: Params
     examples: Exempel
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
+    metadata: Metadata
+    errors: Fel
+    error_code: Koda
+    error_description: Beskrivning
+    error_metadata: Metadata
+    supported_formats: Format som stöds
+    enable_javascript_html: Vänligen aktivera JavaScript för att se %{comments_href}.
+    comments_powered_by_disqus: kommentarer drivs av %{disqus}
+    api_documentation: API dokumentation
+    headers: Rubriker
+    header_name: Rubrikens namn
+    code: Koda
+    deprecated: Utfasad
+    deprecation_details: Avskrivningsdetaljer
+    deprecation:
+      attributes:
+        deprecated_in: Utfasad i
+        sunset_at: Solnedgång kl
+        info: Info
+    returns: Returnerar
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Nyckel %{count} har lagts till
+        other: Lade till %{count}-nycklar
+    cmd:
+      args:
+        default_text: 'Standard: %{value}'
+        desc:
+          all_locales: Förvänta dig inte att nyckelmönster börjar med ett språk, utan
+            applicera dem på alla språk underförstått.
+          config: Åsidosätt konfigurationsplats
+          confirm: Bekräfta automatiskt
+          data_format: 'Dataformat: %{valid_text}.'
+          keep_order: Håll ordning på nycklarna
+          key_pattern: Filtrera efter nyckelmönster (t.ex. 'common.*')
+          key_pattern_to_rename: Fullständig nyckel (mönster) för att byta namn. Nödvändig
+          locale_to_translate_from: Språk att översätta från
+          locales_filter: 'Plats(er) att bearbeta. Special: bas'
+          missing_types: 'Filtrera efter typer: %{valid}'
+          new_key_name: Nytt namn, interpolerar originalnamnet som %{key}. Nödvändig
+          nostdin: Läs inte från stdin
+          out_format: 'Utdataformat: %{valid_text}'
+          pattern_router: 'Använd mönsterrouter: nycklar flyttade per config data.write'
+          strict: Undvik att dra slutsatser om dynamiska nyckelanvändningar som t("cats.#{cat}.name").
+            Har företräde framför konfigurationsinställningen om den är inställd.
+          translation_backend: Översättningsbackend (google eller deepl)
+          value: 'Värde. Interpolerar: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: lägg till saknade nycklar till lokaldata, valfritt matcha ett
+          mönster
+        check_consistent_interpolations: verifiera att alla översättningar använder
+          korrekta interpolationsvariabler
+        check_normalized: verifiera att all översättningsdata är normaliserad
+        config: visa i18n-tasks-konfiguration
+        data: visa lokaldata
+        data_merge: slå samman lokaldata med träd
+        data_remove: ta bort nycklar som finns i trädet från data
+        data_write: ersätt lokaldata med träd
+        eq_base: visa översättningar lika med basvärdet
+        find: visa var nycklar används i koden
+        gem_path: visa vägen till pärlan
+        health: är allting okej?
+        irb: starta REPL-session inom i18n-tasks sammanhang
+        missing: visa saknade översättningar, matcha eventuellt ett mönster
+        mv: byt namn på/sammanfoga nycklarna i lokaldata som matchar det givna mönstret
+        normalize: 'normalisera översättningsdata: sortera och flytta till rätt filer'
+        remove_unused: ta bort oanvända nycklar
+        rm: ta bort nycklarna i lokaldata som matchar det givna mönstret
+        translate_missing: översätt saknade nycklar med Google Translate eller DeepL
+          Pro, valfritt matcha ett mönster
+        tree_convert: konvertera träd mellan format
+        tree_filter: filtrera träd efter nyckelmönster
+        tree_merge: slå samman träd
+        tree_mv_key: byt namn/sammanfoga/ta bort nycklarna som matchar det givna mönstret
+        tree_set_value: ange värden för nycklar, valfritt matcha ett mönster
+        tree_subtract: träd A minus nycklarna i träd B
+        tree_translate: Google Översätt ett träd till root-lokaler
+        unused: visa oanvända översättningar
+      encourage:
+      - Bra jobbat!
+      - Bra gjort!
+      - Perfekt!
+      enum_list_opt:
+        invalid: "%{invalid} finns inte i: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} är inte en av: %{valid}."
+      errors:
+        invalid_format: 'ogiltigt format: %{invalid}. giltigt: %{valid}.'
+        invalid_locale: 'ogiltig plats: %{invalid}'
+        invalid_missing_type:
+          one: 'ogiltig typ: %{invalid}. giltigt: %{valid}.'
+          other: 'okända typer: %{invalid}. giltigt: %{valid}.'
+        pass_forest: passera lokalskog
+    common:
+      continue_q: Fortsätta?
+      key: Nyckel
+      locale: Plats
+      n_more: "%{count} mer"
+      value: Värde
+    data_stats:
+      text: har %{key_count}-nycklar över %{locale_count}-lokaler. I genomsnitt är
+        värden %{value_chars_avg}-tecken långa, nycklar har %{key_segments_avg}-segment,
+        en lokal har %{per_locale_avg}-nycklar.
+      text_single_locale: har %{key_count} nycklar totalt. I genomsnitt är värdena
+        %{value_chars_avg}-tecken långa, nycklar har %{key_segments_avg}-segment.
+      title: Skog (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Ställ in DeepL Pro API-nyckel via DEEPL_AUTH_KEY miljövariabel
+          eller translation.deepl_api_key i config/i18n-tasks.yml. Hämta nyckeln på
+          https://www.deepl.com/pro.
+        no_results: DeepL gav inga resultat.
+    google_translate:
+      errors:
+        no_api_key: Ställ in Google API-nyckel via GOOGLE_TRANSLATE_API_KEY miljövariabel
+          eller translation.google_translate_api_key i config/i18n-tasks.yml. Hämta
+          nyckeln på https://code.google.com/apis/console.
+        no_results: Google Translate gav inga resultat. Se till att faktureringsinformationen
+          är inställd på https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Inga nycklar upptäcktes. Kontrollera data.read i config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Inga inkonsekventa interpolationer hittades.
+    missing:
+      details_title: Värde i andra lokaler eller källa
+      none: Inga översättningar saknas.
+    remove_unused:
+      confirm:
+        one: "%{count}-översättning kommer att tas bort från %{locales}."
+        other: "%{count}-översättning kommer att tas bort från %{locales}."
+      noop: Inga oanvända nycklar att ta bort
+      removed: Tog bort %{count}-nycklar
+    translate_missing:
+      translated: Översatta %{count}-nycklar
+    unused:
+      none: Varje översättning används.
+    usages:
+      none: Inga nyckelanvändningar hittades.
+    yandex_translate:
+      errors:
+        no_api_key: Ställ in Yandex API-nyckel via YANDEX_API_KEY miljövariabel eller
+          translation.yandex_api_key i config/i18n-tasks.yml. Hämta nyckeln på https://tech.yandex.com/translate.
+        no_results: Yandex gav inga resultat.

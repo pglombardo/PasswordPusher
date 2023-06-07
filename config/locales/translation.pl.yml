@@ -6,23 +6,6 @@
 #
 ---
 pl:
-  routes:
-    cancel: anuluj
-    passwords: hasła
-    new: nowy
-    active: aktywne
-    expired: wygasłe
-    preview: podgląd
-    audit: audyt
-    pages: strony
-    users: users
-    sign_in: sign_in
-    sign_out: sign_out
-    sign_up: sign_up
-    password: hasło
-    edit: edycja
-    confirmation: potwierdzenie
-    unlock: unlock
   date:
     day_names:
     - niedziela
@@ -104,13 +87,13 @@ pl:
       blank: nie może być puste
       present: musi być puste
       too_long:
-        one: jest za długie (maksymalnie jeden znak)
+        one: jest za długie (maksymalnie %{count} znaków)
         other: jest za długie (maksymalnie %{count} znaków)
       too_short:
-        one: jest za krótkie (przynajmniej jeden znak)
+        one: jest za krótkie (przynajmniej %{count} znaków)
         other: jest za krótkie (przynajmniej %{count} znaków)
       wrong_length:
-        one: ma nieprawidłową długość (powinna wynosić jeden znak)
+        one: ma nieprawidłową długość (powinna wynosić %{count} znaków)
         other: ma nieprawidłową długość (powinna wynosić %{count} znaków)
       not_a_number: nie jest liczbą
       not_an_integer: musi być liczbą całkowitą
@@ -145,6 +128,11 @@ pl:
     connection_refused: |
       Ups! Nie można połączyć się z middleware Web Console.
       Proszę upewnij się, że serwer deweloperski rails jest uruchomiony.
+    template:
+      body: 'Błędy dotyczą następujących pól:'
+      header:
+        one: "%{model} nie został zachowany z powodu %{count} błędów"
+        other: "%{model} nie został zachowany z powodu %{count} błędów"
   activerecord:
     errors:
       messages:
@@ -152,6 +140,35 @@ pl:
         restrict_dependent_destroy:
           has_one: Nie można usunąć, gdyż istnieje zależny od niego %{record}
           has_many: Nie można usunąć, gdyż istnieją zależne od niego %{record}
+    attributes:
+      user:
+        confirmation_sent_at: Data wysłania potwierdzenia
+        confirmation_token: Token potwierdzający
+        confirmed_at: Data potwierdzenia
+        created_at: Data utworzenia
+        current_password: Aktualne hasło
+        current_sign_in_at: Data bieżącego logowania
+        current_sign_in_ip: Bieżący adres IP
+        email: Adres e-mail
+        encrypted_password: Zaszyfrowane hasło
+        failed_attempts: Nieudanych prób
+        last_sign_in_at: Data ostatniego logowania
+        last_sign_in_ip: Ostatni adres IP
+        locked_at: Data zablokowania
+        password: Hasło
+        password_confirmation: Potwierdzenie hasła
+        remember_created_at: Data utworzenia zapamiętania logowania
+        remember_me: Zapamiętaj mnie
+        reset_password_sent_at: Data wysłania żądania resetu hasła
+        reset_password_token: Token umożliwiający reset hasła
+        sign_in_count: Liczba logowań
+        unconfirmed_email: Niepotwierdzony adres e-mail
+        unlock_token: Token odblokowywujący
+        updated_at: Data uaktualnienia
+    models:
+      user:
+        one: Użytkownik
+        other: Użytkowników
   datetime:
     distance_in_words:
       half_a_minute: pół minuty
@@ -188,13 +205,16 @@ pl:
       almost_x_years:
         one: prawie rok
         other: prawie %{count} lat
+      x_years:
+        one: "%{count} rok"
+        other: "%{count} lat"
     prompts:
       year: Rok
       month: Miesiąc
       day: Dzień
       hour: Godzina
       minute: Minuta
-      second: Sekundy
+      second: Sekunda
   helpers:
     select:
       prompt: Proszę wybrać
@@ -239,6 +259,8 @@ pl:
       resend_title: Wyślij ponownie instrukcje potwierdzenia
       resend_header: Wyślij ponownie instrukcje potwierdzenia
       resend_button: Wyślij ponownie
+      new:
+        resend_confirmation_instructions: Wyślij ponownie instrukcje aktywacji
     failure:
       already_authenticated: Jesteś już zalogowany.
       inactive: Twoje konto nie zostało jeszcze aktywowane.
@@ -252,14 +274,38 @@ pl:
     mailer:
       confirmation_instructions:
         subject: Instrukcja aktywacji konta
+        action: Potwierdź swoje konto
+        greeting: Witaj %{recipient}!
+        instruction: 'Możesz potwierdzić swoje konto przy pomocy poniższego linku:'
       reset_password_instructions:
         subject: Instrukcja ustawienia nowego hasła
+        action: Zmień swoje hasło
+        greeting: Cześć %{recipient}!
+        instruction: Ktoś zażądał zmiany hasła do Twojego konta. Hasło możesz zmienić
+          wchodząc na poniższy link.
+        instruction_2: Jeśli to nie Ty zażądałeś zmiany hasła, proszę zignoruj tę
+          wiadomość.
+        instruction_3: Twoje hasło nie ulegnie zmianie dopóki nie wejdziesz na poniższy
+          link i nie ustawisz nowego.
       unlock_instructions:
         subject: Instrukcja odblokowania konta
+        action: Odblokuj swoje konto
+        greeting: Cześć %{recipient}!
+        instruction: 'Kliknij poniższy link, aby odblokować swoje konto:'
+        message: Twoje konto zostało zablokowane z powodu zbyt dużej liczby nieprawidłowych
+          prób zalogowania się na nie.
       email_changed:
         subject: E-mail zmieniony
+        greeting: Witaj %{recipient}!
+        message: Kontaktujemy się z Tobą, aby Cię poinformować o zmianie Twojego adresu
+          e-mail na %{email}.
+        message_unconfirmed: Kontaktujemy się z Tobą, aby powiadomić Cię, że Twój
+          adres e-mail został zmieniony na %{email}.
       password_change:
         subject: Hasło zostało zmienione
+        greeting: Witaj %{recipient}!
+        message: Kontaktujemy się z Tobą w celu poinformowania, że Twoje hasło zostało
+          zmienione.
     omniauth_callbacks:
       failure: Logowanie przez konto %{kind} zakończyło się błędem z powodu "%{reason}".
       success: Logowanie przez konto %{kind} zakończyło się pomyślnie.
@@ -277,6 +323,14 @@ pl:
       forgot_title: Zapomniane hasło
       forgot_header: Zapomniane hasło
       forgot_button: Wyślij instrukcje resetowania
+      edit:
+        change_my_password: Zmień moje hasło
+        change_your_password: Zmień swoje hasło
+        confirm_new_password: Powtórz nowe hasło
+        new_password: Nowe hasło
+      new:
+        forgot_your_password: Zapomniałeś swojego hasła?
+        send_me_reset_password_instructions: Wyślij instrukcje zmiany hasła
     registrations:
       destroyed: Twoje konto zostało usunięte.
       signed_up: Witaj! Rejestracja zakończyła się pomyślnie.
@@ -307,6 +361,20 @@ pl:
       create_account: Utwórz konto
       email: E-mail
       password_confirmation: Potwierdzenie hasła
+      edit:
+        are_you_sure: Jesteś pewny?
+        cancel_my_account: Anuluj moje konto
+        currently_waiting_confirmation_for_email: 'Aktualnie oczekujemy na potwierdzenie
+          z: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: pozostaw puste, jeśli nie chcesz
+          wprowadzać zmian
+        title: Edytuj %{resource}
+        unhappy: Niezadowolony
+        update: Aktualizuj
+        we_need_your_current_password_to_confirm_your_changes: potrzebujemy Twojego
+          bieżącego hasła, aby potwierdzić zmiany
+      new:
+        sign_up: Zarejestruj się
     unlocks:
       send_instructions: Wkrótce powinieneś otrzymać e-mail z instrukcjami jak odblokować
         swoje konto.
@@ -316,6 +384,8 @@ pl:
       unlock_title: Wyślij ponownie instrukcje odblokowania
       unlock_header: Wyślij ponownie instrukcje odblokowania
       unlock_button: Wyślij ponownie
+      new:
+        resend_unlock_instructions: Wyślij instrukcje odblokowania konta
     general:
       remember_me: Zapamiętaj mnie
       login: Zaloguj się
@@ -324,6 +394,23 @@ pl:
       didnt_confirmation: Nie otrzymałeś instrukcji potwierdzenia?
       didnt_unlock: Nie otrzymałeś instrukcji odblokowania?
       email: E-mail
+    sessions:
+      new:
+        sign_in: Zaloguj się
+    shared:
+      links:
+        back: Powrót
+        didn_t_receive_confirmation_instructions: Nie otrzymałeś instrukcji aktywacji
+          konta?
+        didn_t_receive_unlock_instructions: Nie otrzymałeś instrukcji odblokowania
+          konta?
+        forgot_your_password: Zapomniałeś hasła?
+        sign_in: Zaloguj się
+        sign_in_with_provider: Zaloguj się przez %{provider}
+        sign_up: Zarejestruj się
+      minimum_password_length:
+        one: "(minimum %{count} znak)"
+        other: "(minimum %{count} znaku)"
   apipie:
     resources: Zasoby
     resource: Zasoby
@@ -355,3 +442,140 @@ pl:
     headers: Nagłówki
     header_name: 'Nazwa nagłówka '
     code: Kod źródłowy
+    deprecated: Przestarzałe
+    deprecation_details: Szczegóły wycofania
+    deprecation:
+      attributes:
+        deprecated_in: Przestarzałe w
+        sunset_at: Zachód słońca o godz
+        info: Informacje
+    returns: Zwroty
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Dodano klucz %{count}
+        other: Dodano klucze %{count}
+    cmd:
+      args:
+        default_text: 'Domyślnie: %{value}'
+        desc:
+          all_locales: Nie oczekuj, że wzorce kluczy zaczynają się od ustawień regionalnych,
+            zamiast tego zastosuj je do wszystkich ustawień regionalnych.
+          config: Zastąp lokalizację konfiguracji
+          confirm: Potwierdź automatycznie
+          data_format: 'Format danych: %{valid_text}.'
+          keep_order: Zachowaj kolejność kluczy
+          key_pattern: Filtruj według wzorca klucza (np. „wspólne.*”)
+          key_pattern_to_rename: Pełny klucz (wzór) do zmiany nazwy. Wymagany
+          locale_to_translate_from: Język do tłumaczenia
+          locales_filter: 'Ustawienia regionalne do przetworzenia. Specjalne: baza'
+          missing_types: 'Filtruj według typów: %{valid}'
+          new_key_name: Nowa nazwa, interpoluje pierwotną nazwę jako %{key}. Wymagany
+          nostdin: Nie czytaj ze standardowego wejścia
+          out_format: 'Format wyjściowy: %{valid_text}'
+          pattern_router: 'Użyj routera wzorca: klucze przeniesione na dane konfiguracyjne.write'
+          strict: Unikaj wnioskowania o zastosowaniach kluczy dynamicznych, takich
+            jak t("cats.#{cat}.name"). Ma pierwszeństwo przed ustawieniem konfiguracji,
+            jeśli jest ustawione.
+          translation_backend: Backend tłumaczeń (google lub deepl)
+          value: 'Wartość. Interpoluje: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: dodaj brakujące klucze do danych regionalnych, opcjonalnie dopasuj
+          wzorzec
+        check_consistent_interpolations: zweryfikuj czy wszystkie tłumaczenia używają
+          poprawnych zmiennych interpolacyjnych
+        check_normalized: sprawdź, czy wszystkie dane tłumaczeniowe są znormalizowane
+        config: wyświetl konfigurację i18n-zadań
+        data: pokaż dane regionalne
+        data_merge: połącz dane regionalne z drzewami
+        data_remove: usuń klucze obecne w drzewie z danych
+        data_write: zamień dane regionalne na drzewo
+        eq_base: pokaż tłumaczenia równe wartości bazowej
+        find: pokaż, gdzie klucze są używane w kodzie
+        gem_path: pokaż ścieżkę do klejnotu
+        health: Czy wszystko w porządku?
+        irb: rozpocznij sesję REPL w kontekście i18n-tasks
+        missing: pokaż brakujące tłumaczenia, opcjonalnie dopasuj do wzorca
+        mv: zmień nazwę/scal klucze w danych regionalnych, które pasują do podanego
+          wzorca
+        normalize: 'znormalizuj dane tłumaczenia: posortuj i przenieś do właściwych
+          plików'
+        remove_unused: usuń nieużywane klucze
+        rm: usuń klucze w danych regionalnych, które pasują do podanego wzorca
+        translate_missing: przetłumacz brakujące klucze za pomocą Tłumacza Google
+          lub DeepL Pro, opcjonalnie dopasuj do wzorca
+        tree_convert: konwertuj drzewo między formatami
+        tree_filter: filtruj drzewo według wzorca klucza
+        tree_merge: połącz drzewa
+        tree_mv_key: zmień nazwę/scal/usuń klucze pasujące do podanego wzorca
+        tree_set_value: ustawić wartości kluczy, opcjonalnie dopasować wzorzec
+        tree_subtract: drzewo A minus klawisze w drzewie B
+        tree_translate: Przetłumacz Google drzewo na główne ustawienia regionalne
+        unused: pokaż nieużywane tłumaczenia
+      encourage:
+      - Dobra robota!
+      - Bardzo dobrze!
+      - Idealny!
+      enum_list_opt:
+        invalid: "%{invalid} nie występuje w: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} nie jest jednym z: %{valid}."
+      errors:
+        invalid_format: 'nieprawidłowy format: %{invalid}. ważny: %{valid}.'
+        invalid_locale: 'nieprawidłowe ustawienia regionalne: %{invalid}'
+        invalid_missing_type:
+          one: 'nieprawidłowy typ: %{invalid}. ważny: %{valid}.'
+          other: 'nieznane typy: %{invalid}. ważny: %{valid}.'
+        pass_forest: mijaj las w okolicy
+    common:
+      continue_q: Kontyntynuj?
+      key: Klucz
+      locale: Widownia
+      n_more: "%{count} więcej"
+      value: Wartość
+    data_stats:
+      text: ma klucze %{key_count} w ustawieniach regionalnych %{locale_count}. Średnio
+        wartości mają długość %{value_chars_avg} znaków, klucze mają segmenty %{key_segments_avg},
+        a ustawienia regionalne mają klucze %{per_locale_avg}.
+      text_single_locale: ma łącznie klucze %{key_count}. Średnio wartości mają długość
+        %{value_chars_avg} znaków, klucze mają segmenty %{key_segments_avg}.
+      title: Las (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Skonfiguruj klucz DeepL Pro API za pomocą zmiennej środowiskowej
+          DEEPL_AUTH_KEY lub translation.deepl_api_key w pliku config/i18n-tasks.yml.
+          Zdobądź klucz na https://www.deepl.com/pro.
+        no_results: DeepL nie zwrócił żadnych wyników.
+    google_translate:
+      errors:
+        no_api_key: Ustaw klucz interfejsu API Google za pomocą zmiennej środowiskowej
+          GOOGLE_TRANSLATE_API_KEY lub translation.google_translate_api_key w pliku
+          config/i18n-tasks.yml. Pobierz klucz na https://code.google.com/apis/console.
+        no_results: Tłumacz Google nie zwrócił żadnych wyników. Upewnij się, że informacje
+          rozliczeniowe są ustawione na https://code.google.com/apis/console.
+    health:
+      no_keys_detected: Nie wykryto kluczy. Sprawdź data.read w config/i18n-tasks.yml.
+    inconsistent_interpolations:
+      none: Nie znaleziono niespójnych interpolacji.
+    missing:
+      details_title: Wartość w innych lokalizacjach lub źródle
+      none: Nie brakuje tłumaczeń.
+    remove_unused:
+      confirm:
+        one: Tłumaczenie %{count} zostanie usunięte z %{locales}.
+        other: Tłumaczenie %{count} zostanie usunięte z %{locales}.
+      noop: Brak nieużywanych kluczy do usunięcia
+      removed: Usunięto klucze %{count}
+    translate_missing:
+      translated: Przetłumaczone klucze %{count}
+    unused:
+      none: Każde tłumaczenie jest w użyciu.
+    usages:
+      none: Nie znaleziono użycia klucza.
+    yandex_translate:
+      errors:
+        no_api_key: Ustaw klucz Yandex API za pomocą zmiennej środowiskowej YANDEX_API_KEY
+          lub translation.yandex_api_key w config/i18n-tasks.yml. Zdobądź klucz na
+          https://tech.yandex.com/translate.
+        no_results: Yandex nie zwrócił żadnych wyników.

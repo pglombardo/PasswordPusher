@@ -6,23 +6,6 @@
 #
 ---
 sr:
-  routes:
-    cancel: поништити, отказати
-    passwords: лозинке
-    new: Нова
-    active: активан
-    expired: истекао
-    preview: превиев
-    audit: ревизија
-    pages: странице
-    users: корисника
-    sign_in: Пријавите се
-    sign_out: Одјава
-    sign_up: пријави се
-    password: Лозинка
-    edit: Уредити
-    confirmation: потврда
-    unlock: откључати
   date:
     day_names:
     - Недеља
@@ -141,6 +124,11 @@ sr:
     unacceptable_request: Подржана верзија се очекује у заглављу Прихвати.
     connection_refused: Упс! Повезивање са међуверским софтвером Веб конзоле није
       успело. Уверите се да је раилс развојни сервер покренут.
+    template:
+      body: 'Молим Вас да проверите следећа поља:'
+      header:
+        one: 'Нисам успео сачувати %{model}: %{count} грешка.'
+        other: 'Нисам успео сачувати %{model}: %{count} грешки.'
   activerecord:
     errors:
       messages:
@@ -148,6 +136,35 @@ sr:
         restrict_dependent_destroy:
           has_one: Није могуће обрисати запис јер постоји зависан %{record}
           has_many: Није могуће обрисати запис јер постоје зависни %{record}
+    attributes:
+      user:
+        confirmation_sent_at: Potvrda poslata na
+        confirmation_token: Токен за потврду
+        confirmed_at: Потврђено у
+        created_at: Креирано
+        current_password: Trenutna lozinka
+        current_sign_in_at: Тренутно пријављивање на
+        current_sign_in_ip: Актуелна ИП адреса за пријаву
+        email: Email
+        encrypted_password: Enkriptovana lozinka
+        failed_attempts: Neuspeli pokušaji
+        last_sign_in_at: Poslednji put ulogovan
+        last_sign_in_ip: Poslednja IP adresa
+        locked_at: Zaključano
+        password: Lozinka
+        password_confirmation: Potvrda lozinke
+        remember_created_at: Запамтите креирано у
+        remember_me: Zapamti me
+        reset_password_sent_at: Uputstvo za resetovanje lozinke poslato
+        reset_password_token: Ресетујте токен лозинке
+        sign_in_count: Број пријава
+        unconfirmed_email: Непотврђена е-пошта
+        unlock_token: Токен за откључавање
+        updated_at: Ажурирано у
+    models:
+      user:
+        one: Корисник
+        other: Корисници
   datetime:
     distance_in_words:
       half_a_minute: пола минуте
@@ -184,6 +201,9 @@ sr:
       almost_x_years:
         one: скоро %{count} година
         other: скоро %{count} година
+      x_years:
+        one: 1 година
+        other: "%{count} година"
     prompts:
       year: Година
       month: Месец
@@ -236,6 +256,8 @@ sr:
       resend_title: Поново пошаљите упутства за потврду
       resend_header: Поново пошаљите упутства за потврду
       resend_button: Поново послати
+      new:
+        resend_confirmation_instructions: Поново пошаљите упутства за потврду
     failure:
       already_authenticated: Već ste prijavljeni.
       inactive: Vaš nalog još nije aktiviran.
@@ -249,14 +271,35 @@ sr:
     mailer:
       confirmation_instructions:
         subject: Uputstvo za potvrdu korisničkog naloga
+        action: Потврди мој налог
+        greeting: Добродошли %{recipient}!
+        instruction: 'Можете потврдити имејл свог налога путем линка испод:'
       reset_password_instructions:
         subject: Uputstvo za promenu lozinke
+        action: Промени моју лозинку
+        greeting: Здраво %{recipient}!
+        instruction: Неко је затражио везу за промену ваше лозинке. То можете учинити
+          путем линка испод.
+        instruction_2: Ако ово нисте тражили, занемарите ову е-пошту.
+        instruction_3: Ваша лозинка се неће променити док не приступите горњој вези
+          и не направите нову.
       unlock_instructions:
         subject: Uputstvo za otključavanje korisničkog naloga
+        action: Откључај мој налог
+        greeting: Здраво %{recipient}!
+        instruction: 'Кликните на линк испод да бисте откључали свој налог:'
+        message: Ваш налог је закључан због превеликог броја неуспешних покушаја пријављивања.
       email_changed:
         subject: Емаил промењен
+        greeting: Здраво %{recipient}!
+        message: Контактирамо вас да бисмо вас обавестили да је ваша адреса е-поште
+          промењена у %{email}.
+        message_unconfirmed: Контактирамо вас да бисмо вас обавестили да се ваша адреса
+          е-поште мења у %{email}.
       password_change:
         subject: Лозинка промењена
+        greeting: Здраво %{recipient}!
+        message: Контактирамо вас да бисмо вас обавестили да је ваша лозинка промењена.
     omniauth_callbacks:
       failure: Nismo u mogućnosti autorizovati Vas sa %{kind} nalogom zbog "%{reason}".
       success: Uspešna autorizacija sa %{kind} naloga.
@@ -274,6 +317,14 @@ sr:
       forgot_title: Заборавили сте лозинку
       forgot_header: Заборавили сте лозинку
       forgot_button: Пошаљите упутства за ресетовање
+      edit:
+        change_my_password: Промени моју лозинку
+        change_your_password: Промените своју лозинку
+        confirm_new_password: Потврдите нову лозинку
+        new_password: Нова лозинка
+      new:
+        forgot_your_password: Заборавили сте лозинку?
+        send_me_reset_password_instructions: Пошаљите ми упутства за ресетовање лозинке
     registrations:
       destroyed: Pozdrav! Vaš nalog je uspešno obrisan. Nadamo se da ćete se uskoro
         vratiti.
@@ -306,6 +357,19 @@ sr:
       create_account: Региструј се
       email: Емаил
       password_confirmation: Потврда шифре
+      edit:
+        are_you_sure: Да ли сте сигурни?
+        cancel_my_account: Откажи мој налог
+        currently_waiting_confirmation_for_email: 'Тренутно се чека потврда за: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: оставите празно ако не желите
+          да га промените
+        title: Уреди %{resource}
+        unhappy: Несрећни?
+        update: ажурирање
+        we_need_your_current_password_to_confirm_your_changes: потребна нам је ваша
+          тренутна лозинка да потврдимо ваше промене
+      new:
+        sign_up: Пријави се
     unlocks:
       send_instructions: U roku od nekoliko minuta ćete primiti ePoruku sa uputstvom
         za otključavanje Vašeg naloga.
@@ -315,6 +379,8 @@ sr:
       unlock_title: Поново пошаљите упутства за откључавање
       unlock_header: Поново пошаљите упутства за откључавање
       unlock_button: Поново послати
+      new:
+        resend_unlock_instructions: Поново пошаљите упутства за откључавање
     general:
       remember_me: Сети ме се
       login: Пријавите се
@@ -323,6 +389,21 @@ sr:
       didnt_confirmation: Нисте добили упутства за потврду?
       didnt_unlock: Нисте добили упутства за откључавање?
       email: Емаил
+    sessions:
+      new:
+        sign_in: Пријавите се
+    shared:
+      links:
+        back: Назад
+        didn_t_receive_confirmation_instructions: Нисте добили упутства за потврду?
+        didn_t_receive_unlock_instructions: Нисте добили упутства за откључавање?
+        forgot_your_password: Заборавили сте лозинку?
+        sign_in: Пријавите се
+        sign_in_with_provider: Пријавите се помоћу %{provider}
+        sign_up: Пријави се
+      minimum_password_length:
+        one: "(минимум знакова %{count})"
+        other: "(минимално %{count} знакова)"
   apipie:
     resources: Ресурси
     resource: Ресурс
@@ -354,3 +435,142 @@ sr:
     headers: Заглавља
     header_name: Име заглавља
     code: Код
+    deprecated: Застарела
+    deprecation_details: Детаљи застарелости
+    deprecation:
+      attributes:
+        deprecated_in: Застарело у
+        sunset_at: Залазак сунца у
+        info: Инфо
+    returns: Повратак
+  i18n_tasks:
+    add_missing:
+      added:
+        one: Додат %{count} кључ
+        other: Додати %{count} кључеви
+    cmd:
+      args:
+        default_text: 'Подразумевано: %{value}'
+        desc:
+          all_locales: Не очекујте да ће кључни обрасци почети са локализацијом, већ
+            их имплицитно примените на све локалитете.
+          config: Замени локацију конфигурације
+          confirm: Потврди аутоматски
+          data_format: 'Формат података: %{valid_text}.'
+          keep_order: Држите редослед кључева
+          key_pattern: Филтрирајте према обрасцу кључа (нпр. 'уобичајено*')
+          key_pattern_to_rename: Пун кључ (шаблон) за преименовање. Потребан
+          locale_to_translate_from: Локал за превођење
+          locales_filter: 'Локал(и) за обраду. Специјално: база'
+          missing_types: 'Филтрирај по типовима: %{valid}'
+          new_key_name: Ново име, интерполира оригинално име као %{key}. Потребан
+          nostdin: Не читајте са стдин
+          out_format: 'Излазни формат: %{valid_text}'
+          pattern_router: 'Користите рутер шаблона: кључеви се померају по конфигурационим
+            подацима.врите'
+          strict: Избегавајте закључивање динамичких кључева као што је т("цатс.#{цат}.наме").
+            Има предност над поставком конфигурације ако је подешена.
+          translation_backend: Позадина превода (гоогле или деепл)
+          value: 'Валуе. Интерполирају: %{value}, %{human_key}, %{key}, %{default},
+            %{value_or_human_key}, %{value_or_default_or_human_key}'
+      desc:
+        add_missing: додајте кључеве који недостају у податке о локалном стандарду,
+          опционо одговарају шаблону
+        check_consistent_interpolations: проверите да ли сви преводи користе исправне
+          интерполационе променљиве
+        check_normalized: проверите да ли су сви подаци о преводу нормализовани
+        config: прикажи конфигурацију и18н задатака
+        data: прикажи податке о локалитету
+        data_merge: споји податке о локалитету са дрвећем
+        data_remove: уклоните кључеве присутне у стаблу из података
+        data_write: замени податке о локалу са стаблом
+        eq_base: прикажи преводе једнаке основној вредности
+        find: показати где се кључеви користе у коду
+        gem_path: покажи пут до драгуља
+        health: да ли је све у реду?
+        irb: започните РЕПЛ сесију унутар контекста и18н задатака
+        missing: прикажи преводе који недостају, опционо одговара шаблону
+        mv: преименуј/обједини кључеве у подацима о локализацији који одговарају датом
+          шаблону
+        normalize: 'нормализујте податке о преводу: сортирајте и пређите на праве
+          датотеке'
+        remove_unused: уклоните неискоришћене кључеве
+        rm: уклоните кључеве у подацима о локалном стандарду који одговарају датом
+          шаблону
+        translate_missing: преведите недостајуће кључеве помоћу Гоогле Транслате или
+          ДеепЛ Про, опционо одговара шаблону
+        tree_convert: претворити стабло између формата
+        tree_filter: дрво филтера по кључном обрасцу
+        tree_merge: спојити дрвеће
+        tree_mv_key: преименуј/споји/уклони кључеве који одговарају датом шаблону
+        tree_set_value: поставите вредности кључева, опционо одговарају шаблону
+        tree_subtract: дрво А минус кључеви у стаблу Б
+        tree_translate: Гугл преводилац стабла у корен локализације
+        unused: прикажи некоришћене преводе
+      encourage:
+      - Добар посао!
+      - Добро урађено!
+      - Савршен!
+      enum_list_opt:
+        invalid: "%{invalid} није у: %{valid}."
+      enum_opt:
+        invalid: "%{invalid} није једно од: %{valid}."
+      errors:
+        invalid_format: 'неважећи формат: %{invalid}. важи: %{valid}.'
+        invalid_locale: 'неважећи локалитет: %{invalid}'
+        invalid_missing_type:
+          one: 'неважећи тип: %{invalid}. важи: %{valid}.'
+          other: 'непознати типови: %{invalid}. важи: %{valid}.'
+        pass_forest: пролаз локал шума
+    common:
+      continue_q: Настави?
+      key: Кључ
+      locale: Лоцале
+      n_more: "%{count} више"
+      value: Валуе
+    data_stats:
+      text: има %{key_count} кључеве у %{locale_count} локализацијама. У просеку,
+        вредности су дугачке %{value_chars_avg} знакова, кључеви имају %{key_segments_avg}
+        сегменте, локална стандардна верзија има кључеве %{per_locale_avg}.
+      text_single_locale: укупно има кључеве %{key_count}. У просеку, вредности су
+        дугачке %{value_chars_avg} знакова, кључеви имају сегменте %{key_segments_avg}.
+      title: шума (%{locales})
+    deepl_translate:
+      errors:
+        no_api_key: Подесите ДеепЛ Про АПИ кључ преко ДЕЕПЛ_АУТХ_КЕИ променљиве окружења
+          или транслатион.деепл_апи_кеи у цонфиг/и18н-таскс.имл. Набавите кључ на
+          хттпс://ввв.деепл.цом/про.
+        no_results: ДеепЛ није дао резултате.
+    google_translate:
+      errors:
+        no_api_key: Подесите Гоогле АПИ кључ преко ГООГЛЕ_ТРАНСЛАТЕ_АПИ_КЕИ променљиве
+          окружења или транслатион.гоогле_транслате_апи_кеи у цонфиг/и18н-таскс.имл.
+          Преузмите кључ на хттпс://цоде.гоогле.цом/апис/цонсоле.
+        no_results: Гоогле преводилац није дао резултате. Проверите да ли су информације
+          за обрачун подешене на хттпс://цоде.гоогле.цом/апис/цонсоле.
+    health:
+      no_keys_detected: Није откривен ниједан кључ. Проверите податке.прочитајте у
+        цонфиг/и18н-таскс.имл.
+    inconsistent_interpolations:
+      none: Нису пронађене недоследне интерполације.
+    missing:
+      details_title: Вредност на другим локацијама или извору
+      none: Не недостаје ниједан превод.
+    remove_unused:
+      confirm:
+        one: "%{count} превод ће бити уклоњен из %{locales}."
+        other: "%{count} превод ће бити уклоњен из %{locales}."
+      noop: Нема неискоришћених кључева за уклањање
+      removed: Уклоњени %{count} кључеви
+    translate_missing:
+      translated: Преведени %{count} кључеви
+    unused:
+      none: Сваки превод је у употреби.
+    usages:
+      none: Нису пронађене кључне употребе.
+    yandex_translate:
+      errors:
+        no_api_key: Подесите Иандек АПИ кључ преко ИАНДЕКС_АПИ_КЕИ променљиве окружења
+          или транслатион.иандек_апи_кеи у цонфиг/и18н-таскс.имл. Преузмите кључ на
+          хттпс://тецх.иандек.цом/транслате.
+        no_results: Иандек није дао резултате.
