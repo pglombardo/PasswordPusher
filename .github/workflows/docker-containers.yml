@@ -78,7 +78,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push pwpush-${{ matrix.dbType }} Docker images
-        uses: docker/build-push-action@v4.1.0
+        uses: docker/build-push-action@v4.1.1
         with:
           file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
           platforms: linux/amd64,linux/arm64
