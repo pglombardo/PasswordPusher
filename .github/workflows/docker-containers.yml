@@ -82,3 +82,5 @@ jobs:
           push: ${{ env.DOCKER_PUSH }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache,mode=max
