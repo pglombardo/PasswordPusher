@@ -87,13 +87,13 @@ pt-PT:
       blank: não pode estar em branco
       present: não pode estar em branco
       too_long:
-        one: é muito longo (o máximo é 1 caractere)
+        one: é muito longo (o máximo é %{count} caracteres)
         other: é muito longo (o máximo é %{count} caracteres)
       too_short:
-        one: é muito curto (mínimo é 1 caráter)
+        one: é muito curto (o mínimo são %{count} caracteres)
         other: é muito curto (o mínimo são %{count} caracteres)
       wrong_length:
-        one: é o comprimento errado (deve ser 1 caractere)
+        one: é o comprimento errado (deve ser %{count} caracteres)
         other: é o comprimento errado (deve ser %{count} caracteres)
       not_a_number: não é um número
       not_an_integer: tem de ser um inteiro
@@ -127,7 +127,7 @@ pt-PT:
     template:
       body: 'Por favor, verifique os seguintes campos:'
       header:
-        one: 1 erro impediu guardar este %{model}
+        one: "%{count} erros impediram guardar este %{model}"
         other: "%{count} erros impediram guardar este %{model}"
   activerecord:
     errors:
@@ -169,40 +169,40 @@ pt-PT:
     distance_in_words:
       half_a_minute: meio minuto
       less_than_x_seconds:
-        one: menos de 1 segundo
+        one: menos de %{count} segundos
         other: menos de %{count} segundos
       x_seconds:
-        one: 1 segundo
+        one: "%{count} segundos"
         other: "%{count} segundos"
       less_than_x_minutes:
         one: menos de um minuto
         other: menos de %{count} minutos
       x_minutes:
-        one: 1 minuto
+        one: "%{count} minutos"
         other: "%{count} minutos"
       about_x_hours:
-        one: aproximadamente 1 hora
+        one: aproximadamente %{count} hora
         other: aproximadamente %{count} horas
       x_days:
-        one: 1 dia
+        one: "%{count} dias"
         other: "%{count} dias"
       about_x_months:
-        one: aproximadamente 1 mês
+        one: aproximadamente %{count} meses
         other: aproximadamente %{count} meses
       x_months:
-        one: 1 mês
+        one: "%{count} meses"
         other: "%{count} meses"
       about_x_years:
-        one: aproximadamente 1 ano
+        one: aproximadamente %{count} anos
         other: aproximadamente %{count} anos
       over_x_years:
-        one: mais de 1 ano
+        one: mais de %{count} anos
         other: mais de %{count} anos
       almost_x_years:
-        one: quase 1 ano
+        one: quase %{count} anos
         other: quase %{count} anos
       x_years:
-        one: 1 ano
+        one: "%{count} anos"
         other: "%{count} anos"
     prompts:
       year: Ano
@@ -210,7 +210,7 @@ pt-PT:
       day: Dia
       hour: Hora
       minute: Minuto
-      second: Segundo
+      second: "%{count} segundos"
   helpers:
     select:
       prompt: Por favor selecione
@@ -236,6 +236,8 @@ pt-PT:
       multi_page: Mostrando %{model} %{from} - %{to} de %{count} no total
       multi_page_html: Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
         no total
+    previous_aria_label: Página anterior
+    next_aria_label: Próxima página
   flash:
     actions:
       create:
@@ -253,9 +255,9 @@ pt-PT:
       send_paranoid_instructions: Se o seu endereço de e-mail existir na nossa base
         de dados, irá receber dentro de alguns minutos um email com instruções para
         confirmar o mesmo.
-      resend_title: Reenviar título
-      resend_header: Reenviar cabeçalho
-      resend_button: Botão reenviar
+      resend_title: Reenviar instruções de confirmação
+      resend_header: Reenviar instruções de confirmação
+      resend_button: Reenviar
       new:
         resend_confirmation_instructions: Reenviar instruções de confirmação
     failure:
@@ -316,11 +318,11 @@ pt-PT:
         a sua palavra-passe.
       updated: A sua palavra-passe foi alterada com sucesso. Agora está autenticado.
       updated_not_active: A sua password foi alterada com sucesso.
-      reset_title: Redefinir título
-      reset_button: Botão de reset
-      forgot_title: Esquecer o título
-      forgot_header: Esquecer cabeçalho
-      forgot_button: Botão esquecimento
+      reset_title: Repor Palavra-passe
+      reset_button: Atualizar Conta
+      forgot_title: Esqueceu a palavra-passe?
+      forgot_header: Esqueceu a palavra-passe?
+      forgot_button: Enviar-me instruções para repor a palavra-passe
       edit:
         change_my_password: Alterar a minha palavra-passe
         change_your_password: Altere a sua palavra-passe
@@ -346,15 +348,17 @@ pt-PT:
       updated_but_not_signed_in: A sua conta foi atualizada com sucesso, mas como
         a palavra-passe for alterada, é necessário inicia a sessão de novo.
       update_email: Atualizar E-mail
-      currently_waiting: A aguardar
+      currently_waiting: A aguardar confirmação para
       change_password: Alterar Palavra-passe
-      change_password_hint: Alterar dica de palavra-passe
+      change_password_hint: deixe em branco caso não queira alterar
       new_password: Nova Palavra-passe
       new_password_confirmation: Nova Confirmação de Palavra-passe
       password: palavra-passe
-      password_minimum: Palavra-passe mínima
+      password_minimum: É necessário um mínimo de %d caracteres, mas quanto mais,
+        melhor.
       verification: Verificação
-      verification_text: Texto de verificação
+      verification_text: Insira a sua palabra-passe atual para validar as alterações
+        feitas em cima.
       update_account: Atualizar Conta
       edit_account: Editar conta
       create_account: Criar Conta
@@ -380,18 +384,18 @@ pt-PT:
         minutos um e-mail com instruções para a desbloquear.
       unlocked: A sua conta foi desbloqueada com sucesso. Por favor inicie a sessão
         para continuar.
-      unlock_title: Desbloquear título
-      unlock_header: Desbloquear cabeçalho
-      unlock_button: Botão de desbloqueio
+      unlock_title: Reenviar instruções de desbloqueio
+      unlock_header: Reenviar instruções de desbloqueio
+      unlock_button: Reenviar
       new:
         resend_unlock_instructions: Reenviar instruções de desbloqueio
     general:
       remember_me: Lembrar-me
       login: Iniciar sessão
       sign_up: Inscrever-se
-      forgot_your: Esqueceu a sua
-      didnt_confirmation: Não confirmou
-      didnt_unlock: Não desbloqueou
+      forgot_your: Esqueceu a palavra-passe?
+      didnt_confirmation: Não recebeu instruções de confirmação?
+      didnt_unlock: Não recebeu instruções de desbloqueio?
       email: E-mail
     sessions:
       new:
