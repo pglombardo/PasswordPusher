@@ -1,6 +1,6 @@
 <div align="center">
 
-![Password Pusher Front Page](https://pwpush.s3.eu-west-1.amazonaws.com/pwpush-horizontal-logo.png)
+![Password Pusher Front Page](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png)
 
 __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
