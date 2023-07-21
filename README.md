@@ -155,7 +155,7 @@ But if you're resolute & brave, continue on!
 
 ### Dependencies
 
-* Ruby 3.0 or greater (2.7 may work)
+* Ruby 3.0 or greater
 * Recent Node.js stable & Yarn
 * Compiler tools: gcc g++ make
 * Other: git
