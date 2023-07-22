@@ -9,42 +9,42 @@ is:
   apipie:
     deprecation:
       attributes:
-        info:
-        deprecated_in:
-        sunset_at:
-    resources:
-    resource:
-    description:
-    no_docs_found:
-    no_docs_found_descr:
-    follow_instructions_html:
-    follow_instructions_href:
-    oops:
-    resource_not_found_html:
-    method_not_found_html:
-    goto_homepage_html:
-    goto_homepage_href:
-    required:
-    optional:
-    nil_allowed:
-    param_name:
-    params:
-    examples:
-    metadata:
-    errors:
-    error_code:
-    error_description:
-    error_metadata:
-    supported_formats:
-    enable_javascript_html:
-    comments_powered_by_disqus:
-    api_documentation:
-    headers:
-    header_name:
-    code:
-    returns:
-    deprecated:
-    deprecation_details:
+        info: Upplýsingar
+        deprecated_in: Úrelt í
+        sunset_at: Sólsetur kl
+    resources: Auðlindir
+    resource: Auðlind
+    description: Lýsing
+    no_docs_found: Engin skjöl fundust
+    no_docs_found_descr: Við höfum ekki fundið nein skjöl fyrir API þitt.
+    follow_instructions_html: Fylgdu %{href} um hvernig á að lýsa stjórnendum þínum.
+    follow_instructions_href: nánari leiðbeiningar
+    oops: Úps!!
+    resource_not_found_html: Tilfang %{resource} fannst ekki.
+    method_not_found_html: Aðferð %{method} fannst ekki fyrir tilföng %{resource}.
+    goto_homepage_html: Prófaðu að fara í %{href}
+    goto_homepage_href: "%{app_name} Heimasíða API skjala"
+    required: krafist
+    optional: valfrjálst
+    nil_allowed: ekkert leyfilegt
+    param_name: Param nafn
+    params: Params
+    examples: Dæmi
+    metadata: Lýsigögn
+    errors: Villur
+    error_code: Kóði
+    error_description: Lýsing
+    error_metadata: Lýsigögn
+    supported_formats: Stuðningur snið
+    enable_javascript_html: Vinsamlegast virkjaðu JavaScript til að skoða %{comments_href}.
+    comments_powered_by_disqus: athugasemdir knúnar af %{disqus}
+    api_documentation: API skjöl
+    headers: Hausar
+    header_name: Heiti haus
+    code: Kóði
+    returns: Skilar
+    deprecated: Úrelt
+    deprecation_details: Upplýsingar um afskrift
   date:
     day_names:
     - sunnudaginn
@@ -91,8 +91,8 @@ is:
     - nóv
     - des
   time:
-    am:
-    pm:
+    am: am
+    pm: kl
   number:
     human:
       storage_units:
@@ -104,15 +104,15 @@ is:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: þúsund
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          million: Milljón
+          billion: Milljarður
+          trillion: Trilljón
+          quadrillion: Kvadrilljón
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -142,10 +142,10 @@ is:
       less_than: þarf að vera minna en %{count}
       less_than_or_equal_to: þarf að vera minna en eða jafngilt %{count}
       other_than: verður að vera annað en %{count}
-      in:
+      in: verður að vera í %{count}
       odd: þarf að vera oddatala
       even: þarf að vera slétt tala
-      required:
+      required: verður að vera til
       taken: er þegar í notkun
       already_confirmed: var nú þegar staðfestur, prófaðu að skrá þig inn
       confirmation_period_expired: þarf að vera staðfest innan %{period}, vinsamlegast
@@ -161,9 +161,13 @@ is:
       header:
         one: Ekki var hægt að vista %{model} vegna einnar villu.
         other: Ekki var hægt að vista %{model} vegna %{count} villna.
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: Session %{id} er ekki lengur til í minni. Ef þú keyrir á
+      fjölvinnsluþjóni (eins og Unicorn eða Puma) geymir ferlið sem þessi beiðni hittir
+      ekki %{id} í minni. Íhugaðu að breyta fjölda ferla/starfsmanna í einn (1) eða
+      nota annan netþjón í þróun.
+    unacceptable_request: Búist er við studdri útgáfu í hausnum Samþykkja.
+    connection_refused: Úps! Mistókst að tengjast vefstjórnborðinu millihugbúnaði.
+      Gakktu úr skugga um að teinaþróunarþjónn sé í gangi.
   activerecord:
     errors:
       messages:
@@ -198,8 +202,8 @@ is:
         updated_at: Uppfært kl
     models:
       user:
-        one:
-        other:
+        one: Notandi
+        other: Notendur
   datetime:
     distance_in_words:
       half_a_minute: hálf mínúta
@@ -237,8 +241,8 @@ is:
         one: næstum 1 ár
         other: næstum %{count} ár
       x_years:
-        one:
-        other:
+        one: "%{count} ári"
+        other: "%{count} ár"
     prompts:
       year: Ár
       month: Mánuður
@@ -254,143 +258,159 @@ is:
       update: Uppfæra %{model}
       submit: Vista %{model}
   will_paginate:
-    previous_label:
-    previous_aria_label:
-    next_label:
-    next_aria_label:
-    page_gap:
-    container_aria_label:
-    page_aria_label:
+    previous_label: "← Fyrri"
+    previous_aria_label: Fyrri síða
+    next_label: Næsta →
+    next_aria_label: Næsta síða
+    page_gap: "…"
+    container_aria_label: Síðuskipting
+    page_aria_label: Síða %{page}
     page_entries_info:
       single_page:
-        zero:
-        one:
-        other:
+        zero: Enginn %{model} fannst
+        one: Sýnir 1 %{model}
+        other: Sýnir allt %{count} %{model}
       single_page_html:
-        zero:
-        one:
-        other:
-      multi_page:
-      multi_page_html:
+        zero: Enginn %{model} fannst
+        one: Sýnir <b>1</b> %{model}
+        other: Sýnir <b>allt %{count}</b> %{model}
+      multi_page: Sýnir %{model} %{from} - %{to} af %{count} samtals
+      multi_page_html: Sýnir %{model} <b>%{from} - %{to}</b> af <b>%{count}</b> samtals
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} var búið til."
       update:
-        notice:
+        notice: "%{resource_name} var uppfært."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} var eytt."
+        alert: Ekki var hægt að eyða %{resource_name}.
   i18n_tasks:
     add_missing:
       added:
-        one:
-        other:
+        one: Bætt við %{count} lykli
+        other: Bætt við %{count} lyklum
     cmd:
       args:
-        default_text:
+        default_text: 'Sjálfgefið: %{value}'
         desc:
-          all_locales:
-          config:
-          confirm:
-          data_format:
-          keep_order:
-          key_pattern:
-          key_pattern_to_rename:
-          locale_to_translate_from:
-          locales_filter:
-          missing_types:
-          new_key_name:
-          nostdin:
-          out_format:
-          pattern_router:
-          strict:
-          translation_backend:
-          value:
+          all_locales: Ekki búast við því að lykilmynstur byrji á staðsetningarstað,
+            heldur beittu þeim óbeint á öll svæði.
+          config: Hneka stillingarstaðsetningu
+          confirm: Staðfestu sjálfkrafa
+          data_format: 'Gagnasnið: %{valid_text}.'
+          keep_order: Haltu röð lykla
+          key_pattern: Sía eftir lyklumynstri (td 'common.*')
+          key_pattern_to_rename: Fullur lykill (mynstur) til að endurnefna. Áskilið
+          locale_to_translate_from: Staður til að þýða frá
+          locales_filter: 'Staðsetning(ir) til að vinna úr. Sérstök: grunnur'
+          missing_types: 'Sía eftir gerðum: %{valid}'
+          new_key_name: Nýtt nafn, skýtur inn upprunalegu nafni sem %{key}. Áskilið
+          nostdin: Ekki lesa úr stdin
+          out_format: 'Úttakssnið: %{valid_text}'
+          pattern_router: 'Notaðu mynsturbeini: lyklar færðir í hverja stillingu data.write'
+          strict: Forðastu að álykta um kraftmikla lykilnotkun eins og t("cats.#{cat}.name").
+            Tekur forgang fram yfir config stillinguna ef hún er stillt.
+          translation_backend: Þýðingarstuðningur (google eða deepl)
+          value: 'Gildi. Millir: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
+            %{value_or_default_or_human_key}'
       desc:
-        add_missing:
-        check_consistent_interpolations:
-        check_normalized:
-        config:
-        data:
-        data_merge:
-        data_remove:
-        data_write:
-        eq_base:
-        find:
-        gem_path:
-        health:
-        irb:
-        missing:
-        mv:
-        normalize:
-        remove_unused:
-        rm:
-        translate_missing:
-        tree_convert:
-        tree_filter:
-        tree_merge:
-        tree_mv_key:
-        tree_set_value:
-        tree_subtract:
-        tree_translate:
-        unused:
+        add_missing: bæta vantandi lyklum við staðsetningargögn, valfrjálst passa
+          við mynstur
+        check_consistent_interpolations: ganga úr skugga um að allar þýðingar noti
+          réttar innskotsbreytur
+        check_normalized: ganga úr skugga um að öll þýðingargögn séu eðlileg
+        config: sýna i18n-verkefni stillingar
+        data: sýna staðsetningargögn
+        data_merge: sameina staðsetningargögn við tré
+        data_remove: fjarlægja lykla sem eru til staðar í tré úr gögnum
+        data_write: skipta um staðsetningargögn fyrir tré
+        eq_base: sýna þýðingar sem jafngilda grunngildi
+        find: sýna hvar lyklar eru notaðir í kóðanum
+        gem_path: sýna slóð að gimsteininum
+        health: er allt í lagi?
+        irb: hefja REPL lotu innan i18n-verkefni samhengi
+        missing: sýna þýðingar sem vantar, valfrjálst passa við mynstur
+        mv: endurnefna / sameina lyklana í staðsetningargögnum sem passa við uppgefið
+          mynstur
+        normalize: 'staðla þýðingargögn: flokkaðu og færðu í réttar skrár'
+        remove_unused: fjarlægja ónotaða lykla
+        rm: fjarlægðu lyklana í staðsetningargögnum sem passa við uppgefið mynstur
+        translate_missing: þýddu lykla sem vantar með Google Translate eða DeepL Pro,
+          valfrjálst passa við mynstur
+        tree_convert: umbreyta tré á milli sniða
+        tree_filter: sía tré eftir lyklumynstri
+        tree_merge: sameina tré
+        tree_mv_key: endurnefna / sameina / fjarlægja lyklana sem passa við tiltekið
+          mynstur
+        tree_set_value: stilltu gildi lykla, valfrjálst passa við mynstur
+        tree_subtract: tré A að frádregnum lyklunum í tré B
+        tree_translate: Google þýða tré yfir á rótarstað
+        unused: sýna ónotaðar þýðingar
       encourage:
-      -
-      -
-      -
+      - Gott starf!
+      - Vel gert!
+      - Fullkomið!
       enum_list_opt:
-        invalid:
+        invalid: "%{invalid} er ekki í: %{valid}."
       enum_opt:
-        invalid:
+        invalid: "%{invalid} er ekki einn af: %{valid}."
       errors:
-        invalid_format:
-        invalid_locale:
+        invalid_format: 'ógilt snið: %{invalid}. gilt: %{valid}.'
+        invalid_locale: 'ógildur staður: %{invalid}'
         invalid_missing_type:
-          one:
-          other:
-        pass_forest:
+          one: 'ógild gerð: %{invalid}. gilt: %{valid}.'
+          other: 'óþekktar tegundir: %{invalid}. gilt: %{valid}.'
+        pass_forest: fara framhjá staðarskógi
     common:
-      continue_q:
-      key:
-      locale:
-      n_more:
-      value:
+      continue_q: Halda áfram?
+      key: Lykill
+      locale: Staður
+      n_more: "%{count} meira"
+      value: Gildi
     data_stats:
-      text:
-      text_single_locale:
-      title:
+      text: hefur %{key_count} lykla yfir %{locale_count} staðsetningar. Að meðaltali
+        eru gildi %{value_chars_avg} stafir að lengd, lyklar hafa %{key_segments_avg}
+        hluta, svæði hefur %{per_locale_avg} lykla.
+      text_single_locale: hefur %{key_count} lykla samtals. Að meðaltali eru gildin
+        %{value_chars_avg} stafir að lengd, lyklar hafa %{key_segments_avg} hluta.
+      title: Skógur (%{locales})
     deepl_translate:
       errors:
-        no_api_key:
-        no_results:
+        no_api_key: Settu upp DeepL Pro API lykil með DEEPL_AUTH_KEY umhverfisbreytu
+          eða translation.deepl_api_key í config/i18n-tasks.yml. Fáðu lykilinn á https://www.deepl.com/pro.
+        no_results: DeepL skilaði engum niðurstöðum.
     google_translate:
       errors:
-        no_api_key:
-        no_results:
+        no_api_key: Stilltu Google API lykil með GOOGLE_TRANSLATE_API_KEY umhverfisbreytu
+          eða translation.google_translate_api_key í config/i18n-tasks.yml. Fáðu lykilinn
+          á https://code.google.com/apis/console.
+        no_results: Google Translate skilaði engum niðurstöðum. Gakktu úr skugga um
+          að innheimtuupplýsingar séu stilltar á https://code.google.com/apis/console.
     health:
-      no_keys_detected:
+      no_keys_detected: Engir lyklar fundust. Athugaðu data.read í config/i18n-tasks.yml.
     inconsistent_interpolations:
-      none:
+      none: Engar ósamkvæmar innskot fundust.
     missing:
-      details_title:
-      none:
+      details_title: Gildi á öðrum stöðum eða uppruna
+      none: Engar þýðingar vantar.
     remove_unused:
       confirm:
-        one:
-        other:
-      noop:
-      removed:
+        one: "%{count} þýðing verður fjarlægð úr %{locales}."
+        other: "%{count} þýðing verður fjarlægð úr %{locales}."
+      noop: Engir ónotaðir lyklar til að fjarlægja
+      removed: Fjarlægði %{count} lykla
     translate_missing:
-      translated:
+      translated: Þýddir %{count} lyklar
     unused:
-      none:
+      none: Sérhver þýðing er í notkun.
     usages:
-      none:
+      none: Engin lykilnotkun fannst.
     yandex_translate:
       errors:
-        no_api_key:
-        no_results:
+        no_api_key: Stilltu Yandex API lykil með YANDEX_API_KEY umhverfisbreytu eða
+          translation.yandex_api_key í config/i18n-tasks.yml. Fáðu lykilinn á https://tech.yandex.com/translate.
+        no_results: Yandex skilaði engum niðurstöðum.
   devise:
     confirmations:
       confirmed: Aðgangurinn hefur verið staðfestur. Þú ert núna innskráð(ur).
@@ -401,9 +421,9 @@ is:
       send_paranoid_instructions: Ef netfangið þitt er til í gagnagrunninum okkar
         munt þú fá leiðbeiningar um hvernig eigi að staðfesta aðganginn sendar tölvupósti
         innan nokkurra mínútna.
-      resend_button:
-      resend_header:
-      resend_title:
+      resend_button: Senda aftur
+      resend_header: Sendu staðfestingarleiðbeiningar aftur
+      resend_title: Sendu staðfestingarleiðbeiningar aftur
     failure:
       already_authenticated: Þú ert nú þegar innskráð(ur).
       inactive: Aðgangurinn þinn hefur ekki verið staðfestur.
@@ -424,7 +444,8 @@ is:
         greeting: Halló %{recipient}!
         message: Við erum að láta þig vita að  tölvupóstfangi þínu verði breytt í
           %{email}.
-        message_unconfirmed:
+        message_unconfirmed: Við erum að hafa samband við þig til að láta þig vita
+          að verið sé að breyta tölvupóstinum þínum í %{email}.
         subject: Tölvupósti breytt
       password_change:
         greeting: Halló %{recipient}!
@@ -469,11 +490,11 @@ is:
         mínútna.
       updated: Lykilorði þínu hefur nú verið breytt. Þú ert núna innskráð(ur).
       updated_not_active: Lykilorði þínu hefur nú verið breytt.
-      forgot_button:
-      forgot_header:
-      forgot_title:
-      reset_button:
-      reset_title:
+      forgot_button: Sendu endurstillingarleiðbeiningar
+      forgot_header: Gleymt lykilorð
+      forgot_title: Gleymt lykilorð
+      reset_button: Uppfærðu reikning
+      reset_title: Endur stilla lykilorð
     registrations:
       destroyed: Bless! Aðgangnum þínum hefur verið lokað. Vonandi sjáumst við aftur.
       edit:
@@ -500,22 +521,24 @@ is:
         að staðfesta netfangið þitt. Vinsamlegast skoðaðu tölvupóstinn þinn og smelltu
         á staðfestingartengilinn til þess að staðfesta netfangið.
       updated: Aðgangurinn þinn hefur verið uppfærður.
-      updated_but_not_signed_in:
-      change_password:
-      change_password_hint:
-      create_account:
-      currently_waiting:
-      edit_account:
+      updated_but_not_signed_in: Reikningurinn þinn hefur verið uppfærður en þar sem
+        lykilorðinu var breytt þarftu að skrá þig inn aftur.
+      change_password: Breyta lykilorði
+      change_password_hint: Skildu eftir autt ef þú vilt ekki breyta því.
+      create_account: Búðu til reikning
+      currently_waiting: Bíður nú staðfestingar fyrir
+      edit_account: Breyta reikningi
       email: Tölvupóstur
-      new_password:
-      new_password_confirmation:
-      password:
-      password_confirmation:
-      password_minimum:
-      update_account:
-      update_email:
-      verification:
-      verification_text:
+      new_password: nýtt lykilorð
+      new_password_confirmation: Nýtt lykilorð staðfest
+      password: lykilorð
+      password_confirmation: Staðfesting lykilorðs
+      password_minimum: Að lágmarki %d stafir þarf en því fleiri því betra.
+      update_account: Uppfærðu reikning
+      update_email: Uppfæra tölvupóst
+      verification: Sannprófun
+      verification_text: Sláðu inn núverandi lykilorð til að staðfesta breytingarnar
+        hér að ofan.
     sessions:
       new:
         sign_in: Skrá inn
@@ -539,14 +562,14 @@ is:
       send_paranoid_instructions: Ef aðgangurinn þinn er til munt þú fá leiðbeiningar
         um hvernig hægt er að aflæsa honum sendar í tölvupósti innan nokkurra mínútna.
       unlocked: Aðgangnum þínum hefur verið aflæst. Þú ert innskráð(ur).
-      unlock_button:
-      unlock_header:
-      unlock_title:
+      unlock_button: Senda aftur
+      unlock_header: Sendu aftur leiðbeiningar um opnun
+      unlock_title: Sendu aftur leiðbeiningar um opnun
     general:
       didnt_confirmation: Fékkstu ekki leiðbeiningar staðfestingar?
       didnt_unlock: Fékkstu ekki leiðbeiningar aflæsingar?
       email: Tölvupóstur
       forgot_your: Gleymt lykilorð?
-      login:
-      remember_me:
-      sign_up:
+      login: Skrá inn
+      remember_me: Mundu eftir mér
+      sign_up: Skráðu þig
