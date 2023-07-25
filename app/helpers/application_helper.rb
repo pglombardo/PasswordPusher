@@ -22,7 +22,15 @@ module ApplicationHelper
 
     if Settings.override_base_url
       raw_url = I18n.with_locale(push_locale) do
-        Settings.override_base_url + password_path(password)
+        if (password.is_a?(Password))
+          Settings.override_base_url + password_path(password)
+        elsif password.is_a?(Url)
+          Settings.override_base_url + url_path(password)
+        elsif password.is_a?(FilePush)
+          Settings.override_base_url + file_push_path(password)
+        else
+          raise "Unknown push type: #{password.class}"
+        end
       end
     else
       raw_url = I18n.with_locale(push_locale) do
