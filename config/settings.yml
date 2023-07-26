@@ -63,6 +63,33 @@ enable_logins: false
 #
 disable_signups: false
 
+## Limit Signups to Specific Email Domains
+#
+# By default, anyone can sign up for an account.  The following default regular
+# expression just validates if it is a valid email address.
+#
+# signup_email_regexp: '/\A[^@\s]+@[^@\s]+\z/'
+#
+# If you would like to limit signups to specific email domains, you can extend
+# the regular expression below to include the domains you want to allow.
+#
+# For example, to only allow signups from the domain 'hey.com', you would
+# change the following to:
+#
+#   signup_email_regexp: '\A[^@\s]+@(hey\.com)\z'
+#
+# or for multiple domains:
+#
+#  signup_email_regexp: '\A[^@\s]+@(hey\.com|gmail\.com)\z'
+#
+# Tip: use https://rubular.com to test out your regular expressions. It includes
+# a guide to what each component means in regexp.
+#
+# Environment variable override:
+# PWP__SIGNUP_EMAIL_REGEXP='/\A[^@\s]+@[^@\s]+\z/'
+#
+signup_email_regexp: '/\A[^@\s]+@[^@\s]+\z/'
+
 ### Allow Anonymous
 #
 # By default, Password Pusher can be used by anonymous users to push
