@@ -33,7 +33,7 @@ group :development, :test do
 end
 
 gem 'rack-cors'
-gem 'rack-attack'
+gem 'rack-attack', '>= 6.7.0'
 
 # OSX: ../src/utils.h:33:10: fatal error: 'climits' file not found
 # From:
