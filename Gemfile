@@ -86,7 +86,7 @@ gem 'simple_token_authentication', '~> 1.18', '>= 1.18.0', git: "https://github.
 gem 'lograge'
 gem 'rollbar'
 
-gem 'route_translator', '>= 13.0.0'
+gem 'route_translator', '>= 13.2.1'
 gem 'translation'
 gem 'rails-i18n', '~> 7.0.7'
 gem 'i18n-tasks', '~> 1.0.12'
