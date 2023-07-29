@@ -33,6 +33,8 @@ export PWP__DEFAULT_LOCALE='fr'
 docker run -d --env PWP__DEFAULT_LOCALE=fr -p "5100:5100" pglombardo/pwpush-ephemeral:release
 ```
 
+_Tip: If you have to set a large number of environment variables for Docker, consider using a Docker env-file.  There is an [example docker-env-file](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-docker-env-file) with instructions available._
+
 ## Configuring via a Custom `settings.yml` File
 
 If you prefer, you can take the [default settings.yml file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml), modify it and apply it to the Password Pusher Docker container.
