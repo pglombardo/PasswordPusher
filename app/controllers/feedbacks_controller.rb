@@ -12,7 +12,7 @@ class FeedbacksController < ApplicationController
     else
       @feedback.request = request
       if @feedback.deliver
-        flash.now[:notice] = _('Feedback sent!')
+        redirect_to root_path, :notice => _('Feedback sent!  We will get back to you as soon as possible.')
       else
         flash[:alert] = _('Could not send feedback.  Did you pass the Humanity Test?  Valid email?  Try again?')
         render :new
