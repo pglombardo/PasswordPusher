@@ -11,6 +11,8 @@ group :development do
   gem 'rubocop'
   gem 'ruby-debug-ide'
 
+  gem 'pry-rails'
+
   # Access an interactive console on exception pages or by
   # calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.2.0'
