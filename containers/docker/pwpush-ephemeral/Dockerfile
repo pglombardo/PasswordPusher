@@ -4,8 +4,8 @@ FROM ruby:3.2-alpine AS build-env
 LABEL maintainer='pglombardo@hey.com'
 
 # Required packages
-RUN apk upgrade --no-cache \ 
-    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat sqlite-dev 
+RUN apk upgrade --no-cache \
+    && apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat sqlite-dev
 
 ENV APP_ROOT=/opt/PasswordPusher PATH=${APP_ROOT}:${PATH} HOME=${APP_ROOT}
 
@@ -17,7 +17,9 @@ WORKDIR ${APP_ROOT}
 # Setting DATABASE_URL is necessary for building.
 ENV DATABASE_URL=sqlite3:db/db.sqlite3
 
-RUN gem install bundler
+# This needs to reflect the version of the tool creating the Gemfile.lock file.
+ENV BUNDLER_VERSION=2.3.25
+RUN gem install bundler:$BUNDLER_VERSION
 
 ENV RACK_ENV=private RAILS_ENV=private
 

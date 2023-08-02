@@ -17,7 +17,9 @@ WORKDIR ${APP_ROOT}
 # Setting DATABASE_URL is necessary for building.
 ENV DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
-RUN gem install bundler
+# This needs to reflect the version of the tool creating the Gemfile.lock file.
+ENV BUNDLER_VERSION=2.3.25
+RUN gem install bundler:$BUNDLER_VERSION
 
 ENV RACK_ENV=production RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true
 
