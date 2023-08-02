@@ -46,12 +46,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # - name: Manually configured docker tag
-      #   if: ${{ github.event_name == 'workflow_dispatch' }}
-      #   run: |
-      #     echo "DOCKER_TAG=${{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
-      #     echo "DOCKER_PUSH=${{ github.event.inputs.dockerPush }}" >> $GITHUB_ENV
-
       - name: Populate Docker metadata
         id: meta
         uses: docker/metadata-action@v4
