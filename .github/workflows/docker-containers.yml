@@ -62,6 +62,7 @@ jobs:
           file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           provenance: false
+          push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache
