@@ -117,18 +117,15 @@ es:
         one: 'Ocurrió un error al tratar de guardar %{resource}:'
         other: 'Ocurrieron %{count} errores al tratar de guardar %{resource}:'
       in: debe estar en %{count}
-    unavailable_session: |
+    unavailable_session: |-
       La sesión %{id} ya no está disponible en la memoria.
 
-      Si se ejecuta en un servidor de procesos múltiples (como Unicorn o Puma), el proceso
-      este hit de solicitud no almacena %{id} en la memoria. Considere la posibilidad de convertir el número de
-      Procesa / trabaja a uno (1) o usa un servidor diferente en desarrollo.
-    unacceptable_request: 'Una versión compatible Se espera que en la cabecera Aceptar.
-
-      '
+      Si estas ejecutando un servidor de procesos múltiples (como Unicorn o Puma), el proceso
+      este al que referencia esta solicitud no está en la memoria. Considere la posibilidad de convertir el número de procesos/hilos a uno (1) o usa un servidor diferente en desarrollo.
+    unacceptable_request: Se espera una version compatible en la cabecera Aceptar.
     connection_refused: |
       Ups! No se pudo conectar a la consola Web de middleware.
-      Por favor asegúrese de que un servidor de desarrollo carriles se está ejecutando.
+      Por favor asegúrese de que un servidor de desarrollo de Rails se está ejecutando.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
@@ -137,7 +134,7 @@ es:
   activerecord:
     errors:
       messages:
-        record_invalid: 'La validación falló: %{errors}'
+        record_invalid: 'La validación falló: %{errors} veces'
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
@@ -146,23 +143,23 @@ es:
         confirmation_sent_at: Confirmación enviada a
         confirmation_token: Código de confirmación
         confirmed_at: Confirmado en
-        created_at: Creado en
+        created_at: Creado el
         current_password: Contraseña actual
-        current_sign_in_at: Fecha del ingreso actual
-        current_sign_in_ip: IP del ingreso actual
+        current_sign_in_at: Fecha de la sesión actual
+        current_sign_in_ip: IP de la sesión actual
         email: Email
         encrypted_password: Contraseña cifrada
         failed_attempts: Intentos fallidos
-        last_sign_in_at: Fecha del último ingreso
-        last_sign_in_ip: IP del último inicio
+        last_sign_in_at: Fecha del último inicio de sesion
+        last_sign_in_ip: IP del último inicio de sesión
         locked_at: Fecha de bloqueo
         password: Contraseña
         password_confirmation: Confirmación de la contraseña
-        remember_created_at: Fecha de 'Recordarme'
-        remember_me: Recordarme
-        reset_password_sent_at: Fecha de envío de código para contraseña
+        remember_created_at: Fecha de creación del 'Recuérdame'
+        remember_me: Recuérdame
+        reset_password_sent_at: Fecha del envío de restablecimiento de contraseña
         reset_password_token: Código para restablecer contraseña
-        sign_in_count: Cantidad de ingresos
+        sign_in_count: Número de inicios de sesión
         unconfirmed_email: Email no confirmado
         unlock_token: Código de desbloqueo
         updated_at: Actualizado en
@@ -186,7 +183,7 @@ es:
         one: 1 minuto
         other: "%{count} minutos"
       about_x_hours:
-        one: alrededor de 1 hora
+        one: alrededor de %{count} hora
         other: alrededor de %{count} horas
       x_days:
         one: 1 día
@@ -272,7 +269,7 @@ es:
       locked: Tu cuenta está bloqueada.
       last_attempt: Tienes un intento más antes de que tu cuenta sea bloqueada.
       not_found_in_database: "%{authentication_keys} o contraseña inválidos."
-      timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
+      timeout: Tu sesión expiró. Por favor, inicia sesión de nuevo para continuar.
       unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
       unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
     mailer:
@@ -298,18 +295,18 @@ es:
         greeting: "¡Hola %{recipient}!"
         instruction: 'Haga click en el siguiente enlace para desbloquear su cuenta:'
         message: Su cuenta ha sido bloqueada debido a una cantidad excesiva de intentos
-          infructuosos para ingresar.
+          fallidos de inicio de sesión.
       email_changed:
         subject: Email cambiado
         greeting: "¡Hola %{recipient}! "
-        message: Estamos contactando contigo para notificarte que tu email ha sido
-          cambiado a %{email}.
+        message: Nos comunicamos con usted para notificarle que su correo electrónico
+          se ha cambiado a %{email}.
         message_unconfirmed: Nos comunicamos con usted para notificarle que su correo
           electrónico se cambiará a %{email}.
       password_change:
         subject: Contraseña cambiada
         greeting: "¡Hola %{recipient}!"
-        message: Lo estamos contactando para notificarle que su contraseña ha sido
+        message: Nos comunicamos con usted para notificarle que su contraseña ha sido
           cambiada.
     omniauth_callbacks:
       failure: No has sido autorizado en la cuenta %{kind} porque "%{reason}".
@@ -351,8 +348,8 @@ es:
         a tu correo electrónico. Abre el enlace para activar tu cuenta.
       update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es
         necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo
-        y sigue el enlace de confirmación para finalizar la comprobación del nuevo
-        correo electrónico.
+        y sigue el enlace de confirmación para finalizar la validación del nuevo correo
+        electrónico.
       updated: Tu cuenta se ha actualizado.
       updated_but_not_signed_in: Su cuenta se ha actualizado correctamente, pero como
         se cambió su contraseña, debe iniciar sesión nuevamente
@@ -366,7 +363,8 @@ es:
       password_minimum: Se requiere un mínimo de% d caracteres, pero cuantos más,
         mejor.
       verification: Verificación
-      verification_text: Ingrese su contraseña actual para validar los cambios anteriores.
+      verification_text: Introduzca su contraseña actual para validar los cambios
+        anteriores.
       update_account: Actualizar Cuenta
       edit_account: Editar Cuenta
       create_account: Crear una Cuenta
@@ -379,7 +377,7 @@ es:
           de: %{email} '
         leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no desea cambiarla
         title: Editar %{resource}
-        unhappy: "¿Disconforme?"
+        unhappy: "¿Descontento?"
         update: Actualizar
         we_need_your_current_password_to_confirm_your_changes: necesitamos su contraseña
           actual para confirmar los cambios
@@ -399,10 +397,10 @@ es:
     general:
       remember_me: Recuérdame
       login: Iniciar Sesión
-      sign_up: Inscribirse
-      forgot_your: Olvidaste tu contraseña?
+      sign_up: Registrarse
+      forgot_your: "¿Olvidaste tu contraseña?"
       didnt_confirmation: "¿No has recibido la confirmación?"
-      didnt_unlock: No recibió instrucciones de desbloqueo?
+      didnt_unlock: "¿No recibió instrucciones de desbloqueo?"
       email: Email
     sessions:
       new:
@@ -418,15 +416,15 @@ es:
         sign_in_with_provider: Iniciar sesión con %{provider}
         sign_up: Registrarse
       minimum_password_length:
-        one: "(%{count} caractere como mínimo)"
-        other: "(%{count} caracteres como mínimo)"
+        one: "(%{count} carácteres como mínimo)"
+        other: "(%{count} carácteres como mínimo)"
   apipie:
     resources: Recursos
     resource: Recurso
     description: Descripción
     no_docs_found: No se encontró documentación
     no_docs_found_descr: No hemos encontrado ninguna documentación para su API.
-    follow_instructions_html: Siga %{href} sobre cómo describir sus controladores.
+    follow_instructions_html: Visite %{href} para saber cómo describir sus controladores.
     follow_instructions_href: más instrucciones
     oops: "¡¡Ups!!"
     resource_not_found_html: Recurso %{resource} no encontrado.
@@ -452,11 +450,11 @@ es:
     header_name: Nombre del encabezado
     code: Código
     deprecated: Obsoleto
-    deprecation_details: Detalles de desaprobación
+    deprecation_details: Detalles de la obsolescencia
     deprecation:
       attributes:
-        deprecated_in: Obsoleto en
-        sunset_at: puesta de sol en
+        deprecated_in: Obsoleto desde el
+        sunset_at: Puesta de sol en
         info: Información
     returns: Devoluciones
   i18n_tasks:
@@ -503,7 +501,7 @@ es:
         data_write: reemplazar los datos locales con el árbol
         eq_base: mostrar traducciones iguales al valor base
         find: mostrar dónde se usan las claves en el código
-        gem_path: muestra el camino a la gema
+        gem_path: muestra la ruta al "gem"
         health: "¿esta todo bien?"
         irb: iniciar sesión REPL dentro del contexto i18n-tasks
         missing: mostrar traducciones faltantes, opcionalmente hacer coincidir un
@@ -548,10 +546,10 @@ es:
       n_more: "%{count} más"
       value: Valor
     data_stats:
-      text: tiene claves %{key_count} en las configuraciones regionales %{locale_count}.
-        En promedio, los valores tienen una longitud de caracteres %{value_chars_avg},
-        las claves tienen segmentos %{key_segments_avg}, una configuración regional
-        tiene claves %{per_locale_avg}.
+      text: tiene %{key_count} claves en las %{locale_count} configuraciones regionales.
+        En promedio, los valores tienen una longitud de %{value_chars_avg} caracteres,
+        las claves tienen %{key_segments_avg} segmentos, una configuración regional
+        tiene %{per_locale_avg} claves.
       text_single_locale: tiene teclas %{key_count} en total. En promedio, los valores
         tienen una longitud de caracteres %{value_chars_avg}, las claves tienen segmentos
         %{key_segments_avg}.
@@ -581,9 +579,9 @@ es:
         one: La traducción %{count} se eliminará de %{locales}.
         other: La traducción %{count} se eliminará de %{locales}.
       noop: No hay claves no utilizadas para eliminar
-      removed: Teclas %{count} eliminadas
+      removed: "%{count} claves eliminadas"
     translate_missing:
-      translated: Claves %{count} traducidas
+      translated: "%{count} claves traducidas"
     unused:
       none: Cada traducción está en uso.
     usages:
