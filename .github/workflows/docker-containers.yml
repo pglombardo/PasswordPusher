@@ -8,22 +8,11 @@ on:
       - "v*.*.*"
 
   workflow_dispatch:
-  #   inputs:
-  #     dockerTagName:
-  #       description: "What Docker tag to create?"
-  #       required: true
-  #       default: "development-0xdeadbeef"
-  #     dockerPush:
-  #       description: "Push image to docker hub?"
-  #       required: true
-  #       type: boolean
-  #       default: false
+
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'latest' docker containers
     - cron: "24 17 * * *"
-env:
-  DOCKER_PUSH: true
 
 jobs:
   build:
@@ -73,7 +62,6 @@ jobs:
           file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           provenance: false
-          push: ${{ env.DOCKER_PUSH }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache
