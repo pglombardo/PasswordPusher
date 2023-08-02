@@ -3,8 +3,8 @@ require 'securerandom'
 class UrlsController < ApplicationController
   helper UrlsHelper
 
-  # Authentication always except for :show, :new
-  acts_as_token_authentication_handler_for User, except: [:show, :new, :passphrase, :access]
+  # Authentication always except for the following:
+  acts_as_token_authentication_handler_for User, except: [:show, :new, :preliminary, :passphrase, :access]
 
   resource_description do
     name 'URL Pushes'
