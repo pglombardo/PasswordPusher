@@ -36,7 +36,7 @@ task daily_expiration: :environment do
     end
     puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
   end
-  
+
   if Settings.enable_url_pushes
     counter = 0
     expiration_count = 0
@@ -55,10 +55,10 @@ end
 
 # When a Password expires, the payload is deleted but the metadata record still exists.  This
 # includes information such as creation date, views, duration etc..  When the record
-# was created by an anonymous user, this data is no longer needed and we delete it (we 
+# was created by an anonymous user, this data is no longer needed and we delete it (we
 # don't want it).
 #
-# If a user attempts to retrieve a secret link that doesn't exist anymore, we still show 
+# If a user attempts to retrieve a secret link that doesn't exist anymore, we still show
 # the standard "This secret link has expired" message.  This strategy provides two benefits:
 #
 # 1. It hides the fact that if a secret ever exists or not (more secure)
@@ -75,7 +75,7 @@ end
 desc 'Delete expired and anonymous pushes.'
 task delete_expired_and_anonymous: :environment do
   counter = 0
-  
+
   puts "--> Starting delete_expired_and_anonymous on #{Time.now}"
 
   Password.includes(:views)
@@ -85,7 +85,7 @@ task delete_expired_and_anonymous: :environment do
     counter += 1
     push.destroy
   end
-    
+
   if Settings.enable_file_pushes
     FilePush.includes(:views)
             .where(expired: true)
@@ -166,7 +166,7 @@ task update_themes: :environment do
 
   for name in themes do
     puts "Pulling #{name}...and sleeping 3 seconds..."
-    `curl -s -o app/assets/stylesheets/themes/#{name}.css https://bootswatch.com/5/#{name}/bootstrap.css`
+    `curl -s -o app/assets/stylesheets/themes/#{name}.css https://raw.githubusercontent.com/thomaspark/bootswatch/v5/dist/#{name}/bootstrap.css`
     # Be nice - don't hammer the server
     sleep 3
   end
