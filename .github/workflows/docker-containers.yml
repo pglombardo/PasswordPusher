@@ -1,29 +1,18 @@
+---
 name: Docker Container Builds
 
 on:
   push:
     tags:
-      - "v*.*.*"
       - "release"
+      - "v*.*.*"
 
   workflow_dispatch:
-    inputs:
-      dockerTagName:
-        description: 'What Docker tag to create?'
-        required: true
-        default: 'development-0xdeadbeef'
-      dockerPush:
-        description: 'Push image to docker hub?'
-        required: true
-        type: boolean
-        default: false
+
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'latest' docker containers
-    - cron:  '24 17 * * *'
-env:
-  DOCKER_PUSH: true
-  DOCKER_TAG:
+    - cron: "24 17 * * *"
 
 jobs:
   build:
@@ -33,8 +22,9 @@ jobs:
       matrix:
         include:
           - dbType: ephemeral
-          - dbType: postgres
           - dbType: mysql
+          - dbType: postgres
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -45,43 +35,34 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
-      - run: echo "DOCKER_TAG=${{ steps.get_version.outputs.version-without-v }}" >> $GITHUB_ENV
-
-      - name: Should docker tag be latest?
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: echo "DOCKER_TAG=latest" >> $GITHUB_ENV
-
-      - name: Should docker tag be release?
-        if: ${{ github.ref == 'refs/tags/release' }}
-        run: echo "DOCKER_TAG=release" >> $GITHUB_ENV
-
-      - name: Manually configured docker tag
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: |
-             echo "DOCKER_TAG=${{ github.event.inputs.dockerTagName }}" >> $GITHUB_ENV
-             echo "DOCKER_PUSH=${{ github.event.inputs.dockerPush }}" >> $GITHUB_ENV
-
-      - name: Show us the DOCKER_TAG
-        run: echo "${{ env.DOCKER_TAG}}"
-
-      - name: Show us the DOCKER_PUSH
-        run: echo "${{ env.DOCKER_PUSH}}"
+      - name: Populate Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: pglombardo/pwpush-${{ matrix.dbType }}
+          flavor: |
+            latest=false
+          tags: |
+            type=match,pattern=release
+            type=schedule,pattern=latest
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=semver,pattern=latest
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
-        if: ${{env.DOCKER_PUSH == 'true'}}
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push pwpush-${{ matrix.dbType }} Docker images
-        uses: docker/build-push-action@v4.1.1
+        uses: docker/build-push-action@v4
         with:
           file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           provenance: false
-          push: ${{env.DOCKER_PUSH == 'true'}}
-          tags: pglombardo/pwpush-${{ matrix.dbType }}:${{ env.DOCKER_TAG }}
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache,mode=max
