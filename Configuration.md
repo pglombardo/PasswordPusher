@@ -168,7 +168,11 @@ export PWP__MAIL__MAILER_SENDER='"Spiderman" <thespider@mycompany.org>'
 
 # Enabling File Pushes
 
-To enable file uploads (File Pushes) in your instance of Password Pusher, you must have logins enabled (see above) and specify a place to store uploaded files.
+To enable file uploads (File Pushes) in your instance of Password Pusher, there are a few requirements:
+
+1.  you must have logins enabled (see above)
+2.  specify a place to store uploaded files
+3.  If you use cloud storage, configure the CORS configuration in your buckets (detailed below)
 
 The following settings enable/disable the feature and specify where to store uploaded files.
 
@@ -207,7 +211,16 @@ If using containers and you prefer local storage, you can add a volume mount to 
 
 `docker run -d -p "5100:5100" -v /var/lib/pwpush/files:/opt/PasswordPusher/storage pglombardo/pwpush-postgres:release`
 
+Please _make sure_ that the directory is writeable by the docker container.
+
+A CORS configuration is not required for local storage.
+
 ## Amazon S3
+
+To configure the application to store files in an Amazon S3 bucket, you have to:
+
+1. set the required environment variables detailed below (or the equivalent values in `settings.yml`)
+2. apply a CORS configuration to your S3 bucket (see next section)
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
@@ -218,7 +231,38 @@ If using containers and you prefer local storage, you can add a volume mount to 
 | PWP__FILES__S3__REGION | S3 Region| None |
 | PWP__FILES__S3__BUCKET | The S3 bucket name | None |
 
+### Amazon S3 CORS Configuration
+
+The application performs direct uploads from the browser to your Amazon S3 bucket.  This provides better performance and reduces load on the application itself.
+
+For this to work, you have to add a CORS configuration to your bucket.
+
+This direct upload functionality is done using a library called ActiveStorage.  For the full documentation on configuring CORS for ActiveStorage, [see here](https://edgeguides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration).
+
+```json
+[
+  {
+    "AllowedHeaders": [
+      "Content-Type",
+      "Content-MD5",
+      "Content-Disposition"
+    ],
+    "AllowedMethods": [
+      "PUT"
+    ],
+    "AllowedOrigins": [
+      "https://www.example.com"  << Change to your URL
+    ],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
 ## Google Cloud Storage
+
+To configure the application to store files in Google Cloud Storage, you have to:
+
+1. set the required environment variables detailed below (or the equivalent values in `settings.yml`)
+2. apply a CORS configuration (see next section)
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
@@ -227,7 +271,32 @@ If using containers and you prefer local storage, you can add a volume mount to 
 | PWP__FILES__GCS__CREDENTIALS | GCS Credentials | None |
 | PWP__FILES__GCS__BUCKET | The GCS bucket name | None |
 
+### Google Cloud Storage CORS Configuration
+
+The application performs direct uploads from the browser to Google Cloud Storage.  This provides better performance and reduces load on the application itself.
+
+For this to work, you have to add a CORS configuration.
+
+This direct upload functionality is done using a library called ActiveStorage.  For the full documentation on configuring CORS for ActiveStorage, [see here](https://edgeguides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration).
+
+```json
+[
+  {
+    "origin": ["https://www.example.com"],
+    "method": ["PUT"],
+    "responseHeader": ["Content-Type", "Content-MD5", "Content-Disposition"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+
+
 ## Azure Storage
+
+To configure the application to store files in Azure Storage, you have to:
+
+1. set the required environment variables detailed below (or the equivalent values in `settings.yml`)
+2. apply a CORS configuration (see next section)
 
 | Environment Variable | Description | Value(s) |
 | --------- | ------------------ | --- |
@@ -235,6 +304,25 @@ If using containers and you prefer local storage, you can add a volume mount to 
 | PWP__FILES__AS__STORAGE_ACCOUNT_NAME | Azure Storage Account Name | None |
 | PWP__FILES__AS__STORAGE_ACCESS_KEY | Azure Storage Account Key | None |
 | PWP__FILES__AS__CONTAINER | Azure Storage Container Name | None |
+
+### Azure Storage CORS Configuration
+
+The application performs direct uploads from the browser to Azure Storage.  This provides better performance and reduces load on the application itself.
+
+For this to work, you have to add a CORS configuration.
+
+This direct upload functionality is done using a library called ActiveStorage.  For the full documentation on configuring CORS for ActiveStorage, [see here](https://edgeguides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration).
+
+```xml
+<Cors>
+  <CorsRule>
+    <AllowedOrigins>https://www.example.com</AllowedOrigins>
+    <AllowedMethods>PUT</AllowedMethods>
+    <AllowedHeaders>Content-Type, Content-MD5, x-ms-blob-content-disposition, x-ms-blob-type</AllowedHeaders>
+    <MaxAgeInSeconds>3600</MaxAgeInSeconds>
+  </CorsRule>
+</Cors>
+```
 
 # Enabling URL Pushes
 
