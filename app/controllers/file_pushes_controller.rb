@@ -218,17 +218,19 @@ class FilePushesController < ApplicationController
       return
     end
 
-    @push_count = FilePush.where(user_id: current_user.id, expired: false).count
-    if @push_count >= 10
-      msg = _('Only 10 active file pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
-      respond_to do |format|
-        format.html {
-          flash.now[:warning] = msg
-          render :new, status: :unprocessable_entity
-        }
-        format.json { render json: { "error": msg }, status: :unprocessable_entity }
+    if ENV.key?('PWPUSH_COM')
+      @push_count = FilePush.where(user_id: current_user.id, expired: false).count
+      if @push_count >= 10
+        msg = _('Only 10 active file pushes allowed while in Beta and until things are stable. If it\'s an option, you can manually expire existing pushes before creating new ones.')
+        respond_to do |format|
+          format.html {
+            flash.now[:warning] = msg
+            render :new, status: :unprocessable_entity
+          }
+          format.json { render json: { "error": msg }, status: :unprocessable_entity }
+        end
+        return
       end
-      return
     end
 
     @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.files.expire_after_days_default)
