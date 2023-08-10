@@ -417,14 +417,14 @@ The Bootswatch themes are licensed under the MIT license.
 
 ## Configuring a Theme
 
-To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP_PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
+To specify a theme for your Password Pusher instance, you must set __two__ environment variables:the `PWP__THEME` environment variable to specify the theme and `PWP__PRECOMPILE=true` environment variable to have CSS assets recompiled on container boot.
 
-**Make sure to set both `PWP__THEME` and `PWP_PRECOMPILE` for the selected theme to work.** 👍
+**Make sure to set both `PWP__THEME` and `PWP__PRECOMPILE` for the selected theme to work.** 👍
 
 | Environment Variable | Description | Possible Values |
 | --------- | ------------------ | --- |
 | PWP__THEME | Theme used for the application. |    'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr' |
-| PWP_PRECOMPILE | Forces a rebuild of the theme CSS on boot. | `true` |
+| PWP__PRECOMPILE | Forces a rebuild of the theme CSS on boot. | `true` |
 
 ---> See the [Themes Gallery](Themes.md) for examples of each.
 
@@ -433,7 +433,7 @@ __Note:__ Since the theme is a boot level selection, the theme can only be selec
 So to set the `quartz` theme for a Docker container:
 
 ```bash
-docker run --env PWP__THEME=quartz --env PWP_PRECOMPILE=true -p "5100:5100" pglombardo/pwpush-ephemeral:1.26.10
+docker run --env PWP__THEME=quartz --env PWP__PRECOMPILE=true -p "5100:5100" pglombardo/pwpush-ephemeral:1.26.10
 ```
 
 or alternatively for source code:
@@ -448,7 +448,7 @@ bin/rails server
 
 Password Pusher has a pre-compilation step of assets.  This is used to fingerprint assets and pre-process CSS code for better performance.
 
-If using Docker containers, you can simply set the `PWP_PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
+If using Docker containers, you can simply set the `PWP__PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
 
 To manually precompile assets run `bin/rails assets:precompile`.
 
@@ -470,12 +470,12 @@ Password Pusher supports adding custom CSS to the application.  The application 
 
 This file can either be modified directly or in the case of Docker containers, a new file mounted over the existing one.
 
-When changing this file inside a Docker container, make sure to set the precompile option `PWP_PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
+When changing this file inside a Docker container, make sure to set the precompile option `PWP__PRECOMPILE=true`.  This will assure that the custom CSS is incorporated correctly.
 
 An example Docker command to override that file would be:
 
 ```
-docker run -e PWP_PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush-ephemeral:release
+docker run -e PWP__PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush-ephemeral:release
 ```
 or the `docker-compose.yml` equivalent:
 
@@ -488,7 +488,7 @@ services:
     ports:
       - "5100:5100"
     environment:
-      PWP_PRECOMPILE: 'true'
+      PWP__PRECOMPILE: 'true'
     volumes:
       - type: bind
         source: /path/to/my/custom.css
@@ -497,7 +497,7 @@ services:
 
 Remember that when doing this, this new CSS code has to be precompiled.
 
-To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
+To do this in Docker containers, simply set the environment variable `PWP__PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
 
 # Google Analytics
 
