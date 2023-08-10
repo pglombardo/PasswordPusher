@@ -70,4 +70,12 @@ Rails.application.configure do
   end
 
   config.active_record.dump_schema_after_migration = false
+
+  # If a user sets the override_base_url setting, we need to add the domain to the list of allowed hosts
+  if Settings.override_base_url
+    require 'uri/http'
+
+    uri = URI.parse(Settings.override_base_url)
+    config.hosts << uri.host.downcase
+  end
 end
