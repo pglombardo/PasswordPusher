@@ -194,6 +194,8 @@ class FilePushesController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
+    @push = FilePush.new
+
     # params[:file_push] has to exist
     # params[:file_push] has to be a ActionController::Parameters (Hash)
     file_push_param = params.fetch(:file_push, {})
@@ -228,8 +230,6 @@ class FilePushesController < ApplicationController
       end
       return
     end
-
-    @push = FilePush.new
 
     @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.files.expire_after_days_default)
     @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.files.expire_after_views_default)
