@@ -138,6 +138,31 @@ host_protocol: 'https'
 #
 # override_base_url: 'https://pwpush.mydomain.com'
 
+### Allowed Hosts
+#
+# This is a list of allowed hosts for the application.  This is used to
+# prevent host header attacks.
+#
+# When set, the application will only respond to requests with a host header
+# that matches one of the values in this list.
+#
+# This feature is generally only used when the application is behind a proxy.
+#
+# It's generally not required to use this unless you are getting the related error
+# in the application.  localhost and the IP that the application is running on
+# are always allowed.
+#
+# Note: If you need more than one value, you have to use the YAML syntax and not
+# the environment variable override.  This is a limitation in the config gem.
+#
+# Environment variable override:
+# PWP__ALLOWED_HOSTS='pwpush.com'
+#
+# allowed_hosts:
+#   - 'pwpush.com'
+#   - 'pwpush.mydomain.com'
+#   - 'pwpush.myotherdomain.com'
+
 ## Expiration Settings for Password Pushes
 #
 pw:
