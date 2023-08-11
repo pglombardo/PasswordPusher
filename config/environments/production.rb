@@ -119,11 +119,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # If a user sets the override_base_url setting, we need to add the domain to the list of allowed hosts
-  if Settings.override_base_url
-    require 'uri/http'
-
-    uri = URI.parse(Settings.override_base_url)
-    config.hosts << uri.host.downcase
+  # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
+  if Settings.allowed_hosts.present?
+    if Settings.allowed_hosts.is_a?(Array)
+      config.hosts.concat(Settings.allowed_hosts)
+    else
+      config.hosts << Settings.allowed_hosts
+    end
   end
 end
