@@ -137,6 +137,7 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | PWP__MAIL__SMTP_PASSWORD | If your mail server requires authentication, set the password in this setting. | `smtp_password` |
 | PWP__MAIL__SMTP_AUTHENTICATION | If your mail server requires authentication, you need to specify the authentication type here. This is a string and one of :plain (will send the password in the clear), :login (will send password Base64 encoded) or :cram_md5 (combines a Challenge/Response mechanism to exchange information and a cryptographic Message Digest 5 algorithm to hash important information) | `plain` |
 | PWP__MAIL__SMTP_STARTTLS | Use STARTTLS when connecting to your SMTP server and fail if unsupported. | `true` |
+| PWP__MAIL__SMTP_ENABLE_STARTTLS_AUTO | Detects if STARTTLS is enabled in your SMTP server and starts to use it | `true` |
 | PWP__MAIL__OPEN_TIMEOUT | Number of seconds to wait while attempting to open a connection. | `10` |
 | PWP__MAIL__READ_TIMEOUT | Number of seconds to wait until timing-out a read(2) call. | `10` |
 | PWP__HOST_DOMAIN | Used to build fully qualified URLs in emails.  Where is your instance hosted? | `pwpush.com` |
