@@ -75,8 +75,10 @@ Rails.application.configure do
   if Settings.allowed_hosts.present?
     if Settings.allowed_hosts.is_a?(Array)
       config.hosts.concat(Settings.allowed_hosts)
+    elsif Settings.allowed_hosts.is_a?(String)
+      config.hosts.concat Settings.allowed_hosts.split(" ")
     else
-      config.hosts << Settings.allowed_hosts
+      raise "Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string"
     end
   end
 end
