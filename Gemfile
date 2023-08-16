@@ -90,7 +90,7 @@ gem 'rollbar'
 
 gem 'route_translator', '>= 13.0.0'
 gem 'translation'
-gem 'rails-i18n', '~> 7.0.7'
+gem 'rails-i18n', '~> 7.0.8'
 gem 'i18n-tasks', '~> 1.0.12'
 gem 'devise-i18n'
 
