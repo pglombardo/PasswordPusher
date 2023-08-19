@@ -8,7 +8,7 @@ bundle exec rake db:migrate
 
 if [ "$PWP_PRECOMPILE" == "true" ]
 then
-    echo "Password Pusher: precompiling assets..."
+    echo "Password Pusher: precompiling assets for customisations..."
     bundle exec rails assets:precompile
 fi
 
