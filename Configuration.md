@@ -537,8 +537,10 @@ See also the Proxies section below.
 
 | Environment Variable | Description |
 | --------- | ------------------ |
-| FORCE_SSL | The existence of this variable will set `config.force_ssl` to `true` and generate HTTPS based secret URLs
+| FORCE_SSL | (Deprecated) The existence of this variable will set `config.force_ssl` to `true` and generate HTTPS based secret URLs
 
+__Note:__ This is a legacy setting and is no longer suggested for use.  If using a proxy, make sure to have your proxy forward the `X-Forwarded-Host`, `X-Forwarded-Port` and `X-Forwarded-Proto` HTTP headers.  See the "Proxies" section for more information and instructions.
+_
 # Proxies
 
 An occasional issue is that when using Password Pusher behind a proxy, the generated secret URLs are incorrect.  They often have the backend URL & port instead of the public fully qualified URL - or use HTTP instead of HTTPS (or all of the preceding).
