@@ -394,7 +394,7 @@ PWP__BRAND__LIGHT_LOGO=/logos/mylogo.png
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
 * [this issue comment](https://github.com/pglombardo/PasswordPusher/issues/432#issuecomment-1282158006) on how to mount images into the contianer and set your environment variables accordingly
 
-# Change the Default Lanugage
+# Change the Default Language
 
 The application comes with more than 24 languages bundled in which are selectable inside the application.  The default language of the application is English.  If you would like to change this default language, simply set the following environment variable for your application.
 
