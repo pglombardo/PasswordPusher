@@ -63,7 +63,7 @@ gem "terser", "~> 1.1"
 gem 'json', '~> 2.0' # Legacy carry-over
 gem 'will_paginate', '~> 4.0.0'
 gem 'will_paginate-bootstrap-style'
-gem 'bootstrap', '5.3.1'
+gem 'bootstrap', '5.2.3'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -116,6 +116,6 @@ end
 
 group :production, :private do
   gem 'rack-timeout'
-  gem 'rack-throttle', '0.7.1'
+  gem 'rack-throttle', '0.7.0'
 end
 
