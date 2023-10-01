@@ -111,7 +111,7 @@ group :mysql, optional: true do
 end
 
 group :sqlite, optional:true do
-  gem 'sqlite3'
+  gem 'sqlite3', force_ruby_platform: true
 end
 
 group :production, :private do
