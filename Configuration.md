@@ -451,6 +451,8 @@ Password Pusher has a pre-compilation step of assets.  This is used to fingerpri
 
 If using Docker containers, you can simply set the `PWP_PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
 
+__Note: Precompiling all application assets for a new theme on container boot can add 30-90 seconds to the boot process (depending on the system).  Make sure to allow this time in your health checks before declaring the container as unresponsive.__
+
 To manually precompile assets run `bin/rails assets:precompile`.
 
 ## Adding an entirely new theme from scratch
