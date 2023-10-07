@@ -14,12 +14,22 @@ ARG BUNDLE_DEPLOYMENT
 LABEL org.opencontainers.image.authors ='pglombardo@hey.com'
 
 # Required packages
-RUN apk add --no-cache build-base git curl tzdata zlib-dev nodejs yarn libc6-compat sqlite-dev mariadb-dev libpq-dev
+RUN apk add --no-cache \
+    build-base \
+    curl \
+    git \
+    libc6-compat \
+    libpq-dev \
+    mariadb-dev \
+    nodejs \
+    sqlite-dev \
+    tzdata \
+    yarn
 
 ENV APP_ROOT=/opt/PasswordPusher
 
 WORKDIR ${APP_ROOT}
-COPY ./ ${APP_ROOT}/
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
 
 ENV RACK_ENV=production RAILS_ENV=production
 
@@ -29,6 +39,8 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle install
 
 RUN yarn install
+
+COPY ./ ${APP_ROOT}/
 
 # Set DATABASE_URL to sqlite to have a ready
 # to use db file for ephemeral configuration
@@ -53,7 +65,14 @@ ARG BUNDLE_DEPLOYMENT
 LABEL maintainer='pglombardo@hey.com'
 
 # install packages
-RUN apk add --no-cache tzdata bash nodejs libc6-compat sqlite-dev mariadb-connector-c libpq
+RUN apk add --no-cache \
+    bash \
+    libc6-compat \
+    libpq \
+    mariadb-connector-c \
+    nodejs \
+    sqlite-dev \
+    tzdata
 
 # Create a user and group to run the application
 ARG UID=1000
