@@ -1,7 +1,7 @@
 # Password Pusher & Docker Container
 
 # Docker Container
-Available on Docker hub: [pwpush](https://hub.docker.com/r/pglombardo/pwpush)
+Available on Docker Hub: [pwpush](https://hub.docker.com/r/pglombardo/pwpush)
 
 ## Supported database backends
 
@@ -13,7 +13,7 @@ Available on Docker hub: [pwpush](https://hub.docker.com/r/pglombardo/pwpush)
 
 ## ephemeral
 
-This configuration runs independently using sqlite3 with no persistent storage (if you recreate the container the data is lost); best if don't care too much about the data and and looking for simplicity in deployment.
+This configuration runs independently using sqlite3 with no persistent storage (if you recreate the container the data is lost); best if don't care too much about the data and looking for simplicity in deployment.
 
 To run an ephemeral version of Password Pusher that saves no data after a container restart:
 `docker run -p "8000:5100" pglombardo/pwpush:latest`
@@ -25,11 +25,11 @@ See also this discussion if you want to persist data across container restarts: 
 
 ## postgres
 
-To setup the container to use the postgres database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
+To setup the container to use the PostgreSQL database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
 
     DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
-You can either configure your PostgreSQL server to use these credentials or override the environment var in the command line:
+You can either configure your PostgreSQL server to use these credentials or override the environment variable in the command line:
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush:latest
 
@@ -42,15 +42,15 @@ See [this section on Docker Secrets](https://github.com/docker-library/docs/blob
 
 ## mysql
 
-To setup the container to use the mysql/mariadb database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
+To setup the container to use the MariaDB/MySQL database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
 
     DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
 
-You can either configure your MySQL / MariaDB server to use these credentials or override the environment var in the command line:
+You can either configure your MariaDB/MySQL server to use these credentials or override the environment var in the command line:
 
     docker run -d -p "5100:5100" -e "DATABASE_URL=mysql2://pwpush_user:pwpush_passwd@mysql:3306/pwpush_db" pglombardo/pwpush:latest
 
-_Note: Providing a MySQL / MariaDB password on the command line is far less than ideal_
+_Note: Providing a MariaDB/MySQL password on the command line is far less than ideal_
 
 
 ## Tags
