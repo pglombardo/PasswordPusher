@@ -1,12 +1,57 @@
-# Password Pusher & Docker Containers
+# Password Pusher & Docker Container
 
-## Container Types
+# Docker Container
+Available on Docker hub: [pwpush](https://hub.docker.com/r/pglombardo/pwpush)
 
-| Container Name | Description|
+## Supported database backends
+
+| Backend | Description|
 |-|-|
-| **pwpush-ephemeral** | SQLite3 backed container that runs alone.  All data is lost after a container restart.|
-| **pwpush-postgres** | Postgres backed container that can be pointed to a pre-existing database instance using an environment variable (`DATABASE_URL`).|
-| **pwpush-mysql** | MySQL or Mariadb backed container that can be pointed to a pre-existing database instance using an environment variable (`DATABASE_URL`).|
+| **ephemeral** | SQLite3 backed container that runs alone.  All data is lost after a container restart. This is set by default|
+| **postgres** | Postgres backed container that can be pointed to a pre-existing database instance using an environment variable (`DATABASE_URL`).|
+| **mysql** | MySQL or Mariadb backed container that can be pointed to a pre-existing database instance using an environment variable (`DATABASE_URL`).|
+
+## ephemeral
+
+This configuration runs independently using sqlite3 with no persistent storage (if you recreate the container the data is lost); best if don't care too much about the data and and looking for simplicity in deployment.
+
+To run an ephemeral version of Password Pusher that saves no data after a container restart:
+`docker run -p "8000:5100" pglombardo/pwpush:latest`
+
+_This example is set to listen on port 8000 for requests e.g. http://0.0.0.0:8000._
+
+See also this discussion if you want to persist data across container restarts: [pwpush-ephemeral: How to Add Persistence?](https://github.com/pglombardo/PasswordPusher/discussions/448)  
+(Since this link refers to an outdated ephemeral image keep in mind to use current image `pglombardo/pwpush`)
+
+## postgres
+
+To setup the container to use the postgres database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
+
+    DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
+
+You can either configure your PostgreSQL server to use these credentials or override the environment var in the command line:
+
+    docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush:latest
+
+### Better Security with Password Files
+
+Providing a PostgreSQL password on the command line such as in the preceeding is less than ideal.  The Postgres Docker image also supports the idea of password files.
+
+See [this section on Docker Secrets](https://github.com/docker-library/docs/blob/master/postgres/README.md#docker-secrets) on how to avoid passing credentials on the command line.  Further, also [consider this example](https://github.com/pglombardo/PasswordPusher/issues/412) provided by [Viajaz](https://github.com/Viajaz).
+
+
+## mysql
+
+To setup the container to use the mysql/mariadb database backend DATABASE_URL environment variable needs to be configured. The syntax should look like:
+
+    DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
+
+You can either configure your MySQL / MariaDB server to use these credentials or override the environment var in the command line:
+
+    docker run -d -p "5100:5100" -e "DATABASE_URL=mysql2://pwpush_user:pwpush_passwd@mysql:3306/pwpush_db" pglombardo/pwpush:latest
+
+_Note: Providing a MySQL / MariaDB password on the command line is far less than ideal_
+
 
 ## Tags
 
@@ -23,54 +68,8 @@ When in doubt, use `release`.
 # Docker Compose
 
 For a quick boot of a database backed application, see the available Docker Compose files:
+* [ephemeral](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-ephemeral.yml)
+* [postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-postgres.yml)
+* [mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-mysql.yml)
+* [mariadb](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-mariadb.yml)
 
-* [pwpush-postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yml)
-* [pwpush-mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-mysql/docker-compose.yml)
-
-# Docker Containers
-
-## pwpush-ephemeral
-
-This is a single container that runs independently using sqlite3 with no persistent storage (if you recreate the container the data is lost); best if don't care too much about the data and and looking for simplicity in deployment.
-
-To run an ephemeral version of Password Pusher that saves no data after a container restart:
-`docker run -p "8000:5100" pglombardo/pwpush-ephemeral:latest`
-
-_This example is set to listen on port 8000 for requests e.g. http://0.0.0.0:8000._
-
-Available on Docker hub: [pwpush-ephemeral](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral)
-
-See also this discussion if you want to persist data across container restarts: [pwpush-ephemeral: How to Add Persistence?](https://github.com/pglombardo/PasswordPusher/discussions/448)
-
-## pwpush-postgres
-
-This container uses a default database URL of:
-
-    DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
-
-You can either configure your PostgreSQL server to use these credentials or override the environment var in the command line:
-
-    docker run -d -p "5100:5100" -e "DATABASE_URL=postgresql://user:passwd@postgres:5432/my_db" pglombardo/pwpush-postgres:latest
-
-Available on Docker hub: [pwpush-postgres](https://hub.docker.com/repository/docker/pglombardo/pwpush-postgres)
-
-### Better Security with Password Files
-
-Providing a PostgreSQL password on the command line such as in the preceeding is less than ideal.  The Postgres Docker image also supports the idea of password files.
-
-See [this section on Docker Secrets](https://github.com/docker-library/docs/blob/master/postgres/README.md#docker-secrets) on how to avoid passing credentials on the command line.  Further, also [consider this example](https://github.com/pglombardo/PasswordPusher/issues/412) provided by [Viajaz](https://github.com/Viajaz).
-
-
-## pwpush-mysql
-
-This container uses a default database URL of:
-
-    DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
-
-You can either configure your MySQL server to use these credentials or override the environment var in the command line:
-
-    docker run -d -p "5100:5100" -e "DATABASE_URL=mysql2://pwpush_user:pwpush_passwd@mysql:3306/pwpush_db" pglombardo/pwpush-mysql:latest
-
-_Note: Providing a MySQL password on the command line is far less than ideal_
-
-Available on Docker hub: [pwpush-mysql](https://hub.docker.com/repository/docker/pglombardo/pwpush-mysql)
