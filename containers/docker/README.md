@@ -63,7 +63,8 @@ _Note: Providing a MariaDB/MySQL password on the command line is far less than i
 
 When in doubt, use `release`.
 
-`amd64` and `arm64` architectures are both built.  Note [this bug](https://github.com/pglombardo/PasswordPusher/issues/268) in regards to tag availability for the `arm64` architecture.
+## Platforms
+The docker container is available for `linux/amd64` and `linux/arm64` platforms.
 
 # Docker Compose
 
