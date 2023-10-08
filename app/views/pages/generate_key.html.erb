@@ -20,10 +20,10 @@
 <% new_master_key = Lockbox.generate_key %>
 
 <p class='lead my-3'><%= _('Generated Encryption Key') %></p>
-<div class='input-group mb-3'>
-    <input class='form-control' id='generated_key' value="<%= new_master_key %>" spellcheck='false' readonly='true'>
+<div class='input-group mb-3' data-controller="copy">
+    <input class='form-control' id='generated_key' value="<%= new_master_key %>" spellcheck='false' readonly='true' data-copy-target="payloadDiv">
     <button id='copy-to-clipboard-button' class='input-group-text btn-success'
-            data-clipboard-target='#generated_key' alt="<%= _('Copy to Clipboard') %>">
+            data-action="click->copy#miniCopyToClipboard" alt="<%= _('Copy to Clipboard') %>">
         <em class="bi bi-clipboard-check"></em>
     </button>
 </div>
@@ -33,10 +33,10 @@
 <code>PWPUSH_MASTER_KEY</code>.
 </p>
 
-<div class='input-group mb-3'>
-    <input class='form-control' id='env_key' value="PWPUSH_MASTER_KEY=<%= new_master_key %>" spellcheck='false' readonly='true'>
+<div class='input-group mb-3' data-controller="copy">
+    <input class='form-control' id='env_key' value="PWPUSH_MASTER_KEY=<%= new_master_key %>" spellcheck='false' readonly='true' data-copy-target="payloadDiv">
     <button id='copy-to-clipboard-button-2' class='input-group-text btn-success'
-            data-clipboard-target='#env_key' alt="<%= _('Copy to Clipboard') %>">
+            data-action="click->copy#miniCopyToClipboard" alt="<%= _('Copy to Clipboard') %>">
         <em class="bi bi-clipboard-check"></em>
     </button>
 </div>
