@@ -109,12 +109,16 @@ task generate_robots_txt: :environment do
   include Rails.application.routes.url_helpers
   contents = "User-Agent: *\n"
   contents += "Disallow: /p/\n"
+  contents += "Disallow: /f/\n"
+  contents += "Disallow: /r/\n"
   contents += "Allow: /p/new\n"
   contents += "Allow: /f/new\n"
   contents += "Allow: /r/new\n"
 
   I18n.available_locales.each do |locale|
     contents += "Disallow: /#{locale}/p/\n"
+    contents += "Disallow: /#{locale}/f/\n"
+    contents += "Disallow: /#{locale}/r/\n"
     I18n.with_locale(locale) do
       contents += "Allow: #{new_password_path}\n"
       contents += "Allow: #{new_file_push_path}\n"
