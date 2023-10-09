@@ -360,6 +360,7 @@ This can be done with the following environment variables:
 | --------- | ------------------ | --- |
 | PWP__BRAND__TITLE | Title for the site. | `Password Pusher` |
 | PWP__BRAND__TAGLINE | Tagline for the site.  | `Go Ahead.  Email Another Password.` |
+| PWP__BRAND__DISCLAIMER | Disclaimer for the site.  | `Undefined` |
 | PWP__BRAND__SHOW_FOOTER_MENU | On/Off switch for the footer menu. | `true` |
 | PWP__BRAND__LIGHT_LOGO | Site logo image for the light theme. | `logo-transparent-sm-bare.png` |
 | PWP__BRAND__DARK_LOGO | Site logo image for the dark theme. | `logo-transparent-sm-bare.png` |
@@ -500,7 +501,7 @@ services:
 
 Remember that when doing this, this new CSS code has to be precompiled.
 
-To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
+To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme.
 
 # Google Analytics
 
