@@ -32,6 +32,16 @@ updates:
     open-pull-requests-limit: 50
 
   - package-ecosystem: "docker"
+    directory: "/containers/docker/pwpush"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: ":arrow_up:"
+    open-pull-requests-limit: 50
+
+  - package-ecosystem: "docker"
     directory: "/containers/docker/pwpush-ephemeral"
     schedule:
       interval: "weekly"
