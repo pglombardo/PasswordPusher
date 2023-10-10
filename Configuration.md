@@ -86,6 +86,7 @@ Notes:
 | --------- | ------------------ | --- |
 | PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
 | PWP__RELATIVE_ROOT | Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
+| PWP__SHOW_VERSION | Show the version in the footer | `true` |
 
 ## Password Push Expiration Settings
 
