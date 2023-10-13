@@ -3,7 +3,6 @@ ARG BUNDLE_WITH=sqlite:mysql:postgres
 ARG BUNDLE_WITHOUT=development:test:private
 ARG BUNDLE_DEPLOYMENT=true
 
-# pwpush-ephemeral
 FROM ruby:3.2-alpine AS build-env
 
 # include global args
