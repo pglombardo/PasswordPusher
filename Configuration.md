@@ -123,7 +123,7 @@ Notes:
 
 To enable logins in your instance of Password Pusher, you must have an SMTP server available to send emails through.  These emails are sent for events such as password reset, unlock, registration etc..
 
-To use logins, you should be running a databased backed version of Password Pusher.  Logins will likely work in ephemeral but aren't suggested since all data is wiped with every restart.
+To use logins, you should be running a database backed version of Password Pusher.  Logins will likely work in an ephemeral setup but aren't suggested since all data is wiped with every restart.
 
 _All_ of the following environments need to be set (except SMTP authentication if none) for application logins to function properly.
 
