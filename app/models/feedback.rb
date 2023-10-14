@@ -18,6 +18,7 @@ class Feedback < MailForm::Base
       to: Settings.feedback.email,
       from: Settings.mail.mailer_sender,
       subject: "#{Settings.brand.title} Feedback",
+      reply_to: email,
       'X-PWPUSH-URL' => request.url
     }
   end
