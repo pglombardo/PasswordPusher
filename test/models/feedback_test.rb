@@ -25,7 +25,6 @@ class FeedbackTest < ActiveSupport::TestCase
         Mullet
       SPAMMSG
     )
-    debugger
     assert_not feedback.valid?
   end
 
