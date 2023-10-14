@@ -122,4 +122,4 @@ group :production, :private do
   gem 'rack-timeout'
 end
 
-gem 'version', git: 'git@github.com:pglombardo/version.git', branch: 'master'
+gem 'version', git: 'https://github.com/pglombardo/version.git', branch: 'master'
