@@ -30,7 +30,7 @@ export PWP__DEFAULT_LOCALE='fr'
 
 ```sh
 # Change the default language for the application to French
-docker run -d --env PWP__DEFAULT_LOCALE=fr -p "5100:5100" pglombardo/pwpush-ephemeral:release
+docker run -d --env PWP__DEFAULT_LOCALE=fr -p "5100:5100" pglombardo/pwpush:release
 ```
 
 _Tip: If you have to set a large number of environment variables for Docker, consider using a Docker env-file.  There is an [example docker-env-file](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-docker-env-file) with instructions available._
@@ -48,7 +48,7 @@ To replace this file with your own custom version, you can launch the Docker con
 ```sh
     docker run -d \
       --mount type=bind,source=/path/settings.yml,target=/opt/PasswordPusher/config/settings.yml \
-      -p "5100:5100" pglombardo/pwpush-ephemeral:release
+      -p "5100:5100" pglombardo/pwpush:release
 ```
 
 # Application Encryption
@@ -86,6 +86,7 @@ Notes:
 | --------- | ------------------ | --- |
 | PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
 | PWP__RELATIVE_ROOT | Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
+| PWP__SHOW_VERSION | Show the version in the footer | `true` |
 
 ## Password Push Expiration Settings
 
@@ -122,7 +123,7 @@ Notes:
 
 To enable logins in your instance of Password Pusher, you must have an SMTP server available to send emails through.  These emails are sent for events such as password reset, unlock, registration etc..
 
-To use logins, you should be running a databased backed version of Password Pusher.  Logins will likely work in ephemeral but aren't suggested since all data is wiped with every restart.
+To use logins, you should be running a database backed version of Password Pusher.  Logins will likely work in an ephemeral setup but aren't suggested since all data is wiped with every restart.
 
 _All_ of the following environments need to be set (except SMTP authentication if none) for application logins to function properly.
 
@@ -210,7 +211,7 @@ The default location for local storage is `./storage`.
 
 If using containers and you prefer local storage, you can add a volume mount to the container at the path `/opt/PasswordPusher/storage`:
 
-`docker run -d -p "5100:5100" -v /var/lib/pwpush/files:/opt/PasswordPusher/storage pglombardo/pwpush-postgres:release`
+`docker run -d -p "5100:5100" -v /var/lib/pwpush/files:/opt/PasswordPusher/storage pglombardo/pwpush:release`
 
 Please _make sure_ that the directory is writeable by the docker container.
 
@@ -360,6 +361,7 @@ This can be done with the following environment variables:
 | --------- | ------------------ | --- |
 | PWP__BRAND__TITLE | Title for the site. | `Password Pusher` |
 | PWP__BRAND__TAGLINE | Tagline for the site.  | `Go Ahead.  Email Another Password.` |
+| PWP__BRAND__DISCLAIMER | Disclaimer for the site.  | `Undefined` |
 | PWP__BRAND__SHOW_FOOTER_MENU | On/Off switch for the footer menu. | `true` |
 | PWP__BRAND__LIGHT_LOGO | Site logo image for the light theme. | `logo-transparent-sm-bare.png` |
 | PWP__BRAND__DARK_LOGO | Site logo image for the dark theme. | `logo-transparent-sm-bare.png` |
@@ -371,7 +373,7 @@ The values for the `*_LOGO` images can either be:
 
 As an example for #2 above, say you place your logo images locally into `/var/lib/pwpush/logos/`.  You would then mount that directory into the container:
 
-`docker run -d -p "5100:5100" -v /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos pglombardo/pwpush-postgres:release`
+`docker run -d -p "5100:5100" -v /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos pglombardo/pwpush:release`
 
 or alternatively for a `docker-compose.yml` file:
 
@@ -381,7 +383,7 @@ volumes:
   - /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos:r
 ```
 
-See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-postgres/docker-compose.yml) for a larger Docker Compose explanation.
+See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-postgres.yml) for a larger Docker Compose explanation.
 
 With this setup, you can then set your `LOGO` environment variables (or `settings.yml` options) to:
 
@@ -394,7 +396,7 @@ PWP__BRAND__LIGHT_LOGO=/logos/mylogo.png
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
 * [this issue comment](https://github.com/pglombardo/PasswordPusher/issues/432#issuecomment-1282158006) on how to mount images into the contianer and set your environment variables accordingly
 
-# Change the Default Lanugage
+# Change the Default Language
 
 The application comes with more than 24 languages bundled in which are selectable inside the application.  The default language of the application is English.  If you would like to change this default language, simply set the following environment variable for your application.
 
@@ -434,7 +436,7 @@ __Note:__ Since the theme is a boot level selection, the theme can only be selec
 So to set the `quartz` theme for a Docker container:
 
 ```bash
-docker run --env PWP__THEME=quartz --env PWP_PRECOMPILE=true -p "5100:5100" pglombardo/pwpush-ephemeral:1.26.10
+docker run --env PWP__THEME=quartz --env PWP_PRECOMPILE=true -p "5100:5100" pglombardo/pwpush:release
 ```
 
 or alternatively for source code:
@@ -450,6 +452,8 @@ bin/rails server
 Password Pusher has a pre-compilation step of assets.  This is used to fingerprint assets and pre-process CSS code for better performance.
 
 If using Docker containers, you can simply set the `PWP_PRECOMPILE=true` environment variable.  On container boot, all assets will be precompiled and bundled into `/assets`.
+
+__Note: Precompiling all application assets for a new theme on container boot can add 30-90 seconds to the boot process (depending on the system).  Make sure to allow this time in your health checks before declaring the container as unresponsive.__
 
 To manually precompile assets run `bin/rails assets:precompile`.
 
@@ -476,7 +480,7 @@ When changing this file inside a Docker container, make sure to set the precompi
 An example Docker command to override that file would be:
 
 ```
-docker run -e PWP_PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush-ephemeral:release
+docker run -e PWP_PRECOMPILE=true --mount type=bind,source=/path/to/my/custom.css,target=/opt/PasswordPusher/app/assets/stylesheets/custom.css -p 5100:5100 pglombardo/pwpush:release
 ```
 or the `docker-compose.yml` equivalent:
 
@@ -485,7 +489,7 @@ version: '2.1'
 services:
 
   pwpush:
-    image: docker.io/pglombardo/pwpush-ephemeral:release
+    image: docker.io/pglombardo/pwpush:release
     ports:
       - "5100:5100"
     environment:
@@ -498,7 +502,7 @@ services:
 
 Remember that when doing this, this new CSS code has to be precompiled.
 
-To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme. 
+To do this in Docker containers, simply set the environment variable `PWP_PRECOMPILE=true`.  For source code, run `bin/rails assets:precompile`.  This compilation process will incorporate the custom CSS into the updated site theme.
 
 # Google Analytics
 
@@ -517,10 +521,10 @@ per a given time period (per second, minute, hourly, or daily).
 
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
-| PWP__THROTTLING__DAILY | The maximum number of allowed HTTP requests per day | `1000` |
-| PWP__THROTTLING__HOURLY | The maximum number of allowed HTTP requests per hour | `100` |
-| PWP__THROTTLING__MINUTE | The maximum number of allowed HTTP requests per minute | `30` |
-| PWP__THROTTLING__SECOND | The maximum number of allowed HTTP requests per second | `2` |
+| PWP__THROTTLING__DAILY | The maximum number of allowed HTTP requests per day | `5000` |
+| PWP__THROTTLING__HOURLY | The maximum number of allowed HTTP requests per hour | `600` |
+| PWP__THROTTLING__MINUTE | The maximum number of allowed HTTP requests per minute | `60` |
+| PWP__THROTTLING__SECOND | The maximum number of allowed HTTP requests per second | `20` |
 
 
 # Logging

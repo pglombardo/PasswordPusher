@@ -9,8 +9,7 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 [![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)](https://stats.uptimerobot.com/6xJjNtPr93)
 [![](https://badgen.net/docker/pulls/pglombardo/pwpush-ephemeral)](https://hub.docker.com/repositories)
 
-[![Github CI](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml/badge.svg)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml)
-[![](https://badgen.net/circleci/github/pglombardo/PasswordPusher)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/pglombardo/PasswordPusher/ruby-tests.yml)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml)
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/pglombardo/pwpush-cli/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 [![Semantic Versions](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--versions-e10079.svg)](https://github.com/pglombardo/pwpush-cli/releases)
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/pwpush/blob/master/LICENSE)
@@ -65,7 +64,7 @@ Password Pusher is also on [on Twitter](https://twitter.com/pwpush), [Gettr](htt
 
 _or_
 
-→ Run your own instance with one command: `docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:release` then go to http://localhost:5100
+→ Run your own instance with one command: `docker run -d -p "5100:5100" pglombardo/pwpush:release` then go to http://localhost:5100
 
 _or_
 
@@ -82,35 +81,35 @@ Docker images of Password Pusher are available on [Docker hub](https://hub.docke
 **➜ ephemeral**
 _Temporary database that is wiped on container restart._
 
-    docker run -d -p "5100:5100" pglombardo/pwpush-ephemeral:release
+    docker run -d -p "5100:5100" pglombardo/pwpush:release
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-ephemeral)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#ephemeral)
 
 **➜ using an External Postgres Database**
 _Postgres database backed instance._
 
-    docker run -d -p "5100:5100" pglombardo/pwpush-postgres:release
+    docker run -d -p "5100:5100" pglombardo/pwpush:release -e DATABASE_URL=postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-postgres)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#postgres)
 
 **➜ using an External MariaDB (MySQL) Database**
 _Mariadb database backed instance._
 
-    docker run -d -p "5100:5100" pglombardo/pwpush-mysql:release
+    docker run -d -p "5100:5100" pglombardo/pwpush:release -e DATABASE_URL=mysql2://passwordpusher_user:passwordpusher_passwd@mysql:3306/passwordpusher_db
 
-[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-mysql)
+[Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#mysql)
 
-_Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/repository/docker/pglombardo/pwpush-ephemeral/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
+_Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/r/pglombardo/pwpush/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
 
 ## With Docker Compose
 
 **➜ One-liner Password Pusher with a Postgres Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush/docker-compose-postgres.yml && docker compose up -d
 
 **➜ One-liner Password Pusher with a MariaDB (MySQL) Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush/docker-compose-mariadb.yml && docker compose up -d
 
 ## On Kubernetes
 

@@ -8,38 +8,36 @@ on:
       - "v*.*.*"
 
   workflow_dispatch:
-
+    inputs:
+      dockerPush:
+        description: 'Push image to docker hub?'
+        required: true
+        type: boolean
+        default: false
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'latest' docker containers
     - cron: "24 17 * * *"
-
+env:
+  DOCKER_PUSH: true
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - dbType: ephemeral
-          - dbType: mysql
-          - dbType: postgres
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Populate Docker metadata
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
-          images: pglombardo/pwpush-${{ matrix.dbType }}
+          images: ${{ secrets.DOCKER_USERNAME }}/pwpush
           flavor: |
             latest=false
           tags: |
@@ -51,19 +49,81 @@ jobs:
             type=semver,pattern=latest
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push pwpush-${{ matrix.dbType }} Docker images
-        uses: docker/build-push-action@v4
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
         with:
-          file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
+          file: ./containers/docker/pwpush/Dockerfile
           platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}:buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
+
+  # 'buildObsolete'-job can be completly removed after dropping support 
+  # for old docker images.
+  buildObsolete:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dbType: ephemeral
+          - dbType: mysql
+          - dbType: postgres
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set DOCKER_PUSH for workflow_dispatch
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "DOCKER_PUSH=${{ github.event.inputs.dockerPush }}" >> $GITHUB_ENV
+
+      - name: Populate Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-${{ matrix.dbType }}
+          flavor: |
+            latest=false
+          tags: |
+            type=match,pattern=release
+            type=schedule,pattern=latest
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=semver,pattern=latest
+            type=sha,enable=${{ github.event_name == 'workflow_dispatch' }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        if: ${{env.DOCKER_PUSH == 'true'}}
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push pwpush-${{ matrix.dbType }} Docker images
+        uses: docker/build-push-action@v5
+        with:
+          file: ./containers/docker/pwpush-${{ matrix.dbType }}/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          provenance: false
+          push: ${{env.DOCKER_PUSH == 'true'}}
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            BASEIMAGE=${{ secrets.DOCKER_USERNAME }}/pwpush:${{ steps.meta.outputs.version }}

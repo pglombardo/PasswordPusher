@@ -27,7 +27,8 @@ Steps to reproduce the behavior:
 Where are you running/using Password Pusher?
 
 - [ ] pwpush.com
-- [ ] Docker
+- [ ] Docker Image
+  - [ ] pwpush
   - [ ] pwpush-ephemeral
   - [ ] pwpush-mysql
   - [ ] pwpush-postgres

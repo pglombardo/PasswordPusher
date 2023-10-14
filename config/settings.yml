@@ -138,6 +138,17 @@ host_protocol: 'https'
 #
 # override_base_url: 'https://pwpush.mydomain.com'
 
+### Show version on the footer
+#
+# Enable/disable PasswordPusher verison on the footer.
+#
+# Environment variable override:
+# PWP__SHOW_VERSION=true
+#
+# Default: true
+
+show_version: true
+
 ### Allowed Hosts
 #
 # This is a list of allowed hosts for the application.  This is used to
@@ -543,6 +554,11 @@ brand:
   #
   tagline: 'Go Ahead.  Email Another Password.'
 
+  ### Site Disclaimer
+  #
+  # Environment variable override: PWP__BRAND__DISCLAIMER='Use at own use risk.'
+  # disclaimer: 'This is a dummy disclaimer and should not be considered legally binding or taken seriously in any way. The content provided here is for entertainment and illustrative purposes only. Any resemblance to actual disclaimers is purely coincidental. We do not endorse or encourage the use of this disclaimer for any real-world applications, and we strongly advise consulting a legal professional for creating legitimate and appropriate disclaimers for your specific needs. By reading this disclaimer, you agree not to hold us responsible for any confusion, amusement, or bewilderment it may cause. This disclaimer has no legal validity, and any attempt to rely on it for legal, financial, or any other serious matters is ill-advised. Please use disclaimers responsibly and in accordance with applicable laws and regulations.'
+
   ### Show Footer Menu Toggle
   #
   # Environment variable override: PWP__BRAND__SHOW_FOOTER_MENU='true'
@@ -616,29 +632,29 @@ throttling:
   #
   # Default: 5000
   #
-  # Environment Variable Override: PWP__THROTTLING__DAILY='1000'
+  # Environment Variable Override: PWP__THROTTLING__DAILY='5000'
   daily: 5000
 
   # ..maximum number of allowed HTTP requests per hour
   #
-  # Default: 200
+  # Default: 600
   #
-  # Environment Variable Override: PWP__THROTTLING__HOURLY='100'
-  hourly: 200
+  # Environment Variable Override: PWP__THROTTLING__HOURLY='600'
+  hourly: 600
 
   # ..maximum number of allowed HTTP requests per minute
   #
-  # Default: 30
+  # Default: 60
   #
-  # Environment Variable Override: PWP__THROTTLING__MINUTE='30'
-  minute: 30
+  # Environment Variable Override: PWP__THROTTLING__MINUTE='60'
+  minute: 60
 
   # ..maximum number of allowed HTTP requests per second
   #
-  # Default: 3
+  # Default: 20
   #
-  # Environment Variable Override: PWP__THROTTLING__SECOND='2'
-  second: 3
+  # Environment Variable Override: PWP__THROTTLING__SECOND='20'
+  second: 20
 
 
 ### Mail Server Configuration

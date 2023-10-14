@@ -1,21 +1,25 @@
 # Container Release Cheat Sheet
 
-cd pwpush-postgres
+cd pwpush  
+docker build --no-cache -t pglombardo/pwpush:<version> .  
+docker push pglombardo/pwpush:<version>  
+docker tag <tag> pglombardo/pwpush:latest  
+docker push pglombardo/pwpush:latest  
 
-docker build --no-cache -t pglombardo/pwpush-postgres:<version> .
+cd pwpush-postgres  
 
-docker push pglombardo/pwpush-postgres:<version>
+docker build --no-cache -t pglombardo/pwpush-postgres:<version> .  
+docker push pglombardo/pwpush-postgres:<version>  
+docker tag <tag> pglombardo/pwpush-postgres:latest  
+docker push pglombardo/pwpush-postgres:latest  
 
-docker tag <tag> pglombardo/pwpush-postgres:latest
+cd pwpush-ephemeral  
+docker build --no-cache -t pglombardo/pwpush-ephemeral:<version> .  
+docker push pglombardo/pwpush-ephemeral:<version>  
+docker tag <tag> pglombardo/pwpush-ephemeral:latest  
+docker push pglombardo/pwpush-ephemeral:latest  
 
-docker push pglombardo/pwpush-postgres:latest
-
-cd pwpush-ephemeral
-docker build --no-cache -t pglombardo/pwpush-ephemeral:<version> .
-docker push pglombardo/pwpush-ephemeral:<version>
-docker tag <tag> pglombardo/pwpush-ephemeral:latest
-docker push pglombardo/pwpush-ephemeral:latest
-
-docker tag pglombardo/pwpush-ephemeral:1.10.2 pglombardo/pwpush-ephemeral:release
-docker tag pglombardo/pwpush-postgres:1.10.2 pglombardo/pwpush-postgres:release
-docker tag pglombardo/pwpush-mysql:1.10.2 pglombardo/pwpush-mysql:release
+docker tag pglombardo/pwpush:1.10.2 pglombardo/pwpush:release  
+docker tag pglombardo/pwpush-ephemeral:1.10.2 pglombardo/pwpush-ephemeral:release  
+docker tag pglombardo/pwpush-postgres:1.10.2 pglombardo/pwpush-postgres:release  
+docker tag pglombardo/pwpush-mysql:1.10.2 pglombardo/pwpush-mysql:release  
