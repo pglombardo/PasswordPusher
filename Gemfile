@@ -92,7 +92,7 @@ gem 'simple_token_authentication', '~> 1.18', '>= 1.18.0',
     git: 'https://github.com/pglombardo/simple_token_authentication.git', branch: 'rails7-support'
 
 gem 'devise-i18n'
-gem 'i18n-tasks', '~> 1.0.12'
+gem 'i18n-tasks', '~> 1.0.13'
 gem 'rails-i18n', '~> 7.0.8'
 gem 'route_translator', '>= 13.0.0'
 gem 'translation'
