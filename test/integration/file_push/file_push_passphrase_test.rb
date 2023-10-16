@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
@@ -47,21 +49,21 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide the value passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'asdf' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'asdf' }
     assert_response :redirect
     follow_redirect!
     assert_response :success
 
     # We should be on the password#show page now
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text == "Attached Files"
+    assert p_tags[2].text == 'Attached Files'
   end
 
   def test_file_bad_passphrase
@@ -95,12 +97,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide a bad passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'bad-passphrase' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'bad-passphrase' }
     assert_response :redirect
     follow_redirect!
     assert_response :success
@@ -109,10 +111,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     divs = css_select 'div.alert-warning'
     assert divs.first.content.include?('That passphrase is incorrect')
 
-    forms = css_select 'form'
-    assert_select "form input", 1
+    css_select 'form'
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
   end
 
   def test_anonymous_can_access_file_push_passphrase
@@ -151,20 +153,20 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide the value passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'asdf' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'asdf' }
     assert_response :redirect
     follow_redirect!
     assert_response :success
 
     # We should be on the password#show page now
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text == "Attached Files"
+    assert p_tags[2].text == 'Attached Files'
   end
 end

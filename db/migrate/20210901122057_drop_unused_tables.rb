@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DropUnusedTables < ActiveRecord::Migration[6.1]
-  def up 
+  def up
     drop_table :rails_admin_histories
   end
 
@@ -11,9 +13,9 @@ class DropUnusedTables < ActiveRecord::Migration[6.1]
       t.string :username
       t.integer :item
       t.string :table
-      t.integer :month, :limit => 2
-      t.integer :year, :limit => 5
+      t.integer :month, limit: 2
+      t.integer :year, limit: 5
       t.timestamps
-   end
+    end
   end
 end

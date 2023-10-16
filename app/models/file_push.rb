@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class FilePush < ApplicationRecord
   has_many :views, dependent: :destroy
   has_encrypted :payload, :note, :passphrase
-  
+
   has_many_attached :files
 
   belongs_to :user
-  
+
   def to_param
     url_token.to_s
   end
@@ -40,14 +42,14 @@ class FilePush < ApplicationRecord
     self.payload = nil
     self.passphrase = nil
     self.expired_on = Time.now
-    self.files.purge
+    files.purge
     save
   end
 
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
   # and show the clear password
   def to_json(*args)
-  # def to_json(owner: false, payload: false)
+    # def to_json(owner: false, payload: false)
     attr_hash = attributes
 
     owner = false

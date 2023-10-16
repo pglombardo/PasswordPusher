@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UrlCreationTest < ActionDispatch::IntegrationTest
@@ -7,7 +9,7 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
-    
+
     @luca = users(:luca)
     @luca.confirm
     sign_in @luca
@@ -23,18 +25,18 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     input = css_select 'input#url_payload.form-control'
-    
+
     assert input.attribute('spellcheck')
-    assert input.attribute('spellcheck').value == "false"
+    assert input.attribute('spellcheck').value == 'false'
 
     assert input.attribute('autocomplete')
-    assert input.attribute('autocomplete').value == "off"
+    assert input.attribute('autocomplete').value == 'off'
 
     assert input.attribute('autofocus')
-    assert input.attribute('autofocus').value == "autofocus"
+    assert input.attribute('autofocus').value == 'autofocus'
 
     assert input.attribute('required')
-    assert input.attribute('required').value == "required"
+    assert input.attribute('required').value == 'required'
   end
 
   def test_url_creation

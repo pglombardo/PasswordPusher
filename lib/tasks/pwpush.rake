@@ -126,7 +126,7 @@ task generate_robots_txt: :environment do
     end
   end
 
-  File.open('./public/robots.txt', 'w') { |file| file.write(contents) }
+  File.write('./public/robots.txt', contents)
 
   puts ''
   puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
@@ -173,7 +173,7 @@ task update_themes: :environment do
     zephyr
   ]
 
-  for name in themes do
+  themes.each do |name|
     puts "Pulling #{name}...and sleeping 3 seconds..."
     `curl -s -o app/assets/stylesheets/themes/#{name}.css https://raw.githubusercontent.com/thomaspark/bootswatch/v5/dist/#{name}/bootstrap.css`
     # Be nice - don't hammer the server

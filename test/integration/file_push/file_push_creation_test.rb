@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
@@ -23,27 +25,27 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     text_area = css_select 'textarea#file_push_payload.form-control'
-    
+
     assert text_area.attribute('spellcheck')
-    assert text_area.attribute('spellcheck').value == "false"
+    assert text_area.attribute('spellcheck').value == 'false'
 
     assert text_area.attribute('autocomplete')
-    assert text_area.attribute('autocomplete').value == "off"
-    
+    assert text_area.attribute('autocomplete').value == 'off'
+
     file_input = css_select 'input#file_push_files.form-control'
-    
+
     assert file_input.attribute('required')
-    assert file_input.attribute('required').value == "required"
+    assert file_input.attribute('required').value == 'required'
   end
 
   def test_file_push_creation
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -61,7 +63,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
     assert p_tags[2].text == 'Attached Files'
     assert p_tags[3].text.include?('This secret link and all content will be deleted')
@@ -76,10 +78,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'æ ¼ ö ç ý',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -97,11 +99,11 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
     assert p_tags[2].text == 'Attached Files'
     assert p_tags[3].text.include?('This secret link and all content will be deleted')
-    
+
     pre = css_select 'pre'
     assert(pre)
     assert(pre.first.content.include?('æ ¼ ö ç ý'))
@@ -124,9 +126,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     found = Settings.files.enable_deletable_pushes
     deletable_checkbox.each do |item|
-      if item.content.include?('Allow users to delete this push once retrieved.')
-        found = true
-      end
+      found = true if item.content.include?('Allow users to delete this push once retrieved.')
     end
     assert found
 
@@ -146,11 +146,11 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'æ ¼ ö ç ý',
         deletable_by_viewer: true,
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -173,10 +173,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     get new_file_push_path
     assert_response :success
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'æ ¼ ö ç ý',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }

@@ -2,7 +2,7 @@
 
 class Users::ConfirmationsController < Devise::ConfirmationsController
   layout 'login'
-  
+
   # GET /resource/confirmation/new
   # def new
   #   super

@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_textarea_has_safeties
-    get new_password_path 
+    get new_password_path
     assert_response :success
 
     # Validate some elements
     text_area = css_select 'textarea#password_payload.form-control'
 
     assert text_area.attribute('spellcheck')
-    assert text_area.attribute('spellcheck').value == "false"
+    assert text_area.attribute('spellcheck').value == 'false'
 
     assert text_area.attribute('autocomplete')
-    assert text_area.attribute('autocomplete').value == "off"
+    assert text_area.attribute('autocomplete').value == 'off'
 
     assert text_area.attribute('autofocus')
-    assert text_area.attribute('autofocus').value == "autofocus"
+    assert text_area.attribute('autofocus').value == 'autofocus'
 
     assert text_area.attribute('required')
-    assert text_area.attribute('required').value == "required"
+    assert text_area.attribute('required').value == 'required'
   end
 
   def test_password_creation
@@ -39,7 +41,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
     assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
     assert p_tags[2].text.include?('This secret link and all content will be deleted')
 
@@ -67,7 +69,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
     assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
     assert p_tags[2].text.include?('This secret link and all content will be deleted')
 
@@ -95,7 +97,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
     assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
     assert p_tags[2].text.include?('This secret link and all content will be deleted')
 
@@ -117,9 +119,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     found = Settings.pw.enable_deletable_pushes
     deletable_checkbox.each do |item|
-      if item.content.include?('Allow viewers to optionally delete password before expiration')
-        found = true
-      end
+      found = true if item.content.include?('Allow viewers to optionally delete password before expiration')
     end
     assert found
 
@@ -151,7 +151,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
     assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
     assert p_tags[2].text.include?('This secret link and all content will be deleted')
 
@@ -176,7 +176,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
     assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
     assert p_tags[2].text.include?('This secret link and all content will be deleted')
 

@@ -13,15 +13,15 @@ export default class extends Controller {
         if (this.hasPayloadDivTarget) {
             navigator.clipboard.writeText(this.payloadDivTarget.value)
         }
-        
+
         let button = event.target
         if (button.tagName == 'BUTTON') {
             button = button.querySelector('em')
         }
-        
+
         button.classList.remove('bi-clipboard-check')
         button.classList.add('bi-check-lg')
-        
+
         setTimeout(function() {
             button.classList.remove('bi-check-lg')
             button.classList.add('bi-clipboard-check')

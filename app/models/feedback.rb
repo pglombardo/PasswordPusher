@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Feedback < MailForm::Base
   include MailForm::Delivery
   append :remote_ip, :user_agent, :referrer

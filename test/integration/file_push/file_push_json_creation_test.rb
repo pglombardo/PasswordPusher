@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
@@ -11,19 +13,16 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     @luca.confirm
   end
 
-  teardown do
-  end
-
   def test_basic_json_creation
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -49,14 +48,14 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_json_creation_with_uncommon_characters
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: '£¬',
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: '£¬',
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -80,7 +79,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.files.expire_after_views_default, res['expire_after_views']
 
     # Validate payload
-    get "/f/#{res["url_token"]}.json", as: :json
+    get "/f/#{res['url_token']}.json", as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -90,15 +89,15 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_deletable_by_viewer
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        deletable_by_viewer: 'true',
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              deletable_by_viewer: 'true',
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -108,15 +107,15 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_not_deletable_by_viewer
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        deletable_by_viewer: 'false',
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              deletable_by_viewer: 'false',
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -126,14 +125,14 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_deletable_by_viewer_absent_is_default
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -143,15 +142,15 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_custom_days_expiration
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        expire_after_days: 1,
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              expire_after_days: 1,
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -165,15 +164,15 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_custom_views_expiration
     post file_pushes_path(format: :json), params: {
-      file_push: {
-        payload: 'Message',
-        expire_after_views: 5,
-        files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
-        ]
-      }
-    },
-    headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+                                            file_push: {
+                                              payload: 'Message',
+                                              expire_after_views: 5,
+                                              files: [
+                                                fixture_file_upload('monkey.png', 'image/jpeg')
+                                              ]
+                                            }
+                                          },
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -186,7 +185,8 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_bad_request
-    post file_pushes_path(format: :json), params: {}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+    post file_pushes_path(format: :json), params: {},
+                                          headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :unprocessable_entity
 
     res = JSON.parse(@response.body)

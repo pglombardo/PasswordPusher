@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApiController < ApplicationController
   def create
     # Required Parameters
@@ -7,24 +9,18 @@ class ApiController < ApplicationController
     # Optional 1 time parameters
     #   expire_days=number
     #   expire_views=number
-    
-    unless params.has_key?(:api_key)
-      respond_to do |format|
-          format.text { render :text => "Please provide your API key available at https://pwpush.com/api" }
-      end
-      return
+
+    return if params.key?(:api_key)
+
+    respond_to do |format|
+      format.text { render text: 'Please provide your API key available at https://pwpush.com/api' }
     end
-    
-    
+    nil
   end
 
-  def generate
-  end
+  def generate; end
 
-  def list
-  end
+  def list; end
 
-  def config
-  end
-
+  def config; end
 end

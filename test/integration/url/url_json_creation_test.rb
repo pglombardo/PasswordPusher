@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UrlJsonCreationTest < ActionDispatch::IntegrationTest
@@ -10,9 +12,6 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
 
     @luca = users(:luca)
     @luca.confirm
-  end
-
-  teardown do
   end
 
   def test_basic_json_creation
@@ -66,10 +65,11 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_bad_request
-    post urls_path(format: :json), params: {}, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
+    post urls_path(format: :json), params: {},
+                                   headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :unprocessable_entity
 
     res = JSON.parse(@response.body)
-    assert_equal "No URL or note provided.", res["error"]
+    assert_equal 'No URL or note provided.', res['error']
   end
 end

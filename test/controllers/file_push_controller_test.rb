@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
-   
+
   setup do
     Settings.enable_logins = true
     Settings.enable_file_pushes = true
@@ -82,5 +84,4 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     get expired_file_pushes_path, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
   end
-
 end

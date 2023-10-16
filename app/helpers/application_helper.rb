@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   # Set the HTML title for the page with a trailing site identifier.
   def title(content)
@@ -22,11 +24,12 @@ module ApplicationHelper
 
     if Settings.override_base_url
       raw_url = I18n.with_locale(push_locale) do
-        if (password.is_a?(Password))
+        case password
+        when Password
           Settings.override_base_url + password_path(password)
-        elsif password.is_a?(Url)
+        when Url
           Settings.override_base_url + url_path(password)
-        elsif password.is_a?(FilePush)
+        when FilePush
           Settings.override_base_url + file_push_path(password)
         else
           raise "Unknown push type: #{password.class}"
@@ -34,11 +37,12 @@ module ApplicationHelper
       end
     else
       raw_url = I18n.with_locale(push_locale) do
-        if (password.is_a?(Password))
+        case password
+        when Password
           password_url(password)
-        elsif password.is_a?(Url)
+        when Url
           url_url(password)
-        elsif password.is_a?(FilePush)
+        when FilePush
           file_push_url(password)
         else
           raise "Unknown push type: #{password.class}"

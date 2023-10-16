@@ -69,7 +69,7 @@ export default class extends Controller {
             minSyllableLength: this.minSyllableLengthDefaultValue,
             syllablesCount:    this.syllablesCountDefaultValue,
         };
-        
+
         this.config = Object.assign({}, this.config_defaults);
 
         if (typeof Cookies.get('pwgen_hasNumbers') == 'string') {
@@ -161,7 +161,7 @@ export default class extends Controller {
             this.config.separators = ''
         }
         this.payloadInputTarget.value = generatePassword(this.config)
-        
+
         if (this.gaEnabledValue) {
             gtag('event', 'generate_password',
                     { 'event_category' : 'engagement',

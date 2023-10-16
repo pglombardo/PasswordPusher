@@ -48,4 +48,3 @@ kubectl apply -f containers/kubernetes/persistent_deploy.yaml
 kubectl apply -f containers/kubernetes/service.yaml
 kubectl apply -f containers/kubernetes/ingress.yaml
 ```
-
