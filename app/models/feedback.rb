@@ -10,7 +10,7 @@ class Feedback < MailForm::Base
   attribute :control,   validate: /\A97\z/
   attributes :nickname, captcha: true
 
-  validates :message,   format: { without: /\b(SEO|offer|ranking)\b+/i,
+  validates :message,   format: { without: /\b(SEO|offer|ranking|transformative|engagement|click here)\b+/i,
                                   message: 'spam detected' }
 
   # Declare the e-mail headers. It accepts anything the mail method
