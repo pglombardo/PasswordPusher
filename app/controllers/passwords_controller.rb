@@ -313,6 +313,7 @@ class PasswordsController < ApplicationController
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
+      format.html {}
       format.json do
         render json: { views: @push.views }.to_json(except: %i[user_id password_id id])
       end
@@ -393,6 +394,7 @@ class PasswordsController < ApplicationController
                       .order(created_at: :desc)
 
     respond_to do |format|
+      format.html {}
       format.json do
         json_parts = []
         @pushes.each do |push|
@@ -419,6 +421,7 @@ class PasswordsController < ApplicationController
                       .order(created_at: :desc)
 
     respond_to do |format|
+      format.html {}
       format.json do
         json_parts = []
         @pushes.each do |push|
