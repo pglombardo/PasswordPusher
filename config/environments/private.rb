@@ -1,4 +1,6 @@
-require "active_support/core_ext/integer/time"
+# frozen_string_literal: true
+
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.cache_classes = true
@@ -20,11 +22,11 @@ Rails.application.configure do
   config.assets.compile = false
   config.active_storage.service = Settings.files.storage
 
-  config.force_ssl = ENV.key?('FORCE_SSL') ? true : false
+  config.force_ssl = ENV.key?('FORCE_SSL')
 
-  config.logger = Logger.new(STDOUT) if Settings.log_to_stdout
+  config.logger = Logger.new($stdout) if Settings.log_to_stdout
   config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   if Settings.mail
     config.action_mailer.perform_caching = false
@@ -46,9 +48,7 @@ Rails.application.configure do
       read_timeout: Settings.mail.smtp_read_timeout
     }
 
-    if Settings.mail.smtp_domain
-      config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain
-    end
+    config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain if Settings.mail.smtp_domain
 
     if Settings.mail.smtp_openssl_verify_mode
       config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
@@ -61,10 +61,10 @@ Rails.application.configure do
 
   config.i18n.fallbacks = true
   config.active_support.report_deprecations = false
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
-    logger           = ActiveSupport::Logger.new(STDOUT)
+  if ENV['RAILS_LOG_TO_STDOUT'].present? || Settings.log_to_stdout
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -76,9 +76,9 @@ Rails.application.configure do
     if Settings.allowed_hosts.is_a?(Array)
       config.hosts.concat(Settings.allowed_hosts)
     elsif Settings.allowed_hosts.is_a?(String)
-      config.hosts.concat Settings.allowed_hosts.split(" ")
+      config.hosts.concat Settings.allowed_hosts.split
     else
-      raise "Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string"
+      raise 'Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string'
     end
   end
 end

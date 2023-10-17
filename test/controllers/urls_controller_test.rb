@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UrlControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
-   
+
   setup do
     Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
   end
-  
+
   teardown do
     @luca = users(:luca)
     sign_out @luca
@@ -82,5 +84,4 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     get expired_urls_path, headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
     assert_response :success
   end
-
 end

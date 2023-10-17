@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UrlPassphraseTest < ActionDispatch::IntegrationTest
@@ -41,17 +43,17 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide a valid passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'asdf' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'asdf' }
     assert_response :redirect
     follow_redirect!
 
     assert_response :see_other
-    assert_equal "https://pwpush.com", response.headers["Location"]
+    assert_equal 'https://pwpush.com', response.headers['Location']
   end
 
   def test_url_bad_passphrase
@@ -78,12 +80,12 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide a bad passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'bad-passphrase' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'bad-passphrase' }
     assert_response :redirect
     follow_redirect!
     assert_response :success
@@ -92,10 +94,9 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     divs = css_select 'div.alert-warning'
     assert divs.first.content.include?('That passphrase is incorrect')
 
-    forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
   end
 
   def test_anonymous_can_access_url_passphrase
@@ -125,17 +126,16 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
 
     # Validate passphrase form
     forms = css_select 'form'
-    assert_select "form input", 1
+    assert_select 'form input', 1
     input = css_select 'input#passphrase.form-control'
-    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+    assert_equal input.first.attributes['placeholder'].value, 'Enter the secret passphrase provided with this URL'
 
     # Provide a valid passphrase
-    post forms.first.attributes["action"].value, params: { passphrase: 'asdf' }
+    post forms.first.attributes['action'].value, params: { passphrase: 'asdf' }
     assert_response :redirect
     follow_redirect!
 
     assert_response :see_other
-    assert_equal "https://pwpush.com", response.headers["Location"]
+    assert_equal 'https://pwpush.com', response.headers['Location']
   end
-
 end

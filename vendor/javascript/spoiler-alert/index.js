@@ -1,7 +1,7 @@
 // Taken from the spoiler-alert project at https://github.com/joshbuddy/spoiler-alert
 // The node module is not maintained and the npm package is not updated (>7 years as of Jan. 2023).
 // Copied and modified here to be compatible with import maps.
-// 
+//
 // I may make new NPM package out of this someday.
 //
 // Copyright 2013 jQuery Foundation and other contributors

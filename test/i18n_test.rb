@@ -16,7 +16,7 @@ class I18nTest < ActiveSupport::TestCase
 
   def test_no_unused_keys
     # Disabled: route_translator keys are incorrectly showing up as unused
-    #assert_empty @unused_keys,
+    # assert_empty @unused_keys,
     #             "#{@unused_keys.leaves.count} unused i18n keys, run `i18n-tasks unused' to show them"
   end
 

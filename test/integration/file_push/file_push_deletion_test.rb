@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
@@ -89,5 +91,4 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     assert_select 'p', 'We apologize but this secret link has expired.'
   end
-
 end

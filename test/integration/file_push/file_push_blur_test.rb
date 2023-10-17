@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushBlurTest < ActionDispatch::IntegrationTest
@@ -20,10 +22,10 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   end
 
   def test_blur_enabled
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -41,16 +43,16 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
 
     # Validate that blur is enabled
     tags = assert_select '#push_payload'
-    assert tags.first.attr("class").include?("spoiler")
+    assert tags.first.attr('class').include?('spoiler')
   end
-  
+
   def test_blur_when_disabled
     Settings.files.enable_blur = false
 
-    post file_pushes_path, params: { 
-      file_push: { 
+    post file_pushes_path, params: {
+      file_push: {
         payload: 'Message',
-        files: [ 
+        files: [
           fixture_file_upload('monkey.png', 'image/jpeg')
         ]
       }
@@ -68,6 +70,6 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
 
     # Validate that blur is enabled
     tags = assert_select '#push_payload'
-    assert !tags.first.attr("class").include?("spoiler")
+    assert !tags.first.attr('class').include?('spoiler')
   end
 end

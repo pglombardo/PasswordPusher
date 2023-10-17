@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
@@ -7,9 +9,6 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
-  end
-
-  teardown do
   end
 
   def test_password_not_found

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNoteCiphertextToPassword < ActiveRecord::Migration[6.1]
   def change
     # Column for new lockbox encryption

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
@@ -21,7 +23,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert response.body.include?('Please login to use this feature.')
   end
-  
+
   def test_anonymous_enabled_signups_with_signup_link
     get new_url_path
     assert_response :success
@@ -35,10 +37,10 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get expired_urls_path
     assert_response :redirect
 
-    post urls_path, params: { :blah => 'blah' }
+    post urls_path, params: { blah: 'blah' }
     assert_response :redirect
 
     get new_url_path
-    assert_response :success 
+    assert_response :success
   end
 end

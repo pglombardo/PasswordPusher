@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Password < ApplicationRecord
   has_many :views, dependent: :destroy
   has_encrypted :payload, :note, :passphrase
 
   belongs_to :user, optional: true
-  
+
   def to_param
     url_token.to_s
   end
@@ -44,7 +46,7 @@ class Password < ApplicationRecord
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
   # and show the clear password
   def to_json(*args)
-  # def to_json(owner: false, payload: false)
+    # def to_json(owner: false, payload: false)
     attr_hash = attributes
 
     owner = false

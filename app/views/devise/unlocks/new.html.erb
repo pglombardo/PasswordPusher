@@ -1,14 +1,14 @@
 <% title(I18n.t('devise.unlocks.unlock_title')) %>
 <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  
+
   <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.unlocks.unlock_header') %></p>
 
   <div class="form-floating">
     <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", required: true %>
     <%= f.label I18n.t('devise.general.email'), for: :email %>
   </div>
-  
+
   <div class="form-floating">
     <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.unlocks.unlock_button') %></button>
   </div>

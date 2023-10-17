@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangePasswordPayloadToText < ActiveRecord::Migration[6.1]
   def change
     # https://sqlines.com/postgresql/datatypes/text

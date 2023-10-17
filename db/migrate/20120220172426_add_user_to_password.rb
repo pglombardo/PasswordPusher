@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserToPassword < ActiveRecord::Migration[4.2]
   def self.up
     add_column :passwords, :user_id, :integer

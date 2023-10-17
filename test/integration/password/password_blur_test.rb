@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordBlurTest < ActionDispatch::IntegrationTest
@@ -26,9 +28,9 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
 
     # Validate that blur is enabled
     tags = assert_select '#push_payload'
-    assert tags.first.attr("class").include?("spoiler")
+    assert tags.first.attr('class').include?('spoiler')
   end
-  
+
   def test_blur_when_disabled
     Settings.pw.enable_blur = false
 
@@ -46,6 +48,6 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
 
     # Validate that blur is enabled
     tags = assert_select '#push_payload'
-    assert !tags.first.attr("class").include?("spoiler")
+    assert !tags.first.attr('class').include?('spoiler')
   end
 end

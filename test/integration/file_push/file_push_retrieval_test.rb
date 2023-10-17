@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
@@ -46,7 +48,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     # Validate some elements
     p_tags = assert_select 'p'
-    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
     assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
     assert p_tags[2].text == 'Attached Files'
     assert p_tags[3].text.include?('This secret link and all content will be deleted')
@@ -57,12 +59,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert(download_link.first.content.include?('monkey.png'))
 
     # Is Preliminary page accessible anonymously?
-    get request.url + '/r'
+    get "#{request.url}/r"
     assert_response :success
 
     links = css_select 'a'
     assert(links)
     assert_equal 1, links.length
-    assert_equal "Click Here to Proceed", links.first.content
+    assert_equal 'Click Here to Proceed', links.first.content
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixPassphraseDefault < ActiveRecord::Migration[7.0]
   def change
     begin
@@ -9,7 +11,7 @@ class FixPassphraseDefault < ActiveRecord::Migration[7.0]
       # This will fail because of the problems in the previous migration re: MySQL
       # Failure here is okay
       Rails.logger.warn("Failed to set null values for passphrase_ciphertext: #{e}")
-      Rails.logger.warn("This is expected if you are using MySQL")
+      Rails.logger.warn('This is expected if you are using MySQL')
     end
 
     begin
@@ -21,7 +23,7 @@ class FixPassphraseDefault < ActiveRecord::Migration[7.0]
       # This will fail because of the problems in the previous migration re: MySQL
       # Failure here is okay
       Rails.logger.warn("Failed to remove default values for passphrase_ciphertext: #{e}")
-      Rails.logger.warn("This is expected if you are using MySQL")
+      Rails.logger.warn('This is expected if you are using MySQL')
     end
   end
 end

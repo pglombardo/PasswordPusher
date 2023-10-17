@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
@@ -51,7 +53,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.pw.expire_after_views_default, res['expire_after_views']
 
     # Validate payload
-    get "/p/#{res["url_token"]}.json"
+    get "/p/#{res['url_token']}.json"
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -117,6 +119,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
 
     res = JSON.parse(@response.body)
-    assert res == { "error" => "Payload length must be between 1 and 1_048_576." }
+    assert res == { 'error' => 'Payload length must be between 1 and 1_048_576.' }
   end
 end

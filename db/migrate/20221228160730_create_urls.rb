@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUrls < ActiveRecord::Migration[7.0]
   def change
     create_table :urls do |t|
@@ -13,8 +15,8 @@ class CreateUrls < ActiveRecord::Migration[7.0]
       t.text :payload_ciphertext, :text, limit: 2.megabytes
       t.text :note_ciphertext
 
-      t.index [ :url_token ], unique: true
-      t.index [ :user_id ]
+      t.index [:url_token], unique: true
+      t.index [:user_id]
       t.timestamps
     end
   end

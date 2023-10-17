@@ -66,7 +66,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
 
-  # 'buildObsolete'-job can be completly removed after dropping support 
+  # 'buildObsolete'-job can be completly removed after dropping support
   # for old docker images.
   buildObsolete:
     needs: build

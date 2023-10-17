@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddConfirmableToDevise < ActiveRecord::Migration[6.1]
   # From: https://github.com/heartcombo/devise/wiki/How-To:-Add-:confirmable-to-Users
   # NOTE: You can't use change, as User.update_all will fail in the down migration

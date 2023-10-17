@@ -7,4 +7,3 @@ class UpdateUsers < ActiveRecord::Migration[6.1]
     User.all.destroy_all
   end
 end
-
