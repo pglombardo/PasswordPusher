@@ -52,8 +52,10 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
-    assert_response :see_other
-    assert_equal 'https://pwpush.com', response.headers['Location']
+    # Temporary Fix: Post passphrase validation, we redirect
+    # to the preliminary_url_path.  This is done
+    # to avoid a CORS issue with the redirect.
+    assert_response :success
   end
 
   def test_url_bad_passphrase
@@ -135,7 +137,9 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
-    assert_response :see_other
-    assert_equal 'https://pwpush.com', response.headers['Location']
+    # Temporary Fix: Post passphrase validation, we redirect
+    # to the preliminary_url_path.  This is done
+    # to avoid a CORS issue with the redirect.
+    assert_response :success
   end
 end
