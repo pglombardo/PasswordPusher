@@ -10,8 +10,10 @@ class Feedback < MailForm::Base
   attribute :control,   validate: /\A97\z/
   attributes :nickname, captcha: true
 
-  validates :message,   format: { without: /\b(SEO|offer|ranking|transformative|engagement|click here)\b+/i,
+  # rubocop:disable Layout/LineLength
+  validates :message,   format: { without: /\b(SEO|offer|ranking|rankings|transformative|engagement|click here|absolutely free)\b+/i,
                                   message: 'spam detected' }
+  # rubocop:enable Layout/LineLength
 
   # Declare the e-mail headers. It accepts anything the mail method
   # in ActionMailer accepts.
