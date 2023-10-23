@@ -28,6 +28,9 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
+          # Need this output
+          ct list-changed --target-branch ${{ github.event.repository.default_branch }}
+
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
             echo "This shoudl echo"
