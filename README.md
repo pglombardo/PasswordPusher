@@ -1,6 +1,6 @@
 <div align="center">
 
-![Password Pusher Front Page](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png)
+[![Password Pusher Front Page](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png)](https://pwpush.com/)
 
 __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
@@ -46,7 +46,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 
 💌 --> Sign up for [the newsletter](https://buttondown.email/pwpush?tag=github) to get updates on big releases, security issues, new features, integrations, tips and more.
 
-Password Pusher is also on [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) and [on Facebook](https://www.facebook.com/pwpush)
+Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) and [on Facebook](https://www.facebook.com/pwpush)
 
 -----
 
@@ -324,9 +324,9 @@ Thanks to:
 
 # 🛡 License
 
-[![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/master/LICENSE)
 
-This project is licensed under the terms of the `Apache License 2.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE) for more details.
+This project is licensed under the terms of the `Apache License 2.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/master/LICENSE) for more details.
 
 # 📃 Citation
 
