@@ -462,6 +462,15 @@ files:
     credentials: ''
     # Environment Variable Override: PWP__FILES__GCS__BUCKET=''
     bucket: ''
+    #
+    # Optionally use IAM instead of the credentials when signing URLs.
+    # This is useful if you are authenticating your GKE applications with Workload Identity,
+    # See here: https://edgeguides.rubyonrails.org/active_storage_overview.html#google-cloud-storage-service
+    #
+    # Environment Variable Override: PWP__FILES__GCS__IAM=true
+    iam: false
+    # Environment Variable Override: PWP__FILES__GCS__GSA_EMAIL='email@domain.com'
+    gsa_email: null
 
   # Microsoft Azure Storage Credentials
   as:
