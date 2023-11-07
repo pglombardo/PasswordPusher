@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/PerceivedComplexity
@@ -16,7 +16,8 @@ def load_legacy_environment_variables
     next if Settings.send(option).nil?
 
     Rails.logger.warn("The setting (#{option}) has been moved to the 'pw' section of the settings.yml file.\n" \
-                      "Please update your settings.yml file or if using environment variables, change the variable name 'PWP__#{option.to_s.upcase}' to 'PWP__PW__#{option.to_s.upcase}'.\n")
+                      "Please update your settings.yml file or if using environment variables, change the\n" \
+                      "variable name 'PWP__#{option.to_s.upcase}' to 'PWP__PW__#{option.to_s.upcase}'.\n")
     Settings.pw.__send__("#{option}=", Settings.send(option))
     deprecations_detected = true
   end
@@ -139,7 +140,7 @@ Settings.prepend_source!("#{Rails.root}/config/settings-defaults.yml")
 Settings.reload!
 load_legacy_environment_variables
 
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity

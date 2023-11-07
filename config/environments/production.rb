@@ -6,7 +6,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  config.enable_reloading = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -18,19 +18,14 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
-  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
+  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
+  # Enable static file serving from the `/public` folder (turn off if using NGINX/Apache for it).
   # config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
-  if Settings.throttling
-    config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
-    config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
-    config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
-    config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
-  end
-
+  # Compress CSS using a preprocessor.
   config.assets.css_compressor = :sass
   config.assets.js_compressor = :terser
 
@@ -52,14 +47,28 @@ Rails.application.configure do
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
+  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
+  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
+  # config.assume_ssl = true
+
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = ENV.key?('FORCE_SSL')
 
-  config.logger = Logger.new($stdout) if Settings.log_to_stdout
+  # Log to STDOUT by default
+  config.logger = ActiveSupport::Logger.new($stdout)
+                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
+                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
+  # config.logger = Logger.new($stdout) if Settings.log_to_stdout
   config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
+
+  # Info include generic and useful information about system operation, but avoids logging too much
+  # information to avoid inadvertent exposure of personally identifiable information (PII). If you
+  # want to log everything, set the level to "debug".
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -67,6 +76,30 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "password_pusher_production"
+
+  config.action_mailer.perform_caching = false
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # config.action_mailer.raise_delivery_errors = false
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
+
+  # Don't log any deprecations.
+  config.active_support.report_deprecations = false
+
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+
+  # Enable DNS rebinding protection and other `Host` header attacks.
+  # config.hosts = [
+  #   "example.com",     # Allow requests from example.com
+  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+  # ]
+  # Skip DNS rebinding protection for the default health check endpoint.
+  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   if Settings.mail
     config.action_mailer.perform_caching = false
@@ -100,24 +133,11 @@ Rails.application.configure do
     end
   end
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
-
-  # Don't log any deprecations.
-  config.active_support.report_deprecations = false
-
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = Logger::Formatter.new
-
   if ENV['RAILS_LOG_TO_STDOUT'].present? || Settings.log_to_stdout
     logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
-
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
 
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
   if Settings.allowed_hosts.present?
@@ -128,5 +148,12 @@ Rails.application.configure do
     else
       raise 'Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string'
     end
+  end
+
+  if Settings.throttling
+    config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
+    config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
+    config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
+    config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
   end
 end
