@@ -553,6 +553,17 @@ To resolve this, make sure your proxy properly forwards the `X-Forwarded-Host`, 
 
 The values in these headers represent the front end request.  When these headers are sent, Password Pusher can then build the correct URLs.
 
+## Nginx Example
+
+As an example, for nginx, the addition could be:
+
+```nginx
+proxy_set_header  X-Forwarded-Port $server_port;
+proxy_set_header  X-Forwarded-Host $host;
+proxy_set_header  X-Forwarded-Proto $scheme;
+proxy_set_header  X-Forwarded-Ssl on;
+```
+
 If you are unable to have these headers passed to the application for any reason, you could instead force an override of the base URL using the `PWP__OVERRIDE_BASE_URL` environment variable.
 
 | Environment Variable | Description | Example Value |
