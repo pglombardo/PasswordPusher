@@ -67,6 +67,7 @@ zh-CN:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: 千
@@ -116,6 +117,7 @@ zh-CN:
       not_saved:
         one: 发生 1 个错误，导致%{resource}保存失败：
         other: 发生 %{count} 个错误，导致%{resource}保存失败：
+      password_too_long: 太长
     unavailable_session: 会话 %{id} 在内存中不再可用。如果您碰巧在多进程服务器（如 Unicorn 或 Puma）上运行，则此请求命中的进程不会将
       %{id} 存储在内存中。考虑将进程/worker进程的数量变成一 (1) 个或在开发中使用不同的服务器。
     unacceptable_request: Accept 标头中应包含受支持的版本号。
@@ -504,6 +506,7 @@ zh-CN:
         no_api_key: 通过 DEEPL_AUTH_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.deepl_api_key
           设置 DeepL Pro API 密钥。在 https://www.deepl.com/pro 获取密钥。
         no_results: DeepL 没有返回任何结果。
+        specific_target_missing: 您必须为给定的目标语言提供特定的变体，例如 en-us 而不是 en。
     google_translate:
       errors:
         no_api_key: 通过 GOOGLE_TRANSLATE_API_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.google_translate_api_key
@@ -533,6 +536,11 @@ zh-CN:
         no_api_key: 通过 YANDEX_API_KEY 环境变量或 config/i18n-tasks.yml 中的 translation.yandex_api_key
           设置 Yandex API 密钥。在 https://tech.yandex.com/translate 获取密钥。
         no_results: Yandex 没有返回任何结果。
+    openai_translate:
+      errors:
+        no_api_key: 通过 OPENAI_API_KEY 环境变量或 config/i18n-tasks.yml 中的 Translation.openai_api_key
+          设置 OpenAI API 密钥。从 https://openai.com/ 获取密钥。
+        no_results: OpenAI 未返回任何结果。
   routes:
     users: 用户
     passwords: 密码

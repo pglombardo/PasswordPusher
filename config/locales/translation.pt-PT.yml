@@ -67,6 +67,7 @@ pt-PT:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: Mil
@@ -117,6 +118,7 @@ pt-PT:
       not_saved:
         one: '1 erro impediu este %{resource} de ser gravado:'
         other: "%{count} erros impediram %{resource} de ser gravado:"
+      password_too_long: é muito longo
     unavailable_session: "A sessão %{id} não está mais disponível na memória. \n\nSe
       estive a executar num servidor multi-processo (como Unicorn ou Puma), o processo
       que este pedido atingiu não armazena %{id} na memória. Considere alterar o número
@@ -549,6 +551,8 @@ pt-PT:
           ambiente DEEPL_AUTH_KEY ou translation.deepl_api_key em config/i18n-tasks.yml.
           Obtenha a chave em https://www.deepl.com/pro.
         no_results: O DeepL não retornou nenhum resultado.
+        specific_target_missing: Você deve fornecer uma variante específica para o
+          idioma de destino específico, por exemplo, en-us em vez de en.
     google_translate:
       errors:
         no_api_key: Defina a chave de API do Google por meio da variável de ambiente
@@ -581,6 +585,12 @@ pt-PT:
           YANDEX_API_KEY ou translation.yandex_api_key em config/i18n-tasks.yml. Obtenha
           a chave em https://tech.yandex.com/translate.
         no_results: Yandex não retornou nenhum resultado.
+    openai_translate:
+      errors:
+        no_api_key: Defina a chave de API OpenAI por meio da variável de ambiente
+          OPENAI_API_KEY ou translation.openai_api_key em config/i18n-tasks.yml. Obtenha
+          a chave em https://openai.com/.
+        no_results: OpenAI não retornou resultados.
   routes:
     users: Usuários
     passwords: senhas

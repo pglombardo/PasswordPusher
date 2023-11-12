@@ -67,6 +67,7 @@ th:
           tb: เทระไบต์
           pb: พี.บี
           eb: อีบี
+          zb: ซีบี
       decimal_units:
         units:
           thousand: พัน
@@ -116,6 +117,7 @@ th:
       not_saved:
         one: '1 ข้อผิดพลาดห้าม %{resource} นี้ไม่ให้ถูกบันทึก:'
         other: 'ข้อผิดพลาด %{count} ทำให้ไม่สามารถบันทึก %{resource} นี้ได้:'
+      password_too_long: ยาวเกินไป
     unavailable_session: เซสชัน %{id} ไม่สามารถใช้งานได้ในหน่วยความจำอีกต่อไป หากคุณบังเอิญทำงานบนเซิร์ฟเวอร์แบบหลายกระบวนการ
       (เช่น Unicorn หรือ Puma) กระบวนการที่ร้องขอนี้จะไม่เก็บ %{id} ไว้ในหน่วยความจำ
       พิจารณาเปลี่ยนจำนวนกระบวนการ/ผู้ปฏิบัติงานเป็นหนึ่ง (1) หรือใช้เซิร์ฟเวอร์อื่นในการพัฒนา
@@ -514,6 +516,8 @@ th:
         no_api_key: ตั้งค่าคีย์ DeepL Pro API ผ่านตัวแปรสภาพแวดล้อม DEEPL_AUTH_KEY
           หรือ translate.deepl_api_key ใน config/i18n-tasks.yml รับรหัสที่ https://www.deepl.com/pro
         no_results: DeepL ไม่แสดงผลลัพธ์
+        specific_target_missing: คุณต้องระบุรูปแบบเฉพาะสำหรับภาษาเป้าหมายที่กำหนด
+          เช่น en-us แทนที่จะเป็น en
     google_translate:
       errors:
         no_api_key: ตั้งค่าคีย์ Google API ผ่านตัวแปรสภาพแวดล้อม GOOGLE_TRANSLATE_API_KEY
@@ -545,6 +549,11 @@ th:
         no_api_key: ตั้งค่าคีย์ Yandex API ผ่านตัวแปรสภาพแวดล้อม YANDEX_API_KEY หรือ
           translate.yandex_api_key ใน config/i18n-tasks.yml รับรหัสที่ https://tech.yandex.com/translate
         no_results: ยานเดกซ์ไม่แสดงผลลัพธ์
+    openai_translate:
+      errors:
+        no_api_key: ตั้งค่าคีย์ OpenAI API ผ่านตัวแปรสภาพแวดล้อม OPENAI_API_KEY หรือ
+          Translation.openai_api_key ใน config/i18n-tasks.yml รับกุญแจได้ที่ https://openai.com/
+        no_results: OpenAI ไม่ส่งคืนผลลัพธ์
   routes:
     users: ผู้ใช้
     passwords: รหัสผ่าน

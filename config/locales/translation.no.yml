@@ -67,6 +67,7 @@
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: Tusen
@@ -117,6 +118,7 @@
         one: 'Én feil gjorde at %{resource} ikke kunne lagres:'
         other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
       in: må være i %{count}
+      password_too_long: er for lang
     unavailable_session: Sesjon %{id} er ikke lenger tilgjengelig i minnet. Hvis du
       tilfeldigvis kjører på en multiprosessserver (som Unicorn eller Puma), lagrer
       ikke prosessen denne forespørselen %{id} i minnet. Vurder å gjøre om antallet
@@ -545,6 +547,8 @@
           eller translation.deepl_api_key i config/i18n-tasks.yml. Få nøkkelen på
           https://www.deepl.com/pro.
         no_results: DeepL ga ingen resultater.
+        specific_target_missing: Du må oppgi en spesifikk variant for det gitte målspråket,
+          f.eks. en-us i stedet for en.
     google_translate:
       errors:
         no_api_key: Angi Google API-nøkkel via GOOGLE_TRANSLATE_API_KEY miljøvariabel
@@ -576,6 +580,11 @@
         no_api_key: Angi Yandex API-nøkkel via YANDEX_API_KEY miljøvariabel eller
           translation.yandex_api_key i config/i18n-tasks.yml. Få nøkkelen på https://tech.yandex.com/translate.
         no_results: Yandex ga ingen resultater.
+    openai_translate:
+      errors:
+        no_api_key: Angi OpenAI API-nøkkel via OPENAI_API_KEY miljøvariabel eller
+          translation.openai_api_key i config/i18n-tasks.yml. Få nøkkelen på https://openai.com/.
+        no_results: OpenAI ga ingen resultater.
   routes:
     users: brukere
     passwords: passord

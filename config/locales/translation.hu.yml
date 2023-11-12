@@ -67,6 +67,7 @@ hu:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: ezer
@@ -117,6 +118,7 @@ hu:
         one: '1 hiba miatt %{resource} mentése nem lehetséges:'
         other: "%{count} hiba miatt %{resource} mentése nem lehetséges:"
       in: kell lennie %{count}
+      password_too_long: túl hosszú
     unavailable_session: Az %{id} munkamenet már nem érhető el a memóriában. Ha történetesen
       többfolyamatos szerveren fut (mint például az Unicorn vagy a Puma), a kérés
       lekérése nem tárolja az %{id} értéket a memóriában. Fontolja meg a folyamatok/munkavállalók
@@ -549,6 +551,8 @@ hu:
           változóval vagy a translation.deepl_api_key-vel a config/i18n-tasks.yml
           fájlban. Szerezze meg a kulcsot a https://www.deepl.com/pro címen.
         no_results: A DeepL nem adott eredményt.
+        specific_target_missing: Meg kell adnia egy konkrét változatot az adott célnyelvhez,
+          pl. en-us helyett en.
     google_translate:
       errors:
         no_api_key: Állítsa be a Google API-kulcsot a GOOGLE_TRANSLATE_API_KEY környezeti
@@ -583,6 +587,12 @@ hu:
           vagy a translation.yandex_api_key-vel a config/i18n-tasks.yml fájlban. Szerezze
           meg a kulcsot a https://tech.yandex.com/translate címen.
         no_results: A Yandex nem adott eredményt.
+    openai_translate:
+      errors:
+        no_api_key: Állítsa be az OpenAI API-kulcsot az OPENAI_API_KEY környezeti
+          változóval vagy a translation.openai_api_key-vel a config/i18n-tasks.yml
+          fájlban. Szerezze meg a kulcsot a https://openai.com/ oldalon.
+        no_results: Az OpenAI nem adott eredményt.
   routes:
     users: felhasználókat
     passwords: jelszavakat

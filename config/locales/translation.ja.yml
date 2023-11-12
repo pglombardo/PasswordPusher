@@ -67,6 +67,7 @@ ja:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: 千
@@ -116,6 +117,7 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+      password_too_long: 長すぎます
     unavailable_session: セッション %{id} はメモリ内で使用できなくなりました。マルチプロセス サーバー (Unicorn や Puma
       など) で実行した場合、このリクエストにヒットしたプロセスは %{id} をメモリに格納しません。プロセス/ワーカーの数を 1 つにするか、開発で別のサーバーを使用することを検討してください。
     unacceptable_request: Accept ヘッダーには、サポートされているバージョンが含まれている必要があります。
@@ -505,6 +507,8 @@ ja:
         no_api_key: config/i18n-tasks.ymlのDEEPL_AUTH_KEY環境変数またはtranslation.deepl_api_keyを介してDeepLProAPIキーを設定します。
           https://www.deepl.com/proでキーを取得します。
         no_results: DeepLは結果を返しませんでした。
+        specific_target_missing: '指定されたターゲット言語に対して特定のバリアントを指定する必要があります (例: en の代わりに
+          en-us)。'
     google_translate:
       errors:
         no_api_key: GOOGLE_TRANSLATE_API_KEY 環境変数または config/i18n-tasks.yml の translation.google_translate_api_key
@@ -535,6 +539,11 @@ ja:
         no_api_key: YANDEX_API_KEY 環境変数または config/i18n-tasks.yml の translation.yandex_api_key
           を介して Yandex API キーを設定します。 https://tech.yandex.com/translate でキーを取得します。
         no_results: Yandex は結果を返しませんでした。
+    openai_translate:
+      errors:
+        no_api_key: OPENAI_API_KEY 環境変数または config/i18n-tasks.yml の translation.openai_api_key
+          を介して OpenAI API キーを設定します。 https://openai.com/ でキーを取得します。
+        no_results: OpenAI は結果を返しませんでした。
   routes:
     users: ユーザー
     passwords: パスワード
