@@ -66,7 +66,7 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
 
     get active_passwords_path
     assert_response :success
-    assert !response.body.include?('You currently have no active password pushes.')
+    assert_not response.body.include?('You currently have no active password pushes.')
   end
 
   test 'get active dashboard with token' do

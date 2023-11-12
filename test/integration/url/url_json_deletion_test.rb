@@ -26,7 +26,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal false, res['expired']
     assert res.key?('deleted')
     assert_equal false, res['deleted']
-    assert !res.key?('deletable_by_viewer')
+    assert_not res.key?('deletable_by_viewer')
     assert res.key?('days_remaining')
     assert_equal Settings.url.expire_after_days_default, res['days_remaining']
     assert res.key?('views_remaining')
@@ -44,7 +44,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal true, res['expired']
     assert res.key?('deleted')
     assert_equal true, res['deleted']
-    assert !res.key?('deletable_by_viewer')
+    assert_not res.key?('deletable_by_viewer')
     assert res.key?('days_remaining')
     assert_equal Settings.url.expire_after_days_default, res['days_remaining']
     assert res.key?('views_remaining')
@@ -62,7 +62,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal true, res['expired']
     assert res.key?('deleted')
     assert_equal true, res['deleted']
-    assert !res.key?('deletable_by_viewer')
+    assert_not res.key?('deletable_by_viewer')
     assert res.key?('days_remaining')
     assert_equal Settings.url.expire_after_days_default, res['days_remaining']
     assert res.key?('views_remaining')

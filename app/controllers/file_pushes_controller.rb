@@ -23,7 +23,7 @@ class FilePushesController < ApplicationController
     redirect_to :root && return unless params.key?(:id)
 
     begin
-      @push = FilePush.includes(:views).find_by_url_token!(params[:id])
+      @push = FilePush.includes(:views).find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -36,7 +36,7 @@ class FilePushesController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -57,7 +57,7 @@ class FilePushesController < ApplicationController
     end
 
     # Passphrase handling
-    if !@push.passphrase.nil? && !@push.passphrase.blank?
+    if !@push.passphrase.nil? && @push.passphrase.present?
       # Construct the passphrase cookie name
       name = "#{@push.url_token}-f"
 
@@ -101,7 +101,7 @@ class FilePushesController < ApplicationController
   # GET /f/:url_token/passphrase
   def passphrase
     begin
-      @push = FilePush.find_by_url_token!(params[:id])
+      @push = FilePush.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -115,7 +115,7 @@ class FilePushesController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -128,7 +128,7 @@ class FilePushesController < ApplicationController
   # POST /f/:url_token/access
   def access
     begin
-      @push = FilePush.find_by_url_token!(params[:id])
+      @push = FilePush.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -142,7 +142,7 @@ class FilePushesController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -249,7 +249,7 @@ class FilePushesController < ApplicationController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:file_push][:payload] || ''
-    @push.note = params[:file_push][:note] unless params[:file_push].fetch(:note, '').blank?
+    @push.note = params[:file_push][:note] if params[:file_push].fetch(:note, '').present?
     @push.passphrase = params[:file_push].fetch(:passphrase, '')
     @push.files.attach(params[:file_push][:files])
 
@@ -272,7 +272,7 @@ class FilePushesController < ApplicationController
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/fk27vnslkd/preview.json'
   description ''
   def preview
-    @push = FilePush.find_by_url_token!(params[:id])
+    @push = FilePush.find_by!(url_token: params[:id])
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
@@ -283,7 +283,7 @@ class FilePushesController < ApplicationController
 
   def preliminary
     begin
-      @push = FilePush.find_by_url_token!(params[:id])
+      @push = FilePush.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -297,7 +297,7 @@ class FilePushesController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -318,7 +318,7 @@ class FilePushesController < ApplicationController
               '(and not expired).  Note that you must be the owner of the push to retrieve the audit log ' \
               'and this call will always return 401 Unauthorized for pushes not owned by the credentials provided.'
   def audit
-    @push = FilePush.includes(:views).find_by_url_token!(params[:id])
+    @push = FilePush.includes(:views).find_by!(url_token: params[:id])
 
     if @push.user_id != current_user.id
       respond_to do |format|
@@ -345,7 +345,7 @@ class FilePushesController < ApplicationController
   description 'Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must ' \
               'have been created with _deleteable_by_viewer_.'
   def destroy
-    @push = FilePush.find_by_url_token!(params[:id])
+    @push = FilePush.find_by!(url_token: params[:id])
     is_owner = false
 
     if user_signed_in?
@@ -376,7 +376,7 @@ class FilePushesController < ApplicationController
     @push.payload = nil
     @push.deleted = true
     @push.files.purge
-    @push.expired_on = Time.now
+    @push.expired_on = Time.zone.now
 
     respond_to do |format|
       if @push.save

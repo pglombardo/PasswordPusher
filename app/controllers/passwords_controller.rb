@@ -3,8 +3,6 @@
 require 'securerandom'
 
 class PasswordsController < ApplicationController
-  helper PasswordsHelper
-
   # Use auth token (for JSON) if it's there but don't fall back to devise session
   acts_as_token_authentication_handler_for User, fallback: :none, only: %i[create destroy]
 
@@ -27,7 +25,7 @@ class PasswordsController < ApplicationController
     redirect_to :root && return unless params.key?(:id)
 
     begin
-      @push = Password.includes(:views).find_by_url_token!(params[:id])
+      @push = Password.includes(:views).find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -40,7 +38,7 @@ class PasswordsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -61,7 +59,7 @@ class PasswordsController < ApplicationController
     end
 
     # Passphrase handling
-    if !@push.passphrase.nil? && !@push.passphrase.blank?
+    if !@push.passphrase.nil? && @push.passphrase.present?
       # Construct the passphrase cookie name
       name = "#{@push.url_token}-p"
 
@@ -102,7 +100,7 @@ class PasswordsController < ApplicationController
   # GET /p/:url_token/passphrase
   def passphrase
     begin
-      @push = Password.find_by_url_token!(params[:id])
+      @push = Password.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -116,7 +114,7 @@ class PasswordsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -129,7 +127,7 @@ class PasswordsController < ApplicationController
   # POST /p/:url_token/access
   def access
     begin
-      @push = Password.find_by_url_token!(params[:id])
+      @push = Password.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -143,7 +141,7 @@ class PasswordsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -255,7 +253,7 @@ class PasswordsController < ApplicationController
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/preview.json'
   description ''
   def preview
-    @push = Password.find_by_url_token!(params[:id])
+    @push = Password.find_by!(url_token: params[:id])
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
@@ -266,7 +264,7 @@ class PasswordsController < ApplicationController
 
   def preliminary
     begin
-      @push = Password.find_by_url_token!(params[:id])
+      @push = Password.find_by!(url_token: params[:id])
       @secret_url = helpers.raw_secret_url(@push)
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
@@ -281,7 +279,7 @@ class PasswordsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'passwords/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -300,7 +298,7 @@ class PasswordsController < ApplicationController
               '(and not expired).  Note that you must be the owner of the push to retrieve the audit log ' \
               'and this call will always return 401 Unauthorized for pushes not owned by the credentials provided.'
   def audit
-    @push = Password.includes(:views).find_by_url_token!(params[:id])
+    @push = Password.includes(:views).find_by!(url_token: params[:id])
 
     if @push.user_id != current_user.id
       respond_to do |format|
@@ -327,7 +325,7 @@ class PasswordsController < ApplicationController
   description 'Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must ' \
               'have been created with _deleteable_by_viewer_.'
   def destroy
-    @push = Password.find_by_url_token!(params[:id])
+    @push = Password.find_by!(url_token: params[:id])
     is_owner = false
 
     if user_signed_in?
@@ -357,7 +355,7 @@ class PasswordsController < ApplicationController
     @push.expired = true
     @push.payload = nil
     @push.deleted = true
-    @push.expired_on = Time.now
+    @push.expired_on = Time.zone.now
 
     respond_to do |format|
       if @push.save

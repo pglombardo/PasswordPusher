@@ -1,3 +1,12 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/migrate/*.rb'
+    - 'db/schema.rb'
 
 Metrics/ClassLength:
   Max: 400
@@ -220,3 +229,6 @@ Style/SwapValues: # new in 1.1
   Enabled: true
 Style/YAMLFileRead: # new in 1.53
   Enabled: true
+
+Rails/I18nLocaleTexts:
+  Enabled: false

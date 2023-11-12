@@ -12,16 +12,16 @@ class PasswordTest < Minitest::Test
   def test_expired_check
     password = Password.new(payload: 'asdf')
     password.validate!
-    assert !password.expired?
+    assert_not password.expired?
     assert password.save
-    assert !password.expired?
+    assert_not password.expired?
     password.validate!
-    assert !password.expired?
+    assert_not password.expired?
 
-    password = Password.new(created_at: 100.week.ago, updated_at: 100.week.ago)
+    password = Password.new(created_at: 100.weeks.ago, updated_at: 100.weeks.ago)
     password.validate!
     # New records don't get expiration check
-    assert !password.expired?
+    assert_not password.expired?
     assert password.save
 
     # Saved/pre-existing record gets check for expiration
@@ -49,7 +49,7 @@ class PasswordTest < Minitest::Test
 
     assert push.days_old == 3
     assert push.days_remaining == 3
-    assert !push.expired
+    assert_not push.expired
 
     # already expired
     push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago,
@@ -78,7 +78,7 @@ class PasswordTest < Minitest::Test
 
     assert push.days_old.zero?
     assert push.days_remaining == 1
-    assert !push.expired
+    assert_not push.expired
   end
 
   def test_views_expiration
@@ -88,7 +88,7 @@ class PasswordTest < Minitest::Test
     push.validate!
 
     assert push.views_remaining == 1
-    assert !push.expired
+    assert_not push.expired
 
     # 1 View should expire
     push = Password.new(payload: 'asdf', expire_after_views: 1)

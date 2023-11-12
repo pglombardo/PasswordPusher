@@ -26,7 +26,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal false, res['expired']
     assert res.key?('deleted')
     assert_equal false, res['deleted']
-    assert !res.key?('deletable_by_viewer')
+    assert_not res.key?('deletable_by_viewer')
     assert res.key?('days_remaining')
     assert_equal 2, res['views_remaining']
     assert res.key?('expire_after_days')
@@ -67,7 +67,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 2, res['expire_after_views']
 
     # Check the record directly; it should be expired after the last view
-    url = Url.find_by_url_token!(res['url_token'])
+    url = Url.find_by!(url_token: res['url_token'])
     assert url.expired
     assert_nil url.payload
     assert_equal 0, url.views_remaining

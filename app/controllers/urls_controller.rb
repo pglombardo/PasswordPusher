@@ -23,7 +23,7 @@ class UrlsController < ApplicationController
     redirect_to :root && return unless params.key?(:id)
 
     begin
-      @push = Url.includes(:views).find_by_url_token!(params[:id])
+      @push = Url.includes(:views).find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -36,7 +36,7 @@ class UrlsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'urls/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -55,7 +55,7 @@ class UrlsController < ApplicationController
     end
 
     # Passphrase handling
-    if !@push.passphrase.nil? && !@push.passphrase.blank?
+    if !@push.passphrase.nil? && @push.passphrase.present?
       # Construct the passphrase cookie name
       name = "#{@push.url_token}-r"
 
@@ -82,7 +82,7 @@ class UrlsController < ApplicationController
     expires_now
 
     respond_to do |format|
-      format.html { redirect_to @push.payload, allow_other_host: true, status: 303 }
+      format.html { redirect_to @push.payload, allow_other_host: true, status: :see_other }
       format.json { render json: @push.to_json(payload: true) }
     end
 
@@ -92,7 +92,7 @@ class UrlsController < ApplicationController
   # GET /r/:url_token/passphrase
   def passphrase
     begin
-      @push = Url.find_by_url_token!(params[:id])
+      @push = Url.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -106,7 +106,7 @@ class UrlsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'urls/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -119,7 +119,7 @@ class UrlsController < ApplicationController
   # POST /r/:url_token/access
   def access
     begin
-      @push = Url.find_by_url_token!(params[:id])
+      @push = Url.find_by!(url_token: params[:id])
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
       # which is an information leak (not a secret anymore)
@@ -133,7 +133,7 @@ class UrlsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'urls/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -222,7 +222,7 @@ class UrlsController < ApplicationController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:url][:payload]
-    @push.note = params[:url][:note] unless params[:url].fetch(:note, '').blank?
+    @push.note = params[:url][:note] if params[:url].fetch(:note, '').present?
     @push.passphrase = params[:url].fetch(:passphrase, '')
 
     @push.validate!
@@ -244,7 +244,7 @@ class UrlsController < ApplicationController
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fk27vnslkd/preview.json'
   description ''
   def preview
-    @push = Url.find_by_url_token!(params[:id])
+    @push = Url.find_by!(url_token: params[:id])
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
@@ -255,7 +255,7 @@ class UrlsController < ApplicationController
 
   def preliminary
     begin
-      @push = Url.find_by_url_token!(params[:id])
+      @push = Url.find_by!(url_token: params[:id])
       @secret_url = helpers.raw_secret_url(@push)
     rescue ActiveRecord::RecordNotFound
       # Showing a 404 reveals that this Secret URL never existed
@@ -270,7 +270,7 @@ class UrlsController < ApplicationController
       # No easy fix for JSON unfortunately as we don't have a record to show.
       respond_to do |format|
         format.html { render template: 'urls/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: 404 }
+        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
       end
       return
     end
@@ -290,7 +290,7 @@ class UrlsController < ApplicationController
               'the audit log and this call will always return 401 Unauthorized for pushes not owned by the ' \
               'credentials provided.'
   def audit
-    @push = Url.includes(:views).find_by_url_token!(params[:id])
+    @push = Url.includes(:views).find_by!(url_token: params[:id])
 
     if @push.user_id != current_user.id
       respond_to do |format|
@@ -317,7 +317,7 @@ class UrlsController < ApplicationController
   description 'Expires a push immediately.  Must be authenticated & owner of the push _or_ the ' \
               'push must have been created with _deleteable_by_viewer_.'
   def destroy
-    @push = Url.find_by_url_token!(params[:id])
+    @push = Url.find_by!(url_token: params[:id])
     is_owner = false
 
     if user_signed_in?
@@ -346,7 +346,7 @@ class UrlsController < ApplicationController
     @push.expired = true
     @push.payload = nil
     @push.deleted = true
-    @push.expired_on = Time.now
+    @push.expired_on = Time.zone.now
 
     respond_to do |format|
       if @push.save

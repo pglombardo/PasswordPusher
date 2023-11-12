@@ -48,6 +48,6 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
 
     # Validate that blur is enabled
     tags = assert_select '#push_payload'
-    assert !tags.first.attr('class').include?('spoiler')
+    assert_not tags.first.attr('class').include?('spoiler')
   end
 end
