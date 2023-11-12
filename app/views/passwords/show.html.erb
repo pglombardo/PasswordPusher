@@ -8,7 +8,7 @@
           <% if Settings.pw.enable_blur %>
             <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
           <% end %>
-          <%= render partial: 'shared/copy_button' %>
+          <%= render partial: 'shared/copy_button', cached: true %>
         </div>
 
         <% if @payload.chomp.match?(/\n/) || @payload.length > 100 %>
@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="fixed-bottom w-100 d-grid gap-2">
-    <%= render partial: 'shared/copy_button' %>
+    <%= render partial: 'shared/copy_button', cached: true %>
   </div>
 </div>
 
