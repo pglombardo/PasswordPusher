@@ -67,6 +67,7 @@ ca:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: mil
@@ -117,6 +118,7 @@ ca:
         one: '1 error ha evitat que %{resource} es pugui desar:'
         other: "%{count} errors han evitat que %{resource} es pugui desar:"
       in: ha d'estar a %{count}
+      password_too_long: és massa llarg
     unavailable_session: |
       La sessió %{id} ja no està disponible a la memòria.
 
@@ -562,6 +564,8 @@ ca:
           DEEPL_AUTH_KEY o translation.deepl_api_key a config/i18n-tasks.yml. Obteniu
           la clau a https://www.deepl.com/pro.
         no_results: DeepL no ha retornat cap resultat.
+        specific_target_missing: Heu de proporcionar una variant específica per a
+          l'idioma de destinació donat, per exemple, en-us en comptes de en.
     google_translate:
       errors:
         no_api_key: Estableix la clau de l'API de Google mitjançant la variable d'entorn
@@ -594,6 +598,12 @@ ca:
           YANDEX_API_KEY o translation.yandex_api_key a config/i18n-tasks.yml. Obteniu
           la clau a https://tech.yandex.com/translate.
         no_results: Yandex no ha retornat cap resultat.
+    openai_translate:
+      errors:
+        no_api_key: Estableix la clau de l'API OpenAI mitjançant la variable d'entorn
+          OPENAI_API_KEY o translation.openai_api_key a config/i18n-tasks.yml. Obteniu
+          la clau a https://openai.com/.
+        no_results: OpenAI no ha retornat cap resultat.
   routes:
     users: usuaris
     passwords: contrasenyes

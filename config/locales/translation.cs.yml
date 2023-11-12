@@ -67,6 +67,7 @@ cs:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: Tisíc
@@ -117,6 +118,7 @@ cs:
         one: '1 chyba zabránila %{resource} v uložení:'
         other: 'Počet chyb: %{count}. Nelze uložit %{resource}:'
       in: musí být v %{count}
+      password_too_long: je to moc dlouhé
     unavailable_session: |-
       Relace %{id} již není v paměti dostupná.
 
@@ -543,6 +545,8 @@ cs:
           nebo klíče translation.deepl_api_key v souboru config/i18n-tasks.yml. Získejte
           klíč na https://www.deepl.com/pro.
         no_results: DeepL nevrátil žádné výsledky.
+        specific_target_missing: Musíte zadat konkrétní variantu pro daný cílový jazyk,
+          např. en-us místo en.
     google_translate:
       errors:
         no_api_key: Nastavte klíč Google API pomocí proměnné prostředí GOOGLE_TRANSLATE_API_KEY
@@ -575,6 +579,12 @@ cs:
           nebo translation.yandex_api_key v config/i18n-tasks.yml. Získejte klíč na
           https://tech.yandex.com/translate.
         no_results: Yandex nevrátil žádné výsledky.
+    openai_translate:
+      errors:
+        no_api_key: Nastavte klíč OpenAI API pomocí proměnné prostředí OPENAI_API_KEY
+          nebo translation.openai_api_key v config/i18n-tasks.yml. Získejte klíč na
+          https://openai.com/.
+        no_results: OpenAI nevrátilo žádné výsledky.
   routes:
     users: uživatelů
     passwords: hesla

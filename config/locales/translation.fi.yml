@@ -67,6 +67,7 @@ fi:
           tb: Tt
           pb: Pt
           eb: Et
+          zb: ZB
       decimal_units:
         units:
           thousand: tuhatta
@@ -117,6 +118,7 @@ fi:
         one: '1 virhe esti %{resource} tallentamisen:'
         other: "%{count} virhettä esti %{resource} tallentamisen:"
       in: täytyy olla kohdassa %{count}
+      password_too_long: on liian pitkä
     unavailable_session: Istunto %{id} ei ole enää käytettävissä muistissa. Jos käytät
       moniprosessipalvelinta (kuten Unicorn tai Puma), tämä pyyntöosuma ei tallenna
       %{id}:tä muistiin. Harkitse prosessien määrän kääntämistä yhteen (1) tai toisen
@@ -545,6 +547,8 @@ fi:
           tai translation.deepl_api_key kautta tiedostossa config/i18n-tasks.yml.
           Hanki avain osoitteesta https://www.deepl.com/pro.
         no_results: DeepL ei palauttanut tuloksia.
+        specific_target_missing: Sinun on annettava tietty muunnelma annetulle kohdekielelle
+          esim. en-us en sijaan.
     google_translate:
       errors:
         no_api_key: Aseta Google-sovellusliittymäavain ympäristömuuttujan GOOGLE_TRANSLATE_API_KEY
@@ -576,6 +580,12 @@ fi:
         no_api_key: Aseta Yandex API-avain YANDEX_API_KEY-ympäristömuuttujan tai translation.yandex_api_key
           kautta tiedostossa config/i18n-tasks.yml. Hanki avain osoitteesta https://tech.yandex.com/translate.
         no_results: Yandex ei palauttanut tuloksia.
+    openai_translate:
+      errors:
+        no_api_key: Aseta OpenAI-sovellusliittymäavain ympäristömuuttujan OPENAI_API_KEY
+          kautta tai translation.openai_api_key tiedostossa config/i18n-tasks.yml.
+          Hanki avain osoitteesta https://openai.com/.
+        no_results: OpenAI ei palauttanut tuloksia.
   routes:
     users: käyttäjiä
     passwords: salasanat

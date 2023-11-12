@@ -67,6 +67,7 @@ pl:
           tb: TB
           pb: PB
           eb: EB
+          zb: ZB
       decimal_units:
         units:
           thousand: Tysiąc
@@ -117,6 +118,7 @@ pl:
         one: "%{resource} nie został zapisany z powodu jednego błędu:"
         other: "%{resource} nie został zapisany z powodu %{count} błędów:"
       in: musi być w %{count}
+      password_too_long: jest za długi
     unavailable_session: |-
       Session %{id} is no longer available in memory.
 
@@ -549,6 +551,8 @@ pl:
           DEEPL_AUTH_KEY lub translation.deepl_api_key w pliku config/i18n-tasks.yml.
           Zdobądź klucz na https://www.deepl.com/pro.
         no_results: DeepL nie zwrócił żadnych wyników.
+        specific_target_missing: Musisz podać konkretny wariant dla danego języka
+          docelowego, np. en-us zamiast en.
     google_translate:
       errors:
         no_api_key: Ustaw klucz interfejsu API Google za pomocą zmiennej środowiskowej
@@ -581,6 +585,12 @@ pl:
           lub translation.yandex_api_key w config/i18n-tasks.yml. Zdobądź klucz na
           https://tech.yandex.com/translate.
         no_results: Yandex nie zwrócił żadnych wyników.
+    openai_translate:
+      errors:
+        no_api_key: Ustaw klucz OpenAI API poprzez zmienną środowiskową OPENAI_API_KEY
+          lub Translation.openai_api_key w config/i18n-tasks.yml. Zdobądź klucz na
+          https://openai.com/.
+        no_results: OpenAI nie zwróciło żadnych wyników.
   routes:
     users: użytkownicy
     passwords: Hasła
