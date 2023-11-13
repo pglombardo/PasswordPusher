@@ -10,7 +10,7 @@ class PasswordJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?('payload') == false # No payload on create response
     assert res.key?('url_token')
-    assert !res.key?('passphrase')
+    assert_not res.key?('passphrase')
 
     url_token = res['url_token']
 
@@ -43,7 +43,7 @@ class PasswordJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?('payload') == false # No payload on create response
     assert res.key?('url_token')
-    assert !res.key?('passphrase')
+    assert_not res.key?('passphrase')
 
     url_token = res['url_token']
 

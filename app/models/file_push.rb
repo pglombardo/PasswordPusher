@@ -13,7 +13,7 @@ class FilePush < ApplicationRecord
   end
 
   def days_old
-    (Time.now.to_datetime - created_at.to_datetime).to_i
+    (Time.zone.now.to_datetime - created_at.to_datetime).to_i
   end
 
   def days_remaining
@@ -41,7 +41,7 @@ class FilePush < ApplicationRecord
     self.expired = true
     self.payload = nil
     self.passphrase = nil
-    self.expired_on = Time.now
+    self.expired_on = Time.zone.now
     files.purge
     save
   end

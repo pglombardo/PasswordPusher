@@ -72,7 +72,6 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :c, controller: :commands, as: :commands, allow: %i[create]
       get '/pages/*id' => 'pages#show', as: :page, format: false
       resources :feedbacks, only: %i[new create]
       root to: 'passwords#new'

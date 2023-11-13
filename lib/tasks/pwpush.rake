@@ -12,7 +12,7 @@ task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
 
-  puts "--> Starting daily expiration on #{Time.now}"
+  puts "--> Starting daily expiration on #{Time.zone.now}"
 
   Password.where(expired: false).find_each do |push|
     counter += 1
@@ -44,7 +44,7 @@ task daily_expiration: :environment do
     puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
   end
 
-  puts "  -> Finished daily expiration on #{Time.now}"
+  puts "  -> Finished daily expiration on #{Time.zone.now}"
 end
 
 # When a Password expires, the payload is deleted but the metadata record still exists.  This
@@ -70,7 +70,7 @@ desc 'Delete expired and anonymous pushes.'
 task delete_expired_and_anonymous: :environment do
   counter = 0
 
-  puts "--> Starting delete_expired_and_anonymous on #{Time.now}"
+  puts "--> Starting delete_expired_and_anonymous on #{Time.zone.now}"
 
   Password.includes(:views)
           .where(expired: true)
@@ -101,7 +101,7 @@ task delete_expired_and_anonymous: :environment do
   end
 
   puts "  -> #{counter} total anonymous and expired pushes deleted."
-  puts "  -> Finished delete_expired_and_anonymous on #{Time.now}"
+  puts "  -> Finished delete_expired_and_anonymous on #{Time.zone.now}"
 end
 
 desc 'Generate robots.txt.'

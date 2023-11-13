@@ -1,3 +1,4 @@
+# rubocop:disable Rails/Output
 # frozen_string_literal: true
 
 require_relative 'boot'
@@ -29,3 +30,5 @@ module PasswordPusher
     puts "Password Pusher Version: #{Version.current}"
   end
 end
+
+# rubocop:enable Rails/Output

@@ -81,7 +81,7 @@ def load_legacy_environment_variables
   if ENV.key?('RETRIEVAL_STEP_ENABLED')
     Rails.logger.warn("The environment variable RETRIEVAL_STEP_ENABLED has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__ENABLE_RETRIEVAL_STEP or switch to a custom settings.yml entirely.')
-    Settings.pw.enable_retrieval_step = ENV['RETRIEVAL_STEP_ENABLED'].downcase == 'true'
+    Settings.pw.enable_retrieval_step = ENV['RETRIEVAL_STEP_ENABLED'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -90,7 +90,7 @@ def load_legacy_environment_variables
   if ENV.key?('RETRIEVAL_STEP_DEFAULT')
     Rails.logger.warn("The environment variable RETRIEVAL_STEP_DEFAULT has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__RETRIEVAL_STEP_DEFAULT or switch to a custom settings.yml entirely.')
-    Settings.pw.retrieval_step_default = ENV['RETRIEVAL_STEP_DEFAULT'].downcase == 'true'
+    Settings.pw.retrieval_step_default = ENV['RETRIEVAL_STEP_DEFAULT'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -99,7 +99,7 @@ def load_legacy_environment_variables
   if ENV.key?('DELETABLE_PASSWORDS_ENABLED')
     Rails.logger.warn("The environment variable DELETABLE_PASSWORDS_ENABLED has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__ENABLE_DELETABLE_PUSHES or switch to a custom settings.yml entirely.')
-    Settings.pw.enable_deletable_pushes = ENV['DELETABLE_PASSWORDS_ENABLED'].downcase == 'true'
+    Settings.pw.enable_deletable_pushes = ENV['DELETABLE_PASSWORDS_ENABLED'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -108,7 +108,7 @@ def load_legacy_environment_variables
   if ENV.key?('DELETABLE_BY_VIEWER_PASSWORDS')
     Rails.logger.warn("The environment variable DELETABLE_BY_VIEWER_PASSWORDS has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__ENABLE_DELETABLE_PUSHES or switch to a custom settings.yml entirely.')
-    Settings.pw.enable_deletable_pushes = ENV['DELETABLE_BY_VIEWER_PASSWORDS'].downcase == 'true'
+    Settings.pw.enable_deletable_pushes = ENV['DELETABLE_BY_VIEWER_PASSWORDS'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -117,7 +117,7 @@ def load_legacy_environment_variables
   if ENV.key?('DELETABLE_BY_VIEWER_DEFAULT')
     Rails.logger.warn("The environment variable DELETABLE_BY_VIEWER_DEFAULT has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__DELETABLE_PUSHES_DEFAULT or switch to a custom settings.yml entirely.')
-    Settings.pw.deletable_pushes_default = ENV['DELETABLE_BY_VIEWER_DEFAULT'].downcase == 'true'
+    Settings.pw.deletable_pushes_default = ENV['DELETABLE_BY_VIEWER_DEFAULT'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -126,7 +126,7 @@ def load_legacy_environment_variables
   if ENV.key?('DELETABLE_PASSWORDS_DEFAULT')
     Rails.logger.warn("The environment variable DELETABLE_PASSWORDS_DEFAULT has been deprecated and will be removed in a future version.\n" \
                       'Please change this environment variable to PWP__DELETABLE_PUSHES_DEFAULT or switch to a custom settings.yml entirely.')
-    Settings.pw.deletable_pushes_default = ENV['DELETABLE_PASSWORDS_DEFAULT'].downcase == 'true'
+    Settings.pw.deletable_pushes_default = ENV['DELETABLE_PASSWORDS_DEFAULT'].casecmp('true').zero?
     deprecations_detected = true
   end
 
@@ -136,7 +136,7 @@ def load_legacy_environment_variables
 end
 
 # Prepend defaults to the Settings object in case users are missing some of the latest settings
-Settings.prepend_source!("#{Rails.root}/config/settings-defaults.yml")
+Settings.prepend_source!(Rails.root.join('config/settings-defaults.yml').to_s)
 Settings.reload!
 load_legacy_environment_variables
 

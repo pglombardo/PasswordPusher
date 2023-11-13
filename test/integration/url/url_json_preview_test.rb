@@ -37,6 +37,6 @@ class UrlJsonPreviewTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?('url')
     uri = URI.parse(res['url'])
-    assert !(uri.path =~ /#{url_token}/).nil?
+    assert_not (uri.path =~ /#{url_token}/).nil?
   end
 end

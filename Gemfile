@@ -11,6 +11,8 @@ group :development do
 
   # Visual Studio Additions
   gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
   gem 'ruby-debug-ide'
 
   gem 'pry-rails'
