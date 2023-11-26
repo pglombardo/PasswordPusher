@@ -178,7 +178,6 @@ gem install bundler
 
 export RAILS_ENV=private
 
-bundle config set with 'sqlite'
 bundle config set --local deployment 'true'
 bundle install --without development production test
 ./bin/rails assets:precompile
@@ -202,7 +201,6 @@ export RAILS_ENV=production
 # Update the following line to point to your Postgres (or MySQL/Mariadb) instance
 DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
-bundle config set with 'postgres' # or 'mysql'
 bundle install --without development private test
 ./bin/rails assets:precompile
 ./bin/rails db:setup
