@@ -90,8 +90,7 @@ gem 'mail_form', '>= 1.9.0'
 gem 'oj'
 gem 'puma'
 gem 'rollbar'
-gem 'simple_token_authentication', '~> 1.18', '>= 1.18.0',
-    git: 'https://github.com/pglombardo/simple_token_authentication.git', branch: 'rails7-support'
+gem 'simple_token_authentication'
 
 gem 'devise-i18n'
 gem 'i18n-tasks', '~> 1.0.13'
@@ -107,17 +106,10 @@ gem 'google-cloud-storage', '~> 1.45', require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-group :postgres, optional: true do
-  gem 'pg'
-end
-
-group :mysql, optional: true do
-  gem 'mysql2'
-end
-
-group :sqlite, optional: true do
-  gem 'sqlite3', force_ruby_platform: true
-end
+# Database backends
+gem 'mysql2'
+gem 'pg'
+gem 'sqlite3', force_ruby_platform: true
 
 group :production, :private do
   gem 'rack-throttle', '0.7.0'

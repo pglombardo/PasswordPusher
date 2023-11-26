@@ -1,12 +1,10 @@
 # Setting global arguments
-ARG BUNDLE_WITH=sqlite:mysql:postgres
 ARG BUNDLE_WITHOUT=development:test:private
 ARG BUNDLE_DEPLOYMENT=true
 
 FROM ruby:3.2-alpine AS build-env
 
 # include global args
-ARG BUNDLE_WITH
 ARG BUNDLE_WITHOUT
 ARG BUNDLE_DEPLOYMENT
 
@@ -34,7 +32,6 @@ ENV RACK_ENV=production RAILS_ENV=production
 
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
-    && bundle config set with "${BUNDLE_WITH}" \
     && bundle install
 
 RUN yarn install
@@ -57,7 +54,6 @@ RUN rm -rf node_modules tmp/cache vendor/assets spec \
 FROM ruby:3.2-alpine
 
 # include global args
-ARG BUNDLE_WITH
 ARG BUNDLE_WITHOUT
 ARG BUNDLE_DEPLOYMENT
 
@@ -88,7 +84,6 @@ ENV RACK_ENV=production RAILS_ENV=production
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
-    && bundle config set with "${BUNDLE_WITH}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
 USER pwpusher
