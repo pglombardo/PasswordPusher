@@ -35,7 +35,7 @@
               </div>
             <% end %>
           </td>
-          <td><%= I18n.l push.expired_on, format: :long %></td>
+          <td><%= I18n.l push.expired_on.in_time_zone(Settings.timezone), format: :long %></td>
           <td class="text-center">
               <%= link_to audit_file_push_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow' do %>
                 <%= _('Audit Log') %>
