@@ -90,7 +90,7 @@ Notes:
 | PWP__SHOW_GDPR_CONSENT_BANNER | Optionally enable or disable the GDPR cookie consent banner. | `true` |
 | PWP__TIMEZONE | Set the application wide timezone.  Use a valid timezone string (see note below). | `America/New_York` |
 
-_Note__: The list of valid timezone strings can be found at [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+_Note_: The list of valid timezone strings can be found at [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ## Password Push Expiration Settings
 
