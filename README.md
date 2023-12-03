@@ -33,7 +33,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
 * __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
-* __Internationalized:__ 28 language translations are bundled in.  Easily selectable via UI or URL
+* __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
 * __Themes:__ [26 themes](./Themes.md) bundled in courtesy of Bootswatch.  Select with a simple environment variable.
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
@@ -249,7 +249,7 @@ _See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
 # 🇮🇹 Internationalization
 
-Password Pusher is currently available in **28 languages** with more languages being added often as volunteers apply.
+Password Pusher is currently available in **29 languages** with more languages being added often as volunteers apply.
 
 From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
