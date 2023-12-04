@@ -65,7 +65,7 @@ gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 gem 'terser', '~> 1.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'bootstrap', '5.2.3'
-gem 'json', '~> 2.0' # Legacy carry-over
+gem 'json', '~> 2.7' # Legacy carry-over
 gem 'will_paginate', '~> 4.0.0'
 gem 'will_paginate-bootstrap-style'
 
