@@ -224,6 +224,10 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
 
+## GUIs
+
+* [Tachaeon/PWPush-Generator](https://github.com/Tachaeon/PWPush-Generator): A powershell GUI frontend for pwpush.com
+
 ## Libraries & APIs
 
 * [oyale/PwPush-PHP](https://github.com/oyale/PwPush-PHP): a PHP library wrapper to easily push passwords to any Password Pusher instance
