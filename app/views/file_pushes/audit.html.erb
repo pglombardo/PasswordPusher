@@ -3,7 +3,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
     <h4 class=''><%= _('Audit Log for File Push') %> <code><%= @push.url_token %></code></h4>
     <p class='text-muted mb-5'>
-        <%= _('Pushed on %s') % I18n.l(@push.created_at, format: :long) %>
+        <%= _('Pushed on %s') % I18n.l(@push.created_at.in_time_zone(Settings.timezone), format: :long) %>
     </p>
 
     <p><%= _('Secret URL for this push') %>:</p>
@@ -230,7 +230,7 @@
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
                 <div class="list-group-item list-group-item-action list-group-item-primary">
                     <em class="bi bi-stars"></em>
-                    <%= _('Push created on') %> <%= I18n.l @push.created_at %> by <%= @push.user.email %>
+                    <%= _('Push created on') %> <%= I18n.l @push.created_at.in_time_zone(Settings.timezone) %> by <%= @push.user.email %>
                 </div>
 
                 <% if @push.views.empty? && !@push.expired %>
@@ -248,7 +248,7 @@
                                 <strong><%= view.user.email %></strong>
                                 <%= _('at IP address') %> <strong><%= view.ip %></strong>
                                 <%= _('on') %>
-                                <%= I18n.l view.created_at %>
+                                <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <% end %>
                             <br/>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
@@ -263,7 +263,7 @@
                             <%= _('Successful view from IP address') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
-                            <%= I18n.l view.created_at %>
+                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <br/>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>
@@ -275,7 +275,7 @@
                             <%= _('Failed view attempt (already expired) by') %>
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
-                            <%= I18n.l view.created_at %>
+                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <br/>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
                             <br/>

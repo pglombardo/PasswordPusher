@@ -88,6 +88,9 @@ Notes:
 | PWP__RELATIVE_ROOT | Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
 | PWP__SHOW_VERSION | Show the version in the footer | `true` |
 | PWP__SHOW_GDPR_CONSENT_BANNER | Optionally enable or disable the GDPR cookie consent banner. | `true` |
+| PWP__TIMEZONE | Set the application wide timezone.  Use a valid timezone string (see note below). | `America/New_York` |
+
+_Note_: The list of valid timezone strings can be found at [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ## Password Push Expiration Settings
 
