@@ -5,16 +5,17 @@
 ARG BASEIMAGE=pwpush:latest
 FROM $BASEIMAGE
 
-# Insert decrecation note to inform users while spinning up containers
+# Insert end of support note to inform users while spinning up containers
 RUN sed -i '5 a \
             echo "          ##########################################################################          "\n \
-            echo "          ###                   !!DEPRECATION NOTIFICATION!!                     ###          "\n \
-            echo "          ###  THIS IMAGE IS DEPRECATED. SUPPORT FOR THIS IMAGE WILL BE DROPPED  ###          "\n \
-            echo "          ###         IN THE NEAR FUTURE. PLEASE MIGRATE TO THE NEW IMAGE        ###          "\n \
+            echo "          ###                 !!END OF SUPPORT NOTIFICATION!!                    ###          "\n \
+            echo "          ###            THIS IMAGE HAS REACHED END-OF-SUPPORT STATE.            ###          "\n \
+            echo "          ###       THERE WILL BE NO MORE NEW FEATURES OR SECURITY UPDATES.      ###          "\n \
+            echo "          ###        PLEASE MIGRATE TO THE NEW IMAGE AS SOON AS POSSIBLE.        ###          "\n \
             echo "          ###                                                                    ###          "\n \
             echo "          ###                      FOR MORE INFORMATION GOTO                     ###          "\n \
             echo "          ###            https://github.com/pglombardo/PasswordPusher            ###          "\n \
-            echo "          ###                   !!DEPRECATION NOTIFICATION!!                     ###          "\n \
+            echo "          ###                 !!END OF SUPPORT NOTIFICATION!!                    ###          "\n \
             echo "          ##########################################################################          "\n \
             ' ./containers/docker/pwpush/entrypoint.sh
 
