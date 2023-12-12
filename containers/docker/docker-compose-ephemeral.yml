@@ -1,26 +1,12 @@
 version: '2.1'
-
 services:
-  db:
-    image: mysql:8.0.32
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_USER: 'passwordpusher_user'
-      MYSQL_PASSWORD: 'passwordpusher_passwd'
-      MYSQL_DATABASE: 'passwordpusher_db'
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-    volumes:
-      - /var/lib/pwpush-mysql/data:/var/lib/mysql
 
-  pwpush:
-    image: docker.io/pglombardo/pwpush-mysql:release
+  passwordpusher:
+    image: docker.io/pglombardo/pwpush:release
+    environment:
+      DATABASE_URL: "sqlite3:db/db.sqlite3"
     ports:
       - "5100:5100"
-    depends_on:
-      - db
-    links:
-     - db:mysql
     # You can set environment variables here, or in a .env file.  See:
     # https://docs.docker.com/compose/environment-variables/
     #
@@ -51,3 +37,9 @@ services:
     # https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml
     #
     # Then you can use the above bind mount to overlay the file into the container on boot.
+    #
+    # See also:
+    #
+    # How to Add Persistent Storage
+    # https://github.com/pglombardo/PasswordPusher/discussions/448
+    #

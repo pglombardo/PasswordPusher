@@ -29,9 +29,6 @@ Where are you running/using Password Pusher?
 - [ ] pwpush.com
 - [ ] Docker Image
   - [ ] pwpush
-  - [ ] pwpush-ephemeral
-  - [ ] pwpush-mysql
-  - [ ] pwpush-postgres
   - [ ] custom image
 - [ ] Heroku
 - [ ] Digital Ocean
