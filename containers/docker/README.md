@@ -20,7 +20,7 @@ To run an ephemeral version of Password Pusher that saves no data after a contai
 
 _This example is set to listen on port 8000 for requests e.g. http://0.0.0.0:8000._
 
-See also this discussion if you want to persist data across container restarts: [pwpush-ephemeral: How to Add Persistence?](https://github.com/pglombardo/PasswordPusher/discussions/448)
+See also this discussion if you want to persist data across container restarts: [How to Add Persistence?](https://github.com/pglombardo/PasswordPusher/discussions/448)
 (Since this link refers to an outdated ephemeral image keep in mind to use current image `pglombardo/pwpush`)
 
 ## postgres
