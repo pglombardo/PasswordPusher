@@ -69,7 +69,7 @@ The docker container is available for `linux/amd64` and `linux/arm64` platforms.
 # Docker Compose
 
 For a quick boot of a database backed application, see the available Docker Compose files:
-* [ephemeral](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-ephemeral.yml)
-* [postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-postgres.yml)
-* [mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-mysql.yml)
-* [mariadb](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-mariadb.yml)
+* [ephemeral](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/docker-compose-ephemeral.yml)
+* [postgres](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/docker-compose-postgres.yml)
+* [mysql](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/docker-compose-mysql.yml)
+* [mariadb](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/docker-compose-mariadb.yml)

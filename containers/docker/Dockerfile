@@ -88,4 +88,4 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
 
 USER pwpusher
 EXPOSE 5100
-ENTRYPOINT ["containers/docker/pwpush/entrypoint.sh"]
+ENTRYPOINT ["containers/docker/entrypoint.sh"]

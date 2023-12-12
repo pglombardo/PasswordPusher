@@ -387,7 +387,7 @@ volumes:
   - /var/lib/pwpush/logos:/opt/PasswordPusher/public/logos:r
 ```
 
-See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush/docker-compose-postgres.yml) for a larger Docker Compose explanation.
+See [here](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/docker-compose-postgres.yml) for a larger Docker Compose explanation.
 
 With this setup, you can then set your `LOGO` environment variables (or `settings.yml` options) to:
 
