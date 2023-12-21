@@ -117,7 +117,3 @@ group :production, :private do
 end
 
 gem 'version', git: 'https://github.com/pglombardo/version.git', branch: 'master'
-
-gem 'memory_profiler'
-gem 'rack-mini-profiler'
-gem 'stackprof'
