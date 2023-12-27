@@ -41,6 +41,17 @@ COPY ./ ${APP_ROOT}/
 # Set DATABASE_URL to sqlite to have a ready
 # to use db file for ephemeral configuration
 ENV DATABASE_URL=sqlite3:db/db.sqlite3
+
+# Set a default secret_key_base
+# For those self-hosting this app, you should
+# generate your own secret_key_base and set it
+# in your environment.
+# 1. Generate a secret_key_base with:
+#    bundle exec rake secret
+# 2. Set the secret_key_base in your environment:
+#    SECRET_KEY_BASE=<value>
+ENV SECRET_KEY_BASE=662e5f1c1f71b78c6fc0455cf72b590aefc7e924bbe356556c8dacd18fa0c6a5d7d4908afc7627bd1d6cb5ce95b610eeb64f538079d1fe07ef3d73b43ac0f8b0
+
 RUN bundle exec rails assets:precompile && bundle exec rake db:setup
 
 # Removing unneccesary files/directories
