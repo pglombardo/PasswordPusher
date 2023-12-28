@@ -6,10 +6,6 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :info, :error, :success, :warning
 
-  before_action do
-    Rack::MiniProfiler.authorize_request if current_user && current_user.admin == true
-  end
-
   def custom_set_locale_from_url
     locale_from_url = RouteTranslator.locale_from_params(params) ||
                       RouteTranslator::Host.locale_from_host(request.host) ||
