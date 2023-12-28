@@ -93,7 +93,7 @@ gem 'rollbar'
 gem 'simple_token_authentication'
 
 gem 'devise-i18n'
-gem 'i18n-tasks', '~> 1.0.13'
+gem 'i18n-tasks', '~> 1.0.13' # , group: :development
 gem 'rails-i18n', '~> 7.0.8'
 gem 'route_translator', '>= 13.0.0'
 gem 'translation'
@@ -117,3 +117,6 @@ group :production, :private do
 end
 
 gem 'version', git: 'https://github.com/pglombardo/version.git', branch: 'master'
+
+gem 'derailed_benchmarks', group: :development
+gem 'stackprof', group: :development
