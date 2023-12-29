@@ -1,5 +1,5 @@
 # Setting global arguments
-ARG BUNDLE_WITHOUT=development:test:private
+ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
 FROM ruby:3.2-alpine AS build-env

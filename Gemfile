@@ -111,7 +111,7 @@ gem 'mysql2'
 gem 'pg'
 gem 'sqlite3', force_ruby_platform: true
 
-group :production, :private do
+group :production do
   gem 'rack-throttle', '0.7.0'
   gem 'rack-timeout'
 end
