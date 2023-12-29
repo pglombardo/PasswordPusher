@@ -73,9 +73,9 @@ _or_
 # 💾 Run Your Own Instance
 
  🎉 🎉 🎉
- 
+
  __We've recently introduced a single universal container.  Migration for existing users is easy - please refer to [the documentation here](https://github.com/pglombardo/PasswordPusher/wiki/How-to-migrate-to-the-Universal-Container).__
- 
+
  🎉 🎉 🎉
 
 _Note: Password Pusher can be largely configured by environment variables so after you pick your deployment method below, make sure to read [the configuration page](Configuration.md).  Take particular attention in setting your own custom encryption key which isn't required but provides the best security for your instance._
@@ -176,13 +176,11 @@ git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 gem install bundler
 
-export RAILS_ENV=private
-
 bundle config set --local deployment 'true'
 bundle install --without development production test
 ./bin/rails assets:precompile
 ./bin/rails db:setup
-./bin/rails server --environment=private
+./bin/rails server
 ```
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
@@ -201,7 +199,7 @@ export RAILS_ENV=production
 # Update the following line to point to your Postgres (or MySQL/Mariadb) instance
 DATABASE_URL=postgresql://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db
 
-bundle install --without development private test
+bundle install --without development test
 ./bin/rails assets:precompile
 ./bin/rails db:setup
 ./bin/rails server --environment=production
