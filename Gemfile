@@ -62,7 +62,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0', '>= 6.0.0'
-gem 'terser', '~> 1.1'
+gem 'terser', '~> 1.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'bootstrap', '5.2.3'
 gem 'json', '~> 2.7' # Legacy carry-over
