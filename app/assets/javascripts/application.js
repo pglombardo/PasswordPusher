@@ -5067,7 +5067,7 @@
     }
   }
   var BlobRecord = class {
-    constructor(file, checksum, url) {
+    constructor(file, checksum, url, customHeaders = {}) {
       this.file = file;
       this.attributes = {
         filename: file.name,
@@ -5081,6 +5081,9 @@
       this.xhr.setRequestHeader("Content-Type", "application/json");
       this.xhr.setRequestHeader("Accept", "application/json");
       this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      Object.keys(customHeaders).forEach((headerKey) => {
+        this.xhr.setRequestHeader(headerKey, customHeaders[headerKey]);
+      });
       const csrfToken = getMetaValue("csrf-token");
       if (csrfToken != void 0) {
         this.xhr.setRequestHeader("X-CSRF-Token", csrfToken);
@@ -5160,11 +5163,12 @@
   };
   var id = 0;
   var DirectUpload = class {
-    constructor(file, url, delegate) {
+    constructor(file, url, delegate, customHeaders = {}) {
       this.id = ++id;
       this.file = file;
       this.url = url;
       this.delegate = delegate;
+      this.customHeaders = customHeaders;
     }
     create(callback) {
       FileChecksum.create(this.file, (error2, checksum) => {
@@ -5172,7 +5176,7 @@
           callback(error2);
           return;
         }
-        const blob = new BlobRecord(this.file, checksum, this.url);
+        const blob = new BlobRecord(this.file, checksum, this.url, this.customHeaders);
         notify(this.delegate, "directUploadWillCreateBlobWithXHR", blob.xhr);
         blob.create((error3) => {
           if (error3) {
@@ -5314,9 +5318,9 @@
     }
   }
   function didClick(event) {
-    const { target } = event;
-    if ((target.tagName == "INPUT" || target.tagName == "BUTTON") && target.type == "submit" && target.form) {
-      submitButtonsByForm.set(target.form, target);
+    const button = event.target.closest("button, input");
+    if (button && button.type === "submit" && button.form) {
+      submitButtonsByForm.set(button.form, button);
     }
   }
   function didSubmitForm(event) {
@@ -13285,11 +13289,16 @@
       addEventListener("direct-upload:initialize", (event) => {
         const { target, detail } = event;
         const { id: id2, file } = detail;
+        const preExistingBar = document.getElementById(`progress-${id2}`);
+        if (preExistingBar) {
+          preExistingBar.remove();
+        }
         const files = document.getElementById("selected-files");
         files.style.display = "none";
         const bars = document.getElementById("progress-bars");
         const li = document.createElement("li");
         li.classList = "list-group-item list-group-item-primary small";
+        li.setAttribute("id", `progress-${id2}`);
         const progress = document.createElement("div");
         progress.classList = "progress";
         progress.style = "height: 1.5rem";
@@ -13367,7 +13376,8 @@
     }
     updateFilesFooter() {
       const footer = document.getElementById("file-count-footer");
-      footer.innerHTML = fileCount + " file(s) selected. You can upload up to 10 files per push.";
+      const maxFiles = this.maxFilesValue;
+      footer.innerHTML = fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`;
     }
     removeFile(event) {
       const listItem = event.target.parentNode.parentNode;

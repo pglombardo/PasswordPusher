@@ -31,12 +31,18 @@ export default class extends Controller {
       const { target, detail } = event
       const { id, file } = detail
 
+      const preExistingBar = document.getElementById(`progress-${id}`)
+      if (preExistingBar) {
+        preExistingBar.remove()
+      }
+
       const files = document.getElementById("selected-files")
       files.style.display = "none"
 
       const bars = document.getElementById("progress-bars")
       const li = document.createElement("li")
       li.classList = 'list-group-item list-group-item-primary small'
+      li.setAttribute("id", `progress-${id}`)
 
       const progress = document.createElement("div")
       progress.classList = 'progress'
@@ -84,7 +90,6 @@ export default class extends Controller {
       const element = document.getElementById(`direct-upload-${id}`)
       element.setAttribute("aria-label", "Complete")
     })
-
   }
 
   addFile(event) {
@@ -134,7 +139,8 @@ export default class extends Controller {
 
   updateFilesFooter() {
     const footer = document.getElementById("file-count-footer")
-    footer.innerHTML = fileCount + " file(s) selected. You can upload up to 10 files per push."
+    const maxFiles = this.maxFilesValue
+    footer.innerHTML = fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
   }
 
   removeFile(event) {
