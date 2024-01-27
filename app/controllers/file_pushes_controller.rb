@@ -212,18 +212,6 @@ class FilePushesController < ApplicationController
       return
     end
 
-    # params[:file_push][:payload] must have a length between 1 and 1 megabyte
-    payload_param = file_push_param.fetch(:payload, '')
-    files_param   = file_push_param.fetch(:files, [])
-    unless (payload_param.is_a?(String) &&
-              payload_param.length.between?(1, 1.megabyte)) || !files_param.empty? || files_param.size > 10
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: { error: 'No password, text or files provided.' }, status: :unprocessable_entity }
-      end
-      return
-    end
-
     if ENV.key?('PWPUSH_COM')
       @push_count = FilePush.where(user_id: current_user.id, expired: false).count
       if @push_count >= 10
@@ -238,6 +226,18 @@ class FilePushesController < ApplicationController
         end
         return
       end
+    end
+
+    if params['file_push']['files'].count > Settings.files.max_file_uploads
+      msg = t('file_pushes.new.upload_limit', count: Settings.files.max_file_uploads)
+      respond_to do |format|
+        format.html do
+          flash.now[:warning] = msg
+          render :new, status: :unprocessable_entity
+        end
+        format.json { render json: { error: msg }, status: :unprocessable_entity }
+      end
+      return
     end
 
     @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.files.expire_after_days_default)

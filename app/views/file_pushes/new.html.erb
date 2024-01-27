@@ -26,7 +26,7 @@
                         <h5 class="card-header"><%= _('Add Files...') %></h5>
                         <div class="card-body">
                             <div id="progress-bars" class="list-group"></div>
-                            <div data-controller="multi-upload">
+                            <div data-controller="multi-upload" data-multi-upload-max-files-value=<%= Settings.files.max_file_uploads %>>
                                 <div id="selected-files" data-multi-upload-target="files" class="list-group"></div>
                                 <div class="file my-3">
                                     <%= f.file_field :files,
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="file-count-footer" class="card-footer text-muted"> <%= _('You can upload up to 10 files per push.') %> </div>
+                        <div id="file-count-footer" class="card-footer text-muted"> <%= t(".upload_limit", count: Settings.files.max_file_uploads) %> </div>
                     </div>
                 </div>
             </div>

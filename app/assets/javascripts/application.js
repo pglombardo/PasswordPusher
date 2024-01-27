@@ -13276,6 +13276,9 @@
   var multi_upload_controller_default = class extends Controller {
     // Target contains the selected file list
     static targets = ["files"];
+    static values = {
+      maxFiles: Number
+    };
     connect() {
       fileCount = 0;
       start2();
@@ -13331,9 +13334,10 @@
     addFile(event) {
       const originalInput = event.target;
       const originalParent = originalInput.parentNode;
+      const maxFiles = this.maxFilesValue;
       let arrayLength = event.target.files.length;
-      if (arrayLength > 10 || fileCount + arrayLength > 10) {
-        alert("You can only upload 10 files at a time.");
+      if (arrayLength > maxFiles || fileCount + arrayLength > maxFiles) {
+        alert(`You can only upload ${maxFiles} files at a time.`);
         event.preventDefault();
         event.stopPropagation();
         originalInput.value = "";
