@@ -5,6 +5,8 @@ require 'securerandom'
 class FilePushesController < ApplicationController
   helper FilePushesHelper
 
+  before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
+
   # Authentication always except for :show
   acts_as_token_authentication_handler_for User, except: %i[show new preliminary destroy passphrase access]
 
@@ -20,27 +22,6 @@ class FilePushesController < ApplicationController
   description 'Retrieves a push including it\'s payload and details.  If the push is still active, ' \
               'this will burn a view and the transaction will be logged in the push audit log.'
   def show
-    redirect_to :root && return unless params.key?(:id)
-
-    begin
-      @push = FilePush.includes(:views).find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      # Old, expired & anonymous pushes have no value to anybody.
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
-      end
-      return
-    end
-
     # This file_push may have expired since the last view.  Validate the file_push
     # expiration before doing anything.
     @push.validate!
@@ -100,26 +81,6 @@ class FilePushesController < ApplicationController
 
   # GET /f/:url_token/passphrase
   def passphrase
-    begin
-      @push = FilePush.find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
-      end
-      return
-    end
-
     respond_to do |format|
       format.html { render action: 'passphrase', layout: 'naked' }
     end
@@ -127,26 +88,6 @@ class FilePushesController < ApplicationController
 
   # POST /f/:url_token/access
   def access
-    begin
-      @push = FilePush.find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
-      end
-      return
-    end
-
     # Construct the passphrase cookie name
     name = "#{@push.url_token}-f"
 
@@ -199,19 +140,6 @@ class FilePushesController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    @push = FilePush.new
-
-    # params[:file_push] has to exist
-    # params[:file_push] has to be a ActionController::Parameters (Hash)
-    file_push_param = params.fetch(:file_push, {})
-    unless file_push_param.respond_to?(:fetch)
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: { error: 'No password, text or files provided.' }, status: :unprocessable_entity }
-      end
-      return
-    end
-
     if ENV.key?('PWPUSH_COM')
       @push_count = FilePush.where(user_id: current_user.id, expired: false).count
       if @push_count >= 10
@@ -228,7 +156,7 @@ class FilePushesController < ApplicationController
       end
     end
 
-    if params['file_push']['files'].count > Settings.files.max_file_uploads
+    if file_push_params.key?(:files) && file_push_params[:files].count > Settings.files.max_file_uploads
       msg = t('file_pushes.new.upload_limit', count: Settings.files.max_file_uploads)
       respond_to do |format|
         format.html do
@@ -240,18 +168,16 @@ class FilePushesController < ApplicationController
       return
     end
 
-    @push.expire_after_days = params[:file_push].fetch(:expire_after_days, Settings.files.expire_after_days_default)
-    @push.expire_after_views = params[:file_push].fetch(:expire_after_views, Settings.files.expire_after_views_default)
+    @push = FilePush.new(file_push_params)
+
+    @push.expire_after_days ||= Settings.files.expire_after_days_default
+    @push.expire_after_views ||= Settings.files.expire_after_views_default
+
     @push.user_id = current_user.id if user_signed_in?
     @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
-    create_detect_deletable_by_viewer(@push, params)
-    create_detect_retrieval_step(@push, params)
-
-    @push.payload = params[:file_push][:payload] || ''
-    @push.note = params[:file_push][:note] if params[:file_push].fetch(:note, '').present?
-    @push.passphrase = params[:file_push].fetch(:passphrase, '')
-    @push.files.attach(params[:file_push][:files])
+    create_detect_deletable_by_viewer(@push, file_push_params)
+    create_detect_retrieval_step(@push, file_push_params)
 
     @push.validate!
 
@@ -272,7 +198,6 @@ class FilePushesController < ApplicationController
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/f/fk27vnslkd/preview.json'
   description ''
   def preview
-    @push = FilePush.find_by!(url_token: params[:id])
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
@@ -282,26 +207,6 @@ class FilePushesController < ApplicationController
   end
 
   def preliminary
-    begin
-      @push = FilePush.find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
-        format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
-      end
-      return
-    end
-
     @secret_url = helpers.raw_secret_url(@push)
 
     respond_to do |format|
@@ -318,8 +223,6 @@ class FilePushesController < ApplicationController
               '(and not expired).  Note that you must be the owner of the push to retrieve the audit log ' \
               'and this call will always return 401 Unauthorized for pushes not owned by the credentials provided.'
   def audit
-    @push = FilePush.includes(:views).find_by!(url_token: params[:id])
-
     if @push.user_id != current_user.id
       respond_to do |format|
         format.html { redirect_to :root, notice: _("That push doesn't belong to you.") }
@@ -345,7 +248,6 @@ class FilePushesController < ApplicationController
   description 'Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must ' \
               'have been created with _deleteable_by_viewer_.'
   def destroy
-    @push = FilePush.find_by!(url_token: params[:id])
     is_owner = false
 
     if user_signed_in?
@@ -483,10 +385,10 @@ class FilePushesController < ApplicationController
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(file_push, params)
     if Settings.files.enable_retrieval_step == true
-      if params[:file_push].key?(:retrieval_step)
+      if params.key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_rs = params[:file_push][:retrieval_step].to_s.downcase
+        user_rs = params[:retrieval_step].to_s.downcase
         file_push.retrieval_step = %w[on yes checked true].include?(user_rs)
       else
         file_push.retrieval_step = if request.format.html?
@@ -509,10 +411,10 @@ class FilePushesController < ApplicationController
   # tricky, we break this out to it's own function.
   def create_detect_deletable_by_viewer(file_push, params)
     if Settings.files.enable_deletable_pushes == true
-      if params[:file_push].key?(:deletable_by_viewer)
+      if params.key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_dvb = params[:file_push][:deletable_by_viewer].to_s.downcase
+        user_dvb = params[:deletable_by_viewer].to_s.downcase
         file_push.deletable_by_viewer = %w[on yes checked true].include?(user_dvb)
       else
         file_push.deletable_by_viewer = if request.format.html?
@@ -531,8 +433,27 @@ class FilePushesController < ApplicationController
     end
   end
 
+  def set_push
+    @push = FilePush.includes(:views).find_by!(url_token: params[:id])
+  rescue ActiveRecord::RecordNotFound
+    # Showing a 404 reveals that this Secret URL never existed
+    # which is an information leak (not a secret anymore)
+    # We also don't want data in general. We entirely delete old pushes that:
+    # 1. have expired (payloads already deleted long ago)
+    # 2. are anonymous/not linked to a user account (audit log not needed)
+    # Old, expired & anonymous pushes have no value to anybody.
+    # When not found, show the 'expired' page so even very old secret URLs
+    # when clicked they will be accurate - this secret URL has expired.
+    # No easy fix for JSON unfortunately as we don't have a record to show.
+    respond_to do |format|
+      format.html { render template: 'file_pushes/show_expired', layout: 'naked' }
+      format.json { render json: { error: 'not-found' }.to_json, status: :not_found }
+    end
+  end
+
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
-                                      :retrieval_step, :deletable_by_viewer, :note, files: [])
+                                      :retrieval_step, :deletable_by_viewer, :note,
+                                      :passphrase, files: [])
   end
 end
