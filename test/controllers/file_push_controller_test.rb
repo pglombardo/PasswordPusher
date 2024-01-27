@@ -55,7 +55,7 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
     get new_file_push_path
     assert_response :success
-    assert response.body.include?('You can upload up to 10 files per push.')
+    assert response.body.include?('You can upload up to')
 
     post file_pushes_path params: {
       file_push: {

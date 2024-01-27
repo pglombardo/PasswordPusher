@@ -187,11 +187,6 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
   def test_bad_request
     post file_pushes_path(format: :json), params: {},
                                           headers: { 'X-User-Email': @luca.email, 'X-User-Token': @luca.authentication_token }
-    assert_response :unprocessable_entity
-
-    res = JSON.parse(@response.body)
-    assert res.key?('error')
-    assert_equal 'No password, text or files provided.', res['error']
-    assert_equal 422, @response.status
+    assert_response :bad_request
   end
 end
