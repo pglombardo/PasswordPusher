@@ -55,7 +55,7 @@ ENV SECRET_KEY_BASE=662e5f1c1f71b78c6fc0455cf72b590aefc7e924bbe356556c8dacd18fa0
 RUN bundle exec rails assets:precompile && bundle exec rake db:setup
 
 # Removing unneccesary files/directories
-RUN rm -rf node_modules tmp/cache vendor/assets spec \
+RUN rm -rf tmp/cache vendor/assets spec \
     && rm -rf vendor/bundle/ruby/*/cache/*.gem \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
