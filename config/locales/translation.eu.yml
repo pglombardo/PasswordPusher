@@ -37,13 +37,13 @@ eu:
     - Ostirala
     - Larunbata
     abbr_day_names:
-    - Igan
-    - Astel
-    - Astear
-    - Asteaz
-    - Oste
-    - Osti
-    - Lar
+    - Ig
+    - Al
+    - Ar
+    - Az
+    - Og
+    - Ot
+    - Lr
     month_names:
     -
     - Urtarrila
@@ -71,7 +71,7 @@ eu:
     - Ira
     - Urr
     - Aza
-    - Aben
+    - Abe
   time:
     am: am
     pm: pm
@@ -155,15 +155,15 @@ eu:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Balioztatze arazoa: %{errors}'
+        record_invalid: 'Egiaztapenak huts egin du: %{errors}'
         restrict_dependent_destroy:
           has_one: Ezin da erregistroa ezabatu menpeko %{record} bat dagoelako
-          has_many: Ezin da erregistroa ezabat menpeko %{record}ak daudelako
+          has_many: Ezin da erregistroa ezabatu menpeko %{record}ak daudelako
     attributes:
       user:
         confirmation_sent_at: Baieztapena helbide honetara bidali da
-        confirmation_token: Berrespen-tokena
-        confirmed_at: Berrespen-data
+        confirmation_token: Egiaztapen-tokena
+        confirmed_at: Egiaztapen-data
         created_at: Sorrera-data
         current_password: Oraingo pasahitza
         current_sign_in_at: Hemendik sartu zara
@@ -175,12 +175,13 @@ eu:
         last_sign_in_ip: Azken saioaren IP
         locked_at: Blokeatuta
         password: Pasahitza
-        password_confirmation: Pasahitza berrespena
-        remember_created_at: Gogorarazpena hemen sortua
+        password_confirmation: Pasahitzaren egiaztapena
+        remember_created_at: Gogorarazpenaren sorrera-data
         remember_me: Gogora nazazu
-        reset_password_sent_at: Pasahitz berrespena helbide honetara bidali da
+        reset_password_sent_at: Pasahitzaren berrezarpena helbide honetara bidali
+          da
         reset_password_token: Berrezarri pasahitz tokena
-        sign_in_count: Saioa hasi zenbaketa
+        sign_in_count: Saio hasiera kopurua
         unconfirmed_email: Berretsi gabeko mezu elektronikoa
         unlock_token: Desblokeatu tokena
         updated_at: Ordu honetan eguneratua
@@ -192,40 +193,40 @@ eu:
     distance_in_words:
       half_a_minute: minutu erdi
       less_than_x_seconds:
-        one: segundu bat baino gutxiago
+        one: segundu %{count} baino gutxiago
         other: "%{count} segundu baino gutxiago"
       x_seconds:
-        one: segundu bat
-        other: "%{count} segundu"
+        one: segundo %{count}
+        other: "%{count} segundo"
       less_than_x_minutes:
-        one: 1 minutu bat baino gutxiago
+        one: minutu bat baino gutxiago
         other: "%{count} minutu baino gutxiago"
       x_minutes:
-        one: minutu bat
+        one: minutu %{count}
         other: "%{count} minutu"
       about_x_hours:
-        one: ordu bat inguru
+        one: ordu %{count} inguru
         other: "%{count} ordu inguru"
       x_days:
-        one: egun bat
+        one: egun %{count}
         other: "%{count} egun"
       about_x_months:
-        one: hilabete bat inguru
+        one: hilabete %{count} inguru
         other: "%{count} hilabete inguru"
       x_months:
-        one: hilabete bat
+        one: hilabete %{count}
         other: "%{count} hilabete"
       about_x_years:
-        one: urte bat inguru
+        one: urte %{count} inguru
         other: "%{count} urte inguru"
       over_x_years:
-        one: urte bat baino gehiago
+        one: urte %{count} baino gehiago
         other: "%{count} urte baino gehiago"
       almost_x_years:
-        one: ia urte bat
+        one: ia urte %{count}
         other: ia %{count} urte
       x_years:
-        one: "%{count} urtea"
+        one: urte %{count}
         other: "%{count} urte"
     prompts:
       year: Urte
@@ -233,7 +234,7 @@ eu:
       day: Egun
       hour: Ordu
       minute: Minutu
-      second: Segundu
+      second: Segundo
   helpers:
     select:
       prompt: Mesedez, aukeratu
@@ -580,19 +581,19 @@ eu:
     no_docs_found_descr: Ez dugu zure APIrako dokumentaziorik aurkitu.
     follow_instructions_html: Jarraitu %{href} kontrolagailuak nola deskribatu jakiteko.
     follow_instructions_href: argibide gehiago
-    oops: Aupa!!
+    oops: Oops!
     resource_not_found_html: Ez da %{resource} baliabidea aurkitu.
     method_not_found_html: Ez da %{method} metodoa aurkitu %{resource} baliabiderako.
-    goto_homepage_html: Saiatu %{href} helbidera joan
+    goto_homepage_html: Saiatu %{href} helbidera joaten
     goto_homepage_href: "%{app_name} APIaren dokumentazioaren hasierako orria"
-    required: beharrezkoak
+    required: derrigorrezkoa
     optional: aukerakoa
-    nil_allowed: ez da onartzen
-    param_name: Param izena
+    nil_allowed: hutsik uztea onartzen da
+    param_name: Parametro-izena
     params: Parametroak
     examples: Adibideak
     metadata: Metadatuak
-    errors: Akatsak
+    errors: Erroreak
     error_code: Kodea
     error_description: Deskribapena
     error_metadata: Metadatuak
@@ -603,13 +604,13 @@ eu:
     headers: Goiburuak
     header_name: Goiburuaren izena
     code: Kodea
-    returns: Itzuliak
+    returns: Itzultzen duena
     deprecated: Zaharkituta
     deprecation_details: Zaharkitzearen xehetasunak
     deprecation:
       attributes:
-        deprecated_in: urtean zaharkitua
-        sunset_at: Ilunabarrean
+        deprecated_in: Zaharkitze-epea
+        sunset_at: 'Ilunabarra '
         info: Info
   file_pushes:
     new:
