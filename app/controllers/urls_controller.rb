@@ -178,7 +178,7 @@ class UrlsController < ApplicationController
           desc: 'If authenticated, the URL encoded note for this push.  Visible only to the push creator.', allow_blank: true
     param :expire_after_days, Integer, desc: 'Expire secret link and delete after this many days.'
     param :expire_after_views, Integer, desc: 'Expire secret link and delete after this many views.'
-    param :retrieval_step, [true, false], desc: 'Helps to avoid chat systems and URL scanners from eating up views.'
+    param :retrieval_step, %w[true false], desc: 'Helps to avoid chat systems and URL scanners from eating up views.'
   end
   formats ['json']
   example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" ' \
