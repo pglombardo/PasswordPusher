@@ -141,22 +141,22 @@ ja:
         confirmed_at: パスワード確認時刻
         created_at: 作成日
         current_password: 現在のパスワード
-        current_sign_in_at: 現在のログイン時刻
-        current_sign_in_ip: 現在のログインIPアドレス
-        email: Eメール
-        encrypted_password: 暗号化パスワード
-        failed_attempts: 失敗したログイン試行回数
-        last_sign_in_at: 最終ログイン時刻
-        last_sign_in_ip: 最終ログインIPアドレス
-        locked_at: ロック時刻
+        current_sign_in_at: ログインした時刻
+        current_sign_in_ip: ログインしているIPアドレス
+        email: メール
+        encrypted_password: 暗号化されたパスワード
+        failed_attempts: ログインに失敗した回数
+        last_sign_in_at: 最後にログインした時刻
+        last_sign_in_ip: 最後にログインしたIPアドレス
+        locked_at: ロックされた時刻
         password: パスワード
         password_confirmation: パスワード（確認用）
-        remember_created_at: ログイン記憶時刻
-        remember_me: ログインを記憶する
-        reset_password_sent_at: パスワードリセット送信時刻
+        remember_created_at: ログインを記憶した時刻
+        remember_me: ログイン情報を記憶する
+        reset_password_sent_at: パスワードリセットメールの送信時刻
         reset_password_token: パスワードリセット用トークン
         sign_in_count: ログイン回数
-        unconfirmed_email: 未確認Eメール
+        unconfirmed_email: 確認されていないメールアドレス
         unlock_token: ロック解除用トークン
         updated_at: 更新日
     models:
@@ -165,7 +165,7 @@ ja:
         other: ユーザー
   datetime:
     distance_in_words:
-      half_a_minute: 30秒前後
+      half_a_minute: 30秒ほど
       less_than_x_seconds:
         one: 1秒以内
         other: "%{count}秒未満"
@@ -185,19 +185,19 @@ ja:
         one: 1日
         other: "%{count}日"
       about_x_months:
-        one: 約1ヶ月
+        one: 約%{count}ヶ月
         other: 約%{count}ヶ月
       x_months:
         one: 1ヶ月
         other: "%{count}ヶ月"
       about_x_years:
-        one: 約1年
+        one: 約%{count}年
         other: 約%{count}年
       over_x_years:
         one: 1年以上
         other: "%{count}年以上"
       almost_x_years:
-        one: 1年弱
+        one: "%{count}年弱"
         other: "%{count}年弱"
       x_years:
         one: 1年
@@ -249,21 +249,21 @@ ja:
       confirmed: メールアドレスが確認できました。
       send_instructions: アカウントの有効化について数分以内にメールでご連絡します。
       send_paranoid_instructions: メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。
-      resend_title: 確認手順の再送信
-      resend_header: 確認手順の再送信
-      resend_button: 再送
+      resend_title: 確認手順を再送信する
+      resend_header: 確認手順を再送信する
+      resend_button: もう一度送信する
       new:
-        resend_confirmation_instructions: アカウント確認メール再送
+        resend_confirmation_instructions: アカウント確認メール再送する
     failure:
       already_authenticated: すでにログインしています。
       inactive: アカウントが有効化されていません。メールに記載された手順にしたがって、アカウントを有効化してください。
       invalid: "%{authentication_keys}またはパスワードが違います。"
       locked: アカウントはロックされています。
-      last_attempt: もう一回誤るとアカウントがロックされます。
+      last_attempt: 次に間違えるとアカウントがロックされます。
       not_found_in_database: "%{authentication_keys}またはパスワードが違います。"
       timeout: セッションがタイムアウトしました。もう一度ログインしてください。
       unauthenticated: アカウント登録もしくはログインしてください。
-      unconfirmed: メールアドレスの本人確認が必要です。
+      unconfirmed: メールアドレスの確認が必要です。
     mailer:
       confirmation_instructions:
         subject: メールアドレス確認メール
@@ -286,10 +286,10 @@ ja:
       email_changed:
         subject: メール変更完了
         greeting: こんにちは、%{recipient}様。
-        message: あなたのメールの変更（%{email}）をお知らせいたします。
-        message_unconfirmed: メールアドレスが %{email} に変更されたことをお知らせするために、ご連絡を差し上げております。
+        message: あなたのメールが変更（%{email}）されたことをお知らせいたします。
+        message_unconfirmed: メールアドレスが %{email} に変更されたことをお知らせします。
       password_change:
-        subject: パスワードの変更について
+        subject: パスワードを変更する
         greeting: "%{recipient}様"
         message: パスワードが再設定されました。
     omniauth_callbacks:
@@ -320,7 +320,7 @@ ja:
       signed_up_but_inactive: ログインするためには、アカウントを有効化してください。
       signed_up_but_locked: アカウントがロックされているためログインできません。
       signed_up_but_unconfirmed: 本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。
-      update_needs_confirmation: アカウント情報を変更しました。変更されたメールアドレスの本人確認のため、本人確認用メールより確認処理をおこなってください。
+      update_needs_confirmation: アカウント情報を変更しました。新しいメールアドレスに届いたメールからメールアドレスの本人確認を行ってください。
       updated: アカウント情報を変更しました。
       updated_but_not_signed_in: あなたのアカウントは正常に更新されましたが、パスワードが変更されたため、再度ログインしてください。
       update_email: メールの更新
@@ -359,12 +359,12 @@ ja:
       new:
         resend_unlock_instructions: アカウントのロック解除方法を再送する
     general:
-      remember_me: 私を覚えてますか
+      remember_me: アカウントを記憶しますか？
       login: ログイン
       sign_up: サインアップ
       forgot_your: パスワードをお忘れですか？
-      didnt_confirmation: 確認の指示を受け取りませんでしたか?
-      didnt_unlock: ロック解除の指示を受けていませんか?
+      didnt_confirmation: アカウント確認のメールを受け取っていませんか？
+      didnt_unlock: アカウントのロック解除方法についてのメールを受け取っていませんか？
       email: Eメール
     sessions:
       new:
@@ -382,13 +382,13 @@ ja:
         one: "(%{count} 文字以上)"
         other: "(%{count} 文字以上)"
   apipie:
-    resources: 資力
+    resources: リソース
     resource: リソース
     description: 説明
     no_docs_found: ドキュメントが見つかりません
     no_docs_found_descr: API のドキュメントは見つかりませんでした。
     follow_instructions_html: コントローラの記述方法については、%{href} に従ってください。
-    follow_instructions_href: さらなる指示
+    follow_instructions_href: 次の指示
     oops: おっとっと！！
     resource_not_found_html: リソース %{resource} が見つかりません。
     method_not_found_html: リソース %{resource} のメソッド %{method} が見つかりません。
@@ -396,7 +396,7 @@ ja:
     goto_homepage_href: "%{app_name} API ドキュメントのホームページ"
     required: 必要
     optional: オプション
-    nil_allowed: 許可されていない
+    nil_allowed: 許可されていません
     param_name: パラメータ名
     params: パラメータ
     examples: 例
@@ -407,7 +407,7 @@ ja:
     error_metadata: メタデータ
     supported_formats: 対応フォーマット
     enable_javascript_html: "%{comments_href}を表示するにはJavaScriptを有効にしてください。"
-    comments_powered_by_disqus: "%{disqus} を搭載したコメント"
+    comments_powered_by_disqus: "%{disqus} によるコメント"
     api_documentation: API ドキュメント
     headers: ヘッダー
     header_name: ヘッダー名
