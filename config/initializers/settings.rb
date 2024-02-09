@@ -33,7 +33,7 @@ def load_legacy_environment_variables
 end
 
 # Prepend defaults to the Settings object in case users are missing some of the latest settings
-Settings.prepend_source!(Rails.root.join('config/settings-defaults.yml').to_s)
+Settings.prepend_source!(Rails.root.join('config/defaults/settings.yml').to_s)
 Settings.reload!
 load_legacy_environment_variables
 
