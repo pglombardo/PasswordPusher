@@ -11,7 +11,7 @@ class Feedback < MailForm::Base
   attributes :nickname, captcha: true
 
   # rubocop:disable Layout/LineLength
-  validates :message,   format: { without: /\b(SEO|offer|ranking|rankings|transformative|engagement|click here|absolutely free)\b+/i,
+  validates :message,   format: { without: /\b(SEO|offer|ranking|rankings|transformative|engagement|click here|absolutely free|Money Back|affiliate|commission|marketing|promote)\b+/i,
                                   message: 'spam detected' }
   # rubocop:enable Layout/LineLength
 
