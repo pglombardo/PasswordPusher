@@ -10,9 +10,6 @@ group :development do
   gem 'listen'
 
   # Visual Studio Additions
-  gem 'rubocop'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
   gem 'ruby-debug-ide'
 
   gem 'pry-rails'
@@ -20,6 +17,9 @@ group :development do
   # Access an interactive console on exception pages or by
   # calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.2.0'
+
+  gem 'derailed_benchmarks'
+  gem 'stackprof'
 end
 
 group :test do
@@ -36,6 +36,9 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debase', '>= 0.2.5.beta2', platforms: %i[mri mingw x64_mingw]
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+
+  gem "erb_lint", "~> 0.5.0"
+  gem "standardrb", "~> 1.0"
 end
 
 gem 'rack-attack'
@@ -117,6 +120,3 @@ group :production do
 end
 
 gem 'version', git: 'https://github.com/pglombardo/version.git', branch: 'master'
-
-gem 'derailed_benchmarks', group: :development
-gem 'stackprof', group: :development
