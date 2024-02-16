@@ -82,7 +82,7 @@ es:
       inclusion: no está incluido en la lista
       exclusion: está reservado
       invalid: no es válido
-      confirmation: no coincide
+      confirmation: no coincide con %{attribute}
       accepted: debe ser aceptado
       empty: no puede estar vacío
       blank: no puede estar en blanco
@@ -126,8 +126,8 @@ es:
       este al que referencia esta solicitud no está en la memoria. Considere la posibilidad de convertir el número de procesos/hilos a uno (1) o usa un servidor diferente en desarrollo.
     unacceptable_request: Se espera una version compatible en la cabecera Aceptar.
     connection_refused: |
-      Ups! No se pudo conectar a la consola Web de middleware.
-      Por favor asegúrese de que un servidor de desarrollo de Rails se está ejecutando.
+      ¡Ups! No se pudo conectar a la consola Web de middleware.
+      Por favor asegúrate de que un servidor de desarrollo de Rails se está ejecutando.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
@@ -138,21 +138,21 @@ es:
       messages:
         record_invalid: 'La validación falló: %{errors} veces'
         restrict_dependent_destroy:
-          has_one: No se puede eliminar el registro porque existe un %{record} dependiente
-          has_many: No se puede eliminar el registro porque existen %{record} dependientes
+          has_one: No se puede eliminar el registro porque existe %{record} dependencia
+          has_many: No se puede eliminar el registro porque existen %{record} dependiencias
     attributes:
       user:
-        confirmation_sent_at: Confirmación enviada a
-        confirmation_token: Código de confirmación
-        confirmed_at: Confirmado en
-        created_at: Creado el
+        confirmation_sent_at: Fecha de envío de confirmación
+        confirmation_token: Token de confirmación
+        confirmed_at: Fecha de confirmación
+        created_at: Fecha de creación
         current_password: Contraseña actual
-        current_sign_in_at: Fecha de la sesión actual
-        current_sign_in_ip: IP de la sesión actual
-        email: Email
+        current_sign_in_at: Fecha de inicio de sesión actual
+        current_sign_in_ip: IP de inicio de sesión actual
+        email: Correo electrónico
         encrypted_password: Contraseña cifrada
         failed_attempts: Intentos fallidos
-        last_sign_in_at: Fecha del último inicio de sesion
+        last_sign_in_at: Fecha del último inicio de sesión
         last_sign_in_ip: IP del último inicio de sesión
         locked_at: Fecha de bloqueo
         password: Contraseña
@@ -160,11 +160,11 @@ es:
         remember_created_at: Fecha de creación del 'Recuérdame'
         remember_me: Recuérdame
         reset_password_sent_at: Fecha del envío de restablecimiento de contraseña
-        reset_password_token: Código para restablecer contraseña
+        reset_password_token: Token para restablecer contraseña
         sign_in_count: Número de inicios de sesión
-        unconfirmed_email: Email no confirmado
-        unlock_token: Código de desbloqueo
-        updated_at: Actualizado en
+        unconfirmed_email: Correo electrónico no confirmado
+        unlock_token: Token de desbloqueo
+        updated_at: Fecha de actualización
     models:
       user:
         one: Usuario
@@ -173,40 +173,40 @@ es:
     distance_in_words:
       half_a_minute: medio minuto
       less_than_x_seconds:
-        one: menos de 1 segundo
+        one: menos de %{count} segundo
         other: menos de %{count} segundos
       x_seconds:
-        one: 1 segundo
+        one: "%{count} segundo"
         other: "%{count} segundos"
       less_than_x_minutes:
         one: menos de 1 minuto
         other: menos de %{count} minutos
       x_minutes:
-        one: 1 minuto
+        one: "%{count} minuto"
         other: "%{count} minutos"
       about_x_hours:
         one: alrededor de %{count} hora
         other: alrededor de %{count} horas
       x_days:
-        one: 1 día
+        one: "%{count} día"
         other: "%{count} días"
       about_x_months:
-        one: alrededor de 1 mes
+        one: alrededor de %{count} mes
         other: alrededor de %{count} meses
       x_months:
-        one: 1 mes
+        one: "%{count} mes"
         other: "%{count} meses"
       about_x_years:
-        one: alrededor de 1 año
+        one: alrededor de %{count} año
         other: alrededor de %{count} años
       over_x_years:
-        one: más de 1 año
+        one: más de %{count} año
         other: más de %{count} años
       almost_x_years:
-        one: casi 1 año
+        one: casi %{count} año
         other: casi %{count} años
       x_years:
-        one: 1 año
+        one: "%{count} año"
         other: "%{count} años"
     prompts:
       year: Año
@@ -253,14 +253,14 @@ es:
         alert: "%{resource_name} no pudo ser destruido."
   devise:
     confirmations:
-      confirmed: Tu cuenta ha sido confirmada satisfactoriamente.
-      send_instructions: Vas a recibir un correo con instrucciones sobre cómo confirmar
-        tu cuenta en unos minutos.
-      send_paranoid_instructions: Si tu correo existe en nuestra base de datos, en
-        unos minutos recibirás un correo con instrucciones sobre cómo confirmar tu
-        cuenta.
-      resend_title: Vuelva a Enviar Instrucciones de Confirmación
-      resend_header: Vuelva a Enviar Instrucciones de Confirmación
+      confirmed: Tu dirección de correo electrónico ha sido confirmada exitosamente.
+      send_instructions: Vas a recibir un correo con instrucciones para confirmar
+        tu dirección de correo electrónico en unos minutos.
+      send_paranoid_instructions: Si tu dirección de correo electrónico existe en
+        nuestra base de datos, en unos minutos recibirás un correo con instrucciones
+        para confirmarla.
+      resend_title: Reenviar instrucciones de confirmación
+      resend_header: Reenviar instrucciones de confirmación
       resend_button: Reenviar
       new:
         resend_confirmation_instructions: Reenviar instrucciones de confirmación
@@ -271,171 +271,173 @@ es:
       locked: Tu cuenta está bloqueada.
       last_attempt: Tienes un intento más antes de que tu cuenta sea bloqueada.
       not_found_in_database: "%{authentication_keys} o contraseña inválidos."
-      timeout: Tu sesión expiró. Por favor, inicia sesión de nuevo para continuar.
+      timeout: Tu sesión ha expirado. Por favor, inicia sesión de nuevo para continuar.
       unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
-      unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
+      unconfirmed: Tienes que confirmar tu dirección de correo electrónico para poder
+        continuar.
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación
         action: Confirmar mi cuenta
         greeting: "¡Bienvenido %{recipient}!"
-        instruction: 'Usted puede confirmar el correo electrónico de su cuenta a través
-          de este enlace:'
+        instruction: 'Puedes confirmar la dirección de correo electrónico de tu cuenta
+          a través de este enlace:'
       reset_password_instructions:
         subject: Instrucciones de recuperación de contraseña
-        action: Cambiar mi contraseña
+        action: Actualizar mi contraseña
         greeting: "¡Hola %{recipient}!"
-        instruction: Alguien ha solicitado un enlace para cambiar su contraseña, lo
-          que se puede realizar a través del siguiente enlace.
-        instruction_2: Si usted no lo ha solicitado, por favor ignore este correo
-          electrónico.
-        instruction_3: Su contraseña no será cambiada hasta que usted acceda al enlace
-          y cree una nueva.
+        instruction: Alguien ha solicitado un enlace para actualizar tu contraseña.
+          Puedes hacerlo a través del siguiente enlace.
+        instruction_2: Si no lo has solicitado, por favor ignora este mensaje.
+        instruction_3: Tu contraseña no será actualizada hasta que accedas al enlace
+          y crees una nueva.
       unlock_instructions:
         subject: Instrucciones para desbloquear
         action: Desbloquear mi cuenta
         greeting: "¡Hola %{recipient}!"
-        instruction: 'Haga click en el siguiente enlace para desbloquear su cuenta:'
-        message: Su cuenta ha sido bloqueada debido a una cantidad excesiva de intentos
+        instruction: 'Haz clic en el siguiente enlace para desbloquear tu cuenta:'
+        message: Tu cuenta ha sido bloqueada debido a una cantidad excesiva de intentos
           fallidos de inicio de sesión.
       email_changed:
-        subject: Email cambiado
-        greeting: "¡Hola %{recipient}! "
-        message: Nos comunicamos con usted para notificarle que su correo electrónico
-          se ha cambiado a %{email}.
-        message_unconfirmed: Nos comunicamos con usted para notificarle que su correo
-          electrónico se cambiará a %{email}.
-      password_change:
-        subject: Contraseña cambiada
+        subject: Dirección de correo electrónico actualizada
         greeting: "¡Hola %{recipient}!"
-        message: Nos comunicamos con usted para notificarle que su contraseña ha sido
-          cambiada.
+        message: Nos comunicamos contigo para notificarte que tu dirección de correo
+          electrónico se ha actualizado a %{email}.
+        message_unconfirmed: Nos comunicamos contigo para notificarte que tu dirección
+          de correo electrónico se actualizará a %{email}.
+      password_change:
+        subject: Contraseña actualizada
+        greeting: "¡Hola %{recipient}!"
+        message: Nos comunicamos contigo para notificarte que tu contraseña ha sido
+          actualizada.
     omniauth_callbacks:
-      failure: No has sido autorizado en la cuenta %{kind} porque "%{reason}".
-      success: Has sido autorizado satisfactoriamente en la cuenta %{kind}.
+      failure: No has sido autenticado en la cuenta %{kind}, porque "%{reason}".
+      success: Has sido autenticado con éxito en la cuenta %{kind}.
     passwords:
       no_token: No puedes acceder a esta página si no es a través de un enlace para
-        resetear tu contraseña. Si has llegado hasta aquí desde el email para resetear
+        restablecer tu contraseña. Si has llegado aquí desde el mensaje para restablecer
         tu contraseña, por favor asegúrate de que la URL introducida está completa.
-      send_instructions: Recibirás un correo con instrucciones sobre cómo resetear
+      send_instructions: Recibirás un correo con instrucciones sobre cómo restablecer
         tu contraseña en unos pocos minutos.
-      send_paranoid_instructions: Si tu correo existe en nuestra base de datos, recibirás
-        un correo con instrucciones sobre cómo resetear tu contraseña en tu bandeja
-        de entrada.
-      updated: Se ha cambiado tu contraseña. Ya iniciaste sesión.
-      updated_not_active: Tu contraseña fue cambiada.
-      reset_title: Restablecer la Contraseña
-      reset_button: Actualizar Cuenta
-      forgot_title: Se te olvidó tu contraseña
-      forgot_header: Se te olvidó tu contraseña
-      forgot_button: Enviar Instrucciones de Restablecimiento
+      send_paranoid_instructions: Si tu correo electrónico existe en nuestra base
+        de datos, recibirás un mensaje con instrucciones sobre cómo restablecer tu
+        contraseña.
+      updated: Se ha actualizado tu contraseña con éxito y ya has iniciado sesión.
+      updated_not_active: Tu contraseña ha sido actualizada.
+      reset_title: Restablecer la contraseña
+      reset_button: Actualizar cuenta
+      forgot_title: He olvidado mi contraseña
+      forgot_header: He olvidado mi contraseña
+      forgot_button: Enviar instrucciones de restablecimiento
       edit:
-        change_my_password: Cambiar mi contraseña
-        change_your_password: Cambie su contraseña
-        confirm_new_password: Confirme la nueva contraseña
+        change_my_password: Actualizar mi contraseña
+        change_your_password: Actualiza tu contraseña
+        confirm_new_password: Confirma la nueva contraseña
         new_password: Nueva contraseña
       new:
-        forgot_your_password: "¿Ha olvidado su contraseña?"
-        send_me_reset_password_instructions: Envíeme las instrucciones para resetear
+        forgot_your_password: "¿Has olvidado tu contraseña?"
+        send_me_reset_password_instructions: Envíame las instrucciones para restablecer
           mi contraseña
     registrations:
       destroyed: "¡Adiós! Tu cuenta ha sido cancelada correctamente. Esperamos verte
         pronto."
-      signed_up: Bienvenido. Tu cuenta fue creada.
-      signed_up_but_inactive: Tu cuenta ha sido creada correctamente. Sin embargo,
-        no hemos podido iniciar la sesión porque tu cuenta aún no está activada.
-      signed_up_but_locked: Tu cuenta ha sido creada correctamente. Sin embargo, no
-        hemos podido iniciar la sesión porque que tu cuenta está bloqueada.
+      signed_up: "¡Bienvenido! Te has registrado con éxito. Por favor revisa tu correo
+        electrónico para obtener un enlace de confirmación."
+      signed_up_but_inactive: Te has registrado correctamente. Sin embargo, no pudimos
+        iniciar sesión porque tu cuenta aún no está activada.
+      signed_up_but_locked: Te has registrado correctamente. Sin embargo, no pudimos
+        iniciar sesión porque tu cuenta está bloqueada.
       signed_up_but_unconfirmed: Se ha enviado un mensaje con un enlace de confirmación
         a tu correo electrónico. Abre el enlace para activar tu cuenta.
       update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es
         necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo
-        y sigue el enlace de confirmación para finalizar la validación del nuevo correo
+        y abre el enlace de confirmación para finalizar la validación del nuevo correo
         electrónico.
-      updated: Tu cuenta se ha actualizado.
-      updated_but_not_signed_in: Su cuenta se ha actualizado correctamente, pero como
-        se cambió su contraseña, debe iniciar sesión nuevamente
-      update_email: Actualizar Correo Electrónico
+      updated: Tu cuenta se ha actualizado con éxito.
+      updated_but_not_signed_in: Tu cuenta se ha actualizado correctamente, pero como
+        has actualizado tu contraseña, debes iniciar sesión nuevamente.
+      update_email: Actualizar correo electrónico
       currently_waiting: Actualmente a la espera de confirmación para
-      change_password: Cambiar la Contraseña
-      change_password_hint: Déjelo en blanco si no desea cambiarlo.
-      new_password: Nueva Contraseña
-      new_password_confirmation: Confirmación de Nueva Contraseña
+      change_password: Actualizar la contraseña
+      change_password_hint: Dejar en blanco si no deseas actualizar.
+      new_password: Nueva contraseña
+      new_password_confirmation: Confirmación de la nueva contraseña
       password: contraseña
-      password_minimum: Se requiere un mínimo de% d caracteres, pero cuantos más,
+      password_minimum: Se requiere un mínimo de %d caracteres, pero cuantos más,
         mejor.
       verification: Verificación
-      verification_text: Introduzca su contraseña actual para validar los cambios
-        anteriores.
-      update_account: Actualizar Cuenta
-      edit_account: Editar Cuenta
-      create_account: Crear una Cuenta
-      email: Email
-      password_confirmation: Confirmación De Contraseña
+      verification_text: Introduce tu contraseña actual para validar los cambios anteriores.
+      update_account: Actualizar cuenta
+      edit_account: Editar cuenta
+      create_account: Crear una cuenta
+      email: Correo electrónico
+      password_confirmation: Confirmación de la contraseña
       edit:
-        are_you_sure: "¿Está usted seguro?"
+        are_you_sure: "¿Estás seguro?"
         cancel_my_account: Anular mi cuenta
         currently_waiting_confirmation_for_email: 'Actualmente esperando la confirmacion
           de: %{email} '
-        leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no desea cambiarla
+        leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no deseas actualizar
         title: Editar %{resource}
         unhappy: "¿Descontento?"
         update: Actualizar
-        we_need_your_current_password_to_confirm_your_changes: necesitamos su contraseña
+        we_need_your_current_password_to_confirm_your_changes: necesitamos tu contraseña
           actual para confirmar los cambios
       new:
         sign_up: Registrarse
     unlocks:
-      send_instructions: Vas a recibir instrucciones para desbloquear tu cuenta en
-        unos pocos minutos.
-      send_paranoid_instructions: Si tu cuenta existe, vas a recibir instrucciones
-        para desbloquear tu cuenta en unos pocos minutos.
-      unlocked: Tu cuenta ha sido desbloqueada. Ya puedes iniciar sesión.
+      send_instructions: Vas a recibir un correo con instrucciones para desbloquear
+        tu cuenta en pocos minutos.
+      send_paranoid_instructions: Si tu cuenta existe, vas a recibir un correo con
+        instrucciones para desbloquear tu cuenta en pocos minutos.
+      unlocked: Tu cuenta ha sido desbloqueada exitosamente. Por favor inicia sesión
+        para continuar.
       unlock_title: Reenviar Instrucciones de Desbloquear
-      unlock_header: Reenviar Instrucciones de Desbloquear
+      unlock_header: Reenviar instrucciones para desbloquear
       unlock_button: Reenviar
       new:
         resend_unlock_instructions: Reenviar instrucciones para desbloquear
     general:
       remember_me: Recuérdame
-      login: Iniciar Sesión
+      login: Iniciar sesión
       sign_up: Registrarse
       forgot_your: "¿Olvidaste tu contraseña?"
-      didnt_confirmation: "¿No has recibido la confirmación?"
-      didnt_unlock: "¿No recibió instrucciones de desbloqueo?"
-      email: Email
+      didnt_confirmation: "¿No has recibido las instrucciones de confirmación?"
+      didnt_unlock: "¿No has recibido las instrucciones de desbloqueo?"
+      email: Correo electrónico
     sessions:
       new:
         sign_in: Iniciar sesión
     shared:
       links:
         back: Atrás
-        didn_t_receive_confirmation_instructions: "¿No ha recibido las instrucciones
+        didn_t_receive_confirmation_instructions: "¿No has recibido las instrucciones
           de confirmación?"
-        didn_t_receive_unlock_instructions: "¿No ha recibido instrucciones para desbloquear?"
-        forgot_your_password: "¿Ha olvidado su contraseña?"
+        didn_t_receive_unlock_instructions: "¿No has recibido las instrucciones para
+          desbloquear?"
+        forgot_your_password: "¿Has olvidado tu contraseña?"
         sign_in: Iniciar sesión
         sign_in_with_provider: Iniciar sesión con %{provider}
         sign_up: Registrarse
       minimum_password_length:
-        one: "(%{count} carácteres como mínimo)"
-        other: "(%{count} carácteres como mínimo)"
+        one: "(%{count} caracteres como mínimo)"
+        other: "(%{count} caracteres como mínimo)"
   apipie:
     resources: Recursos
     resource: Recurso
     description: Descripción
     no_docs_found: No se encontró documentación
     no_docs_found_descr: No hemos encontrado ninguna documentación para su API.
-    follow_instructions_html: Visite %{href} para saber cómo describir sus controladores.
+    follow_instructions_html: Visita %{href} para saber cómo describir tus controladores.
     follow_instructions_href: más instrucciones
     oops: "¡¡Ups!!"
     resource_not_found_html: Recurso %{resource} no encontrado.
     method_not_found_html: Método %{method} no encontrado para el recurso %{resource}.
     goto_homepage_html: Intenta ir a %{href}
-    goto_homepage_href: "%{app_name} Página de inicio de la documentación de la API"
+    goto_homepage_href: "%{app_name} página de inicio de la documentación de la API"
     required: requerido
     optional: opcional
-    nil_allowed: cero permitido
+    nil_allowed: valor nulo permitido
     param_name: Nombre del parámetro
     params: Parámetros
     examples: Ejemplos
@@ -444,9 +446,9 @@ es:
     error_code: Código
     error_description: Descripción
     error_metadata: Metadatos
-    supported_formats: Formatos Compatibles
-    enable_javascript_html: Habilite JavaScript para ver el %{comments_href}.
-    comments_powered_by_disqus: comentarios impulsados por %{disqus}
+    supported_formats: Formatos compatibles
+    enable_javascript_html: Habilita JavaScript para ver el comentario %{comments_href}.
+    comments_powered_by_disqus: comentarios gestionados por %{disqus}
     api_documentation: Documentación de la API
     headers: Encabezados
     header_name: Nombre del encabezado
@@ -455,8 +457,8 @@ es:
     deprecation_details: Detalles de la obsolescencia
     deprecation:
       attributes:
-        deprecated_in: Obsoleto desde el
-        sunset_at: Puesta de sol en
+        deprecated_in: 'Fecha de obsolescencia '
+        sunset_at: Fecha de la puesta de sol
         info: Información
     returns: Devoluciones
   i18n_tasks:
