@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class FilePushBlurTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -24,9 +24,9 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   def test_blur_enabled
     post file_pushes_path, params: {
       file_push: {
-        payload: 'Message',
+        payload: "Message",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -35,15 +35,15 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # File Push page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate that blur is enabled
-    tags = assert_select '#push_payload'
-    assert tags.first.attr('class').include?('spoiler')
+    tags = assert_select "#push_payload"
+    assert tags.first.attr("class").include?("spoiler")
   end
 
   def test_blur_when_disabled
@@ -51,9 +51,9 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'Message',
+        payload: "Message",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -62,14 +62,14 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # File Push page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate that blur is enabled
-    tags = assert_select '#push_payload'
-    assert_not tags.first.attr('class').include?('spoiler')
+    tags = assert_select "#push_payload"
+    assert_not tags.first.attr("class").include?("spoiler")
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SettingsTest < Minitest::Test
   def teardown
@@ -11,8 +11,8 @@ class SettingsTest < Minitest::Test
     # Make sure these two files are always the same.
     # If a user overlays config/settings.yml with an older version of the settings file
     # the prepended defaults will fill in the missing bits.  See also config/initializers/settings-defaults.rb
-    settings = File.binread(Rails.root.join('config/settings.yml').to_s)
-    settings_defaults = File.binread(Rails.root.join('config/defaults/settings.yml').to_s)
+    settings = File.binread(Rails.root.join("config/settings.yml").to_s)
+    settings_defaults = File.binread(Rails.root.join("config/defaults/settings.yml").to_s)
 
     assert settings.length == settings_defaults.length
     assert settings == settings_defaults

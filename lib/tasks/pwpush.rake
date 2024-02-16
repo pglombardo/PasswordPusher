@@ -7,7 +7,7 @@
 # a preemptive measure to expire pushes periodically.  It saves some CPU and DB calls
 # on live requests.
 #
-desc 'Run through, validate and conditionally expire passwords.'
+desc "Run through, validate and conditionally expire passwords."
 task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
@@ -66,25 +66,25 @@ end
 # Note: This applies to anonymous pushes.  For logged-in user records, we don't do this
 # to maintain user audit logs.
 #
-desc 'Delete expired and anonymous pushes.'
+desc "Delete expired and anonymous pushes."
 task delete_expired_and_anonymous: :environment do
   counter = 0
 
   puts "--> Starting delete_expired_and_anonymous on #{Time.zone.now}"
 
   Password.includes(:views)
-          .where(expired: true)
-          .where(user_id: nil)
-          .find_each do |push|
+    .where(expired: true)
+    .where(user_id: nil)
+    .find_each do |push|
     counter += 1
     push.destroy
   end
 
   if Settings.enable_file_pushes
     FilePush.includes(:views)
-            .where(expired: true)
-            .where(user_id: nil)
-            .find_each do |push|
+      .where(expired: true)
+      .where(user_id: nil)
+      .find_each do |push|
       counter += 1
       push.destroy
     end
@@ -92,9 +92,9 @@ task delete_expired_and_anonymous: :environment do
 
   if Settings.enable_url_pushes
     Url.includes(:views)
-       .where(expired: true)
-       .where(user_id: nil)
-       .find_each do |push|
+      .where(expired: true)
+      .where(user_id: nil)
+      .find_each do |push|
       counter += 1
       push.destroy
     end
@@ -104,7 +104,7 @@ task delete_expired_and_anonymous: :environment do
   puts "  -> Finished delete_expired_and_anonymous on #{Time.zone.now}"
 end
 
-desc 'Generate robots.txt.'
+desc "Generate robots.txt."
 task generate_robots_txt: :environment do
   include Rails.application.routes.url_helpers
   contents = "User-Agent: *\n"
@@ -126,24 +126,24 @@ task generate_robots_txt: :environment do
     end
   end
 
-  File.write('./public/robots.txt', contents)
+  File.write("./public/robots.txt", contents)
 
-  puts ''
-  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
-  puts ''
+  puts ""
+  puts "All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )"
+  puts ""
 end
 
 namespace :active_storage do
-  desc 'Purges unattached Active Storage blobs. Run regularly.'
+  desc "Purges unattached Active Storage blobs. Run regularly."
   task purge_unattached: :environment do
-    ActiveStorage::Blob.unattached.where('active_storage_blobs.created_at > ?',
-                                         2.days.ago).find_each(&:purge_later)
+    ActiveStorage::Blob.unattached.where("active_storage_blobs.created_at > ?",
+      2.days.ago).find_each(&:purge_later)
   end
 end
 
-desc 'Pull updated themes from Bootswatch.'
+desc "Pull updated themes from Bootswatch."
 task update_themes: :environment do
-  puts 'Updating themes...'
+  puts "Updating themes..."
 
   themes = %w[
     cerulean

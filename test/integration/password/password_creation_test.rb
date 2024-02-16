@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_textarea_has_safeties
@@ -8,179 +8,179 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Validate some elements
-    text_area = css_select 'textarea#password_payload.form-control'
+    text_area = css_select "textarea#password_payload.form-control"
 
-    assert text_area.attribute('spellcheck')
-    assert text_area.attribute('spellcheck').value == 'false'
+    assert text_area.attribute("spellcheck")
+    assert text_area.attribute("spellcheck").value == "false"
 
-    assert text_area.attribute('autocomplete')
-    assert text_area.attribute('autocomplete').value == 'off'
+    assert text_area.attribute("autocomplete")
+    assert text_area.attribute("autocomplete").value == "off"
 
-    assert text_area.attribute('autofocus')
-    assert text_area.attribute('autofocus').value == 'autofocus'
+    assert text_area.attribute("autofocus")
+    assert text_area.attribute("autofocus").value == "autofocus"
 
-    assert text_area.attribute('required')
-    assert text_area.attribute('required').value == 'required'
+    assert text_area.attribute("required")
+    assert text_area.attribute("required").value == "required"
   end
 
   def test_password_creation
     get new_password_path
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'testpw' } }
+    post passwords_path, params: {password: {payload: "testpw"}}
     assert_response :redirect
 
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
     # Assert that the right password is in the page
-    pre = css_select 'pre'
+    pre = css_select "pre"
     assert(pre)
-    assert(pre.first.content.include?('testpw'))
+    assert(pre.first.content.include?("testpw"))
   end
 
   def test_ascii_8bit_password_creation
-    get '/'
+    get "/"
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'æ ¼ ö ç ý' } }
+    post passwords_path, params: {password: {payload: "æ ¼ ö ç ý"}}
     assert_response :redirect
 
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
     # Assert that the right password is in the page
-    pre = css_select 'pre'
+    pre = css_select "pre"
     assert(pre)
-    assert(pre.first.content.include?('æ ¼ ö ç ý'))
+    assert(pre.first.content.include?("æ ¼ ö ç ý"))
   end
 
   def test_password_creation_uncommon_characters
-    get '/'
+    get "/"
     assert_response :success
 
-    post passwords_path, params: { password: { payload: '£' } }
+    post passwords_path, params: {password: {payload: "£"}}
     assert_response :redirect
 
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
     # Assert that the right password is in the page
-    pre = css_select 'pre'
+    pre = css_select "pre"
     assert(pre)
-    assert(pre.first.content.include?('£'))
+    assert(pre.first.content.include?("£"))
   end
 
   def test_deletable_by_viewer_enabled_or_not
-    get '/'
+    get "/"
     assert_response :success
 
     # DELETABLE_PASSWORDS_ENABLED enables or disables the ability for users
     # to delete passwords when viewing
 
-    deletable_checkbox = css_select '#password_deletable_by_viewer'
+    deletable_checkbox = css_select "#password_deletable_by_viewer"
     assert(deletable_checkbox)
 
     found = Settings.pw.enable_deletable_pushes
     deletable_checkbox.each do |item|
-      found = true if item.content.include?('Allow viewers to optionally delete password before expiration')
+      found = true if item.content.include?("Allow viewers to optionally delete password before expiration")
     end
     assert found
 
     # Assert default value on form: DELETABLE_PASSWORDS_DEFAULT
-    deletable_checkbox = css_select 'input#password_deletable_by_viewer'
+    deletable_checkbox = css_select "input#password_deletable_by_viewer"
     assert(deletable_checkbox.length == 1)
 
     # DELETABLE_PASSWORDS_DEFAULT determines initial check state
     if Settings.pw.deletable_pushes_default == true
-      assert(deletable_checkbox.first.attributes['checked'].value == 'checked')
+      assert(deletable_checkbox.first.attributes["checked"].value == "checked")
     else
-      assert(deletable_checkbox.first.attributes['checked'].nil?)
+      assert(deletable_checkbox.first.attributes["checked"].nil?)
     end
   end
 
   def test_deletable_by_viewer_honored_when_true
-    get '/'
+    get "/"
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'testpw', deletable_by_viewer: 'on' } }
+    post passwords_path, params: {password: {payload: "testpw", deletable_by_viewer: "on"}}
     assert_response :redirect
 
     follow_redirect!
     assert_response :success
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
-    delete_link = css_select 'button.btn-danger'
+    delete_link = css_select "button.btn-danger"
     assert(delete_link.length == 1)
-    assert(delete_link.children.last.text.include?('Delete This Secret Link Now'))
+    assert(delete_link.children.last.text.include?("Delete This Secret Link Now"))
   end
 
   def test_deletable_by_viewer_falls_back_to_default
-    get '/'
+    get "/"
     assert_response :success
 
-    post passwords_path, params: { password: { payload: 'testpw' } }
+    post passwords_path, params: {password: {payload: "testpw"}}
     assert_response :redirect
 
     follow_redirect!
     assert_response :success
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'Please obtain and securely store this content in a secure manner, such as in a password manager.'
-    assert p_tags[1].text == 'Your password is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
-    delete_button = css_select 'button.btn-danger'
+    delete_button = css_select "button.btn-danger"
 
     # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
     # at all so we set false - NOT deletable by viewers

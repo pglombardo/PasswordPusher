@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'addressable/uri'
+require "addressable/uri"
 
 module UrlsHelper
   def valid_url?(url)

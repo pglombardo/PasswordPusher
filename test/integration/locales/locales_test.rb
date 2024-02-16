@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class LocalesTest < ActionDispatch::IntegrationTest
   def test_locales_exist
     I18n.available_locales.each do |locale|
-      get root_path, params: { locale: }
+      get root_path, params: {locale:}
       assert_response :success
     end
   end

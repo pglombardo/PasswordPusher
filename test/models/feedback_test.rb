@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
-CONTROL = '97'
+CONTROL = "97"
 
 class FeedbackTest < ActiveSupport::TestCase
-  test 'spam is caught and trashed' do
+  test "spam is caught and trashed" do
     feedback = Feedback.new(
       control: CONTROL,
-      name: 'Joey',
-      email: 'joey@blah.com',
+      name: "Joey",
+      email: "joey@blah.com",
       message: <<~SPAMMSG
         Hello pwpush.com owner,
 
@@ -28,11 +28,11 @@ class FeedbackTest < ActiveSupport::TestCase
     assert_not feedback.valid?
   end
 
-  test 'valid emails are allowed through' do
+  test "valid emails are allowed through" do
     feedback = Feedback.new(
       control: CONTROL,
-      name: 'Joey',
-      email: 'joey@blah.com',
+      name: "Joey",
+      email: "joey@blah.com",
       message: <<~MSG
         Hello!  We love Password Pusher!  It's the best!
       MSG
@@ -40,11 +40,11 @@ class FeedbackTest < ActiveSupport::TestCase
     assert feedback.valid?
   end
 
-  test 'bad control is blocked' do
+  test "bad control is blocked" do
     feedback = Feedback.new(
       control: 1,
-      name: 'Joey',
-      email: 'joey@blah.com',
+      name: "Joey",
+      email: "joey@blah.com",
       message: <<~MSG
         Hello!  We love Password Pusher!  It's the best!
       MSG

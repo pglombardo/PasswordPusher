@@ -4,7 +4,7 @@ module FilePushesHelper
   def filesize(size)
     units = %w[B KiB MiB GiB TiB Pib EiB ZiB]
 
-    return '0.0 B' if size.zero?
+    return "0.0 B" if size.zero?
 
     exp = (Math.log(size) / Math.log(1024)).to_i
     exp += 1 if size.to_f / (1024**exp) >= 1024 - 0.05
