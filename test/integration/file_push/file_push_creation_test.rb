@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -21,21 +21,21 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   def test_textarea_has_safeties
     get new_file_push_path
     assert_response :success
-    assert response.body.include?('You can upload up to')
+    assert response.body.include?("You can upload up to")
 
     # Validate some elements
-    text_area = css_select 'textarea#file_push_payload.form-control'
+    text_area = css_select "textarea#file_push_payload.form-control"
 
-    assert text_area.attribute('spellcheck')
-    assert text_area.attribute('spellcheck').value == 'false'
+    assert text_area.attribute("spellcheck")
+    assert text_area.attribute("spellcheck").value == "false"
 
-    assert text_area.attribute('autocomplete')
-    assert text_area.attribute('autocomplete').value == 'off'
+    assert text_area.attribute("autocomplete")
+    assert text_area.attribute("autocomplete").value == "off"
 
-    file_input = css_select 'input#file_push_files.form-control'
+    file_input = css_select "input#file_push_files.form-control"
 
-    assert file_input.attribute('required')
-    assert file_input.attribute('required').value == 'required'
+    assert file_input.attribute("required")
+    assert file_input.attribute("required").value == "required"
   end
 
   def test_file_push_creation
@@ -44,9 +44,9 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'Message',
+        payload: "Message",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -55,23 +55,23 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # File Push page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
-    assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text == 'Attached Files'
-    assert p_tags[3].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[1].text == "The message is blurred out.  Click below to reveal it."
+    assert p_tags[2].text == "Attached Files"
+    assert p_tags[3].text.include?("This secret link and all content will be deleted")
 
     # Assert that the right password is in the page
-    download_link = css_select 'a.list-group-item.list-group-item-action'
+    download_link = css_select "a.list-group-item.list-group-item-action"
     assert(download_link)
-    assert(download_link.first.content.include?('monkey.png'))
+    assert(download_link.first.content.include?("monkey.png"))
   end
 
   def test_ascii_8bit_message_creation
@@ -80,9 +80,9 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'æ ¼ ö ç ý',
+        payload: "æ ¼ ö ç ý",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -91,27 +91,27 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # File Push page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Validate some elements
-    p_tags = assert_select 'p'
-    assert p_tags[0].text == 'The following message has been sent to you along with the files below.'
-    assert p_tags[1].text == 'The message is blurred out.  Click below to reveal it.'
-    assert p_tags[2].text == 'Attached Files'
-    assert p_tags[3].text.include?('This secret link and all content will be deleted')
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "The following message has been sent to you along with the files below."
+    assert p_tags[1].text == "The message is blurred out.  Click below to reveal it."
+    assert p_tags[2].text == "Attached Files"
+    assert p_tags[3].text.include?("This secret link and all content will be deleted")
 
-    pre = css_select 'pre'
+    pre = css_select "pre"
     assert(pre)
-    assert(pre.first.content.include?('æ ¼ ö ç ý'))
+    assert(pre.first.content.include?("æ ¼ ö ç ý"))
 
     # Assert that the right content is in the page
-    download_link = css_select 'a.list-group-item.list-group-item-action'
+    download_link = css_select "a.list-group-item.list-group-item-action"
     assert(download_link)
-    assert(download_link.first.content.include?('monkey.png'))
+    assert(download_link.first.content.include?("monkey.png"))
   end
 
   def test_deletable_by_viewer_enabled_or_not
@@ -121,24 +121,24 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # DELETABLE_PASSWORDS_ENABLED enables or disables the ability for users
     # to delete file_pushes when viewing
 
-    deletable_checkbox = css_select '#file_push_deletable_by_viewer'
+    deletable_checkbox = css_select "#file_push_deletable_by_viewer"
     assert(deletable_checkbox)
 
     found = Settings.files.enable_deletable_pushes
     deletable_checkbox.each do |item|
-      found = true if item.content.include?('Allow users to delete this push once retrieved.')
+      found = true if item.content.include?("Allow users to delete this push once retrieved.")
     end
     assert found
 
     # Assert default value on form: DELETABLE_PASSWORDS_DEFAULT
-    deletable_checkbox = css_select 'input#file_push_deletable_by_viewer'
+    deletable_checkbox = css_select "input#file_push_deletable_by_viewer"
     assert(deletable_checkbox.length == 1)
 
     # DELETABLE_PASSWORDS_DEFAULT determines initial check state
     if Settings.files.deletable_pushes_default == true
-      assert(deletable_checkbox.first.attributes['checked'].value == 'checked')
+      assert(deletable_checkbox.first.attributes["checked"].value == "checked")
     else
-      assert(deletable_checkbox.first.attributes['checked'].nil?)
+      assert(deletable_checkbox.first.attributes["checked"].nil?)
     end
   end
 
@@ -148,10 +148,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'æ ¼ ö ç ý',
+        payload: "æ ¼ ö ç ý",
         deletable_by_viewer: true,
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -161,12 +161,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # File Push page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
-    delete_link = css_select 'button.btn-danger'
+    delete_link = css_select "button.btn-danger"
     assert(delete_link.length == 1)
-    assert(delete_link.children.last.text.include?('Delete This Secret Link Now'))
+    assert(delete_link.children.last.text.include?("Delete This Secret Link Now"))
   end
 
   def test_deletable_by_viewer_falls_back_to_default
@@ -175,9 +175,9 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'æ ¼ ö ç ý',
+        payload: "æ ¼ ö ç ý",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -187,10 +187,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Password page
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
-    delete_button = css_select 'button.btn-danger'
+    delete_button = css_select "button.btn-danger"
 
     # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
     # at all so we set false - NOT deletable by viewers

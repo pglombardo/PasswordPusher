@@ -10,9 +10,9 @@
 
       <p class='mb-5'>
         <%= _('This push will expire after') %>
-        <strong><%=@push.expire_after_days%> <%= n_('day', 'days', @push.expire_after_days) %></strong>
+        <strong><%= @push.expire_after_days %> <%= n_('day', 'days', @push.expire_after_days) %></strong>
         <%= _('or') %>
-        <strong><%=@push.expire_after_views%> <%= n_('view', 'views', @push.expire_after_views) %></strong>
+        <strong><%= @push.expire_after_views %> <%= n_('view', 'views', @push.expire_after_views) %></strong>
         <%= _('(whichever comes first)') %>.
       </p>
 
@@ -21,8 +21,8 @@
       <% end %>
 
       <p class='mb-5'>
-        <%=link_to _('View This Push Now'), @secret_url %> <%= _('(will burn a view) or') %>
-        <%=link_to _('Push Another'), new_url_path %>
+        <%= link_to _('View This Push Now'), @secret_url %> <%= _('(will burn a view) or') %>
+        <%= link_to _('Push Another'), new_url_path %>
       </p>
 
       <% if user_signed_in? %>

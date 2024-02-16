@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -15,7 +15,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
@@ -52,15 +52,15 @@ Rails.application.configure do
   # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = ENV.key?('FORCE_SSL')
+  config.force_ssl = ENV.key?("FORCE_SSL")
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new($stdout)
-                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
-                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+    .tap { |logger| logger.formatter = Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # config.logger = Logger.new($stdout) if Settings.log_to_stdout
-  config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : 'error'
+  config.log_level = Settings.log_level ? Settings.log_level.downcase.to_sym : "error"
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -68,7 +68,7 @@ Rails.application.configure do
   # Info include generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -135,10 +135,10 @@ Rails.application.configure do
     end
   end
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present? || Settings.log_to_stdout
-    logger           = ActiveSupport::Logger.new($stdout)
+  if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
+    logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
@@ -148,14 +148,14 @@ Rails.application.configure do
     elsif Settings.allowed_hosts.is_a?(String)
       config.hosts.concat Settings.allowed_hosts.split
     else
-      raise 'Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string'
+      raise "Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string"
     end
   end
 
   if Settings.throttling
-    config.middleware.use Rack::Throttle::Daily,    max: Settings.throttling.daily
-    config.middleware.use Rack::Throttle::Hourly,   max: Settings.throttling.hourly
-    config.middleware.use Rack::Throttle::Minute,   max: Settings.throttling.minute
-    config.middleware.use Rack::Throttle::Second,   max: Settings.throttling.second
+    config.middleware.use Rack::Throttle::Daily, max: Settings.throttling.daily
+    config.middleware.use Rack::Throttle::Hourly, max: Settings.throttling.hourly
+    config.middleware.use Rack::Throttle::Minute, max: Settings.throttling.minute
+    config.middleware.use Rack::Throttle::Second, max: Settings.throttling.second
   end
 end

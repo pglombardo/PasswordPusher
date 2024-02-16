@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] = 'test'
-require File.expand_path('../config/environment', __dir__)
-require 'rails/test_help'
-require 'minitest/rails'
+ENV["RAILS_ENV"] = "test"
+require File.expand_path("../config/environment", __dir__)
+require "rails/test_help"
+require "minitest/rails"
 
 # Rubocop forces assert_not to be used instead of refute
 # This adds assert_not to Minitest::Test

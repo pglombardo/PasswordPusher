@@ -103,19 +103,19 @@
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    <%= _('Successful Views') %>: <strong class='text-success'><%= @push.successful_views.count%></strong>
+                    <%= _('Successful Views') %>: <strong class='text-success'><%= @push.successful_views.count %></strong>
                     <small class="d-block text-muted"><%= _('The number of times this push has been viewed before expiration.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @push.failed_views.count%></strong>
+                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @push.failed_views.count %></strong>
                     <small class="d-block text-muted"><%= _('The number of times this push has been viewed after expiration.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    <%= _('Days Remaining') %>: <strong><%= @push.days_remaining%></strong>
+                    <%= _('Days Remaining') %>: <strong><%= @push.days_remaining %></strong>
                     <small class="d-block text-muted"><%= _('Number of days until this push expires if the maximum view count isn\'t reached.') %></small>
                 </span>
                 </label>
@@ -201,7 +201,7 @@
                     </button>
                 </div>
 
-                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true"  data-controller="form">
+                <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true" data-controller="form">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -250,11 +250,11 @@
                                 <%= _('on') %>
                                 <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <% end %>
-                            <br/>
+                            <br>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
-                            <br/>
+                            <br>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br/>
+                            <br>
                             <%= _('Referrer') %>: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
                         </div>
                     <% elsif view.successful %>
@@ -264,9 +264,9 @@
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
                             <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
-                            <br/>
+                            <br>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br/>
+                            <br>
                             <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
                         </div>
                     <% else %>
@@ -276,9 +276,9 @@
                             <strong><%= view.ip %></strong>
                             <%= _('on') %>
                             <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
-                            <br/>
+                            <br>
                             <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br/>
+                            <br>
                             <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
                         </div>
                     <% end %>

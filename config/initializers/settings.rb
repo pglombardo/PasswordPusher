@@ -29,11 +29,11 @@ def load_legacy_environment_variables
 
   return unless deprecations_detected
 
-  Rails.logger.warn('Deprecations detected: Please see the configuration documentation for the latest updates: https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md')
+  Rails.logger.warn("Deprecations detected: Please see the configuration documentation for the latest updates: https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md")
 end
 
 # Prepend defaults to the Settings object in case users are missing some of the latest settings
-Settings.prepend_source!(Rails.root.join('config/defaults/settings.yml').to_s)
+Settings.prepend_source!(Rails.root.join("config/defaults/settings.yml").to_s)
 Settings.reload!
 load_legacy_environment_variables
 

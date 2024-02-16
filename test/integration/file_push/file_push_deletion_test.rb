@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class FilePushCreationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -26,9 +26,9 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'Message',
+        payload: "Message",
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -37,10 +37,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # view the password
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Delete the file_push
@@ -60,10 +60,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
 
     post file_pushes_path, params: {
       file_push: {
-        payload: 'Message',
+        payload: "Message",
         deletable_by_viewer: true,
         files: [
-          fixture_file_upload('monkey.png', 'image/jpeg')
+          fixture_file_upload("monkey.png", "image/jpeg")
         ]
       }
     }
@@ -72,10 +72,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select 'h2', 'Your push has been created.'
+    assert_select "h2", "Your push has been created."
 
     # view the password
-    get request.url.sub('/preview', '')
+    get request.url.sub("/preview", "")
     assert_response :success
 
     # Sign out user to test anonymous end user deletion
@@ -89,6 +89,6 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    assert_select 'p', 'We apologize but this secret link has expired.'
+    assert_select "p", "We apologize but this secret link has expired."
   end
 end
