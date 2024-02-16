@@ -336,7 +336,7 @@ This project is licensed under the terms of the `Apache License 2.0` license. Se
 @misc{PasswordPusher,
   author = {Peter Giacomo Lombardo},
   title = {An application to securely communicate passwords over the web. Passwords automatically expire after a certain number of views and/or time has passed.},
-  year = {2022},
+  year = {2024},
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/pglombardo/PasswordPusher}}
