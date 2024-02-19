@@ -778,16 +778,20 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
-### Docker Precompilation
-#
-# If set to true, the Docker image will precompile assets on container boot.
+### Docker Pre-compilation
 #
 # This is useful if you modified the assets (e.g. CSS, JS, images) to customize
 # the theme etc...  Assets are precompiled before serving.
 #
-# Environment Variable Override: PWP_PRECOMPILE='false'
+# If you set a custom theme, you will need to precompile the assets on container boot.
 #
-# precompile: false
+# Pre-compilation isn't supported in this yaml file.  It is only supported
+# through the environment variable PWP_PRECOMPILE='true'.
+#
+# See the following for more information:
+# https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md#how-to-precompile-css-assets
+#
+# Environment Variable: PWP_PRECOMPILE='false'
 
 ### Themes
 #
