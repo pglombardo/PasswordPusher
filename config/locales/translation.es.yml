@@ -88,13 +88,13 @@ es:
       blank: no puede estar en blanco
       present: debe estar en blanco
       too_long:
-        one: es demasiado largo (1 carácter máximo)
+        one: es demasiado largo (%{count} carácter máximo)
         other: es demasiado largo (%{count} caracteres máximo)
       too_short:
-        one: es demasiado corto (1 carácter mínimo)
+        one: es demasiado corto (%{count} carácter mínimo)
         other: es demasiado corto (%{count} caracteres mínimo)
       wrong_length:
-        one: no tiene la longitud correcta (1 carácter exactos)
+        one: no tiene la longitud correcta (%{count} carácter exactos)
         other: no tiene la longitud correcta (%{count} caracteres exactos)
       not_a_number: no es un número
       not_an_integer: debe ser un entero
@@ -109,29 +109,28 @@ es:
       required: debe existir
       taken: ya está en uso
       already_confirmed: ya ha sido confirmado, por favor intenta iniciar sesión
-      confirmation_period_expired: necesita confirmarse dentro de %{period}, por favor
-        solicita una nueva
+      confirmation_period_expired: necesitaba confirmación en un período de %{period},
+        por favor solicita una nueva
       expired: ha expirado, por favor solicita una nueva
       not_found: no se ha encontrado
       not_locked: no estaba bloqueada
       not_saved:
         one: 'Ocurrió un error al tratar de guardar %{resource}:'
         other: 'Ocurrieron %{count} errores al tratar de guardar %{resource}:'
-      in: debe estar en %{count}
+      in: debe estar dentro de %{count}
       password_too_long: es demasiado largo
     unavailable_session: |-
       La sesión %{id} ya no está disponible en la memoria.
 
-      Si estas ejecutando un servidor de procesos múltiples (como Unicorn o Puma), el proceso
-      este al que referencia esta solicitud no está en la memoria. Considere la posibilidad de convertir el número de procesos/hilos a uno (1) o usa un servidor diferente en desarrollo.
-    unacceptable_request: Se espera una version compatible en la cabecera Aceptar.
+      Si estás ejecutando un servidor de procesos múltiples (como Unicorn o Puma), el proceso al que hace referencia esta solicitud no está en la memoria. Considera la posibilidad de reducir el número de procesos/hilos a uno (1) o usa un servidor diferente en desarrollo.
+    unacceptable_request: Se espera una version compatible en la cabecera Accept.
     connection_refused: |
       ¡Ups! No se pudo conectar a la consola Web de middleware.
       Por favor asegúrate de que un servidor de desarrollo de Rails se está ejecutando.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
-        one: No se pudo guardar este/a %{model} porque se encontró 1 error
+        one: No se pudo guardar este/a %{model} porque se encontró %{count} error
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
   activerecord:
     errors:
@@ -217,7 +216,7 @@ es:
       second: Segundo
   helpers:
     select:
-      prompt: Por favor seleccione
+      prompt: Por favor selecciona
     submit:
       create: Crear %{model}
       update: Actualizar %{model}
@@ -464,69 +463,72 @@ es:
   i18n_tasks:
     add_missing:
       added:
-        one: Se agregó la clave %{count}
-        other: Teclas %{count} añadidas
+        one: Se agregó %{count} clave
+        other: Se agragaron %{count} claves
     cmd:
       args:
         default_text: 'Predeterminado: %{value}'
         desc:
-          all_locales: No espere que los patrones clave comiencen con una configuración
-            regional; en su lugar, aplíquelos implícitamente a todas las configuraciones
+          all_locales: No esperes que los patrones clave comiencen con una configuración
+            regional; en su lugar, aplícalos implícitamente a todas las configuraciones
             regionales.
-          config: Anular ubicación de configuración
+          config: Anular configuración de ubicación
           confirm: Confirmar automáticamente
           data_format: 'Formato de datos: %{valid_text}.'
-          keep_order: Mantener el orden de las llaves
+          keep_order: Mantener el orden de las claves
           key_pattern: Filtrar por patrón clave (p. ej., 'común.*')
-          key_pattern_to_rename: Tecla completa (patrón) para cambiar el nombre. Requerido
+          key_pattern_to_rename: Clave completa (patrón) para cambiar el nombre. Requerido
           locale_to_translate_from: Configuración regional desde la que traducir
-          locales_filter: 'Local(es) a procesar. Especial: base'
+          locales_filter: 'Configuración(es) regional(es) a procesar. Especial: base'
           missing_types: 'Filtrar por tipos: %{valid}'
           new_key_name: Nuevo nombre, interpola el nombre original como %{key}. Requerido
-          nostdin: No leer desde stdin
+          nostdin: No leer del stdin
           out_format: 'Formato de salida: %{valid_text}'
           pattern_router: 'Usar patrón de enrutador: claves movidas por configuración
             data.write'
-          strict: Evite inferir usos de claves dinámicas como t("cats.#{cat}.name").
+          strict: Evita inferir usos de claves dinámicas como t("cats.#{cat}.name").
             Tiene prioridad sobre el ajuste de configuración si está establecido.
           translation_backend: Backend de traducción (google o deepl)
           value: 'Valor. Interpola: %{value}, %{human_key}, %{key}, %{default}, %{value_or_human_key},
             %{value_or_default_or_human_key}'
       desc:
-        add_missing: agregar claves faltantes a los datos locales, opcionalmente hacer
-          coincidir un patrón
+        add_missing: agregar claves faltantes a los datos de configuración regional,
+          opcionalmente hacer coincidir un patrón
         check_consistent_interpolations: verificar que todas las traducciones usen
           las variables de interpolación correctas
         check_normalized: verificar que todos los datos de traducción estén normalizados
         config: mostrar la configuración de i18n-tasks
         data: mostrar datos de configuración regional
-        data_merge: fusionar datos locales con árboles
+        data_merge: fusionar datos de configuración regional con árboles de datos
         data_remove: eliminar las claves presentes en el árbol de los datos
-        data_write: reemplazar los datos locales con el árbol
+        data_write: reemplazar los datos de configuración regional con el árbol de
+          datos
         eq_base: mostrar traducciones iguales al valor base
         find: mostrar dónde se usan las claves en el código
         gem_path: muestra la ruta al "gem"
-        health: "¿esta todo bien?"
+        health: "¿está todo bien?"
         irb: iniciar sesión REPL dentro del contexto i18n-tasks
         missing: mostrar traducciones faltantes, opcionalmente hacer coincidir un
           patrón
-        mv: cambiar el nombre/combinar las claves en los datos locales que coincidan
-          con el patrón dado
-        normalize: 'normalice los datos de traducción: ordene y muévase a los archivos
+        mv: actualizar el nombre/combinar las claves en los datos de configuración
+          regional que coincidan con el patrón dado
+        normalize: 'normaliza los datos de traducción: ordena y muévete a los archivos
           correctos'
         remove_unused: eliminar claves no utilizadas
-        rm: elimine las claves en los datos locales que coincidan con el patrón dado
+        rm: elimina las claves en los datos de configuración regional que coincidan
+          con el patrón dado
         translate_missing: traducir las claves que faltan con Google Translate o DeepL
           Pro, opcionalmente hacer coincidir un patrón
-        tree_convert: convertir árbol entre formatos
+        tree_convert: migrar árbol de datos entre formatos
         tree_filter: árbol de filtros por patrón clave
-        tree_merge: fusionar arboles
-        tree_mv_key: cambiar el nombre/combinar/eliminar las claves que coincidan
+        tree_merge: fusionar árboles de datos
+        tree_mv_key: actualizar el nombre/combinar/eliminar las claves que coincidan
           con el patrón dado
         tree_set_value: establecer valores de claves, opcionalmente hacer coincidir
           un patrón
         tree_subtract: árbol A menos las claves en el árbol B
-        tree_translate: Google Translate un árbol a locales raíz
+        tree_translate: Google Translate traduce un árbol a configuraciones regionales
+          raíz
         unused: mostrar traducciones no utilizadas
       encourage:
       - "¡Buen trabajo!"
@@ -542,11 +544,11 @@ es:
         invalid_missing_type:
           one: 'tipo inválido: %{invalid}. válido: %{valid}.'
           other: 'tipos desconocidos: %{invalid}. válido: %{valid}.'
-        pass_forest: pasar bosque local
+        pass_forest: pasar árboles de configuración regional
     common:
       continue_q: "¿Continuar?"
-      key: Llave
-      locale: Lugar
+      key: Clave
+      locale: Configuración regional
       n_more: "%{count} más"
       value: Valor
     data_stats:
@@ -554,31 +556,31 @@ es:
         En promedio, los valores tienen una longitud de %{value_chars_avg} caracteres,
         las claves tienen %{key_segments_avg} segmentos, una configuración regional
         tiene %{per_locale_avg} claves.
-      text_single_locale: tiene teclas %{key_count} en total. En promedio, los valores
+      text_single_locale: tiene %{key_count} claves en total. En promedio, los valores
         tienen una longitud de caracteres %{value_chars_avg}, las claves tienen segmentos
         %{key_segments_avg}.
-      title: Bosque (%{locales})
+      title: Arboles (%{locales})
     deepl_translate:
       errors:
-        no_api_key: Configure la clave API de DeepL Pro a través de la variable de
+        no_api_key: Configura la clave API de DeepL Pro a través de la variable de
           entorno DEEPL_AUTH_KEY o translation.deepl_api_key en config/i18n-tasks.yml.
-          Obtenga la clave en https://www.deepl.com/pro.
+          Obtén la clave en https://www.deepl.com/pro.
         no_results: DeepL no devolvió resultados.
-        specific_target_missing: Debe proporcionar una variante específica para el
+        specific_target_missing: Debes proporcionar una variante específica para el
           idioma de destino determinado, por ejemplo, en-us en lugar de en.
     google_translate:
       errors:
-        no_api_key: Configure la clave API de Google a través de la variable de entorno
+        no_api_key: Configura la clave API de Google a través de la variable de entorno
           GOOGLE_TRANSLATE_API_KEY o translation.google_translate_api_key en config/i18n-tasks.yml.
-          Obtenga la clave en https://code.google.com/apis/console.
-        no_results: Google Translate no devolvió resultados. Asegúrese de que la información
-          de facturación esté configurada en https://code.google.com/apis/console.
+          Obtén la clave en https://code.google.com/apis/console.
+        no_results: Google Translate no devolvió resultados. Asegúratee de que la
+          información de facturación esté configurada en https://code.google.com/apis/console.
     health:
-      no_keys_detected: No se han detectado claves. Compruebe data.read en config/i18n-tasks.yml.
+      no_keys_detected: No se han detectado claves. Comprueba data.read en config/i18n-tasks.yml.
     inconsistent_interpolations:
       none: No se encontraron interpolaciones inconsistentes.
     missing:
-      details_title: Valor en otras localidades o fuente
+      details_title: Valor en otras configuraciones regionales o fuente
       none: No falta ninguna traducción.
     remove_unused:
       confirm:
@@ -627,4 +629,4 @@ es:
     preview: avance
   file_pushes:
     new:
-      upload_limit: Puede cargar hasta archivos %{count} por envío.
+      upload_limit: Puedes cargar hasta %{count} archivos por envío.
