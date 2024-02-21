@@ -397,6 +397,24 @@ With this setup, you can then set your `LOGO` environment variables (or `setting
 PWP__BRAND__LIGHT_LOGO=/logos/mylogo.png
 ```
 
+## Favicons
+
+The application favicons can also be changed to your own assets.
+
+These favicons are used in browser tabs, in bookmarks and in browser history.
+
+At a bare minimum, make sure to set at least `icon_57x57` and `icon_96x96`.  Without these two, things are guaranteed
+to not work.
+
+To create favicons you can use an icon generator such as:
+
+https://www.favicongenerator.com
+or
+https://www.favicon-generator.org
+
+See the [Rebranding:Favicon section](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml#L623) of the `settings.yml` file for more specifics.
+
+
 ## See Also
 
 * the `brand` section of [settings.yml](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml) for more details, examples and description.
