@@ -85,11 +85,11 @@ Notes:
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
 | PWP__DEFAULT_LOCALE | Sets the default language for the application.  See the [documentation](https://github.com/pglombardo/PasswordPusher#internationalization). | `en` |
-| PWP__RELATIVE_ROOT | Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
 | PWP__SHOW_VERSION | Show the version in the footer | `true` |
 | PWP__SHOW_GDPR_CONSENT_BANNER | Optionally enable or disable the GDPR cookie consent banner. | `true` |
 | PWP__TIMEZONE | Set the application wide timezone.  Use a valid timezone string (see note below). | `America/New_York` |
 | SECRET_KEY_BASE | A secret key that is used for various security-related features, including session cookie encryption and other cryptographic operations.  Use `/opt/PasswordPusher/bin/rails secret` to generate a random key string. [See the SECRET_KEY_BASE wiki page.](https://github.com/pglombardo/PasswordPusher/wiki/SECRET_KEY_BASE)| _Randomly Generated on boot_ |
+| PWP__RELATIVE_ROOT | <DEPRECATED/doesn't work reliably - Will be removed in a future version.> Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
 
 _Note_: The list of valid timezone strings can be found at [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
