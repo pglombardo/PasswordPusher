@@ -89,10 +89,24 @@
 
 <p><%= _('You can test this in your browser Javascript console by going to the front page of Password Pusher and enter:') %></p>
 
-<pre class="border p-3"><code> $.post('https://pwpush.com/p.json',
-         { 'password[payload]': 'mypassword', 'password[expire_after_days]': '2',
-           'password[expire_after_views]': '10' },
-           function(data) { console.log('Share this secret URL: https://pwpush.com/p/' + data.url_token) } )
-</code></pre>
+<pre class="border p-3">
+  <code>fetch(
+  "https://pwpush.com/p.json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      password: {
+        payload: "mypassword",
+        expire_after_days: 2,
+        expire_after_views: 10
+      }
+    })
+  })
+  .then(response => response.json())
+  .then(data => { console.log("Share this secret URL: https://pwpush.com/p/" + data.url_token); });
+  </code>
+</pre>
 
 <p><%= _('See more explanation and examples in our') %> <a href="https://github.com/pglombardo/PasswordPusher/wiki/Password-API">Github Wiki</a>.</p>
