@@ -4,7 +4,7 @@ name: Docker Container Builds
 on:
   push:
     tags:
-      - "release"
+      - "stable"
       - "v*.*.*"
 
   workflow_dispatch:
@@ -16,7 +16,7 @@ on:
         default: false
   schedule:
     # * is a special character in YAML so you have to quote this string
-    # Run every day at 5:24 UTC - build 'latest' docker containers
+    # Run every day at 5:24 UTC - build 'nightly' docker containers
     - cron: "24 17 * * *"
 env:
   DOCKER_PUSH: true
@@ -38,15 +38,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush
-          flavor: |
-            latest=false
           tags: |
-            type=match,pattern=release
-            type=schedule,pattern=latest
+            type=match,pattern=stable
+            type=schedule,pattern=nightly
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=semver,pattern=latest
+            type=semver,pattern=nightly
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -65,4 +63,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-
