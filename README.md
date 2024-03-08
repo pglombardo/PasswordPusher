@@ -107,9 +107,35 @@ _Mariadb database backed instance._
 
 _Note: Putting passwords in a command line is bad practice.  See the related Database pages for alternative options._
 
-_Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/r/pglombardo/pwpush/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
-
 **See Also:** [Guide to DATABASE_URL](https://github.com/pglombardo/PasswordPusher/wiki/Guide-to-DATABASE_URL)
+
+### Docker Tags Reference
+
+**March 2024: The Docker tag strategy will change soon.**
+
+The following tables describe the current tag usage and upcoming change.
+
+**Current**
+
+| Tag    | Purpose          |
+|--------|------------------|
+| `latest` | The nightly development build  |
+| `release` | Stable build |
+| `vX.X.X` | Versioned tags |
+
+**Upcoming Change**
+
+| Tag    | Purpose          |
+|--------|------------------|
+| `latest` | The latest released vX.X.X  |
+| `stable` | The most stable tag for proven releases |
+| `vX.X.X` | Versioned tags |
+| `nightly` | The nightly development build  |
+
+If in doubt, use `latest` or `stable`.
+
+The `release` tag will be deprecated soon.
+
 
 ## With Docker Compose
 
