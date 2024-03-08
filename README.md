@@ -132,7 +132,7 @@ The following tables describe the current tag usage and upcoming change.
 | `vX.X.X` | Versioned tags |
 | `nightly` | The nightly development build  |
 
-If in doubt, use `latest` or `stable`.
+If in doubt, use `latest` or a `vX.X.X` tag.
 
 The `release` tag will be deprecated soon.
 
