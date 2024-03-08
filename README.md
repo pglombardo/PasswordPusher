@@ -105,6 +105,8 @@ _Mariadb database backed instance._
 
 [Learn more](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#mysql)
 
+_Note: Putting passwords in a command line is bad practice.  See the related Database pages for alternative options._
+
 _Note: The `latest` Docker container tag builds nightly off of the latest code changes and can occasionally be unstable.  Always use the ['release' or version'd tags](https://hub.docker.com/r/pglombardo/pwpush/tags?page=1&ordering=last_updated) if you prefer more stability in releases._
 
 **See Also:** [Guide to DATABASE_URL](https://github.com/pglombardo/PasswordPusher/wiki/Guide-to-DATABASE_URL)
