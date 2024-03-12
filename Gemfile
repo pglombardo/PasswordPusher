@@ -69,8 +69,6 @@ gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap", "5.2.3"
 gem "json", "~> 2.7" # Legacy carry-over
-gem "will_paginate", "~> 4.0.0"
-gem "will_paginate-bootstrap-style"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -94,6 +92,7 @@ gem "oj"
 gem "puma"
 gem "rollbar"
 gem "simple_token_authentication"
+gem "kaminari", "~> 1.2"
 
 gem "devise-i18n"
 gem "i18n-tasks", "~> 1.0.13" # , group: :development
