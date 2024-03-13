@@ -224,26 +224,19 @@ pl:
       create: Utwórz %{model}
       update: Aktualizuj %{model}
       submit: Wyślij %{model}
-  will_paginate:
-    previous_label: "&#8592; Poprzednia"
-    next_label: Następna &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Stronicowanie
-    page_aria_label: Strona %{page}
     page_entries_info:
-      single_page:
-        zero: Nie znaleziono %{model}
-        one: Wyświetlam 1 %{model}
-        other: Wyświetlam wszystkie %{count} %{model}
-      single_page_html:
-        zero: Nie znaleziono %{model}
-        one: Wyświetlam <b>1</b> %{model}
-        other: wyświetlam <b>wszystkie&nbsp;%{count}</b> %{model}
-      multi_page: Wyświetlam %{model} %{from} - %{to} z %{count} wszystkich
-      multi_page_html: Wyświetlam %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z <b>%{count}</b>
-        wszystkich
-    previous_aria_label: Poprzednia strona
-    next_aria_label: Następna strona
+      entry:
+        zero: wpisy
+        one: wejście
+        other: wpisy
+      one_page:
+        display_entries:
+          zero: Nie znaleziono %{entry_name}
+          one: Wyświetla <b>%{count}</b> %{entry_name}
+          other: Wyświetla <b>wszystkie %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Wyświetla %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          z <b>%{total}</b> łącznie
   flash:
     actions:
       create:
@@ -615,3 +608,10 @@ pl:
   file_pushes:
     new:
       upload_limit: Jednorazowo możesz przesłać do %{count} plików.
+  views:
+    pagination:
+      first: "&laquo; Pierwsza"
+      last: Ostatnia &raquo;
+      previous: "&lsaquo; Wstecz"
+      next: Dalej &rsaquo;
+      truncate: "&hellip;"

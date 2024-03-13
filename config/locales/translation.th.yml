@@ -217,25 +217,19 @@ th:
       create: สร้าง%{model}
       update: ปรับปรุง%{model}
       submit: บันทึก%{model}
-  will_paginate:
-    previous_label: "← ก่อนหน้า"
-    next_label: ถัดไป →
-    page_gap: "…"
-    container_aria_label: การแบ่งหน้า
-    page_aria_label: หน้า %{page}
     page_entries_info:
-      single_page:
-        zero: ไม่พบ %{model}
-        one: กำลังแสดง 1 %{model}
-        other: การแสดง %{count} %{model} ทั้งหมด
-      single_page_html:
-        zero: ไม่พบ %{model}
-        one: กำลังแสดง <b>1</b> %{model}
-        other: การแสดง <b>%{count} %{model} ทั้งหมด</b>
-      multi_page: แสดง %{model} %{from} - %{to} จาก %{count} ทั้งหมด
-      multi_page_html: แสดง %{model} <b>%{from} - %{to}</b> จาก <b>%{count}</b> ทั้งหมด
-    previous_aria_label: หน้าก่อนหน้า
-    next_aria_label: หน้าต่อไป
+      entry:
+        zero: รายการ
+        one: รายการ
+        other: รายการ
+      one_page:
+        display_entries:
+          zero: ไม่พบ %{entry_name}
+          one: กำลังแสดง <b>1</b> %{entry_name}
+          other: กำลังแสดง <b>%{count} %{entry_name} ทั้งหมด</b>
+      more_pages:
+        display_entries: กำลังแสดงผล %{entry_name} <b>%{first}&nbps;-&nbps;%{last}</b>
+          จากทั้งหมด <b>%{total}</b> หน้า
   flash:
     actions:
       create:
@@ -578,3 +572,10 @@ th:
   file_pushes:
     new:
       upload_limit: คุณสามารถอัปโหลดไฟล์ได้สูงสุด %{count} ต่อการพุช
+  views:
+    pagination:
+      first: "&laquo; หน้าแรก"
+      last: หน้าสุดท้าย &raquo;
+      previous: "&lsaquo; ก่อนหน้า"
+      next: ถัดไป &rsaquo;
+      truncate: "&hellip;"

@@ -220,26 +220,19 @@ sr:
       create: Направи %{model}
       update: Измени %{model}
       submit: Сачувај %{model}
-  will_paginate:
-    previous_label: "← Претходно"
-    next_label: Следеће →
-    page_gap: "…"
-    container_aria_label: Пагинација
-    page_aria_label: Страница %{page}
     page_entries_info:
-      single_page:
-        zero: Није пронађен %{model}.
-        one: Приказује се 1 %{model}
-        other: Приказ свих %{count} %{model}
-      single_page_html:
-        zero: Није пронађен %{model}.
-        one: Приказује се <b>1</b> %{model}
-        other: Приказ <b>свих %{count}</b> %{model}
-      multi_page: Приказивање %{model} %{from} - %{to} од %{count} укупно
-      multi_page_html: Приказивање %{model} <b>%{from} - %{to}</b> од <b>%{count}</b>
-        укупно
-    previous_aria_label: Претходна страница
-    next_aria_label: Следећа страна
+      entry:
+        zero: уносе
+        one: улазак
+        other: уносе
+      one_page:
+        display_entries:
+          zero: Није пронађен %{entry_name}.
+          one: Приказује се <b>1</b> %{entry_name}
+          other: Приказ <b>свих %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Приказивање %{entry_name} <b>%{first} - %{last}</b> од <b>%{total}</b>
+          укупно
   flash:
     actions:
       create:
@@ -610,3 +603,10 @@ sr:
   file_pushes:
     new:
       upload_limit: Можете да отпремите до %{count} датотека по притиску.
+  views:
+    pagination:
+      first: "\" Први"
+      last: Последњи »
+      previous: "‹ Прев"
+      next: Следећи >
+      truncate: "…"

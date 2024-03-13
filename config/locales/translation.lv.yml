@@ -222,25 +222,19 @@ lv:
       create: Izveidot %{model}
       update: Atjaunināt %{model}
       submit: Saglabāt %{model}
-  will_paginate:
-    previous_label: "&#8592; Iepriekšējais\n"
-    next_label: Nākamais &#8594;
-    page_gap: "&hellip;\n"
-    container_aria_label: Lapdale
-    page_aria_label: Lapa %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} nav atrasts"
-        one: Tiek attēlots %{model}
-        other: Tiek attēloti visi %{count} %{model}
-      single_page_html:
-        zero: "%{model} nav atrasts"
-        one: Tiek attēlots <b>1</b> %{model}
-        other: 'Tiek attēlots <b>all&nbsp;%{count}</b> %{model} '
-      multi_page: Kopā tiek attēlots %{model} %{from} - %{to} no %{count}
-      multi_page_html: Kopā tiek attēlots %{model} <b>%{from} - %{to}</b> no <b>%{count}</b>
-    previous_aria_label: Iepriekšējā lapa
-    next_aria_label: Nākamā lapaspuse
+      entry:
+        zero: ieraksti
+        one: ierakstu
+        other: ieraksti
+      one_page:
+        display_entries:
+          zero: "%{entry_name} nav atrasts"
+          one: Tiek rādīts <b>1</b> %{entry_name}
+          other: Tiek rādīts <b>viss %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Rāda %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> no
+          <b>%{total}</b>
   flash:
     actions:
       create:
@@ -631,3 +625,10 @@ lv:
   file_pushes:
     new:
       upload_limit: Varat augšupielādēt līdz %{count} failiem vienā nospiešanā.
+  views:
+    pagination:
+      first: "&laquo; Pirmā"
+      last: Pēdējā &raquo;
+      previous: "&lsaquo; Iepriekšējais"
+      next: Nākošais &rsaquo;
+      truncate: "&hellip;"

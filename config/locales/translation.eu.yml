@@ -242,26 +242,19 @@ eu:
       create: "%{model}a eratu"
       update: "%{model}a eguneratu"
       submit: "%{model}a gorde"
-  will_paginate:
-    previous_label: "← Aurrekoa"
-    previous_aria_label: Aurreko orrialdea
-    next_label: Hurrengoa →
-    next_aria_label: Hurrengo orrialdea
-    page_gap: "…"
-    container_aria_label: Paginazioa
-    page_aria_label: Orria %{page}
     page_entries_info:
-      single_page:
-        zero: Ez da %{model} aurkitu
-        one: 1 bistaratzen %{model}
-        other: "%{count} %{model} guztiak bistaratzen"
-      single_page_html:
-        zero: Ez da %{model} aurkitu
-        one: "<b>1</b> bistaratzen %{model}"
-        other: "<b>%{count} %{model} guztiak</b> bistaratzen"
-      multi_page: "%{model} %{from} - %{to} edo %{count} guztira bistaratzen"
-      multi_page_html: "%{model} <b>%{from} - %{to}</b> edo <b>%{count}</b> guztira
-        bistaratzen"
+      entry:
+        zero: sarrerak
+        one: sarrera
+        other: sarrerak
+      one_page:
+        display_entries:
+          zero: Ez da %{entry_name} aurkitu
+          one: "<b>1</b> bistaratzen %{entry_name}"
+          other: "<b>%{count} %{entry_name} guztiak</b> bistaratzen"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first} - %{last}</b> edo <b>%{total}</b>
+          guztira bistaratzen"
   flash:
     actions:
       create:
@@ -615,3 +608,10 @@ eu:
   file_pushes:
     new:
       upload_limit: Gehienez %{count} fitxategi karga ditzakezu push bakoitzean.
+  views:
+    pagination:
+      first: "«Lehenengo"
+      last: Azkena »
+      previous: "‹ Aurrekoa"
+      next: Hurrengoa ›
+      truncate: "…"

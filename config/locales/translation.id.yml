@@ -266,26 +266,19 @@ id:
       create: Buat %{model}
       update: Perbarui %{model}
       submit: Simpan %{model}
-  will_paginate:
-    previous_label: "← Sebelumnya"
-    previous_aria_label: Halaman sebelumnya
-    next_label: Berikutnya →
-    next_aria_label: Halaman berikutnya
-    page_gap: "..."
-    container_aria_label: Penomoran halaman
-    page_aria_label: Halaman %{page}
     page_entries_info:
-      single_page:
-        zero: Tidak ditemukan %{model}
-        one: Menampilkan 1 %{model}
-        other: Menampilkan semua %{count} %{model}
-      single_page_html:
-        zero: Tidak ditemukan %{model}
-        one: Menampilkan <b>1</b> %{model}
-        other: Menampilkan <b>semua %{count}</b> %{model}
-      multi_page: Menampilkan %{model} %{from} - %{to} dari %{count} secara total
-      multi_page_html: Menampilkan %{model} <b>%{from} - [%{to}</b> ] dari <b>[%{count}</b>
-        ] secara total
+      entry:
+        zero: entri
+        one: entri
+        other: entri
+      one_page:
+        display_entries:
+          zero: Tidak ditemukan %{entry_name}
+          one: Menampilkan <b>1</b> %{entry_name}
+          other: Menampilkan <b>semua %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Ditampilkan %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          dari total <b>%{total}</b>
   flash:
     actions:
       create:
@@ -624,3 +617,10 @@ id:
   file_pushes:
     new:
       upload_limit: Anda dapat mengunggah hingga %{count} file per push.
+  views:
+    pagination:
+      first: "&laquo; Awal"
+      last: Akhir &raquo;
+      previous: "&lsaquo; Sebelumnya"
+      next: Berikutnya &rsaquo;
+      truncate: "&hellip;"

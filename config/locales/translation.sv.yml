@@ -222,25 +222,19 @@ sv:
       create: Skapa %{model}
       update: Ändra %{model}
       submit: Spara %{model}
-  will_paginate:
-    previous_label: "&#8592; Föregående"
-    next_label: Nästa &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Paginering
-    page_aria_label: Sida %{page}
     page_entries_info:
-      single_page:
-        zero: Inga %{model} hittades
-        one: Visar 1 %{model}
-        other: Visar alla %{count} %{model}
-      single_page_html:
-        zero: Inga %{model} hittades
-        one: Visar <b>1</b> %{model}
-        other: Visar <b>alla&nbsp;%{count}</b> %{model}
-      multi_page: Visar %{model} %{from} - %{to} av totalt %{count}
-      multi_page_html: Visar %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> av totalt <b>%{count}</b>
-    previous_aria_label: Föregående sida
-    next_aria_label: Nästa sida
+      entry:
+        zero: poster
+        one: inträde
+        other: poster
+      one_page:
+        display_entries:
+          zero: Ingen %{entry_name} hittades
+          one: Visar <b>%{count}<b> %{entry_name}
+          other: Visar <b>alla %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Visar %{entry_name} <b>%{first} - %{last}</b> av <b>%{total}</b>
+          totalt
   flash:
     actions:
       create:
@@ -610,3 +604,10 @@ sv:
   file_pushes:
     new:
       upload_limit: Du kan ladda upp upp till %{count} filer per push.
+  views:
+    pagination:
+      first: "&laquo; Första"
+      last: Sista &raquo;
+      previous: "&lsaquo; Föregående"
+      next: Nästa &rsaquo;
+      truncate: "&hellip;"

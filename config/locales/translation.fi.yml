@@ -220,26 +220,19 @@ fi:
       create: Luo %{model}
       update: Päivitä %{model}
       submit: Tallenna %{model}
-  will_paginate:
-    previous_label: "&#8592; Edellinen"
-    next_label: Seuraava &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Sivunumerointi
-    page_aria_label: Sivu %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} ei löytynyt"
-        one: Näytetään 1 %{model}
-        other: Näytetään kaikki %{count} %{model}
-      single_page_html:
-        zero: "%{model} ei löytynyt"
-        one: Näytetään <b>1</b> %{model}
-        other: Näytetään <b>kaikki %{count}</v> %{model}
-      multi_page: Näytetään %{model} %{from} - %{to} joita on yhteensä %{count}
-      multi_page_html: Näytetään %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> joita on
-        yhteensä <b>%{count}</b>
-    previous_aria_label: Edellinen sivu
-    next_aria_label: Seuraava sivu
+      entry:
+        zero: merkintöjä
+        one: sisääntulo
+        other: merkintöjä
+      one_page:
+        display_entries:
+          zero: "%{entry_name} ei löytynyt"
+          one: Näytetään <b>yksi</b> %{entry_name}
+          other: Näytetään <b>%{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Näytetään %{entry_name} <b>%{first} - %{last}</b> / <b>%{total}</b>
+          yhteensä
   flash:
     actions:
       create:
@@ -610,3 +603,10 @@ fi:
   file_pushes:
     new:
       upload_limit: Voit lähettää enintään %{count} tiedostoa työntöä kohden.
+  views:
+    pagination:
+      first: "&laquo; Ensimmäinen"
+      last: Viimeinen &raquo;
+      previous: "&lsaquo; Edellinen"
+      next: Seuraava &rsaquo;
+      truncate: "&hellip;"

@@ -265,26 +265,19 @@ hi:
       create: "%{model} बनाएँ"
       update: "%{model} अद्यतन"
       submit: "%{model} सौंपें"
-  will_paginate:
-    previous_label: "← पिछला"
-    previous_aria_label: पिछला पृष्ठ
-    next_label: अगला →
-    next_aria_label: अगला पृष्ठ
-    page_gap: "…"
-    container_aria_label: पृष्ठ पर अंक लगाना
-    page_aria_label: पेज %{page}
     page_entries_info:
-      single_page:
-        zero: नहीं %{model} मिला
-        one: 1 %{model} प्रदर्शित करना
-        other: सभी प्रदर्शित %{count} %{model}
-      single_page_html:
-        zero: नहीं %{model} मिला
-        one: "<b>1</b> %{model} प्रदर्शित करना"
-        other: "<b>सभी प्रदर्शित %{count}</b> %{model}"
-      multi_page: "%{model} %{from} - %{to} %{count} का कुल प्रदर्शित करना"
-      multi_page_html: "%{model} <b>%{from} - %{to}</b> <b>%{count}</b> का कुल प्रदर्शित
-        करना"
+      entry:
+        zero: प्रविष्टियां
+        one: प्रवेश
+        other: प्रविष्टियां
+      one_page:
+        display_entries:
+          zero: कोई %{entry_name} नहीं मिला
+          one: दर्शित <b>%{count}</b> %{entry_name}
+          other: प्रदर्शित <b>%{count}</b> %{entry_name}
+      more_pages:
+        display_entries: कुल <b>%{total} में से %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          प्रदर्शित
   flash:
     actions:
       create:
@@ -625,3 +618,10 @@ hi:
   file_pushes:
     new:
       upload_limit: आप प्रति पुश अधिकतम %{count} फ़ाइलें अपलोड कर सकते हैं।
+  views:
+    pagination:
+      first: "&laquo; पहला"
+      last: आखरी &raquo;
+      previous: "&lsaquo; पिछला"
+      next: अगला &rsaquo;
+      truncate: "&hellip;"

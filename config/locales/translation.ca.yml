@@ -228,26 +228,19 @@ ca:
       create: Crea %{model}
       update: Actualitza %{model}
       submit: Desa %{model}
-  will_paginate:
-    previous_label: "&#8592; Enrere"
-    next_label: Endavant &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Paginació
-    page_aria_label: Pàgina %{page}
     page_entries_info:
-      single_page:
-        zero: No s'ha trobat cap %{model}
-        one: Es mostra 1 %{model}
-        other: Es mostren tots %{count} %{model}
-      single_page_html:
-        zero: No s'ha trobat cap %{model}
-        one: Es mostra <b>1</b> %{model}
-        other: Es mostren <b>tots&nbsp;%{count}</b> %{model}
-      multi_page: Es mostren %{model} %{from} - %{to} de %{count} en total
-      multi_page_html: Es mostren %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
-        en total
-    previous_aria_label: Pàgina anterior
-    next_aria_label: Pàgina següent
+      entry:
+        zero: entrades
+        one: entrada
+        other: entrades
+      one_page:
+        display_entries:
+          zero: No s'han trobat %{entry_name}
+          one: Mostrant <b>%{count}</b> %{entry_name}
+          other: Mostrant <b>un total de %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Mostrant <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name}
+          de <b>%{total}</b> en total
   flash:
     actions:
       create:
@@ -628,3 +621,10 @@ ca:
   file_pushes:
     new:
       upload_limit: Podeu penjar fins a %{count} fitxers per push.
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      previous: "&lsaquo; Anterior"
+      next: Següent &rsaquo;
+      truncate: "&hellip;"

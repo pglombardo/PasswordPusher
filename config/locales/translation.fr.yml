@@ -229,26 +229,19 @@ fr:
       create: Créer un(e) %{model}
       update: Modifier ce(tte) %{model}
       submit: Enregistrer ce(tte) %{model}
-  will_paginate:
-    previous_label: "← précédent"
-    next_label: suivant →
-    page_gap: "&hellip;"
-    container_aria_label: Mise en page
-    page_aria_label: Page %{page}
     page_entries_info:
-      single_page:
-        zero: Aucun %{model} trouvé
-        one: "%{count} %{model} affiché(e)"
-        other: "%{count} %{model} affiché(e)s"
-      single_page_html:
-        zero: Aucun %{model} trouvé
-        one: "%{count} %{model} affiché(e)"
-        other: "%{count} %{model} affiché(e)s"
-      multi_page: "%{model} %{from} - %{to} sur %{count} au total"
-      multi_page_html: "%{model} <strong>%{from} - %{to}</strong> sur <strong>%{count}</strong>
-        au total"
-    previous_aria_label: Page précédente
-    next_aria_label: Page suivante
+      entry:
+        zero: entrées
+        one: entrée
+        other: entrées
+      one_page:
+        display_entries:
+          zero: Aucun %{entry_name} trouvé
+          one: "<b>%{count}</b> %{entry_name}"
+          other: "<b>tous les %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "%{entry_name}  <b>%{first} - %{last}</b> sur <b>%{total}</b>
+          au total"
   flash:
     actions:
       create:
@@ -630,3 +623,10 @@ fr:
   file_pushes:
     new:
       upload_limit: Vous pouvez télécharger jusqu'à %{count} fichiers par push.
+  views:
+    pagination:
+      first: "&laquo; Premier"
+      last: Dernier &raquo;
+      previous: "&lsaquo; Précédent"
+      next: Suivant &rsaquo;
+      truncate: "&hellip;"

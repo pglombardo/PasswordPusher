@@ -279,26 +279,19 @@ da:
       create: Opret %{model}
       update: Opdater %{model}
       submit: Gem %{model}
-  will_paginate:
-    previous_label: "← forrige"
-    next_label: næste →
-    page_gap: "&hellip;"
-    container_aria_label: Sideopdel
-    page_aria_label: Side %{page}
     page_entries_info:
-      single_page:
-        zero: Ingen %{model} fundet
-        one: Viser 1 %{model}
-        other: Viser alle %{count} %{model}
-      single_page_html:
-        zero: Ingen %{model} fundet
-        one: Viser <b>1</b> %{model}
-        other: Viser <b>all&nbsp;%{count}</b> %{model}
-      multi_page: Viser %{model} %{from} - %{to} af ialt %{count}
-      multi_page_html: Viser %{model} <b>%{from} - %{to}</b> af <b>%{count}</b> i
-        alt
-    previous_aria_label: Forrige side
-    next_aria_label: Næste side
+      entry:
+        zero: poster
+        one: indgang
+        other: poster
+      one_page:
+        display_entries:
+          zero: Ingen %{entry_name} fundet
+          one: Viser <b>%{count}</b> %{entry_name}
+          other: Viser <b>alle %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Viser %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> af
+          <b>%{total}</b>
   flash:
     actions:
       create:
@@ -670,3 +663,10 @@ da:
   file_pushes:
     new:
       upload_limit: Du kan uploade op til %{count} filer pr. push.
+  views:
+    pagination:
+      first: "&laquo; Første"
+      last: Sidste &raquo;
+      previous: "&lsaquo; Forrige"
+      next: Næste &rsaquo;
+      truncate: "&hellip;"
