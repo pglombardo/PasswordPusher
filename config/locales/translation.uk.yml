@@ -264,26 +264,19 @@ uk:
       create: Створити %{model}
       update: Зберегти %{model}
       submit: Зберегти %{model}
-  will_paginate:
-    previous_label: "← Назад"
-    previous_aria_label: Попередня сторінка
-    next_label: Далі →
-    next_aria_label: Наступна сторінка
-    page_gap: "&hellip;"
-    container_aria_label: Пагінація
-    page_aria_label: Сторінка %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} не знайдено"
-        one: Показано %{count} %{model}
-        other: Показано %{count} %{model}
-      single_page_html:
-        zero: "%{model} не знайдено"
-        one: Показано <b>%{count}</b> %{model}
-        other: Показано <b>%{count}</b> %{model}
-      multi_page: Відображення %{model} %{from} - %{to} з %{count} разом
-      multi_page_html: Відображення %{model} <b>%{from} - [%{to}</b> ] з <b>[%{count}</b>
-        ] разом
+      entry:
+        zero: записи
+        one: в'їзд
+        other: записи
+      one_page:
+        display_entries:
+          zero: Жодного %{entry_name}
+          one: Відображено <b>%{count}</b> %{entry_name}
+          other: Відображені <b>всі %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Відображено %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          із <b>%{total}</b>
   flash:
     actions:
       create:
@@ -623,3 +616,10 @@ uk:
   file_pushes:
     new:
       upload_limit: Ви можете завантажити до %{count} файлів за одне відправлення.
+  views:
+    pagination:
+      first: "&laquo; Перша"
+      last: Остання &raquo;
+      previous: "&lsaquo; Попередня"
+      next: Наступна &rsaquo;
+      truncate: "&hellip;"

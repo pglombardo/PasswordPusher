@@ -146,8 +146,7 @@ class FilePushesController < ApplicationController
     if ENV.key?("PWPUSH_COM")
       @push_count = FilePush.where(user_id: current_user.id, expired: false).count
       if @push_count >= 20
-        msg = _("Only 20 active file pushes allowed while in Beta and until things are stable. If it's an " \
-                "option, you can manually expire existing pushes before creating new ones.")
+        msg = _("Only 20 active file pushes allowed while in Beta. If it's an option, you can manually expire existing pushes before creating new ones.")
         respond_to do |format|
           format.html do
             flash.now[:warning] = msg

@@ -221,26 +221,19 @@ cs:
       create: Vytvořit %{model}
       update: Aktualizovat %{model}
       submit: Uložit %{model}
-  will_paginate:
-    previous_label: "&#8592; Předchozí"
-    next_label: Další &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Stránkování
-    page_aria_label: Strana %{page}
     page_entries_info:
-      single_page:
-        zero: Žádný %{model} nenalezen
-        one: Zobrazuji 1 %{model}
-        other: Zobrazuji všech %{count} %{model}
-      single_page_html:
-        zero: Žádný %{model} nenalezen
-        one: Zobrazuji <b>1</b> %{model}
-        other: Zobrazuji <b>všech&nbsp;%{count}</b> %{model}
-      multi_page: Zobrazuji %{model} %{from} - %{to} z %{count} celkem
-      multi_page_html: Zobrazuji %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z <b>%{count}</b>
-        celkem
-    previous_aria_label: Předchozí stránka
-    next_aria_label: Další strana
+      entry:
+        zero: záznamy
+        one: vstup
+        other: záznamy
+      one_page:
+        display_entries:
+          zero: Žádná položka nenalezena
+          one: Zobrazuji <b>%{count}</b> %{entry_name}
+          other: Zobrazuji <b>%{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Zobrazuji %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          z <b>%{total} celkových</b>
   flash:
     actions:
       create:
@@ -609,3 +602,10 @@ cs:
   file_pushes:
     new:
       upload_limit: Na jedno push můžete nahrát až %{count} souborů.
+  views:
+    pagination:
+      first: "&laquo; První"
+      last: Poslední &raquo;
+      previous: "&lsaquo; Předchozí"
+      next: Další &rsaquo;
+      truncate: "&hellip;"

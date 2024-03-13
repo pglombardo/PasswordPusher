@@ -222,25 +222,19 @@
       create: Opprett %{model}
       update: Oppdater %{model}
       submit: Lagre %{model}
-  will_paginate:
-    previous_label: "← Forrige"
-    next_label: Neste →
-    page_gap: "&hellip;\n"
-    container_aria_label: Paginering
-    page_aria_label: Side %{page}
     page_entries_info:
-      single_page:
-        zero: Ingen %{model} funnet
-        one: Viser 1 %{model}
-        other: Viser alle %{count} %{model}
-      single_page_html:
-        zero: Ingen %{model} funnet
-        one: Viser <b>1</b> %{model}
-        other: Viser <b>alle %{count}</b> %{model}
-      multi_page: Viser %{model} %{from} - %{to} av %{count} totalt
-      multi_page_html: Viser %{model} <b>%{from} - %{to}</b> av <b>%{count}</b> totalt
-    previous_aria_label: Forrige side
-    next_aria_label: Neste side
+      entry:
+        zero: innganger
+        one: inngang
+        other: innganger
+      one_page:
+        display_entries:
+          zero: Ingen %{entry_name} funnet
+          one: Viser <b>1</b> %{entry_name}
+          other: Viser <b>alle %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Viser %{entry_name} <b>%{first} - %{last}</b> av <b>%{total}</b>
+          totalt
   flash:
     actions:
       create:
@@ -609,3 +603,10 @@
   file_pushes:
     new:
       upload_limit: Du kan laste opp opptil %{count} filer per trykk.
+  views:
+    pagination:
+      first: "«Først"
+      last: Siste "
+      previous: "‹ Forrige"
+      next: Neste ›
+      truncate: "&hellip;"

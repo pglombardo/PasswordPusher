@@ -221,26 +221,19 @@ es:
       create: Crear %{model}
       update: Actualizar %{model}
       submit: Guardar %{model}
-  will_paginate:
-    previous_label: "← Atrás"
-    next_label: Siguiente →
-    page_gap: "&hellip;"
-    container_aria_label: Paginación
-    page_aria_label: Página %{page}
     page_entries_info:
-      single_page:
-        zero: No se encontraron %{model}
-        one: Mostrando 1 %{model}
-        other: Mostrando en total %{count} %{model}
-      single_page_html:
-        zero: No se encontraron %{model}
-        one: Mostrando <b>1</b> %{model}
-        other: Mostrando en <b>total&nbsp;%{count}</b> %{model}
-      multi_page: Mostrando %{model} %{from} - %{to} de %{count} en total
-      multi_page_html: Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
-        en total
-    previous_aria_label: Pagina anterior
-    next_aria_label: Siguiente página
+      entry:
+        zero: entradas
+        one: entrada
+        other: entradas
+      one_page:
+        display_entries:
+          zero: No se han encontrado %{entry_name}
+          one: Mostrando <b>%{count}</b> %{entry_name}
+          other: Mostrando <b>un total de %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name}
+          de <b>%{total}</b> en total
   flash:
     actions:
       create:
@@ -630,3 +623,10 @@ es:
   file_pushes:
     new:
       upload_limit: Puedes cargar hasta %{count} archivos por envío.
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      previous: "&lsaquo; Anterior"
+      next: Siguiente &rsaquo;
+      truncate: "&hellip;"

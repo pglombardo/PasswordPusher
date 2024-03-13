@@ -223,26 +223,19 @@ nl:
       create: "%{model} toevoegen"
       update: "%{model} bijwerken"
       submit: "%{model} opslaan"
-  will_paginate:
-    previous_label: "&#8592; Vorige"
-    next_label: Volgende &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Paginering
-    page_aria_label: Pagina %{page}
     page_entries_info:
-      single_page:
-        zero: Geen %{model} gevonden
-        one: 1 %{model}
-        other: Alle %{count} %{model}
-      single_page_html:
-        zero: Geen %{model} gevonden
-        one: "<b>1</b> %{model}"
-        other: "<b>all&nbsp;%{count}</b> %{model}"
-      multi_page: "%{from} - %{to} van de in totaal %{count} %{model}"
-      multi_page_html: "<b>%{from}&nbsp;-&nbsp;%{to}</b> van de in totaal <b>%{count}</b>
-        %{model}"
-    previous_aria_label: Vorige bladzijde
-    next_aria_label: Volgende bladzijde
+      entry:
+        zero: inzendingen
+        one: binnenkomst
+        other: inzendingen
+      one_page:
+        display_entries:
+          zero: Geen %{entry_name} gevonden
+          one: "<b>%{count}</b> %{entry_name} getoond"
+          other: Alle <b>%{count}</b> %{entry_name} getoond
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> van de
+          <b>%{total}</b> getoond"
   flash:
     actions:
       create:
@@ -618,3 +611,10 @@ nl:
   file_pushes:
     new:
       upload_limit: U kunt per push maximaal %{count} bestanden uploaden.
+  views:
+    pagination:
+      first: "&laquo; Eerste"
+      last: Laatste &raquo;
+      previous: "&lsaquo; Vorige"
+      next: Volgende &rsaquo;
+      truncate: "&hellip;"

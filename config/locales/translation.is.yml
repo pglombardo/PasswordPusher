@@ -259,25 +259,19 @@ is:
       create: Búa til %{model}
       update: Uppfæra %{model}
       submit: Vista %{model}
-  will_paginate:
-    previous_label: "← Fyrri"
-    previous_aria_label: Fyrri síða
-    next_label: Næsta →
-    next_aria_label: Næsta síða
-    page_gap: "…"
-    container_aria_label: Síðuskipting
-    page_aria_label: Síða %{page}
     page_entries_info:
-      single_page:
-        zero: Enginn %{model} fannst
-        one: Sýnir 1 %{model}
-        other: Sýnir allt %{count} %{model}
-      single_page_html:
-        zero: Enginn %{model} fannst
-        one: Sýnir <b>1</b> %{model}
-        other: Sýnir <b>allt %{count}</b> %{model}
-      multi_page: Sýnir %{model} %{from} - %{to} af %{count} samtals
-      multi_page_html: Sýnir %{model} <b>%{from} - %{to}</b> af <b>%{count}</b> samtals
+      entry:
+        zero: færslur
+        one: færslu
+        other: færslur
+      one_page:
+        display_entries:
+          zero: Enginn %{entry_name} fannst
+          one: Sýnir <b>1</b> %{entry_name}
+          other: Sýnir <b>allt %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Sýnir %{entry_name} <b>%{first} - %{last}</b> af <b>%{total}</b>
+          samtals
   flash:
     actions:
       create:
@@ -606,3 +600,10 @@ is:
   file_pushes:
     new:
       upload_limit: Þú getur hlaðið upp allt að %{count} skrám fyrir hverja ýtingu.
+  views:
+    pagination:
+      first: "« Fyrst"
+      last: Síðasta »
+      previous: "‹ Fyrri"
+      next: Næsta ›
+      truncate: "…"

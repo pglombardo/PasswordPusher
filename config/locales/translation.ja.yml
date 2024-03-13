@@ -216,25 +216,18 @@ ja:
       create: 登録する
       update: 更新する
       submit: 保存する
-  will_paginate:
-    previous_label: "&#8592; 前へ"
-    next_label: 次へ &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: ページネーション
-    page_aria_label: ページ %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model}が見つかりません"
-        one: 1件の%{model}を表示しています
-        other: "%{count}件の%{model}をすべて表示しています"
-      single_page_html:
-        zero: "%{model}が見つかりません"
-        one: "<b>1</b>件の%{model}を表示しています"
-        other: "<b>%{count}</b>件の%{model}をすべて表示しています"
-      multi_page: "%{from}番目から%{to}番目までの%{model}を表示しています（全%{count}件中）"
-      multi_page_html: "<b>%{from}</b>番目から<b>%{to}</b>番目までの%{model}を表示しています（全<b>%{count}</b>件中）"
-    previous_aria_label: 前のページ
-    next_aria_label: 次のページ
+      entry:
+        zero: エントリ
+        one: エントリ
+        other: エントリ
+      one_page:
+        display_entries:
+          zero: レコードが見つかりませんでした %{entry_name}
+          one: "<b>%{count}</b>レコード表示中です %{entry_name}"
+          other: "<b>%{count}</b>レコード表示中です %{entry_name}"
+      more_pages:
+        display_entries: "<b>%{total}</b>中の%{entry_name}を表示しています <b>%{first} - %{last}</b>"
   flash:
     actions:
       create:
@@ -568,3 +561,10 @@ ja:
   file_pushes:
     new:
       upload_limit: プッシュごとに最大 %{count} ファイルをアップロードできます。
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: 最後 &raquo;
+      previous: "&lsaquo; 前"
+      next: 次 &rsaquo;
+      truncate: "&hellip;"

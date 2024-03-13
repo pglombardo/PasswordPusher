@@ -222,26 +222,19 @@ de:
       create: "%{model} erstellen"
       update: "%{model} aktualisieren"
       submit: "%{model} speichern"
-  will_paginate:
-    previous_label: "← Vorige"
-    next_label: Weiter →
-    page_gap: "&hellip;"
-    container_aria_label: Seitennummerierung
-    page_aria_label: Seite %{page}
     page_entries_info:
-      single_page:
-        zero: Kein(e) %{model} gefunden
-        one: Zeige 1 %{model}
-        other: Zeige alle %{count} %{model}
-      single_page_html:
-        zero: Kein(e) %{model} gefunden
-        one: Zeige <b>1</b> %{model}
-        other: Zeige <b>alle&nbsp;%{count}</b> %{model}
-      multi_page: Zeige %{model} %{from} - %{to} von %{count} insgesamt
-      multi_page_html: Zeige %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von <b>%{count}</b>
-        insgesamt
-    previous_aria_label: Vorherige Seite
-    next_aria_label: Nächste Seite
+      entry:
+        zero: Einträge
+        one: Eintrag
+        other: Einträge
+      one_page:
+        display_entries:
+          zero: Kein %{entry_name} gefunden
+          one: Zeige <b>%{count}</b> %{entry_name}
+          other: Zeige <b>alle %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Zeige %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> von
+          insgesamt <b>%{total}</b>
   flash:
     actions:
       create:
@@ -624,3 +617,10 @@ de:
   file_pushes:
     new:
       upload_limit: Sie können bis zu %{count} Dateien pro Push hochladen.
+  views:
+    pagination:
+      first: "« Start"
+      last: Ende »
+      previous: "&lsaquo; Zurück"
+      next: Weiter &rsaquo;
+      truncate: "&hellip;"
