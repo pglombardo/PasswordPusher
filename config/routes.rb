@@ -31,9 +31,15 @@ Rails.application.routes.draw do
       end
     end
 
-    # Dashboard controller has been removed.  Maintain this remapping for now.
-    get "/d/active", to: "passwords#active"
-    get "/d/expired", to: "passwords#expired"
+    namespace :admin do
+      resources :file_pushes
+      resources :passwords
+      resources :urls
+      resources :users
+      resources :views
+
+      root to: "users#index"
+    end
 
     resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
       get "preview", on: :member
