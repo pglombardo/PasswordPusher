@@ -379,7 +379,7 @@ class UrlsController < ApplicationController
 
     @pushes = Url.includes(:views)
       .where(user_id: current_user.id, expired: false)
-      .paginate(page: params[:page], per_page: 30)
+      .page(params[:page])
       .order(created_at: :desc)
 
     respond_to do |format|
@@ -406,7 +406,7 @@ class UrlsController < ApplicationController
 
     @pushes = Url.includes(:views)
       .where(user_id: current_user.id, expired: true)
-      .paginate(page: params[:page], per_page: 30)
+      .page(params[:page])
       .order(created_at: :desc)
 
     respond_to do |format|
