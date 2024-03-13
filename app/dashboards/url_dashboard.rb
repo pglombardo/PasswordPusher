@@ -96,4 +96,7 @@ class UrlDashboard < Administrate::BaseDashboard
   # def display_resource(url)
   #   "Url ##{url.id}"
   # end
+  def display_resource(url)
+    "UrlPush-#{url.url_token}"
+  end
 end

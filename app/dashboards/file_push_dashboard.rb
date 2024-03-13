@@ -107,4 +107,7 @@ class FilePushDashboard < Administrate::BaseDashboard
   # def display_resource(file_push)
   #   "FilePush ##{file_push.id}"
   # end
+  def display_resource(file_push)
+    "FilePush-#{file_push.url_token}"
+  end
 end

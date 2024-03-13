@@ -96,4 +96,7 @@ class PasswordDashboard < Administrate::BaseDashboard
   # def display_resource(password)
   #   "Password ##{password.id}"
   # end
+  def display_resource(password)
+    "Push-#{password.url_token}"
+  end
 end
