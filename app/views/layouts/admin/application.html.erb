@@ -1,0 +1,65 @@
+<%#
+# Application Layout
+
+This view template is used as the layout
+for every page that Administrate generates.
+
+By default, it renders:
+- Navigation
+- Content for a search bar
+  (if provided by a `content_for` block in a nested page)
+- Flashes
+- Links to stylesheets and JavaScripts
+%>
+
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOODP">
+  <meta name="viewport" content="initial-scale=1">
+  <title>
+    <%= content_for(:title) %> - <%= application_title %>
+  </title>
+  <%= render "stylesheet" %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag if defined?(csp_meta_tag) %>
+</head>
+<body>
+  <%= render "icons" %>
+
+  <div class="app-container">
+
+    <%= render "navigation" -%>
+
+    <main class="main-content">
+      <%= render "flashes" -%>
+
+      <div style="display: flex; margin-left: 1rem; margin-top: 1rem; margin-bottom: 1rem; margin-right: auto; color: #000 !important; text-decoration: none;">
+        <div style="margin-right: 0.5rem;">
+            <picture>
+                <source srcset="<%= asset_path('logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+                <source srcset="<%= asset_path('logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+                <img src="<%= asset_path('logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style="height: 50px;">
+            </picture>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <span style="font-size: 1.5rem;">Password Pusher</span>
+        </div>
+      </div>
+
+      <div style="display: flex; margin-left: 1rem; margin-top: 1rem; margin-bottom: 1rem; margin-right: auto; color: #000 !important; text-decoration: none;">
+        <%= t('.admin_intro') %>
+      </div>
+
+      <div style="display: flex; margin-left: 1rem; margin-top: 1rem; margin-bottom: 1rem; margin-right: auto; color: #000 !important; text-decoration: none; font-style: italic;">
+        <%= t('.admin_note') %>
+      </div>
+
+      <%= yield %>
+    </main>
+  </div>
+
+  <%= render "javascript" %>
+</body>
+</html>

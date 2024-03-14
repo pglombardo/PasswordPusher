@@ -119,3 +119,5 @@ group :production do
 end
 
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
+
+gem "administrate", "~> 0.20.1"
