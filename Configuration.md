@@ -598,24 +598,26 @@ If you are unable to have these headers passed to the application for any reason
 
 ## Introduction
 
-Password Pusher bundles an Admin dashboard for self-hosted instances available at `/admin`. This dashboard allows for direct database access, so care should be taken. Access to this dashboard is limited to Administrator accounts only.
+Password Pusher bundles an Admin dashboard for self-hosted instances available at `/admin`. This dashboard allows for direct database access, so care should be taken.
+
+It is only enabled with logins are enabled (`enable_logins`) and access is limited to accounts marked as "Administrator" only.
 
 ### Security & Access
 
 Access to the Admin dashboard grants direct access to the application's database.
 
-Accessing the dashboard is disabled by default and only allowed for accounts that you specifically mark as "Administrator"..  Make sure to restrict access to authorized personnel only to prevent unauthorized access and potential security breaches.
+Accessing the admin dashboard is accessible by accounts that you specifically mark as "Administrator".  Make sure to restrict access to authorized personnel only to prevent unauthorized access and potential security breaches.
 
-For administrators to access the Admin dashboard, you must have:
+To access the Admin dashboard, you must have:
 
 - Logins enabled for your instance
-- An account registered and confirmed
+- An account registered, confirmed and marked as an "Administrator"
 
 For instructions on enabling logins and account registration, see previous sections above.
 
 ## Marking a User as an Administrator
 
-To mark a user account as an Administrator, follow these steps:
+To mark a user account as an Administrator, you will need the email that the account registered with.  With that email, follow these steps:
 
 1. Open an application console by accessing the server where the application code resides. For example, if using Docker, navigate to `/opt/PasswordPusher`:
 
@@ -655,4 +657,4 @@ Upon successful execution, you will receive a confirmation message indicating th
 
 ## Feedback
 
-If you encounter any difficulties or have suggestions for improvement, please provide feedback or ask questions. Your input is valuable for enhancing the documentation and user experience.
+If you encounter any difficulties or have suggestions for improvement, let me know or file an issue in Github.
