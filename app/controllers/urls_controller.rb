@@ -408,6 +408,7 @@ class UrlsController < ApplicationController
     respond_to do |format|
       format.html { render template: "urls/show_expired", layout: "naked" }
       format.json { render json: {error: "not-found"}.to_json, status: :not_found }
+      format.any { head :not_acceptable }
     end
   end
 
