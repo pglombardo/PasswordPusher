@@ -265,26 +265,19 @@ ro:
       create: Creare %{model}
       update: Modificare %{model}
       submit: Salvare %{model}
-  will_paginate:
-    previous_label: "← anterior"
-    previous_aria_label: Pagina precedentă
-    next_label: următor →
-    next_aria_label: Pagina următoare
-    page_gap: "&hellip;"
-    container_aria_label: Paginare
-    page_aria_label: Pagina %{page}
     page_entries_info:
-      single_page:
-        zero: Nu s-a găsit %{model}
-        one: Afișare 1 %{model}
-        other: Afișarea tuturor %{count} %{model}
-      single_page_html:
-        zero: Nu s-a găsit %{model}
-        one: Afișare <b>1</b> %{model}
-        other: Afișarea <b>tuturor %{count}</b> %{model}
-      multi_page: Afișarea %{model} %{from} - %{to} din %{count} în total
-      multi_page_html: Afișarea %{model} [ <b>%{from}] - [%{to}</b> ] din <b>%{count}</b>
-        în total
+      entry:
+        zero: intrări
+        one: intrare
+        other: intrări
+      one_page:
+        display_entries:
+          zero: Nu s-a găsit %{entry_name}
+          one: Afișare <b>1</b> %{entry_name}
+          other: Afișarea <b>tuturor %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Afișarea %{entry_name} [ <b>%{first}] - [%{last}</b> ] din
+          <b>%{total}</b> în total
   flash:
     actions:
       create:
@@ -622,3 +615,10 @@ ro:
   file_pushes:
     new:
       upload_limit: Puteți încărca până la %{count} fișiere per push.
+  views:
+    pagination:
+      first: "\" Prima"
+      last: Ultima "
+      previous: "' Anterior"
+      next: Următorul '
+      truncate: "&hellip;"

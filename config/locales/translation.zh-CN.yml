@@ -216,25 +216,18 @@ zh-CN:
       create: 新增%{model}
       update: 更新%{model}
       submit: 储存%{model}
-  will_paginate:
-    previous_label: 上一页
-    next_label: 下一页
-    page_gap: "…"
-    container_aria_label: 分页
-    page_aria_label: 第 %{page} 页
     page_entries_info:
-      single_page:
-        zero: 暂无%{model}记录
-        one: 正显示1条%{model}记录
-        other: 正显示所有共%{count}条%{model}记录
-      single_page_html:
-        zero: 暂无%{model}记录
-        one: 正显示<b>1</b>条%{model}记录
-        other: 正显示所有共<b>%{count}</b>条%{model}记录
-      multi_page: 正显示%{model}的第%{from}至第%{to}条记录(共%{count}条记录)
-      multi_page_html: 正显示%{model}的第<b>%{from}</b>至第<b>%{to}</b>条记录(共<b>%{count}</b>条记录)
-    previous_aria_label: 上一页
-    next_aria_label: 下一页
+      entry:
+        zero: 条目
+        one: 入口
+        other: 条目
+      one_page:
+        display_entries:
+          zero: 未找到 %{entry_name}
+          one: 显示<b>1</b> %{entry_name}
+          other: 显示<b>全部 %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: '显示 %{entry_name} <b>%{first} - %{last}</b>  共<b>%{total}</b> '
   flash:
     actions:
       create:
@@ -565,3 +558,10 @@ zh-CN:
   file_pushes:
     new:
       upload_limit: 每次推送最多可以上传 %{count} 个文件。
+  views:
+    pagination:
+      first: "&laquo; 第一页"
+      last: 最后一页 &raquo;
+      previous: "&lsaquo; 上一页"
+      next: 下一页 &rsaquo;
+      truncate: "&hellip;"

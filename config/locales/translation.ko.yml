@@ -217,25 +217,19 @@ ko:
       create: 등록
       update: 수정
       submit: 제출
-  will_paginate:
-    previous_label: "← 이전"
-    next_label: 다음 →
-    page_gap: "…"
-    container_aria_label: 쪽수 매기기
-    page_aria_label: 페이지 %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model}을(를) 찾을 수 없습니다."
-        one: 1 표시 %{model}
-        other: 모두 표시 %{count} %{model}
-      single_page_html:
-        zero: "%{model}을(를) 찾을 수 없습니다."
-        one: "<b>1</b> 표시 %{model}"
-        other: "<b>모두 표시 %{count}</b> %{model}"
-      multi_page: 총 %{count}의 %{model} %{from} - %{to} 표시
-      multi_page_html: 총 %{count}의 <b>[</b> %{model}] <b>%{from} - %{to}</b> 표시
-    previous_aria_label: 이전 페이지
-    next_aria_label: 다음 페이지
+      entry:
+        zero: 항목
+        one: 기입
+        other: 항목
+      one_page:
+        display_entries:
+          zero: "%{entry_name}을(를) 찾을 수 없습니다."
+          one: "<b>1</b> 표시 %{entry_name}"
+          other: "<b>모두 표시 %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "<b>%{total}</b>중의 %{entry_name}를(을) 표시하고 있습니다 <b>%{first}
+          - %{last}</b>"
   flash:
     actions:
       create:
@@ -572,3 +566,10 @@ ko:
   file_pushes:
     new:
       upload_limit: 푸시당 최대 %{count}개의 파일을 업로드할 수 있습니다.
+  views:
+    pagination:
+      first: "&laquo; 처음"
+      last: 마지막 &raquo;
+      previous: "&lsaquo; 이전"
+      next: 다음 &rsaquo;
+      truncate: "&hellip;"

@@ -262,26 +262,19 @@ ru:
       create: Создать %{model}
       update: Сохранить %{model}
       submit: Сохранить %{model}
-  will_paginate:
-    previous_label: "← Предыдущая"
-    next_label: Следующая →
-    page_gap: "&hellip;"
-    container_aria_label: Пагинация
-    page_aria_label: Страница %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} не найдены"
-        one: Отображена 1 %{model}
-        other: Отображено %{count} %{model}
-      single_page_html:
-        zero: "%{model} не найдены"
-        one: Отображена <b>1</b> %{model}
-        other: Отображено <b>%{count}</b> %{model}
-      multi_page: Отображение %{model} %{from} - %{to} из %{count} всего
-      multi_page_html: Отображение %{model} <b>%{from} - %{to}</b> из <b>%{count}</b>
-        всего
-    previous_aria_label: Предыдущая страница
-    next_aria_label: Следующая страница
+      entry:
+        zero: записи
+        one: вход
+        other: записи
+      one_page:
+        display_entries:
+          zero: Не найдено %{entry_name}
+          one: Показано <b>%{count}</b> %{entry_name}
+          other: Показаны <b>все %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Показана %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          из <b>%{total}</b>
   flash:
     actions:
       create:
@@ -624,3 +617,10 @@ ru:
   file_pushes:
     new:
       upload_limit: За одно нажатие можно загрузить до %{count} файлов.
+  views:
+    pagination:
+      first: "&laquo; Первая"
+      last: Последняя &raquo;
+      previous: "&lsaquo; Предыдущая"
+      next: Следующая &rsaquo;
+      truncate: "&hellip;"

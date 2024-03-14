@@ -141,11 +141,12 @@ class FilePushesController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
+    @push = FilePush.new(file_push_params)
+
     if ENV.key?("PWPUSH_COM")
       @push_count = FilePush.where(user_id: current_user.id, expired: false).count
-      if @push_count >= 10
-        msg = _("Only 10 active file pushes allowed while in Beta and until things are stable. If it's an " \
-                "option, you can manually expire existing pushes before creating new ones.")
+      if @push_count >= 20
+        msg = _("Only 20 active file pushes allowed while in Beta. If it's an option, you can manually expire existing pushes before creating new ones.")
         respond_to do |format|
           format.html do
             flash.now[:warning] = msg
@@ -168,8 +169,6 @@ class FilePushesController < ApplicationController
       end
       return
     end
-
-    @push = FilePush.new(file_push_params)
 
     @push.expire_after_days ||= Settings.files.expire_after_days_default
     @push.expire_after_views ||= Settings.files.expire_after_views_default
@@ -454,7 +453,6 @@ class FilePushesController < ApplicationController
 
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note,
-      :passphrase, files: [])
+      :retrieval_step, :deletable_by_viewer, :note, :passphrase, files: [])
   end
 end

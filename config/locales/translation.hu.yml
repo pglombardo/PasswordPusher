@@ -221,25 +221,19 @@ hu:
       create: "%{model} létrehozása"
       update: "%{model} módosítása"
       submit: "%{model} mentése"
-  will_paginate:
-    previous_label: "← Előző"
-    next_label: Következő &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Lapozás
-    page_aria_label: "%{page}. oldal"
     page_entries_info:
-      single_page:
-        zero: Nem található %{model}
-        one: 1 %{model} megjelenítése
-        other: Összes (%{count}) %{model} megjelenítése
-      single_page_html:
-        zero: Nem található %{model}
-        one: "<b>1</b> %{model} megjelenítése"
-        other: Az <b>összes (%{count})</b> %{model} megjelenítése
-      multi_page: "%{model} %{from} - %{to} / %{count} megjelenítése"
-      multi_page_html: "%{model} <b>%{from} - %{to}</b> / <b>%{count}</b> megjelenítése"
-    previous_aria_label: Előző oldal
-    next_aria_label: Következő oldal
+      entry:
+        zero: bejegyzés
+        one: belépés
+        other: bejegyzés
+      one_page:
+        display_entries:
+          zero: Nem található %{entry_name}
+          one: "<b>1</b> megjelenítése %{entry_name}"
+          other: "<b>Az összes %{count}</b> %{entry_name} megjelenítése"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> megjelenítve
+          (összesen <b>%{total}</b>)"
   flash:
     actions:
       create:
@@ -617,3 +611,10 @@ hu:
   file_pushes:
     new:
       upload_limit: Leküldésenként legfeljebb %{count} fájlt tölthet fel.
+  views:
+    pagination:
+      first: "&laquo; Első"
+      last: Utolsó &raquo;
+      previous: "&lsaquo; Előző"
+      next: Következő &rsaquo;
+      truncate: "&hellip;"
