@@ -61,20 +61,20 @@ class UserDashboard < Administrate::BaseDashboard
     email
     encrypted_password
     failed_attempts
-    file_pushes
     last_sign_in_at
     last_sign_in_ip
     locked_at
-    passwords
     remember_created_at
     reset_password_sent_at
     reset_password_token
     sign_in_count
     unconfirmed_email
     unlock_token
-    urls
     created_at
     updated_at
+    passwords
+    file_pushes
+    urls
   ].freeze
 
   # FORM_ATTRIBUTES
