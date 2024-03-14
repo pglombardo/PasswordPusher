@@ -3,6 +3,16 @@
 Rails.application.routes.draw do
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"} if ENV.key?("PWPUSH_COM")
 
+  namespace :admin do
+    resources :file_pushes
+    resources :passwords
+    resources :urls
+    resources :users
+    resources :views
+
+    root to: "users#index"
+  end
+
   localized do
     apipie
     devise_for :users, skip: :registrations, controllers: {
@@ -30,10 +40,6 @@ Rails.application.routes.draw do
         delete :token, action: :regen_token
       end
     end
-
-    # Dashboard controller has been removed.  Maintain this remapping for now.
-    get "/d/active", to: "passwords#active"
-    get "/d/expired", to: "passwords#expired"
 
     resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
       get "preview", on: :member
