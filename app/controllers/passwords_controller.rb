@@ -9,6 +9,8 @@ class PasswordsController < ApplicationController
   # Audit & dashboard views (active & expired) always requires a login
   acts_as_token_authentication_handler_for User, only: %i[audit active expired]
 
+  before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
+
   resource_description do
     name "Text Pushes"
     short "Interact directly with text pushes."
@@ -22,27 +24,6 @@ class PasswordsController < ApplicationController
               "will burn a view and the transaction will be logged in the push audit log.  If the push " \
               "has a passphrase, provide it in a ?passphrase=xxx GET parameter."
   def show
-    redirect_to :root && return unless params.key?(:id)
-
-    begin
-      @push = Password.includes(:views).find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      # Old, expired & anonymous pushes have no value to anybody.
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: "passwords/show_expired", layout: "naked" }
-        format.json { render json: {error: "not-found"}.to_json, status: :not_found }
-      end
-      return
-    end
-
     # This password may have expired since the last view.  Validate the password
     # expiration before doing anything.
     @push.validate!
@@ -99,26 +80,6 @@ class PasswordsController < ApplicationController
 
   # GET /p/:url_token/passphrase
   def passphrase
-    begin
-      @push = Password.find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: "passwords/show_expired", layout: "naked" }
-        format.json { render json: {error: "not-found"}.to_json, status: :not_found }
-      end
-      return
-    end
-
     respond_to do |format|
       format.html { render action: "passphrase", layout: "naked" }
     end
@@ -126,26 +87,6 @@ class PasswordsController < ApplicationController
 
   # POST /p/:url_token/access
   def access
-    begin
-      @push = Password.find_by!(url_token: params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: "passwords/show_expired", layout: "naked" }
-        format.json { render json: {error: "not-found"}.to_json, status: :not_found }
-      end
-      return
-    end
-
     # Construct the passphrase cookie name
     name = "#{@push.url_token}-p"
 
@@ -253,7 +194,6 @@ class PasswordsController < ApplicationController
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/p/fk27vnslkd/preview.json'
   description ""
   def preview
-    @push = Password.find_by!(url_token: params[:id])
     @secret_url = helpers.secret_url(@push)
 
     respond_to do |format|
@@ -263,26 +203,7 @@ class PasswordsController < ApplicationController
   end
 
   def preliminary
-    begin
-      @push = Password.find_by!(url_token: params[:id])
-      @secret_url = helpers.raw_secret_url(@push)
-    rescue ActiveRecord::RecordNotFound
-      # Showing a 404 reveals that this Secret URL never existed
-      # which is an information leak (not a secret anymore)
-      #
-      # We also don't want data in general. We entirely delete old pushes that:
-      # 1. have expired (payloads already deleted long ago)
-      # 2. are anonymous/not linked to a user account (audit log not needed)
-      #
-      # When not found, show the 'expired' page so even very old secret URLs
-      # when clicked they will be accurate - this secret URL has expired.
-      # No easy fix for JSON unfortunately as we don't have a record to show.
-      respond_to do |format|
-        format.html { render template: "passwords/show_expired", layout: "naked" }
-        format.json { render json: {error: "not-found"}.to_json, status: :not_found }
-      end
-      return
-    end
+    @secret_url = helpers.raw_secret_url(@push)
 
     respond_to do |format|
       format.html { render action: "preliminary", layout: "naked" }
@@ -298,8 +219,6 @@ class PasswordsController < ApplicationController
               "(and not expired).  Note that you must be the owner of the push to retrieve the audit log " \
               "and this call will always return 401 Unauthorized for pushes not owned by the credentials provided."
   def audit
-    @push = Password.includes(:views).find_by!(url_token: params[:id])
-
     if @push.user_id != current_user.id
       respond_to do |format|
         format.html { redirect_to :root, notice: _("That push doesn't belong to you.") }
@@ -325,7 +244,6 @@ class PasswordsController < ApplicationController
   description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must " \
               "have been created with _deleteable_by_viewer_."
   def destroy
-    @push = Password.find_by!(url_token: params[:id])
     is_owner = false
 
     if user_signed_in?
@@ -507,6 +425,25 @@ class PasswordsController < ApplicationController
     else
       # DELETABLE_PASSWORDS_ENABLED not enabled
       password.deletable_by_viewer = false
+    end
+  end
+
+  def set_push
+    @push = Password.includes(:views).find_by!(url_token: params[:id])
+  rescue ActiveRecord::RecordNotFound
+    # Showing a 404 reveals that this Secret URL never existed
+    # which is an information leak (not a secret anymore)
+    # We also don't want data in general. We entirely delete old pushes that:
+    # 1. have expired (payloads already deleted long ago)
+    # 2. are anonymous/not linked to a user account (audit log not needed)
+    # Old, expired & anonymous pushes have no value to anybody.
+    # When not found, show the 'expired' page so even very old secret URLs
+    # when clicked they will be accurate - this secret URL has expired.
+    # No easy fix for JSON unfortunately as we don't have a record to show.
+    respond_to do |format|
+      format.html { render template: "passwords/show_expired", layout: "naked" }
+      format.json { render json: {error: "not-found"}.to_json, status: :not_found }
+      format.any { head :not_acceptable }
     end
   end
 
