@@ -18,6 +18,8 @@ class UserDashboard < Administrate::BaseDashboard
     current_sign_in_ip: Field::String,
     email: Field::String,
     encrypted_password: Field::String,
+    password: Field::String,
+    password_confirmation: Field::String,
     failed_attempts: Field::Number,
     file_pushes: Field::HasMany,
     last_sign_in_at: Field::DateTime,
@@ -91,7 +93,8 @@ class UserDashboard < Administrate::BaseDashboard
     current_sign_in_at
     current_sign_in_ip
     email
-    encrypted_password
+    password
+    password_confirmation
     failed_attempts
     file_pushes
     last_sign_in_at
