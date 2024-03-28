@@ -94,7 +94,6 @@ class UserDashboard < Administrate::BaseDashboard
     current_sign_in_ip
     email
     password
-    password_confirmation
     failed_attempts
     file_pushes
     last_sign_in_at
