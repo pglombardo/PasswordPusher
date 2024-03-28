@@ -2,7 +2,7 @@
 
 <div class="container-fluid h-100 mx-0 py-0 px-0 bg-light">
   <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
-    <% if @push.payload.empty? %>
+    <% if @push.payload.nil? || @push.payload.empty? %>
         <div class='text-center m-3'>
           <p class="display-5"><%= _('The following files have been sent to you.') %></p>
           <p class="text-muted"><%= _('Please download and store in a secure area.') %></p>
