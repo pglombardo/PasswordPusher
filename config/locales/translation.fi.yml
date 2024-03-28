@@ -610,3 +610,138 @@ fi:
       previous: "&lsaquo; Edellinen"
       next: Seuraava &rsaquo;
       truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Oletko varma?
+      destroy: Tuhota
+      edit: Muokata
+      edit_resource: Muokkaa %{name}
+      show_resource: Näytä %{name}
+      new_resource: Uusi %{name}
+      back: Takaisin
+    controller:
+      create:
+        success: "%{resource} luotiin onnistuneesti."
+      destroy:
+        success: "%{resource} tuhottiin onnistuneesti."
+      update:
+        success: "%{resource} päivitettiin onnistuneesti."
+    fields:
+      has_many:
+        more: Näytetään %{count} / %{total_count}
+        none: Ei mitään
+    form:
+      error: virhe
+      errors: "%{pluralized_errors} kielsi tämän %{resource_name} tallentamisen:"
+    navigation:
+      back_to_app: Takaisin sovellukseen
+    search:
+      clear: Tyhjennä haku
+      label: Hae %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Tämä järjestelmänvalvojan hallintapaneeli tarjoaa suoran tietokannan
+          pääsyn Password Pusher -sovellukseen. Ole varovainen ja harkitse varmuuskopion
+          tekemistä ennen muutosten tekemistä.
+        admin_note: 'Huomautus: Tietueen tuhoaminen tuhoaa myös kaikki alatason tietueet.
+          Esimerkiksi käyttäjän tuhoaminen tuhoaa myös kaikki kyseisen käyttäjän työnnetyt
+          salasanat, tiedostot ja URL-osoitteet.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Luodussa salasanassa olevien tavujen määrä.
+      back: Takaisin tiimiin
+      edit: Muokkaa käytäntöä
+      team_policy_help: Tiimikäytäntö on joukko sääntöjä, jotka koskevat kaikkia tämän
+        joukkueen jäsenten tekemiä työntöjä.
+      personal_policy: Henkilökohtainen politiikka
+      personal_policy_help: Käytäntö on joukko sääntöjä, jotka koskevat kaikkia luomiasi
+        työntöjä.
+      team_policy: Joukkueen käytäntö
+      header_timed_expiration: Ajastettu vanheneminen
+      expire_after_duration_min: Minimikesto
+      expire_after_duration_min_help: Vähimmäiskesto ennen työntöajan päättymistä.
+      expire_after_duration_max: Enimmäiskesto
+      expire_after_duration_max_help: Enimmäiskesto ennen painalluksen päättymistä.
+      expire_after_duration_default: Oletuskesto
+      expire_after_duration_default_help: Oletusaika ennen työntöajan päättymistä.
+      minutes_tip: 1 päivä = 1440 minuuttia, 7 päivää = 10080 minuuttia, 30 päivää
+        = 43200 minuuttia
+      header_view_expiration: Näytä vanheneminen
+      expire_after_views_min: Vähimmäiskatselumäärä
+      expire_after_views_min_help: Vähimmäismäärä näyttökertoja ennen työntöajan päättymistä.
+      expire_after_views_max: Katselukertojen enimmäismäärä
+      expire_after_views_max_help: Näyttökertojen enimmäismäärä ennen työntöajan päättymistä.
+        [Max. 100]
+      expire_after_views_default: Oletuskatselumäärä
+      expire_after_views_default_help: Näkymien oletusmäärä ennen työntöajan päättymistä.
+      header_payload_limits: Hyötykuorman rajoitukset
+      push_text_max: Tekstin enimmäiskoko
+      push_text_max_help: Tekstin enimmäiskoko työntössä. Mitattu tavuissa. [Max.
+        1048576]
+      push_files_max: Sallittujen tiedostojen enimmäismäärä
+      push_files_max_help: Työntössä sallittu tiedostojen enimmäismäärä. [Max. 100]
+      header_retrieval_step: 1-Napsauta Hakuvaihe
+      enable_retrieval_step: Ota käyttöön?
+      enable_retrieval_step_help: Otetaanko yhden napsautuksen haku käyttöön tälle
+        tiimille? Jos tämä vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      retrieval_step_default: Oletusarvo
+      retrieval_step_default_help: 1-Click Retrieval -vaihevaihtoehdon oletusarvo.
+      retrieval_step_forced: Pakottaako oletusarvo?
+      retrieval_step_forced_help: Pakottaa käyttämään tätä vaihtoehtoa oletusarvolla
+        kaikille ryhmän jäsenille. Ryhmän jäsenet eivät voi muuttaa sitä.
+      hide_retrieval_step: Piilota vaihtoehto?
+      hide_retrieval_step_help: Piilottaa yhden napsautuksen hakuvaiheen vaihtoehdon
+        tiimin jäseniltä. Tämä on hyödyllistä pakottaaksesi oletusasetuksen näyttämättä
+        sitä ryhmän jäsenille.
+      header_deletable: Viewer poistaa
+      enable_deletable: Ota käyttöön?
+      enable_deletable_help: Otetaanko tämä vaihtoehto käyttöön joukkueelle? Jos tämä
+        vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      deletable_default: Oletusarvo
+      deletable_default_help: Deletable by Viewer -asetuksen oletusarvo.
+      deletable_forced: Pakottaako oletusarvo?
+      deletable_forced_help: Pakottaa käyttämään tätä vaihtoehtoa oletusarvolla kaikille
+        ryhmän jäsenille. Ryhmän jäsenet eivät voi muuttaa sitä.
+      hide_deletable: Piilota vaihtoehto?
+      hide_deletable_help: Piilottaa Viewer by Viewer -vaihtoehdon tiimin jäseniltä.
+        Tämä on hyödyllistä pakottaaksesi oletusasetuksen näyttämättä sitä ryhmän
+        jäsenille.
+      hide_passphrase: Piilota vaihtoehto?
+      hide_passphrase_help: Piilottaa Passphrase Lock -vaihtoehdon. Hyödyllinen, jos
+        haluat poistaa tämän vaihtoehdon käytöstä kokonaan.
+      enable_blur: Ota käyttöön?
+      enable_blur_help: Hyötykuorman hämärtäminen peittää hyötykuorman sisällön salaisen
+        URL-osoitteen toimitussivulla. Vastaanottajat voivat vaihtaa sumennusta napsauttamalla
+        paljastaakseen alkuperäiset tiedot.
+      header_passphrase: Salalauseen lukitus
+      header_blur: Hyötykuorman hämärtyminen
+      header_pwgen: Salasanan luominen
+      save: Päivitä tiimikäytäntö
+      enable_pwgen: Ota käyttöön?
+      enable_pwgen_help: Otetaanko salasanan luontivaihtoehto käyttöön tälle tiimille?
+        Jos tämä vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      pwgen_configurable: Muokattava?
+      pwgen_configurable_help: Saako tiimin jäsenten määrittää salasanageneraattorin?
+        Jos asetus on poistettu käytöstä, se pakotetaan alla olevaan määritykseen,
+        eivätkä tiimin jäsenet voi muuttaa sitä.
+      pwgen_has_numbers: Sisällytä numerot?
+      pwgen_has_numbers_help: Sisällytä luotuun salasanaan numerot.
+      pwgen_title_cased: Otsikko Cased?
+      pwgen_title_cased_help: Nimeä luodut salasanaosat isolla kirjaimella.
+      pwgen_use_separators: Käytä erottimia?
+      pwgen_use_separators_help: Käytä erottimia luodussa salasanassa.
+      pwgen_consonants: Konsonantit
+      pwgen_consonants_help: Luodussa salasanassa käytettävät konsonantit.
+      pwgen_vowels: Vokaalit
+      pwgen_vowels_help: Luodussa salasanassa käytettävät vokaalit.
+      pwgen_separators: Erottimet
+      pwgen_separators_help: Luodussa salasanassa käytettävät erottimet.
+      pwgen_min_syllable_length: Tavun vähimmäispituus
+      pwgen_min_syllable_length_help: Luodussa salasanassa olevan tavun vähimmäispituus.
+      pwgen_max_syllable_length: Tavun enimmäispituus
+      pwgen_max_syllable_length_help: Luodussa salasanassa olevan tavun enimmäispituus.
+      pwgen_syllables_count: Tavut Count
+    show:
+      edit_policy: Muokkaa push-käytäntöä
+      policy: Joukkueen käytäntö

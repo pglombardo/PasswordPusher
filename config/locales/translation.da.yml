@@ -670,3 +670,140 @@ da:
       previous: "&lsaquo; Forrige"
       next: Næste &rsaquo;
       truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Er du sikker?
+      destroy: Ødelægge
+      edit: Redigere
+      edit_resource: Rediger %{name}
+      show_resource: Vis %{name}
+      new_resource: Ny %{name}
+      back: Tilbage
+    controller:
+      create:
+        success: "%{resource} blev oprettet."
+      destroy:
+        success: "%{resource} blev destrueret med succes."
+      update:
+        success: "%{resource} blev opdateret."
+    fields:
+      has_many:
+        more: Viser %{count} af %{total_count}
+        none: Ingen
+    form:
+      error: fejl
+      errors: "%{pluralized_errors} forbød denne %{resource_name} at blive gemt:"
+    navigation:
+      back_to_app: Tilbage til app
+    search:
+      clear: Ryd søgning
+      label: Søg %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Dette admin-dashboard giver direkte databaseadgang til Password
+          Pusher-applikationen. Vær forsigtig og overvej at tage en sikkerhedskopi,
+          før du foretager ændringer.
+        admin_note: 'Bemærk: Destruktion af en post ødelægger også alle underordnede
+          poster. For eksempel vil ødelæggelse af en bruger også ødelægge alle pushede
+          adgangskoder, filer og urls for den pågældende bruger.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Antallet af stavelser i den genererede adgangskode.
+      back: Tilbage til Team
+      edit: Rediger politik
+      team_policy_help: En teampolitik er et sæt regler, der gælder for alle push
+        foretaget af medlemmer af dette team.
+      personal_policy: Personlig politik
+      personal_policy_help: En politik er et sæt regler, der gælder for alle push
+        oprettet af dig.
+      team_policy: Teampolitik
+      header_timed_expiration: Tidsbestemt udløb
+      expire_after_duration_min: Minimum varighed
+      expire_after_duration_min_help: Minimumsvarigheden før et push udløber.
+      expire_after_duration_max: Maksimal varighed
+      expire_after_duration_max_help: Den maksimale varighed før et push udløber.
+      expire_after_duration_default: Standard varighed
+      expire_after_duration_default_help: Standardvarigheden før et push udløber.
+      minutes_tip: 1 dag = 1440 minutter, 7 dage = 10080 minutter, 30 dage = 43200
+        minutter
+      header_view_expiration: Se udløb
+      expire_after_views_min: Minimum antal visninger
+      expire_after_views_min_help: Minimumsantallet af visninger før et push udløber.
+      expire_after_views_max: Maksimalt antal visninger
+      expire_after_views_max_help: Det maksimale antal visninger før et push udløber.
+        [Maks. 100]
+      expire_after_views_default: Standardvisningstal
+      expire_after_views_default_help: Standardantallet af visninger før et push udløber.
+      header_payload_limits: Nyttelastgrænser
+      push_text_max: Maksimal tekststørrelse
+      push_text_max_help: Den maksimale tekststørrelse i et tryk. Målt i bytes. [Maks.
+        1048576]
+      push_files_max: Maksimalt tilladte filer
+      push_files_max_help: Det maksimale antal filer tilladt i et push. [Maks. 100]
+      header_retrieval_step: 1-klik på Hentetrin
+      enable_retrieval_step: Aktiver?
+      enable_retrieval_step_help: Vil du aktivere 1-klik-hentning for dette team?
+        Hvis den er deaktiveret, vil denne mulighed blive skjult og ikke brugt.
+      retrieval_step_default: Standard værdi
+      retrieval_step_default_help: Standardværdien for trinindstillingen 1-Click Retrieval.
+      retrieval_step_forced: Tvinge standardværdien?
+      retrieval_step_forced_help: Tvinger brugen af denne mulighed med standardværdien
+        for alle teammedlemmer. Det kan ikke ændres af teammedlemmer.
+      hide_retrieval_step: Skjul indstilling?
+      hide_retrieval_step_help: Skjuler indstillingen 1-klik-hentningstrin for teammedlemmerne.
+        Dette er nyttigt for at fremtvinge standardindstillingen uden at vise den
+        til teammedlemmer.
+      header_deletable: Kan slettes af Viewer
+      enable_deletable: Aktiver?
+      enable_deletable_help: Vil du aktivere denne mulighed for teamet? Hvis den er
+        deaktiveret, vil denne mulighed blive skjult og ikke brugt.
+      deletable_default: Standard værdi
+      deletable_default_help: Standardværdien for indstillingen Deletable by Viewer.
+      deletable_forced: Tvinge standardværdien?
+      deletable_forced_help: Tvinger brugen af denne mulighed med standardværdien
+        for alle teammedlemmer. Det kan ikke ændres af teammedlemmer.
+      hide_deletable: Skjul indstilling?
+      hide_deletable_help: Skjuler muligheden Sletbar af fremviser fra teammedlemmerne.
+        Dette er nyttigt for at fremtvinge standardindstillingen uden at vise den
+        til teammedlemmer.
+      hide_passphrase: Skjul indstilling?
+      hide_passphrase_help: Skjuler indstillingen Passphrase Lock. Nyttigt at deaktivere
+        brugen af denne mulighed helt.
+      enable_blur: Aktiver?
+      enable_blur_help: Nyttelast sløring skjuler indholdet af nyttelasten på den
+        hemmelige URL-leveringsside. Modtagere kan skifte sløring med et klik for
+        at afsløre de originale data.
+      header_passphrase: Passphrase Lock
+      header_blur: Sløring af nyttelast
+      header_pwgen: Adgangskodegenerering
+      save: Opdater teampolitik
+      enable_pwgen: Aktiver?
+      enable_pwgen_help: Vil du aktivere adgangskodegenerering for dette team? Hvis
+        den er deaktiveret, vil denne mulighed blive skjult og ikke brugt.
+      pwgen_configurable: Kan konfigureres?
+      pwgen_configurable_help: Tillad teammedlemmer at konfigurere adgangskodegeneratoren?
+        Hvis den er deaktiveret, vil indstillingen blive tvunget til nedenstående
+        konfiguration og kan ikke ændres af teammedlemmer.
+      pwgen_has_numbers: Inkludere tal?
+      pwgen_has_numbers_help: Inkluder tal i den genererede adgangskode.
+      pwgen_title_cased: Titel Cased?
+      pwgen_title_cased_help: Store bogstaver for de genererede adgangskodedele.
+      pwgen_use_separators: Brug separatorer?
+      pwgen_use_separators_help: Brug separatorer i den genererede adgangskode.
+      pwgen_consonants: Konsonanter
+      pwgen_consonants_help: Konsonanterne, der skal bruges i den genererede adgangskode.
+      pwgen_vowels: Vokaler
+      pwgen_vowels_help: De vokaler, der skal bruges i den genererede adgangskode.
+      pwgen_separators: Separatorer
+      pwgen_separators_help: De separatorer, der skal bruges i den genererede adgangskode.
+      pwgen_min_syllable_length: Minimum stavelseslængde
+      pwgen_min_syllable_length_help: Minimumlængden af en stavelse i den genererede
+        adgangskode.
+      pwgen_max_syllable_length: Maksimal stavelseslængde
+      pwgen_max_syllable_length_help: Den maksimale længde af en stavelse i den genererede
+        adgangskode.
+      pwgen_syllables_count: Stavelser tæller
+    show:
+      edit_policy: Rediger push-politik
+      policy: Teampolitik
