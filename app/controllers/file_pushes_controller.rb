@@ -143,23 +143,8 @@ class FilePushesController < ApplicationController
 
     @push = FilePush.new(file_push_params)
 
-    if ENV.key?("PWPUSH_COM")
-      @push_count = FilePush.where(user_id: current_user.id, expired: false).count
-      if @push_count >= 20
-        msg = _("Only 20 active file pushes allowed while in Beta. If it's an option, you can manually expire existing pushes before creating new ones.")
-        respond_to do |format|
-          format.html do
-            flash.now[:warning] = msg
-            render :new, status: :unprocessable_entity
-          end
-          format.json { render json: {error: msg}, status: :unprocessable_entity }
-        end
-        return
-      end
-    end
-
     if file_push_params.key?(:files) && file_push_params[:files].count > Settings.files.max_file_uploads
-      msg = t("file_pushes.new.upload_limit", count: Settings.files.max_file_uploads)
+      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
       respond_to do |format|
         format.html do
           flash.now[:warning] = msg
