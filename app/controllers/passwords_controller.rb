@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-class PasswordsController < ApplicationController
+class PasswordsController < BaseController
   # Use auth token (for JSON) if it's there but don't fall back to devise session
   acts_as_token_authentication_handler_for User, fallback: :none, only: %i[create destroy]
 
