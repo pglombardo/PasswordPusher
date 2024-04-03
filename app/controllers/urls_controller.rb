@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-class UrlsController < ApplicationController
+class UrlsController < BaseController
   helper UrlsHelper
 
   # Authentication always except for the following:

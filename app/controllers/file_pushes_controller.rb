@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-class FilePushesController < ApplicationController
+class FilePushesController < BaseController
   helper FilePushesHelper
 
   before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
