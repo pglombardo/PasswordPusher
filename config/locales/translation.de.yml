@@ -222,26 +222,19 @@ de:
       create: "%{model} erstellen"
       update: "%{model} aktualisieren"
       submit: "%{model} speichern"
-  will_paginate:
-    previous_label: "← Vorige"
-    next_label: Weiter →
-    page_gap: "&hellip;"
-    container_aria_label: Seitennummerierung
-    page_aria_label: Seite %{page}
     page_entries_info:
-      single_page:
-        zero: Kein(e) %{model} gefunden
-        one: Zeige 1 %{model}
-        other: Zeige alle %{count} %{model}
-      single_page_html:
-        zero: Kein(e) %{model} gefunden
-        one: Zeige <b>1</b> %{model}
-        other: Zeige <b>alle&nbsp;%{count}</b> %{model}
-      multi_page: Zeige %{model} %{from} - %{to} von %{count} insgesamt
-      multi_page_html: Zeige %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von <b>%{count}</b>
-        insgesamt
-    previous_aria_label: Vorherige Seite
-    next_aria_label: Nächste Seite
+      entry:
+        zero: Einträge
+        one: Eintrag
+        other: Einträge
+      one_page:
+        display_entries:
+          zero: Kein %{entry_name} gefunden
+          one: Zeige <b>%{count}</b> %{entry_name}
+          other: Zeige <b>alle %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Zeige %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> von
+          insgesamt <b>%{total}</b>
   flash:
     actions:
       create:
@@ -621,6 +614,789 @@ de:
     access: Zugang
     passphrase: Passphrase
     preview: Vorschau
-  file_pushes:
+  views:
+    pagination:
+      first: "« Start"
+      last: Ende »
+      previous: "&lsaquo; Zurück"
+      next: Weiter &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Wirklich sicher?
+      destroy: Zerstören
+      edit: Bearbeiten
+      edit_resource: Bearbeiten %{name}
+      show_resource: "%{name} anzeigen"
+      new_resource: Neu %{name}
+      back: Zurück
+    controller:
+      create:
+        success: "%{resource} wurde erfolgreich erstellt."
+      destroy:
+        success: "%{resource} wurde erfolgreich zerstört."
+      update:
+        success: "%{resource} wurde erfolgreich aktualisiert."
+    fields:
+      has_many:
+        more: Angezeigt werden %{count} von %{total_count}
+        none: Keine
+    form:
+      error: Fehler
+      errors: "%{pluralized_errors} hat das Speichern dieses %{resource_name} verboten:"
+    navigation:
+      back_to_app: Zurück zur App
+    search:
+      clear: Saubere Suche
+      label: Suche %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Dieses Admin-Dashboard bietet direkten Datenbankzugriff auf die
+          Password Pusher-Anwendung. Bitte seien Sie vorsichtig und überlegen Sie,
+          ein Backup zu erstellen, bevor Sie Änderungen vornehmen.
+        admin_note: 'Hinweis: Durch die Zerstörung eines Datensatzes werden auch alle
+          untergeordneten Datensätze zerstört. Wenn Sie beispielsweise einen Benutzer
+          löschen, werden auch alle übertragenen Passwörter, Dateien und URLs für
+          diesen Benutzer gelöscht.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Die Anzahl der Silben im generierten Passwort.
+      back: Zurück zum Team
+      edit: Richtlinie bearbeiten
+      team_policy_help: Eine Teamrichtlinie ist eine Reihe von Regeln, die für alle
+        Pushs gelten, die von Mitgliedern dieses Teams durchgeführt werden.
+      personal_policy: Persönliche Richtlinien
+      personal_policy_help: Eine Richtlinie ist eine Reihe von Regeln, die für alle
+        von Ihnen erstellten Pushs gelten.
+      team_policy: Teamrichtlinie
+      header_timed_expiration: Zeitgesteuerter Ablauf
+      expire_after_duration_min: Mindestdauer
+      expire_after_duration_min_help: Die Mindestdauer, bevor ein Push abläuft.
+      expire_after_duration_max: Maximale Dauer
+      expire_after_duration_max_help: Die maximale Dauer, bevor ein Push abläuft.
+      expire_after_duration_default: Standarddauer
+      expire_after_duration_default_help: Die Standarddauer, bevor ein Push abläuft.
+      minutes_tip: 1 Tag = 1440 Minuten, 7 Tage = 10080 Minuten, 30 Tage = 43200 Minuten
+      header_view_expiration: Ablaufdatum anzeigen
+      expire_after_views_min: Mindestansichtsanzahl
+      expire_after_views_min_help: Die Mindestanzahl an Aufrufen, bevor ein Push abläuft.
+      expire_after_views_max: Maximale Anzahl der Aufrufe
+      expire_after_views_max_help: Die maximale Anzahl von Aufrufen, bevor ein Push
+        abläuft. [Max. 100]
+      expire_after_views_default: Standardmäßige Aufrufanzahl
+      expire_after_views_default_help: Die Standardanzahl an Ansichten, bevor ein
+        Push abläuft.
+      header_payload_limits: Nutzlastgrenzen
+      push_text_max: Maximale Textgröße
+      push_text_max_help: Die maximale Textgröße in einem Push. Gemessen in Bytes.
+        [Max. 1048576]
+      push_files_max: Maximal zulässige Dateien
+      push_files_max_help: Die maximal zulässige Anzahl von Dateien in einem Push.
+        [Max. 100]
+      header_retrieval_step: 1-Klick-Abrufschritt
+      enable_retrieval_step: Aktivieren?
+      enable_retrieval_step_help: 1-Klick-Abruf für dieses Team aktivieren? Wenn deaktiviert,
+        wird diese Option ausgeblendet und nicht verwendet.
+      retrieval_step_default: Standardwert
+      retrieval_step_default_help: Der Standardwert für die Schrittoption „1-Klick-Abruf“.
+      retrieval_step_forced: Den Standardwert erzwingen?
+      retrieval_step_forced_help: Erzwingt die Verwendung dieser Option mit dem Standardwert
+        für alle Teammitglieder. Es kann nicht von Teammitgliedern geändert werden.
+      hide_retrieval_step: Option ausblenden?
+      hide_retrieval_step_help: Verbirgt die Schrittoption „1-Klick-Abruf“ vor den
+        Teammitgliedern. Dies ist nützlich, um die Standardeinstellung der Option
+        zu erzwingen, ohne sie den Teammitgliedern anzuzeigen.
+      header_deletable: Vom Betrachter löschbar
+      enable_deletable: Aktivieren?
+      enable_deletable_help: Diese Option für das Team aktivieren? Wenn diese Option
+        deaktiviert ist, wird sie ausgeblendet und nicht verwendet.
+      deletable_default: Standardwert
+      deletable_default_help: Der Standardwert für die Option „Löschbar durch Betrachter“.
+      deletable_forced: Den Standardwert erzwingen?
+      deletable_forced_help: Erzwingt die Verwendung dieser Option mit dem Standardwert
+        für alle Teammitglieder. Es kann nicht von Teammitgliedern geändert werden.
+      hide_deletable: Option ausblenden?
+      hide_deletable_help: Verbirgt die Option „Vom Betrachter löschbar“ vor den Teammitgliedern.
+        Dies ist nützlich, um die Standardeinstellung der Option zu erzwingen, ohne
+        sie den Teammitgliedern anzuzeigen.
+      hide_passphrase: Option ausblenden?
+      hide_passphrase_help: Blendet die Option „Passphrase-Sperre“ aus. Nützlich,
+        um die Verwendung dieser Option vollständig zu deaktivieren.
+      enable_blur: Aktivieren?
+      enable_blur_help: Payload Blurring verschleiert den Inhalt der Payload auf der
+        geheimen URL-Übermittlungsseite. Empfänger können die Unschärfe mit einem
+        Klick umschalten, um die Originaldaten anzuzeigen.
+      header_passphrase: Passphrasensperre
+      header_blur: Nutzlastunschärfe
+      header_pwgen: Passwortgenerierung
+      save: Teamrichtlinie aktualisieren
+      enable_pwgen: Aktivieren?
+      enable_pwgen_help: Option zur Kennwortgenerierung für dieses Team aktivieren?
+        Wenn diese Option deaktiviert ist, wird sie ausgeblendet und nicht verwendet.
+      pwgen_configurable: Konfigurierbar?
+      pwgen_configurable_help: Teammitgliedern erlauben, den Passwortgenerator zu
+        konfigurieren? Wenn diese Option deaktiviert ist, wird die Konfiguration unten
+        erzwungen und kann von Teammitgliedern nicht geändert werden.
+      pwgen_has_numbers: Zahlen einbeziehen?
+      pwgen_has_numbers_help: Fügen Sie Zahlen in das generierte Passwort ein.
+      pwgen_title_cased: Titel verpackt?
+      pwgen_title_cased_help: Betiteln Sie die generierten Passwortteile in Groß-
+        und Kleinschreibung.
+      pwgen_use_separators: Trennzeichen verwenden?
+      pwgen_use_separators_help: Verwenden Sie Trennzeichen im generierten Passwort.
+      pwgen_consonants: Konsonanten
+      pwgen_consonants_help: Die im generierten Passwort zu verwendenden Konsonanten.
+      pwgen_vowels: Vokale
+      pwgen_vowels_help: Die im generierten Passwort zu verwendenden Vokale.
+      pwgen_separators: Trennzeichen
+      pwgen_separators_help: Die im generierten Passwort zu verwendenden Trennzeichen.
+      pwgen_min_syllable_length: Minimale Silbenlänge
+      pwgen_min_syllable_length_help: Die Mindestlänge einer Silbe im generierten
+        Passwort.
+      pwgen_max_syllable_length: Maximale Silbenlänge
+      pwgen_max_syllable_length_help: Die maximale Länge einer Silbe im generierten
+        Passwort.
+      pwgen_syllables_count: Silben zählen
+    show:
+      edit_policy: Bearbeiten Sie die Push-Richtlinie
+      policy: Teamrichtlinie
+  tag_line: Fortfahren. Senden Sie ein anderes Passwort per E-Mail.
+  about: Über
+  app_name: Passwort-Pusher
+  application:
+    card_newsletter:
+      enter_email: Geben sie ihre E-Mail Adresse ein...
+      subscribe: Abonnieren
+    cookie_consent:
+      notice: Browser-Cookies tragen dazu bei, dass dieses Tool funktioniert. Durch
+        die Nutzung stimmen Sie der Verwendung dieser Cookies zu.
+    footer:
+      best_practices: Empfohlene Vorgehensweise
+      docker: Docker-Container
+      faq: FAQ
+      feedback: Rückmeldung
+      github: GitHub
+      key_generator: Schlüsselgenerator
+      newsletter: Newsletter
+      password_generator: Passwortgenerator
+      tools: Tools, API und CLIs
+    pw_generator_modal:
+      cancel: Abbrechen
+      configure: Passwortgenerator konfigurieren
+      consonants: Konsonanten
+      generate_password: Passwort generieren
+      include_numbers: Zahlen einbeziehen
+      load_preset: Laden Sie eine Voreinstellung
+      max_syllable_length: Maximale Silbenlänge
+      min_syllable_length: Mindestsilbenlänge
+      num_syllables: Silbenanzahl
+      reset: Auf Standardeinstellungen zurücksetzen
+      save: Speichern
+      separators: Trennzeichen
+      test: Testgenerierung
+      test_area: Testbereich
+      use_separators: Trennzeichen verwenden
+      use_titlecase: 1. Buchstaben großschreiben
+      vowels: Vokale
+  audit_logs:
+    audit_log:
+      created: Erstellt
+      created_by: Erstellt von %{user}
+      log_created: Push erstellt am %{date} von %{user}
+      log_expired: Manueller Push ist am %{date} durch %{user} abgelaufen
+      log_failed_view: Fehlgeschlagener Anzeigeversuch von der IP-Adresse %{ip} auf
+        %{date} durch %{user}
+      log_manual_expiration: Push manuell abgelaufen auf %{date} durch %{user} an
+        IP-Adresse %{ip}
+      log_referrer: 'Referrer: %{referrer}'
+      log_user_agent: 'Benutzeragent: %{user_agent}'
+      log_viewed: Erfolgreiche Ansicht von der IP-Adresse %{ip} auf %{date} durch
+        %{user}
+      unknown: Unbekannt
+      viewed_by: Gesehen von %{user}
+  dashboard:
+    show:
+      detail: Detail
+      event: Fall
+      when: Wenn
+  duration:
+    format_d:
+      one: 1 Tag
+      other: "%{count} Tage"
+    format_dhm: "%{days} Tag(e), %{hours} Stunde(n) und %{minutes} Minute(n)"
+    format_h:
+      one: 1 Stunde
+      other: "%{count} Stunde(n)"
+    format_hm: "%{hours} Stunde(n) und %{minutes} Minute(n)"
+    format_m:
+      one: 1 Minute
+      other: "%{count} Minute(n)"
+  feedbacks:
+    create:
+      feedback_sent: Feedback gesendet! Wir werden uns schnellstmöglich bei Ihnen
+        melden.
+    failed_spam_test: Wir entschuldigen uns, aber Sie sind bei der Spam-Prüfung durchgefallen.
+      Sie könnten stattdessen versuchen, uns auf Github zu kontaktieren.
+    failed_to_send: Feedback konnte nicht gesendet werden. Irgendetwas stimmte nicht.
+      Bitte versuchen Sie es erneut oder kontaktieren Sie uns über Github.
     new:
-      upload_limit: Sie können bis zu %{count} Dateien pro Push hochladen.
+      email: E-Mail
+      have_idea: Eine tolle Idee, einen  Fehler gefunden oder einen Wunsch wie Password
+        Pusher noch besser werden kann? Auch bei weiterführenden Informationen helfen
+        wir gern. Schreib uns!
+      leave_blank: Dieses Feld leer lassen!
+      math_question: Was ist einhundert minus 3?
+      send_feedback: Feedback senden
+      tip: 'Tipp: Kopieren Sie Ihre Nachricht in die Zwischenablage, für den Fall,
+        dass die Übermittlung fehlschlägt.'
+      your_name: Name
+  none: Keine
+  pages:
+    about:
+      about_1: Password Pusher ist ein Tool zum sicheren Teilen von Passwörtern und
+        anderen vertraulichen Informationen mit anderen Personen.
+      about_2: Mit Password Pusher können Sie eine eindeutige, einmalige URL erstellen,
+        die nach einer bestimmten Zeit oder nach einer bestimmten Anzahl von Zugriffen
+        abläuft, um sicherzustellen, dass Ihre Informationen privat und sicher bleiben.
+      about_3: Es wird häufig von Einzelpersonen und Organisationen verwendet, um
+        Anmeldeinformationen oder andere sensible Daten mit Kollegen, Kunden oder
+        Partnern zu teilen.
+      about_4: Password Pusher ist eine einfache und bequeme Lösung zum sicheren Teilen
+        von Passwörtern, ohne dass E-Mail oder andere weniger sichere Kommunikationsmethoden
+        erforderlich sind.
+      about_pwpush: Über Password Pusher
+      hosted_at_html: Gehostet bei <a href="https://pwpush.com">pwpush.com</a> oder
+        Sie können Ihre eigene private Instanz ausführen, wo immer Sie möchten.
+      my_name: Mein Name ist Peter Giacomo Lombardo. Sie finden mich unter %{linkedin},
+        %{github} oder %{blog}.
+      source_avail_html: Der Quellcode ist <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">auf GitHub verfügbar</a> . Es ist
+        Open Source und kann von jedem kostenlos verwendet, überprüft oder geändert
+        werden.
+      the_author: Der Autor
+  pushes:
+    access:
+      incorrect: Diese Passphrase ist falsch. Bitte versuchen Sie es erneut oder wenden
+        Sie sich an die Person oder Organisation, die Ihnen diesen Link gesendet hat.
+    audit:
+      1click_retrieval_step: 1-Klick-Abrufschritt
+      1click_retrieval_step_help: Schutz gegen Chat-Systeme und URL-Scanner, die die
+        Anzahl der Ansichten „auffressen“ können.
+      active: Aktiv
+      attached_files: Angehängte Dateien
+      attached_files_help: Wurden Dateien an diesen Push angehängt?
+      audit_log_for: Audit-Protokoll für %{push_id}
+      contains_text: Enthält Text
+      contains_text_help: Wurde diesem Push Textinhalt hinzugefügt?
+      created: Erstellt
+      created_by: Erstellt von %{user}
+      current_status: Aktueller Status
+      deletable_by_viewers: Löschbar durch Betrachter
+      deletable_by_viewers_help: Dadurch können Endbenutzer den Inhalt löschen, sobald
+        er abgerufen wurde.
+      detail: Detail
+      end_audit_log: Ende des Prüfungslogs
+      event: Fall
+      event_log: Audit-Log
+      expire_after: 'Ablaufen nach:'
+      expire_after_time_help: Dieser Zeitraum ab der Erstellung verfällt für den Push.
+      expire_after_view_help: Der Push läuft nach dieser Anzahl von Aufrufen ab.
+      expire_now: Jetzt ablaufen lassen
+      expire_now_confirm: Dadurch wird dieser geheime Link ungültig und alle zugehörigen
+        Inhalte werden dauerhaft aus der Datenbank gelöscht. Das Prüfprotokoll (einschließlich
+        zukünftiger Aufrufversuche) wird weiterhin geführt. Sind Sie sicher?
+      expired: Abgelaufen
+      failed_view: Fehlgeschlagener Anzeigeversuch
+      failed_view_attempts: Fehlgeschlagene Anzeigeversuche
+      failed_view_attempts_help: Die Anzahl der Versuche, diesen Push nach Ablauf
+        anzuzeigen.
+      filename: Dateinamen
+      files_deleted: Alle zuvor angehängten Dateien wurden gelöscht oder es waren
+        keine angehängt.
+      log_note: Wenn die Push-Nachricht aufgerufen wird, wird hier ein Protokoll mit
+        den entsprechenden Informationen angezeigt.
+      manual_expiration: Manueller Ablauf
+      message_length: Nachrichtenlänge
+      message_length_help: Die Länge des angehängten Textnutzinhalt.
+      none: Keine
+      num_files_attached: Anzahl der angehängten Dateien
+      num_files_attached_help: Die Anzahl der an diesen Push angehängten Dateien.
+      passphrase_lock: Sperrung der Passphrase
+      passphrase_lock_help: Fordern Sie die Empfänger auf, eine Passphrase einzugeben,
+        um diesen Push anzuzeigen.
+      payload: Nutzinhalt
+      push_date: Auf %{date} gedrückt
+      reference_note: Referenzhinweis
+      secret_url: Geheime URL für diesen Push
+      size: 'Größe: %{size}'
+      start_audit_log: Beginn des Audit-Logs
+      start_log: Beginn des Audit-Logs
+      state: Zustand
+      state_help_active: Aktiv und noch zur Ansicht verfügbar.
+      state_help_expired: Der Push-Inhalt wurde gelöscht und die geheime URL ist abgelaufen.
+      successful_view: Erfolgreiche Ansicht
+      successful_views: Erfolgreiche Aufrufe
+      successful_views_help: Die Häufigkeit, mit der der Push erfolgreich angezeigt
+        wurde.
+      time_remaining: Verbleibende Zeit
+      time_remaining_help: Die verbleibende Zeit bis zum Ablauf des Pushs.
+      title: Push-Audit-Protokoll
+      visible_to: Nur für Sie sichtbar
+      when: Wenn
+    copy_to_clipboard: In die Zwischenablage kopieren
+    day:
+      one: 1 Tag
+      other: "%{count} Tage"
+    deleted: Gelöscht
+    expiration_html: Dieser geheime Link und alle Inhalte werden in <strong>%{duration}</strong>
+      oder <strong>%{count} weiteren Ansichten</strong> gelöscht, je nachdem, was
+      zuerst eintritt.
+    expire:
+      expired: Der Push-Inhalt wurde gelöscht und die geheime URL ist abgelaufen.
+      not_deletable: Dieser Push kann von Betrachtern nicht gelöscht werden.
+    form:
+      12_hours: 12 Stunden
+      15_minutes: 15 Minuten
+      1_day: 1 Tag
+      1_hour: 1 Stunde
+      1_month: 1 Monat
+      1_week: 1 Woche
+      1click: Verwenden Sie einen 1-Klick-Abrufschritt
+      1click_tip: Hilft zu verhindern, dass Chatsysteme und Scanner Aufrufe verschlingen.
+      2_days: 2 Tage
+      2_months: 2 Monate
+      2_weeks: 2 Wochen
+      30_minutes: 30 Minuten
+      3_days: 3 Tage
+      3_months: 3 Monate
+      3_weeks: 3 Wochen
+      45_minutes: 45 Minuten
+      4_days: 4 Tage
+      5_days: 5 Tage
+      6_days: 6 Tage
+      6_hours: 6 Stunden
+      add_files: Dateien hinzufügen...
+      audit_tip: Wenn Sie angemeldet sind, wird ein Überwachungsprotokoll der Aktivitäten
+        geführt und ist auf unbestimmte Zeit verfügbar.
+      day: Tag
+      days: Tage
+      deletable: Sofortiges Löschen erlauben
+      deletable_tip: Erlauben Sie Benutzern, diesen Push nach dem Abrufen zu löschen.
+      encryption_tip: Der Inhalt wird vor der Speicherung verschlüsselt und ist nur
+        für diejenigen zugänglich, die über den geheimen Link verfügen.
+      expiration_label: 'Lassen Sie diesen Push ablaufen und löschen Sie ihn nach:'
+      expiration_tip: Nach Ablauf werden alle Inhalte und Dateien des Pushs sofort
+        und vollständig gelöscht.
+      generator_tip: Verwenden Sie die Schaltfläche oben, um ein zufälliges Passwort
+        zu generieren.
+      hour: Stunde
+      hours: Std
+      login_to_upload: Melden Sie sich an, um Dateien hochzuladen und an diesen Push
+        anzuhängen ...
+      minutes: Protokoll
+      month: Monat
+      months: Monate
+      note_label: Referenzhinweis
+      note_placeholder: Eine private Notiz, die Ihnen hilft, sich daran zu erinnern,
+        für wen oder wofür dieser Push gedacht ist.
+      passphrase_label: Passphrasensperre
+      passphrase_placeholder: Fordern Sie die Empfänger auf, eine Passphrase einzugeben,
+        um diesen Push anzuzeigen.
+      password_tip: 'Tipp: Geben Sie in das Feld nur ein Passwort ein. Andere identifizierende
+        Informationen können die Sicherheit gefährden.'
+      payload_placeholder: Geben Sie das Passwort, den Text oder die URL zum Pushen
+        ein...
+      push_it: Push It!
+      upload_limit: Es können bis zu 10 Dateien pro Push hochladen werden.
+      view: Sicht
+      views: Aufrufe
+      week: Woche
+      weeks: Wochen
+    hour:
+      one: 1 Stunde
+      other: "%{count} Stunden"
+    index:
+      actions: Aktionen
+      clear_filters: Filter löschen
+      created: Erstellt
+      created_by: Von
+      expires: Läuft ab
+      file_count: Dateien
+      note: Notiz
+      nothing_here: Hier gibt es noch nichts.
+      push_id: Push-ID
+      pushes: Drückt
+      remaining_time: Verbleibende Zeit
+      status: Status
+      views: Aufrufe
+      views_remaining: Verbleibende Ansichten
+    minute:
+      one: 1 Minute
+      other: "%{count} Minuten"
+    more_view:
+      one: 1 weitere Ansicht
+      other: "%{count} weitere Aufrufe"
+    'no': Nein
+    none: Keine
+    passphrase:
+      enter_passphrase: Geben Sie die Passphrase ein
+      go: gehen
+      placeholder: Geben Sie die mit dieser URL bereitgestellte geheime Passphrase
+        ein
+      tip: Geben Sie die geheime Passphrase ein
+    payload: Nutzinhalt
+    preliminary:
+      click_proceed: Hier klicken, um fortzufahren
+    preview:
+      and: und
+      can_be: kann
+      can_not_be: kann nicht sein
+      deleted_by_viewers: von Betrachtern gelöscht werden.
+      link_lang_tip: 'Tipp: Versand an anderssprachige Benutzer? Über das Dropdown-Menü
+        (rechts neben dem generierten Link) lässt sich die Sprache ändern.'
+      or: oder
+      or_after: oder danach
+      push_another: weitere Datei pushen!
+      push_created: Der Push wurde erstellt.
+      use_link_to_share: 'Geheimer Link zum Teilen:'
+      view_push_now: Diesen Push jetzt anzeigen
+      will_burn_view: "(wird eine Ansicht verbrennen)"
+      will_expire_after: Dieser Push läuft ab in
+      with_preliminary_step: Es enthält außerdem einen %{strong_start}1-Klick-Vorabrufschritt%{strong_end}.
+    provide_text_or_file: Um einen Push zu erstellen, müssen Sie entweder Text angeben,
+      eine Datei anhängen oder beides.
+    push:
+      active: Aktiv
+      audit: Prüfung
+      expired: Abgelaufen
+      none: Keine
+      preview: Vorschau
+      push_controls: Push-Steuerelemente
+      title: Neuer Vorstoß
+      unknown: Unbekannt
+    secret_link_lang: Sprache des Links
+    settings: Einstellungen
+    show:
+      blurred: Das Passwort ist unkenntlich. Auf den verschwommenen Bereich für die
+        Anzeige des Passwortes klicken.
+      click_to_reveal: Der Inhalt ist unscharf. Klicken Sie unten, um es anzuzeigen.
+      delete_now: Geheimen Link jetzt löschen!
+      delete_now_confirm: Dadurch verfällt dieser geheime Link und alle zugehörigen
+        Inhalte werden für immer aus der Datenbank gelöscht. Bist du sicher?
+      download_file: Download-Datei
+      files_sent: Die folgenden Dateien wurden Ihnen zugeschickt.
+      last_view: Dies ist die letzte Ansicht.
+      obtain: Rufen Sie diese Inhalte sicher ab und speichern Sie sie mithilfe eines
+        Passwort-Managers und/oder einer verschlüsselten Speicherung. Denken Sie daran,
+        nicht mehr benötigte Daten umgehend zu löschen.
+      open_file: Datei öffnen
+      please_download: Bitte herunterladen und in einem sicher speichern.
+      will_be_deleted: Dieser geheime Link und der gesamte Inhalt werden in %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} oder %{b_tag}%{view_count} mehr %{view_unit}%{b_tag}
+        (je nachdem, was zuerst eintritt) gelöscht.
+      your_link: Geheimer Link
+    show_expired:
+      expired_help: Bei Bedarf wenden Sie sich bitte an die Person oder Organisation,
+        von der Sie diese geheime URL erhalten haben.
+      expired_message: Wir bitten um Entschuldigung, aber dieser geheime Link ist
+        abgelaufen.
+      link_expired: Der geheime Link ist abgelaufen
+    view:
+      one: 1 Ansicht
+      other: "%{count} Ansichten"
+    view_audit_log: Auditprotokoll anzeigen
+    whichever: "(Welcher Fall auch immer zuerst eintritt …)"
+    'yes': Ja
+  static:
+    about:
+      about_1: Password Pusher ist ein Tool zum sicheren Teilen von Passwörtern und
+        anderen vertraulichen Informationen mit anderen Personen.
+      about_2: Mit Password Pusher können Sie eine eindeutige, einmalige URL erstellen,
+        die nach einer bestimmten Zeit oder nach einer bestimmten Anzahl von Zugriffen
+        abläuft, um sicherzustellen, dass Ihre Informationen privat und sicher bleiben.
+      about_3: Es wird häufig von Einzelpersonen und Organisationen verwendet, um
+        Anmeldeinformationen oder andere sensible Daten mit Kollegen, Kunden oder
+        Partnern zu teilen.
+      about_4: Password Pusher ist eine einfache und bequeme Lösung zum sicheren Teilen
+        von Passwörtern, ohne dass E-Mail oder andere weniger sichere Kommunikationsmethoden
+        erforderlich sind.
+      about_5: Gehostet unter %{pwpush_link} oder Sie können Ihre eigene private Instanz
+        ausführen, wo immer Sie möchten.
+      about_6: Der Quellcode ist auf %{github_link} verfügbar. Es ist Open Source
+        und kann von jedem kostenlos verwendet, überprüft oder geändert werden.
+      age_body: Das erste Git-Commit für Password Pusher erfolgte am <strong>28. Dezember
+        2011.</strong> pwpush.com ging kurz darauf live.
+      age_title: Mehr als %{years_count} Jahre alt
+      author_1: Mein Name ist Peter Giacomo Lombardo. Sie finden mich unter %{linkedin},
+        %{github} oder %{blog}.
+      author_2: Für Updates folgen Sie Password Pusher auf %{twitter} (oder meinem
+        %{twitter_personal}) oder abonnieren Sie %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Die mit Abstand größte Hilfe ist es, die Nachricht zu verbreiten. Teilen
+        Sie Password Pusher mit Ihren Freunden, Kollegen und Organisationen.
+      help_2: 'Du kannst auch:'
+      help_3: Starten Sie das Projekt %{github}. Es ist Treibstoff für die Algorithmen,
+        die Password Pusher im Trend liegen.
+      help_4: Hilfe %{translate}. Verbessern Sie eine vorhandene Sprache oder fügen
+        Sie eine neue hinzu.
+      help_5: Melden Sie sich für %{newsletter} an, um Updates zu wichtigen Releases,
+        Sicherheitsproblemen, Tipps und mehr zu erhalten.
+      help_6: Folgen Sie Password Pusher auf %{facebook}, %{twitter} und %{github}.
+      help_translate: Helfen Sie beim Übersetzen
+      newsletter: Newsletter
+      pwpush_domain: pwpush.com
+      section_about: Über
+      section_author: Der Autor
+      section_follow: Wo Sie Password Pusher folgen können
+      section_help: Willst du helfen?
+      title: Über Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Mit der Password Pusher JSON API gibt es eine Reihe von Anwendungen
+        und Befehlszeilendienstprogrammen (CLI), die mit pwpush.com oder Ihrer selbst
+        gehosteten Instanz kommunizieren. Passwörter über CLI, Slack, Alfred App und
+        mehr übertragen.
+      answer_access_2: Weitere Informationen finden Sie auf der Seite %{tools}.
+      answer_add_feature_1: Sehr wahrscheinlich. Ich freue mich über alle Ideen und
+        Rückmeldungen und führe eine Liste, um zu entscheiden, was ich als Nächstes
+        hinzufügen möchte. Wenn Sie welche haben, senden Sie diese bitte an die Seite
+        %{feedback_link} oder an %{github_link}.
+      answer_already_expired_1: Einige Systeme wie E-Mail-, Firewall- und Chat-Systeme
+        verfügen häufig über Linkscanner, die Aufrufe verschlingen können. Dies geschieht
+        in der Regel aus Gründen der Unternehmenssicherheit oder um einfach eine „Vorschau“
+        für Anwendungen zu erstellen.
+      answer_already_expired_2: Um dies zu verhindern, verwenden Sie beim Pushen von
+        Passwörtern die Option zum 1-Klick-Abrufschritt. Dies erfordert, dass die
+        Benutzer durch eine vorläufige Seite klicken, um Ansichten vor solchen Scannern
+        zu schützen.
+      answer_already_expired_3: Als zusätzliche vorbeugende Maßnahme wird für jeden
+        erstellten Push ein Audit-Protokoll erstellt, wenn Sie angemeldet sind. Dieses
+        Audit-Protokoll zeigt, von wem und wann der Push angesehen wurde.
+      answer_automation_1: Ja. Die Password Pusher JSON API ermöglicht die Automatisierung
+        des Passwort-Pushings. Dies kann mit einer Vielzahl von Programmiersprachen
+        und Tools erfolgen.
+      answer_automation_2: Weitere Informationen finden Sie auf der Seite %{tools}.
+      answer_conference_1: Absolut. Wir verfügen über Medienressourcen und eine vollständige
+        Erklärung der Funktionen in den Formaten %{windows_link} und %{mac_link}.
+      answer_conference_2: Wenn Sie Fragen haben oder Hilfe benötigen, können Sie
+        mich jederzeit kontaktieren.
+      answer_how_many_1: Derzeit gibt es keine Beschränkungen und ich habe nicht die
+        Absicht, welche hinzuzufügen. Um die Stabilität der Website möglichst gering
+        zu halten, ist Password Pusher standardmäßig mit einem Ratenbegrenzer konfiguriert.
+        Dies kann in der selbstgehosteten Version deaktiviert werden.
+      answer_licensing_1: Der Quellcode der Open-Source-Version wird unter der Apache
+        2.0-Lizenz veröffentlicht, und diese definiert so ziemlich alle Einschränkungen.
+        Es gibt eine ganze Reihe umbenannter und neu gestalteter Klonseiten von Password
+        Pusher, und ich begrüße sie alle.
+      answer_licensing_2: Die Premium-Version wird unter einer kommerziellen Lizenz
+        veröffentlicht. Es ist nicht Open Source und nicht kostenlos. Im Kern enthält
+        es das Open-Source-Projekt, bietet jedoch eine Reihe von Funktionen und soll
+        die Entwicklung beschleunigen und zur Finanzierung des Projekts beitragen.
+      answer_licensing_3: Die Premium-Version ist nicht erforderlich, um eine private
+        Instanz von Password Pusher auszuführen. Die Open-Source-Version ist voll
+        funktionsfähig und kostenlos nutzbar.
+      answer_licensing_4: Alle Premium-Funktionen landen je nach Funktion nach einer
+        gewissen Zeit in der Open-Source-Version.
+      answer_private_risks_1: Der Betrieb einer privaten Instanz von Password Pusher
+        für Ihr Unternehmen oder Ihre Organisation gibt Ihnen die Gewissheit, dass
+        Sie genau wissen, welcher Code ausgeführt wird. Sie können es nach Belieben
+        konfigurieren und ausführen.
+      answer_private_risks_2: Wenn Ihre Instanz jedoch gehackt und die Verschlüsselung
+        beschädigt wird, verfügen böswillige Entitäten nun über ein gezieltes Wörterbuch
+        mit Passwörtern, um Konten in Ihrer Organisation brutal zu erzwingen. (dies
+        wäre auf Pushs beschränkt, die noch nicht abgelaufen sind)
+      answer_private_risks_3: In dieser Hinsicht könnte die öffentliche Instanz auf
+        pwpush.com überlegen sein, da sie nur Passwörter ohne identifizierende Informationen
+        enthält, die von Benutzern aus der ganzen Welt gemischt werden.
+      answer_private_risks_4: Eine weitere Überlegung wäre die Wartung der Instanz.
+        Sie müssen es auf dem neuesten Stand, sicher und gesichert halten.
+      answer_private_risks_5: Der Nutzer sollte die Vor- und Nachteile sorgfältig
+        abwägen und entscheiden, welcher Weg für ihn der beste ist. Wir unterstützen
+        gern beide Strategien.
+      answer_purpose_1: Password Pusher ist eine bessere Möglichkeit zum Passwortversand
+        via E-Mail, Messenger etc.
+      answer_purpose_10: Darüber hinaus <strong>verfallen Passwörter nach Erreichen
+        einer vordefinierten Anzahl von Ansichten oder nach Ablauf einer bestimmten
+        Zeit.</strong>
+      answer_purpose_11: Nach Ablauf der Gültigkeitsdauer werden die Passwörter unwiderruflich
+        gelöscht.
+      answer_purpose_12: Wenn das für Sie interessant klingt, probieren Sie es aus
+        oder lesen Sie die anderen häufig gestellten Fragen unten.
+      answer_purpose_2: "<strong>Das Versenden von Passwörtern per E-Mail ist grundsätzlich
+        unsicher.</strong> Zu den größten Risiken zählen:"
+      answer_purpose_3: E-Mails mit Passwörtern enthalten häufig weitere Informationen,
+        die Rückschlüsse auf die Verwendung des Passwortes oder des gesamten Benutzeraccounts
+        zulassen.
+      answer_purpose_4: E-Mails sind von Natur aus unsicher und können an mehreren
+        Stellen von böswilligen Entitäten abgefangen werden.
+      answer_purpose_5: Passwörter in E-Mails bleiben oft für immer im Postfach oder
+        im Archiv erhalten.
+      answer_purpose_6: Passwörter in E-Mails können später abgerufen und verwendet
+        werden, wenn ein E-Mail-Konto gestohlen, geknackt oder kompromittiert wird.
+      answer_purpose_7: Die gleichen Risiken bestehen beim Versenden von Passwörtern
+        per SMS, WhatsApp, Telegram, Chat usw. Die Daten können und werden oft für
+        immer und außerhalb Ihrer Kontrolle aufbewahrt.
+      answer_purpose_8: Durch die Verwendung von Password Pusher wird all dies umgangen.
+      answer_purpose_9: Für jedes an Password Pusher gesendete Passwort <strong>wird
+        eine einzigartige URL generiert, die nur Sie kennen</strong> .
+      answer_rebranding_1: Password Pusher unterstützt ein vollständiges Rebranding
+        „out of the box“, sodass Sie ein benutzerdefiniertes Logo, Bilder und Text
+        hinzufügen und sogar das Anwendungsthema ändern können.
+      answer_self_host_1: Ja, für die Open-Source-Version stellen wir %{docker_link}
+        und %{install_link} für eine Vielzahl von Plattformen und Clouds bereit.
+      answer_self_host_2: Für die Premium-Version mit den vielen Funktionen sind bald
+        selbst gehostete Container verfügbar.
+      answer_trust_1: Und das zu Recht. Sicherheit beginnt mit einer gesunden Skepsis
+        gegenüber allen beteiligten Komponenten.
+      answer_trust_2: Password Pusher ist eine bessere Alternative zum Versand von
+        Kennwörtern per E-Mail. PP verhindert, dass Passwörter in E-Mail-Archiven
+        auf ewig existieren. Passwort Pusher ist keine allumfassende Sicherheitslösung!
+      answer_trust_3: Password Pusher startete Ende 2011 als Open-Source-Projekt.
+        Es wurde die ganze Zeit über von mir (Peter Giacomo Lombardo) und einer Handvoll
+        hervorragender Mitwirkender gepflegt und aktualisiert. Im Jahr 2024 wurde
+        die Premium-Version eingeführt, um die Entwicklung zu beschleunigen und zur
+        Finanzierung des Projekts beizutragen. Alle Premium-Funktionen landen schließlich
+        in der Open-Source-Version.
+      answer_trust_4: Aufgrund seiner langen Geschichte und der Tatsache, dass es
+        sich um Open Source handelt, wurde Password Pusher von vielen Augen rezensiert.
+        Es wurde im Laufe der Jahre von vielen Organisationen und Einzelpersonen verwendet
+        und geprüft.
+      answer_trust_5: 'Die Richtlinie von Password Pusher umfasst drei Aspekte: 1)
+        Verschlüsselung im Ruhezustand und während der Übertragung, 2) minimale Datenaufbewahrung,
+        3) Transparenz in Form eines Prüfprotokolls.'
+      answer_trust_6: In diesem Sinne werden Push-Payloads bei Ablauf eindeutig gelöscht
+        und das Prüfprotokoll wird auf unbestimmte Zeit aufbewahrt. Je weniger Daten
+        Password Pusher speichert, desto besser.
+      answer_trust_7: Wenn Sie weiterhin Bedenken hinsichtlich Vertrauen und Sicherheit
+        haben, können Sie den Code überprüfen, Ihre Fragen posten und in Erwägung
+        ziehen, ihn stattdessen intern in Ihrem Unternehmen auszuführen.
+      answer_trust_8: Was das Vertrauen in mich betrifft, kann ich Ihnen nur meine
+        langjährige Erfahrung beim Aufbau dieses Projekts und meinen öffentlichen
+        Ruf bei %{github}, %{linkedin}, %{twitter} und %{blog} anbieten. Bei Fragen
+        können Sie mich jederzeit kontaktieren.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Einige Unternehmen sind an strenge Sicherheitsrichtlinien
+        gebunden, die die Nutzung öffentlicher Dienste für sensible Daten verbieten.
+        Es gibt sogar Organisationen, die vorschreiben, dass alle Tools in privaten
+        Intranets ohne Zugang zur Außenwelt eingesetzt werden müssen.
+      answer_why_private_2: Wenn Sie Ihre eigene private Instanz von Password Pusher
+        ausführen, können Sie die Umgebung und die Daten kontrollieren. Außerdem können
+        Sie benutzerdefinierte Funktionen und Integrationen hinzufügen, die speziell
+        auf Ihr Unternehmen zugeschnitten sind.
+      answer_why_private_3: Aus diesen Gründen bieten wir die Möglichkeit und ermutigen
+        sogar dazu, private Instanzen zu betreiben.
+      feedback_link: Feedback-Formular
+      github_link: GitHub
+      mac_link: Mac-Keynote
+      my_blog: Mein Blog
+      question_access: Gibt es andere Möglichkeiten, auf Password Pusher außerhalb
+        eines Browsers zuzugreifen?
+      question_add_feature: Kann eine bestimmte Funktion für mein Unternehmen hinzugefügt
+        werden?
+      question_already_expired: Die von mir gesendete geheime URL war bereits abgelaufen.
+        Was ist passiert?
+      question_automation: Kann ich meine Passwortverteilung automatisieren?
+      question_conference: Kann ich Password Pusher in meinem Vortrag, Video, meiner
+        Präsentation oder meiner Konferenz verwenden?
+      question_have_to_pay: Muss ich bezahlen?
+      question_how_many: Wie viele Anfragen kann ich an Password Pusher senden?
+      question_licensing: Gibt es Lizenzbeschränkungen für mich, mein Unternehmen
+        oder meine Organisation?
+      question_premium_diff: Was sind die Unterschiede zwischen der Open-Source- und
+        der Premium-Version?
+      question_private_risks: Welche potenziellen Sicherheitsrisiken birgt die interne
+        Ausführung einer eigenen Version?
+      question_purpose: Was ist der Zweck von Password Pusher?
+      question_rebranding: Kann ich ein benutzerdefiniertes Logo verwenden oder das
+        Design ändern?
+      question_self_host: Kann ich meine eigene Version für mein Unternehmen intern
+        ausführen?
+      question_trust: Vertrauen ist ein Belang. Warum sollte ich Password Pusher verwenden?
+      question_why_premium: Password Pusher war schon immer Open Source. Warum gibt
+        es eine Premium-Version?
+      question_why_private: Warum sollte eine eigene private Instanz von Password
+        Pusher betrieben werden?
+      question_will_oss: Werden die Premium-Funktionen zur Open-Source-Version hinzugefügt?
+      subtitle: "… alles, was Sie über Password Pusher wissen möchten."
+      title: FAQ · Häufig gestellte Fragen
+      title_other: Sonstiges
+      title_private: Eigene private Instanz betreiben
+      title_pushes: Drückt
+      title_subscriptions: Premium-Version
+      title_tools: Tools, Integrationen und Anwendungen
+      title_trust: Vertrauen und Sicherheit
+      tools_link: Tools & Applikationen
+      windows_link: Windows-Powerpoint
+    generate_key:
+      env_var: Sie können diesen Schlüssel auf Ihre Anwendung anwenden, indem Sie
+        die Umgebungsvariable festlegen
+      generate_key: Schlüssel generieren
+      generated: Encryption Key generiert
+      intro: Diese Seite wird als Hilfstool zum Generieren eines zufälligen Verschlüsselungsschlüssels
+        für selbst gehostete Instanzen von Password Pusher verwendet.
+      intro_2: Password Pusher verschlüsselt vertrauliche Daten in der Datenbank.
+        Obwohl ein Standardschlüssel enthalten ist, empfiehlt es sich, Ihren eigenen
+        benutzerdefinierten Verschlüsselungsschlüssel zu verwenden.
+      intro_3: Bei jeder Aktualisierung generiert diese Seite einen neuen Verschlüsselungsschlüssel.
+        Sie können den untenstehenden zufällig generierten Code verwenden, um Ihre
+        Password Pusher-Instanz zu konfigurieren.
+      note_1: Wenn kein Encryption Key angegeben wird, wird ein Standardschlüssel
+        verwendet.
+      note_2: Die beste Sicherheit für private Instanzen von Password Pusher ist die
+        Verwendung Ihres eigenen Verschlüsselungsschlüssels, obwohl dies nicht erforderlich
+        ist.
+      note_3: Das Risiko bei der Verwendung des Standardschlüssels wird verringert,
+        wenn die Instanz sicher und die Push-Verfallseinstellungen kurz gehalten werden.
+        1 Tag/1 Aufruf versus 100 Tage/100 Aufrufe.
+      note_4: Sobald ein Push abläuft, werden alle verschlüsselten Daten in diesem
+        Push gelöscht.
+      note_5: Wenn Sie einen Encryption Key ändern, für den bereits alte Push-Nachrichten
+        existieren, werden älteren Pushes unlesbar. Mit anderen Worten, die Nutzdaten
+        werden verstümmelt.  Neue Pushes, die in Zukunft erstellt werden, funktionieren
+        problemlos.
+      note_6: 'Die Schlüsselgenerierung kann auch über die Befehlszeile in der Anwendungsquelle
+        erfolgen, indem Folgendes ausgeführt wird:'
+      notes: 'Anmerkungen:'
+      reload: Seite neu laden, um einen neuen Schlüssel zu generieren.
+      title: Generiere Encryption Key
+    password_generator:
+      push_it: Drücken Sie dieses Passwort
+    tools:
+      alfred: Alfred App
+      api_documentation: API-Endpunkt-Dokumentation
+      applications: Anwendungen
+      cli: Befehlszeilenschnittstelle
+      clu: Befehlszeilenprogramme
+      examples: Beispiele
+      github: Github
+      intro: Mit der Password Pusher JSON API gibt es eine Reihe von Anwendungen und
+        Befehlszeilendienstprogrammen (CLI), die mit pwpush.com oder Ihrer selbst
+        gehosteten Instanz kommunizieren. Passwörter über CLI, Slack, Alfred App und
+        mehr übertragen.
+      intro_2: Die JSON-API ist ein leistungsstarkes Tool, das die Automatisierung
+        des Passwort-Pushings ermöglicht. Dies kann mit einer Vielzahl von Programmiersprachen
+        und Tools erfolgen.
+      intro_3: Weitere Informationen finden Sie auf der Seite %{github}.
+      more: Mehr
+      slack: Locker
+      subtitle: Password Pusher ist mehr als nur eine Webanwendung. Es verfügt über
+        eine JSON-API, die eine Vielzahl von Integrationen und Anwendungen ermöglicht.
+      title: Tools, APIs, Integrationen und Anwendungen
+      tools_1: Unter Verwendung der JSON-API gibt es verschiedene Tools, die eine
+        Schnittstelle zu Password Pusher bilden, um die Passwortverteilung zu automatisieren.
+      tools_2: Wir haben keine Beschränkungen für die Anzahl der Passwörter, die Sie
+        übertragen können (und haben auch nicht die Absicht, solche Beschränkungen
+        einzuführen), aber wir haben einen Begrenzer, damit die Website nicht durch
+        schlechte Skripte oder bösartige Akteure zum Absturz gebracht wird. Wenn Sie
+        Ihre Tools auf maximal 1 Passwort alle paar Sekunden beschränken, sollte alles
+        in Ordnung sein.
+      tools_3: 'Test in der Javascript-Konsole des Browsers: Startseite von Password
+        Pusher aufrufen und folgenden Code eingeben:'
+      tools_4: Die JSON-API ermöglicht es, mit Password Pusher über JSON zu kommunizieren.  Dies
+        kann von bestehenden Dienstprogrammen wie curl, wget oder einer beliebigen
+        Programmiersprache genutzt werden. In den folgenden Beispielen finden Sie
+        einige Anregungen.
+      tools_5: Weitere Erklärungen und Beispiele finden Sie im %{github} Wiki.
+      walkthrough: Walkthrough & Beispiele

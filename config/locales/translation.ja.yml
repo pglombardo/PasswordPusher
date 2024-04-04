@@ -216,25 +216,18 @@ ja:
       create: 登録する
       update: 更新する
       submit: 保存する
-  will_paginate:
-    previous_label: "&#8592; 前へ"
-    next_label: 次へ &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: ページネーション
-    page_aria_label: ページ %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model}が見つかりません"
-        one: 1件の%{model}を表示しています
-        other: "%{count}件の%{model}をすべて表示しています"
-      single_page_html:
-        zero: "%{model}が見つかりません"
-        one: "<b>1</b>件の%{model}を表示しています"
-        other: "<b>%{count}</b>件の%{model}をすべて表示しています"
-      multi_page: "%{from}番目から%{to}番目までの%{model}を表示しています（全%{count}件中）"
-      multi_page_html: "<b>%{from}</b>番目から<b>%{to}</b>番目までの%{model}を表示しています（全<b>%{count}</b>件中）"
-    previous_aria_label: 前のページ
-    next_aria_label: 次のページ
+      entry:
+        zero: エントリ
+        one: エントリ
+        other: エントリ
+      one_page:
+        display_entries:
+          zero: レコードが見つかりませんでした %{entry_name}
+          one: "<b>%{count}</b>レコード表示中です %{entry_name}"
+          other: "<b>%{count}</b>レコード表示中です %{entry_name}"
+      more_pages:
+        display_entries: "<b>%{total}</b>中の%{entry_name}を表示しています <b>%{first} - %{last}</b>"
   flash:
     actions:
       create:
@@ -565,6 +558,592 @@ ja:
     access: アクセス
     passphrase: パスフレーズ
     preview: プレビュー
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: 最後 &raquo;
+      previous: "&lsaquo; 前"
+      next: 次 &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: 本気ですか？
+      destroy: 破壊する
+      edit: 編集
+      edit_resource: "%{name}を編集します"
+      show_resource: "%{name}を表示"
+      new_resource: 新規 %{name}
+      back: 戻る
+    controller:
+      create:
+        success: "%{resource}が正常に作成されました。"
+      destroy:
+        success: "%{resource} は正常に破棄されました。"
+      update:
+        success: "%{resource} が正常に更新されました。"
+    fields:
+      has_many:
+        more: "%{total_count}件中%{count}件を表示"
+        none: なし
+    form:
+      error: エラー
+      errors: "%{pluralized_errors} はこの %{resource_name} の保存を禁止しました:"
+    navigation:
+      back_to_app: アプリに戻る
+    search:
+      clear: 検索をクリア
+      label: "%{resource}を検索"
+  layouts:
+    admin:
+      application:
+        admin_intro: この管理ダッシュボードは、Password Pusher アプリケーションへのデータベースへの直接アクセスを提供します。変更を加える前に、注意してバックアップを作成することを検討してください。
+        admin_note: '注: レコードを破棄すると、すべての子レコードも破棄されます。たとえば、ユーザーを破棄すると、そのユーザーにプッシュされたすべてのパスワード、ファイル、URL
+          も破棄されます。'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: 生成されたパスワードの音節の数。
+      back: チームに戻る
+      edit: ポリシーの編集
+      team_policy_help: チーム ポリシーは、このチームのメンバーによって行われるすべてのプッシュに適用される一連のルールです。
+      personal_policy: 個人ポリシー
+      personal_policy_help: ポリシーは、ユーザーが作成したすべてのプッシュに適用される一連のルールです。
+      team_policy: チームポリシー
+      header_timed_expiration: 期限付き有効期限
+      expire_after_duration_min: 最小期間
+      expire_after_duration_min_help: プッシュが期限切れになるまでの最小期間。
+      expire_after_duration_max: 最大持続時間
+      expire_after_duration_max_help: プッシュが期限切れになるまでの最大期間。
+      expire_after_duration_default: デフォルトの期間
+      expire_after_duration_default_help: プッシュの有効期限が切れるまでのデフォルトの期間。
+      minutes_tip: 1日 = 1440分、7日 = 10080分、30日 = 43200分
+      header_view_expiration: 有効期限を表示する
+      expire_after_views_min: 最小視聴回数
+      expire_after_views_min_help: プッシュが期限切れになるまでの最小ビュー数。
+      expire_after_views_max: 最大閲覧数
+      expire_after_views_max_help: プッシュが期限切れになるまでの最大ビュー数。 [最大。 100]
+      expire_after_views_default: デフォルトのビュー数
+      expire_after_views_default_help: プッシュが期限切れになるまでのデフォルトのビュー数。
+      header_payload_limits: ペイロード制限
+      push_text_max: 最大テキストサイズ
+      push_text_max_help: プッシュ内のテキストの最大サイズ。バイト単位で測定されます。 [最大。 1048576]
+      push_files_max: 最大許容ファイル数
+      push_files_max_help: プッシュで許可されるファイルの最大数。 [最大。 100]
+      header_retrieval_step: 1-Click 取得ステップ
+      enable_retrieval_step: 有効にする？
+      enable_retrieval_step_help: このチームに対して 1-Click 取得を有効にしますか?無効にすると、このオプションは非表示になり、使用されなくなります。
+      retrieval_step_default: デフォルト値
+      retrieval_step_default_help: 1 クリック取得ステップ オプションのデフォルト値。
+      retrieval_step_forced: デフォルト値を強制しますか?
+      retrieval_step_forced_help: すべてのチーム メンバーに対して、このオプションをデフォルト値で強制的に使用します。チームメンバーが変更することはできません。
+      hide_retrieval_step: オプションを非表示にしますか?
+      hide_retrieval_step_help: 1-Click Retrieval ステップ オプションをチーム メンバーから非表示にします。これは、チーム
+        メンバーにオプションを表示せずにデフォルトを強制する場合に便利です。
+      header_deletable: 閲覧者による削除可能
+      enable_deletable: 有効にする？
+      enable_deletable_help: チームに対してこのオプションを有効にしますか?無効にすると、このオプションは非表示になり、使用されなくなります。
+      deletable_default: デフォルト値
+      deletable_default_help: "[ビューアによる削除可能] オプションのデフォルト値。"
+      deletable_forced: デフォルト値を強制しますか?
+      deletable_forced_help: すべてのチーム メンバーに対して、このオプションをデフォルト値で強制的に使用します。チームメンバーが変更することはできません。
+      hide_deletable: オプションを非表示にしますか?
+      hide_deletable_help: "[閲覧者による削除可能] オプションをチーム メンバーから非表示にします。これは、チーム メンバーにオプションを表示せずにデフォルトを強制する場合に便利です。"
+      hide_passphrase: オプションを非表示にしますか?
+      hide_passphrase_help: パスフレーズ ロック オプションを非表示にします。このオプションの使用を完全に無効にする場合に便利です。
+      enable_blur: 有効にする？
+      enable_blur_help: ペイロードのぼかしにより、シークレット URL 配信ページのペイロードの内容が見えにくくなります。受信者はクリックしてぼかしを切り替え、元のデータを表示できます。
+      header_passphrase: パスフレーズロック
+      header_blur: ペイロードのぼやけ
+      header_pwgen: パスワードの生成
+      save: チームポリシーを更新する
+      enable_pwgen: 有効にする？
+      enable_pwgen_help: このチームのパスワード生成オプションを有効にしますか?無効にすると、このオプションは非表示になり、使用されなくなります。
+      pwgen_configurable: 設定可能ですか?
+      pwgen_configurable_help: チームメンバーにパスワードジェネレーターの設定を許可しますか?無効にすると、オプションは以下の構成に強制され、チーム
+        メンバーは変更できなくなります。
+      pwgen_has_numbers: 数字を含めますか?
+      pwgen_has_numbers_help: 生成されたパスワードには数字を含めます。
+      pwgen_title_cased: タイトルケース入り?
+      pwgen_title_cased_help: タイトルの大文字と小文字が生成されたパスワード部分です。
+      pwgen_use_separators: セパレータを使用しますか?
+      pwgen_use_separators_help: 生成されたパスワードには区切り文字を使用します。
+      pwgen_consonants: 子音
+      pwgen_consonants_help: 生成されたパスワードで使用する子音。
+      pwgen_vowels: 母音
+      pwgen_vowels_help: 生成されたパスワードで使用する母音。
+      pwgen_separators: セパレーター
+      pwgen_separators_help: 生成されたパスワードで使用する区切り文字。
+      pwgen_min_syllable_length: 最小音節長
+      pwgen_min_syllable_length_help: 生成されたパスワードの音節の最小長。
+      pwgen_max_syllable_length: 最大音節長
+      pwgen_max_syllable_length_help: 生成されたパスワードの音節の最大長。
+      pwgen_syllables_count: 音節数
+    show:
+      edit_policy: プッシュポリシーの編集
+      policy: チームポリシー
+  tag_line: どうぞ。別のパスワードをメールで送信します。
+  about: だいたい
+  app_name: パスワードプッシャー
+  application:
+    card_newsletter:
+      enter_email: メールアドレスを入力...
+      subscribe: 購読
+    cookie_consent:
+      notice: ブラウザの Cookie は、このツールの動作に役立ちます。これを使用すると、これらの Cookie の使用に同意したことになります。
+    footer:
+      best_practices: ベストプラクティス
+      docker: Docker コンテナ
+      faq: よくある質問
+      feedback: フィードバック
+      github: GitHub
+      key_generator: キージェネレーター
+      newsletter: ニュースレター
+      password_generator: パスワードジェネレータ
+      tools: ツール、API、CLI
+    pw_generator_modal:
+      cancel: キャンセル
+      configure: パスワード生成の構成
+      consonants: 子音
+      generate_password: パスワードの生成
+      include_numbers: 数字を含める
+      load_preset: プリセットをロードする
+      max_syllable_length: 最大音節長
+      min_syllable_length: 最小音節長
+      num_syllables: 音節数
+      reset: 既定値にリセット
+      save: 保存
+      separators: セパレーター
+      test: テストの生成
+      test_area: テストエリア
+      use_separators: セパレーターを使用する
+      use_titlecase: タイトルケースを使用
+      vowels: 母音
+  audit_logs:
+    audit_log:
+      created: 作成した
+      created_by: '作成者: %{user}'
+      log_created: "%{user} によって %{date} にプッシュが作成されました"
+      log_expired: "%{user} による %{date} での手動プッシュの有効期限が切れました"
+      log_failed_view: "%{user} による %{date} 上の IP アドレス %{ip} からの表示試行が失敗しました"
+      log_manual_expiration: IP アドレス %{ip} の %{user} による %{date} でのプッシュの手動期限切れ
+      log_referrer: '参照者: %{referrer}'
+      log_user_agent: 'ユーザーエージェント: %{user_agent}'
+      log_viewed: "%{user} による %{date} 上の IP アドレス %{ip} からの表示に成功しました"
+      unknown: 未知
+      viewed_by: "%{user} によって閲覧されました"
+  dashboard:
+    show:
+      detail: 詳細
+      event: イベント
+      when: いつ
+  duration:
+    format_d:
+      one: 1日
+      other: "%{count}日"
+    format_dhm: "%{days} 日、%{hours} 時間、%{minutes} 分"
+    format_h:
+      one: 1時間
+      other: "%{count} 時間"
+    format_hm: "%{hours} 時間と %{minutes} 分"
+    format_m:
+      one: 1分
+      other: "%{count}分"
+  feedbacks:
+    create:
+      feedback_sent: フィードバックが送信されました!できるだけ早くご連絡させていただきます。
+    failed_spam_test: 申し訳ありませんが、スパムチェックに失敗しました。代わりに、Github でお問い合わせください。
+    failed_to_send: フィードバックの送信に失敗しました。何かが間違っていました。もう一度試すか、Github でお問い合わせください。
     new:
-      upload_limit: プッシュごとに最大 %{count} ファイルをアップロードできます。
+      email: Eメール
+      have_idea: アイデアや希望はありますか？嫌いなもの？手伝いたいですか？聞きたい！
+      leave_blank: このフィールドは空白のままにしてください。
+      math_question: 100 マイナス 3 とは何ですか?
+      send_feedback: フィードバックを送信
+      tip: 'ヒント: 送信が失敗する可能性は低いので、メッセージをクリップボードにコピーしてください。'
+      your_name: あなたの名前
+  none: なし
+  pages:
+    about:
+      about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
+      about_2: Password Pusher を使用すると、一定時間後または一定回数アクセスした後に有効期限が切れる一意の 1 回限りの URL を作成して、情報のプライバシーと安全性を確保できます。
+      about_3: 個人や組織が、ログイン資格情報やその他の機密データを同僚、クライアント、またはパートナーと共有するためによく使用されます。
+      about_4: Password Pusher は、電子メールやその他の安全性の低い通信方法を必要とせずに、パスワードを安全に共有するためのシンプルで便利なソリューションです。
+      about_pwpush: パスワードプッシャーについて
+      hosted_at_html: <a href="https://pwpush.com">pwpush.com</a>でホストされるか、好きな場所で独自のプライベート
+        インスタンスを実行できます。
+      my_name: 私の名前はピーター・ジャコモ・ロンバルドです。 %{linkedin}、%{github}、または %{blog} で私を見つけることができます。
+      source_avail_html: ソース コードは<a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">GitHub で入手できます</a>。これはオープンソースであり、誰でも無料で使用、レビュー、変更できます。
+      the_author: 著者
+  pushes:
+    access:
+      incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。
+    audit:
+      1click_retrieval_step: 1-Click 取得ステップ
+      1click_retrieval_step_help: チャット システムや URL スキャナーがビューを食い尽くすのを防ぐのに役立ちます。
+      active: アクティブ
+      attached_files: 添付ファイル
+      attached_files_help: このプッシュにファイルは添付されていますか?
+      audit_log_for: "%{push_id} の監査ログ"
+      contains_text: テキストが含まれています
+      contains_text_help: このプッシュにテキスト ペイロードが追加されましたか?
+      created: 作成した
+      created_by: '作成者: %{user}'
+      current_status: 現在のステータス
+      deletable_by_viewers: 閲覧者により削除可能
+      deletable_by_viewers_help: これにより、エンド ユーザーは、取得したコンテンツを削除できます。
+      detail: 詳細
+      end_audit_log: 監査ログの終わり
+      event: イベント
+      event_log: 監査ログ
+      expire_after: '次の後に期限切れになります:'
+      expire_after_time_help: プッシュは、作成からこの時間が経過すると期限切れになります。
+      expire_after_view_help: この数のビューが経過すると、プッシュは期限切れになります。
+      expire_now: 今すぐ期限切れ
+      expire_now_confirm: これにより、この秘密のリンクが期限切れになり、関連するすべてのコンテンツがデータベースから永久に削除されます。監査ログ
+        (将来試行されたビューを含む) は今後も維持されます。本気ですか？
+      expired: 期限切れ
+      failed_view: 失敗した表示の試行
+      failed_view_attempts: 失敗した表示試行
+      failed_view_attempts_help: 有効期限が切れた後にこのプッシュを表示しようとする試行回数。
+      filename: ファイル名
+      files_deleted: 以前に添付されたファイルはすべて削除されているか、何も添付されていません。」
+      log_note: プッシュがアクティビティを受信すると、識別情報を含むそれぞれのログがここに表示されます。
+      manual_expiration: 手動有効期限
+      message_length: メッセージの長さ
+      message_length_help: 添付されたテキスト ペイロードの長さ。
+      none: なし
+      num_files_attached: 添付ファイル数
+      num_files_attached_help: このプッシュに添付されたファイルの数。
+      passphrase_lock: パスフレーズのロックダウン
+      passphrase_lock_help: このプッシュを表示するには、受信者がパスフレーズを入力する必要があります。
+      payload: ペイロード
+      push_date: "%{date} にプッシュされました"
+      reference_note: 参考書
+      secret_url: このプッシュのシークレット URL
+      size: 'サイズ: %{size}'
+      start_audit_log: 監査ログの開始
+      start_log: 監査ログの開始
+      state: 州
+      state_help_active: アクティブで、まだ表示できます。
+      state_help_expired: プッシュ コンテンツが削除され、シークレット URL が期限切れになりました。
+      successful_view: 成功したビュー
+      successful_views: 成功したビュー
+      successful_views_help: プッシュが正常に表示された回数。
+      time_remaining: 残り時間
+      time_remaining_help: プッシュが期限切れになるまでの残り時間。
+      title: プッシュ監査ログ
+      visible_to: 自分だけに見える
+      when: いつ
+    copy_to_clipboard: クリップボードにコピー
+    day:
+      one: 1日
+      other: "%{count}日"
+    deleted: 削除しました
+    expiration_html: この秘密のリンクとすべてのコンテンツは、 <strong>%{duration} 回</strong>または<strong>%{count}
+      回以上のビューの</strong>いずれか早い方で削除されます。
+    expire:
+      expired: プッシュ コンテンツが削除され、シークレット URL が期限切れになりました。
+      not_deletable: そのプッシュは、閲覧者が削除することはできません。
+    form:
+      12_hours: 12時間
+      15_minutes: 15分
+      1_day: 1日
+      1_hour: 1時間
+      1_month: 1ヶ月
+      1_week: 1週間
+      1click: ワンクリック取得ステップを使用する
+      1click_tip: チャット システムやスキャナーがビューを食いつぶすのを防ぐのに役立ちます。
+      2_days: 2日
+      2_months: 2ヶ月
+      2_weeks: 2週間
+      30_minutes: 30分
+      3_days: 3日
+      3_months: 3ヶ月
+      3_weeks: 3週間
+      45_minutes: 45分
+      4_days: 4日
+      5_days: 5日間
+      6_days: 6日間
+      6_hours: 6時間
+      add_files: 追加ファイル...
+      audit_tip: ログインすると、アクティビティの監査ログが保存され、無期限に利用できます。
+      day: 日
+      days: 日々
+      deletable: 即時削除を許可する
+      deletable_tip: 取得したプッシュをユーザーが削除できるようにします。
+      encryption_tip: コンテンツは保存前に暗号化され、秘密のリンクを知っている人だけが利用できます。
+      expiration_label: このプッシュを期限切れにして、次の後に削除します。
+      expiration_tip: 有効期限が切れると、プッシュのすべてのコンテンツとファイルは直ちに完全に削除されます。
+      generator_tip: 上のボタンを使用してランダムなパスワードを生成します。
+      hour: 時
+      hours: 時間
+      login_to_upload: このプッシュにファイルをアップロードして添付するにはログインしてください...
+      minutes: 分
+      month: 月
+      months: 月
+      note_label: 参考書
+      note_placeholder: このプッシュが誰に、何に向けて行われているかを思い出すのに役立つ個人的なメモ。
+      passphrase_label: パスフレーズロック
+      passphrase_placeholder: このプッシュを表示するには、受信者がパスフレーズを入力する必要があります。
+      password_tip: 'ヒント: ボックスにはパスワードのみを入力してください。他の識別情報によりセキュリティが危険にさらされる可能性があります。'
+      payload_placeholder: パスワード、テキスト、または URL を入力してプッシュします...
+      push_it: 変換する
+      upload_limit: プッシュごとに最大 10 個のファイルをアップロードできます。
+      view: ビュー
+      views: ビュー
+      week: 週
+      weeks: 週間
+    hour:
+      one: 1時間
+      other: "%{count}時間"
+    index:
+      actions: 行動
+      clear_filters: フィルターをクリアする
+      created: 作成した
+      created_by: による
+      expires: 有効期限が切れます
+      file_count: ファイル
+      note: ノート
+      nothing_here: まだ何もありません。
+      push_id: プッシュ ID
+      pushes: プッシュ
+      remaining_time: 残り時間
+      status: 状態
+      views: ビュー
+      views_remaining: 残りのビュー数
+    minute:
+      one: 1分
+      other: "%{count}分"
+    more_view:
+      one: さらに 1 件のビュー
+      other: "%{count} 件以上のビュー"
+    'no': いいえ
+    none: なし
+    passphrase:
+      enter_passphrase: パスフレーズを入力してください
+      go: 行け
+      placeholder: この URL で提供される秘密のパスフレーズを入力してください
+      tip: 秘密のパスフレーズを入力してください
+    payload: ペイロード
+    preliminary:
+      click_proceed: ここをクリックして続行します
+    preview:
+      and: と
+      can_be: することができます
+      can_not_be: できない
+      deleted_by_viewers: 閲覧者により削除されました。
+      link_lang_tip: 'ヒント: 国際ユーザーにプッシュしますか? URL の右側にあるドロップダウン メニューを使用して、シークレット リンクの言語を変更します。'
+      or: また
+      or_after: またはそれ以降
+      push_another: もう一押し
+      push_created: プッシュが作成されました。
+      use_link_to_share: 'この秘密のリンクを使用して共有してください:'
+      view_push_now: このプッシュを今すぐ表示
+      will_burn_view: "(ビューを焼きます)"
+      will_expire_after: このプッシュの有効期限は次のとおりです
+      with_preliminary_step: また、%{strong_start}1 クリックの予備取得ステップ%{strong_end}も含まれています。
+    provide_text_or_file: プッシュを作成するには、テキストを入力するか、ファイルを添付するか、またはその両方を行う必要があります。
+    push:
+      active: アクティブ
+      audit: 監査
+      expired: 期限切れ
+      none: なし
+      preview: プレビュー
+      push_controls: プッシュ コントロール
+      title: 新しいプッシュ
+      unknown: 未知
+    secret_link_lang: 秘密のリンク言語
+    settings: 設定
+    show:
+      blurred: パスワードがぼやけています。下をクリックすると表示されます。
+      click_to_reveal: 内容がぼやけています。表示するには下をクリックしてください。
+      delete_now: この秘密のリンクを今すぐ削除
+      delete_now_confirm: これにより、この秘密のリンクが期限切れになり、関連するすべてのコンテンツがデータベースから永久に削除されます。本気ですか？
+      download_file: ダウンロードファイル
+      files_sent: 次のファイルが送信されました。
+      last_view: これが最後の眺めです。
+      obtain: パスワード マネージャーや暗号化されたストレージを使用して、このコンテンツを安全に取得して保存します。不要になったデータはすぐに削除することを忘れないでください。
+      open_file: ファイルを開く
+      please_download: ダウンロードして安全な場所に保管してください。
+      will_be_deleted: この秘密リンクとすべてのコンテンツは、%{b_tag}%{time_count}%{time_unit}%{b_tag}または%{b_tag}%{view_count}以上%{view_unit}%{b_tag}(どちらか先に発生した方)で削除されます。
+      your_link: あなたの秘密のリンク
+    show_expired:
+      expired_help: 必要に応じて、この秘密の URL を提供した個人または組織に連絡してください。
+      expired_message: 申し訳ありませんが、この秘密のリンクは期限切れです。
+      link_expired: 秘密のリンクの有効期限が切れています
+    view:
+      one: 1件のビュー
+      other: "%{count} ビュー"
+    view_audit_log: 監査ログを表示
+    whichever: "（いずれか早い方）"
+    'yes': はい
+  static:
+    about:
+      about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
+      about_2: Password Pusher を使用すると、一定時間後または一定回数アクセスした後に有効期限が切れる一意の 1 回限りの URL を作成して、情報のプライバシーと安全性を確保できます。
+      about_3: 個人や組織が、ログイン資格情報やその他の機密データを同僚、クライアント、またはパートナーと共有するためによく使用されます。
+      about_4: Password Pusher は、電子メールやその他の安全性の低い通信方法を必要とせずに、パスワードを安全に共有するためのシンプルで便利なソリューションです。
+      about_5: "%{pwpush_link} でホストされるか、好きな場所で独自のプライベート インスタンスを実行することができます。"
+      about_6: ソース コードは %{github_link} で入手できます。これはオープンソースであり、誰でも無料で使用、レビュー、変更できます。
+      age_body: Password Pusher に対する最初の git コミットは<strong>、2011 年 12 月 28 日</strong>でした。その後すぐに
+        pwpush.com が稼働しました。
+      age_title: "%{years_count} 歳以上"
+      author_1: 私の名前はピーター・ジャコモ・ロンバルドです。 %{linkedin}、%{github}、または %{blog} で私を見つけることができます。
+      author_2: 更新情報については、%{twitter} (または私の %{twitter_personal}) で Password Pusher
+        をフォローするか、%{newsletter} を購読してください。
+      facebook: フェイスブック
+      github: ギットハブ
+      help_1: 断然最大の助けは、その言葉を広めることです。 Password Pusher を友人、同僚、組織と共有します。
+      help_2: あなたもすることができます：
+      help_3: "%{github}プロジェクトにスターを付けます。これは、Password Pusher をトレンドにするアルゴにとってガソリンです。"
+      help_4: "%{translate} をヘルプします。既存の言語を改善するか、新しい言語を追加します。"
+      help_5: 重要なリリース、セキュリティの問題、ヒントなどの最新情報を入手するには、%{newsletter} にサインアップしてください。
+      help_6: "%{facebook}、%{twitter}、および %{github} のパスワード プッシャーに従ってください。"
+      help_translate: 翻訳を手伝う
+      newsletter: ニュースレター
+      pwpush_domain: pwpush.com
+      section_about: だいたい
+      section_author: 著者
+      section_follow: パスワードプッシャーのフォロー先
+      section_help: 手伝いたいですか？
+      title: パスワードプッシャーについて
+      twitter: ツイッター
+    faq:
+      answer_access_1: Password Pusher JSON API を使用すると、pwpush.com またはセルフホスト インスタンスと通信する多数のアプリケーションおよびコマンド
+        ライン ユーティリティ (CLI) が利用できます。 CLI、Slack、Alfred アプリなどからパスワードをプッシュします。
+      answer_access_2: 詳細については、%{tools} ページを参照してください。
+      answer_add_feature_1: 可能性が非常に高い。私はすべてのアイデアやフィードバックを聞くのが大好きで、次に何を追加するかを決めるためにリストを作成します。お持ちの場合は、%{feedback_link}
+        ページまたは %{github_link} に提出してください。
+      answer_already_expired_1: 電子メール、ファイアウォール、チャット システムなどの一部のシステムには、ビューを消費する可能性のあるリンク
+        スキャナーが搭載されていることがよくあります。これは通常、企業のセキュリティのために、または単にアプリケーションの「プレビュー」を生成するために行われます。
+      answer_already_expired_2: これを防ぐには、パスワードをプッシュするときに 1 クリック取得ステップ オプションを使用します。この場合、ユーザーはそのようなスキャナーからのビューを保護するために、準備ページをクリックして移動する必要があります。
+      answer_already_expired_3: 追加の予防策として、ログインすると、作成されたプッシュごとに監査ログが提供されます。この監査ログにより、誰がいつプッシュを閲覧したかが明らかになります。
+      answer_automation_1: はい。 Password Pusher JSON API を使用すると、パスワード プッシュを自動化できます。これは、さまざまなプログラミング言語とツールを使用して実行できます。
+      answer_automation_2: 詳細については、%{tools} ページを参照してください。
+      answer_conference_1: 絶対に。 %{windows_link} および %{mac_link} 形式で利用できるメディア リソースと機能の完全な説明があります。
+      answer_conference_2: ご質問やご不明な点がございましたら、いつでもお気軽にご連絡ください。
+      answer_how_many_1: 現在、制限はなく、追加する予定もありません。サイトの安定性を最低限保証するために、Password Pusher
+        はデフォルトでレート リミッターが設定されています。これは、セルフホスト バージョンでは無効にできます。
+      answer_licensing_1: ソース コードのオープン ソース バージョンは Apache 2.0 ライセンスに基づいてリリースされており、これによりあらゆる制限がほぼ定義されます。
+        Password Pusher のブランド変更や再設計されたクローン サイトは数多くありますが、私はそれらすべてを歓迎します。
+      answer_licensing_2: プレミアム バージョンは商用ライセンスに基づいてリリースされます。これはオープンソースではなく、無料でもありません。その中核にはオープンソース
+        プロジェクトが含まれていますが、機能のスーパーセットを提供しており、開発を加速し、プロジェクトへの資金提供を支援することを目的としています。
+      answer_licensing_3: Password Pusher のプライベート インスタンスを実行するためにプレミアム バージョンは必要ありません。オープンソース
+        バージョンは完全な機能を備えており、無料で使用できます。
+      answer_licensing_4: すべてのプレミアム機能は、機能に応じて一定の期間が経過すると、オープンソース バージョンになります。
+      answer_private_risks_1: 会社または組織で Password Pusher のプライベート インスタンスを実行すると、実行中のコードを正確に把握できるという安心感が得られます。好きなように構成して実行できます。
+      answer_private_risks_2: 一方、インスタンスがハッキングされて暗号化が破られた場合、悪意のあるエンティティは、組織内のアカウントをブルート
+        フォースするためのターゲットとなるパスワードの辞書を手に入れることになります。 (これはまだ有効期限が切れていないプッシュに限定されます)
+      answer_private_risks_3: この点、pwpush.com のパブリック インスタンスは、世界中のユーザー間で混在する個人情報を識別せず、パスワードのみを含むという点で優れている可能性があります。
+      answer_private_risks_4: もう 1 つの考慮事項は、インスタンスのメンテナンスです。常に最新の状態に保ち、安全に保管し、バックアップする必要があります。
+      answer_private_risks_5: ユーザーは、長所と短所を慎重に比較検討し、最適なルートを決定する必要があります。私たちは両方の戦略を喜んで支持します。
+      answer_purpose_1: Password Pusher は、パスワードを電子メールで送信するよりも優れた代替手段として存在します。
+      answer_purpose_10: さらに、<strong>パスワードは、事前定義された一連のビューに到達するか、時間が経過すると期限切れになります。</strong>
+      answer_purpose_11: 期限が切れると、パスワードは明確に削除されます。
+      answer_purpose_12: 興味深いと思われる場合は、試してみるか、以下のよくある質問をご覧ください。
+      answer_purpose_2: "<strong>パスワードを電子メールで送信することは本質的に安全ではありません。</strong>最大のリスクには次のようなものがあります。"
+      answer_purpose_3: 電子メールで送信されたパスワードは、通常、送信先のコンテキストとともに送信されるか、電子メールのユーザー名、ドメインなどから派生する可能性があります.
+      answer_purpose_4: 電子メールは本質的に安全ではなく、悪意のあるエンティティによって複数のポイントで傍受される可能性があります。
+      answer_purpose_5: メールで送信されたパスワードは、メール アーカイブに永久に保存されます。
+      answer_purpose_6: メールアカウントが盗まれたり、クラックされたりした場合、メールのパスワードを取得して後で使用することができます.
+      answer_purpose_7: SMS、WhatsApp、電報、チャットなどを介してパスワードを送信する場合にも同じリスクが存在します。データは永久に保持され、制御できない状態に保たれることがよくあります。
+      answer_purpose_8: Password Pusher を使用すると、これらすべてを回避できます。
+      answer_purpose_9: Password Pusher に投稿されたパスワードごとに、<strong>あなただけが知る固有の URL が生成されます</strong>。
+      answer_rebranding_1: Password Pusher は、「すぐに使える」完全なブランド変更をサポートしており、カスタム ロゴ、画像、テキストを追加したり、アプリケーションのテーマを変更したりすることもできます。
+      answer_self_host_1: はい、オープンソース版では、さまざまなプラットフォームやクラウド向けに %{docker_link} と %{install_link}
+        を提供しています。
+      answer_self_host_2: スーパー セットの機能を備えたプレミアム バージョンでは、セルフホスト型コンテナーが近日提供される予定です。
+      answer_trust_1: そして当然のことです。すべての優れたセキュリティは、関連するすべてのコンポーネントに対する健全な懐疑から始まります。
+      answer_trust_2: Password Pusher は、パスワードを電子メールで送信するよりも優れた代替手段として存在します。パスワードがメール
+        アーカイブに永続的に存在することを回避します。これは、最終的なセキュリティ ソリューションとして存在しません。
+      answer_trust_3: Password Pusher は、2011 年末にオープン ソース プロジェクトとして開始されました。それまでの間、私
+        (Peter Giacomo Lombardo) と少数の優秀な貢献者によって保守および更新されてきました。 2024 年には、開発を加速し、プロジェクトの資金調達を支援するために、プレミアム
+        バージョンが導入されました。すべてのプレミアム機能は、最終的にはオープンソース バージョンになります。
+      answer_trust_4: Password Pusher は長い歴史を持ち、オープンソースであるため、多くの目から評価されてきました。長年にわたり、多くの組織や個人によって使用され、監査されてきました。
+      answer_trust_5: 'Password Pusher のポリシーは 3 つあります: 1) 保存時および転送時の暗号化 2) データ保持の最小限化
+        3) 監査ログ形式の透明性。'
+      answer_trust_6: この流れで、プッシュ ペイロードは期限切れになると明確に削除され、監査ログは無期限に維持されます。 Password Pusher
+        が保持するデータは少ないほど良いです。
+      answer_trust_7: 信頼性、安全性、セキュリティに関してまだ懸念がある場合は、お気軽にコードを確認し、質問があれば投稿し、代わりに組織内で実行することを検討してください。
+      answer_trust_8: 私に対する信頼に関して言えば、私が提供できるのは、このプロジェクトを築いてきた私の長い歴史と、%{github}、%{linkedin}、%{twitter}、%{blog}
+        での世間の評判だけです。ご質問がございましたら、いつでもお気軽にお問い合わせください。
+      answer_why_premium_1: 空軍
+      answer_why_private_1: 一部の組織は、パスワードなどの機密情報に公共サービスを使用することを禁止するセキュリティ ポリシーに拘束されています。外の世界にアクセスすることなく、すべてのツールをプライベート
+        イントラネット上に配置することを要求する組織さえあります。
+      answer_why_private_2: Password Pusher の独自のプライベート インスタンスを実行すると、環境とデータを制御できます。また、組織固有のカスタム機能や統合を追加することもできます。
+      answer_why_private_3: これらの理由から、ユーザーや組織が必要に応じてプライベート インスタンスを実行できるようにしています (そして奨励しています)。
+      feedback_link: フィードバックフォーム
+      github_link: GitHub
+      mac_link: マック基調講演
+      my_blog: 私のブログ
+      question_access: ブラウザ以外で Password Pusher にアクセスする他の方法はありますか?
+      question_add_feature: 私の組織に特定の機能を追加できますか?
+      question_already_expired: 送ったシークレットURLの有効期限が切れていました。どうしたの？
+      question_automation: パスワード配布を自動化できますか?
+      question_conference: 講演、ビデオ、プレゼンテーション、会議で Password Pusher を使用できますか?
+      question_have_to_pay: 支払う必要がありますか?
+      question_how_many: Password Pusher にはいくつのリクエストを送信できますか?
+      question_licensing: 私、私の会社、または私の組織に対するライセンス制限はありますか?
+      question_premium_diff: オープンソース版とプレミアム版の違いは何ですか?
+      question_private_risks: 自分のバージョンを内部で実行することによる潜在的なセキュリティ リスクは何ですか?
+      question_purpose: パスワードプッシャーの目的は何ですか?
+      question_rebranding: カスタムロゴを適用したり、デザインを変更したりできますか?
+      question_self_host: 組織内で独自のバージョンを実行できますか?
+      question_trust: 信頼は懸念事項です。 Password Pusher を使用する必要があるのはなぜですか?
+      question_why_premium: Password Pusher は常にオープンソースです。なぜプレミアム バージョンがあるのですか?
+      question_why_private: Password Pusher の独自のプライベート インスタンスを実行する必要があるのはなぜですか?
+      question_will_oss: プレミアム機能はオープンソースバージョンに追加されますか?
+      subtitle: "..Password Pusher について知りたいすべてのこと。"
+      title: よくある質問
+      title_other: 他の
+      title_private: 独自のプライベート インスタンスを実行する
+      title_pushes: プッシュ
+      title_subscriptions: プレミアムバージョン
+      title_tools: ツール、統合、アプリケーション
+      title_trust: 信頼とセキュリティ
+      tools_link: ツールとアプリケーション
+      windows_link: Windows パワーポイント
+    generate_key:
+      env_var: 環境変数を設定することで、このキーをアプリケーションに適用できます。
+      generate_key: キーの生成
+      generated: 生成された暗号鍵
+      intro: このページは、Password Pusher の自己ホスト型インスタンスのランダム暗号化キーを生成するヘルパー ツールとして使用されます。
+      intro_2: Password Pusher は、データベース内の機密データを暗号化します。デフォルトのキーが含まれていますが、独自のカスタム暗号化キーを使用することをお勧めします。
+      intro_3: 更新されるたびに、このページは新しい暗号化キーを生成します。以下のランダムに生成されたコードを使用して、Password Pusher
+        インスタンスを構成できます。
+      note_1: 暗号化キーが指定されていない場合は、既定のキーが使用されます。
+      note_2: Password Pusher のプライベート インスタンスの最適なセキュリティは、必須ではありませんが独自のカスタム暗号化キーを使用することです。
+      note_3: 'インスタンスを安全に保ち、プッシュの有効期限を短くすると、デフォルトのキーを使用するリスクが軽減されます。例: 1 日/1 ビュー対
+        100 日/100 ビュー。'
+      note_4: プッシュの有効期限が切れると、そのプッシュ内の暗号化されたデータはすべて削除されます。
+      note_5: 古いプッシュが既に存在する暗号化キーを変更すると、それらの古いプッシュが読み取れなくなります。つまり、ペイロードが文字化けします。今後の新しいプッシュは正常に機能します。
+      note_6: キーの生成は、アプリケーション ソースのコマンド ラインから次のコマンドを実行して行うこともできます。
+      notes: ノート：
+      reload: このページを再読み込みして、新しいキーを再生成してください。
+      title: 暗号化キーを生成する
+    password_generator:
+      push_it: このパスワードを押してください
+    tools:
+      alfred: アルフレッドアプリ
+      api_documentation: API エンドポイントのドキュメント
+      applications: アプリケーション
+      cli: コマンドラインインターフェース
+      clu: コマンド ライン ユーティリティ
+      examples: 例
+      github: ギットハブ
+      intro: Password Pusher JSON API を使用すると、pwpush.com またはセルフホスト インスタンスと通信する多数のアプリケーションおよびコマンド
+        ライン ユーティリティ (CLI) が利用できます。 CLI、Slack、Alfred アプリなどからパスワードをプッシュします。
+      intro_2: JSON API は、パスワードのプッシュを自動化できる強力なツールです。これは、さまざまなプログラミング言語とツールを使用して実行できます。
+      intro_3: 詳細については、%{github} ページを参照してください。
+      more: もっと
+      slack: スラック
+      subtitle: Password Pusher は単なる Web アプリケーションではありません。さまざまな統合とアプリケーションを可能にする JSON
+        API があります。
+      title: ツール、API、統合、アプリケーション
+      tools_1: JSON API を使用して、Password Pusher と連携してパスワード配布を自動化するさまざまなツールが存在します。
+      tools_2: プッシュできるパスワードの数に制限はありません (制限を追加する意図はありません) が、レート リミッターがあるため、悪いスクリプトや悪意のある人物によってサイトがダウンすることはありません。ツールを数秒ごとに最大
+        1 つのパスワードに制限すれば、問題ないはずです。
+      tools_3: Password Pusher のフロント ページに移動して次のように入力すると、ブラウザの Javascript コンソールでこれをテストできます。
+      tools_4: この API を使用すると、JSON を介して Password Pusher とやり取りできます。これは、curl、wget、または任意のプログラミング言語などの既存のユーティリティで利用できます。いくつかのアイデアについては、以下の例を参照してください。
+      tools_5: 詳しい説明と例については、%{github} Wiki を参照してください。
+      walkthrough: チュートリアルと例

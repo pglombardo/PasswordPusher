@@ -34,6 +34,8 @@ end
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # gem install debase -v '0.2.5.beta2' -- --with-cflags=-Wno-error=incompatible-function-pointer-types
+  # https://blog.arkency.com/how-to-get-burned-by-16-years-old-hack-in-2024/
   gem "debase", ">= 0.2.5.beta2", platforms: %i[mri mingw x64_mingw]
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
@@ -69,8 +71,6 @@ gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap", "5.2.3"
 gem "json", "~> 2.7" # Legacy carry-over
-gem "will_paginate", "~> 4.0.0"
-gem "will_paginate-bootstrap-style"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -94,10 +94,11 @@ gem "oj"
 gem "puma"
 gem "rollbar"
 gem "simple_token_authentication"
+gem "kaminari", "~> 1.2"
 
 gem "devise-i18n"
 gem "i18n-tasks", "~> 1.0.13" # , group: :development
-gem "rails-i18n", "~> 7.0.8"
+gem "rails-i18n", "~> 7.0.9"
 gem "route_translator", ">= 13.0.0"
 gem "translation"
 
@@ -120,3 +121,5 @@ group :production do
 end
 
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
+
+gem "administrate", "~> 0.20.1"

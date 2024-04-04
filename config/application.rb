@@ -30,6 +30,38 @@ module PasswordPusher
     # config.eager_load_paths << Rails.root.join("extras")
     puts "Password Pusher Version: #{Version.current}"
   end
+
+  # Grant system admin to a user by email
+  #
+  # @param email [String] the email of the user to grant system admin
+  # @return [Boolean] true if the user was found and granted system admin, false otherwise
+  def self.grant_system_admin!(email)
+    user = User.find_by(email: email)
+    if user
+      user.update!(admin: true)
+      Rails.logger.info "Granted system admin to #{email}!"
+      true
+    else
+      Rails.logger.error "Could not find user with email: #{email}"
+      false
+    end
+  end
+
+  # Revoke system admin from a user by email
+  #
+  # @param email [String] the email of the user to revoke system admin
+  # @return [Boolean] true if the user was found and revoked system admin, false otherwise
+  def self.revoke_system_admin!(email)
+    user = User.find_by(email: email)
+    if user
+      user.update!(admin: false)
+      Rails.logger.info "Revoked system admin from #{email}!"
+      true
+    else
+      Rails.logger.error "Could not find user with email: #{email}"
+      false
+    end
+  end
 end
 
 # rubocop:enable Rails/Output

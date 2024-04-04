@@ -12,4 +12,8 @@ class User < ApplicationRecord
   has_many :passwords, dependent: :destroy
   has_many :file_pushes, dependent: :destroy
   has_many :urls, dependent: :destroy
+
+  def admin?
+    admin
+  end
 end

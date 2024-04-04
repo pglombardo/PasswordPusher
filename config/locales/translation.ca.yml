@@ -228,26 +228,19 @@ ca:
       create: Crea %{model}
       update: Actualitza %{model}
       submit: Desa %{model}
-  will_paginate:
-    previous_label: "&#8592; Enrere"
-    next_label: Endavant &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Paginació
-    page_aria_label: Pàgina %{page}
     page_entries_info:
-      single_page:
-        zero: No s'ha trobat cap %{model}
-        one: Es mostra 1 %{model}
-        other: Es mostren tots %{count} %{model}
-      single_page_html:
-        zero: No s'ha trobat cap %{model}
-        one: Es mostra <b>1</b> %{model}
-        other: Es mostren <b>tots&nbsp;%{count}</b> %{model}
-      multi_page: Es mostren %{model} %{from} - %{to} de %{count} en total
-      multi_page_html: Es mostren %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
-        en total
-    previous_aria_label: Pàgina anterior
-    next_aria_label: Pàgina següent
+      entry:
+        zero: entrades
+        one: entrada
+        other: entrades
+      one_page:
+        display_entries:
+          zero: No s'han trobat %{entry_name}
+          one: Mostrant <b>%{count}</b> %{entry_name}
+          other: Mostrant <b>un total de %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Mostrant <b>%{first}&nbsp;-&nbsp;%{last}</b> %{entry_name}
+          de <b>%{total}</b> en total
   flash:
     actions:
       create:
@@ -625,6 +618,771 @@ ca:
     access: accés
     passphrase: frase de contrasenya
     preview: Vista prèvia
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      previous: "&lsaquo; Anterior"
+      next: Següent &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: N'esteu segur?
+      destroy: Destrueix
+      edit: Edita
+      edit_resource: Edita %{name}
+      show_resource: Mostra %{name}
+      new_resource: Nou %{name}
+      back: Tornar
+    controller:
+      create:
+        success: "%{resource} s'ha creat correctament."
+      destroy:
+        success: "%{resource} s'ha destruït correctament."
+      update:
+        success: "%{resource} s'ha actualitzat correctament."
+    fields:
+      has_many:
+        more: Mostrant %{count} de %{total_count}
+        none: Cap
+    form:
+      error: error
+      errors: "%{pluralized_errors} ha prohibit que aquest %{resource_name} es desi:"
+    navigation:
+      back_to_app: Torna a l'aplicació
+    search:
+      clear: Esborra la cerca
+      label: Cerca %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Aquest tauler d'administració proporciona accés directe a la
+          base de dades a l'aplicació Password Pusher. Aneu amb compte i considereu
+          fer una còpia de seguretat abans de fer qualsevol canvi.
+        admin_note: 'Nota: la destrucció d''un registre també destrueix tots els registres
+          secundaris. Per exemple, destruir un usuari també destruirà totes les contrasenyes,
+          fitxers i URL enviats per a aquest usuari.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: El nombre de síl·labes de la contrasenya generada.
+      back: Torna a l'equip
+      edit: Edita la política
+      team_policy_help: Una política d'equip és un conjunt de regles que s'apliquen
+        a totes les pressions fetes pels membres d'aquest equip.
+      personal_policy: Política personal
+      personal_policy_help: Una política és un conjunt de regles que s'apliquen a
+        tots els impulsos creats per tu.
+      team_policy: Política d'equip
+      header_timed_expiration: Caducitat cronometrada
+      expire_after_duration_min: Durada mínima
+      expire_after_duration_min_help: La durada mínima abans que caduqui una empenta.
+      expire_after_duration_max: Durada màxima
+      expire_after_duration_max_help: La durada màxima abans que caduqui una empenta.
+      expire_after_duration_default: Durada per defecte
+      expire_after_duration_default_help: La durada predeterminada abans que caduqui
+        un push.
+      minutes_tip: 1 dia = 1440 minuts, 7 dies = 10080 minuts, 30 dies = 43200 minuts
+      header_view_expiration: Veure caducitat
+      expire_after_views_min: Recompte mínim de visualitzacions
+      expire_after_views_min_help: El nombre mínim de visualitzacions abans que caduqui
+        un push.
+      expire_after_views_max: Recompte màxim de visualitzacions
+      expire_after_views_max_help: El nombre màxim de visualitzacions abans que caduqui
+        un push. [Màx. 100]
+      expire_after_views_default: Recompte de visualitzacions per defecte
+      expire_after_views_default_help: El nombre predeterminat de visualitzacions
+        abans que caduqui un push.
+      header_payload_limits: Límits de càrrega útil
+      push_text_max: Mida màxima del text
+      push_text_max_help: La mida màxima del text en una empenta. Mesurat en bytes.
+        [Màx. 1048576]
+      push_files_max: Màxim de fitxers permesos
+      push_files_max_help: El nombre màxim de fitxers permesos en un push. [Màx. 100]
+      header_retrieval_step: 1-Feu clic a Pas de recuperació
+      enable_retrieval_step: Habilitar?
+      enable_retrieval_step_help: Vols activar la recuperació amb 1 clic per a aquest
+        equip? Si està desactivada, aquesta opció s'amagarà i no s'utilitzarà.
+      retrieval_step_default: Valor per defecte
+      retrieval_step_default_help: El valor predeterminat de l'opció de pas de recuperació
+        d'un clic.
+      retrieval_step_forced: Força el valor per defecte?
+      retrieval_step_forced_help: Força l'ús d'aquesta opció amb el valor predeterminat
+        per a tots els membres de l'equip. Els membres de l'equip no poden modificar-lo.
+      hide_retrieval_step: Amagar l'opció?
+      hide_retrieval_step_help: Oculta l'opció de pas de recuperació d'1 clic als
+        membres de l'equip. Això és útil per forçar l'opció per defecte sense mostrar-la
+        als membres de l'equip.
+      header_deletable: Esborrable pel visor
+      enable_deletable: Habilitar?
+      enable_deletable_help: Vols habilitar aquesta opció per a l'equip? Si està desactivada,
+        aquesta opció s'amagarà i no s'utilitzarà.
+      deletable_default: Valor per defecte
+      deletable_default_help: El valor predeterminat de l'opció Suprimible per visor.
+      deletable_forced: Força el valor per defecte?
+      deletable_forced_help: Força l'ús d'aquesta opció amb el valor predeterminat
+        per a tots els membres de l'equip. Els membres de l'equip no poden modificar-lo.
+      hide_deletable: Amagar l'opció?
+      hide_deletable_help: Amaga l'opció Eliminable per visor als membres de l'equip.
+        Això és útil per forçar l'opció per defecte sense mostrar-la als membres de
+        l'equip.
+      hide_passphrase: Amagar l'opció?
+      hide_passphrase_help: Amaga l'opció de bloqueig de frase de contrasenya. Útil
+        per desactivar completament l'ús d'aquesta opció.
+      enable_blur: Habilitar?
+      enable_blur_help: La difuminació de la càrrega útil enfosquia el contingut de
+        la càrrega útil a la pàgina de lliurament de l'URL secret. Els destinataris
+        poden canviar el desenfocament amb un clic per revelar les dades originals.
+      header_passphrase: Bloqueig de frase de contrasenya
+      header_blur: Desenfocament de càrrega útil
+      header_pwgen: Generació de contrasenya
+      save: Actualitzar la política de l'equip
+      enable_pwgen: Habilitar?
+      enable_pwgen_help: Vols activar l'opció de generació de contrasenya per a aquest
+        equip? Si està desactivada, aquesta opció s'amagarà i no s'utilitzarà.
+      pwgen_configurable: Configurable?
+      pwgen_configurable_help: Voleu permetre als membres de l'equip configurar el
+        generador de contrasenyes? Si està desactivada, l'opció es forçarà a la configuració
+        següent i els membres de l'equip no la poden canviar.
+      pwgen_has_numbers: Inclou números?
+      pwgen_has_numbers_help: Incloeu números a la contrasenya generada.
+      pwgen_title_cased: Títol amb majúscules?
+      pwgen_title_cased_help: Titular amb majúscules i minúscules les parts de la
+        contrasenya generada.
+      pwgen_use_separators: Utilitzeu separadors?
+      pwgen_use_separators_help: Utilitzeu separadors a la contrasenya generada.
+      pwgen_consonants: Consonants
+      pwgen_consonants_help: Les consonants a utilitzar a la contrasenya generada.
+      pwgen_vowels: Vocals
+      pwgen_vowels_help: Les vocals a utilitzar a la contrasenya generada.
+      pwgen_separators: Separadors
+      pwgen_separators_help: Els separadors a utilitzar en la contrasenya generada.
+      pwgen_min_syllable_length: Longitud mínima de la síl·laba
+      pwgen_min_syllable_length_help: La longitud mínima d'una síl·laba a la contrasenya
+        generada.
+      pwgen_max_syllable_length: Longitud màxima de la síl·laba
+      pwgen_max_syllable_length_help: La longitud màxima d'una síl·laba a la contrasenya
+        generada.
+      pwgen_syllables_count: Recompte de síl·labes
+    show:
+      edit_policy: Edita la política Push
+      policy: Política d'equip
+  tag_line: Endavant. Envieu una altra contrasenya per correu electrònic.
+  about: Quant a
+  app_name: Impulsor de contrasenyes
+  application:
+    card_newsletter:
+      enter_email: Introdueix el teu correu electrònic...
+      subscribe: Subscriu-te
+    cookie_consent:
+      notice: Les galetes del navegador ajuden a fer que aquesta eina funcioni. En
+        utilitzar-lo, acceptes l'ús d'aquestes cookies.
+    footer:
+      best_practices: Millors pràctiques
+      docker: Contenidors Docker
+      faq: PMF
+      feedback: Feedback
+      github: GitHub
+      key_generator: Generador de claus
+      newsletter: Butlletí informatiu
+      password_generator: Generador de contrasenyes
+      tools: Eines, API i CLI
+    pw_generator_modal:
+      cancel: Cancel·lar
+      configure: Configura la generació de contrasenyes
+      consonants: Consonants
+      generate_password: Genera contrasenya
+      include_numbers: Inclou números
+      load_preset: Carregueu un preajust
+      max_syllable_length: Longitud màxima de síl·labes
+      min_syllable_length: Longitud mínima de síl·labes
+      num_syllables: Nombre de síl·labes
+      reset: Restableix els valors per defecte
+      save: Desa
+      separators: Separadors
+      test: Generació de proves
+      test_area: Àrea de prova
+      use_separators: Utilitzeu separadors
+      use_titlecase: Utilitzeu la majúscula del títol
+      vowels: Vocals
+  audit_logs:
+    audit_log:
+      created: Creat
+      created_by: Creat per %{user}
+      log_created: Push creat a %{date} per %{user}
+      log_expired: Push caducat manualment a %{date} per %{user}
+      log_failed_view: Intent de visualització fallit des de l'adreça IP %{ip} a %{date}
+        per %{user}
+      log_manual_expiration: Push caducat manualment a %{date} per %{user} a l'adreça
+        IP %{ip}
+      log_referrer: 'Referent: %{referrer}'
+      log_user_agent: 'Agent d''usuari: %{user_agent}'
+      log_viewed: Visualització correcta des de l'adreça IP %{ip} a %{date} per %{user}
+      unknown: Desconegut
+      viewed_by: Visualitzat per %{user}
+  dashboard:
+    show:
+      detail: Detall
+      event: Esdeveniment
+      when: Quan
+  duration:
+    format_d:
+      one: 1 dia
+      other: "%{count} dies"
+    format_dhm: "%{days} dia(s), %{hours} hora(es) i %{minutes} minut(s)"
+    format_h:
+      one: 1 hora
+      other: "%{count} hores"
+    format_hm: "%{hours} hores i %{minutes} minuts"
+    format_m:
+      one: 1 minut
+      other: "%{count} minut(s)"
+  feedbacks:
+    create:
+      feedback_sent: Comentaris enviats! Ens posarem en contacte amb vostè el més
+        aviat possible.
+    failed_spam_test: Les nostres disculpes, però heu fallat la comprovació de correu
+      brossa. En lloc d'això, podeu provar de contactar amb nosaltres a Github.
+    failed_to_send: No s'han pogut enviar comentaris. Alguna cosa anava malament.
+      Si us plau, torna-ho a provar o contacta amb nosaltres a Github.
     new:
-      upload_limit: Podeu penjar fins a %{count} fitxers per push.
+      email: Correu electrònic
+      have_idea: Tens una idea o un desig? Alguna cosa que no t'agrada? Vols ajudar?
+        Ho volem escoltar!
+      leave_blank: Deixeu aquest camp en blanc!
+      math_question: Què és cent menys 3?
+      send_feedback: Envia comentaris
+      tip: 'Consell: copieu el vostre missatge al porta-retalls en la improbable possibilitat
+        que l''enviament falli.'
+      your_name: El teu nom
+  none: Cap
+  pages:
+    about:
+      about_1: Password Pusher és una eina que s'utilitza per compartir contrasenyes
+        i altra informació sensible amb altres persones de manera segura.
+      about_2: Amb Password Pusher, podeu crear un URL únic i únic que caducarà després
+        d'un cert període de temps o després d'haver accedit un nombre determinat
+        de vegades, assegurant-vos que la vostra informació romangui privada i segura.
+      about_3: Sovint l'utilitzen persones i organitzacions per compartir credencials
+        d'inici de sessió o altres dades sensibles amb col·legues, clients o socis.
+      about_4: Password Pusher és una solució senzilla i còmoda per compartir contrasenyes
+        de manera segura sense necessitat de correu electrònic o altres mètodes de
+        comunicació menys segurs.
+      about_pwpush: Quant a Password Pusher
+      hosted_at_html: Allotjat a <a href="https://pwpush.com">pwpush.com</a> o podeu
+        executar la vostra pròpia instància privada allà on vulgueu.
+      my_name: Em dic Peter Giacomo Lombardo. Em podeu trobar a %{linkedin}, %{github}
+        o %{blog}.
+      source_avail_html: El codi font està <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">disponible a GitHub</a> . És de
+        codi obert i gratuït per a qualsevol persona que l'utilitzi, revise o modifiqui.
+      the_author: L'autor
+  pushes:
+    access:
+      incorrect: Aquesta frase de contrasenya és incorrecta. Torna-ho a provar o contacta
+        amb la persona o l'organització que t'ha enviat aquest enllaç.
+    audit:
+      1click_retrieval_step: 1-Feu clic a Pas de recuperació
+      1click_retrieval_step_help: Ajudeu a evitar que els sistemes de xat i els escàners
+        d'URL consumeixin les vistes.
+      active: Activa
+      attached_files: Fitxers adjunts
+      attached_files_help: S'han adjuntat fitxers a aquest push?
+      audit_log_for: Registre d'auditoria per a %{push_id}
+      contains_text: Conté text
+      contains_text_help: S'ha afegit una càrrega útil de text a aquest push?
+      created: Creat
+      created_by: Creat per %{user}
+      current_status: Estat actual
+      deletable_by_viewers: Esborrable pels espectadors
+      deletable_by_viewers_help: Això permet als usuaris finals eliminar el contingut
+        un cop recuperat.
+      detail: Detall
+      end_audit_log: Fi del registre d'auditoria
+      event: Esdeveniment
+      event_log: Registre d'auditoria
+      expire_after: 'Caduca després de:'
+      expire_after_time_help: El push caduca després d'aquest període de temps des
+        de la creació.
+      expire_after_view_help: L'impuls caduca després d'aquest nombre de visualitzacions.
+      expire_now: Caduca ara
+      expire_now_confirm: Això caducarà aquest enllaç secret i suprimirà per sempre
+        tot el contingut relacionat de la base de dades. El registre d'auditoria (incloent-hi
+        els intents de visualització futurs) es mantindrà a partir d'ara. Estàs segur?
+      expired: Caducat
+      failed_view: Intent de visualització fallit
+      failed_view_attempts: Intents de visualització fallits
+      failed_view_attempts_help: El nombre d'intents per veure aquesta empenta després
+        de la caducitat.
+      filename: Nom de l'arxiu
+      files_deleted: S'han suprimit tots els fitxers adjunts anteriorment o no n'hi
+        ha cap adjunt."
+      log_note: A mesura que l'empenta rebi activitat, aquí apareixerà un registre
+        de cadascun amb informació d'identificació.
+      manual_expiration: Caducitat manual
+      message_length: Longitud del missatge
+      message_length_help: La longitud de la càrrega útil del text adjunt.
+      none: Cap
+      num_files_attached: Nombre d'arxius adjunts
+      num_files_attached_help: El nombre de fitxers adjunts a aquest push.
+      passphrase_lock: Bloqueig de frase de contrasenya
+      passphrase_lock_help: Demana als destinataris que introdueixin una frase de
+        contrasenya per veure aquesta emissió.
+      payload: Càrrega útil
+      push_date: Prem a %{date}
+      reference_note: Nota de referència
+      secret_url: URL secret per a aquesta pujada
+      size: 'Mida: %{size}'
+      start_audit_log: Inici del registre d'auditoria
+      start_log: Inici del registre d'auditoria
+      state: Estat
+      state_help_active: Activa i encara disponible per a la seva visualització.
+      state_help_expired: El contingut pujat s'ha suprimit i l'URL secret ha caducat.
+      successful_view: Vista d'èxit
+      successful_views: 'Visualitzacions exitoses:'
+      successful_views_help: El nombre de vegades que s'ha vist correctament l'impuls.
+      time_remaining: Temps restant
+      time_remaining_help: La quantitat de temps que queda abans que caduqui l'empenta.
+      title: Push Registre d'auditoria
+      visible_to: Visible només per a tu
+      when: Quan
+    copy_to_clipboard: Copiar al portapapers
+    day:
+      one: 1 dia
+      other: "%{count} dies"
+    deleted: S'ha suprimit
+    expiration_html: Aquest enllaç secret i tot el contingut se suprimiran en <strong>%{duration}</strong>
+      o <strong>%{count} més visualitzacions</strong> , el que passi primer.
+    expire:
+      expired: El contingut pujat s'ha suprimit i l'URL secret ha caducat.
+      not_deletable: Aquesta pujada no es pot ser esborrada.
+    form:
+      12_hours: 12 hores
+      15_minutes: 15 minuts
+      1_day: 1 dia
+      1_hour: 1 hora
+      1_month: 1 mes
+      1_week: 1 setmana
+      1click: Utilitzeu un pas de recuperació d'1 clic
+      1click_tip: Ajuda a evitar que els sistemes de xat i els escàners consumeixin
+        les vistes.
+      2_days: 2 dies
+      2_months: 2 mesos
+      2_weeks: 2 setmanes
+      30_minutes: 30 minuts
+      3_days: 3 dies
+      3_months: 3 mesos
+      3_weeks: 3 Setmanes
+      45_minutes: 45 minuts
+      4_days: 4 dies
+      5_days: 5 dies
+      6_days: 6 dies
+      6_hours: 6 hores
+      add_files: Afegeix arxius...
+      audit_tip: Quan s'inicia la sessió, es conserva un registre d'auditoria de l'activitat
+        i està disponible indefinidament.
+      day: dia
+      days: Dies
+      deletable: Permet la supressió immediata
+      deletable_tip: Permet als usuaris eliminar aquest push un cop recuperat.
+      encryption_tip: El contingut es xifra abans de l'emmagatzematge i només està
+        disponible per a aquells que tinguin l'enllaç secret.
+      expiration_label: 'Expira aquest push i suprimeix després de:'
+      expiration_tip: Un cop caducat, tot el contingut i els fitxers del push s'eliminen
+        immediatament i completament.
+      generator_tip: Utilitzeu el botó de dalt per generar una contrasenya aleatòria.
+      hour: hora
+      hours: Hores
+      login_to_upload: Inicieu la sessió per carregar i adjuntar fitxers a aquest
+        push...
+      minutes: Minuts
+      month: mes
+      months: Mesos
+      note_label: Nota de referència
+      note_placeholder: Una nota privada per ajudar a recordar a qui o per a què serveix
+        aquesta empenta.
+      passphrase_label: Bloqueig de frase de contrasenya
+      passphrase_placeholder: Demana als destinataris que introdueixin una frase de
+        contrasenya per veure aquesta emissió.
+      password_tip: 'Consell: només introduïu una contrasenya al quadre. Una altra
+        informació d''identificació pot comprometre la seguretat.'
+      payload_placeholder: Introduïu la contrasenya, el text o l'URL per enviar...
+      push_it: Puja-la!
+      upload_limit: Podeu pujar fins a 10 fitxers per push.
+      view: Veure
+      views: Vistes
+      week: Setmana
+      weeks: Setmanes
+    hour:
+      one: 1 hora
+      other: "%{count} hores"
+    index:
+      actions: Accions
+      clear_filters: Esborra els filtres
+      created: Creat
+      created_by: Per
+      expires: Caduca
+      file_count: Fitxers
+      note: Nota
+      nothing_here: Encara no hi ha res aquí.
+      push_id: ID de la pujada
+      pushes: Empènyers
+      remaining_time: Temps restant
+      status: Estat
+      views: Vistes
+      views_remaining: Visualitzacions restants
+    minute:
+      one: 1 minut
+      other: "%{count} minuts"
+    more_view:
+      one: 1 vista més
+      other: "%{count} visualitzacions més"
+    'no': 'No'
+    none: Cap
+    passphrase:
+      enter_passphrase: Introduïu la frase de contrasenya
+      go: Vés
+      placeholder: Introduïu la contrasenya secreta proporcionada amb aquest URL
+      tip: Introduïu la contrasenya secreta
+    payload: Càrrega útil
+    preliminary:
+      click_proceed: Feu clic aquí per continuar
+    preview:
+      and: i
+      can_be: pot ser
+      can_not_be: no pot ser
+      deleted_by_viewers: esborrat pels usuaris
+      link_lang_tip: 'Consell: voleu enviar a un usuari internacional? Canvieu l''idioma
+        de l''enllaç secret mitjançant el menú desplegable a la dreta de l''URL.'
+      or: o
+      or_after: o després
+      push_another: Empènyer un altre
+      push_created: La teva empenta s'ha creat.
+      use_link_to_share: 'Utilitzeu aquest enllaç secret per compartir-lo:'
+      view_push_now: Veure aquesta empenta ara
+      will_burn_view: "(cremarà una vista)"
+      will_expire_after: Aquesta empenta caduca en
+      with_preliminary_step: També inclou un %{strong_start}pas de recuperació preliminar
+        d'1 clic%{strong_end}.
+    provide_text_or_file: Per crear un push, heu de proporcionar text, adjuntar un
+      fitxer o tots dos.
+    push:
+      active: Activa
+      audit: Auditoria
+      expired: Caducat
+      none: Cap
+      preview: Vista prèvia
+      push_controls: Controls de les pujades
+      title: Nou Push
+      unknown: Desconegut
+    secret_link_lang: Llenguatge d'enllaç secret
+    settings: Configuració
+    show:
+      blurred: La teva contrasenya està borrosa. Feu clic a continuació per revelar-lo.
+      click_to_reveal: El contingut està desdibuixat. Feu clic a continuació per revelar-lo.
+      delete_now: Suprimeix aquest enllaç secret ara
+      delete_now_confirm: Això caducarà aquest enllaç secret i suprimirà per sempre
+        tot el contingut relacionat de la base de dades. Estàs segur?
+      download_file: Descarrega l'arxiu
+      files_sent: Us han enviat els fitxers següents.
+      last_view: Aquesta és l'última vista.
+      obtain: Recupereu i emmagatzemeu aquest contingut de manera segura mitjançant
+        un gestor de contrasenyes i/o emmagatzematge encriptat. Recordeu eliminar
+        ràpidament les dades que ja no necessiteu.
+      open_file: Arxiu obert
+      please_download: Si us plau, descarregueu-lo i deseu-lo en una àrea segura.
+      will_be_deleted: Aquest enllaç secret i tot el contingut se suprimiran a %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} o %{b_tag}%{view_count} més %{view_unit}%{b_tag} (el
+        que passi primer).
+      your_link: El teu enllaç secret
+    show_expired:
+      expired_help: Si cal, poseu-vos en contacte amb la persona o l'organització
+        que us ha proporcionat aquest URL secret.
+      expired_message: Demanem disculpes, però aquest enllaç secret ha caducat.
+      link_expired: El vostre enllaç secret ha caducat
+    view:
+      one: 1 vista
+      other: visualitzacions %{count}.
+    view_audit_log: Veure el registre d'auditoria
+    whichever: "(el que passi primer)"
+    'yes': Sí
+  static:
+    about:
+      about_1: Password Pusher és una eina que s'utilitza per compartir contrasenyes
+        i altra informació sensible amb altres persones de manera segura.
+      about_2: Amb Password Pusher, podeu crear un URL únic i únic que caducarà després
+        d'un cert període de temps o després d'haver accedit un nombre determinat
+        de vegades, assegurant-vos que la vostra informació romangui privada i segura.
+      about_3: Sovint l'utilitzen persones i organitzacions per compartir credencials
+        d'inici de sessió o altres dades sensibles amb col·legues, clients o socis.
+      about_4: Password Pusher és una solució senzilla i còmoda per compartir contrasenyes
+        de manera segura sense necessitat de correu electrònic o altres mètodes de
+        comunicació menys segurs.
+      about_5: Allotjat a %{pwpush_link} o podeu executar la vostra pròpia instància
+        privada allà on vulgueu.
+      about_6: El codi font està disponible a %{github_link}. És de codi obert i gratuït
+        per a qualsevol persona que l'utilitzi, revise o modifiqui.
+      age_body: El primer git commit a Password Pusher va ser el <strong>28 de desembre
+        de 2011</strong> . pwpush.com es va posar en marxa poc després.
+      age_title: Més de %{years_count} Anys
+      author_1: Em dic Peter Giacomo Lombardo. Em podeu trobar a %{linkedin}, %{github}
+        o %{blog}.
+      author_2: Per obtenir actualitzacions, seguiu Password Pusher a %{twitter} (o
+        el meu %{twitter_personal}) o subscriviu-vos a %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: De lluny, la major ajuda és difondre la veu. Comparteix Password Pusher
+        amb els teus amics, companys i organitzacions.
+      help_2: 'Tu pots també:'
+      help_3: Destaca el projecte %{github}. És gasolina per als algos que tendeixen
+        a Password Pusher.
+      help_4: Ajuda %{translate}. Millora un idioma existent o afegeix-ne un de nou.
+      help_5: Registra't a %{newsletter} per rebre actualitzacions sobre versions
+        importants, problemes de seguretat, consells i molt més.
+      help_6: Seguiu Password Pusher a %{facebook}, %{twitter} i %{github}.
+      help_translate: Ajudeu a traduir
+      newsletter: Butlletí informatiu
+      pwpush_domain: pwpush.com
+      section_about: Quant a
+      section_author: L'autor
+      section_follow: On seguir Contrasenya Pusher
+      section_help: Vols ajudar?
+      title: Quant a Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Amb l'API JSON de Password Pusher, hi ha una sèrie d'aplicacions
+        i utilitats de línia d'ordres (CLI) que interaccionen amb pwpush.com o amb
+        la vostra instància autoallotjada. Envieu contrasenyes des de la CLI, Slack,
+        Alfred App i molt més.
+      answer_access_2: Consulteu la pàgina %{tools} per obtenir més informació.
+      answer_add_feature_1: Molt probable. M'encanta escoltar totes les idees i comentaris
+        i mantenir una llista per decidir què afegir a continuació. Si en teniu, envieu-los
+        a la pàgina %{feedback_link} o a %{github_link}.
+      answer_already_expired_1: Alguns sistemes, com ara el correu electrònic, els
+        tallafocs i els sistemes de xat, solen tenir escàners d'enllaços que poden
+        consumir vistes. Això normalment es fa per seguretat corporativa o simplement
+        per generar una "visualització prèvia" per a les aplicacions.
+      answer_already_expired_2: Per evitar-ho, utilitzeu l'opció de pas de recuperació
+        d'1 clic quan introduïu contrasenyes. Això requereix que els usuaris facin
+        clic a través d'una pàgina preliminar per protegir les vistes d'aquests escàners.
+      answer_already_expired_3: Com a mesura preventiva addicional, quan s'inicia
+        la sessió, es proporciona un registre d'auditoria per a cada impuls creat.
+        Aquest registre d'auditoria revela per qui i quan es va veure l'empenta.
+      answer_automation_1: Sí. L'API JSON de Password Pusher permet l'automatització
+        de les contrasenyes. Això es pot fer amb una varietat de llenguatges i eines
+        de programació.
+      answer_automation_2: Consulteu la pàgina %{tools} per obtenir més informació.
+      answer_conference_1: Absolutament. Tenim recursos multimèdia i una explicació
+        completa de les funcions disponibles en els formats %{windows_link} i %{mac_link}.
+      answer_conference_2: Si teniu cap pregunta o necessiteu ajuda, no dubteu a contactar
+        amb mi en qualsevol moment.
+      answer_how_many_1: Actualment no hi ha límits i no tinc intenció d'afegir-ne
+        cap. Per garantir mínimament l'estabilitat del lloc, Password Pusher està
+        configurat amb un limitador de velocitat per defecte. Això es pot desactivar
+        a la versió autoallotjada.
+      answer_licensing_1: La versió de codi font oberta es publica sota la llicència
+        Apache 2.0 i això defineix gairebé totes les limitacions. Hi ha uns quants
+        llocs de clons de Password Pusher remarcats i redissenyats i els donem la
+        benvinguda a tots.
+      answer_licensing_2: La versió premium es publica sota una llicència comercial.
+        No és de codi obert i no és gratuït. En el seu nucli conté el projecte de
+        codi obert, però ofereix un súper conjunt de funcions i està pensat per accelerar
+        el desenvolupament i ajudar a finançar el projecte.
+      answer_licensing_3: La versió premium no és necessària per executar una instància
+        privada de Password Pusher. La versió de codi obert té totes les funcions
+        i d'ús gratuït.
+      answer_licensing_4: Totes les funcions premium acaben a la versió de codi obert
+        després d'un període de temps depenent de la funció.
+      answer_private_risks_1: L'execució d'una instància privada de Password Pusher
+        per a la vostra empresa o organització us proporciona la tranquil·litat de
+        saber exactament quin codi s'està executant. Podeu configurar-lo i executar-lo
+        com vulgueu.
+      answer_private_risks_2: D'altra banda, si la vostra instància es pirateja i
+        es trenca el xifratge, ara les entitats malicioses tenen un diccionari de
+        contrasenyes dirigit als comptes de força bruta de la vostra organització.
+        (això es limitaria a les empenta que encara no han caducat)
+      answer_private_risks_3: En aquest sentit, la instància pública de pwpush.com
+        pot ser superior perquè només conté contrasenyes sense informació d'identificació
+        barrejada entre usuaris d'arreu del món.
+      answer_private_risks_4: Una altra consideració seria el manteniment de la instància.
+        Heu de mantenir-lo actualitzat, segur i amb una còpia de seguretat.
+      answer_private_risks_5: L'usuari ha de sospesar acuradament els pros i els contres
+        i decidir quina ruta és la millor per a ell. Estem encantats de recolzar ambdues
+        estratègies.
+      answer_purpose_1: Password Pusher existeix com una millor alternativa a l'enviament
+        de contrasenyes per correu electrònic.
+      answer_purpose_10: A més, <strong>les contrasenyes caduquen després que s'aconsegueix
+        un conjunt predefinit de visualitzacions o un temps passat.</strong>
+      answer_purpose_11: Un cop vençudes, les contrasenyes s'eliminen de manera inequívoca.
+      answer_purpose_12: Si us sembla interessant, proveu-ho o consulteu les altres
+        preguntes més freqüents a continuació.
+      answer_purpose_2: "<strong>L'enviament de contrasenyes per correu electrònic
+        és inherentment insegur.</strong> Els riscos més grans inclouen:"
+      answer_purpose_3: Les contrasenyes enviades per correu electrònic s'envien generalment
+        amb context a què van o poden derivar-se potencialment del nom d'usuari del
+        correu electrònic, domini, etc.
+      answer_purpose_4: El correu electrònic és inherentment insegur i pot ser interceptat
+        en diversos punts per entitats malicioses.
+      answer_purpose_5: 'Les contrasenyes enviades per correu electrònic viuen a perpetuïtat
+        (llegiu: per sempre) als arxius de correu electrònic.'
+      answer_purpose_6: Les contrasenyes del correu electrònic es poden recuperar
+        i utilitzar més endavant si un compte de correu electrònic és robat, trencat,
+        etc.
+      answer_purpose_7: Els mateixos riscos existeixen quan s'envia contrasenyes per
+        SMS, WhatsApp, Telegram, Xat, etc... Les dades es poden mantenir i sovint
+        es mantenen a perpetuïtat i fora del teu control.
+      answer_purpose_8: Mitjançant l'ús de Password Pusher, ometeu tot això.
+      answer_purpose_9: Per a cada contrasenya publicada a Password Pusher, <strong>es
+        genera un URL únic que només tu sabràs</strong> .
+      answer_rebranding_1: Password Pusher admet un canvi de marca complet "fora de
+        la caixa" que us permet afegir un logotip personalitzat, imatges, text i fins
+        i tot canviar el tema de l'aplicació.
+      answer_self_host_1: Sí, per a la versió de codi obert, oferim %{docker_link}
+        i %{install_link} per a una gran varietat de plataformes i núvols.
+      answer_self_host_2: Per a la versió premium, amb el superconjunt de funcions,
+        els contenidors autoallotjats arribaran aviat.
+      answer_trust_1: I amb raó. Tota bona seguretat comença amb un escepticisme saludable
+        de tots els components implicats.
+      answer_trust_2: Password Pusher existeix com una millor alternativa a l'enviament
+        de contrasenyes per correu electrònic. Evita que les contrasenyes existeixin
+        als arxius de correu electrònic a perpetuïtat. No existeix com a solució de
+        seguretat definitiva.
+      answer_trust_3: Password Pusher va començar com un projecte de codi obert a
+        finals de 2011. Ha estat mantingut i actualitzat per mi mateix (Peter Giacomo
+        Lombardo) i un grapat de col·laboradors excel·lents durant tot aquest temps.
+        El 2024, es va introduir la versió premium per accelerar el desenvolupament
+        i ajudar a finançar el projecte. Totes les funcions premium acaben finalment
+        a la versió de codi obert.
+      answer_trust_4: En tenir una història tan llarga i ser de codi obert, Password
+        Pusher ha estat revisat per molts ulls. Ha estat utilitzat i auditat per moltes
+        organitzacions i persones al llarg dels anys.
+      answer_trust_5: 'La política de Password Pusher és triple: 1) Xifratge en repòs
+        i en trànsit 2) Retenció de dades mínima 3) Transparència en forma de registre
+        d''auditoria.'
+      answer_trust_6: En aquest sentit, les càrregues útils push s'eliminen de manera
+        inequívoca quan caduquen i el registre d'auditoria es manté indefinidament.
+        Com menys dades tingui Password Pusher, millor.
+      answer_trust_7: Si encara teniu dubtes sobre la confiança, la seguretat i la
+        seguretat, no dubteu a revisar el codi, publicar qualsevol pregunta que tingueu
+        i considerar-lo executar-lo internament a la vostra organització.
+      answer_trust_8: Pel que fa a la confiança en mi, tot el que puc oferir és la
+        meva llarga història construint aquest projecte i la meva reputació pública
+        a %{github}, %{linkedin}, %{twitter} i %{blog}. No dubteu a posar-vos en contacte
+        amb mi en qualsevol moment amb qualsevol pregunta que tingueu.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Algunes organitzacions estan subjectes a polítiques de
+        seguretat que prohibeixen l'ús de serveis públics per a informació sensible,
+        com ara contrasenyes. Fins i tot hi ha organitzacions que requereixen que
+        totes les eines estiguin a intranets privades sense accés al món exterior.
+      answer_why_private_2: Executar la vostra pròpia instància privada de Password
+        Pusher us permet controlar l'entorn i les dades. També us permet afegir funcions
+        i integracions personalitzades específiques de la vostra organització.
+      answer_why_private_3: És per aquests motius que oferim la capacitat (i animem)
+        als usuaris i organitzacions a executar instàncies privades quan sigui necessari.
+      feedback_link: Formulari de comentaris
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: el meu bloc
+      question_access: Hi ha altres maneres d'accedir a Password Pusher fora d'un
+        navegador?
+      question_add_feature: Podries afegir una funció específica per a la meva organització?
+      question_already_expired: L'URL secret que he enviat ja estava caducat. Què
+        va passar?
+      question_automation: Puc automatitzar la distribució de la meva contrasenya?
+      question_conference: Puc utilitzar Password Pusher a la meva xerrada, vídeo,
+        presentació o conferència?
+      question_have_to_pay: He de pagar?
+      question_how_many: Quantes sol·licituds puc enviar a Password Pusher?
+      question_licensing: Hi ha restriccions de llicència per a mi, la meva empresa
+        o la meva organització?
+      question_premium_diff: Quines diferències hi ha entre la versió de codi obert
+        i la versió premium?
+      question_private_risks: Quins són els riscos de seguretat potencials d'executar
+        la meva pròpia versió internament?
+      question_purpose: Quin és l'objectiu de Password Pusher?
+      question_rebranding: Puc aplicar un logotip personalitzat o canviar el disseny?
+      question_self_host: Puc executar la meva pròpia versió per a la meva organització
+        internament?
+      question_trust: La confiança és important. Per què hauria d'utilitzar Password
+        Pusher?
+      question_why_premium: Password Pusher sempre ha estat de codi obert. Per què
+        hi ha una versió premium?
+      question_why_private: Per què voldria executar la meva pròpia instància privada
+        de Password Pusher?
+      question_will_oss: S'afegiran les funcions premium a la versió de codi obert?
+      subtitle: "..totes les coses que voleu saber sobre Password Pusher."
+      title: Preguntes freqüents
+      title_other: Altres
+      title_private: Executar la vostra pròpia instància privada
+      title_pushes: Empènyers
+      title_subscriptions: Versió Premium
+      title_tools: Eines, integracions i aplicacions
+      title_trust: Confiança i seguretat
+      tools_link: Eines i aplicacions
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Podeu aplicar aquesta clau a la vostra aplicació establint la variable
+        d'entorn
+      generate_key: Genera clau
+      generated: Clau de xifratge generada
+      intro: Aquesta pàgina s'utilitza com a eina d'ajuda per generar una clau de
+        xifratge aleatòria per a instàncies autoallotjades de Password Pusher.
+      intro_2: Password Pusher xifra les dades sensibles a la base de dades. Tot i
+        que s'inclou una clau predeterminada, la millor pràctica és utilitzar la vostra
+        pròpia clau de xifratge personalitzada.
+      intro_3: Amb cada actualització, aquesta pàgina genera una nova clau de xifratge.
+        Podeu utilitzar el codi generat aleatòriament a continuació per configurar
+        la vostra instància de Password Pusher.
+      note_1: Si no es proporciona una clau de xifratge, s'utilitzarà una clau predeterminada.
+      note_2: La millor seguretat per a les instàncies privades de Password Pusher
+        és utilitzar la vostra pròpia clau de xifratge personalitzada, tot i que no
+        és necessària.
+      note_3: El risc d'utilitzar la clau predeterminada es redueix si manteniu la
+        vostra instància segura i les vostres caducitats d'impuls breus. per exemple.
+        1 dia/1 visualització versus 100 dies/100 visualitzacions.
+      note_4: Un cop caduca una push, s'eliminen totes les dades xifrades d'aquesta
+        push.
+      note_5: Canviar una clau d'encriptatge on ja existeixen pujades antigues farà
+        que aquestes pujades més antigues siguin il·legibles. En altres paraules,
+        les dades seran escombrades. Les noves pujades cap endavant funcionaran bé.
+      note_6: 'La generació de claus també es pot fer des de la línia d''ordres a
+        la font de l''aplicació executant:'
+      notes: 'Notes:'
+      reload: Torneu a carregar aquesta pàgina per tornar a generar una clau nova.
+      title: Genera una clau de xifratge
+    password_generator:
+      push_it: Premeu aquesta contrasenya
+    tools:
+      alfred: Aplicació Alfred
+      api_documentation: Documentació del punt final de l'API
+      applications: Aplicacions
+      cli: Interfície de línia d'ordres
+      clu: Utilitats de línia d'ordres
+      examples: Exemples
+      github: Github
+      intro: Amb l'API JSON de Password Pusher, hi ha una sèrie d'aplicacions i utilitats
+        de línia d'ordres (CLI) que interaccionen amb pwpush.com o amb la vostra instància
+        autoallotjada. Envieu contrasenyes des de la CLI, Slack, Alfred App i molt
+        més.
+      intro_2: L'API JSON és una eina potent que permet l'automatització de l'emissió
+        de contrasenyes. Això es pot fer amb una varietat de llenguatges i eines de
+        programació.
+      intro_3: Consulteu la pàgina %{github} per obtenir més informació.
+      more: Més
+      slack: Fluix
+      subtitle: Password Pusher és més que una aplicació web. Té una API JSON que
+        permet una gran varietat d'integracions i aplicacions.
+      title: Eines, API, integracions i aplicacions
+      tools_1: Mitjançant l'API JSON, existeixen diverses eines per interaccionar
+        amb Password Pusher per automatitzar la distribució de contrasenyes.
+      tools_2: No tenim límits sobre quantes contrasenyes podeu pujar (i no teniu
+        intenció d'afegir límits) però sí que tenim un limitador de velocitat perquè
+        el lloc no sigui abatut per scripts dolents o actors dolents. Limiteu les
+        vostres eines al màxim 1 contrasenya cada pocs segons i hauríeu d'estar bé.
+      tools_3: 'Podeu provar-ho a la consola Javascript del vostre navegador si aneu
+        a la pàgina principal de Password Pusher i introduïu:'
+      tools_4: Aquesta API us permet connectar amb Password Pusher mitjançant JSON.
+        Això pot ser utilitzat per les utilitats existents com curl, wget o qualsevol
+        llenguatge de programació. Vegeu els exemples següents per obtenir algunes
+        idees.
+      tools_5: Vegeu més explicacions i exemples al wiki %{github}.
+      walkthrough: Tutorial i exemples

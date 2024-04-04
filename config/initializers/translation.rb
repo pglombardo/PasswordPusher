@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Permitted locales available for the application
-I18n.available_locales = Settings.language_codes.keys
+I18n.available_locales = Settings.enabled_language_codes.map(&:to_sym)
 
 # Ability to set default locale to something other than :en
 # See config/settings.yml

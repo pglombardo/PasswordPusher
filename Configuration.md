@@ -89,7 +89,6 @@ Notes:
 | PWP__SHOW_GDPR_CONSENT_BANNER | Optionally enable or disable the GDPR cookie consent banner. | `true` |
 | PWP__TIMEZONE | Set the application wide timezone.  Use a valid timezone string (see note below). | `America/New_York` |
 | SECRET_KEY_BASE | A secret key that is used for various security-related features, including session cookie encryption and other cryptographic operations.  Use `/opt/PasswordPusher/bin/rails secret` to generate a random key string. [See the SECRET_KEY_BASE wiki page.](https://github.com/pglombardo/PasswordPusher/wiki/SECRET_KEY_BASE)| _Randomly Generated on boot_ |
-| PWP__RELATIVE_ROOT | <DEPRECATED/doesn't work reliably - Will be removed in a future version.> Runs the application in a subfolder.  e.g. With a value of `pwp` the front page will then be at `https://url/pwp` | `Not set` |
 
 _Note_: The list of valid timezone strings can be found at [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
@@ -593,3 +592,69 @@ If you are unable to have these headers passed to the application for any reason
 | Environment Variable | Description | Example Value |
 | --------- | ------------------ | --- |
 | PWP__OVERRIDE_BASE_URL | Set this value (without a trailing slash) to force the base URL of generated links. | 'https://subdomain.domain.dev'
+
+
+# Admin Dashboard
+
+## Introduction
+
+Password Pusher bundles an Admin dashboard for self-hosted instances available at `/admin`. This dashboard allows for direct database access, so care should be taken.
+
+It is only enabled with logins are enabled (`enable_logins`) and access is limited to accounts marked as "Administrator" only.
+
+### Security & Access
+
+Access to the Admin dashboard grants direct access to the application's database.
+
+Accessing the admin dashboard is accessible by accounts that you specifically mark as "Administrator".  Make sure to restrict access to authorized personnel only to prevent unauthorized access and potential security breaches.
+
+To access the Admin dashboard, you must have:
+
+- Logins enabled for your instance
+- An account registered, confirmed and marked as an "Administrator"
+
+For instructions on enabling logins and account registration, see previous sections above.
+
+## Marking a User as an Administrator
+
+To mark a user account as an Administrator, you will need the email that the account registered with.  With that email, follow these steps:
+
+1. Open an application console by accessing the server where the application code resides. For example, if using Docker, navigate to `/opt/PasswordPusher`:
+
+    ```bash
+    docker exec -it <container_id> bash
+    cd /opt/PasswordPusher
+    bin/rails console
+    ```
+
+2. From the application console, call the `PasswordPusher.grant_system_admin!` method with the email of the target account:
+
+    ```ruby
+    PasswordPusher.grant_system_admin!('user@example.com')
+    ```
+
+    This grants System Administrator privileges to the specified user account.
+
+    > Note: Ensure to replace `'user@example.com'` with the actual email address of the target account.
+
+3. Upon successful execution, you will receive a confirmation message indicating that the user account has been granted System Administrator privileges.
+
+### Error Handling
+
+If the specified email address is invalid or if the command fails to execute successfully, an appropriate error message will be displayed. Verify the email address and troubleshoot any issues encountered.
+
+## Revoking Administrator Privilege
+
+To revoke Administrator privileges from a user account, use the `PasswordPusher.revoke_system_admin!` method:
+
+```ruby
+PasswordPusher.revoke_system_admin!('user@example.com')
+```
+
+This revokes System Administrator privileges from the specified user account. Ensure to replace 'user@example.com' with the actual email address of the target account.
+
+Upon successful execution, you will receive a confirmation message indicating that Administrator privileges have been revoked from the user account.
+
+## Feedback
+
+If you encounter any difficulties or have suggestions for improvement, let me know or file an issue in Github.

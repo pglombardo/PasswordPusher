@@ -5,7 +5,7 @@ def load_legacy_environment_variables
   # Check for Legacy Environment Variables (to be deprecated)
   deprecations_detected = false
 
-  legacy_options = %i[relative_root]
+  legacy_options = %i[]
 
   legacy_options.each do |option|
     next if Settings.send(option).nil?

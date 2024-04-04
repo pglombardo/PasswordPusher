@@ -20,29 +20,30 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
 Give your users the tools to be secure by default.
 
-Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
+Password Pusher is an open source application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
 * __Easy-to-install:__ Host your own via Docker, a cloud service or just use [pwpush.com](https://pwpush.com)
-* __Opensource:__ No blackbox code.  Only trusted, tested and reviewed opensource code.
-* __Versatile:__ Push passwords, text, files or URLs that autoexpire and self delete.
+* __Open Source:__ No blackbox code.  Only trusted, tested and reviewed open source code.
+* __Versatile:__ Push passwords, text, files or URLs that auto-expire and self delete.
 * __Audit logging:__ Track and control what you've shared and see who has viewed it.
 * __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
 * __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
+* __Admin Dashboard:__ Manage your self-hosted instance with a built in admin dashboard.
 * __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
 * __Themes:__ [26 themes](./Themes.md) bundled in courtesy of Bootswatch.  Select with a simple environment variable.
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
-* __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
+* __Re-Brandable:__ Customize the site name, tagline and logo to fit your environment.
 * __Custom CSS:__ Bundle in your own custom CSS to add your own design.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 10 year history.
 * __Actively Maintained:__ I happily work for the good karma of the great IT/Security community.
-* __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
+* __Honest Software:__  Open source written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
 💌 --> Sign up for [the newsletter](https://buttondown.email/pwpush?tag=github) to get updates on big releases, security issues, new features, integrations, tips and more.
 
@@ -58,7 +59,7 @@ Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https:
 [![](./app/assets/images/features/preliminary-step-thumb.png)](./app/assets/images/features/preliminary-step.gif)
 
 
-# ⚡️ Quickstart
+# ⚡️ Quick Start
 
 → Go to [pwpush.com](https://pwpush.com) and try it out.
 
@@ -182,7 +183,7 @@ See the prebuilt [Docker Compose example here](https://github.com/pglombardo/Pas
 
 ## From Source
 
-I generally don't suggest building this application from source code for casual use.  The is due to the complexities in the toolset across platforms.  Running from source code is best when you plan to develop the application.
+I generally don't suggest building this application from source code for casual use.  The is due to the complexities in the tool set across platforms.  Running from source code is best when you plan to develop the application.
 
 For quick and easy, use the Docker containers instead.
 
@@ -328,7 +329,7 @@ If you would like to volunteer and assist in translating, see [this page](https:
 | Fredrik Arvas|[Swedish](https://pwpush.com/sv/p/ny) | |
 | Pedro Marques | [European Portuguese](https://pwpush.com/pt-pt/p/novo) | |
 
-Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
+Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for open source projects.
 
 ## Containers
 

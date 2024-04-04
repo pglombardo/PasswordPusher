@@ -221,25 +221,19 @@ hu:
       create: "%{model} létrehozása"
       update: "%{model} módosítása"
       submit: "%{model} mentése"
-  will_paginate:
-    previous_label: "← Előző"
-    next_label: Következő &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Lapozás
-    page_aria_label: "%{page}. oldal"
     page_entries_info:
-      single_page:
-        zero: Nem található %{model}
-        one: 1 %{model} megjelenítése
-        other: Összes (%{count}) %{model} megjelenítése
-      single_page_html:
-        zero: Nem található %{model}
-        one: "<b>1</b> %{model} megjelenítése"
-        other: Az <b>összes (%{count})</b> %{model} megjelenítése
-      multi_page: "%{model} %{from} - %{to} / %{count} megjelenítése"
-      multi_page_html: "%{model} <b>%{from} - %{to}</b> / <b>%{count}</b> megjelenítése"
-    previous_aria_label: Előző oldal
-    next_aria_label: Következő oldal
+      entry:
+        zero: bejegyzés
+        one: belépés
+        other: bejegyzés
+      one_page:
+        display_entries:
+          zero: Nem található %{entry_name}
+          one: "<b>1</b> megjelenítése %{entry_name}"
+          other: "<b>Az összes %{count}</b> %{entry_name} megjelenítése"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> megjelenítve
+          (összesen <b>%{total}</b>)"
   flash:
     actions:
       create:
@@ -614,6 +608,762 @@ hu:
     access: hozzáférés
     passphrase: jelmondat
     preview: előnézet
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Első"
+      last: Utolsó &raquo;
+      previous: "&lsaquo; Előző"
+      next: Következő &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Biztos vagy ebben?
+      destroy: Elpusztítani
+      edit: Szerkesztés
+      edit_resource: Szerkesztés %{name}
+      show_resource: "%{name} megjelenítése"
+      new_resource: Új %{name}
+      back: Vissza
+    controller:
+      create:
+        success: "%{resource} sikeresen létrehozva."
+      destroy:
+        success: "%{resource} sikeresen megsemmisült."
+      update:
+        success: "%{resource} sikeresen frissítve."
+    fields:
+      has_many:
+        more: "%{count}/%{total_count} megjelenítése"
+        none: Egyik sem
+    form:
+      error: hiba
+      errors: "%{pluralized_errors} megtiltotta az %{resource_name} mentését:"
+    navigation:
+      back_to_app: Vissza az alkalmazáshoz
+    search:
+      clear: Keresés törlése
+      label: Keresés %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Ez a rendszergazdai irányítópult közvetlen adatbázis-hozzáférést
+          biztosít a Password Pusher alkalmazáshoz. Kérjük, legyen óvatos, és fontolja
+          meg a biztonsági másolat készítését, mielőtt bármilyen változtatást végrehajtana.
+        admin_note: 'Megjegyzés: Egy rekord megsemmisítése az összes gyermekrekordot
+          is megsemmisíti. Például egy felhasználó megsemmisítése az adott felhasználó
+          összes letoltott jelszavát, fájlját és URL-jét is megsemmisíti.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: A generált jelszó szótagjainak száma.
+      back: Vissza a csapathoz
+      edit: Szabályzat szerkesztése
+      team_policy_help: A csapatszabályzat olyan szabályok összessége, amelyek a csapat
+        tagjai által végrehajtott összes lökésre vonatkoznak.
+      personal_policy: Személyes szabályzat
+      personal_policy_help: A házirend olyan szabályok összessége, amelyek az Ön által
+        létrehozott összes push-ra vonatkoznak.
+      team_policy: Csapatszabályzat
+      header_timed_expiration: Időzített lejárat
+      expire_after_duration_min: Minimális időtartam
+      expire_after_duration_min_help: A leküldés lejárta előtti minimális időtartam.
+      expire_after_duration_max: Maximális időtartam
+      expire_after_duration_max_help: A leküldés lejárta előtti maximális időtartam.
+      expire_after_duration_default: Alapértelmezett időtartam
+      expire_after_duration_default_help: Az alapértelmezett időtartam a push lejárta
+        előtt.
+      minutes_tip: 1 nap = 1440 perc, 7 nap = 10080 perc, 30 nap = 43200 perc
+      header_view_expiration: Lejárat megtekintése
+      expire_after_views_min: Minimális megtekintések száma
+      expire_after_views_min_help: A megtekintések minimális száma a leküldés lejárta
+        előtt.
+      expire_after_views_max: Maximális megtekintések száma
+      expire_after_views_max_help: A megtekintések maximális száma a leküldés lejárta
+        előtt. [Max. 100]
+      expire_after_views_default: Alapértelmezett megtekintések száma
+      expire_after_views_default_help: Az alapértelmezett megtekintések száma a push
+        lejárta előtt.
+      header_payload_limits: Terhelhetőségi korlátok
+      push_text_max: Maximális szövegméret
+      push_text_max_help: A szöveg maximális mérete egy leküldésben. Bájtban mérve.
+        [Max. 1048576]
+      push_files_max: Maximálisan engedélyezett fájlok
+      push_files_max_help: A leküldés során engedélyezett fájlok maximális száma.
+        [Max. 100]
+      header_retrieval_step: 1-Kattintson a Visszakeresési lépésre
+      enable_retrieval_step: Engedélyezze?
+      enable_retrieval_step_help: Engedélyezi az 1-kattintásos visszakeresést ennél
+        a csapatnál? Ha le van tiltva, ez az opció el van rejtve, és nem használható.
+      retrieval_step_default: Alapértelmezett érték
+      retrieval_step_default_help: Az 1-kattintásos visszakeresési lépés alapértelmezett
+        értéke.
+      retrieval_step_forced: Kikényszeríti az alapértelmezett értéket?
+      retrieval_step_forced_help: Kényszeríti ennek a beállításnak a használatát az
+        alapértelmezett értékkel az összes csapattag számára. A csapattagok nem módosíthatják.
+      hide_retrieval_step: Elrejti az opciót?
+      hide_retrieval_step_help: Elrejti az 1-kattintásos visszakeresés lépés opciót
+        a csapattagok elől. Ez akkor hasznos, ha kikényszeríti az alapértelmezett
+        beállítást anélkül, hogy megmutatná a csapattagoknak.
+      header_deletable: A Viewer által törölhető
+      enable_deletable: Engedélyezze?
+      enable_deletable_help: Engedélyezi ezt a lehetőséget a csapat számára? Ha le
+        van tiltva, ez az opció el van rejtve, és nem használható.
+      deletable_default: Alapértelmezett érték
+      deletable_default_help: A megjelenítő által törölhető beállítás alapértelmezett
+        értéke.
+      deletable_forced: Kikényszeríti az alapértelmezett értéket?
+      deletable_forced_help: Kényszeríti ennek a beállításnak a használatát az alapértelmezett
+        értékkel az összes csapattag számára. A csapattagok nem módosíthatják.
+      hide_deletable: Elrejti az opciót?
+      hide_deletable_help: Elrejti a Megtekintő által törölhető opciót a csapattagok
+        elől. Ez akkor hasznos, ha kikényszeríti az alapértelmezett beállítást anélkül,
+        hogy megmutatná a csapattagoknak.
+      hide_passphrase: Elrejti az opciót?
+      hide_passphrase_help: Elrejti a Passphrase Lock opciót. Hasznos, ha teljesen
+        letiltja ennek az opciónak a használatát.
+      enable_blur: Engedélyezze?
+      enable_blur_help: A rakomány elhomályosítása eltakarja a rakomány tartalmát
+        a titkos URL-kézbesítési oldalon. A címzettek egy kattintással átkapcsolhatják
+        az elmosódást az eredeti adatok megjelenítéséhez.
+      header_passphrase: Jelszó zárolása
+      header_blur: Payload Burring
+      header_pwgen: Jelszógenerálás
+      save: Frissítse a csapat szabályzatát
+      enable_pwgen: Engedélyezze?
+      enable_pwgen_help: Engedélyezi a Jelszógenerálás opciót ennél a csapatnál? Ha
+        le van tiltva, ez az opció el van rejtve, és nem használható.
+      pwgen_configurable: Konfigurálható?
+      pwgen_configurable_help: Engedélyezi a csapattagoknak a Jelszógenerátor konfigurálását?
+        Ha le van tiltva, az opció az alábbi konfigurációra lesz kényszerítve, és
+        a csapattagok nem módosíthatják.
+      pwgen_has_numbers: Számokat is tartalmaz?
+      pwgen_has_numbers_help: Írjon be számokat a generált jelszóba.
+      pwgen_title_cased: Cím Cased?
+      pwgen_title_cased_help: Cím kis- és nagybetűvel a generált jelszórészeket.
+      pwgen_use_separators: Elválasztókat használ?
+      pwgen_use_separators_help: Használjon elválasztókat a generált jelszóban.
+      pwgen_consonants: Mássalhangzók
+      pwgen_consonants_help: A generált jelszóban használandó mássalhangzók.
+      pwgen_vowels: Magánhangzók
+      pwgen_vowels_help: A generált jelszóban használandó magánhangzók.
+      pwgen_separators: Elválasztók
+      pwgen_separators_help: A generált jelszóban használandó elválasztók.
+      pwgen_min_syllable_length: Minimális szótaghossz
+      pwgen_min_syllable_length_help: Egy szótag minimális hossza a generált jelszóban.
+      pwgen_max_syllable_length: Maximális szótaghossz
+      pwgen_max_syllable_length_help: Egy szótag maximális hossza a generált jelszóban.
+      pwgen_syllables_count: Szótagszám
+    show:
+      edit_policy: Leküldéses házirend szerkesztése
+      policy: Csapatszabályzat
+  tag_line: Menj tovább. Másik jelszó elküldése e-mailben.
+  about: A programról
+  app_name: Jelszótoló
+  application:
+    card_newsletter:
+      enter_email: Írd be az email címed...
+      subscribe: Iratkozz fel
+    cookie_consent:
+      notice: A böngésző cookie-jai segítenek ennek az eszköznek a működésében. Használatával
+        Ön elfogadja ezen sütik használatát.
+    footer:
+      best_practices: Legjobb gyakorlatok
+      docker: Docker konténerek
+      faq: GYIK
+      feedback: Visszacsatolás
+      github: GitHub
+      key_generator: Kulcsgenerátor
+      newsletter: Hírlevél
+      password_generator: Jelszógenerátor
+      tools: Eszközök, API és CLI-k
+    pw_generator_modal:
+      cancel: Mégsem
+      configure: Jelszógenerálás konfigurálása
+      consonants: Mássalhangzók
+      generate_password: Jelszó generálása
+      include_numbers: Tartalmazza a számokat
+      load_preset: Preset betöltése
+      max_syllable_length: Maximális szótaghossz
+      min_syllable_length: Minimális szótaghossz
+      num_syllables: Szótagok száma
+      reset: Állítsa vissza az alapértelmezett értékeket
+      save: Mentse
+      separators: Elválasztók
+      test: Tesztgeneráció
+      test_area: Tesztterület
+      use_separators: Használjon elválasztókat
+      use_titlecase: Használjon nagy kezdőbetűt
+      vowels: Magánhangzók
+  audit_logs:
+    audit_log:
+      created: Létrehozva
+      created_by: 'Készítette: %{user}'
+      log_created: Push létrehozta %{date} oldalon, %{user}
+      log_expired: A kézi leküldés lejárt %{date} időpontban, %{user}
+      log_failed_view: Sikertelen megtekintési kísérlet az %{ip} IP-címről a %{date}
+        oldalon, %{user}
+      log_manual_expiration: Push manuálisan lejárt %{date}-n %{user} által az %{ip}
+        IP-címen
+      log_referrer: 'Hivatkozó: %{referrer}'
+      log_user_agent: 'Felhasználói ügynök: %{user_agent}'
+      log_viewed: Sikeres megtekintés az %{ip} IP-címről az %{date} oldalon, %{user}
+      unknown: Ismeretlen
+      viewed_by: 'Megnézte: %{user}'
+  dashboard:
+    show:
+      detail: Részlet
+      event: Esemény
+      when: Amikor
+  duration:
+    format_d:
+      one: 1 nap
+      other: "%{count} napja"
+    format_dhm: "%{days} nap(ok), %{hours} óra és %{minutes} perc"
+    format_h:
+      one: 1 óra
+      other: "%{count} óra"
+    format_hm: "%{hours} óra és %{minutes} perc"
+    format_m:
+      one: 1 perc
+      other: "%{count} perc"
+  feedbacks:
+    create:
+      feedback_sent: Visszajelzés elküldve! A lehető leghamarabb visszakeresünk.
+    failed_spam_test: Elnézést kérünk, de nem sikerült a spamellenőrzés. Ehelyett
+      megpróbálhatja felvenni velünk a kapcsolatot a Githubon.
+    failed_to_send: Nem sikerült visszajelzést küldeni. Valami nem stimmelt. Kérjük,
+      próbálja újra, vagy lépjen kapcsolatba velünk a Githubon.
     new:
-      upload_limit: Leküldésenként legfeljebb %{count} fájlt tölthet fel.
+      email: Email
+      have_idea: Van ötlete vagy kívánsága? Valami nem tetszik? Szeretnél segíteni?
+        Szeretnénk hallani!
+      leave_blank: Hagyja üresen ezt a mezőt!
+      math_question: Mennyi a száz mínusz 3?
+      send_feedback: Visszajelzés küldése
+      tip: 'Tipp: Másolja az üzenetet a vágólapra, mert pici esélye azért van, hogy
+        a küldés sikertelen lesz.'
+      your_name: A neved
+  none: Egyik sem
+  pages:
+    about:
+      about_1: A Password Pusher egy eszköz a jelszavak és más bizalmas információk
+        biztonságos megosztására másokkal.
+      about_2: A Password Pusher segítségével egyedi, egyszeri URL-t hozhat létre,
+        amely egy bizonyos idő elteltével vagy bizonyos számú hozzáférés után lejár,
+        így biztosítva, hogy adatai privát és biztonságosak maradjanak.
+      about_3: Magánszemélyek és szervezetek gyakran használják bejelentkezési adatok
+        vagy más érzékeny adatok megosztására kollégáikkal, ügyfelekkel vagy partnerekkel.
+      about_4: A Password Pusher egy egyszerű és kényelmes megoldás a jelszavak biztonságos
+        megosztására anélkül, hogy e-mailre vagy más kevésbé biztonságos kommunikációs
+        módszerre lenne szükség.
+      about_pwpush: A Password Pusher-ről
+      hosted_at_html: <a href="https://pwpush.com">A pwpush.com</a> webhelyen található,
+        vagy bárhol futtathatja saját privát példányát.
+      my_name: A nevem Peter Giacomo Lombardo. Megtalálhat az %{linkedin}, %{github}
+        vagy %{blog} oldalon.
+      source_avail_html: A forráskód <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">elérhető a GitHubon</a> . Nyílt
+        forráskódú, és bárki ingyenesen használhatja, áttekintheti vagy módosíthatja.
+      the_author: A szerző
+  pushes:
+    access:
+      incorrect: Ez a jelszó hibás. Kérjük, próbálja újra, vagy lépjen kapcsolatba
+        azzal a személlyel vagy szervezettel, aki ezt a linket küldte Önnek.
+    audit:
+      1click_retrieval_step: 1-Kattintson a Visszakeresési lépésre
+      1click_retrieval_step_help: Segít elkerülni, hogy a csevegőrendszerek és az
+        URL-szkennerek elhasználják a megtekintéseket.
+      active: Aktív
+      attached_files: Csatolt fájlok
+      attached_files_help: Csatoltak fájlokat ehhez a push-hoz?
+      audit_log_for: 'Audit napló a következőhöz: %{push_id}'
+      contains_text: Szöveget tartalmaz
+      contains_text_help: Hozzá lett adva szöveges terhelés ehhez a push-hoz?
+      created: Létrehozva
+      created_by: 'Készítette: %{user}'
+      current_status: Jelenlegi állapot
+      deletable_by_viewers: A nézők törölhetik
+      deletable_by_viewers_help: Ez lehetővé teszi a végfelhasználók számára, hogy
+        a visszakeresés után töröljék a tartalmat.
+      detail: Részlet
+      end_audit_log: Ellenőrzési napló vége
+      event: Esemény
+      event_log: Ellenőrzési napló
+      expire_after: 'Lejárat után:'
+      expire_after_time_help: A leküldés a létrehozástól számított ennyi idő elteltével
+        lejár.
+      expire_after_view_help: A leküldés ennyi megtekintés után lejár.
+      expire_now: Lejár most
+      expire_now_confirm: Ezzel lejár ez a titkos hivatkozás, és örökre töröl minden
+        kapcsolódó tartalmat az adatbázisból. Az ellenőrzési napló (beleértve a jövőbeli
+        megkísérelt nézeteket is) a jövőben is megmarad. biztos vagy ebben?
+      expired: Lejárt
+      failed_view: Sikertelen megtekintési kísérlet
+      failed_view_attempts: Sikertelen megtekintési kísérletek
+      failed_view_attempts_help: Azon kísérletek száma, amelyek megtekintették ezt
+        a leküldést a lejárat után.
+      filename: Fájl név
+      files_deleted: Minden korábban csatolt fájl törölve lett, vagy nem volt csatolva."
+      log_note: Amint a leküldés tevékenységet kap, mindegyikről egy napló jelenik
+        meg az azonosító adatokkal.
+      manual_expiration: Kézi lejárat
+      message_length: Üzenet hossza
+      message_length_help: A csatolt szöveges adattartalom hossza.
+      none: Egyik sem
+      num_files_attached: Csatolt fájlok száma
+      num_files_attached_help: A leküldéshez csatolt fájlok száma.
+      passphrase_lock: Jelszózárolás
+      passphrase_lock_help: A leküldés megtekintéséhez a címzettektől meg kell adnia
+        egy jelszót.
+      payload: Hasznos teher
+      push_date: Megnyomva %{date}
+      reference_note: Referencia jegyzet
+      secret_url: A küldés titkos URL-je
+      size: 'Méret: %{size}'
+      start_audit_log: Ellenőrzési napló eleje
+      start_log: Ellenőrzési napló eleje
+      state: Állapot
+      state_help_active: Aktív és még megtekinthető.
+      state_help_expired: A küldés tartalmát törölték, és a titkos URL lejárt.
+      successful_view: Sikeres nézet
+      successful_views: Sikeres megtekintések
+      successful_views_help: A leküldés sikeres megtekintéseinek száma.
+      time_remaining: Hátralevő idő
+      time_remaining_help: A leküldés lejártáig hátralévő idő.
+      title: Push Audit Log
+      visible_to: Csak Önnek látható
+      when: Amikor
+    copy_to_clipboard: Másolja a vágólapra
+    day:
+      one: 1 nap
+      other: "%{count} napja"
+    deleted: Törölve
+    expiration_html: Ez a titkos link és az összes tartalom törlődik <strong>%{duration}</strong>
+      vagy <strong>%{count} további nézetekben</strong> , attól függően, hogy melyik
+      következik be előbb.
+    expire:
+      expired: A küldés tartalmát törölték, és a titkos URL lejárt.
+      not_deletable: Ez a küldés nem törölhető a nézők által.
+    form:
+      12_hours: 12 óra
+      15_minutes: 15 perc
+      1_day: 1 nap
+      1_hour: 1 óra
+      1_month: 1 hónap
+      1_week: 1 hét
+      1click: Kattintás után lehessen megtekinteni a jelszót
+      1click_tip: Segít elkerülni, hogy a csevegőrendszerek és a szkennerek felemészsék
+        a nézeteket.
+      2_days: 2 nap
+      2_months: 2 hónap
+      2_weeks: 2 hét
+      30_minutes: 30 perc
+      3_days: 3 nap
+      3_months: 3 hónap
+      3_weeks: 3 hét
+      45_minutes: 45 perc
+      4_days: 4 nap
+      5_days: 5 nap
+      6_days: 6 nap
+      6_hours: 6 óra
+      add_files: Fájlok hozzáadása...
+      audit_tip: Ha bejelentkezik, a tevékenységről naplót vezetünk, amely korlátlan
+        ideig elérhető.
+      day: nap
+      days: nap
+      deletable: Azonnali törlés engedélyezése
+      deletable_tip: Lehetővé teszi a felhasználóknak, hogy töröljék ezt a leküldést,
+        miután lekérték.
+      encryption_tip: A tartalom tárolás előtt titkosítva van, és csak azok számára
+        érhető el, akik rendelkeznek a titkos hivatkozással.
+      expiration_label: 'Lejárta ezt a leküldést és törölni a következő után:'
+      expiration_tip: A lejárat után a push összes tartalma és fájlja azonnal és teljesen
+        törlődik.
+      generator_tip: Használja a fenti gombot egy véletlenszerű jelszó generálásához.
+      hour: óra
+      hours: Órák
+      login_to_upload: Fájlok feltöltéséhez és csatolásához jelentkezzen be...
+      minutes: Percek
+      month: hónap
+      months: Hónapok
+      note_label: Referencia jegyzet
+      note_placeholder: Egy privát megjegyzés, amely segít emlékezni arra, hogy kinek
+        vagy mire való ez a push.
+      passphrase_label: Jelszó zárolása
+      passphrase_placeholder: A leküldés megtekintéséhez a címzettektől meg kell adnia
+        egy jelszót.
+      password_tip: 'Tipp: Csak jelszót írjon be a mezőbe. Egyéb azonosító adatok
+        veszélyeztethetik a biztonságot.'
+      payload_placeholder: Írja be a jelszót, szöveget vagy URL-t a küldéshez...
+      push_it: Küldjük!
+      upload_limit: Letöltésenként legfeljebb 10 fájlt tölthet fel.
+      view: Kilátás
+      views: megtekintés
+      week: Hét
+      weeks: Hetek
+    hour:
+      one: 1 óra
+      other: "%{count} óra"
+    index:
+      actions: Akciók
+      clear_filters: Szűrők törlése
+      created: Létrehozva
+      created_by: Által
+      expires: Lejár
+      file_count: Fájlok
+      note: jegyzet
+      nothing_here: Itt még nincs semmi.
+      push_id: Push ID
+      pushes: Tolja
+      remaining_time: Hátralevő idő
+      status: Állapot
+      views: megtekintés
+      views_remaining: Hátralévő nézetek
+    minute:
+      one: 1 perc
+      other: "%{count} perce"
+    more_view:
+      one: 1 további megtekintés
+      other: "%{count} további megtekintések"
+    'no': Nem
+    none: Egyik sem
+    passphrase:
+      enter_passphrase: Írja be a jelszót
+      go: Megy
+      placeholder: Írja be az URL-hez mellékelt titkos jelszót
+      tip: Írja be a titkos jelszót
+    payload: Hasznos teher
+    preliminary:
+      click_proceed: Kattintson ide a folytatáshoz
+    preview:
+      and: és
+      can_be: lehet
+      can_not_be: nem lehet
+      deleted_by_viewers: törölte a megtekintő
+      link_lang_tip: 'Tipp: Egy nemzetközi felhasználónak küldi? Módosítsa a titkos
+        link nyelvét az URL-től jobbra található legördülő menü segítségével.'
+      or: vagy
+      or_after: vagy utána
+      push_another: Nyomj egy másikat
+      push_created: A push létrejött.
+      use_link_to_share: 'Használja ezt a titkos linket a megosztáshoz:'
+      view_push_now: Tekintse meg ezt a Push-ot most
+      will_burn_view: "(kiéget egy nézetet)"
+      will_expire_after: Ez a push lejár
+      with_preliminary_step: Tartalmaz egy %{strong_start}1 kattintásos előzetes visszakeresési
+        lépést is %{strong_end}.
+    provide_text_or_file: Push létrehozásához vagy szöveget kell megadnia, vagy csatolnia
+      kell egy fájlt, vagy mindkettőt.
+    push:
+      active: Aktív
+      audit: Ellenőrzés
+      expired: Lejárt
+      none: Egyik sem
+      preview: Előnézet
+      push_controls: Push Controls
+      title: Új Push
+      unknown: Ismeretlen
+    secret_link_lang: Titkos hivatkozási nyelv
+    settings: Beállítások
+    show:
+      blurred: A jelszava el van homályosítva. Kattintson az alábbiakra, hogy felfedje.
+      click_to_reveal: A tartalom elmosódott. Kattintson az alábbiakra, hogy felfedje.
+      delete_now: Törölje ezt a titkos linket most
+      delete_now_confirm: Ezzel lejár ez a titkos hivatkozás, és örökre töröl minden
+        kapcsolódó tartalmat az adatbázisból. biztos vagy ebben?
+      download_file: Fájl letöltése
+      files_sent: A következő fájlokat küldtük el Önnek.
+      last_view: Ez az utolsó nézet.
+      obtain: Biztonságosan letöltheti és tárolhatja ezt a tartalmat jelszókezelő
+        és/vagy titkosított tárhely használatával. Ne felejtsen el azonnal törölni
+        minden olyan adatot, amelyre már nincs szükség.
+      open_file: Fájl megnyitása
+      please_download: Kérjük, töltse le és tárolja biztonságos helyen.
+      will_be_deleted: Ez a titkos link és az összes tartalom törlődik az %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} vagy %{b_tag}%{view_count} további %{view_unit}%{b_tag}
+        mappában (amelyik előbb következik be).
+      your_link: Titkos linkje
+    show_expired:
+      expired_help: Ha szükséges, lépjen kapcsolatba azzal a személlyel vagy szervezettel,
+        aki megadta ezt a titkos URL-t.
+      expired_message: Elnézést kérünk, de ez a titkos link lejárt.
+      link_expired: Titkos linkje lejárt
+    view:
+      one: 1 nézet
+      other: "%{count} nézetek"
+    view_audit_log: Ellenőrzési napló megtekintése
+    whichever: "(amelyik előbb jön)"
+    'yes': Igen
+  static:
+    about:
+      about_1: A Password Pusher egy eszköz a jelszavak és más bizalmas információk
+        biztonságos megosztására másokkal.
+      about_2: A Password Pusher segítségével egyedi, egyszeri URL-t hozhat létre,
+        amely egy bizonyos idő elteltével vagy bizonyos számú hozzáférés után lejár,
+        így biztosítva, hogy adatai privát és biztonságosak maradjanak.
+      about_3: Magánszemélyek és szervezetek gyakran használják bejelentkezési adatok
+        vagy más érzékeny adatok megosztására kollégáikkal, ügyfelekkel vagy partnerekkel.
+      about_4: A Password Pusher egy egyszerű és kényelmes megoldás a jelszavak biztonságos
+        megosztására anélkül, hogy e-mailre vagy más kevésbé biztonságos kommunikációs
+        módszerre lenne szükség.
+      about_5: Az %{pwpush_link} címen található, vagy bárhol futtathatja saját privát
+        példányát.
+      about_6: A forráskód az %{github_link} oldalon érhető el. Nyílt forráskódú,
+        és bárki ingyenesen használhatja, áttekintheti vagy módosíthatja.
+      age_body: Az első git commit a Password Pusherhez <strong>2011. december 28-</strong>
+        án történt. A pwpush.com nem sokkal ezután élesben indult.
+      age_title: Több mint %{years_count} éves
+      author_1: A nevem Peter Giacomo Lombardo. Megtalálhat az %{linkedin}, %{github}
+        vagy %{blog} oldalon.
+      author_2: A frissítésekért kövesse a Password Pusher funkciót az %{twitter}-on
+        (vagy az %{twitter_personal}-en), vagy iratkozzon fel az %{newsletter}-re.
+      facebook: Facebook
+      github: Github
+      help_1: A legnagyobb segítség a hír terjesztése. Ossza meg a Password Pushert
+        barátaival, kollégáival és szervezeteivel.
+      help_2: 'Te is:'
+      help_3: Csillagozza meg az %{github} projektet. Ez benzin az algok számára,
+        amelyek a jelszótolót népszerűsítik.
+      help_4: Súgó %{translate}. Javítson egy meglévő nyelvet, vagy adjon hozzá egy
+        újat.
+      help_5: Iratkozzon fel az %{newsletter} oldalra, hogy értesüljön a fontos kiadásokról,
+        biztonsági problémákról, tippekről és egyebekről.
+      help_6: Kövesse a Password Pusher funkciót az %{facebook}, %{twitter} és %{github}
+        oldalon.
+      help_translate: Segítség a fordításban
+      newsletter: Hírlevél
+      pwpush_domain: pwpush.com
+      section_about: A programról
+      section_author: A szerző
+      section_follow: Hol követhető a Password Pusher
+      section_help: Szeretne segíteni?
+      title: A Password Pusher-ről
+      twitter: Twitter
+    faq:
+      answer_access_1: A Password Pusher JSON API-val számos olyan alkalmazás és parancssori
+        segédprogram (CLI) létezik, amelyek a pwpush.com webhelyhez vagy a saját üzemeltetésű
+        példányához kapcsolódnak. Jelszavak leküldése a CLI, a Slack, az Alfred alkalmazásból
+        és egyebekből.
+      answer_access_2: További információkért lásd az %{tools} oldalt.
+      answer_add_feature_1: Nagyon valószínű. Szeretek minden ötletet és visszajelzést
+        hallani, és listát vezetek, hogy eldönthessem, mit tegyek hozzá. Ha van ilyen,
+        küldje be az %{feedback_link} oldalra vagy az %{github_link} oldalon.
+      answer_already_expired_1: Egyes rendszerek, például az e-mail, a tűzfalak és
+        a csevegőrendszerek gyakran tartalmaznak linkszkennereket, amelyek felemésztik
+        a nézeteket. Ezt általában a vállalati biztonság érdekében teszik, vagy egyszerűen
+        "előnézetet" generálnak az alkalmazásokhoz.
+      answer_already_expired_2: Ennek megelőzése érdekében használja az 1-kattintásos
+        visszakeresési lépést a jelszavak leküldésekor. Ehhez a felhasználóknak át
+        kell kattintaniuk egy előzetes oldalra, hogy megvédjék a nézeteiket az ilyen
+        szkennerektől.
+      answer_already_expired_3: További megelőző intézkedésként bejelentkezéskor minden
+        létrehozott leküldéshez egy auditnaplót biztosítunk. Ez az ellenőrzési napló
+        felfedi, hogy ki és mikor tekintette meg a leküldést.
+      answer_automation_1: Igen. A Password Pusher JSON API lehetővé teszi a jelszóküldés
+        automatizálását. Ez különféle programozási nyelvekkel és eszközökkel megtehető.
+      answer_automation_2: További információkért lásd az %{tools} oldalt.
+      answer_conference_1: Teljesen. Rendelkezünk médiaforrásokkal és az %{windows_link}
+        és %{mac_link} formátumban elérhető funkciók teljes leírásával.
+      answer_conference_2: Ha bármilyen kérdése van, vagy segítségre van szüksége,
+        forduljon hozzám bármikor.
+      answer_how_many_1: Jelenleg nincsenek korlátozások, és nem is áll szándékomban
+        hozzáadni. A webhely stabilitásának minimális biztosítása érdekében a Password
+        Pusher alapértelmezés szerint sebességkorlátozóval van konfigurálva. Ez a
+        saját üzemeltetésű verzióban letiltható.
+      answer_licensing_1: A forráskód nyílt forráskódú verziója az Apache 2.0 licenc
+        alatt jelenik meg, és ez nagyjából meghatároz minden korlátozást. A Password
+        Pusher számos újramárkázott és újratervezett klónoldala van, és mindegyiket
+        üdvözlöm.
+      answer_licensing_2: A prémium verzió kereskedelmi licenc alatt kerül kiadásra.
+        Nem nyílt forráskódú és nem ingyenes. Alapvetően a nyílt forráskódú projektet
+        tartalmazza, de a funkciók szuperkészletét kínálja, és célja a fejlesztés
+        felgyorsítása és a projekt finanszírozásának elősegítése.
+      answer_licensing_3: A prémium verzió nem szükséges a Password Pusher privát
+        példányának futtatásához. A nyílt forráskódú verzió teljes funkcionalitású
+        és ingyenesen használható.
+      answer_licensing_4: Az összes prémium szolgáltatás a szolgáltatástól függően
+        bizonyos idő elteltével a nyílt forráskódú verzióba kerül.
+      answer_private_risks_1: A Password Pusher privát példányának futtatása vállalata
+        vagy szervezete számára nyugalmat biztosít, hogy pontosan tudja, milyen kód
+        fut. Tetszés szerint konfigurálhatja és futtathatja.
+      answer_private_risks_2: Másrészt, ha a példányát feltörik, és a titkosítás megszakad,
+        a rosszindulatú entitások most célzott jelszavakat tartalmazó szótárral rendelkeznek,
+        amellyel brutálisan erőszakoskodhatnak a szervezet fiókjaival. (ez azokra
+        a leküldésekre korlátozódik, amelyek még nem jártak le)
+      answer_private_risks_3: Ebből a szempontból a pwpush.com nyilvános példánya
+        jobb lehet abban, hogy csak jelszavakat tartalmaz, anélkül, hogy azonosító
+        információkat vegyen a világ minden tájáról származó felhasználók között.
+      answer_private_risks_4: Egy másik szempont a példány karbantartása lenne. Naprakészen
+        kell tartania, biztonságosan kell tartania és biztonsági másolatot kell készítenie.
+      answer_private_risks_5: A felhasználónak gondosan mérlegelnie kell az előnyöket
+        és hátrányokat, és el kell döntenie, hogy melyik útvonal a legjobb a számára.
+        Örömmel támogatjuk mindkét stratégiát.
+      answer_purpose_1: A Password Pusher a jelszavak e-mailben történő küldésének
+        jobb alternatívája.
+      answer_purpose_10: Ezenkívül <strong>a jelszavak egy előre meghatározott nézetcsoport
+        elérése vagy idő elteltével lejárnak.</strong>
+      answer_purpose_11: A lejárt jelszavak egyértelműen törlődnek.
+      answer_purpose_12: Ha ez érdekesnek tűnik, próbálja ki, vagy tekintse meg az
+        alábbi gyakran ismételt kérdéseket.
+      answer_purpose_2: "<strong>A jelszavak e-mailben történő küldése eredendően
+        nem biztonságos.</strong> A legnagyobb kockázatok a következők:"
+      answer_purpose_3: Az e-mailben küldött jelszavakat általában kontextussal együtt
+        küldik el, hogy hova valók, vagy származhatnak e-mail felhasználónévből, domainből
+        stb.
+      answer_purpose_4: Az e-mail természeténél fogva nem biztonságos, és rosszindulatú
+        entitások több ponton is elfoghatják.
+      answer_purpose_5: 'Az e-mailben elküldött jelszavak sokáig (értsd: örökké) élnek
+        az e-mail archívumokban.'
+      answer_purpose_6: Az e-mailekben lévő jelszavak visszakereshetők és később felhasználhatók,
+        ha egy e-mail fiókot ellopnak, feltörnek stb.
+      answer_purpose_7: Ugyanezek a kockázatok állnak fenn a jelszavak SMS-ben, WhatsApp-on,
+        táviratban, chaten stb. történő elküldésekor… Az adatok gyakran örökre megőrizhetők,
+        és az Ön ellenőrzése nélkül.
+      answer_purpose_8: A Password Pusher használatával mindezt megkerüli.
+      answer_purpose_9: A Jelszóküldőben elküldött minden egyes jelszóhoz <strong>egyedi
+        URL-cím jön létre, amelyet csak Ön ismerhet</strong> .
+      answer_rebranding_1: A Password Pusher támogatja a teljes márkaváltást, amely
+        lehetővé teszi egyéni logó, képek, szöveg hozzáadását, és még az alkalmazás
+        témájának megváltoztatását is.
+      answer_self_host_1: Igen, a nyílt forráskódú verzióhoz az %{docker_link} és
+        %{install_link} lehetőséget biztosítjuk a platformok és felhők széles skálájához.
+      answer_self_host_2: A prémium verzióhoz, a szolgáltatások szuperkészletével,
+        hamarosan megjelennek a saját üzemeltetésű konténerek.
+      answer_trust_1: És jogosan. Minden jó biztonság az összes érintett összetevővel
+        szembeni egészséges szkepticizmussal kezdődik.
+      answer_trust_2: A Password Pusher a jelszavak e-mailben történő küldésének jobb
+        alternatívája. Ezzel elkerülhető, hogy a jelszavak örökre jelen legyenek az
+        e-mail archívumokban. Nem nyújt teljes körű biztonsági megoldást.
+      answer_trust_3: A Password Pusher nyílt forráskódú projektként indult 2011 végén.
+        Ezt én (Peter Giacomo Lombardo) és néhány kiváló közreműködő karbantartottam
+        és frissítettem mindvégig. 2024-ben a prémium verziót a fejlesztés felgyorsítása
+        és a projekt finanszírozásának elősegítése érdekében vezették be. Az összes
+        prémium szolgáltatás végül a nyílt forráskódú verzióba kerül.
+      answer_trust_4: Mivel ilyen hosszú múltra tekint vissza és nyílt forráskódú,
+        a Password Pushert sok szem felülvizsgálta. Az évek során számos szervezet
+        és magánszemély használta és auditálta.
+      answer_trust_5: 'A Password Pusher irányelve három részből áll: 1) Titkosítás
+        nyugalmi állapotban és továbbítás közben 2) Minimális adatmegőrzés 3) Átláthatóság
+        auditnapló formájában.'
+      answer_trust_6: Ennek megfelelően a push hasznos terhelések egyértelműen törlődnek
+        a lejáratkor, és az ellenőrzési napló korlátlan ideig megmarad. Minél kevesebb
+        adatot tárol a Password Pusher, annál jobb.
+      answer_trust_7: Ha továbbra is aggályai vannak a bizalommal, biztonsággal és
+        biztonsággal kapcsolatban, bátran tekintse át a kódot, tegye fel kérdéseit,
+        és fontolja meg inkább a szervezeten belüli futtatását.
+      answer_trust_8: Ami a belém vetett bizalmat illeti, csak annyit tudok nyújtani,
+        hogy hosszú múltam építi ezt a projektet, és nyilvános hírnevemet %{github},
+        %{linkedin}, %{twitter} és %{blog}. Bármikor, bármilyen kérdése van, forduljon
+        hozzám bizalommal.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Egyes szervezeteket olyan biztonsági szabályzatok kötnek,
+        amelyek tiltják a publikus szolgáltatások használatát érzékeny információk,
+        például jelszavak céljára. Vannak még olyan szervezetek is, amelyeknek minden
+        eszköznek magán intraneten kell lennie anélkül, hogy hozzáférne a külvilághoz.
+      answer_why_private_2: A Password Pusher saját privát példányának futtatása lehetővé
+        teszi a környezet és az adatok vezérlését. Lehetővé teszi a szervezetre jellemző
+        egyéni funkciók és integrációk hozzáadását is.
+      answer_why_private_3: Ezen okok miatt biztosítjuk (és bátorítjuk) a felhasználókat
+        és szervezeteket, hogy szükség esetén privát példányokat futtassanak.
+      feedback_link: Visszajelző űrlap
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: a blogom
+      question_access: Vannak más módok is a Password Pusher elérésére a böngészőn
+        kívül?
+      question_add_feature: Tudna hozzáadni egy speciális funkciót a szervezetem részére?
+      question_already_expired: Az általam küldött titkos URL már lejárt. Mi történt?
+      question_automation: Automatizálhatom a jelszavak kiosztását?
+      question_conference: Használhatom a Password Pusher-t beszédemben, videómban,
+        prezentációmban vagy konferencián?
+      question_have_to_pay: Fizetnem kell?
+      question_how_many: Hány kérelmet küldhetek a Password Pushernek?
+      question_licensing: Vannak-e licencelési korlátozások rám, a cégemre vagy a
+        szervezetemre?
+      question_premium_diff: Mi a különbség a nyílt forráskódú és a prémium verzió
+        között?
+      question_private_risks: Milyen biztonsági kockázatokkal járhat a saját verzióm
+        belső futtatása?
+      question_purpose: Mi a Password Pusher célja?
+      question_rebranding: Alkalmazhatok egyéni logót vagy módosíthatom a dizájnt?
+      question_self_host: Futtathatom a saját verziómat a szervezetemen belül?
+      question_trust: A bizalom aggodalomra ad okot. Miért használjam a Password Pusher-t?
+      question_why_premium: A Password Pusher mindig is nyílt forráskódú volt. Miért
+        van prémium verzió?
+      question_why_private: Miért szeretném a Password Pusher saját privát példányát
+        futtatni?
+      question_will_oss: A prémium funkciókat hozzáadják a nyílt forráskódú verzióhoz?
+      subtitle: "..minden olyan dolog, amit tudni szeretne a Password Pusherről."
+      title: Gyakran Ismételt Kérdések
+      title_other: Egyéb
+      title_private: Saját magánpéldány futtatása
+      title_pushes: Tolja
+      title_subscriptions: Prémium verzió
+      title_tools: Eszközök, integrációk és alkalmazások
+      title_trust: Bizalom és biztonság
+      tools_link: Eszközök és alkalmazások
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Ezt a kulcsot a környezeti változó beállításával alkalmazhatja az alkalmazásra
+      generate_key: Kulcs generálása
+      generated: Titkosítási kulcs generálása
+      intro: Ez az oldal segédeszközként szolgál véletlenszerű titkosítási kulcs generálásához
+        a Password Pusher önkiszolgáló példányaihoz.
+      intro_2: A Password Pusher titkosítja az adatbázisban lévő érzékeny adatokat.
+        Bár a csomag tartalmaz egy alapértelmezett kulcsot, a legjobb gyakorlat a
+        saját egyéni titkosítási kulcs használata.
+      intro_3: Ez az oldal minden frissítéskor új titkosítási kulcsot generál. Az
+        alábbi, véletlenszerűen generált kód segítségével konfigurálhatja a Password
+        Pusher példányát.
+      note_1: Ha nincs megadva titkosítási kulcs, akkor a rendszer az alapértelmezett
+        kulcsot használja.
+      note_2: A Password Pusher privát példányainak legjobb biztonsága a saját egyéni
+        titkosítási kulcs használata, bár ez nem szükséges.
+      note_3: Az alapértelmezett kulcs használatának kockázata csökken, ha a példányt
+        biztonságban tartja, és a küldési lejáratokat röviden tartja. pl. 1 nap/1
+        megtekintés versus 100 nap/100 megtekintés.
+      note_4: A leküldés lejárta után az adott leküldésben lévő összes titkosított
+        adat törlődik.
+      note_5: A titkosítási kulcs megváltoztatása ott, ahol már léteznek régebbi küldések,
+        olvashatatlanná teszi a régebbi küldéseket. Más szóval, a hasznos információ
+        elvész. Az újabb küldések jól fognak működni.
+      note_6: 'A kulcsgenerálás az alkalmazás forrásának parancssorából is végrehajtható
+        a következő végrehajtással:'
+      notes: 'Megjegyzések:'
+      reload: Új kulcs generálásához töltse be újra ezt az oldalt.
+      title: Egy titkosítási kulcs generálása
+    password_generator:
+      push_it: Nyomja meg ezt a jelszót
+    tools:
+      alfred: Alfred App
+      api_documentation: API végpont dokumentációja
+      applications: Alkalmazások
+      cli: Parancssori interfész
+      clu: Parancssori segédprogramok
+      examples: Példák
+      github: Github
+      intro: A Password Pusher JSON API-val számos olyan alkalmazás és parancssori
+        segédprogram (CLI) létezik, amelyek a pwpush.com webhelyhez vagy a saját üzemeltetésű
+        példányához kapcsolódnak. Jelszavak leküldése a CLI, a Slack, az Alfred alkalmazásból
+        és egyebekből.
+      intro_2: A JSON API egy hatékony eszköz, amely lehetővé teszi a jelszóküldés
+        automatizálását. Ez különféle programozási nyelvekkel és eszközökkel megtehető.
+      intro_3: További információkért lásd az %{github} oldalt.
+      more: Több
+      slack: Laza
+      subtitle: A Password Pusher több, mint egy webes alkalmazás. JSON API-val rendelkezik,
+        amely sokféle integrációt és alkalmazást tesz lehetővé.
+      title: Eszközök, API-k, integrációk és alkalmazások
+      tools_1: A JSON API használatával különféle eszközök kapcsolódhatnak a Password
+        Pusher-hez a jelszóelosztás automatizálása érdekében.
+      tools_2: Nincs korlátozás arra vonatkozóan, hogy hány jelszót tolhat ki (és
+        nem áll szándékunkban korlátokat hozzáadni), de van sebességkorlátozónk, hogy
+        a webhelyet ne rontsák el a rossz programok vagy a rossz alakok. Korlátozza
+        eszközeit legfeljebb 1 jelszóra néhány másodpercenként, és minden rendben
+        lesz.
+      tools_3: 'Ezt a böngésző Javascript konzoljában tesztelheti, ha a Password Pusher
+        kezdőlapjára lép, és írja be:'
+      tools_4: Ez az API lehetővé teszi, hogy JSON-on keresztül csatlakozzon a Password
+        Pusherhez. Ezt a meglévő segédprogramok, például curl, wget vagy bármilyen
+        programozási nyelv használhatják. Nézze meg az alábbi példákat néhány ötletért.
+      tools_5: További magyarázatok és példák az %{github} Wikiben.
+      walkthrough: Útmutató és példák

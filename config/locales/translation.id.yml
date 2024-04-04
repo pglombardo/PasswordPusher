@@ -266,26 +266,19 @@ id:
       create: Buat %{model}
       update: Perbarui %{model}
       submit: Simpan %{model}
-  will_paginate:
-    previous_label: "← Sebelumnya"
-    previous_aria_label: Halaman sebelumnya
-    next_label: Berikutnya →
-    next_aria_label: Halaman berikutnya
-    page_gap: "..."
-    container_aria_label: Penomoran halaman
-    page_aria_label: Halaman %{page}
     page_entries_info:
-      single_page:
-        zero: Tidak ditemukan %{model}
-        one: Menampilkan 1 %{model}
-        other: Menampilkan semua %{count} %{model}
-      single_page_html:
-        zero: Tidak ditemukan %{model}
-        one: Menampilkan <b>1</b> %{model}
-        other: Menampilkan <b>semua %{count}</b> %{model}
-      multi_page: Menampilkan %{model} %{from} - %{to} dari %{count} secara total
-      multi_page_html: Menampilkan %{model} <b>%{from} - [%{to}</b> ] dari <b>[%{count}</b>
-        ] secara total
+      entry:
+        zero: entri
+        one: entri
+        other: entri
+      one_page:
+        display_entries:
+          zero: Tidak ditemukan %{entry_name}
+          one: Menampilkan <b>1</b> %{entry_name}
+          other: Menampilkan <b>semua %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Ditampilkan %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          dari total <b>%{total}</b>
   flash:
     actions:
       create:
@@ -621,6 +614,770 @@ id:
     access: akses
     passphrase: kata sandi
     preview: pratinjau
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Awal"
+      last: Akhir &raquo;
+      previous: "&lsaquo; Sebelumnya"
+      next: Berikutnya &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Anda yakin?
+      destroy: Hancurkan
+      edit: Sunting
+      edit_resource: Edit %{name}
+      show_resource: Tampilkan %{name}
+      new_resource: Baru %{name}
+      back: Kembali
+    controller:
+      create:
+        success: "%{resource} berhasil dibuat."
+      destroy:
+        success: "%{resource} berhasil dihancurkan."
+      update:
+        success: "%{resource} berhasil diperbarui."
+    fields:
+      has_many:
+        more: Menampilkan %{count} dari %{total_count}
+        none: Tidak ada
+    form:
+      error: kesalahan
+      errors: "%{pluralized_errors} melarang %{resource_name} ini untuk disimpan:"
+    navigation:
+      back_to_app: Kembali ke aplikasi
+    search:
+      clear: Hapus pencarian
+      label: Cari %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Dasbor admin ini menyediakan akses basis data langsung ke aplikasi
+          Password Pusher.  Harap berhati-hati dan pertimbangkan untuk membuat cadangan
+          sebelum melakukan perubahan apa pun.
+        admin_note: 'Catatan: Menghancurkan catatan juga akan menghancurkan semua
+          catatan turunannya. Sebagai contoh, menghancurkan pengguna juga akan menghancurkan
+          semua kata sandi, file, dan tautan yang didorong untuk pengguna tersebut.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Jumlah suku kata dalam kata sandi yang dibuat.
+      back: Kembali ke Tim
+      edit: Edit Kebijakan
+      team_policy_help: Kebijakan tim adalah seperangkat aturan yang berlaku untuk
+        semua dorongan yang dibuat oleh anggota tim ini.
+      personal_policy: Kebijakan Pribadi
+      personal_policy_help: Kebijakan adalah seperangkat aturan yang berlaku untuk
+        semua push yang Anda buat.
+      team_policy: Kebijakan Tim
+      header_timed_expiration: Kadaluarsa Berjangka Waktu
+      expire_after_duration_min: Durasi Minimum
+      expire_after_duration_min_help: Durasi minimum sebelum sebuah push berakhir.
+      expire_after_duration_max: Durasi Maksimum
+      expire_after_duration_max_help: Durasi maksimum sebelum sebuah dorongan berakhir.
+      expire_after_duration_default: Durasi Default
+      expire_after_duration_default_help: Durasi default sebelum push berakhir.
+      minutes_tip: 1 hari = 1440 menit, 7 hari = 10080 menit, 30 hari = 43200 menit
+      header_view_expiration: Lihat Kedaluwarsa
+      expire_after_views_min: Jumlah Tampilan Minimum
+      expire_after_views_min_help: Jumlah minimum penayangan sebelum sebuah push berakhir.
+      expire_after_views_max: Jumlah Tampilan Maksimum
+      expire_after_views_max_help: Jumlah maksimum penayangan sebelum sebuah push
+        berakhir. [Maks. 100]
+      expire_after_views_default: Jumlah Tampilan Default
+      expire_after_views_default_help: Jumlah tampilan default sebelum push kedaluwarsa.
+      header_payload_limits: Batas Muatan
+      push_text_max: Ukuran Teks Maksimum
+      push_text_max_help: Ukuran maksimum teks dalam sebuah push.  Diukur dalam byte.
+        [Maks. 1048576]
+      push_files_max: File Maksimum yang Diizinkan
+      push_files_max_help: Jumlah maksimum file yang diizinkan dalam satu push. [Maks.
+        100]
+      header_retrieval_step: langkah Pengambilan 1-Klik
+      enable_retrieval_step: Aktifkan?
+      enable_retrieval_step_help: Aktifkan Pengambilan 1-Klik untuk tim ini?  Jika
+        dinonaktifkan, opsi ini akan disembunyikan dan tidak digunakan.
+      retrieval_step_default: Nilai Default
+      retrieval_step_default_help: Nilai default untuk opsi langkah Pengambilan 1-Klik.
+      retrieval_step_forced: Memaksakan Nilai Default?
+      retrieval_step_forced_help: Memaksa penggunaan opsi ini dengan nilai default
+        untuk semua anggota tim.  Ini tidak dapat diubah oleh anggota tim.
+      hide_retrieval_step: Opsi Sembunyikan?
+      hide_retrieval_step_help: Menyembunyikan opsi langkah Pengambilan 1-Klik dari
+        anggota tim.  Ini berguna untuk memaksa opsi tersebut menjadi default tanpa
+        menunjukkannya kepada anggota tim.
+      header_deletable: Dapat dihapus oleh Penampil
+      enable_deletable: Aktifkan?
+      enable_deletable_help: Aktifkan opsi ini untuk tim?  Jika dinonaktifkan, opsi
+        ini akan disembunyikan dan tidak digunakan.
+      deletable_default: Nilai Default
+      deletable_default_help: Nilai default untuk opsi Dapat Dihapus oleh Penampil.
+      deletable_forced: Memaksakan Nilai Default?
+      deletable_forced_help: Memaksa penggunaan opsi ini dengan nilai default untuk
+        semua anggota tim.  Ini tidak dapat diubah oleh anggota tim.
+      hide_deletable: Opsi Sembunyikan?
+      hide_deletable_help: Menyembunyikan opsi Dapat Dihapus oleh Penampil dari anggota
+        tim.  Ini berguna untuk memaksa opsi tersebut menjadi default tanpa menunjukkannya
+        kepada anggota tim.
+      hide_passphrase: Opsi Sembunyikan?
+      hide_passphrase_help: Menyembunyikan opsi Kunci Kata Sandi.  Berguna untuk menonaktifkan
+        penggunaan opsi ini sepenuhnya.
+      enable_blur: Aktifkan?
+      enable_blur_help: Pengaburan Muatan mengaburkan isi muatan pada halaman pengiriman
+        URL rahasia. Penerima dapat mengaktifkan pengaburan dengan satu klik untuk
+        menampilkan data asli.
+      header_passphrase: Kunci Frasa Sandi
+      header_blur: Pengaburan Muatan
+      header_pwgen: Pembuatan Kata Sandi
+      save: Memperbarui Kebijakan Tim
+      enable_pwgen: Aktifkan?
+      enable_pwgen_help: Aktifkan opsi Pembuatan Kata Sandi untuk tim ini?  Jika dinonaktifkan,
+        opsi ini akan disembunyikan dan tidak digunakan.
+      pwgen_configurable: Dapat dikonfigurasi?
+      pwgen_configurable_help: Izinkan anggota tim untuk mengonfigurasi Pembuat Kata
+        Sandi?  Jika dinonaktifkan, opsi akan dipaksa ke konfigurasi di bawah ini
+        dan tidak dapat diubah oleh anggota tim.
+      pwgen_has_numbers: Sertakan Nomor?
+      pwgen_has_numbers_help: Sertakan angka dalam kata sandi yang dibuat.
+      pwgen_title_cased: Judul Cased?
+      pwgen_title_cased_help: Huruf besar huruf besar bagian kata sandi yang dihasilkan.
+      pwgen_use_separators: Gunakan Pemisah?
+      pwgen_use_separators_help: Gunakan pemisah dalam kata sandi yang dibuat.
+      pwgen_consonants: Konsonan
+      pwgen_consonants_help: Konsonan yang akan digunakan dalam kata sandi yang dibuat.
+      pwgen_vowels: Vokal
+      pwgen_vowels_help: Huruf vokal yang akan digunakan dalam kata sandi yang dibuat.
+      pwgen_separators: Pemisah
+      pwgen_separators_help: Pemisah yang akan digunakan dalam kata sandi yang dibuat.
+      pwgen_min_syllable_length: Panjang Suku Kata Minimum
+      pwgen_min_syllable_length_help: Panjang minimum suku kata dalam kata sandi yang
+        dibuat.
+      pwgen_max_syllable_length: Panjang Suku Kata Maksimum
+      pwgen_max_syllable_length_help: Panjang maksimum suku kata dalam kata sandi
+        yang dibuat.
+      pwgen_syllables_count: Hitungan Suku Kata
+    show:
+      edit_policy: Edit Kebijakan Push
+      policy: Kebijakan Tim
+  tag_line: Silakan.  Kirimkan kata sandi lain melalui email.
+  about: Tentang
+  app_name: Pendorong Kata Sandi
+  application:
+    card_newsletter:
+      enter_email: Masukkan email Anda...
+      subscribe: Berlangganan
+    cookie_consent:
+      notice: Cookie peramban membantu membuat alat ini berfungsi. Dengan menggunakannya,
+        Anda menyetujui penggunaan cookie ini.
+    footer:
+      best_practices: Praktik Terbaik
+      docker: Wadah Docker
+      faq: PERTANYAAN YANG SERING DIAJUKAN
+      feedback: Umpan balik
+      github: GitHub
+      key_generator: Generator Kunci
+      newsletter: Buletin
+      password_generator: Generator Kata Sandi
+      tools: Alat, API & CLI
+    pw_generator_modal:
+      cancel: Batal
+      configure: Mengonfigurasi Pembuatan Kata Sandi
+      consonants: Konsonan
+      generate_password: Hasilkan Kata Sandi
+      include_numbers: Sertakan Angka
+      load_preset: Memuat Preset
+      max_syllable_length: Panjang Suku Kata Maksimum
+      min_syllable_length: Panjang Suku Kata Minimum
+      num_syllables: Jumlah Suku Kata
+      reset: Atur Ulang ke Default
+      save: Simpan
+      separators: Pemisah
+      test: Pembuatan Tes
+      test_area: Area Uji
+      use_separators: Gunakan Pemisah
+      use_titlecase: Gunakan Titlecase
+      vowels: Vokal
+  audit_logs:
+    audit_log:
+      created: Dibuat
+      created_by: Dibuat oleh %{user}
+      log_created: Push dibuat pada %{date} oleh %{user}
+      log_expired: Push secara manual kedaluwarsa pada %{date} oleh %{user}
+      log_failed_view: Upaya tampilan gagal dari alamat IP %{ip} pada %{date} oleh
+        %{user}
+      log_manual_expiration: Push secara manual kedaluwarsa pada %{date} oleh %{user}
+        di alamat IP %{ip}
+      log_referrer: 'Perujuk: %{referrer}'
+      log_user_agent: 'Agen Pengguna: %{user_agent}'
+      log_viewed: Tampilan berhasil dari alamat IP %{ip} pada %{date} oleh %{user}
+      unknown: Tidak diketahui
+      viewed_by: Dilihat oleh %{user}
+  dashboard:
+    show:
+      detail: Detail
+      event: Acara
+      when: Kapan
+  duration:
+    format_d:
+      one: 1 hari
+      other: "%{count} hari"
+    format_dhm: "%{days} hari, %{hours} jam, dan %{minutes} menit"
+    format_h:
+      one: 1 jam
+      other: "%{count} jam"
+    format_hm: "%{hours} jam dan %{minutes} menit"
+    format_m:
+      one: 1 menit
+      other: "%{count} menit (s)"
+  feedbacks:
+    create:
+      feedback_sent: Umpan balik terkirim!  Kami akan segera menghubungi Anda secepatnya.
+    failed_spam_test: Mohon maaf, namun Anda gagal dalam pemeriksaan spam.  Anda dapat
+      mencoba menghubungi kami di Github.
+    failed_to_send: Gagal mengirim umpan balik.  Ada sesuatu yang salah.  Silakan
+      coba lagi atau hubungi kami di Github.
     new:
-      upload_limit: Anda dapat mengunggah hingga %{count} file per push.
+      email: Email
+      have_idea: Punya ide atau keinginan?  Ada yang tidak Anda sukai?  Ingin membantu?  Kami
+        ingin mendengarnya!
+      leave_blank: Biarkan kolom ini kosong!
+      math_question: Apa yang dimaksud dengan seratus dikurangi 3?
+      send_feedback: Kirim Umpan Balik
+      tip: 'Tip: Salin pesan Anda ke papan klip jika pengiriman gagal.'
+      your_name: Nama Anda
+  none: Tidak ada
+  pages:
+    about:
+      about_1: Password Pusher adalah alat yang digunakan untuk berbagi kata sandi
+        dan informasi sensitif lainnya dengan orang lain secara aman.
+      about_2: Dengan Password Pusher, Anda bisa membuat URL unik sekali pakai yang
+        akan kedaluwarsa setelah jangka waktu tertentu atau setelah diakses dalam
+        jumlah tertentu, sehingga informasi Anda tetap pribadi dan aman.
+      about_3: Ini sering digunakan oleh individu dan organisasi untuk berbagi kredensial
+        login atau data sensitif lainnya dengan kolega, klien, atau mitra.
+      about_4: Password Pusher adalah solusi sederhana dan nyaman untuk berbagi kata
+        sandi dengan aman tanpa perlu email atau metode komunikasi lain yang kurang
+        aman.
+      about_pwpush: Tentang Pendorong Kata Sandi
+      hosted_at_html: Di-host di <a href="https://pwpush.com">pwpush.com</a> atau
+        Anda dapat menjalankan instance pribadi Anda sendiri di mana pun Anda suka.
+      my_name: Nama saya Peter Giacomo Lombardo. Anda dapat menemukan saya di %{linkedin},
+        %{github} atau %{blog}.
+      source_avail_html: Kode sumber <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">tersedia di GitHub</a>.  Kode sumber
+        ini bersifat terbuka dan gratis bagi siapa saja untuk digunakan, ditinjau,
+        atau dimodifikasi.
+      the_author: Penulis
+  pushes:
+    access:
+      incorrect: Kata sandi tersebut salah.  Silakan coba lagi atau hubungi orang
+        atau organisasi yang mengirimi Anda tautan ini.
+    audit:
+      1click_retrieval_step: langkah Pengambilan 1-Klik
+      1click_retrieval_step_help: Membantu menghindari sistem obrolan dan pemindai
+        URL memakan tampilan.
+      active: Aktif
+      attached_files: File Terlampir
+      attached_files_help: Apakah ada file yang dilampirkan ke push ini?
+      audit_log_for: Log Audit untuk %{push_id}
+      contains_text: Berisi Teks
+      contains_text_help: Apakah muatan teks telah ditambahkan ke push ini?
+      created: Dibuat
+      created_by: Dibuat oleh %{user}
+      current_status: Status Saat Ini
+      deletable_by_viewers: Dapat dihapus oleh pemirsa
+      deletable_by_viewers_help: Hal ini memungkinkan pengguna akhir untuk menghapus
+        konten setelah diambil.
+      detail: Detail
+      end_audit_log: Catatan Akhir Audit
+      event: Acara
+      event_log: Log Audit
+      expire_after: 'Berakhir Setelah:'
+      expire_after_time_help: Dorongan akan kedaluwarsa setelah jangka waktu tersebut
+        sejak dibuat.
+      expire_after_view_help: Dorongan akan kedaluwarsa setelah jumlah penayangan
+        ini.
+      expire_now: Kedaluwarsa Sekarang
+      expire_now_confirm: Ini akan membuat tautan rahasia ini kedaluwarsa dan menghapus
+        semua konten terkait dari basis data selamanya. Log audit (termasuk percobaan
+        penayangan di masa mendatang) akan tetap dipertahankan di masa mendatang.
+        Apakah Anda yakin?
+      expired: Kadaluarsa
+      failed_view: Upaya Melihat Gagal
+      failed_view_attempts: Upaya Melihat Gagal
+      failed_view_attempts_help: Jumlah upaya untuk melihat dorongan ini setelah kedaluwarsa.
+      filename: Nama file
+      files_deleted: Semua file yang sebelumnya dilampirkan telah dihapus, atau tidak
+        ada file yang dilampirkan."
+      log_note: Saat push menerima aktivitas, log masing-masing dengan informasi identifikasi
+        akan muncul di sini.
+      manual_expiration: Kedaluwarsa Manual
+      message_length: Panjang Pesan
+      message_length_help: Panjang muatan teks yang dilampirkan.
+      none: Tidak ada
+      num_files_attached: Jumlah File yang Dilampirkan
+      num_files_attached_help: Jumlah file yang dilampirkan ke push ini.
+      passphrase_lock: Penguncian Frasa Sandi
+      passphrase_lock_help: Meminta penerima untuk memasukkan kata sandi untuk melihat
+        push ini.
+      payload: Muatan
+      push_date: Didorong terus %{date}
+      reference_note: Catatan Referensi
+      secret_url: URL rahasia untuk push ini
+      size: 'Ukuran: %{size}'
+      start_audit_log: Memulai Catatan Audit
+      start_log: Memulai Catatan Audit
+      state: Negara
+      state_help_active: Aktif dan masih tersedia untuk dilihat.
+      state_help_expired: Konten push telah dihapus dan URL rahasia telah kedaluwarsa.
+      successful_view: Tampilan Berhasil
+      successful_views: Tampilan yang Berhasil
+      successful_views_help: Berapa kali dorongan berhasil dilihat.
+      time_remaining: Sisa Waktu
+      time_remaining_help: Jumlah waktu yang tersisa sebelum push berakhir.
+      title: Log Audit Push
+      visible_to: Hanya Dapat Dilihat Oleh Anda
+      when: Kapan
+    copy_to_clipboard: Menyalin ke Papan Klip
+    day:
+      one: 1 hari
+      other: "%{count} hari"
+    deleted: Dihapus
+    expiration_html: Tautan rahasia ini dan semua konten akan dihapus dalam <strong>[%{duration}</strong>
+      ] atau <strong>%{count} lebih banyak tampilan</strong>, mana saja yang lebih
+      dulu muncul.
+    expire:
+      expired: Konten push telah dihapus dan URL rahasia telah kedaluwarsa.
+      not_deletable: Dorongan itu tidak dapat dihapus oleh pemirsa.
+    form:
+      12_hours: 12 Jam
+      15_minutes: 15 Menit
+      1_day: 1 hari
+      1_hour: 1 Jam
+      1_month: 1 Bulan
+      1_week: 1 Minggu
+      1click: Gunakan langkah pengambilan dengan 1 klik
+      1click_tip: Membantu menghindari sistem obrolan dan pemindai memakan tampilan.
+      2_days: 2 Hari
+      2_months: 2 Bulan
+      2_weeks: 2 Minggu
+      30_minutes: 30 Menit
+      3_days: 3 Hari
+      3_months: 3 Bulan
+      3_weeks: 3 Minggu
+      45_minutes: 45 Menit
+      4_days: 4 Hari
+      5_days: 5 Hari
+      6_days: 6 Hari
+      6_hours: 6 Jam
+      add_files: Menambahkan File...
+      audit_tip: Ketika masuk, log audit aktivitas disimpan dan tersedia tanpa batas
+        waktu.
+      day: Hari
+      days: Hari
+      deletable: Izinkan penghapusan segera
+      deletable_tip: Izinkan pengguna untuk menghapus push ini setelah diambil.
+      encryption_tip: Konten dienkripsi sebelum disimpan dan hanya tersedia bagi mereka
+        yang memiliki tautan rahasia.
+      expiration_label: 'Akhiri dorongan ini dan hapus setelahnya:'
+      expiration_tip: Setelah kedaluwarsa, semua konten dan file dari push tersebut
+        akan segera dihapus seluruhnya.
+      generator_tip: Gunakan tombol di atas untuk membuat kata sandi acak.
+      hour: Jam
+      hours: Jam
+      login_to_upload: Login untuk mengunggah dan melampirkan file ke push ini...
+      minutes: Menit
+      month: Bulan
+      months: Bulan
+      note_label: Catatan Referensi
+      note_placeholder: Catatan pribadi untuk membantu mengingat siapa atau untuk
+        apa dorongan ini.
+      passphrase_label: Kunci Frasa Sandi
+      passphrase_placeholder: Meminta penerima untuk memasukkan kata sandi untuk melihat
+        push ini.
+      password_tip: 'Tip: Hanya masukkan kata sandi ke dalam kotak. Informasi pengenal
+        lainnya dapat membahayakan keamanan.'
+      payload_placeholder: Masukkan kata sandi, teks, atau URL untuk mendorong...
+      push_it: Dorong!
+      upload_limit: Anda dapat mengunggah hingga 10 file per push.
+      view: Melihat
+      views: Tampilan
+      week: Minggu
+      weeks: Minggu
+    hour:
+      one: 1 jam
+      other: "%{count} jam"
+    index:
+      actions: Tindakan
+      clear_filters: Hapus Filter
+      created: Dibuat
+      created_by: Oleh
+      expires: Kedaluwarsa
+      file_count: File
+      note: Catatan
+      nothing_here: Belum ada apa-apa di sini.
+      push_id: ID Dorong
+      pushes: Mendorong
+      remaining_time: Sisa Waktu
+      status: Status
+      views: Tampilan
+      views_remaining: Tampilan yang tersisa
+    minute:
+      one: 1 menit
+      other: "%{count} menit"
+    more_view:
+      one: 1 tampilan lainnya
+      other: "%{count} lebih banyak tampilan"
+    'no': Tidak
+    none: Tidak ada
+    passphrase:
+      enter_passphrase: Masukkan Frasa Sandi
+      go: Pergi
+      placeholder: Masukkan kata sandi rahasia yang disediakan dengan URL ini
+      tip: Masukkan kata sandi rahasia
+    payload: Muatan
+    preliminary:
+      click_proceed: Klik di sini untuk melanjutkan
+    preview:
+      and: dan
+      can_be: bisa jadi
+      can_not_be: tidak bisa
+      deleted_by_viewers: dihapus oleh pemirsa.
+      link_lang_tip: 'Tip: Mendorong ke pengguna internasional?  Ubah bahasa tautan
+        rahasia menggunakan menu tarik-turun di sebelah kanan URL.'
+      or: atau
+      or_after: atau setelah
+      push_another: Dorong yang lain
+      push_created: Dorongan Anda telah dibuat.
+      use_link_to_share: 'Gunakan tautan rahasia ini untuk membagikannya:'
+      view_push_now: Lihat Push Ini Sekarang
+      will_burn_view: "(akan membakar pemandangan)"
+      will_expire_after: Dorongan ini akan kedaluwarsa dalam
+      with_preliminary_step: Ini juga mencakup langkah pengambilan awal 1-klik %{strong_start}
+        %{strong_end}.
+    provide_text_or_file: Untuk membuat push, Anda harus menyediakan teks, melampirkan
+      file, atau keduanya.
+    push:
+      active: Aktif
+      audit: Audit
+      expired: Kadaluarsa
+      none: Tidak ada
+      preview: Pratinjau
+      push_controls: Kontrol Dorong
+      title: Dorongan Baru
+      unknown: Tidak diketahui
+    secret_link_lang: Bahasa Tautan Rahasia
+    settings: Pengaturan
+    show:
+      blurred: Kata sandi Anda kabur.  Klik di bawah ini untuk mengungkapkannya.
+      click_to_reveal: Konten diburamkan. Klik di bawah ini untuk menyingkapkannya.
+      delete_now: Hapus Tautan Rahasia Ini Sekarang
+      delete_now_confirm: Ini akan membuat tautan rahasia ini kedaluwarsa dan menghapus
+        semua konten terkait dari basis data selamanya. Apakah Anda yakin?
+      download_file: Unduh File
+      files_sent: File-file berikut ini telah dikirimkan kepada Anda.
+      last_view: Ini adalah tampilan terakhir.
+      obtain: Ambil dan simpan konten ini dengan aman, menggunakan pengelola kata
+        sandi dan/atau penyimpanan terenkripsi. Ingatlah untuk segera menghapus data
+        yang tidak lagi diperlukan.
+      open_file: Buka File
+      please_download: Silakan unduh dan simpan di tempat yang aman.
+      will_be_deleted: Tautan rahasia ini dan semua konten akan dihapus dalam %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} atau %{b_tag}%{view_count} lagi %{view_unit}%{b_tag}
+        (mana yang lebih dulu).
+      your_link: Tautan Rahasia Anda
+    show_expired:
+      expired_help: Jika diperlukan, silakan hubungi orang atau organisasi yang memberi
+        Anda URL rahasia ini.
+      expired_message: Kami mohon maaf, namun tautan rahasia ini telah kedaluwarsa.
+      link_expired: Tautan Rahasia Anda Telah Kedaluwarsa
+    view:
+      one: 1 tampilan
+      other: "%{count} tampilan"
+    view_audit_log: Lihat Log Audit
+    whichever: "(mana saja yang lebih dulu)"
+    'yes': Ya
+  static:
+    about:
+      about_1: Password Pusher adalah alat yang digunakan untuk berbagi kata sandi
+        dan informasi sensitif lainnya dengan orang lain secara aman.
+      about_2: Dengan Password Pusher, Anda bisa membuat URL unik sekali pakai yang
+        akan kedaluwarsa setelah jangka waktu tertentu atau setelah diakses dalam
+        jumlah tertentu, sehingga informasi Anda tetap pribadi dan aman.
+      about_3: Ini sering digunakan oleh individu dan organisasi untuk berbagi kredensial
+        login atau data sensitif lainnya dengan kolega, klien, atau mitra.
+      about_4: Password Pusher adalah solusi sederhana dan nyaman untuk berbagi kata
+        sandi dengan aman tanpa perlu email atau metode komunikasi lain yang kurang
+        aman.
+      about_5: Dihosting di %{pwpush_link} atau Anda dapat menjalankan instans pribadi
+        Anda di mana pun Anda suka.
+      about_6: Kode sumber tersedia di %{github_link}.  Kode sumber ini bersifat terbuka
+        dan gratis bagi siapa saja untuk digunakan, ditinjau, atau dimodifikasi.
+      age_body: Komit git pertama untuk Password Pusher adalah pada <strong>28 Desember
+        2011</strong>. pwpush.com ditayangkan tidak lama kemudian.
+      age_title: Berusia Lebih dari %{years_count} Tahun
+      author_1: Nama saya Peter Giacomo Lombardo. Anda dapat menemukan saya di %{linkedin},
+        %{github} atau %{blog}.
+      author_2: Untuk pembaruan, ikuti Password Pusher di %{twitter} (atau %{twitter_personal}
+        saya) atau berlangganan %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Sejauh ini, bantuan terbesar adalah dengan menyebarkan berita ini.  Bagikan
+        Password Pusher dengan teman, kolega, dan organisasi Anda.
+      help_2: 'Anda juga bisa:'
+      help_3: Bintangi proyek %{github}. Ini adalah bensin untuk algo yang menjadi
+        tren Password Pusher.
+      help_4: Bantuan %{translate}. Memperbaiki bahasa yang sudah ada atau menambahkan
+        bahasa baru.
+      help_5: Daftar ke %{newsletter} untuk mendapatkan pembaruan tentang rilis penting,
+        masalah keamanan, tips, dan lainnya.
+      help_6: Ikuti Pendorong Kata Sandi pada %{facebook}, %{twitter} dan %{github}.
+      help_translate: Bantu Terjemahkan
+      newsletter: Buletin
+      pwpush_domain: pwpush.com
+      section_about: Tentang
+      section_author: Penulis
+      section_follow: Tempat Mengikuti Pendorong Kata Sandi
+      section_help: Ingin Membantu?
+      title: Tentang Pendorong Kata Sandi
+      twitter: Twitter
+    faq:
+      answer_access_1: Dengan API JSON Password Pusher, ada sejumlah aplikasi dan
+        utilitas baris perintah (CLI) yang berinteraksi dengan pwpush.com atau instans
+        yang Anda hosting sendiri.  Dorong kata sandi dari CLI, Slack, Aplikasi Alfred,
+        dan banyak lagi.
+      answer_access_2: Lihat halaman %{tools} untuk informasi lebih lanjut.
+      answer_add_feature_1: Sangat mungkin.  Saya senang mendengar semua ide dan umpan
+        balik dan membuat daftar untuk memutuskan apa yang harus ditambahkan berikutnya.  Jika
+        Anda punya, silakan kirimkan ke halaman %{feedback_link} atau di %{github_link}.
+      answer_already_expired_1: Beberapa sistem seperti email, firewall dan sistem
+        chatting sering kali memiliki pemindai tautan yang bisa menghabiskan tampilan.  Hal
+        ini biasanya dilakukan untuk keamanan perusahaan atau untuk sekadar menghasilkan
+        "pratinjau" untuk aplikasi.
+      answer_already_expired_2: Untuk mencegah hal ini, gunakan opsi langkah pengambilan
+        1 klik saat mendorong kata sandi.  Hal ini mengharuskan pengguna untuk mengklik
+        melalui halaman pendahuluan untuk melindungi tampilan dari pemindai tersebut.
+      answer_already_expired_3: Sebagai tindakan pencegahan tambahan, saat masuk,
+        log audit disediakan untuk setiap push yang dibuat.  Log audit ini mengungkapkan
+        oleh siapa dan kapan push tersebut dilihat.
+      answer_automation_1: Ya, API JSON Pendorong Kata Sandi memungkinkan otomatisasi
+        mendorong kata sandi.  Hal ini bisa dilakukan dengan berbagai bahasa pemrograman
+        dan alat bantu.
+      answer_automation_2: Lihat halaman %{tools} untuk informasi lebih lanjut.
+      answer_conference_1: Tentu saja.  Kami memiliki sumber daya media dan penjelasan
+        lengkap mengenai fitur yang tersedia dalam format %{windows_link} dan %{mac_link}.
+      answer_conference_2: Jika Anda memiliki pertanyaan atau membutuhkan bantuan,
+        jangan ragu untuk menghubungi saya kapan saja.
+      answer_how_many_1: Saat ini tidak ada batasan dan saya tidak berniat untuk menambahkannya.  Untuk
+        menjamin stabilitas situs secara minimal, Password Pusher dikonfigurasikan
+        dengan pembatas kecepatan secara default.  Ini bisa dinonaktifkan pada versi
+        yang di-host sendiri.
+      answer_licensing_1: Kode sumber versi open source dirilis di bawah Lisensi Apache
+        2.0 dan itu cukup banyak mendefinisikan setiap dan semua batasan. Ada cukup
+        banyak situs tiruan yang diberi merek baru dan didesain ulang dari Password
+        Pusher dan saya menyambut baik semuanya.
+      answer_licensing_2: Versi premium dirilis di bawah lisensi komersial.  Ini bukan
+        sumber terbuka dan tidak gratis.  Pada intinya berisi proyek sumber terbuka
+        tetapi menawarkan serangkaian fitur super dan dimaksudkan untuk mempercepat
+        pengembangan dan membantu mendanai proyek.
+      answer_licensing_3: Versi premium tidak diperlukan untuk menjalankan contoh
+        pribadi Password Pusher.  Versi sumber terbuka memiliki fitur lengkap dan
+        gratis untuk digunakan.
+      answer_licensing_4: Semua fitur premium berakhir di versi open source setelah
+        jangka waktu tertentu, tergantung pada fiturnya.
+      answer_private_risks_1: Menjalankan contoh pribadi Password Pusher untuk perusahaan
+        atau organisasi Anda memberi Anda ketenangan pikiran karena Anda tahu persis
+        kode apa yang sedang berjalan.  Anda bisa mengonfigurasi dan menjalankannya
+        sesuka Anda.
+      answer_private_risks_2: Di sisi lain, jika instans Anda diretas dan enkripsinya
+        dibobol, entitas jahat sekarang memiliki kamus kata sandi yang ditargetkan
+        untuk membobol akun-akun di organisasi Anda.  (ini akan terbatas pada push
+        yang belum kedaluwarsa)
+      answer_private_risks_3: Dalam hal ini, contoh publik di pwpush.com mungkin lebih
+        unggul karena hanya berisi kata sandi tanpa mengidentifikasi informasi yang
+        tercampur di antara pengguna dari seluruh dunia.
+      answer_private_risks_4: Satu pertimbangan lain adalah pemeliharaan instans.  Anda
+        perlu menjaganya agar tetap diperbarui, aman, dan dicadangkan.
+      answer_private_risks_5: Pengguna harus mempertimbangkan dengan cermat pro dan
+        kontra dan memutuskan rute mana yang terbaik untuk mereka.  Kami dengan senang
+        hati mendukung kedua strategi tersebut.
+      answer_purpose_1: Password Pusher hadir sebagai alternatif yang lebih baik untuk
+        mengirim kata sandi melalui email.
+      answer_purpose_10: Selain itu, <strong>kata sandi akan kedaluwarsa setelah serangkaian
+        tampilan yang telah ditentukan sebelumnya tercapai atau waktu berlalu</strong>.
+      answer_purpose_11: Setelah kedaluwarsa, kata sandi akan dihapus dengan tegas.
+      answer_purpose_12: Jika itu terdengar menarik bagi Anda, cobalah atau lihat
+        pertanyaan umum lainnya di bawah ini.
+      answer_purpose_2: "<strong>Mengirimkan kata sandi melalui email pada dasarnya
+        tidak aman.</strong> Risiko terbesar meliputi:"
+      answer_purpose_3: Kata sandi yang dikirim melalui email biasanya dikirim dengan
+        konteks ke mana kata sandi tersebut ditujukan atau berpotensi berasal dari
+        nama pengguna email, domain, dll..
+      answer_purpose_4: Email pada dasarnya tidak aman dan dapat disadap di beberapa
+        titik oleh entitas jahat.
+      answer_purpose_5: 'Kata sandi yang dikirim melalui email akan tersimpan selamanya
+        (baca: selamanya) dalam arsip email.'
+      answer_purpose_6: Kata sandi dalam email dapat diambil dan digunakan di kemudian
+        hari jika akun email dicuri, dibobol, dan sebagainya.
+      answer_purpose_7: Risiko yang sama juga ada ketika mengirim kata sandi melalui
+        SMS, WhatsApp, Telegram, Chatting, dll... Data tersebut dapat dan sering kali
+        disimpan selamanya dan di luar kendali Anda.
+      answer_purpose_8: Dengan menggunakan Password Pusher, Anda melewati semua ini.
+      answer_purpose_9: Untuk setiap kata sandi yang diposting ke Password Pusher,
+        sebuah <strong>URL unik dibuat yang hanya Anda yang tahu</strong>.
+      answer_rebranding_1: Password Pusher mendukung re-branding lengkap "di luar
+        kotak" yang memungkinkan Anda untuk menambahkan logo kustom, gambar, teks,
+        dan bahkan mengubah tema aplikasi.
+      answer_self_host_1: Ya, untuk versi open source, kami menyediakan %{docker_link}
+        dan %{install_link} untuk berbagai macam platform dan cloud.
+      answer_self_host_2: Untuk versi premium, dengan serangkaian fitur super lengkap,
+        kontainer yang di-host sendiri akan segera hadir.
+      answer_trust_1: Dan memang seharusnya begitu. Semua keamanan yang baik dimulai
+        dengan skeptisisme yang sehat dari semua komponen yang terlibat.
+      answer_trust_2: Password Pusher hadir sebagai alternatif yang lebih baik untuk
+        mengirim kata sandi melalui email. Hal ini untuk menghindari adanya kata sandi
+        yang ada dalam arsip email untuk selamanya. Ini tidak ada sebagai solusi keamanan
+        yang menyeluruh.
+      answer_trust_3: Password Pusher dimulai sebagai sebuah proyek sumber terbuka
+        pada akhir tahun 2011.  Proyek ini dikelola dan diperbarui oleh saya sendiri
+        (Peter Giacomo Lombardo) dan beberapa kontributor yang sangat baik selama
+        itu.  Pada tahun 2024, versi premium diperkenalkan untuk mempercepat pengembangan
+        dan membantu mendanai proyek.  Semua fitur premium pada akhirnya akan menjadi
+        versi open source.
+      answer_trust_4: Dengan memiliki sejarah yang panjang dan bersifat open source,
+        Password Pusher telah ditinjau oleh banyak mata.  Telah digunakan oleh dan
+        diaudit oleh banyak organisasi dan individu selama bertahun-tahun.
+      answer_trust_5: 'Kebijakan Password Pusher ada tiga: 1) Enkripsi saat istirahat
+        dan dalam perjalanan 2) Penyimpanan data minimal 3) Transparansi dalam bentuk
+        log audit.'
+      answer_trust_6: Dalam hal ini, muatan push akan dihapus dengan pasti pada saat
+        kedaluwarsa dan log audit dipertahankan tanpa batas waktu.  Semakin sedikit
+        data yang disimpan oleh Pendorong Kata Sandi, semakin baik.
+      answer_trust_7: Jika Anda masih memiliki kekhawatiran terkait kepercayaan, keselamatan
+        dan keamanan, jangan ragu untuk meninjau kode tersebut, kirimkan pertanyaan
+        apa pun yang Anda miliki dan pertimbangkan untuk menjalankannya secara internal
+        di organisasi Anda.
+      answer_trust_8: Mengenai kepercayaan terhadap saya, yang dapat saya tawarkan
+        adalah sejarah panjang saya dalam membangun proyek ini dan reputasi publik
+        saya di %{github}, %{linkedin}, %{twitter}, dan %{blog}.  Jangan ragu untuk
+        menghubungi saya kapan saja jika ada pertanyaan yang Anda miliki.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Beberapa organisasi terikat oleh kebijakan keamanan yang
+        melarang penggunaan layanan publik untuk informasi sensitif seperti kata sandi.  Bahkan
+        ada organisasi yang mengharuskan semua alat berada di intranet pribadi tanpa
+        akses ke dunia luar.
+      answer_why_private_2: Menjalankan contoh pribadi Anda sendiri dari Password
+        Pusher memungkinkan Anda untuk mengontrol lingkungan dan data.  Ini juga memungkinkan
+        Anda untuk menambahkan fitur dan integrasi khusus yang spesifik untuk organisasi
+        Anda.
+      answer_why_private_3: Karena alasan inilah kami menyediakan kemampuan (dan mendorong)
+        pengguna dan organisasi untuk menjalankan instance pribadi saat dibutuhkan.
+      feedback_link: Formulir umpan balik
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: blog saya
+      question_access: Apakah ada cara lain untuk mengakses Password Pusher di luar
+        browser?
+      question_add_feature: Bisakah Anda menambahkan fitur khusus untuk organisasi
+        saya?
+      question_already_expired: URL rahasia yang saya kirimkan sudah kedaluwarsa.  Apa
+        yang terjadi?
+      question_automation: Dapatkah saya mengotomatiskan distribusi kata sandi saya?
+      question_conference: Dapatkah saya menggunakan Password Pusher dalam pembicaraan,
+        video, presentasi, atau konferensi saya?
+      question_have_to_pay: Apakah saya harus membayar?
+      question_how_many: Berapa banyak permintaan yang bisa saya kirimkan ke Password
+        Pusher?
+      question_licensing: Apakah ada pembatasan lisensi untuk saya, perusahaan saya,
+        atau organisasi saya?
+      question_premium_diff: Apa saja perbedaan antara versi open source dan versi
+        premium?
+      question_private_risks: Apa saja potensi risiko keamanan dari menjalankan versi
+        saya sendiri secara internal?
+      question_purpose: Apa tujuan dari Password Pusher?
+      question_rebranding: Dapatkah saya menerapkan logo khusus atau mengubah desain?
+      question_self_host: Dapatkah saya menjalankan versi saya sendiri untuk organisasi
+        saya secara internal?
+      question_trust: Kepercayaan adalah hal yang penting. Mengapa saya harus menggunakan
+        Password Pusher?
+      question_why_premium: Password Pusher selalu menjadi sumber terbuka.  Mengapa
+        ada versi premium?
+      question_why_private: Mengapa saya ingin menjalankan contoh pribadi Password
+        Pusher saya sendiri?
+      question_will_oss: Apakah fitur premium akan ditambahkan ke versi open source?
+      subtitle: "... semua hal yang ingin Anda ketahui tentang Password Pusher."
+      title: Pertanyaan yang Sering Diajukan
+      title_other: Lainnya
+      title_private: Menjalankan Instance Pribadi Anda Sendiri
+      title_pushes: Mendorong
+      title_subscriptions: Versi Premium
+      title_tools: Alat, Integrasi & Aplikasi
+      title_trust: Kepercayaan & Keamanan
+      tools_link: Alat & Aplikasi
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Anda dapat menerapkan kunci ini ke aplikasi Anda dengan mengatur variabel
+        lingkungan
+      generate_key: Hasilkan Kunci
+      generated: Kunci Enkripsi yang Dihasilkan
+      intro: Halaman ini digunakan sebagai alat bantu untuk menghasilkan kunci enkripsi
+        acak untuk instans Password Pusher yang dihosting sendiri.
+      intro_2: Password Pusher mengenkripsi data sensitif dalam basis data.  Meskipun
+        ada kunci default yang disertakan, praktik terbaiknya adalah menggunakan kunci
+        enkripsi kustom Anda sendiri.
+      intro_3: Dengan setiap penyegaran, halaman ini akan menghasilkan kunci enkripsi
+        baru.  Anda dapat menggunakan kode yang dibuat secara acak di bawah ini untuk
+        mengonfigurasi instans Pendorong Kata Sandi Anda.
+      note_1: Jika kunci enkripsi tidak disediakan, kunci default akan digunakan.
+      note_2: Keamanan terbaik untuk instans pribadi Password Pusher adalah dengan
+        menggunakan kunci enkripsi kustom Anda sendiri walaupun tidak diwajibkan.
+      note_3: Risiko menggunakan kunci default akan berkurang jika Anda menjaga keamanan
+        instance dan masa berlaku push Anda pendek. misalnya 1 hari/1 tampilan versus
+        100 hari/100 tampilan.
+      note_4: Setelah sebuah push kedaluwarsa, semua data terenkripsi dalam push tersebut
+        akan dihapus.
+      note_5: Mengubah kunci enkripsi di mana sudah ada push yang lama akan membuat
+        push yang lama tidak dapat dibaca.  Dengan kata lain, payload akan kacau.  Push
+        baru di masa mendatang akan bekerja dengan baik.
+      note_6: 'Pembuatan kunci juga dapat dilakukan dari baris perintah dalam sumber
+        aplikasi dengan mengeksekusi:'
+      notes: 'Catatan:'
+      reload: Muat ulang halaman ini untuk membuat kunci baru.
+      title: Menghasilkan Kunci Enkripsi
+    password_generator:
+      push_it: Tekan Kata Sandi ini
+    tools:
+      alfred: Aplikasi Alfred
+      api_documentation: Dokumentasi Titik Akhir API
+      applications: Aplikasi
+      cli: Antarmuka Baris Perintah
+      clu: Utilitas Baris Perintah
+      examples: Contoh
+      github: Github
+      intro: Dengan API JSON Password Pusher, ada sejumlah aplikasi dan utilitas baris
+        perintah (CLI) yang berinteraksi dengan pwpush.com atau instans yang Anda
+        hosting sendiri.  Dorong kata sandi dari CLI, Slack, Aplikasi Alfred, dan
+        banyak lagi.
+      intro_2: API JSON adalah alat yang kuat yang memungkinkan otomatisasi mendorong
+        kata sandi.  Hal ini bisa dilakukan dengan berbagai bahasa pemrograman dan
+        alat bantu.
+      intro_3: Lihat halaman %{github} untuk informasi lebih lanjut.
+      more: Lebih lanjut
+      slack: Kendur
+      subtitle: Password Pusher lebih dari sekadar aplikasi web.  Password Pusher
+        memiliki API JSON yang memungkinkan berbagai macam integrasi dan aplikasi.
+      title: Alat, API, Integrasi & Aplikasi
+      tools_1: Dengan menggunakan API JSON, berbagai alat tersedia untuk berinteraksi
+        dengan Password Pusher untuk mengotomatiskan distribusi kata sandi.
+      tools_2: Kami tidak memiliki batasan berapa banyak kata sandi yang dapat Anda
+        masukkan (dan tidak berniat menambah batasan) tetapi kami memiliki pembatas
+        kecepatan sehingga situs tidak akan diambil alih oleh skrip yang buruk atau
+        aktor jahat.  Batasi alat Anda hingga maksimum 1 kata sandi setiap beberapa
+        detik dan Anda akan baik-baik saja.
+      tools_3: 'Anda bisa mengujinya di konsol Javascript peramban Anda dengan membuka
+        halaman depan Password Pusher dan masuk:'
+      tools_4: API ini memungkinkan Anda untuk berinteraksi dengan Password Pusher
+        melalui JSON.  Ini dapat digunakan oleh utilitas yang ada seperti curl, wget,
+        atau bahasa pemrograman apa pun.  Lihat contoh-contoh di bawah ini untuk beberapa
+        ide.
+      tools_5: Lihat penjelasan dan contoh lebih lanjut di Wiki %{github}.
+      walkthrough: Panduan & Contoh

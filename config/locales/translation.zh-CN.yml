@@ -216,25 +216,18 @@ zh-CN:
       create: 新增%{model}
       update: 更新%{model}
       submit: 储存%{model}
-  will_paginate:
-    previous_label: 上一页
-    next_label: 下一页
-    page_gap: "…"
-    container_aria_label: 分页
-    page_aria_label: 第 %{page} 页
     page_entries_info:
-      single_page:
-        zero: 暂无%{model}记录
-        one: 正显示1条%{model}记录
-        other: 正显示所有共%{count}条%{model}记录
-      single_page_html:
-        zero: 暂无%{model}记录
-        one: 正显示<b>1</b>条%{model}记录
-        other: 正显示所有共<b>%{count}</b>条%{model}记录
-      multi_page: 正显示%{model}的第%{from}至第%{to}条记录(共%{count}条记录)
-      multi_page_html: 正显示%{model}的第<b>%{from}</b>至第<b>%{to}</b>条记录(共<b>%{count}</b>条记录)
-    previous_aria_label: 上一页
-    next_aria_label: 下一页
+      entry:
+        zero: 条目
+        one: 入口
+        other: 条目
+      one_page:
+        display_entries:
+          zero: 未找到 %{entry_name}
+          one: 显示<b>1</b> %{entry_name}
+          other: 显示<b>全部 %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: '显示 %{entry_name} <b>%{first} - %{last}</b>  共<b>%{total}</b> '
   flash:
     actions:
       create:
@@ -562,6 +555,571 @@ zh-CN:
     access: 使用权
     passphrase: 密码短语
     preview: 预习
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; 第一页"
+      last: 最后一页 &raquo;
+      previous: "&lsaquo; 上一页"
+      next: 下一页 &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: 你确定吗？
+      destroy: 破坏
+      edit: 编辑
+      edit_resource: 编辑%{name}
+      show_resource: 显示 %{name}
+      new_resource: 新%{name}
+      back: 返回
+    controller:
+      create:
+        success: "%{resource} 已成功创建。"
+      destroy:
+        success: "%{resource}已成功销毁。"
+      update:
+        success: "%{resource} 已成功更新。"
+    fields:
+      has_many:
+        more: 显示 %{total_count} 的 %{count}
+        none: 无
+    form:
+      error: 错误
+      errors: "%{pluralized_errors}禁止保存此%{resource_name}："
+    navigation:
+      back_to_app: 返回应用程序
+    search:
+      clear: 清除搜索
+      label: 搜索 %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: 此管理仪表板提供对 Password Pusher 应用程序的直接数据库访问。请小心谨慎，并在进行任何更改之前考虑进行备份。
+        admin_note: 注意：销毁记录也会销毁所有子记录。例如，销毁用户也会销毁该用户的所有推送的密码、文件和 URL。
+  accounts:
+    policy:
+      pwgen_syllables_count_help: 生成的密码中的音节数。
+      back: 返回团队
+      edit: 编辑政策
+      team_policy_help: 团队策略是一组适用于该团队成员所做的所有推送的规则。
+      personal_policy: 个人政策
+      personal_policy_help: 策略是一组适用于您创建的所有推送的规则。
+      team_policy: 团队政策
+      header_timed_expiration: 定时到期
+      expire_after_duration_min: 最短持续时间
+      expire_after_duration_min_help: 推送到期之前的最短持续时间。
+      expire_after_duration_max: 最长持续时间
+      expire_after_duration_max_help: 推送到期前的最长持续时间。
+      expire_after_duration_default: 默认持续时间
+      expire_after_duration_default_help: 推送到期前的默认持续时间。
+      minutes_tip: 1天=1440分钟，7天=10080分钟，30天=43200分钟
+      header_view_expiration: 查看有效期
+      expire_after_views_min: 最低观看次数
+      expire_after_views_min_help: 推送过期前的最小浏览量。
+      expire_after_views_max: 最大观看次数
+      expire_after_views_max_help: 推送过期前的最大浏览次数。 [最大限度。 100]
+      expire_after_views_default: 默认观看次数
+      expire_after_views_default_help: 推送到期前的默认浏览次数。
+      header_payload_limits: 有效载荷限制
+      push_text_max: 最大文字大小
+      push_text_max_help: 推送中文本的最大大小。以字节为单位。 [最大限度。 1048576]
+      push_files_max: 允许的最大文件数
+      push_files_max_help: 一次推送中允许的最大文件数。 [最大限度。 100]
+      header_retrieval_step: 一键检索步骤
+      enable_retrieval_step: 使能够？
+      enable_retrieval_step_help: 为该团队启用一键检索？如果禁用，该选项将被隐藏并且不被使用。
+      retrieval_step_default: 默认值
+      retrieval_step_default_help: 一键检索步骤选项的默认值。
+      retrieval_step_forced: 强制使用默认值？
+      retrieval_step_forced_help: 强制所有团队成员使用此选项和默认值。团队成员无法更改它。
+      hide_retrieval_step: 隐藏选项？
+      hide_retrieval_step_help: 对团队成员隐藏一键检索步骤选项。这对于强制选项默认而不向团队成员显示非常有用。
+      header_deletable: 可由查看者删除
+      enable_deletable: 使能够？
+      enable_deletable_help: 为团队启用此选项吗？如果禁用，该选项将被隐藏并且不被使用。
+      deletable_default: 默认值
+      deletable_default_help: "“可由查看者删除”选项的默认值。"
+      deletable_forced: 强制使用默认值？
+      deletable_forced_help: 强制所有团队成员使用此选项和默认值。团队成员无法更改它。
+      hide_deletable: 隐藏选项？
+      hide_deletable_help: 对团队成员隐藏“可按查看者删除”选项。这对于强制选项默认而不向团队成员显示非常有用。
+      hide_passphrase: 隐藏选项？
+      hide_passphrase_help: 隐藏密码锁定选项。对于完全禁用此选项很有用。
+      enable_blur: 使能够？
+      enable_blur_help: 负载模糊会模糊秘密 URL 传递页面上负载的内容。收件人可以通过单击切换模糊以显示原始数据。
+      header_passphrase: 密码锁
+      header_blur: 有效负载模糊
+      header_pwgen: 密码生成
+      save: 更新团队政策
+      enable_pwgen: 使能够？
+      enable_pwgen_help: 为该团队启用密码生成选项？如果禁用，该选项将被隐藏并且不被使用。
+      pwgen_configurable: 可配置？
+      pwgen_configurable_help: 允许团队成员配置密码生成器吗？如果禁用，该选项将被强制采用以下配置，并且团队成员无法更改。
+      pwgen_has_numbers: 包括数字吗？
+      pwgen_has_numbers_help: 在生成的密码中包含数字。
+      pwgen_title_cased: 标题大小写？
+      pwgen_title_cased_help: 生成的密码部分的标题大小写。
+      pwgen_use_separators: 使用分隔符？
+      pwgen_use_separators_help: 在生成的密码中使用分隔符。
+      pwgen_consonants: 辅音
+      pwgen_consonants_help: 生成的密码中使用的辅音。
+      pwgen_vowels: 元音
+      pwgen_vowels_help: 生成的密码中使用的元音。
+      pwgen_separators: 分隔符
+      pwgen_separators_help: 在生成的密码中使用的分隔符。
+      pwgen_min_syllable_length: 最小音节长度
+      pwgen_min_syllable_length_help: 生成的密码中音节的最小长度。
+      pwgen_max_syllable_length: 最大音节长度
+      pwgen_max_syllable_length_help: 生成的密码中音节的最大长度。
+      pwgen_syllables_count: 音节数
+    show:
+      edit_policy: 编辑推送策略
+      policy: 团队政策
+  tag_line: 前进。通过电子邮件发送另一个密码。
+  about: 关于
+  app_name: 密码推送器
+  application:
+    card_newsletter:
+      enter_email: 输入你的电子邮箱...
+      subscribe: 订阅
+    cookie_consent:
+      notice: 浏览器 cookie 有助于使该工具正常工作。使用它即表示您同意使用这些 cookie。
+    footer:
+      best_practices: 最佳实践
+      docker: Docker 容器
+      faq: 常问问题
+      feedback: 反馈
+      github: GitHub
+      key_generator: 密钥生成器
+      newsletter: 通讯
+      password_generator: 密码生成器
+      tools: 工具、API 和 CLI
+    pw_generator_modal:
+      cancel: 取消
+      configure: 配置密码生成器
+      consonants: 辅音
+      generate_password: 生成密码
+      include_numbers: 包括数字
+      load_preset: 加载预设
+      max_syllable_length: 最大音节长度
+      min_syllable_length: 最小音节长度
+      num_syllables: 音节数
+      reset: 重置为默认值
+      save: 保存
+      separators: 分隔符
+      test: 测试生成
+      test_area: 测试区
+      use_separators: 使用分隔符
+      use_titlecase: 使用标题
+      vowels: 元音
+  audit_logs:
+    audit_log:
+      created: 创建于
+      created_by: 创建者：%{user}
+      log_created: "%{user} 在 %{date} 上创建的推送"
+      log_expired: 手动推送已在 %{date} 上由 %{user} 过期
+      log_failed_view: "%{user} 从 IP 地址 %{ip} 在 %{date} 上尝试查看失败"
+      log_manual_expiration: "%{user} 在 IP 地址为 %{ip} 的 %{date} 上手动推送已过期"
+      log_referrer: 推荐人：%{referrer}
+      log_user_agent: 用户代理：%{user_agent}
+      log_viewed: "%{user} 从 %{date} 上的 IP 地址 %{ip} 成功查看"
+      unknown: 未知
+      viewed_by: 已查看者 %{user}
+  dashboard:
+    show:
+      detail: 细节
+      event: 事件
+      when: 什么时候
+  duration:
+    format_d:
+      one: 1天
+      other: "%{count} 天"
+    format_dhm: "%{days} 天、%{hours} 小时和 %{minutes} 分钟"
+    format_h:
+      one: 1小时
+      other: "%{count} 小时"
+    format_hm: "%{hours} 小时和 %{minutes} 分钟"
+    format_m:
+      one: 1分钟
+      other: "%{count} 分钟"
+  feedbacks:
+    create:
+      feedback_sent: 反馈已发送！我们会尽快回复您。
+    failed_spam_test: 抱歉，您未通过垃圾邮件检查。您可以尝试在 Github 上联系我们。
+    failed_to_send: 无法发送反馈。出了点问题。请重试或在 Github 上联系我们。
     new:
-      upload_limit: 每次推送最多可以上传 %{count} 个文件。
+      email: 电子邮件
+      have_idea: 有想法或愿望吗？你不喜欢什么？想帮忙吗？我们希望听到它！
+      leave_blank: 将此字段留空！
+      math_question: 一百减3是多少？
+      send_feedback: 发送反馈
+      tip: 提示：将您的消息复制到剪贴板，以防发生不太常见的提交失败的情况。
+      your_name: 您的姓名
+  none: 无
+  pages:
+    about:
+      about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
+      about_2: 使用 Password Pusher，您可以创建一个唯一的一次性 URL，该 URL 将在一定时间后或访问一定次数后失效，从而确保您的信息保持私密和安全。
+      about_3: 它经常被个人和组织用来与同事、客户或合作伙伴共享登录凭据或其他敏感数据。
+      about_4: Password Pusher 是一种简单方便的解决方案，无需电子邮件或其他不太安全的通信方式即可安全地共享密码。
+      about_pwpush: 关于Password Pusher
+      hosted_at_html: 托管在<a href="https://pwpush.com">pwpush.com</a> ，或者您可以在任何您喜欢的地方运行您自己的私有实例。
+      my_name: 我的名字是彼得·贾科莫·隆巴多。您可以在 %{linkedin}、%{github} 或 %{blog} 上找到我。
+      source_avail_html: 源代码可<a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">在 GitHub 上获取</a>。它是开源的，任何人都可以免费使用、审查或修改。
+      the_author: 作者
+  pushes:
+    access:
+      incorrect: 该密码不正确。请重试或联系向您发送此链接的个人或组织。
+    audit:
+      1click_retrieval_step: 一键检索步骤
+      1click_retrieval_step_help: 有助于避免聊天系统和 URL 扫描器占用查看配额。
+      active: 活动的
+      attached_files: 附件
+      attached_files_help: 此次推送中是否附加了文件？
+      audit_log_for: "%{push_id} 的审核日志"
+      contains_text: 包含文本
+      contains_text_help: 此推送是否已添加文本信息？
+      created: 创建于
+      created_by: 创建者：%{user}
+      current_status: 当前状态
+      deletable_by_viewers: 可由观看者删除
+      deletable_by_viewers_help: 这允许最终用户在检索后删除内容。
+      detail: 细节
+      end_audit_log: 审计日志结束
+      event: 事件
+      event_log: 审计日志
+      expire_after: 过期时间：
+      expire_after_time_help: 推送将在创建后的这段时间内过期。
+      expire_after_view_help: 推送在达到此观看次数后过期。
+      expire_now: 现在过期
+      expire_now_confirm: 这将使该秘密链接失效并永远从数据库中删除所有相关内容。审核日志（包括未来尝试的视图）仍将保留。你确定吗？
+      expired: 已到期
+      failed_view: 查看尝试失败
+      failed_view_attempts: 失败的查看
+      failed_view_attempts_help: 过期后尝试查看此推送的次数。
+      filename: 文件名
+      files_deleted: 所有先前附加的文件都已被删除，或者根本没有附加。”
+      log_note: 当推送接收到活动时，每个带有活动识别信息的日志都会显示在这里。
+      manual_expiration: 手动过期
+      message_length: 信息长度
+      message_length_help: 附加文本内容的长度。
+      none: 无
+      num_files_attached: 附件数
+      num_files_attached_help: 此推送附加的文件数量。
+      passphrase_lock: 密码锁定
+      passphrase_lock_help: 要求收件人输入密码才能查看此推送。
+      payload: 内容
+      push_date: 已推送至 %{date}
+      reference_note: 参考笔记
+      secret_url: 此推送的私密 URL
+      size: 尺寸：%{size}
+      start_audit_log: 审计日志的开始
+      start_log: 审计日志的开始
+      state: 状态
+      state_help_active: 活动且仍可供查看。
+      state_help_expired: 推送内容已被删除，密文网址已过期。
+      successful_view: 成功观
+      successful_views: 成功的查看
+      successful_views_help: 推送被成功查看的次数。
+      time_remaining: 剩余时间
+      time_remaining_help: 推送到期之前剩余的时间量。
+      title: 推送审核日志
+      visible_to: 仅自己可见
+      when: 什么时候
+    copy_to_clipboard: 复制到剪贴板
+    day:
+      one: 1天
+      other: "%{count} 天"
+    deleted: 已删除
+    expiration_html: 此秘密链接和所有内容将在<strong>%{duration}</strong>或<strong>%{count} 个更多浏览次数</strong>（以先发生者为准）中删除。
+    expire:
+      expired: 推送内容已被删除，密文网址已过期。
+      not_deletable: 观看者无法删除那个推送。
+    form:
+      12_hours: 12小时
+      15_minutes: 15分钟
+      1_day: 1天
+      1_hour: 1小时
+      1_month: 1个月
+      1_week: 1周
+      1click: 使用一键防检索步骤
+      1click_tip: 有助于避免聊天系统和扫描仪占用大量浏览量。
+      2_days: 2天
+      2_months: 2个月
+      2_weeks: 2周
+      30_minutes: 30分钟
+      3_days: 3天
+      3_months: 3个月
+      3_weeks: 3周
+      45_minutes: 45分钟
+      4_days: 4天
+      5_days: 5天
+      6_days: 6 天
+      6_hours: 6个小时
+      add_files: 添加文件...
+      audit_tip: 登录后，活动审核日志将被保留并无限期可用。
+      day: 日
+      days: 天
+      deletable: 允许立即删除
+      deletable_tip: 允许用户在检索到后删除此推送。
+      encryption_tip: 内容在存储之前进行加密，并且只有拥有秘密链接的人才能使用。
+      expiration_label: 使此推送过期并在以下时间后删除：
+      expiration_tip: 一旦过期，推送的所有内容和文件将被立即彻底删除。
+      generator_tip: 使用上面的按钮生成一个随机密码。
+      hour: 时
+      hours: 小时
+      login_to_upload: 登录以上传并附加文件至此推送...
+      minutes: 分钟
+      month: 月
+      months: 几个月
+      note_label: 参考笔记
+      note_placeholder: 私人注释，帮助记住此推送的目的是谁或什么。
+      passphrase_label: 密码锁
+      passphrase_placeholder: 要求收件人输入密码才能查看此推送。
+      password_tip: 提示：仅在框中输入密码。其他识别信息可能会危及安全。
+      payload_placeholder: 输入要推送的密码、文本或 URL...
+      push_it: 发布！
+      upload_limit: 每次推送最多可以上传 10 个文件。
+      view: 看法
+      views: 查看
+      week: 星期
+      weeks: 周数
+    hour:
+      one: 1小时
+      other: "%{count} 小时"
+    index:
+      actions: 行动
+      clear_filters: 清除过滤器
+      created: 创建于
+      created_by: 经过
+      expires: 过期
+      file_count: 文件
+      note: 备注
+      nothing_here: 这里还什么都没有。
+      push_id: 推送 ID
+      pushes: 推动
+      remaining_time: 剩余时间
+      status: 地位
+      views: 查看
+      views_remaining: 剩余观看次数
+    minute:
+      one: 1分钟
+      other: "%{count} 分钟"
+    more_view:
+      one: 还有 1 个视图
+      other: "%{count} 更多浏览"
+    'no': 否
+    none: 无
+    passphrase:
+      enter_passphrase: 输入密码
+      go: 去
+      placeholder: 输入此 URL 提供的密码
+      tip: 输入秘密密码
+    payload: 内容
+    preliminary:
+      click_proceed: 单击此处继续
+    preview:
+      and: 和
+      can_be: 可以
+      can_not_be: 不可能是
+      deleted_by_viewers: 被查看者删除。
+      link_lang_tip: 提示：推送给国际用户？使用 URL 右侧的下拉菜单更改秘密链接的页面展示语言。
+      or: 或者
+      or_after: 或之后
+      push_another: 再推一个
+      push_created: 您的推送已创建
+      use_link_to_share: 使用此秘密链接分享它：
+      view_push_now: 立即查看此推送
+      will_burn_view: "（将烧毁视图）"
+      will_expire_after: 此推送将于
+      with_preliminary_step: 它还包括%{strong_start}一键初步检索步骤%{strong_end}。
+    provide_text_or_file: 要创建推送，您必须提供文本和/或附加文件。
+    push:
+      active: 活动的
+      audit: 审计
+      expired: 已到期
+      none: 无
+      preview: 预览
+      push_controls: 推送设置
+      title: 新推
+      unknown: 未知
+    secret_link_lang: 秘密链接语言
+    settings: 设置
+    show:
+      blurred: 您的密码已模糊处理。单击下面以查看它。
+      click_to_reveal: 内容已经模糊了。单击下面即可显示它。
+      delete_now: 立即删除此秘密链接
+      delete_now_confirm: 这将使该秘密链接失效并永远从数据库中删除所有相关内容。你确定吗？
+      download_file: 下载文件
+      files_sent: 以下文件已发送给您。
+      last_view: 这是最后的景色。
+      obtain: 使用密码管理器和/或加密存储安全地检索和存储此内容。请记住及时删除不再需要的任何数据。
+      open_file: 打开文件
+      please_download: 请下载并存储在安全区域。
+      will_be_deleted: 此秘密链接和所有内容将在 %{b_tag}%{time_count} %{time_unit}%{b_tag} 或 %{b_tag}%{view_count}
+        更多 %{view_unit}%{b_tag}（以先发生者为准）中删除。
+      your_link: 你的秘密链接
+    show_expired:
+      expired_help: 如有需要，请联系向您提供此秘密 URL 的个人或组织。
+      expired_message: 抱歉，此秘密链接已过期。
+      link_expired: 您的秘密链接已过期
+    view:
+      one: 1 次观看
+      other: "%{count} 观看次数"
+    view_audit_log: 查看审计日志
+    whichever: "（以先到者为准）"
+    'yes': 是的
+  static:
+    about:
+      about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
+      about_2: 使用 Password Pusher，您可以创建一个唯一的一次性 URL，该 URL 将在一定时间后或访问一定次数后失效，从而确保您的信息保持私密和安全。
+      about_3: 它经常被个人和组织用来与同事、客户或合作伙伴共享登录凭据或其他敏感数据。
+      about_4: Password Pusher 是一种简单方便的解决方案，无需电子邮件或其他不太安全的通信方式即可安全地共享密码。
+      about_5: 托管在 %{pwpush_link}，或者您可以在任何您喜欢的地方运行您自己的私有实例。
+      about_6: 源代码可在 %{github_link} 上找到。它是开源的，任何人都可以免费使用、审查或修改。
+      age_body: 对密码推送器的第一次 git 提交是在<strong>2011 年 12 月 28 日</strong>。 pwpush.com 此后不久就上线了。
+      age_title: 超过 %{years_count} 岁
+      author_1: 我的名字是彼得·贾科莫·隆巴多。您可以在 %{linkedin}、%{github} 或 %{blog} 上找到我。
+      author_2: 如需更新，请关注 %{twitter}（或我的 %{twitter_personal}）上的密码推送器或订阅 %{newsletter}。
+      facebook: Facebook
+      github: 吉图布
+      help_1: 到目前为止，最大的帮助就是传播信息。与您的朋友、同事和组织共享密码推送器。
+      help_2: 你也可以：
+      help_3: 启动 %{github} 项目。它是密码推送者趋势的算法的汽油。
+      help_4: 帮助%{translate}。改进现有语言或添加新语言。
+      help_5: 注册 %{newsletter} 以获取有关重要版本、安全问题、提示等的更新。
+      help_6: 关注 %{facebook}、%{twitter} 和 %{github} 上的密码推送程序。
+      help_translate: 帮助翻译
+      newsletter: 通讯
+      pwpush_domain: pwpush.com
+      section_about: 关于
+      section_author: 作者
+      section_follow: 密码推送者的关注点
+      section_help: 想帮忙吗？
+      title: 关于Password Pusher
+      twitter: 推特
+    faq:
+      answer_access_1: 通过密码推送器 JSON API，有许多应用程序和命令行实用程序 (CLI) 可以与 pwpush.com 或您的自托管实例进行交互。从
+        CLI、Slack、Alfred 应用程序等推送密码。
+      answer_access_2: 有关详细信息，请参阅 %{tools} 页面。
+      answer_add_feature_1: 很有可能。我喜欢听取所有想法和反馈，并列出清单以决定下一步要添加什么。如果您有任何想法和反馈，请将其提交到
+        %{feedback_link} 页面或 %{github_link}。
+      answer_already_expired_1: 某些系统（例如电子邮件、防火墙和聊天系统）通常具有会占用视图的链接扫描器。这样做通常是为了公司安全或只是为应用程序生成“预览”。
+      answer_already_expired_2: 为了防止这种情况，请在推送密码时使用一键检索步骤选项。这要求用户单击初始页面以保护此类扫描仪的视图。
+      answer_already_expired_3: 作为一项额外的预防措施，登录时会为创建的每个推送提供审核日志。此审核日志显示了查看推送的人员和时间。
+      answer_automation_1: 是的。密码推送器 JSON API 允许自动化密码推送。这可以通过多种编程语言和工具来完成。
+      answer_automation_2: 有关详细信息，请参阅 %{tools} 页面。
+      answer_conference_1: 绝对地。我们拥有 %{windows_link} 和 %{mac_link} 格式的媒体资源和功能的完整说明。
+      answer_conference_2: 如果您有任何疑问或需要任何帮助，请随时与我联系。
+      answer_how_many_1: 目前没有限制，我也不打算添加任何限制。为了最低限度地保证站点稳定性，Password Pusher 默认配置了速率限制器。可以在自托管版本中禁用此功能。
+      answer_licensing_1: 源代码开源版本是在 Apache 2.0 许可证下发布的，并且几乎定义了所有限制。有相当多的重新命名和重新设计的密码推送器克隆网站，我欢迎它们。
+      answer_licensing_2: 高级版本是根据商业许可证发布的。它不是开源的，也不是免费的。它的核心包含开源项目，但提供了一组超强的功能，旨在加速开发并帮助资助该项目。
+      answer_licensing_3: 运行 Password Pusher 的私有实例不需要高级版本。开源版本功能齐全且免费使用。
+      answer_licensing_4: 所有高级功能在一段时间后最终会变成开源版本，具体取决于功能。
+      answer_private_risks_1: 为您的公司或组织运行 Password Pusher 的私有实例让您高枕无忧，因为您确切知道正在运行的代码。您可以根据需要配置和运行它。
+      answer_private_risks_2: 另一方面，如果您的实例遭到黑客攻击并且加密被破坏，恶意实体现在拥有目标密码字典来暴力破解您组织中的帐户。
+        （这仅限于尚未过期的推送）
+      answer_private_risks_3: 在这方面，pwpush.com 的公共实例可能更胜一筹，因为它只包含密码，而不包含来自世界各地的用户混合的识别信息。
+      answer_private_risks_4: 另一项考虑因素是实例的维护。您需要保持其更新、安全和备份。
+      answer_private_risks_5: 用户应仔细权衡利弊，决定哪条路线最适合自己。我们很乐意支持这两种策略。
+      answer_purpose_1: Password Pusher 作为通过电子邮件发送密码的更好替代方案而存在。
+      answer_purpose_10: 此外，<strong>密码在点击一组预定义的视图或经过一段时间后就会过期。</strong>
+      answer_purpose_11: 一旦过期，密码将被明确删除。
+      answer_purpose_12: 如果您觉得这听起来很有趣，请尝试一下或查看下面的其他常见问题。
+      answer_purpose_2: "<strong>通过电子邮件发送密码本质上是不安全的。</strong>最大的风险包括："
+      answer_purpose_3: 通过电子邮件发送的密码通常附带与他们收件人的使用情景相关的信息，或者可能从电子邮件用户名、域等猜测。
+      answer_purpose_4: 电子邮件本质上是不安全的，可以被恶意实体在多个环节拦截。
+      answer_purpose_5: 通过电子邮件发送的密码在电子邮件存档中永续（也即：永远）存在。
+      answer_purpose_6: 电子邮件中的密码可能被检索到并被后续使用，一旦电子邮件账户被盗或者被破解等。
+      answer_purpose_7: 通过短信、WhatsApp、Telegram、聊天等方式发送密码时也存在同样的风险……数据可以并且通常会被永久保存，不受您的控制。
+      answer_purpose_8: 通过使用 Password Pusher，您可以避免所有这些。
+      answer_purpose_9: 对于发布到密码推送器的每个密码，<strong>都会生成一个只有您知道的唯一 URL</strong> 。
+      answer_rebranding_1: 密码推送器支持“开箱即用”的完整品牌重塑，允许您添加自定义徽标、图像、文本，甚至更改应用程序主题。
+      answer_self_host_1: 是的，对于开源版本，我们为各种平台和云提供 %{docker_link} 和 %{install_link}。
+      answer_self_host_2: 对于高级版本，具有超级功能集的自托管容器即将推出。
+      answer_trust_1: 理所当然的。所有良好的安全性都始于对所有相关组件的健康性怀疑。
+      answer_trust_2: Password Pusher 作为通过电子邮件发送密码的更好替代方案而存在。它避免了密码永久存在于电子邮件档案中。它不作为最终的安全解决方案存在。
+      answer_trust_3: Password Pusher 于 2011 年底作为一个开源项目开始。一直以来，它都是由我 (Peter Giacomo
+        Lombardo) 和一些优秀的贡献者维护和更新。 2024 年，推出了高级版本以加速开发并帮助资助该项目。所有高级功能最终都会出现在开源版本中。
+      answer_trust_4: 由于历史悠久且开源，Password Pusher 已受到广泛认可。多年来，它已被许多组织和个人使用和审核。
+      answer_trust_5: Password Pusher 的策略有三层：1) 静态和传输中加密 2) 最小化数据保留 3) 以审核日志形式实现透明度。
+      answer_trust_6: 在这种情况下，推送有效负载在到期时将被明确删除，并且审核日志将无限期维护。密码推送器保存的数据越少越好。
+      answer_trust_7: 如果您仍然对信任、安全和保障有疑虑，请随时查看代码，发布您可能遇到的任何问题，并考虑在您的组织内部运行它。
+      answer_trust_8: 至于对我的信任，我所能提供的就是我构建这个项目的悠久历史以及我在 %{github}、%{linkedin}、%{twitter}
+        和 %{blog} 上的公众声誉。如果您有任何疑问，请随时与我联系。
+      answer_why_premium_1: 阿斯达夫
+      answer_why_private_1: 一些组织受安全政策的约束，这些政策禁止使用公共服务获取敏感信息（例如密码）。甚至有些组织要求所有工具都位于私有内网上，无法访问外部网络。
+      answer_why_private_2: 运行您自己的 Password Pusher 私有实例允许您控制环境和数据。它还允许您添加特定于您的组织的自定义功能和集成。
+      answer_why_private_3: 出于这些原因，我们提供（并鼓励）用户和组织在需要时运行私有实例的能力。
+      feedback_link: 反馈表
+      github_link: GitHub
+      mac_link: Mac 主题演讲
+      my_blog: 我的博客
+      question_access: 我可以通过其他方式在浏览器之外访问 Password Pusher 吗？
+      question_add_feature: 您可以为我的组织添加特定功能吗？
+      question_already_expired: 我发送的秘密 URL 已过期。发生了什么？
+      question_automation: 我可以自动化分发密码吗？
+      question_conference: 我可以在演讲、视频、演示或会议中使用密码推送器吗？
+      question_have_to_pay: 我需要付费吗？
+      question_how_many: 我可以向 Password Pusher 发送多少个请求？
+      question_licensing: 对我、我的公司或我的组织有任何许可限制吗？
+      question_premium_diff: 开源版本和高级版本之间有什么区别？
+      question_private_risks: 在内部运行我自己的版本有哪些潜在的安全风险？
+      question_purpose: 密码推送器的目的是什么？
+      question_rebranding: 我可以自定义徽标或更改设计吗？
+      question_self_host: 我可以运行我自己的版本以服务我的内部组织吗？
+      question_trust: 信任是一个问题。我为什么要使用 Password Pusher？
+      question_why_premium: Password Pusher 一直是开源的。为什么会有付费版本？
+      question_why_private: 为什么我要运行我自己的 Password Pusher 私有实例？
+      question_will_oss: 开源版本中会添加高级功能吗？
+      subtitle: "..您想了解的有关密码推送器的所有信息。"
+      title: 常见问题
+      title_other: 其他
+      title_private: 运行您自己的私有实例
+      title_pushes: 推动
+      title_subscriptions: 高级版
+      title_tools: 工具、集成和应用程序
+      title_trust: 信任与安全
+      tools_link: 工具与应用程序
+      windows_link: 视窗简报
+    generate_key:
+      env_var: 您可以通过设置环境变量将此密钥应用于您的应用程序
+      generate_key: 生成密钥
+      generated: 已生成加密密钥
+      intro: 此页面用作辅助工具，为密码推送器的自托管实例生成随机加密密钥。
+      intro_2: 密码推送器对数据库中的敏感数据进行加密。尽管包含默认密钥，但最佳做法是使用您自己的自定义加密密钥。
+      intro_3: 每次刷新时，该页面都会生成一个新的加密密钥。您可以使用下面随机生成的代码来配置您的Password Pusher 实例。
+      note_1: 如果未提供加密密钥，将使用默认密钥。
+      note_2: Password Pusher 私有实例的最佳安全措施是使用您自己的自定义加密密钥，尽管这不是必需的。
+      note_3: 如果您保持实例安全并且推送过期时间短，则使用默认密钥的风险会降低。例如，1 天/1 次观看与 100 天/100 次观看。
+      note_4: 一旦推送过期，该推送中的所有加密数据都会被删除。
+      note_5: 更改已存在旧推送的加密密钥将使那些旧的推送不再可读。换句话说，有效载荷将被乱码。新的推送的将会正常生效。
+      note_6: 还可以通过执行以下命令从应用程序源中的命令行完成密钥生成：
+      notes: 备注：
+      reload: 重新加载此页面以重新生成新密钥。
+      title: 生成加密密钥
+    password_generator:
+      push_it: 推送此密码
+    tools:
+      alfred: 阿尔弗雷德应用程序
+      api_documentation: API端点文档
+      applications: 应用
+      cli: 命令行界面
+      clu: 命令行工具
+      examples: 例子
+      github: 吉图布
+      intro: 通过密码推送器 JSON API，有许多应用程序和命令行实用程序 (CLI) 可以与 pwpush.com 或您的自托管实例进行交互。从
+        CLI、Slack、Alfred 应用程序等推送密码。
+      intro_2: JSON API 是一个功能强大的工具，可以实现密码推送的自动化。可以使用多种编程语言和工具来实现。
+      intro_3: 有关详细信息，请参阅 %{github} 页面。
+      more: 更多的
+      slack: 松弛
+      subtitle: Password Pusher 不仅仅是一个 Web 应用程序。它有一个 JSON API，允许各种集成和应用程序。
+      title: 工具、API、集成和应用程序
+      tools_1: 使用 JSON API，可以使用各种工具与 Password Pusher 交互以自动分发密码。
+      tools_2: 我们对您可以推送的密码数量没有限制（并且无意增加限制），但我们确实有一个速率限制器，以确保网站不会被糟糕的脚本或不良行为者破坏。您的工具限制为每隔几秒钟提交
+        1 个密码，应该就不会有问题。
+      tools_3: 您可以在浏览器 Javascript 控制台中对此进行测试，转到 Password Pusher 的首页并输入以下内容：
+      tools_4: 此 API 允许您通过 JSON 与密码推送器交互。这可以被现有的实用程序使用，例如 curl、wget 或任何编程语言。请参阅下面的示例以了解一些想法。
+      tools_5: 请参阅 %{github} Wiki 中的更多解释和示例。
+      walkthrough: 攻略和示例

@@ -259,25 +259,19 @@ is:
       create: Búa til %{model}
       update: Uppfæra %{model}
       submit: Vista %{model}
-  will_paginate:
-    previous_label: "← Fyrri"
-    previous_aria_label: Fyrri síða
-    next_label: Næsta →
-    next_aria_label: Næsta síða
-    page_gap: "…"
-    container_aria_label: Síðuskipting
-    page_aria_label: Síða %{page}
     page_entries_info:
-      single_page:
-        zero: Enginn %{model} fannst
-        one: Sýnir 1 %{model}
-        other: Sýnir allt %{count} %{model}
-      single_page_html:
-        zero: Enginn %{model} fannst
-        one: Sýnir <b>1</b> %{model}
-        other: Sýnir <b>allt %{count}</b> %{model}
-      multi_page: Sýnir %{model} %{from} - %{to} af %{count} samtals
-      multi_page_html: Sýnir %{model} <b>%{from} - %{to}</b> af <b>%{count}</b> samtals
+      entry:
+        zero: færslur
+        one: færslu
+        other: færslur
+      one_page:
+        display_entries:
+          zero: Enginn %{entry_name} fannst
+          one: Sýnir <b>1</b> %{entry_name}
+          other: Sýnir <b>allt %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Sýnir %{entry_name} <b>%{first} - %{last}</b> af <b>%{total}</b>
+          samtals
   flash:
     actions:
       create:
@@ -603,6 +597,744 @@ is:
     access: aðgangur
     passphrase: lykilorð
     preview: forskoðun
-  file_pushes:
+  views:
+    pagination:
+      first: "« Fyrst"
+      last: Síðasta »
+      previous: "‹ Fyrri"
+      next: Næsta ›
+      truncate: "…"
+  administrate:
+    actions:
+      confirm: Ertu viss?
+      destroy: Eyðileggja
+      edit: Breyta
+      edit_resource: Breyta %{name}
+      show_resource: Sýna %{name}
+      new_resource: Nýtt %{name}
+      back: Tilbaka
+    controller:
+      create:
+        success: "%{resource} var búið til."
+      destroy:
+        success: "%{resource} var eytt."
+      update:
+        success: "%{resource} var uppfært."
+    fields:
+      has_many:
+        more: Sýnir %{count} af %{total_count}
+        none: Enginn
+    form:
+      error: villa
+      errors: "%{pluralized_errors} bannaði að þetta %{resource_name} væri vistað:"
+    navigation:
+      back_to_app: Til baka í app
+    search:
+      clear: Hreinsa leit
+      label: Leita %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Þetta stjórnendaborð veitir beinan gagnagrunnsaðgang að Password
+          Pusher forritinu. Vinsamlegast farðu varlega og íhugaðu að taka öryggisafrit
+          áður en þú gerir breytingar.
+        admin_note: 'Athugið: Að eyðileggja skrá eyðir einnig öllum barnaskrám. Til
+          dæmis, eyðilegging notanda mun einnig eyðileggja öll ýtt lykilorð, skrár
+          og vefslóðir fyrir þann notanda.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Fjöldi atkvæða í lykilorðinu sem búið er til.
+      back: Aftur í Team
+      edit: Breyta stefnu
+      team_policy_help: Liðsstefna er sett af reglum sem gilda um allar ýtingar sem
+        meðlimir þessa liðs gera.
+      personal_policy: Persónuleg stefna
+      personal_policy_help: Stefna er sett af reglum sem gilda um allar ýtingar sem
+        þú hefur búið til.
+      team_policy: Stefna liðsins
+      header_timed_expiration: Tímasett fyrning
+      expire_after_duration_min: Lágmarkslengd
+      expire_after_duration_min_help: Lágmarkslengd áður en ýta rennur út.
+      expire_after_duration_max: Hámarkslengd
+      expire_after_duration_max_help: Hámarkslengd áður en ýta rennur út.
+      expire_after_duration_default: Sjálfgefin tímalengd
+      expire_after_duration_default_help: Sjálfgefin tímalengd áður en ýta rennur
+        út.
+      minutes_tip: 1 dagur = 1440 mínútur, 7 dagar = 10080 mínútur, 30 dagar = 43200
+        mínútur
+      header_view_expiration: Skoða gildistíma
+      expire_after_views_min: Lágmarksfjöldi áhorfs
+      expire_after_views_min_help: Lágmarksfjöldi áhorfa áður en ýta rennur út.
+      expire_after_views_max: Hámarksfjöldi áhorfa
+      expire_after_views_max_help: Hámarksfjöldi áhorfa áður en ýta rennur út. [Hámark.
+        100]
+      expire_after_views_default: Sjálfgefin áhorfsfjöldi
+      expire_after_views_default_help: Sjálfgefinn fjöldi skoðana áður en ýta rennur
+        út.
+      header_payload_limits: Burðartakmörk
+      push_text_max: Hámarks textastærð
+      push_text_max_help: Hámarksstærð texta í ýti. Mælt í bætum. [Hámark. 1048576]
+      push_files_max: Hámark leyfilegra skráa
+      push_files_max_help: Hámarksfjöldi skráa sem leyfður er í ýti. [Hámark. 100]
+      header_retrieval_step: 1-Smelltu á Retrieval Step
+      enable_retrieval_step: Virkja?
+      enable_retrieval_step_help: Virkja 1-Click Retrival fyrir þetta lið? Ef slökkt
+        er á honum verður þessi valkostur falinn og ekki notaður.
+      retrieval_step_default: Sjálfgefið gildi
+      retrieval_step_default_help: Sjálfgefið gildi fyrir 1-Click Retrieval skref
+        valmöguleikann.
+      retrieval_step_forced: Þvinga fram sjálfgefið gildi?
+      retrieval_step_forced_help: Þvingar fram notkun þessa valmöguleika með sjálfgefnu
+        gildi fyrir alla liðsmenn. Það er ekki hægt að breyta því af liðsmönnum.
+      hide_retrieval_step: Fela valkost?
+      hide_retrieval_step_help: Felur 1-Click Retrieval skref valkostinn fyrir liðsmönnum.
+        Þetta er gagnlegt til að þvinga valmöguleikann sjálfgefið án þess að sýna
+        það liðsmönnum.
+      header_deletable: Eyða af áhorfanda
+      enable_deletable: Virkja?
+      enable_deletable_help: Virkja þennan valkost fyrir liðið? Ef slökkt er á honum
+        verður þessi valkostur falinn og ekki notaður.
+      deletable_default: Sjálfgefið gildi
+      deletable_default_help: Sjálfgefið gildi fyrir valkostinn Eyða af áhorfanda.
+      deletable_forced: Þvinga fram sjálfgefið gildi?
+      deletable_forced_help: Þvingar fram notkun þessa valmöguleika með sjálfgefnu
+        gildi fyrir alla liðsmenn. Það er ekki hægt að breyta því af liðsmönnum.
+      hide_deletable: Fela valkost?
+      hide_deletable_help: Felur valkostinn Eyða af áhorfanda fyrir liðsmönnum. Þetta
+        er gagnlegt til að þvinga valmöguleikann sjálfgefið án þess að sýna það liðsmönnum.
+      hide_passphrase: Fela valkost?
+      hide_passphrase_help: Felur valkostinn Passphrase Lock. Gagnlegt til að slökkva
+        á notkun þessa valkosts algjörlega.
+      enable_blur: Virkja?
+      enable_blur_help: Hleðsluþoka hylur innihald farmsins á leynilegu vefslóð afhendingarsíðu.
+        Viðtakendur geta skipt um óskýrleika með einum smelli til að sýna upprunalegu
+        gögnin.
+      header_passphrase: Aðgangsorðalás
+      header_blur: Burðarálag óskýrt
+      header_pwgen: Lykilorðsgerð
+      save: Uppfærðu liðsstefnu
+      enable_pwgen: Virkja?
+      enable_pwgen_help: Virkja lykilorðsgerð valmöguleikans fyrir þetta lið? Ef slökkt
+        er á honum verður þessi valkostur falinn og ekki notaður.
+      pwgen_configurable: Stillanlegt?
+      pwgen_configurable_help: Leyfa liðsmönnum að stilla lykilorðaforritið? Ef hann
+        er óvirkur mun valmöguleikinn neyðast í stillingarnar hér að neðan og liðsmenn
+        geta ekki breytt honum.
+      pwgen_has_numbers: Hafa tölur með?
+      pwgen_has_numbers_help: Settu tölur inn í lykilorðið sem búið er til.
+      pwgen_title_cased: Titill Cased?
+      pwgen_title_cased_help: Titill áletri mynda lykilorð hlutar.
+      pwgen_use_separators: Nota skiljuna?
+      pwgen_use_separators_help: Notaðu skiljur í lykilorðinu sem búið er til.
+      pwgen_consonants: Samhljóðar
+      pwgen_consonants_help: Samhljóðin til að nota í lykilorðinu sem búið er til.
+      pwgen_vowels: Sérhljóðar
+      pwgen_vowels_help: Sérhljóðin sem á að nota í lykilorðinu sem búið er til.
+      pwgen_separators: Skiljur
+      pwgen_separators_help: Skiljurnar sem á að nota í myndaða lykilorðinu.
+      pwgen_min_syllable_length: Lágmarkslengd atkvæða
+      pwgen_min_syllable_length_help: Lágmarkslengd atkvæðis í lykilorðinu sem búið
+        er til.
+      pwgen_max_syllable_length: Hámarkslengd atkvæða
+      pwgen_max_syllable_length_help: Hámarkslengd atkvæðis í lykilorðinu sem búið
+        er til.
+      pwgen_syllables_count: Atkvæði telja
+    show:
+      edit_policy: Breyta Push Policy
+      policy: Stefna liðsins
+  tag_line: Gjörðu svo vel. Sendu annað lykilorð í tölvupósti.
+  about: Um
+  app_name: Lykilorð ýta
+  application:
+    card_newsletter:
+      enter_email: Sláðu inn netfangið þitt...
+      subscribe: Gerast áskrifandi
+    cookie_consent:
+      notice: Vafrakökur hjálpa til við að láta þetta tól virka. Með því að nota það
+        samþykkir þú notkun þessara vafrakaka.
+    footer:
+      best_practices: Bestu starfsvenjur
+      docker: Docker gámar
+      faq: Algengar spurningar
+      feedback: Endurgjöf
+      github: GitHub
+      key_generator: Key Generator
+      newsletter: Fréttabréf
+      password_generator: Lykilorðsframleiðandi
+      tools: Verkfæri, API og CLI
+    pw_generator_modal:
+      cancel: Hætta við
+      configure: Stilla lykilorðsgerð
+      consonants: Samhljóðar
+      generate_password: Búðu til lykilorð
+      include_numbers: Láttu tölur fylgja með
+      load_preset: Hladdu forstillingu
+      max_syllable_length: Hámarkslengd atkvæða
+      min_syllable_length: Lágmarkslengd atkvæða
+      num_syllables: Fjöldi atkvæða
+      reset: Endurstilla í sjálfgefnar stillingar
+      save: Vista
+      separators: Skiljur
+      test: Test Generation
+      test_area: Prófasvæði
+      use_separators: Notaðu skiljur
+      use_titlecase: Notaðu Titlecase
+      vowels: Sérhljóðar
+  audit_logs:
+    audit_log:
+      created: Búið til
+      created_by: Búið til af %{user}
+      log_created: Push búin til á %{date} af %{user}
+      log_expired: Push rann út handvirkt á %{date} með %{user}
+      log_failed_view: Misheppnuð tilraun til að skoða frá IP-tölu %{ip} á %{date}
+        af %{user}
+      log_manual_expiration: Push rann út handvirkt á %{date} af %{user} á IP tölu
+        %{ip}
+      log_referrer: 'Tilvísun: %{referrer}'
+      log_user_agent: 'Umboðsmaður notanda: %{user_agent}'
+      log_viewed: Vel heppnuð skoðun frá IP tölu %{ip} á %{date} eftir %{user}
+      unknown: Óþekktur
+      viewed_by: Skoðað af %{user}
+  dashboard:
+    show:
+      detail: Smáatriði
+      event: Viðburður
+      when: Hvenær
+  duration:
+    format_d:
+      one: 1 dag
+      other: "%{count} dagar"
+    format_dhm: "%{days} dag(ar), %{hours} klukkustund(ir) og %{minutes} mínúta(r)"
+    format_h:
+      one: 1 klukkustund
+      other: "%{count} klukkustund(ir)"
+    format_hm: "%{hours} klukkustund(ir) og %{minutes} mínútu(r)"
+    format_m:
+      one: 1 mínúta
+      other: "%{count} mínútu(r)"
+  feedbacks:
+    create:
+      feedback_sent: Viðbrögð send! Við munum snúa aftur til þín eins fljótt og auðið
+        er.
+    failed_spam_test: Við biðjumst velvirðingar en þú tókst ekki ruslpóstathugunina.
+      Þú gætir prófað að hafa samband við okkur á Github í staðinn.
+    failed_to_send: Mistókst að senda álit. Eitthvað var að. Vinsamlegast reyndu aftur
+      eða hafðu samband við okkur á Github.
     new:
-      upload_limit: Þú getur hlaðið upp allt að %{count} skrám fyrir hverja ýtingu.
+      email: Tölvupóstur
+      have_idea: Ertu með hugmynd eða ósk? Eitthvað sem þér líkar ekki við? Viltu
+        hjálpa til? Við viljum heyra það!
+      leave_blank: Skildu þennan reit eftir auðan!
+      math_question: Hvað er hundrað mínus 3?
+      send_feedback: Senda athugasemdir
+      tip: 'Ábending: Afritaðu skilaboðin þín á klemmuspjaldið þar sem ólíklegt er
+        að uppgjöf mistekst.'
+      your_name: Nafn þitt
+  none: Enginn
+  pages:
+    about:
+      about_1: Password Pusher er tól sem notað er til að deila lykilorðum og öðrum
+        viðkvæmum upplýsingum með öðru fólki á öruggan hátt.
+      about_2: Með Password Pusher geturðu búið til einstaka vefslóð í eitt skipti
+        sem rennur út eftir ákveðinn tíma eða eftir að hún hefur verið opnuð nokkrum
+        sinnum, og tryggir að upplýsingarnar þínar haldist persónulegar og öruggar.
+      about_3: Það er oft notað af einstaklingum og stofnunum til að deila innskráningarskilríkjum
+        eða öðrum viðkvæmum gögnum með samstarfsmönnum, viðskiptavinum eða samstarfsaðilum.
+      about_4: Password Pusher er einföld og þægileg lausn til að deila lykilorðum
+        á öruggan hátt án þess að þurfa tölvupóst eða aðrar óöruggar samskiptaaðferðir.
+      about_pwpush: Um Password Pusher
+      hosted_at_html: Hýst á <a href="https://pwpush.com">pwpush.com</a> eða þú getur
+        keyrt þitt eigið einkatilvik hvar sem þú vilt.
+      my_name: Ég heiti Peter Giacomo Lombardo. Þú getur fundið mig á %{linkedin},
+        %{github} eða %{blog}.
+      source_avail_html: Kóðinn er <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">fáanlegur á GitHub</a> . Það er
+        opinn uppspretta og ókeypis fyrir alla að nota, skoða eða breyta.
+      the_author: Höfundurinn
+  pushes:
+    access:
+      incorrect: Það lykilorð er rangt. Vinsamlegast reyndu aftur eða hafðu samband
+        við þann eða stofnunina sem sendi þér þennan hlekk.
+    audit:
+      1click_retrieval_step: 1-Smelltu á Retrieval Step
+      1click_retrieval_step_help: Hjálpar til við að koma í veg fyrir að spjallkerfi
+        og vefslóðaskannar éti upp skoðanir.
+      active: Virkur
+      attached_files: Meðfylgjandi skrár
+      attached_files_help: Hafa skrár verið tengdar við þessa ýtu?
+      audit_log_for: Endurskoðunarskrá fyrir %{push_id}
+      contains_text: Inniheldur texta
+      contains_text_help: Hefur textahleðslu verið bætt við þessa ýtu?
+      created: Búið til
+      created_by: Búið til af %{user}
+      current_status: Núverandi staða
+      deletable_by_viewers: Eyða af áhorfendum
+      deletable_by_viewers_help: Þetta gerir notendum kleift að eyða efni þegar það
+        hefur verið sótt.
+      detail: Smáatriði
+      end_audit_log: Endurskoðunarskrá
+      event: Viðburður
+      event_log: Endurskoðunarskrá
+      expire_after: 'Rennur út eftir:'
+      expire_after_time_help: Þrýstingurinn rennur út eftir þennan tíma frá stofnun.
+      expire_after_view_help: Þrýstingurinn rennur út eftir þennan fjölda áhorfa.
+      expire_now: Rennur út núna
+      expire_now_confirm: Þetta mun renna út þennan leynilega hlekk og eyða öllu tengdu
+        efni úr gagnagrunninum að eilífu. Endurskoðunarskránni (þar á meðal framtíðarsýnatilraunum)
+        verður áfram haldið áfram. Ertu viss?
+      expired: Útrunnið
+      failed_view: Misheppnuð skoðunartilraun
+      failed_view_attempts: Misheppnuð skoðunartilraunir
+      failed_view_attempts_help: Fjöldi tilrauna til að skoða þessa ýtingu eftir að
+        það rennur út.
+      filename: Skráarnafn
+      files_deleted: Öllum áður viðhengdum skrám hefur verið eytt, eða engar viðhengdar."
+      log_note: Þegar ýtið tekur á móti virkni mun skrá yfir hvern með auðkennandi
+        upplýsingum birtast hér.
+      manual_expiration: Handvirkt gildistíma
+      message_length: Lengd skilaboða
+      message_length_help: Lengd meðfylgjandi textahleðslu.
+      none: Enginn
+      num_files_attached: Fjöldi skráa sem viðhengi
+      num_files_attached_help: Fjöldi skráa sem fylgja þessu ýti.
+      passphrase_lock: Lokun lykilorða
+      passphrase_lock_help: Krefjast þess að viðtakendur slá inn aðgangsorð til að
+        skoða þessa ýtingu.
+      payload: Burðargeta
+      push_date: Ýtt á %{date}
+      reference_note: Tilvísunarathugasemd
+      secret_url: Leynileg slóð fyrir þessa ýtingu
+      size: 'Stærð: %{size}'
+      start_audit_log: Upphaf endurskoðunarskrár
+      start_log: Upphaf endurskoðunarskrár
+      state: Ríki
+      state_help_active: Virkt og enn hægt að skoða.
+      state_help_expired: Push efninu hefur verið eytt og leyni vefslóðin rann út.
+      successful_view: Vel heppnað útsýni
+      successful_views: Árangursríkt útsýni
+      successful_views_help: Fjöldi skipta sem ýtt hefur verið á með góðum árangri.
+      time_remaining: Tími eftir
+      time_remaining_help: Tíminn sem eftir er áður en ýtingin rennur út.
+      title: Ýttu á endurskoðunarskrá
+      visible_to: Aðeins þér sýnilegt
+      when: Hvenær
+    copy_to_clipboard: Afritaðu á klemmuspjald
+    day:
+      one: 1 dag
+      other: "%{count} dagar"
+    deleted: Eytt
+    expiration_html: Þessum leynda hlekk og öllu efni verður eytt í <strong>%{duration}</strong>
+      eða <strong>%{count} fleiri áhorfum</strong> , hvort sem kemur fyrst.
+    expire:
+      expired: Push efninu hefur verið eytt og leyni vefslóðin rann út.
+      not_deletable: Þessu ýti er ekki hægt að eyða af áhorfendum.
+    form:
+      12_hours: 12 tímar
+      15_minutes: 15 mínútur
+      1_day: 1 Dagur
+      1_hour: 1 klukkustund
+      1_month: 1 mánuður
+      1_week: 1 vika
+      1click: Notaðu 1-smella endurheimtarskref
+      1click_tip: Hjálpar til við að forðast að spjallkerfi og skannar éti upp skoðanir.
+      2_days: 2 dagar
+      2_months: 2 mánuðir
+      2_weeks: 2 vikur
+      30_minutes: 30 mínútur
+      3_days: 3 dagar
+      3_months: 3 mánuðir
+      3_weeks: 3 vikur
+      45_minutes: 45 mínútur
+      4_days: 4 dagar
+      5_days: 5 Dagar
+      6_days: 6 dagar
+      6_hours: 6 klst
+      add_files: Bæta við skrám...
+      audit_tip: Þegar þú ert skráður inn er endurskoðunarskrá yfir virkni geymd og
+        tiltæk um óákveðinn tíma.
+      day: Dagur
+      days: Dagar
+      deletable: Leyfa tafarlausa eyðingu
+      deletable_tip: Leyfa notendum að eyða þessu ýti þegar það hefur verið sótt.
+      encryption_tip: Efnið er dulkóðað áður en það er geymt og er aðeins í boði fyrir
+        þá sem eru með leynilega hlekkinn.
+      expiration_label: 'Renndu þessari ýttu og eyddu eftir:'
+      expiration_tip: Þegar það er útrunnið er öllu efni og skrám ýttarinnar eytt
+        strax og algjörlega.
+      generator_tip: Notaðu hnappinn hér að ofan til að búa til handahófskennt lykilorð.
+      hour: Klukkustund
+      hours: Klukkutímar
+      login_to_upload: Skráðu þig inn til að hlaða upp og hengja skrár við þessa þrýsti...
+      minutes: Fundargerð
+      month: Mánuður
+      months: Mánuðum
+      note_label: Tilvísunarathugasemd
+      note_placeholder: Einkamiða til að hjálpa til við að muna fyrir hvern eða hvað
+        þessi ýta er fyrir.
+      passphrase_label: Aðgangsorðalás
+      passphrase_placeholder: Krefjast þess að viðtakendur slá inn aðgangsorð til
+        að skoða þessa ýtingu.
+      password_tip: 'Ábending: Sláðu aðeins inn lykilorð í reitinn. Aðrar auðkennisupplýsingar
+        geta sett öryggi í hættu.'
+      payload_placeholder: Sláðu inn lykilorð, texta eða vefslóð til að ýta á...
+      push_it: Ýttu á það!
+      upload_limit: Þú getur hlaðið upp allt að 10 skrám á hverja ýtingu.
+      view: Útsýni
+      views: Útsýni
+      week: Vika
+      weeks: Vikur
+    hour:
+      one: 1 klukkustund
+      other: "%{count} klukkustundir"
+    index:
+      actions: Aðgerðir
+      clear_filters: Hreinsaðu síur
+      created: Búið til
+      created_by: By
+      expires: Rennur út
+      file_count: Skrár
+      note: Athugið
+      nothing_here: Það er ekkert hérna ennþá.
+      push_id: Ýttu á auðkenni
+      pushes: Þrýstir
+      remaining_time: Tími eftir
+      status: Staða
+      views: Útsýni
+      views_remaining: Útsýni eftir
+    minute:
+      one: 1 mínúta
+      other: "%{count} mínútur"
+    more_view:
+      one: 1 útsýni í viðbót
+      other: "%{count} fleiri áhorf"
+    'no': Nei
+    none: Enginn
+    passphrase:
+      enter_passphrase: Sláðu inn lykilorð
+      go: Farðu
+      placeholder: Sláðu inn leynilega lykilorðið sem fylgir þessari vefslóð
+      tip: Sláðu inn leynilega lykilorðið
+    payload: Burðargeta
+    preliminary:
+      click_proceed: Smelltu hér til að halda áfram
+    preview:
+      and: og
+      can_be: getur verið
+      can_not_be: getur ekki verið
+      deleted_by_viewers: eytt af áhorfendum.
+      link_lang_tip: 'Ábending: Að ýta á alþjóðlegan notanda? Breyttu tungumáli leyndartengilsins
+        með því að nota fellivalmyndina hægra megin við vefslóðina.'
+      or: eða
+      or_after: eða eftir
+      push_another: Ýttu á annan
+      push_created: Þrýstingurinn þinn hefur verið búinn til.
+      use_link_to_share: 'Notaðu þennan leynilega tengil til að deila honum:'
+      view_push_now: Skoðaðu þetta ýta núna
+      will_burn_view: "(mun brenna útsýni)"
+      will_expire_after: Þessi ýta rennur út eftir
+      with_preliminary_step: Það felur einnig í sér %{strong_start}1-smellur bráðabirgðasókn%{strong_end}.
+    provide_text_or_file: Til að búa til ýtt verður þú annað hvort að gefa upp texta,
+      hengja skrá eða hvort tveggja.
+    push:
+      active: Virkur
+      audit: Endurskoðun
+      expired: Útrunnið
+      none: Enginn
+      preview: Forskoðun
+      push_controls: Ýttu á stýringar
+      title: Nýtt Push
+      unknown: Óþekktur
+    secret_link_lang: Leyndarmál hlekkja
+    settings: Stillingar
+    show:
+      blurred: Lykilorðið þitt er óskýrt. Smelltu hér að neðan til að sýna það.
+      click_to_reveal: Innihaldið er óskýrt. Smelltu hér að neðan til að sýna það.
+      delete_now: Eyddu þessum leynistengli núna
+      delete_now_confirm: Þetta mun renna út þennan leynilega hlekk og eyða öllu tengdu
+        efni úr gagnagrunninum að eilífu. Ertu viss?
+      download_file: Hlaða niður skrá
+      files_sent: Eftirfarandi skrár hafa verið sendar til þín.
+      last_view: Þetta er síðasta útsýnið.
+      obtain: Sæktu og geymdu þetta efni á öruggan hátt með því að nota lykilorðastjóra
+        og/eða dulkóðaða geymslu. Mundu að eyða tafarlaust öllum gögnum sem ekki er
+        lengur þörf á.
+      open_file: Opnaðu skrá
+      please_download: Vinsamlegast hlaðið niður og geymdu á öruggu svæði.
+      will_be_deleted: Þessum leynitengingu og öllu efni verður eytt í %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} eða %{b_tag}%{view_count} meira %{view_unit}%{b_tag}
+        (hvort sem kemur fyrst).
+      your_link: Leyni hlekkurinn þinn
+    show_expired:
+      expired_help: Ef þörf krefur, vinsamlegast hafðu samband við þann eða stofnunina
+        sem gaf þér þessa leynilegu slóð.
+      expired_message: Við biðjumst velvirðingar en þessi leynilegi hlekkur er útrunninn.
+      link_expired: Leyni hlekkurinn þinn er útrunninn
+    view:
+      one: 1 útsýni
+      other: "%{count} skoðanir"
+    view_audit_log: Skoða endurskoðunarskrá
+    whichever: "(hvort sem kemur á undan)"
+    'yes': Já
+  static:
+    about:
+      about_1: Password Pusher er tól sem notað er til að deila lykilorðum og öðrum
+        viðkvæmum upplýsingum með öðru fólki á öruggan hátt.
+      about_2: Með Password Pusher geturðu búið til einstaka vefslóð í eitt skipti
+        sem rennur út eftir ákveðinn tíma eða eftir að hún hefur verið opnuð nokkrum
+        sinnum, og tryggir að upplýsingarnar þínar haldist persónulegar og öruggar.
+      about_3: Það er oft notað af einstaklingum og stofnunum til að deila innskráningarskilríkjum
+        eða öðrum viðkvæmum gögnum með samstarfsmönnum, viðskiptavinum eða samstarfsaðilum.
+      about_4: Password Pusher er einföld og þægileg lausn til að deila lykilorðum
+        á öruggan hátt án þess að þurfa tölvupóst eða aðrar óöruggar samskiptaaðferðir.
+      about_5: Hýst á %{pwpush_link} eða þú getur keyrt þitt eigið einkatilvik hvar
+        sem þú vilt.
+      about_6: Kóðinn er fáanlegur á %{github_link}. Það er opinn uppspretta og ókeypis
+        fyrir alla að nota, skoða eða breyta.
+      age_body: Fyrsta git skuldbindingin til Password Pusher var <strong>28. desember
+        2011</strong> . pwpush.com fór í loftið stuttu síðar.
+      age_title: Meira en %{years_count} ára
+      author_1: Ég heiti Peter Giacomo Lombardo. Þú getur fundið mig á %{linkedin},
+        %{github} eða %{blog}.
+      author_2: Fyrir uppfærslur skaltu fylgja Password Pusher á %{twitter} (eða %{twitter_personal}
+        minn) eða gerast áskrifandi að %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Langstærsta hjálpin er að dreifa boðskapnum. Deildu Password Pusher
+        með vinum þínum, samstarfsmönnum og samtökum.
+      help_2: 'Þú getur líka:'
+      help_3: Stjörnaðu %{github} verkefnið. Það er bensín fyrir algos sem þróa lykilorð
+        Pusher.
+      help_4: Hjálp %{translate}. Bættu núverandi tungumál eða bættu við nýju.
+      help_5: Skráðu þig á %{newsletter} til að fá uppfærslur um mikilvægar útgáfur,
+        öryggismál, ábendingar og fleira.
+      help_6: Fylgdu Password Pusher á %{facebook}, %{twitter} og %{github}.
+      help_translate: Hjálp að þýða
+      newsletter: Fréttabréf
+      pwpush_domain: pwpush.com
+      section_about: Um
+      section_author: Höfundurinn
+      section_follow: Hvar á að fylgja lykilorði Pusher
+      section_help: Viltu hjálpa til?
+      title: Um Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Með Password Pusher JSON API er fjöldi forrita og skipanalínuforrita
+        (CLI) sem tengjast pwpush.com eða tilvikinu þínu sem hýst er sjálfstætt. Ýttu
+        á lykilorð frá CLI, Slack, Alfred App og fleira.
+      answer_access_2: Sjá %{tools} síðuna fyrir frekari upplýsingar.
+      answer_add_feature_1: Mjög líklega. Ég elska að heyra allar hugmyndir og viðbrögð
+        og halda lista til að ákveða hverju ég á að bæta við næst. Ef þú hefur einhverjar,
+        vinsamlegast sendu þær á %{feedback_link} síðuna eða á %{github_link}.
+      answer_already_expired_1: Sum kerfi eins og tölvupóstur, eldveggir og spjallkerfi
+        eru oft með tenglaskanna sem geta étið upp skoðanir. Þetta er venjulega gert
+        vegna fyrirtækjaöryggis eða einfaldlega til að búa til „forskoðun“ fyrir forrit.
+      answer_already_expired_2: Til að koma í veg fyrir þetta skaltu nota 1-smella
+        endurheimtunarskref valkostinn þegar þú ýtir á lykilorð. Þetta krefst þess
+        að notendur smelli í gegnum bráðabirgðasíðu til að vernda skoðanir frá slíkum
+        skanna.
+      answer_already_expired_3: Sem viðbótar fyrirbyggjandi ráðstöfun, þegar innskráður
+        er, er endurskoðunarskrá veitt fyrir hverja ýtu sem búin er til. Þessi endurskoðunarskrá
+        sýnir hver og hvenær ýtið var skoðað.
+      answer_automation_1: Já. Password Pusher JSON API gerir kleift að gera sjálfvirkan
+        aðgang að lykilorði. Þetta er hægt að gera með ýmsum forritunarmálum og verkfærum.
+      answer_automation_2: Sjá %{tools} síðuna fyrir frekari upplýsingar.
+      answer_conference_1: Algjörlega. Við höfum fjölmiðlaauðlindir og fulla útskýringu
+        á eiginleikum í boði á %{windows_link} og %{mac_link} sniðum.
+      answer_conference_2: Ef þú hefur einhverjar spurningar eða þarft einhverja hjálp,
+        ekki hika við að hafa samband við mig hvenær sem er.
+      answer_how_many_1: Það eru engin takmörk eins og er og ég ætla ekki að bæta
+        neinum við. Til að tryggja sem minnst stöðugleika vefsins er Password Pusher
+        sjálfgefið stillt með hraðatakmörkun. Hægt er að slökkva á þessu í útgáfunni
+        sem hýst er sjálf.
+      answer_licensing_1: Frumkóðaútgáfan er gefin út undir Apache 2.0 leyfinu og
+        það skilgreinir nokkurn veginn allar takmarkanir. Það eru allmargar endurmerktar
+        og endurhannaðar klónasíður Password Pusher og ég fagna þeim öllum.
+      answer_licensing_2: Úrvalsútgáfan er gefin út undir viðskiptaleyfi. Það er ekki
+        opinn uppspretta og er ekki ókeypis. Kjarninn inniheldur opinn uppspretta
+        verkefnið en býður upp á ofursett af eiginleikum og er ætlað að flýta fyrir
+        þróun og hjálpa til við að fjármagna verkefnið.
+      answer_licensing_3: Úrvalsútgáfan er ekki nauðsynleg til að keyra einkatilvik
+        af Password Pusher. Opinn uppspretta útgáfan er fullbúin og ókeypis í notkun.
+      answer_licensing_4: Allir úrvalseiginleikar enda í opna útgáfunni eftir nokkurn
+        tíma eftir eiginleikum.
+      answer_private_risks_1: Að keyra einkatilvik af Password Pusher fyrir fyrirtæki
+        þitt eða stofnun gefur þér hugarró að þú veist nákvæmlega hvaða kóða er í
+        gangi. Þú getur stillt og keyrt það eins og þú vilt.
+      answer_private_risks_2: Á hinn bóginn, ef tilvikið þitt verður tölvusnápur og
+        dulkóðunin brotin, hafa illgjarnir aðilar nú markvissa orðabók með lykilorðum
+        til að neyða reikninga í fyrirtækinu þínu. (þetta myndi takmarkast við ýtingar
+        sem hafa ekki runnið út ennþá)
+      answer_private_risks_3: Að þessu leyti getur hið opinbera tilvik á pwpush.com
+        verið betra að því leyti að það inniheldur aðeins lykilorð án þess að auðkenna
+        upplýsingar blandað meðal notenda alls staðar að úr heiminum.
+      answer_private_risks_4: Eitt annað atriði væri viðhald á tilvikinu. Þú þarft
+        að hafa það uppfært, öruggt og afritað.
+      answer_private_risks_5: Notandinn ætti að vega vandlega kosti og galla og ákveða
+        hvaða leið hentar honum best. Við styðjum báðar aðferðir með ánægju.
+      answer_purpose_1: Password Pusher er til sem betri valkostur við að senda lykilorð
+        í tölvupósti.
+      answer_purpose_10: Að auki <strong>renna lykilorð út eftir að fyrirframskilgreint
+        sett af skoðunum er slegið eða tími liðinn.</strong>
+      answer_purpose_11: Þegar þeim er útrunnið er lykilorðum ótvírætt eytt.
+      answer_purpose_12: Ef það hljómar áhugavert fyrir þig skaltu prófa það eða sjá
+        aðrar algengar spurningar hér að neðan.
+      answer_purpose_2: "<strong>Að senda lykilorð í tölvupósti er í eðli sínu óöruggt.</strong>
+        Mesta áhættan felur í sér:"
+      answer_purpose_3: Lykilorð send í tölvupósti eru venjulega send með samhengi
+        við það sem þau fara í eða geta hugsanlega verið fengin úr notandanafni tölvupósts,
+        léni osfrv.
+      answer_purpose_4: Tölvupóstur er í eðli sínu óöruggur og illgjarn aðilar geta
+        stöðvað hann á mörgum stöðum.
+      answer_purpose_5: 'Tölvupóstur lykilorð lifa að eilífu (lesist: að eilífu) í
+        tölvupóstsöfnum.'
+      answer_purpose_6: Hægt er að sækja lykilorð í tölvupósti og nota síðar ef tölvupóstreikningi
+        er stolið, klikkað o.s.frv.
+      answer_purpose_7: Sama áhætta er til staðar þegar lykilorð eru send með SMS,
+        WhatsApp, Telegram, Chat osfrv... Gögnin geta og eru oft geymd til frambúðar
+        og óviðráðanleg.
+      answer_purpose_8: Með því að nota Password Pusher framhjá öllu þessu.
+      answer_purpose_9: Fyrir hvert lykilorð sem sent er á Password Pusher <strong>er
+        einstök vefslóð búin til sem aðeins þú veist</strong> .
+      answer_rebranding_1: Password Pusher styður algjöra endurmerkingu „úr kassanum“
+        sem gerir þér kleift að bæta við sérsniðnu lógói, myndum, texta og jafnvel
+        breyta forritsþema.
+      answer_self_host_1: Já, fyrir opna útgáfuna bjóðum við upp á %{docker_link}
+        og %{install_link} fyrir fjölbreytt úrval af kerfum og skýjum.
+      answer_self_host_2: Fyrir úrvalsútgáfuna, með ofursettinu af eiginleikum, koma
+        sjálf-hýst gámar fljótlega.
+      answer_trust_1: Og með réttu. Allt gott öryggi byrjar með heilbrigðri tortryggni
+        í garð allra þátta sem málið varðar.
+      answer_trust_2: Password Pusher er til sem betri valkostur við að senda lykilorð
+        í tölvupósti. Það forðast að hafa lykilorð til í skjalasafni tölvupósts til
+        frambúðar. Það er ekki til sem endanleg öryggislausn.
+      answer_trust_3: Password Pusher byrjaði sem opinn uppspretta verkefni í lok
+        árs 2011. Það hefur verið viðhaldið og uppfært af mér (Peter Giacomo Lombardo)
+        og handfylli af frábærum þátttakendum allan þann tíma. Árið 2024 var úrvalsútgáfan
+        kynnt til að flýta fyrir þróun og hjálpa til við að fjármagna verkefnið. Allir
+        úrvalsaðgerðir enda í opnum útgáfunni að lokum.
+      answer_trust_4: Með því að hafa svo langa sögu og vera opinn uppspretta hefur
+        Password Pusher verið skoðað af mörgum augum. Það hefur verið notað af og
+        endurskoðað margar stofnanir og einstaklinga í gegnum árin.
+      answer_trust_5: 'Stefna Password Pusher er þríþætt: 1) Dulkóðun í hvíld og í
+        flutningi 2) Lágmarks varðveisla gagna 3) Gagnsæi í formi endurskoðunarskrár.'
+      answer_trust_6: Í þessum dúr er þrýstihleðslum ótvírætt eytt þegar það rennur
+        út og endurskoðunarskránni er viðhaldið endalaust. Því minni gögn sem Password
+        Pusher geymir, því betra.
+      answer_trust_7: Ef þú hefur enn áhyggjur af trausti, öryggi og öryggi skaltu
+        ekki hika við að skoða kóðann, setja inn einhverjar spurningar sem þú gætir
+        haft og íhugaðu að keyra hann innbyrðis hjá fyrirtækinu þínu í staðinn.
+      answer_trust_8: Hvað varðar traust á mér, þá er það eina sem ég get boðið upp
+        á langa sögu mína að byggja þetta verkefni og orðspor mitt á %{github}, %{linkedin},
+        %{twitter} og %{blog}. Ekki hika við að hafa samband við mig hvenær sem er
+        með allar spurningar sem þú gætir haft.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Sumar stofnanir eru bundnar af öryggisreglum sem banna
+        notkun opinberrar þjónustu fyrir viðkvæmar upplýsingar eins og lykilorð. Það
+        eru jafnvel stofnanir sem krefjast þess að öll verkfæri séu á innra neti einkaaðila
+        án aðgangs að umheiminum.
+      answer_why_private_2: Að keyra þitt eigið einkatilvik af Password Pusher gerir
+        þér kleift að stjórna umhverfinu og gögnunum. Það gerir þér einnig kleift
+        að bæta við sérsniðnum eiginleikum og samþættingum sem eru sértækar fyrir
+        fyrirtæki þitt.
+      answer_why_private_3: Það er af þessum ástæðum sem við veitum (og hvetjum) notendur
+        og stofnanir til að keyra einkatilvik þegar þörf krefur.
+      feedback_link: Umsagnareyðublað
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: bloggið mitt
+      question_access: Eru aðrar leiðir sem ég get fengið aðgang að Password Pusher
+        utan vafra?
+      question_add_feature: Gætirðu bætt við sérstökum eiginleika fyrir fyrirtækið
+        mitt?
+      question_already_expired: Leyndarslóðin sem ég sendi var þegar útrunninn. Hvað
+        gerðist?
+      question_automation: Get ég sjálfvirkt dreifingu lykilorðs míns?
+      question_conference: Get ég notað Password Pusher í ræðu, myndbandi, kynningu
+        eða ráðstefnu?
+      question_have_to_pay: Þarf ég að borga?
+      question_how_many: Hversu margar beiðnir get ég sent til Password Pusher?
+      question_licensing: Eru einhverjar leyfishömlur fyrir mig, fyrirtækið mitt eða
+        stofnunina mína?
+      question_premium_diff: Hver er munurinn á opnum uppspretta og úrvalsútgáfum?
+      question_private_risks: Hver er hugsanleg öryggisáhætta af því að keyra mína
+        eigin útgáfu innbyrðis?
+      question_purpose: Hver er tilgangurinn með Password Pusher?
+      question_rebranding: Get ég notað sérsniðið lógó eða breytt hönnuninni?
+      question_self_host: Get ég keyrt mína eigin útgáfu fyrir fyrirtækið mitt innbyrðis?
+      question_trust: Traust er áhyggjuefni. Af hverju ætti ég að nota Password Pusher?
+      question_why_premium: Password Pusher hefur alltaf verið opinn uppspretta. Af
+        hverju er úrvalsútgáfa til?
+      question_why_private: Af hverju ætti ég að vilja keyra mitt eigið einkatilvik
+        af Password Pusher?
+      question_will_oss: Verður úrvalsaðgerðunum bætt við opna útgáfuna?
+      subtitle: "..allt það sem þú vilt vita um Password Pusher."
+      title: Algengar spurningar
+      title_other: Annað
+      title_private: Að keyra þitt eigið einkatilvik
+      title_pushes: Þrýstir
+      title_subscriptions: Premium útgáfa
+      title_tools: Verkfæri, samþættingar og forrit
+      title_trust: Traust og öryggi
+      tools_link: Verkfæri og forrit
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Þú getur notað þennan lykil á forritið þitt með því að stilla umhverfisbreytuna
+      generate_key: Búa til lykil
+      generated: Búinn til dulkóðunarlykill
+      intro: Þessi síða er notuð sem hjálpartæki til að búa til handahófskenndan dulkóðunarlykil
+        fyrir sjálfhýst tilvik af Password Pusher.
+      intro_2: Password Pusher dulkóðar viðkvæm gögn í gagnagrunninum. Þó að það sé
+        sjálfgefinn lykill innifalinn, þá er best að nota þinn eigin sérsniðna dulkóðunarlykil.
+      intro_3: Með hverri endurnýjun býr þessi síða til nýjan dulkóðunarlykil. Þú
+        getur notað kóðann sem myndaður er af handahófi hér að neðan til að stilla
+        lykilorðaforritið þitt.
+      note_1: Ef dulkóðunarlykill er ekki til staðar verður sjálfgefinn lykill notaður.
+      note_2: Besta öryggið fyrir einkatilvik af Password Pusher er að nota eigin
+        sérsniðna dulkóðunarlykil þó þess sé ekki krafist.
+      note_3: Áhættan af því að nota sjálfgefna lykilinn minnkar ef þú heldur tilvikinu
+        þínu öruggu og ýtingartímanum þínum stuttum. td 1 dagur/1 áhorf á móti 100
+        dögum/100 áhorfum.
+      note_4: Þegar ýta rennur út er öllum dulkóðuðum gögnum í ýtunni eytt.
+      note_5: Breyting á dulkóðunarlykli þar sem gamlar ýtir eru þegar til mun gera
+        þær eldri ýtar ólæsilegar. Með öðrum orðum, hleðslan verður brengluð. Nýjar
+        ýtir fram í tímann munu virka vel.
+      note_6: 'Einnig er hægt að búa til lykla frá skipanalínunni í forritsuppsprettunni
+        með því að framkvæma:'
+      notes: 'Athugasemdir:'
+      reload: Endurhlaða þessa síðu til að búa til nýjan lykil aftur.
+      title: Búðu til dulkóðunarlykil
+    password_generator:
+      push_it: Ýttu á þetta lykilorð
+    tools:
+      alfred: Alfred App
+      api_documentation: API endapunktaskjöl
+      applications: Umsóknir
+      cli: Skipanalínuviðmót
+      clu: Command Line tól
+      examples: Dæmi
+      github: Github
+      intro: Með Password Pusher JSON API er fjöldi forrita og skipanalínuforrita
+        (CLI) sem tengjast pwpush.com eða tilvikinu þínu sem hýst er sjálfstætt. Ýttu
+        á lykilorð frá CLI, Slack, Alfred App og fleira.
+      intro_2: JSON API er öflugt tól sem gerir kleift að gera sjálfvirkan aðgang
+        að lykilorði. Þetta er hægt að gera með ýmsum forritunarmálum og verkfærum.
+      intro_3: Sjá %{github} síðuna fyrir frekari upplýsingar.
+      more: Meira
+      slack: Slaki
+      subtitle: Password Pusher er meira en bara vefforrit. Það hefur JSON API sem
+        gerir ráð fyrir fjölbreyttum samþættingum og forritum.
+      title: Verkfæri, API, samþættingar og forrit
+      tools_1: Með því að nota JSON API eru ýmis verkfæri til til að tengja við Password
+        Pusher til að gera dreifingu lykilorða sjálfvirkan.
+      tools_2: Við höfum engin takmörk á því hversu mörg lykilorð þú getur ýtt á (og
+        höfum ekki í hyggju að bæta við takmörkunum) en við erum með gengistakmarkara
+        svo að síða verði ekki tekin niður af slæmum handritum eða slæmum leikurum.
+        Takmarkaðu tækin þín við hámark 1 lykilorð á nokkurra sekúndna fresti og þú
+        ættir að vera í lagi.
+      tools_3: 'Þú getur prófað þetta í vafranum þínum Javascript stjórnborði með
+        því að fara á forsíðu Password Pusher og slá inn:'
+      tools_4: Þetta API gerir þér kleift að tengja við Password Pusher í gegnum JSON.
+        Þetta er hægt að nýta af núverandi tólum eins og curl, wget eða hvaða forritunarmáli
+        sem er. Sjáðu dæmin hér að neðan fyrir nokkrar hugmyndir.
+      tools_5: Sjá nánari skýringar og dæmi í %{github} Wiki.
+      walkthrough: Leiðsögn og dæmi

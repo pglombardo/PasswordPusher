@@ -222,25 +222,19 @@ lv:
       create: Izveidot %{model}
       update: Atjaunināt %{model}
       submit: Saglabāt %{model}
-  will_paginate:
-    previous_label: "&#8592; Iepriekšējais\n"
-    next_label: Nākamais &#8594;
-    page_gap: "&hellip;\n"
-    container_aria_label: Lapdale
-    page_aria_label: Lapa %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} nav atrasts"
-        one: Tiek attēlots %{model}
-        other: Tiek attēloti visi %{count} %{model}
-      single_page_html:
-        zero: "%{model} nav atrasts"
-        one: Tiek attēlots <b>1</b> %{model}
-        other: 'Tiek attēlots <b>all&nbsp;%{count}</b> %{model} '
-      multi_page: Kopā tiek attēlots %{model} %{from} - %{to} no %{count}
-      multi_page_html: Kopā tiek attēlots %{model} <b>%{from} - %{to}</b> no <b>%{count}</b>
-    previous_aria_label: Iepriekšējā lapa
-    next_aria_label: Nākamā lapaspuse
+      entry:
+        zero: ieraksti
+        one: ierakstu
+        other: ieraksti
+      one_page:
+        display_entries:
+          zero: "%{entry_name} nav atrasts"
+          one: Tiek rādīts <b>1</b> %{entry_name}
+          other: Tiek rādīts <b>viss %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Rāda %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> no
+          <b>%{total}</b>
   flash:
     actions:
       create:
@@ -628,6 +622,752 @@ lv:
     access: piekļuvi
     passphrase: ieejas frāze
     preview: priekšskatījums
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Pirmā"
+      last: Pēdējā &raquo;
+      previous: "&lsaquo; Iepriekšējais"
+      next: Nākošais &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Vai esat pārliecināts?
+      destroy: Iznīcināt
+      edit: Rediģēt
+      edit_resource: Rediģēt %{name}
+      show_resource: Rādīt %{name}
+      new_resource: Jauns %{name}
+      back: Atpakaļ
+    controller:
+      create:
+        success: "%{resource} tika veiksmīgi izveidots."
+      destroy:
+        success: "%{resource} tika veiksmīgi iznīcināts."
+      update:
+        success: "%{resource} tika veiksmīgi atjaunināts."
+    fields:
+      has_many:
+        more: Rāda %{count} no %{total_count}
+        none: Nav
+    form:
+      error: kļūda
+      errors: "%{pluralized_errors} aizliedza saglabāt šo %{resource_name}:"
+    navigation:
+      back_to_app: Atpakaļ uz lietotni
+    search:
+      clear: Notīrīt meklēšanu
+      label: Meklēt %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Šis administratora informācijas panelis nodrošina tiešu datubāzes
+          piekļuvi lietojumprogrammai Password Pusher. Lūdzu, esiet piesardzīgs un
+          apsveriet iespēju izveidot dublējumu pirms izmaiņu veikšanas.
+        admin_note: Piezīme. Ieraksta iznīcināšana iznīcina arī visus pakārtotos ierakstus.
+          Piemēram, iznīcinot lietotāju, tiks iznīcinātas arī visas šī lietotāja nosūtītās
+          paroles, faili un vietrāži URL.
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Zilbju skaits ģenerētajā parolē.
+      back: Atpakaļ uz komandu
+      edit: Rediģēt politiku
+      team_policy_help: Komandas politika ir noteikumu kopums, kas attiecas uz visiem
+        šīs komandas dalībnieku izdarītajiem grūdieniem.
+      personal_policy: Personīgā politika
+      personal_policy_help: Politika ir noteikumu kopums, kas attiecas uz visiem jūsu
+        izveidotajiem pushiem.
+      team_policy: Komandas politika
+      header_timed_expiration: Termizēts derīguma termiņš
+      expire_after_duration_min: Minimālais ilgums
+      expire_after_duration_min_help: Minimālais ilgums, pirms beidzas push.
+      expire_after_duration_max: Maksimālais ilgums
+      expire_after_duration_max_help: Maksimālais ilgums, pirms beidzas push.
+      expire_after_duration_default: Noklusējuma ilgums
+      expire_after_duration_default_help: Noklusējuma ilgums, pirms beidzas push.
+      minutes_tip: 1 diena = 1440 minūtes, 7 dienas = 10080 minūtes, 30 dienas = 43200
+        minūtes
+      header_view_expiration: Skatīt Derīguma termiņu
+      expire_after_views_min: Minimālais skatījumu skaits
+      expire_after_views_min_help: Minimālais skatījumu skaits, pirms beidzas push.
+      expire_after_views_max: Maksimālais skatījumu skaits
+      expire_after_views_max_help: Maksimālais skatījumu skaits, pirms beidzas push.
+        [Maks. 100]
+      expire_after_views_default: Noklusējuma skatījumu skaits
+      expire_after_views_default_help: Noklusētais skatījumu skaits pirms push derīguma
+        termiņa beigām.
+      header_payload_limits: Kravas slodzes ierobežojumi
+      push_text_max: Maksimālais teksta lielums
+      push_text_max_help: Maksimālais teksta lielums push. Mērīts baitos. [Maks. 1048576]
+      push_files_max: Maksimāli atļautie faili
+      push_files_max_help: Maksimālais failu skaits, kas atļauts push. [Maks. 100]
+      header_retrieval_step: 1 Noklikšķiniet uz Atgūšanas solis
+      enable_retrieval_step: Vai iespējot?
+      enable_retrieval_step_help: Vai iespējot viena klikšķa izgūšanu šai komandai?
+        Ja šī opcija ir atspējota, tā tiks paslēpta un netiks izmantota.
+      retrieval_step_default: Noklusējuma vērtība
+      retrieval_step_default_help: Noklusējuma vērtība opcijai 1 Click Retrieval Step.
+      retrieval_step_forced: Vai piespiest noklusējuma vērtību?
+      retrieval_step_forced_help: Visiem komandas dalībniekiem liek izmantot šo opciju
+        ar noklusējuma vērtību. Komandas dalībnieki to nevar mainīt.
+      hide_retrieval_step: Paslēpt opciju?
+      hide_retrieval_step_help: Slēpj komandas dalībniekiem opciju 1 klikšķa izgūšana.
+        Tas ir noderīgi, lai piespiestu iestatīt noklusējuma opciju, nerādot to komandas
+        dalībniekiem.
+      header_deletable: Skatītājs var dzēst
+      enable_deletable: Vai iespējot?
+      enable_deletable_help: Vai iespējot šo opciju komandai? Ja šī opcija ir atspējota,
+        tā tiks paslēpta un netiks izmantota.
+      deletable_default: Noklusējuma vērtība
+      deletable_default_help: Opcijas Dzēst ar skatītāju noklusējuma vērtība.
+      deletable_forced: Vai piespiest noklusējuma vērtību?
+      deletable_forced_help: Visiem komandas dalībniekiem liek izmantot šo opciju
+        ar noklusējuma vērtību. Komandas dalībnieki to nevar mainīt.
+      hide_deletable: Paslēpt opciju?
+      hide_deletable_help: Slēpj komandu biedriem opciju Dzēst, izmantojot skatītāju.
+        Tas ir noderīgi, lai piespiestu iestatīt noklusējuma opciju, nerādot to komandas
+        dalībniekiem.
+      hide_passphrase: Paslēpt opciju?
+      hide_passphrase_help: Paslēpj opciju Passphrase Lock. Noderīgi, lai pilnībā
+        atspējotu šīs opcijas izmantošanu.
+      enable_blur: Vai iespējot?
+      enable_blur_help: Lietderīgās slodzes aizmiglošana aizsedz lietderīgās slodzes
+        saturu slepenā URL piegādes lapā. Adresāti var pārslēgt aizmiglojumu ar klikšķi,
+        lai atklātu sākotnējos datus.
+      header_passphrase: Ieejas frāzes bloķēšana
+      header_blur: Kravas izplūšana
+      header_pwgen: Paroles ģenerēšana
+      save: Atjauniniet komandas politiku
+      enable_pwgen: Vai iespējot?
+      enable_pwgen_help: Vai iespējot paroles ģenerēšanas opciju šai komandai? Ja
+        šī opcija ir atspējota, tā tiks paslēpta un netiks izmantota.
+      pwgen_configurable: Konfigurējams?
+      pwgen_configurable_help: Vai atļaut komandas dalībniekiem konfigurēt paroļu
+        ģeneratoru? Ja opcija ir atspējota, opcija tiks piespiesta tālāk norādītajai
+        konfigurācijai, un komandas dalībnieki to nevarēs mainīt.
+      pwgen_has_numbers: Iekļaut skaitļus?
+      pwgen_has_numbers_help: Iekļaujiet ciparus ģenerētajā parolē.
+      pwgen_title_cased: Title Cased?
+      pwgen_title_cased_help: Nosaukums ir ģenerētās paroles daļas.
+      pwgen_use_separators: Vai izmantot atdalītājus?
+      pwgen_use_separators_help: Izveidotajā parolē izmantojiet atdalītājus.
+      pwgen_consonants: Līdzskaņi
+      pwgen_consonants_help: Līdzskaņi, kas jāizmanto ģenerētajā parolē.
+      pwgen_vowels: Patskaņi
+      pwgen_vowels_help: Patskaņi, kas jāizmanto ģenerētajā parolē.
+      pwgen_separators: Atdalītāji
+      pwgen_separators_help: Atdalītāji, kas jāizmanto ģenerētajā parolē.
+      pwgen_min_syllable_length: Minimālais zilbes garums
+      pwgen_min_syllable_length_help: Minimālais zilbes garums ģenerētajā parolē.
+      pwgen_max_syllable_length: Maksimālais zilbes garums
+      pwgen_max_syllable_length_help: Maksimālais zilbes garums ģenerētajā parolē.
+      pwgen_syllables_count: Zilbju skaits
+    show:
+      edit_policy: Rediģēt push politiku
+      policy: Komandas politika
+  tag_line: Uz priekšu. Nosūtīt citu paroli.
+  about: Par Password Pusher
+  app_name: Paroles stūmējs
+  application:
+    card_newsletter:
+      enter_email: Ievadi savu epastu...
+      subscribe: Abonēt
+    cookie_consent:
+      notice: Pārlūka sīkfaili palīdz nodrošināt šī rīka darbību. Izmantojot to, jūs
+        piekrītat šo sīkdatņu izmantošanai.
+    footer:
+      best_practices: Labākā pieredze
+      docker: Docker konteineri
+      faq: Biežāk uzdotie jautājumi
+      feedback: Atsauksmes
+      github: GitHub
+      key_generator: Atslēgu ģenerators
+      newsletter: Biļetens
+      password_generator: Paroļu ģenerators
+      tools: Rīki, API un CLI
+    pw_generator_modal:
+      cancel: Atcelt
+      configure: Konfigurēt paroles ģenerēšanu
+      consonants: Līdzskaņi
+      generate_password: Ģenerēt paroli
+      include_numbers: Iekļaut skaitļus
+      load_preset: Ielādējiet sākotnējo iestatījumu
+      max_syllable_length: Maksimālais zilbju garums
+      min_syllable_length: Minimālais zilbju garums
+      num_syllables: Zilbju skaits
+      reset: Atiestatīt uz noklusējuma iestatījumiem
+      save: Saglabāt
+      separators: Atdalītāji
+      test: Testa paaudze
+      test_area: Izmēģinājuma lodziņš
+      use_separators: Izmantot atdalītājus
+      use_titlecase: Izmantot Virsraksta stilu
+      vowels: Patskaņi
+  audit_logs:
+    audit_log:
+      created: Izveidots
+      created_by: Izveidoja %{user}
+      log_created: Push %{date} izveidoja %{user}
+      log_expired: Push manuāli beidzās %{date}, %{user}
+      log_failed_view: Neizdevās skatīt %{user} IP adreses %{ip} uz %{date}.
+      log_manual_expiration: Push manuāli beidzās %{date} no %{user} ar IP adresi
+        %{ip}
+      log_referrer: 'Atsaucējs: %{referrer}'
+      log_user_agent: 'Lietotāja aģents: %{user_agent}'
+      log_viewed: Veiksmīgs skats no IP adreses %{ip} vietnē %{date}, ko veica %{user}
+      unknown: Nezināms
+      viewed_by: Skatīja %{user}
+  dashboard:
+    show:
+      detail: Detaļas
+      event: Pasākums
+      when: Kad
+  duration:
+    format_d:
+      one: 1 diena
+      other: "%{count} dienas"
+    format_dhm: "%{days} diena(s), %{hours} stunda(s) un %{minutes} minūte(s)"
+    format_h:
+      one: 1 stunda
+      other: "%{count} stunda(s)"
+    format_hm: "%{hours} stunda(s) un %{minutes} minūte(s)"
+    format_m:
+      one: 1 minūte
+      other: "%{count} minūte(s)"
+  feedbacks:
+    create:
+      feedback_sent: Atsauksmes nosūtītas! Mēs sazināsimies ar jums, cik drīz vien
+        iespējams.
+    failed_spam_test: Piedodiet, bet Jūs neizturējāt surogātpasta pārbaudi. Tā vietā
+      varat mēģināt sazināties ar mums vietnē GitHub.
+    failed_to_send: Neizdevās nosūtīt atsauksmi. Kaut kas nebija kārtībā. Lūdzu, mēģiniet
+      vēlreiz vai sazinieties ar mums Github.
     new:
-      upload_limit: Varat augšupielādēt līdz %{count} failiem vienā nospiešanā.
+      email: E-pasts
+      have_idea: Vai ir kāda ideja vai vēlēšanās? Kas tāds, kas tev nepatīk? Vai vēlaties
+        palīdzēt? Mēs gribam to dzirdēt!
+      leave_blank: Atstājiet šo lauku tukšu!
+      math_question: Kas ir simts mīnus 3?
+      send_feedback: Sūtīt atsauksmes
+      tip: Padoms. Kopējiet savu ziņojumu starpliktuvē gadījumam, ja tā iesniegšana
+        neizdosies.
+      your_name: Jūsu vārds
+  none: Nav
+  pages:
+    about:
+      about_1: Password Pusher ir rīks, ko izmanto, lai droši koplietotu paroles un
+        citu sensitīvu informāciju ar citiem cilvēkiem.
+      about_2: Izmantojot Password Pusher, varat izveidot unikālu, vienreizēju URL,
+        kura derīguma termiņš beigsies pēc noteikta laika vai pēc tam, kad tam būs
+        piekļūts noteikts skaits reižu, nodrošinot, ka jūsu informācija paliek privāta
+        un droša.
+      about_3: To bieži izmanto privātpersonas un organizācijas, lai koplietotu pieteikšanās
+        akreditācijas datus vai citus sensitīvus datus ar kolēģiem, klientiem vai
+        partneriem.
+      about_4: Password Pusher ir vienkāršs un ērts risinājums drošai paroļu koplietošanai,
+        neizmantojot e-pastu vai citas mazāk drošas saziņas metodes.
+      about_pwpush: Par Password Pusher
+      hosted_at_html: Mitināts vietnē <a href="https://pwpush.com">pwpush.com</a>
+        vai arī varat palaist savu privāto instanci, kur vien vēlaties.
+      my_name: Mani sauc Pīters Džakomo Lombardo. Jūs varat mani atrast vietnēs %{linkedin},
+        %{github} vai %{blog}.
+      source_avail_html: Avota kods ir <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">pieejams vietnē GitHub</a> . Tas
+        ir atvērts avots, un to var izmantot, pārskatīt vai modificēt bez maksas.
+      the_author: Autors
+  pushes:
+    access:
+      incorrect: Šī ieejas frāze ir nepareiza. Lūdzu, mēģiniet vēlreiz vai sazinieties
+        ar personu vai organizāciju, kas jums nosūtīja šo saiti.
+    audit:
+      1click_retrieval_step: 1 Noklikšķiniet uz Atgūšanas solis
+      1click_retrieval_step_help: Palīdz izvairīties no tā, ka tērzēšanas programmas
+        un URL skeneri patērē skatījumus.
+      active: Aktīvs
+      attached_files: Pievienotie faili
+      attached_files_help: Vai šim pusham ir pievienoti faili?
+      audit_log_for: Audita žurnāls %{push_id}
+      contains_text: Satur tekstu
+      contains_text_help: Vai šim push ir pievienota teksta slodze?
+      created: Izveidots
+      created_by: Izveidoja %{user}
+      current_status: Pašreizējais statuss
+      deletable_by_viewers: Skatītāji var dzēst
+      deletable_by_viewers_help: Tas ļauj galalietotājiem izdzēst saturu pēc izgūšanas.
+      detail: Detaļas
+      end_audit_log: Auditācijas pierakstu beigas
+      event: Pasākums
+      event_log: Audita žurnāls
+      expire_after: 'Derīguma termiņš pēc:'
+      expire_after_time_help: Piegādes termiņš beidzas pēc šī laika no izveides.
+      expire_after_view_help: Piegādes termiņš beidzas pēc šī skatījumu skaita.
+      expire_now: Derīguma termiņš beigsies tagad
+      expire_now_confirm: Tas beigs šīs slepenās saites derīguma termiņu un uz visiem
+        laikiem izdzēsīs visu saistīto saturu no datu bāzes. Audita žurnāls (tostarp
+        turpmākie mēģinājumi skatījumi) joprojām tiks uzturēts arī turpmāk. Vai tu
+        esi pārliecināts?
+      expired: Beidzies derīguma termiņš
+      failed_view: Neizdevās skatīšanās mēģinājums
+      failed_view_attempts: Neveiksmīgi skatīšanas mēģinājumi
+      failed_view_attempts_help: Mēģinājumu skaits skatīt šo push pēc derīguma termiņa
+        beigām.
+      filename: Faila nosaukums
+      files_deleted: Visi iepriekš pievienotie faili ir izdzēsti, vai arī neviens
+        nebija pievienots.
+      log_note: Kad push saņems aktivitāti, šeit tiks parādīts katras ziņas žurnāls
+        ar identificējošu informāciju.
+      manual_expiration: Manuālais derīguma termiņš
+      message_length: Ziņojuma garums
+      message_length_help: Pievienotā teksta derīgās slodzes garums.
+      none: Nav
+      num_files_attached: Pievienoto failu skaits
+      num_files_attached_help: Šim pusham pievienoto failu skaits.
+      passphrase_lock: Ieejas frāzes bloķēšana
+      passphrase_lock_help: Lai skatītu šo informatīvo ziņojumu, adresātiem ir jāievada
+        ieejas frāze.
+      payload: Lietderīgā slodze
+      push_date: Uzspiests %{date}
+      reference_note: Atsauces piezīme
+      secret_url: Slepenais URL šai paroles saitei
+      size: 'Izmērs: %{size}'
+      start_audit_log: Auditācijas pierakstu sākums
+      start_log: Auditācijas pierakstu sākums
+      state: Valsts
+      state_help_active: Aktīvs un joprojām apskatāms.
+      state_help_expired: Nosūtītās paroles informācija ir dzēsta un URL derīguma
+        termiņš ir beidzies.
+      successful_view: Veiksmīgs skats
+      successful_views: Veiksmīgi skatījumi
+      successful_views_help: Veiksmīgi skatīto reižu skaits.
+      time_remaining: Atlikušais laiks
+      time_remaining_help: Laiks, kas atlicis pirms nosūtīšanas termiņa beigām.
+      title: Push Audit Log
+      visible_to: Redzams tikai jums
+      when: Kad
+    copy_to_clipboard: Kopēt starpliktuvē
+    day:
+      one: 1 diena
+      other: "%{count} dienas"
+    deleted: Izdzēsts
+    expiration_html: Šī slepenā saite un viss saturs tiks dzēsts <strong>%{duration}</strong>
+      vai <strong>%{count} citos skatos</strong> , atkarībā no tā, kurš no tiem notiks
+      vispirms.
+    expire:
+      expired: Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir
+        beidzies.
+      not_deletable: Šo nosūtīto paroli skatītāji nevar dzēst.
+    form:
+      12_hours: 12 stundas
+      15_minutes: 15 minūtes
+      1_day: 1 diena
+      1_hour: 1 stunda
+      1_month: 1 mēnesis
+      1_week: 1 nedēļa
+      1click: Izmantojiet viena klikšķa izguves darbību
+      1click_tip: Palīdz izvairīties no tērzēšanas sistēmu un skeneru uztveršanas.
+      2_days: 2 dienas
+      2_months: 2 mēneši
+      2_weeks: 2 nedēļas
+      30_minutes: 30 minūtes
+      3_days: 3 dienas
+      3_months: 3 mēneši
+      3_weeks: 3 nedēļas
+      45_minutes: 45 minūtes
+      4_days: 4 dienas
+      5_days: 5 dienas
+      6_days: 6 dienas
+      6_hours: 6 stundas
+      add_files: Pievieno failus...
+      audit_tip: Kad esat pieteicies, darbību audita žurnāls tiek glabāts un pieejams
+        neierobežotu laiku.
+      day: diena
+      days: Dienas
+      deletable: Atļaut tūlītēju dzēšanu
+      deletable_tip: Ļaujiet lietotājiem dzēst šo push pēc izgūšanas.
+      encryption_tip: Saturs pirms uzglabāšanas tiek šifrēts un ir pieejams tikai
+        tiem, kam ir slepenā saite.
+      expiration_label: 'Izbeidziet šī nosūtīšanas derīguma termiņu un dzēsiet pēc:'
+      expiration_tip: Kad termiņš beidzas, viss push saturs un faili tiek nekavējoties
+        un pilnībā izdzēsti.
+      generator_tip: Izmantojiet augstāk norādīto pogu, lai ģenerētu nejaušu paroli.
+      hour: stunda
+      hours: Stundas
+      login_to_upload: Piesakieties, lai augšupielādētu un pievienotu failus šim push...
+      minutes: Minūtes
+      month: mēnesis
+      months: Mēneši
+      note_label: Atsauces piezīme
+      note_placeholder: Privāta piezīme, lai palīdzētu atcerēties, kam vai kam šis
+        grūdiens ir paredzēts.
+      passphrase_label: Ieejas frāzes bloķēšana
+      passphrase_placeholder: Lai skatītu šo informatīvo ziņojumu, adresātiem ir jāievada
+        ieejas frāze.
+      password_tip: 'Padoms: lodziņā ievadiet tikai paroli. Cita identificējoša informācija
+        var apdraudēt drošību.'
+      payload_placeholder: Ievadiet paroli, tekstu vai URL, lai nosūtītu...
+      push_it: Sūtīt!
+      upload_limit: Varat augšupielādēt līdz 10 failiem vienā nospiešanā.
+      view: Skatīt
+      views: Skatījumi
+      week: nedēļa
+      weeks: Nedēļas
+    hour:
+      one: 1 stunda
+      other: "%{count} stundas"
+    index:
+      actions: Darbības
+      clear_filters: Notīrīt filtrus
+      created: Izveidots
+      created_by: Autors
+      expires: Beidzas
+      file_count: Faili
+      note: Piezīme
+      nothing_here: Te vēl nekā nav.
+      push_id: Paroles saites ID
+      pushes: Spiež
+      remaining_time: Atlikušais laiks
+      status: Statuss
+      views: Skatījumi
+      views_remaining: Atlikušie skati
+    minute:
+      one: 1 minūte
+      other: "%{count} minūtes"
+    more_view:
+      one: Vēl 1 skatījums
+      other: "%{count} vairāk skatījumu"
+    'no': Nē
+    none: Nav
+    passphrase:
+      enter_passphrase: Ievadiet ieejas frāzi
+      go: Aiziet
+      placeholder: Ievadiet slepeno ieejas frāzi, kas sniegta kopā ar šo URL
+      tip: Ievadiet slepeno ieejas frāzi
+    payload: Lietderīgā slodze
+    preliminary:
+      click_proceed: Noklikšķiniet šeit, lai turpinātu
+    preview:
+      and: un
+      can_be: var būt
+      can_not_be: nevar būt
+      deleted_by_viewers: dzēsuši skatītāji.
+      link_lang_tip: 'Padoms: vēlaties kopīgot paroli ar starptautisku lietotāju?
+        Mainiet slepenās saites valodu, izmantojot nolaižamo izvēlni pa labi no URL.'
+      or: vai
+      or_after: vai pēc tam
+      push_another: Nospiediet citu
+      push_created: Jūsu push ir izveidots.
+      use_link_to_share: 'Izmantojiet šo slepeno saiti, lai to kopīgotu:'
+      view_push_now: Skatiet šo push tagad
+      will_burn_view: "(iededzinās skatu)"
+      will_expire_after: Šis paziņojums beidzas
+      with_preliminary_step: Tajā ir iekļauta arī %{strong_start} viena klikšķa sākotnējās
+        izguves darbība %{strong_end}.
+    provide_text_or_file: Lai izveidotu push, jums ir jāiesniedz teksts, jāpievieno
+      fails vai abi.
+    push:
+      active: Aktīvs
+      audit: Audits
+      expired: Beidzies derīguma termiņš
+      none: Nav
+      preview: Priekšskatījums
+      push_controls: Paroles sūtīšanas vadīkla
+      title: Jauns Push
+      unknown: Nezināms
+    secret_link_lang: Slepenās saites valoda
+    settings: Iestatījumi
+    show:
+      blurred: Jūsu parole ir aizmiglota. Noklikšķiniet zemāk, lai to atklātu.
+      click_to_reveal: Saturs ir izplūdis. Noklikšķiniet zemāk, lai to atklātu.
+      delete_now: Izdzēsiet šo slepeno saiti tūlīt
+      delete_now_confirm: Tas beigs šīs slepenās saites derīguma termiņu un uz visiem
+        laikiem izdzēsīs visu saistīto saturu no datu bāzes. Vai tu esi pārliecināts?
+      download_file: Lejupielādēt failu
+      files_sent: Jums ir nosūtīti šādi faili.
+      last_view: Šis ir pēdējais skats.
+      obtain: Droši izgūstiet un saglabājiet šo saturu, izmantojot paroļu pārvaldnieku
+        un/vai šifrētu krātuvi. Neaizmirstiet nekavējoties izdzēst visus datus, kas
+        vairs nav nepieciešami.
+      open_file: Atver failu
+      please_download: Lūdzu, lejupielādējiet un uzglabājiet drošā vietā.
+      will_be_deleted: Šī slepenā saite un viss saturs tiks dzēsts mapē %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} vai vēl %{b_tag}%{view_count} %{view_unit}%{b_tag} (atkarībā
+        no tā, kurš no tiem notiek vispirms).
+      your_link: Jūsu slepenā saite
+    show_expired:
+      expired_help: Ja nepieciešams, lūdzu, sazinieties ar personu vai organizāciju,
+        kas jums piešķīra šo slepeno URL.
+      expired_message: Mēs atvainojamies, bet šīs slepenās saites derīguma termiņš
+        ir beidzies.
+      link_expired: Jūsu slepenās saites derīguma termiņš ir beidzies
+    view:
+      one: 1 skats
+      other: "%{count} skatījumi"
+    view_audit_log: Skatīt auditācijas pierakstus
+    whichever: "(atkarībā no tā, kurš ir pirmais)"
+    'yes': Jā
+  static:
+    about:
+      about_1: Password Pusher ir rīks, ko izmanto, lai droši koplietotu paroles un
+        citu sensitīvu informāciju ar citiem cilvēkiem.
+      about_2: Izmantojot Password Pusher, varat izveidot unikālu, vienreizēju URL,
+        kura derīguma termiņš beigsies pēc noteikta laika vai pēc tam, kad tam būs
+        piekļūts noteikts skaits reižu, nodrošinot, ka jūsu informācija paliek privāta
+        un droša.
+      about_3: To bieži izmanto privātpersonas un organizācijas, lai koplietotu pieteikšanās
+        akreditācijas datus vai citus sensitīvus datus ar kolēģiem, klientiem vai
+        partneriem.
+      about_4: Password Pusher ir vienkāršs un ērts risinājums drošai paroļu koplietošanai,
+        neizmantojot e-pastu vai citas mazāk drošas saziņas metodes.
+      about_5: Tiek mitināts vietnē %{pwpush_link}, vai arī varat palaist savu privāto
+        instanci, kur vien vēlaties.
+      about_6: Avota kods ir pieejams vietnē %{github_link}. Tas ir atvērts avots,
+        un to var izmantot, pārskatīt vai modificēt bez maksas.
+      age_body: Pirmā git apņemšanās Password Pusher tika veikta <strong>2011. gada
+        28. decembrī</strong> . Drīz pēc tam pwpush.com sāka tiešraidē.
+      age_title: Vairāk nekā %{years_count} gadus vecs
+      author_1: Mani sauc Pīters Džakomo Lombardo. Jūs varat mani atrast vietnēs %{linkedin},
+        %{github} vai %{blog}.
+      author_2: Lai saņemtu atjauninājumus, sekojiet %{twitter} (vai mana %{twitter_personal})
+        paroles spiedējam vai abonējiet %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Līdz šim lielākā palīdzība ir informācijas izplatīšana. Kopīgojiet Password
+        Pusher ar saviem draugiem, kolēģiem un organizācijām.
+      help_2: 'Jūs varat arī:'
+      help_3: Ar zvaigznīti atzīmējiet %{github} projektu. Tas ir benzīns algoritmiem,
+        kas ir populāri Password Pusher.
+      help_4: Palīdzība %{translate}. Uzlabojiet esošu valodu vai pievienojiet jaunu.
+      help_5: Reģistrējieties %{newsletter}, lai saņemtu atjauninājumus par svarīgiem
+        laidieniem, drošības problēmām, padomiem un daudz ko citu.
+      help_6: Sekojiet Password Pusher uz %{facebook}, %{twitter} un %{github}.
+      help_translate: Palīdziet tulkot
+      newsletter: Biļetens
+      pwpush_domain: pwpush.com
+      section_about: Par Password Pusher
+      section_author: Autors
+      section_follow: Kur sekot Password Pusher
+      section_help: Vai vēlies palīdzēt?
+      title: Par Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Izmantojot Password Pusher JSON API, ir vairākas lietojumprogrammas
+        un komandrindas utilītas (CLI), kas saskaras ar vietni pwpush.com vai jūsu
+        pašu viesoto instanci. Nospiediet paroles no CLI, Slack, Alfred App un citām.
+      answer_access_2: Papildinformāciju skatiet %{tools} lapā.
+      answer_add_feature_1: Ļoti iespējams. Man patīk dzirdēt visas idejas un atsauksmes
+        un veidot sarakstu, lai izlemtu, ko pievienot tālāk. Ja jums ir, lūdzu, iesniedziet
+        tos %{feedback_link} lapā vai vietnē %{github_link}.
+      answer_already_expired_1: Dažās sistēmās, piemēram, e-pastā, ugunsmūrēs un tērzēšanas
+        sistēmās, bieži ir saišu skeneri, kas var apēst skatus. Tas parasti tiek darīts
+        korporatīvās drošības nolūkos vai vienkārši ģenerētu lietojumprogrammu "priekšskatījumu".
+      answer_already_expired_2: Lai to novērstu, nospiežot paroles, izmantojiet 1 klikšķa
+        izgūšanas darbības opciju. Lai aizsargātu skatus no šādiem skeneriem, lietotājiem
+        ir jānoklikšķina uz sākotnējās lapas.
+      answer_already_expired_3: Kā papildu preventīvs pasākums, piesakoties, par katru
+        izveidoto push tiek nodrošināts audita žurnāls. Šis audita žurnāls atklāj,
+        kas un kad ir skatījis push.
+      answer_automation_1: Jā. Password Pusher JSON API ļauj automatizēt paroles nosūtīšanu.
+        To var izdarīt ar dažādām programmēšanas valodām un rīkiem.
+      answer_automation_2: Papildinformāciju skatiet %{tools} lapā.
+      answer_conference_1: Pilnīgi noteikti. Mums ir multivides resursi un pilns funkciju
+        skaidrojums, kas pieejams %{windows_link} un %{mac_link} formātā.
+      answer_conference_2: Ja jums ir kādi jautājumi vai nepieciešama palīdzība, sazinieties
+        ar mani jebkurā laikā.
+      answer_how_many_1: Pašlaik ierobežojumu nav, un es nedomāju tos pievienot. Lai
+        minimāli nodrošinātu vietnes stabilitāti, Password Pusher pēc noklusējuma
+        ir konfigurēts ar ātruma ierobežotāju. Pašmitinātajā versijā to var atspējot.
+      answer_licensing_1: Avota koda atvērtā pirmkoda versija ir izlaista saskaņā
+        ar Apache 2.0 licenci, un tas gandrīz nosaka visus ierobežojumus. Ir diezgan
+        daudz pārveidotu un pārveidotu Password Pusher klonu vietņu, un es tās visas
+        atzinīgi vērtēju.
+      answer_licensing_2: Premium versija tiek izlaista saskaņā ar komerciālu licenci.
+        Tas nav atvērts avots un nav bezmaksas. Tā pamatā ir atvērtā pirmkoda projekts,
+        taču tas piedāvā izcilu funkciju kopumu, un tas ir paredzēts, lai paātrinātu
+        izstrādi un palīdzētu finansēt projektu.
+      answer_licensing_3: Premium versija nav nepieciešama, lai palaistu Password
+        Pusher privātu gadījumu. Atvērtā pirmkoda versija ir pilnībā aprīkota un lietojama
+        bez maksas.
+      answer_licensing_4: Visas augstākās klases funkcijas pēc noteikta laika nonāk
+        atvērtā pirmkoda versijā atkarībā no funkcijas.
+      answer_private_risks_1: Palaižot privātu Password Pusher instanci savam uzņēmumam
+        vai organizācijai, Jūs varat būt mierā, jo precīzi zināt, kāds kods darbojas.
+        Jūs varat to konfigurēt un palaist, kā vēlaties.
+      answer_private_risks_2: No otras puses, ja jūsu instance tiek uzlauzta un šifrēšana
+        tiek bojāta, ļaunprātīgām struktūrām tagad ir mērķtiecīga paroļu vārdnīca,
+        lai jūsu organizācijā varētu izmantot kontus. (tas attiektos tikai uz pushiem,
+        kuriem vēl nav beidzies derīguma termiņš)
+      answer_private_risks_3: Šajā ziņā publiskā instance vietnē pwpush.com var būt
+        pārāka, jo tajā ir tikai paroles bez identificējošas informācijas, kas sajaukta
+        starp lietotājiem no visas pasaules.
+      answer_private_risks_4: Vēl viens apsvērums būtu instances uzturēšana. Jums
+        tas ir jāatjaunina, ir jānodrošina drošs un jādublē.
+      answer_private_risks_5: Lietotājam rūpīgi jāizsver plusi un mīnusi un jāizlemj,
+        kurš piedāvājums viņam ir vislabākais. Mēs ar prieku atbalstām abus variantus.
+      answer_purpose_1: Password pusher kalpo kā labāka alternatīva paroļu nosūtīšanai
+        pa e-pastu.
+      answer_purpose_10: Turklāt <strong>paroļu derīguma termiņš beidzas pēc tam,
+        kad tiek sasniegta iepriekš noteikta skatu kopa vai pagājis laiks.</strong>
+      answer_purpose_11: Pēc derīguma termiņa beigām paroles tiek izdzēstas.
+      answer_purpose_12: Ja tas Jums šķiet interesanti, izmēģiniet Password Pusher
+        vai arī skatiet citus biežāk uzdotos jautājumus zemāk.
+      answer_purpose_2: "<strong>Paroļu sūtīšana pa e-pastu pēc būtības ir nedroša.</strong>
+        Pie lielākajiem riskiem pieder:"
+      answer_purpose_3: E-pasta paroles bieži tiek sūtītas kopā ar informāciju par
+        to, kur tās paredzēts izmantot, vai arī tās var tikt iegūtas no e-pasta lietotājvārda,
+        domēna utt.
+      answer_purpose_4: E-pasts pēc būtības ir nedrošs, un ļaunprātīgas entītijas
+        to var pārtvert vairākos punktos.
+      answer_purpose_5: Pa e-pastu nosūtītās paroles vienmēr (uz visiem laikiem) saglabājas
+        e-pasta arhīvos.
+      answer_purpose_6: Gadījumā, ja e-pasts tiek nozagts, uzlauzts, utt., tajā esošās
+        paroles ir iespējams atgūt un izmantot arī vēlāk.
+      answer_purpose_7: Tie paši riski pastāv, sūtot paroles, izmantojot SMS, WhatsApp,
+        telegrammu, tērzēšanu utt. Dati var un bieži tiek glabāti mūžīgi un ārpus
+        jūsu kontroles.
+      answer_purpose_8: Izmantojot Password Pusher, Jūs to visu apejat.
+      answer_purpose_9: Katrai parolei, kas ievietota paroles spiedējs, <strong>tiek
+        ģenerēts unikāls URL, ko zināt tikai jūs</strong> .
+      answer_rebranding_1: Password Pusher atbalsta pilnīgu zīmola maiņu, kas ļauj
+        jums pievienot pielāgotu logotipu, attēlus, tekstu un pat mainīt lietojumprogrammas
+        motīvu.
+      answer_self_host_1: Jā, atvērtā pirmkoda versijai mēs piedāvājam %{docker_link}
+        un %{install_link} dažādām platformām un mākoņiem.
+      answer_self_host_2: Premium versijai ar izcilu funkciju komplektu drīzumā būs
+        pieejami pašizmitinātie konteineri.
+      answer_trust_1: Un pamatoti. Laba drošība sākas ar veselīgu skepticismu pret
+        visiem iesaistītajiem elementiem.
+      answer_trust_2: Password pusher kalpo kā labāka alternatīva paroļu nosūtīšanai
+        pa e-pastu. Tas ļauj izvairīties no pastāvīgas paroļu pastāvēšanas e-pasta
+        arhīvos. Tas nav visaptverošs drošības risinājums.
+      answer_trust_3: Password Pusher sākās kā atvērtā pirmkoda projekts 2011. gada
+        beigās. Visu šo laiku to uzturēju un atjaunināju es (Peter Giacomo Lombardo)
+        un daži lieliski līdzstrādnieki. 2024. gadā tika ieviesta premium versija,
+        lai paātrinātu attīstību un palīdzētu finansēt projektu. Visas premium funkcijas
+        galu galā nonāk atvērtā pirmkoda versijā.
+      answer_trust_4: Tā kā Password Pusher ir tik sena vēsture un atvērtā koda versija,
+        to ir pārskatījušas daudzas acis. Gadu gaitā to ir izmantojušas daudzas organizācijas
+        un privātpersonas, un tās ir pārbaudījušas.
+      answer_trust_5: 'Paroles spiedēja politika ir trīskārša: 1) šifrēšana miera
+        stāvoklī un pārvietošanas laikā 2) minimāla datu saglabāšana 3) caurspīdīgums
+        audita žurnāla veidā.'
+      answer_trust_6: Tādā veidā push derīgās slodzes tiek nepārprotami dzēstas, beidzoties
+        derīguma termiņam, un audita žurnāls tiek uzturēts bezgalīgi. Jo mazāk datu
+        paroles spiedējs glabā, jo labāk.
+      answer_trust_7: Ja jums joprojām ir bažas par uzticēšanos, drošību un drošību,
+        pārskatiet kodu, publicējiet visus iespējamos jautājumus un apsveriet iespēju
+        to izmantot savā organizācijā.
+      answer_trust_8: Runājot par uzticību man, viss, ko es varu piedāvāt, ir mana
+        ilgā šī projekta veidošanas vēsture un mana publiskā reputācija %{github},
+        %{linkedin}, %{twitter} un %{blog}. Sazinieties ar mani jebkurā laikā, ja
+        jums ir kādi jautājumi.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Dažām organizācijām ir jāievēro drošības politikas, kas
+        aizliedz izmantot publiskos pakalpojumus sensitīvai informācijai, piemēram,
+        parolēm. Ir pat organizācijas, kas pieprasa, lai visi rīki atrastos privātos
+        iekštīklos bez piekļuves ārpasaulei.
+      answer_why_private_2: Palaižot savu privāto Password Pusher gadījumu, varat
+        kontrolēt vidi un datus. Tas arī ļauj pievienot pielāgotus līdzekļus un integrācijas,
+        kas ir raksturīgas jūsu organizācijai.
+      answer_why_private_3: Šo iemeslu dēļ mēs nodrošinām iespēju (un iedrošinām)
+        lietotājiem un organizācijām vajadzības gadījumā palaist privātas instances.
+      feedback_link: Atsauksmes forma
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: mans emuārs
+      question_access: Vai ir citi veidi, kā piekļūt Password Pusher ārpus pārlūkprogrammas?
+      question_add_feature: Vai Jūs varētu pievienot īpašu funkciju manai organizācijai?
+      question_already_expired: Manis nosūtītais slepenais URL jau bija beidzies.
+        Kas notika?
+      question_automation: Vai varu automatizēt paroles izplatīšanu?
+      question_conference: Vai es varu izmantot Password Pusher savā sarunā, video,
+        prezentācijā vai konferencē?
+      question_have_to_pay: Vai man ir jāmaksā?
+      question_how_many: Cik pieprasījumus varu nosūtīt uz Password Pusher?
+      question_licensing: Vai man, manam uzņēmumam vai organizācijai ir kādi licencēšanas
+        ierobežojumi?
+      question_premium_diff: Kādas ir atšķirības starp atvērtā pirmkoda un premium
+        versijām?
+      question_private_risks: Kādi ir iespējamie drošības riski, palaižot savu versiju
+        iekšēji?
+      question_purpose: Kāds ir Password Pusher mērķis?
+      question_rebranding: Vai varu izmantot pielāgotu logotipu vai mainīt tā noformējumu?
+      question_self_host: Vai iekšēji varu palaist savu versiju savai organizācijai?
+      question_trust: Uzticība man ir svarīga. Kāpēc man vajadzētu izmantot Password
+        Pusher?
+      question_why_premium: Password Pusher vienmēr ir bijis atvērtā koda avots. Kāpēc
+        ir premium versija?
+      question_why_private: Kāpēc gan lai es vēlētos palaist savu privāto Password
+        Pusher instanci?
+      question_will_oss: Vai atvērtā pirmkoda versijai tiks pievienotas augstākās
+        klases funkcijas?
+      subtitle: "..visas lietas, ko vēlaties uzzināt par Password Pusher."
+      title: Biežāk uzdotie jautājumi
+      title_other: Cits
+      title_private: Savas privātās instances palaišana
+      title_pushes: Spiež
+      title_subscriptions: Premium versija
+      title_tools: Rīki, integrācijas un lietojumprogrammas
+      title_trust: Uzticēšanās un drošība
+      tools_link: Rīki un lietojumprogrammas
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Izmantojiet šo šifrēšanas atslēgu savai lietojumprogrammai, iestatot
+        vides mainīgo
+      generate_key: Ģenerēt atslēgu
+      generated: Ģenerēt šifrēšanas atslēgu
+      intro: Šī lapa tiek izmantota kā palīgrīks, lai ģenerētu nejaušu šifrēšanas
+        atslēgu pašmitinātiem paroles spiedēja gadījumiem.
+      intro_2: Password Pusher šifrē sensitīvus datus datu bāzē. Lai gan ir iekļauta
+        noklusējuma atslēga, vislabāk ir izmantot savu pielāgoto šifrēšanas atslēgu.
+      intro_3: Ar katru atsvaidzināšanu šī lapa ģenerē jaunu šifrēšanas atslēgu. Varat
+        izmantot tālāk norādīto nejauši ģenerēto kodu, lai konfigurētu savu paroles
+        nosūtīšanas instanci.
+      note_1: Ja šifrēšanas atslēga netiek nodrošināta, tiks izmantota noklusējuma
+        atslēga.
+      note_2: Lai gan tas nav nepieciešams, izmantojot savu īpašo šifrēšanas atslēgu,
+        Password Pusher lietotājiem tiek nodrošināts vislabākais drošības līmenis.
+      note_3: Noklusējuma atslēgas lietošanas risks samazinās, ja saglabājat savu
+        instanci drošībā un Jūsu koplietoto paroļu derīguma termiņš ir īss. Piemēram,
+        1 diena/1 skatījums pret 100 dienas/100 skatījumi.
+      note_4: Kad push derīguma termiņš beidzas, visi šifrētie dati tiek dzēsti.
+      note_5: Mainot šifrēšanas atslēgu, kurā jau pastāv vecās paroles saites, šīs
+        vecās paroles saites kļūs nelasāmas. Citiem vārdiem sakot, tās tiks sabojāts.
+        Jaunās paroles saites turpināsies darboties kā ierasts.
+      note_6: 'Atslēgas ģenerēšanu var veikt arī no lietojumprogrammas avota komandrindas,
+        izpildot:'
+      notes: 'Piezīmes:'
+      reload: Lai ģenerētu jaunu atslēgu, atkārtoti ielādējiet šo lapu.
+      title: Ģenerēt šifrēšanas atslēgu
+    password_generator:
+      push_it: Nospiediet šo paroli
+    tools:
+      alfred: Alfrēds App
+      api_documentation: API galapunktu dokumentācija
+      applications: Lietojumprogrammas
+      cli: Komandrindas interfeiss
+      clu: Komandrindu utilītprogrammas
+      examples: Piemēri
+      github: Github
+      intro: Izmantojot Password Pusher JSON API, ir vairākas lietojumprogrammas un
+        komandrindas utilītas (CLI), kas saskaras ar vietni pwpush.com vai jūsu pašu
+        viesoto instanci. Nospiediet paroles no CLI, Slack, Alfred App un citām.
+      intro_2: JSON API ir spēcīgs rīks, kas ļauj automatizēt paroles nosūtīšanu.
+        To var izdarīt ar dažādām programmēšanas valodām un rīkiem.
+      intro_3: Papildinformāciju skatiet %{github} lapā.
+      more: Vairāk
+      slack: Atslābums
+      subtitle: Password Pusher ir vairāk nekā tikai tīmekļa lietojumprogramma. Tam
+        ir JSON API, kas nodrošina plašu integrāciju un lietojumprogrammu klāstu.
+      title: Rīki, API, integrācijas un lietojumprogrammas
+      tools_1: Izmantojot JSON saskarni API, pastāv dažādi rīki, kas nodrošina saskarni
+        ar Password Pusher, lai automatizētu paroles izplatīšanu.
+      tools_2: Mums nav ierobežojumu attiecībā uz to, cik daudz paroļu varat kopīgot
+        (un nedomājam tos ieviest), taču mums ir ātruma ierobežotājs, lai nepieļautu,
+        ka vietni slēdz ļaunprātīgas personas vai programmas. Problēmām nevajadzētu
+        rasties, ja ģenerējat vienu paroli ne vairāk kā dažu sekunžu laikā.
+      tools_3: 'Šo ir iespējams pārbaudīt pārlūkprogrammas Javascript konsolē, atverot
+        Password Pusher sākumlapu un ievadot:'
+      tools_4: Saskarne API ļauj piekļūt Password Pusher, izmantojot JSON. To var
+        izmantot tādas pieejamas utilītprogrammas kā curl, wget vai jebkura datorvaloda.
+        Skatiet zemāk sniegtos piemērus.
+      tools_5: Skatiet vairāk skaidrojumu un piemērus %{github} Wiki.
+      walkthrough: Caurskate un piemēri

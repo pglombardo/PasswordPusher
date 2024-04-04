@@ -222,25 +222,19 @@
       create: Opprett %{model}
       update: Oppdater %{model}
       submit: Lagre %{model}
-  will_paginate:
-    previous_label: "← Forrige"
-    next_label: Neste →
-    page_gap: "&hellip;\n"
-    container_aria_label: Paginering
-    page_aria_label: Side %{page}
     page_entries_info:
-      single_page:
-        zero: Ingen %{model} funnet
-        one: Viser 1 %{model}
-        other: Viser alle %{count} %{model}
-      single_page_html:
-        zero: Ingen %{model} funnet
-        one: Viser <b>1</b> %{model}
-        other: Viser <b>alle %{count}</b> %{model}
-      multi_page: Viser %{model} %{from} - %{to} av %{count} totalt
-      multi_page_html: Viser %{model} <b>%{from} - %{to}</b> av <b>%{count}</b> totalt
-    previous_aria_label: Forrige side
-    next_aria_label: Neste side
+      entry:
+        zero: innganger
+        one: inngang
+        other: innganger
+      one_page:
+        display_entries:
+          zero: Ingen %{entry_name} funnet
+          one: Viser <b>1</b> %{entry_name}
+          other: Viser <b>alle %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Viser %{entry_name} <b>%{first} - %{last}</b> av <b>%{total}</b>
+          totalt
   flash:
     actions:
       create:
@@ -606,6 +600,745 @@
     access: adgang
     passphrase: passordfrase
     preview: forhåndsvisning
-  file_pushes:
+  views:
+    pagination:
+      first: "«Først"
+      last: Siste "
+      previous: "‹ Forrige"
+      next: Neste ›
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Er du sikker?
+      destroy: Ødelegge
+      edit: Redigere
+      edit_resource: Rediger %{name}
+      show_resource: Vis %{name}
+      new_resource: Ny %{name}
+      back: Tilbake
+    controller:
+      create:
+        success: "%{resource} ble opprettet."
+      destroy:
+        success: "%{resource} ble vellykket ødelagt."
+      update:
+        success: "%{resource} ble oppdatert."
+    fields:
+      has_many:
+        more: Viser %{count} av %{total_count}
+        none: Ingen
+    form:
+      error: feil
+      errors: "%{pluralized_errors} forbød at denne %{resource_name} ble lagret:"
+    navigation:
+      back_to_app: Tilbake til appen
+    search:
+      clear: Tøm søk
+      label: Søk %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Dette admin-dashbordet gir direkte databasetilgang til Password
+          Pusher-applikasjonen. Vær forsiktig og vurder å ta en sikkerhetskopi før
+          du gjør endringer.
+        admin_note: 'Merk: Å ødelegge en post ødelegger også alle underordnede poster.
+          For eksempel vil ødeleggelse av en bruker også ødelegge alle pushede passord,
+          filer og nettadresser for den brukeren.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Antall stavelser i det genererte passordet.
+      back: Tilbake til Team
+      edit: Rediger policy
+      team_policy_help: En teampolicy er et sett med regler som gjelder for alle push
+        utført av medlemmer av dette teamet.
+      personal_policy: Personlig politikk
+      personal_policy_help: En policy er et sett med regler som gjelder for alle push
+        opprettet av deg.
+      team_policy: Lagpolitikk
+      header_timed_expiration: Tidsbestemt utløp
+      expire_after_duration_min: Minimum varighet
+      expire_after_duration_min_help: Minimumsvarigheten før et push utløper.
+      expire_after_duration_max: Maksimal varighet
+      expire_after_duration_max_help: Maksimal varighet før et push utløper.
+      expire_after_duration_default: Standard varighet
+      expire_after_duration_default_help: Standardvarigheten før et push utløper.
+      minutes_tip: 1 dag = 1440 minutter, 7 dager = 10080 minutter, 30 dager = 43200
+        minutter
+      header_view_expiration: Se utløp
+      expire_after_views_min: Minimum antall visninger
+      expire_after_views_min_help: Minimum antall visninger før et push utløper.
+      expire_after_views_max: Maksimalt antall visninger
+      expire_after_views_max_help: Maksimalt antall visninger før et push utløper.
+        [Maks. 100]
+      expire_after_views_default: Standard antall visninger
+      expire_after_views_default_help: Standard antall visninger før et push utløper.
+      header_payload_limits: Nyttelastgrenser
+      push_text_max: Maksimal tekststørrelse
+      push_text_max_help: Maksimal størrelse på tekst i et trykk. Målt i byte. [Maks.
+        1048576]
+      push_files_max: Maksimalt tillatte filer
+      push_files_max_help: Maksimalt antall filer tillatt i en push. [Maks. 100]
+      header_retrieval_step: 1-klikk hentingstrinn
+      enable_retrieval_step: Muliggjøre?
+      enable_retrieval_step_help: Vil du aktivere 1-klikks-henting for dette teamet?
+        Hvis deaktivert, vil dette alternativet være skjult og ikke brukt.
+      retrieval_step_default: Standardverdi
+      retrieval_step_default_help: Standardverdien for trinnalternativet 1-Click Retrieval.
+      retrieval_step_forced: Tvinge standardverdien?
+      retrieval_step_forced_help: Tvinger bruk av dette alternativet med standardverdien
+        for alle teammedlemmer. Det kan ikke endres av teammedlemmer.
+      hide_retrieval_step: Skjul alternativ?
+      hide_retrieval_step_help: Skjuler alternativet 1-Click Retrieval-trinn for teammedlemmene.
+        Dette er nyttig for å tvinge frem standardalternativet uten å vise det til
+        teammedlemmer.
+      header_deletable: Kan slettes av Viewer
+      enable_deletable: Muliggjøre?
+      enable_deletable_help: Vil du aktivere dette alternativet for teamet? Hvis deaktivert,
+        vil dette alternativet være skjult og ikke brukt.
+      deletable_default: Standardverdi
+      deletable_default_help: Standardverdien for alternativet Deletable by Viewer.
+      deletable_forced: Tvinge standardverdien?
+      deletable_forced_help: Tvinger bruk av dette alternativet med standardverdien
+        for alle teammedlemmer. Det kan ikke endres av teammedlemmer.
+      hide_deletable: Skjul alternativ?
+      hide_deletable_help: Skjuler alternativet Deletable by Viewer fra teammedlemmene.
+        Dette er nyttig for å tvinge frem standardalternativet uten å vise det til
+        teammedlemmer.
+      hide_passphrase: Skjul alternativ?
+      hide_passphrase_help: Skjuler alternativet Passphrase Lock. Nyttig å deaktivere
+        bruken av dette alternativet helt.
+      enable_blur: Muliggjøre?
+      enable_blur_help: Nyttelast sløring skjuler innholdet i nyttelasten på den hemmelige
+        URL-leveringssiden. Mottakere kan bytte uskarphet med et klikk for å vise
+        de originale dataene.
+      header_passphrase: Passordlås
+      header_blur: Nyttelast uskarphet
+      header_pwgen: Passordgenerering
+      save: Oppdater teampolicy
+      enable_pwgen: Muliggjøre?
+      enable_pwgen_help: Vil du aktivere alternativet for passordgenerering for dette
+        teamet? Hvis deaktivert, vil dette alternativet være skjult og ikke brukt.
+      pwgen_configurable: Konfigurerbar?
+      pwgen_configurable_help: Vil du tillate teammedlemmer å konfigurere passordgeneratoren?
+        Hvis deaktivert, vil alternativet tvinges til konfigurasjonen nedenfor og
+        kan ikke endres av teammedlemmer.
+      pwgen_has_numbers: Ta med tall?
+      pwgen_has_numbers_help: Ta med tall i det genererte passordet.
+      pwgen_title_cased: Tittel Cased?
+      pwgen_title_cased_help: Tittel de genererte passorddelene.
+      pwgen_use_separators: Bruker du separatorer?
+      pwgen_use_separators_help: Bruk skilletegn i det genererte passordet.
+      pwgen_consonants: Konsonanter
+      pwgen_consonants_help: Konsonantene som skal brukes i det genererte passordet.
+      pwgen_vowels: Vokaler
+      pwgen_vowels_help: Vokalene som skal brukes i det genererte passordet.
+      pwgen_separators: Delere
+      pwgen_separators_help: Separatorene som skal brukes i det genererte passordet.
+      pwgen_min_syllable_length: Minste stavelseslengde
+      pwgen_min_syllable_length_help: Minimumslengden på en stavelse i det genererte
+        passordet.
+      pwgen_max_syllable_length: Maksimal stavelseslengde
+      pwgen_max_syllable_length_help: Den maksimale lengden på en stavelse i det genererte
+        passordet.
+      pwgen_syllables_count: Stavelser teller
+    show:
+      edit_policy: Rediger push-policy
+      policy: Lagpolitikk
+  tag_line: Gå videre. Send e-post til et annet passord.
+  about: Om
+  app_name: Passord pusher
+  application:
+    card_newsletter:
+      enter_email: Skriv inn din email...
+      subscribe: Abonnere
+    cookie_consent:
+      notice: Nettleserinformasjonskapsler hjelper til med å få dette verktøyet til
+        å fungere. Ved å bruke den godtar du bruken av disse informasjonskapslene.
+    footer:
+      best_practices: Beste praksis
+      docker: Docker containere
+      faq: FAQ
+      feedback: Tilbakemelding
+      github: GitHub
+      key_generator: Nøkkelgenerator
+      newsletter: Nyhetsbrev
+      password_generator: Passordgenerator
+      tools: Verktøy, API og CLI-er
+    pw_generator_modal:
+      cancel: Avbryt
+      configure: Konfigurer passordgenerering
+      consonants: Konsonanter
+      generate_password: Generer passord
+      include_numbers: Ta med tall
+      load_preset: Last inn en forhåndsinnstilling
+      max_syllable_length: Maksimal stavelseslengde
+      min_syllable_length: Minste stavelseslengde
+      num_syllables: Antall stavelser
+      reset: Tilbakestill til standardinnstillinger
+      save: Lagre
+      separators: Delere
+      test: Test generasjon
+      test_area: Testområde
+      use_separators: Bruk delere
+      use_titlecase: Bruk tittelsak
+      vowels: Vokaler
+  audit_logs:
+    audit_log:
+      created: Opprettet
+      created_by: Laget av %{user}
+      log_created: Push opprettet på %{date} av %{user}
+      log_expired: Push utløp manuelt på %{date} av %{user}
+      log_failed_view: Mislykket visningsforsøk fra IP-adressen %{ip} på %{date} av
+        %{user}
+      log_manual_expiration: Push utløp manuelt på %{date} av %{user} på IP-adressen
+        %{ip}
+      log_referrer: 'Henviser: %{referrer}'
+      log_user_agent: 'Brukeragent: %{user_agent}'
+      log_viewed: Vellykket visning fra IP-adresse %{ip} på %{date} av %{user}
+      unknown: Ukjent
+      viewed_by: Sett av %{user}
+  dashboard:
+    show:
+      detail: Detalj
+      event: Begivenhet
+      when: Når
+  duration:
+    format_d:
+      one: 1 dag
+      other: "%{count} dager"
+    format_dhm: "%{days} dag(er), %{hours} time(r) og %{minutes} minutt(er)"
+    format_h:
+      one: 1 time
+      other: "%{count} time(r)"
+    format_hm: "%{hours} time(r) og %{minutes} minutt(er)"
+    format_m:
+      one: 1 minutt
+      other: "%{count} minutt(er)"
+  feedbacks:
+    create:
+      feedback_sent: Tilbakemelding sendt! Vi vil komme tilbake til deg så snart som
+        mulig.
+    failed_spam_test: Vi beklager, men du mislyktes i spam-kontrollen. Du kan prøve
+      å kontakte oss på Github i stedet.
+    failed_to_send: Kunne ikke sende tilbakemelding. Noe var galt. Vennligst prøv
+      igjen eller kontakt oss på Github.
     new:
-      upload_limit: Du kan laste opp opptil %{count} filer per trykk.
+      email: E-post
+      have_idea: Har du en idé eller et ønske? Noe du ikke liker? Vil du hjelpe til?
+        Vi vil høre det!
+      leave_blank: La dette feltet stå tomt!
+      math_question: Hva er hundre minus 3?
+      send_feedback: Send tilbakemelding
+      tip: 'Tips: Kopier meldingen til utklippstavlen i den usannsynlige sjansen for
+        at innsending mislykkes.'
+      your_name: Navnet ditt
+  none: Ingen
+  pages:
+    about:
+      about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
+        sensitiv informasjon med andre mennesker på en sikker måte.
+      about_2: Med Password Pusher kan du opprette en unik engangs-URL som utløper
+        etter en viss tid eller etter at den har blitt åpnet et visst antall ganger,
+        og sikrer at informasjonen din forblir privat og sikker.
+      about_3: Den brukes ofte av enkeltpersoner og organisasjoner til å dele påloggingsinformasjon
+        eller andre sensitive data med kolleger, klienter eller partnere.
+      about_4: Password Pusher er en enkel og praktisk løsning for sikker deling av
+        passord uten behov for e-post eller andre mindre sikre kommunikasjonsmetoder.
+      about_pwpush: Om Password Pusher
+      hosted_at_html: Hosted på <a href="https://pwpush.com">pwpush.com</a> eller
+        du kan kjøre din egen private instans hvor du vil.
+      my_name: Mitt navn er Peter Giacomo Lombardo. Du finner meg på %{linkedin},
+        %{github} eller %{blog}.
+      source_avail_html: Kildekoden er <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">tilgjengelig på GitHub</a> . Det
+        er åpen kildekode og gratis for alle å bruke, gjennomgå eller endre.
+      the_author: Forfatteren
+  pushes:
+    access:
+      incorrect: Passordet er feil. Vennligst prøv igjen eller kontakt personen eller
+        organisasjonen som sendte deg denne linken.
+    audit:
+      1click_retrieval_step: 1-klikk hentingstrinn
+      1click_retrieval_step_help: Bidrar til å unngå at chatsystemer og URL-skannere
+        spiser opp visninger.
+      active: Aktiv
+      attached_files: Vedlagte filer
+      attached_files_help: Har filer blitt lagt ved denne push?
+      audit_log_for: Revisjonslogg for %{push_id}
+      contains_text: Inneholder tekst
+      contains_text_help: Har en tekstnyttelast blitt lagt til denne push?
+      created: Opprettet
+      created_by: Laget av %{user}
+      current_status: Nåværende status
+      deletable_by_viewers: Kan slettes av seere
+      deletable_by_viewers_help: Dette lar sluttbrukere slette innholdet når det er
+        hentet.
+      detail: Detalj
+      end_audit_log: Slutt på revisjonslogg
+      event: Begivenhet
+      event_log: Revisjonslogg
+      expire_after: 'Utløper etter:'
+      expire_after_time_help: Pushet utløper etter denne tiden fra opprettelsen.
+      expire_after_view_help: Pushet utløper etter dette antallet visninger.
+      expire_now: Utløper nå
+      expire_now_confirm: Dette vil utløpe denne hemmelige koblingen og slette alt
+        relatert innhold fra databasen for alltid. Revisjonsloggen (inkludert fremtidige
+        forsøk på visninger) vil fortsatt opprettholdes fremover. Er du sikker?
+      expired: Utløpt
+      failed_view: Mislykket visningsforsøk
+      failed_view_attempts: Mislykkede visningsforsøk
+      failed_view_attempts_help: Antall forsøk på å se denne push etter utløp.
+      filename: Filnavn
+      files_deleted: Alle tidligere vedlagte filer er slettet, eller det var ingen
+        vedlagt."
+      log_note: Når push mottar aktivitet, vil en logg over hver med identifiserende
+        informasjon vises her.
+      manual_expiration: Manuell utløp
+      message_length: Meldingslengde
+      message_length_help: Lengden på den vedlagte tekstnyttelasten.
+      none: Ingen
+      num_files_attached: Antall filer vedlagt
+      num_files_attached_help: Antall filer knyttet til denne push.
+      passphrase_lock: Passphrase Lockdown
+      passphrase_lock_help: Krev at mottakerne skriver inn en passordfrase for å se
+        denne push-en.
+      payload: Nyttelast
+      push_date: Trykket på %{date}
+      reference_note: Referansemerknad
+      secret_url: Hemmelig URL for denne push
+      size: 'Størrelse: %{size}'
+      start_audit_log: Start av revisjonslogg
+      start_log: Start av revisjonslogg
+      state: Stat
+      state_help_active: Aktiv og fortsatt tilgjengelig for visning.
+      state_help_expired: Push-innholdet er slettet og den hemmelige URL-en utløpt.
+      successful_view: Vellykket visning
+      successful_views: Vellykkede visninger
+      successful_views_help: Antall ganger push-en har blitt sett.
+      time_remaining: Gjenstående tid
+      time_remaining_help: Hvor lang tid som gjenstår før push-en utløper.
+      title: Trykk på revisjonslogg
+      visible_to: Bare synlig for deg
+      when: Når
+    copy_to_clipboard: Kopier til utklippstavle
+    day:
+      one: 1 dag
+      other: "%{count} dager"
+    deleted: Slettet
+    expiration_html: Denne hemmelige lenken og alt innhold vil bli slettet i <strong>%{duration}</strong>
+      eller <strong>%{count} flere visninger</strong> , avhengig av hva som inntreffer
+      først.
+    expire:
+      expired: Push-innholdet er slettet og den hemmelige URL-en utløpt.
+      not_deletable: Den push kan ikke slettes av seerne.
+    form:
+      12_hours: 12 timer
+      15_minutes: 15 minutter
+      1_day: 1 dag
+      1_hour: 1 time
+      1_month: 1 måned
+      1_week: 1 uke
+      1click: Bruk et 1-klikks gjenopprettelsestrinn
+      1click_tip: Bidrar til å unngå at chattesystemer og skannere spiser opp visninger.
+      2_days: 2 dager
+      2_months: 2 måneder
+      2_weeks: 2 uker
+      30_minutes: 30 minutter
+      3_days: 3 dager
+      3_months: 3 måneder
+      3_weeks: 3 uker
+      45_minutes: 45 minutter
+      4_days: 4 dager
+      5_days: 5 dager
+      6_days: 6 dager
+      6_hours: 6 timer
+      add_files: Legg til filer...
+      audit_tip: Når du er logget på, holdes en revisjonslogg over aktivitet og er
+        tilgjengelig på ubestemt tid.
+      day: Dag
+      days: Dager
+      deletable: Tillat umiddelbar sletting
+      deletable_tip: Tillat brukere å slette denne push når den er hentet.
+      encryption_tip: Innhold er kryptert før lagring og er kun tilgjengelig for de
+        med den hemmelige lenken.
+      expiration_label: 'Utløp denne push og slett etter:'
+      expiration_tip: Når den er utløpt, slettes alt innhold og filer i push umiddelbart
+        og fullstendig.
+      generator_tip: Bruk knappen ovenfor for å generere et tilfeldig passord.
+      hour: Time
+      hours: Timer
+      login_to_upload: Logg på for å laste opp og legge ved filer til denne push...
+      minutes: Minutter
+      month: Måned
+      months: Måneder
+      note_label: Referansemerknad
+      note_placeholder: Et privat notat for å hjelpe med å huske hvem eller hva dette
+        pushet er for.
+      passphrase_label: Passordlås
+      passphrase_placeholder: Krev at mottakerne skriver inn en passordfrase for å
+        se denne push-en.
+      password_tip: 'Tips: Skriv bare inn et passord i boksen. Annen identifiserende
+        informasjon kan kompromittere sikkerheten.'
+      payload_placeholder: Skriv inn passordet, teksten eller URL-en for å trykke...
+      push_it: Push den!
+      upload_limit: Du kan laste opp opptil 10 filer per trykk.
+      view: Utsikt
+      views: Visninger
+      week: Uke
+      weeks: Uker
+    hour:
+      one: 1 time
+      other: "%{count} timer"
+    index:
+      actions: Handlinger
+      clear_filters: Tøm filtre
+      created: Opprettet
+      created_by: Av
+      expires: Utløper
+      file_count: Filer
+      note: Merk
+      nothing_here: Det er ingenting her ennå.
+      push_id: Push ID
+      pushes: Dytter
+      remaining_time: Gjenstående tid
+      status: Status
+      views: Visninger
+      views_remaining: Gjenstående visninger
+    minute:
+      one: 1 minutt
+      other: "%{count} minutter"
+    more_view:
+      one: 1 visning til
+      other: "%{count} flere visninger"
+    'no': Nei
+    none: Ingen
+    passphrase:
+      enter_passphrase: Skriv inn passordfrase
+      go: Gå
+      placeholder: Skriv inn den hemmelige passordfrasen som følger med denne nettadressen
+      tip: Skriv inn den hemmelige passordfrasen
+    payload: Nyttelast
+    preliminary:
+      click_proceed: Klikk her for å fortsette
+    preview:
+      and: og
+      can_be: kan være
+      can_not_be: Kan ikke være
+      deleted_by_viewers: slettet av seer.
+      link_lang_tip: 'Tips: Sender du til en internasjonal bruker? Endre det hemmelige
+        lenkespråket ved å bruke rullegardinmenyen til høyre for URL-en.'
+      or: eller
+      or_after: eller etter
+      push_another: Skyv en annen
+      push_created: Din push er opprettet.
+      use_link_to_share: 'Bruk denne hemmelige lenken for å dele den:'
+      view_push_now: Se denne push nå
+      will_burn_view: "(vil brenne en visning)"
+      will_expire_after: Denne push utløper om
+      with_preliminary_step: Den inkluderer også et %{strong_start}1-klikks foreløpig
+        gjenfinningstrinn%{strong_end}.
+    provide_text_or_file: For å lage en push må du enten gi tekst, legge ved en fil
+      eller begge deler.
+    push:
+      active: Aktiv
+      audit: Revidere
+      expired: Utløpt
+      none: Ingen
+      preview: Forhåndsvisning
+      push_controls: Trykk på knapper
+      title: Ny Push
+      unknown: Ukjent
+    secret_link_lang: Hemmelig lenkespråk
+    settings: Innstillinger
+    show:
+      blurred: Passordet ditt er uklart. Klikk nedenfor for å se det.
+      click_to_reveal: Innholdet er uskarpt. Klikk nedenfor for å avsløre det.
+      delete_now: Slett denne hemmelige lenken nå
+      delete_now_confirm: Dette vil utløpe denne hemmelige koblingen og slette alt
+        relatert innhold fra databasen for alltid. Er du sikker?
+      download_file: Last ned fil
+      files_sent: Følgende filer er sendt til deg.
+      last_view: Dette er den siste utsikten.
+      obtain: Hent og lagre dette innholdet på en sikker måte ved å bruke en passordbehandler
+        og/eller kryptert lagring. Husk å slette alle data som ikke lenger er nødvendige.
+      open_file: Åpen fil
+      please_download: Last ned og lagre på et sikkert område.
+      will_be_deleted: Denne hemmelige lenken og alt innhold vil bli slettet i %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} eller %{b_tag}%{view_count} mer %{view_unit}%{b_tag}
+        (avhengig av hva som inntreffer først).
+      your_link: Din hemmelige lenke
+    show_expired:
+      expired_help: Om nødvendig, vennligst kontakt personen eller organisasjonen
+        som ga deg denne hemmelige nettadressen.
+      expired_message: Vi beklager, men denne hemmelige lenken er utløpt.
+      link_expired: Din hemmelige lenke har utløpt
+    view:
+      one: 1 visning
+      other: "%{count} visninger"
+    view_audit_log: Se revisjonslogg
+    whichever: "(det som kommer først)"
+    'yes': Ja
+  static:
+    about:
+      about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
+        sensitiv informasjon med andre mennesker på en sikker måte.
+      about_2: Med Password Pusher kan du opprette en unik engangs-URL som utløper
+        etter en viss tid eller etter at den har blitt åpnet et visst antall ganger,
+        og sikrer at informasjonen din forblir privat og sikker.
+      about_3: Den brukes ofte av enkeltpersoner og organisasjoner til å dele påloggingsinformasjon
+        eller andre sensitive data med kolleger, klienter eller partnere.
+      about_4: Password Pusher er en enkel og praktisk løsning for sikker deling av
+        passord uten behov for e-post eller andre mindre sikre kommunikasjonsmetoder.
+      about_5: Hosted på %{pwpush_link} eller du kan kjøre din egen private instans
+        hvor du vil.
+      about_6: Kildekoden er tilgjengelig på %{github_link}. Det er åpen kildekode
+        og gratis for alle å bruke, gjennomgå eller endre.
+      age_body: Den første git-forpliktelsen til Password Pusher var <strong>28. desember
+        2011</strong> . pwpush.com gikk live kort tid etter.
+      age_title: Mer enn %{years_count} år gammel
+      author_1: Mitt navn er Peter Giacomo Lombardo. Du finner meg på %{linkedin},
+        %{github} eller %{blog}.
+      author_2: For oppdateringer, følg Password Pusher på %{twitter} (eller min %{twitter_personal})
+        eller abonner på %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Den desidert største hjelpen er å spre ordet. Del Password Pusher med
+        dine venner, kolleger og organisasjoner.
+      help_2: 'Du kan også:'
+      help_3: Stjerne til %{github}-prosjektet. Det er bensin for algoene som trender
+        Password Pusher.
+      help_4: Hjelp %{translate}. Forbedre et eksisterende språk eller legg til et
+        nytt.
+      help_5: Registrer deg for %{newsletter} for å få oppdateringer om viktige utgivelser,
+        sikkerhetsproblemer, tips og mer.
+      help_6: Følg Password Pusher på %{facebook}, %{twitter} og %{github}.
+      help_translate: Hjelp til å oversette
+      newsletter: Nyhetsbrev
+      pwpush_domain: pwpush.com
+      section_about: Om
+      section_author: Forfatteren
+      section_follow: Hvor skal du følge Password Pusher
+      section_help: Vil du hjelpe til?
+      title: Om Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Med Password Pusher JSON API er det en rekke applikasjoner
+        og kommandolinjeverktøy (CLI) som har grensesnitt med pwpush.com eller din
+        selvhostede instans. Push passord fra CLI, Slack, Alfred App og mer.
+      answer_access_2: Se %{tools}-siden for mer informasjon.
+      answer_add_feature_1: Svært sannsynlig. Jeg elsker å høre alle ideer og tilbakemeldinger
+        og holde en liste for å bestemme hva jeg skal legge til neste gang. Hvis du
+        har noen, vennligst send dem til %{feedback_link}-siden eller på %{github_link}.
+      answer_already_expired_1: Noen systemer som e-post, brannmurer og chatsystemer
+        har ofte lenkeskannere som kan spise opp visninger. Dette gjøres vanligvis
+        for bedriftssikkerhet eller for å ganske enkelt generere en "forhåndsvisning"
+        for applikasjoner.
+      answer_already_expired_2: For å forhindre dette, bruk 1-klikks gjenfinningstrinn-alternativet
+        når du trykker passord. Dette krever at brukerne klikker seg gjennom en foreløpig
+        side for å beskytte visninger fra slike skannere.
+      answer_already_expired_3: Som et ekstra forebyggende tiltak, når du er logget
+        på, blir det gitt en revisjonslogg for hvert trykk som opprettes. Denne revisjonsloggen
+        viser hvem og når push-en ble sett.
+      answer_automation_1: Ja. Password Pusher JSON API tillater automatisering av
+        passordpushing. Dette kan gjøres med en rekke programmeringsspråk og verktøy.
+      answer_automation_2: Se %{tools}-siden for mer informasjon.
+      answer_conference_1: Absolutt. Vi har medieressurser og en fullstendig forklaring
+        av funksjoner tilgjengelig i formatene %{windows_link} og %{mac_link}.
+      answer_conference_2: Hvis du har spørsmål eller trenger hjelp, kan du gjerne
+        kontakte meg når som helst.
+      answer_how_many_1: Det er ingen grenser for øyeblikket, og jeg har ingen intensjon
+        om å legge til noen. For å minimalt sikre nettstedets stabilitet, er Password
+        Pusher konfigurert med en hastighetsbegrenser som standard. Dette kan deaktiveres
+        i den selvhostede versjonen.
+      answer_licensing_1: Kildekoden åpen kildekode-versjonen er utgitt under Apache
+        2.0-lisensen, og det definerer stort sett alle begrensninger. Det er ganske
+        mange re-branded og redesignede klonesider av Password Pusher, og jeg ønsker
+        dem alle velkommen.
+      answer_licensing_2: Premium-versjonen er utgitt under en kommersiell lisens.
+        Det er ikke åpen kildekode og er ikke gratis. Kjernen inneholder åpen kildekode-prosjektet,
+        men tilbyr et supersett med funksjoner og er ment å akselerere utviklingen
+        og bidra til å finansiere prosjektet.
+      answer_licensing_3: Premium-versjonen er ikke nødvendig for å kjøre en privat
+        forekomst av Password Pusher. Open source-versjonen er fullt utstyrt og gratis
+        å bruke.
+      answer_licensing_4: Alle premiumfunksjoner havner i åpen kildekode-versjon etter
+        en periode avhengig av funksjonen.
+      answer_private_risks_1: Å kjøre en privat forekomst av Password Pusher for din
+        bedrift eller organisasjon gir deg tryggheten ved at du vet nøyaktig hvilken
+        kode som kjører. Du kan konfigurere og kjøre det som du vil.
+      answer_private_risks_2: På den annen side, hvis forekomsten din blir hacket
+        og krypteringen brutt, har ondsinnede enheter nå en målrettet ordbok med passord
+        for å brute force-kontoer i organisasjonen din. (dette vil være begrenset
+        til push som ikke har utløpt ennå)
+      answer_private_risks_3: I denne forbindelse kan den offentlige forekomsten på
+        pwpush.com være overlegen ved at den kun inneholder passord uten identifiserende
+        informasjon blandet blant brukere fra hele verden.
+      answer_private_risks_4: Et annet hensyn ville være opprettholdelsen av instansen.
+        Du må holde den oppdatert, sikker og sikkerhetskopiert.
+      answer_private_risks_5: Brukeren bør nøye veie fordeler og ulemper og bestemme
+        hvilken rute som er best for dem. Vi støtter gjerne begge strategiene.
+      answer_purpose_1: Password Pusher eksisterer som et bedre alternativ til å sende
+        passord enn via e-post.
+      answer_purpose_10: I tillegg <strong>utløper passord etter at et forhåndsdefinert
+        sett med visninger er truffet eller tiden har gått.</strong>
+      answer_purpose_11: Når de er utløpt, slettes passord umiddelbart
+      answer_purpose_12: Hvis det høres interessant ut for deg, kan du prøve det eller
+        se de andre ofte stilte spørsmålene nedenfor.
+      answer_purpose_2: "<strong>E-post med passord er iboende usikkert.</strong>
+        De største risikoene inkluderer:"
+      answer_purpose_3: E-postpassord sendes vanligvis med kontekst til det de går
+        til eller kan potensielt avledes fra e-postbrukernavn, domene osv...
+      answer_purpose_4: E-post er iboende usikker og kan bli fanget opp på flere punkter
+        av ondsinnede enheter.
+      answer_purpose_5: 'E-postede passord lever i evighet (les: evig) i e-postarkiver.'
+      answer_purpose_6: Passord i e-post kan hentes og brukes senere hvis en e-postkonto
+        blir stjålet osv.
+      answer_purpose_7: De samme risikoene eksisterer når du sender passord via SMS,
+        WhatsApp, Telegram, Chat osv... Dataene kan og blir ofte holdt i evighet og
+        utenfor din kontroll.
+      answer_purpose_8: Ved å bruke Password Pusher omgår du alt dette.
+      answer_purpose_9: For hvert passord som legges ut til Password Pusher, <strong>genereres
+        det en unik URL som bare du kjenner</strong> .
+      answer_rebranding_1: Password Pusher støtter fullstendig re-branding "ut av
+        boksen" slik at du kan legge til en tilpasset logo, bilder, tekst og til og
+        med endre applikasjonstemaet.
+      answer_self_host_1: Ja, for åpen kildekode-versjon tilbyr vi %{docker_link}
+        og %{install_link} for et bredt utvalg av plattformer og skyer.
+      answer_self_host_2: For premiumversjonen, med supersettet av funksjoner, kommer
+        selvvertsbaserte containere snart.
+      answer_trust_1: Og med rette. All god sikkerhet begynner med sunn skepsis til
+        alle involverte komponenter.
+      answer_trust_2: Password Pusher eksisterer som et bedre alternativ til å sende
+        passord via e-post. Det unngår at passord eksisterer i e-postarkiver i evighet.
+        Den eksisterer ikke som en fullstendig sikkerhetsløsning.
+      answer_trust_3: Password Pusher startet som et åpen kildekode-prosjekt på slutten
+        av 2011. Det har blitt vedlikeholdt og oppdatert av meg selv (Peter Giacomo
+        Lombardo) og en håndfull utmerkede bidragsytere i hele den tiden. I 2024 ble
+        premiumversjonen introdusert for å akselerere utviklingen og bidra til å finansiere
+        prosjektet. Alle premium-funksjoner havner i åpen kildekode-versjonen til
+        slutt.
+      answer_trust_4: Ved å ha en så lang historie og være åpen kildekode, har Password
+        Pusher blitt anmeldt av mange øyne. Den har blitt brukt av og revidert mange
+        organisasjoner og enkeltpersoner gjennom årene.
+      answer_trust_5: 'Policyen til Password Pusher er tredelt: 1) Kryptering i hvile
+        og under overføring 2) Minimal datalagring 3) Åpenhet i form av en revisjonslogg.'
+      answer_trust_6: På denne måten blir push-nyttelaster utvetydig slettet ved utløp
+        og revisjonsloggen opprettholdes på ubestemt tid. Jo mindre data Password
+        Pusher har, jo bedre.
+      answer_trust_7: Hvis du fortsatt har bekymringer angående tillit, sikkerhet
+        og sikkerhet, kan du gjerne se gjennom koden, legge ut spørsmål du måtte ha
+        og vurdere å kjøre den internt i organisasjonen din i stedet.
+      answer_trust_8: Når det gjelder tillit til meg, er alt jeg kan tilby min lange
+        historie med å bygge dette prosjektet og mitt offentlige rykte på %{github},
+        %{linkedin}, %{twitter} og %{blog}. Ta gjerne kontakt med meg når som helst
+        med spørsmål du måtte ha.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Noen organisasjoner er bundet av sikkerhetspolicyer som
+        forbyr bruk av offentlige tjenester for sensitiv informasjon som passord.
+        Det er til og med organisasjoner som krever at alle verktøy er på private
+        intranett uten tilgang til omverdenen.
+      answer_why_private_2: Å kjøre din egen private forekomst av Password Pusher
+        lar deg kontrollere miljøet og dataene. Den lar deg også legge til tilpassede
+        funksjoner og integrasjoner som er spesifikke for din organisasjon.
+      answer_why_private_3: Det er av disse grunnene vi gir muligheten (og oppmuntrer)
+        brukere og organisasjoner til å kjøre private forekomster når det er nødvendig.
+      feedback_link: Tilbakemeldings-skjema
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: min blogg
+      question_access: Er det andre måter jeg kan få tilgang til Password Pusher utenfor
+        en nettleser?
+      question_add_feature: Kan du legge til en spesifikk funksjon for organisasjonen
+        min?
+      question_already_expired: Den hemmelige URL-en jeg sendte var allerede utløpt.
+        Hva skjedde?
+      question_automation: Kan jeg automatisere passorddistribusjonen min?
+      question_conference: Kan jeg bruke Password Pusher i min tale, video, presentasjon
+        eller konferanse?
+      question_have_to_pay: Må jeg betale?
+      question_how_many: Hvor mange forespørsler kan jeg sende til Password Pusher?
+      question_licensing: Er det noen lisensieringsbegrensninger for meg, firmaet
+        mitt eller organisasjonen min?
+      question_premium_diff: Hva er forskjellene mellom åpen kildekode og premiumversjoner?
+      question_private_risks: Hva er de potensielle sikkerhetsrisikoene ved å kjøre
+        min egen versjon internt?
+      question_purpose: Hva er formålet med Password Pusher?
+      question_rebranding: Kan jeg bruke en tilpasset logo eller endre designet?
+      question_self_host: Kan jeg kjøre min egen versjon for organisasjonen min internt?
+      question_trust: Tillit er en bekymring. Hvorfor bør jeg bruke Password Pusher?
+      question_why_premium: Password Pusher har alltid vært åpen kildekode. Hvorfor
+        er det en premiumversjon?
+      question_why_private: Hvorfor vil jeg kjøre min egen private forekomst av Password
+        Pusher?
+      question_will_oss: Vil premiumfunksjonene legges til åpen kildekode-versjonen?
+      subtitle: "..alle tingene du vil vite om Password Pusher."
+      title: ofte stilte spørsmål
+      title_other: Annen
+      title_private: Kjøre din egen private instans
+      title_pushes: Dytter
+      title_subscriptions: Premium versjon
+      title_tools: Verktøy, integrasjoner og applikasjoner
+      title_trust: Tillit og sikkerhet
+      tools_link: Verktøy og applikasjoner
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Du kan bruke denne nøkkelen til applikasjonen din ved å angi miljøvariabelen
+      generate_key: Generer nøkkel
+      generated: Generert krypteringsnøkkel
+      intro: Denne siden brukes som et hjelpeverktøy for å generere en tilfeldig krypteringsnøkkel
+        for selvhostede forekomster av Password Pusher.
+      intro_2: Password Pusher krypterer sensitive data i databasen. Selv om det er
+        en standardnøkkel inkludert, er det best å bruke din egen tilpassede krypteringsnøkkel.
+      intro_3: Med hver oppdatering genererer denne siden en ny krypteringsnøkkel.
+        Du kan bruke den tilfeldig genererte koden nedenfor for å konfigurere Password
+        Pusher-forekomsten.
+      note_1: Hvis en krypteringsnøkkel ikke er oppgitt, brukes en standardnøkkel.
+      note_2: Den beste sikkerheten for private forekomster av Password Pusher er
+        å bruke din egen tilpassede krypteringsnøkkel, selv om det ikke er nødvendig.
+      note_3: Risikoen ved å bruke standardnøkkelen reduseres hvis du holder forekomsten
+        sikker og push-utløpene korte. f.eks. 1 dag/1 visning versus 100 dager/100
+        visninger.
+      note_4: Når et push utløper, slettes alle krypterte data i det pushet.
+      note_5: Å endre en krypteringsnøkkel der gamle push allerede eksisterer, vil
+        gjøre de eldre pushene uleselige. Med andre ord vil nyttelastene bli forvansket.
+        Nye fremstøt fremover vil fungere fint.
+      note_6: 'Nøkkelgenerering kan også gjøres fra kommandolinjen i applikasjonskilden
+        ved å utføre:'
+      notes: 'Merknader:'
+      reload: Last inn denne siden på nytt for å generere en ny nøkkel på nytt.
+      title: Generer en krypteringsnøkkel
+    password_generator:
+      push_it: Trykk på dette passordet
+    tools:
+      alfred: Alfred App
+      api_documentation: API-endepunktdokumentasjon
+      applications: applikasjoner
+      cli: Kommandolinjegrensesnitt
+      clu: Kommandolinjeverktøy
+      examples: Eksempler
+      github: Github
+      intro: Med Password Pusher JSON API er det en rekke applikasjoner og kommandolinjeverktøy
+        (CLI) som har grensesnitt med pwpush.com eller din selvhostede instans. Push
+        passord fra CLI, Slack, Alfred App og mer.
+      intro_2: JSON API er et kraftig verktøy som gjør det mulig å automatisere passord-pushing.
+        Dette kan gjøres med en rekke programmeringsspråk og verktøy.
+      intro_3: Se %{github}-siden for mer informasjon.
+      more: Mer
+      slack: Slakk
+      subtitle: Password Pusher er mer enn bare en nettapplikasjon. Den har et JSON
+        API som gir mulighet for et bredt utvalg av integrasjoner og applikasjoner.
+      title: Verktøy, APIer, integrasjoner og applikasjoner
+      tools_1: Ved å bruke JSON API finnes det ulike verktøy for å koble til Password
+        Pusher for å automatisere passorddistribusjon.
+      tools_2: Vi har ingen grenser for hvor mange passord du kan trykke (og har ingen
+        intensjoner om å legge til grenser), men vi har en hastighetsbegrenser slik
+        at siden ikke blir tatt ned av dårlige manus eller dårlige skuespillere. Begrens
+        verktøyene dine til maksimalt 1 passord med noen sekunders mellomrom, så skal
+        det gå bra.
+      tools_3: 'Du kan teste dette i nettleserens Javascript-konsoll ved å gå til
+        forsiden til Password Pusher og skrive inn:'
+      tools_4: Dette API-et lar deg kommunisere med Password Pusher via JSON. Dette
+        kan brukes av eksisterende verktøy som curl, wget eller et hvilket som helst
+        programmeringsspråk. Se eksemplene nedenfor for noen ideer.
+      tools_5: Se mer forklaring og eksempler i %{github} Wiki.
+      walkthrough: Gjennomgang og eksempler

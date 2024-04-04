@@ -217,25 +217,19 @@ ko:
       create: 등록
       update: 수정
       submit: 제출
-  will_paginate:
-    previous_label: "← 이전"
-    next_label: 다음 →
-    page_gap: "…"
-    container_aria_label: 쪽수 매기기
-    page_aria_label: 페이지 %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model}을(를) 찾을 수 없습니다."
-        one: 1 표시 %{model}
-        other: 모두 표시 %{count} %{model}
-      single_page_html:
-        zero: "%{model}을(를) 찾을 수 없습니다."
-        one: "<b>1</b> 표시 %{model}"
-        other: "<b>모두 표시 %{count}</b> %{model}"
-      multi_page: 총 %{count}의 %{model} %{from} - %{to} 표시
-      multi_page_html: 총 %{count}의 <b>[</b> %{model}] <b>%{from} - %{to}</b> 표시
-    previous_aria_label: 이전 페이지
-    next_aria_label: 다음 페이지
+      entry:
+        zero: 항목
+        one: 기입
+        other: 항목
+      one_page:
+        display_entries:
+          zero: "%{entry_name}을(를) 찾을 수 없습니다."
+          one: "<b>1</b> 표시 %{entry_name}"
+          other: "<b>모두 표시 %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "<b>%{total}</b>중의 %{entry_name}를(을) 표시하고 있습니다 <b>%{first}
+          - %{last}</b>"
   flash:
     actions:
       create:
@@ -569,6 +563,626 @@ ko:
     access: 입장
     passphrase: 암호
     preview: 시사
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; 처음"
+      last: 마지막 &raquo;
+      previous: "&lsaquo; 이전"
+      next: 다음 &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: 확실합니까?
+      destroy: 파괴하다
+      edit: 편집하다
+      edit_resource: "%{name} 편집"
+      show_resource: "%{name} 표시"
+      new_resource: 신규 %{name}
+      back: 돌아가기
+    controller:
+      create:
+        success: "%{resource}이 성공적으로 생성되었습니다."
+      destroy:
+        success: "%{resource}이(가) 성공적으로 제거되었습니다."
+      update:
+        success: "%{resource}이 성공적으로 업데이트되었습니다."
+    fields:
+      has_many:
+        more: "%{total_count} 중 %{count} 표시 중"
+        none: 없음
+    form:
+      error: 오류
+      errors: "%{pluralized_errors}이(가) 이 %{resource_name}을(를) 저장하지 못하도록 금지했습니다."
+    navigation:
+      back_to_app: 앱으로 돌아가기
+    search:
+      clear: 검색 지우기
+      label: "%{resource} 검색"
+  layouts:
+    admin:
+      application:
+        admin_intro: 이 관리 대시보드는 비밀번호 푸셔 애플리케이션에 대한 직접적인 데이터베이스 액세스를 제공합니다. 변경하기 전에
+          주의 깊게 백업해 두시기 바랍니다.
+        admin_note: '참고: 기록을 삭제하면 모든 하위 기록도 삭제됩니다. 예를 들어 사용자를 삭제하면 해당 사용자에 대해 푸시된
+          모든 비밀번호, 파일 및 URL도 삭제됩니다.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: 생성된 비밀번호의 음절 수입니다.
+      back: 팀으로 돌아가기
+      edit: 정책 편집
+      team_policy_help: 팀 정책은 이 팀 구성원이 수행하는 모든 푸시에 적용되는 규칙 집합입니다.
+      personal_policy: 개인 정책
+      personal_policy_help: 정책은 귀하가 생성한 모든 푸시에 적용되는 규칙 집합입니다.
+      team_policy: 팀 정책
+      header_timed_expiration: 시간 만료
+      expire_after_duration_min: 최소 기간
+      expire_after_duration_min_help: 푸시가 만료되기 전의 최소 기간입니다.
+      expire_after_duration_max: 최대 기간
+      expire_after_duration_max_help: 푸시가 만료되기 전의 최대 기간입니다.
+      expire_after_duration_default: 기본 기간
+      expire_after_duration_default_help: 푸시가 만료되기 전의 기본 기간입니다.
+      minutes_tip: 1일 = 1440분, 7일 = 10080분, 30일 = 43200분
+      header_view_expiration: 만료 보기
+      expire_after_views_min: 최소 조회수
+      expire_after_views_min_help: 푸시가 만료되기 전의 최소 보기 수입니다.
+      expire_after_views_max: 최대 조회수
+      expire_after_views_max_help: 푸시가 만료되기 전의 최대 보기 수입니다. [최대. 100]
+      expire_after_views_default: 기본 조회수
+      expire_after_views_default_help: 푸시가 만료되기 전의 기본 보기 수입니다.
+      header_payload_limits: 페이로드 제한
+      push_text_max: 최대 텍스트 크기
+      push_text_max_help: 푸시의 최대 텍스트 크기입니다. 바이트 단위로 측정됩니다. [최대. 1048576]
+      push_files_max: 최대 허용 파일
+      push_files_max_help: 푸시에 허용되는 최대 파일 수입니다. [최대. 100]
+      header_retrieval_step: 1-클릭 검색 단계
+      enable_retrieval_step: 할 수 있게 하다?
+      enable_retrieval_step_help: 이 팀에 대해 1-클릭 검색을 활성화하시겠습니까? 비활성화하면 이 옵션이 숨겨지고 사용되지
+        않습니다.
+      retrieval_step_default: 기본값
+      retrieval_step_default_help: 1-클릭 검색 단계 옵션의 기본값입니다.
+      retrieval_step_forced: 기본값을 강제하시겠습니까?
+      retrieval_step_forced_help: 모든 팀 구성원에 대해 기본값으로 이 옵션을 강제로 사용합니다. 팀원이 변경할 수 없습니다.
+      hide_retrieval_step: 옵션을 숨기시겠습니까?
+      hide_retrieval_step_help: 팀 구성원에게 1-클릭 검색 단계 옵션을 숨깁니다. 이는 팀 구성원에게 표시하지 않고 옵션
+        기본값을 강제 적용하는 데 유용합니다.
+      header_deletable: 뷰어가 삭제할 수 있음
+      enable_deletable: 할 수 있게 하다?
+      enable_deletable_help: 팀에 대해 이 옵션을 활성화하시겠습니까? 비활성화하면 이 옵션이 숨겨지고 사용되지 않습니다.
+      deletable_default: 기본값
+      deletable_default_help: 뷰어가 삭제 가능 옵션의 기본값입니다.
+      deletable_forced: 기본값을 강제하시겠습니까?
+      deletable_forced_help: 모든 팀 구성원에 대해 기본값으로 이 옵션을 강제로 사용합니다. 팀원이 변경할 수 없습니다.
+      hide_deletable: 옵션을 숨기시겠습니까?
+      hide_deletable_help: 팀 구성원에게 뷰어가 삭제 가능 옵션을 숨깁니다. 이는 팀 구성원에게 표시하지 않고 옵션 기본값을
+        강제 적용하는 데 유용합니다.
+      hide_passphrase: 옵션을 숨기시겠습니까?
+      hide_passphrase_help: 암호 잠금 옵션을 숨깁니다. 이 옵션의 사용을 완전히 비활성화하는 데 유용합니다.
+      enable_blur: 할 수 있게 하다?
+      enable_blur_help: 페이로드 블러링은 비밀 URL 전달 페이지의 페이로드 내용을 모호하게 합니다. 수신자는 클릭 한 번으로
+        흐림 효과를 전환하여 원본 데이터를 표시할 수 있습니다.
+      header_passphrase: 암호 잠금
+      header_blur: 페이로드 블러링
+      header_pwgen: 비밀번호 생성
+      save: 팀 정책 업데이트
+      enable_pwgen: 할 수 있게 하다?
+      enable_pwgen_help: 이 팀의 비밀번호 생성 옵션을 활성화하시겠습니까? 비활성화하면 이 옵션이 숨겨지고 사용되지 않습니다.
+      pwgen_configurable: 구성 가능?
+      pwgen_configurable_help: 팀 구성원이 비밀번호 생성기를 구성하도록 허용하시겠습니까? 비활성화하면 옵션이 아래 구성으로
+        강제 적용되며 팀 구성원이 변경할 수 없습니다.
+      pwgen_has_numbers: 숫자를 포함하시겠습니까?
+      pwgen_has_numbers_help: 생성된 비밀번호에 숫자를 포함합니다.
+      pwgen_title_cased: 제목 케이스?
+      pwgen_title_cased_help: 생성된 비밀번호 부분의 제목입니다.
+      pwgen_use_separators: 구분 기호를 사용하시겠습니까?
+      pwgen_use_separators_help: 생성된 비밀번호에 구분 기호를 사용하세요.
+      pwgen_consonants: 자음
+      pwgen_consonants_help: 생성된 비밀번호에 사용할 자음입니다.
+      pwgen_vowels: 모음
+      pwgen_vowels_help: 생성된 비밀번호에 사용할 모음입니다.
+      pwgen_separators: 분리기
+      pwgen_separators_help: 생성된 비밀번호에 사용할 구분 기호입니다.
+      pwgen_min_syllable_length: 최소 음절 길이
+      pwgen_min_syllable_length_help: 생성된 비밀번호의 최소 음절 길이입니다.
+      pwgen_max_syllable_length: 최대 음절 길이
+      pwgen_max_syllable_length_help: 생성된 비밀번호의 최대 음절 길이입니다.
+      pwgen_syllables_count: 음절 수
+    show:
+      edit_policy: 푸시 정책 편집
+      policy: 팀 정책
+  tag_line: 계속하세요. 다른 비밀번호를 이메일로 보내세요.
+  about: 에 대한
+  app_name: 비밀번호 푸셔
+  application:
+    card_newsletter:
+      enter_email: 이메일을 입력하세요...
+      subscribe: 구독하다
+    cookie_consent:
+      notice: 브라우저 쿠키는 이 도구가 작동하는 데 도움이 됩니다. 이를 사용함으로써 귀하는 이러한 쿠키 사용에 동의하게 됩니다.
+    footer:
+      best_practices: 모범 사례
+      docker: 도커 컨테이너
+      faq: 자주하는 질문
+      feedback: 피드백
+      github: GitHub
+      key_generator: 키 생성기
+      newsletter: 뉴스 레터
+      password_generator: 비밀번호 생성기
+      tools: 도구, API 및 CLI
+    pw_generator_modal:
+      cancel: 취소
+      configure: 암호 생성 구성
+      consonants: 자음
+      generate_password: 비밀번호 생성
+      include_numbers: 숫자 포함
+      load_preset: 사전 설정 로드
+      max_syllable_length: 최대 음절 길이
+      min_syllable_length: 최소 음절 길이
+      num_syllables: 음절 수
+      reset: 기본값으로 재설정
+      save: 구하다
+      separators: 분리기
+      test: 테스트 생성
+      test_area: 테스트 영역
+      use_separators: 구분 기호 사용
+      use_titlecase: 제목 케이스 사용
+      vowels: 모음
+  audit_logs:
+    audit_log:
+      created: 만들어진
+      created_by: '작성자: %{user}'
+      log_created: "%{user}에 의해 %{date}에 푸시가 생성되었습니다."
+      log_expired: 푸시는 %{user}에 의해 %{date}에 수동으로 만료되었습니다.
+      log_failed_view: "%{user}에 의해 %{date}의 IP 주소 %{ip}에서 보기 시도가 실패했습니다."
+      log_manual_expiration: IP 주소 %{ip}에서 %{user}에 의해 %{date}에 푸시가 수동으로 만료되었습니다.
+      log_referrer: '추천인: %{referrer}'
+      log_user_agent: '사용자 에이전트: %{user_agent}'
+      log_viewed: "%{user}에 의해 %{date}의 IP 주소 %{ip}에서 성공적으로 확인되었습니다."
+      unknown: 알려지지 않은
+      viewed_by: "%{user}님이 조회함"
+  dashboard:
+    show:
+      detail: 세부 사항
+      event: 이벤트
+      when: 언제
+  duration:
+    format_d:
+      one: 1 일
+      other: "%{count}일"
+    format_dhm: "%{days}일, %{hours}시간 및 %{minutes}분"
+    format_h:
+      one: 1 시간
+      other: "%{count}시간"
+    format_hm: "%{hours}시 및 %{minutes}분"
+    format_m:
+      one: 1 분
+      other: "%{count}분"
+  feedbacks:
+    create:
+      feedback_sent: 피드백을 보냈습니다! 최대한 빨리 연락드리겠습니다.
+    failed_spam_test: 죄송하지만 스팸 확인에 실패하셨습니다. 대신 Github에서 저희에게 연락하실 수 있습니다.
+    failed_to_send: 의견을 보내지 못했습니다. 뭔가 잘못되었습니다. 다시 시도하거나 Github에 문의해 주세요.
     new:
-      upload_limit: 푸시당 최대 %{count}개의 파일을 업로드할 수 있습니다.
+      email: 이메일
+      have_idea: 아이디어나 소원이 있으신가요? 당신이 좋아하지 않는 뭔가? 도와주고 싶나요? 우리는 그것을 듣고 싶어!
+      leave_blank: 이 필드는 비워두세요!
+      math_question: 100 빼기 3은 무엇인가요?
+      send_feedback: 피드백 보내기
+      tip: '팁: 드물게 제출이 실패할 경우를 대비하여 메시지를 클립보드에 복사하십시오.'
+      your_name: 당신의 이름
+  none: 없음
+  pages:
+    about:
+      about_1: Password Pusher는 암호 및 기타 중요한 정보를 다른 사람과 안전하게 공유하는 데 사용되는 도구입니다.
+      about_2: Password Pusher를 사용하면 고유한 일회성 URL을 생성할 수 있습니다. 이 URL은 특정 시간이 지나면 만료되거나
+        특정 횟수만큼 액세스되면 정보가 비공개로 안전하게 유지됩니다.
+      about_3: 개인 및 조직에서 로그인 자격 증명 또는 기타 중요한 데이터를 동료, 클라이언트 또는 파트너와 공유하는 데 자주 사용됩니다.
+      about_4: Password Pusher는 이메일이나 덜 안전한 다른 통신 방법 없이 암호를 안전하게 공유할 수 있는 간단하고 편리한
+        솔루션입니다.
+      about_pwpush: 비밀번호 푸셔 정보
+      hosted_at_html: <a href="https://pwpush.com">pwpush.com</a> 에서 호스팅되거나 원하는 곳
+        어디에서나 개인 인스턴스를 실행할 수 있습니다.
+      my_name: 제 이름은 피터 지아코모 롬바르도입니다. %{linkedin}, %{github} 또는 %{blog}에서 저를 찾으실 수
+        있습니다.
+      source_avail_html: 소스 코드는 <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">GitHub에서 사용할 수 있습니다</a> . 오픈 소스이며
+        누구나 무료로 사용, 검토, 수정할 수 있습니다.
+      the_author: 저자
+  pushes:
+    access:
+      incorrect: 해당 암호가 올바르지 않습니다. 다시 시도하거나 이 링크를 보낸 사람 또는 조직에 문의하십시오.
+    audit:
+      1click_retrieval_step: 1-클릭 검색 단계
+      1click_retrieval_step_help: 채팅 시스템 및 URL 스캐너가 보기를 잠식하는 것을 방지하는 데 도움이 됩니다.
+      active: 활동적인
+      attached_files: 첨부 파일
+      attached_files_help: 이 푸시에 파일이 첨부되었습니까?
+      audit_log_for: "%{push_id}에 대한 감사 로그"
+      contains_text: 텍스트 포함
+      contains_text_help: 이 푸시에 텍스트 페이로드가 추가되었습니까?
+      created: 만들어진
+      created_by: '작성자: %{user}'
+      current_status: 현재 상태
+      deletable_by_viewers: 시청자가 삭제할 수 있음
+      deletable_by_viewers_help: 이를 통해 최종 사용자는 검색된 콘텐츠를 삭제할 수 있습니다.
+      detail: 세부 사항
+      end_audit_log: 감사 로그 끝
+      event: 이벤트
+      event_log: 감사 로그
+      expire_after: '만료 날짜:'
+      expire_after_time_help: 푸시는 생성 후 이 시간이 지나면 만료됩니다.
+      expire_after_view_help: 이 조회수가 지나면 푸시가 만료됩니다.
+      expire_now: 지금 만료
+      expire_now_confirm: 그러면 이 비밀 링크가 만료되고 데이터베이스에서 관련된 모든 콘텐츠가 영원히 삭제됩니다. 감사 로그(향후
+        시도한 보기 포함)는 앞으로도 계속 유지됩니다. 확실합니까?
+      expired: 만료됨
+      failed_view: 보기 시도 실패
+      failed_view_attempts: 실패한 보기 시도
+      failed_view_attempts_help: 만료 후 이 푸시를 보려고 시도한 횟수입니다.
+      filename: 파일 이름
+      files_deleted: 이전에 첨부한 파일이 모두 삭제되었거나 첨부된 파일이 없습니다."
+      log_note: 푸시가 활동을 수신하면 식별 정보가 있는 각각의 로그가 여기에 표시됩니다.
+      manual_expiration: 수동 만료
+      message_length: 메시지 길이
+      message_length_help: 첨부된 텍스트 페이로드의 길이입니다.
+      none: 없음
+      num_files_attached: 첨부된 파일 수
+      num_files_attached_help: 이 푸시에 첨부된 파일 수입니다.
+      passphrase_lock: 암호 잠금
+      passphrase_lock_help: 이 푸시를 보려면 수신자가 암호를 입력하도록 요구하십시오.
+      payload: 유효 탑재량
+      push_date: "%{date}에 푸시됨"
+      reference_note: 참고 사항
+      secret_url: 이 푸시의 비밀 URL
+      size: '크기: %{size}'
+      start_audit_log: 감사 로그 시작
+      start_log: 감사 로그 시작
+      state: 상태
+      state_help_active: 활성 상태이며 계속 볼 수 있습니다.
+      state_help_expired: 푸시 콘텐츠가 삭제되었으며 비밀 URL이 만료되었습니다.
+      successful_view: 성공적인 보기
+      successful_views: 성공적인 보기
+      successful_views_help: 푸시가 성공적으로 조회된 횟수입니다.
+      time_remaining: 남은 시간
+      time_remaining_help: 푸시가 만료되기까지 남은 시간입니다.
+      title: 푸시 감사 로그
+      visible_to: 나에게만 표시
+      when: 언제
+    copy_to_clipboard: 클립 보드에 복사
+    day:
+      one: 1 일
+      other: "%{count}일"
+    deleted: 삭제됨
+    expiration_html: 이 비밀 링크와 모든 콘텐츠는 <strong>%{duration}</strong> 또는 <strong>%{count}회
+      추가 조회 중</strong> 먼저 발생하는 시점에 삭제됩니다.
+    expire:
+      expired: 푸시 콘텐츠가 삭제되었으며 비밀 URL이 만료되었습니다.
+      not_deletable: 그 푸시는 시청자가 삭제할 수 없습니다.
+    form:
+      12_hours: 12 시간
+      15_minutes: 15 분
+      1_day: 1 일
+      1_hour: 1 시간
+      1_month: 1 개월
+      1_week: 일주
+      1click: 원클릭 검색 단계 사용
+      1click_tip: 채팅 시스템과 스캐너가 뷰를 차지하는 것을 방지하는 데 도움이 됩니다.
+      2_days: 2일
+      2_months: 2 개월
+      2_weeks: 이주
+      30_minutes: 30 분
+      3_days: 3 일
+      3_months: 3 개월
+      3_weeks: 3 주
+      45_minutes: 45 분
+      4_days: 4 일
+      5_days: 5 일
+      6_days: 6 일
+      6_hours: 6 시간
+      add_files: 파일 추가...
+      audit_tip: 로그인하면 활동에 대한 감사 로그가 보관되어 무기한으로 사용할 수 있습니다.
+      day: 일
+      days: 날
+      deletable: 즉시 삭제 허용
+      deletable_tip: 사용자가 검색된 이 푸시를 삭제할 수 있도록 허용합니다.
+      encryption_tip: 콘텐츠는 저장되기 전에 암호화되며 비밀 링크가 있는 사람만 사용할 수 있습니다.
+      expiration_label: 이 푸시를 만료하고 다음 이후에 삭제하세요.
+      expiration_tip: 만료되면 푸시의 모든 콘텐츠와 파일이 즉시 완전히 삭제됩니다.
+      generator_tip: 위의 버튼을 사용하여 임의의 암호를 생성하십시오.
+      hour: 시
+      hours: 시간
+      login_to_upload: 이 푸시에 파일을 업로드하고 첨부하려면 로그인하세요...
+      minutes: 분
+      month: 월
+      months: 개월
+      note_label: 참고 사항
+      note_placeholder: 이 푸시가 누구를 위한 것인지 또는 무엇을 위한 것인지 기억하는 데 도움이 되는 비공개 메모입니다.
+      passphrase_label: 암호 잠금
+      passphrase_placeholder: 이 푸시를 보려면 수신자가 암호를 입력하도록 요구하십시오.
+      password_tip: '팁: 상자에는 비밀번호만 입력하세요. 기타 식별 정보는 보안을 손상시킬 수 있습니다.'
+      payload_placeholder: 푸시할 비밀번호, 텍스트 또는 URL을 입력하세요.
+      push_it: 밀어!
+      upload_limit: 푸시당 최대 10개의 파일을 업로드할 수 있습니다.
+      view: 보다
+      views: 견해
+      week: 주
+      weeks: 주
+    hour:
+      one: 1 시간
+      other: "%{count}시간"
+    index:
+      actions: 행위
+      clear_filters: 필터 지우기
+      created: 만들어진
+      created_by: 에 의해
+      expires: 만료
+      file_count: 파일
+      note: 메모
+      nothing_here: 아직 아무것도 없습니다.
+      push_id: 푸시 ID
+      pushes: 푸시
+      remaining_time: 남은 시간
+      status: 상태
+      views: 견해
+      views_remaining: 남은 조회수
+    minute:
+      one: 1 분
+      other: "%{count}분"
+    more_view:
+      one: 조회수 1회 더보기
+      other: "%{count} 조회수 더보기"
+    'no': 아니요
+    none: 없음
+    passphrase:
+      enter_passphrase: 암호를 입력하세요
+      go: 가다
+      placeholder: 이 URL과 함께 제공된 비밀 암호를 입력하십시오.
+      tip: 비밀 암호를 입력하십시오
+    payload: 유효 탑재량
+    preliminary:
+      click_proceed: 계속하려면 여기를 클릭하십시오.
+    preview:
+      and: 그리고
+      can_be: 될 수 있다
+      can_not_be: 수 없습니다
+      deleted_by_viewers: 시청자에 의해 삭제되었습니다.
+      link_lang_tip: '팁: 해외 사용자에게 푸시하시겠습니까? URL 오른쪽에 있는 드롭다운 메뉴를 사용하여 비밀 링크 언어를 변경합니다.'
+      or: 또는
+      or_after: 아니면 그 이후
+      push_another: 다른 사람을 밀어
+      push_created: 푸시가 생성되었습니다.
+      use_link_to_share: 이 비밀 링크를 사용하여 공유하십시오.
+      view_push_now: 지금 이 푸시 보기
+      will_burn_view: "(뷰를 태울 것입니다)"
+      will_expire_after: 이 푸시는 다음에 만료됩니다.
+      with_preliminary_step: 또한 %{strong_start}1클릭 예비 검색 단계%{strong_end}도 포함됩니다.
+    provide_text_or_file: 푸시를 생성하려면 텍스트를 제공하거나 파일을 첨부하거나 두 가지 모두를 수행해야 합니다.
+    push:
+      active: 활동적인
+      audit: 심사
+      expired: 만료됨
+      none: 없음
+      preview: 시사
+      push_controls: 푸시 컨트롤
+      title: 새로운 푸시
+      unknown: 알려지지 않은
+    secret_link_lang: 비밀 링크 언어
+    settings: 설정
+    show:
+      blurred: 비밀번호가 흐리게 표시됩니다. 아래를 클릭하면 공개됩니다.
+      click_to_reveal: 내용이 흐려졌습니다. 아래를 클릭하시면 공개됩니다.
+      delete_now: 지금 이 비밀 링크 삭제
+      delete_now_confirm: 그러면 이 비밀 링크가 만료되고 데이터베이스에서 관련된 모든 콘텐츠가 영원히 삭제됩니다. 확실합니까?
+      download_file: 파일 다운로드
+      files_sent: 다음 파일이 귀하에게 전송되었습니다.
+      last_view: 이것이 마지막 보기입니다.
+      obtain: 비밀번호 관리자 및/또는 암호화된 저장소를 사용하여 이 콘텐츠를 안전하게 검색하고 저장하세요. 더 이상 필요하지 않은 데이터는
+        즉시 삭제하는 것을 잊지 마세요.
+      open_file: 파일 열기
+      please_download: 다운로드하여 안전한 장소에 보관하십시오.
+      will_be_deleted: 이 비밀 링크와 모든 콘텐츠는 %{b_tag}%{time_count} %{time_unit}%{b_tag}
+        또는 %{b_tag}%{view_count} more %{view_unit}%{b_tag}(둘 중 먼저 발생하는 항목)에서 삭제됩니다.
+      your_link: 당신의 비밀 링크
+    show_expired:
+      expired_help: 필요한 경우 이 비밀 URL을 제공한 사람이나 조직에 문의하십시오.
+      expired_message: 죄송하지만 이 비밀 링크는 만료되었습니다.
+      link_expired: 비밀 링크가 만료되었습니다
+    view:
+      one: 조회수 1회
+      other: "%{count} 조회수"
+    view_audit_log: 감사 로그 보기
+    whichever: "(뭐든지 가장 먼저 온것)"
+    'yes': 예
+  static:
+    about:
+      about_1: Password Pusher는 암호 및 기타 중요한 정보를 다른 사람과 안전하게 공유하는 데 사용되는 도구입니다.
+      about_2: Password Pusher를 사용하면 고유한 일회성 URL을 생성할 수 있습니다. 이 URL은 특정 시간이 지나면 만료되거나
+        특정 횟수만큼 액세스되면 정보가 비공개로 안전하게 유지됩니다.
+      about_3: 개인 및 조직에서 로그인 자격 증명 또는 기타 중요한 데이터를 동료, 클라이언트 또는 파트너와 공유하는 데 자주 사용됩니다.
+      about_4: Password Pusher는 이메일이나 덜 안전한 다른 통신 방법 없이 암호를 안전하게 공유할 수 있는 간단하고 편리한
+        솔루션입니다.
+      about_5: "%{pwpush_link}에서 호스팅되거나 원하는 곳 어디에서나 자체 비공개 인스턴스를 실행할 수 있습니다."
+      about_6: 소스 코드는 %{github_link}에서 확인할 수 있습니다. 오픈 소스이며 누구나 무료로 사용, 검토, 수정할 수 있습니다.
+      age_body: Password Pusher에 대한 첫 번째 git 커밋은 <strong>2011년 12월 28일</strong> 이었습니다.
+        그 후 곧 pwpush.com이 활성화되었습니다.
+      age_title: "%{years_count}년 이상"
+      author_1: 제 이름은 피터 지아코모 롬바르도입니다. %{linkedin}, %{github} 또는 %{blog}에서 저를 찾으실
+        수 있습니다.
+      author_2: 업데이트를 받으려면 %{twitter}(또는 내 %{twitter_personal})에서 비밀번호 푸셔를 팔로우하거나
+        %{newsletter}를 구독하세요.
+      facebook: 페이스북
+      github: Github
+      help_1: 지금까지 가장 큰 도움은 소문을 퍼뜨리는 것입니다. 친구, 동료, 조직과 Password Pusher를 공유하세요.
+      help_2: '당신은 또한 수:'
+      help_3: "%{github} 프로젝트를 시작합니다. Password Pusher를 트렌드로 만드는 알고스를 위한 휘발유입니다."
+      help_4: "%{translate} 도움말. 기존 언어를 개선하거나 새 언어를 추가하세요."
+      help_5: 중요한 릴리스, 보안 문제, 팁 등에 대한 업데이트를 받으려면 %{newsletter}에 가입하세요.
+      help_6: "%{facebook}, %{twitter} 및 %{github}에서 비밀번호 푸셔를 따릅니다."
+      help_translate: 번역 도와주세요
+      newsletter: 뉴스 레터
+      pwpush_domain: pwpush.com
+      section_about: 에 대한
+      section_author: 저자
+      section_follow: 비밀번호 푸셔를 따라갈 수 있는 곳
+      section_help: 도와주고 싶나요?
+      title: 비밀번호 푸셔 정보
+      twitter: 트위터
+    faq:
+      answer_access_1: Password Pusher JSON API를 사용하면 pwpush.com 또는 자체 호스팅 인스턴스와 인터페이스하는
+        여러 애플리케이션과 명령줄 유틸리티(CLI)가 있습니다. CLI, Slack, Alfred App 등에서 비밀번호를 푸시하세요.
+      answer_access_2: 자세한 내용은 %{tools} 페이지를 참조하세요.
+      answer_add_feature_1: 가능성이 매우 높다. 나는 모든 아이디어와 피드백을 듣고 다음에 무엇을 추가할지 결정하기 위해 목록을
+        작성하는 것을 좋아합니다. 가지고 있는 것이 있으면 %{feedback_link} 페이지나 %{github_link}에 제출해 주세요.
+      answer_already_expired_1: 이메일, 방화벽, 채팅 시스템과 같은 일부 시스템에는 조회수를 잠식하는 링크 스캐너가 있는
+        경우가 많습니다. 이는 일반적으로 기업 보안을 위해 수행되거나 단순히 응용 프로그램에 대한 "미리 보기"를 생성하기 위해 수행됩니다.
+      answer_already_expired_2: 이를 방지하려면 비밀번호를 푸시할 때 1클릭 검색 단계 옵션을 사용하세요. 이를 위해서는
+        사용자가 그러한 스캐너로부터의 보기를 보호하기 위해 예비 페이지를 클릭해야 합니다.
+      answer_already_expired_3: 추가적인 예방 조치로 로그인 시 생성된 모든 푸시에 대해 감사 로그가 제공됩니다. 이 감사
+        로그는 푸시를 본 사람과 시기를 보여줍니다.
+      answer_automation_1: 예. 비밀번호 푸셔 JSON API를 사용하면 비밀번호 푸시를 자동화할 수 있습니다. 이는 다양한
+        프로그래밍 언어와 도구를 사용하여 수행할 수 있습니다.
+      answer_automation_2: 자세한 내용은 %{tools} 페이지를 참조하세요.
+      answer_conference_1: 전적으로. %{windows_link} 및 %{mac_link} 형식으로 사용할 수 있는 기능에 대한
+        전체 설명과 미디어 리소스가 있습니다.
+      answer_conference_2: 질문이 있거나 도움이 필요하시면 언제든지 저에게 연락해 주세요.
+      answer_how_many_1: 현재는 제한이 없으며 추가할 생각도 없습니다. 사이트 안정성을 최소한으로 보장하기 위해 Password
+        Pusher는 기본적으로 속도 제한기로 구성됩니다. 자체 호스팅 버전에서는 이 기능을 비활성화할 수 있습니다.
+      answer_licensing_1: 소스 코드 오픈 소스 버전은 Apache 2.0 라이센스에 따라 출시되며 이는 거의 모든 제한 사항을
+        정의합니다. Password Pusher에는 브랜드가 변경되고 디자인이 변경된 복제 사이트가 꽤 많이 있으며 모두 환영합니다.
+      answer_licensing_2: 프리미엄 버전은 상용 라이선스로 출시됩니다. 오픈 소스도 아니고 무료도 아닙니다. 그 핵심에는 오픈
+        소스 프로젝트가 포함되어 있지만 매우 다양한 기능 세트를 제공하고 개발을 가속화하고 프로젝트 자금을 조달하는 데 도움이 됩니다.
+      answer_licensing_3: Password Pusher의 개인 인스턴스를 실행하는 데 프리미엄 버전이 필요하지 않습니다. 오픈
+        소스 버전은 모든 기능을 갖추고 있으며 무료로 사용할 수 있습니다.
+      answer_licensing_4: 모든 프리미엄 기능은 기능에 따라 일정 기간이 지나면 오픈 소스 버전으로 종료됩니다.
+      answer_private_risks_1: 회사 또는 조직을 위해 Password Pusher의 비공개 인스턴스를 실행하면 어떤 코드가
+        실행되고 있는지 정확히 알 수 있어 안심할 수 있습니다. 원하는 대로 구성하고 실행할 수 있습니다.
+      answer_private_risks_2: 반면, 인스턴스가 해킹당하고 암호화가 깨지면 이제 악의적인 엔터티가 조직의 무차별 대입 계정에
+        대한 암호 사전을 갖게 됩니다. (이것은 아직 만료되지 않은 푸시로 제한됩니다)
+      answer_private_risks_3: 이런 점에서 pwpush.com의 공개 인스턴스는 전 세계 사용자들 사이에 혼합된 식별 정보
+        없이 비밀번호만 포함하고 있다는 점에서 우수할 수 있습니다.
+      answer_private_risks_4: 또 다른 고려 사항은 인스턴스 유지 관리입니다. 최신 상태로 유지하고 안전하게 백업해야 합니다.
+      answer_private_risks_5: 사용자는 장단점을 신중하게 평가하고 어떤 경로가 가장 적합한지 결정해야 합니다. 우리는 기꺼이
+        두 가지 전략을 모두 지원합니다.
+      answer_purpose_1: Password Pusher는 비밀번호를 이메일로 보내는 것보다 더 나은 대안으로 존재합니다.
+      answer_purpose_10: 또한 <strong>사전 정의된 보기 집합이 적중되거나 시간이 경과한 후에 비밀번호가 만료됩니다.</strong>
+      answer_purpose_11: 만료되면 비밀번호는 명백히 삭제됩니다.
+      answer_purpose_12: 흥미롭게 들린다면 시도해 보거나 아래의 다른 자주 묻는 질문을 참조하십시오.
+      answer_purpose_2: "<strong>이메일로 비밀번호를 보내는 것은 본질적으로 안전하지 않습니다.</strong> 가장 큰
+        위험은 다음과 같습니다."
+      answer_purpose_3: 이메일로 전송된 비밀번호는 일반적으로 비밀번호가 어디로 가는지에 대한 컨텍스트와 함께 전송되거나 잠재적으로
+        이메일 사용자 이름, 도메인 등에서 파생될 수 있습니다.
+      answer_purpose_4: 이메일은 본질적으로 안전하지 않으며 악의적인 개체가 여러 지점에서 가로챌 수 있습니다.
+      answer_purpose_5: '이메일로 전송된 비밀번호는 이메일 아카이브에 영구적으로 보관됩니다(읽기: 영원히).'
+      answer_purpose_6: 이메일 계정이 도난당하거나 해킹당하는 경우 이메일의 암호를 검색하여 나중에 사용할 수 있습니다.
+      answer_purpose_7: SMS, WhatsApp, Telegram, Chat 등을 통해 비밀번호를 보낼 때도 동일한 위험이 존재합니다.
+        데이터는 영구적으로 사용자가 통제할 수 없는 상태로 보관될 수 있으며 종종 관리되지 않습니다.
+      answer_purpose_8: Password Pusher를 사용하면 이 모든 것을 우회할 수 있습니다.
+      answer_purpose_9: Password Pusher에 게시된 각 비밀번호에 대해 <strong>귀하만 알 수 있는 고유한 URL이
+        생성됩니다</strong> .
+      answer_rebranding_1: Password Pusher는 사용자 정의 로고, 이미지, 텍스트를 추가하고 애플리케이션 테마를 변경할
+        수도 있는 "즉시 사용 가능한" 완전한 브랜드 변경을 지원합니다.
+      answer_self_host_1: 예, 오픈 소스 버전의 경우 다양한 플랫폼과 클라우드에 대해 %{docker_link} 및 %{install_link}을
+        제공합니다.
+      answer_self_host_2: 다양한 기능을 갖춘 프리미엄 버전의 경우 자체 호스팅 컨테이너가 곧 출시될 예정입니다.
+      answer_trust_1: 그리고 당연히 그렇습니다. 모든 좋은 보안은 관련된 모든 구성 요소에 대한 건전한 회의론에서 시작됩니다.
+      answer_trust_2: Password Pusher는 비밀번호를 이메일로 보내는 것보다 더 나은 대안으로 존재합니다. 이메일 아카이브에
+        비밀번호가 영구적으로 존재하는 것을 방지합니다. 모든 보안 솔루션으로 존재하지 않습니다.
+      answer_trust_3: Password Pusher는 2011년 말에 오픈 소스 프로젝트로 시작되었습니다. 이 프로젝트는 그 동안
+        나 자신(Peter Giacomo Lombardo)과 소수의 훌륭한 기여자들에 의해 유지 관리되고 업데이트되었습니다. 2024년에는
+        개발을 가속화하고 프로젝트 자금을 조달하기 위해 프리미엄 버전이 도입되었습니다. 모든 프리미엄 기능은 결국 오픈 소스 버전으로 제공됩니다.
+      answer_trust_4: 오랜 역사를 갖고 있고 오픈 소스이기 때문에 Password Pusher는 많은 사람들의 평가를 받았습니다.
+        수년에 걸쳐 많은 조직과 개인이 사용하고 감사했습니다.
+      answer_trust_5: Password Pusher의 정책은 세 가지입니다. 1) 저장 및 전송 중 암호화 2) 최소한의 데이터 보존
+        3) 감사 로그 형태의 투명성.
+      answer_trust_6: 이러한 맥락에서 푸시 페이로드는 만료 시 명확하게 삭제되고 감사 로그는 무기한 유지됩니다. Password
+        Pusher가 보유한 데이터가 적을수록 좋습니다.
+      answer_trust_7: 여전히 신뢰, 안전 및 보안에 대한 우려 사항이 있는 경우 자유롭게 코드를 검토하고 궁금한 사항을 게시한 후
+        조직 내부에서 코드를 실행하는 것을 고려해 보세요.
+      answer_trust_8: 저에 대한 신뢰로 제가 드릴 수 있는 것은 이 프로젝트를 구축해 온 오랜 역사와 %{github}, %{linkedin},
+        %{twitter} 및 %{blog}에 대한 대중적 평판뿐입니다. 궁금한 점이 있으면 언제든지 저에게 연락해 주세요.
+      answer_why_premium_1: asdf
+      answer_why_private_1: 일부 조직은 암호와 같은 민감한 정보에 대한 공공 서비스 사용을 금지하는 보안 정책에 구속됩니다.
+        모든 도구가 외부 세계에 액세스할 수 없는 사설 인트라넷에 있어야 하는 조직도 있습니다.
+      answer_why_private_2: 자신만의 Password Pusher 인스턴스를 실행하면 환경과 데이터를 제어할 수 있습니다. 또한
+        조직에 특정한 사용자 정의 기능과 통합을 추가할 수도 있습니다.
+      answer_why_private_3: 이러한 이유로 사용자와 조직이 필요할 때 개인 인스턴스를 실행할 수 있는 기능을 제공하고 권장합니다.
+      feedback_link: 피드백 폼
+      github_link: GitHub
+      mac_link: 맥 키노트
+      my_blog: 내 블로그
+      question_access: 브라우저 외부에서 Password Pusher에 액세스할 수 있는 다른 방법이 있습니까?
+      question_add_feature: 내 조직에 특정 기능을 추가할 수 있습니까?
+      question_already_expired: 내가 보낸 비밀 URL은 이미 만료되었습니다. 무슨 일이에요?
+      question_automation: 암호 배포를 자동화할 수 있습니까?
+      question_conference: 강연, 비디오, 프리젠테이션 또는 회의에서 Password Pusher를 사용할 수 있습니까?
+      question_have_to_pay: 비용을 지불해야 하나요?
+      question_how_many: Password Pusher에 얼마나 많은 요청을 보낼 수 있습니까?
+      question_licensing: 나, 내 회사 또는 내 조직에 대한 라이선스 제한이 있습니까?
+      question_premium_diff: 오픈소스 버전과 프리미엄 버전의 차이점은 무엇인가요?
+      question_private_risks: 내 버전을 내부적으로 실행하면 잠재적인 보안 위험은 무엇입니까?
+      question_purpose: 비밀번호 푸셔의 목적은 무엇입니까?
+      question_rebranding: 커스텀 로고를 적용하거나 디자인을 변경할 수 있나요?
+      question_self_host: 조직 내부에서 자체 버전을 실행할 수 있습니까?
+      question_trust: 신뢰는 관심사입니다. Password Pusher를 사용해야 하는 이유는 무엇입니까?
+      question_why_premium: Password Pusher는 항상 오픈 소스였습니다. 왜 프리미엄 버전이 있나요?
+      question_why_private: Password Pusher의 개인 인스턴스를 실행하려는 이유는 무엇입니까?
+      question_will_oss: 오픈소스 버전에 프리미엄 기능이 추가되나요?
+      subtitle: "..Password Pusher에 대해 알고 싶은 모든 것."
+      title: 자주 묻는 질문
+      title_other: 다른
+      title_private: 나만의 프라이빗 인스턴스 실행
+      title_pushes: 푸시
+      title_subscriptions: 프리미엄 버전
+      title_tools: 도구, 통합 및 애플리케이션
+      title_trust: 신뢰와 보안
+      tools_link: 도구 및 애플리케이션
+      windows_link: 윈도우 파워포인트
+    generate_key:
+      env_var: 환경 변수를 설정하여 이 키를 애플리케이션에 적용할 수 있습니다.
+      generate_key: 키 생성
+      generated: 생성된 암호화 키
+      intro: 이 페이지는 Password Pusher의 자체 호스팅 인스턴스에 대한 무작위 암호화 키를 생성하는 도우미 도구로 사용됩니다.
+      intro_2: Password Pusher는 데이터베이스의 민감한 데이터를 암호화합니다. 기본 키가 포함되어 있지만 자체 사용자 지정
+        암호화 키를 사용하는 것이 가장 좋습니다.
+      intro_3: 새로 고칠 때마다 이 페이지는 새로운 암호화 키를 생성합니다. 아래에서 무작위로 생성된 코드를 사용하여 비밀번호 푸셔 인스턴스를
+        구성할 수 있습니다.
+      note_1: 암호화 키가 제공되지 않으면 기본 키가 사용됩니다.
+      note_2: Password Pusher의 비공개 인스턴스에 대한 최상의 보안은 필수는 아니지만 고유한 사용자 지정 암호화 키를 사용하는
+        것입니다.
+      note_3: '인스턴스를 안전하게 유지하고 푸시 만료 시간을 짧게 하면 기본 키를 사용할 때의 위험이 줄어듭니다. 예: 1일/1 보기
+        대 100일/100 보기.'
+      note_4: 푸시가 만료되면 해당 푸시의 암호화된 데이터가 모두 삭제됩니다.
+      note_5: 이전 푸시가 이미 존재하는 암호화 키를 변경하면 이전 푸시를 읽을 수 없게 됩니다. 즉, 페이로드가 왜곡됩니다. 앞으로의
+        새로운 푸시는 잘 작동할 것입니다.
+      note_6: 다음을 실행하여 애플리케이션 소스의 명령줄에서 키 생성을 수행할 수도 있습니다.
+      notes: '노트:'
+      reload: 새 키를 다시 생성하려면 이 페이지를 새로고침하세요.
+      title: 암호화 키 생성
+    password_generator:
+      push_it: 이 비밀번호를 푸시하세요
+    tools:
+      alfred: 알프레드 앱
+      api_documentation: API 끝점 설명서
+      applications: 애플리케이션
+      cli: 명령줄 인터페이스
+      clu: 명령줄 유틸리티
+      examples: 예
+      github: Github
+      intro: Password Pusher JSON API를 사용하면 pwpush.com 또는 자체 호스팅 인스턴스와 인터페이스하는 여러
+        애플리케이션과 명령줄 유틸리티(CLI)가 있습니다. CLI, Slack, Alfred App 등에서 비밀번호를 푸시하세요.
+      intro_2: JSON API는 비밀번호 푸시를 자동화할 수 있는 강력한 도구입니다. 이는 다양한 프로그래밍 언어와 도구를 사용하여 수행할
+        수 있습니다.
+      intro_3: 자세한 내용은 %{github} 페이지를 참조하세요.
+      more: 더
+      slack: 느슨하게
+      subtitle: Password Pusher는 단순한 웹 애플리케이션 그 이상입니다. 다양한 통합과 애플리케이션을 허용하는 JSON API가
+        있습니다.
+      title: 도구, API, 통합 및 애플리케이션
+      tools_1: JSON API를 사용하여 비밀번호 배포를 자동화하기 위해 Password Pusher와 인터페이스하는 다양한 도구가 있습니다.
+      tools_2: 푸시할 수 있는 암호의 수에 제한이 없으며 제한을 추가할 의도가 없습니다. 하지만 나쁜 스크립트나 나쁜 행위자에 의해 사이트가
+        중단되지 않도록 비율 제한 장치가 있습니다. 도구를 몇 초마다 최대 1개의 비밀번호로 제한하면 괜찮을 것입니다.
+      tools_3: Password Pusher의 첫 페이지로 이동하고 다음을 입력하여 브라우저 Javascript 콘솔에서 이를 테스트할
+        수 있습니다.
+      tools_4: 이 API를 사용하면 JSON을 통해 Password Pusher와 인터페이스할 수 있습니다. 이것은 curl, wget
+        또는 모든 프로그래밍 언어와 같은 기존 유틸리티에서 활용할 수 있습니다. 몇 가지 아이디어는 아래 예를 참조하십시오.
+      tools_5: "%{github} Wiki에서 자세한 설명과 예제를 참조하세요."
+      walkthrough: 연습 및 예

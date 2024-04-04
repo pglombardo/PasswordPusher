@@ -265,26 +265,19 @@ ro:
       create: Creare %{model}
       update: Modificare %{model}
       submit: Salvare %{model}
-  will_paginate:
-    previous_label: "← anterior"
-    previous_aria_label: Pagina precedentă
-    next_label: următor →
-    next_aria_label: Pagina următoare
-    page_gap: "&hellip;"
-    container_aria_label: Paginare
-    page_aria_label: Pagina %{page}
     page_entries_info:
-      single_page:
-        zero: Nu s-a găsit %{model}
-        one: Afișare 1 %{model}
-        other: Afișarea tuturor %{count} %{model}
-      single_page_html:
-        zero: Nu s-a găsit %{model}
-        one: Afișare <b>1</b> %{model}
-        other: Afișarea <b>tuturor %{count}</b> %{model}
-      multi_page: Afișarea %{model} %{from} - %{to} din %{count} în total
-      multi_page_html: Afișarea %{model} [ <b>%{from}] - [%{to}</b> ] din <b>%{count}</b>
-        în total
+      entry:
+        zero: intrări
+        one: intrare
+        other: intrări
+      one_page:
+        display_entries:
+          zero: Nu s-a găsit %{entry_name}
+          one: Afișare <b>1</b> %{entry_name}
+          other: Afișarea <b>tuturor %{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Afișarea %{entry_name} [ <b>%{first}] - [%{last}</b> ] din
+          <b>%{total}</b> în total
   flash:
     actions:
       create:
@@ -619,6 +612,777 @@ ro:
     access: acces
     passphrase: fraza de acces
     preview: previzualizare
-  file_pushes:
+  views:
+    pagination:
+      first: "\" Prima"
+      last: Ultima "
+      previous: "' Anterior"
+      next: Următorul '
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Sunteți sigur?
+      destroy: Distruge
+      edit: Editați
+      edit_resource: Editează %{name}
+      show_resource: Arată %{name}
+      new_resource: Nou %{name}
+      back: Înapoi
+    controller:
+      create:
+        success: "%{resource} a fost creat cu succes."
+      destroy:
+        success: "%{resource} a fost distrus cu succes."
+      update:
+        success: "%{resource} a fost actualizat cu succes."
+    fields:
+      has_many:
+        more: Afișarea %{count} din %{total_count}
+        none: Nici unul
+    form:
+      error: eroare
+      errors: "%{pluralized_errors} a interzis ca acest %{resource_name} să fie salvat:"
+    navigation:
+      back_to_app: Înapoi la aplicație
+    search:
+      clear: Căutare clară
+      label: Căutare %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Acest tablou de bord de administrare oferă acces direct la baza
+          de date a aplicației Password Pusher.  Vă rugăm să fiți atenți și să luați
+          în considerare efectuarea unei copii de rezervă înainte de a face orice
+          modificări.
+        admin_note: 'Notă: Distrugerea unei înregistrări distruge, de asemenea, toate
+          înregistrările copil. De exemplu, distrugerea unui utilizator va distruge,
+          de asemenea, toate parolele, fișierele și adresele URL pentru acel utilizator.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Numărul de silabe din parola generată.
+      back: Înapoi la Echipa
+      edit: Politica de editare
+      team_policy_help: O politică de echipă este un set de reguli care se aplică
+        la toate împingerile făcute de membrii echipei respective.
+      personal_policy: Politica personală
+      personal_policy_help: O politică este un set de reguli care se aplică tuturor
+        push-urilor create de dumneavoastră.
+      team_policy: Politica echipei
+      header_timed_expiration: Expirare temporizată
+      expire_after_duration_min: Durata minimă
+      expire_after_duration_min_help: Durata minimă înainte de expirarea unui push.
+      expire_after_duration_max: Durata maximă
+      expire_after_duration_max_help: Durata maximă înainte de expirarea unui push.
+      expire_after_duration_default: Durata implicită
+      expire_after_duration_default_help: Durata implicită înainte de expirarea unui
+        push.
+      minutes_tip: 1 zi = 1440 minute, 7 zile = 10080 minute, 30 zile = 43200 minute
+      header_view_expiration: Vezi Expirare
+      expire_after_views_min: Numărul minim de vizualizări
+      expire_after_views_min_help: Numărul minim de vizualizări înainte ca un push
+        să expire.
+      expire_after_views_max: Numărul maxim de vizualizări
+      expire_after_views_max_help: Numărul maxim de vizualizări înainte de expirarea
+        unui push. [Max. 100]
+      expire_after_views_default: Numărătoarea de vizualizări implicită
+      expire_after_views_default_help: Numărul implicit de vizualizări înainte de
+        expirarea unui push.
+      header_payload_limits: Limitele sarcinii utile
+      push_text_max: Dimensiunea maximă a textului
+      push_text_max_help: Dimensiunea maximă a textului într-un push.  Se măsoară
+        în octeți. [Max. 1048576]
+      push_files_max: Numărul maxim de fișiere permise
+      push_files_max_help: Numărul maxim de fișiere permis într-un push. [Max. 100]
+      header_retrieval_step: pasul de recuperare cu 1-clic
+      enable_retrieval_step: Activare?
+      enable_retrieval_step_help: Activați 1-Click Retrieval pentru această echipă?  Dacă
+        este dezactivată, această opțiune va fi ascunsă și nu va fi utilizată.
+      retrieval_step_default: Valoare implicită
+      retrieval_step_default_help: Valoarea implicită pentru opțiunea de etapă 1-Click
+        Retrieval.
+      retrieval_step_forced: Forțați valoarea implicită?
+      retrieval_step_forced_help: Forțează utilizarea acestei opțiuni cu valoarea
+        implicită pentru toți membrii echipei.  Aceasta nu poate fi modificată de
+        către membrii echipei.
+      hide_retrieval_step: Ascundeți opțiunea?
+      hide_retrieval_step_help: Ascunde opțiunea 1-Click Retrieval step de la membrii
+        echipei.  Acest lucru este util pentru a forța opțiunea implicită fără a o
+        afișa membrilor echipei.
+      header_deletable: Șterse de Viewer
+      enable_deletable: Activare?
+      enable_deletable_help: Activați această opțiune pentru echipă?  Dacă este dezactivată,
+        această opțiune va fi ascunsă și nu va fi utilizată.
+      deletable_default: Valoare implicită
+      deletable_default_help: Valoarea implicită a opțiunii Deletable by Viewer.
+      deletable_forced: Forțați valoarea implicită?
+      deletable_forced_help: Forțează utilizarea acestei opțiuni cu valoarea implicită
+        pentru toți membrii echipei.  Aceasta nu poate fi modificată de către membrii
+        echipei.
+      hide_deletable: Ascundeți opțiunea?
+      hide_deletable_help: Ascunde opțiunea Deletable by Viewer de la membrii echipei.  Acest
+        lucru este util pentru a forța opțiunea implicită fără a o afișa membrilor
+        echipei.
+      hide_passphrase: Ascundeți opțiunea?
+      hide_passphrase_help: Ascunde opțiunea de blocare a frazei de acces.  Utilă
+        pentru a dezactiva complet utilizarea acestei opțiuni.
+      enable_blur: Activare?
+      enable_blur_help: Payload Blurring (estomparea încărcăturii utile) întunecă
+        conținutul încărcăturii utile pe pagina de livrare a URL-ului secret. Destinatarii
+        pot comuta blurarea cu un clic pentru a dezvălui datele originale.
+      header_passphrase: Blocare prin frază de siguranță
+      header_blur: Estomparea încărcăturii utile
+      header_pwgen: Generarea parolei
+      save: Actualizarea politicii echipei
+      enable_pwgen: Activare?
+      enable_pwgen_help: Activați opțiunea Generare parolă pentru această echipă?  Dacă
+        este dezactivată, această opțiune va fi ascunsă și nu va fi utilizată.
+      pwgen_configurable: Configurabil?
+      pwgen_configurable_help: Permiteți membrilor echipei să configureze Generatorul
+        de parole?  Dacă este dezactivată, opțiunea va fi forțată la configurația
+        de mai jos și nu va putea fi modificată de către membrii echipei.
+      pwgen_has_numbers: Includeți numere?
+      pwgen_has_numbers_help: Includeți numere în parola generată.
+      pwgen_title_cased: Titlu de proprietate?
+      pwgen_title_cased_help: Cazul de titlu al părților de parolă generate.
+      pwgen_use_separators: Folosiți separatoare?
+      pwgen_use_separators_help: Utilizați separatori în parola generată.
+      pwgen_consonants: Consoane
+      pwgen_consonants_help: Consoanele care trebuie folosite în parola generată.
+      pwgen_vowels: Vocale
+      pwgen_vowels_help: Vocalele care trebuie folosite în parola generată.
+      pwgen_separators: Separatoare
+      pwgen_separators_help: Separatorii care trebuie utilizați în parola generată.
+      pwgen_min_syllable_length: Lungimea minimă a silabei
+      pwgen_min_syllable_length_help: Lungimea minimă a unei silabe în parola generată.
+      pwgen_max_syllable_length: Lungimea maximă a silabelor
+      pwgen_max_syllable_length_help: Lungimea maximă a unei silabe în parola generată.
+      pwgen_syllables_count: Syllables Count
+    show:
+      edit_policy: Editați politica Push
+      policy: Politica echipei
+  tag_line: Dă-i drumul.  Trimiteți prin e-mail o altă parolă.
+  about: Despre
+  app_name: Parola Pusher
+  application:
+    card_newsletter:
+      enter_email: Introduceți e-mailul dumneavoastră...
+      subscribe: Abonează-te la
+    cookie_consent:
+      notice: Cookie-urile din browser ajută la funcționarea acestui instrument. Utilizându-l,
+        sunteți de acord cu utilizarea acestor cookie-uri.
+    footer:
+      best_practices: Cele mai bune practici
+      docker: Containere Docker
+      faq: ÎNTREBĂRI FRECVENTE
+      feedback: Feedback
+      github: GitHub
+      key_generator: Generator de chei
+      newsletter: Buletin informativ
+      password_generator: Generator de parole
+      tools: Instrumente, API și CLI-uri
+    pw_generator_modal:
+      cancel: Anulează
+      configure: Configurați generarea parolei
+      consonants: Consoane
+      generate_password: Generarea parolei
+      include_numbers: Includeți numere
+      load_preset: Încărcați o presetare
+      max_syllable_length: Lungimea maximă a silabelor
+      min_syllable_length: Lungimea minimă a silabelor
+      num_syllables: Numărul de silabe
+      reset: Resetare la valorile implicite
+      save: Salvați
+      separators: Separatoare
+      test: Generația de testare
+      test_area: Zona de testare
+      use_separators: Utilizați separatori
+      use_titlecase: Utilizați Titlecase
+      vowels: Vocale
+  audit_logs:
+    audit_log:
+      created: Creat
+      created_by: Creat de %{user}
+      log_created: Push creat pe %{date} de %{user}
+      log_expired: Push expirat manual pe %{date} de către %{user}
+      log_failed_view: Încercare eșuată de vizualizare de la adresa IP %{ip} pe %{date}
+        de către %{user}
+      log_manual_expiration: Push expirat manual pe %{date} de către %{user} la adresa
+        IP %{ip}
+      log_referrer: 'Referitor: %{referrer}'
+      log_user_agent: 'Agent utilizator: %{user_agent}'
+      log_viewed: Vizualizare reușită de la adresa IP %{ip} pe %{date} de către %{user}
+      unknown: Necunoscut
+      viewed_by: Vizualizat de %{user}
+  dashboard:
+    show:
+      detail: Detaliu
+      event: Eveniment
+      when: Când
+  duration:
+    format_d:
+      one: 1 zi
+      other: "%{count} zile"
+    format_dhm: "%{days} zi(e), %{hours} oră(e) și %{minutes} minut(e)"
+    format_h:
+      one: 1 oră
+      other: "%{count} oră(e)"
+    format_hm: "%{hours} oră(e) și %{minutes} minut(e)"
+    format_m:
+      one: 1 minut
+      other: "%{count} minut(e)"
+  feedbacks:
+    create:
+      feedback_sent: Feedback trimis!  Vă vom răspunde cât mai curând posibil.
+    failed_spam_test: Ne cerem scuze, dar nu ați trecut de verificarea spam-ului.  În
+      schimb, puteți încerca să ne contactați pe Github.
+    failed_to_send: Nu a reușit să trimită feedback.  Ceva a fost în neregulă.  Vă
+      rugăm să încercați din nou sau să ne contactați pe Github.
     new:
-      upload_limit: Puteți încărca până la %{count} fișiere per push.
+      email: Email
+      have_idea: Aveți o idee sau o dorință?  Ceva ce nu vă place?  Vrei să ne ajuți?  Vrem
+        să ne spui!
+      leave_blank: Lăsați acest câmp gol!
+      math_question: Cât este o sută minus 3?
+      send_feedback: Trimiteți feedback
+      tip: 'Sfat: Copiați-vă mesajul în clipboard în cazul în care nu reușiți să trimiteți
+        mesajul.'
+      your_name: Numele dvs
+  none: Nici unul
+  pages:
+    about:
+      about_1: Password Pusher este un instrument utilizat pentru a partaja parole
+        și alte informații sensibile cu alte persoane în siguranță.
+      about_2: Cu Password Pusher, puteți crea un URL unic, care va expira după o
+        anumită perioadă de timp sau după ce a fost accesat de un anumit număr de
+        ori, asigurându-vă că informațiile dvs. rămân private și sigure.
+      about_3: Acesta este adesea utilizat de persoane și organizații pentru a partaja
+        credențiale de conectare sau alte date sensibile cu colegii, clienții sau
+        partenerii.
+      about_4: Password Pusher este o soluție simplă și convenabilă pentru partajarea
+        în siguranță a parolelor, fără a fi nevoie de e-mail sau alte metode de comunicare
+        mai puțin sigure.
+      about_pwpush: Despre Password Pusher
+      hosted_at_html: Găzduit la <a href="https://pwpush.com">pwpush.com</a> sau vă
+        puteți rula propria instanță privată oriunde doriți.
+      my_name: Numele meu este Peter Giacomo Lombardo. Mă puteți găsi pe %{linkedin},
+        %{github} sau %{blog}.
+      source_avail_html: Codul sursă este <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">disponibil pe GitHub</a>.  Este
+        open source și este liber pentru oricine să îl folosească, să îl revizuiască
+        sau să îl modifice.
+      the_author: Autorul
+  pushes:
+    access:
+      incorrect: Această frază de acces este incorectă.  Vă rugăm să încercați din
+        nou sau să contactați persoana sau organizația care v-a trimis acest link.
+    audit:
+      1click_retrieval_step: pasul de recuperare cu 1-clic
+      1click_retrieval_step_help: Ajută la evitarea sistemelor de chat și a scanerelor
+        de adrese URL de la consumul de vizualizări.
+      active: Activ
+      attached_files: Fișiere atașate
+      attached_files_help: Au fost atașate fișiere la acest push?
+      audit_log_for: Jurnal de audit pentru %{push_id}
+      contains_text: Conține text
+      contains_text_help: A fost adăugată o încărcătură de text la acest push?
+      created: Creat
+      created_by: Creat de %{user}
+      current_status: Starea actuală
+      deletable_by_viewers: Șterse de către telespectatori
+      deletable_by_viewers_help: Acest lucru permite utilizatorilor finali să șteargă
+        conținutul odată ce a fost recuperat.
+      detail: Detaliu
+      end_audit_log: Sfârșitul jurnalului de audit
+      event: Eveniment
+      event_log: Jurnal de audit
+      expire_after: 'Expiră după:'
+      expire_after_time_help: Push expiră după această perioadă de timp de la creare.
+      expire_after_view_help: Push expiră după acest număr de vizualizări.
+      expire_now: Expiră acum
+      expire_now_confirm: Acest lucru va expira această legătură secretă și va șterge
+        tot conținutul aferent din baza de date pentru totdeauna. Registrul de audit
+        (inclusiv încercările viitoare de vizualizare) va fi păstrat și în continuare.
+        Sunteți sigur?
+      expired: Expirat
+      failed_view: Încercare eșuată de vizualizare
+      failed_view_attempts: Încercări eșuate de vizualizare
+      failed_view_attempts_help: Numărul de încercări de vizualizare a acestui push
+        după expirare.
+      filename: Numele fișierului
+      files_deleted: Toate fișierele atașate anterior au fost șterse sau nu au fost
+        atașate."
+      log_note: Pe măsură ce push primește activitate, aici va apărea un jurnal cu
+        informații de identificare pentru fiecare dintre acestea.
+      manual_expiration: Expirare manuală
+      message_length: Lungimea mesajului
+      message_length_help: Lungimea încărcăturii utile de text atașate.
+      none: Nici unul
+      num_files_attached: Numărul de fișiere atașate
+      num_files_attached_help: Numărul de fișiere atașate la acest push.
+      passphrase_lock: Blocarea frazei de acces
+      passphrase_lock_help: Solicitați destinatarilor să introducă o frază de acces
+        pentru a vizualiza acest push.
+      payload: Sarcina utilă
+      push_date: A fost împins pe %{date}
+      reference_note: Notă de referință
+      secret_url: URL secret pentru acest push
+      size: 'Dimensiune: %{size}'
+      start_audit_log: Începutul jurnalului de audit
+      start_log: Începutul jurnalului de audit
+      state: Stat
+      state_help_active: Activ și încă disponibil pentru vizionare.
+      state_help_expired: Conținutul push a fost șters, iar URL-ul secret a expirat.
+      successful_view: Vizualizare de succes
+      successful_views: Vizualizări de succes
+      successful_views_help: Numărul de ori de câte ori a fost vizualizat cu succes
+        push-ul.
+      time_remaining: Timp rămas
+      time_remaining_help: Perioada de timp rămasă până când expiră "push".
+      title: Jurnal de audit Push
+      visible_to: Vizibil doar pentru tine
+      when: Când
+    copy_to_clipboard: Copiere în clipboard
+    day:
+      one: 1 zi
+      other: "%{count} zile"
+    deleted: Șters
+    expiration_html: Această legătură secretă și întregul conținut vor fi șterse în
+      <strong>%{duration}</strong> sau <strong>%{count} vizualizări suplimentare</strong>,
+      în funcție de care dintre acestea are loc prima.
+    expire:
+      expired: Conținutul push a fost șters, iar URL-ul secret a expirat.
+      not_deletable: Acest push nu poate fi șters de către telespectatori.
+    form:
+      12_hours: 12 ore
+      15_minutes: 15 minute
+      1_day: 1 zi
+      1_hour: 1 oră
+      1_month: 1 lună
+      1_week: 1 săptămână
+      1click: Utilizați o etapă de recuperare cu 1 clic
+      1click_tip: Ajută la evitarea sistemelor de chat și a scanerelor de a consuma
+        vizualizări.
+      2_days: 2 zile
+      2_months: 2 luni
+      2_weeks: 2 săptămâni
+      30_minutes: 30 de minute
+      3_days: 3 zile
+      3_months: 3 luni
+      3_weeks: 3 săptămâni
+      45_minutes: 45 de minute
+      4_days: 4 zile
+      5_days: 5 zile
+      6_days: 6 zile
+      6_hours: 6 ore
+      add_files: Adăugați fișiere...
+      audit_tip: Atunci când vă conectați, se păstrează un jurnal de audit al activității,
+        care este disponibil pe termen nelimitat.
+      day: ziua
+      days: Zile
+      deletable: Permite ștergerea imediată
+      deletable_tip: Permiteți utilizatorilor să șteargă acest push după ce a fost
+        recuperat.
+      encryption_tip: Conținutul este criptat înainte de a fi stocat și este disponibil
+        doar pentru cei care au linkul secret.
+      expiration_label: 'Expirați acest push și ștergeți-l după:'
+      expiration_tip: Odată expirat, tot conținutul și fișierele din push sunt șterse
+        imediat și în întregime.
+      generator_tip: Utilizați butonul de mai sus pentru a genera o parolă aleatorie.
+      hour: ora
+      hours: Ore
+      login_to_upload: Autentificați-vă pentru a încărca și atașa fișiere la acest
+        push...
+      minutes: Proces-verbal
+      month: luna
+      months: Luni
+      note_label: Notă de referință
+      note_placeholder: O notă privată pentru a vă ajuta să vă amintiți pentru cine
+        sau pentru ce este acest impuls.
+      passphrase_label: Blocare prin frază de siguranță
+      passphrase_placeholder: Solicitați destinatarilor să introducă o frază de acces
+        pentru a vizualiza acest push.
+      password_tip: 'Sfat: Introduceți doar o parolă în căsuță. Alte informații de
+        identificare pot compromite securitatea.'
+      payload_placeholder: Introduceți parola, textul sau URL-ul pentru a împinge...
+      push_it: Împingeți-l!
+      upload_limit: Puteți încărca până la 10 fișiere per push.
+      view: Vezi
+      views: Vizualizări
+      week: Săptămâna
+      weeks: Săptămâni
+    hour:
+      one: 1 oră
+      other: "%{count} ore"
+    index:
+      actions: Acțiuni
+      clear_filters: Curățați filtrele
+      created: Creat
+      created_by: De către
+      expires: Expiră
+      file_count: Fișiere
+      note: Notă
+      nothing_here: Încă nu e nimic aici.
+      push_id: Push ID
+      pushes: Împinge
+      remaining_time: Timp rămas
+      status: Stare
+      views: Vizualizări
+      views_remaining: Vizualizări rămase
+    minute:
+      one: 1 minut
+      other: "%{count} minute"
+    more_view:
+      one: 1 vizualizare suplimentară
+      other: "%{count} mai multe vizualizări"
+    'no': Nu
+    none: Nici unul
+    passphrase:
+      enter_passphrase: Introduceți fraza de acces
+      go: Du-te
+      placeholder: Introduceți fraza de acces secretă furnizată cu acest URL
+      tip: Introduceți fraza de acces secretă
+    payload: Sarcina utilă
+    preliminary:
+      click_proceed: Faceți clic aici pentru a continua
+    preview:
+      and: și
+      can_be: poate fi
+      can_not_be: nu poate fi
+      deleted_by_viewers: șterse de către telespectatori.
+      link_lang_tip: 'Sfat: Trimiterea către un utilizator internațional?  Schimbați
+        limba legăturii secrete utilizând meniul derulant din dreapta URL-ului.'
+      or: sau
+      or_after: sau după
+      push_another: Împingeți un altul
+      push_created: A fost creat push-ul tău.
+      use_link_to_share: 'Folosiți acest link secret pentru a-l distribui:'
+      view_push_now: Vezi acest Push acum
+      will_burn_view: "(va arde o vedere)"
+      will_expire_after: Acest push expiră în
+      with_preliminary_step: Acesta include, de asemenea, o etapă de recuperare preliminară
+        cu %{strong_start}1-clic%{strong_end}.
+    provide_text_or_file: Pentru a crea un push, trebuie fie să furnizați un text,
+      fie să atașați un fișier, fie ambele.
+    push:
+      active: Activ
+      audit: Audit
+      expired: Expirat
+      none: Nici unul
+      preview: Previzualizare
+      push_controls: Comenzi de împingere
+      title: Noul Push
+      unknown: Necunoscut
+    secret_link_lang: Limba secretă de legătură
+    settings: Setări
+    show:
+      blurred: Parola dvs. este estompată.  Faceți clic mai jos pentru a o dezvălui.
+      click_to_reveal: Conținutul este estompat. Faceți clic mai jos pentru a-l dezvălui.
+      delete_now: Ștergeți acest link secret acum
+      delete_now_confirm: Acest lucru va expira această legătură secretă și va șterge
+        tot conținutul aferent din baza de date pentru totdeauna. Sunteți sigur?
+      download_file: Descărcați fișierul
+      files_sent: Următoarele fișiere v-au fost trimise.
+      last_view: Aceasta este ultima vedere.
+      obtain: Recuperați și stocați în siguranță acest conținut, utilizând un manager
+        de parole și/sau un sistem de stocare criptat. Nu uitați să ștergeți imediat
+        orice date care nu mai sunt necesare.
+      open_file: Deschidere fișier
+      please_download: Vă rugăm să le descărcați și să le păstrați într-o zonă sigură.
+      will_be_deleted: Această legătură secretă și tot conținutul acesteia vor fi
+        șterse în %{b_tag}%{time_count} %{time_unit}%{b_tag} sau %{b_tag}%{view_count}
+        mai mult %{view_unit}%{b_tag} (oricare dintre acestea are loc mai întâi).
+      your_link: Legătura ta secretă
+    show_expired:
+      expired_help: Dacă este necesar, vă rugăm să contactați persoana sau organizația
+        care v-a furnizat acest URL secret.
+      expired_message: Ne cerem scuze, dar acest link secret a expirat.
+      link_expired: Legătura ta secretă a expirat
+    view:
+      one: 1 vizualizare
+      other: "%{count} vizualizări"
+    view_audit_log: Vizualizați jurnalul de audit
+    whichever: "(oricare dintre acestea este prima)"
+    'yes': Da
+  static:
+    about:
+      about_1: Password Pusher este un instrument utilizat pentru a partaja parole
+        și alte informații sensibile cu alte persoane în siguranță.
+      about_2: Cu Password Pusher, puteți crea un URL unic, care va expira după o
+        anumită perioadă de timp sau după ce a fost accesat de un anumit număr de
+        ori, asigurându-vă că informațiile dvs. rămân private și sigure.
+      about_3: Acesta este adesea utilizat de persoane și organizații pentru a partaja
+        credențiale de conectare sau alte date sensibile cu colegii, clienții sau
+        partenerii.
+      about_4: Password Pusher este o soluție simplă și convenabilă pentru partajarea
+        în siguranță a parolelor, fără a fi nevoie de e-mail sau alte metode de comunicare
+        mai puțin sigure.
+      about_5: Găzduit la %{pwpush_link} sau vă puteți rula propria instanță privată
+        oriunde doriți.
+      about_6: Codul sursă este disponibil pe %{github_link}.  Este open source și
+        este liber pentru oricine să îl folosească, să îl revizuiască sau să îl modifice.
+      age_body: Primul commit git pentru Password Pusher a fost pe <strong>28 decembrie
+        2011</strong>. pwpush.com a fost lansat la scurt timp după aceea.
+      age_title: Mai mult de %{years_count} ani vechime
+      author_1: Numele meu este Peter Giacomo Lombardo. Mă puteți găsi pe %{linkedin},
+        %{github} sau %{blog}.
+      author_2: Pentru actualizări, urmăriți Password Pusher pe %{twitter} (sau pe
+        %{twitter_personal}) sau abonați-vă la %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: De departe, cel mai mare ajutor este să răspândești vestea.  Împărtășiți
+        Password Pusher cu prietenii, colegii și organizațiile dumneavoastră.
+      help_2: 'De asemenea, puteți:'
+      help_3: Porniți proiectul %{github}. Este benzină pentru alogeni care au tendința
+        de a se dezvolta Password Pusher.
+      help_4: Ajutor %{translate}. Îmbunătățiți o limbă existentă sau adăugați una
+        nouă.
+      help_5: Înscrieți-vă la %{newsletter} pentru a primi actualizări despre versiuni
+        importante, probleme de securitate, sfaturi și multe altele.
+      help_6: Urmați Password Pusher pe %{facebook}, %{twitter} și %{github}.
+      help_translate: Ajută la traducere
+      newsletter: Buletin informativ
+      pwpush_domain: pwpush.com
+      section_about: Despre
+      section_author: Autorul
+      section_follow: În cazul în care pentru a urmări Parola Pusher
+      section_help: Vrei să ajuți?
+      title: Despre Password Pusher
+      twitter: Twitter
+    faq:
+      answer_access_1: Cu API-ul JSON al Password Pusher, există o serie de aplicații
+        și utilități de linie de comandă (CLI) care se interfațează cu pwpush.com
+        sau cu instanța dvs. găzduită de sine stătător.  Împingeți parolele din CLI,
+        Slack, Alfred App și multe altele.
+      answer_access_2: Pentru mai multe informații, consultați pagina %{tools}.
+      answer_add_feature_1: Foarte probabil.  Îmi place să ascult toate ideile și
+        feedback-ul și păstrez o listă pentru a decide ce să adaug în continuare.  Dacă
+        aveți idei, vă rugăm să le trimiteți pe pagina %{feedback_link} sau pe %{github_link}.
+      answer_already_expired_1: Unele sisteme, cum ar fi e-mailurile, firewall-urile
+        și sistemele de chat, au adesea scanere de linkuri care pot consuma vizualizări.  Acest
+        lucru se face, de obicei, pentru securitatea corporativă sau pur și simplu
+        pentru a genera o "previzualizare" pentru aplicații.
+      answer_already_expired_2: Pentru a preveni acest lucru, utilizați opțiunea 1-click
+        de recuperare a parolelor.  Acest lucru necesită ca utilizatorii să facă clic
+        pe o pagină preliminară pentru a proteja vizualizările de astfel de scanere.
+      answer_already_expired_3: Ca o măsură preventivă suplimentară, atunci când sunteți
+        conectat, este furnizat un jurnal de audit pentru fiecare push creat.  Acest
+        jurnal de audit arată de către cine și când a fost vizualizat push-ul.
+      answer_automation_1: Da. API-ul JSON al Password Pusher permite automatizarea
+        împingerii parolelor.  Acest lucru poate fi realizat cu o varietate de limbaje
+        și instrumente de programare.
+      answer_automation_2: Pentru mai multe informații, consultați pagina %{tools}.
+      answer_conference_1: Absolut.  Avem resurse media și o explicație completă a
+        caracteristicilor disponibile în formatele %{windows_link} și %{mac_link}.
+      answer_conference_2: Dacă aveți întrebări sau aveți nevoie de ajutor, nu ezitați
+        să mă contactați oricând.
+      answer_how_many_1: În prezent nu există limite și nu intenționez să adaug niciuna.  Pentru
+        a asigura un minim de stabilitate a site-ului, Password Pusher este configurat
+        în mod implicit cu un limitator de viteză.  Acesta poate fi dezactivat în
+        versiunea auto-gospodărire.
+      answer_licensing_1: Versiunea open source a codului sursă este eliberată sub
+        licența Apache 2.0, ceea ce definește destul de bine toate limitările. Există
+        destul de multe site-uri clone ale lui Password Pusher, reproiectate și reproiectate,
+        și le salut pe toate.
+      answer_licensing_2: Versiunea premium este lansată sub o licență comercială.  Nu
+        este open source și nu este gratuită.  La bază conține proiectul open source,
+        dar oferă un super set de caracteristici și este menită să accelereze dezvoltarea
+        și să ajute la finanțarea proiectului.
+      answer_licensing_3: Versiunea premium nu este necesară pentru a rula o instanță
+        privată a Password Pusher.  Versiunea open source este complet echipată și
+        este gratuită.
+      answer_licensing_4: Toate caracteristicile premium ajung în versiunea open source
+        după o perioadă de timp, în funcție de caracteristica respectivă.
+      answer_private_risks_1: Rularea unei instanțe private de Password Pusher pentru
+        compania sau organizația dvs. vă oferă liniștea de a ști exact ce cod rulează.  Puteți
+        să îl configurați și să îl executați după cum doriți.
+      answer_private_risks_2: Pe de altă parte, dacă instanța dvs. este spartă și
+        criptarea este spartă, entitățile rău intenționate au acum un dicționar de
+        parole pentru a forța conturile din organizație.  (acest lucru ar fi limitat
+        la împingeri care nu au expirat încă)
+      answer_private_risks_3: În acest sens, instanța publică de la pwpush.com poate
+        fi superioară, deoarece conține doar parole fără informații de identificare
+        amestecate între utilizatori din întreaga lume.
+      answer_private_risks_4: Un alt aspect de luat în considerare ar fi întreținerea
+        instanței.  Trebuie să o mențineți actualizată, securizată și să faceți copii
+        de rezervă.
+      answer_private_risks_5: Utilizatorul ar trebui să cântărească cu atenție avantajele
+        și dezavantajele și să decidă care este cea mai bună cale pentru el.  Noi
+        susținem cu plăcere ambele strategii.
+      answer_purpose_1: Password Pusher există ca o alternativă mai bună la trimiterea
+        parolelor prin e-mail.
+      answer_purpose_10: În plus, <strong>parolele expiră după ce un set predefinit
+        de vizualizări este atins sau după ce trece timpul</strong>.
+      answer_purpose_11: Odată expirate, parolele sunt șterse fără echivoc.
+      answer_purpose_12: Dacă vi se pare interesant, încercați-o sau consultați celelalte
+        întrebări frecvente de mai jos.
+      answer_purpose_2: "<strong>Trimiterea parolelor prin e-mail este în mod inerent
+        nesigură.</strong> Cele mai mari riscuri includ:"
+      answer_purpose_3: Parolele trimise prin e-mail sunt, de obicei, trimise cu contextul
+        la care se duc sau pot fi potențial derivate din numele de utilizator al e-mailului,
+        domeniul etc..
+      answer_purpose_4: E-mailul este în mod inerent nesigur și poate fi interceptat
+        în mai multe puncte de către entități rău intenționate.
+      answer_purpose_5: 'Parolele trimise prin e-mail trăiesc în perpetuitate (a se
+        citi: pentru totdeauna) în arhivele de e-mail.'
+      answer_purpose_6: Parolele din e-mail pot fi recuperate și utilizate ulterior,
+        dacă un cont de e-mail este furat, spart etc..
+      answer_purpose_7: Aceleași riscuri există și atunci când trimiteți parole prin
+        SMS, WhatsApp, Telegram, Chat etc... Datele pot fi și sunt adesea păstrate
+        în permanență și în afara controlului dumneavoastră.
+      answer_purpose_8: Folosind Password Pusher, puteți evita toate acestea.
+      answer_purpose_9: Pentru fiecare parolă postată pe Password Pusher, <strong>se
+        generează un URL unic pe care numai dvs. îl veți cunoaște</strong>.
+      answer_rebranding_1: Password Pusher suportă un re-branding complet "out of
+        the box", permițându-vă să adăugați un logo personalizat, imagini, text și
+        chiar să schimbați tema aplicației.
+      answer_self_host_1: Da, pentru versiunea cu sursă deschisă, oferim %{docker_link}
+        și %{install_link} pentru o mare varietate de platforme și cloud-uri.
+      answer_self_host_2: Pentru versiunea premium, cu super setul de caracteristici,
+        containerele auto-găzduite vor fi disponibile în curând.
+      answer_trust_1: Și pe bună dreptate. Orice securitate bună începe cu un scepticism
+        sănătos față de toate componentele implicate.
+      answer_trust_2: Password Pusher există ca o alternativă mai bună la trimiterea
+        parolelor prin e-mail. Astfel, se evită ca parolele să existe în arhivele
+        de e-mail în permanență. Nu este o soluție de securitate definitivă.
+      answer_trust_3: Password Pusher a început ca un proiect open source la sfârșitul
+        anului 2011.  Acesta a fost întreținut și actualizat de mine (Peter Giacomo
+        Lombardo) și de o mână de colaboratori excelenți în tot acest timp.  În 2024,
+        versiunea premium a fost introdusă pentru a accelera dezvoltarea și pentru
+        a ajuta la finanțarea proiectului.  Toate caracteristicile premium ajung în
+        cele din urmă în versiunea open source.
+      answer_trust_4: Având o istorie atât de lungă și fiind open source, Password
+        Pusher a fost revizuit de mulți ochi.  A fost folosit și auditat de multe
+        organizații și persoane fizice de-a lungul anilor.
+      answer_trust_5: 'Politica Password Pusher este triplă: 1) Criptare în repaus
+        și în tranzit 2) Retenție minimă a datelor 3) Transparență sub forma unui
+        jurnal de audit.'
+      answer_trust_6: În acest sens, sarcinile utile push sunt șterse fără echivoc
+        la expirare, iar jurnalul de audit este menținut pe termen nelimitat.  Cu
+        cât mai puține date sunt păstrate de Password Pusher, cu atât mai bine.
+      answer_trust_7: Dacă aveți în continuare îngrijorări cu privire la încredere,
+        siguranță și securitate, nu ezitați să revizuiți codul, să postați orice întrebări
+        pe care le aveți și să luați în considerare posibilitatea de a o rula intern
+        în cadrul organizației dumneavoastră.
+      answer_trust_8: În ceea ce privește încrederea în mine, tot ceea ce pot oferi
+        este lunga mea istorie în construirea acestui proiect și reputația mea publică
+        pe %{github}, %{linkedin}, %{twitter} și %{blog}.  Nu ezitați să mă contactați
+        oricând cu orice întrebare pe care o aveți.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Unele organizații sunt obligate de politici de securitate
+        care interzic utilizarea serviciilor publice pentru informații sensibile,
+        cum ar fi parolele.  Există chiar și organizații care cer ca toate instrumentele
+        să se afle pe intraneturi private, fără acces la lumea exterioară.
+      answer_why_private_2: Rularea propriei instanțe private de Password Pusher vă
+        permite să controlați mediul și datele.  De asemenea, vă permite să adăugați
+        caracteristici personalizate și integrări specifice organizației dvs.
+      answer_why_private_3: Din aceste motive, oferim posibilitatea (și încurajăm)
+        utilizatorilor și organizațiilor să ruleze instanțe private atunci când este
+        necesar.
+      feedback_link: Formular de feedback
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: blogul meu
+      question_access: Există și alte modalități prin care pot accesa Password Pusher
+        în afara unui browser?
+      question_add_feature: Ați putea adăuga o caracteristică specifică pentru organizația
+        mea?
+      question_already_expired: URL-ul secret pe care l-am trimis era deja expirat.  Ce
+        s-a întâmplat?
+      question_automation: Pot automatiza distribuirea parolelor?
+      question_conference: Pot folosi Password Pusher în discursul, videoclipul, prezentarea
+        sau conferința mea?
+      question_have_to_pay: Trebuie să plătesc?
+      question_how_many: Câte cereri pot trimite către Password Pusher?
+      question_licensing: Există vreo restricție de licențiere pentru mine, compania
+        sau organizația mea?
+      question_premium_diff: Care sunt diferențele dintre versiunea open source și
+        cea premium?
+      question_private_risks: Care sunt potențialele riscuri de securitate ale rulării
+        propriei mele versiuni interne?
+      question_purpose: Care este scopul lui Password Pusher?
+      question_rebranding: Pot aplica un logo personalizat sau pot schimba designul?
+      question_self_host: Pot rula propria versiune pentru organizația mea internă?
+      question_trust: Încrederea este un motiv de îngrijorare. De ce ar trebui să
+        folosesc Password Pusher?
+      question_why_premium: Password Pusher a fost întotdeauna open-source.  De ce
+        există o versiune premium?
+      question_why_private: De ce aș vrea să rulez propria mea instanță privată de
+        Password Pusher?
+      question_will_oss: Vor fi adăugate caracteristicile premium la versiunea open
+        source?
+      subtitle: "...toate lucrurile pe care doriți să le știți despre Password Pusher."
+      title: Întrebări frecvente
+      title_other: Altele
+      title_private: Rularea propriei instanțe private
+      title_pushes: Împinge
+      title_subscriptions: Versiunea Premium
+      title_tools: Instrumente, integrări și aplicații
+      title_trust: Încredere și securitate
+      tools_link: Instrumente și aplicații
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Puteți aplica această cheie aplicației dumneavoastră prin setarea variabilei
+        de mediu
+      generate_key: Generarea cheii
+      generated: Cheia de criptare generată
+      intro: Această pagină este utilizată ca un instrument de ajutor pentru a genera
+        o cheie de criptare aleatorie pentru instanțele auto-găzduite ale Password
+        Pusher.
+      intro_2: Password Pusher criptează datele sensibile din baza de date.  Deși
+        există o cheie implicită inclusă, cea mai bună practică este să folosiți propria
+        cheie de criptare personalizată.
+      intro_3: La fiecare reîmprospătare, această pagină generează o nouă cheie de
+        criptare.  Puteți utiliza codul generat aleatoriu de mai jos pentru a vă configura
+        instanța Password Pusher.
+      note_1: Dacă nu este furnizată o cheie de criptare, se va utiliza o cheie implicită.
+      note_2: Cea mai bună securitate pentru instanțele private ale Password Pusher
+        este să utilizați propria cheie de criptare personalizată, deși nu este obligatorie.
+      note_3: Riscul de a utiliza cheia implicită este mai mic dacă vă păstrați instanța
+        securizată și expirațiile push scurte. de exemplu, 1 zi/1 vizualizare față
+        de 100 de zile/100 de vizualizări.
+      note_4: Odată ce un push expiră, toate datele criptate din acel push sunt șterse.
+      note_5: Schimbarea unei chei de criptare în cazul în care există deja push-uri
+        mai vechi va face ca acele push-uri mai vechi să devină ilizibile.  Cu alte
+        cuvinte, încărcăturile utile vor fi distorsionate.  Noile push-uri viitoare
+        vor funcționa fără probleme.
+      note_6: 'Generarea cheilor se poate face, de asemenea, din linia de comandă
+        în sursa aplicației prin executarea:'
+      notes: 'Note:'
+      reload: Reîncărcați această pagină pentru a genera din nou o nouă cheie.
+      title: Generarea unei chei de criptare
+    password_generator:
+      push_it: Apăsați această parolă
+    tools:
+      alfred: Alfred App
+      api_documentation: Documentație API Endpoint
+      applications: Aplicații
+      cli: Interfața liniei de comandă
+      clu: Utilități în linie de comandă
+      examples: Exemple
+      github: Github
+      intro: Cu API-ul JSON al Password Pusher, există o serie de aplicații și utilități
+        de linie de comandă (CLI) care se interfațează cu pwpush.com sau cu instanța
+        dvs. găzduită de sine stătător.  Împingeți parolele din CLI, Slack, Alfred
+        App și multe altele.
+      intro_2: API JSON este un instrument puternic care permite automatizarea introducerii
+        de parole.  Acest lucru poate fi realizat cu o varietate de limbaje și instrumente
+        de programare.
+      intro_3: Pentru mai multe informații, consultați pagina %{github}.
+      more: Mai mult
+      slack: Slack
+      subtitle: Password Pusher este mai mult decât o simplă aplicație web.  Are un
+        API JSON care permite o mare varietate de integrări și aplicații.
+      title: Instrumente, API-uri, integrări și aplicații
+      tools_1: Utilizând API JSON, există diverse instrumente care se pot conecta
+        la Password Pusher pentru a automatiza distribuirea parolelor.
+      tools_2: Nu avem limite privind numărul de parole pe care le puteți introduce
+        (și nu intenționăm să adăugăm limite), dar avem un limitator de viteză pentru
+        ca site-ul să nu fie doborât de scripturi sau actori răi.  Limitați-vă instrumentele
+        la maxim 1 parolă la fiecare câteva secunde și ar trebui să fiți în regulă.
+      tools_3: 'Puteți testa acest lucru în consola Javascript din browserul dvs.,
+        accesând prima pagină a Password Pusher și introducând:'
+      tools_4: Acest API vă permite să interacționați cu Password Pusher prin JSON.  Aceasta
+        poate fi utilizată de utilitarele existente, cum ar fi curl, wget sau orice
+        limbaj de programare.  Consultați exemplele de mai jos pentru câteva idei.
+      tools_5: Vezi mai multe explicații și exemple în Wiki %{github}.
+      walkthrough: Prezentare și exemple

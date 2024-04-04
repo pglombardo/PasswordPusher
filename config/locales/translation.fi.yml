@@ -220,26 +220,19 @@ fi:
       create: Luo %{model}
       update: Päivitä %{model}
       submit: Tallenna %{model}
-  will_paginate:
-    previous_label: "&#8592; Edellinen"
-    next_label: Seuraava &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Sivunumerointi
-    page_aria_label: Sivu %{page}
     page_entries_info:
-      single_page:
-        zero: "%{model} ei löytynyt"
-        one: Näytetään 1 %{model}
-        other: Näytetään kaikki %{count} %{model}
-      single_page_html:
-        zero: "%{model} ei löytynyt"
-        one: Näytetään <b>1</b> %{model}
-        other: Näytetään <b>kaikki %{count}</v> %{model}
-      multi_page: Näytetään %{model} %{from} - %{to} joita on yhteensä %{count}
-      multi_page_html: Näytetään %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> joita on
-        yhteensä <b>%{count}</b>
-    previous_aria_label: Edellinen sivu
-    next_aria_label: Seuraava sivu
+      entry:
+        zero: merkintöjä
+        one: sisääntulo
+        other: merkintöjä
+      one_page:
+        display_entries:
+          zero: "%{entry_name} ei löytynyt"
+          one: Näytetään <b>yksi</b> %{entry_name}
+          other: Näytetään <b>%{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Näytetään %{entry_name} <b>%{first} - %{last}</b> / <b>%{total}</b>
+          yhteensä
   flash:
     actions:
       create:
@@ -607,6 +600,748 @@ fi:
     access: pääsy
     passphrase: tunnuslause
     preview: esikatselu
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Ensimmäinen"
+      last: Viimeinen &raquo;
+      previous: "&lsaquo; Edellinen"
+      next: Seuraava &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Oletko varma?
+      destroy: Tuhota
+      edit: Muokata
+      edit_resource: Muokkaa %{name}
+      show_resource: Näytä %{name}
+      new_resource: Uusi %{name}
+      back: Takaisin
+    controller:
+      create:
+        success: "%{resource} luotiin onnistuneesti."
+      destroy:
+        success: "%{resource} tuhottiin onnistuneesti."
+      update:
+        success: "%{resource} päivitettiin onnistuneesti."
+    fields:
+      has_many:
+        more: Näytetään %{count} / %{total_count}
+        none: Ei mitään
+    form:
+      error: virhe
+      errors: "%{pluralized_errors} kielsi tämän %{resource_name} tallentamisen:"
+    navigation:
+      back_to_app: Takaisin sovellukseen
+    search:
+      clear: Tyhjennä haku
+      label: Hae %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Tämä järjestelmänvalvojan hallintapaneeli tarjoaa suoran tietokannan
+          pääsyn Password Pusher -sovellukseen. Ole varovainen ja harkitse varmuuskopion
+          tekemistä ennen muutosten tekemistä.
+        admin_note: 'Huomautus: Tietueen tuhoaminen tuhoaa myös kaikki alatason tietueet.
+          Esimerkiksi käyttäjän tuhoaminen tuhoaa myös kaikki kyseisen käyttäjän työnnetyt
+          salasanat, tiedostot ja URL-osoitteet.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Luodussa salasanassa olevien tavujen määrä.
+      back: Takaisin tiimiin
+      edit: Muokkaa käytäntöä
+      team_policy_help: Tiimikäytäntö on joukko sääntöjä, jotka koskevat kaikkia tämän
+        joukkueen jäsenten tekemiä työntöjä.
+      personal_policy: Henkilökohtainen politiikka
+      personal_policy_help: Käytäntö on joukko sääntöjä, jotka koskevat kaikkia luomiasi
+        työntöjä.
+      team_policy: Joukkueen käytäntö
+      header_timed_expiration: Ajastettu vanheneminen
+      expire_after_duration_min: Minimikesto
+      expire_after_duration_min_help: Vähimmäiskesto ennen työntöajan päättymistä.
+      expire_after_duration_max: Enimmäiskesto
+      expire_after_duration_max_help: Enimmäiskesto ennen painalluksen päättymistä.
+      expire_after_duration_default: Oletuskesto
+      expire_after_duration_default_help: Oletusaika ennen työntöajan päättymistä.
+      minutes_tip: 1 päivä = 1440 minuuttia, 7 päivää = 10080 minuuttia, 30 päivää
+        = 43200 minuuttia
+      header_view_expiration: Näytä vanheneminen
+      expire_after_views_min: Vähimmäiskatselumäärä
+      expire_after_views_min_help: Vähimmäismäärä näyttökertoja ennen työntöajan päättymistä.
+      expire_after_views_max: Katselukertojen enimmäismäärä
+      expire_after_views_max_help: Näyttökertojen enimmäismäärä ennen työntöajan päättymistä.
+        [Max. 100]
+      expire_after_views_default: Oletuskatselumäärä
+      expire_after_views_default_help: Näkymien oletusmäärä ennen työntöajan päättymistä.
+      header_payload_limits: Hyötykuorman rajoitukset
+      push_text_max: Tekstin enimmäiskoko
+      push_text_max_help: Tekstin enimmäiskoko työntössä. Mitattu tavuissa. [Max.
+        1048576]
+      push_files_max: Sallittujen tiedostojen enimmäismäärä
+      push_files_max_help: Työntössä sallittu tiedostojen enimmäismäärä. [Max. 100]
+      header_retrieval_step: 1-Napsauta Hakuvaihe
+      enable_retrieval_step: Ota käyttöön?
+      enable_retrieval_step_help: Otetaanko yhden napsautuksen haku käyttöön tälle
+        tiimille? Jos tämä vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      retrieval_step_default: Oletusarvo
+      retrieval_step_default_help: 1-Click Retrieval -vaihevaihtoehdon oletusarvo.
+      retrieval_step_forced: Pakottaako oletusarvo?
+      retrieval_step_forced_help: Pakottaa käyttämään tätä vaihtoehtoa oletusarvolla
+        kaikille ryhmän jäsenille. Ryhmän jäsenet eivät voi muuttaa sitä.
+      hide_retrieval_step: Piilota vaihtoehto?
+      hide_retrieval_step_help: Piilottaa yhden napsautuksen hakuvaiheen vaihtoehdon
+        tiimin jäseniltä. Tämä on hyödyllistä pakottaaksesi oletusasetuksen näyttämättä
+        sitä ryhmän jäsenille.
+      header_deletable: Viewer poistaa
+      enable_deletable: Ota käyttöön?
+      enable_deletable_help: Otetaanko tämä vaihtoehto käyttöön joukkueelle? Jos tämä
+        vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      deletable_default: Oletusarvo
+      deletable_default_help: Deletable by Viewer -asetuksen oletusarvo.
+      deletable_forced: Pakottaako oletusarvo?
+      deletable_forced_help: Pakottaa käyttämään tätä vaihtoehtoa oletusarvolla kaikille
+        ryhmän jäsenille. Ryhmän jäsenet eivät voi muuttaa sitä.
+      hide_deletable: Piilota vaihtoehto?
+      hide_deletable_help: Piilottaa Viewer by Viewer -vaihtoehdon tiimin jäseniltä.
+        Tämä on hyödyllistä pakottaaksesi oletusasetuksen näyttämättä sitä ryhmän
+        jäsenille.
+      hide_passphrase: Piilota vaihtoehto?
+      hide_passphrase_help: Piilottaa Passphrase Lock -vaihtoehdon. Hyödyllinen, jos
+        haluat poistaa tämän vaihtoehdon käytöstä kokonaan.
+      enable_blur: Ota käyttöön?
+      enable_blur_help: Hyötykuorman hämärtäminen peittää hyötykuorman sisällön salaisen
+        URL-osoitteen toimitussivulla. Vastaanottajat voivat vaihtaa sumennusta napsauttamalla
+        paljastaakseen alkuperäiset tiedot.
+      header_passphrase: Salalauseen lukitus
+      header_blur: Hyötykuorman hämärtyminen
+      header_pwgen: Salasanan luominen
+      save: Päivitä tiimikäytäntö
+      enable_pwgen: Ota käyttöön?
+      enable_pwgen_help: Otetaanko salasanan luontivaihtoehto käyttöön tälle tiimille?
+        Jos tämä vaihtoehto ei ole käytössä, se piilotetaan eikä sitä käytetä.
+      pwgen_configurable: Muokattava?
+      pwgen_configurable_help: Saako tiimin jäsenten määrittää salasanageneraattorin?
+        Jos asetus on poistettu käytöstä, se pakotetaan alla olevaan määritykseen,
+        eivätkä tiimin jäsenet voi muuttaa sitä.
+      pwgen_has_numbers: Sisällytä numerot?
+      pwgen_has_numbers_help: Sisällytä luotuun salasanaan numerot.
+      pwgen_title_cased: Otsikko Cased?
+      pwgen_title_cased_help: Nimeä luodut salasanaosat isolla kirjaimella.
+      pwgen_use_separators: Käytä erottimia?
+      pwgen_use_separators_help: Käytä erottimia luodussa salasanassa.
+      pwgen_consonants: Konsonantit
+      pwgen_consonants_help: Luodussa salasanassa käytettävät konsonantit.
+      pwgen_vowels: Vokaalit
+      pwgen_vowels_help: Luodussa salasanassa käytettävät vokaalit.
+      pwgen_separators: Erottimet
+      pwgen_separators_help: Luodussa salasanassa käytettävät erottimet.
+      pwgen_min_syllable_length: Tavun vähimmäispituus
+      pwgen_min_syllable_length_help: Luodussa salasanassa olevan tavun vähimmäispituus.
+      pwgen_max_syllable_length: Tavun enimmäispituus
+      pwgen_max_syllable_length_help: Luodussa salasanassa olevan tavun enimmäispituus.
+      pwgen_syllables_count: Tavut Count
+    show:
+      edit_policy: Muokkaa push-käytäntöä
+      policy: Joukkueen käytäntö
+  tag_line: Mene eteenpäin. Lähetä sähköpostilla toinen salasana.
+  about: Tietoja
+  app_name: Salasanan työntäjä
+  application:
+    card_newsletter:
+      enter_email: Syötä sähköpostiosoitteesi...
+      subscribe: Tilaa
+    cookie_consent:
+      notice: Selaimen evästeet auttavat saamaan tämän työkalun toimimaan. Käyttämällä
+        sitä hyväksyt näiden evästeiden käytön.
+    footer:
+      best_practices: Parhaat käytännöt
+      docker: Docker-kontit
+      faq: UKK
+      feedback: Palaute
+      github: GitHub
+      key_generator: Avaingeneraattori
+      newsletter: Uutiskirje
+      password_generator: Salasanageneraattori
+      tools: Työkalut, API ja CLI:t
+    pw_generator_modal:
+      cancel: peruuta
+      configure: Määritä salasanan luominen
+      consonants: Konsonantit
+      generate_password: Luo salasana
+      include_numbers: Sisällytä numerot
+      load_preset: Lataa esiasetus
+      max_syllable_length: Tavujen enimmäispituus
+      min_syllable_length: Tavujen vähimmäispituus
+      num_syllables: Tavujen määrä
+      reset: Palauta oletusarvoihin
+      save: Tallenna
+      separators: Erottimet
+      test: Test Generation
+      test_area: Testialue
+      use_separators: Käytä erottimia
+      use_titlecase: Aloita isolla alkukirjaimella
+      vowels: Vokaalit
+  audit_logs:
+    audit_log:
+      created: Luotu
+      created_by: Luonut %{user}
+      log_created: 'Push loi %{date}: %{user}'
+      log_expired: 'Push vanhentui manuaalisesti %{date}: %{user}'
+      log_failed_view: 'Epäonnistunut katseluyritys IP-osoitteesta %{ip} %{date}:
+        %{user}'
+      log_manual_expiration: 'Push vanhentunut manuaalisesti %{date}: %{user} IP-osoitteessa
+        %{ip}'
+      log_referrer: 'Viittaus: %{referrer}'
+      log_user_agent: 'Käyttäjäagentti: %{user_agent}'
+      log_viewed: Onnistunut näkymä IP-osoitteesta %{ip} %{date}:stä %{user}
+      unknown: Tuntematon
+      viewed_by: Katsonut %{user}
+  dashboard:
+    show:
+      detail: Yksityiskohta
+      event: Tapahtuma
+      when: Kun
+  duration:
+    format_d:
+      one: 1 päivä
+      other: "%{count} päivää"
+    format_dhm: "%{days} päivä(ä), %{hours} tunti(a) ja %{minutes} minuutti(a)"
+    format_h:
+      one: 1 tunti
+      other: "%{count} tunti(a)"
+    format_hm: "%{hours} tunti(a) ja %{minutes} minuutti(a)"
+    format_m:
+      one: 1 minuutti
+      other: "%{count} minuutti(a)"
+  feedbacks:
+    create:
+      feedback_sent: Palaute lähetetty! Palaamme sinulle mahdollisimman pian.
+    failed_spam_test: Pahoittelemme, mutta et läpäissyt roskapostin tarkistusta. Voit
+      sen sijaan yrittää ottaa meihin yhteyttä Githubissa.
+    failed_to_send: Palautteen lähettäminen epäonnistui. Jotain oli vialla. Yritä
+      uudelleen tai ota meihin yhteyttä Githubissa.
     new:
-      upload_limit: Voit lähettää enintään %{count} tiedostoa työntöä kohden.
+      email: Sähköposti
+      have_idea: Onko sinulla idea tai toive? Jotain, josta et pidä? Haluatko auttaa?
+        Haluamme kuulla sen!
+      leave_blank: Jätä tämä kenttä tyhjäksi!
+      math_question: Mikä on sata miinus 3?
+      send_feedback: Lähetä palautetta
+      tip: 'Vinkki: Kopioi viestisi leikepöydälle, siltä varalta jos lähetys jostain
+        syystä epäonnistuu.'
+      your_name: Nimesi
+  none: Ei mitään
+  pages:
+    about:
+      about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
+        jakamiseen muiden ihmisten kanssa turvallisesti.
+      about_2: Password Pusherin avulla voit luoda ainutlaatuisen, kertaluonteisen
+        URL-osoitteen, joka vanhenee tietyn ajan kuluttua tai sen jälkeen, kun sitä
+        on käytetty tietyn määrän kertoja, mikä varmistaa, että tietosi pysyvät yksityisinä
+        ja turvassa.
+      about_3: Yksityishenkilöt ja organisaatiot käyttävät sitä usein jakaakseen kirjautumistietoja
+        tai muita arkaluonteisia tietoja kollegoiden, asiakkaiden tai kumppaneiden
+        kanssa.
+      about_4: Password Pusher on yksinkertainen ja kätevä ratkaisu salasanojen turvalliseen
+        jakamiseen ilman sähköpostia tai muita vähemmän turvallisia viestintätapoja.
+      about_pwpush: Tietoja Password Pusherista
+      hosted_at_html: Isännöi osoitteessa <a href="https://pwpush.com">pwpush.com</a>
+        tai voit käyttää omaa yksityistä ilmentymääsi missä haluat.
+      my_name: Nimeni on Peter Giacomo Lombardo. Löydät minut osoitteesta %{linkedin},
+        %{github} tai %{blog}.
+      source_avail_html: Lähdekoodi on <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">saatavilla GitHubissa</a> . Se on
+        avoimen lähdekoodin ja ilmainen kenen tahansa käytettäväksi, tarkastettavaksi
+        tai muokattavaksi.
+      the_author: Kirjoittaja
+  pushes:
+    access:
+      incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
+        tai organisaatioon, joka lähetti sinulle tämän linkin.
+    audit:
+      1click_retrieval_step: 1-Napsauta Hakuvaihe
+      1click_retrieval_step_help: Auttaa estämään chat-järjestelmiä ja URL-skannereita
+        käyttämästä näyttökertoja.
+      active: Aktiivinen
+      attached_files: Liitetyt tiedostot
+      attached_files_help: Onko tähän pushiin liitetty tiedostoja?
+      audit_log_for: Tarkastusloki kohteelle %{push_id}
+      contains_text: Sisältää tekstiä
+      contains_text_help: Onko tähän pushiin lisätty tekstiviesti?
+      created: Luotu
+      created_by: Tekijä %{user}
+      current_status: Nykyinen tila
+      deletable_by_viewers: Katsojien poistettavissa
+      deletable_by_viewers_help: Näin loppukäyttäjät voivat poistaa sisällön haettuaan.
+      detail: Yksityiskohta
+      end_audit_log: Tarkastuslokin loppu
+      event: Tapahtuma
+      event_log: Tarkastusloki
+      expire_after: 'Vanhenee jälkeen:'
+      expire_after_time_help: Työntö vanhenee tämän ajan kuluttua luomisesta.
+      expire_after_view_help: Työntö vanhenee tämän näyttökertojen määrän jälkeen.
+      expire_now: Merkitse vanhentuneeksi
+      expire_now_confirm: Tämä vanhenee tämän salaisen linkin ja poistaa kaiken siihen
+        liittyvän sisällön tietokannasta pysyvästi. Tarkastusloki (mukaan lukien tulevat
+        katseluyritykset) säilytetään edelleen. Oletko varma?
+      expired: Vanhentunut
+      failed_view: Epäonnistunut katseluyritys
+      failed_view_attempts: Epäonnistuneet katseluyritykset
+      failed_view_attempts_help: Yritysten määrä tarkastella tätä push-toimintoa vanhenemisen
+        jälkeen.
+      filename: Tiedoston nimi
+      files_deleted: Kaikki aiemmin liitetyt tiedostot on poistettu tai niitä ei ollut
+        liitetty."
+      log_note: Kun push vastaanottaa toimintaa, jokaisen loki, jossa on tunnistetiedot,
+        tulee näkyviin tähän.
+      manual_expiration: Manuaalinen vanheneminen
+      message_length: Viestin pituus
+      message_length_help: Liitteenä olevan tekstin hyötykuorman pituus.
+      none: Ei mitään
+      num_files_attached: Liitettyjen tiedostojen määrä
+      num_files_attached_help: Tähän push-tiedostoon liitettyjen tiedostojen määrä.
+      passphrase_lock: Salalauseen lukitus
+      passphrase_lock_help: Vaadi vastaanottajia antamaan tunnuslause nähdäkseen tämän
+        push-toiminnon.
+      payload: Hyötykuorma
+      push_date: Painettu %{date}
+      reference_note: Viitehuomautus
+      secret_url: Tämän lähetyksen salainen URL-osoite
+      size: 'Koko: %{size}'
+      start_audit_log: Tarkastuslokin alku
+      start_log: Tarkastuslokin alku
+      state: Osavaltio
+      state_help_active: Aktiivinen ja edelleen katsottavissa.
+      state_help_expired: Lähetys on poistettu ja salainen URL-osoite vanhentunut.
+      successful_view: Onnistunut näkymä
+      successful_views: Onnistuneet näytöt
+      successful_views_help: Kuinka monta kertaa push on katsottu onnistuneesti.
+      time_remaining: Aikaa jäljellä
+      time_remaining_help: Aika, joka on jäljellä ennen työntöajan päättymistä.
+      title: Push Audit Log
+      visible_to: Näkyy vain sinulle
+      when: Kun
+    copy_to_clipboard: Kopioi leikepöydälle
+    day:
+      one: 1 päivä
+      other: "%{count} päivää"
+    deleted: Poistettu
+    expiration_html: Tämä salainen linkki ja kaikki sisältö poistetaan <strong>%{duration}</strong>
+      tai <strong>%{count} muissa näkymissä</strong> sen mukaan, kumpi tapahtuu ensin.
+    expire:
+      expired: Lähetys on poistettu ja salainen URL-osoite vanhentunut.
+      not_deletable: Katsojat eivät voi poistaa tätä lähetystä.
+    form:
+      12_hours: 12 tuntia
+      15_minutes: 15 minuuttia
+      1_day: 1 päivä
+      1_hour: 1 tunti
+      1_month: 1 kuukausi
+      1_week: 1 viikko
+      1click: Käytä yhden napautuksen hakuvaihetta
+      1click_tip: Auttaa estämään chat-järjestelmiä ja skannereita syömästä näkymiä.
+      2_days: 2 päivää
+      2_months: 2 kuukautta
+      2_weeks: 2 viikkoa
+      30_minutes: 30 minuuttia
+      3_days: 3 päivää
+      3_months: 3 kuukautta
+      3_weeks: 3 viikkoa
+      45_minutes: 45 minuuttia
+      4_days: 4 päivää
+      5_days: 5 päivää
+      6_days: 6 päivää
+      6_hours: 6 tuntia
+      add_files: Lisää tiedostoja...
+      audit_tip: Sisäänkirjautuneena toiminnasta pidetään tarkastusloki, joka on käytettävissä
+        toistaiseksi.
+      day: Päivä
+      days: Päiviä
+      deletable: Salli välitön poistaminen
+      deletable_tip: Salli käyttäjien poistaa tämä push, kun se on haettu.
+      encryption_tip: Sisältö salataan ennen tallennusta, ja se on vain niille, joilla
+        on salainen linkki.
+      expiration_label: 'Vanhene tämä push ja poista sen jälkeen:'
+      expiration_tip: Vanhentuessaan kaikki push-ohjelman sisältö ja tiedostot poistetaan
+        välittömästi ja kokonaan.
+      generator_tip: Käytä yllä olevaa painiketta luodaksesi satunnaisen salasanan.
+      hour: Tunti
+      hours: Tuntia
+      login_to_upload: Kirjaudu sisään ladataksesi ja liittääksesi tiedostoja tähän
+        push...
+      minutes: Pöytäkirja
+      month: Kuukausi
+      months: Kuukaudet
+      note_label: Viitehuomautus
+      note_placeholder: Yksityinen muistiinpano, joka auttaa muistamaan kenelle tai
+        mihin tämä työntö on tarkoitettu.
+      passphrase_label: Salalauseen lukitus
+      passphrase_placeholder: Vaadi vastaanottajia antamaan tunnuslause nähdäkseen
+        tämän push-toiminnon.
+      password_tip: 'Vinkki: Kirjoita vain salasana ruutuun. Muut tunnistetiedot voivat
+        vaarantaa turvallisuuden.'
+      payload_placeholder: Syötä salasana, teksti tai URL-osoite lähettääksesi...
+      push_it: Lähetä se!
+      upload_limit: Voit ladata enintään 10 tiedostoa työntöä kohti.
+      view: Näytä
+      views: katselukerrat
+      week: Viikko
+      weeks: Viikot
+    hour:
+      one: 1 tunti
+      other: "%{count} tuntia"
+    index:
+      actions: Toiminnot
+      clear_filters: Tyhjennä suodattimet
+      created: Luotu
+      created_by: 'Tekijä:'
+      expires: Vanhenee
+      file_count: Tiedostot
+      note: Lisätieto
+      nothing_here: Täällä ei ole vielä mitään.
+      push_id: Lähetys ID
+      pushes: Työntää
+      remaining_time: Aikaa jäljellä
+      status: Tila
+      views: katselukerrat
+      views_remaining: Näkymät jäljellä
+    minute:
+      one: 1 minuutti
+      other: "%{count} minuuttia"
+    more_view:
+      one: 1 katselu lisää
+      other: "%{count} lisää katselukertoja"
+    'no': Ei
+    none: Ei mitään
+    passphrase:
+      enter_passphrase: Anna salasana
+      go: Mennä
+      placeholder: Anna tämän URL-osoitteen mukana toimitettu salainen tunnuslause
+      tip: Syötä salainen tunnuslause
+    payload: Hyötykuorma
+    preliminary:
+      click_proceed: Napsauta tästä jatkaaksesi
+    preview:
+      and: ja
+      can_be: 'on'
+      can_not_be: ei voi olla
+      deleted_by_viewers: katsojien poistettavissa
+      link_lang_tip: 'Vinkki: lähetätkö kansainväliselle käyttäjälle? Vaihda salaisen
+        linkin kieli URL-osoitteen oikealla puolella olevasta valikosta.'
+      or: tai
+      or_after: tai sen jälkeen
+      push_another: Työnnä toinen
+      push_created: Puskisi on luotu.
+      use_link_to_share: 'Käytä tätä salaista linkkiä sen jakamiseen:'
+      view_push_now: Näytä tämä Push nyt
+      will_burn_view: "(polttaa näkymän)"
+      will_expire_after: Tämä push vanhenee
+      with_preliminary_step: Se sisältää myös %{strong_start}1 napsautuksen alustavan
+        hakuvaiheen%{strong_end}.
+    provide_text_or_file: Push-työn luomiseksi sinun on joko annettava tekstiä, liitettävä
+      tiedosto tai molemmat.
+    push:
+      active: Aktiivinen
+      audit: Auditointi
+      expired: Vanhentunut
+      none: Ei mitään
+      preview: Esikatselu
+      push_controls: Lähetyskontrollit
+      title: Uusi Push
+      unknown: Tuntematon
+    secret_link_lang: Salainen linkkikieli
+    settings: Asetukset
+    show:
+      blurred: Salasanasi on sumennettu sen suojaamiseksi. Napsauta alapuolelta näyttääksesi
+        sen.
+      click_to_reveal: Sisältö on hämärtynyt. Napsauta alla paljastaaksesi sen.
+      delete_now: Poista tämä salainen linkki nyt
+      delete_now_confirm: Tämä vanhenee tämän salaisen linkin ja poistaa kaiken siihen
+        liittyvän sisällön tietokannasta pysyvästi. Oletko varma?
+      download_file: Lataa tiedosto
+      files_sent: Seuraavat tiedostot on lähetetty sinulle.
+      last_view: Tämä on viimeinen näkymä.
+      obtain: Hae ja tallenna tämä sisältö turvallisesti salasanojen hallinnan ja/tai
+        salatun tallennustilan avulla. Muista poistaa välittömästi kaikki tiedot,
+        joita ei enää tarvita.
+      open_file: Avaa tiedosto
+      please_download: Lataa ja säilytä suojatussa paikassa.
+      will_be_deleted: Tämä salainen linkki ja kaikki sisältö poistetaan kansiosta
+        %{b_tag}%{time_count} %{time_unit}%{b_tag} tai %{b_tag}%{view_count} lisää
+        %{view_unit}%{b_tag} (sen mukaan, kumpi tapahtuu ensin).
+      your_link: Salainen linkkisi
+    show_expired:
+      expired_help: Ota tarvittaessa yhteyttä henkilöön tai organisaatioon, joka antoi
+        sinulle tämän salaisen URL-osoitteen.
+      expired_message: Pahoittelemme, mutta tämä salainen linkki on vanhentunut.
+      link_expired: Salainen linkkisi on vanhentunut
+    view:
+      one: 1 näkymä
+      other: "%{count} näkymät"
+    view_audit_log: Näytä tarkastusloki
+    whichever: "(Kumpi tahansa tuleekin ensin)"
+    'yes': Joo
+  static:
+    about:
+      about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
+        jakamiseen muiden ihmisten kanssa turvallisesti.
+      about_2: Password Pusherin avulla voit luoda ainutlaatuisen, kertaluonteisen
+        URL-osoitteen, joka vanhenee tietyn ajan kuluttua tai sen jälkeen, kun sitä
+        on käytetty tietyn määrän kertoja, mikä varmistaa, että tietosi pysyvät yksityisinä
+        ja turvassa.
+      about_3: Yksityishenkilöt ja organisaatiot käyttävät sitä usein jakaakseen kirjautumistietoja
+        tai muita arkaluonteisia tietoja kollegoiden, asiakkaiden tai kumppaneiden
+        kanssa.
+      about_4: Password Pusher on yksinkertainen ja kätevä ratkaisu salasanojen turvalliseen
+        jakamiseen ilman sähköpostia tai muita vähemmän turvallisia viestintätapoja.
+      about_5: Isännöi osoitteessa %{pwpush_link} tai voit käyttää omaa yksityistä
+        ilmentymääsi missä haluat.
+      about_6: Lähdekoodi on saatavilla osoitteessa %{github_link}. Se on avoimen
+        lähdekoodin ja ilmainen kenen tahansa käytettäväksi, tarkastettavaksi tai
+        muokattavaksi.
+      age_body: Ensimmäinen git-sitoumus Password Pusheriin tehtiin <strong>28. joulukuuta
+        2011</strong> . pwpush.com aloitti toimintansa pian sen jälkeen.
+      age_title: Yli %{years_count} vuotta vanha
+      author_1: Nimeni on Peter Giacomo Lombardo. Löydät minut osoitteesta %{linkedin},
+        %{github} tai %{blog}.
+      author_2: Päivityksiä varten seuraa Password Pusher -palvelua %{twitter}:ssa
+        (tai minun %{twitter_personal}:ssä) tai tilaa %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Ylivoimaisesti suurin apu on sanan levittäminen. Jaa Password Pusher
+        ystävien, työtovereiden ja organisaatioiden kanssa.
+      help_2: 'Voit myös:'
+      help_3: Tähdellä %{github}-projekti. Se on bensiiniä Password Pusherin trendikkäille
+        algoille.
+      help_4: Ohje %{translate}. Paranna olemassa olevaa kieltä tai lisää uusi.
+      help_5: Rekisteröidy %{newsletter}-palveluun saadaksesi päivityksiä tärkeistä
+        julkaisuista, tietoturvaongelmista, vinkeistä ja muusta.
+      help_6: Noudata Password Pusheria kohdissa %{facebook}, %{twitter} ja %{github}.
+      help_translate: Auta kääntämään
+      newsletter: Uutiskirje
+      pwpush_domain: pwpush.com
+      section_about: Tietoja
+      section_author: Kirjoittaja
+      section_follow: Mistä seurata Password Pusheria
+      section_help: Haluatko auttaa?
+      title: Tietoja Password Pusherista
+      twitter: Viserrys
+    faq:
+      answer_access_1: Password Pusher JSON -sovellusliittymässä on useita sovelluksia
+        ja komentoriviohjelmia (CLI), jotka ovat yhteydessä pwpush.com-sivustoon tai
+        itseisännöimään ilmentymään. Push salasanat CLI:stä, Slackin, Alfred Appista
+        ja muista.
+      answer_access_2: Katso lisätietoja %{tools}-sivulta.
+      answer_add_feature_1: Erittäin todennäköistä. Haluan kuulla ideoita ja palautetta
+        ja pitää luetteloa päättääkseni, mitä lisään seuraavaksi. Jos sinulla on sellaisia,
+        lähetä ne %{feedback_link}-sivulle tai %{github_link}-sivulle.
+      answer_already_expired_1: Joissakin järjestelmissä, kuten sähköpostissa, palomuurissa
+        ja chat-järjestelmissä, on usein linkkien skannereita, jotka voivat kuluttaa
+        näkymiä. Tämä tehdään yleensä yrityksen turvallisuuden vuoksi tai yksinkertaisesti
+        "esikatselun" luomiseksi sovelluksille.
+      answer_already_expired_2: Voit estää tämän käyttämällä yhden napsautuksen hakuvaihetta
+        salasanoja työntäessäsi. Tämä edellyttää, että käyttäjät napsauttavat alustavan
+        sivun läpi suojatakseen näkymät tällaisilta skannereilta.
+      answer_already_expired_3: Ennaltaehkäisevänä lisätoimenpiteenä, kun kirjaudut
+        sisään, jokaisesta luodusta push-lähetyksestä luodaan tarkastusloki. Tämä
+        tarkastusloki paljastaa, kuka ja milloin push katseli.
+      answer_automation_1: Joo. Password Pusher JSON API mahdollistaa salasanan työntämisen
+        automatisoinnin. Tämä voidaan tehdä useilla ohjelmointikielillä ja työkaluilla.
+      answer_automation_2: Katso lisätietoja %{tools}-sivulta.
+      answer_conference_1: Ehdottomasti. Meillä on mediaresursseja ja täydellinen
+        kuvaus ominaisuuksista, jotka ovat saatavilla %{windows_link}- ja %{mac_link}-muodoissa.
+      answer_conference_2: Jos sinulla on kysyttävää tai tarvitset apua, ota minuun
+        yhteyttä milloin tahansa.
+      answer_how_many_1: Tällä hetkellä ei ole rajoituksia, enkä aio lisätä niitä.
+        Sivuston vakauden takaamiseksi mahdollisimman vähän, Password Pusher on määritetty
+        oletusarvoisesti nopeudenrajoittimella. Tämä voidaan poistaa käytöstä itseisännöidyssä
+        versiossa.
+      answer_licensing_1: Lähdekoodin avoimen lähdekoodin versio julkaistaan Apache
+        2.0 -lisenssillä, ja se määrittelee melkein kaikki rajoitukset. Password Pusherin
+        kloonisivustoja on useita uudelleen tuotettuja ja uudelleen suunniteltuja,
+        ja toivotan ne kaikki tervetulleiksi.
+      answer_licensing_2: Premium-versio on julkaistu kaupallisella lisenssillä. Se
+        ei ole avoimen lähdekoodin eikä ilmainen. Sen ytimessä sisältää avoimen lähdekoodin
+        projektin, mutta se tarjoaa superjoukon ominaisuuksia ja on tarkoitettu nopeuttamaan
+        kehitystä ja auttamaan projektin rahoittamisessa.
+      answer_licensing_3: Premium-versiota ei vaadita Password Pusherin yksityisen
+        esiintymän suorittamiseen. Avoimen lähdekoodin versio on täysin varusteltu
+        ja ilmainen käyttää.
+      answer_licensing_4: Kaikki premium-ominaisuudet päätyvät avoimen lähdekoodin
+        versioon tietyn ajan kuluttua ominaisuudesta riippuen.
+      answer_private_risks_1: Password Pusherin oman instanssin ajaminen yrityksellesi
+        tai organisaatiollesi antaa sinulle mielenrauhan, sillä tiedät tarkalleen,
+        mitä koodia on käynnissä. Voit määrittää ja käyttää sitä haluamallasi tavalla.
+      answer_private_risks_2: Toisaalta, jos ilmentymäsi hakkeroidaan ja salaus katkeaa,
+        haitallisilla yhteisöillä on nyt kohdennettu salasanojen sanakirja, jolla
+        he voivat pakottaa organisaatiosi tilit raa'asti. (tämä rajoittuu työntöihin,
+        jotka eivät ole vielä vanhentuneet)
+      answer_private_risks_3: Tässä suhteessa pwpush.com-sivuston julkinen esiintymä
+        voi olla parempi siinä mielessä, että se sisältää vain salasanoja ilman eri
+        puolilta maailmaa olevien käyttäjien kesken sekoitettua tunnistetietoa.
+      answer_private_risks_4: Toinen näkökohta olisi ilmentymän ylläpito. Sinun on
+        pidettävä se ajan tasalla, suojattu ja varmuuskopioitava.
+      answer_private_risks_5: Käyttäjän tulee punnita huolellisesti edut ja haitat
+        ja päättää, mikä vaihtoehto on hänelle paras. Tuemme mielellämme molempia
+        strategioita.
+      answer_purpose_1: Password Pusher on parempi vaihtoehto salasanojen lähettämiselle
+        sähköpostitse.
+      answer_purpose_10: Lisäksi <strong>salasanat vanhenevat, kun ennalta määritetty
+        näyttökerrat osuvat tai aika on kulunut.</strong>
+      answer_purpose_11: Kun lähetys on vanhentunut, tiedot poistetaan pysyvästi.
+      answer_purpose_12: Jos tämä kuulostaa kiinnostavalta, kokeile sitä tai katso
+        muut usein kysytyt kysymykset alla.
+      answer_purpose_2: "<strong>Salasanojen lähettäminen sähköpostitse on luonnostaan
+        turvatonta.</strong> Suurimpia riskejä ovat mm."
+      answer_purpose_3: Sähköpostissa lähetetyt salasanat lähetetään yleensä kontekstissa
+        siihen, mihin ne menevät, tai ne voidaan mahdollisesti johtaa sähköpostin
+        käyttäjätunnuksesta, verkkotunnuksesta jne.
+      answer_purpose_4: Sähköposti on luonnostaan turvaton, ja haitalliset tahot voivat
+        siepata sen.
+      answer_purpose_5: Sähköpostissa lähetetyt salasanat elävät ikuisesti sähköpostiarkistoissa.
+      answer_purpose_6: Sähköpostissa olevat salasanat voidaan hakea ja käyttää myöhemmin,
+        jos sähköpostitili varastetaan tai murretaan.
+      answer_purpose_7: Samat riskit ovat olemassa lähetettäessä salasanoja tekstiviestillä,
+        WhatsAppilla, sähkeellä, chatilla jne. Data voidaan ja säilytetään usein ikuisesti
+        ja pois päältä.
+      answer_purpose_8: Käyttämällä Password Pusheria ohitat kaiken tämän.
+      answer_purpose_9: Jokaiselle Password Pusheriin lähetetylle salasanalle <strong>luodaan
+        yksilöllinen URL-osoite, jonka vain sinä tiedät</strong> .
+      answer_rebranding_1: Password Pusher tukee täydellistä uudelleenbrändäystä "pakkauksesta",
+        jolloin voit lisätä mukautetun logon, kuvia, tekstiä ja jopa muuttaa sovelluksen
+        teemaa.
+      answer_self_host_1: Kyllä, avoimen lähdekoodin versioille tarjoamme %{docker_link}
+        ja %{install_link} monenlaisille alustoille ja pilville.
+      answer_self_host_2: Premium-versiossa, jossa on huippuominaisuudet, itseisännöidyt
+        säilöt ovat tulossa pian.
+      answer_trust_1: Ja aivan oikein. Kaikki hyvä tietoturva alkaa terveestä skeptisyydestä
+        kaikkia asiaan liittyviä komponentteja kohtaan.
+      answer_trust_2: Password Pusher on parempi vaihtoehto salasanojen lähettämiselle
+        sähköpostitse. Sillä vältetään salasanojen olemassaolo sähköpostiarkistoissa
+        ikuisesti. Se ei ole täydellinen tietoturvaratkaisu, jos sellaista voi edes
+        olla olemassa.
+      answer_trust_3: Password Pusher aloitti avoimen lähdekoodin projektina vuoden
+        2011 lopulla. Sitä olen ylläpitänyt ja päivittänyt minä (Peter Giacomo Lombardo)
+        ja kourallinen erinomaisia avustajia koko tuon ajan. Vuonna 2024 premium-versio
+        esiteltiin nopeuttamaan kehitystä ja auttamaan projektin rahoittamisessa.
+        Kaikki premium-ominaisuudet päätyvät lopulta avoimen lähdekoodin versioon.
+      answer_trust_4: Koska Password Pusherilla on niin pitkä historia ja se on avoimen
+        lähdekoodin, sitä on arvosteltu monien silmissä. Sitä ovat käyttäneet ja tarkastaneet
+        monet organisaatiot ja yksityishenkilöt vuosien varrella.
+      answer_trust_5: 'Password Pusherin käytäntö on kolmiosainen: 1) Salaus lepotilassa
+        ja kuljetuksen aikana 2) Minimaalinen tietojen säilyttäminen 3) Läpinäkyvyys
+        tarkastuslokin muodossa.'
+      answer_trust_6: Tässä mielessä push-hyötykuormat poistetaan yksiselitteisesti
+        vanhentuessaan ja tarkastuslokia ylläpidetään loputtomiin. Mitä vähemmän tietoja
+        Password Pusherilla on, sitä parempi.
+      answer_trust_7: Jos sinulla on edelleen huolenaiheita luottamuksesta, turvallisuudesta
+        ja turvallisuudesta, tutustu koodiin, lähetä mahdolliset kysymykset ja harkitse
+        sen sijaan sen käyttöä organisaatiossasi.
+      answer_trust_8: Mitä tulee luottamukseen minuun, voin tarjota vain pitkän historiani
+        rakentamassa tätä projektia ja julkisen maineeni %{github}, %{linkedin}, %{twitter}
+        ja %{blog}. Ota minuun yhteyttä milloin tahansa, jos sinulla on kysyttävää.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Joitakin organisaatioita sitovat suojauskäytännöt, jotka
+        kieltävät julkisten palvelujen käytön arkaluonteisten tietojen, kuten salasanojen,
+        käsittelyssä. On jopa organisaatioita, jotka vaativat kaikkien työkalujen
+        olevan yksityisissä intranetissä ilman pääsyä ulkomaailmaan.
+      answer_why_private_2: Oman Password Pusherin yksityisen esiintymän käyttäminen
+        antaa sinun hallita ympäristöä ja tietoja. Sen avulla voit myös lisätä mukautettuja
+        ominaisuuksia ja integraatioita, jotka ovat ominaisia organisaatiollesi.
+      answer_why_private_3: Näistä syistä tarjoamme käyttäjille ja organisaatioille
+        mahdollisuuden (ja suosittelemme) ajamaan omia instansseja.
+      feedback_link: Palautelomake
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: blogini
+      question_access: Voinko käyttää Password Pusheria muilla tavoilla selaimen ulkopuolella?
+      question_add_feature: Voitko lisätä organisaatiolleni erityisen ominaisuuden?
+      question_already_expired: Lähettämäni salainen URL-osoite oli jo vanhentunut.
+        Mitä tapahtui?
+      question_automation: Voinko automatisoida salasanojen jakelun?
+      question_conference: Voinko käyttää Password Pusher -ohjelmaa puheessani, videossa,
+        esityksessä tai konferenssissa?
+      question_have_to_pay: Pitääkö minun maksaa?
+      question_how_many: Kuinka monta pyyntöä voin lähettää Password Pusherille?
+      question_licensing: Onko minulle, yritykselleni tai organisaatiolleni lisensointirajoituksia?
+      question_premium_diff: Mitä eroja on avoimen lähdekoodin ja premium-version
+        välillä?
+      question_private_risks: Mitä mahdollisia turvallisuusriskejä oman instanssin
+        käyttäminen sisäisesti aiheuttaa?
+      question_purpose: Mikä on Password Pusherin tarkoitus?
+      question_rebranding: Voinko käyttää mukautettua logoa tai muuttaa mallia?
+      question_self_host: Voinko käyttää omaa sisäistä versiota organisaatiolleni?
+      question_trust: Luottamus mietityttää. Miksi minun kannattaisi käyttää Password
+        Pusheria?
+      question_why_premium: Password Pusher on aina ollut avoimen lähdekoodin. Miksi
+        on premium-versio?
+      question_why_private: Miksi haluaisin käyttää omaa Password Pusherin instanssia?
+      question_will_oss: Lisätäänkö premium-ominaisuudet avoimen lähdekoodin versioon?
+      subtitle: "..kaikki asiat, jotka haluat tietää Password Pusherista."
+      title: Usein Kysytyt Kysymykset
+      title_other: Muut
+      title_private: Oman yksityisen instanssin ajaminen
+      title_pushes: Työntää
+      title_subscriptions: Premium-versio
+      title_tools: Työkalut, integraatiot ja sovellukset
+      title_trust: Luottamus ja turvallisuus
+      tools_link: Työkalut ja sovellukset
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Voit käyttää tätä avainta sovelluksessasi asettamalla ympäristömuuttujan
+      generate_key: Luo avain
+      generated: Luotu salausavain
+      intro: Tätä sivua käytetään apuvälineenä satunnaisen salausavaimen luomiseen
+        itseisännöityille Password Pusher -esiintymille.
+      intro_2: Password Pusher salaa arkaluontoiset tiedot tietokannassa. Vaikka mukana
+        on oletusavain, on parasta käyttää omaa mukautettua salausavainta.
+      intro_3: Jokaisella päivityksellä tämä sivu luo uuden salausavaimen. Voit käyttää
+        alla olevaa satunnaisesti luotua koodia määrittääksesi Password Pusher -instanssisi.
+      note_1: Jos salausavainta ei ole annettu, käytetään oletusavainta.
+      note_2: Password Pusherin yksityisten instanssien paras suojaus on käyttää omaa
+        mukautettua salausavainta, vaikka se ei olekaan pakollista.
+      note_3: Oletusavaimen käytön riski pienenee, jos pidät instanssisi suojattuna
+        ja push-vanhenemisajat lyhyinä. esim. 1 päivä/1 näyttökerta vs. 100 päivää/100
+        katselukertaa.
+      note_4: Kun push vanhenee, kaikki kyseisen pushin salatut tiedot poistetaan.
+      note_5: Salausavaimen vaihtaminen kun, vanhoja lähetyksiä on jo olemassa, tekee
+        vanhoista lähetyksistä lukukelvottomia. Toisin sanoen vanhat lähetykset ovat
+        sekaisin, uudet lähetykset näkyvät oikein.
+      note_6: 'Avaimen luonti voidaan tehdä myös sovelluslähteen komentoriviltä suorittamalla:'
+      notes: 'Lisätiedot:'
+      reload: Lataa tämä sivu uudelleen luodaksesi uuden avaimen.
+      title: Luo salausavain
+    password_generator:
+      push_it: Paina tätä salasanaa
+    tools:
+      alfred: Alfred App
+      api_documentation: API-dokumentaatio
+      applications: Sovellukset
+      cli: Komentorivikäyttöliittymä
+      clu: Komentorivityökalut
+      examples: Esimerkkejä
+      github: Github
+      intro: Password Pusher JSON -sovellusliittymässä on useita sovelluksia ja komentoriviohjelmia
+        (CLI), jotka ovat yhteydessä pwpush.com-sivustoon tai itseisännöimään ilmentymään.
+        Push salasanat CLI:stä, Slackin, Alfred Appista ja muista.
+      intro_2: JSON API on tehokas työkalu, joka mahdollistaa salasanan työntämisen
+        automatisoinnin. Tämä voidaan tehdä useilla ohjelmointikielillä ja työkaluilla.
+      intro_3: Katso lisätietoja %{github}-sivulta.
+      more: Lisää
+      slack: löysä
+      subtitle: Password Pusher on enemmän kuin pelkkä verkkosovellus. Siinä on JSON-sovellusliittymä,
+        joka mahdollistaa monenlaisia integraatioita ja sovelluksia.
+      title: Työkalut, sovellusliittymät, integraatiot ja sovellukset
+      tools_1: On olemassa useita JSON API-rajapitaa käyttäviä työkaluja, joilla voi
+        käyttää Password Pusheria salasanajakelun automatisoimiseen.
+      tools_2: Meillä ei ole rajoituksia sille, kuinka monta salasanaa voit lähettää
+        (eikä aikomusta lisätä rajoja), mutta meillä on nopeuden rajoitin, jotta huonot
+        skriptit tai ikävät käyttäjät eivät häiritse sivustoa tai kaada sitä. Rajoita
+        työkalusi enintään yhteen salasanaan muutaman sekunnin välein, niin kaiken
+        pitäisi olla kunnossa.
+      tools_3: 'Voit testata tätä selaimesi Javascript-konsolissa menemällä Password
+        Pusherin etusivulle ja kirjoittamalla:'
+      tools_4: Tämän API-rajapinnan avulla voit käyttää Password Pusheria JSON-kutsujen
+        avulla. Tätä voivat hyödyntää olemassa olevat apuohjelmat, kuten curl, wget
+        tai mikä tahansa ohjelmointikieli. Katso ideoita alla olevista esimerkeistä.
+      tools_5: Katso lisää selityksiä ja esimerkkejä %{github} Wikistä.
+      walkthrough: Esittely ja esimerkkejä

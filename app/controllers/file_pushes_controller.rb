@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-class FilePushesController < ApplicationController
+class FilePushesController < BaseController
   helper FilePushesHelper
 
   before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
@@ -141,24 +141,10 @@ class FilePushesController < ApplicationController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    if ENV.key?("PWPUSH_COM")
-      @push_count = FilePush.where(user_id: current_user.id, expired: false).count
-      if @push_count >= 10
-        msg = _("Only 10 active file pushes allowed while in Beta and until things are stable. If it's an " \
-                "option, you can manually expire existing pushes before creating new ones.")
-        respond_to do |format|
-          format.html do
-            flash.now[:warning] = msg
-            render :new, status: :unprocessable_entity
-          end
-          format.json { render json: {error: msg}, status: :unprocessable_entity }
-        end
-        return
-      end
-    end
+    @push = FilePush.new(file_push_params)
 
     if file_push_params.key?(:files) && file_push_params[:files].count > Settings.files.max_file_uploads
-      msg = t("file_pushes.new.upload_limit", count: Settings.files.max_file_uploads)
+      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
       respond_to do |format|
         format.html do
           flash.now[:warning] = msg
@@ -168,8 +154,6 @@ class FilePushesController < ApplicationController
       end
       return
     end
-
-    @push = FilePush.new(file_push_params)
 
     @push.expire_after_days ||= Settings.files.expire_after_days_default
     @push.expire_after_views ||= Settings.files.expire_after_views_default
@@ -312,7 +296,7 @@ class FilePushesController < ApplicationController
 
     @pushes = FilePush.includes(:views)
       .where(user_id: current_user.id, expired: false)
-      .paginate(page: params[:page], per_page: 30)
+      .page(params[:page])
       .order(created_at: :desc)
 
     respond_to do |format|
@@ -339,7 +323,7 @@ class FilePushesController < ApplicationController
 
     @pushes = FilePush.includes(:views)
       .where(user_id: current_user.id, expired: true)
-      .paginate(page: params[:page], per_page: 30)
+      .page(params[:page])
       .order(created_at: :desc)
 
     respond_to do |format|
@@ -449,12 +433,12 @@ class FilePushesController < ApplicationController
     respond_to do |format|
       format.html { render template: "file_pushes/show_expired", layout: "naked" }
       format.json { render json: {error: "not-found"}.to_json, status: :not_found }
+      format.any { head :not_acceptable }
     end
   end
 
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note,
-      :passphrase, files: [])
+      :retrieval_step, :deletable_by_viewer, :note, :passphrase, files: [])
   end
 end

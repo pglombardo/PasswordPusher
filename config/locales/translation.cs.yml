@@ -221,26 +221,19 @@ cs:
       create: Vytvořit %{model}
       update: Aktualizovat %{model}
       submit: Uložit %{model}
-  will_paginate:
-    previous_label: "&#8592; Předchozí"
-    next_label: Další &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Stránkování
-    page_aria_label: Strana %{page}
     page_entries_info:
-      single_page:
-        zero: Žádný %{model} nenalezen
-        one: Zobrazuji 1 %{model}
-        other: Zobrazuji všech %{count} %{model}
-      single_page_html:
-        zero: Žádný %{model} nenalezen
-        one: Zobrazuji <b>1</b> %{model}
-        other: Zobrazuji <b>všech&nbsp;%{count}</b> %{model}
-      multi_page: Zobrazuji %{model} %{from} - %{to} z %{count} celkem
-      multi_page_html: Zobrazuji %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z <b>%{count}</b>
-        celkem
-    previous_aria_label: Předchozí stránka
-    next_aria_label: Další strana
+      entry:
+        zero: záznamy
+        one: vstup
+        other: záznamy
+      one_page:
+        display_entries:
+          zero: Žádná položka nenalezena
+          one: Zobrazuji <b>%{count}</b> %{entry_name}
+          other: Zobrazuji <b>%{count}</b> %{entry_name}
+      more_pages:
+        display_entries: Zobrazuji %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          z <b>%{total} celkových</b>
   flash:
     actions:
       create:
@@ -606,6 +599,743 @@ cs:
     access: přístup
     passphrase: přístupová fráze
     preview: náhled
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; První"
+      last: Poslední &raquo;
+      previous: "&lsaquo; Předchozí"
+      next: Další &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Jste si jistí?
+      destroy: Zničit
+      edit: Upravit
+      edit_resource: Upravit %{name}
+      show_resource: Zobrazit %{name}
+      new_resource: Nové %{name}
+      back: Zpět
+    controller:
+      create:
+        success: "%{resource} byl úspěšně vytvořen."
+      destroy:
+        success: "%{resource} byl úspěšně zničen."
+      update:
+        success: "%{resource} byl úspěšně aktualizován."
+    fields:
+      has_many:
+        more: Zobrazeno %{count} z %{total_count}
+        none: Žádný
+    form:
+      error: chyba
+      errors: "%{pluralized_errors} zakázal uložení tohoto %{resource_name}:"
+    navigation:
+      back_to_app: Zpět do aplikace
+    search:
+      clear: Vymazat vyhledávání
+      label: Hledat %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Tento administrační panel poskytuje přímý databázový přístup
+          k aplikaci Password Pusher. Buďte opatrní a před provedením jakýchkoli změn
+          zvažte vytvoření zálohy.
+        admin_note: 'Poznámka: Zničení záznamu také zničí všechny podřízené záznamy.
+          Například zničením uživatele dojde také ke zničení všech zatlačených hesel,
+          souborů a adres URL tohoto uživatele.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Počet slabik ve vygenerovaném heslu.
+      back: Zpět k týmu
+      edit: Upravit zásady
+      team_policy_help: Týmová politika je sada pravidel, která platí pro všechny
+        pushy provedené členy tohoto týmu.
+      personal_policy: Osobní zásady
+      personal_policy_help: Zásada je sada pravidel, která platí pro všechny vámi
+        vytvořené push.
+      team_policy: Týmové zásady
+      header_timed_expiration: Časované vypršení platnosti
+      expire_after_duration_min: Minimální trvání
+      expire_after_duration_min_help: Minimální doba před vypršením push.
+      expire_after_duration_max: Maximální trvání
+      expire_after_duration_max_help: Maximální doba před vypršením push.
+      expire_after_duration_default: Výchozí doba trvání
+      expire_after_duration_default_help: Výchozí doba trvání před vypršením push.
+      minutes_tip: 1 den = 1440 minut, 7 dní = 10080 minut, 30 dní = 43200 minut
+      header_view_expiration: Zobrazit vypršení platnosti
+      expire_after_views_min: Minimální počet zhlédnutí
+      expire_after_views_min_help: Minimální počet zobrazení před vypršením platnosti
+        push.
+      expire_after_views_max: Maximální počet zhlédnutí
+      expire_after_views_max_help: Maximální počet zobrazení před vypršením platnosti
+        push. [Max. 100]
+      expire_after_views_default: Výchozí počet zobrazení
+      expire_after_views_default_help: Výchozí počet zobrazení před vypršením platnosti
+        push.
+      header_payload_limits: Limity užitečného zatížení
+      push_text_max: Maximální velikost textu
+      push_text_max_help: Maximální velikost textu v push. Měřeno v bajtech. [Max.
+        1048576]
+      push_files_max: Maximální povolené soubory
+      push_files_max_help: Maximální počet souborů povolený v push. [Max. 100]
+      header_retrieval_step: 1-Klikněte na Krok načítání
+      enable_retrieval_step: Umožnit?
+      enable_retrieval_step_help: Povolit pro tento tým načítání jedním kliknutím?
+        Pokud je tato možnost zakázána, bude skryta a nebude použita.
+      retrieval_step_default: Výchozí hodnota
+      retrieval_step_default_help: Výchozí hodnota pro možnost 1-Click Retrieval step.
+      retrieval_step_forced: Vynutit výchozí hodnotu?
+      retrieval_step_forced_help: Vynutí použití této možnosti s výchozí hodnotou
+        pro všechny členy týmu. Členové týmu jej nemohou změnit.
+      hide_retrieval_step: Skrýt možnost?
+      hide_retrieval_step_help: Skryje před členy týmu možnost kroku načítání jedním
+        kliknutím. To je užitečné pro vynucení výchozí volby, aniž by se zobrazovala
+        členům týmu.
+      header_deletable: Smazatelné prohlížečem
+      enable_deletable: Umožnit?
+      enable_deletable_help: Povolit tuto možnost pro tým? Pokud je tato možnost zakázána,
+        bude skryta a nebude použita.
+      deletable_default: Výchozí hodnota
+      deletable_default_help: Výchozí hodnota pro možnost Smazatelný prohlížečem.
+      deletable_forced: Vynutit výchozí hodnotu?
+      deletable_forced_help: Vynutí použití této možnosti s výchozí hodnotou pro všechny
+        členy týmu. Členové týmu jej nemohou změnit.
+      hide_deletable: Skrýt možnost?
+      hide_deletable_help: Skryje před členy týmu možnost Smazatelný prohlížečem.
+        To je užitečné pro vynucení výchozí volby, aniž by se zobrazovala členům týmu.
+      hide_passphrase: Skrýt možnost?
+      hide_passphrase_help: Skryje možnost Passphrase Lock. Užitečné pro úplné zakázání
+        použití této možnosti.
+      enable_blur: Umožnit?
+      enable_blur_help: Rozmazání datové části zakryje obsah datové části na stránce
+        pro doručení tajné adresy URL. Příjemci mohou kliknutím přepínat rozostření
+        a odhalit tak původní data.
+      header_passphrase: Zámek přístupové fráze
+      header_blur: Rozmazání užitečného zatížení
+      header_pwgen: Generování hesla
+      save: Aktualizujte týmové zásady
+      enable_pwgen: Umožnit?
+      enable_pwgen_help: Povolit možnost generování hesel pro tento tým? Pokud je
+        tato možnost zakázána, bude skryta a nebude použita.
+      pwgen_configurable: Konfigurovatelné?
+      pwgen_configurable_help: Povolit členům týmu konfigurovat Generátor hesel? Pokud
+        je deaktivována, možnost bude vynucena na konfiguraci níže a členové týmu
+        ji nemohou změnit.
+      pwgen_has_numbers: Zahrnout čísla?
+      pwgen_has_numbers_help: Do vygenerovaného hesla zahrňte čísla.
+      pwgen_title_cased: Název Cased?
+      pwgen_title_cased_help: Velká písmena u vygenerovaných částí hesla.
+      pwgen_use_separators: Použít oddělovače?
+      pwgen_use_separators_help: Ve vygenerovaném heslu použijte oddělovače.
+      pwgen_consonants: Souhlásky
+      pwgen_consonants_help: Souhlásky, které se mají použít ve vygenerovaném hesle.
+      pwgen_vowels: Samohlásky
+      pwgen_vowels_help: Samohlásky, které se mají použít ve vygenerovaném hesle.
+      pwgen_separators: Separátory
+      pwgen_separators_help: Oddělovače, které se mají použít ve vygenerovaném hesle.
+      pwgen_min_syllable_length: Minimální délka slabiky
+      pwgen_min_syllable_length_help: Minimální délka slabiky ve vygenerovaném heslu.
+      pwgen_max_syllable_length: Maximální délka slabiky
+      pwgen_max_syllable_length_help: Maximální délka slabiky ve vygenerovaném heslu.
+      pwgen_syllables_count: Počet slabik
+    show:
+      edit_policy: Upravit zásady push
+      policy: Týmové zásady
+  tag_line: Pokračuj. Email Jiné heslo.
+  about: O aplikaci
+  app_name: Posunovač hesel
+  application:
+    card_newsletter:
+      enter_email: Vložte svůj e-mail...
+      subscribe: předplatit
+    cookie_consent:
+      notice: Soubory cookie prohlížeče pomáhají tomuto nástroji fungovat. Jeho používáním
+        souhlasíte s používáním těchto souborů cookie.
+    footer:
+      best_practices: Osvědčené postupy
+      docker: Docker kontejnery
+      faq: FAQ
+      feedback: Zpětná vazba
+      github: GitHub
+      key_generator: Generátor klíčů
+      newsletter: Zpravodaj
+      password_generator: Generátor hesel
+      tools: Nástroje, API a CLI
+    pw_generator_modal:
+      cancel: Storno
+      configure: Nastavení generování hesel
+      consonants: Souhlásky
+      generate_password: Vygenerovat heslo
+      include_numbers: Zahrnout čísla
+      load_preset: Načtěte předvolbu
+      max_syllable_length: Maximální délka slabik
+      min_syllable_length: Minimální délka slabik
+      num_syllables: Počet slabik
+      reset: Obnovit výchozí
+      save: Uložit
+      separators: Separátory
+      test: Generování testu
+      test_area: Testovací oblast
+      use_separators: Použijte oddělovače
+      use_titlecase: Použijte Titlecase
+      vowels: Samohlásky
+  audit_logs:
+    audit_log:
+      created: Vytvořeno
+      created_by: Vytvořil %{user}
+      log_created: Push vytvořen na %{date} uživatelem %{user}
+      log_expired: Platnost push ručně vypršela %{date} od %{user}
+      log_failed_view: Selhal pokus o zobrazení z IP adresy %{ip} na %{date} od %{user}
+      log_manual_expiration: Platnost push ručně vypršela %{date} uživatelem %{user}
+        na IP adrese %{ip}
+      log_referrer: 'Referrer: %{referrer}'
+      log_user_agent: 'User Agent: %{user_agent}'
+      log_viewed: Úspěšné zobrazení z IP adresy %{ip} na %{date} uživatelem %{user}
+      unknown: Neznámý
+      viewed_by: Zobrazeno %{user}
+  dashboard:
+    show:
+      detail: Detail
+      event: událost
+      when: Když
+  duration:
+    format_d:
+      one: 1 den
+      other: "%{count} dny"
+    format_dhm: "%{days} dnů, %{hours} hodin a %{minutes} minut"
+    format_h:
+      one: 1 hodina
+      other: "%{count} hodin"
+    format_hm: "%{hours} hodina a %{minutes} minuta"
+    format_m:
+      one: 1 minuta
+      other: "%{count} minut(y)"
+  feedbacks:
+    create:
+      feedback_sent: Zpětná vazba byla odeslána! Ozveme se vám co nejdříve.
+    failed_spam_test: Omlouváme se, ale neprošel jste kontrolou spamu. Místo toho
+      nás můžete zkusit kontaktovat na Github.
+    failed_to_send: Zpětnou vazbu se nepodařilo odeslat. Něco nebylo v pořádku. Zkuste
+      to znovu nebo nás kontaktujte na Github.
     new:
-      upload_limit: Na jedno push můžete nahrát až %{count} souborů.
+      email: E-mail
+      have_idea: Máte nápad nebo přání? Něco co se ti nelíbí? Chcete pomoci? Chceme
+        to slyšet!
+      leave_blank: Nechte toto pole prázdné!
+      math_question: Kolik je sto mínus 3?
+      send_feedback: Poslat zpětnou vazbu
+      tip: 'Tip: Zkopírujte zprávu do schránky v případě nepravděpodobného selhání
+        odeslání.'
+      your_name: Tvé jméno
+  none: Žádný
+  pages:
+    about:
+      about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
+        citlivých informací s ostatními lidmi.
+      about_2: Pomocí Password Pusher můžete vytvořit jedinečnou, jednorázovou adresu
+        URL, jejíž platnost vyprší po určité době nebo po určitém počtu přístupů,
+        což zajistí, že vaše informace zůstanou soukromé a bezpečné.
+      about_3: Často jej používají jednotlivci a organizace ke sdílení přihlašovacích
+        údajů nebo jiných citlivých údajů s kolegy, klienty nebo partnery.
+      about_4: Password Pusher je jednoduché a pohodlné řešení pro bezpečné sdílení
+        hesel bez potřeby e-mailu nebo jiných méně bezpečných komunikačních metod.
+      about_pwpush: O Password Pusheru
+      hosted_at_html: Hostováno na <a href="https://pwpush.com">pwpush.com</a> nebo
+        můžete provozovat svou vlastní soukromou instanci, kdekoli chcete.
+      my_name: Jmenuji se Peter Giacomo Lombardo. Najdete mě na %{linkedin}, %{github}
+        nebo %{blog}.
+      source_avail_html: Zdrojový kód je <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">dostupný na GitHubu</a> . Je to
+        open source a každý jej může zdarma používat, kontrolovat nebo upravovat.
+      the_author: Autor
+  pushes:
+    access:
+      incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte
+        osobu či organizaci, která vám poslala tento odkaz.
+    audit:
+      1click_retrieval_step: 1-Klikněte na Krok načítání
+      1click_retrieval_step_help: Pomáhá předcházet tomu, aby chatovací systémy a
+        skenery adres URL spotřebovávaly pohledy.
+      active: Aktivní
+      attached_files: Přiložené soubory
+      attached_files_help: Byly k tomuto push připojeny soubory?
+      audit_log_for: Protokol auditu pro %{push_id}
+      contains_text: Obsahuje Text
+      contains_text_help: Byl k tomuto push přidán textový náklad?
+      created: Vytvořeno
+      created_by: Vytvořil %{user}
+      current_status: Současný stav
+      deletable_by_viewers: Smazatelné diváky
+      deletable_by_viewers_help: To umožňuje koncovým uživatelům odstranit obsah po
+        načtení.
+      detail: Detail
+      end_audit_log: Konec protokolu auditu
+      event: událost
+      event_log: Protokol auditu
+      expire_after: 'Vyprší po:'
+      expire_after_time_help: Push vyprší po uplynutí této doby od vytvoření.
+      expire_after_view_help: Po tomto počtu zobrazení vyprší platnost push.
+      expire_now: Vyprší nyní
+      expire_now_confirm: Tímto vyprší platnost tohoto tajného odkazu a navždy smažete
+        veškerý související obsah z databáze. Protokol auditu (včetně budoucích pokusů
+        o zobrazení) bude nadále udržován. Jsi si jistá?
+      expired: Platnost vypršela
+      failed_view: Neúspěšný pokus o zobrazení
+      failed_view_attempts: Neúspěšné pokusy o zobrazení
+      failed_view_attempts_help: Počet pokusů o zobrazení tohoto push po vypršení
+        platnosti.
+      filename: Název souboru
+      files_deleted: Všechny dříve připojené soubory byly smazány nebo nebyly připojeny
+        žádné."
+      log_note: Jakmile push obdrží aktivitu, zobrazí se zde protokol každého s identifikačními
+        informacemi.
+      manual_expiration: Manuální expirace
+      message_length: Délka zprávy
+      message_length_help: Délka užitečného zatížení připojeného textu.
+      none: Žádný
+      num_files_attached: Počet připojených souborů
+      num_files_attached_help: Počet souborů připojených k tomuto push.
+      passphrase_lock: Uzamčení přístupové fráze
+      passphrase_lock_help: Vyžadovat od příjemců zadání přístupové fráze pro zobrazení
+        tohoto push.
+      payload: Užitečné zatížení
+      push_date: Publikováno %{date}
+      reference_note: Referenční poznámka
+      secret_url: Tajná adresa URL pro tento push
+      size: 'Velikost: %{size}'
+      start_audit_log: Začátek protokolu auditu
+      start_log: Začátek protokolu auditu
+      state: Stát
+      state_help_active: Aktivní a stále dostupné pro zobrazení.
+      state_help_expired: Push obsah byl smazán a platnost tajné adresy URL vypršela.
+      successful_view: Úspěšné zobrazení
+      successful_views: Úspěšné zhlédnutí
+      successful_views_help: Počet úspěšných zobrazení push.
+      time_remaining: Zbývající čas
+      time_remaining_help: Doba zbývající do vypršení platnosti push.
+      title: Push Audit Log
+      visible_to: Viditelné pouze pro vás
+      when: Když
+    copy_to_clipboard: Zkopírovat do schránky
+    day:
+      one: 1 den
+      other: "%{count} dny"
+    deleted: Smazáno
+    expiration_html: Tento tajný odkaz a veškerý obsah budou smazány v <strong>%{duration}</strong>
+      nebo <strong>%{count} dalších zobrazeních</strong> , podle toho, co nastane
+      dříve.
+    expire:
+      expired: Push obsah byl smazán a platnost tajné adresy URL vypršela.
+      not_deletable: Tento push není pro diváky smazatelný.
+    form:
+      12_hours: 12 hodin
+      15_minutes: 15 minut
+      1_day: 1 den
+      1_hour: 1 hodina
+      1_month: 1 měsíc
+      1_week: 1 týden
+      1click: Použijte krok načítání jedním kliknutím
+      1click_tip: Pomáhá předcházet tomu, aby chatovací systémy a skenery pohltily
+        pohledy.
+      2_days: 2 dny
+      2_months: 2 měsíce
+      2_weeks: 2 týdny
+      30_minutes: 30 minut
+      3_days: 3 dny
+      3_months: 3 měsíce
+      3_weeks: 3 týdny
+      45_minutes: 45 minut
+      4_days: 4 dny
+      5_days: 5 dní
+      6_days: 6 dní
+      6_hours: 6 hodin
+      add_files: Přidat soubory...
+      audit_tip: Po přihlášení je uchováván protokol auditu o činnosti a je k dispozici
+        po neomezenou dobu.
+      day: Den
+      days: Dní
+      deletable: Umožnit okamžité smazání
+      deletable_tip: Povolit uživatelům smazat tento push po načtení.
+      encryption_tip: Obsah je před uložením zašifrován a je k dispozici pouze uživatelům
+        s tajným odkazem.
+      expiration_label: 'Vyprší platnost tohoto push a smaže po:'
+      expiration_tip: Po vypršení platnosti se veškerý obsah a soubory push okamžitě
+        a úplně odstraní.
+      generator_tip: Pomocí tlačítka výše vygenerujte náhodné heslo.
+      hour: Hodina
+      hours: hodiny
+      login_to_upload: Chcete-li nahrát a připojit soubory k tomuto push, přihlaste
+        se...
+      minutes: Minut
+      month: Měsíc
+      months: měsíce
+      note_label: Referenční poznámka
+      note_placeholder: Soukromá poznámka, která vám pomůže zapamatovat si, pro koho
+        nebo k čemu je tato výzva určena.
+      passphrase_label: Zámek přístupové fráze
+      passphrase_placeholder: Vyžadovat od příjemců zadání přístupové fráze pro zobrazení
+        tohoto push.
+      password_tip: 'Tip: Do pole zadejte pouze heslo. Jiné identifikační informace
+        mohou ohrozit bezpečnost.'
+      payload_placeholder: Zadejte heslo, text nebo URL, které chcete odeslat...
+      push_it: Push It!
+      upload_limit: Na jedno push můžete nahrát až 10 souborů.
+      view: Pohled
+      views: Pohledy
+      week: Týden
+      weeks: týdny
+    hour:
+      one: 1 hodina
+      other: "%{count} hodin"
+    index:
+      actions: Akce
+      clear_filters: Vymazat filtry
+      created: Vytvořeno
+      created_by: Podle
+      expires: Platnost vyprší
+      file_count: Soubory
+      note: Poznámka
+      nothing_here: Zatím tu nic není.
+      push_id: Push ID
+      pushes: Tlačí
+      remaining_time: Zbývající čas
+      status: Postavení
+      views: Pohledy
+      views_remaining: Zbývající zobrazení
+    minute:
+      one: 1 minuta
+      other: "%{count} minuty"
+    more_view:
+      one: 1 další zobrazení
+      other: "%{count} více zobrazení"
+    'no': Ne
+    none: Žádný
+    passphrase:
+      enter_passphrase: Zadejte přístupovou frázi
+      go: Jít
+      placeholder: Zadejte tajnou přístupovou frázi poskytnutou s touto adresou URL
+      tip: Zadejte tajnou přístupovou frázi
+    payload: Užitečné zatížení
+    preliminary:
+      click_proceed: Pokračujte kliknutím sem
+    preview:
+      and: a
+      can_be: může být
+      can_not_be: nemůže být
+      deleted_by_viewers: smazané diváky.
+      link_lang_tip: 'Tip: Zasílat mezinárodnímu uživateli? Změňte jazyk tajného odkazu
+        pomocí rozbalovací nabídky napravo od adresy URL.'
+      or: nebo
+      or_after: nebo po
+      push_another: Push Another
+      push_created: Váš push byl vytvořen.
+      use_link_to_share: 'Pro sdílení použijte tento tajný odkaz:'
+      view_push_now: Zobrazit toto Push Now
+      will_burn_view: "(vypálí pohled)"
+      will_expire_after: Platnost tohoto push vyprší za
+      with_preliminary_step: Zahrnuje také %{strong_start}krok předběžného vyvolání
+        jedním kliknutím%{strong_end}.
+    provide_text_or_file: Chcete-li vytvořit push, musíte zadat text, připojit soubor
+      nebo obojí.
+    push:
+      active: Aktivní
+      audit: Kontrola
+      expired: Platnost vypršela
+      none: Žádný
+      preview: Náhled
+      push_controls: Push Controls
+      title: Nový Push
+      unknown: Neznámý
+    secret_link_lang: Tajný jazyk odkazů
+    settings: Nastavení
+    show:
+      blurred: Vaše heslo je rozmazané. Kliknutím níže jej odhalíte.
+      click_to_reveal: Obsah je rozmazaný. Kliknutím níže jej odhalíte.
+      delete_now: Smazat tento tajný odkaz teď
+      delete_now_confirm: Tímto vyprší platnost tohoto tajného odkazu a navždy smažete
+        veškerý související obsah z databáze. Jsi si jistá?
+      download_file: Stáhnout soubor
+      files_sent: Byly vám zaslány následující soubory.
+      last_view: Toto je poslední pohled.
+      obtain: Bezpečně načtěte a uložte tento obsah pomocí správce hesel a/nebo šifrovaného
+        úložiště. Nezapomeňte okamžitě odstranit všechna data, která již nepotřebujete.
+      open_file: Otevřít soubor
+      please_download: Prosím stáhněte a uložte v zabezpečené oblasti.
+      will_be_deleted: Tento tajný odkaz a veškerý obsah budou smazány v %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} nebo %{b_tag}%{view_count} dalších %{view_unit}%{b_tag}
+        (podle toho, co nastane dříve).
+      your_link: Váš tajný odkaz
+    show_expired:
+      expired_help: V případě potřeby kontaktujte osobu nebo organizaci, která vám
+        tuto tajnou adresu URL poskytla.
+      expired_message: Omlouváme se, ale platnost tohoto tajného odkazu vypršela.
+      link_expired: Platnost vašeho tajného odkazu vypršela
+    view:
+      one: 1 pohled
+      other: "%{count} zobrazení"
+    view_audit_log: Zobrazit protokol auditu
+    whichever: "(dle toho co nastane dřív)"
+    'yes': Ano
+  static:
+    about:
+      about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
+        citlivých informací s ostatními lidmi.
+      about_2: Pomocí Password Pusher můžete vytvořit jedinečnou, jednorázovou adresu
+        URL, jejíž platnost vyprší po určité době nebo po určitém počtu přístupů,
+        což zajistí, že vaše informace zůstanou soukromé a bezpečné.
+      about_3: Často jej používají jednotlivci a organizace ke sdílení přihlašovacích
+        údajů nebo jiných citlivých údajů s kolegy, klienty nebo partnery.
+      about_4: Password Pusher je jednoduché a pohodlné řešení pro bezpečné sdílení
+        hesel bez potřeby e-mailu nebo jiných méně bezpečných komunikačních metod.
+      about_5: Hostováno na %{pwpush_link} nebo můžete provozovat svou vlastní soukromou
+        instanci, kdekoli chcete.
+      about_6: Zdrojový kód je dostupný na %{github_link}. Je to open source a každý
+        jej může zdarma používat, kontrolovat nebo upravovat.
+      age_body: První potvrzení git do Password Pusher bylo <strong>28. prosince 2011</strong>
+        . pwpush.com byl spuštěn krátce poté.
+      age_title: Více než %{years_count} let staré
+      author_1: Jmenuji se Peter Giacomo Lombardo. Najdete mě na %{linkedin}, %{github}
+        nebo %{blog}.
+      author_2: Pro aktualizace sledujte Password Pusher na %{twitter} (nebo moje
+        %{twitter_personal}) nebo se přihlaste k odběru %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Zdaleka největší pomocí je šíření informací. Sdílejte Password Puher
+        se svými přáteli, kolegy a organizacemi.
+      help_2: 'Můžete také:'
+      help_3: Spusťte projekt %{github}. Je to benzín pro algy, které jsou trendem
+        Password Pusher.
+      help_4: Nápověda %{translate}. Vylepšete stávající jazyk nebo přidejte nový.
+      help_5: Přihlaste se k odběru %{newsletter} a získejte aktualizace o důležitých
+        vydáních, bezpečnostních problémech, tipy a další.
+      help_6: Postupujte podle hesla pusher na %{facebook}, %{twitter} a %{github}.
+      help_translate: Pomozte Přeložit
+      newsletter: Zpravodaj
+      pwpush_domain: pwpush.com
+      section_about: O aplikaci
+      section_author: Autor
+      section_follow: Kde sledovat Password pusher
+      section_help: Chcete pomoci?
+      title: O Password Pusheru
+      twitter: Cvrlikání
+    faq:
+      answer_access_1: S rozhraním Password Pusher JSON API existuje řada aplikací
+        a nástrojů příkazového řádku (CLI), které se propojují s pwpush.com nebo vaší
+        instancí s vlastním hostitelem. Push hesla z CLI, Slack, Alfred App a dalších.
+      answer_access_2: Další informace naleznete na stránce %{tools}.
+      answer_add_feature_1: Pravděpodobně. Rád poslouchám všechny nápady a zpětnou
+        vazbu a dělám si seznam, abych se rozhodl, co přidat dál. Pokud nějaké máte,
+        odešlete je na stránku %{feedback_link} nebo na %{github_link}.
+      answer_already_expired_1: Některé systémy, jako jsou e-maily, firewally a chatovací
+        systémy, mají často skenery odkazů, které mohou spotřebovat pohledy. To se
+        obvykle provádí kvůli podnikové bezpečnosti nebo jednoduše vygeneruje "náhled"
+        aplikací.
+      answer_already_expired_2: Chcete-li tomu zabránit, použijte při zadávání hesel
+        možnost kroku načítání jedním kliknutím. To vyžaduje, aby uživatelé proklikali
+        úvodní stránku, aby chránili pohledy z takových skenerů.
+      answer_already_expired_3: Jako další preventivní opatření je po přihlášení k
+        dispozici protokol auditu pro každý vytvořený push. Tento protokol auditu
+        odhaluje, kdo a kdy byl push zobrazen.
+      answer_automation_1: Ano. Rozhraní Password Pusher JSON API umožňuje automatizaci
+        prosazování hesla. To lze provést pomocí různých programovacích jazyků a nástrojů.
+      answer_automation_2: Další informace naleznete na stránce %{tools}.
+      answer_conference_1: Absolutně. Máme mediální zdroje a úplné vysvětlení funkcí
+        dostupných ve formátech %{windows_link} a %{mac_link}.
+      answer_conference_2: Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte
+        mě kdykoli kontaktovat.
+      answer_how_many_1: V současné době neexistují žádné limity a nemám v úmyslu
+        je přidávat. Aby byla zajištěna minimální stabilita webu, je Password Pusher
+        ve výchozím nastavení nakonfigurován s omezovačem rychlosti. To lze zakázat
+        ve verzi s vlastním hostitelem.
+      answer_licensing_1: Verze zdrojového kódu s otevřeným zdrojovým kódem je vydána
+        pod licencí Apache 2.0 a ta do značné míry definuje všechna omezení. Existuje
+        poměrně málo přeznačených a přepracovaných klonových stránek Password Pusher
+        a já je všechny vítám.
+      answer_licensing_2: Prémiová verze je vydána pod komerční licencí. Není to open
+        source a není zdarma. Ve svém jádru obsahuje projekt s otevřeným zdrojovým
+        kódem, ale nabízí super sadu funkcí a má urychlit vývoj a pomoci financovat
+        projekt.
+      answer_licensing_3: Prémiová verze není vyžadována ke spuštění soukromé instance
+        Password Pusher. Verze s otevřeným zdrojovým kódem je plně funkční a zdarma
+        k použití.
+      answer_licensing_4: Všechny prémiové funkce skončí ve verzi s otevřeným zdrojovým
+        kódem po určité době v závislosti na funkci.
+      answer_private_risks_1: Spuštění soukromé instance Password Pusher pro vaši
+        společnost nebo organizaci vám dává jistotu, že přesně víte, jaký kód běží.
+        Můžete jej nakonfigurovat a spustit, jak chcete.
+      answer_private_risks_2: Na druhou stranu, pokud bude vaše instance hacknuta
+        a šifrování prolomeno, škodlivé entity nyní mají cílený slovník hesel pro
+        účty hrubou silou ve vaší organizaci. (to by bylo omezeno na push, kterým
+        ještě nevypršela platnost)
+      answer_private_risks_3: V tomto ohledu může být veřejná instance na pwpush.com
+        lepší v tom, že obsahuje pouze hesla bez identifikačních informací smíšených
+        mezi uživateli z celého světa.
+      answer_private_risks_4: Dalším aspektem by byla údržba instance. Musíte ji udržovat
+        aktualizovanou, zabezpečenou a zálohovanou.
+      answer_private_risks_5: Uživatel by měl pečlivě zvážit pro a proti a rozhodnout
+        se, která cesta je pro něj nejlepší. Obě strategie rádi podporujeme.
+      answer_purpose_1: Password Pusher existuje jako lepší alternativa k zasílání
+        hesel e-mailem.
+      answer_purpose_10: "<strong>Platnost hesel navíc vyprší poté, co se narazí na
+        předem definovanou sadu pohledů nebo uplyne čas.</strong>"
+      answer_purpose_11: Po vypršení platnosti jsou hesla jednoznačně smazána.
+      answer_purpose_12: Pokud se vám to zdá zajímavé, vyzkoušejte to nebo se podívejte
+        na další často kladené otázky níže.
+      answer_purpose_2: "<strong>Zasílání hesel e-mailem je ze své podstaty nejisté.</strong>
+        Mezi největší rizika patří:"
+      answer_purpose_3: Hesla zasílaná e-mailem se obvykle odesílají s kontextem toho,
+        na co jdou, nebo mohou být potenciálně odvozena z uživatelského jména e-mailu,
+        domény atd…
+      answer_purpose_4: E-mail je ze své podstaty nezabezpečený a může být na několika
+        místech zachycen škodlivými entitami.
+      answer_purpose_5: 'Hesla odeslaná e-mailem žijí navěky (čti: navždy) v archivech
+        e-mailů.'
+      answer_purpose_6: Hesla v e-mailu lze načíst a použít později, pokud je e-mailový
+        účet odcizen, prasklý atd.
+      answer_purpose_7: Stejná rizika existují při odesílání hesel přes SMS, WhatsApp,
+        Telegram, Chat atd. Data mohou a jsou často uchovávána navěky a mimo vaši
+        kontrolu.
+      answer_purpose_8: Použitím Password Pusheru se tomu všemu vyhnete.
+      answer_purpose_9: Pro každé heslo odeslané do Password Pusher <strong>se vygeneruje
+        jedinečná adresa URL, kterou budete znát pouze vy</strong> .
+      answer_rebranding_1: Password Pusher podporuje kompletní re-branding „z krabice“,
+        což vám umožní přidat vlastní logo, obrázky, text a dokonce změnit téma aplikace.
+      answer_self_host_1: Ano, pro verzi s otevřeným zdrojovým kódem poskytujeme %{docker_link}
+        a %{install_link} pro širokou škálu platforem a cloudů.
+      answer_self_host_2: U prémiové verze se super sadou funkcí budou brzy k dispozici
+        kontejnery s vlastním hostitelem.
+      answer_trust_1: A oprávněně. Každé dobré zabezpečení začíná se zdravým skepticismem
+        nad všemi přítomnými součástmi.
+      answer_trust_2: Password Pusher existuje jako lepší alternativa k zasílání hesel
+        e-mailem. Zabraňuje tomu, aby hesla existovala v e-mailových archivech navěky.
+        Neexistuje jako komplexní bezpečnostní řešení.
+      answer_trust_3: Password Pusher začal jako open source projekt na konci roku
+        2011. Po celou tu dobu jsem ho udržoval a aktualizoval já (Peter Giacomo Lombardo)
+        a hrstka vynikajících přispěvatelů. V roce 2024 byla představena prémiová
+        verze s cílem urychlit vývoj a pomoci financovat projekt. Všechny prémiové
+        funkce nakonec skončí ve verzi s otevřeným zdrojovým kódem.
+      answer_trust_4: Díky tak dlouhé historii a otevřenému zdroji byl Password Pusher
+        zkontrolován mnoha očima. V průběhu let byl používán a auditován mnoha organizacemi
+        a jednotlivci.
+      answer_trust_5: 'Politika Password Pusher je trojí: 1) Šifrování v klidu a při
+        přenosu 2) Minimální uchovávání dat 3) Transparentnost ve formě protokolu
+        auditu.'
+      answer_trust_6: V tomto duchu jsou užitečné zátěže push po vypršení jednoznačně
+        smazány a protokol auditu je udržován po neomezenou dobu. Čím méně dat Password
+        Pusher uchovává, tím lépe.
+      answer_trust_7: Pokud máte stále obavy týkající se důvěry, bezpečnosti a zabezpečení,
+        můžete si kód přečíst, zveřejnit případné dotazy a zvážit jeho zavedení interně
+        ve vaší organizaci.
+      answer_trust_8: Co se týče důvěry ve mě, vše, co mohu nabídnout, je moje dlouhá
+        historie budování tohoto projektu a moje veřejná pověst na %{github}, %{linkedin},
+        %{twitter} a %{blog}. V případě jakýchkoliv dotazů mě neváhejte kdykoli kontaktovat.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Některé organizace jsou vázány bezpečnostními zásadami,
+        které zakazují používání veřejných služeb pro citlivé informace, jako jsou
+        hesla. Existují dokonce organizace, které vyžadují, aby všechny nástroje byly
+        na soukromém intranetu bez přístupu k vnějšímu světu.
+      answer_why_private_2: Spuštění vlastní soukromé instance Password Pusher vám
+        umožňuje ovládat prostředí a data. Umožňuje vám také přidávat vlastní funkce
+        a integrace, které jsou specifické pro vaši organizaci.
+      answer_why_private_3: Z těchto důvodů poskytujeme možnost (a povzbuzujeme) uživatele
+        a organizace, aby v případě potřeby spouštěly soukromé instance.
+      feedback_link: Formulář zpětné vazby
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: můj blog
+      question_access: Jsou zde, kromě prohlížeče, další cesty jak přistupovat k Password
+        Pusheru?
+      question_add_feature: Můžete přidat konkrétní funkci pro naši organizaci?
+      question_already_expired: Platnost tajné adresy URL, kterou jsem poslal, již
+        vypršela. Co se stalo?
+      question_automation: Můžu nějak automatizovat distribuci hesel?
+      question_conference: Mohu použít Password Pusher ve svém rozhovoru, videu, prezentaci
+        nebo konferenci?
+      question_have_to_pay: Musím platit?
+      question_how_many: Kolik požadavků mohu odeslat do Password Pusher?
+      question_licensing: Jsou zde nějaká licenční omezení pro mě, mou společnost
+        nebo organizaci?
+      question_premium_diff: Jaké jsou rozdíly mezi open source a prémiovou verzí?
+      question_private_risks: Jaká jsou potenciální bezpečnostní rizika interního
+        spuštění mé vlastní verze?
+      question_purpose: Jaký je účel Password Pusher?
+      question_rebranding: Mohu použít vlastní logo nebo změnit design?
+      question_self_host: Můžu si pro naši organizaci spustit vlastní interní verzi?
+      question_trust: Důvěra je starost. Proč bych měl používat Password Pusher?
+      question_why_premium: Password Pusher byl vždy open-source. Proč existuje prémiová
+        verze?
+      question_why_private: Proč bych měl chtít provozovat svou vlastní soukromou
+        instanci Password Pusher?
+      question_will_oss: Budou prémiové funkce přidány do verze s otevřeným zdrojovým
+        kódem?
+      subtitle: "..všechno, co chcete vědět o Password Pusher."
+      title: Často kladené otázky
+      title_other: jiný
+      title_private: Provozování vlastní soukromé instance
+      title_pushes: Tlačí
+      title_subscriptions: Prémiová verze
+      title_tools: Nástroje, integrace a aplikace
+      title_trust: Důvěra a bezpečnost
+      tools_link: Nástroje a aplikace
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Tento klíč můžete použít ve své aplikaci nastavením proměnné prostředí
+      generate_key: Generovat klíč
+      generated: Generovaný šifrovací klíč
+      intro: Tato stránka se používá jako pomocný nástroj pro generování náhodného
+        šifrovacího klíče pro samostatně hostované instance Password Pusher.
+      intro_2: Password Pusher šifruje citlivá data v databázi. Přestože je zahrnut
+        výchozí klíč, je osvědčeným postupem použít vlastní šifrovací klíč.
+      intro_3: Při každém obnovení tato stránka vygeneruje nový šifrovací klíč. Níže
+        uvedený náhodně vygenerovaný kód můžete použít ke konfiguraci instance Password
+        Pusher.
+      note_1: Pokud není zadán šifrovací klíč, použije se výchozí klíč.
+      note_2: Nejlepším zabezpečením pro soukromé instance Password Pusher je použití
+        vlastního šifrovacího klíče, i když to není vyžadováno.
+      note_3: Riziko při použití výchozího klíče se sníží, pokud budete udržovat svou
+        instanci zabezpečenou a vypršení platnosti push krátké. např. 1 den/1 zhlédnutí
+        versus 100 dní/100 zhlédnutí.
+      note_4: Jakmile vyprší platnost push, všechna zašifrovaná data v tomto push
+        jsou odstraněna.
+      note_5: Změna šifrovacího klíče ve chvíli, kdy již existují nějaká hesla způsobí,
+        že tato již nebudou získatelná. Jinými slovy, prostě z nich vznikne mišmaš.
+        Budoucí hesla budou fungovat v pořádku.
+      note_6: 'Generování klíčů lze také provést z příkazového řádku ve zdroji aplikace
+        provedením:'
+      notes: 'Poznámky:'
+      reload: Znovu načtěte tuto stránku a znovu vygenerujte nový klíč.
+      title: Vygenerujte šifrovací klíč
+    password_generator:
+      push_it: Push toto heslo
+    tools:
+      alfred: Aplikace Alfred
+      api_documentation: Dokumentace ke koncovému bodu API
+      applications: Aplikace
+      cli: Rozhraní příkazového řádku
+      clu: Nástroje pro příkazovou řádku
+      examples: Příklady
+      github: Github
+      intro: S rozhraním Password Pusher JSON API existuje řada aplikací a nástrojů
+        příkazového řádku (CLI), které se propojují s pwpush.com nebo vaší instancí
+        s vlastním hostitelem. Push hesla z CLI, Slack, Alfred App a dalších.
+      intro_2: JSON API je výkonný nástroj, který umožňuje automatizaci vkládání hesel.
+        To lze provést pomocí různých programovacích jazyků a nástrojů.
+      intro_3: Další informace naleznete na stránce %{github}.
+      more: Více
+      slack: Slack
+      subtitle: Password Pusher je více než jen webová aplikace. Má JSON API, které
+        umožňuje širokou škálu integrací a aplikací.
+      title: Nástroje, API, integrace a aplikace
+      tools_1: Pomocí JSON API existují různé nástroje pro propojení s Password Pusher
+        pro automatizaci distribuce hesel.
+      tools_2: Nemáme žádné limity na počet hesel, které můžete vložit (a nemáme v
+        úmyslu přidávat limity), ale máme omezovač rychlosti, aby web nebyl stažen
+        špatnými scénáři nebo špatnými herci. Omezte své nástroje na maximálně 1 heslo
+        každých pár sekund a měli byste být v pořádku.
+      tools_3: 'Můžete to otestovat v konzole JavaScriptu svého prohlížeče tak, že
+        přejdete na úvodní stránku Password Pusher a zadáte:'
+      tools_4: Toto rozhraní API vám umožňuje rozhraní s Password Pusher přes JSON.
+        Toho mohou využít stávající nástroje jako curl, wget nebo jakýkoli programovací
+        jazyk. Některé nápady najdete v příkladech níže.
+      tools_5: Další vysvětlení a příklady naleznete na %{github} Wiki.
+      walkthrough: Návod a příklady

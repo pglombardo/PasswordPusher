@@ -242,26 +242,19 @@ eu:
       create: "%{model}a eratu"
       update: "%{model}a eguneratu"
       submit: "%{model}a gorde"
-  will_paginate:
-    previous_label: "← Aurrekoa"
-    previous_aria_label: Aurreko orrialdea
-    next_label: Hurrengoa →
-    next_aria_label: Hurrengo orrialdea
-    page_gap: "…"
-    container_aria_label: Paginazioa
-    page_aria_label: Orria %{page}
     page_entries_info:
-      single_page:
-        zero: Ez da %{model} aurkitu
-        one: 1 bistaratzen %{model}
-        other: "%{count} %{model} guztiak bistaratzen"
-      single_page_html:
-        zero: Ez da %{model} aurkitu
-        one: "<b>1</b> bistaratzen %{model}"
-        other: "<b>%{count} %{model} guztiak</b> bistaratzen"
-      multi_page: "%{model} %{from} - %{to} edo %{count} guztira bistaratzen"
-      multi_page_html: "%{model} <b>%{from} - %{to}</b> edo <b>%{count}</b> guztira
-        bistaratzen"
+      entry:
+        zero: sarrerak
+        one: sarrera
+        other: sarrerak
+      one_page:
+        display_entries:
+          zero: Ez da %{entry_name} aurkitu
+          one: "<b>1</b> bistaratzen %{entry_name}"
+          other: "<b>%{count} %{entry_name} guztiak</b> bistaratzen"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first} - %{last}</b> edo <b>%{total}</b>
+          guztira bistaratzen"
   flash:
     actions:
       create:
@@ -612,6 +605,758 @@ eu:
         deprecated_in: Zaharkitze-epea
         sunset_at: 'Ilunabarra '
         info: Info
-  file_pushes:
+  views:
+    pagination:
+      first: "«Lehenengoa"
+      last: Azkena »
+      previous: "‹ Aurrekoa"
+      next: Hurrengoa ›
+      truncate: "…"
+  administrate:
+    actions:
+      confirm: Ziur zaude?
+      destroy: Suntsitu
+      edit: Editatu
+      edit_resource: Editatu %{name}
+      show_resource: Erakutsi %{name}
+      new_resource: Berria %{name}
+      back: Itzuli
+    controller:
+      create:
+        success: "%{resource} behar bezala sortu da."
+      destroy:
+        success: "%{resource} behar bezala suntsitu da."
+      update:
+        success: "%{resource} behar bezala eguneratu da."
+    fields:
+      has_many:
+        more: "%{count}/%{total_count} erakusten"
+        none: Bat ere ez
+    form:
+      error: akatsa
+      errors: "%{pluralized_errors} %{resource_name} hau gordetzea debekatu zuen:"
+    navigation:
+      back_to_app: Itzuli aplikaziora
+    search:
+      clear: Garbitu bilaketa
+      label: Bilatu %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Administratzaile-panel honek datu-baserako sarbide zuzena eskaintzen
+          du Password Pusher aplikaziora. Kontuz ibili eta kontuan hartu babeskopia
+          bat egitea aldaketarik egin aurretik.
+        admin_note: 'Oharra: Erregistro bat suntsitzeak haur-erregistro guztiak ere
+          suntsitzen ditu. Esaterako, erabiltzaile bat suntsitzeak erabiltzaile horrentzako
+          bidalitako pasahitz, fitxategi eta URL guztiak ere suntsituko ditu.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Sortutako pasahitzaren silaba kopurua.
+      back: Itzuli taldera
+      edit: Editatu politika
+      team_policy_help: Taldeko politika talde honetako kideek egindako bultzada guztiei
+        aplikatzen zaien arau multzoa da.
+      personal_policy: Politika pertsonala
+      personal_policy_help: Politika zuk sortutako bultzada guztiei aplikatzen zaien
+        arau multzo bat da.
+      team_policy: Taldearen Politika
+      header_timed_expiration: Denborazko Iraungipena
+      expire_after_duration_min: Gutxieneko Iraupena
+      expire_after_duration_min_help: Bultzada bat iraungi aurreko gutxieneko iraupena.
+      expire_after_duration_max: Gehieneko Iraupena
+      expire_after_duration_max_help: Bultzada bat iraungi aurretik gehienezko iraupena.
+      expire_after_duration_default: Iraupena lehenetsia
+      expire_after_duration_default_help: Bultzada bat iraungi aurreko iraupena lehenetsia.
+      minutes_tip: Egun 1 = 1440 minutu, 7 egun = 10080 minutu, 30 egun = 43200 minutu
+      header_view_expiration: Ikusi Iraungipena
+      expire_after_views_min: Gutxieneko ikustaldi kopurua
+      expire_after_views_min_help: Bultzada bat iraungi baino lehen ikusitako gutxieneko
+        kopurua.
+      expire_after_views_max: Gehienezko ikustaldi kopurua
+      expire_after_views_max_help: Bultzada bat iraungi baino lehen ikusitako gehieneko
+        kopurua. [Gehienez. 100]
+      expire_after_views_default: Ikuspegi-zenbaketa lehenetsia
+      expire_after_views_default_help: Bultzada bat iraungi aurreko ikustaldi-kopuru
+        lehenetsia.
+      header_payload_limits: Karga erabilgarriaren mugak
+      push_text_max: Gehienezko testuaren tamaina
+      push_text_max_help: Testuaren gehienezko tamaina push batean. Bytetan neurtuta.
+        [Gehienez. 1048576]
+      push_files_max: Onartutako gehienezko fitxategiak
+      push_files_max_help: Push batean onartzen den gehienezko fitxategi kopurua.
+        [Gehienez. 100]
+      header_retrieval_step: 1-Sakatu Berreskuratze urratsa
+      enable_retrieval_step: Gaitu?
+      enable_retrieval_step_help: Talde honetarako klik bakarreko berreskurapena gaitu?
+        Desgaituta badago, aukera hau ezkutatu egingo da eta ez da erabiliko.
+      retrieval_step_default: Balio lehenetsia
+      retrieval_step_default_help: 1-Click Retrieval urrats aukeraren balio lehenetsia.
+      retrieval_step_forced: Balio lehenetsia behartu?
+      retrieval_step_forced_help: Aukera hau taldekide guztien balio lehenetsiarekin
+        erabiltzera behartzen du. Taldekideek ezin dute aldatu.
+      hide_retrieval_step: Ezkutatu aukera?
+      hide_retrieval_step_help: Klik bakarreko berreskurapena urratsa aukera ezkutatzen
+        die taldekideei. Hau erabilgarria da aukera lehenetsia behartzeko taldekideei
+        erakutsi gabe.
+      header_deletable: Ikusleak ezaba daiteke
+      enable_deletable: Gaitu?
+      enable_deletable_help: Aukera hau taldearentzat gaitu? Desgaituta badago, aukera
+        hau ezkutatu egingo da eta ez da erabiliko.
+      deletable_default: Balio lehenetsia
+      deletable_default_help: Ikuslearen arabera ezabagarria aukeraren balio lehenetsia.
+      deletable_forced: Balio lehenetsia behartu?
+      deletable_forced_help: Aukera hau taldekide guztien balio lehenetsiarekin erabiltzera
+        behartzen du. Taldekideek ezin dute aldatu.
+      hide_deletable: Ezkutatu aukera?
+      hide_deletable_help: Ikuslearen arabera ezabagarria aukera ezkutatzen du taldekideei.
+        Hau erabilgarria da aukera lehenetsia behartzeko taldekideei erakutsi gabe.
+      hide_passphrase: Ezkutatu aukera?
+      hide_passphrase_help: Pasaesaldiaren blokeoa aukera ezkutatzen du. Baliagarria
+        aukera honen erabilera guztiz desgaitzeko.
+      enable_blur: Gaitu?
+      enable_blur_help: Payload Blurring-ek kargaren edukia ezkutatzen du URL sekretuaren
+        bidalketa-orrian. Hartzaileek lausotasuna alda dezakete klik batekin jatorrizko
+        datuak agertzeko.
+      header_passphrase: Pasaesaldiaren blokeoa
+      header_blur: Karga erabilgarria lausotzea
+      header_pwgen: Pasahitza sortzea
+      save: Eguneratu taldearen politika
+      enable_pwgen: Gaitu?
+      enable_pwgen_help: Talde honen pasahitza sortzea aukera gaitu? Desgaituta badago,
+        aukera hau ezkutatu egingo da eta ez da erabiliko.
+      pwgen_configurable: Konfiguragarria?
+      pwgen_configurable_help: Taldekideei Pasahitz Sortzailea konfiguratzeko baimena
+        eman? Desgaituta badago, aukera beheko konfiguraziora behartuko da eta ezin
+        izango dute taldekideek aldatu.
+      pwgen_has_numbers: Zenbakiak sartu?
+      pwgen_has_numbers_help: Sartu zenbakiak sortutako pasahitzean.
+      pwgen_title_cased: Izenburua maiuskulaz?
+      pwgen_title_cased_help: Izenburua maiuskulaz eta minuskulaz sortutako pasahitz
+        zatiak.
+      pwgen_use_separators: Bereizleak erabili?
+      pwgen_use_separators_help: Erabili bereizleak sortutako pasahitzean.
+      pwgen_consonants: Kontsonanteak
+      pwgen_consonants_help: Sortutako pasahitzean erabili beharreko kontsonanteak.
+      pwgen_vowels: Bokalak
+      pwgen_vowels_help: Sortutako pasahitzean erabili beharreko bokalak.
+      pwgen_separators: Bereizleak
+      pwgen_separators_help: Sortutako pasahitzean erabili beharreko bereizleak.
+      pwgen_min_syllable_length: Gutxieneko silabaren luzera
+      pwgen_min_syllable_length_help: Sortutako pasahitzetan silaba baten gutxieneko
+        luzera.
+      pwgen_max_syllable_length: Gehienezko silabaren luzera
+      pwgen_max_syllable_length_help: Sortutako pasahitzetan silaba baten gehienezko
+        luzera.
+      pwgen_syllables_count: Silaba kopurua
+    show:
+      edit_policy: Editatu Push politika
+      policy: Taldearen Politika
+  tag_line: Segi aurrera. E-posta beste pasahitz bat.
+  about: Buruz
+  app_name: Pasahitz bultzatzailea
+  application:
+    card_newsletter:
+      enter_email: Sartu zure helbide elektronikoa...
+      subscribe: Harpidetu
+    cookie_consent:
+      notice: Arakatzaileen cookieek tresna honek funtzionatzen laguntzen dute. Erabiliz
+        gero, cookie hauen erabilera onartzen duzu.
+    footer:
+      best_practices: Praktika Egokiak
+      docker: Docker edukiontziak
+      faq: SEG - Sarri Egindako Galderak
+      feedback: Iritzia
+      github: GitHub
+      key_generator: Gako Sortzailea
+      newsletter: Buletina
+      password_generator: Pasahitz Sortzailea
+      tools: Tresnak, API eta CLI
+    pw_generator_modal:
+      cancel: Utzi
+      configure: Konfiguratu pasahitza sortzea
+      consonants: Kontsonanteak
+      generate_password: Sortu pasahitza
+      include_numbers: Sartu Zenbakiak
+      load_preset: Kargatu aurrezarpen bat
+      max_syllable_length: Gehienezko silabaren luzera
+      min_syllable_length: Gutxieneko silabaren luzera
+      num_syllables: Silaba kopurua
+      reset: Berrezarri lehenespenetara
+      save: Gorde
+      separators: Bereizleak
+      test: Proba Sorkuntza
+      test_area: Proba Eremua
+      use_separators: Erabili bereizleak
+      use_titlecase: Erabili Titlecase
+      vowels: Bokalak
+  audit_logs:
+    audit_log:
+      created: Sortu
+      created_by: "%{user}-k sortua"
+      log_created: "%{user}-k %{date}-n sortutako Push"
+      log_expired: Push eskuz iraungitako %{date}-n %{user}
+      log_failed_view: Huts egin du %{ip} IP helbidetik ikusteko saiakerak %{date}
+        erabiltzailearen %{user}
+      log_manual_expiration: Sakatu eskuz iraungi den %{date}-n %{user} IP helbidean
+        %{ip}
+      log_referrer: 'Erreferentzia: %{referrer}'
+      log_user_agent: 'Erabiltzaile-eragilea: %{user_agent}'
+      log_viewed: "%{ip} IP helbidetik ikusi da %{date} erabiltzailearen %{user}"
+      unknown: Ezezaguna
+      viewed_by: "%{user} erabiltzaileak ikusia"
+  dashboard:
+    show:
+      detail: Xehetasuna
+      event: Gertaera
+      when: Noiz
+  duration:
+    format_d:
+      one: 1 egun
+      other: "%{count} egun"
+    format_dhm: "%{days} egun, %{hours} ordu eta %{minutes} minutu"
+    format_h:
+      one: 1 ordu
+      other: "%{count} ordu"
+    format_hm: "%{hours} ordu eta %{minutes} minutu"
+    format_m:
+      one: 1 minutu
+      other: "%{count} minutu(s)"
+  feedbacks:
+    create:
+      feedback_sent: Iritzia bidali da! Ahalik eta azkarren itzuliko gara zurekin.
+    failed_spam_test: Barkatu, baina huts egin duzu spam egiaztapenean. Github-en
+      gurekin harremanetan jartzen saia zaitezke.
+    failed_to_send: Ezin izan da bidali iritzia. Zerbait gaizki zegoen. Mesedez, saiatu
+      berriro edo jarri gurekin harremanetan Github-en.
     new:
-      upload_limit: Gehienez %{count} fitxategi karga ditzakezu push bakoitzean.
+      email: Posta elektronikoa
+      have_idea: Ideia edo nahi bat duzu? Gustatzen ez zaizun zerbait? Lagundu nahi?
+        Entzun nahi dugu!
+      leave_blank: Utzi eremu hau hutsik!
+      math_question: Zer da ehun ken 3?
+      send_feedback: Bidali Iritzia
+      tip: 'Aholkua: kopiatu zure mezua arbelean bidalketak huts egiten badu.'
+      your_name: Zure izena
+  none: Bat ere ez
+  pages:
+    about:
+      about_1: Password Pusher pasahitzak eta bestelako informazio sentikorra beste
+        pertsonekin modu seguruan partekatzeko erabiltzen den tresna da.
+      about_2: Password Pusher-ekin, URL bakarra sor dezakezu, denbora jakin baten
+        ondoren iraungiko dena edo hainbat aldiz atzitu ondoren, zure informazioa
+        pribatua eta segurua izango dela ziurtatuz.
+      about_3: Pertsona eta erakundeek sarritan erabiltzen dute saioa hasteko kredentzialak
+        edo bestelako datu sentikorrak lankideekin, bezeroekin edo bazkideekin partekatzeko.
+      about_4: Password Pusher pasahitzak modu seguruan partekatzeko irtenbide sinple
+        eta erosoa da, posta elektronikoa edo ez hain segurua den komunikazio-metodorik
+        beharrik gabe.
+      about_pwpush: Password Pusher-i buruz
+      hosted_at_html: <a href="https://pwpush.com">pwpush.com</a> -en ostatatuta edo
+        nahi duzun tokian zure instantzia pribatua exekutatu dezakezu.
+      my_name: Nire izena Peter Giacomo Lombardo da. %{linkedin}, %{github} edo %{blog}
+        helbidean aurki nazakezu.
+      source_avail_html: Iturburu kodea <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">GitHub-en dago eskuragarri</a> .
+        Kode irekia da eta doakoa da edonork erabiltzeko, berrikusteko edo aldatzeko.
+      the_author: Egilea
+  pushes:
+    access:
+      incorrect: Pasaesaldi hori okerra da. Saiatu berriro edo jarri harremanetan
+        esteka hau bidali dizun pertsona edo erakundearekin.
+    audit:
+      1click_retrieval_step: 1-Sakatu Berreskuratze urratsa
+      1click_retrieval_step_help: Txat-sistemek eta URL eskanerrek bistaratzeak jan
+        ez ditzaten laguntzen du.
+      active: Aktibo daudenak
+      attached_files: Erantsitako fitxategiak
+      attached_files_help: Erantsi al dira fitxategiak push honi?
+      audit_log_for: "%{push_id} kontu-ikuskaritza-erregistroa"
+      contains_text: Testua dauka
+      contains_text_help: Testu-karga bat gehitu al da push honi?
+      created: Sortu
+      created_by: "%{user}-k sortua"
+      current_status: Egungo Egoera
+      deletable_by_viewers: Ikusleek ezabagarria
+      deletable_by_viewers_help: Honi esker, azken erabiltzaileek edukia ezaba dezakete
+        berreskuratu ondoren.
+      detail: Xehetasuna
+      end_audit_log: Ikuskaritza erregistroaren amaiera
+      event: Gertaera
+      event_log: Ikuskaritza Erregistroa
+      expire_after: 'Iraungi ondoren:'
+      expire_after_time_help: Bultzada iraungitzen da sortu zenetik denbora-tarte
+        hori igarota.
+      expire_after_view_help: Bultzada iraungitzen da ikustaldi kopuru hori igaro
+        ondoren.
+      expire_now: Iraungi orain
+      expire_now_confirm: Honek esteka sekretu hau iraungiko du eta betirako ezabatuko
+        du datu-basetik erlazionatutako eduki guztia. Ikuskapen-erregistroa (etorkizuneko
+        saiakerak barne) mantenduko da aurrerantzean. Ziur zaude?
+      expired: Iraungitakoak
+      failed_view: Ikusi saiakerak huts egin du
+      failed_view_attempts: Ikusi saiakerak huts egin ditu
+      failed_view_attempts_help: Iraungi ondoren bultzada hau ikusteko saiakera kopurua.
+      filename: Fitxategi izena
+      files_deleted: Aurretik erantsitako fitxategi guztiak ezabatu egin dira, edo
+        ez zegoen erantsita."
+      log_note: Bultzadak jarduera jasotzen duen heinean, informazio identifikatzailea
+        duen bakoitzaren erregistro bat agertuko da hemen.
+      manual_expiration: Eskuzko Iraungipena
+      message_length: Mezuaren luzera
+      message_length_help: Erantsitako testu-kargaren luzera.
+      none: Bat ere ez
+      num_files_attached: Erantsitako fitxategi kopurua
+      num_files_attached_help: Bultzada honi erantsitako fitxategi kopurua.
+      passphrase_lock: Pasaesaldi bidezko blokeoa
+      passphrase_lock_help: Eskatu hartzailei pasaesaldi bat sartzeko mezu hau.
+      payload: Karga erabilgarria
+      push_date: Sakatu %{date}
+      reference_note: Erreferentzia Oharra
+      secret_url: Bultzada honen URL sekretua
+      size: 'Tamaina: %{size}'
+      start_audit_log: Ikuskaritza Erregistroaren hasiera
+      start_log: Ikuskaritza Erregistroaren hasiera
+      state: Estatu
+      state_help_active: Aktiboa eta oraindik eskuragarri dago ikusteko.
+      state_help_expired: Push edukia ezabatu da eta URL sekretua iraungi egin da.
+      successful_view: Ikuspegi arrakastatsua
+      successful_views: Ikuspegi arrakastatsuak
+      successful_views_help: Bultzada behar bezala ikusi den kopurua.
+      time_remaining: Gelditzen den denbora
+      time_remaining_help: Bultzada iraungi arte geratzen den denbora.
+      title: Push Auditoria Erregistroa
+      visible_to: Zuretzat bakarrik ikusgai
+      when: Noiz
+    copy_to_clipboard: Kopiatu arbelean
+    day:
+      one: 1 egun
+      other: "%{count} egun"
+    deleted: Ezabatu da
+    expiration_html: Esteka sekretu hau eta eduki guztia <strong>%{duration}</strong>
+      edo <strong>%{count} ikuspegi gehiagotan</strong> ezabatuko dira, lehenengoa
+      gertatzen dena.
+    expire:
+      expired: Push edukia ezabatu da eta URL sekretua iraungi egin da.
+      not_deletable: Bultzada hori ikusleek ez dute ezabatzen.
+    form:
+      12_hours: 12 ordu
+      15_minutes: 15 minutu
+      1_day: 1 Egun
+      1_hour: 1 ordu
+      1_month: 1 Hilabete
+      1_week: 1 aste
+      1click: Erabili klik bakarreko berreskuratzeko urratsa
+      1click_tip: Txat-sistemek eta eskanerrek ikuspegiak jaten ez ditzaten laguntzen
+        du.
+      2_days: 2 Egun
+      2_months: 2 Hilabete
+      2_weeks: 2 aste
+      30_minutes: 30 minutu
+      3_days: 3 Egun
+      3_months: 3 hilabete
+      3_weeks: 3 aste
+      45_minutes: 45 minutu
+      4_days: 4 Egun
+      5_days: 5 Egun
+      6_days: 6 egun
+      6_hours: 6 ordu
+      add_files: Gehitu fitxategiak...
+      audit_tip: Saioa hasita, jardueren auditoretza-erregistroa gordetzen da eta
+        mugagabean erabilgarri dago.
+      day: Egun
+      days: Egunak
+      deletable: Baimendu berehala ezabatzea
+      deletable_tip: Baimendu erabiltzaileei push hau ezabatzea berreskuratu ondoren.
+      encryption_tip: Edukia biltegiratu baino lehen enkriptatzen da eta esteka sekretua
+        dutenentzat bakarrik dago eskuragarri.
+      expiration_label: 'Iraungi push hau eta ezabatu ondoren:'
+      expiration_tip: Iraungi ondoren, push-eko eduki eta fitxategi guztiak berehala
+        eta guztiz ezabatzen dira.
+      generator_tip: Erabili goiko botoia ausazko pasahitza sortzeko.
+      hour: Ordu
+      hours: Orduak
+      login_to_upload: Hasi saioa push honetara fitxategiak kargatzeko eta eransteko...
+      minutes: Minutu
+      month: Hilabete
+      months: Hilabeteak
+      note_label: Erreferentzia Oharra
+      note_placeholder: Bultzada hau norentzat edo zertarako den gogoratzen laguntzeko
+        ohar pribatu bat.
+      passphrase_label: Pasaesaldiaren blokeoa
+      passphrase_placeholder: Eskatu hartzailei pasaesaldi bat sartzeko mezu hau.
+      password_tip: 'Aholkua: sartu pasahitz bat bakarrik laukian. Beste identifikazio-informazio
+        batzuek segurtasuna arriskuan jar dezakete.'
+      payload_placeholder: Sartu pasahitza, testua edo URLa bultzatzeko...
+      push_it: Bidali mezua!
+      upload_limit: Bultza bakoitzeko 10 fitxategi karga ditzakezu gehienez.
+      view: Ikusi
+      views: Ikuspegiak
+      week: Astea
+      weeks: Asteak
+    hour:
+      one: 1 ordu
+      other: "%{count} ordu"
+    index:
+      actions: Ekintzak
+      clear_filters: Garbitu iragazkiak
+      created: Sortu
+      created_by: Nork
+      expires: Iraungitzen da
+      file_count: Fitxategiak
+      note: Ohar
+      nothing_here: Hemen oraindik ez dago ezer.
+      push_id: Mezuaren ID
+      pushes: Bultzadak
+      remaining_time: Gelditzen den denbora
+      status: Egoera
+      views: Ikuspegiak
+      views_remaining: Ikuspegiak geratzen dira
+    minute:
+      one: 1 minutu
+      other: "%{count} minutu"
+    more_view:
+      one: Ikuspegi gehiago
+      other: "%{count} ikustaldi gehiago"
+    'no': Ez
+    none: Bat ere ez
+    passphrase:
+      enter_passphrase: Sartu pasaesaldia
+      go: Zoaz
+      placeholder: Sartu URL honekin emandako pasaesaldi sekretua
+      tip: Sartu pasaesaldi sekretua
+    payload: Karga erabilgarria
+    preliminary:
+      click_proceed: Egin klik hemen Jarraitzeko
+    preview:
+      and: eta
+      can_be: izan daiteke
+      can_not_be: ezin izan
+      deleted_by_viewers: ikusleek ezabatu.
+      link_lang_tip: 'Aholkua: nazioarteko erabiltzaile bati eman nahi diozu? Aldatu
+        esteka sekretuaren hizkuntza URLaren eskuinean dagoen menua erabiliz.'
+      or: edo
+      or_after: edo ondoren
+      push_another: Beste mezu bat bidali
+      push_created: Zure bultzada sortu da.
+      use_link_to_share: 'Erabili esteka sekretu hau zure pasahitzak partekatzeko:'
+      view_push_now: Ikusi Push hau orain
+      will_burn_view: "(ikuspegia erreko du)"
+      will_expire_after: Bultzada hau barru iraungiko da
+      with_preliminary_step: Horrez gain, %{strong_start}1-click aurretiazko berreskuratzeko
+        urratsa %{strong_end} ere barne hartzen du.
+    provide_text_or_file: Bultzada bat sortzeko, testua eman behar duzu, fitxategi
+      bat erantsi edo biak.
+    push:
+      active: Aktibo daudenak
+      audit: Ikuskaritza
+      expired: Iraungitakoak
+      none: Bat ere ez
+      preview: Aurrebista
+      push_controls: Push Kontrolak
+      title: Bultzada berria
+      unknown: Ezezaguna
+    secret_link_lang: Lotura sekretua hizkuntza
+    settings: Ezarpenak
+    show:
+      blurred: Zure pasahitza lausotuta dago. Egin klik behean erakusteko.
+      click_to_reveal: Edukia lausotu egiten da. Egin klik behean erakusteko.
+      delete_now: Ezabatu esteka sekretu hau orain
+      delete_now_confirm: Honek esteka sekretu hau iraungiko du eta betirako ezabatuko
+        du datu-basetik erlazionatutako eduki guztia. Ziur zaude?
+      download_file: Deskargatu Fitxategia
+      files_sent: Ondorengo fitxategiak bidali zaizkizu.
+      last_view: Hau da azken ikuspegia.
+      obtain: Berreskuratu eta gorde eduki hau segurtasunez, pasahitz-kudeatzailea
+        edo/eta biltegiratze enkriptatua erabiliz. Gogoratu behar ez diren datuak
+        berehala ezabatzea.
+      open_file: Ireki Fitxategia
+      please_download: Mesedez, deskargatu eta gorde eremu seguru batean.
+      will_be_deleted: Esteka sekretu hau eta eduki guztia ezabatuko dira %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} edo %{b_tag}%{view_count} gehiago %{view_unit}%{b_tag}
+        (lehen gertatzen dena).
+      your_link: Zure esteka sekretua
+    show_expired:
+      expired_help: Behar izanez gero, jarri harremanetan URL sekretu hau eman dizun
+        pertsona edo erakundearekin.
+      expired_message: Barkatu, baina esteka sekretu hau iraungi egin da.
+      link_expired: Zure esteka sekretua iraungi egin da
+    view:
+      one: 1 ikuspegi
+      other: "%{count} ikustaldiak"
+    view_audit_log: Ikusi Ikuskaritza Erregistroa
+    whichever: "(lehen gertatzen dena)"
+    'yes': Bai
+  static:
+    about:
+      about_1: Password Pusher pasahitzak eta bestelako informazio sentikorra beste
+        pertsonekin modu seguruan partekatzeko erabiltzen den tresna da.
+      about_2: Password Pusher-ekin, URL bakarra sor dezakezu, denbora jakin baten
+        ondoren iraungiko dena edo hainbat aldiz atzitu ondoren, zure informazioa
+        pribatua eta segurua izango dela ziurtatuz.
+      about_3: Pertsona eta erakundeek sarritan erabiltzen dute saioa hasteko kredentzialak
+        edo bestelako datu sentikorrak lankideekin, bezeroekin edo bazkideekin partekatzeko.
+      about_4: Password Pusher pasahitzak modu seguruan partekatzeko irtenbide sinple
+        eta erosoa da, posta elektronikoa edo ez hain segurua den komunikazio-metodorik
+        beharrik gabe.
+      about_5: "%{pwpush_link}-n ostatatuta edo zure instantzia pribatua exekutatu
+        dezakezu nahi duzun lekuan."
+      about_6: Iturburu kodea %{github_link} helbidean dago eskuragarri. Kode irekia
+        da eta doakoa da edonork erabiltzeko, berrikusteko edo aldatzeko.
+      age_body: Password Pusher-en lehen git-eko konpromisoa <strong>2011ko abenduaren
+        28an</strong> izan zen. pwpush.com handik gutxira martxan jarri zen.
+      age_title: "%{years_count} Urte baino gehiago"
+      author_1: Nire izena Peter Giacomo Lombardo da. %{linkedin}, %{github} edo %{blog}
+        helbidean aurki nazakezu.
+      author_2: Eguneraketak lortzeko, jarraitu Password Pusher-era %{twitter}-n (edo
+        nire %{twitter_personal}) edo harpidetu %{newsletter}-ra.
+      facebook: Facebook
+      github: Github
+      help_1: Momentuz, laguntzarik handiena zabaltzea da. Partekatu Password Pusher
+        zure lagunekin, lankideekin eta erakundeekin.
+      help_2: 'Hona hemen ere:'
+      help_3: "%{github} proiektua izarra. Pasahitza Pusher joera duten algoentzako
+        gasolina da."
+      help_4: Laguntza %{translate}. Hobetu lehendik dagoen hizkuntza bat edo gehitu
+        beste bat.
+      help_5: Erregistratu %{newsletter} bertsioan argitalpen garrantzitsuei, segurtasun-arazoei,
+        aholkuei eta gehiagori buruzko eguneraketak jasotzeko.
+      help_6: Jarraitu Password Pusher-i %{facebook}, %{twitter} eta %{github} ataletan.
+      help_translate: Lagundu Itzultzen
+      newsletter: Buletina
+      pwpush_domain: pwpush.com
+      section_about: Buruz
+      section_author: Egilea
+      section_follow: Non jarraitu Pasahitz Pusher
+      section_help: Lagundu nahi?
+      title: Password Pusher-i buruz
+      twitter: Twitter
+    faq:
+      answer_access_1: Password Pusher JSON APIarekin, hainbat aplikazio eta komando-lerroko
+        utilitate (CLI) daude pwpush.com-ekin edo zure auto-ostatatutako instantziarekin
+        interfazea dutenak. Sakatu pasahitzak CLI, Slack, Alfred aplikaziotik eta
+        gehiago.
+      answer_access_2: Ikus %{tools} orrialdea informazio gehiago lortzeko.
+      answer_add_feature_1: Oso litekeena da. Ideia eta iritzi guztiak entzutea eta
+        zerrenda bat egitea gustatzen zait hurrengo zer gehitu erabakitzeko. Badaukazu,
+        bidali %{feedback_link} orrialdera edo %{github_link} atalera.
+      answer_already_expired_1: Sistema batzuek, hala nola, posta elektronikoa, suebakiak
+        eta txat-sistemek, sarritan, ikuspegiak jan ditzaketen esteka eskanerrak dituzte.
+        Hau normalean segurtasun korporatiborako edo, besterik gabe, aplikazioen "aurrebista"
+        sortzeko egiten da.
+      answer_already_expired_2: Hori ekiditeko, erabili klik bakarreko berreskuratzeko
+        urrats aukera pasahitzak sakatzean. Honek erabiltzaileek aurretiazko orrialde
+        batean klik egin behar dute eskanerretatik babesteko.
+      answer_already_expired_3: Prebentzio-neurri gehigarri gisa, saioa hasten denean,
+        auditoretza-erregistro bat eskaintzen da sortutako bultzada bakoitzeko. Ikuskaritza-erregistro
+        honek bultzada nork eta noiz ikusi den erakusten du.
+      answer_automation_1: Bai. Password Pusher JSON APIak pasahitza bultzatzeko automatizazioa
+        ahalbidetzen du. Hau hainbat programazio-lengoaia eta tresnarekin egin daiteke.
+      answer_automation_2: Ikus %{tools} orrialdea informazio gehiago lortzeko.
+      answer_conference_1: Erabat. Multimedia baliabideak eta eginbideen azalpen osoa
+        ditugu eskuragarri %{windows_link} eta %{mac_link} formatuetan.
+      answer_conference_2: Galderarik baduzu edo laguntzarik behar baduzu, jar zaitez
+        nirekin harremanetan edonoiz.
+      answer_how_many_1: Momentuz ez dago mugarik eta ez dut gehitzeko asmorik. Gunearen
+        egonkortasuna gutxienez ziurtatzeko, Pasahitz Pusher-a tasa-mugatzaile batekin
+        konfiguratuta dago lehenespenez. Hau desgaitu daiteke auto-ostatatutako bertsioan.
+      answer_licensing_1: Iturburu-kode irekiko bertsioa Apache 2.0 Lizentziapean
+        kaleratzen da eta horrek nahiko muga guztiak definitzen ditu. Badira Pasahitza
+        Pusher-en klona gune batzuk birmarkatu eta birdiseinatu eta ongi etorria ematen
+        diet guztiei.
+      answer_licensing_2: Premium bertsioa lizentzia komertzial batekin kaleratzen
+        da. Ez da kode irekia eta ez da doakoa. Bere oinarrian kode irekiko proiektua
+        dauka, baina funtzio multzo bikaina eskaintzen du eta garapena bizkortu eta
+        proiektua finantzatzen laguntzeko da.
+      answer_licensing_3: Premium bertsioa ez da beharrezkoa Password Pusher-en instantzia
+        pribatu bat exekutatzeko. Kode irekiko bertsioa guztiz funtzionatua eta erabiltzeko
+        doakoa da.
+      answer_licensing_4: Premium funtzio guztiak kode irekiko bertsioan amaitzen
+        dira funtzioaren araberako denbora-tarte baten ondoren.
+      answer_private_risks_1: Zure enpresa edo erakundearentzat Password Pusher-en
+        instantzia pribatu bat exekutatzeak lasaitasuna ematen dizu zehatz-mehatz
+        badakizu zer kodea abian den. Nahi duzun moduan konfiguratu eta exekutatu
+        dezakezu.
+      answer_private_risks_2: Bestalde, zure instantzia pirateatu eta enkriptatzea
+        apurtzen bada, entitate gaiztoek orain zure erakundeko indar gordineko kontuetarako
+        pasahitzen hiztegi zuzendua dute. (Oraindik iraungi ez diren bultzadetara
+        mugatuko litzateke)
+      answer_private_risks_3: Alde horretatik, pwpush.com-en instantzia publikoa hobea
+        izan daiteke, pasahitzak baino ez dituelako mundu osoko erabiltzaileen artean
+        nahasitako informazioa identifikatu gabe.
+      answer_private_risks_4: Beste kontu bat instantzia mantentzea litzateke. Eguneratu,
+        seguru eta babeskopia egin behar duzu.
+      answer_private_risks_5: Erabiltzaileak arretaz neurtu behar ditu alde onak eta
+        txarrak eta erabaki zein den biderik onena. Pozik onartzen ditugu bi estrategiak.
+      answer_purpose_1: Password Pusher pasahitzak posta elektronikoz bidaltzeko alternatiba
+        hobea da.
+      answer_purpose_10: Gainera, <strong>pasahitzak iraungiko dira aurrez zehaztutako
+        ikuspegi multzo bat sakatu ondoren edo denbora igaro ondoren.</strong>
+      answer_purpose_11: Iraungi ondoren, pasahitzak zalantzarik gabe ezabatzen dira.
+      answer_purpose_12: Interesgarria iruditzen bazaizu, proba ezazu edo ikusi behean
+        maiz egiten diren beste galderak.
+      answer_purpose_2: "<strong>Pasahitzak posta elektronikoz bidaltzea berez ez
+        da segurua.</strong> Arrisku handienak honako hauek dira:"
+      answer_purpose_3: Posta elektronikoz bidalitako pasahitzak testuinguruarekin
+        bidaltzen dira zertara doazen edo posta elektronikoko erabiltzaile-izenetik,
+        domeinutik eta abarretatik erator daitezke.
+      answer_purpose_4: Posta elektronikoa berez ez da segurua eta hainbat puntutan
+        atzeman dezakete entitate gaiztoek.
+      answer_purpose_5: 'Posta elektronikoz bidalitako pasahitzak betiko bizi dira
+        (irakur ezazu: betiko) posta elektronikoko artxiboetan.'
+      answer_purpose_6: Posta elektronikoko pasahitzak berreskuratu eta geroago erabil
+        daitezke, posta elektronikoko kontu bat lapurtu, pitzatu eta abar.
+      answer_purpose_7: Arrisku berdinak daude pasahitzak SMS, WhatsApp, Telegram,
+        Chat eta abar bidez bidaltzean... Datuak betirako eta zure kontroletik kanpo
+        gorde daitezke eta askotan.
+      answer_purpose_8: Password Pusher erabiliz, hori guztia saihestuko duzu.
+      answer_purpose_9: Password Pusher-en argitaratutako pasahitz bakoitzeko, <strong>zuk
+        bakarrik ezagutuko duzun URL esklusibo bat sortzen da</strong> .
+      answer_rebranding_1: Password Pusher-ek "kutxatik kanpo" birbranding osoa onartzen
+        du, logotipo pertsonalizatua, irudiak, testua gehitzeko eta aplikazioaren
+        gaia ere aldatzeko.
+      answer_self_host_1: Bai, kode irekiko bertsiorako, %{docker_link} eta %{install_link}
+        hainbat plataforma eta hodeitarako eskaintzen ditugu.
+      answer_self_host_2: Premium bertsiorako, eginbide-multzo bikainarekin, auto-ostatatutako
+        edukiontziak laster etorriko dira.
+      answer_trust_1: Eta zuzenki. Segurtasun on oro inplikatutako osagai guztien
+        eszeptizismo osasuntsuarekin hasten da.
+      answer_trust_2: Password Pusher pasahitzak posta elektronikoz bidaltzeko alternatiba
+        hobea da. Posta elektronikoko artxiboetan pasahitzak betirako egotea saihesten
+        du. Ez da azkeneko segurtasun irtenbide gisa existitzen.
+      answer_trust_3: Password Pusher kode irekiko proiektu gisa hasi zen 2011. urte
+        amaieran. Neuk (Peter Giacomo Lombardo) eta kolaboratzaile bikain batzuek
+        mantendu eta eguneratu izan dut denbora horretan. 2024an, premium bertsioa
+        aurkeztu zen garapena azkartzeko eta proiektua finantzatzeko. Premium funtzio
+        guztiak kode irekiko bertsioan amaitzen dira azkenean.
+      answer_trust_4: Hain historia luzea eta kode irekia izateagatik, Password Pusher-ek
+        begi askoren berrikuspena izan du. Erakunde eta pertsona askok erabili eta
+        ikuskatu dute urteetan zehar.
+      answer_trust_5: 'Password Pusher-en politika hirukoitza da: 1) Enkriptatzea
+        atsedenaldian eta garraioan 2) Datuen atxikipen minimoa 3) Ikuskaritza-erregistro
+        baten moduan gardentasuna.'
+      answer_trust_6: Ildo honetan, push kargak iraungitzean ezabatzen dira zalantzarik
+        gabe eta auditoretza erregistroa mugagabean mantentzen da. Zenbat eta datu
+        gutxiago eduki Password Pusher-ek, orduan eta hobeto.
+      answer_trust_7: Konfiantzari, segurtasunari eta segurtasunari buruzko kezkak
+        badituzu oraindik, lasaitu kodea berrikusi, izan ditzakezun galderak argitaratu
+        eta kontuan hartu zure erakundean barnean exekutatzeko.
+      answer_trust_8: Nigan konfiantzari dagokionez, eskain dezakedan bakarra proiektu
+        hau eraikitzen dudan historia luzea eta nire ospe publikoa %{github}, %{linkedin},
+        %{twitter} eta %{blog} da. Jar zaitez nirekin harremanetan edonoiz izan dezakezun
+        galderarekin.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Zenbait erakundek zerbitzu publikoak erabiltzea debekatzen
+        duten segurtasun-politikei lotuta daude informazio sentikorra lortzeko, hala
+        nola pasahitzak. Badaude tresna guztiak intranet pribatuetan egotea eskatzen
+        duten erakundeak ere, kanpoko mundura sartu gabe.
+      answer_why_private_2: Password Pusher-en zure instantzia pribatua exekutatzen
+        baduzu, ingurunea eta datuak kontrola ditzakezu. Gainera, zure erakunderako
+        espezifikoak diren funtzio pertsonalizatuak eta integrazioak gehitzeko aukera
+        ematen du.
+      answer_why_private_3: Hori dela eta, erabiltzaileei eta erakundeei instantzia
+        pribatuak exekutatzeko gaitasuna (eta bultzatzen) ematen diegu behar denean.
+      feedback_link: Feedback formularioa
+      github_link: GitHub
+      mac_link: Mac Keynote
+      my_blog: nire bloga
+      question_access: Ba al dago arakatzailetik kanpo Pasahitza Pusher-era sartzeko
+        beste modurik?
+      question_add_feature: Gehitu al zenuke nire erakunderako eginbide zehatz bat?
+      question_already_expired: Bidali dudan URL sekretua iraungi zen jada. Zer gertatu
+        da?
+      question_automation: Automatizatu al dezaket nire pasahitzaren banaketa?
+      question_conference: Erabili al dezaket Password Pusher nire hitzaldian, bideoan,
+        aurkezpenean edo konferentzian?
+      question_have_to_pay: Ordaindu behar al dut?
+      question_how_many: Zenbat eskaera bidali ditzaket Password Pusher-era?
+      question_licensing: Ba al dago lizentzia-murrizketarik niretzat, nire enpresarentzat
+        edo nire erakundearentzat?
+      question_premium_diff: Zein dira kode irekiko eta premium bertsioen arteko desberdintasunak?
+      question_private_risks: Zeintzuk dira nire bertsioa barnean exekutatzeko segurtasun-arrisku
+        potentzialak?
+      question_purpose: Zein da Password Pusher-en helburua?
+      question_rebranding: Logotipo pertsonalizatu bat aplikatu al dezaket edo diseinua
+        aldatu?
+      question_self_host: Exekutatu al dezaket nire erakunderako nire bertsioa barnean?
+      question_trust: Konfiantza kezka bat da. Zergatik erabili behar dut Password
+        Pusher?
+      question_why_premium: Password Pusher kode irekikoa izan da beti. Zergatik dago
+        premium bertsio bat?
+      question_why_private: Zergatik exekutatu nahi nuke nire Pasahitz Pusher-en instantzia
+        pribatua?
+      question_will_oss: Premium funtzioak kode irekiko bertsioan gehituko al dira?
+      subtitle: "..Pasahitz Pusher-i buruz jakin nahi dituzun gauza guztiak."
+      title: Galdera arruntak
+      title_other: Bestela
+      title_private: Zure Instantzia Pribatua exekutatzen
+      title_pushes: Bultzadak
+      title_subscriptions: Premium bertsioa
+      title_tools: Tresnak, Integrazioak eta Aplikazioak
+      title_trust: Konfiantza eta segurtasuna
+      tools_link: Tresnak eta Aplikazioak
+      windows_link: Windows Powerpoint
+    generate_key:
+      env_var: Gako hau zure aplikazioari aplika diezaiokezu ingurune-aldagaia ezarriz
+      generate_key: Sortu gakoa
+      generated: Sortutako enkriptatze-gakoa
+      intro: Orrialde hau tresna laguntzaile gisa erabiltzen da ausazko enkriptazio-gako
+        bat sortzeko Password Pusher-en auto-ostatatutako instantzietarako.
+      intro_2: Password Pusher-ek datu sentikorrak zifratzen ditu datu-basean. Gako
+        lehenetsi bat sartuta dagoen arren, praktikarik onena zure enkriptazio-gako
+        pertsonalizatua erabiltzea da.
+      intro_3: Freskatze bakoitzean, orrialde honek enkriptazio-gako berri bat sortzen
+        du. Behean ausaz sortutako kodea erabil dezakezu zure Pasahitza Pusher instantzia
+        konfiguratzeko.
+      note_1: Zifratze-gakorik ematen ez bada, lehenetsitako gako bat erabiliko da.
+      note_2: Password Pusher-en instantzia pribatuetarako segurtasun onena zure enkriptazio-gako
+        pertsonalizatua erabiltzea da, beharrezkoa ez den arren.
+      note_3: Gako lehenetsia erabiltzearen arriskua murrizten da zure instantzia
+        seguru mantentzen baduzu eta push iraungitze laburrak badituzu. adibidez,
+        egun 1/1 ikustaldi versus 100 egun/100 ikustaldi.
+      note_4: Bultzada bat iraungitzen denean, push horretan enkriptatutako datu guztiak
+        ezabatzen dira.
+      note_5: Bultzada zaharrak dauden tokian enkriptazio-gako bat aldatzeak bultzada
+        zaharrago horiek irakurezin bihurtuko ditu. Beste era batera esanda, karga
+        erabilgarriak nahastu egingo dira. Aurrerantzean bultzada berriek ondo funtzionatuko
+        dute.
+      note_6: 'Gakoak sortzea aplikazioaren iturburuko komando-lerrotik ere egin daiteke
+        exekutatuta:'
+      notes: 'Oharrak:'
+      reload: Kargatu orri hau berriro gako berri bat sortzeko.
+      title: Sortu enkriptazio-gako bat
+    password_generator:
+      push_it: Sakatu pasahitz hau
+    tools:
+      alfred: Alfred aplikazioa
+      api_documentation: API amaierako dokumentazioa
+      applications: Aplikazioak
+      cli: Komando lerroko interfazea
+      clu: Komando-lerroko utilitateak
+      examples: Adibideak
+      github: Github
+      intro: Password Pusher JSON APIarekin, hainbat aplikazio eta komando-lerroko
+        utilitate (CLI) daude pwpush.com-ekin edo zure auto-ostatatutako instantziarekin
+        interfazea dutenak. Sakatu pasahitzak CLI, Slack, Alfred aplikaziotik eta
+        gehiago.
+      intro_2: JSON API tresna indartsua da, pasahitza bultzatzeko automatizazioa
+        ahalbidetzen duena. Hau hainbat programazio-lengoaia eta tresnarekin egin
+        daiteke.
+      intro_3: Ikus %{github} orrialdea informazio gehiago lortzeko.
+      more: Gehiago
+      slack: Laxoa
+      subtitle: Password Pusher web aplikazio bat baino gehiago da. JSON API bat du,
+        integrazio eta aplikazio ugari egiteko aukera ematen duena.
+      title: Tresnak, APIak, Integrazioak eta Aplikazioak
+      tools_1: JSON APIa erabiliz, hainbat tresna daude Password Pusher-ekin interfazea
+        pasahitz banaketa automatizatzeko.
+      tools_2: Ez daukagu mugarik zenbat pasahitz bultza ditzakezun (eta ez dugu muga
+        gehitzeko asmorik), baina tarifa-mugatzaile bat dugu, gunea gidoi txarrak
+        edo aktore txarrek kendu ez dezaten. Mugatu zure tresnak gehienez pasahitz
+        batera segundo gutxitan eta ondo egon beharko zenuke.
+      tools_3: 'Hau zure arakatzailearen Javascript kontsolan probatu dezakezu Password
+        Pusher-en hasierako orrialdera joan eta sartu:'
+      tools_4: API honek JSON bidez Pasahitz Pusher-ekin konektatzeko aukera ematen
+        du. Hau lehendik dauden utilitateek erabil dezakete, hala nola curl, wget
+        edo edozein programazio-lengoaia. Ikus beheko adibideak ideia batzuk ikusteko.
+      tools_5: Ikusi azalpen eta adibide gehiago %{github} Wikian.
+      walkthrough: Ibilbidea eta adibideak

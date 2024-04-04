@@ -223,26 +223,19 @@ nl:
       create: "%{model} toevoegen"
       update: "%{model} bijwerken"
       submit: "%{model} opslaan"
-  will_paginate:
-    previous_label: "&#8592; Vorige"
-    next_label: Volgende &#8594;
-    page_gap: "&hellip;"
-    container_aria_label: Paginering
-    page_aria_label: Pagina %{page}
     page_entries_info:
-      single_page:
-        zero: Geen %{model} gevonden
-        one: 1 %{model}
-        other: Alle %{count} %{model}
-      single_page_html:
-        zero: Geen %{model} gevonden
-        one: "<b>1</b> %{model}"
-        other: "<b>all&nbsp;%{count}</b> %{model}"
-      multi_page: "%{from} - %{to} van de in totaal %{count} %{model}"
-      multi_page_html: "<b>%{from}&nbsp;-&nbsp;%{to}</b> van de in totaal <b>%{count}</b>
-        %{model}"
-    previous_aria_label: Vorige bladzijde
-    next_aria_label: Volgende bladzijde
+      entry:
+        zero: inzendingen
+        one: binnenkomst
+        other: inzendingen
+      one_page:
+        display_entries:
+          zero: Geen %{entry_name} gevonden
+          one: "<b>%{count}</b> %{entry_name} getoond"
+          other: Alle <b>%{count}</b> %{entry_name} getoond
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> van de
+          <b>%{total}</b> getoond"
   flash:
     actions:
       create:
@@ -615,6 +608,767 @@ nl:
     access: toegang
     passphrase: wachtwoordzin
     preview: voorbeeld
-  file_pushes:
+  views:
+    pagination:
+      first: "&laquo; Eerste"
+      last: Laatste &raquo;
+      previous: "&lsaquo; Vorige"
+      next: Volgende &rsaquo;
+      truncate: "&hellip;"
+  administrate:
+    actions:
+      confirm: Weet je het zeker?
+      destroy: Vernietigen
+      edit: Bewerking
+      edit_resource: Bewerk %{name}
+      show_resource: Toon %{name}
+      new_resource: Nieuw %{name}
+      back: Terug
+    controller:
+      create:
+        success: "%{resource} is succesvol aangemaakt."
+      destroy:
+        success: "%{resource} is met succes vernietigd."
+      update:
+        success: "%{resource} is succesvol bijgewerkt."
+    fields:
+      has_many:
+        more: "%{count} van %{total_count} wordt weergegeven"
+        none: Geen
+    form:
+      error: fout
+      errors: "%{pluralized_errors} heeft het opslaan van deze %{resource_name} verboden:"
+    navigation:
+      back_to_app: Terug naar app
+    search:
+      clear: Duidelijke zoek
+      label: Zoeken %{resource}
+  layouts:
+    admin:
+      application:
+        admin_intro: Dit beheerdersdashboard biedt directe databasetoegang tot de
+          Password Pusher-applicatie. Wees voorzichtig en overweeg een back-up te
+          maken voordat u wijzigingen aanbrengt.
+        admin_note: 'Opmerking: Als u een record vernietigt, worden ook alle onderliggende
+          records vernietigd. Als u bijvoorbeeld een gebruiker vernietigt, worden
+          ook alle gepushte wachtwoorden, bestanden en URL''s voor die gebruiker vernietigd.'
+  accounts:
+    policy:
+      pwgen_syllables_count_help: Het aantal lettergrepen in het gegenereerde wachtwoord.
+      back: Terug naar team
+      edit: Beleid bewerken
+      team_policy_help: Een teambeleid is een reeks regels die van toepassing zijn
+        op alle pushes van leden van dit team.
+      personal_policy: Persoonlijk beleid
+      personal_policy_help: Een beleid is een reeks regels die van toepassing zijn
+        op alle pushes die u maakt.
+      team_policy: Teambeleid
+      header_timed_expiration: Getimede vervaldatum
+      expire_after_duration_min: Minimale duur
+      expire_after_duration_min_help: De minimale duur voordat een push verloopt.
+      expire_after_duration_max: Maximale duur
+      expire_after_duration_max_help: De maximale duur voordat een push verloopt.
+      expire_after_duration_default: Standaardduur
+      expire_after_duration_default_help: De standaardduur voordat een push verloopt.
+      minutes_tip: 1 dag = 1440 minuten, 7 dagen = 10080 minuten, 30 dagen = 43200
+        minuten
+      header_view_expiration: Vervaldatum bekijken
+      expire_after_views_min: Minimale weergavetelling
+      expire_after_views_min_help: Het minimumaantal weergaven voordat een push verloopt.
+      expire_after_views_max: Maximaal aantal weergaven
+      expire_after_views_max_help: Het maximale aantal weergaven voordat een push
+        verloopt. [Max. 100]
+      expire_after_views_default: Standaard weergavetelling
+      expire_after_views_default_help: Het standaardaantal weergaven voordat een push
+        verloopt.
+      header_payload_limits: Laadvermogenlimieten
+      push_text_max: Maximale tekstgrootte
+      push_text_max_help: De maximale tekstgrootte in een push. Gemeten in bytes.
+        [Max. 1048576]
+      push_files_max: Maximaal toegestane bestanden
+      push_files_max_help: Het maximale aantal bestanden dat in een push is toegestaan.
+        [Max. 100]
+      header_retrieval_step: Ophaalstap met 1 klik
+      enable_retrieval_step: Inschakelen?
+      enable_retrieval_step_help: 1-Click Retrieval inschakelen voor dit team? Indien
+        uitgeschakeld, wordt deze optie verborgen en niet gebruikt.
+      retrieval_step_default: Standaardwaarde
+      retrieval_step_default_help: De standaardwaarde voor de optie Ophalen met 1
+        klik.
+      retrieval_step_forced: De standaardwaarde forceren?
+      retrieval_step_forced_help: Forceert het gebruik van deze optie met de standaardwaarde
+        voor alle teamleden. Het kan niet door teamleden worden gewijzigd.
+      hide_retrieval_step: Optie verbergen?
+      hide_retrieval_step_help: Verbergt de optie Ophalen met 1 klik voor de teamleden.
+        Dit is handig om de standaardoptie te forceren zonder deze aan teamleden te
+        tonen.
+      header_deletable: Verwijderbaar door Viewer
+      enable_deletable: Inschakelen?
+      enable_deletable_help: Deze optie inschakelen voor het team? Indien uitgeschakeld,
+        wordt deze optie verborgen en niet gebruikt.
+      deletable_default: Standaardwaarde
+      deletable_default_help: De standaardwaarde voor de optie Verwijderbaar door
+        Viewer.
+      deletable_forced: De standaardwaarde forceren?
+      deletable_forced_help: Forceert het gebruik van deze optie met de standaardwaarde
+        voor alle teamleden. Het kan niet door teamleden worden gewijzigd.
+      hide_deletable: Optie verbergen?
+      hide_deletable_help: Verbergt de optie Verwijderbaar door viewer voor de teamleden.
+        Dit is handig om de standaardoptie te forceren zonder deze aan teamleden te
+        tonen.
+      hide_passphrase: Optie verbergen?
+      hide_passphrase_help: Verbergt de optie Wachtwoordvergrendeling. Handig om het
+        gebruik van deze optie geheel uit te schakelen.
+      enable_blur: Inschakelen?
+      enable_blur_help: Payload Blurring verbergt de inhoud van de payload op de geheime
+        URL-leveringspagina. Ontvangers kunnen de vervaging met een klik omschakelen
+        om de originele gegevens weer te geven.
+      header_passphrase: Wachtwoordzin vergrendelen
+      header_blur: Vervaging van de lading
+      header_pwgen: Wachtwoord genereren
+      save: Teambeleid bijwerken
+      enable_pwgen: Inschakelen?
+      enable_pwgen_help: De optie Wachtwoord genereren inschakelen voor dit team?
+        Indien uitgeschakeld, wordt deze optie verborgen en niet gebruikt.
+      pwgen_configurable: Configureerbaar?
+      pwgen_configurable_help: Teamleden toestaan de Wachtwoordgenerator te configureren?
+        Indien uitgeschakeld, wordt de optie geforceerd naar de onderstaande configuratie
+        en kan deze niet door teamleden worden gewijzigd.
+      pwgen_has_numbers: Cijfers opnemen?
+      pwgen_has_numbers_help: Voeg cijfers toe aan het gegenereerde wachtwoord.
+      pwgen_title_cased: Titel ingesloten?
+      pwgen_title_cased_help: Titelhoofdletter de gegenereerde wachtwoorddelen.
+      pwgen_use_separators: Scheidingstekens gebruiken?
+      pwgen_use_separators_help: Gebruik scheidingstekens in het gegenereerde wachtwoord.
+      pwgen_consonants: Medeklinkers
+      pwgen_consonants_help: De medeklinkers die moeten worden gebruikt in het gegenereerde
+        wachtwoord.
+      pwgen_vowels: Klinkers
+      pwgen_vowels_help: De klinkers die moeten worden gebruikt in het gegenereerde
+        wachtwoord.
+      pwgen_separators: Scheidingstekens
+      pwgen_separators_help: De scheidingstekens die moeten worden gebruikt in het
+        gegenereerde wachtwoord.
+      pwgen_min_syllable_length: Minimale Lettergreeplengte
+      pwgen_min_syllable_length_help: De minimale lengte van een lettergreep in het
+        gegenereerde wachtwoord.
+      pwgen_max_syllable_length: Maximale Lettergreeplengte
+      pwgen_max_syllable_length_help: De maximale lengte van een lettergreep in het
+        gegenereerde wachtwoord.
+      pwgen_syllables_count: Lettergrepen tellen
+    show:
+      edit_policy: Pushbeleid bewerken
+      policy: Teambeleid
+  tag_line: Doe Maar. E-mail nog een wachtwoord.
+  about: Over
+  app_name: Wachtwoord-pusher
+  application:
+    card_newsletter:
+      enter_email: Voer uw e-mailadres in...
+      subscribe: Abonneren
+    cookie_consent:
+      notice: Browsercookies zorgen ervoor dat deze tool werkt. Door het te gebruiken,
+        gaat u akkoord met het gebruik van deze cookies.
+    footer:
+      best_practices: Beste praktijken
+      docker: Docker Containers
+      faq: FAQ
+      feedback: Feedback
+      github: GitHub
+      key_generator: Key Generator
+      newsletter: Nieuwsbrief
+      password_generator: Wachtwoord generator
+      tools: Tools, API & CLI's
+    pw_generator_modal:
+      cancel: Annuleren
+      configure: Wachtwoordgeneratie configureren
+      consonants: Medeklinkers
+      generate_password: Genereer wachtwoord
+      include_numbers: Inclusief cijfers
+      load_preset: Laad een voorinstelling
+      max_syllable_length: Maximale lengte van lettergrepen
+      min_syllable_length: Minimale lettergrepenlengte
+      num_syllables: Aantal Lettergrepen
+      reset: Herstellen naar Standaardinstellingen
+      save: Bewaar
+      separators: Scheidingstekens
+      test: Testgeneratie
+      test_area: Testgebied
+      use_separators: Gebruik Scheidingstekens
+      use_titlecase: Titelkast Gebruiken
+      vowels: Klinkers
+  audit_logs:
+    audit_log:
+      created: Gemaakt
+      created_by: Gemaakt door %{user}
+      log_created: Push gemaakt op %{date} door %{user}
+      log_expired: Push handmatig verlopen op %{date} door %{user}
+      log_failed_view: Mislukte weergavepoging van IP-adres %{ip} op %{date} door
+        %{user}
+      log_manual_expiration: Push handmatig verlopen op %{date} door %{user} op IP-adres
+        %{ip}
+      log_referrer: 'Verwijzer: %{referrer}'
+      log_user_agent: 'Gebruikersagent: %{user_agent}'
+      log_viewed: Succesvolle weergave vanaf IP-adres %{ip} op %{date} door %{user}
+      unknown: Onbekend
+      viewed_by: Bekeken door %{user}
+  dashboard:
+    show:
+      detail: Detail
+      event: Evenement
+      when: Wanneer
+  duration:
+    format_d:
+      one: 1 dag
+      other: "%{count} dagen"
+    format_dhm: "%{days} dag(en), %{hours} uur(en) en %{minutes} minuut(en)"
+    format_h:
+      one: 1 uur
+      other: "%{count} uur(en)"
+    format_hm: "%{hours} uur(en) en %{minutes} minuut(en)"
+    format_m:
+      one: 1 minuut
+      other: "%{count} minuut(en)"
+  feedbacks:
+    create:
+      feedback_sent: Feedback verzonden! We nemen zo snel mogelijk contact met u op.
+    failed_spam_test: Onze excuses, maar u heeft de spamcontrole niet doorstaan. U
+      kunt in plaats daarvan contact met ons opnemen op Github.
+    failed_to_send: Kan geen feedback verzenden. Er was iets mis. Probeer het opnieuw
+      of neem contact met ons op via Github.
     new:
-      upload_limit: U kunt per push maximaal %{count} bestanden uploaden.
+      email: E-mail
+      have_idea: Heb je een idee of wens? Iets wat je niet leuk vindt? Wil je helpen?
+        Wij willen het horen!
+      leave_blank: Laat dit veld leeg!
+      math_question: Hoeveel is honderd min 3?
+      send_feedback: Feedback Verzenden
+      tip: 'Tip: Kopieer uw bericht naar het klembord in het onwaarschijnlijke geval
+        dat de verzending mislukt.'
+      your_name: Uw Naam
+  none: Geen
+  pages:
+    about:
+      about_1: Password Pusher is een tool die wordt gebruikt om wachtwoorden en andere
+        gevoelige informatie veilig met andere mensen te delen.
+      about_2: Met Password Pusher kunt u een unieke, eenmalige URL maken die na een
+        bepaalde tijd verloopt of nadat deze een bepaald aantal keren is geopend,
+        zodat uw informatie privé en veilig blijft.
+      about_3: Het wordt vaak gebruikt door individuen en organisaties om inloggegevens
+        of andere gevoelige gegevens te delen met collega's, klanten of partners.
+      about_4: Password Pusher is een eenvoudige en handige oplossing voor het veilig
+        delen van wachtwoorden zonder e-mail of andere minder veilige communicatiemethoden.
+      about_pwpush: Over Password Pusher
+      hosted_at_html: Gehost op <a href="https://pwpush.com">pwpush.com</a> of u kunt
+        uw eigen privé-instantie draaien waar u maar wilt.
+      my_name: Mijn naam is Peter Giacomo Lombardo. Je kunt mij vinden op %{linkedin},
+        %{github} of %{blog}.
+      source_avail_html: De broncode is <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">beschikbaar op GitHub</a> . Het
+        is open source en voor iedereen gratis te gebruiken, te beoordelen of aan
+        te passen.
+      the_author: De Auteur
+  pushes:
+    access:
+      incorrect: Dat wachtwoord is onjuist. Probeer het opnieuw of neem contact op
+        met de persoon of organisatie die u deze link heeft gestuurd.
+    audit:
+      1click_retrieval_step: Ophaalstap met 1 klik
+      1click_retrieval_step_help: Helpt met het voorkomen van onnodige weergaven die
+        door URL-scanners en chat systemen veroorzaakt kunnen worden
+      active: Actief
+      attached_files: Bijgevoegde bestanden
+      attached_files_help: Zijn er bestanden bijgevoegd bij deze push?
+      audit_log_for: Auditlogboek voor %{push_id}
+      contains_text: Bevat tekst
+      contains_text_help: Is er een tekstpayload aan deze push toegevoegd?
+      created: Gemaakt
+      created_by: Gemaakt door %{user}
+      current_status: Huidige Status
+      deletable_by_viewers: Verwijderbaar door kijkers
+      deletable_by_viewers_help: Hierdoor kunnen eindgebruikers de inhoud verwijderen
+        zodra deze is opgehaald.
+      detail: Detail
+      end_audit_log: Einde van Auditlogboek
+      event: Evenement
+      event_log: Audit logboek
+      expire_after: 'Verloopt na:'
+      expire_after_time_help: De push verloopt na deze hoeveelheid tijd vanaf de creatie.
+      expire_after_view_help: De push vervalt na dit aantal views.
+      expire_now: Nu laten verlopen
+      expire_now_confirm: Hierdoor vervalt deze geheime link en wordt alle gerelateerde
+        inhoud voor altijd uit de database verwijderd. Het auditlogboek (inclusief
+        toekomstige weergavepogingen) zal in de toekomst nog steeds worden bijgehouden.
+        Weet je het zeker?
+      expired: Verlopen
+      failed_view: Mislukte weergavepoging
+      failed_view_attempts: Mislukte Weergavepogingen
+      failed_view_attempts_help: Het aantal pogingen om deze push te bekijken na de
+        vervaldatum.
+      filename: Bestandsnaam
+      files_deleted: Alle eerder bijgevoegde bestanden zijn verwijderd, of er waren
+        geen bijgevoegde bestanden."
+      log_note: Naarmate de push activiteit ontvangt, wordt hier een logboek met identificerende
+        informatie weergegeven.
+      manual_expiration: Handmatige vervaldatum
+      message_length: Berichtlengte
+      message_length_help: De lengte van de bijgevoegde tekstpayload.
+      none: Geen
+      num_files_attached: Aantal bijgevoegde bestanden
+      num_files_attached_help: Het aantal bestanden dat aan deze push is gekoppeld.
+      passphrase_lock: Wachtwoordzin vergrendelen
+      passphrase_lock_help: Vereisen dat ontvangers een wachtwoordzin invoeren om
+        deze push te bekijken.
+      payload: Payload
+      push_date: Op %{date} geduwd
+      reference_note: 'Referentie Opmerking:'
+      secret_url: Geheime URL voor deze push
+      size: 'Grootte: %{size}'
+      start_audit_log: Begin van Auditlogboek
+      start_log: Begin van Auditlogboek
+      state: Staat
+      state_help_active: Actief en nog steeds te bezichtigen.
+      state_help_expired: De push-inhoud is verwijderd en de geheime URL is verlopen.
+      successful_view: Succesvolle weergave
+      successful_views: Succesvolle Weergaven
+      successful_views_help: Het aantal keren dat de push met succes is bekeken.
+      time_remaining: Overgebleven tijd
+      time_remaining_help: De resterende tijd voordat de push verloopt.
+      title: Push-auditlogboek
+      visible_to: Alleen Zichtbaar Voor Jou
+      when: Wanneer
+    copy_to_clipboard: Kopiëren naar het klembord
+    day:
+      one: 1 dag
+      other: "%{count} dagen"
+    deleted: Verwijderd
+    expiration_html: Deze geheime link en alle inhoud worden verwijderd in <strong>%{duration}</strong>
+      of <strong>%{count} meer weergaven</strong> , afhankelijk van wat zich het eerst
+      voordoet.
+    expire:
+      expired: De push-inhoud is verwijderd en de geheime URL is verlopen.
+      not_deletable: Die push is niet te verwijderen door kijkers.
+    form:
+      12_hours: 12 uren
+      15_minutes: 15 minuten
+      1_day: 1 dag
+      1_hour: 1 uur
+      1_month: 1 maand
+      1_week: 1 week
+      1click: Een ophaalstap met één klik gebruiken
+      1click_tip: Helpt voorkomen dat chatsystemen en scanners weergaven opslokken.
+      2_days: 2 dagen
+      2_months: 2 maanden
+      2_weeks: 2 weken
+      30_minutes: 30 minuten
+      3_days: 3 dagen
+      3_months: 3 maanden
+      3_weeks: 3 weken
+      45_minutes: 45 minuten
+      4_days: 4 dagen
+      5_days: 5 dagen
+      6_days: 6 dagen
+      6_hours: 6 uur
+      add_files: Bestanden toevoegen...
+      audit_tip: Wanneer u bent ingelogd, wordt er een auditlogboek van activiteiten
+        bijgehouden dat voor onbepaalde tijd beschikbaar is.
+      day: dag
+      days: Dagen
+      deletable: Onmiddellijke verwijdering toestaan
+      deletable_tip: Gebruikers toestaan deze push te verwijderen zodra deze is opgehaald.
+      encryption_tip: Inhoud wordt vóór opslag gecodeerd en is alleen beschikbaar
+        voor degenen met de geheime link.
+      expiration_label: 'Verloop deze push en verwijder na:'
+      expiration_tip: Eenmaal verlopen, worden alle inhoud en bestanden van de push
+        onmiddellijk en volledig verwijderd.
+      generator_tip: Gebruik de bovenstaande knop om een willekeurig wachtwoord te
+        genereren.
+      hour: uur
+      hours: Uur
+      login_to_upload: Log in om bestanden te uploaden en bij te voegen aan deze push...
+      minutes: Minuten
+      month: maand
+      months: Maanden
+      note_label: 'Referentie Opmerking:'
+      note_placeholder: Een privénotitie om u te helpen herinneren voor wie of wat
+        deze push is bedoeld.
+      passphrase_label: Wachtwoordzin vergrendelen
+      passphrase_placeholder: Vereisen dat ontvangers een wachtwoordzin invoeren om
+        deze push te bekijken.
+      password_tip: 'Tip: Voer alleen een wachtwoord in het vak in. Andere identificerende
+        informatie kan de veiligheid in gevaar brengen.'
+      payload_placeholder: Voer het wachtwoord, de tekst of de URL in om te pushen...
+      push_it: Genereer link (Push)!
+      upload_limit: U kunt maximaal 10 bestanden per push uploaden.
+      view: Weergave
+      views: Weergaven
+      week: Week
+      weeks: Weken
+    hour:
+      one: 1 uur
+      other: "%{count} uur"
+    index:
+      actions: Acties
+      clear_filters: Filters wissen
+      created: Gemaakt
+      created_by: Door
+      expires: Verloopt
+      file_count: Bestanden
+      note: Opmerking
+      nothing_here: Er is hier nog niets.
+      push_id: Push-ID
+      pushes: Duwt
+      remaining_time: Overgebleven tijd
+      status: Toestand
+      views: Weergaven
+      views_remaining: Aantal resterende weergaven
+    minute:
+      one: 1 minuut
+      other: "%{count} minuten"
+    more_view:
+      one: Nog 1 weergave
+      other: "%{count} meer weergaven"
+    'no': Nee
+    none: Geen
+    passphrase:
+      enter_passphrase: Voer de wachtwoordzin in
+      go: Gaan
+      placeholder: Voer de geheime wachtwoordzin in die bij deze URL is geleverd
+      tip: Voer de geheime wachtwoordzin in
+    payload: Payload
+    preliminary:
+      click_proceed: Klik hier om verder te gaan
+    preview:
+      and: en
+      can_be: kan worden
+      can_not_be: kan niet zijn
+      deleted_by_viewers: verwijderd door kijkers.
+      link_lang_tip: 'Tip: Pushen naar een internationale gebruiker? Wijzig de taal
+        van de geheime link met behulp van het vervolgkeuzemenu rechts van de URL.'
+      or: of
+      or_after: of erna
+      push_another: Push er nog één
+      push_created: Uw push is aangemaakt.
+      use_link_to_share: 'Gebruik deze geheime link om het te delen:'
+      view_push_now: Bekijk Deze Push Nu
+      will_burn_view: "(zal een uitzicht verbranden)"
+      will_expire_after: Deze push verloopt over
+      with_preliminary_step: Het bevat ook een %{strong_start}1-klik voorlopige ophaalstap%{strong_end}.
+    provide_text_or_file: Om een push te maken, moet u tekst opgeven, een bestand
+      bijvoegen, of beide.
+    push:
+      active: Actief
+      audit: Audit
+      expired: Verlopen
+      none: Geen
+      preview: Voorbeeld
+      push_controls: Push Controle
+      title: Nieuwe druk
+      unknown: Onbekend
+    secret_link_lang: Taal van geheime link
+    settings: Instellingen
+    show:
+      blurred: Uw wachtwoord is vervaagd. Klik hieronder om het te onthullen.
+      click_to_reveal: De inhoud is vervaagd. Klik hieronder om het te onthullen.
+      delete_now: Verwijder Deze Geheime Link Nu
+      delete_now_confirm: Hierdoor vervalt deze geheime link en wordt alle gerelateerde
+        inhoud voor altijd uit de database verwijderd. Weet je het zeker?
+      download_file: Download bestand
+      files_sent: De volgende bestanden zijn naar u verzonden.
+      last_view: Dit is de laatste weergave.
+      obtain: Haal deze inhoud veilig op en bewaar deze met behulp van een wachtwoordbeheerder
+        en/of gecodeerde opslag. Vergeet niet om onmiddellijk alle gegevens te verwijderen
+        die niet langer nodig zijn.
+      open_file: Open bestand
+      please_download: Gelieve te downloaden en op te slaan in een beveiligde omgeving.
+      will_be_deleted: Deze geheime link en alle inhoud worden verwijderd in %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} of %{b_tag}%{view_count} meer %{view_unit}%{b_tag} (welke
+        zich het eerst voordoet).
+      your_link: Uw Geheime Link
+    show_expired:
+      expired_help: Neem indien nodig contact op met de persoon of organisatie die
+        u deze geheime URL heeft gegeven.
+      expired_message: Onze excuses, maar deze geheime link is verlopen.
+      link_expired: Je Geheime Link is Verlopen
+    view:
+      one: 1 weergave
+      other: "%{count} weergaven"
+    view_audit_log: Auditlogboek bekijken
+    whichever: "(wat het eerst komt)"
+    'yes': Ja
+  static:
+    about:
+      about_1: Password Pusher is een tool die wordt gebruikt om wachtwoorden en andere
+        gevoelige informatie veilig met andere mensen te delen.
+      about_2: Met Password Pusher kunt u een unieke, eenmalige URL maken die na een
+        bepaalde tijd verloopt of nadat deze een bepaald aantal keren is geopend,
+        zodat uw informatie privé en veilig blijft.
+      about_3: Het wordt vaak gebruikt door individuen en organisaties om inloggegevens
+        of andere gevoelige gegevens te delen met collega's, klanten of partners.
+      about_4: Password Pusher is een eenvoudige en handige oplossing voor het veilig
+        delen van wachtwoorden zonder e-mail of andere minder veilige communicatiemethoden.
+      about_5: Gehost op %{pwpush_link} of u kunt uw eigen privé-instantie draaien
+        waar u maar wilt.
+      about_6: De broncode is beschikbaar op %{github_link}. Het is open source en
+        voor iedereen gratis te gebruiken, te beoordelen of aan te passen.
+      age_body: De eerste git commit voor Password Pusher was op <strong>28 december
+        2011</strong> . pwpush.com ging kort daarna live.
+      age_title: Meer dan %{years_count} jaar oud
+      author_1: Mijn naam is Peter Giacomo Lombardo. Je kunt mij vinden op %{linkedin},
+        %{github} of %{blog}.
+      author_2: Voor updates volgt u Wachtwoord Pusher op %{twitter} (of mijn %{twitter_personal})
+        of abonneert u zich op de %{newsletter}.
+      facebook: Facebook
+      github: Github
+      help_1: Veruit de grootste hulp is het verspreiden van de boodschap. Deel Wachtwoord
+        Pusher met je vrienden, collega's en organisaties.
+      help_2: 'Je kan ook:'
+      help_3: Geef de hoofdrol aan het %{github}-project. Het is benzine voor de algo's
+        die de trend 'Password Pusher' hebben.
+      help_4: Hulp %{translate}. Verbeter een bestaande taal of voeg een nieuwe toe.
+      help_5: Meld u aan voor de %{newsletter} om updates te ontvangen over belangrijke
+        releases, beveiligingsproblemen, tips en meer.
+      help_6: Volg Wachtwoordpusher op %{facebook}, %{twitter} en %{github}.
+      help_translate: Help Vertalen
+      newsletter: Nieuwsbrief
+      pwpush_domain: pwpush.com
+      section_about: Over
+      section_author: De Auteur
+      section_follow: Waar u de wachtwoordpusher kunt volgen
+      section_help: Wil je helpen?
+      title: Over Password Pusher
+      twitter: Twitteren
+    faq:
+      answer_access_1: Met de Password Pusher JSON API zijn er een aantal applicaties
+        en opdrachtregelhulpprogramma's (CLI) die communiceren met pwpush.com of uw
+        zelf-gehoste instantie. Push wachtwoorden vanuit de CLI, Slack, Alfred App
+        en meer.
+      answer_access_2: Zie de pagina %{tools} voor meer informatie.
+      answer_add_feature_1: Zeer waarschijnlijk. Ik hoor graag alle ideeën en feedback
+        en houd een lijst bij om te beslissen wat ik vervolgens ga toevoegen. Als
+        u die heeft, kunt u deze indienen op de pagina %{feedback_link} of op %{github_link}.
+      answer_already_expired_1: Sommige systemen, zoals e-mail, firewalls en chatsystemen,
+        beschikken vaak over linkscanners die weergaven kunnen opslokken. Dit wordt
+        meestal gedaan voor bedrijfsbeveiliging of om eenvoudigweg een "preview" voor
+        applicaties te genereren.
+      answer_already_expired_2: Om dit te voorkomen, gebruikt u de optie voor het
+        ophalen met 1 klik bij het pushen van wachtwoorden. Dit vereist dat de gebruikers
+        door een voorbereidende pagina klikken om weergaven tegen dergelijke scanners
+        te beschermen.
+      answer_already_expired_3: Als extra preventieve maatregel wordt bij het inloggen
+        een auditlogboek verstrekt voor elke gemaakte push. Dit auditlogboek laat
+        zien door wie en wanneer de push is bekeken.
+      answer_automation_1: Ja. De Password Pusher JSON API maakt de automatisering
+        van het pushen van wachtwoorden mogelijk. Dit kan worden gedaan met een verscheidenheid
+        aan programmeertalen en tools.
+      answer_automation_2: Zie de pagina %{tools} voor meer informatie.
+      answer_conference_1: Absoluut. We hebben mediabronnen en een volledige uitleg
+        van functies beschikbaar in de formaten %{windows_link} en %{mac_link}.
+      answer_conference_2: Als u vragen heeft of hulp nodig heeft, kunt u altijd contact
+        met mij opnemen.
+      answer_how_many_1: Er zijn momenteel geen limieten en ik ben niet van plan er
+        een toe te voegen. Om de stabiliteit van de site minimaal te garanderen, is
+        Wachtwoord Pusher standaard geconfigureerd met een snelheidsbegrenzer. Dit
+        kan worden uitgeschakeld in de zelf-gehoste versie.
+      answer_licensing_1: De open source-versie van de broncode wordt vrijgegeven
+        onder de Apache 2.0-licentie en dat definieert vrijwel alle beperkingen. Er
+        zijn nogal wat vernieuwde en opnieuw ontworpen kloonsites van Password Pusher
+        en ik verwelkom ze allemaal.
+      answer_licensing_2: De premium-versie wordt vrijgegeven onder een commerciële
+        licentie. Het is niet open source en niet gratis. In de kern bevat het het
+        open source-project, maar het biedt een superset aan functies en is bedoeld
+        om de ontwikkeling te versnellen en het project te helpen financieren.
+      answer_licensing_3: De premiumversie is niet vereist om een privé-exemplaar
+        van Password Pusher uit te voeren. De open source-versie is volledig uitgerust
+        en gratis te gebruiken.
+      answer_licensing_4: Alle premiumfuncties komen na een bepaalde periode, afhankelijk
+        van de functie, in de open source-versie terecht.
+      answer_private_risks_1: Het uitvoeren van een privé-exemplaar van Pasword Pusher
+        voor uw bedrijf of organisatie geeft u de gemoedsrust dat u precies weet welke
+        code wordt uitgevoerd. U kunt het configureren en uitvoeren zoals u wilt.
+      answer_private_risks_2: Aan de andere kant, als uw exemplaar wordt gehackt en
+        de codering wordt verbroken, beschikken kwaadwillende entiteiten nu over een
+        gericht woordenboek met wachtwoorden om accounts in uw organisatie bruut te
+        forceren. (dit zou beperkt zijn tot pushes die nog niet zijn verlopen)
+      answer_private_risks_3: In dit opzicht kan de openbare instantie op pwpush.com
+        superieur zijn omdat deze alleen wachtwoorden bevat zonder identificerende
+        informatie die gemengd is onder gebruikers van over de hele wereld.
+      answer_private_risks_4: Een andere overweging zou het onderhoud van de instantie
+        zijn. U moet het up-to-date houden, beveiligen en er een back-up van maken.
+      answer_private_risks_5: De gebruiker moet de voor- en nadelen zorgvuldig afwegen
+        en beslissen welke route voor hem het beste is. We ondersteunen beide strategieën
+        graag.
+      answer_purpose_1: Password Pusher is een beter alternatief voor het e-mailen
+        van wachtwoorden.
+      answer_purpose_10: Bovendien <strong>verlopen wachtwoorden nadat een vooraf
+        gedefinieerde reeks weergaven is bereikt of nadat de tijd is verstreken.</strong>
+      answer_purpose_11: Eenmaal verlopen, worden wachtwoorden ondubbelzinnig verwijderd.
+      answer_purpose_12: Als dat interessant voor je klinkt, probeer het dan eens
+        of bekijk de andere veelgestelde vragen hieronder.
+      answer_purpose_2: "<strong>Het e-mailen van wachtwoorden is inherent onveilig.</strong>
+        De grootste risico's zijn onder meer:"
+      answer_purpose_3: Wachtwoorden per e-mail worden meestal verzonden met context
+        naar waar ze naar toe gaan of kunnen mogelijk worden afgeleid van de gebruikersnaam,
+        het domein, enz.
+      answer_purpose_4: E-mail is per definitie onveilig en kan op diverse punten
+        in het verzendproces worden opgevangen door malafide eindpartijen.
+      answer_purpose_5: 'Wachtwoorden per e-mail blijven voor altijd (lees: worden
+        dus nooit verwijderd) in e-mailarchieven.'
+      answer_purpose_6: Wachtwoorden in e-mail kunnen worden opgehaald en later worden
+        gebruikt als een e-mailaccount wordt gestolen, gekraakt, enz.
+      answer_purpose_7: Dezelfde risico's bestaan bij het verzenden van wachtwoorden
+        via sms, WhatsApp, Telegram, Chat enz. De gegevens kunnen en worden vaak voor
+        altijd bewaard en buiten uw controle.
+      answer_purpose_8: Door Password Pusher te gebruiken, omzeil je dit allemaal.
+      answer_purpose_9: Voor elk wachtwoord dat op Wachtwoord Pusher wordt geplaatst,
+        <strong>wordt een unieke URL gegenereerd die alleen u kent</strong> .
+      answer_rebranding_1: Password Pusher ondersteunt volledige re-branding "out
+        of the box", waardoor u een aangepast logo, afbeeldingen en tekst kunt toevoegen
+        en zelfs het applicatiethema kunt wijzigen.
+      answer_self_host_1: Ja, voor de open source-versie bieden we %{docker_link}
+        en %{install_link} voor een grote verscheidenheid aan platforms en clouds.
+      answer_self_host_2: Voor de premiumversie, met de superset aan functies, komen
+        binnenkort zelf-gehoste containers.
+      answer_trust_1: En terecht. Alle goede beveiliging begint met een gezonde scepsis
+        ten aanzien van alle betrokken componenten.
+      answer_trust_2: Password Pusher is een beter alternatief voor het e-mailen van
+        wachtwoorden. Het voorkomt dat wachtwoorden voor altijd in e-mailarchieven
+        blijven bestaan. Het bestaat niet als een allesomvattende beveiligingsoplossing.
+      answer_trust_3: Password Pusher begon eind 2011 als een open source-project.
+        Het is al die tijd door mijzelf (Peter Giacomo Lombardo) en een handvol uitstekende
+        bijdragers onderhouden en bijgewerkt. In 2024 werd de premiumversie geïntroduceerd
+        om de ontwikkeling te versnellen en het project te helpen financieren. Alle
+        premiumfuncties komen uiteindelijk in de open source-versie terecht.
+      answer_trust_4: Door zo'n lange geschiedenis te hebben en open source te zijn,
+        is Password Pusher door veel ogen beoordeeld. Het is door de jaren heen door
+        veel organisaties en individuen gebruikt en gecontroleerd.
+      answer_trust_5: 'Het beleid van Password Pusher is drieledig: 1) Encryptie in
+        rust en onderweg 2) Minimale gegevensretentie 3) Transparantie in de vorm
+        van een auditlogboek.'
+      answer_trust_6: In deze geest worden push-payloads bij het verlopen ondubbelzinnig
+        verwijderd en wordt het auditlogboek voor onbepaalde tijd bewaard. Hoe minder
+        gegevens de Wachtwoord Pusher bevat, hoe beter.
+      answer_trust_7: Als u zich nog steeds zorgen maakt over vertrouwen, veiligheid
+        en beveiliging, aarzel dan niet om de code door te nemen, eventuele vragen
+        te stellen en te overwegen deze intern in uw organisatie uit te voeren.
+      answer_trust_8: Wat het vertrouwen in mij betreft, het enige dat ik kan bieden
+        is mijn lange geschiedenis van het bouwen van dit project en mijn publieke
+        reputatie op %{github}, %{linkedin}, %{twitter} en %{blog}. Neem gerust contact
+        met mij op als u vragen heeft.
+      answer_why_premium_1: asdf
+      answer_why_private_1: Sommige organisaties zijn gebonden aan beveiligingsbeleid
+        dat het gebruik van openbare diensten voor gevoelige informatie zoals wachtwoorden
+        verbiedt. Er zijn zelfs organisaties die vereisen dat alle tools op privé-intranetten
+        staan zonder toegang tot de buitenwereld.
+      answer_why_private_2: Door uw eigen privé-exemplaar van Password Pusher te draaien,
+        kunt u de omgeving en de gegevens beheren. U kunt er ook aangepaste functies
+        en integraties mee toevoegen die specifiek zijn voor uw organisatie.
+      answer_why_private_3: Het is om deze redenen dat we gebruikers en organisaties
+        de mogelijkheid bieden (en aanmoedigen) om privé-instanties uit te voeren
+        wanneer dat nodig is.
+      feedback_link: Feedback formulier
+      github_link: GitHub
+      mac_link: Mac-keynote
+      my_blog: mijn blog
+      question_access: Zijn er andere manieren om toegang te krijgen tot Password
+        Pusher buiten een browser?
+      question_add_feature: Kunt u een specifieke functie voor mijn organisatie toevoegen?
+      question_already_expired: De geheime URL die ik stuurde was al verlopen. Wat
+        is er gebeurd?
+      question_automation: Kan ik mijn wachtwoorddistributie automatiseren?
+      question_conference: Kan ik Wachtwoord Pusher gebruiken in mijn lezing, video,
+        presentatie of conferentie?
+      question_have_to_pay: Moet ik betalen?
+      question_how_many: Hoeveel verzoeken kan ik naar Password Pusher sturen?
+      question_licensing: Zijn er licentiebeperkingen voor mij, mijn bedrijf of mijn
+        organisatie?
+      question_premium_diff: Wat zijn de verschillen tussen de open source- en premiumversies?
+      question_private_risks: Wat zijn de potentiële beveiligingsrisico's van het
+        intern uitvoeren van mijn eigen versie?
+      question_purpose: Wat is het doel van Wachtwoordpusher?
+      question_rebranding: Kan ik een aangepast logo aanbrengen of het ontwerp wijzigen?
+      question_self_host: Kan ik intern mijn eigen versie voor mijn organisatie draaien?
+      question_trust: Vertrouwen is een punt van zorg. Waarom zou ik Wachtwoord Pusher
+        gebruiken?
+      question_why_premium: Wachtwoord Pusher is altijd open source geweest. Waarom
+        is er een premium-versie?
+      question_why_private: Waarom zou ik mijn eigen privé-instantie van Wachtwoord
+        Pusher willen gebruiken?
+      question_will_oss: Worden de premiumfuncties toegevoegd aan de open source-versie?
+      subtitle: "..alle dingen die u wilt weten over Wachtwoord Pusher."
+      title: Veel Gestelde Vragen
+      title_other: Ander
+      title_private: Uw Eigen Privé-Instantie Uitvoeren
+      title_pushes: Duwt
+      title_subscriptions: Premium-versie
+      title_tools: Tools, integraties en applicaties
+      title_trust: Vertrouwen en veiligheid
+      tools_link: Hulpmiddelen en Toepassingen
+      windows_link: Windows Power Point
+    generate_key:
+      env_var: U kunt deze sleutel toepassen op uw toepassing door de omgevingsvariabele
+        in te stellen
+      generate_key: Genereer sleutel
+      generated: Gegenereerde encryptiesleutel
+      intro: Deze pagina wordt gebruikt als hulpprogramma om een willekeurige coderingssleutel
+        te genereren voor zelfgehoste exemplaren van Password Pusher.
+      intro_2: Wachtwoord Pusher codeert gevoelige gegevens in de database. Hoewel
+        er een standaardsleutel is meegeleverd, kunt u het beste uw eigen aangepaste
+        coderingssleutel gebruiken.
+      intro_3: Bij elke vernieuwing genereert deze pagina een nieuwe coderingssleutel.
+        U kunt de willekeurig gegenereerde code hieronder gebruiken om uw Wachtwoord
+        Pusher-instantie te configureren.
+      note_1: Als er geen encryptiesleutel ingegeven is, wordt een standaard sleutel
+        gebruikt.
+      note_2: De beste beveiliging voor uw eigen ingerichte Password Pusher is door
+        gebruik te maken van een eigen gemaakte sleutel. Dat is voor de werking van
+        Password Pusher overigens niet verplicht.
+      note_3: Het risico bij het gebruik van de standaardsleutel wordt verminderd
+        als u uw omgeving veilig houdt en uw push-verloop kort houdt. Bijv. 1 dag/1
+        weergave versus 100 dagen/100 weergaven.
+      note_4: Zodra een push verloopt, worden alle gecodeerde gegevens in die push
+        verwijderd.
+      note_5: 'Als de sleutel voor versleuteling wijzigt, dan worden alle nog openstaande
+        verzendingen onleesbaar. Kort gezegd: als je de link volgt is het resultaat
+        onleesbaar. Nieuwe verzendingen gaan uiteraard wel goed.'
+      note_6: 'Het genereren van sleutels kan ook worden gedaan vanaf de opdrachtregel
+        in de applicatiebron door het volgende uit te voeren:'
+      notes: 'Opmerkingen:'
+      reload: Ververs deze pagina om een nieuwe sleutel te genereren.
+      title: Genereer een encryptiesleutel
+    password_generator:
+      push_it: Druk op dit wachtwoord
+    tools:
+      alfred: Alfred app
+      api_documentation: API-eindpuntdocumentatie
+      applications: Toepassingen
+      cli: Commandoregelinterface
+      clu: Hulpprogramma's Voor Opdrachtregels
+      examples: Voorbeelden
+      github: Github
+      intro: Met de Password Pusher JSON API zijn er een aantal applicaties en opdrachtregelhulpprogramma's
+        (CLI) die communiceren met pwpush.com of uw zelf-gehoste instantie. Push wachtwoorden
+        vanuit de CLI, Slack, Alfred App en meer.
+      intro_2: De JSON API is een krachtige tool die het automatiseren van het pushen
+        van wachtwoorden mogelijk maakt. Dit kan worden gedaan met een verscheidenheid
+        aan programmeertalen en tools.
+      intro_3: Zie de pagina %{github} voor meer informatie.
+      more: Meer
+      slack: Slank
+      subtitle: Password Pusher is meer dan alleen een webapplicatie. Het heeft een
+        JSON API die een breed scala aan integraties en toepassingen mogelijk maakt.
+      title: Tools, API's, integraties en applicaties
+      tools_1: Met behulp van de JSON API bestaan er verschillende tools om te communiceren
+        met Wachtwoord Pusher om de wachtwoord distributie te automatiseren.
+      tools_2: We hebben geen limiet op het aantal wachtwoorden dat u kunt pushen
+        (en zijn niet van plan om limieten toe te voegen), maar we hebben wel een
+        snelheidsbegrenzer zodat de site niet wordt verwijderd door slechte scripts
+        of slechte acteurs. Beperk uw tools tot maximaal 1 wachtwoord om de paar seconden
+        en het zou goed moeten komen.
+      tools_3: 'U kunt dit testen in de Javascript-console van uw browser door naar
+        de voorpagina van Wachtwoord Pusher te gaan en het volgende in te voeren:'
+      tools_4: Met deze API kunt u via JSON communiceren met Password Pusher. Dit
+        kan worden gebruikt door bestaande hulpprogramma's zoals curl, wget of een
+        andere programmeertaal. Zie de voorbeelden hieronder voor enkele ideeën.
+      tools_5: Zie meer uitleg en voorbeelden in de %{github} Wiki.
+      walkthrough: Rondleiding & Voorbeelden
