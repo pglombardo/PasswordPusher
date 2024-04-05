@@ -112,30 +112,16 @@ _Note: Putting passwords in a command line is bad practice.  See the related Dat
 
 ### Docker Tags Reference
 
-**March 2024: The Docker tag strategy will change soon.**
-
-The following tables describe the current tag usage and upcoming change.
-
-**Current**
-
 | Tag    | Purpose          |
 |--------|------------------|
-| `latest` | The nightly development build  |
-| `release` | Stable build |
 | `vX.X.X` | Versioned tags |
-
-**Upcoming Change**
-
-| Tag    | Purpose          |
-|--------|------------------|
-| `latest` | The latest released vX.X.X  |
 | `stable` | The most stable tag for proven releases |
-| `vX.X.X` | Versioned tags |
+| `latest` | The latest (most recent) released vX.X.X  |
 | `nightly` | The nightly development build  |
 
-If in doubt, use `latest` or a `vX.X.X` tag.
+If in doubt, use `latest` or the `stable` tag.
 
-The `release` tag will be deprecated soon.
+_The previously used `release` tag is no longer used and won't be updated again.  Instead use the `stable` tag._
 
 
 ## With Docker Compose
