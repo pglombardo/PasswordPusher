@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_04_20_175410) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_07_113632) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -138,6 +138,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_04_20_175410) do
     t.integer "user_id"
     t.integer "file_push_id"
     t.integer "url_id"
+    t.index ["file_push_id"], name: "index_views_on_file_push_id"
+    t.index ["kind"], name: "index_views_on_kind"
+    t.index ["password_id"], name: "index_views_on_password_id"
+    t.index ["successful"], name: "index_views_on_successful"
+    t.index ["url_id"], name: "index_views_on_url_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

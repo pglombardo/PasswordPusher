@@ -64,7 +64,12 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
           yarn install --frozen-lockfile
-      - name: Run tests
+
+      - name: Prepare tests
         run: |
           bin/rails assets:precompile RAILS_ENV=test
+          bin/rails db:migrate RAILS_ENV=test
+
+      - name: Run tests
+        run: |
           bin/rails test
