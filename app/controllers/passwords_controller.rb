@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "securerandom"
+require "rqrcode"
 
 class PasswordsController < BaseController
   # Use auth token (for JSON) if it's there but don't fall back to devise session
@@ -195,6 +196,7 @@ class PasswordsController < BaseController
   description ""
   def preview
     @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
 
     respond_to do |format|
       format.html { render action: "preview" }

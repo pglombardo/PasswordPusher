@@ -184,6 +184,7 @@ class FilePushesController < BaseController
   description ""
   def preview
     @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
 
     respond_to do |format|
       format.html { render action: "preview" }

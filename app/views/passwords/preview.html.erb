@@ -7,8 +7,9 @@
 
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
       <%= render partial: 'shared/secret_url_bar' %>
+      <%= @qr_code %>
 
-      <p class='mb-5'>
+      <p class='my-5'>
         <%= _('This newly pushed password will expire after') %>
         <strong><%= @push.expire_after_days %> <%= n_('day', 'days', @push.expire_after_days) %></strong>
         <%= _('or') %>

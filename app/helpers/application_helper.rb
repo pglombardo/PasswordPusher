@@ -62,4 +62,20 @@ module ApplicationHelper
     url += "/r" if password.retrieval_step
     url
   end
+
+  # qr_code
+  #
+  # Generates a QR code for the given URL
+  #
+  # @param [String] url - The URL to generate the QR code for
+  # @return [String] - The SVG QR code
+  def qr_code(url)
+    RQRCode::QRCode.new(url).as_svg(
+      offset: 0,
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 6,
+      standalone: true
+    ).html_safe
+  end
 end
