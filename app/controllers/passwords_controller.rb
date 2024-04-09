@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "securerandom"
-require "rqrcode"
 
 class PasswordsController < BaseController
   # Use auth token (for JSON) if it's there but don't fall back to devise session
