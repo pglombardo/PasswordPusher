@@ -8,7 +8,7 @@ class UrlsController < BaseController
   # Authentication always except for the following:
   acts_as_token_authentication_handler_for User, except: %i[show new preliminary passphrase access]
 
-  before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
+  before_action :set_push, only: %i[show passphrase access preview print_preview preliminary audit destroy]
 
   resource_description do
     name "URL Pushes"
@@ -190,6 +190,20 @@ class UrlsController < BaseController
 
     respond_to do |format|
       format.html { render action: "preview" }
+      format.json { render json: {url: @secret_url}, status: :ok }
+    end
+  end
+
+  def print_preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    @message = print_preview_params[:message]
+    @show_expiration = print_preview_params[:show_expiration]
+    @show_id = print_preview_params[:show_id]
+
+    respond_to do |format|
+      format.html { render action: "print_preview", layout: "naked" }
       format.json { render json: {url: @secret_url}, status: :ok }
     end
   end
@@ -415,5 +429,9 @@ class UrlsController < BaseController
 
   def url_params
     params.require(:url).permit(:payload, :expire_after_days, :expire_after_views, :retrieval_step, :note)
+  end
+
+  def print_preview_params
+    params.permit(:message, :show_expiration, :show_id)
   end
 end

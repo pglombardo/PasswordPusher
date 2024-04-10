@@ -5,7 +5,7 @@ require "securerandom"
 class FilePushesController < BaseController
   helper FilePushesHelper
 
-  before_action :set_push, only: %i[show passphrase access preview preliminary audit destroy]
+  before_action :set_push, only: %i[show passphrase access preview print_preview preliminary audit destroy]
 
   # Authentication always except for :show
   acts_as_token_authentication_handler_for User, except: %i[show new preliminary destroy passphrase access]
@@ -188,6 +188,20 @@ class FilePushesController < BaseController
 
     respond_to do |format|
       format.html { render action: "preview" }
+      format.json { render json: {url: @secret_url}, status: :ok }
+    end
+  end
+
+  def print_preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    @message = print_preview_params[:message]
+    @show_expiration = print_preview_params[:show_expiration]
+    @show_id = print_preview_params[:show_id]
+
+    respond_to do |format|
+      format.html { render action: "print_preview", layout: "naked" }
       format.json { render json: {url: @secret_url}, status: :ok }
     end
   end
@@ -441,5 +455,9 @@ class FilePushesController < BaseController
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
       :retrieval_step, :deletable_by_viewer, :note, :passphrase, files: [])
+  end
+
+  def print_preview_params
+    params.permit(:message, :show_expiration, :show_id)
   end
 end
