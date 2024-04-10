@@ -11,19 +11,19 @@
 
       <p class="d-inline-flex gap-1 mt-5 mb-2">
         <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Print & Share
+          <%= _('Print & Share') %>
         </button>
       </p>
       <div class="collapse" id="collapseExample">
         <div class="card">
-          <div class="card-header">Generate a Printable Page for End Users</div>
+          <div class="card-header"><%= _('Generate a Printable Page for End Users') %></div>
           <div class="card-body">
-            <%= form_tag(print_preview_password_path(@push), method: :get, target: '_blank') do %>
+            <%= form_tag(print_preview_file_push_path(@push), method: :get, target: '_blank') do %>
               <div class="row row-cols-lg-auto g-3 align-items-center">
                 <div class="col w-100 mb-2">
-                  <label class="visually-hidden" for="inlineFormInputGroupUsername">Optional Custom Message</label>
+                  <label class="visually-hidden" for="inlineFormInputGroupUsername"><%= _('Optional Custom Message') %></label>
                   <div class="input-group">
-                    <%= text_field_tag(:message, nil, class: 'form-control mr-2 w-100', placeholder: "Optional Message", autocomplete: "on") %>
+                    <%= text_field_tag(:message, nil, class: 'form-control mr-2 w-100', placeholder: _("Optional Custom Message"), autocomplete: "on") %>
                   </div>
                 </div>
               </div>
@@ -32,19 +32,19 @@
                 <div class="col-12">
                   <div class="form-check">
                     <%= check_box_tag(:show_expiration, true, true, class: 'form-check-input') %>
-                    <%= label_tag(:show_expiration, 'Show Expiration Details', class: 'form-check-label') %>
+                    <%= label_tag(:show_expiration, _('Show Expiration Details'), class: 'form-check-label') %>
                   </div>
                 </div>
 
                 <div class="col-12">
                   <div class="form-check">
                     <%= check_box_tag(:show_id, true, true, class: 'form-check-input') %>
-                    <%= label_tag(:show_id, 'Include ID', class: 'form-check-label') %>
+                    <%= label_tag(:show_id, _('Include ID'), class: 'form-check-label') %>
                   </div>
                 </div>
 
                 <div class="col-12">
-                  <button type="submit" class="btn btn-success">Generate</button>
+                  <button type="submit" class="btn btn-success"><%= _('Generate') %></button>
                 </div>
               </div>
             <% end %>
