@@ -18,7 +18,7 @@
         <div class="card">
           <div class="card-header">Generate a Printable Page for End Users</div>
           <div class="card-body">
-            <%= form_tag(print_preview_password_path(@push), method: :get, class: '', target: '_blank') do %>
+            <%= form_tag(print_preview_password_path(@push), method: :get, target: '_blank') do %>
               <div class="row row-cols-lg-auto g-3 align-items-center">
                 <div class="col w-100 mb-2">
                   <label class="visually-hidden" for="inlineFormInputGroupUsername">Optional Custom Message</label>
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <p class='my-5'>
+      <p class='my-5 text-center'>
         <%= _('This newly pushed password will expire after') %>
         <strong><%= @push.expire_after_days %> <%= n_('day', 'days', @push.expire_after_days) %></strong>
         <%= _('or') %>
