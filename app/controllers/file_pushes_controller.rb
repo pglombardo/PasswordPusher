@@ -458,6 +458,6 @@ class FilePushesController < BaseController
   end
 
   def print_preview_params
-    params.permit(:message, :show_expiration, :show_id)
+    params.permit(:id, :locale, :message, :show_expiration, :show_id)
   end
 end
