@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FilePush < ApplicationRecord
-  has_many :views, dependent: :destroy
+  has_many :views, -> { order(created_at: :asc) }, dependent: :destroy
   has_encrypted :payload, :note, :passphrase
 
   has_many_attached :files
