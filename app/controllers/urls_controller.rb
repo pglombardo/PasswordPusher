@@ -88,7 +88,7 @@ class UrlsController < BaseController
       # Set the passphrase cookie
       cookies[name] = {value: @push.passphrase_ciphertext, expires: 10.minutes.from_now}
       # Redirect to the payload
-      redirect_to preliminary_url_path(@push.url_token)
+      redirect_to @push.payload, allow_other_host: true, status: :see_other
     else
       # Passphrase is invalid
       # Redirect to the passphrase page
