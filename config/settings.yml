@@ -733,14 +733,6 @@ mail:
   # Environment Variable Override: PWP__MAIL__SMTP_ADDRESS='smtp.example.com'
   # smtp_address: smtp.example.com
 
-  # If your mail server requires authentication, set the username in this setting.
-  # Environment Variable Override: PWP__MAIL__SMTP_USER_NAME='apikey'
-  # smtp_user_name: 'apikey'
-
-  # If your mail server requires authentication, set the password in this setting.
-  # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
-  # smtp_password: ''
-
   # If you need to specify a HELO domain, you can do it here.
   # Environment Variable Override: PWP__MAIL__SMTP_DOMAIN='xyz.dev'
   # smtp_domain: ''
@@ -755,8 +747,19 @@ mail:
   # or :cram_md5 (combines a Challenge/Response mechanism to exchange
   # information and a cryptographic Message Digest 5 algorithm to hash
   # important information)
+  #
+  # Important: Comment this out if your server doesn't require authentication.
+  #
   # Environment Variable Override: PWP__MAIL__SMTP_AUTHENTICATION='plain'
   smtp_authentication: 'plain'
+
+  # If your mail server requires authentication, set the username in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_USER_NAME='apikey'
+  # smtp_user_name: 'apikey'
+
+  # If your mail server requires authentication, set the password in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
+  # smtp_password: ''
 
   # Use STARTTLS when connecting to your SMTP server and fail if unsupported.
   # Environment Variable Override: PWP__MAIL__SMTP_STARTTLS='true'
