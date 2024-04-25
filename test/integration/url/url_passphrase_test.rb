@@ -52,10 +52,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
-    # Temporary Fix: Post passphrase validation, we redirect
-    # to the preliminary_url_path.  This is done
-    # to avoid a CORS issue with the redirect.
-    assert_response :success
+    assert_response :see_other
   end
 
   def test_url_bad_passphrase
@@ -137,9 +134,47 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
-    # Temporary Fix: Post passphrase validation, we redirect
-    # to the preliminary_url_path.  This is done
-    # to avoid a CORS issue with the redirect.
+    assert_response :see_other
+  end
+
+  def test_url_passphrase_view_tracking
+    get new_url_path
     assert_response :success
+
+    post urls_path, params: {url: {payload: "https://pwpush.com", passphrase: "asdf"}}
+    assert_response :redirect
+
+    # Preview page
+    follow_redirect!
+    assert_response :success
+    assert_select "h2", "Your push has been created."
+
+    push = Url.last
+    view_count = push.views_remaining
+
+    # Attempt to retrieve the url without the passphrase
+    get request.url.sub("/preview", "")
+    assert_response :redirect
+
+    # We should get redirected to the passphrase page
+    follow_redirect!
+    assert_response :success
+
+    # We should be on the passphrase page now
+
+    # Validate passphrase form
+    forms = css_select "form"
+    assert_select "form input", 1
+    input = css_select "input#passphrase.form-control"
+    assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
+
+    # Provide a valid passphrase
+    post forms.first.attributes["action"].value, params: {passphrase: "asdf"}
+    assert_response :redirect
+    follow_redirect!
+
+    assert_response :see_other
+
+    assert push.views_remaining == view_count - 1
   end
 end

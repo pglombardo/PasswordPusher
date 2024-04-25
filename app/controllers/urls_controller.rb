@@ -36,16 +36,16 @@ class UrlsController < BaseController
     end
 
     # Passphrase handling
-    if !@push.passphrase.nil? && @push.passphrase.present?
+    if @push.passphrase.present?
       # Construct the passphrase cookie name
       name = "#{@push.url_token}-r"
 
       # The passphrase can be passed in the params or in the cookie (default)
       # JSON requests must pass the passphrase in the params
-      has_passphrase = params.fetch(:passphrase,
-        nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
+      has_correct_passphrase =
+        params.fetch(:passphrase, nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
 
-      unless has_passphrase
+      if !has_correct_passphrase
         # Passphrase hasn't been provided or is incorrect
         # Redirect to the passphrase page
         respond_to do |format|
@@ -72,6 +72,13 @@ class UrlsController < BaseController
 
   # GET /r/:url_token/passphrase
   def passphrase
+    if @push.expired
+      respond_to do |format|
+        format.html { render template: "urls/show_expired", layout: "naked" }
+      end
+      return
+    end
+
     respond_to do |format|
       format.html { render action: "passphrase", layout: "naked" }
     end
@@ -88,7 +95,7 @@ class UrlsController < BaseController
       # Set the passphrase cookie
       cookies[name] = {value: @push.passphrase_ciphertext, expires: 10.minutes.from_now}
       # Redirect to the payload
-      redirect_to @push.payload, allow_other_host: true, status: :see_other
+      redirect_to url_path(@push.url_token)
     else
       # Passphrase is invalid
       # Redirect to the passphrase page
