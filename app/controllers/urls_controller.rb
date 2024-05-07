@@ -20,7 +20,8 @@ class UrlsController < BaseController
   formats ["json"]
   example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fk27vnslkd.json'
   description "Retrieves a push including it's payload and details.  If the push is still active, " \
-              "this will burn a view and the transaction will be logged in the push audit log."
+              "this will burn a view and the transaction will be logged in the push audit log.  If the push " \
+              "has a passphrase, provide it in a ?passphrase=xxx GET parameter."
   def show
     # This url may have expired since the last view.  Validate the url
     # expiration before doing anything.
