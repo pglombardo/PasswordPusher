@@ -5,4 +5,12 @@ class BaseController < ApplicationController
       format.any { head :unsupported_media_type }
     end
   end
+
+  rescue_from ActionController::BadRequest do |exception|
+    Rails.logger.error "Invalid request parameters: #{exception.message}"
+    respond_to do |format|
+      format.html { render plain: "Invalid request parameters", status: :bad_request }
+      format.json { render json: {error: "Invalid request parameters"}, status: :bad_request }
+    end
+  end
 end
