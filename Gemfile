@@ -97,7 +97,7 @@ gem "simple_token_authentication"
 gem "kaminari", "~> 1.2"
 
 gem "devise-i18n"
-gem "i18n-tasks", "~> 1.0.13" # , group: :development
+gem "i18n-tasks", "~> 1.0.14" # , group: :development
 gem "rails-i18n", "~> 7.0.9"
 gem "route_translator", ">= 13.0.0"
 gem "translation"
