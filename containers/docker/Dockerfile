@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.2-alpine AS build-env
+FROM ruby:3.3-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -62,7 +62,7 @@ RUN rm -rf tmp/cache vendor/assets spec \
 
 ################## Build done ##################
 
-FROM ruby:3.2-alpine
+FROM ruby:3.3-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
