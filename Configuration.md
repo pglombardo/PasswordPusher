@@ -602,6 +602,8 @@ Password Pusher bundles an Admin dashboard for self-hosted instances available a
 
 It is only enabled with logins are enabled (`enable_logins`) and access is limited to accounts marked as "Administrator" only.
 
+_Note: Make sure you are running [v1.40.3](https://github.com/pglombardo/PasswordPusher/releases) or newer to have access to the Admin Dashboard._
+
 ### Security & Access
 
 Access to the Admin dashboard grants direct access to the application's database.
