@@ -2,7 +2,7 @@ class BaseController < ApplicationController
   rescue_from ActionController::ParameterMissing do |exception|
     respond_to do |format|
       format.html { render plain: "Missing Parameters", status: :bad_request }
-      format.any { head :bad_rquest }
+      format.any { head :bad_request }
     end
   end
 
