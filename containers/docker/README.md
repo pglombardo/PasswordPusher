@@ -57,15 +57,18 @@ Providing a password on the command line such as in the preceeding is less than 
 See [this section on Docker Secrets](https://github.com/docker-library/docs/blob/master/postgres/README.md#docker-secrets) on how to avoid passing credentials on the command line or alternatively using a [Docker environment variable file](https://github.com/pglombardo/PasswordPusher/blob/master/containers/docker/pwpush-docker-env-file).
 
 
-## Tags
+### Docker Tags Reference
 
-| Tag Name | Description |
-|-|-|
-| `latest` | Builds off of the latest code.  May occasionally be unstable. |
-| `release` | Points to the latest _stable_ release. |
-| `X.X.X` | Semantic version tags. |
+| Tag    | Purpose          |
+|--------|------------------|
+| `vX.X.X` | Versioned tags |
+| `stable` | The most stable tag for proven releases |
+| `latest` | The latest (most recent) released vX.X.X  |
+| `nightly` | The nightly development build  |
 
-When in doubt, use `release`.
+If in doubt, use `latest` or the `stable` tag.
+
+_The previously used `release` tag is no longer used and won't be updated again.  Instead use the `stable` tag._
 
 ## Platforms
 The docker container is available for `linux/amd64` and `linux/arm64` platforms.
