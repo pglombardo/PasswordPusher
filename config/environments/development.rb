@@ -54,27 +54,27 @@ Rails.application.configure do
     config.action_mailer.smtp_settings[:open_timeout] = Settings.mail.smtp_open_timeout if Settings.mail.smtp_open_timeout
     config.action_mailer.smtp_settings[:read_timeout] = Settings.mail.smtp_read_timeout if Settings.mail.smtp_read_timeout
 
-    if Settings.mail.smtp_authentication
+    if !Settings.mail.smtp_authentication.nil?
       config.action_mailer.smtp_settings[:authentication] = Settings.mail.smtp_authentication
     end
 
-    if Settings.mail.smtp_user_name
+    if !Settings.mail.smtp_user_name.nil?
       config.action_mailer.smtp_settings[:user_name] = Settings.mail.smtp_user_name
     end
 
-    if Settings.mail.smtp_password
+    if !Settings.mail.smtp_password.nil?
       config.action_mailer.smtp_settings[:password] = Settings.mail.smtp_password
     end
 
-    if Settings.mail.smtp_openssl_verify_mode
+    if !Settings.mail.smtp_openssl_verify_mode.nil?
       config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
     end
 
-    if Settings.mail.smtp_enable_starttls_auto
+    if !Settings.mail.smtp_enable_starttls_auto.nil?
       config.action_mailer.smtp_settings[:enable_starttls_auto] = Settings.mail.smtp_enable_starttls_auto
     end
 
-    if Settings.mail.smtp_enable_starttls
+    if !Settings.mail.smtp_enable_starttls.nil?
       config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
     end
   end
