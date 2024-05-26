@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  invisible_captcha only: :create
+
   layout "application", only: %i[edit update token]
   layout "login", except: %i[edit update token]
 

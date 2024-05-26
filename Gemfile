@@ -95,6 +95,7 @@ gem "puma"
 gem "rollbar"
 gem "simple_token_authentication"
 gem "kaminari", "~> 1.2"
+gem "invisible_captcha", "~> 2.0"
 
 gem "devise-i18n"
 gem "i18n-tasks", "~> 1.0.14" # , group: :development
