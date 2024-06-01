@@ -79,7 +79,7 @@ _or_
 
  🎉 🎉 🎉
 
-_Note: Password Pusher can be largely configured by environment variables so after you pick your deployment method below, make sure to read [the configuration page](Configuration.md).  Take particular attention in setting your own custom encryption key which isn't required but provides the best security for your instance._
+_Note: Password Pusher can be largely configured by a config file or environment variables so after you pick your deployment method below, make sure to read [the configuration page](Configuration.md).  Take particular attention in setting your own custom encryption key which isn't required but provides the best security for your instance._
 
 ## On Docker
 
