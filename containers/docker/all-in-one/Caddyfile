@@ -1,0 +1,12 @@
+{
+  # Global options block
+  email user@example.com  # Replace with your email for Let's Encrypt notifications
+  acme_ca https://acme-v02.api.letsencrypt.org/directory  # Use Let's Encrypt production API
+}
+
+example.com { # Replace with your domain
+  reverse_proxy pwpush:5100
+#  tls {
+#    dns cloudflare {env.CLOUDFLARE_API_TOKEN}  # Optional: Replace with your DNS provider if using DNS challenge
+#  }
+}
