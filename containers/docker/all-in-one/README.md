@@ -1,9 +1,9 @@
 # Password Pusher - All In One Setup
 
 The files in this directory allow you to launch a Password Pusher instance with automatic SSL/TLS certificate
-management thanks to Caddy server.
+management thanks to Caddy server & Let's Encrypt.
 
-Caddy server is a piece of software that when given a domain, will automatically fetch, update & monitor TSL
+Caddy is a proxy that when given a domain, will automatically fetch, update & monitor TSL
 certificates for that domain in tandem with Let's Encrypt.
 
 # Prerequisites

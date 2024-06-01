@@ -65,7 +65,7 @@ Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https:
 
 _or_
 
-→ Run your own instance with one command: `docker run -d -p "5100:5100" pglombardo/pwpush:latest` then go to http://localhost:5100
+→ Run your own instance with `docker run -d -p "5100:5100" pglombardo/pwpush:latest` or a [production ready setup with a database & SSL/TLS](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/all-in-one).
 
 _or_
 
