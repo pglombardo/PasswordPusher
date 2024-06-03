@@ -14,9 +14,13 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # end
 
   # GET /resource/confirmation?confirmation_token=abcdef
-  # def show
-  #   super
-  # end
+  def show
+    if params[:go].present?
+      super
+    else
+      render "show", layout: "bare"
+    end
+  end
 
   # protected
 
