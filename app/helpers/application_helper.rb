@@ -20,7 +20,13 @@ module ApplicationHelper
   # Used to construct the fully qualified secret URL for a push.
   # raw == This is done without the preliminary step (Click here to proceed).
   def raw_secret_url(password)
-    push_locale = params['push_locale'] || I18n.locale
+    # Make sure requested locale is valid and enabled
+    push_locale = if params["push_locale"].present? &&
+        Settings.enabled_language_codes.include?(params["push_locale"])
+      params["push_locale"]
+    else
+      I18n.locale
+    end
 
     if Settings.override_base_url
       raw_url = I18n.with_locale(push_locale) do
@@ -50,7 +56,7 @@ module ApplicationHelper
       end
 
       # Support forced https links with FORCE_SSL env var
-      raw_url.gsub(/http/i, 'https') if ENV.key?('FORCE_SSL') && !request.ssl?
+      raw_url.gsub(/http/i, "https") if ENV.key?("FORCE_SSL") && !request.ssl?
     end
 
     raw_url
@@ -59,7 +65,23 @@ module ApplicationHelper
   # Constructs a fully qualified secret URL for a push.
   def secret_url(password)
     url = raw_secret_url(password)
-    url += '/r' if password.retrieval_step
+    url += "/r" if password.retrieval_step
     url
+  end
+
+  # qr_code
+  #
+  # Generates a QR code for the given URL
+  #
+  # @param [String] url - The URL to generate the QR code for
+  # @return [String] - The SVG QR code
+  def qr_code(url)
+    RQRCode::QRCode.new(url).as_svg(
+      offset: 0,
+      color: :currentColor,
+      shape_rendering: "crispEdges",
+      module_size: 6,
+      standalone: true
+    ).html_safe
   end
 end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout 'application', only: %i[edit update token]
-  layout 'login', except: %i[edit update token]
+  invisible_captcha only: :create
+
+  layout "application", only: %i[edit update token]
+  layout "login", except: %i[edit update token]
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class PasswordTest < Minitest::Test
   def test_save
@@ -10,7 +10,7 @@ class PasswordTest < Minitest::Test
   end
 
   def test_expired_check
-    password = Password.new(payload: 'asdf')
+    password = Password.new(payload: "asdf")
     password.validate!
     assert_not password.expired?
     assert password.save
@@ -30,7 +30,7 @@ class PasswordTest < Minitest::Test
   end
 
   def test_defaults
-    push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago, payload: 'asdf')
+    push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago, payload: "asdf")
     push.validate!
 
     assert push.expire_after_days == Settings.pw.expire_after_days_default
@@ -43,7 +43,7 @@ class PasswordTest < Minitest::Test
   def test_days_expiration
     # 3 days left
     push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago,
-                        payload: 'asdf', expire_after_days: 6)
+      payload: "asdf", expire_after_days: 6)
     push.save
     push.validate!
 
@@ -53,7 +53,7 @@ class PasswordTest < Minitest::Test
 
     # already expired
     push = Password.new(created_at: 3.days.ago, updated_at: 3.days.ago,
-                        payload: 'asdf', expire_after_days: 1)
+      payload: "asdf", expire_after_days: 1)
     push.save
     push.validate!
 
@@ -63,7 +63,7 @@ class PasswordTest < Minitest::Test
 
     # Old expired expired
     push = Password.new(created_at: 100.days.ago, updated_at: 100.days.ago,
-                        payload: 'asdf', expire_after_days: 1)
+      payload: "asdf", expire_after_days: 1)
     push.save
     push.validate!
 
@@ -72,7 +72,7 @@ class PasswordTest < Minitest::Test
     assert push.expired
 
     # Today 1 day password
-    push = Password.new(payload: 'asdf', expire_after_days: 1)
+    push = Password.new(payload: "asdf", expire_after_days: 1)
     push.save
     push.validate!
 
@@ -83,7 +83,7 @@ class PasswordTest < Minitest::Test
 
   def test_views_expiration
     # No views
-    push = Password.new(payload: 'asdf', expire_after_views: 1)
+    push = Password.new(payload: "asdf", expire_after_views: 1)
     push.save
     push.validate!
 
@@ -91,14 +91,14 @@ class PasswordTest < Minitest::Test
     assert_not push.expired
 
     # 1 View should expire
-    push = Password.new(payload: 'asdf', expire_after_views: 1)
+    push = Password.new(payload: "asdf", expire_after_views: 1)
     push.save
     push.validate!
 
     view = View.new
     view.kind = 0 # standard user view
     view.password_id = push.id
-    view.successful  = true
+    view.successful = true
     view.save
     push.views << view
 

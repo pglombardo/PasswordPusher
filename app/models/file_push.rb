@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FilePush < ApplicationRecord
-  has_many :views, dependent: :destroy
+  has_many :views, -> { order(created_at: :asc) }, dependent: :destroy
   has_encrypted :payload, :note, :passphrase
 
   has_many_attached :files
@@ -58,26 +58,26 @@ class FilePush < ApplicationRecord
     owner = args.first[:owner] if args.first.key?(:owner)
     payload = args.first[:payload] if args.first.key?(:payload)
 
-    attr_hash['days_remaining'] = days_remaining
-    attr_hash['views_remaining'] = views_remaining
+    attr_hash["days_remaining"] = days_remaining
+    attr_hash["views_remaining"] = views_remaining
 
     file_list = {}
     files.each do |file|
       # FIXME: default host?
       file_list[file.filename] = Rails.application.routes.url_helpers.rails_blob_url(file, only_path: true)
     end
-    attr_hash['files'] = file_list.to_json
+    attr_hash["files"] = file_list.to_json
 
     # Remove unnecessary fields
-    attr_hash.delete('payload_ciphertext')
-    attr_hash.delete('note_ciphertext')
-    attr_hash.delete('passphrase_ciphertext')
-    attr_hash.delete('user_id')
-    attr_hash.delete('id')
+    attr_hash.delete("payload_ciphertext")
+    attr_hash.delete("note_ciphertext")
+    attr_hash.delete("passphrase_ciphertext")
+    attr_hash.delete("user_id")
+    attr_hash.delete("id")
 
-    attr_hash.delete('passphrase')
-    attr_hash.delete('note') unless owner
-    attr_hash.delete('payload') unless payload
+    attr_hash.delete("passphrase")
+    attr_hash.delete("note") unless owner
+    attr_hash.delete("payload") unless payload
 
     Oj.dump attr_hash
   end
@@ -92,7 +92,7 @@ class FilePush < ApplicationRecord
     return if expired
 
     # Range checking
-    self.expire_after_days  ||= Settings.files.expire_after_days_default
+    self.expire_after_days ||= Settings.files.expire_after_days_default
     self.expire_after_views ||= Settings.files.expire_after_views_default
 
     unless expire_after_days.between?(Settings.files.expire_after_days_min, Settings.files.expire_after_days_max)

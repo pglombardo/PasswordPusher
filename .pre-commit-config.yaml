@@ -2,20 +2,31 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v3.2.0
+  rev: v3.4.0
   hooks:
     - id: trailing-whitespace
+      exclude: '\.enc$'
     - id: end-of-file-fixer
+      exclude: '\.enc$'
     - id: check-yaml
     - id: check-added-large-files
 
 - repo: local
   hooks:
-    - id: rubocop
-      name: Running rubocop
-      entry: rubocop
+    - id: erblint
+      name: ERBLint
+      entry: erblint
       language: system
-      pass_filenames: false
-      #args: ['-a']
-      always_run: true
-      stages: [pre-commit]
+      types: [html]
+      files: \.html\.erb$
+      pass_filenames: true
+
+- repo: local
+  hooks:
+    - id: standardrb
+      name: standardrb
+      entry: standardrb
+      language: system
+      types: [ruby]
+      files: \.rb$
+      pass_filenames: true

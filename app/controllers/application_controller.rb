@@ -6,16 +6,12 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :info, :error, :success, :warning
 
-  before_action do
-    Rack::MiniProfiler.authorize_request if current_user && current_user.admin == true
-  end
-
   def custom_set_locale_from_url
     locale_from_url = RouteTranslator.locale_from_params(params) ||
-                      RouteTranslator::Host.locale_from_host(request.host) ||
-                      I18n.default_locale
+      RouteTranslator::Host.locale_from_host(request.host) ||
+      I18n.default_locale
     if locale_from_url
-      old_locale  = I18n.locale
+      old_locale = I18n.locale
       I18n.locale = locale_from_url
     end
 
@@ -25,15 +21,15 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    raise ActionController::RoutingError, _('Not Found')
+    raise ActionController::RoutingError, _("Not Found")
   end
 
   private
 
   def render_error(status, _exception)
     respond_to do |format|
-      format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: }
-      format.all  { render nothing: true, status: }
+      format.html { render template: "errors/error_#{status}", layout: "layouts/application", status: }
+      format.all { render nothing: true, status: }
     end
   end
 end

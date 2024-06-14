@@ -109,6 +109,8 @@ allow_anonymous: true
 # The domain (without protocol) where this instance is hosted
 # Used in generating fully qualified URLs.
 #
+# Make sure to set this for email links to work correctly.
+#
 # Environment variable override:
 # PWP__HOST_DOMAIN='pwpush.com'
 #
@@ -118,6 +120,8 @@ allow_anonymous: true
 #
 # The protocol to reach the domain above
 # Used in generating fully qualified URLs.
+#
+# Make sure to set this for email links to work correctly.
 #
 # Environment variable override:
 # PWP__HOST_PROTOCOL='https'
@@ -140,7 +144,7 @@ host_protocol: 'https'
 
 ### Show version on the footer
 #
-# Enable/disable PasswordPusher verison on the footer.
+# Enable/disable PasswordPusher version on the footer.
 #
 # Environment variable override:
 # PWP__SHOW_VERSION=true
@@ -444,6 +448,17 @@ files:
   #
   enable_blur: true
 
+  # Maximum File Upload Count
+  #
+  # default: 10
+  #
+  # This option controls the maximum number of files that can be uploaded
+  # in a single push.
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_FILE_UPLOADS=10
+  #
+  max_file_uploads: 10
 
   # File Storage
   #
@@ -609,12 +624,21 @@ brand:
   # light_logo: 'logo-transparent-sm-bare.png'
   # dark_logo: 'logo-transparent-sm-dark-bare.png'
 
-  ### Icon images for mobile.  When people on mobile (phones/tablets), bookmark
+  ### Favicon & icon images for mobile.  When people on mobile (phones/tablets), bookmark
   # the site or it is shown in history, these icons are used.
   #
   # You can also replace these relative paths with fully qualified HTTP links to
   # external resources such as Amazon S3 etc.
   # e.g. PWP__BRAND__ICON_57x57='https://mys3bucket.amazonaws.com/a/some-image.png'
+  #
+  # Although you should set all of the following values, at a bare minimum, make sure
+  # to set at least icon_57x57 and icon_96x96.  Without these two, things are guaranteed
+  # to not work.
+  #
+  # You can use an icon generator such as:
+  # https://www.favicongenerator.com
+  # https://www.favicon-generator.org
+
   #
   # Environment variable override: PWP__BRAND__ICON_57x57='/path/to/image'
   # icon_57x57: 'apple-icon-57x57.png'
@@ -698,6 +722,8 @@ throttling:
 # for ActionMailer is at:
 # https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
 #
+# IMPORTANT: Also set host_domain and host_protocol above for email links to work correctly!
+#
 mail:
   # Email delivery errors will be shown in the application
   # Environment Variable Override: PWP__MAIL__RAISE_DELIVERY_ERRORS='false'
@@ -706,14 +732,6 @@ mail:
   # Allows you to use a remote mail server. Just change it from its default "localhost" setting.
   # Environment Variable Override: PWP__MAIL__SMTP_ADDRESS='smtp.example.com'
   # smtp_address: smtp.example.com
-
-  # If your mail server requires authentication, set the username in this setting.
-  # Environment Variable Override: PWP__MAIL__SMTP_USER_NAME='apikey'
-  # smtp_user_name: 'apikey'
-
-  # If your mail server requires authentication, set the password in this setting.
-  # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
-  # smtp_password: ''
 
   # If you need to specify a HELO domain, you can do it here.
   # Environment Variable Override: PWP__MAIL__SMTP_DOMAIN='xyz.dev'
@@ -729,8 +747,19 @@ mail:
   # or :cram_md5 (combines a Challenge/Response mechanism to exchange
   # information and a cryptographic Message Digest 5 algorithm to hash
   # important information)
+  #
+  # Important: Comment this out if your server doesn't require authentication.
+  #
   # Environment Variable Override: PWP__MAIL__SMTP_AUTHENTICATION='plain'
   smtp_authentication: 'plain'
+
+  # If your mail server requires authentication, set the username in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_USER_NAME='apikey'
+  # smtp_user_name: 'apikey'
+
+  # If your mail server requires authentication, set the password in this setting.
+  # Environment Variable Override: PWP__MAIL__SMTP_PASSWORD='something@&#$'
+  # smtp_password: ''
 
   # Use STARTTLS when connecting to your SMTP server and fail if unsupported.
   # Environment Variable Override: PWP__MAIL__SMTP_STARTTLS='true'
@@ -757,7 +786,7 @@ mail:
   # Configure the e-mail address which will be shown as 'From' in emails
   # See config/initializers/devise.rb where this is used
   # Environment Variable Override: PWP__MAIL__MAILER_SENDER='"Password Pusher" <pglombardo@pwpush.com>'
-  # mailer_sender: '"Password Pusher" <pglombardo@pwpush.com>'
+  # mailer_sender: '"Password Pusher" <oss@pwpush.com>'
 
 ### Feedback Form
 feedback:
@@ -767,16 +796,20 @@ feedback:
   # Environment Variable Override: PWP__FEEDBACK__EMAIL='my@email.com'
   email: 'feedback@pwpush.com'
 
-### Docker Precompilation
-#
-# If set to true, the Docker image will precompile assets on container boot.
+### Docker Pre-compilation
 #
 # This is useful if you modified the assets (e.g. CSS, JS, images) to customize
 # the theme etc...  Assets are precompiled before serving.
 #
-# Environment Variable Override: PWP_PRECOMPILE='false'
+# If you set a custom theme, you will need to precompile the assets on container boot.
 #
-# precompile: false
+# Pre-compilation isn't supported in this yaml file.  It is only supported
+# through the environment variable PWP_PRECOMPILE='true'.
+#
+# See the following for more information:
+# https://github.com/pglombardo/PasswordPusher/blob/master/Configuration.md#how-to-precompile-css-assets
+#
+# Environment Variable: PWP_PRECOMPILE='false'
 
 ### Themes
 #
@@ -797,13 +830,62 @@ feedback:
 #                 It cannot be set in this config file.
 theme: 'default'
 
+### Site Default Locale
+#
+# The default language for the application.  This must be one of the
+# valid/supported language codes from the list above.
+#
+# Note: This locale _must_ be in the list of enabled_language_codes.
+#
+# Example: default_locale: :es
+#
+# Environment Variable Override: PWP__DEFAULT_LOCALE='es'
+default_locale: :en
+
 ### Language & Internationalization
 #
-# List of supported languages indexed by language code.  This is used
-# to build the in application language menu.
+# List of enabled languages for the application.
 #
 # To remove the availability of languages from the application entirely,
-# comment out the language code(s) from the list below.
+# comment out (or remove) the language code(s) from the `enabled_language_codes`
+# list below.
+#
+enabled_language_codes:
+  - ca # 'Català'
+  - cs # 'Čeština'
+  - da # 'Dansk'
+  - de # 'Deutsch'
+  - en # 'English'
+  - es # 'Español'
+  - eu # 'Euskara'
+  - fi # 'Suomi'
+  - fr # 'Français'
+  - hi # 'हिन्दी'
+  - hu # 'Magyar'
+  - id # 'Indonesian'
+  - is # 'Íslenska'
+  - it # 'Italiano'
+  - ja # '日本語'
+  - ko # '한국어'
+  - lv # 'Latviski'
+  - nl # 'Nederlands'
+  - 'no' # 'Norsk' # _no_ keyword in Ruby evaluates to false  #-(
+  - pl # 'Polski'
+  - pt-BR # 'Português'
+  - pt-PT # 'Português'
+  - ro # 'Română'
+  - ru # 'Русский'
+  - sr # 'Српски'
+  - sv # 'Svenska'
+  - th # 'ไทย'
+  - uk # 'Українська'
+  - ur # 'اردو'
+  - zh-CN # '中文'
+
+### Language & Internationalization
+#
+# Map of language codes to language name.
+# Used internally for the language selector model.
 #
 # <language code>: '<language name>'
 language_codes:
@@ -813,6 +895,7 @@ language_codes:
   de: 'Deutsch'
   en: 'English'
   es: 'Español'
+  eu: 'Euskara'
   fi: 'Suomi'
   fr: 'Français'
   hi: 'हिन्दी'
@@ -850,6 +933,7 @@ country_codes:
   de: :de
   en: :us
   es: :es
+  eu: :es-pv
   fi: :fi
   fr: :fr
   hi: :in
@@ -874,32 +958,12 @@ country_codes:
   ur: :pk
   zh-CN: :cn
 
-
-### Site Default Locale
-#
-# The default language for the application.  This must be one of the
-# valid/supported language codes from the list above.
-#
-# Example: default_locale: :es
-#
-# Environment Variable Override: PWP__DEFAULT_LOCALE='es'
-default_locale: :en
-
 # Configure the logging verbosity of the application.
 #
-# Valid values are: debug, info, warn, error, fatal
-log_level: 'warn'
+# Valid values are: :debug, :info, :warn, :error, :fatal
+log_level: :warn
 
 # In containers, it is usually desired to log to stdout
 # instead of using log files (e.g. log/production.log).
 #
 log_to_stdout: false
-
-### Run in Subfolder
-#
-# To run in a subfolder, specify the path to use.  For example, if `relative_root`
-# is set too 'pwpush_root', then the application is hosted at https://<host>/pwpush_root/
-# (and this is where you will find the front page of the application).
-#
-# Environment variable override: PWP__RELATIVE_ROOT='pwpush'
-# relative_root: 'pwpush'

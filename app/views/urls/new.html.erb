@@ -2,18 +2,14 @@
 
 <div class='container'
     data-controller="knobs form"
-    data-knobs-lang-day-value=<%= _('Day') %>
-    data-knobs-lang-days-value=<%= _('Days') %>
-    data-knobs-default-days-value=<%= Settings.url.expire_after_days_default %>
-
-    data-knobs-lang-view-value=<%= _('View') %>
-    data-knobs-lang-views-value=<%= _('Views') %>
-    data-knobs-default-views-value=<%= Settings.url.expire_after_views_default %>
-
-    data-knobs-default-retrieval-step-value=<%= Settings.url.retrieval_step_default %>
-
-    data-knobs-ga-enabled-value=<%= ENV.key?('GA_ENABLE') %>
->
+    data-knobs-lang-day-value="<%= _('Day') %>"
+    data-knobs-lang-days-value="<%= _('Days') %>"
+    data-knobs-default-days-value="<%= Settings.url.expire_after_days_default %>"
+    data-knobs-lang-view-value="<%= _('View') %>"
+    data-knobs-lang-views-value="<%= _('Views') %>"
+    data-knobs-default-views-value="<%= Settings.url.expire_after_views_default %>"
+    data-knobs-default-retrieval-step-value="<%= Settings.url.retrieval_step_default %>"
+    data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
 <%= render partial: "shared/topnav" %>
 
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
@@ -47,16 +43,16 @@
                                           :step => "1",
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
-                                          })%>
+                                          }) %>
                 </div>
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="daysRangeLabel"><%=Settings.url.expire_after_days_default %> <%= _('Days') %></div>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= Settings.url.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-10'>
-                    <%=range_field_tag("url_expire_after_views", Settings.url.expire_after_views_default,
+                    <%= range_field_tag("url_expire_after_views", Settings.url.expire_after_views_default,
                                        { :name => "url[expire_after_views]",
                                          :class => "form-range",
                                          :min => Settings.url.expire_after_views_min,
@@ -65,11 +61,11 @@
                                          :step => "1",
                                          "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                          "data-knobs-target" => "viewsRange"
-                                         })%>
+                                         }) %>
                 </div>
 
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%=Settings.url.expire_after_views_default %> <%= _('Views') %></div>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= Settings.url.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
@@ -83,7 +79,7 @@
                     <div class="list-group mx-0">
                         <% if Settings.url.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%=check_box_tag "url[retrieval_step]", nil, Settings.url.retrieval_step_default,
+                            <%= check_box_tag "url[retrieval_step]", nil, Settings.url.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
                                             x_default: Settings.url.retrieval_step_default } %>
                             <span>
@@ -117,7 +113,7 @@
                 </div>
                 <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
             </div>
-            <div class='row my-3 px-5'> <hr/> </div>
+            <div class='row my-3 px-5'> <hr> </div>
             <div class='row mb-3'>
                 <span class="text-muted">
                     <%= _('A secret URL will be generated that will redirect to the URL specified.') %>
