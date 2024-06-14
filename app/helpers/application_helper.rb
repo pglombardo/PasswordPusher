@@ -20,7 +20,13 @@ module ApplicationHelper
   # Used to construct the fully qualified secret URL for a push.
   # raw == This is done without the preliminary step (Click here to proceed).
   def raw_secret_url(password)
-    push_locale = params["push_locale"] || I18n.locale
+    # Make sure requested locale is valid and enabled
+    push_locale = if params["push_locale"].present? &&
+        Settings.enabled_language_codes.include?(params["push_locale"])
+      params["push_locale"]
+    else
+      I18n.locale
+    end
 
     if Settings.override_base_url
       raw_url = I18n.with_locale(push_locale) do
