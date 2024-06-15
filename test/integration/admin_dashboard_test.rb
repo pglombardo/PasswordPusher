@@ -15,7 +15,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
 
   def test_dashboard_not_available_by_default
     get admin_root_path
-    assert_response :redirect
+    assert_response :not_found
   end
 
   def test_dashboard_not_available_to_non_admins
@@ -23,7 +23,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
     get admin_root_path
-    assert_response :redirect
+    assert_response :not_found
   end
 
   def test_dashboard_available_to_admin_user

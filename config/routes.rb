@@ -4,14 +4,16 @@ Rails.application.routes.draw do
   match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"} if ENV.key?("PWPUSH_COM")
 
   if Settings.enable_logins
-    namespace :admin do
-      resources :file_pushes
-      resources :passwords
-      resources :urls
-      resources :users
-      resources :views
+    authenticated :user, ->(u) { u.admin? } do
+      namespace :admin do
+        resources :file_pushes
+        resources :passwords
+        resources :urls
+        resources :users
+        resources :views
 
-      root to: "users#index"
+        root to: "users#index"
+      end
     end
   end
 
