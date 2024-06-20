@@ -147,7 +147,7 @@ _All_ of the following environments need to be set (except SMTP authentication i
 | PWP__MAIL__READ_TIMEOUT | Number of seconds to wait until timing-out a read(2) call. | `10` |
 | PWP__HOST_DOMAIN | Used to build fully qualified URLs in emails.  Where is your instance hosted? | `pwpush.com` |
 | PWP__HOST_PROTOCOL | The protocol to access your Password Pusher instance.  HTTPS advised. | `https` |
-| PWP__MAIL__MAILER_SENDER | This is the "From" address in sent emails. | '"Company Name" <user@example.com>' |
+| PWP__MAIL__MAILER_SENDER | This is the "From" address in sent emails. | '"Company Name" <<user@example.com>>' |
 | PWP__DISABLE_SIGNUPS| Once your user accounts are created, you can set this to disable any further user account creation.  Sign up links and related backend functionality is disabled when `true`. | `false` |
 | PWP__SIGNUP_EMAIL_REGEXP | The regular expression used to validate emails for new user signups.  This can be modified to limit new account creation to a subset of domains. e.g. <code>\A[^@\s]+@(hey\.com\|gmail\.com)\z</code>.  _Tip: use https://rubular.com to test out your regular expressions. It includes a guide to what each component means in regexp._ | `\A[^@\s]+@[^@\s]+\z` |
 
