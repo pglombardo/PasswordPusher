@@ -218,7 +218,20 @@ class PasswordsController < BaseController
   end
 
   def preliminary
-    @secret_url = helpers.raw_secret_url(@push)
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      respond_to do |format|
+        format.html { render template: "passwords/show_expired", layout: "naked" }
+        format.json { render json: @push.to_json(payload: true) }
+      end
+      return
+    else
+      @secret_url = helpers.raw_secret_url(@push)
+    end
 
     respond_to do |format|
       format.html { render action: "preliminary", layout: "naked" }
