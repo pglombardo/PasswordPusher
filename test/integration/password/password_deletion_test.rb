@@ -4,8 +4,6 @@ require "test_helper"
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_anonymous_password_deletion
-    sign_out :user
-
     assert Settings.pw.enable_deletable_pushes == true
     # create
     post passwords_path, params: {password: {payload: "testpw", deletable_by_viewer: "on"}}
@@ -31,6 +29,11 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
 
     # Get redirected to the password that is now expired
     follow_redirect!
+    assert_response :success
+    assert response.body.include?("We apologize but this secret link has expired.")
+
+    # Retrieve the preliminary page.  It should show expired too.
+    get preliminary_password_path(Password.last)
     assert_response :success
     assert response.body.include?("We apologize but this secret link has expired.")
   end

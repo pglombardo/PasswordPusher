@@ -90,5 +90,10 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "p", "We apologize but this secret link has expired."
+
+    # Retrieve the preliminary page.  It should show expired too.
+    get preliminary_password_path(FilePush.last)
+    assert_response :success
+    assert response.body.include?("We apologize but this secret link has expired.")
   end
 end
