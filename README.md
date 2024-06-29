@@ -41,7 +41,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
 * __Re-Brandable:__ Customize the site name, tagline and logo to fit your environment.
 * __Custom CSS:__ Bundle in your own custom CSS to add your own design.
-* __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 10 year history.
+* __>10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 10 year history.
 * __Actively Maintained:__ I happily work for the good karma of the great IT/Security community.
 * __Honest Software:__  Open source written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
