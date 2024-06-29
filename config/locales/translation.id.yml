@@ -525,6 +525,7 @@ id:
           Anda saat ini untuk menyimpan perubahan
       new:
         sign_up: Mendaftar
+        account_or_team_name: Nama Akun atau Tim
       signed_up: Proses pendaftaran berhasil. Apabila diaktifkan, konfirmasi telah
         dikirimkan ke e-mail anda.
       signed_up_but_inactive: Pendaftaran berhasil. Akan tetapi, Anda belum dapat
@@ -754,6 +755,7 @@ id:
       pwgen_max_syllable_length_help: Panjang maksimum suku kata dalam kata sandi
         yang dibuat.
       pwgen_syllables_count: Hitungan Suku Kata
+      switch: Beralih
     show:
       edit_policy: Edit Kebijakan Push
       policy: Kebijakan Tim
@@ -777,6 +779,8 @@ id:
       newsletter: Buletin
       password_generator: Generator Kata Sandi
       tools: Alat, API & CLI
+      api_docs: Dokumentasi API
+      features: Fitur
     pw_generator_modal:
       cancel: Batal
       configure: Mengonfigurasi Pembuatan Kata Sandi
@@ -797,6 +801,8 @@ id:
       vowels: Vokal
     navbar:
       edit_policy: Kebijakan
+    secret_url_bar:
+      secret_link_lang: Bahasa Tautan Rahasia
   audit_logs:
     audit_log:
       created: Dibuat
@@ -812,6 +818,7 @@ id:
       log_viewed: Tampilan berhasil dari alamat IP %{ip} pada %{date} oleh %{user}
       unknown: Tidak diketahui
       viewed_by: Dilihat oleh %{user}
+      log_failed_passphrase: Gagal mencoba kata sandi pada %{date} oleh %{user}
   dashboard:
     show:
       detail: Detail
@@ -832,10 +839,10 @@ id:
   feedbacks:
     create:
       feedback_sent: Umpan balik terkirim!  Kami akan segera menghubungi Anda secepatnya.
-    failed_spam_test: Mohon maaf, namun Anda gagal dalam pemeriksaan spam.  Anda dapat
-      mencoba menghubungi kami di Github.
-    failed_to_send: Gagal mengirim umpan balik.  Ada sesuatu yang salah.  Silakan
-      coba lagi atau hubungi kami di Github.
+      failed_spam_test: Mohon maaf, namun Anda gagal dalam pemeriksaan spam.  Anda
+        dapat mencoba menghubungi kami di Github.
+      failed_to_send: Gagal mengirim umpan balik.  Ada sesuatu yang salah.  Silakan
+        coba lagi atau hubungi kami di Github.
     new:
       email: Email
       have_idea: Punya ide atau keinginan?  Ada yang tidak Anda sukai?  Ingin membantu?  Kami
@@ -938,6 +945,7 @@ id:
       title: Log Audit Push
       visible_to: Hanya Dapat Dilihat Oleh Anda
       when: Kapan
+      preview: Bagikan Dorong ini
     copy_to_clipboard: Menyalin ke Papan Klip
     day:
       one: 1 hari
@@ -949,6 +957,7 @@ id:
     expire:
       expired: Konten push telah dihapus dan URL rahasia telah kedaluwarsa.
       not_deletable: Dorongan itu tidak dapat dihapus oleh pemirsa.
+      already_expired: Dorongan tersebut telah kedaluwarsa.
     form:
       12_hours: 12 Jam
       15_minutes: 15 Menit
@@ -1004,6 +1013,8 @@ id:
       views: Tampilan
       week: Minggu
       weeks: Minggu
+      payload_url_placeholder: Masukkan URL yang akan dialihkan ke...
+      url_push_tip: Push yang dibuat akan mengarahkan ke URL yang disediakan.
     hour:
       one: 1 jam
       other: "%{count} jam"
@@ -1024,6 +1035,8 @@ id:
       views_remaining: Tampilan yang tersisa
       active: Aktif
       expired: Kadaluarsa
+      all: Semua
+      remaining: Sisa
     minute:
       one: 1 menit
       other: "%{count} menit"
@@ -1077,7 +1090,7 @@ id:
       push_controls: Kontrol Dorong
       title: Dorongan Baru
       unknown: Tidak diketahui
-    secret_link_lang: Bahasa Tautan Rahasia
+      share: Bagikan
     settings: Pengaturan
     show:
       blurred: Kata sandi Anda kabur.  Klik di bawah ini untuk mengungkapkannya.
@@ -1097,6 +1110,7 @@ id:
         %{time_unit}%{b_tag} atau %{b_tag}%{view_count} lagi %{view_unit}%{b_tag}
         (mana yang lebih dulu).
       your_link: Tautan Rahasia Anda
+      intro: Konten berikut ini telah dikirimkan kepada Anda.
     show_expired:
       expired_help: Jika diperlukan, silakan hubungi orang atau organisasi yang memberi
         Anda URL rahasia ini.
@@ -1108,6 +1122,9 @@ id:
     view_audit_log: Lihat Log Audit
     whichever: "(mana saja yang lebih dulu)"
     'yes': Ya
+    payload_too_large: Muatannya terlalu besar.  Anda hanya dapat mendorong hingga
+      %{count} byte.
+    too_many_files: Anda hanya dapat melampirkan hingga %{count} file per push.
   static:
     about:
       about_1: Password Pusher adalah alat yang digunakan untuk berbagi kata sandi
@@ -1191,11 +1208,6 @@ id:
         sumber terbuka dan tidak gratis.  Pada intinya berisi proyek sumber terbuka
         tetapi menawarkan serangkaian fitur super dan dimaksudkan untuk mempercepat
         pengembangan dan membantu mendanai proyek.
-      answer_licensing_3: Versi premium tidak diperlukan untuk menjalankan contoh
-        pribadi Password Pusher.  Versi sumber terbuka memiliki fitur lengkap dan
-        gratis untuk digunakan.
-      answer_licensing_4: Semua fitur premium berakhir di versi open source setelah
-        jangka waktu tertentu, tergantung pada fiturnya.
       answer_private_risks_1: Menjalankan contoh pribadi Password Pusher untuk perusahaan
         atau organisasi Anda memberi Anda ketenangan pikiran karena Anda tahu persis
         kode apa yang sedang berjalan.  Anda bisa mengonfigurasi dan menjalankannya
@@ -1243,8 +1255,6 @@ id:
         dan %{install_link} untuk berbagai macam platform dan cloud.
       answer_self_host_2: Untuk versi premium, dengan serangkaian fitur super lengkap,
         kontainer yang di-host sendiri akan segera hadir.
-      answer_trust_1: Dan memang seharusnya begitu. Semua keamanan yang baik dimulai
-        dengan skeptisisme yang sehat dari semua komponen yang terlibat.
       answer_trust_2: Password Pusher hadir sebagai alternatif yang lebih baik untuk
         mengirim kata sandi melalui email. Hal ini untuk menghindari adanya kata sandi
         yang ada dalam arsip email untuk selamanya. Ini tidak ada sebagai solusi keamanan
@@ -1258,9 +1268,6 @@ id:
       answer_trust_4: Dengan memiliki sejarah yang panjang dan bersifat open source,
         Password Pusher telah ditinjau oleh banyak mata.  Telah digunakan oleh dan
         diaudit oleh banyak organisasi dan individu selama bertahun-tahun.
-      answer_trust_5: 'Kebijakan Password Pusher ada tiga: 1) Enkripsi saat istirahat
-        dan dalam perjalanan 2) Penyimpanan data minimal 3) Transparansi dalam bentuk
-        log audit.'
       answer_trust_6: Dalam hal ini, muatan push akan dihapus dengan pasti pada saat
         kedaluwarsa dan log audit dipertahankan tanpa batas waktu.  Semakin sedikit
         data yang disimpan oleh Pendorong Kata Sandi, semakin baik.
@@ -1326,6 +1333,31 @@ id:
       title_trust: Kepercayaan & Keamanan
       tools_link: Alat & Aplikasi
       windows_link: Windows Powerpoint
+      answer_apnotic_1: Apnotic adalah perusahaan yang dibuat untuk mengelola Password
+        Pusher (dan menerima kartu kredit).  Perusahaan ini sepenuhnya dimiliki dan
+        dikelola oleh saya sendiri, Peter Giacomo Lombardo.
+      answer_files_free: |
+        Saya benar-benar mencoba untuk menjaga agar push berbasis file tetap gratis tetapi karena beberapa penyalahgunaan, risiko, dan biaya hosting yang terus meningkat. Saya tidak punya banyak pilihan.
+        <br/>
+        Jika Anda seorang individu atau pelajar dan benar-benar tidak mampu membayar $8/bulan, kirimkan pesan pada saya dan saya akan melihat apa yang bisa saya lakukan.  Minimal, kartu kredit akan diperlukan meskipun tidak akan dikenakan biaya.
+      answer_have_to_pay: |
+        Jika Anda adalah organisasi nirlaba atau institusi pendidikan, kirimkan saya pesan pada formulir umpan balik, jelaskan kebutuhan Anda dan saya mungkin bisa memberikan Anda akun premium atau pro secara gratis.
+        <br/>
+        Jika Anda adalah bagian dari perusahaan profit, dengan rendah hati saya meminta dukungan Anda dalam bentuk langganan.
+      answer_premium_diff: Lihat %{link} untuk daftar lengkap perbedaan antara versi
+        open source dan versi premium.
+      answer_why_premium_2: Saya memperkenalkan versi premium untuk membantu mendanai
+        proyek dan mempercepat pengembangan.  Kumpulan fitur super dalam versi premium
+        dimaksudkan untuk menjadi nilai tambah bagi organisasi yang membutuhkan lebih
+        banyak daripada yang disediakan oleh versi sumber terbuka.  Ketika Password
+        Pusher sudah dikembangkan, fitur-fitur premium akan dipindahkan ke versi open-source
+        setelah jangka waktu tertentu, tergantung dari fitur tersebut.
+      answer_will_oss: |
+        Tentu saja - versi premium memungkinkan saya untuk menghabiskan lebih banyak waktu untuk proyek ini.
+        Tujuan akhir dari semua pekerjaan adalah untuk menjadi versi open source dari proyek ini pada akhirnya.
+      question_apnotic: Apa yang dimaksud dengan Apnotic?
+      question_files_free: Unggahan file dulunya gratis.  Mengapa sekarang menjadi
+        fitur premium?
     generate_key:
       env_var: Anda dapat menerapkan kunci ini ke aplikasi Anda dengan mengatur variabel
         lingkungan
@@ -1357,6 +1389,7 @@ id:
       title: Menghasilkan Kunci Enkripsi
     password_generator:
       push_it: Tekan Kata Sandi ini
+      pwgen_title: Generator Kata Sandi
     tools:
       alfred: Aplikasi Alfred
       api_documentation: Dokumentasi Titik Akhir API
@@ -1400,4 +1433,3 @@ id:
         privacy_policy: Kebijakan Privasi
       terms_of_service:
         terms_of_service: Ketentuan Layanan
-  confirmation_go: Klik di sini untuk mengonfirmasi akun Anda

@@ -375,6 +375,7 @@ de:
           Passwort, um die Änderung zu bestätigen
       new:
         sign_up: Registrieren
+        account_or_team_name: Konto- oder Teamname
     unlocks:
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung,
         wie Sie Ihr Konto entsperren können.
@@ -757,6 +758,7 @@ de:
       pwgen_max_syllable_length_help: Die maximale Länge einer Silbe im generierten
         Passwort.
       pwgen_syllables_count: Silben zählen
+      switch: Schalten
     show:
       edit_policy: Bearbeiten Sie die Push-Richtlinie
       policy: Teamrichtlinie
@@ -780,6 +782,8 @@ de:
       newsletter: Newsletter
       password_generator: Passwortgenerator
       tools: Tools, API und CLIs
+      api_docs: API-Dokumentation
+      features: Merkmale
     pw_generator_modal:
       cancel: Abbrechen
       configure: Passwortgenerator konfigurieren
@@ -800,6 +804,8 @@ de:
       vowels: Vokale
     navbar:
       edit_policy: Politik
+    secret_url_bar:
+      secret_link_lang: Sprache des Links
   audit_logs:
     audit_log:
       created: Erstellt
@@ -816,6 +822,8 @@ de:
         %{user}
       unknown: Unbekannt
       viewed_by: Gesehen von %{user}
+      log_failed_passphrase: Fehlgeschlagener Passphrase-Versuch auf %{date} durch
+        %{user}
   dashboard:
     show:
       detail: Detail
@@ -837,10 +845,10 @@ de:
     create:
       feedback_sent: Feedback gesendet! Wir werden uns schnellstmöglich bei Ihnen
         melden.
-    failed_spam_test: Wir entschuldigen uns, aber Sie sind bei der Spam-Prüfung durchgefallen.
-      Sie könnten stattdessen versuchen, uns auf Github zu kontaktieren.
-    failed_to_send: Feedback konnte nicht gesendet werden. Irgendetwas stimmte nicht.
-      Bitte versuchen Sie es erneut oder kontaktieren Sie uns über Github.
+      failed_spam_test: Wir entschuldigen uns, aber Sie sind bei der Spam-Prüfung
+        durchgefallen. Sie könnten stattdessen versuchen, uns auf Github zu kontaktieren.
+      failed_to_send: Feedback konnte nicht gesendet werden. Irgendetwas stimmte nicht.
+        Bitte versuchen Sie es erneut oder kontaktieren Sie uns über Github.
     new:
       email: E-Mail
       have_idea: Eine tolle Idee, einen  Fehler gefunden oder einen Wunsch wie Password
@@ -945,6 +953,7 @@ de:
       title: Push-Audit-Protokoll
       visible_to: Nur für Sie sichtbar
       when: Wenn
+      preview: Diesen Push teilen
     copy_to_clipboard: In die Zwischenablage kopieren
     day:
       one: 1 Tag
@@ -956,6 +965,7 @@ de:
     expire:
       expired: Der Push-Inhalt wurde gelöscht und die geheime URL ist abgelaufen.
       not_deletable: Dieser Push kann von Betrachtern nicht gelöscht werden.
+      already_expired: Dieser Push ist bereits abgelaufen.
     form:
       12_hours: 12 Stunden
       15_minutes: 15 Minuten
@@ -1014,6 +1024,9 @@ de:
       views: Aufrufe
       week: Woche
       weeks: Wochen
+      payload_url_placeholder: Geben Sie die URL ein zu welcher die Weiterleitung
+        erfolgen soll...
+      url_push_tip: Der erstellte Push leitet zur angegebenen URL weiter.
     hour:
       one: 1 Stunde
       other: "%{count} Stunden"
@@ -1034,6 +1047,8 @@ de:
       views_remaining: Verbleibende Ansichten
       active: Aktiv
       expired: Abgelaufen
+      all: Alle
+      remaining: Übrig
     minute:
       one: 1 Minute
       other: "%{count} Minuten"
@@ -1088,7 +1103,7 @@ de:
       push_controls: Push-Steuerelemente
       title: Neuer Vorstoß
       unknown: Unbekannt
-    secret_link_lang: Sprache des Links
+      share: Aktie
     settings: Einstellungen
     show:
       blurred: Das Passwort ist unkenntlich. Auf den verschwommenen Bereich für die
@@ -1109,6 +1124,7 @@ de:
         %{time_unit}%{b_tag} oder %{b_tag}%{view_count} mehr %{view_unit}%{b_tag}
         (je nachdem, was zuerst eintritt) gelöscht.
       your_link: Geheimer Link
+      intro: Der folgende Inhalt wurde Ihnen zugesandt.
     show_expired:
       expired_help: Bei Bedarf wenden Sie sich bitte an die Person oder Organisation,
         von der Sie diese geheime URL erhalten haben.
@@ -1121,6 +1137,9 @@ de:
     view_audit_log: Auditprotokoll anzeigen
     whichever: "(Welcher Fall auch immer zuerst eintritt …)"
     'yes': Ja
+    payload_too_large: Die Nutzlast ist zu groß. Sie können nur bis zu %{count} Bytes
+      pushen.
+    too_many_files: Sie können pro Push nur bis zu %{count} Dateien anhängen.
   static:
     about:
       about_1: Password Pusher ist ein Tool zum sicheren Teilen von Passwörtern und
@@ -1207,11 +1226,6 @@ de:
         veröffentlicht. Es ist nicht Open Source und nicht kostenlos. Im Kern enthält
         es das Open-Source-Projekt, bietet jedoch eine Reihe von Funktionen und soll
         die Entwicklung beschleunigen und zur Finanzierung des Projekts beitragen.
-      answer_licensing_3: Die Premium-Version ist nicht erforderlich, um eine private
-        Instanz von Password Pusher auszuführen. Die Open-Source-Version ist voll
-        funktionsfähig und kostenlos nutzbar.
-      answer_licensing_4: Alle Premium-Funktionen landen je nach Funktion nach einer
-        gewissen Zeit in der Open-Source-Version.
       answer_private_risks_1: Der Betrieb einer privaten Instanz von Password Pusher
         für Ihr Unternehmen oder Ihre Organisation gibt Ihnen die Gewissheit, dass
         Sie genau wissen, welcher Code ausgeführt wird. Sie können es nach Belieben
@@ -1261,8 +1275,6 @@ de:
         und %{install_link} für eine Vielzahl von Plattformen und Clouds bereit.
       answer_self_host_2: Für die Premium-Version mit den vielen Funktionen sind bald
         selbst gehostete Container verfügbar.
-      answer_trust_1: Und das zu Recht. Sicherheit beginnt mit einer gesunden Skepsis
-        gegenüber allen beteiligten Komponenten.
       answer_trust_2: Password Pusher ist eine bessere Alternative zum Versand von
         Kennwörtern per E-Mail. PP verhindert, dass Passwörter in E-Mail-Archiven
         auf ewig existieren. Passwort Pusher ist keine allumfassende Sicherheitslösung!
@@ -1276,9 +1288,6 @@ de:
         sich um Open Source handelt, wurde Password Pusher von vielen Augen rezensiert.
         Es wurde im Laufe der Jahre von vielen Organisationen und Einzelpersonen verwendet
         und geprüft.
-      answer_trust_5: 'Die Richtlinie von Password Pusher umfasst drei Aspekte: 1)
-        Verschlüsselung im Ruhezustand und während der Übertragung, 2) minimale Datenaufbewahrung,
-        3) Transparenz in Form eines Prüfprotokolls.'
       answer_trust_6: In diesem Sinne werden Push-Payloads bei Ablauf eindeutig gelöscht
         und das Prüfprotokoll wird auf unbestimmte Zeit aufbewahrt. Je weniger Daten
         Password Pusher speichert, desto besser.
@@ -1342,6 +1351,40 @@ de:
       title_trust: Vertrauen und Sicherheit
       tools_link: Tools & Applikationen
       windows_link: Windows-Powerpoint
+      answer_apnotic_1: Apnotic ist das Unternehmen, das zur Verwaltung von Password
+        Pusher (und zur Annahme von Kreditkarten) gegründet wurde. Es ist mein alleiniger
+        Eigentümer und wird von mir, Peter Giacomo Lombardo, geleitet.
+      answer_files_free: 'Ich habe wirklich versucht, dateibasierte Pushes kostenlos
+        zu halten, aber aufgrund von Missbrauch, Risiken und steigenden Hosting-Kosten
+        hatte ich keine große Wahl.<br/> Wenn Sie eine Einzelperson oder ein Student
+        sind und sich die 8 $/Monat wirklich nicht leisten können, schreiben Sie mir
+        und ich werde sehen, was ich tun kann. Zumindest ist eine Kreditkarte erforderlich,
+        auch wenn diese nicht belastet wird.
+
+        '
+      answer_have_to_pay: 'Wenn Sie eine gemeinnützige Organisation oder eine Bildungseinrichtung
+        sind, senden Sie mir eine Nachricht über das Feedback-Formular, erläutern
+        Sie Ihre Anforderungen und ich kann Ihnen möglicherweise kostenlos ein Premium-
+        oder Pro-Konto einrichten.<br/> Wenn Sie Teil eines gewinnorientierten Unternehmens
+        sind, bitte ich Sie herzlich um Ihre Unterstützung in Form eines Abonnements.
+
+        '
+      answer_premium_diff: Eine vollständige Liste der Unterschiede zwischen der Open
+        Source- und der Premium-Version finden Sie unter %{link}.
+      answer_why_premium_2: Ich habe die Premium-Version eingeführt, um das Projekt
+        zu finanzieren und die Entwicklung zu beschleunigen. Die Super-Funktionen
+        der Premium-Versionen sollen einen Mehrwert für Organisationen darstellen,
+        die mehr benötigen, als die Open-Source-Version bietet. Während Password Pusher
+        ausgebaut wird, werden die Premium-Funktionen je nach Funktion nach einer
+        gewissen Zeit in die Open-Source-Version verschoben.
+      answer_will_oss: 'Auf jeden Fall – die Premium-Version ermöglicht es mir, mehr
+        Zeit mit dem Projekt zu verbringen. Das Endziel aller Arbeiten ist schließlich
+        die Open-Source-Version des Projekts.
+
+        '
+      question_apnotic: Was ist Apnotik?
+      question_files_free: Früher war der Datei-Upload kostenlos. Warum ist er jetzt
+        eine Premium-Funktion?
     generate_key:
       env_var: Sie können diesen Schlüssel auf Ihre Anwendung anwenden, indem Sie
         die Umgebungsvariable festlegen
@@ -1376,6 +1419,7 @@ de:
       title: Generiere Encryption Key
     password_generator:
       push_it: Drücken Sie dieses Passwort
+      pwgen_title: Passwortgenerator
     tools:
       alfred: Alfred App
       api_documentation: API-Endpunkt-Dokumentation
@@ -1420,4 +1464,3 @@ de:
         privacy_policy: Datenschutzrichtlinie
       terms_of_service:
         terms_of_service: Nutzungsbedingungen
-  confirmation_go: Klicken Sie hier, um Ihr Konto zu bestätigen

@@ -513,6 +513,7 @@ is:
           lykilorð til að staðfesta breytingar.
       new:
         sign_up: Nýskrá
+        account_or_team_name: Reikningur eða liðsheiti
       signed_up: Velkomin(n)! Þú hefur nýskráð þig.
       signed_up_but_inactive: Þú hefur nýskráð þig. Hins vegar gátum við ekki innskráð
         þig því að aðgangurinn þinn hefur ekki verið virktur.
@@ -739,6 +740,7 @@ is:
       pwgen_max_syllable_length_help: Hámarkslengd atkvæðis í lykilorðinu sem búið
         er til.
       pwgen_syllables_count: Atkvæði telja
+      switch: Skipta
     show:
       edit_policy: Breyta Push Policy
       policy: Stefna liðsins
@@ -762,6 +764,8 @@ is:
       newsletter: Fréttabréf
       password_generator: Lykilorðsframleiðandi
       tools: Verkfæri, API og CLI
+      api_docs: API skjöl
+      features: Eiginleikar
     pw_generator_modal:
       cancel: Hætta við
       configure: Stilla lykilorðsgerð
@@ -782,6 +786,8 @@ is:
       vowels: Sérhljóðar
     navbar:
       edit_policy: Stefna
+    secret_url_bar:
+      secret_link_lang: Leyndarmál hlekkja
   audit_logs:
     audit_log:
       created: Búið til
@@ -797,6 +803,7 @@ is:
       log_viewed: Vel heppnuð skoðun frá IP tölu %{ip} á %{date} eftir %{user}
       unknown: Óþekktur
       viewed_by: Skoðað af %{user}
+      log_failed_passphrase: Misheppnuð tilraun með aðgangsorð á %{date} af %{user}
   dashboard:
     show:
       detail: Smáatriði
@@ -818,10 +825,10 @@ is:
     create:
       feedback_sent: Viðbrögð send! Við munum snúa aftur til þín eins fljótt og auðið
         er.
-    failed_spam_test: Við biðjumst velvirðingar en þú tókst ekki ruslpóstathugunina.
-      Þú gætir prófað að hafa samband við okkur á Github í staðinn.
-    failed_to_send: Mistókst að senda álit. Eitthvað var að. Vinsamlegast reyndu aftur
-      eða hafðu samband við okkur á Github.
+      failed_spam_test: Við biðjumst velvirðingar en þú tókst ekki ruslpóstathugunina.
+        Þú gætir prófað að hafa samband við okkur á Github í staðinn.
+      failed_to_send: Mistókst að senda álit. Eitthvað var að. Vinsamlegast reyndu
+        aftur eða hafðu samband við okkur á Github.
     new:
       email: Tölvupóstur
       have_idea: Ertu með hugmynd eða ósk? Eitthvað sem þér líkar ekki við? Viltu
@@ -920,6 +927,7 @@ is:
       title: Ýttu á endurskoðunarskrá
       visible_to: Aðeins þér sýnilegt
       when: Hvenær
+      preview: Deildu þessu Push
     copy_to_clipboard: Afritaðu á klemmuspjald
     day:
       one: 1 dag
@@ -930,6 +938,7 @@ is:
     expire:
       expired: Push efninu hefur verið eytt og leyni vefslóðin rann út.
       not_deletable: Þessu ýti er ekki hægt að eyða af áhorfendum.
+      already_expired: Sú aðgerð er þegar útrunnin.
     form:
       12_hours: 12 tímar
       15_minutes: 15 mínútur
@@ -985,6 +994,8 @@ is:
       views: Útsýni
       week: Vika
       weeks: Vikur
+      payload_url_placeholder: Sláðu inn slóðina til að beina á...
+      url_push_tip: Stofna ýtingin mun vísa til slóðarinnar sem gefin er upp.
     hour:
       one: 1 klukkustund
       other: "%{count} klukkustundir"
@@ -1005,6 +1016,8 @@ is:
       views_remaining: Útsýni eftir
       active: Virkur
       expired: Útrunnið
+      all: Allt
+      remaining: Eftir
     minute:
       one: 1 mínúta
       other: "%{count} mínútur"
@@ -1058,7 +1071,7 @@ is:
       push_controls: Ýttu á stýringar
       title: Nýtt Push
       unknown: Óþekktur
-    secret_link_lang: Leyndarmál hlekkja
+      share: Deila
     settings: Stillingar
     show:
       blurred: Lykilorðið þitt er óskýrt. Smelltu hér að neðan til að sýna það.
@@ -1078,6 +1091,7 @@ is:
         %{time_unit}%{b_tag} eða %{b_tag}%{view_count} meira %{view_unit}%{b_tag}
         (hvort sem kemur fyrst).
       your_link: Leyni hlekkurinn þinn
+      intro: Eftirfarandi efni hefur verið sent til þín.
     show_expired:
       expired_help: Ef þörf krefur, vinsamlegast hafðu samband við þann eða stofnunina
         sem gaf þér þessa leynilegu slóð.
@@ -1089,6 +1103,9 @@ is:
     view_audit_log: Skoða endurskoðunarskrá
     whichever: "(hvort sem kemur á undan)"
     'yes': Já
+    payload_too_large: Burðargetan er of stór. Þú getur aðeins ýtt upp í %{count}
+      bæti.
+    too_many_files: Þú getur aðeins hengt allt að %{count} skrár við hverja ýtingu.
   static:
     about:
       about_1: Password Pusher er tól sem notað er til að deila lykilorðum og öðrum
@@ -1167,10 +1184,6 @@ is:
         opinn uppspretta og er ekki ókeypis. Kjarninn inniheldur opinn uppspretta
         verkefnið en býður upp á ofursett af eiginleikum og er ætlað að flýta fyrir
         þróun og hjálpa til við að fjármagna verkefnið.
-      answer_licensing_3: Úrvalsútgáfan er ekki nauðsynleg til að keyra einkatilvik
-        af Password Pusher. Opinn uppspretta útgáfan er fullbúin og ókeypis í notkun.
-      answer_licensing_4: Allir úrvalseiginleikar enda í opna útgáfunni eftir nokkurn
-        tíma eftir eiginleikum.
       answer_private_risks_1: Að keyra einkatilvik af Password Pusher fyrir fyrirtæki
         þitt eða stofnun gefur þér hugarró að þú veist nákvæmlega hvaða kóða er í
         gangi. Þú getur stillt og keyrt það eins og þú vilt.
@@ -1216,8 +1229,6 @@ is:
         og %{install_link} fyrir fjölbreytt úrval af kerfum og skýjum.
       answer_self_host_2: Fyrir úrvalsútgáfuna, með ofursettinu af eiginleikum, koma
         sjálf-hýst gámar fljótlega.
-      answer_trust_1: Og með réttu. Allt gott öryggi byrjar með heilbrigðri tortryggni
-        í garð allra þátta sem málið varðar.
       answer_trust_2: Password Pusher er til sem betri valkostur við að senda lykilorð
         í tölvupósti. Það forðast að hafa lykilorð til í skjalasafni tölvupósts til
         frambúðar. Það er ekki til sem endanleg öryggislausn.
@@ -1229,8 +1240,6 @@ is:
       answer_trust_4: Með því að hafa svo langa sögu og vera opinn uppspretta hefur
         Password Pusher verið skoðað af mörgum augum. Það hefur verið notað af og
         endurskoðað margar stofnanir og einstaklinga í gegnum árin.
-      answer_trust_5: 'Stefna Password Pusher er þríþætt: 1) Dulkóðun í hvíld og í
-        flutningi 2) Lágmarks varðveisla gagna 3) Gagnsæi í formi endurskoðunarskrár.'
       answer_trust_6: Í þessum dúr er þrýstihleðslum ótvírætt eytt þegar það rennur
         út og endurskoðunarskránni er viðhaldið endalaust. Því minni gögn sem Password
         Pusher geymir, því betra.
@@ -1291,6 +1300,37 @@ is:
       title_trust: Traust og öryggi
       tools_link: Verkfæri og forrit
       windows_link: Windows Powerpoint
+      answer_apnotic_1: Apnotic er fyrirtækið stofnað til að stjórna Password Pusher
+        (og taka við kreditkortum). Það er eingöngu í eigu og stjórnað af mér, Peter
+        Giacomo Lombardo.
+      answer_files_free: 'Ég reyndi virkilega að halda skráarbundnum ýtum ókeypis
+        en vegna misnotkunar, áhættu og vaxandi hýsingarkostnaðar. Ég hafði ekki mikið
+        val.<br/> Ef þú ert einstaklingur eða námsmaður og hefur í raun ekki efni
+        á $8/mánuði, sendu mér skilaboð og ég skal sjá hvað ég get gert. Að minnsta
+        kosti þarf kreditkort þó að það sé ekki skuldfært.
+
+        '
+      answer_have_to_pay: 'Ef þú ert sjálfseignarstofnun eða menntastofnun, sendu
+        mér skilaboð á athugasemdaeyðublaðinu, útskýrðu þarfir þínar og ég gæti hugsanlega
+        veitt þér aukagjald eða atvinnureikning ókeypis.<br/> Ef þú ert hluti af fyrirtæki
+        í hagnaðarskyni bið ég auðmjúklega um stuðning þinn í formi áskriftar.
+
+        '
+      answer_premium_diff: Sjá %{link} fyrir fullan lista yfir muninn á opnum uppspretta
+        og úrvalsútgáfum.
+      answer_why_premium_2: Ég kynnti úrvalsútgáfuna til að hjálpa til við að fjármagna
+        verkefnið og flýta fyrir þróun. Ofursettið af eiginleikum í úrvalsútgáfunum
+        er ætlað að vera virðisaukandi fyrir stofnanir sem þurfa meira en opinn uppspretta
+        útgáfan veitir. Þar sem Password Pusher er byggt upp verða úrvalsaðgerðirnar
+        færðar í opna útgáfuna eftir nokkurn tíma eftir eiginleikum.
+      answer_will_oss: 'Algjörlega - úrvalsútgáfan gerir mér kleift að eyða meiri
+        tíma í verkefnið. Lokaáfangastaður allrar vinnu er að vera í opinni útgáfu
+        verkefnisins að lokum.
+
+        '
+      question_apnotic: Hvað er Apnotic?
+      question_files_free: Upphleðsla skráa var áður ókeypis. Af hverju eru þeir nú
+        hágæða eiginleiki?
     generate_key:
       env_var: Þú getur notað þennan lykil á forritið þitt með því að stilla umhverfisbreytuna
       generate_key: Búa til lykil
@@ -1319,6 +1359,7 @@ is:
       title: Búðu til dulkóðunarlykil
     password_generator:
       push_it: Ýttu á þetta lykilorð
+      pwgen_title: Lykilorðsframleiðandi
     tools:
       alfred: Alfred App
       api_documentation: API endapunktaskjöl
@@ -1359,4 +1400,3 @@ is:
         privacy_policy: Friðhelgisstefna
       terms_of_service:
         terms_of_service: Skilmálar þjónustu
-  confirmation_go: Smelltu hér til að staðfesta reikninginn þinn

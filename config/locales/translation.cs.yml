@@ -368,6 +368,7 @@ cs:
           je nutné pro potvrzení změn.
       new:
         sign_up: Zaregistrovat se
+        account_or_team_name: Název účtu nebo týmu
     unlocks:
       send_instructions: Za několik minut obdržíte e-mail s instrukcemi, jak odemknout
         svůj účet.
@@ -739,6 +740,7 @@ cs:
       pwgen_max_syllable_length: Maximální délka slabiky
       pwgen_max_syllable_length_help: Maximální délka slabiky ve vygenerovaném heslu.
       pwgen_syllables_count: Počet slabik
+      switch: Přepínač
     show:
       edit_policy: Upravit zásady push
       policy: Týmové zásady
@@ -762,6 +764,8 @@ cs:
       newsletter: Zpravodaj
       password_generator: Generátor hesel
       tools: Nástroje, API a CLI
+      api_docs: Dokumentace API
+      features: Funkce
     pw_generator_modal:
       cancel: Storno
       configure: Nastavení generování hesel
@@ -782,6 +786,8 @@ cs:
       vowels: Samohlásky
     navbar:
       edit_policy: Politika
+    secret_url_bar:
+      secret_link_lang: Tajný jazyk odkazů
   audit_logs:
     audit_log:
       created: Vytvořeno
@@ -796,6 +802,8 @@ cs:
       log_viewed: Úspěšné zobrazení z IP adresy %{ip} na %{date} uživatelem %{user}
       unknown: Neznámý
       viewed_by: Zobrazeno %{user}
+      log_failed_passphrase: Neúspěšný pokus o zadání přístupové fráze na %{date}
+        od %{user}
   dashboard:
     show:
       detail: Detail
@@ -816,10 +824,10 @@ cs:
   feedbacks:
     create:
       feedback_sent: Zpětná vazba byla odeslána! Ozveme se vám co nejdříve.
-    failed_spam_test: Omlouváme se, ale neprošel jste kontrolou spamu. Místo toho
-      nás můžete zkusit kontaktovat na Github.
-    failed_to_send: Zpětnou vazbu se nepodařilo odeslat. Něco nebylo v pořádku. Zkuste
-      to znovu nebo nás kontaktujte na Github.
+      failed_spam_test: Omlouváme se, ale neprošel jste kontrolou spamu. Místo toho
+        nás můžete zkusit kontaktovat na Github.
+      failed_to_send: Zpětnou vazbu se nepodařilo odeslat. Něco nebylo v pořádku.
+        Zkuste to znovu nebo nás kontaktujte na Github.
     new:
       email: E-mail
       have_idea: Máte nápad nebo přání? Něco co se ti nelíbí? Chcete pomoci? Chceme
@@ -919,6 +927,7 @@ cs:
       title: Push Audit Log
       visible_to: Viditelné pouze pro vás
       when: Když
+      preview: Sdílejte tento Push
     copy_to_clipboard: Zkopírovat do schránky
     day:
       one: 1 den
@@ -930,6 +939,7 @@ cs:
     expire:
       expired: Push obsah byl smazán a platnost tajné adresy URL vypršela.
       not_deletable: Tento push není pro diváky smazatelný.
+      already_expired: Platnost tohoto podnětu již vypršela.
     form:
       12_hours: 12 hodin
       15_minutes: 15 minut
@@ -987,6 +997,8 @@ cs:
       views: Pohledy
       week: Týden
       weeks: týdny
+      payload_url_placeholder: Zadejte adresu URL pro přesměrování na...
+      url_push_tip: Vytvořený push bude přesměrován na poskytnutou URL.
     hour:
       one: 1 hodina
       other: "%{count} hodin"
@@ -1007,6 +1019,8 @@ cs:
       views_remaining: Zbývající zobrazení
       active: Aktivní
       expired: Platnost vypršela
+      all: Všechno
+      remaining: Zbývající
     minute:
       one: 1 minuta
       other: "%{count} minuty"
@@ -1060,7 +1074,7 @@ cs:
       push_controls: Push Controls
       title: Nový Push
       unknown: Neznámý
-    secret_link_lang: Tajný jazyk odkazů
+      share: Podíl
     settings: Nastavení
     show:
       blurred: Vaše heslo je rozmazané. Kliknutím níže jej odhalíte.
@@ -1079,6 +1093,7 @@ cs:
         %{time_unit}%{b_tag} nebo %{b_tag}%{view_count} dalších %{view_unit}%{b_tag}
         (podle toho, co nastane dříve).
       your_link: Váš tajný odkaz
+      intro: Byl vám zaslán následující obsah.
     show_expired:
       expired_help: V případě potřeby kontaktujte osobu nebo organizaci, která vám
         tuto tajnou adresu URL poskytla.
@@ -1090,6 +1105,9 @@ cs:
     view_audit_log: Zobrazit protokol auditu
     whichever: "(dle toho co nastane dřív)"
     'yes': Ano
+    payload_too_large: Užitečné zatížení je příliš velké. Můžete vložit pouze %{count}
+      bajtů.
+    too_many_files: Na jedno push můžete připojit maximálně %{count} souborů.
   static:
     about:
       about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
@@ -1169,11 +1187,6 @@ cs:
         source a není zdarma. Ve svém jádru obsahuje projekt s otevřeným zdrojovým
         kódem, ale nabízí super sadu funkcí a má urychlit vývoj a pomoci financovat
         projekt.
-      answer_licensing_3: Prémiová verze není vyžadována ke spuštění soukromé instance
-        Password Pusher. Verze s otevřeným zdrojovým kódem je plně funkční a zdarma
-        k použití.
-      answer_licensing_4: Všechny prémiové funkce skončí ve verzi s otevřeným zdrojovým
-        kódem po určité době v závislosti na funkci.
       answer_private_risks_1: Spuštění soukromé instance Password Pusher pro vaši
         společnost nebo organizaci vám dává jistotu, že přesně víte, jaký kód běží.
         Můžete jej nakonfigurovat a spustit, jak chcete.
@@ -1218,8 +1231,6 @@ cs:
         a %{install_link} pro širokou škálu platforem a cloudů.
       answer_self_host_2: U prémiové verze se super sadou funkcí budou brzy k dispozici
         kontejnery s vlastním hostitelem.
-      answer_trust_1: A oprávněně. Každé dobré zabezpečení začíná se zdravým skepticismem
-        nad všemi přítomnými součástmi.
       answer_trust_2: Password Pusher existuje jako lepší alternativa k zasílání hesel
         e-mailem. Zabraňuje tomu, aby hesla existovala v e-mailových archivech navěky.
         Neexistuje jako komplexní bezpečnostní řešení.
@@ -1231,9 +1242,6 @@ cs:
       answer_trust_4: Díky tak dlouhé historii a otevřenému zdroji byl Password Pusher
         zkontrolován mnoha očima. V průběhu let byl používán a auditován mnoha organizacemi
         a jednotlivci.
-      answer_trust_5: 'Politika Password Pusher je trojí: 1) Šifrování v klidu a při
-        přenosu 2) Minimální uchovávání dat 3) Transparentnost ve formě protokolu
-        auditu.'
       answer_trust_6: V tomto duchu jsou užitečné zátěže push po vypršení jednoznačně
         smazány a protokol auditu je udržován po neomezenou dobu. Čím méně dat Password
         Pusher uchovává, tím lépe.
@@ -1292,6 +1300,38 @@ cs:
       title_trust: Důvěra a bezpečnost
       tools_link: Nástroje a aplikace
       windows_link: Windows Powerpoint
+      answer_apnotic_1: Apnotic je společnost vytvořená pro správu Password Pusher
+        (a pro přijímání kreditních karet). Vlastním a spravuji ji výhradně já, Peter
+        Giacomo Lombardo.
+      answer_files_free: 'Opravdu jsem se snažil, aby pushy založené na souborech
+        byly zdarma, ale kvůli určitému zneužívání, riziku a rostoucím nákladům na
+        hosting. Neměl jsem moc na výběr.<br/> Pokud jste jednotlivec nebo student
+        a opravdu si nemůžete dovolit 8 $/měsíc, napište mi a uvidím, co mohu udělat.
+        Minimálně bude vyžadována kreditní karta, i když z ní nebudou účtovány žádné
+        poplatky.
+
+        '
+      answer_have_to_pay: 'Pokud jste nezisková nebo vzdělávací instituce, pošlete
+        mi zprávu ve formuláři pro zpětnou vazbu, vysvětlete své potřeby a já vám
+        možná budu moci poskytnout prémiový nebo pro účet zdarma.<br/> Pokud jste
+        součástí ziskové společnosti, pokorně vás žádám o podporu formou předplatného.
+
+        '
+      answer_premium_diff: Úplný seznam rozdílů mezi open source a prémiovou verzí
+        naleznete v %{link}.
+      answer_why_premium_2: Zavedl jsem prémiovou verzi, abych pomohl financovat projekt
+        a urychlil vývoj. Super sada funkcí v prémiových verzích má být přidanou hodnotou
+        pro organizace, které potřebují více, než poskytuje verze s otevřeným zdrojovým
+        kódem. Protože je Password Pusher vytvořen, prémiové funkce budou po určité
+        době v závislosti na funkci přesunuty do verze s otevřeným zdrojovým kódem.
+      answer_will_oss: 'Absolutně - prémiová verze mi umožňuje strávit více času na
+        projektu. Konečným cílem pro veškerou práci má být nakonec open source verze
+        projektu.
+
+        '
+      question_apnotic: Co je Apnotic?
+      question_files_free: Nahrávání souborů bývalo zdarma. Proč jsou nyní prémiovou
+        funkcí?
     generate_key:
       env_var: Tento klíč můžete použít ve své aplikaci nastavením proměnné prostředí
       generate_key: Generovat klíč
@@ -1321,6 +1361,7 @@ cs:
       title: Vygenerujte šifrovací klíč
     password_generator:
       push_it: Push toto heslo
+      pwgen_title: Generátor hesel
     tools:
       alfred: Aplikace Alfred
       api_documentation: Dokumentace ke koncovému bodu API
@@ -1360,4 +1401,3 @@ cs:
         privacy_policy: Zásady ochrany osobních údajů
       terms_of_service:
         terms_of_service: Podmínky služby
-  confirmation_go: Kliknutím sem potvrďte svůj účet
