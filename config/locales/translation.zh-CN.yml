@@ -342,6 +342,7 @@ zh-CN:
         we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认更改
       new:
         sign_up: 注册
+        account_or_team_name: 帐户或团队名称
     unlocks:
       send_instructions: 几分钟后，您将收到一封解锁帐户的邮件。
       send_paranoid_instructions: 如果您的邮箱存在于我们的数据库中，您将收到一封解锁帐户的邮件。
@@ -671,6 +672,7 @@ zh-CN:
       pwgen_max_syllable_length: 最大音节长度
       pwgen_max_syllable_length_help: 生成的密码中音节的最大长度。
       pwgen_syllables_count: 音节数
+      switch: 转变
     show:
       edit_policy: 编辑推送策略
       policy: 团队政策
@@ -693,6 +695,8 @@ zh-CN:
       newsletter: 通讯
       password_generator: 密码生成器
       tools: 工具、API 和 CLI
+      api_docs: API 文档
+      features: 特征
     pw_generator_modal:
       cancel: 取消
       configure: 配置密码生成器
@@ -713,6 +717,8 @@ zh-CN:
       vowels: 元音
     navbar:
       edit_policy: 政策
+    secret_url_bar:
+      secret_link_lang: 秘密链接语言
   audit_logs:
     audit_log:
       created: 创建于
@@ -726,6 +732,7 @@ zh-CN:
       log_viewed: "%{user} 从 %{date} 上的 IP 地址 %{ip} 成功查看"
       unknown: 未知
       viewed_by: 已查看者 %{user}
+      log_failed_passphrase: "%{user} 对 %{date} 的密码尝试失败"
   dashboard:
     show:
       detail: 细节
@@ -746,8 +753,8 @@ zh-CN:
   feedbacks:
     create:
       feedback_sent: 反馈已发送！我们会尽快回复您。
-    failed_spam_test: 抱歉，您未通过垃圾邮件检查。您可以尝试在 Github 上联系我们。
-    failed_to_send: 无法发送反馈。出了点问题。请重试或在 Github 上联系我们。
+      failed_spam_test: 抱歉，您未通过垃圾邮件检查。您可以尝试在 Github 上联系我们。
+      failed_to_send: 无法发送反馈。出了点问题。请重试或在 Github 上联系我们。
     new:
       email: 电子邮件
       have_idea: 有想法或愿望吗？你不喜欢什么？想帮忙吗？我们希望听到它！
@@ -828,6 +835,7 @@ zh-CN:
       title: 推送审核日志
       visible_to: 仅自己可见
       when: 什么时候
+      preview: 分享此推送
     copy_to_clipboard: 复制到剪贴板
     day:
       one: 1天
@@ -837,6 +845,7 @@ zh-CN:
     expire:
       expired: 推送内容已被删除，密文网址已过期。
       not_deletable: 观看者无法删除那个推送。
+      already_expired: 该推送已经过期。
     form:
       12_hours: 12小时
       15_minutes: 15分钟
@@ -886,6 +895,8 @@ zh-CN:
       views: 查看
       week: 星期
       weeks: 周数
+      payload_url_placeholder: 输入要重定向到的 URL...
+      url_push_tip: 创建的推送将重定向到提供的 URL。
     hour:
       one: 1小时
       other: "%{count} 小时"
@@ -906,6 +917,8 @@ zh-CN:
       views_remaining: 剩余观看次数
       active: 活动的
       expired: 已到期
+      all: 全部
+      remaining: 其余的
     minute:
       one: 1分钟
       other: "%{count} 分钟"
@@ -955,7 +968,7 @@ zh-CN:
       push_controls: 推送设置
       title: 新推
       unknown: 未知
-    secret_link_lang: 秘密链接语言
+      share: 分享
     settings: 设置
     show:
       blurred: 您的密码已模糊处理。单击下面以查看它。
@@ -971,6 +984,7 @@ zh-CN:
       will_be_deleted: 此秘密链接和所有内容将在 %{b_tag}%{time_count} %{time_unit}%{b_tag} 或 %{b_tag}%{view_count}
         更多 %{view_unit}%{b_tag}（以先发生者为准）中删除。
       your_link: 你的秘密链接
+      intro: 以下内容已发送给您。
     show_expired:
       expired_help: 如有需要，请联系向您提供此秘密 URL 的个人或组织。
       expired_message: 抱歉，此秘密链接已过期。
@@ -981,6 +995,8 @@ zh-CN:
     view_audit_log: 查看审计日志
     whichever: "（以先到者为准）"
     'yes': 是的
+    payload_too_large: 有效负载太大。您最多只能推送 %{count} 个字节。
+    too_many_files: 每次推送最多只能附加 %{count} 个文件。
   static:
     about:
       about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
@@ -1026,8 +1042,6 @@ zh-CN:
       answer_how_many_1: 目前没有限制，我也不打算添加任何限制。为了最低限度地保证站点稳定性，Password Pusher 默认配置了速率限制器。可以在自托管版本中禁用此功能。
       answer_licensing_1: 源代码开源版本是在 Apache 2.0 许可证下发布的，并且几乎定义了所有限制。有相当多的重新命名和重新设计的密码推送器克隆网站，我欢迎它们。
       answer_licensing_2: 高级版本是根据商业许可证发布的。它不是开源的，也不是免费的。它的核心包含开源项目，但提供了一组超强的功能，旨在加速开发并帮助资助该项目。
-      answer_licensing_3: 运行 Password Pusher 的私有实例不需要高级版本。开源版本功能齐全且免费使用。
-      answer_licensing_4: 所有高级功能在一段时间后最终会变成开源版本，具体取决于功能。
       answer_private_risks_1: 为您的公司或组织运行 Password Pusher 的私有实例让您高枕无忧，因为您确切知道正在运行的代码。您可以根据需要配置和运行它。
       answer_private_risks_2: 另一方面，如果您的实例遭到黑客攻击并且加密被破坏，恶意实体现在拥有目标密码字典来暴力破解您组织中的帐户。
         （这仅限于尚未过期的推送）
@@ -1049,12 +1063,10 @@ zh-CN:
       answer_rebranding_1: 密码推送器支持“开箱即用”的完整品牌重塑，允许您添加自定义徽标、图像、文本，甚至更改应用程序主题。
       answer_self_host_1: 是的，对于开源版本，我们为各种平台和云提供 %{docker_link} 和 %{install_link}。
       answer_self_host_2: 对于高级版本，具有超级功能集的自托管容器即将推出。
-      answer_trust_1: 理所当然的。所有良好的安全性都始于对所有相关组件的健康性怀疑。
       answer_trust_2: Password Pusher 作为通过电子邮件发送密码的更好替代方案而存在。它避免了密码永久存在于电子邮件档案中。它不作为最终的安全解决方案存在。
       answer_trust_3: Password Pusher 于 2011 年底作为一个开源项目开始。一直以来，它都是由我 (Peter Giacomo
         Lombardo) 和一些优秀的贡献者维护和更新。 2024 年，推出了高级版本以加速开发并帮助资助该项目。所有高级功能最终都会出现在开源版本中。
       answer_trust_4: 由于历史悠久且开源，Password Pusher 已受到广泛认可。多年来，它已被许多组织和个人使用和审核。
-      answer_trust_5: Password Pusher 的策略有三层：1) 静态和传输中加密 2) 最小化数据保留 3) 以审核日志形式实现透明度。
       answer_trust_6: 在这种情况下，推送有效负载在到期时将被明确删除，并且审核日志将无限期维护。密码推送器保存的数据越少越好。
       answer_trust_7: 如果您仍然对信任、安全和保障有疑虑，请随时查看代码，发布您可能遇到的任何问题，并考虑在您的组织内部运行它。
       answer_trust_8: 至于对我的信任，我所能提供的就是我构建这个项目的悠久历史以及我在 %{github}、%{linkedin}、%{twitter}
@@ -1094,6 +1106,23 @@ zh-CN:
       title_trust: 信任与安全
       tools_link: 工具与应用程序
       windows_link: 视窗简报
+      answer_apnotic_1: Apnotic 是一家为管理 Password Pusher（并接受信用卡）而成立的公司。该公司由我 Peter Giacomo
+        Lombardo 独自拥有和管理。
+      answer_files_free: '我确实尝试过让基于文件的推送保持免费，但由于滥用、风险和不断增长的托管成本，我别无选择。<br/>如果您是个人或学生，并且真的负担不起每月
+        8 美元的费用，请给我留言，我会看看能做些什么。即使不会扣款，至少也需要一张信用卡。
+
+        '
+      answer_have_to_pay: '如果您是非营利组织或教育机构，请在反馈表上给我发送消息，说明您的需求，我可能会免费授予您高级或专业帐户。<br/>如果您是一家营利性公司的一部分，我谦虚地请求您以订阅的形式提供支持。
+
+        '
+      answer_premium_diff: 请参阅 %{link} 了解开源版本和高级版本之间的完整差异列表。
+      answer_why_premium_2: 我推出了高级版本，以帮助资助该项目并加速开发。高级版本中的超集功能旨在为需要比开源版本更多功能的组织提供增值服务。随着
+        Password Pusher 的开发，高级功能将在一段时间后根据功能转移到开源版本。
+      answer_will_oss: '当然 - 高级版本让我可以花更多时间在项目上。所有工作的最终目的地都是项目的开源版本。
+
+        '
+      question_apnotic: 什么是 Apnotic？
+      question_files_free: 文件上传以前是免费的。为什么现在要成为付费功能？
     generate_key:
       env_var: 您可以通过设置环境变量将此密钥应用于您的应用程序
       generate_key: 生成密钥
@@ -1112,6 +1141,7 @@ zh-CN:
       title: 生成加密密钥
     password_generator:
       push_it: 推送此密码
+      pwgen_title: 密码生成器
     tools:
       alfred: 阿尔弗雷德应用程序
       api_documentation: API端点文档

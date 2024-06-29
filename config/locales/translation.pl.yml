@@ -372,6 +372,7 @@ pl:
           bieżącego hasła, aby potwierdzić zmiany
       new:
         sign_up: Zarejestruj się
+        account_or_team_name: Nazwa konta lub zespołu
     unlocks:
       send_instructions: Wkrótce powinieneś otrzymać e-mail z instrukcjami jak odblokować
         swoje konto.
@@ -745,6 +746,7 @@ pl:
       pwgen_max_syllable_length: Maksymalna długość sylaby
       pwgen_max_syllable_length_help: Maksymalna długość sylaby w wygenerowanym haśle.
       pwgen_syllables_count: Liczba sylab
+      switch: Przełącznik
     show:
       edit_policy: Edytuj zasady push
       policy: Polityka zespołu
@@ -768,6 +770,8 @@ pl:
       newsletter: Biuletyn
       password_generator: Generator hasła
       tools: Narzędzia, API i CLI
+      api_docs: Dokumentacja API
+      features: Cechy
     pw_generator_modal:
       cancel: Anuluj
       configure: Skonfiguruj generowanie hasła
@@ -788,6 +792,8 @@ pl:
       vowels: Samogłoski
     navbar:
       edit_policy: Polityka
+    secret_url_bar:
+      secret_link_lang: Język tajnego linku
   audit_logs:
     audit_log:
       created: Utworzono
@@ -803,6 +809,7 @@ pl:
       log_viewed: Pomyślne wyświetlenie z adresu IP %{ip} na %{date} przez %{user}
       unknown: Nieznany
       viewed_by: Wyświetlone przez %{user}
+      log_failed_passphrase: Nieudana próba hasła w %{date} przez %{user}
   dashboard:
     show:
       detail: Szczegół
@@ -823,10 +830,10 @@ pl:
   feedbacks:
     create:
       feedback_sent: Wysłano opinię! Skontaktujemy się z Tobą tak szybko, jak to możliwe.
-    failed_spam_test: Przepraszamy, ale nie udało Ci się sprawdzić spamu. Możesz spróbować
-      skontaktować się z nami na Github.
-    failed_to_send: Nie udało się wysłać opinii. Coś było nie tak. Spróbuj ponownie
-      lub skontaktuj się z nami na Githubie.
+      failed_spam_test: Przepraszamy, ale nie udało Ci się sprawdzić spamu. Możesz
+        spróbować skontaktować się z nami na Github.
+      failed_to_send: Nie udało się wysłać opinii. Coś było nie tak. Spróbuj ponownie
+        lub skontaktuj się z nami na Githubie.
     new:
       email: E-mail
       have_idea: Masz pomysł lub życzenie? Coś, czego nie lubisz? Chcesz pomóc? Chcemy
@@ -927,6 +934,7 @@ pl:
       title: Wyślij dziennik audytu
       visible_to: Widoczna tylko dla Ciebie
       when: Gdy
+      preview: Udostępnij to Push
     copy_to_clipboard: Skopiuj do schowka
     day:
       one: 1 dzień
@@ -938,6 +946,7 @@ pl:
     expire:
       expired: Treść przekazania została usunięta, a tajny adres URL wygasł.
       not_deletable: To przekazanie nie może być usuwane przez odbiorców.
+      already_expired: To wezwanie już wygasło.
     form:
       12_hours: 12 godzin
       15_minutes: 15 minut
@@ -993,6 +1002,8 @@ pl:
       views: Wyświetlenia
       week: Tydzień
       weeks: Tygodnie
+      payload_url_placeholder: Wprowadź adres URL, aby przekierować do...
+      url_push_tip: Utworzony push przekieruje na podany adres URL.
     hour:
       one: 1 godzina
       other: "%{count} godz"
@@ -1013,6 +1024,8 @@ pl:
       views_remaining: Pozostało wyświetleń
       active: Aktywne
       expired: Wygasłe
+      all: Wszystko
+      remaining: Pozostały
     minute:
       one: 1 minuta
       other: "%{count} minut"
@@ -1066,7 +1079,7 @@ pl:
       push_controls: Przyciski sterujące
       title: Nowe pchnięcie
       unknown: Nieznany
-    secret_link_lang: Język tajnego linku
+      share: Udział
     settings: Ustawienia
     show:
       blurred: Twoje hasło jest rozmyte. Kliknij poniżej, aby je odsłonić.
@@ -1086,6 +1099,7 @@ pl:
         %{time_unit}%{b_tag} lub %{b_tag}%{view_count} więcej %{view_unit}%{b_tag}
         (w zależności od tego, co nastąpi wcześniej).
       your_link: Twój tajny link
+      intro: Następująca treść została do Ciebie wysłana.
     show_expired:
       expired_help: W razie potrzeby skontaktuj się z osobą lub organizacją, która
         przekazała Ci ten tajny adres URL.
@@ -1097,6 +1111,8 @@ pl:
     view_audit_log: Wyświetl dziennik kontroli
     whichever: "(cokolwiek nastąpi wcześniej)"
     'yes': Tak
+    payload_too_large: Ładunek jest zbyt duży. Można przekazać tylko do %{count} bajtów.
+    too_many_files: Jednorazowo możesz załączyć maksymalnie %{count} plików.
   static:
     about:
       about_1: Password Pusher to narzędzie służące do bezpiecznego udostępniania
@@ -1180,11 +1196,6 @@ pl:
         Nie jest to oprogramowanie typu open source i nie jest bezpłatne. W swej istocie
         zawiera projekt open source, ale oferuje superzestaw funkcji i ma na celu
         przyspieszenie rozwoju i pomoc w finansowaniu projektu.
-      answer_licensing_3: Wersja premium nie jest wymagana do uruchomienia prywatnej
-        instancji Password Pusher. Wersja open source jest w pełni funkcjonalna i
-        bezpłatna.
-      answer_licensing_4: Wszystkie funkcje premium trafiają do wersji open source
-        po pewnym czasie, w zależności od funkcji.
       answer_private_risks_1: Uruchomienie prywatnej instancji Przekazywacza Haseł
         w Twojej firmie lub organizacji daje pewność, że wiesz dokładnie, jaki kod
         jest uruchomiony. Możesz go skonfigurować i uruchomić tak, jak chcesz.
@@ -1232,8 +1243,6 @@ pl:
         i %{install_link} dla szerokiej gamy platform i chmur.
       answer_self_host_2: W wersji premium, z superzestawem funkcji, wkrótce dostępne
         będą kontenery hostowane samodzielnie.
-      answer_trust_1: I słusznie. Każde dobre zabezpieczenie zaczyna się od zdrowego
-        sceptycyzmu wobec wszystkich elementów.
       answer_trust_2: Przekazywacz Haseł to lepsza alternatywa dla przesyłania haseł
         przez e-mail. Pozwala to uniknąć wiecznego istnienia haseł w archiwach poczty
         e-mail.
@@ -1245,9 +1254,6 @@ pl:
       answer_trust_4: Mając tak długą historię i będąc oprogramowaniem typu open source,
         Password Pusher został sprawdzony przez wiele osób. Na przestrzeni lat było
         ono wykorzystywane i kontrolowane przez wiele organizacji i osób prywatnych.
-      answer_trust_5: 'Polityka Password Pusher obejmuje trzy elementy: 1) Szyfrowanie
-        w stanie spoczynku i podczas przesyłania 2) Minimalne przechowywanie danych
-        3) Przejrzystość w postaci dziennika audytu.'
       answer_trust_6: W tym duchu ładunki push są jednoznacznie usuwane po wygaśnięciu,
         a dziennik audytu jest prowadzony przez czas nieokreślony. Im mniej danych
         przechowuje Password Pusher, tym lepiej.
@@ -1307,6 +1313,38 @@ pl:
       title_trust: Zaufanie i bezpieczeństwo
       tools_link: Narzędzia i aplikacje
       windows_link: Windows Power Point
+      answer_apnotic_1: Apnotic to firma stworzona do zarządzania Password Pusher
+        (i akceptowania kart kredytowych). Jest moją wyłączną własnością i jest zarządzany
+        przeze mnie, Petera Giacomo Lombardo.
+      answer_files_free: 'Naprawdę starałem się, aby przesyłanie plików było bezpłatne,
+        ale z powodu pewnych nadużyć, ryzyka i rosnących kosztów hostingu. Nie miałem
+        dużego wyboru.<br/> Jeśli jesteś osobą fizyczną lub studentem i naprawdę nie
+        stać Cię na 8 dolarów miesięcznie, napisz do mnie, a zobaczę, co da się zrobić.
+        Wymagana będzie co najmniej karta kredytowa, nawet jeśli nie zostanie ona
+        obciążona.
+
+        '
+      answer_have_to_pay: 'Jeśli jesteś instytucją non-profit lub instytucją edukacyjną,
+        wyślij mi wiadomość w formularzu opinii i wyjaśnij swoje potrzeby, a być może
+        będę mógł bezpłatnie przyznać Ci konto premium lub pro.<br/> Jeśli jesteś
+        częścią firmy nastawionej na zysk, pokornie proszę o wsparcie w formie subskrypcji.
+
+        '
+      answer_premium_diff: Zobacz %{link}, aby zapoznać się z pełną listą różnic pomiędzy
+        wersją open source i wersją premium.
+      answer_why_premium_2: Wprowadziłem wersję premium, aby pomóc w sfinansowaniu
+        projektu i przyspieszyć rozwój. Superzestaw funkcji wersji premium ma stanowić
+        wartość dodaną dla organizacji, które potrzebują więcej, niż zapewnia wersja
+        open source. W miarę tworzenia narzędzia Password Pusher funkcje premium zostaną
+        przeniesione do wersji open source po pewnym czasie, w zależności od funkcji.
+      answer_will_oss: 'Zdecydowanie - wersja premium pozwala mi poświęcić więcej
+        czasu na projekt. Ostatecznym miejscem docelowym wszystkich prac ma być ostatecznie
+        wersja projektu o otwartym kodzie źródłowym.
+
+        '
+      question_apnotic: Co to jest apnotyczny?
+      question_files_free: Przesyłanie plików było kiedyś bezpłatne. Dlaczego są teraz
+        funkcją premium?
     generate_key:
       env_var: Możesz zastosować ten klucz do swojej instancji, ustawiając zmienną
         środowiskową
@@ -1339,6 +1377,7 @@ pl:
       title: Wygeneruj klucz szyfrujący
     password_generator:
       push_it: Wciśnij to hasło
+      pwgen_title: Generator hasła
     tools:
       alfred: Aplikacja Alfreda
       api_documentation: Dokumentacja punktu końcowego API

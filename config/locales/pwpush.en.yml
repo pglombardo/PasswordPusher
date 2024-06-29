@@ -76,6 +76,7 @@ en:
       retrieval_step_forced: Force The Default Value?
       retrieval_step_forced_help: Forces the use of this option with the default value for all team members.  It cannot be changed by team members.
       save: Update Team Policy
+      switch: Switch
       team_policy: Team Policy
       team_policy_help: A team policy is a set of rules that apply to all pushes made by members of this team.
     show:
@@ -89,12 +90,14 @@ en:
     cookie_consent:
       notice: Browser cookies help make this tool work. By using it, you agree the use of these cookies.
     footer:
+      api_docs: API Documentation
       best_practices: Best Practices
       docker: Docker Containers
       faq: FAQ
+      features: Features
       feedback: Feedback
-      github: GitHub
-      key_generator: Key Generator
+      github: GitHub Source
+      key_generator: Encryption Key Generator
       newsletter: Newsletter
       password_generator: Password Generator
       tools: Tools, API & CLIs
@@ -118,18 +121,21 @@ en:
       use_separators: Use Separators
       use_titlecase: Use Titlecase
       vowels: Vowels
+    secret_url_bar:
+      secret_link_lang: Secret Link Language
   audit_logs:
     audit_log:
       created: Created
       created_by: Created by %{user}
       log_created: Push created on %{date} by %{user}
       log_expired: Push manually expired on %{date} by %{user}
+      log_failed_passphrase: Failed passphrase attempt on %{date} by %{user}
       log_failed_view: Failed view attempt on %{date} by %{user}
       log_manual_expiration: Push manually expired on %{date} by %{user} at IP address %{ip}
       log_referrer: 'Referrer: %{referrer}'
       log_user_agent: 'User Agent: %{user_agent}'
       log_viewed: Successful view on %{date} by %{user}
-      unknown: Unknown
+      unknown: Anonymous
       viewed_by: Viewed by %{user}
   confirmation_go: Click Here to Confirm Your Account
   dashboard:
@@ -137,6 +143,10 @@ en:
       detail: Detail
       event: Event
       when: When
+  devise:
+    registrations:
+      new:
+        account_or_team_name: Account or Team Name
   duration:
     format_d:
       one: 1 day
@@ -151,9 +161,9 @@ en:
       other: "%{count} minute(s)"
   feedbacks:
     create:
+      failed_spam_test: Our apologies but you failed the spam check.  You could try contacting us on Github instead.
+      failed_to_send: Failed to send feedback.  Something was amiss.  Please try again or contact us on Github.
       feedback_sent: Feedback sent!  We will get back to you as soon as possible.
-    failed_spam_test: Our apologies but you failed the spam check.  You could try contacting us on Github instead.
-    failed_to_send: Failed to send feedback.  Something was amiss.  Please try again or contact us on Github.
     new:
       email: Email
       have_idea: Have an idea or wish?  Something you don't like?  Want to help out?  We want to hear it!
@@ -216,6 +226,7 @@ en:
       passphrase_lock: Passphrase Lockdown
       passphrase_lock_help: Require recipients to enter a passphrase to view this push.
       payload: Payload
+      preview: Share this Push
       push_date: Pushed on %{date}
       reference_note: Reference Note
       secret_url: Secret URL for this push
@@ -240,6 +251,7 @@ en:
     deleted: Deleted
     expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
     expire:
+      already_expired: That push has already expired.
       expired: The push content has been deleted and the secret URL expired.
       not_deletable: That push is not deletable by viewers.
     form:
@@ -264,14 +276,14 @@ en:
       6_days: 6 Days
       6_hours: 6 Hours
       add_files: Add Files...
-      audit_tip: When logged in, an audit log of activity is kept and available indefinitely.
+      audit_tip: An audit log of activity is kept and available indefinitely for logged in users.
       day: Day
       days: Days
       deletable: Allow immediate deletion
       deletable_tip: Allow users to delete this push once retrieved.
       encryption_tip: Content is encrypted prior to storage and is available to only those with the secret link.
       expiration_label: 'Expire this push and delete after:'
-      expiration_tip: Once expired, all content and files of the push are deleted immediately and entirely.
+      expiration_tip: All content and files of the push are deleted entirely on expiration.
       generator_tip: Use the button above to generate a random password.
       hour: Hour
       hours: Hours
@@ -280,13 +292,15 @@ en:
       month: Month
       months: Months
       note_label: Reference Note
-      note_placeholder: A private note to help remember who or what this push is for.
-      passphrase_label: Passphrase Lock
+      note_placeholder: A private note for this push.  Encrypted & visible only to you and your team.
+      passphrase_label: Passphrase
       passphrase_placeholder: Require recipients to enter a passphrase to view this push.
-      password_tip: 'Tip: Only enter a password into the box. Other identifying information can compromise security.'
-      payload_placeholder: Enter the password, text or URL to push...
+      password_tip: Use Compartmentalization. Send usernames, passwords and login locations in separate pushes.
+      payload_placeholder: Enter the password or text to push...
+      payload_url_placeholder: Enter the URL to redirect to...
       push_it: Push It!
       upload_limit: You can upload up to %{count} files per push.
+      url_push_tip: The created push will redirect to the URL provided.
       view: View
       views: Views
       week: Week
@@ -297,6 +311,7 @@ en:
     index:
       actions: Actions
       active: Active
+      all: All
       clear_filters: Clear Filters
       created: Created
       created_by: By
@@ -307,6 +322,7 @@ en:
       nothing_here: There's nothing here yet.
       push_id: Push ID
       pushes: Pushes
+      remaining: Remaining
       remaining_time: Time Remaining
       status: Status
       views: Views
@@ -325,6 +341,7 @@ en:
       placeholder: Enter the secret passphrase provided with this URL
       tip: Enter the secret passphrase
     payload: Payload
+    payload_too_large: The payload is too large.  You can only push up to %{count} bytes.
     preliminary:
       click_proceed: Click Here to Proceed
     preview:
@@ -358,9 +375,9 @@ en:
       none: None
       preview: Preview
       push_controls: Push Controls
+      share: Share
       title: New Push
       unknown: Unknown
-    secret_link_lang: Secret Link Language
     settings: Settings
     show:
       blurred: Your password is blurred out.  Click below to reveal it.
@@ -369,6 +386,7 @@ en:
       delete_now_confirm: This will expire this secret link and delete all related content from the database forever. Are you sure?
       download_file: Download File
       files_sent: The following files have been sent to you.
+      intro: The following content has been sent to you.
       last_view: This is the last view.
       obtain: Securely retrieve and store this content, using a password manager and/or encrypted storage. Remember to promptly delete any data that is no longer needed.
       open_file: Open File
@@ -379,6 +397,7 @@ en:
       expired_help: If needed, please contact the person or organization who gave you this secret URL.
       expired_message: We apologize but this secret link has expired.
       link_expired: Your Secret Link Has Expired
+    too_many_files: You can only attach up to %{count} files per push.
     view:
       one: 1 view
       other: "%{count} views"
@@ -421,16 +440,27 @@ en:
       answer_already_expired_1: Some systems such as email, firewalls and chat systems often have link scanners that can eat up views.  This is usually done for corporate security or to simply generate a "preview" for applications.
       answer_already_expired_2: To prevent this, use the 1-click retrieval step option when pushing passwords.  This requires the users to click through a preliminary page to protect views from such scanners.
       answer_already_expired_3: As an additional preventative measure, when logged in, an audit log is provided for every push created.  This audit log reveals by who and when the push was viewed.
+      answer_apnotic_1: Apnotic is the company created to manage Password Pusher (and to accept credit cards).  It is solely owned and managed by myself, Peter Giacomo Lombardo.
       answer_automation_1: Yes.  The Password Pusher JSON API allows for the automation of password pushing.  This can be done with a variety of programming languages and tools.
       answer_automation_2: See the %{tools} page for more information.
       answer_conference_1: Absolutely.  We have media resources and a full explanation of features available in %{windows_link} and %{mac_link} formats.
       answer_conference_2: If you have any questions or need any help, feel free to contact me anytime.
+      answer_files_free: |
+        I really tried to keep file based pushes free but because of some abuse, risk and growing hosting costs. I didn't have much choice.
+        <br/>
+        If you are an individual or student and really can't afford the $8/month, message me and I will see what I can do.  At a minimum, a credit card will be required even though it won't be charged.
+      answer_have_to_pay: |
+        If you are a non-profit or an educational institution, send me a message on the feedback form, explain your needs and I might be able to grant you a premium or pro account for free.
+        <br/>
+        If you are part of a for-profit company, I humbly ask for your support in the form of a subscription.
       answer_how_many_1: There are no limits currently and I have no intention of adding any.  To minimally assure site stability, Password Pusher is configured with a rate limiter by default.  This can be disabled in the self-hosted version.
-      answer_licensing_1: The source code open source version is released under the Apache 2.0 License and that pretty much defines any and all limitations. There are quite a few re-branded and redesigned clone sites of Password Pusher and I welcome them all.
-      answer_licensing_2: The premium version is released under a commercial license.  It is not open source and is not free.  At it's core contains the open source project but offers a super-set of features and is meant to accelerate development and help fund the project.
-      answer_licensing_3: The premium version is not required to run a private instance of Password Pusher.  The open source version is fully featured and free to use.
-      answer_licensing_4: All premium features end up in the open source version after a period of time depending on the feature.
-      answer_private_risks_1: Running an private instance of Password Pusher for your company or organization gives you the peace of mind that you know exactly what code is running.  You can configure and run it as you like.
+      answer_licensing_1: The source code of the open source version is released under the Apache 2.0 License and that pretty much defines any and all limitations. There are quite a few re-branded and redesigned clone sites across the internet and hosted internally I welcome them all.
+      answer_licensing_2: |
+        pwpush.com hosts a premium version of Password Pusher with a super-set of features beyond the open source project.  pwpush.com is free to use but offers subscriptions for the premium and pro features such as teams, invites, custom domains etc...
+        <br/>
+        A Pro self-hosted version is coming soon.  It will be available under a commercial license.
+      answer_premium_diff: See the %{link} for a full list of differences between the open source and premium versions.
+      answer_private_risks_1: Running a private instance of Password Pusher for your company or organization gives you the peace of mind that you know exactly what code is running.  You can configure and run it as you like.
       answer_private_risks_2: On the other hand, if your instance gets hacked and the encryption broken, malicious entities now have a targeted dictionary of passwords to brute force accounts in your organization.  (this would be limited to pushes which haven't expired yet)
       answer_private_risks_3: In this respect, the public instance at pwpush.com may be superior in that it contains only passwords without identifying information mixed among users from around the globe.
       answer_private_risks_4: One other consideration would be the maintenance of the instance.  You need to keep it updated, secure and backed up.
@@ -450,18 +480,22 @@ en:
       answer_rebranding_1: Password Pusher supports complete re-branding "out of the box" allowing you to add a custom logo, images, text and even change the application theme.
       answer_self_host_1: Yes, for the open source version, we provide %{docker_link} and %{install_link} for a wide variety of platforms and clouds.
       answer_self_host_2: For the premium version, with the super-set of features, self-hosted containers are coming soon.
-      answer_trust_1: And rightfully so. All good security begins with healthy skepticism of all involved components.
-      answer_trust_2: Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist in email archives in perpetuity. It does not exist as a end-all security solution.
+      answer_trust_2: Password Pusher exists as a better alternative to emailing passwords. It avoids having passwords exist in email & messaging archives in perpetuity. It does not exist as a end-all security solution.
       answer_trust_3: Password Pusher started as an open source project at the end of 2011.  It has been maintained & updated by myself (Peter Giacomo Lombardo) and a handful of excellent contributors for all of that time.  In 2024, the premium version was introduced to accelerate development and to help fund the project.  All premium features end up in the open source version eventually.
       answer_trust_4: By having such a long history and being open source, Password Pusher has been reviewed by many eyes.  It has been used by and audited many organizations and individuals over the years.
-      answer_trust_5: 'The policy of Password Pusher is three-fold: 1) Encryption at rest and in transit 2) Minimal data retention 3) Transparency in the form of an audit log.'
-      answer_trust_6: In this vein, push payloads are unequivocally deleted on expiration and the audit log is maintained indefinitely.  The less data Password Pusher holds, the better.
+      answer_trust_6: Push payloads are deleted entirely on expiration and the audit log is maintained indefinitely.  The less data Password Pusher holds, the better.
       answer_trust_7: If you still have concerns regarding trust, safety and security, feel free to review the code, post any questions that you may have and consider running it internally at your organization instead.
       answer_trust_8: As for trust in me, all I can offer is my long history building this project and my public reputation on %{github}, %{linkedin}, %{twitter} and %{blog}.  Feel free to contact me anytime with any questions you may have.
-      answer_why_premium_1: asdf
+      answer_why_premium_1: |
+        Password Pusher has been very fortunate in it's popularity and growth over the years.  I've enjoyed every moment of building it and working with the community to make it better.
+        After 13 years, the project has hit a point where there are now more feature requests than I can handle doing this only nights and weekends.  On top of that, monthly hosting costs have also increased to a point where it's starting to hurt a bit.
+      answer_why_premium_2: I introduced the premium version to help fund the project and to accelerate development.  The super-set of features in the premium versions are meant to be a value-add for organizations that need more than the open-source version provides.  As Password Pusher is built out, the premium features will be moved to the open-source version after a period of time depending on the feature.
       answer_why_private_1: Some organizations are bound by security policies that prohibit the use of public services for sensitive information such as passwords.  There are even organizations that require all tools to be on private intranets without access to the outside world.
       answer_why_private_2: Running your own private instance of Password Pusher allows you to control the environment and the data.  It also allows you to add custom features and integrations that are specific to your organization.
       answer_why_private_3: It's for these reasons that we provide the ability (and encourage) users and organizations to run private instances when needed.
+      answer_will_oss: |
+        Absolutely - the premium version allows me to spend more time on the project.
+        The final destination for all work is to be in the open source version of the project eventually.
       feedback_link: Feedback form
       github_link: GitHub
       mac_link: Mac Keynote
@@ -469,9 +503,11 @@ en:
       question_access: Are there other ways I can access Password Pusher outside of a browser?
       question_add_feature: Could you add a specific feature for my organization?
       question_already_expired: The secret URL I sent was already expired.  What happened?
+      question_apnotic: What is Apnotic?
       question_automation: Can I automate my password distribution?
       question_conference: Can I use Password Pusher in my talk, video, presentation or conference?
-      question_have_to_pay: Do I have to pay?
+      question_files_free: File uploads used to be free.  Why are they now a premium feature?
+      question_have_to_pay: Do offer any discounts or free accounts?
       question_how_many: How many requests can I send to Password Pusher?
       question_licensing: Are there any licensing restrictions for me, my company or my organization?
       question_premium_diff: What are the differences between the open source and premium versions?
@@ -480,7 +516,7 @@ en:
       question_rebranding: Can I apply a custom logo or change the design?
       question_self_host: Can I run my own version for my organization internally?
       question_trust: Trust is a concern. Why should I use Password Pusher?
-      question_why_premium: Password Pusher has always been open-source.  Why is there a premium version?
+      question_why_premium: Password Pusher has always been open-source.  Why is there now a premium version?
       question_why_private: Why would I want to run my own private instance of Password Pusher?
       question_will_oss: Will the premium features be added to the open source version?
       subtitle: "..all the things you want to know about Password Pusher."
@@ -511,6 +547,7 @@ en:
       title: Generate an Encryption Key
     password_generator:
       push_it: Push this Password
+      pwgen_title: Password Generator
     tools:
       alfred: Alfred App
       api_documentation: API Endpoint Documentation

@@ -342,6 +342,7 @@ ja:
         we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
       new:
         sign_up: アカウント登録
+        account_or_team_name: アカウントまたはチーム名
     unlocks:
       send_instructions: アカウントのロック解除方法を数分以内にメールでご連絡します。
       send_paranoid_instructions: アカウントが見つかった場合、アカウントのロック解除方法を数分以内にメールでご連絡します。
@@ -677,6 +678,7 @@ ja:
       pwgen_max_syllable_length: 最大音節長
       pwgen_max_syllable_length_help: 生成されたパスワードの音節の最大長。
       pwgen_syllables_count: 音節数
+      switch: スイッチ
     show:
       edit_policy: プッシュポリシーの編集
       policy: チームポリシー
@@ -699,6 +701,8 @@ ja:
       newsletter: ニュースレター
       password_generator: パスワードジェネレータ
       tools: ツール、API、CLI
+      api_docs: APIドキュメント
+      features: 特徴
     pw_generator_modal:
       cancel: キャンセル
       configure: パスワード生成の構成
@@ -719,6 +723,8 @@ ja:
       vowels: 母音
     navbar:
       edit_policy: ポリシー
+    secret_url_bar:
+      secret_link_lang: 秘密のリンク言語
   audit_logs:
     audit_log:
       created: 作成した
@@ -732,6 +738,7 @@ ja:
       log_viewed: "%{user} による %{date} 上の IP アドレス %{ip} からの表示に成功しました"
       unknown: 未知
       viewed_by: "%{user} によって閲覧されました"
+      log_failed_passphrase: "%{user} による %{date} へのパスフレーズ試行が失敗しました"
   dashboard:
     show:
       detail: 詳細
@@ -752,8 +759,8 @@ ja:
   feedbacks:
     create:
       feedback_sent: フィードバックが送信されました!できるだけ早くご連絡させていただきます。
-    failed_spam_test: 申し訳ありませんが、スパムチェックに失敗しました。代わりに、Github でお問い合わせください。
-    failed_to_send: フィードバックの送信に失敗しました。何かが間違っていました。もう一度試すか、Github でお問い合わせください。
+      failed_spam_test: 申し訳ありませんが、スパムチェックに失敗しました。代わりに、Github でお問い合わせください。
+      failed_to_send: フィードバックの送信に失敗しました。何かが間違っていました。もう一度試すか、Github でお問い合わせください。
     new:
       email: Eメール
       have_idea: アイデアや希望はありますか？嫌いなもの？手伝いたいですか？聞きたい！
@@ -836,6 +843,7 @@ ja:
       title: プッシュ監査ログ
       visible_to: 自分だけに見える
       when: いつ
+      preview: このプッシュを共有する
     copy_to_clipboard: クリップボードにコピー
     day:
       one: 1日
@@ -846,6 +854,7 @@ ja:
     expire:
       expired: プッシュ コンテンツが削除され、シークレット URL が期限切れになりました。
       not_deletable: そのプッシュは、閲覧者が削除することはできません。
+      already_expired: そのプッシュはすでに期限切れです。
     form:
       12_hours: 12時間
       15_minutes: 15分
@@ -895,6 +904,8 @@ ja:
       views: ビュー
       week: 週
       weeks: 週間
+      payload_url_placeholder: リダイレクト先の URL を入力してください...
+      url_push_tip: 作成されたプッシュは指定された URL にリダイレクトされます。
     hour:
       one: 1時間
       other: "%{count}時間"
@@ -915,6 +926,8 @@ ja:
       views_remaining: 残りのビュー数
       active: アクティブ
       expired: 期限切れ
+      all: 全て
+      remaining: 残り
     minute:
       one: 1分
       other: "%{count}分"
@@ -964,7 +977,7 @@ ja:
       push_controls: プッシュ コントロール
       title: 新しいプッシュ
       unknown: 未知
-    secret_link_lang: 秘密のリンク言語
+      share: 共有
     settings: 設定
     show:
       blurred: パスワードがぼやけています。下をクリックすると表示されます。
@@ -979,6 +992,7 @@ ja:
       please_download: ダウンロードして安全な場所に保管してください。
       will_be_deleted: この秘密リンクとすべてのコンテンツは、%{b_tag}%{time_count}%{time_unit}%{b_tag}または%{b_tag}%{view_count}以上%{view_unit}%{b_tag}(どちらか先に発生した方)で削除されます。
       your_link: あなたの秘密のリンク
+      intro: 以下の内容が送信されました。
     show_expired:
       expired_help: 必要に応じて、この秘密の URL を提供した個人または組織に連絡してください。
       expired_message: 申し訳ありませんが、この秘密のリンクは期限切れです。
@@ -989,6 +1003,8 @@ ja:
     view_audit_log: 監査ログを表示
     whichever: "（いずれか早い方）"
     'yes': はい
+    payload_too_large: ペイロードが大きすぎます。プッシュできるのは最大 %{count} バイトまでです。
+    too_many_files: 1 回のプッシュで添付できるファイルは最大 %{count} 個です。
   static:
     about:
       about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
@@ -1040,9 +1056,6 @@ ja:
         Password Pusher のブランド変更や再設計されたクローン サイトは数多くありますが、私はそれらすべてを歓迎します。
       answer_licensing_2: プレミアム バージョンは商用ライセンスに基づいてリリースされます。これはオープンソースではなく、無料でもありません。その中核にはオープンソース
         プロジェクトが含まれていますが、機能のスーパーセットを提供しており、開発を加速し、プロジェクトへの資金提供を支援することを目的としています。
-      answer_licensing_3: Password Pusher のプライベート インスタンスを実行するためにプレミアム バージョンは必要ありません。オープンソース
-        バージョンは完全な機能を備えており、無料で使用できます。
-      answer_licensing_4: すべてのプレミアム機能は、機能に応じて一定の期間が経過すると、オープンソース バージョンになります。
       answer_private_risks_1: 会社または組織で Password Pusher のプライベート インスタンスを実行すると、実行中のコードを正確に把握できるという安心感が得られます。好きなように構成して実行できます。
       answer_private_risks_2: 一方、インスタンスがハッキングされて暗号化が破られた場合、悪意のあるエンティティは、組織内のアカウントをブルート
         フォースするためのターゲットとなるパスワードの辞書を手に入れることになります。 (これはまだ有効期限が切れていないプッシュに限定されます)
@@ -1065,15 +1078,12 @@ ja:
       answer_self_host_1: はい、オープンソース版では、さまざまなプラットフォームやクラウド向けに %{docker_link} と %{install_link}
         を提供しています。
       answer_self_host_2: スーパー セットの機能を備えたプレミアム バージョンでは、セルフホスト型コンテナーが近日提供される予定です。
-      answer_trust_1: そして当然のことです。すべての優れたセキュリティは、関連するすべてのコンポーネントに対する健全な懐疑から始まります。
       answer_trust_2: Password Pusher は、パスワードを電子メールで送信するよりも優れた代替手段として存在します。パスワードがメール
         アーカイブに永続的に存在することを回避します。これは、最終的なセキュリティ ソリューションとして存在しません。
       answer_trust_3: Password Pusher は、2011 年末にオープン ソース プロジェクトとして開始されました。それまでの間、私
         (Peter Giacomo Lombardo) と少数の優秀な貢献者によって保守および更新されてきました。 2024 年には、開発を加速し、プロジェクトの資金調達を支援するために、プレミアム
         バージョンが導入されました。すべてのプレミアム機能は、最終的にはオープンソース バージョンになります。
       answer_trust_4: Password Pusher は長い歴史を持ち、オープンソースであるため、多くの目から評価されてきました。長年にわたり、多くの組織や個人によって使用され、監査されてきました。
-      answer_trust_5: 'Password Pusher のポリシーは 3 つあります: 1) 保存時および転送時の暗号化 2) データ保持の最小限化
-        3) 監査ログ形式の透明性。'
       answer_trust_6: この流れで、プッシュ ペイロードは期限切れになると明確に削除され、監査ログは無期限に維持されます。 Password Pusher
         が保持するデータは少ないほど良いです。
       answer_trust_7: 信頼性、安全性、セキュリティに関してまだ懸念がある場合は、お気軽にコードを確認し、質問があれば投稿し、代わりに組織内で実行することを検討してください。
@@ -1115,6 +1125,26 @@ ja:
       title_trust: 信頼とセキュリティ
       tools_link: ツールとアプリケーション
       windows_link: Windows パワーポイント
+      answer_apnotic_1: Apnotic は、Password Pusher を管理する (およびクレジットカードを受け入れる) ために設立された会社です。この会社は、私、Peter
+        Giacomo Lombardo が単独で所有および管理しています。
+      answer_files_free: 'ファイルベースのプッシュを無料にしようと努力しましたが、不正使用、リスク、ホスティング コストの増加などの問題があり、あまり選択肢がありませんでした。<br/>個人または学生で、月額
+        8 ドルを支払う余裕がない場合は、私にメッセージを送ってください。できる限り対応させていただきます。請求は発生しませんが、少なくともクレジットカードが必要になります。
+
+        '
+      answer_have_to_pay: '非営利団体または教育機関の場合は、フィードバック フォームでメッセージを送信し、ご要望をお伝えいただければ、プレミアム
+        アカウントまたはプロ アカウントを無料で付与できる可能性があります。<br/>営利企業に所属している場合は、定期購読という形でのご支援をお願い申し上げます。
+
+        '
+      answer_premium_diff: オープンソースバージョンとプレミアムバージョンの違いの完全なリストについては、%{link} を参照してください。
+      answer_why_premium_2: プロジェクトの資金調達と開発の加速化のために、プレミアム バージョンを導入しました。プレミアム バージョンの一連の機能は、オープン
+        ソース バージョンで提供される以上の機能を必要とする組織にとって付加価値となることを目的としています。Password Pusher が構築されると、機能に応じて、プレミアム機能は一定期間後にオープン
+        ソース バージョンに移行されます。
+      answer_will_oss: 'もちろんです。プレミアム バージョンを使用すると、プロジェクトにより多くの時間を費やすことができます。すべての作業の最終目的は、最終的にはプロジェクトのオープン
+        ソース バージョンになることです。
+
+        '
+      question_apnotic: Apnotic とは何ですか?
+      question_files_free: ファイルのアップロードは以前は無料でした。なぜ今はプレミアム機能になっているのですか?
     generate_key:
       env_var: 環境変数を設定することで、このキーをアプリケーションに適用できます。
       generate_key: キーの生成
@@ -1135,6 +1165,7 @@ ja:
       title: 暗号化キーを生成する
     password_generator:
       push_it: このパスワードを押してください
+      pwgen_title: パスワードジェネレータ
     tools:
       alfred: アルフレッドアプリ
       api_documentation: API エンドポイントのドキュメント

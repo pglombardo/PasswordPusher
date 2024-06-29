@@ -371,6 +371,7 @@
           passord for å bekrefte endringene du har gjort
       new:
         sign_up: Opprett konto
+        account_or_team_name: Konto eller teamnavn
     unlocks:
       send_instructions: Du vil innen få minutter motta en epost med instruksjoner
         for å gjenåpne din konto.
@@ -741,6 +742,7 @@
       pwgen_max_syllable_length_help: Den maksimale lengden på en stavelse i det genererte
         passordet.
       pwgen_syllables_count: Stavelser teller
+      switch: Bytte om
     show:
       edit_policy: Rediger push-policy
       policy: Lagpolitikk
@@ -764,6 +766,8 @@
       newsletter: Nyhetsbrev
       password_generator: Passordgenerator
       tools: Verktøy, API og CLI-er
+      api_docs: API-dokumentasjon
+      features: Egenskaper
     pw_generator_modal:
       cancel: Avbryt
       configure: Konfigurer passordgenerering
@@ -784,6 +788,8 @@
       vowels: Vokaler
     navbar:
       edit_policy: Politikk
+    secret_url_bar:
+      secret_link_lang: Hemmelig lenkespråk
   audit_logs:
     audit_log:
       created: Opprettet
@@ -799,6 +805,7 @@
       log_viewed: Vellykket visning fra IP-adresse %{ip} på %{date} av %{user}
       unknown: Ukjent
       viewed_by: Sett av %{user}
+      log_failed_passphrase: Mislykket passordfraseforsøk på %{date} av %{user}
   dashboard:
     show:
       detail: Detalj
@@ -820,10 +827,10 @@
     create:
       feedback_sent: Tilbakemelding sendt! Vi vil komme tilbake til deg så snart som
         mulig.
-    failed_spam_test: Vi beklager, men du mislyktes i spam-kontrollen. Du kan prøve
-      å kontakte oss på Github i stedet.
-    failed_to_send: Kunne ikke sende tilbakemelding. Noe var galt. Vennligst prøv
-      igjen eller kontakt oss på Github.
+      failed_spam_test: Vi beklager, men du mislyktes i spam-kontrollen. Du kan prøve
+        å kontakte oss på Github i stedet.
+      failed_to_send: Kunne ikke sende tilbakemelding. Noe var galt. Vennligst prøv
+        igjen eller kontakt oss på Github.
     new:
       email: E-post
       have_idea: Har du en idé eller et ønske? Noe du ikke liker? Vil du hjelpe til?
@@ -922,6 +929,7 @@
       title: Trykk på revisjonslogg
       visible_to: Bare synlig for deg
       when: Når
+      preview: Del denne push
     copy_to_clipboard: Kopier til utklippstavle
     day:
       one: 1 dag
@@ -933,6 +941,7 @@
     expire:
       expired: Push-innholdet er slettet og den hemmelige URL-en utløpt.
       not_deletable: Den push-en kan ikke slettes av mottakere.
+      already_expired: Den push har allerede utløpt.
     form:
       12_hours: 12 timer
       15_minutes: 15 minutter
@@ -988,6 +997,8 @@
       views: Visninger
       week: Uke
       weeks: Uker
+      payload_url_placeholder: Skriv inn nettadressen du vil omdirigere til...
+      url_push_tip: Den opprettede push vil omdirigere til URL-en som er oppgitt.
     hour:
       one: 1 time
       other: "%{count} timer"
@@ -1008,6 +1019,8 @@
       views_remaining: Gjenstående visninger
       active: Aktiv
       expired: Utløpt
+      all: Alle
+      remaining: Gjenstående
     minute:
       one: 1 minutt
       other: "%{count} minutter"
@@ -1061,7 +1074,7 @@
       push_controls: Trykk på knapper
       title: Ny Push
       unknown: Ukjent
-    secret_link_lang: Hemmelig lenkespråk
+      share: Dele
     settings: Innstillinger
     show:
       blurred: Passordet ditt er uklart. Klikk nedenfor for å se det.
@@ -1080,6 +1093,7 @@
         %{time_unit}%{b_tag} eller %{b_tag}%{view_count} mer %{view_unit}%{b_tag}
         (avhengig av hva som inntreffer først).
       your_link: Din hemmelige lenke
+      intro: Følgende innhold er sendt til deg.
     show_expired:
       expired_help: Om nødvendig, vennligst kontakt personen eller organisasjonen
         som ga deg denne hemmelige nettadressen.
@@ -1091,6 +1105,9 @@
     view_audit_log: Se revisjonslogg
     whichever: "(det som kommer først)"
     'yes': Ja
+    payload_too_large: Nyttelasten er for stor. Du kan bare skyve opp til %{count}
+      byte.
+    too_many_files: Du kan bare legge ved opptil %{count} filer per trykk.
   static:
     about:
       about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
@@ -1171,11 +1188,6 @@
         Det er ikke åpen kildekode og er ikke gratis. Kjernen inneholder åpen kildekode-prosjektet,
         men tilbyr et supersett med funksjoner og er ment å akselerere utviklingen
         og bidra til å finansiere prosjektet.
-      answer_licensing_3: Premium-versjonen er ikke nødvendig for å kjøre en privat
-        forekomst av Password Pusher. Open source-versjonen er fullt utstyrt og gratis
-        å bruke.
-      answer_licensing_4: Alle premiumfunksjoner havner i åpen kildekode-versjon etter
-        en periode avhengig av funksjonen.
       answer_private_risks_1: Å kjøre en privat forekomst av Password Pusher for din
         bedrift eller organisasjon gir deg tryggheten ved at du vet nøyaktig hvilken
         kode som kjører. Du kan konfigurere og kjøre det som du vil.
@@ -1219,8 +1231,6 @@
         og %{install_link} for et bredt utvalg av plattformer og skyer.
       answer_self_host_2: For premiumversjonen, med supersettet av funksjoner, kommer
         selvvertsbaserte containere snart.
-      answer_trust_1: Og med rette. All god sikkerhet begynner med sunn skepsis til
-        alle involverte komponenter.
       answer_trust_2: Password Pusher eksisterer som et bedre alternativ til å sende
         passord via e-post. Det unngår at passord eksisterer i e-postarkiver i evighet.
         Den eksisterer ikke som en fullstendig sikkerhetsløsning.
@@ -1233,8 +1243,6 @@
       answer_trust_4: Ved å ha en så lang historie og være åpen kildekode, har Password
         Pusher blitt anmeldt av mange øyne. Den har blitt brukt av og revidert mange
         organisasjoner og enkeltpersoner gjennom årene.
-      answer_trust_5: 'Policyen til Password Pusher er tredelt: 1) Kryptering i hvile
-        og under overføring 2) Minimal datalagring 3) Åpenhet i form av en revisjonslogg.'
       answer_trust_6: I denne sammenheng slettes push-innholdet fullstendig ved utløp,
         og revisjonsloggen opprettholdes på ubestemt tid. Jo mindre data Password
         Pusher oppbevarer, desto bedre.
@@ -1294,6 +1302,38 @@
       title_trust: Tillit og sikkerhet
       tools_link: Verktøy og applikasjoner
       windows_link: Windows Powerpoint
+      answer_apnotic_1: Apnotic er selskapet opprettet for å administrere Password
+        Pusher (og for å akseptere kredittkort). Det eies og administreres utelukkende
+        av meg selv, Peter Giacomo Lombardo.
+      answer_files_free: 'Jeg prøvde virkelig å holde filbaserte push gratis, men
+        på grunn av noe misbruk, risiko og økende hostingkostnader. Jeg hadde ikke
+        så mye valg.<br/> Hvis du er en enkeltperson eller student og virkelig ikke
+        har råd til $8/måned, send meg en melding, så skal jeg se hva jeg kan gjøre.
+        Som et minimum vil det kreves et kredittkort selv om det ikke vil bli belastet.
+
+        '
+      answer_have_to_pay: 'Hvis du er en ideell organisasjon eller en utdanningsinstitusjon,
+        send meg en melding på tilbakemeldingsskjemaet, forklar dine behov, så kan
+        jeg kanskje gi deg en premium- eller proffkonto gratis.<br/> Hvis du er en
+        del av et profittselskap, ber jeg ydmykt om din støtte i form av et abonnement.
+
+        '
+      answer_premium_diff: Se %{link} for en fullstendig liste over forskjeller mellom
+        åpen kildekode og premiumversjoner.
+      answer_why_premium_2: Jeg introduserte premiumversjonen for å hjelpe til med
+        å finansiere prosjektet og for å akselerere utviklingen. Supersettet med funksjoner
+        i premiumversjonene er ment å være en verdiøkning for organisasjoner som trenger
+        mer enn åpen kildekode-versjonen gir. Ettersom Password Pusher bygges ut,
+        vil premiumfunksjonene bli flyttet til åpen kildekodeversjon etter en periode,
+        avhengig av funksjonen.
+      answer_will_oss: 'Absolutt – premiumversjonen lar meg bruke mer tid på prosjektet.
+        Den endelige destinasjonen for alt arbeid er å være i åpen kildekode-versjon
+        av prosjektet etter hvert.
+
+        '
+      question_apnotic: Hva er Apnotic?
+      question_files_free: Filopplasting pleide å være gratis. Hvorfor er de nå en
+        premium-funksjon?
     generate_key:
       env_var: Du kan bruke denne nøkkelen til applikasjonen din ved å angi miljøvariabelen
       generate_key: Generer nøkkel
@@ -1322,6 +1362,7 @@
       title: Generer en krypteringsnøkkel
     password_generator:
       push_it: Trykk på dette passordet
+      pwgen_title: Passordgenerator
     tools:
       alfred: Alfred App
       api_documentation: API-endepunktdokumentasjon
