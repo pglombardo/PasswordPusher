@@ -81,19 +81,19 @@ class Url < ApplicationRecord
   def validate!
     return if expired
 
-    # Range checking
-    self.expire_after_days ||= Settings.url.expire_after_days_default
-    self.expire_after_views ||= Settings.url.expire_after_views_default
+    if new_record?
+      # Range checking
+      self.expire_after_days ||= Settings.url.expire_after_days_default
+      self.expire_after_views ||= Settings.url.expire_after_views_default
 
-    unless expire_after_days.between?(Settings.url.expire_after_days_min, Settings.url.expire_after_days_max)
-      self.expire_after_days = Settings.url.expire_after_days_default
+      unless expire_after_days.between?(Settings.url.expire_after_days_min, Settings.url.expire_after_days_max)
+        self.expire_after_days = Settings.url.expire_after_days_default
+      end
+
+      unless expire_after_views.between?(Settings.url.expire_after_views_min, Settings.url.expire_after_views_max)
+        self.expire_after_views = Settings.url.expire_after_views_default
+      end
     end
-
-    unless expire_after_views.between?(Settings.url.expire_after_views_min, Settings.url.expire_after_views_max)
-      self.expire_after_views = Settings.url.expire_after_views_default
-    end
-
-    return if new_record?
 
     expire if !days_remaining.positive? || !views_remaining.positive?
   end
