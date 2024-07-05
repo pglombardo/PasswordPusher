@@ -43,7 +43,6 @@ group :development, :test do
   gem "standardrb", "~> 1.0"
 end
 
-gem "rack-attack"
 gem "rack-cors"
 
 # OSX: ../src/utils.h:33:10: fatal error: 'climits' file not found
@@ -117,7 +116,7 @@ gem "pg"
 gem "sqlite3", force_ruby_platform: true
 
 group :production do
-  gem "rack-throttle", "0.7.0"
+  gem "rack-attack"
   gem "rack-timeout"
 end
 

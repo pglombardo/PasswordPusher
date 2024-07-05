@@ -544,10 +544,8 @@ per a given time period (per second, minute, hourly, or daily).
 
 | Environment Variable | Description | Default Value |
 | --------- | ------------------ | --- |
-| PWP__THROTTLING__DAILY | The maximum number of allowed HTTP requests per day | `5000` |
-| PWP__THROTTLING__HOURLY | The maximum number of allowed HTTP requests per hour | `600` |
-| PWP__THROTTLING__MINUTE | The maximum number of allowed HTTP requests per minute | `60` |
-| PWP__THROTTLING__SECOND | The maximum number of allowed HTTP requests per second | `20` |
+| PWP__THROTTLING__MINUTE | The maximum number of allowed HTTP requests per minute | `120` |
+| PWP__THROTTLING__SECOND | The maximum number of allowed HTTP requests per second | `60` |
 
 
 # Logging

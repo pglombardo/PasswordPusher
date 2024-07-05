@@ -676,39 +676,24 @@ brand:
 # Throttling enforces a minimum time interval
 # between subsequent HTTP requests from a particular client, as
 # well as by defining a maximum number of allowed HTTP requests
-# per a given time period (per second, minute, hourly, or daily).
+# per a given time period (per second or minute)
 #
-# See https://github.com/dryruby/rack-throttle#throttling-strategies
-# for a description of function.
+# See https://github.com/rack/rack-attack
 #
 throttling:
-  # ..maximum number of allowed HTTP requests per day
-  #
-  # Default: 5000
-  #
-  # Environment Variable Override: PWP__THROTTLING__DAILY='5000'
-  daily: 5000
-
-  # ..maximum number of allowed HTTP requests per hour
-  #
-  # Default: 600
-  #
-  # Environment Variable Override: PWP__THROTTLING__HOURLY='600'
-  hourly: 600
-
   # ..maximum number of allowed HTTP requests per minute
   #
-  # Default: 60
+  # Default: 120
   #
   # Environment Variable Override: PWP__THROTTLING__MINUTE='60'
-  minute: 60
+  minute: 120
 
   # ..maximum number of allowed HTTP requests per second
   #
-  # Default: 20
+  # Default: 60
   #
   # Environment Variable Override: PWP__THROTTLING__SECOND='20'
-  second: 20
+  second: 60
 
 
 ### Mail Server Configuration
