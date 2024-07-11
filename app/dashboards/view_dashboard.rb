@@ -18,8 +18,8 @@ class ViewDashboard < Administrate::BaseDashboard
     url: Field::BelongsTo,
     user: Field::BelongsTo,
     user_agent: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    created_at: Field::DateTime.with_options(timezone: Settings.timezone),
+    updated_at: Field::DateTime.with_options(timezone: Settings.timezone)
   }.freeze
 
   # COLLECTION_ATTRIBUTES

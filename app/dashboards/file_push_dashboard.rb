@@ -14,7 +14,7 @@ class FilePushDashboard < Administrate::BaseDashboard
     expire_after_days: Field::Number,
     expire_after_views: Field::Number,
     expired: Field::Boolean,
-    expired_on: Field::DateTime,
+    expired_on: Field::DateTime.with_options(timezone: Settings.timezone),
     files_attachments: Field::HasMany,
     files_blobs: Field::HasMany,
     note_ciphertext: Field::Text,
@@ -25,8 +25,8 @@ class FilePushDashboard < Administrate::BaseDashboard
     url_token: Field::String,
     user: Field::BelongsTo,
     views: Field::HasMany,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    created_at: Field::DateTime.with_options(timezone: Settings.timezone),
+    updated_at: Field::DateTime.with_options(timezone: Settings.timezone)
   }.freeze
 
   # COLLECTION_ATTRIBUTES

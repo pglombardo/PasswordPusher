@@ -14,7 +14,7 @@ class PasswordDashboard < Administrate::BaseDashboard
     expire_after_days: Field::Number,
     expire_after_views: Field::Number,
     expired: Field::Boolean,
-    expired_on: Field::DateTime,
+    expired_on: Field::DateTime.with_options(timezone: Settings.timezone),
     note_ciphertext: Field::Text,
     passphrase_ciphertext: Field::Text,
     payload_ciphertext: Field::Text,
@@ -22,8 +22,8 @@ class PasswordDashboard < Administrate::BaseDashboard
     url_token: Field::String,
     user: Field::BelongsTo,
     views: Field::HasMany,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    created_at: Field::DateTime.with_options(timezone: Settings.timezone),
+    updated_at: Field::DateTime.with_options(timezone: Settings.timezone)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
