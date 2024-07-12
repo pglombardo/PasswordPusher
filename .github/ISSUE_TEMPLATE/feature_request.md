@@ -21,5 +21,3 @@ assignees:
 ## 📎 Additional context
 
 <!-- Add any other context or screenshots about the feature request here. -->
-
-<!-- ...and thank you for your input - Password Pusher has gotten to this point largely from community input and feedback. -->
