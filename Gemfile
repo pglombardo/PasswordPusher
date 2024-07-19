@@ -99,7 +99,6 @@ gem "invisible_captcha", "~> 2.3"
 gem "devise-i18n"
 gem "i18n-tasks", "~> 1.0.14" # , group: :development
 gem "rails-i18n", "~> 7.0.9"
-gem "route_translator", ">= 13.0.0"
 gem "translation"
 
 # For File Uploads
