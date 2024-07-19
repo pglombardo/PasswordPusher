@@ -14,6 +14,13 @@
       <div><%= I18n.t('devise.registrations.currently_waiting') %>: <%= resource.unconfirmed_email %></div>
     <% end %>
 
+    <% if I18n.available_locales.length > 1 %>
+      <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.preferred_language') %></p>
+      <div class="form-group">
+        <%= f.select :preferred_language,  options_for_select(language_options_for_select, resource.preferred_language || I18n.locale), { selected: resource.preferred_language || I18n.locale }, { class: "form-control" } %>
+      </div>
+    <% end %>
+
     <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.change_password') %></p>
     <p class=''><%= I18n.t('devise.registrations.change_password_hint') %></p>
     <div class="form-floating">
@@ -24,6 +31,7 @@
       <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.password') %>
       <%= f.label I18n.t('devise.registrations.new_password_confirmation'), for: :user_password_confirmation %>
     </div>
+
     <% if @minimum_password_length %>
       <p class='text-muted mt-3 fs-7'>
       * <%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
