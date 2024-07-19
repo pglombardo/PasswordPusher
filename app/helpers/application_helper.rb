@@ -45,7 +45,7 @@ module ApplicationHelper
       raw_url = I18n.with_locale(push_locale) do
         case password
         when Password
-          password_url(password)
+          password_url(password, locale: push_locale)
         when Url
           url_url(password)
         when FilePush
