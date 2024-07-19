@@ -7,7 +7,7 @@ echo ""
 if [ -z "$DATABASE_URL" ]
 then
     echo "DATABASE_URL not specified. Assuming ephemeral backend. Database may be lost on container restart."
-    echo "To set a database backend refer to https://github.com/pglombardo/PasswordPusher/wiki/How-to-migrate-to-the-Universal-Container#how-does-it-work"
+    echo "To set a database backend refer to https://docs.pwpush.com/docs/how-to-universal/#how-does-it-work"
     export DATABASE_URL=sqlite3:db/db.sqlite3
 else
     echo "According to DATABASE_URL database backend is set to $(echo $DATABASE_URL|cut -d ":" -f 1):..."
