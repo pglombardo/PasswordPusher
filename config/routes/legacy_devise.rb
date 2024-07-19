@@ -1,4 +1,4 @@
-# sign_in
+# /users/sign_in
 get CGI.unescape("/ca/usuaris/sign_in(.:format)"), to: redirect("/users/sign_in?locale=ca", status: 301)
 get CGI.unescape("/cs/u%C5%BEivatel%C5%AF/sign_in(.:format)"), to: redirect("/users/sign_in?locale=cs", status: 301)
 get CGI.unescape("/da/brugere/sign_in(.:format)"), to: redirect("/users/sign_in?locale=da", status: 301)

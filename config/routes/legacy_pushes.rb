@@ -35,20 +35,22 @@
   get CGI.unescape("/zh-cn/#{resource}/%E6%96%B0%E7%9A%84(.:format)"), to: redirect("/#{resource}/new?locale=zh-CN", status: 301)
 end
 
-# Legacy URL support for already shared URL and FilePush links
+# Legacy URL support for already shared links
 # These will redirect to their Push path equivalents.
 get "/:locale/p/:url_token", to: redirect("/p/%{url_token}?locale=%{locale}")
 get "/:locale/p/:url_token/r", to: redirect("/p/%{url_token}/r?locale=%{locale}")
 
-get "/f/:url_token", to: redirect("/p/%{url_token}")
-get "/f/:url_token/r", to: redirect("/p/%{url_token}/r")
-get "/:locale/f/:url_token", to: redirect("/p/%{url_token}?locale=%{locale}")
-get "/:locale/f/:url_token/r", to: redirect("/p/%{url_token}/r?locale=%{locale}")
+get "/:locale/f/:url_token", to: redirect("/f/%{url_token}?locale=%{locale}")
+get "/:locale/f/:url_token/r", to: redirect("/f/%{url_token}/r?locale=%{locale}")
 
-get "/r/:url_token", to: redirect("/p/%{url_token}")
-get "/r/:url_token/r", to: redirect("/p/%{url_token}/r")
-get "/:locale/r/:url_token", to: redirect("/p/%{url_token}?locale=%{locale}")
-get "/:locale/r/:url_token/r", to: redirect("/p/%{url_token}/r?locale=%{locale}")
+get "/:locale/r/:url_token", to: redirect("/r/%{url_token}?locale=%{locale}")
+get "/:locale/r/:url_token/r", to: redirect("/r/%{url_token}/r?locale=%{locale}")
+
+# For when we have a unified push
+# get "/f/:url_token", to: redirect("/p/%{url_token}")
+# get "/f/:url_token/r", to: redirect("/p/%{url_token}/r")
+# get "/r/:url_token", to: redirect("/p/%{url_token}")
+# get "/r/:url_token/r", to: redirect("/p/%{url_token}/r")
 
 # Redirects for translated routes
 I18n.available_locales.each do |locale|
