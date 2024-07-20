@@ -54,6 +54,6 @@ get "/:locale/r/:url_token/r", to: redirect("/r/%{url_token}/r?locale=%{locale}"
 
 # Redirects for translated routes
 I18n.available_locales.each do |locale|
-  get "/#{locale}", to: redirect("/?locale=#{locale}")
-  get "/#{locale}/api", to: redirect("/api?locale=#{locale}")
+  get "/#{locale.downcase}", to: redirect("/?locale=#{locale.downcase}")
+  get "/#{locale.downcase}/api", to: redirect("/api?locale=#{locale.downcase}")
 end
