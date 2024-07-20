@@ -107,13 +107,14 @@ end
 desc "Generate robots.txt."
 task generate_robots_txt: :environment do
   include Rails.application.routes.url_helpers
-  contents = "User-Agent: *\n"
+  contents = "User-agent: *\n"
   contents += "Disallow: /p/\n"
   contents += "Disallow: /f/\n"
   contents += "Disallow: /r/\n"
   contents += "Allow: /p/new\n"
   contents += "Allow: /f/new\n"
   contents += "Allow: /r/new\n"
+  contents += "Allow: /pages/\n"
 
   File.write("./public/robots.txt", contents)
 
