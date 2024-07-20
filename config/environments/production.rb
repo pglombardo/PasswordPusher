@@ -162,11 +162,4 @@ Rails.application.configure do
       raise "Settings.allowed_hosts (PWP__ALLOWED_HOSTS): Allowed hosts must be an array or string"
     end
   end
-
-  if Settings.throttling
-    config.middleware.use Rack::Throttle::Daily, max: Settings.throttling.daily
-    config.middleware.use Rack::Throttle::Hourly, max: Settings.throttling.hourly
-    config.middleware.use Rack::Throttle::Minute, max: Settings.throttling.minute
-    config.middleware.use Rack::Throttle::Second, max: Settings.throttling.second
-  end
 end

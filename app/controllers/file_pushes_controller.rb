@@ -147,7 +147,7 @@ class FilePushesController < BaseController
       msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
       respond_to do |format|
         format.html do
-          flash.now[:warning] = msg
+          flash.now[:alert] = msg
           render :new, status: :unprocessable_entity
         end
         format.json { render json: {error: msg}, status: :unprocessable_entity }
