@@ -32,6 +32,10 @@ module ApplicationHelper
         raise "Unknown push type: #{password.class}"
       end
 
+    if params["push_locale"].present? && Settings.enabled_language_codes.include?(params["push_locale"])
+      raw_url += "?locale=#{params["push_locale"]}"
+    end
+
     # Support forced https links with FORCE_SSL env var
     raw_url.gsub!(/http/i, "https") if ENV.key?("FORCE_SSL") && !request.ssl?
     raw_url
