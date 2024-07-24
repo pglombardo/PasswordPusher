@@ -9,6 +9,14 @@ module SetLocale
     I18n.with_locale(find_locale, &action)
   end
 
+  def default_url_options
+    if params.present? && params.key?(:locale)
+      {locale: params[:locale]}
+    else
+      {}
+    end
+  end
+
   private
 
   def find_locale

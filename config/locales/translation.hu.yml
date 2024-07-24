@@ -803,6 +803,7 @@ hu:
       edit_policy: Irányelv
     secret_url_bar:
       secret_link_lang: Titkos hivatkozási nyelv
+      autodetect: Auto felismerés
   audit_logs:
     audit_log:
       created: Létrehozva
@@ -1080,6 +1081,8 @@ hu:
       print_and_share: Nyomtatás és megosztás
       print_and_share_tip: Nyomtatható oldal létrehozása a végfelhasználók számára
       show_expiration: Lejárati adatok megjelenítése
+      link_lang_auto: Alternatív megoldásként az automatikus észlelés a végfelhasználói
+        böngészőbeállítások alapján választ ki egy nyelvet.
     provide_text_or_file: Push létrehozásához vagy szöveget kell megadnia, vagy csatolnia
       kell egy fájlt, vagy mindkettőt.
     push:
@@ -1171,191 +1174,6 @@ hu:
       section_help: Szeretne segíteni?
       title: A Password Pusher-ről
       twitter: Twitter
-    faq:
-      answer_access_1: A Password Pusher JSON API-val számos olyan alkalmazás és parancssori
-        segédprogram (CLI) létezik, amelyek a pwpush.com webhelyhez vagy a saját üzemeltetésű
-        példányához kapcsolódnak. Jelszavak leküldése a CLI, a Slack, az Alfred alkalmazásból
-        és egyebekből.
-      answer_access_2: További információkért lásd az %{tools} oldalt.
-      answer_add_feature_1: Nagyon valószínű. Szeretek minden ötletet és visszajelzést
-        hallani, és listát vezetek, hogy eldönthessem, mit tegyek hozzá. Ha van ilyen,
-        küldje be az %{feedback_link} oldalra vagy az %{github_link} oldalon.
-      answer_already_expired_1: Egyes rendszerek, például az e-mail, a tűzfalak és
-        a csevegőrendszerek gyakran tartalmaznak linkszkennereket, amelyek felemésztik
-        a nézeteket. Ezt általában a vállalati biztonság érdekében teszik, vagy egyszerűen
-        "előnézetet" generálnak az alkalmazásokhoz.
-      answer_already_expired_2: Ennek megelőzése érdekében használja az 1-kattintásos
-        visszakeresési lépést a jelszavak leküldésekor. Ehhez a felhasználóknak át
-        kell kattintaniuk egy előzetes oldalra, hogy megvédjék a nézeteiket az ilyen
-        szkennerektől.
-      answer_already_expired_3: További megelőző intézkedésként bejelentkezéskor minden
-        létrehozott leküldéshez egy auditnaplót biztosítunk. Ez az ellenőrzési napló
-        felfedi, hogy ki és mikor tekintette meg a leküldést.
-      answer_automation_1: Igen. A Password Pusher JSON API lehetővé teszi a jelszóküldés
-        automatizálását. Ez különféle programozási nyelvekkel és eszközökkel megtehető.
-      answer_automation_2: További információkért lásd az %{tools} oldalt.
-      answer_conference_1: Teljesen. Rendelkezünk médiaforrásokkal és az %{windows_link}
-        és %{mac_link} formátumban elérhető funkciók teljes leírásával.
-      answer_conference_2: Ha bármilyen kérdése van, vagy segítségre van szüksége,
-        forduljon hozzám bármikor.
-      answer_how_many_1: Jelenleg nincsenek korlátozások, és nem is áll szándékomban
-        hozzáadni. A webhely stabilitásának minimális biztosítása érdekében a Password
-        Pusher alapértelmezés szerint sebességkorlátozóval van konfigurálva. Ez a
-        saját üzemeltetésű verzióban letiltható.
-      answer_licensing_1: A forráskód nyílt forráskódú verziója az Apache 2.0 licenc
-        alatt jelenik meg, és ez nagyjából meghatároz minden korlátozást. A Password
-        Pusher számos újramárkázott és újratervezett klónoldala van, és mindegyiket
-        üdvözlöm.
-      answer_licensing_2: A prémium verzió kereskedelmi licenc alatt kerül kiadásra.
-        Nem nyílt forráskódú és nem ingyenes. Alapvetően a nyílt forráskódú projektet
-        tartalmazza, de a funkciók szuperkészletét kínálja, és célja a fejlesztés
-        felgyorsítása és a projekt finanszírozásának elősegítése.
-      answer_private_risks_1: A Password Pusher privát példányának futtatása vállalata
-        vagy szervezete számára nyugalmat biztosít, hogy pontosan tudja, milyen kód
-        fut. Tetszés szerint konfigurálhatja és futtathatja.
-      answer_private_risks_2: Másrészt, ha a példányát feltörik, és a titkosítás megszakad,
-        a rosszindulatú entitások most célzott jelszavakat tartalmazó szótárral rendelkeznek,
-        amellyel brutálisan erőszakoskodhatnak a szervezet fiókjaival. (ez azokra
-        a leküldésekre korlátozódik, amelyek még nem jártak le)
-      answer_private_risks_3: Ebből a szempontból a pwpush.com nyilvános példánya
-        jobb lehet abban, hogy csak jelszavakat tartalmaz, anélkül, hogy azonosító
-        információkat vegyen a világ minden tájáról származó felhasználók között.
-      answer_private_risks_4: Egy másik szempont a példány karbantartása lenne. Naprakészen
-        kell tartania, biztonságosan kell tartania és biztonsági másolatot kell készítenie.
-      answer_private_risks_5: A felhasználónak gondosan mérlegelnie kell az előnyöket
-        és hátrányokat, és el kell döntenie, hogy melyik útvonal a legjobb a számára.
-        Örömmel támogatjuk mindkét stratégiát.
-      answer_purpose_1: A Password Pusher a jelszavak e-mailben történő küldésének
-        jobb alternatívája.
-      answer_purpose_10: Ezenkívül <strong>a jelszavak egy előre meghatározott nézetcsoport
-        elérése vagy idő elteltével lejárnak.</strong>
-      answer_purpose_11: A lejárt jelszavak egyértelműen törlődnek.
-      answer_purpose_12: Ha ez érdekesnek tűnik, próbálja ki, vagy tekintse meg az
-        alábbi gyakran ismételt kérdéseket.
-      answer_purpose_2: "<strong>A jelszavak e-mailben történő küldése eredendően
-        nem biztonságos.</strong> A legnagyobb kockázatok a következők:"
-      answer_purpose_3: Az e-mailben küldött jelszavakat általában kontextussal együtt
-        küldik el, hogy hova valók, vagy származhatnak e-mail felhasználónévből, domainből
-        stb.
-      answer_purpose_4: Az e-mail természeténél fogva nem biztonságos, és rosszindulatú
-        entitások több ponton is elfoghatják.
-      answer_purpose_5: 'Az e-mailben elküldött jelszavak sokáig (értsd: örökké) élnek
-        az e-mail archívumokban.'
-      answer_purpose_6: Az e-mailekben lévő jelszavak visszakereshetők és később felhasználhatók,
-        ha egy e-mail fiókot ellopnak, feltörnek stb.
-      answer_purpose_7: Ugyanezek a kockázatok állnak fenn a jelszavak SMS-ben, WhatsApp-on,
-        táviratban, chaten stb. történő elküldésekor… Az adatok gyakran örökre megőrizhetők,
-        és az Ön ellenőrzése nélkül.
-      answer_purpose_8: A Password Pusher használatával mindezt megkerüli.
-      answer_purpose_9: A Jelszóküldőben elküldött minden egyes jelszóhoz <strong>egyedi
-        URL-cím jön létre, amelyet csak Ön ismerhet</strong> .
-      answer_rebranding_1: A Password Pusher támogatja a teljes márkaváltást, amely
-        lehetővé teszi egyéni logó, képek, szöveg hozzáadását, és még az alkalmazás
-        témájának megváltoztatását is.
-      answer_self_host_1: Igen, a nyílt forráskódú verzióhoz az %{docker_link} és
-        %{install_link} lehetőséget biztosítjuk a platformok és felhők széles skálájához.
-      answer_self_host_2: A prémium verzióhoz, a szolgáltatások szuperkészletével,
-        hamarosan megjelennek a saját üzemeltetésű konténerek.
-      answer_trust_2: A Password Pusher a jelszavak e-mailben történő küldésének jobb
-        alternatívája. Ezzel elkerülhető, hogy a jelszavak örökre jelen legyenek az
-        e-mail archívumokban. Nem nyújt teljes körű biztonsági megoldást.
-      answer_trust_3: A Password Pusher nyílt forráskódú projektként indult 2011 végén.
-        Ezt én (Peter Giacomo Lombardo) és néhány kiváló közreműködő karbantartottam
-        és frissítettem mindvégig. 2024-ben a prémium verziót a fejlesztés felgyorsítása
-        és a projekt finanszírozásának elősegítése érdekében vezették be. Az összes
-        prémium szolgáltatás végül a nyílt forráskódú verzióba kerül.
-      answer_trust_4: Mivel ilyen hosszú múltra tekint vissza és nyílt forráskódú,
-        a Password Pushert sok szem felülvizsgálta. Az évek során számos szervezet
-        és magánszemély használta és auditálta.
-      answer_trust_6: Ennek megfelelően a push hasznos terhelések egyértelműen törlődnek
-        a lejáratkor, és az ellenőrzési napló korlátlan ideig megmarad. Minél kevesebb
-        adatot tárol a Password Pusher, annál jobb.
-      answer_trust_7: Ha továbbra is aggályai vannak a bizalommal, biztonsággal és
-        biztonsággal kapcsolatban, bátran tekintse át a kódot, tegye fel kérdéseit,
-        és fontolja meg inkább a szervezeten belüli futtatását.
-      answer_trust_8: Ami a belém vetett bizalmat illeti, csak annyit tudok nyújtani,
-        hogy hosszú múltam építi ezt a projektet, és nyilvános hírnevemet %{github},
-        %{linkedin}, %{twitter} és %{blog}. Bármikor, bármilyen kérdése van, forduljon
-        hozzám bizalommal.
-      answer_why_premium_1: asdf
-      answer_why_private_1: Egyes szervezeteket olyan biztonsági szabályzatok kötnek,
-        amelyek tiltják a publikus szolgáltatások használatát érzékeny információk,
-        például jelszavak céljára. Vannak még olyan szervezetek is, amelyeknek minden
-        eszköznek magán intraneten kell lennie anélkül, hogy hozzáférne a külvilághoz.
-      answer_why_private_2: A Password Pusher saját privát példányának futtatása lehetővé
-        teszi a környezet és az adatok vezérlését. Lehetővé teszi a szervezetre jellemző
-        egyéni funkciók és integrációk hozzáadását is.
-      answer_why_private_3: Ezen okok miatt biztosítjuk (és bátorítjuk) a felhasználókat
-        és szervezeteket, hogy szükség esetén privát példányokat futtassanak.
-      feedback_link: Visszajelző űrlap
-      github_link: GitHub
-      mac_link: Mac Keynote
-      my_blog: a blogom
-      question_access: Vannak más módok is a Password Pusher elérésére a böngészőn
-        kívül?
-      question_add_feature: Tudna hozzáadni egy speciális funkciót a szervezetem részére?
-      question_already_expired: Az általam küldött titkos URL már lejárt. Mi történt?
-      question_automation: Automatizálhatom a jelszavak kiosztását?
-      question_conference: Használhatom a Password Pusher-t beszédemben, videómban,
-        prezentációmban vagy konferencián?
-      question_have_to_pay: Fizetnem kell?
-      question_how_many: Hány kérelmet küldhetek a Password Pushernek?
-      question_licensing: Vannak-e licencelési korlátozások rám, a cégemre vagy a
-        szervezetemre?
-      question_premium_diff: Mi a különbség a nyílt forráskódú és a prémium verzió
-        között?
-      question_private_risks: Milyen biztonsági kockázatokkal járhat a saját verzióm
-        belső futtatása?
-      question_purpose: Mi a Password Pusher célja?
-      question_rebranding: Alkalmazhatok egyéni logót vagy módosíthatom a dizájnt?
-      question_self_host: Futtathatom a saját verziómat a szervezetemen belül?
-      question_trust: A bizalom aggodalomra ad okot. Miért használjam a Password Pusher-t?
-      question_why_premium: A Password Pusher mindig is nyílt forráskódú volt. Miért
-        van prémium verzió?
-      question_why_private: Miért szeretném a Password Pusher saját privát példányát
-        futtatni?
-      question_will_oss: A prémium funkciókat hozzáadják a nyílt forráskódú verzióhoz?
-      subtitle: "..minden olyan dolog, amit tudni szeretne a Password Pusherről."
-      title: Gyakran Ismételt Kérdések
-      title_other: Egyéb
-      title_private: Saját magánpéldány futtatása
-      title_pushes: Tolja
-      title_subscriptions: Prémium verzió
-      title_tools: Eszközök, integrációk és alkalmazások
-      title_trust: Bizalom és biztonság
-      tools_link: Eszközök és alkalmazások
-      windows_link: Windows Powerpoint
-      answer_apnotic_1: Az Apnotic a Password Pusher kezelésére (és hitelkártyák elfogadására)
-        létrehozott cég. Kizárólag én, Peter Giacomo Lombardo tulajdonom és kezelem.
-      answer_files_free: 'Valóban igyekeztem a fájlalapú leküldéseket ingyenesen tartani,
-        de némi visszaélés, kockázat és növekvő tárhelyköltségek miatt. Nem sok választásom
-        volt.<br/> Ha magánszemély vagy diák, és tényleg nem engedheti meg magának
-        a havi 8 dollárt, írjon nekem, és meglátjuk, mit tehetek. Legalább hitelkártya
-        szükséges, még akkor is, ha azt nem terhelik meg.
-
-        '
-      answer_have_to_pay: 'Ha Ön non-profit vagy oktatási intézmény, küldjön üzenetet
-        a visszajelzési űrlapon, magyarázza el igényeit, és lehet, hogy ingyenesen
-        tudok prémium vagy pro fiókot adni.<br/> Ha Ön egy profitorientált cég tagja,
-        akkor alázattal kérem támogatását előfizetés formájában.
-
-        '
-      answer_premium_diff: Tekintse meg az %{link}-t a nyílt forráskódú és a prémium
-        verziók közötti különbségek teljes listájáért.
-      answer_why_premium_2: A prémium verziót a projekt finanszírozásának elősegítése
-        és a fejlesztés felgyorsítása érdekében vezettem be. A prémium verziók szolgáltatásainak
-        szuperkészlete hozzáadott értéket jelent azoknak a szervezeteknek, amelyeknek
-        többre van szükségük, mint amit a nyílt forráskódú verzió kínál. Ahogy a Password
-        Pusher kiépült, a prémium funkciók a szolgáltatástól függően egy bizonyos
-        idő elteltével átkerülnek a nyílt forráskódú verzióba.
-      answer_will_oss: 'Teljesen - a prémium verzió lehetővé teszi, hogy több időt
-        töltsek a projekttel. Az összes munka végső célja az, hogy végül a projekt
-        nyílt forráskódú verziójában legyen.
-
-        '
-      question_apnotic: Mi az Apnotic?
-      question_files_free: A fájlfeltöltés korábban ingyenes volt. Miért ma már prémium
-        szolgáltatás?
     generate_key:
       env_var: Ezt a kulcsot a környezeti változó beállításával alkalmazhatja az alkalmazásra
       generate_key: Kulcs generálása

@@ -798,6 +798,7 @@ sk:
       vowels: Samohlásky
     secret_url_bar:
       secret_link_lang: Jazyk tajného prepojenia
+      autodetect: Automatická detekcia
   audit_logs:
     audit_log:
       created: Vytvorené
@@ -1073,6 +1074,8 @@ sk:
       will_expire_after: Platnosť tohto tlačidla vyprší v
       with_preliminary_step: Zahŕňa aj krok predbežného vyhľadávania %{strong_start}1
         kliknutím %{strong_end}.
+      link_lang_auto: Prípadne automatická detekcia vyberie jazyk na základe nastavení
+        prehliadača koncového používateľa.
     provide_text_or_file: Ak chcete vytvoriť tlačovú správu, musíte zadať text, pripojiť
       súbor alebo oboje.
     push:
@@ -1161,185 +1164,6 @@ sk:
       section_help: Chcete pomôcť?
       title: O aplikácii Password Pusher
       twitter: Twitter
-    faq:
-      answer_access_1: Pomocou rozhrania Password Pusher JSON API existuje množstvo
-        aplikácií a nástrojov príkazového riadka (CLI), ktoré sa spájajú so stránkou
-        pwpush.com alebo vašou vlastnou inštanciou.  Heslá môžete posielať z CLI,
-        aplikácie Slack, aplikácie Alfred a ďalších.
-      answer_access_2: Viac informácií nájdete na stránke %{tools}.
-      answer_add_feature_1: Veľmi pravdepodobné.  Rád si vypočujem všetky nápady a
-        spätnú väzbu a budem si viesť zoznam, aby som sa mohol rozhodnúť, čo pridať
-        ďalej.  Ak máte nejaké, pošlite ich na stránku %{feedback_link} alebo na %{github_link}.
-      answer_already_expired_1: Niektoré systémy, ako napríklad e-mail, firewall a
-        chatové systémy, majú často skenery odkazov, ktoré môžu spotrebovať zobrazenia.  Zvyčajne
-        sa to robí z dôvodu podnikovej bezpečnosti alebo na jednoduché generovanie
-        "náhľadu" aplikácií.
-      answer_already_expired_2: Ak tomu chcete zabrániť, pri posúvaní hesiel použite
-        možnosť kroku načítania 1 kliknutím.  To si vyžaduje, aby používatelia klikli
-        cez predbežnú stránku, ktorá chráni zobrazenia pred takýmito skenermi.
-      answer_already_expired_3: Ako ďalšie preventívne opatrenie je po prihlásení
-        k dispozícii protokol auditu pre každý vytvorený push.  Tento protokol auditu
-        ukazuje, kto a kedy si push pozrel.
-      answer_automation_1: Áno, rozhranie Password Pusher JSON API umožňuje automatizáciu
-        odosielania hesiel.  To možno vykonať pomocou rôznych programovacích jazykov
-        a nástrojov.
-      answer_automation_2: Viac informácií nájdete na stránke %{tools}.
-      answer_conference_1: Absolútne.  Máme k dispozícii mediálne zdroje a úplné vysvetlenie
-        funkcií vo formátoch %{windows_link} a %{mac_link}.
-      answer_conference_2: Ak máte akékoľvek otázky alebo potrebujete pomoc, môžete
-        ma kedykoľvek kontaktovať.
-      answer_how_many_1: V súčasnosti neexistujú žiadne obmedzenia a nemám v úmysle
-        ich pridávať.  Aby sa minimálne zabezpečila stabilita stránky, Password Pusher
-        je predvolene nakonfigurovaný s obmedzovačom rýchlosti.  Ten je možné vo verzii
-        pre samoplatcov vypnúť.
-      answer_licensing_1: Zdrojový kód open source verzie je uvoľnený pod licenciou
-        Apache 2.0, ktorá v podstate definuje všetky obmedzenia. Existuje pomerne
-        veľa premenených a prepracovaných klonov Password Pushera a ja ich všetky
-        vítam.
-      answer_licensing_2: Verzia Premium je vydaná pod komerčnou licenciou.  Nie je
-        open source a nie je zadarmo.  Vo svojej podstate obsahuje open source projekt,
-        ale ponúka nadštandardnú sadu funkcií a má urýchliť vývoj a pomôcť financovať
-        projekt.
-      answer_private_risks_1: Spustenie súkromnej inštancie nástroja Password Pusher
-        pre vašu spoločnosť alebo organizáciu vám dáva istotu, že presne viete, aký
-        kód je spustený.  Môžete ho konfigurovať a spúšťať podľa svojich predstáv.
-      answer_private_risks_2: Na druhej strane, ak sa do vašej inštancie nabúra hacker
-        a prelomí šifrovanie, zlomyseľné subjekty majú teraz k dispozícii cielený
-        slovník hesiel, ktoré môžu použiť na vynútenie účtov vo vašej organizácii.  (toto
-        by bolo obmedzené na tlačenia, ktorých platnosť ešte nevypršala)
-      answer_private_risks_3: V tomto ohľade môže byť verejná inštancia na adrese
-        pwpush.com lepšia v tom, že obsahuje len heslá bez identifikačných informácií,
-        ktoré sa miešajú medzi používateľmi z celého sveta.
-      answer_private_risks_4: Ďalším aspektom je údržba inštancie.  Musíte ju udržiavať
-        aktualizovanú, zabezpečenú a zálohovanú.
-      answer_private_risks_5: Používateľ by mal starostlivo zvážiť výhody a nevýhody
-        a rozhodnúť sa, ktorá cesta je pre neho najlepšia.  S radosťou podporujeme
-        obe stratégie.
-      answer_purpose_1: Aplikácia Password Pusher existuje ako lepšia alternatíva
-        k zasielaniu hesiel e-mailom.
-      answer_purpose_10: Okrem toho <strong>platnosť hesiel vyprší po dosiahnutí vopred
-        definovaného súboru zobrazení alebo uplynutí času</strong>.
-      answer_purpose_11: Po uplynutí platnosti sa heslá jednoznačne vymažú.
-      answer_purpose_12: Ak vám to pripadá zaujímavé, vyskúšajte to alebo si pozrite
-        ďalšie často kladené otázky nižšie.
-      answer_purpose_2: "<strong>Posielanie hesiel e-mailom je vo svojej podstate
-        nezabezpečené.</strong> Medzi najväčšie riziká patria:"
-      answer_purpose_3: E-mailové heslá sa zvyčajne posielajú v kontexte toho, na
-        čo idú, alebo môžu byť potenciálne odvodené z používateľského mena e-mailu,
-        domény atď..
-      answer_purpose_4: E-mail je zo svojej podstaty nezabezpečený a môže byť zachytený
-        na viacerých miestach škodlivými subjektmi.
-      answer_purpose_5: 'Heslá zaslané e-mailom žijú v e-mailových archívoch navždy
-        (čítaj: navždy).'
-      answer_purpose_6: Heslá v e-mailoch sa dajú získať a neskôr použiť v prípade
-        krádeže, prelomenia a pod.
-      answer_purpose_7: Rovnaké riziká hrozia aj pri posielaní hesiel prostredníctvom
-        SMS, WhatsApp, Telegramu, chatu atď... Údaje môžu byť a často sú uchovávané
-        na neurčito a mimo vašej kontroly.
-      answer_purpose_8: Pomocou nástroja Password Pusher toto všetko obídete.
-      answer_purpose_9: Pre každé heslo odoslané do služby Password Pusher <strong>sa
-        vygeneruje jedinečná adresa URL, ktorú budete poznať len vy</strong>.
-      answer_rebranding_1: Aplikácia Password Pusher podporuje úplnú zmenu značky
-        "out of the box", čo vám umožňuje pridať vlastné logo, obrázky, text a dokonca
-        zmeniť tému aplikácie.
-      answer_self_host_1: Áno, pre verziu s otvoreným zdrojovým kódom poskytujeme
-        %{docker_link} a %{install_link} pre rôzne platformy a cloudy.
-      answer_self_host_2: V prípade prémiovej verzie so supersúborom funkcií sa čoskoro
-        objavia kontajnery na vlastnom hostingu.
-      answer_trust_2: Aplikácia Password Pusher existuje ako lepšia alternatíva k
-        zasielaniu hesiel e-mailom. Zabraňuje tomu, aby heslá existovali v e-mailových
-        archívoch navždy. Neexistuje ako konečné bezpečnostné riešenie.
-      answer_trust_3: Password Pusher sa začal ako open source projekt koncom roka
-        2011.  Celý ten čas som ho udržiaval a aktualizoval ja (Peter Giacomo Lombardo)
-        a niekoľko vynikajúcich prispievateľov.  V roku 2024 bola zavedená prémiová
-        verzia s cieľom urýchliť vývoj a pomôcť financovať projekt.  Všetky prémiové
-        funkcie nakoniec skončia v open source verzii.
-      answer_trust_4: Vďaka takej dlhej histórii a otvorenému zdrojovému kódu bol
-        Password Pusher preskúmaný mnohými očami.  V priebehu rokov ho používalo a
-        kontrolovalo mnoho organizácií a jednotlivcov.
-      answer_trust_6: V tomto duchu sa užitočné zaťaženia push jednoznačne vymažú
-        po uplynutí ich platnosti a protokol auditu sa uchováva po neobmedzenú dobu.  Čím
-        menej údajov Password Pusher uchováva, tým lepšie.
-      answer_trust_7: Ak máte stále obavy týkajúce sa dôveryhodnosti, bezpečnosti
-        a zabezpečenia, neváhajte si kód prezrieť, zverejniť akékoľvek otázky a zvážiť,
-        či ho namiesto toho nespustíte interne vo svojej organizácii.
-      answer_trust_8: Pokiaľ ide o dôveru vo mňa, môžem ponúknuť len svoju dlhú históriu
-        budovania tohto projektu a svoju verejnú reputáciu na %{github}, %{linkedin},
-        %{twitter} a %{blog}.  Neváhajte ma kedykoľvek kontaktovať s akýmikoľvek otázkami.
-      answer_why_premium_1: asdf
-      answer_why_private_1: Niektoré organizácie sú viazané bezpečnostnými zásadami,
-        ktoré zakazujú používanie verejných služieb pre citlivé informácie, ako sú
-        napríklad heslá.  Existujú dokonca organizácie, ktoré vyžadujú, aby všetky
-        nástroje boli v súkromných intranetových sieťach bez prístupu do vonkajšieho
-        sveta.
-      answer_why_private_2: Spustenie vlastnej súkromnej inštancie aplikácie Password
-        Pusher vám umožňuje kontrolovať prostredie a údaje.  Umožňuje tiež pridávať
-        vlastné funkcie a integrácie, ktoré sú špecifické pre vašu organizáciu.
-      answer_why_private_3: Z týchto dôvodov poskytujeme používateľom a organizáciám
-        možnosť (a podporujeme ich) spúšťať súkromné inštancie, ak je to potrebné.
-      feedback_link: Formulár spätnej väzby
-      github_link: GitHub
-      mac_link: Mac Keynote
-      my_blog: môj blog
-      question_access: Existujú aj iné spôsoby prístupu k aplikácii Password Pusher
-        mimo prehliadača?
-      question_add_feature: Mohli by ste pridať konkrétnu funkciu pre moju organizáciu?
-      question_already_expired: Platnosť tajnej adresy URL, ktorú som poslal, už vypršala.  Čo
-        sa stalo?
-      question_automation: Môžem automatizovať distribúciu hesiel?
-      question_conference: Môžem použiť aplikáciu Password Pusher vo svojej prednáške,
-        videu, prezentácii alebo na konferencii?
-      question_have_to_pay: Musím platiť?
-      question_how_many: Koľko požiadaviek môžem odoslať aplikácii Password Pusher?
-      question_licensing: Existujú nejaké licenčné obmedzenia pre mňa, moju spoločnosť
-        alebo moju organizáciu?
-      question_premium_diff: Aké sú rozdiely medzi open source a prémiovou verziou?
-      question_private_risks: Aké sú potenciálne bezpečnostné riziká interného spustenia
-        vlastnej verzie?
-      question_purpose: Aký je účel aplikácie Password Pusher?
-      question_rebranding: Môžem použiť vlastné logo alebo zmeniť dizajn?
-      question_self_host: Môžem spustiť vlastnú verziu pre svoju organizáciu interne?
-      question_trust: Dôvera je problém. Prečo by som mal používať Password Pusher?
-      question_why_premium: Password Pusher bol vždy open-source.  Prečo existuje
-        prémiová verzia?
-      question_why_private: Prečo by som chcel spustiť vlastnú súkromnú inštanciu
-        aplikácie Password Pusher?
-      question_will_oss: Budú do open source verzie pridané prémiové funkcie?
-      subtitle: "..všetko, čo chcete vedieť o nástroji Password Pusher."
-      title: Často kladené otázky
-      title_other: Iné
-      title_private: Spustenie vlastnej súkromnej inštancie
-      title_pushes: Stlačí
-      title_subscriptions: Verzia Premium
-      title_tools: Nástroje, integrácie a aplikácie
-      title_trust: Dôvera a bezpečnosť
-      tools_link: Nástroje a aplikácie
-      windows_link: Windows Powerpoint
-      answer_apnotic_1: Apnotic je spoločnosť vytvorená na správu aplikácie Password
-        Pusher (a na prijímanie kreditných kariet).  Jej jediným vlastníkom a správcom
-        som ja, Peter Giacomo Lombardo.
-      answer_files_free: |
-        Skutočne som sa snažil, aby boli tlačenia založené na súboroch bezplatné, ale kvôli určitému zneužívaniu, riziku a rastúcim nákladom na hosting. Nemal som na výber.
-        <br/>
-        Ak ste jednotlivec alebo študent a naozaj si nemôžete dovoliť 8 USD/mesiac, napíšte mi správu a uvidím, čo sa dá robiť.  Minimálne bude potrebná kreditná karta, aj keď sa nebude účtovať.
-      answer_have_to_pay: |
-        Ak ste nezisková organizácia alebo vzdelávacia inštitúcia, pošlite mi správu vo formulári spätnej väzby, vysvetlite svoje potreby a možno vám budem môcť poskytnúť prémiové alebo profesionálne konto zadarmo.
-        <br/>
-        Ak ste súčasťou ziskovej spoločnosti, pokorne vás žiadam o podporu vo forme predplatného.
-      answer_premium_diff: Úplný zoznam rozdielov medzi open source a prémiovou verziou
-        nájdete v %{link}.
-      answer_why_premium_2: Zaviedol som prémiovú verziu, aby som pomohol financovať
-        projekt a urýchlil vývoj.  Nadstavbová sada funkcií v prémiových verziách
-        má byť pridanou hodnotou pre organizácie, ktoré potrebujú viac, než poskytuje
-        verzia s otvoreným zdrojovým kódom.  Ako sa bude Password Pusher budovať,
-        prémiové funkcie sa po určitom čase presunú do open-source verzie v závislosti
-        od funkcie.
-      answer_will_oss: |
-        Určite - prémiová verzia mi umožňuje venovať projektu viac času.
-        Konečným cieľom všetkej práce má byť nakoniec open source verzia projektu.
-      question_apnotic: Čo je Apnotic?
-      question_files_free: Nahrávanie súborov bolo kedysi bezplatné.  Prečo je teraz
-        prémiovou funkciou?
     generate_key:
       env_var: Tento kľúč môžete použiť vo svojej aplikácii nastavením premennej prostredia
       generate_key: Generovanie kľúča

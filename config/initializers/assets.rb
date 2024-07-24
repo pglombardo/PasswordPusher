@@ -14,6 +14,10 @@ Rails.application.config.assets.paths << Rails.root.join("vendor/stylesheets/@fo
 Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap-icons")
 Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap-icons/font")
 
+Rails.application.config.assets.paths << Rails.root.join("node_modules/flag-icons")
+Rails.application.config.assets.paths << Rails.root.join("node_modules/flag-icons/css")
+Rails.application.config.assets.paths << Rails.root.join("node_modules/flag-icons/flags")
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.

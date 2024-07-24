@@ -813,6 +813,7 @@ ca:
       edit_policy: Política
     secret_url_bar:
       secret_link_lang: Llenguatge d'enllaç secret
+      autodetect: Auto detectar
   audit_logs:
     audit_log:
       created: Creat
@@ -1091,6 +1092,8 @@ ca:
       print_and_share: Imprimeix i comparteix
       print_and_share_tip: Genereu una pàgina imprimible per als usuaris finals
       show_expiration: Mostra els detalls de caducitat
+      link_lang_auto: Alternativament, la detecció automàtica seleccionarà un idioma
+        en funció de la configuració del navegador de l'usuari final.
     provide_text_or_file: Per crear un push, heu de proporcionar text, adjuntar un
       fitxer o tots dos.
     push:
@@ -1180,200 +1183,6 @@ ca:
       section_help: Vols ajudar?
       title: Quant a Password Pusher
       twitter: Twitter
-    faq:
-      answer_access_1: Amb l'API JSON de Password Pusher, hi ha una sèrie d'aplicacions
-        i utilitats de línia d'ordres (CLI) que interaccionen amb pwpush.com o amb
-        la vostra instància autoallotjada. Envieu contrasenyes des de la CLI, Slack,
-        Alfred App i molt més.
-      answer_access_2: Consulteu la pàgina %{tools} per obtenir més informació.
-      answer_add_feature_1: Molt probable. M'encanta escoltar totes les idees i comentaris
-        i mantenir una llista per decidir què afegir a continuació. Si en teniu, envieu-los
-        a la pàgina %{feedback_link} o a %{github_link}.
-      answer_already_expired_1: Alguns sistemes, com ara el correu electrònic, els
-        tallafocs i els sistemes de xat, solen tenir escàners d'enllaços que poden
-        consumir vistes. Això normalment es fa per seguretat corporativa o simplement
-        per generar una "visualització prèvia" per a les aplicacions.
-      answer_already_expired_2: Per evitar-ho, utilitzeu l'opció de pas de recuperació
-        d'1 clic quan introduïu contrasenyes. Això requereix que els usuaris facin
-        clic a través d'una pàgina preliminar per protegir les vistes d'aquests escàners.
-      answer_already_expired_3: Com a mesura preventiva addicional, quan s'inicia
-        la sessió, es proporciona un registre d'auditoria per a cada impuls creat.
-        Aquest registre d'auditoria revela per qui i quan es va veure l'empenta.
-      answer_automation_1: Sí. L'API JSON de Password Pusher permet l'automatització
-        de les contrasenyes. Això es pot fer amb una varietat de llenguatges i eines
-        de programació.
-      answer_automation_2: Consulteu la pàgina %{tools} per obtenir més informació.
-      answer_conference_1: Absolutament. Tenim recursos multimèdia i una explicació
-        completa de les funcions disponibles en els formats %{windows_link} i %{mac_link}.
-      answer_conference_2: Si teniu cap pregunta o necessiteu ajuda, no dubteu a contactar
-        amb mi en qualsevol moment.
-      answer_how_many_1: Actualment no hi ha límits i no tinc intenció d'afegir-ne
-        cap. Per garantir mínimament l'estabilitat del lloc, Password Pusher està
-        configurat amb un limitador de velocitat per defecte. Això es pot desactivar
-        a la versió autoallotjada.
-      answer_licensing_1: La versió de codi font oberta es publica sota la llicència
-        Apache 2.0 i això defineix gairebé totes les limitacions. Hi ha uns quants
-        llocs de clons de Password Pusher remarcats i redissenyats i els donem la
-        benvinguda a tots.
-      answer_licensing_2: La versió premium es publica sota una llicència comercial.
-        No és de codi obert i no és gratuït. En el seu nucli conté el projecte de
-        codi obert, però ofereix un súper conjunt de funcions i està pensat per accelerar
-        el desenvolupament i ajudar a finançar el projecte.
-      answer_private_risks_1: L'execució d'una instància privada de Password Pusher
-        per a la vostra empresa o organització us proporciona la tranquil·litat de
-        saber exactament quin codi s'està executant. Podeu configurar-lo i executar-lo
-        com vulgueu.
-      answer_private_risks_2: D'altra banda, si la vostra instància es pirateja i
-        es trenca el xifratge, ara les entitats malicioses tenen un diccionari de
-        contrasenyes dirigit als comptes de força bruta de la vostra organització.
-        (això es limitaria a les empenta que encara no han caducat)
-      answer_private_risks_3: En aquest sentit, la instància pública de pwpush.com
-        pot ser superior perquè només conté contrasenyes sense informació d'identificació
-        barrejada entre usuaris d'arreu del món.
-      answer_private_risks_4: Una altra consideració seria el manteniment de la instància.
-        Heu de mantenir-lo actualitzat, segur i amb una còpia de seguretat.
-      answer_private_risks_5: L'usuari ha de sospesar acuradament els pros i els contres
-        i decidir quina ruta és la millor per a ell. Estem encantats de recolzar ambdues
-        estratègies.
-      answer_purpose_1: Password Pusher existeix com una millor alternativa a l'enviament
-        de contrasenyes per correu electrònic.
-      answer_purpose_10: A més, <strong>les contrasenyes caduquen després que s'aconsegueix
-        un conjunt predefinit de visualitzacions o un temps passat.</strong>
-      answer_purpose_11: Un cop vençudes, les contrasenyes s'eliminen de manera inequívoca.
-      answer_purpose_12: Si us sembla interessant, proveu-ho o consulteu les altres
-        preguntes més freqüents a continuació.
-      answer_purpose_2: "<strong>L'enviament de contrasenyes per correu electrònic
-        és inherentment insegur.</strong> Els riscos més grans inclouen:"
-      answer_purpose_3: Les contrasenyes enviades per correu electrònic s'envien generalment
-        amb context a què van o poden derivar-se potencialment del nom d'usuari del
-        correu electrònic, domini, etc.
-      answer_purpose_4: El correu electrònic és inherentment insegur i pot ser interceptat
-        en diversos punts per entitats malicioses.
-      answer_purpose_5: 'Les contrasenyes enviades per correu electrònic viuen a perpetuïtat
-        (llegiu: per sempre) als arxius de correu electrònic.'
-      answer_purpose_6: Les contrasenyes del correu electrònic es poden recuperar
-        i utilitzar més endavant si un compte de correu electrònic és robat, trencat,
-        etc.
-      answer_purpose_7: Els mateixos riscos existeixen quan s'envia contrasenyes per
-        SMS, WhatsApp, Telegram, Xat, etc... Les dades es poden mantenir i sovint
-        es mantenen a perpetuïtat i fora del teu control.
-      answer_purpose_8: Mitjançant l'ús de Password Pusher, ometeu tot això.
-      answer_purpose_9: Per a cada contrasenya publicada a Password Pusher, <strong>es
-        genera un URL únic que només tu sabràs</strong> .
-      answer_rebranding_1: Password Pusher admet un canvi de marca complet "fora de
-        la caixa" que us permet afegir un logotip personalitzat, imatges, text i fins
-        i tot canviar el tema de l'aplicació.
-      answer_self_host_1: Sí, per a la versió de codi obert, oferim %{docker_link}
-        i %{install_link} per a una gran varietat de plataformes i núvols.
-      answer_self_host_2: Per a la versió premium, amb el superconjunt de funcions,
-        els contenidors autoallotjats arribaran aviat.
-      answer_trust_2: Password Pusher existeix com una millor alternativa a l'enviament
-        de contrasenyes per correu electrònic. Evita que les contrasenyes existeixin
-        als arxius de correu electrònic a perpetuïtat. No existeix com a solució de
-        seguretat definitiva.
-      answer_trust_3: Password Pusher va començar com un projecte de codi obert a
-        finals de 2011. Ha estat mantingut i actualitzat per mi mateix (Peter Giacomo
-        Lombardo) i un grapat de col·laboradors excel·lents durant tot aquest temps.
-        El 2024, es va introduir la versió premium per accelerar el desenvolupament
-        i ajudar a finançar el projecte. Totes les funcions premium acaben finalment
-        a la versió de codi obert.
-      answer_trust_4: En tenir una història tan llarga i ser de codi obert, Password
-        Pusher ha estat revisat per molts ulls. Ha estat utilitzat i auditat per moltes
-        organitzacions i persones al llarg dels anys.
-      answer_trust_6: En aquest sentit, les càrregues útils push s'eliminen de manera
-        inequívoca quan caduquen i el registre d'auditoria es manté indefinidament.
-        Com menys dades tingui Password Pusher, millor.
-      answer_trust_7: Si encara teniu dubtes sobre la confiança, la seguretat i la
-        seguretat, no dubteu a revisar el codi, publicar qualsevol pregunta que tingueu
-        i considerar-lo executar-lo internament a la vostra organització.
-      answer_trust_8: Pel que fa a la confiança en mi, tot el que puc oferir és la
-        meva llarga història construint aquest projecte i la meva reputació pública
-        a %{github}, %{linkedin}, %{twitter} i %{blog}. No dubteu a posar-vos en contacte
-        amb mi en qualsevol moment amb qualsevol pregunta que tingueu.
-      answer_why_premium_1: asdf
-      answer_why_private_1: Algunes organitzacions estan subjectes a polítiques de
-        seguretat que prohibeixen l'ús de serveis públics per a informació sensible,
-        com ara contrasenyes. Fins i tot hi ha organitzacions que requereixen que
-        totes les eines estiguin a intranets privades sense accés al món exterior.
-      answer_why_private_2: Executar la vostra pròpia instància privada de Password
-        Pusher us permet controlar l'entorn i les dades. També us permet afegir funcions
-        i integracions personalitzades específiques de la vostra organització.
-      answer_why_private_3: És per aquests motius que oferim la capacitat (i animem)
-        als usuaris i organitzacions a executar instàncies privades quan sigui necessari.
-      feedback_link: Formulari de comentaris
-      github_link: GitHub
-      mac_link: Mac Keynote
-      my_blog: el meu bloc
-      question_access: Hi ha altres maneres d'accedir a Password Pusher fora d'un
-        navegador?
-      question_add_feature: Podries afegir una funció específica per a la meva organització?
-      question_already_expired: L'URL secret que he enviat ja estava caducat. Què
-        va passar?
-      question_automation: Puc automatitzar la distribució de la meva contrasenya?
-      question_conference: Puc utilitzar Password Pusher a la meva xerrada, vídeo,
-        presentació o conferència?
-      question_have_to_pay: He de pagar?
-      question_how_many: Quantes sol·licituds puc enviar a Password Pusher?
-      question_licensing: Hi ha restriccions de llicència per a mi, la meva empresa
-        o la meva organització?
-      question_premium_diff: Quines diferències hi ha entre la versió de codi obert
-        i la versió premium?
-      question_private_risks: Quins són els riscos de seguretat potencials d'executar
-        la meva pròpia versió internament?
-      question_purpose: Quin és l'objectiu de Password Pusher?
-      question_rebranding: Puc aplicar un logotip personalitzat o canviar el disseny?
-      question_self_host: Puc executar la meva pròpia versió per a la meva organització
-        internament?
-      question_trust: La confiança és important. Per què hauria d'utilitzar Password
-        Pusher?
-      question_why_premium: Password Pusher sempre ha estat de codi obert. Per què
-        hi ha una versió premium?
-      question_why_private: Per què voldria executar la meva pròpia instància privada
-        de Password Pusher?
-      question_will_oss: S'afegiran les funcions premium a la versió de codi obert?
-      subtitle: "..totes les coses que voleu saber sobre Password Pusher."
-      title: Preguntes freqüents
-      title_other: Altres
-      title_private: Executar la vostra pròpia instància privada
-      title_pushes: Empènyers
-      title_subscriptions: Versió Premium
-      title_tools: Eines, integracions i aplicacions
-      title_trust: Confiança i seguretat
-      tools_link: Eines i aplicacions
-      windows_link: Windows Powerpoint
-      answer_apnotic_1: Apnotic és l'empresa creada per gestionar Password Pusher
-        (i acceptar targetes de crèdit). És propietat i el gestiono exclusivament
-        per mi, Peter Giacomo Lombardo.
-      answer_files_free: 'Realment he intentat mantenir lliures els push basats en
-        fitxers, però a causa d''alguns abusos, riscos i costos d''allotjament creixents.
-        No tenia gaire opció.<br/> Si sou un individu o un estudiant i realment no
-        us podeu permetre els 8 dòlars al mes, envieu-me un missatge i veurem què
-        puc fer. Com a mínim, caldrà una targeta de crèdit encara que no es carregarà.
-
-        '
-      answer_have_to_pay: 'Si sou una institució educativa o sense ànim de lucre,
-        envieu-me un missatge al formulari de comentaris, expliqueu-vos les vostres
-        necessitats i potser et podré concedir un compte premium o professional de
-        manera gratuïta.<br/> Si formeu part d''una empresa amb ànim de lucre, us
-        demano humilment el vostre suport en forma de subscripció.
-
-        '
-      answer_premium_diff: Consulteu %{link} per obtenir una llista completa de diferències
-        entre les versions de codi obert i premium.
-      answer_why_premium_2: Vaig presentar la versió premium per ajudar a finançar
-        el projecte i accelerar el desenvolupament. El superconjunt de funcions de
-        les versions premium està pensat per ser un valor afegit per a les organitzacions
-        que necessiten més del que ofereix la versió de codi obert. A mesura que s'ha
-        creat Password Pusher, les funcions premium es traslladaran a la versió de
-        codi obert després d'un període de temps en funció de la funció.
-      answer_will_oss: 'Absolutament: la versió premium em permet dedicar més temps
-        al projecte. La destinació final de tot el treball és estar en la versió de
-        codi obert del projecte.
-
-        '
-      question_apnotic: Què és Apnotic?
-      question_files_free: Les pujades de fitxers solien ser gratuïtes. Per què ara
-        són una funció premium?
     generate_key:
       env_var: Podeu aplicar aquesta clau a la vostra aplicació establint la variable
         d'entorn

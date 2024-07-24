@@ -229,7 +229,7 @@ class UrlsController < BaseController
       end
       return
     else
-      @secret_url = helpers.raw_secret_url(@push)
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false)
     end
 
     respond_to do |format|
