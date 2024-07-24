@@ -804,6 +804,7 @@ id:
       edit_policy: Kebijakan
     secret_url_bar:
       secret_link_lang: Bahasa Tautan Rahasia
+      autodetect: Deteksi Otomatis
   audit_logs:
     audit_log:
       created: Dibuat
@@ -1080,6 +1081,8 @@ id:
       print_and_share: Cetak & Bagikan
       print_and_share_tip: Hasilkan Halaman yang Dapat Dicetak untuk Pengguna Akhir
       show_expiration: Tampilkan Detail Kedaluwarsa
+      link_lang_auto: Sebagai alternatif, deteksi otomatis akan memilih bahasa berdasarkan
+        pengaturan browser pengguna akhir.
     provide_text_or_file: Untuk membuat push, Anda harus menyediakan teks, melampirkan
       file, atau keduanya.
     push:
@@ -1170,195 +1173,6 @@ id:
       section_help: Ingin Membantu?
       title: Tentang Pendorong Kata Sandi
       twitter: Twitter
-    faq:
-      answer_access_1: Dengan API JSON Password Pusher, ada sejumlah aplikasi dan
-        utilitas baris perintah (CLI) yang berinteraksi dengan pwpush.com atau instans
-        yang Anda hosting sendiri.  Dorong kata sandi dari CLI, Slack, Aplikasi Alfred,
-        dan banyak lagi.
-      answer_access_2: Lihat halaman %{tools} untuk informasi lebih lanjut.
-      answer_add_feature_1: Sangat mungkin.  Saya senang mendengar semua ide dan umpan
-        balik dan membuat daftar untuk memutuskan apa yang harus ditambahkan berikutnya.  Jika
-        Anda punya, silakan kirimkan ke halaman %{feedback_link} atau di %{github_link}.
-      answer_already_expired_1: Beberapa sistem seperti email, firewall dan sistem
-        chatting sering kali memiliki pemindai tautan yang bisa menghabiskan tampilan.  Hal
-        ini biasanya dilakukan untuk keamanan perusahaan atau untuk sekadar menghasilkan
-        "pratinjau" untuk aplikasi.
-      answer_already_expired_2: Untuk mencegah hal ini, gunakan opsi langkah pengambilan
-        1 klik saat mendorong kata sandi.  Hal ini mengharuskan pengguna untuk mengklik
-        melalui halaman pendahuluan untuk melindungi tampilan dari pemindai tersebut.
-      answer_already_expired_3: Sebagai tindakan pencegahan tambahan, saat masuk,
-        log audit disediakan untuk setiap push yang dibuat.  Log audit ini mengungkapkan
-        oleh siapa dan kapan push tersebut dilihat.
-      answer_automation_1: Ya, API JSON Pendorong Kata Sandi memungkinkan otomatisasi
-        mendorong kata sandi.  Hal ini bisa dilakukan dengan berbagai bahasa pemrograman
-        dan alat bantu.
-      answer_automation_2: Lihat halaman %{tools} untuk informasi lebih lanjut.
-      answer_conference_1: Tentu saja.  Kami memiliki sumber daya media dan penjelasan
-        lengkap mengenai fitur yang tersedia dalam format %{windows_link} dan %{mac_link}.
-      answer_conference_2: Jika Anda memiliki pertanyaan atau membutuhkan bantuan,
-        jangan ragu untuk menghubungi saya kapan saja.
-      answer_how_many_1: Saat ini tidak ada batasan dan saya tidak berniat untuk menambahkannya.  Untuk
-        menjamin stabilitas situs secara minimal, Password Pusher dikonfigurasikan
-        dengan pembatas kecepatan secara default.  Ini bisa dinonaktifkan pada versi
-        yang di-host sendiri.
-      answer_licensing_1: Kode sumber versi open source dirilis di bawah Lisensi Apache
-        2.0 dan itu cukup banyak mendefinisikan setiap dan semua batasan. Ada cukup
-        banyak situs tiruan yang diberi merek baru dan didesain ulang dari Password
-        Pusher dan saya menyambut baik semuanya.
-      answer_licensing_2: Versi premium dirilis di bawah lisensi komersial.  Ini bukan
-        sumber terbuka dan tidak gratis.  Pada intinya berisi proyek sumber terbuka
-        tetapi menawarkan serangkaian fitur super dan dimaksudkan untuk mempercepat
-        pengembangan dan membantu mendanai proyek.
-      answer_private_risks_1: Menjalankan contoh pribadi Password Pusher untuk perusahaan
-        atau organisasi Anda memberi Anda ketenangan pikiran karena Anda tahu persis
-        kode apa yang sedang berjalan.  Anda bisa mengonfigurasi dan menjalankannya
-        sesuka Anda.
-      answer_private_risks_2: Di sisi lain, jika instans Anda diretas dan enkripsinya
-        dibobol, entitas jahat sekarang memiliki kamus kata sandi yang ditargetkan
-        untuk membobol akun-akun di organisasi Anda.  (ini akan terbatas pada push
-        yang belum kedaluwarsa)
-      answer_private_risks_3: Dalam hal ini, contoh publik di pwpush.com mungkin lebih
-        unggul karena hanya berisi kata sandi tanpa mengidentifikasi informasi yang
-        tercampur di antara pengguna dari seluruh dunia.
-      answer_private_risks_4: Satu pertimbangan lain adalah pemeliharaan instans.  Anda
-        perlu menjaganya agar tetap diperbarui, aman, dan dicadangkan.
-      answer_private_risks_5: Pengguna harus mempertimbangkan dengan cermat pro dan
-        kontra dan memutuskan rute mana yang terbaik untuk mereka.  Kami dengan senang
-        hati mendukung kedua strategi tersebut.
-      answer_purpose_1: Password Pusher hadir sebagai alternatif yang lebih baik untuk
-        mengirim kata sandi melalui email.
-      answer_purpose_10: Selain itu, <strong>kata sandi akan kedaluwarsa setelah serangkaian
-        tampilan yang telah ditentukan sebelumnya tercapai atau waktu berlalu</strong>.
-      answer_purpose_11: Setelah kedaluwarsa, kata sandi akan dihapus dengan tegas.
-      answer_purpose_12: Jika itu terdengar menarik bagi Anda, cobalah atau lihat
-        pertanyaan umum lainnya di bawah ini.
-      answer_purpose_2: "<strong>Mengirimkan kata sandi melalui email pada dasarnya
-        tidak aman.</strong> Risiko terbesar meliputi:"
-      answer_purpose_3: Kata sandi yang dikirim melalui email biasanya dikirim dengan
-        konteks ke mana kata sandi tersebut ditujukan atau berpotensi berasal dari
-        nama pengguna email, domain, dll..
-      answer_purpose_4: Email pada dasarnya tidak aman dan dapat disadap di beberapa
-        titik oleh entitas jahat.
-      answer_purpose_5: 'Kata sandi yang dikirim melalui email akan tersimpan selamanya
-        (baca: selamanya) dalam arsip email.'
-      answer_purpose_6: Kata sandi dalam email dapat diambil dan digunakan di kemudian
-        hari jika akun email dicuri, dibobol, dan sebagainya.
-      answer_purpose_7: Risiko yang sama juga ada ketika mengirim kata sandi melalui
-        SMS, WhatsApp, Telegram, Chatting, dll... Data tersebut dapat dan sering kali
-        disimpan selamanya dan di luar kendali Anda.
-      answer_purpose_8: Dengan menggunakan Password Pusher, Anda melewati semua ini.
-      answer_purpose_9: Untuk setiap kata sandi yang diposting ke Password Pusher,
-        sebuah <strong>URL unik dibuat yang hanya Anda yang tahu</strong>.
-      answer_rebranding_1: Password Pusher mendukung re-branding lengkap "di luar
-        kotak" yang memungkinkan Anda untuk menambahkan logo kustom, gambar, teks,
-        dan bahkan mengubah tema aplikasi.
-      answer_self_host_1: Ya, untuk versi open source, kami menyediakan %{docker_link}
-        dan %{install_link} untuk berbagai macam platform dan cloud.
-      answer_self_host_2: Untuk versi premium, dengan serangkaian fitur super lengkap,
-        kontainer yang di-host sendiri akan segera hadir.
-      answer_trust_2: Password Pusher hadir sebagai alternatif yang lebih baik untuk
-        mengirim kata sandi melalui email. Hal ini untuk menghindari adanya kata sandi
-        yang ada dalam arsip email untuk selamanya. Ini tidak ada sebagai solusi keamanan
-        yang menyeluruh.
-      answer_trust_3: Password Pusher dimulai sebagai sebuah proyek sumber terbuka
-        pada akhir tahun 2011.  Proyek ini dikelola dan diperbarui oleh saya sendiri
-        (Peter Giacomo Lombardo) dan beberapa kontributor yang sangat baik selama
-        itu.  Pada tahun 2024, versi premium diperkenalkan untuk mempercepat pengembangan
-        dan membantu mendanai proyek.  Semua fitur premium pada akhirnya akan menjadi
-        versi open source.
-      answer_trust_4: Dengan memiliki sejarah yang panjang dan bersifat open source,
-        Password Pusher telah ditinjau oleh banyak mata.  Telah digunakan oleh dan
-        diaudit oleh banyak organisasi dan individu selama bertahun-tahun.
-      answer_trust_6: Dalam hal ini, muatan push akan dihapus dengan pasti pada saat
-        kedaluwarsa dan log audit dipertahankan tanpa batas waktu.  Semakin sedikit
-        data yang disimpan oleh Pendorong Kata Sandi, semakin baik.
-      answer_trust_7: Jika Anda masih memiliki kekhawatiran terkait kepercayaan, keselamatan
-        dan keamanan, jangan ragu untuk meninjau kode tersebut, kirimkan pertanyaan
-        apa pun yang Anda miliki dan pertimbangkan untuk menjalankannya secara internal
-        di organisasi Anda.
-      answer_trust_8: Mengenai kepercayaan terhadap saya, yang dapat saya tawarkan
-        adalah sejarah panjang saya dalam membangun proyek ini dan reputasi publik
-        saya di %{github}, %{linkedin}, %{twitter}, dan %{blog}.  Jangan ragu untuk
-        menghubungi saya kapan saja jika ada pertanyaan yang Anda miliki.
-      answer_why_premium_1: asdf
-      answer_why_private_1: Beberapa organisasi terikat oleh kebijakan keamanan yang
-        melarang penggunaan layanan publik untuk informasi sensitif seperti kata sandi.  Bahkan
-        ada organisasi yang mengharuskan semua alat berada di intranet pribadi tanpa
-        akses ke dunia luar.
-      answer_why_private_2: Menjalankan contoh pribadi Anda sendiri dari Password
-        Pusher memungkinkan Anda untuk mengontrol lingkungan dan data.  Ini juga memungkinkan
-        Anda untuk menambahkan fitur dan integrasi khusus yang spesifik untuk organisasi
-        Anda.
-      answer_why_private_3: Karena alasan inilah kami menyediakan kemampuan (dan mendorong)
-        pengguna dan organisasi untuk menjalankan instance pribadi saat dibutuhkan.
-      feedback_link: Formulir umpan balik
-      github_link: GitHub
-      mac_link: Mac Keynote
-      my_blog: blog saya
-      question_access: Apakah ada cara lain untuk mengakses Password Pusher di luar
-        browser?
-      question_add_feature: Bisakah Anda menambahkan fitur khusus untuk organisasi
-        saya?
-      question_already_expired: URL rahasia yang saya kirimkan sudah kedaluwarsa.  Apa
-        yang terjadi?
-      question_automation: Dapatkah saya mengotomatiskan distribusi kata sandi saya?
-      question_conference: Dapatkah saya menggunakan Password Pusher dalam pembicaraan,
-        video, presentasi, atau konferensi saya?
-      question_have_to_pay: Apakah saya harus membayar?
-      question_how_many: Berapa banyak permintaan yang bisa saya kirimkan ke Password
-        Pusher?
-      question_licensing: Apakah ada pembatasan lisensi untuk saya, perusahaan saya,
-        atau organisasi saya?
-      question_premium_diff: Apa saja perbedaan antara versi open source dan versi
-        premium?
-      question_private_risks: Apa saja potensi risiko keamanan dari menjalankan versi
-        saya sendiri secara internal?
-      question_purpose: Apa tujuan dari Password Pusher?
-      question_rebranding: Dapatkah saya menerapkan logo khusus atau mengubah desain?
-      question_self_host: Dapatkah saya menjalankan versi saya sendiri untuk organisasi
-        saya secara internal?
-      question_trust: Kepercayaan adalah hal yang penting. Mengapa saya harus menggunakan
-        Password Pusher?
-      question_why_premium: Password Pusher selalu menjadi sumber terbuka.  Mengapa
-        ada versi premium?
-      question_why_private: Mengapa saya ingin menjalankan contoh pribadi Password
-        Pusher saya sendiri?
-      question_will_oss: Apakah fitur premium akan ditambahkan ke versi open source?
-      subtitle: "... semua hal yang ingin Anda ketahui tentang Password Pusher."
-      title: Pertanyaan yang Sering Diajukan
-      title_other: Lainnya
-      title_private: Menjalankan Instance Pribadi Anda Sendiri
-      title_pushes: Mendorong
-      title_subscriptions: Versi Premium
-      title_tools: Alat, Integrasi & Aplikasi
-      title_trust: Kepercayaan & Keamanan
-      tools_link: Alat & Aplikasi
-      windows_link: Windows Powerpoint
-      answer_apnotic_1: Apnotic adalah perusahaan yang dibuat untuk mengelola Password
-        Pusher (dan menerima kartu kredit).  Perusahaan ini sepenuhnya dimiliki dan
-        dikelola oleh saya sendiri, Peter Giacomo Lombardo.
-      answer_files_free: |
-        Saya benar-benar mencoba untuk menjaga agar push berbasis file tetap gratis tetapi karena beberapa penyalahgunaan, risiko, dan biaya hosting yang terus meningkat. Saya tidak punya banyak pilihan.
-        <br/>
-        Jika Anda seorang individu atau pelajar dan benar-benar tidak mampu membayar $8/bulan, kirimkan pesan pada saya dan saya akan melihat apa yang bisa saya lakukan.  Minimal, kartu kredit akan diperlukan meskipun tidak akan dikenakan biaya.
-      answer_have_to_pay: |
-        Jika Anda adalah organisasi nirlaba atau institusi pendidikan, kirimkan saya pesan pada formulir umpan balik, jelaskan kebutuhan Anda dan saya mungkin bisa memberikan Anda akun premium atau pro secara gratis.
-        <br/>
-        Jika Anda adalah bagian dari perusahaan profit, dengan rendah hati saya meminta dukungan Anda dalam bentuk langganan.
-      answer_premium_diff: Lihat %{link} untuk daftar lengkap perbedaan antara versi
-        open source dan versi premium.
-      answer_why_premium_2: Saya memperkenalkan versi premium untuk membantu mendanai
-        proyek dan mempercepat pengembangan.  Kumpulan fitur super dalam versi premium
-        dimaksudkan untuk menjadi nilai tambah bagi organisasi yang membutuhkan lebih
-        banyak daripada yang disediakan oleh versi sumber terbuka.  Ketika Password
-        Pusher sudah dikembangkan, fitur-fitur premium akan dipindahkan ke versi open-source
-        setelah jangka waktu tertentu, tergantung dari fitur tersebut.
-      answer_will_oss: |
-        Tentu saja - versi premium memungkinkan saya untuk menghabiskan lebih banyak waktu untuk proyek ini.
-        Tujuan akhir dari semua pekerjaan adalah untuk menjadi versi open source dari proyek ini pada akhirnya.
-      question_apnotic: Apa yang dimaksud dengan Apnotic?
-      question_files_free: Unggahan file dulunya gratis.  Mengapa sekarang menjadi
-        fitur premium?
     generate_key:
       env_var: Anda dapat menerapkan kunci ini ke aplikasi Anda dengan mengatur variabel
         lingkungan

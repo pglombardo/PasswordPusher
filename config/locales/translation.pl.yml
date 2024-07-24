@@ -795,6 +795,7 @@ pl:
       edit_policy: Polityka
     secret_url_bar:
       secret_link_lang: Język tajnego linku
+      autodetect: Automatyczne wykrywanie
   audit_logs:
     audit_log:
       created: Utworzono
@@ -1069,6 +1070,8 @@ pl:
       print_and_share: Drukuj i udostępniaj
       print_and_share_tip: Wygeneruj stronę do wydrukowania dla użytkowników końcowych
       show_expiration: Pokaż szczegóły wygaśnięcia
+      link_lang_auto: Alternatywnie, automatyczne wykrywanie wybierze język na podstawie
+        ustawień przeglądarki użytkownika końcowego.
     provide_text_or_file: Aby utworzyć push, musisz podać tekst, załączyć plik lub
       jedno i drugie.
     push:
@@ -1158,194 +1161,6 @@ pl:
       section_help: Chcesz pomóc?
       title: O Password Pusher
       twitter: Świergot
-    faq:
-      answer_access_1: Dzięki interfejsowi API Password Pusher JSON istnieje wiele
-        aplikacji i narzędzi wiersza poleceń (CLI), które łączą się z pwpush.com lub
-        instancją hostowaną samodzielnie. Przesyłaj hasła z CLI, Slack, aplikacji
-        Alfred i nie tylko.
-      answer_access_2: Więcej informacji znajdziesz na stronie %{tools}.
-      answer_add_feature_1: Bardzo możliwe. Uwielbiam słuchać wszystkich pomysłów
-        i opinii, dlatego prowadzę listę, aby zdecydować, co dodać dalej. Jeśli je
-        posiadasz, prześlij je na stronę %{feedback_link} lub na %{github_link}.
-      answer_already_expired_1: Niektóre systemy, takie jak poczta e-mail, zapory
-        ogniowe i systemy czatów, często mają skanery linków, które mogą pochłaniać
-        wyświetlenia. Zwykle robi się to w celu zapewnienia bezpieczeństwa korporacyjnego
-        lub po prostu w celu wygenerowania „podglądu” aplikacji.
-      answer_already_expired_2: Aby temu zapobiec, podczas przesyłania haseł użyj
-        opcji odzyskiwania jednym kliknięciem. Wymaga to od użytkowników kliknięcia
-        strony wstępnej, aby chronić widoki przed takimi skanerami.
-      answer_already_expired_3: Jako dodatkowy środek zapobiegawczy, po zalogowaniu,
-        dla każdego utworzonego pushu udostępniany jest dziennik audytu. Ten dziennik
-        audytu pokazuje, kto i kiedy przeglądał push.
-      answer_automation_1: Tak. Interfejs API Password Pusher JSON pozwala na automatyzację
-        przesyłania haseł. Można to zrobić za pomocą różnych języków programowania
-        i narzędzi.
-      answer_automation_2: Więcej informacji znajdziesz na stronie %{tools}.
-      answer_conference_1: Absolutnie. Mamy zasoby multimedialne i pełne wyjaśnienie
-        funkcji dostępnych w formatach %{windows_link} i %{mac_link}.
-      answer_conference_2: Jeśli masz jakieś pytania lub potrzebujesz pomocy, skontaktuj
-        się ze mną w każdej chwili.
-      answer_how_many_1: Obecnie nie ma żadnych limitów i nie mam zamiaru ich dodawać.
-        Aby w minimalnym stopniu zapewnić stabilność witryny, Password Pusher jest
-        domyślnie skonfigurowany z ogranicznikiem szybkości. Można to wyłączyć w wersji
-        hostowanej samodzielnie.
-      answer_licensing_1: Wersja open source z kodem źródłowym jest wydawana na licencji
-        Apache 2.0, która w zasadzie definiuje wszelkie ograniczenia. Istnieje sporo
-        witryn o zmienionej marce i przeprojektowanych klonach narzędzia Password
-        Pusher i witam je wszystkie.
-      answer_licensing_2: Wersja premium jest udostępniana na licencji komercyjnej.
-        Nie jest to oprogramowanie typu open source i nie jest bezpłatne. W swej istocie
-        zawiera projekt open source, ale oferuje superzestaw funkcji i ma na celu
-        przyspieszenie rozwoju i pomoc w finansowaniu projektu.
-      answer_private_risks_1: Uruchomienie prywatnej instancji Przekazywacza Haseł
-        w Twojej firmie lub organizacji daje pewność, że wiesz dokładnie, jaki kod
-        jest uruchomiony. Możesz go skonfigurować i uruchomić tak, jak chcesz.
-      answer_private_risks_2: Z drugiej strony, jeśli Twoja instancja zostanie zhakowana
-        i szyfrowanie zostanie złamane, złośliwe podmioty dysponują teraz ukierunkowanym
-        słownikiem haseł do kont typu brute-force w Twojej organizacji. (byłoby to
-        ograniczone do pushów, które jeszcze nie wygasły)
-      answer_private_risks_3: Pod tym względem instancja publiczna na pwpush.com może
-        być lepsza, ponieważ zawiera wyłącznie hasła bez informacji identyfikujących
-        mieszanych między użytkownikami z całego świata.
-      answer_private_risks_4: Kolejną kwestią byłoby utrzymanie instancji. Musisz
-        go aktualizować, zabezpieczać i tworzyć kopie zapasowe.
-      answer_private_risks_5: Użytkownik powinien dokładnie rozważyć zalety oraz wady
-        i zdecydować, która opcja dla niego najlepsza. Chętnie wspieramy obie strategie.
-      answer_purpose_1: Przekazywacz Haseł to lepsza alternatywa dla przesyłania haseł
-        poprzez e-mail.
-      answer_purpose_10: Ponadto <strong>hasła wygasają po osiągnięciu predefiniowanego
-        zestawu wyświetleń lub po upływie czasu.</strong>
-      answer_purpose_11: Po wygaśnięciu hasła są definitywnie usuwane.
-      answer_purpose_12: Jeśli brzmi to dla Ciebie interesująco, wypróbuj go lub zapoznaj
-        się z innymi często zadawanymi pytaniami poniżej.
-      answer_purpose_2: "<strong>Wysyłanie haseł pocztą elektroniczną jest z natury
-        niebezpieczne.</strong> Do największych zagrożeń należą:"
-      answer_purpose_3: Hasła wysyłane pocztą e-mail są zwykle wysyłane wraz z kontekstem,
-        którego dotyczą lub mogą potencjalnie być powiązane z nazwą użytkownika poczty
-        e-mail, domeny itp.
-      answer_purpose_4: Poczta e-mail z natury nie jest bezpieczna i może zostać przechwycona
-        w wielu miejscach przez stronę trzecią.
-      answer_purpose_5: 'Hasła wysyłane pocztą e-mail żyją wiecznie (czytaj: zostają
-        na zawsze) w archiwach poczty e-mail.'
-      answer_purpose_6: Hasła przesyłane w wiadomości e-mail mogą zostać później przechwycone
-        i wykorzystane, jeśli konto e-mail zostanie przejęte, odgadnięte zostanie
-        do niego hasło itp.
-      answer_purpose_7: To samo ryzyko istnieje w przypadku wysyłania haseł za pośrednictwem
-        wiadomości SMS, WhatsApp, Telegramu, czatu itp. Dane mogą i często są przechowywane
-        bezterminowo i poza Twoją kontrolą.
-      answer_purpose_8: Używając narzędzia Przekazywacz Haseł, omijasz to wszystko.
-      answer_purpose_9: Dla każdego hasła przesłanego do narzędzia Password Pusher
-        <strong>generowany jest unikalny adres URL, który będziesz znać tylko Ty</strong>
-        .
-      answer_rebranding_1: Password Pusher obsługuje pełną zmianę marki „od razu po
-        wyjęciu z pudełka”, umożliwiając dodanie niestandardowego logo, obrazów, tekstu,
-        a nawet zmianę motywu aplikacji.
-      answer_self_host_1: Tak, w przypadku wersji open source udostępniamy %{docker_link}
-        i %{install_link} dla szerokiej gamy platform i chmur.
-      answer_self_host_2: W wersji premium, z superzestawem funkcji, wkrótce dostępne
-        będą kontenery hostowane samodzielnie.
-      answer_trust_2: Przekazywacz Haseł to lepsza alternatywa dla przesyłania haseł
-        przez e-mail. Pozwala to uniknąć wiecznego istnienia haseł w archiwach poczty
-        e-mail.
-      answer_trust_3: Password Pusher powstał jako projekt open source pod koniec
-        2011 roku. Przez cały ten czas był utrzymywany i aktualizowany przeze mnie
-        (Peter Giacomo Lombardo) i garstkę znakomitych współpracowników. W 2024 roku
-        wprowadzono wersję premium, aby przyspieszyć rozwój i pomóc w sfinansowaniu
-        projektu. Wszystkie funkcje premium ostatecznie trafiają do wersji open source.
-      answer_trust_4: Mając tak długą historię i będąc oprogramowaniem typu open source,
-        Password Pusher został sprawdzony przez wiele osób. Na przestrzeni lat było
-        ono wykorzystywane i kontrolowane przez wiele organizacji i osób prywatnych.
-      answer_trust_6: W tym duchu ładunki push są jednoznacznie usuwane po wygaśnięciu,
-        a dziennik audytu jest prowadzony przez czas nieokreślony. Im mniej danych
-        przechowuje Password Pusher, tym lepiej.
-      answer_trust_7: Jeśli nadal masz wątpliwości dotyczące zaufania i bezpieczeństwa,
-        możesz przejrzeć kod, zadać wszelkie pytania, jakie możesz mieć i rozważyć
-        zamiast tego wdrożenie go wewnętrznie w swojej organizacji.
-      answer_trust_8: Jeśli chodzi o zaufanie do mnie, wszystko, co mogę zaoferować,
-        to moja długa historia budowania tego projektu i moja publiczna reputacja
-        w %{github}, %{linkedin}, %{twitter} i %{blog}. W razie jakichkolwiek pytań
-        możesz się ze mną skontaktować w każdej chwili.
-      answer_why_premium_1: asdf
-      answer_why_private_1: W niektórych organizacjach obowiązują zasady bezpieczeństwa,
-        które zabraniają korzystania z usług publicznych w przypadku poufnych informacji,
-        takich jak hasła. Istnieją nawet organizacje, które wymagają, aby wszystkie
-        narzędzia znajdowały się w prywatnych intranetach bez dostępu do świata zewnętrznego.
-      answer_why_private_2: Uruchomienie własnej, prywatnej instancji Password Pusher
-        pozwala kontrolować środowisko i dane. Umożliwia także dodawanie niestandardowych
-        funkcji i integracji specyficznych dla Twojej organizacji.
-      answer_why_private_3: Z tych powodów umożliwiamy (i zachęcamy) użytkowników
-        i organizacje do uruchamiania prywatnych instancji w razie potrzeby.
-      feedback_link: Formularz zwrotny
-      github_link: GitHub
-      mac_link: Keynote na Maca
-      my_blog: mój blog
-      question_access: Czy są inne sposoby uzyskania dostępu do narzędzia Przekazywacz
-        Haseł poza przeglądarką?
-      question_add_feature: Czy możesz dodać konkretną funkcję dla mojej organizacji?
-      question_already_expired: Tajny adres URL, który wysłałem, już wygasł. Co się
-        stało?
-      question_automation: Czy mogę zautomatyzować dystrybucję moich haseł?
-      question_conference: Czy mogę używać narzędzia Password Pusher podczas przemówień,
-        nagrań wideo, prezentacji lub konferencji?
-      question_have_to_pay: Czy muszę płacić?
-      question_how_many: Ile zapytań mogę wysłać do narzędzia Password Pusher?
-      question_licensing: Czy istnieją jakieś ograniczenia licencyjne dla mnie, mojej
-        firmy lub mojej organizacji?
-      question_premium_diff: Jakie są różnice między wersją open source a wersją premium?
-      question_private_risks: Jakie są potencjalne zagrożenia bezpieczeństwa związane
-        z uruchomieniem własnej instancji wewnętrznie?
-      question_purpose: Jaki jest cel narzędzia Password Pusher?
-      question_rebranding: Czy mogę zastosować niestandardowe logo lub zmienić wygląd?
-      question_self_host: Czy mogę uruchomić własną wersję dla mojej organizacji wewnętrznie?
-      question_trust: Zaufanie jest istotne. Dlaczego powinienem używać narzędzia
-        Przekazywacz Hasel?
-      question_why_premium: Password Pusher zawsze był oprogramowaniem typu open source.
-        Dlaczego istnieje wersja premium?
-      question_why_private: Dlaczego miałbym chcieć uruchomić własną prywatną instancję
-        Przekazywacza Haseł?
-      question_will_oss: Czy funkcje premium zostaną dodane do wersji open source?
-      subtitle: "..wszystko, co chcesz wiedzieć o aplikacji Password Pusher."
-      title: Często Zadawane Pytania
-      title_other: Inny
-      title_private: Uruchomienie własnej prywatnej instancji.
-      title_pushes: Popycha
-      title_subscriptions: Wersja premium
-      title_tools: Narzędzia, integracje i aplikacje
-      title_trust: Zaufanie i bezpieczeństwo
-      tools_link: Narzędzia i aplikacje
-      windows_link: Windows Power Point
-      answer_apnotic_1: Apnotic to firma stworzona do zarządzania Password Pusher
-        (i akceptowania kart kredytowych). Jest moją wyłączną własnością i jest zarządzany
-        przeze mnie, Petera Giacomo Lombardo.
-      answer_files_free: 'Naprawdę starałem się, aby przesyłanie plików było bezpłatne,
-        ale z powodu pewnych nadużyć, ryzyka i rosnących kosztów hostingu. Nie miałem
-        dużego wyboru.<br/> Jeśli jesteś osobą fizyczną lub studentem i naprawdę nie
-        stać Cię na 8 dolarów miesięcznie, napisz do mnie, a zobaczę, co da się zrobić.
-        Wymagana będzie co najmniej karta kredytowa, nawet jeśli nie zostanie ona
-        obciążona.
-
-        '
-      answer_have_to_pay: 'Jeśli jesteś instytucją non-profit lub instytucją edukacyjną,
-        wyślij mi wiadomość w formularzu opinii i wyjaśnij swoje potrzeby, a być może
-        będę mógł bezpłatnie przyznać Ci konto premium lub pro.<br/> Jeśli jesteś
-        częścią firmy nastawionej na zysk, pokornie proszę o wsparcie w formie subskrypcji.
-
-        '
-      answer_premium_diff: Zobacz %{link}, aby zapoznać się z pełną listą różnic pomiędzy
-        wersją open source i wersją premium.
-      answer_why_premium_2: Wprowadziłem wersję premium, aby pomóc w sfinansowaniu
-        projektu i przyspieszyć rozwój. Superzestaw funkcji wersji premium ma stanowić
-        wartość dodaną dla organizacji, które potrzebują więcej, niż zapewnia wersja
-        open source. W miarę tworzenia narzędzia Password Pusher funkcje premium zostaną
-        przeniesione do wersji open source po pewnym czasie, w zależności od funkcji.
-      answer_will_oss: 'Zdecydowanie - wersja premium pozwala mi poświęcić więcej
-        czasu na projekt. Ostatecznym miejscem docelowym wszystkich prac ma być ostatecznie
-        wersja projektu o otwartym kodzie źródłowym.
-
-        '
-      question_apnotic: Co to jest apnotyczny?
-      question_files_free: Przesyłanie plików było kiedyś bezpłatne. Dlaczego są teraz
-        funkcją premium?
     generate_key:
       env_var: Możesz zastosować ten klucz do swojej instancji, ustawiając zmienną
         środowiskową

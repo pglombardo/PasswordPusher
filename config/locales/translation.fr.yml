@@ -822,6 +822,7 @@ fr:
       edit_policy: Politique
     secret_url_bar:
       secret_link_lang: Langue du lien secret
+      autodetect: Détection automatique
   audit_logs:
     audit_log:
       created: Créé(e) le
@@ -1104,6 +1105,8 @@ fr:
       print_and_share: Imprimer et partager
       print_and_share_tip: Générer une page imprimable pour les utilisateurs finaux
       show_expiration: Afficher les détails d'expiration
+      link_lang_auto: Alternativement, la détection automatique sélectionnera une
+        langue en fonction des paramètres du navigateur de l'utilisateur final.
     provide_text_or_file: Pour créer un push, vous devez soit fournir du texte, soit
       joindre un fichier, soit les deux.
     push:
@@ -1196,206 +1199,6 @@ fr:
       section_help: Vous voulez aider ?
       title: À propos de Password Pusher
       twitter: Twitter
-    faq:
-      answer_access_1: Avec l'API JSON Password Pusher, il existe un certain nombre
-        d'applications et d'utilitaires de ligne de commande (CLI) qui s'interfacent
-        avec pwpush.com ou votre instance auto-hébergée. Envoyez les mots de passe
-        depuis la CLI, Slack, l'application Alfred et plus encore.
-      answer_access_2: Voir la page %{tools} pour plus d'informations.
-      answer_add_feature_1: Très probable. J'aime entendre toutes les idées et tous
-        les commentaires et garder une liste pour décider quoi ajouter ensuite. Si
-        vous en avez, veuillez les soumettre sur la page %{feedback_link} ou sur %{github_link}.
-      answer_already_expired_1: Certains systèmes tels que la messagerie électronique,
-        les pare-feu et les systèmes de chat disposent souvent de scanners de liens
-        qui peuvent consommer des vues. Ceci est généralement effectué pour la sécurité
-        de l'entreprise ou simplement pour générer un « aperçu » pour les applications.
-      answer_already_expired_2: Pour éviter cela, utilisez l'option d'étape de récupération
-        en 1 clic lorsque vous transmettez des mots de passe. Cela oblige les utilisateurs
-        à cliquer sur une page préliminaire pour protéger les vues de ces scanners.
-      answer_already_expired_3: À titre de mesure préventive supplémentaire, une fois
-        connecté, un journal d'audit est fourni pour chaque push créé. Ce journal
-        d'audit révèle par qui et quand le push a été consulté.
-      answer_automation_1: Oui. L'API JSON Password Pusher permet l'automatisation
-        de la transmission de mots de passe. Cela peut être fait avec une variété
-        de langages et d’outils de programmation.
-      answer_automation_2: Voir la page %{tools} pour plus d'informations.
-      answer_conference_1: Absolument. Nous disposons de ressources multimédias et
-        d'une explication complète des fonctionnalités disponibles aux formats %{windows_link}
-        et %{mac_link}.
-      answer_conference_2: Si vous avez des questions ou avez besoin d'aide, n'hésitez
-        pas à me contacter à tout moment.
-      answer_how_many_1: Il n’y a actuellement aucune limite et je n’ai pas l’intention
-        d’en ajouter. Pour assurer au minimum la stabilité du site, Password Pusher
-        est configuré par défaut avec un limiteur de débit. Cela peut être désactivé
-        dans la version auto-hébergée.
-      answer_licensing_1: La version open source du code source est publiée sous la
-        licence Apache 2.0 et cela définit à peu près toutes les limitations. Il existe
-        de nombreux sites clones renommés et repensés de Password Pusher et je les
-        accueille tous avec bienvenue.
-      answer_licensing_2: La version premium est publiée sous licence commerciale.
-        Ce n’est pas open source et n’est pas gratuit. À la base, il contient le projet
-        open source mais offre un super ensemble de fonctionnalités et est destiné
-        à accélérer le développement et à aider à financer le projet.
-      answer_private_risks_1: Exécuter une instance privée de Password Pusher pour
-        votre entreprise ou organisation vous donne la tranquillité d'esprit de savoir
-        exactement quel code vous faites tourner. Vous pouvez la configurer et l'exécuter
-        comme vous le souhaitez.
-      answer_private_risks_2: D’un autre côté, si votre instance est piratée et que
-        le cryptage est rompu, les entités malveillantes disposent désormais d’un
-        dictionnaire ciblé de mots de passe pour forcer brutalement les comptes de
-        votre organisation. (cela serait limité aux push qui n'ont pas encore expiré)
-      answer_private_risks_3: À cet égard, l'instance publique sur pwpush.com peut
-        être supérieure dans la mesure où elle ne contient que des mots de passe sans
-        informations d'identification mélangées entre utilisateurs du monde entier.
-      answer_private_risks_4: Une autre considération serait la maintenance de l’instance.
-        Vous devez le maintenir à jour, le sécuriser et le sauvegarder.
-      answer_private_risks_5: Pesez le pour et le contre et décidez ce qui est le
-        mieux. Nous supportons les deux options.
-      answer_purpose_1: Password Pusher est une meilleure solution que l'envoi de
-        mots de passe direct par email.
-      answer_purpose_10: De plus, <strong>les mots de passe expirent après qu'un ensemble
-        prédéfini de vues soit atteint ou après un certain temps.</strong>
-      answer_purpose_11: Une fois expirés, les mots de passe sont supprimés définitivement.
-      answer_purpose_12: Si cela vous semble intéressant, essayez-le ou consultez
-        les autres questions de la FAQ, ci-dessous.
-      answer_purpose_2: "<strong>L’envoi de mots de passe par courrier électronique
-        n’est pas intrinsèquement sécurisé.</strong> Les plus grands risques comprennent :"
-      answer_purpose_3: Les mots de passe envoyés par e-mail sont généralement envoyés
-        avec des informations de contexte ou qui peuvent potentiellement être déduites
-        du nom d'utilisateur de l'e-mail, du domaine, etc.
-      answer_purpose_4: L'email est fondamentalement non sécurisé et peut être intercepté
-        à de nombreux endroits par des acteurs malveillants.
-      answer_purpose_5: Les mots de passe envoyés par e-mail restent en permanence
-        stockés dans les archives des e-mails.
-      answer_purpose_6: Les mots de passe présent dans des emails peut être récupérés
-        et réutilisés plus tard si le compte a été volé ou fraudé, etc.
-      answer_purpose_7: Les mêmes risques existent lors de l’envoi de mots de passe
-        via SMS, WhatsApp, Telegram, Chat etc… Les données peuvent et sont souvent
-        conservées à perpétuité et hors de votre contrôle.
-      answer_purpose_8: En utilisant Password Pusher, vous contournez tout cela.
-      answer_purpose_9: Pour chaque mot de passe publié sur Password Pusher, <strong>une
-        URL unique est générée que vous seul connaîtrez</strong> .
-      answer_rebranding_1: Password Pusher prend en charge un changement de marque
-        complet « prêt à l'emploi », vous permettant d'ajouter un logo personnalisé,
-        des images, du texte et même de modifier le thème de l'application.
-      answer_self_host_1: Oui, pour la version open source, nous fournissons %{docker_link}
-        et %{install_link} pour une grande variété de plateformes et de cloud.
-      answer_self_host_2: Pour la version premium, avec le super ensemble de fonctionnalités,
-        des conteneurs auto-hébergés seront bientôt disponibles.
-      answer_trust_2: Password Pusher est une bien meilleure solution que l'envoi
-        de mots de passe direct par email. Il évite la conservation des mots de passe
-        dans les archives des mails. Ce n'est pas non plus une solution de sécurité
-        universelle.
-      answer_trust_3: Password Pusher a démarré en tant que projet open source fin
-        2011. Il a été maintenu et mis à jour par moi-même (Peter Giacomo Lombardo)
-        et une poignée d'excellents contributeurs pendant tout ce temps. En 2024,
-        la version premium a été introduite pour accélérer le développement et aider
-        à financer le projet. Toutes les fonctionnalités premium finissent par se
-        retrouver dans la version open source.
-      answer_trust_4: En ayant une si longue histoire et en étant open source, Password
-        Pusher a été examiné par de nombreux yeux. Il a été utilisé et audité par
-        de nombreuses organisations et individus au fil des ans.
-      answer_trust_6: Dans cette optique, les charges utiles push sont supprimées
-        sans équivoque à l’expiration et le journal d’audit est conservé indéfiniment.
-        Moins Password Pusher contient de données, mieux c’est.
-      answer_trust_7: Si vous avez encore des inquiétudes concernant la confiance,
-        la sûreté et la sécurité, n'hésitez pas à consulter le code, à poster toutes
-        vos questions et à envisager de l'exécuter en interne dans votre organisation.
-      answer_trust_8: Quant à la confiance en moi, tout ce que je peux offrir, c'est
-        ma longue histoire dans la construction de ce projet et ma réputation publique
-        sur %{github}, %{linkedin}, %{twitter} et %{blog}. N'hésitez pas à me contacter
-        à tout moment pour toute question que vous pourriez avoir.
-      answer_why_premium_1: asdf
-      answer_why_private_1: Certaines organisations sont contraintes par des politiques
-        de sécurité qui interdisent l'utilisation de services cloud pour des informations
-        sensibles telles que les mots de passe. Il en existe même qui exigent que
-        l'ensemble de leurs outils soient hébergées en intranet.
-      answer_why_private_2: L'exécution de votre propre instance privée de Password
-        Pusher vous permet de contrôler l'environnement et les données. Il vous permet
-        également d'ajouter des fonctionnalités et des intégrations personnalisées
-        spécifiques à votre organisation.
-      answer_why_private_3: Ces pour ces raisons que nous donnons la possibilité aux
-        utilisateurs et organisations d'avoir leur propre instance privée si besoin
-        (et nous l'encourageons).
-      feedback_link: Formulaire de commentaires
-      github_link: GitHub
-      mac_link: Keynote Mac
-      my_blog: mon blog
-      question_access: Existe-t-il d'autres moyens d'utiliser Password Pusher que
-        par un navigateur ?
-      question_add_feature: Pourriez-vous ajouter une nouvelle fonctionnalité pour
-        mon organisation ?
-      question_already_expired: L'URL secrète que j'ai envoyée était déjà expirée.
-        Ce qui s'est passé?
-      question_automation: Est-ce que je peux automatiser la distribution de mot de
-        passe ?
-      question_conference: Puis-je utiliser Password Pusher dans mon discours, vidéo,
-        présentation ou conférence ?
-      question_have_to_pay: Dois-je payer?
-      question_how_many: Combien de requêtes puis-je envoyer à Password Pusher ?
-      question_licensing: Est-ce qu'il y a des contraintes de licence pour moi, mon
-        entreprise ou mon organisation ?
-      question_premium_diff: Quelles sont les différences entre les versions open
-        source et premium ?
-      question_private_risks: Quels sont les risques de sécurité possibles liés à
-        l'exécution de ma propre instance en interne ?
-      question_purpose: Quel est le but de Password Pusher ?
-      question_rebranding: Puis-je mettre un logo personnalisé ou modifier le design
-        ?
-      question_self_host: Puis-je avoir ma propre instance pour mon organisation en
-        interne ?
-      question_trust: Pourquoi faire confiance à Password Pusher et l'utiliser ?
-      question_why_premium: Password Pusher a toujours été open source. Pourquoi y
-        a-t-il une version premium ?
-      question_why_private: Pourquoi voudrais-je exécuter ma propre instance de Password
-        Pusher ?
-      question_will_oss: Les fonctionnalités premium seront-elles ajoutées à la version
-        open source ?
-      subtitle: "..toutes les choses que vous voulez savoir sur Password Pusher."
-      title: Foire aux questions
-      title_other: Autre
-      title_private: Mettre en oeuvre votre propre installation
-      title_pushes: Pousse
-      title_subscriptions: Version Premium
-      title_tools: Outils, intégrations et applications
-      title_trust: Confiance et sécurité
-      tools_link: Outils et applications
-      windows_link: PowerPoint Windows
-      answer_apnotic_1: Apnotic est la société créée pour gérer Password Pusher (et
-        accepter les cartes de crédit). Il est uniquement détenu et géré par moi-même,
-        Peter Giacomo Lombardo.
-      answer_files_free: 'J''ai vraiment essayé de garder les push basés sur des fichiers
-        gratuits, mais à cause de certains abus, risques et coûts d''hébergement croissants.
-        Je n''avais pas beaucoup de choix.<br/> Si vous êtes un particulier ou un
-        étudiant et que vous ne pouvez vraiment pas vous permettre les 8 $/mois, envoyez-moi
-        un message et je verrai ce que je peux faire. Au minimum, une carte de crédit
-        sera requise même si elle ne sera pas débitée.
-
-        '
-      answer_have_to_pay: 'Si vous êtes une organisation à but non lucratif ou un
-        établissement d''enseignement, envoyez-moi un message sur le formulaire de
-        commentaires, expliquez vos besoins et je pourrai peut-être vous accorder
-        un compte premium ou pro gratuitement.<br/> Si vous faites partie d''une entreprise
-        à but lucratif, je sollicite humblement votre soutien sous forme d''abonnement.
-
-        '
-      answer_premium_diff: Consultez %{link} pour une liste complète des différences
-        entre les versions open source et premium.
-      answer_why_premium_2: J'ai introduit la version premium pour aider à financer
-        le projet et accélérer le développement. Le super ensemble de fonctionnalités
-        des versions premium est censé constituer une valeur ajoutée pour les organisations
-        qui ont besoin de plus que ce que propose la version open source. Au fur et
-        à mesure de la construction de Password Pusher, les fonctionnalités premium
-        seront déplacées vers la version open source après une période de temps en
-        fonction de la fonctionnalité.
-      answer_will_oss: 'Absolument : la version premium me permet de consacrer plus
-        de temps au projet. La destination finale de tous les travaux est d''être
-        finalement dans la version open source du projet.
-
-        '
-      question_apnotic: Qu’est-ce que l’Apnotique ?
-      question_files_free: Autrefois, les téléchargements de fichiers étaient gratuits.
-        Pourquoi sont-ils désormais une fonctionnalité premium ?
     generate_key:
       env_var: Vous pouvez appliquer cette clé à votre application en définissant
         la variable d'environnement
