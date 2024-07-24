@@ -47,7 +47,11 @@ module ApplicationHelper
       end
     end
 
+    # Delete any existing ?locale= query parameter
+    raw_url = raw_url.split("?").first
+
     if params["push_locale"].present? && Settings.enabled_language_codes.include?(params["push_locale"])
+      # Append the locale query parameter
       raw_url += "?locale=#{params["push_locale"]}"
     end
 
