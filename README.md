@@ -69,7 +69,7 @@ _or_
 
 _or_
 
-→ Use one of the [3rd party tools](#3rd-party-tools) that interface with Password Pusher.
+→ Use one of the [3rd party tools](https://docs.pwpush.com/docs/3rd-party-tools/) that interface with Password Pusher.
 
 # Documentation
 
