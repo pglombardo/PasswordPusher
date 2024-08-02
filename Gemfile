@@ -39,7 +39,7 @@ group :development, :test do
   gem "debase", ">= 0.2.5.beta2", platforms: %i[mri mingw x64_mingw]
   gem "debug", platforms: %i[mri mingw x64_mingw]
 
-  gem "erb_lint", "~> 0.5.0"
+  gem "erb_lint", "~> 0.6.0"
   gem "standardrb", "~> 1.0"
 end
 
