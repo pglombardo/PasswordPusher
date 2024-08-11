@@ -29,12 +29,22 @@ Where are you running/using Password Pusher?
 - [ ] pwpush.com
 - [ ] Docker Image
   - [ ] pwpush
-  - [ ] custom image
+  - [ ] Custom image
 - [ ] Heroku
 - [ ] Digital Ocean
+  - [ ] App Platform
+  - [ ] Kubernetes Service
 - [ ] Microsoft Azure
+  - [ ] App Service
+  - [ ] Container Instances (ACI)
+  - [ ] Kubernetes Service (AKS)
 - [ ] Google Cloud
+  - [ ] App Engine
+  - [ ] Cloud Run
+  - [ ] Kubernetes Engine
 - [ ] AWS
+  - [ ] Elastic Container Service (ECS)
+  - [ ] Kubernetes Service (AKS)
 - [ ] Source Code
 - [ ] Other (please specify)
 
