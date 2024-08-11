@@ -306,7 +306,7 @@ class PasswordsController < BaseController
     respond_to do |format|
       if @push.save
         format.html do
-          if is_owner
+          if is_owner && !ENV.key?("PWP_PUBLIC_GATEWAY")
             redirect_to audit_password_path(@push),
               notice: _("The push content has been deleted and the secret URL expired.")
           else
