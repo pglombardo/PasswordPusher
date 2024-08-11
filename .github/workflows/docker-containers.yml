@@ -80,7 +80,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush
+          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
           tags: |
             type=match,pattern=stable
             type=schedule,pattern=nightly
@@ -103,5 +103,5 @@ jobs:
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
