@@ -6,7 +6,7 @@ if !Rails.env.development? && !Rails.env.test?
 
     config.lograge.custom_payload do |controller|
       options = {}
-      options[:user_id] = controller.current_user.id if controller.current_user
+      options[:user_id] = controller.current_user.try(:id)
       options[:ip] = controller.request.ip
       options[:forwarded_for] = controller.request.x_forwarded_for if controller.request.x_forwarded_for
       options
