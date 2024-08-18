@@ -8,7 +8,7 @@ FROM ruby:3.3-alpine AS build-env
 ARG BUNDLE_WITHOUT
 ARG BUNDLE_DEPLOYMENT
 
-LABEL org.opencontainers.image.authors ='pglombardo@hey.com'
+LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
 # Required packages
 RUN apk add --no-cache \
@@ -34,6 +34,12 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
     && bundle install
 
+# Removing unneccesary files/directories
+RUN rm -rf vendor/bundle/ruby/*/cache \
+    && rm -rf vendor/bundle/ruby/*/bundler/gems/*/.git \
+    && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
+
 RUN yarn install
 
 COPY ./ ${APP_ROOT}/
@@ -52,13 +58,10 @@ ENV DATABASE_URL=sqlite3:db/db.sqlite3
 #    SECRET_KEY_BASE=<value>
 ENV SECRET_KEY_BASE=662e5f1c1f71b78c6fc0455cf72b590aefc7e924bbe356556c8dacd18fa0c6a5d7d4908afc7627bd1d6cb5ce95b610eeb64f538079d1fe07ef3d73b43ac0f8b0
 
-RUN bundle exec rails assets:precompile && bundle exec rake db:setup
-
-# Removing unneccesary files/directories
-RUN rm -rf tmp/cache vendor/assets spec \
-    && rm -rf vendor/bundle/ruby/*/cache/*.gem \
-    && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
+RUN bundle exec bootsnap precompile --gemfile
+RUN bundle exec bootsnap precompile app/ lib/
+RUN bundle exec rails assets:precompile
+RUN bundle exec rake db:setup
 
 ################## Build done ##################
 
