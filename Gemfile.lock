@@ -136,6 +136,8 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.6, < 3)
       sassc-rails (>= 2.0.0)
+    brakeman (6.1.2)
+      racc
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -154,9 +156,6 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    debase (0.2.5.beta2)
-      debase-ruby_core_source (>= 0.10.12)
-    debase-ruby_core_source (3.3.1)
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -467,9 +466,22 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.32.0)
       parser (>= 3.3.1.0)
+    rubocop-minitest (0.35.1)
+      rubocop (>= 1.61, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-performance (1.21.1)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
+    rubocop-rails (2.25.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+    rubocop-rails-omakase (1.0.0)
+      rubocop
+      rubocop-minitest
+      rubocop-performance
+      rubocop-rails
     ruby-debug-ide (0.7.3)
       rake (>= 0.8.1)
     ruby-progressbar (1.13.0)
@@ -577,11 +589,11 @@ DEPENDENCIES
   apipie-rails
   aws-sdk-s3
   azure-storage-blob (~> 2.0)
-  bootsnap (>= 1.4.4)
+  bootsnap
   bootstrap (= 5.2.3)
+  brakeman
   capybara (>= 3.37.1, < 4.0)
   config
-  debase (>= 0.2.5.beta2)
   debug
   devise (>= 4.9.0)
   devise-i18n
@@ -613,6 +625,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.9)
   rollbar
   rqrcode (~> 2.2)
+  rubocop-rails-omakase
   ruby-debug-ide
   sass-rails (~> 6.0, >= 6.0.0)
   selenium-webdriver
@@ -625,7 +638,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   version!
-  web-console (>= 4.2.0)
+  web-console
   webdrivers (~> 5.3)
 
 RUBY VERSION

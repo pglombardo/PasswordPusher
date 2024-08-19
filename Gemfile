@@ -8,15 +8,10 @@ gem "rails", "~> 7.2.0"
 
 group :development do
   gem "listen"
-
   # Visual Studio Additions
   gem "ruby-debug-ide"
-
   gem "pry-rails"
-
-  # Access an interactive console on exception pages or by
-  # calling 'console' anywhere in the code.
-  gem "web-console", ">= 4.2.0"
+  gem "web-console"
 end
 
 group :test do
@@ -31,10 +26,13 @@ end
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  # gem install debase -v '0.2.5.beta2' -- --with-cflags=-Wno-error=incompatible-function-pointer-types
-  # https://blog.arkency.com/how-to-get-burned-by-16-years-old-hack-in-2024/
-  gem "debase", ">= 0.2.5.beta2", platforms: %i[mri mingw x64_mingw]
-  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
 
   gem "erb_lint", "~> 0.6.0"
   gem "standardrb", "~> 1.0"
@@ -59,7 +57,7 @@ gem "kramdown", require: false
 gem "lockbox"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", ">= 1.4.4", require: false
+gem "bootsnap", require: false
 
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0", ">= 6.0.0"
