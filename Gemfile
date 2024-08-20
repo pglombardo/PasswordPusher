@@ -8,8 +8,15 @@ gem "rails", "~> 7.2.0"
 
 group :development do
   gem "listen"
+
   # Visual Studio Additions
   gem "ruby-debug-ide"
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # gem install debase -v '0.2.5.beta2' -- --with-cflags=-Wno-error=incompatible-function-pointer-types
+  # https://blog.arkency.com/how-to-get-burned-by-16-years-old-hack-in-2024/
+  gem "debase", ">= 0.2.5.beta2", platforms: %i[mri mingw x64_mingw]
+
+
   gem "pry-rails"
   gem "web-console"
 end
