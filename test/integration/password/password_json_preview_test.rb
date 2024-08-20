@@ -43,4 +43,30 @@ class PasswordJsonPreviewTest < ActionDispatch::IntegrationTest
     uri = URI.parse(res["url"])
     assert_not (uri.path =~ /#{url_token}/).nil?
   end
+
+  def test_override_base_url
+    Settings.override_base_url = "https://example.com:12345"
+
+    post passwords_path(format: :json), params: {password: {
+      payload: "testpw",
+      expire_after_views: 2
+    }}
+
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("url_token")
+
+    get "/p/#{res["url_token"]}/preview.json"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("url")
+
+    uri = URI.parse(res["url"])
+    assert uri.host == "example.com"
+    assert uri.port == 12345
+    assert uri.scheme == "https"
+    assert_not (uri.path =~ /#{res["url_token"]}/).nil?
+  end
 end
