@@ -26,22 +26,22 @@ module ApplicationHelper
     raw_url = if password.retrieval_step && with_retrieval_step
       case password
       when Password
-        Settings.override_base_url ? preliminary_password_url(password, host: Settings.override_base_url) : preliminary_password_url(password)
+        Settings.override_base_url ? Settings.override_base_url + preliminary_password_path(password) : preliminary_password_url(password)
       when Url
-        Settings.override_base_url ? preliminary_url_url(password, host: Settings.override_base_url) : preliminary_url_url(password)
+        Settings.override_base_url ? Settings.override_base_url + preliminary_url_path(password) : preliminary_url_url(password)
       when FilePush
-        Settings.override_base_url ? preliminary_file_push_url(password, host: Settings.override_base_url) : preliminary_file_push_url(password)
+        Settings.override_base_url ? Settings.override_base_url + preliminary_file_push_path(password) : preliminary_file_push_url(password)
       else
         raise "Unknown push type: #{password.class}"
       end
     else
       case password
       when Password
-        Settings.override_base_url ? password_url(password, host: Settings.override_base_url) : password_url(password)
+        Settings.override_base_url ? Settings.override_base_url + password_path(password) : password_url(password)
       when Url
-        Settings.override_base_url ? url_url(password, host: Settings.override_base_url) : url_url(password)
+        Settings.override_base_url ? Settings.override_base_url + url_path(password) : url_url(password)
       when FilePush
-        Settings.override_base_url ? file_push_url(password, host: Settings.override_base_url) : file_push_url(password)
+        Settings.override_base_url ? Settings.override_base_url + file_push_path(password) : file_push_url(password)
       else
         raise "Unknown push type: #{password.class}"
       end

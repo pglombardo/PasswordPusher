@@ -84,4 +84,24 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     get expired_file_pushes_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
+
+  test "override base url" do
+    Settings.override_base_url = "https://example.com:12345"
+
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    post file_pushes_path params: {
+      file_push: {
+        payload: "TWVycnkgQ2hyaXN0bWFzIDIwMjIgdG8gbXkgYmVhdXRpZnVsIGdpcmxzIExlYSAmIEdpdWxpYW5hLg=="
+      }
+    }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert response.body.include?("https://example.com:12345")
+  end
 end
