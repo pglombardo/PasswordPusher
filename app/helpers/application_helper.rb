@@ -22,7 +22,7 @@ module ApplicationHelper
   # @param [Password, Url, FilePush] password - The push to generate a URL for
   # @param [Boolean] with_retrieval_step - Whether to include the retrieval step in the URL
   # @return [String] - The fully qualified URL
-  def secret_url(password, with_retrieval_step: true)
+  def secret_url(password, with_retrieval_step: true, locale: nil)
     raw_url = if password.retrieval_step && with_retrieval_step
       case password
       when Password
@@ -50,9 +50,11 @@ module ApplicationHelper
     # Delete any existing ?locale= query parameter
     raw_url = raw_url.split("?").first
 
+    # Append the locale query parameter
     if params["push_locale"].present? && Settings.enabled_language_codes.include?(params["push_locale"])
-      # Append the locale query parameter
       raw_url += "?locale=#{params["push_locale"]}"
+    elsif locale.present? && Settings.enabled_language_codes.include?(locale)
+      raw_url += "?locale=#{locale}"
     end
 
     # Support forced https links with FORCE_SSL env var

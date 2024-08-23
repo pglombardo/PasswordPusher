@@ -219,7 +219,7 @@ class FilePushesController < BaseController
       end
       return
     else
-      @secret_url = helpers.secret_url(@push, with_retrieval_step: false)
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
     end
 
     respond_to do |format|
