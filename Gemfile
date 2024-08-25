@@ -116,12 +116,12 @@ gem "sqlite3", force_ruby_platform: true
 
 group :production do
   gem "rack-attack"
-
-  # gem "rollbar"
-  gem "stackprof"
-  gem "sentry-ruby"
-  gem "sentry-rails"
 end
+
+# gem "rollbar"
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
 
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "administrate", "~> 0.20.1"
