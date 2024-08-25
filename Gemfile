@@ -92,7 +92,6 @@ gem "lograge"
 gem "mail_form", ">= 1.9.0"
 gem "oj"
 gem "puma"
-gem "rollbar"
 gem "simple_token_authentication"
 gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
@@ -118,6 +117,11 @@ gem "sqlite3", force_ruby_platform: true
 group :production do
   gem "rack-attack"
 end
+
+# gem "rollbar"
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
 
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "administrate", "~> 0.20.1"
