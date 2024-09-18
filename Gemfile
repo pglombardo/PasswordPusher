@@ -18,6 +18,9 @@ group :development do
 
   gem "pry-rails"
   gem "web-console"
+
+  # A fully configurable and extendable Git hook manager
+  gem "overcommit", require: false
 end
 
 group :test do
