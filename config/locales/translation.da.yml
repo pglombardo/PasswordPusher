@@ -709,7 +709,6 @@ da:
   accounts:
     policy:
       pwgen_syllables_count_help: Antallet af stavelser i den genererede adgangskode.
-      back: Tilbage til Team
       edit: Rediger politik
       team_policy_help: En teampolitik er et sæt regler, der gælder for alle push
         foretaget af medlemmer af dette team.
@@ -724,8 +723,6 @@ da:
       expire_after_duration_max_help: Den maksimale varighed før et push udløber.
       expire_after_duration_default: Standard varighed
       expire_after_duration_default_help: Standardvarigheden før et push udløber.
-      minutes_tip: 1 dag = 1440 minutter, 7 dage = 10080 minutter, 30 dage = 43200
-        minutter
       header_view_expiration: Se udløb
       expire_after_views_min: Minimum antal visninger
       expire_after_views_min_help: Minimumsantallet af visninger før et push udløber.
@@ -803,17 +800,86 @@ da:
       pwgen_max_syllable_length_help: Den maksimale længde af en stavelse i den genererede
         adgangskode.
       pwgen_syllables_count: Stavelser tæller
-      switch: Kontakt
-    show:
-      edit_policy: Rediger push-politik
-      policy: Teampolitik
+      policy: Politik
+    account_invitations:
+      max_users: Du har nået det maksimale antal brugere for dit team. Kontakt os
+        venligst for at opgradere og tilføje flere brugere.
+    brand:
+      delivery_blur_tip: 'Tip: Du kan slå brugen af sløring af nyttelast til og fra
+        i dine teampolitikindstillinger.'
+      delivery_description: Leveringssiden er den side, som dine slutbrugere vil se,
+        når indholdet af pushet bliver set.
+      delivery_preview: Nedenfor er en forhåndsvisning af, hvornår dine slutbrugere
+        vil se, når <em>push-indholdet bliver set</em> .
+      expired_description: Den udløbne side er den side, som dine slutbrugere vil
+        se, når push er udløbet.
+      expired_preview: Nedenfor er et eksempel på, hvad dine slutbrugere vil se, når
+        <em>push er udløbet</em> .
+      form:
+        logo_info: Følgende logo kan bruges til at tilpasse og brande de push-sider,
+          som dine slutbrugere vil se.
+        no_logo: Intet logo har mellem uploadet endnu. Upload et logo for at komme
+          i gang.
+        show_expiration: Vil du vise besked om resterende varighed og visninger?
+        show_logo: Vis logo?
+      navbar:
+        brand: Logo
+        delivery: Levering
+        edit_brand: Rediger mærke
+        edit_delivery: Rediger levering
+        edit_expired: Rediger udløbet
+        edit_passphrase: Rediger adgangssætning
+        edit_preliminary: Rediger 1-klik hentning
+        expired: Udløbet
+        passphrase: Passphrase Lock
+        preliminary: 1-klik på Hent
+      passphrase_description: Adgangssætningssiden bruges som en del af funktionen
+        Passphrase Lockdown. Brugere, der modtager pushet, skal indtaste en adgangssætning
+        for at få adgang til indholdet.
+      passphrase_preview: Nedenfor er et eksempel på, hvad dine slutbrugere vil se,
+        når <em>du bliver bedt om en adgangssætning</em> .
+      preliminary_description: 1-kliks genfindingssiden hjælper med at undgå, at bots,
+        chatsystemer og scannere æder visninger. Brugere, der modtager pushet, skal
+        klikke sig igennem denne foreløbige side for at få adgang til indholdet.
+      preliminary_preview: Nedenfor er en forhåndsvisning af, hvad dine slutbrugere
+        vil se for <em>muligheden for trin til hentning med 1 klik</em> .
+      preview:
+        payload: Dette er et eksempel på en nyttelast, der vil blive vist for slutbrugeren.
+      save: Gem
+      tip_custom_domain: "<strong>Professionelle abonnenter Tip</strong> : Du kan
+        konfigurere et brugerdefineret domæne i din %{link}."
+      tip_team_page: Teamkonfigurationsside
+    brands:
+      form:
+        documentation: dokumentation
+        domain_documentation: Se %{link} for mere information om konfiguration af
+          et brugerdefineret domæne.
+        domain_note_1: "<strong>Indtast domænenavnet</strong> uden protokollen eller
+          stien såsom <code>pwp.example.com</code> ."
+        domain_note_2: "<strong>Konfigurer DNS-indstillingerne</strong> : Opret en
+          ALIAS-post, der peger på <code>domain.pwpush.com</code> ."
+        domain_note_3: Det kan tage op til 24 timer for DNS-indstillingerne at udbrede
+          sig.
+        domain_note_4: Når du har konfigureret DNS-indstillingerne, kan du <strong>teste
+          domænet</strong> ved at besøge %{link} i din browser. Du bør se en grøn
+          skærm, der signalerer succes.
+        domain_placeholder: 'Pro-abonnenter: Brug Password Pusher til at levere push
+          med dit firmas domæne.'
+    edit_policy:
+      edit_policy: Rediger politik
+    form:
+      custom_domain_notes: Brugerdefinerede domænebemærkninger
+    form_brand:
+      branding: Branding
   tag_line: Fortsæt. Email en anden adgangskode.
-  about: Om
   app_name: Password pusher
   application:
     card_newsletter:
       enter_email: Indtast din e-mail...
       subscribe: Abonner
+      get_the_newsletter: Få nyhedsbrevet
+      updates_on: Opdateringer om store udgivelser, sikkerhedsproblemer, funktioner,
+        integrationer, tips og mere.
     cookie_consent:
       notice: Browsercookies hjælper med at få dette værktøj til at fungere. Ved at
         bruge det accepterer du brugen af disse cookies.
@@ -826,9 +892,11 @@ da:
       key_generator: Generer nøgle
       newsletter: Nyhedsbrev
       password_generator: Password Generator
-      tools: Værktøjer, API & CLI'er
       api_docs: API dokumentation
       features: Funktioner
+      languages: Sprog
+      pricing: Prissætning
+      support: Support
     pw_generator_modal:
       cancel: Afbryd
       configure: Konfigurer adgangskodegenerator
@@ -849,25 +917,26 @@ da:
       vowels: Vokaler
     navbar:
       edit_policy: Politik
+      branding: Branding
     secret_url_bar:
       secret_link_lang: Hemmeligt linksprog
       autodetect: Finde pr. automatik
+    left_nav:
+      pushes: Skubber
+    right_nav:
+      features: Funktioner
   audit_logs:
     audit_log:
-      created: Oprettet
-      created_by: Skabt af %{user}
       log_created: Push oprettet på %{date} af %{user}
       log_expired: Push udløb manuelt på %{date} af %{user}
       log_failed_view: Mislykket visningsforsøg fra IP-adresse %{ip} på %{date} af
         %{user}
-      log_manual_expiration: Push udløb manuelt på %{date} af %{user} på IP-adressen
-        %{ip}
-      log_referrer: 'Henviser: %{referrer}'
-      log_user_agent: 'Brugeragent: %{user_agent}'
       log_viewed: Vellykket visning fra IP-adresse %{ip} på %{date} af %{user}
       unknown: Ukendt
-      viewed_by: Set af %{user}
       log_failed_passphrase: Mislykket adgangssætningsforsøg på %{date} af %{user}
+      ip_address: 'IP-adresse:'
+      referrer: 'Henviser:'
+      user_agent: 'Brugeragent:'
   dashboard:
     show:
       detail: Detalje
@@ -896,33 +965,12 @@ da:
       email: E-mail
       have_idea: Har du en idé eller et ønske? Noget du ikke kan lide? Vil du hjælpe?
         Vi vil gerne høre om det!
-      leave_blank: Lad dette felt stå tomt!
       math_question: Hvad er hundrede minus 3?
       send_feedback: Send feedback
       tip: 'Tip: Kopiér din besked til udklipsholderen i det  tilfælde at indsendelsen
         mislykkes.'
       your_name: Dit navn
   none: Ingen
-  pages:
-    about:
-      about_1: Password Pusher er et værktøj, der bruges til at dele adgangskoder
-        og andre følsomme oplysninger med andre mennesker sikkert.
-      about_2: Med Password Pusher kan du oprette en unik engangs-URL, der udløber
-        efter et vist tidsrum, eller efter at den er blevet tilgået et vist antal
-        gange, hvilket sikrer, at dine oplysninger forbliver private og sikre.
-      about_3: Det bruges ofte af enkeltpersoner og organisationer til at dele login-legitimationsoplysninger
-        eller andre følsomme data med kolleger, kunder eller partnere.
-      about_4: Password Pusher er en enkel og bekvem løsning til sikker deling af
-        adgangskoder uden behov for e-mail eller andre mindre sikre kommunikationsmetoder.
-      about_pwpush: Om Password Pusher
-      hosted_at_html: Hostet på <a href="https://pwpush.com">pwpush.com</a> , eller
-        du kan køre din egen private instans, hvor du vil.
-      my_name: Mit navn er Peter Giacomo Lombardo. Du kan finde mig på %{linkedin},
-        %{github} eller %{blog}.
-      source_avail_html: Kildekoden er <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">tilgængelig på GitHub</a> . Det
-        er open source og gratis for alle at bruge, gennemgå eller ændre.
-      the_author: Forfatteren
   pushes:
     access:
       incorrect: Den adgangssætning er forkert. Prøv igen, eller kontakt den person
@@ -933,19 +981,14 @@ da:
         bruger af det valgte antal visninger.
       active: Aktiv
       attached_files: Vedhæftede filer
-      attached_files_help: Er filer blevet knyttet til dette push?
       audit_log_for: Revisionslog for %{push_id}
       contains_text: Indeholder tekst
       contains_text_help: Er der tilføjet en tekst-nyttelast til dette push?
-      created: Oprettet
-      created_by: Oprettet af %{user}
       current_status: Nuværende status
       deletable_by_viewers: Kan slettes af seere
       deletable_by_viewers_help: Dette giver slutbrugere mulighed for at slette indholdet,
         når det er hentet.
-      detail: Detalje
       end_audit_log: Slut på revisionslog
-      event: Begivenhed
       event_log: Revisionslog
       expire_after: 'Udløber efter:'
       expire_after_time_help: Pushet udløber efter dette tidsrum fra oprettelsen.
@@ -955,7 +998,6 @@ da:
         indhold fra databasen for altid. Revisionsloggen (inklusive fremtidige forsøg
         på visninger) vil stadig blive vedligeholdt fremover. Er du sikker?
       expired: Udløbet
-      failed_view: Mislykket visningsforsøg
       failed_view_attempts: Mislykkede visningsforsøg
       failed_view_attempts_help: Antallet af forsøg på at se dette push efter udløb.
       filename: Filnavn
@@ -963,7 +1005,6 @@ da:
         var ingen vedhæftet."
       log_note: Efterhånden som pushet modtager aktivitet, vises en log over hver
         med identificerende oplysninger her.
-      manual_expiration: Manuel udløb
       message_length: Meddelelseslængde
       message_length_help: Længden af den vedhæftede tekstnyttelast.
       none: Ingen
@@ -972,30 +1013,23 @@ da:
       passphrase_lock: Passphrase Lockdown
       passphrase_lock_help: Kræv, at modtagere indtaster en adgangssætning for at
         se denne push.
-      payload: Nyttelast
       push_date: Skubbet på %{date}
       reference_note: Referencenote
       secret_url: Hemmelig URL for dette "push"
       size: 'Størrelse: %{size}'
       start_audit_log: Start på revisionslog
-      start_log: Start på revisionslog
       state: Stat
       state_help_active: Aktiv og stadig tilgængelig for visning.
       state_help_expired: Push-indholdet er blevet slettet, og den hemmelige URL er
         udløbet.
-      successful_view: Vellykket visning
       successful_views: Succesfulde visninger
       successful_views_help: Antallet af gange, pushet er blevet set.
       time_remaining: Resterende tid
       time_remaining_help: Mængden af tid, der er tilbage, før push udløber.
       title: Tryk på revisionslog
       visible_to: Kun synlig for dig
-      when: Hvornår
       preview: Del dette push
     copy_to_clipboard: Kopier til udklipsholder
-    day:
-      one: 1 dag
-      other: "%{count} dage"
     deleted: Slettet
     expiration_html: Dette hemmelige link og alt indhold vil blive slettet i <strong>%{duration}</strong>
       eller <strong>%{count} flere visninger</strong> , alt efter hvad der indtræffer
@@ -1025,11 +1059,8 @@ da:
       5_days: 5 dage
       6_days: 6 dage
       6_hours: 6 timer
-      add_files: Tilføj filer...
       audit_tip: Når du er logget ind, opbevares en revisionslog over aktivitet og
         er tilgængelig på ubestemt tid.
-      day: Dag
-      days: Dage
       deletable: Tillad øjeblikkelig sletning
       deletable_tip: Tillad brugere at slette dette push, når det er hentet.
       encryption_tip: Indhold er krypteret før lagring og er kun tilgængeligt for
@@ -1037,17 +1068,9 @@ da:
       expiration_label: 'Udløb dette tryk og slet efter:'
       expiration_tip: Når det er udløbet, slettes alt indhold og alle filer i push
         øjeblikkeligt og fuldstændigt.
-      generator_tip: Brug knappen ovenfor til at generere en tilfældig adgangskode.
-      hour: Time
-      hours: Timer
-      login_to_upload: Log ind for at uploade og vedhæfte filer til dette push...
-      minutes: Referater
-      month: Måned
-      months: måneder
       note_label: Referencenote
       note_placeholder: En privat note for at hjælpe med at huske, hvem eller hvad
         dette push er til.
-      passphrase_label: Passphrase Lock
       passphrase_placeholder: Kræv, at modtagere indtaster en adgangssætning for at
         se denne push.
       password_tip: 'Tip: Indtast kun en adgangskode i boksen. Andre identificerende
@@ -1058,38 +1081,22 @@ da:
       upload_limit: Du kan uploade op til 10 filer pr. push.
       view: Udsigt
       views: Visninger
-      week: Uge
-      weeks: Uger
       payload_url_placeholder: Indtast URL'en for at omdirigere til...
       url_push_tip: Det oprettede push vil omdirigere til den angivne URL.
-    hour:
-      one: 1 time
-      other: "%{count} timer"
     index:
       actions: Handlinger
       clear_filters: Ryd filtre
       created: Oprettet
-      created_by: Ved
-      expires: Udløber
       file_count: Filer
       note: Bemærkning
       nothing_here: Der er intet her endnu.
       push_id: Push ID
       pushes: Skubber
-      remaining_time: Resterende tid
-      status: Status
-      views: Visninger
-      views_remaining: Udsigter tilbage
       active: Aktiv
       expired: Udløbet
       all: Alle
       remaining: Tilbage
-    minute:
-      one: 1 minut
-      other: "%{count} minutter"
-    more_view:
-      one: 1 visning mere
-      other: "%{count} flere visninger"
+      team_pushes: Team skubber
     'no': Ingen
     none: Ingen
     passphrase:
@@ -1100,23 +1107,16 @@ da:
     payload: Nyttelast
     preliminary:
       click_proceed: Klik her for at fortsætte
+      title: Klik for at fortsætte
     preview:
-      and: og
-      can_be: måske
-      can_not_be: kan ikke være
-      deleted_by_viewers: slettet af modtageren.
       link_lang_tip: 'Tip: "Pusher" du til en international bruger? Skift det hemmelige
         linksprog ved hjælp af rullemenuen til højre for URL''en.'
       or: eller
-      or_after: eller efter
       push_another: Skub en anden
       push_created: Dit push er blevet oprettet.
       use_link_to_share: 'Brug dette hemmelige link til at dele :'
       view_push_now: Se denne push nu
       will_burn_view: "(vil brænde en visning)"
-      will_expire_after: Dette push udløber om
-      with_preliminary_step: Det inkluderer også et %{strong_start}1-klik foreløbigt
-        genfindingstrin%{strong_end}.
       example: Eksempel
       generate: Frembringe
       include_id: Inkluder ID
@@ -1131,33 +1131,23 @@ da:
     provide_text_or_file: For at oprette et push skal du enten angive tekst, vedhæfte
       en fil eller begge dele.
     push:
-      active: Aktiv
       audit: Revidere
       expired: Udløbet
       none: Ingen
-      preview: Forhåndsvisning
-      push_controls: '"Push" instillinger'
       title: Ny push
       unknown: Ukendt
       share: Del
     settings: Indstillinger
     show:
-      blurred: Din adgangskode er sløret. Klik nedenfor for at afsløre det.
       click_to_reveal: Indholdet er sløret. Klik nedenfor for at afsløre det.
       delete_now: Slet dette hemmelige link nu
       delete_now_confirm: Dette vil udløbe dette hemmelige link og slette alt relateret
         indhold fra databasen for altid. Er du sikker?
       download_file: Download fil
-      files_sent: Følgende filer er blevet sendt til dig.
-      last_view: Dette er den sidste udsigt.
       obtain: Hent og gem dette indhold sikkert ved hjælp af en adgangskodeadministrator
         og/eller krypteret lagring. Husk at slette alle data, der ikke længere er
         nødvendige.
       open_file: Åben fil
-      please_download: Download venligst og gem på et sikkert område.
-      will_be_deleted: Dette hemmelige link og alt indhold vil blive slettet i %{b_tag}%{time_count}
-        %{time_unit}%{b_tag} eller %{b_tag}%{view_count} mere %{view_unit}%{b_tag}
-        (alt efter hvad der indtræffer først).
       your_link: Dit hemmelige link
       intro: Følgende indhold er blevet sendt til dig.
     show_expired:
@@ -1174,6 +1164,12 @@ da:
     payload_too_large: Nyttelasten er for stor. Du kan kun skubbe op til %{count}
       bytes.
     too_many_files: Du kan kun vedhæfte op til %{count} filer pr. tryk.
+    navbar:
+      files: Filer
+      text: Adgangskoder og tekst
+      url: URL'er
+    new:
+      title: Send en adgangskode, tekst eller fil sikkert
   static:
     about:
       about_1: Password Pusher er et værktøj, der bruges til at dele adgangskoder
@@ -1196,27 +1192,15 @@ da:
         %{github} eller %{blog}.
       author_2: For opdateringer skal du følge Password Pusher på %{twitter} (eller
         min %{twitter_personal}) eller abonnere på %{newsletter}.
-      facebook: Facebook
       github: Github
-      help_1: Langt den største hjælp er at sprede budskabet. Del Password Pusher
-        med dine venner, kolleger og organisationer.
-      help_2: 'Du kan også:'
-      help_3: Stjerne til %{github}-projektet. Det er benzin til algoerne, der trender
-        Password Pusher.
-      help_4: Hjælp %{translate}. Forbedre et eksisterende sprog, eller tilføj et
-        nyt.
-      help_5: Tilmeld dig %{newsletter} for at få opdateringer om vigtige udgivelser,
-        sikkerhedsproblemer, tips og mere.
-      help_6: Følg Password Pusher på %{facebook}, %{twitter} og %{github}.
-      help_translate: Hjælp med at oversætte
-      newsletter: Nyhedsbrev
       pwpush_domain: pwpush.com
       section_about: Om
       section_author: Forfatteren
-      section_follow: Hvor skal man følge Password Pusher
-      section_help: Vil du hjælpe?
       title: Om Password Pusher
-      twitter: Twitter
+      birthday: Fødselsdag
+      original_theme: Det originale tema
+      original_theme_body: Det originale webstedsdesign bestod af en mørk baggrund
+        med en fed gul skrifttype.
     generate_key:
       env_var: Du kan anvende denne nøgle til din applikation ved at ændre miljøvariablen
       generate_key: Generer nøgle
@@ -1245,9 +1229,29 @@ da:
       notes: 'Bemærkninger:'
       reload: Genindlæs denne side for at genskabe en ny nøgle.
       title: Generer en krypteringsnøgle
+      explanation: Forklaring
     password_generator:
       push_it: Tryk på denne adgangskode
       pwgen_title: Password Generator
+    features:
+      intro_4: 'Der er fire forskellige varianter af Password Pusher, der passer til
+        dine behov: <strong>Open Source</strong> , <strong>Premium</strong> , <strong>Pro</strong>
+        og <strong>Self-Hosted</strong> .'
+      intro_5: Nedenfor er en funktionsmatrix, der skitserer de vigtigste funktioner
+        i hver smag.
+      title: Funktioner
+    languages:
+      lang_description: Nedenfor er de sprog, som Password Pusher understøtter. Der
+        er 30 understøttede sprog. Når du selv hoster, kan du aktivere eller deaktivere
+        sprog for din forekomst.
+      languages: Sprog
+      pwp_languages: Adgangskode pusher sprog
+    pricing:
+      coming_soon: En selv-hostet plan for Pro-funktionerne kommer snart.
+      custom_subhead: Support Open Source. Få premium-funktioner.
+      feature_pipeline: Premium-funktioner flyttes med jævne mellemrum til open source-udgaven.
+      footer_note: Abonnementer er for pwpush.com og finansierer udviklingen af open
+        source-udgaven.
   zero_minutes: 0 minutter
   users:
     agreements:
@@ -1256,3 +1260,124 @@ da:
       terms_of_service:
         terms_of_service: Servicevilkår
   confirmation_go: Klik her for at bekræfte din konto
+  admin:
+    config:
+      menu_item: Konfiguration
+      overview:
+        description: Indstillingerne i dette afsnit bruges til at konfigurere applikationen
+          globalt. Når der er foretaget ændringer, kan applikationen genstartes for
+          at anvende de nye indstillinger.
+        subtitle: Her kan du tilpasse indstillingerne for Password Pusher.
+        title: Applikationskonfiguration
+      reset: Nulstil til standard
+      reset_confirm: Er du sikker på, at du vil nulstille konfigurationen på denne
+        side til standardværdierne? Dette vil ikke påvirke indstillinger på andre
+        sider.
+      save: Gem
+  models:
+    pwp_config:
+      app_config: Applikationskonfiguration
+      as_container_hint: Beholderen, der skal bruges til lagring af filer.
+      as_container_label: AS container
+      as_storage_access_key_hint: Den lageradgangsnøgle, der skal bruges til godkendelse
+        med AS-serveren.
+      as_storage_access_key_label: AS Storage Adgangsnøgle
+      as_storage_account_name_hint: Lagerkontonavnet, der skal bruges til lagring
+        af filer.
+      as_storage_account_name_label: AS Storage-kontonavn
+      config_encryption_key_hint: Krypteringsnøglen, der skal bruges til at kryptere
+        og dekryptere disse konfigurationsdata.
+      config_encryption_key_label: Konfig krypteringsnøgle
+      dark_logo_hint: Logo til brug for det mørke tema. Sørg først for, at fillagring
+        er konfigureret korrekt.
+      dark_logo_label: Webstedslogo med mørkt tema
+      default_locale_hint: Standardsproget, der skal bruges til applikationen.
+      default_locale_label: Standardsprog
+      email_raise_delivery_errors_hint: Angiver, om der skal rejses en fejl, hvis
+        e-maillevering ikke kan fuldføres. Den er som standard sand.
+      email_raise_delivery_errors_label: Hæv leveringsfejl
+      email_subtitle: Her kan du tilpasse, hvordan Password Pusher sender e-mails.
+      email_title: E-mail konfiguration
+      enabled_languages_hint: De valgte sprog nedenfor vil være tilgængelige for alle
+        brugere.
+      enabled_languages_label: Aktiverede sprog
+      encryption_subtitle: Her kan du tilpasse krypteringsindstillingerne for Password
+        Pusher.
+      encryption_title: Krypteringskonfiguration
+      file_subtitle: Her kan du tilpasse, hvordan Password Pusher gemmer uploadede
+        filer.
+      file_title: Fillagringskonfiguration
+      from_address_hint: Den e-mailadresse, der skal bruges som afsender af e-mail.
+      from_address_label: Fra Adresse
+      gcs_bucket_hint: Spanden til brug til opbevaring af filer.
+      gcs_bucket_label: GCS spand
+      gcs_credentials_hint: De legitimationsoplysninger, der skal bruges til godkendelse
+        med GCS-serveren.
+      gcs_credentials_label: GCS-legitimationsoplysninger
+      gcs_gsa_email_hint: GSA-e-mailen, der skal bruges til godkendelse med GCS-serveren.
+      gcs_gsa_email_label: GCS GSA e-mail
+      gcs_iam_hint: Den IAM, der skal bruges til godkendelse med GCS-serveren.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: Projektet, der skal bruges til lagring af filer.
+      gcs_project_label: GCS projekt
+      language_subtitle: Her kan du tilpasse de sprog, som Password Pusher understøtter.
+      language_title: Sprogkonfiguration
+      light_logo_hint: Logo til brug for lystemaet. Sørg først for, at fillagring
+        er konfigureret korrekt.
+      light_logo_label: Logo for websted med let tema
+      login_subtitle: Her kan du tilpasse, hvordan Password Pusher håndterer logins.
+      login_tip: Tip
+      login_tip_body: 'Brug dette værktøj til at teste dine e-mail-mønstre:'
+      login_title: Login konfiguration
+      override_base_url_hint: Bruges til at fremtvinge basis-URL'en for genererede
+        hemmelige URL'er.
+      override_base_url_label: Tilsidesæt basis-URL
+      push_encryption_key_hint: Krypteringsnøglen, der skal bruges til at kryptere
+        og dekryptere push.
+      push_encryption_key_label: Tryk på krypteringsnøgle
+      s3_access_key_id_hint: Adgangsnøgle-id'et, der skal bruges til godkendelse med
+        S3-serveren.
+      s3_access_key_id_label: S3 Adgangsnøgle-id
+      s3_bucket_hint: Spanden til brug til opbevaring af filer.
+      s3_bucket_label: S3 spand
+      s3_endpoint_hint: Slutpunktet for S3-serveren, der skal bruges til lagring af
+        filer.
+      s3_endpoint_label: S3 Slutpunkt
+      s3_region_hint: Området på S3-serveren, der skal bruges til lagring af filer.
+      s3_region_label: S3 region
+      s3_secret_access_key_hint: Den hemmelige adgangsnøgle, der skal bruges til godkendelse
+        med S3-serveren.
+      s3_secret_access_key_label: S3 hemmelig adgangsnøgle
+      signup_email_regexp_hint: E-mails, der ikke matcher dette mønster, vil blive
+        afvist.
+      signup_email_regexp_label: Tilmelding E-mail Regexp
+      site_name_hint: Navnet på webstedet, der skal bruges i sidehoved og sidefod.
+      site_name_label: Webstedets navn
+      site_tagline_hint: Slagordet for webstedet, der skal bruges i sidehoved og sidefod.
+      site_tagline_label: Site Tagline
+      smtp_address_hint: Adressen på den SMTP-server, der skal bruges til at sende
+        e-mail.
+      smtp_address_label: SMTP-serveradresse
+      smtp_authentication_hint: Den type godkendelse, der skal bruges med SMTP-serveren.
+      smtp_authentication_label: SMTP-godkendelsestype
+      smtp_domain_hint: SMTP-serverens domæne, der skal bruges til at sende e-mail.
+      smtp_domain_label: SMTP domæne
+      smtp_enable_starttls_auto_hint: Registrerer, om STARTTLS er aktiveret på din
+        SMTP-server og begynder at bruge den. Den er som standard sand.
+      smtp_enable_starttls_auto_label: SMTP Automatisk STARTTLS
+      smtp_enable_starttls_hint: Brug STARTTLS, når du opretter forbindelse til din
+        SMTP-server og mislykkes, hvis den ikke understøttes. Den er som standard
+        falsk.
+      smtp_enable_starttls_label: SMTP Aktiver STARTTLS
+      smtp_openssl_verify_mode_hint: OpenSSL-bekræftelsestilstanden, der skal bruges,
+        når der oprettes forbindelse til SMTP-serveren.
+      smtp_openssl_verify_mode_label: SMTP OpenSSL Verify Mode
+      smtp_password_hint: Adgangskoden, der skal bruges til godkendelse med SMTP-serveren.
+      smtp_password_label: SMTP-adgangskode
+      smtp_port_hint: Porten på SMTP-serveren, der skal bruges til at sende e-mail.
+      smtp_port_label: SMTP-port
+      smtp_user_name_hint: Brugernavnet, der skal bruges til godkendelse med SMTP-serveren.
+      smtp_user_name_label: SMTP brugernavn
+      storage_hint: Lagertypen, der skal bruges til lagring af filer. Den er som standard
+        :local.
+      storage_label: Opbevaring

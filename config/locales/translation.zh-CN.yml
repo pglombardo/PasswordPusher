@@ -600,7 +600,6 @@ zh-CN:
   accounts:
     policy:
       pwgen_syllables_count_help: 生成的密码中的音节数。
-      back: 返回团队
       edit: 编辑政策
       team_policy_help: 团队策略是一组适用于该团队成员所做的所有推送的规则。
       personal_policy: 个人政策
@@ -613,7 +612,6 @@ zh-CN:
       expire_after_duration_max_help: 推送到期前的最长持续时间。
       expire_after_duration_default: 默认持续时间
       expire_after_duration_default_help: 推送到期前的默认持续时间。
-      minutes_tip: 1天=1440分钟，7天=10080分钟，30天=43200分钟
       header_view_expiration: 查看有效期
       expire_after_views_min: 最低观看次数
       expire_after_views_min_help: 推送过期前的最小浏览量。
@@ -673,17 +671,65 @@ zh-CN:
       pwgen_max_syllable_length: 最大音节长度
       pwgen_max_syllable_length_help: 生成的密码中音节的最大长度。
       pwgen_syllables_count: 音节数
-      switch: 转变
-    show:
-      edit_policy: 编辑推送策略
-      policy: 团队政策
+      policy: 政策
+    account_invitations:
+      max_users: 您的团队用户数已达到上限。请联系我们进行升级并添加更多用户。
+    brand:
+      delivery_blur_tip: 提示：您可以在团队策略设置中切换有效载荷模糊的使用。
+      delivery_description: 交付页面是您的最终用户在查看推送内容时将看到的页面。
+      delivery_preview: 以下是您的最终用户在<em>查看推送内容</em>时看到的预览。
+      expired_description: 过期页面是推送过期后您的最终用户将看到的页面。
+      expired_preview: 以下是<em>推送过期</em>后最终用户将看到的内容的预览。
+      form:
+        logo_info: 以下徽标可用于定制和标记您的最终用户将看到的推送页面。
+        no_logo: 尚未上传任何徽标。上传徽标即可开始。
+        show_expiration: 显示剩余时长和观看次数信息吗？
+        show_logo: 显示徽标？
+      navbar:
+        brand: 标识
+        delivery: 送货
+        edit_brand: 編輯品牌
+        edit_delivery: 编辑配送
+        edit_expired: 编辑已过期
+        edit_passphrase: 编辑密码
+        edit_preliminary: 编辑一键检索
+        expired: 已到期
+        passphrase: 密码锁
+        preliminary: 一键检索
+      passphrase_description: 密码页面是密码锁定功能的一部分。收到推送的用户必须输入密码才能访问内容。
+      passphrase_preview: 以下是最终用户在<em>提示输入密码</em>时将看到的内容的预览。
+      preliminary_description: 一键检索页面有助于避免机器人、聊天系统和扫描器吞噬浏览量。收到推送的用户必须点击此初始页面才能访问内容。
+      preliminary_preview: 以下是最终用户将看到的<em>一键检索步骤选项</em>的预览。
+      preview:
+        payload: 这是向最终用户显示的有效载荷的示例。
+      save: 保存
+      tip_custom_domain: "<strong>专业订阅者提示</strong>：您可以在 %{link} 中配置自定义域。"
+      tip_team_page: 团队配置页面
+    brands:
+      form:
+        documentation: 文档
+        domain_documentation: 有关配置自定义域的更多信息，请参阅%{link}。
+        domain_note_1: "<strong>输入不带协议或路径的域名</strong>，例如<code>pwp.example.com</code>
+          。"
+        domain_note_2: "<strong>配置 DNS 设置</strong>：创建指向<code>domain.pwpush.com</code>
+          ALIAS 记录。"
+        domain_note_3: DNS 设置最多可能需要 24 小时才能传播。
+        domain_note_4: 配置 DNS 设置后，您可以通过在浏览器中访问 %{link}<strong>来测试域名</strong>。您应该会看到一个绿色屏幕，表示成功。
+        domain_placeholder: 专业订阅者：使用密码推送器通过您的公司域名进行推送。
+    edit_policy:
+      edit_policy: 编辑政策
+    form:
+      custom_domain_notes: 自定义域名说明
+    form_brand:
+      branding: 品牌
   tag_line: 前进。通过电子邮件发送另一个密码。
-  about: 关于
   app_name: 密码推送器
   application:
     card_newsletter:
       enter_email: 输入你的电子邮箱...
       subscribe: 订阅
+      get_the_newsletter: 获取时事通讯
+      updates_on: 有关重大版本、安全问题、功能、集成、提示等的更新。
     cookie_consent:
       notice: 浏览器 cookie 有助于使该工具正常工作。使用它即表示您同意使用这些 cookie。
     footer:
@@ -695,9 +741,11 @@ zh-CN:
       key_generator: 密钥生成器
       newsletter: 通讯
       password_generator: 密码生成器
-      tools: 工具、API 和 CLI
       api_docs: API 文档
       features: 特征
+      languages: 语言
+      pricing: 价钱
+      support: 支持
     pw_generator_modal:
       cancel: 取消
       configure: 配置密码生成器
@@ -718,23 +766,25 @@ zh-CN:
       vowels: 元音
     navbar:
       edit_policy: 政策
+      branding: 品牌
     secret_url_bar:
       secret_link_lang: 秘密链接语言
       autodetect: 自动侦测
+    left_nav:
+      pushes: 推动
+    right_nav:
+      features: 特征
   audit_logs:
     audit_log:
-      created: 创建于
-      created_by: 创建者：%{user}
       log_created: "%{user} 在 %{date} 上创建的推送"
       log_expired: 手动推送已在 %{date} 上由 %{user} 过期
       log_failed_view: "%{user} 从 IP 地址 %{ip} 在 %{date} 上尝试查看失败"
-      log_manual_expiration: "%{user} 在 IP 地址为 %{ip} 的 %{date} 上手动推送已过期"
-      log_referrer: 推荐人：%{referrer}
-      log_user_agent: 用户代理：%{user_agent}
       log_viewed: "%{user} 从 %{date} 上的 IP 地址 %{ip} 成功查看"
       unknown: 未知
-      viewed_by: 已查看者 %{user}
       log_failed_passphrase: "%{user} 对 %{date} 的密码尝试失败"
+      ip_address: IP 地址：
+      referrer: 引荐人：
+      user_agent: 用户代理：
   dashboard:
     show:
       detail: 细节
@@ -760,24 +810,11 @@ zh-CN:
     new:
       email: 电子邮件
       have_idea: 有想法或愿望吗？你不喜欢什么？想帮忙吗？我们希望听到它！
-      leave_blank: 将此字段留空！
       math_question: 一百减3是多少？
       send_feedback: 发送反馈
       tip: 提示：将您的消息复制到剪贴板，以防发生不太常见的提交失败的情况。
       your_name: 您的姓名
   none: 无
-  pages:
-    about:
-      about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
-      about_2: 使用 Password Pusher，您可以创建一个唯一的一次性 URL，该 URL 将在一定时间后或访问一定次数后失效，从而确保您的信息保持私密和安全。
-      about_3: 它经常被个人和组织用来与同事、客户或合作伙伴共享登录凭据或其他敏感数据。
-      about_4: Password Pusher 是一种简单方便的解决方案，无需电子邮件或其他不太安全的通信方式即可安全地共享密码。
-      about_pwpush: 关于Password Pusher
-      hosted_at_html: 托管在<a href="https://pwpush.com">pwpush.com</a> ，或者您可以在任何您喜欢的地方运行您自己的私有实例。
-      my_name: 我的名字是彼得·贾科莫·隆巴多。您可以在 %{linkedin}、%{github} 或 %{blog} 上找到我。
-      source_avail_html: 源代码可<a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">在 GitHub 上获取</a>。它是开源的，任何人都可以免费使用、审查或修改。
-      the_author: 作者
   pushes:
     access:
       incorrect: 该密码不正确。请重试或联系向您发送此链接的个人或组织。
@@ -786,18 +823,13 @@ zh-CN:
       1click_retrieval_step_help: 有助于避免聊天系统和 URL 扫描器占用查看配额。
       active: 活动的
       attached_files: 附件
-      attached_files_help: 此次推送中是否附加了文件？
       audit_log_for: "%{push_id} 的审核日志"
       contains_text: 包含文本
       contains_text_help: 此推送是否已添加文本信息？
-      created: 创建于
-      created_by: 创建者：%{user}
       current_status: 当前状态
       deletable_by_viewers: 可由观看者删除
       deletable_by_viewers_help: 这允许最终用户在检索后删除内容。
-      detail: 细节
       end_audit_log: 审计日志结束
-      event: 事件
       event_log: 审计日志
       expire_after: 过期时间：
       expire_after_time_help: 推送将在创建后的这段时间内过期。
@@ -805,13 +837,11 @@ zh-CN:
       expire_now: 现在过期
       expire_now_confirm: 这将使该秘密链接失效并永远从数据库中删除所有相关内容。审核日志（包括未来尝试的视图）仍将保留。你确定吗？
       expired: 已到期
-      failed_view: 查看尝试失败
       failed_view_attempts: 失败的查看
       failed_view_attempts_help: 过期后尝试查看此推送的次数。
       filename: 文件名
       files_deleted: 所有先前附加的文件都已被删除，或者根本没有附加。”
       log_note: 当推送接收到活动时，每个带有活动识别信息的日志都会显示在这里。
-      manual_expiration: 手动过期
       message_length: 信息长度
       message_length_help: 附加文本内容的长度。
       none: 无
@@ -819,29 +849,22 @@ zh-CN:
       num_files_attached_help: 此推送附加的文件数量。
       passphrase_lock: 密码锁定
       passphrase_lock_help: 要求收件人输入密码才能查看此推送。
-      payload: 内容
       push_date: 已推送至 %{date}
       reference_note: 参考笔记
       secret_url: 此推送的私密 URL
       size: 尺寸：%{size}
       start_audit_log: 审计日志的开始
-      start_log: 审计日志的开始
       state: 状态
       state_help_active: 活动且仍可供查看。
       state_help_expired: 推送内容已被删除，密文网址已过期。
-      successful_view: 成功观
       successful_views: 成功的查看
       successful_views_help: 推送被成功查看的次数。
       time_remaining: 剩余时间
       time_remaining_help: 推送到期之前剩余的时间量。
       title: 推送审核日志
       visible_to: 仅自己可见
-      when: 什么时候
       preview: 分享此推送
     copy_to_clipboard: 复制到剪贴板
-    day:
-      one: 1天
-      other: "%{count} 天"
     deleted: 已删除
     expiration_html: 此秘密链接和所有内容将在<strong>%{duration}</strong>或<strong>%{count} 个更多浏览次数</strong>（以先发生者为准）中删除。
     expire:
@@ -869,25 +892,14 @@ zh-CN:
       5_days: 5天
       6_days: 6 天
       6_hours: 6个小时
-      add_files: 添加文件...
       audit_tip: 登录后，活动审核日志将被保留并无限期可用。
-      day: 日
-      days: 天
       deletable: 允许立即删除
       deletable_tip: 允许用户在检索到后删除此推送。
       encryption_tip: 内容在存储之前进行加密，并且只有拥有秘密链接的人才能使用。
       expiration_label: 使此推送过期并在以下时间后删除：
       expiration_tip: 一旦过期，推送的所有内容和文件将被立即彻底删除。
-      generator_tip: 使用上面的按钮生成一个随机密码。
-      hour: 时
-      hours: 小时
-      login_to_upload: 登录以上传并附加文件至此推送...
-      minutes: 分钟
-      month: 月
-      months: 几个月
       note_label: 参考笔记
       note_placeholder: 私人注释，帮助记住此推送的目的是谁或什么。
-      passphrase_label: 密码锁
       passphrase_placeholder: 要求收件人输入密码才能查看此推送。
       password_tip: 提示：仅在框中输入密码。其他识别信息可能会危及安全。
       payload_placeholder: 输入要推送的密码、文本或 URL...
@@ -895,38 +907,22 @@ zh-CN:
       upload_limit: 每次推送最多可以上传 10 个文件。
       view: 看法
       views: 查看
-      week: 星期
-      weeks: 周数
       payload_url_placeholder: 输入要重定向到的 URL...
       url_push_tip: 创建的推送将重定向到提供的 URL。
-    hour:
-      one: 1小时
-      other: "%{count} 小时"
     index:
       actions: 行动
       clear_filters: 清除过滤器
       created: 创建于
-      created_by: 经过
-      expires: 过期
       file_count: 文件
       note: 备注
       nothing_here: 这里还什么都没有。
       push_id: 推送 ID
       pushes: 推动
-      remaining_time: 剩余时间
-      status: 地位
-      views: 查看
-      views_remaining: 剩余观看次数
       active: 活动的
       expired: 已到期
       all: 全部
       remaining: 其余的
-    minute:
-      one: 1分钟
-      other: "%{count} 分钟"
-    more_view:
-      one: 还有 1 个视图
-      other: "%{count} 更多浏览"
+      team_pushes: 团队推动
     'no': 否
     none: 无
     passphrase:
@@ -937,21 +933,15 @@ zh-CN:
     payload: 内容
     preliminary:
       click_proceed: 单击此处继续
+      title: 点击继续
     preview:
-      and: 和
-      can_be: 可以
-      can_not_be: 不可能是
-      deleted_by_viewers: 被查看者删除。
       link_lang_tip: 提示：推送给国际用户？使用 URL 右侧的下拉菜单更改秘密链接的页面展示语言。
       or: 或者
-      or_after: 或之后
       push_another: 再推一个
       push_created: 您的推送已创建
       use_link_to_share: 使用此秘密链接分享它：
       view_push_now: 立即查看此推送
       will_burn_view: "（将烧毁视图）"
-      will_expire_after: 此推送将于
-      with_preliminary_step: 它还包括%{strong_start}一键初步检索步骤%{strong_end}。
       example: 例子
       generate: 产生
       include_id: 包括 ID
@@ -963,29 +953,20 @@ zh-CN:
       link_lang_auto: 或者自动检测将根据最终用户的浏览器设置选择一种语言。
     provide_text_or_file: 要创建推送，您必须提供文本和/或附加文件。
     push:
-      active: 活动的
       audit: 审计
       expired: 已到期
       none: 无
-      preview: 预览
-      push_controls: 推送设置
       title: 新推
       unknown: 未知
       share: 分享
     settings: 设置
     show:
-      blurred: 您的密码已模糊处理。单击下面以查看它。
       click_to_reveal: 内容已经模糊了。单击下面即可显示它。
       delete_now: 立即删除此秘密链接
       delete_now_confirm: 这将使该秘密链接失效并永远从数据库中删除所有相关内容。你确定吗？
       download_file: 下载文件
-      files_sent: 以下文件已发送给您。
-      last_view: 这是最后的景色。
       obtain: 使用密码管理器和/或加密存储安全地检索和存储此内容。请记住及时删除不再需要的任何数据。
       open_file: 打开文件
-      please_download: 请下载并存储在安全区域。
-      will_be_deleted: 此秘密链接和所有内容将在 %{b_tag}%{time_count} %{time_unit}%{b_tag} 或 %{b_tag}%{view_count}
-        更多 %{view_unit}%{b_tag}（以先发生者为准）中删除。
       your_link: 你的秘密链接
       intro: 以下内容已发送给您。
     show_expired:
@@ -1000,6 +981,12 @@ zh-CN:
     'yes': 是的
     payload_too_large: 有效负载太大。您最多只能推送 %{count} 个字节。
     too_many_files: 每次推送最多只能附加 %{count} 个文件。
+    navbar:
+      files: 文件
+      text: 密码和文本
+      url: 网址
+    new:
+      title: 安全地发送密码、文本或文件
   static:
     about:
       about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
@@ -1012,23 +999,14 @@ zh-CN:
       age_title: 超过 %{years_count} 岁
       author_1: 我的名字是彼得·贾科莫·隆巴多。您可以在 %{linkedin}、%{github} 或 %{blog} 上找到我。
       author_2: 如需更新，请关注 %{twitter}（或我的 %{twitter_personal}）上的密码推送器或订阅 %{newsletter}。
-      facebook: Facebook
       github: 吉图布
-      help_1: 到目前为止，最大的帮助就是传播信息。与您的朋友、同事和组织共享密码推送器。
-      help_2: 你也可以：
-      help_3: 启动 %{github} 项目。它是密码推送者趋势的算法的汽油。
-      help_4: 帮助%{translate}。改进现有语言或添加新语言。
-      help_5: 注册 %{newsletter} 以获取有关重要版本、安全问题、提示等的更新。
-      help_6: 关注 %{facebook}、%{twitter} 和 %{github} 上的密码推送程序。
-      help_translate: 帮助翻译
-      newsletter: 通讯
       pwpush_domain: pwpush.com
       section_about: 关于
       section_author: 作者
-      section_follow: 密码推送者的关注点
-      section_help: 想帮忙吗？
       title: 关于Password Pusher
-      twitter: 推特
+      birthday: 生日
+      original_theme: 原始主题
+      original_theme_body: 最初的网站设计包括深色背景和粗体黄色字体。
     generate_key:
       env_var: 您可以通过设置环境变量将此密钥应用于您的应用程序
       generate_key: 生成密钥
@@ -1045,9 +1023,23 @@ zh-CN:
       notes: 备注：
       reload: 重新加载此页面以重新生成新密钥。
       title: 生成加密密钥
+      explanation: 解释
     password_generator:
       push_it: 推送此密码
       pwgen_title: 密码生成器
+    features:
+      intro_4: 密码推送器有四种不同的版本可以满足您的需求：<strong>开源版</strong>、<strong>高级版</strong>、<strong>专业版</strong>和<strong>自托管版</strong>。
+      intro_5: 下面是概述每种口味的主要特征的特征矩阵。
+      title: 特征
+    languages:
+      lang_description: 以下是 Password Pusher 支持的语言。支持 30 种语言。自托管时，您可以为实例启用或禁用语言。
+      languages: 语言
+      pwp_languages: 密码推送器语言
+    pricing:
+      coming_soon: Pro 功能的自托管计划即将推出。
+      custom_subhead: 支持开源。获取高级功能。
+      feature_pipeline: 高级功能会定期转移到开源版本。
+      footer_note: 订阅针对的是 pwpush.com，并资助开源版本的开发。
   zero_minutes: 0 分钟
   users:
     agreements:
@@ -1056,3 +1048,98 @@ zh-CN:
       terms_of_service:
         terms_of_service: 服务条款
   confirmation_go: 单击此处确认您的帐户
+  admin:
+    config:
+      menu_item: 配置
+      overview:
+        description: 本节中的设置用于全局配置应用程序。进行更改后，可以重新启动应用程序以应用新设置。
+        subtitle: 您可以在此处自定义密码推送器的设置。
+        title: 应用程序配置
+      reset: 重置为默认值
+      reset_confirm: 您确定要将此页面上的配置重置为默认值吗？这不会影响其他页面上的设置。
+      save: 保存
+  models:
+    pwp_config:
+      app_config: 应用程序配置
+      as_container_hint: 用于存储文件的容器。
+      as_container_label: 集装箱
+      as_storage_access_key_hint: 用于与 AS 服务器进行身份验证的存储访问密钥。
+      as_storage_access_key_label: AS 存储访问密钥
+      as_storage_account_name_hint: 用于存储文件的存储帐户名称。
+      as_storage_account_name_label: AS 存储帐户名称
+      config_encryption_key_hint: 用于加密和解密此配置数据的加密密钥。
+      config_encryption_key_label: 配置加密密钥
+      dark_logo_hint: 用于深色主题的徽标。首先确保文件存储配置正确。
+      dark_logo_label: 深色主题网站徽标
+      default_locale_hint: 应用程序使用的默认语言。
+      default_locale_label: 默认语言
+      email_raise_delivery_errors_hint: 指定当电子邮件传递无法完成时是否引发错误。默认值为 true。
+      email_raise_delivery_errors_label: 引发交付错误
+      email_subtitle: 您可以在此处自定义 Password Pusher 发送电子邮件的方式。
+      email_title: 电子邮件配置
+      enabled_languages_hint: 下面选择的语言将适用于所有用户。
+      enabled_languages_label: 支持的语言
+      encryption_subtitle: 您可以在此处自定义密码推送器的加密设置。
+      encryption_title: 加密配置
+      file_subtitle: 您可以在此处自定义 Password Pusher 存储上传文件的方式。
+      file_title: 文件存储配置
+      from_address_hint: 用作电子邮件发件人的电子邮件地址。
+      from_address_label: 发件人地址
+      gcs_bucket_hint: 用于存储文件的存储桶。
+      gcs_bucket_label: GCS 铲斗
+      gcs_credentials_hint: 用于与 GCS 服务器进行身份验证的凭证。
+      gcs_credentials_label: GCS 凭证
+      gcs_gsa_email_hint: 用于与 GCS 服务器进行身份验证的 GSA 电子邮件。
+      gcs_gsa_email_label: GCS GSA 电子邮件
+      gcs_iam_hint: 用于与 GCS 服务器进行身份验证的 IAM。
+      gcs_iam_label: 身份管理
+      gcs_project_hint: 用于存储文件的项目。
+      gcs_project_label: GCS 项目
+      language_subtitle: 您可以在此处自定义 Password Pusher 支持的语言。
+      language_title: 语言配置
+      light_logo_hint: 用于浅色主题的徽标。首先确保文件存储配置正确。
+      light_logo_label: 浅色主题网站徽标
+      login_subtitle: 您可以在此处自定义 Password Pusher 处理登录的方式。
+      login_tip: 提示
+      login_tip_body: 使用此工具测试您的电子邮件模式：
+      login_title: 登录配置
+      override_base_url_hint: 用于强制生成的秘密 URL 的基本 URL。
+      override_base_url_label: 覆盖基本 URL
+      push_encryption_key_hint: 用于加密和解密推送的加密密钥。
+      push_encryption_key_label: 推送加密密钥
+      s3_access_key_id_hint: 用于与 S3 服务器进行身份验证的访问密钥 ID。
+      s3_access_key_id_label: S3 访问密钥 ID
+      s3_bucket_hint: 用于存储文件的存储桶。
+      s3_bucket_label: S3 存储桶
+      s3_endpoint_hint: 用于存储文件的 S3 服务器的端点。
+      s3_endpoint_label: S3 端点
+      s3_region_hint: 用于存储文件的 S3 服务器的区域。
+      s3_region_label: S3 区域
+      s3_secret_access_key_hint: 用于与 S3 服务器进行身份验证的秘密访问密钥。
+      s3_secret_access_key_label: S3 秘密访问密钥
+      signup_email_regexp_hint: 与此模式不匹配的电子邮件将被拒绝。
+      signup_email_regexp_label: 注册电子邮件正则表达式
+      site_name_hint: 页眉和页脚中使用的站点名称。
+      site_name_label: 网站名称
+      site_tagline_hint: 在页眉和页脚中使用的网站标语。
+      site_tagline_label: 网站标语
+      smtp_address_hint: 用于发送电子邮件的 SMTP 服务器的地址。
+      smtp_address_label: SMTP 服务器地址
+      smtp_authentication_hint: 与 SMTP 服务器一起使用的身份验证类型。
+      smtp_authentication_label: SMTP 身份验证类型
+      smtp_domain_hint: 用于发送电子邮件的 SMTP 服务器的域。
+      smtp_domain_label: SMTP 域
+      smtp_enable_starttls_auto_hint: 检测您的 SMTP 服务器是否启用了 STARTTLS 并开始使用它。默认为 true。
+      smtp_enable_starttls_auto_label: SMTP 自动 STARTTLS
+      smtp_enable_starttls_hint: 连接到 SMTP 服务器时使用 STARTTLS，如果不支持则会失败。默认为 false。
+      smtp_enable_starttls_label: SMTP 启用 STARTTLS
+      smtp_openssl_verify_mode_hint: 连接到 SMTP 服务器时使用的 OpenSSL 验证模式。
+      smtp_openssl_verify_mode_label: SMTP OpenSSL 验证模式
+      smtp_password_hint: 用于与 SMTP 服务器进行身份验证的密码。
+      smtp_password_label: SMTP 密码
+      smtp_port_hint: 用于发送电子邮件的 SMTP 服务器的端口。
+      smtp_port_label: SMTP 端口
+      smtp_user_name_hint: 用于与 SMTP 服务器进行身份验证的用户名。
+      smtp_user_name_label: SMTP 用户名
+      storage_hint: 用于存储文件的存储类型。默认为 :local。
+      storage_label: 贮存

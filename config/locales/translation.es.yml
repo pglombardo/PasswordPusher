@@ -669,7 +669,6 @@ es:
   accounts:
     policy:
       pwgen_syllables_count_help: El número de sílabas de la contraseña generada.
-      back: volver al equipo
       edit: Editar política
       team_policy_help: Una política de equipo es un conjunto de reglas que se aplican
         a todos los empujones realizados por los miembros de este equipo.
@@ -685,7 +684,6 @@ es:
       expire_after_duration_default: Duración predeterminada
       expire_after_duration_default_help: La duración predeterminada antes de que
         caduque una inserción.
-      minutes_tip: 1 día = 1440 minutos, 7 días = 10080 minutos, 30 días = 43200 minutos
       header_view_expiration: Ver vencimiento
       expire_after_views_min: Recuento mínimo de vistas
       expire_after_views_min_help: El número mínimo de vistas antes de que caduque
@@ -768,17 +766,87 @@ es:
       pwgen_max_syllable_length_help: La longitud máxima de una sílaba en la contraseña
         generada.
       pwgen_syllables_count: Cuenta de sílabas
-      switch: Cambiar
-    show:
-      edit_policy: Editar política de inserción
-      policy: Política de equipo
+      policy: Política
+    account_invitations:
+      max_users: Has alcanzado el número máximo de usuarios para tu equipo. Ponte
+        en contacto con nosotros para actualizar y agregar más usuarios.
+    brand:
+      delivery_blur_tip: 'Consejo: puedes alternar el uso del desenfoque de carga
+        útil en la configuración de la Política de equipo.'
+      delivery_description: La página de entrega es la página que verán los usuarios
+        finales cuando visualicen el contenido del push.
+      delivery_preview: A continuación se muestra una vista previa de cuándo verán
+        los usuarios finales cuándo <em>se visualiza el contenido push</em> .
+      expired_description: La página vencida es la página que verán los usuarios finales
+        cuando el push haya expirado.
+      expired_preview: A continuación se muestra una vista previa de lo que verán
+        los usuarios finales cuando <em>caduque el push</em> .
+      form:
+        logo_info: El siguiente logotipo se puede utilizar para personalizar y marcar
+          las páginas push que verán sus usuarios finales.
+        no_logo: Aún no se ha cargado ningún logotipo. Sube un logotipo para comenzar.
+        show_expiration: "¿Mostrar duración restante y mensaje de vistas?"
+        show_logo: "¿Mostrar logotipo?"
+      navbar:
+        brand: Logo
+        delivery: Entrega
+        edit_brand: Editar marca
+        edit_delivery: Editar Entrega
+        edit_expired: Editar Caducado
+        edit_passphrase: Editar frase de contraseña
+        edit_preliminary: Editar Recuperación con un solo clic
+        expired: Expirado
+        passphrase: Bloqueo de frase de contraseña
+        preliminary: Recuperación con un solo clic
+      passphrase_description: La página de contraseñas se utiliza como parte de la
+        función de bloqueo de contraseñas. Los usuarios que reciben la notificación
+        deben ingresar una contraseña para acceder al contenido.
+      passphrase_preview: A continuación se muestra una vista previa de lo que verán
+        los usuarios finales cuando <em>se les solicite una frase de contraseña</em>
+        .
+      preliminary_description: La página de recuperación con un solo clic ayuda a
+        evitar que los bots, los sistemas de chat y los escáneres consuman las visitas.
+        Los usuarios que reciben el mensaje deben hacer clic en esta página preliminar
+        para acceder al contenido.
+      preliminary_preview: A continuación se muestra una vista previa de lo que verán
+        los usuarios finales para la <em>opción del paso de recuperación de 1 clic</em>
+        .
+      preview:
+        payload: Este es un ejemplo de una carga útil que se mostrará al usuario final.
+      save: Guardar
+      tip_custom_domain: "<strong>Consejo para suscriptores profesionales</strong>
+        : puedes configurar un dominio personalizado en tu %{link}."
+      tip_team_page: Página de configuración del equipo
+    brands:
+      form:
+        documentation: documentación
+        domain_documentation: Consulte %{link} para obtener más información sobre
+          cómo configurar un dominio personalizado.
+        domain_note_1: "<strong>Ingrese el nombre de dominio</strong> sin el protocolo
+          o la ruta, como <code>pwp.example.com</code> ."
+        domain_note_2: "<strong>Configure los ajustes de DNS</strong> : Cree un registro
+          ALIAS que apunte a <code>domain.pwpush.com</code> ."
+        domain_note_3: La configuración de DNS puede tardar hasta 24 horas en propagarse.
+        domain_note_4: Una vez que hayas configurado los ajustes de DNS, puedes <strong>probar
+          el dominio</strong> visitando %{link} en tu navegador. Deberías ver una
+          pantalla verde que indica que la operación se realizó correctamente.
+        domain_placeholder: 'Suscriptores Pro: utilice Password Pusher para enviar
+          notificaciones con el dominio de su empresa.'
+    edit_policy:
+      edit_policy: Editar política
+    form:
+      custom_domain_notes: Notas de dominio personalizadas
+    form_brand:
+      branding: Herrada
   tag_line: Adelante. Envíe otra contraseña por correo electrónico.
-  about: Sobre Nosotros
   app_name: Empujador de contraseñas
   application:
     card_newsletter:
       enter_email: Introduce tu correo electrónico...
       subscribe: Suscribir
+      get_the_newsletter: Obtener el boletín
+      updates_on: Actualizaciones sobre grandes lanzamientos, problemas de seguridad,
+        características, integraciones, consejos y más.
     cookie_consent:
       notice: Las cookies del navegador ayudan a que esta herramienta funcione. Al
         usarlo, aceptas el uso de estas cookies.
@@ -791,9 +859,11 @@ es:
       key_generator: Generador de clave
       newsletter: Boletin informativo
       password_generator: Generador de contraseñas
-      tools: Herramientas, API y CLI
       api_docs: Documentación API
       features: Características
+      languages: Idiomas
+      pricing: Precios
+      support: Apoyo
     pw_generator_modal:
       cancel: Cancelar
       configure: Configurar la generación de contraseñas
@@ -814,26 +884,27 @@ es:
       vowels: Vocales
     navbar:
       edit_policy: Política
+      branding: Herrada
     secret_url_bar:
       secret_link_lang: Idioma del enlace secreto
       autodetect: Detección automática
+    left_nav:
+      pushes: empuja
+    right_nav:
+      features: Características
   audit_logs:
     audit_log:
-      created: Creado
-      created_by: Creado por %{user}
       log_created: Push creado en %{date} por %{user}
       log_expired: El push expiró manualmente en %{date} por %{user}
       log_failed_view: Intento fallido de visualización desde la dirección IP %{ip}
         en %{date} por %{user}
-      log_manual_expiration: La inserción expiró manualmente en %{date} por %{user}
-        en la dirección IP %{ip}
-      log_referrer: 'Referencia: %{referrer}'
-      log_user_agent: 'Agente de usuario: %{user_agent}'
       log_viewed: Vista exitosa desde la dirección IP %{ip} en %{date} por %{user}
       unknown: Desconocido
-      viewed_by: Visto por %{user}
       log_failed_passphrase: Intento fallido de frase de contraseña en %{date} por
         %{user}
+      ip_address: 'Dirección IP:'
+      referrer: 'Referente:'
+      user_agent: 'Agente de usuario:'
   dashboard:
     show:
       detail: Detalle
@@ -863,36 +934,12 @@ es:
       email: Email
       have_idea: "¿Tienes una idea o un deseo? ¿Algo que no te gusta? ¿Quieres ayudar?
         ¡Queremos oírlo!"
-      leave_blank: "¡Deja este campo en blanco!"
       math_question: "¿Cuánto es cien menos 3?"
       send_feedback: Enviar comentarios
       tip: 'Consejo: Copie su mensaje en el portapapeles en la improbable posibilidad
         de que falle el envío.'
       your_name: Tu nombre
   none: Ninguna
-  pages:
-    about:
-      about_1: Password Pusher es una herramienta que se utiliza para compartir contraseñas
-        y otra información confidencial con otras personas de forma segura.
-      about_2: Con Password Pusher, puede crear una URL única que caducará después
-        de una cierta cantidad de tiempo o después de que se haya accedido a ella
-        una cierta cantidad de veces, lo que garantiza que su información permanezca
-        privada y segura.
-      about_3: A menudo, las personas y las organizaciones lo utilizan para compartir
-        credenciales de inicio de sesión u otros datos confidenciales con colegas,
-        clientes o socios.
-      about_4: Password Pusher es una solución simple y conveniente para compartir
-        contraseñas de forma segura sin necesidad de correo electrónico u otros métodos
-        de comunicación menos seguros.
-      about_pwpush: Acerca de Password Pusher
-      hosted_at_html: Alojado en <a href="https://pwpush.com">pwpush.com</a> o puede
-        ejecutar su propia instancia privada donde quiera.
-      my_name: Mi nombre es Pedro Giacomo Lombardo. Puedes encontrarme en %{linkedin},
-        %{github} o %{blog}.
-      source_avail_html: El código fuente está <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">disponible en GitHub</a> . Es de
-        código abierto y gratuito para que cualquiera pueda usarlo, revisarlo o modificarlo.
-      the_author: El autor
   pushes:
     access:
       incorrect: Esa contraseña es incorrecta. Vuelve a intentarlo o comunícate con
@@ -903,19 +950,14 @@ es:
         de URL consuman vistas.
       active: Activo
       attached_files: Archivos adjuntos
-      attached_files_help: "¿Se han adjuntado archivos a este envío?"
       audit_log_for: Registro de auditoría para %{push_id}
       contains_text: Contiene texto
       contains_text_help: "¿Se ha agregado una carga útil de texto a este enlace?"
-      created: Creado
-      created_by: Creado por %{user}
       current_status: Estado Actual
       deletable_by_viewers: Eliminable por los espectadores
       deletable_by_viewers_help: Esto permite a los usuarios finales eliminar el contenido
         una vez recuperado.
-      detail: Detalle
       end_audit_log: Fin del Registro de Auditoría
-      event: Evento
       event_log: Registro de auditoría
       expire_after: 'Caducar después:'
       expire_after_time_help: El envío caduca después de este período de tiempo desde
@@ -927,7 +969,6 @@ es:
         (incluidos los futuros intentos de visualización) se mantendrá en el futuro.
         ¿Está seguro?
       expired: Expirado
-      failed_view: Intento de visualización fallido
       failed_view_attempts: Intentos de Visualización Fallidos
       failed_view_attempts_help: El número de intentos de ver este envío después de
         su vencimiento.
@@ -936,7 +977,6 @@ es:
         no había ninguno adjunto."
       log_note: Cada vez que se utilice un enlace, aquí aparecerá un registro con
         información de identificación.
-      manual_expiration: Vencimiento manual
       message_length: Longitud del mensaje
       message_length_help: La longitud de la carga útil de texto adjunto.
       none: Ninguna
@@ -945,17 +985,14 @@ es:
       passphrase_lock: Bloqueo de contraseña
       passphrase_lock_help: Solicita a los destinatarios que ingresen una contraseña
         para ver este envío.
-      payload: Carga útil
       push_date: Empujado en %{date}
       reference_note: Nota de Referencia
       secret_url: URL secreta para este envío
       size: 'Tamaño: %{size}'
       start_audit_log: Inicio de registro de auditoría
-      start_log: Inicio de registro de auditoría
       state: Estado
       state_help_active: Activo y todavía disponible para su visualización.
       state_help_expired: El contenido del enlace se eliminó y la URL secreta caducó.
-      successful_view: Vista exitosa
       successful_views: Vistas exitosas
       successful_views_help: El número de veces que el envío se ha visto correctamente.
       time_remaining: Tiempo restante
@@ -963,12 +1000,8 @@ es:
         envío.
       title: Registro de auditoría push
       visible_to: Visible solo para ti
-      when: Cuando
       preview: Comparte este push
     copy_to_clipboard: Copiar al Portapapeles
-    day:
-      one: 1 día
-      other: "%{count} días"
     deleted: Eliminado
     expiration_html: Este enlace secreto y todo el contenido se eliminarán en <strong>%{duration}</strong>
       o <strong>%{count} más vistas</strong> , lo que ocurra primero.
@@ -998,11 +1031,8 @@ es:
       5_days: 5 dias
       6_days: 6 días
       6_hours: 6 horas
-      add_files: Agregar archivos...
       audit_tip: Cuando se inicia sesión, se mantiene un registro de auditoría de
         la actividad y está disponible indefinidamente.
-      day: Día
-      days: Días
       deletable: Permitir eliminación inmediata
       deletable_tip: Permita que los usuarios eliminen este enlace una vez visto.
       encryption_tip: El contenido se cifra antes del almacenamiento y está disponible
@@ -1010,17 +1040,9 @@ es:
       expiration_label: 'Expide este envío y elimínelo después de:'
       expiration_tip: Una vez caducado, todo el contenido y los archivos del envío
         se eliminan inmediata y completamente.
-      generator_tip: Usa el botón de arriba para generar una contraseña aleatoria.
-      hour: Hora
-      hours: Horas
-      login_to_upload: Inicie sesión para cargar y adjuntar archivos a este push...
-      minutes: Minutos
-      month: Mes
-      months: Meses
       note_label: Nota de Referencia
       note_placeholder: Una nota privada para ayudar a recordar para quién o para
         qué es este impulso.
-      passphrase_label: Bloqueo de frase de contraseña
       passphrase_placeholder: Solicita a los destinatarios que ingresen una contraseña
         para ver este envío.
       password_tip: 'Consejo: Introduzca únicamente una contraseña en el cuadro. Otra
@@ -1030,38 +1052,22 @@ es:
       upload_limit: Puede cargar hasta 10 archivos por enlace.
       view: Vista
       views: Vistas
-      week: Semana
-      weeks: Semanas
       payload_url_placeholder: Introduce URL a la que quieres redirigir...
       url_push_tip: El envío creado redireccionará a la URL proporcionada.
-    hour:
-      one: 1 hora
-      other: "%{count} horas"
     index:
       actions: Comportamiento
       clear_filters: Borrar filtros
       created: Creado
-      created_by: Por
-      expires: Vence
       file_count: archivos
       note: Nota
       nothing_here: No hay nada aquí todavía.
       push_id: ID
       pushes: empuja
-      remaining_time: Tiempo restante
-      status: Estado
-      views: Vistas
-      views_remaining: Vistas restantes
       active: Activo
       expired: Expirado
       all: Todo
       remaining: Restante
-    minute:
-      one: 1 minuto
-      other: "%{count} minutos"
-    more_view:
-      one: 1 vista más
-      other: "%{count} más vistas"
+      team_pushes: Empujones en equipo
     'no': 'No'
     none: Ninguna
     passphrase:
@@ -1073,24 +1079,17 @@ es:
     payload: Carga útil
     preliminary:
       click_proceed: Haz click aquí para continuar
+      title: Haga clic para continuar
     preview:
-      and: "y"
-      can_be: puede ser
-      can_not_be: no puede ser
-      deleted_by_viewers: eliminado por los espectadores.
       link_lang_tip: 'Sugerencia: ¿Compartiendo con un usuario internacional? Cambie
         el idioma del enlace secreto usando el menú desplegable a la derecha de la
         URL.'
       or: o
-      or_after: o después
       push_another: Compartir otro
       push_created: Tu enlace ha sido creado.
       use_link_to_share: 'Utiliza este enlace secreto para compartirlo:'
       view_push_now: Ver este enlace ahora
       will_burn_view: "(quemará una vista)"
-      will_expire_after: Este empujón expira en
-      with_preliminary_step: También incluye un paso de recuperación preliminar con
-        1 clic %{strong_start}%{strong_end}.
       example: Ejemplo
       generate: Generar
       include_id: Incluir identificación
@@ -1106,33 +1105,23 @@ es:
     provide_text_or_file: Para crear un envío, debe proporcionar texto, adjuntar un
       archivo o ambos.
     push:
-      active: Activo
       audit: Auditoría
       expired: Expirado
       none: Ninguna
-      preview: Vista previa
-      push_controls: Controles de los enlaces
       title: Nuevo empujón
       unknown: Desconocido
       share: Compartir
     settings: Ajustes
     show:
-      blurred: Tu contraseña está borrosa. Haz clic a continuación para revelarla.
       click_to_reveal: El contenido está borroso. Haga clic a continuación para revelarlo.
       delete_now: Eliminar este enlace secreto ahora
       delete_now_confirm: Esto hará caducar este enlace secreto y eliminará todo el
         contenido relacionado de la base de datos para siempre. ¿Está seguro?
       download_file: Descargar archivo
-      files_sent: Se le han enviado los siguientes archivos.
-      last_view: Esta es la última vista.
       obtain: Recupere y almacene de forma segura este contenido mediante un administrador
         de contraseñas y/o almacenamiento cifrado. Recuerde eliminar de inmediato
         cualquier dato que ya no sea necesario.
       open_file: Abrir documento
-      please_download: Por favor descárgalo y guárdalo en un área segura.
-      will_be_deleted: Este enlace secreto y todo el contenido se eliminarán en %{b_tag}%{time_count}
-        %{time_unit}%{b_tag} o %{b_tag}%{view_count} más %{view_unit}%{b_tag} (lo
-        que ocurra primero).
       your_link: Tu enlace secreto
       intro: Se le ha enviado el siguiente contenido.
     show_expired:
@@ -1149,6 +1138,12 @@ es:
     payload_too_large: La carga útil es demasiado grande. Solo puede enviar hasta
       %{count} bytes.
     too_many_files: Solo puede adjuntar hasta archivos %{count} por envío.
+    navbar:
+      files: archivos
+      text: Contraseñas y texto
+      url: URL
+    new:
+      title: Enviar una contraseña, un texto o un archivo de forma segura
   static:
     about:
       about_1: Password Pusher es una herramienta que se utiliza para compartir contraseñas
@@ -1174,26 +1169,15 @@ es:
         %{github} o %{blog}.
       author_2: Para obtener actualizaciones, siga a Password Pusher en %{twitter}
         (o mi %{twitter_personal}) o suscríbase a %{newsletter}.
-      facebook: Facebook
       github: GitHub
-      help_1: Con diferencia, la mayor ayuda es correr la voz. Comparta Password Pusher
-        con sus amigos, colegas y organizaciones.
-      help_2: 'Tú también puedes:'
-      help_3: Destaca el proyecto %{github}. Es gasolina para los algoritmos que son
-        tendencia en Password Pusher.
-      help_4: Ayuda %{translate}. Mejore un idioma existente o agregue uno nuevo.
-      help_5: Regístrese en %{newsletter} para recibir actualizaciones sobre versiones
-        importantes, problemas de seguridad, consejos y más.
-      help_6: Siga a Password Pusher en %{facebook}, %{twitter} y %{github}.
-      help_translate: Ayuda a Traducir
-      newsletter: Boletin informativo
       pwpush_domain: pwpush.com
       section_about: Sobre Nosotros
       section_author: El autor
-      section_follow: Dónde seguir al pulsador de contraseñas
-      section_help: "¿Quieres Ayudar?"
       title: Acerca de Password Pusher
-      twitter: Gorjeo
+      birthday: Cumpleaños
+      original_theme: El Tema Original
+      original_theme_body: El diseño del sitio original consistía en un fondo oscuro
+        con una fuente amarilla en negrita.
     generate_key:
       env_var: Puede aplicar esta clave a su aplicación configurando la variable de
         entorno
@@ -1223,9 +1207,31 @@ es:
       notes: 'Notas:'
       reload: Recarga esta página para volver a generar una nueva clave.
       title: Genere una Clave de Cifrado
+      explanation: Explicación
     password_generator:
       push_it: Introduzca esta contraseña
       pwgen_title: Generador de contraseñas
+    features:
+      intro_4: 'Hay cuatro versiones diferentes de Password Pusher para satisfacer
+        sus necesidades: <strong>Código abierto</strong> , <strong>Premium</strong>
+        , <strong>Pro</strong> y <strong>Autohospedado</strong> .'
+      intro_5: A continuación se muestra una matriz de características que describe
+        las características principales de cada sabor.
+      title: Características
+    languages:
+      lang_description: A continuación se muestran los idiomas que admite Password
+        Pusher. Hay 30 idiomas admitidos. Si utiliza el alojamiento propio, puede
+        habilitar o deshabilitar idiomas para su instancia.
+      languages: Idiomas
+      pwp_languages: Idiomas de Password Pusher
+    pricing:
+      coming_soon: Próximamente estará disponible un plan autohospedado para las funciones
+        Pro.
+      custom_subhead: Apoye el código abierto. Obtenga funciones premium.
+      feature_pipeline: Las funciones premium se trasladan periódicamente a la edición
+        de código abierto.
+      footer_note: Las suscripciones son para pwpush.com y financian el desarrollo
+        de la edición de código abierto.
   zero_minutes: 0 minutos
   users:
     agreements:
@@ -1234,3 +1240,136 @@ es:
       terms_of_service:
         terms_of_service: Términos de servicio
   confirmation_go: Haga clic aquí para confirmar su cuenta
+  admin:
+    config:
+      menu_item: Configuración
+      overview:
+        description: Los ajustes de esta sección se utilizan para configurar la aplicación
+          de forma global. Cuando se realizan cambios, es posible reiniciar la aplicación
+          para aplicar los nuevos ajustes.
+        subtitle: Aquí puede personalizar la configuración de Password Pusher.
+        title: Configuración de la aplicación
+      reset: Restablecer los valores predeterminados
+      reset_confirm: "¿Está seguro de que desea restablecer la configuración de esta
+        página a los valores predeterminados? Esto no afectará la configuración de
+        otras páginas."
+      save: Guardar
+  models:
+    pwp_config:
+      app_config: Configuración de la aplicación
+      as_container_hint: El contenedor que se utilizará para almacenar archivos.
+      as_container_label: Contenedor AS
+      as_storage_access_key_hint: La clave de acceso de almacenamiento que se utilizará
+        para autenticarse con el servidor AS.
+      as_storage_access_key_label: Clave de acceso al almacenamiento AS
+      as_storage_account_name_hint: El nombre de la cuenta de almacenamiento que se
+        utilizará para almacenar archivos.
+      as_storage_account_name_label: Nombre de la cuenta de almacenamiento AS
+      config_encryption_key_hint: La clave de cifrado que se utilizará para cifrar
+        y descifrar estos datos de configuración.
+      config_encryption_key_label: Clave de cifrado de configuración
+      dark_logo_hint: Logotipo que se utilizará para el tema oscuro. Asegúrese primero
+        de que el almacenamiento de archivos esté configurado correctamente.
+      dark_logo_label: Logotipo del sitio con tema oscuro
+      default_locale_hint: El idioma predeterminado que se utilizará para la aplicación.
+      default_locale_label: Idioma predeterminado
+      email_raise_delivery_errors_hint: Especifica si se debe generar un error si
+        no se puede completar la entrega del correo electrónico. El valor predeterminado
+        es verdadero.
+      email_raise_delivery_errors_label: Errores de entrega de aumento
+      email_subtitle: Aquí puede personalizar cómo Password Pusher envía correos electrónicos.
+      email_title: Configuración de correo electrónico
+      enabled_languages_hint: Los idiomas seleccionados a continuación estarán disponibles
+        para todos los usuarios.
+      enabled_languages_label: Idiomas habilitados
+      encryption_subtitle: Aquí puede personalizar la configuración de cifrado para
+        Password Pusher.
+      encryption_title: Configuración de cifrado
+      file_subtitle: Aquí puede personalizar cómo Password Pusher almacena los archivos
+        cargados.
+      file_title: Configuración de almacenamiento de archivos
+      from_address_hint: La dirección de correo electrónico que se utilizará como
+        remitente del correo electrónico.
+      from_address_label: Dirección de origen
+      gcs_bucket_hint: El depósito que se utilizará para almacenar archivos.
+      gcs_bucket_label: Cubo GCS
+      gcs_credentials_hint: Las credenciales que se utilizarán para autenticarse con
+        el servidor GCS.
+      gcs_credentials_label: Credenciales GCS
+      gcs_gsa_email_hint: El correo electrónico de GSA que se utilizará para autenticarse
+        con el servidor GCS.
+      gcs_gsa_email_label: Correo electrónico de GCS GSA
+      gcs_iam_hint: El IAM que se utilizará para autenticarse con el servidor GCS.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: El proyecto a utilizar para almacenar archivos.
+      gcs_project_label: Proyecto GCS
+      language_subtitle: Aquí puedes personalizar los idiomas que admite Password
+        Pusher.
+      language_title: Configuración del idioma
+      light_logo_hint: Logotipo que se utilizará para el tema claro. Asegúrese primero
+        de que el almacenamiento de archivos esté configurado correctamente.
+      light_logo_label: Logotipo del sitio de tema claro
+      login_subtitle: Aquí puede personalizar cómo Password Pusher maneja los inicios
+        de sesión.
+      login_tip: Consejo
+      login_tip_body: 'Utilice esta herramienta para probar sus patrones de correo
+        electrónico:'
+      login_title: Configuración de inicio de sesión
+      override_base_url_hint: Se utiliza para forzar la URL base de las URL secretas
+        generadas.
+      override_base_url_label: Anular URL base
+      push_encryption_key_hint: La clave de cifrado que se utilizará para cifrar y
+        descifrar los envíos.
+      push_encryption_key_label: Clave de cifrado Push
+      s3_access_key_id_hint: El ID de clave de acceso que se utilizará para autenticarse
+        con el servidor S3.
+      s3_access_key_id_label: Identificación de la clave de acceso S3
+      s3_bucket_hint: El depósito que se utilizará para almacenar archivos.
+      s3_bucket_label: Cubo S3
+      s3_endpoint_hint: El punto final del servidor S3 que se utilizará para almacenar
+        archivos.
+      s3_endpoint_label: Punto final S3
+      s3_region_hint: La región del servidor S3 que se utilizará para almacenar archivos.
+      s3_region_label: Región S3
+      s3_secret_access_key_hint: La clave de acceso secreta que se utilizará para
+        autenticarse con el servidor S3.
+      s3_secret_access_key_label: Clave de acceso secreta S3
+      signup_email_regexp_hint: Los correos electrónicos que no coincidan con este
+        patrón serán rechazados.
+      signup_email_regexp_label: Regexp de correo electrónico de registro
+      site_name_hint: El nombre del sitio que se utilizará en el encabezado y el pie
+        de página.
+      site_name_label: Nombre del sitio
+      site_tagline_hint: El lema del sitio que se utilizará en el encabezado y el
+        pie de página.
+      site_tagline_label: Lema del sitio
+      smtp_address_hint: La dirección del servidor SMTP que se utilizará para enviar
+        correo electrónico.
+      smtp_address_label: Dirección del servidor SMTP
+      smtp_authentication_hint: El tipo de autenticación a utilizar con el servidor
+        SMTP.
+      smtp_authentication_label: Tipo de autenticación SMTP
+      smtp_domain_hint: El dominio del servidor SMTP que se utilizará para enviar
+        correo electrónico.
+      smtp_domain_label: Dominio SMTP
+      smtp_enable_starttls_auto_hint: Detecta si STARTTLS está habilitado en el servidor
+        SMTP y comienza a usarlo. El valor predeterminado es verdadero.
+      smtp_enable_starttls_auto_label: SMTP STARTTLS automático
+      smtp_enable_starttls_hint: Utilice STARTTLS al conectarse a su servidor SMTP
+        y fallará si no es compatible. El valor predeterminado es falso.
+      smtp_enable_starttls_label: Habilitar SMTP STARTTLS
+      smtp_openssl_verify_mode_hint: El modo de verificación OpenSSL que se utilizará
+        al conectarse al servidor SMTP.
+      smtp_openssl_verify_mode_label: Modo de verificación SMTP OpenSSL
+      smtp_password_hint: La contraseña que se utilizará para autenticarse con el
+        servidor SMTP.
+      smtp_password_label: Contraseña SMTP
+      smtp_port_hint: El puerto del servidor SMTP que se utilizará para enviar correo
+        electrónico.
+      smtp_port_label: Puerto SMTP
+      smtp_user_name_hint: El nombre de usuario que se utilizará para autenticarse
+        con el servidor SMTP.
+      smtp_user_name_label: Nombre de usuario SMTP
+      storage_hint: El tipo de almacenamiento que se utilizará para guardar archivos.
+        El valor predeterminado es :local.
+      storage_label: Almacenamiento
