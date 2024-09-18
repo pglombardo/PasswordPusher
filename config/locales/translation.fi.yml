@@ -648,7 +648,6 @@ fi:
   accounts:
     policy:
       pwgen_syllables_count_help: Luodussa salasanassa olevien tavujen määrä.
-      back: Takaisin tiimiin
       edit: Muokkaa käytäntöä
       team_policy_help: Tiimikäytäntö on joukko sääntöjä, jotka koskevat kaikkia tämän
         joukkueen jäsenten tekemiä työntöjä.
@@ -663,8 +662,6 @@ fi:
       expire_after_duration_max_help: Enimmäiskesto ennen painalluksen päättymistä.
       expire_after_duration_default: Oletuskesto
       expire_after_duration_default_help: Oletusaika ennen työntöajan päättymistä.
-      minutes_tip: 1 päivä = 1440 minuuttia, 7 päivää = 10080 minuuttia, 30 päivää
-        = 43200 minuuttia
       header_view_expiration: Näytä vanheneminen
       expire_after_views_min: Vähimmäiskatselumäärä
       expire_after_views_min_help: Vähimmäismäärä näyttökertoja ennen työntöajan päättymistä.
@@ -740,17 +737,84 @@ fi:
       pwgen_max_syllable_length: Tavun enimmäispituus
       pwgen_max_syllable_length_help: Luodussa salasanassa olevan tavun enimmäispituus.
       pwgen_syllables_count: Tavut Count
-      switch: Vaihtaa
-    show:
-      edit_policy: Muokkaa push-käytäntöä
-      policy: Joukkueen käytäntö
+      policy: Käytäntö
+    account_invitations:
+      max_users: Olet saavuttanut tiimisi käyttäjien enimmäismäärän. Ota meihin yhteyttä
+        päivittääksesi ja lisätäksesi käyttäjiä.
+    brand:
+      delivery_blur_tip: 'Vinkki: Voit vaihtaa hyötykuorman hämärtymisen käyttöä Team
+        Policy -asetuksissa.'
+      delivery_description: Toimitussivu on sivu, jonka loppukäyttäjäsi näkevät, kun
+        push-palvelun sisältöä tarkastellaan.
+      delivery_preview: Alla on esikatselu siitä, milloin loppukäyttäjäsi näkevät,
+        kun <em>push-sisältöä tarkastellaan</em> .
+      expired_description: Vanhentunut sivu on sivu, jonka loppukäyttäjäsi näkevät,
+        kun push on vanhentunut.
+      expired_preview: Alla on esikatselu siitä, mitä loppukäyttäjäsi näkevät, kun
+        <em>push on vanhentunut</em> .
+      form:
+        logo_info: Seuraavaa logoa voidaan käyttää loppukäyttäjien näkemien push-sivujen
+          mukauttamiseen ja brändäämiseen.
+        no_logo: Logoa ei ole ladattu vielä. Aloita lataamalla logo.
+        show_expiration: Näytetäänkö jäljellä oleva kesto ja näyttökerrat -viesti?
+        show_logo: Näytä logo?
+      navbar:
+        brand: Logo
+        delivery: Toimitus
+        edit_brand: Muokkaa brändiä
+        edit_delivery: Muokkaa toimitusta
+        edit_expired: Muokkaa vanhentunut
+        edit_passphrase: Muokkaa salasanaa
+        edit_preliminary: Muokkaa yhden napsautuksen hakua
+        expired: Vanhentunut
+        passphrase: Salalauseen lukitus
+        preliminary: 1-Napsauta Haku
+      passphrase_description: Salalausesivua käytetään osana Passphrase Lockdown -ominaisuutta.
+        Käyttäjien, jotka saavat push-ilmoituksen, on syötettävä tunnuslause päästäkseen
+        sisältöön.
+      passphrase_preview: Alla on esikatselu siitä, mitä loppukäyttäjät näkevät, kun
+        <em>heitä pyydetään antamaan tunnuslause</em> .
+      preliminary_description: Yhden napsautuksen hakusivu auttaa estämään robotteja,
+        chat-järjestelmiä ja skannereita syömästä näkymiä. Käyttäjien, jotka saavat
+        push-ilmoituksen, on napsautettava tätä alustavaa sivua päästäkseen sisältöön.
+      preliminary_preview: Alla on esikatselu siitä, mitä loppukäyttäjät näkevät <em>yhden
+        napsautuksen hakuvaiheessa</em> .
+      preview:
+        payload: Tämä on esimerkki hyötykuormasta, joka näytetään loppukäyttäjälle.
+      save: Tallenna
+      tip_custom_domain: "<strong>Vinkki Pro-tilaajille</strong> : Voit määrittää
+        mukautetun toimialueen %{link}:ssa."
+      tip_team_page: Joukkueen määrityssivu
+    brands:
+      form:
+        documentation: dokumentaatio
+        domain_documentation: Katso %{link} saadaksesi lisätietoja mukautetun toimialueen
+          määrittämisestä.
+        domain_note_1: "<strong>Anna verkkotunnuksen nimi</strong> ilman protokollaa
+          tai polkua, kuten <code>pwp.example.com</code> ."
+        domain_note_2: "<strong>Määritä DNS-asetukset</strong> : Luo ALIAS-tietue,
+          joka osoittaa osoitteeseen <code>domain.pwpush.com</code> ."
+        domain_note_3: DNS-asetusten leviäminen voi kestää jopa 24 tuntia.
+        domain_note_4: Kun olet määrittänyt DNS-asetukset, voit <strong>testata verkkotunnusta</strong>
+          käymällä selaimessasi osoitteessa %{link}. Sinun pitäisi nähdä vihreä näyttö,
+          joka ilmaisee onnistumisen.
+        domain_placeholder: 'Pro-tilaajat: Käytä Password Pusheria yrityksesi verkkotunnuksen
+          lähettämiseen.'
+    edit_policy:
+      edit_policy: Muokkaa käytäntöä
+    form:
+      custom_domain_notes: Mukautetut verkkotunnuksen huomautukset
+    form_brand:
+      branding: Brändäys
   tag_line: Mene eteenpäin. Lähetä sähköpostilla toinen salasana.
-  about: Tietoja
   app_name: Salasanan työntäjä
   application:
     card_newsletter:
       enter_email: Syötä sähköpostiosoitteesi...
       subscribe: Tilaa
+      get_the_newsletter: Hanki uutiskirje
+      updates_on: Päivityksiä suurista julkaisuista, tietoturvaongelmista, ominaisuuksista,
+        integraatioista, vinkeistä ja muusta.
     cookie_consent:
       notice: Selaimen evästeet auttavat saamaan tämän työkalun toimimaan. Käyttämällä
         sitä hyväksyt näiden evästeiden käytön.
@@ -763,9 +827,11 @@ fi:
       key_generator: Avaingeneraattori
       newsletter: Uutiskirje
       password_generator: Salasanageneraattori
-      tools: Työkalut, API ja CLI:t
       api_docs: API-dokumentaatio
       features: ominaisuudet
+      languages: Kielet
+      pricing: Hinnoittelu
+      support: Tuki
     pw_generator_modal:
       cancel: peruuta
       configure: Määritä salasanan luominen
@@ -786,25 +852,26 @@ fi:
       vowels: Vokaalit
     navbar:
       edit_policy: Käytäntö
+      branding: Brändäys
     secret_url_bar:
       secret_link_lang: Salainen linkkikieli
       autodetect: Automaattinen havainnointi
+    left_nav:
+      pushes: Työntää
+    right_nav:
+      features: ominaisuudet
   audit_logs:
     audit_log:
-      created: Luotu
-      created_by: Luonut %{user}
       log_created: 'Push loi %{date}: %{user}'
       log_expired: 'Push vanhentui manuaalisesti %{date}: %{user}'
       log_failed_view: 'Epäonnistunut katseluyritys IP-osoitteesta %{ip} %{date}:
         %{user}'
-      log_manual_expiration: 'Push vanhentunut manuaalisesti %{date}: %{user} IP-osoitteessa
-        %{ip}'
-      log_referrer: 'Viittaus: %{referrer}'
-      log_user_agent: 'Käyttäjäagentti: %{user_agent}'
       log_viewed: Onnistunut näkymä IP-osoitteesta %{ip} %{date}:stä %{user}
       unknown: Tuntematon
-      viewed_by: Katsonut %{user}
       log_failed_passphrase: 'Epäonnistunut tunnuslauseyritys %{date}: %{user}'
+      ip_address: 'IP-osoite:'
+      referrer: 'Viittaus:'
+      user_agent: 'Käyttäjäagentti:'
   dashboard:
     show:
       detail: Yksityiskohta
@@ -833,36 +900,12 @@ fi:
       email: Sähköposti
       have_idea: Onko sinulla idea tai toive? Jotain, josta et pidä? Haluatko auttaa?
         Haluamme kuulla sen!
-      leave_blank: Jätä tämä kenttä tyhjäksi!
       math_question: Mikä on sata miinus 3?
       send_feedback: Lähetä palautetta
       tip: 'Vinkki: Kopioi viestisi leikepöydälle, siltä varalta jos lähetys jostain
         syystä epäonnistuu.'
       your_name: Nimesi
   none: Ei mitään
-  pages:
-    about:
-      about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
-        jakamiseen muiden ihmisten kanssa turvallisesti.
-      about_2: Password Pusherin avulla voit luoda ainutlaatuisen, kertaluonteisen
-        URL-osoitteen, joka vanhenee tietyn ajan kuluttua tai sen jälkeen, kun sitä
-        on käytetty tietyn määrän kertoja, mikä varmistaa, että tietosi pysyvät yksityisinä
-        ja turvassa.
-      about_3: Yksityishenkilöt ja organisaatiot käyttävät sitä usein jakaakseen kirjautumistietoja
-        tai muita arkaluonteisia tietoja kollegoiden, asiakkaiden tai kumppaneiden
-        kanssa.
-      about_4: Password Pusher on yksinkertainen ja kätevä ratkaisu salasanojen turvalliseen
-        jakamiseen ilman sähköpostia tai muita vähemmän turvallisia viestintätapoja.
-      about_pwpush: Tietoja Password Pusherista
-      hosted_at_html: Isännöi osoitteessa <a href="https://pwpush.com">pwpush.com</a>
-        tai voit käyttää omaa yksityistä ilmentymääsi missä haluat.
-      my_name: Nimeni on Peter Giacomo Lombardo. Löydät minut osoitteesta %{linkedin},
-        %{github} tai %{blog}.
-      source_avail_html: Lähdekoodi on <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">saatavilla GitHubissa</a> . Se on
-        avoimen lähdekoodin ja ilmainen kenen tahansa käytettäväksi, tarkastettavaksi
-        tai muokattavaksi.
-      the_author: Kirjoittaja
   pushes:
     access:
       incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
@@ -873,18 +916,13 @@ fi:
         käyttämästä näyttökertoja.
       active: Aktiivinen
       attached_files: Liitetyt tiedostot
-      attached_files_help: Onko tähän pushiin liitetty tiedostoja?
       audit_log_for: Tarkastusloki kohteelle %{push_id}
       contains_text: Sisältää tekstiä
       contains_text_help: Onko tähän pushiin lisätty tekstiviesti?
-      created: Luotu
-      created_by: Tekijä %{user}
       current_status: Nykyinen tila
       deletable_by_viewers: Katsojien poistettavissa
       deletable_by_viewers_help: Näin loppukäyttäjät voivat poistaa sisällön haettuaan.
-      detail: Yksityiskohta
       end_audit_log: Tarkastuslokin loppu
-      event: Tapahtuma
       event_log: Tarkastusloki
       expire_after: 'Vanhenee jälkeen:'
       expire_after_time_help: Työntö vanhenee tämän ajan kuluttua luomisesta.
@@ -894,7 +932,6 @@ fi:
         liittyvän sisällön tietokannasta pysyvästi. Tarkastusloki (mukaan lukien tulevat
         katseluyritykset) säilytetään edelleen. Oletko varma?
       expired: Vanhentunut
-      failed_view: Epäonnistunut katseluyritys
       failed_view_attempts: Epäonnistuneet katseluyritykset
       failed_view_attempts_help: Yritysten määrä tarkastella tätä push-toimintoa vanhenemisen
         jälkeen.
@@ -903,7 +940,6 @@ fi:
         liitetty."
       log_note: Kun push vastaanottaa toimintaa, jokaisen loki, jossa on tunnistetiedot,
         tulee näkyviin tähän.
-      manual_expiration: Manuaalinen vanheneminen
       message_length: Viestin pituus
       message_length_help: Liitteenä olevan tekstin hyötykuorman pituus.
       none: Ei mitään
@@ -912,29 +948,22 @@ fi:
       passphrase_lock: Salalauseen lukitus
       passphrase_lock_help: Vaadi vastaanottajia antamaan tunnuslause nähdäkseen tämän
         push-toiminnon.
-      payload: Hyötykuorma
       push_date: Painettu %{date}
       reference_note: Viitehuomautus
       secret_url: Tämän lähetyksen salainen URL-osoite
       size: 'Koko: %{size}'
       start_audit_log: Tarkastuslokin alku
-      start_log: Tarkastuslokin alku
       state: Osavaltio
       state_help_active: Aktiivinen ja edelleen katsottavissa.
       state_help_expired: Lähetys on poistettu ja salainen URL-osoite vanhentunut.
-      successful_view: Onnistunut näkymä
       successful_views: Onnistuneet näytöt
       successful_views_help: Kuinka monta kertaa push on katsottu onnistuneesti.
       time_remaining: Aikaa jäljellä
       time_remaining_help: Aika, joka on jäljellä ennen työntöajan päättymistä.
       title: Push Audit Log
       visible_to: Näkyy vain sinulle
-      when: Kun
       preview: Jaa tämä Push
     copy_to_clipboard: Kopioi leikepöydälle
-    day:
-      one: 1 päivä
-      other: "%{count} päivää"
     deleted: Poistettu
     expiration_html: Tämä salainen linkki ja kaikki sisältö poistetaan <strong>%{duration}</strong>
       tai <strong>%{count} muissa näkymissä</strong> sen mukaan, kumpi tapahtuu ensin.
@@ -963,11 +992,8 @@ fi:
       5_days: 5 päivää
       6_days: 6 päivää
       6_hours: 6 tuntia
-      add_files: Lisää tiedostoja...
       audit_tip: Sisäänkirjautuneena toiminnasta pidetään tarkastusloki, joka on käytettävissä
         toistaiseksi.
-      day: Päivä
-      days: Päiviä
       deletable: Salli välitön poistaminen
       deletable_tip: Salli käyttäjien poistaa tämä push, kun se on haettu.
       encryption_tip: Sisältö salataan ennen tallennusta, ja se on vain niille, joilla
@@ -975,18 +1001,9 @@ fi:
       expiration_label: 'Vanhene tämä push ja poista sen jälkeen:'
       expiration_tip: Vanhentuessaan kaikki push-ohjelman sisältö ja tiedostot poistetaan
         välittömästi ja kokonaan.
-      generator_tip: Käytä yllä olevaa painiketta luodaksesi satunnaisen salasanan.
-      hour: Tunti
-      hours: Tuntia
-      login_to_upload: Kirjaudu sisään ladataksesi ja liittääksesi tiedostoja tähän
-        push...
-      minutes: Pöytäkirja
-      month: Kuukausi
-      months: Kuukaudet
       note_label: Viitehuomautus
       note_placeholder: Yksityinen muistiinpano, joka auttaa muistamaan kenelle tai
         mihin tämä työntö on tarkoitettu.
-      passphrase_label: Salalauseen lukitus
       passphrase_placeholder: Vaadi vastaanottajia antamaan tunnuslause nähdäkseen
         tämän push-toiminnon.
       password_tip: 'Vinkki: Kirjoita vain salasana ruutuun. Muut tunnistetiedot voivat
@@ -996,38 +1013,22 @@ fi:
       upload_limit: Voit ladata enintään 10 tiedostoa työntöä kohti.
       view: Näytä
       views: katselukerrat
-      week: Viikko
-      weeks: Viikot
       payload_url_placeholder: Anna URL-osoite, johon uudelleenohjataan...
       url_push_tip: Luotu push uudelleenohjaa annettuun URL-osoitteeseen.
-    hour:
-      one: 1 tunti
-      other: "%{count} tuntia"
     index:
       actions: Toiminnot
       clear_filters: Tyhjennä suodattimet
       created: Luotu
-      created_by: 'Tekijä:'
-      expires: Vanhenee
       file_count: Tiedostot
       note: Lisätieto
       nothing_here: Täällä ei ole vielä mitään.
       push_id: Lähetys ID
       pushes: Työntää
-      remaining_time: Aikaa jäljellä
-      status: Tila
-      views: katselukerrat
-      views_remaining: Näkymät jäljellä
       active: Aktiivinen
       expired: Vanhentunut
       all: Kaikki
       remaining: Jäljelle jäänyt
-    minute:
-      one: 1 minuutti
-      other: "%{count} minuuttia"
-    more_view:
-      one: 1 katselu lisää
-      other: "%{count} lisää katselukertoja"
+      team_pushes: Joukkueen työnnät
     'no': Ei
     none: Ei mitään
     passphrase:
@@ -1038,23 +1039,16 @@ fi:
     payload: Hyötykuorma
     preliminary:
       click_proceed: Napsauta tästä jatkaaksesi
+      title: Napsauta jatkaaksesi
     preview:
-      and: ja
-      can_be: 'on'
-      can_not_be: ei voi olla
-      deleted_by_viewers: katsojien poistettavissa
       link_lang_tip: 'Vinkki: lähetätkö kansainväliselle käyttäjälle? Vaihda salaisen
         linkin kieli URL-osoitteen oikealla puolella olevasta valikosta.'
       or: tai
-      or_after: tai sen jälkeen
       push_another: Työnnä toinen
       push_created: Puskisi on luotu.
       use_link_to_share: 'Käytä tätä salaista linkkiä sen jakamiseen:'
       view_push_now: Näytä tämä Push nyt
       will_burn_view: "(polttaa näkymän)"
-      will_expire_after: Tämä push vanhenee
-      with_preliminary_step: Se sisältää myös %{strong_start}1 napsautuksen alustavan
-        hakuvaiheen%{strong_end}.
       example: Esimerkki
       generate: Tuottaa
       include_id: Sisällytä henkilöllisyystodistus
@@ -1069,34 +1063,23 @@ fi:
     provide_text_or_file: Push-työn luomiseksi sinun on joko annettava tekstiä, liitettävä
       tiedosto tai molemmat.
     push:
-      active: Aktiivinen
       audit: Auditointi
       expired: Vanhentunut
       none: Ei mitään
-      preview: Esikatselu
-      push_controls: Lähetyskontrollit
       title: Uusi Push
       unknown: Tuntematon
       share: Jaa
     settings: Asetukset
     show:
-      blurred: Salasanasi on sumennettu sen suojaamiseksi. Napsauta alapuolelta näyttääksesi
-        sen.
       click_to_reveal: Sisältö on hämärtynyt. Napsauta alla paljastaaksesi sen.
       delete_now: Poista tämä salainen linkki nyt
       delete_now_confirm: Tämä vanhenee tämän salaisen linkin ja poistaa kaiken siihen
         liittyvän sisällön tietokannasta pysyvästi. Oletko varma?
       download_file: Lataa tiedosto
-      files_sent: Seuraavat tiedostot on lähetetty sinulle.
-      last_view: Tämä on viimeinen näkymä.
       obtain: Hae ja tallenna tämä sisältö turvallisesti salasanojen hallinnan ja/tai
         salatun tallennustilan avulla. Muista poistaa välittömästi kaikki tiedot,
         joita ei enää tarvita.
       open_file: Avaa tiedosto
-      please_download: Lataa ja säilytä suojatussa paikassa.
-      will_be_deleted: Tämä salainen linkki ja kaikki sisältö poistetaan kansiosta
-        %{b_tag}%{time_count} %{time_unit}%{b_tag} tai %{b_tag}%{view_count} lisää
-        %{view_unit}%{b_tag} (sen mukaan, kumpi tapahtuu ensin).
       your_link: Salainen linkkisi
       intro: Seuraava sisältö on lähetetty sinulle.
     show_expired:
@@ -1113,6 +1096,12 @@ fi:
     payload_too_large: Hyötykuorma on liian suuri. Voit työntää enintään %{count}
       tavua.
     too_many_files: Voit liittää enintään %{count} tiedostoa työntöä kohti.
+    navbar:
+      files: Tiedostot
+      text: Salasanat ja teksti
+      url: URL-osoitteet
+    new:
+      title: Lähetä turvallisesti salasana, teksti tai tiedosto
   static:
     about:
       about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
@@ -1138,26 +1127,15 @@ fi:
         %{github} tai %{blog}.
       author_2: Päivityksiä varten seuraa Password Pusher -palvelua %{twitter}:ssa
         (tai minun %{twitter_personal}:ssä) tai tilaa %{newsletter}.
-      facebook: Facebook
       github: Github
-      help_1: Ylivoimaisesti suurin apu on sanan levittäminen. Jaa Password Pusher
-        ystävien, työtovereiden ja organisaatioiden kanssa.
-      help_2: 'Voit myös:'
-      help_3: Tähdellä %{github}-projekti. Se on bensiiniä Password Pusherin trendikkäille
-        algoille.
-      help_4: Ohje %{translate}. Paranna olemassa olevaa kieltä tai lisää uusi.
-      help_5: Rekisteröidy %{newsletter}-palveluun saadaksesi päivityksiä tärkeistä
-        julkaisuista, tietoturvaongelmista, vinkeistä ja muusta.
-      help_6: Noudata Password Pusheria kohdissa %{facebook}, %{twitter} ja %{github}.
-      help_translate: Auta kääntämään
-      newsletter: Uutiskirje
       pwpush_domain: pwpush.com
       section_about: Tietoja
       section_author: Kirjoittaja
-      section_follow: Mistä seurata Password Pusheria
-      section_help: Haluatko auttaa?
       title: Tietoja Password Pusherista
-      twitter: Viserrys
+      birthday: Syntymäpäivä
+      original_theme: Alkuperäinen teema
+      original_theme_body: Sivuston alkuperäinen ulkoasu koostui tummasta taustasta,
+        jossa oli lihavoitu keltainen fontti.
     generate_key:
       env_var: Voit käyttää tätä avainta sovelluksessasi asettamalla ympäristömuuttujan
       generate_key: Luo avain
@@ -1182,9 +1160,29 @@ fi:
       notes: 'Lisätiedot:'
       reload: Lataa tämä sivu uudelleen luodaksesi uuden avaimen.
       title: Luo salausavain
+      explanation: Selitys
     password_generator:
       push_it: Paina tätä salasanaa
       pwgen_title: Salasanageneraattori
+    features:
+      intro_4: 'Password Pusherissa on neljä eri makua tarpeisiisi: <strong>Open Source</strong>
+        , <strong>Premium</strong> , <strong>Pro</strong> ja <strong>Self-Hosted</strong>
+        .'
+      intro_5: Alla on ominaisuusmatriisi, joka hahmottelee kunkin maun tärkeimmät
+        ominaisuudet.
+      title: ominaisuudet
+    languages:
+      lang_description: Alla on kielet, joita Password Pusher tukee. Tuettuja kieliä
+        on 30. Kun isännöit itse, voit ottaa instanssisi kielet käyttöön tai poistaa
+        ne käytöstä.
+      languages: Kielet
+      pwp_languages: Salasanan työntäjäkielet
+    pricing:
+      coming_soon: Pro-ominaisuuksien itseisännöity suunnitelma on tulossa pian.
+      custom_subhead: Tuki avoimen lähdekoodin. Hanki Premium-ominaisuudet.
+      feature_pipeline: Premium-ominaisuudet siirretään ajoittain avoimeen lähdekoodiin.
+      footer_note: Tilaukset ovat pwpush.com-sivustolle ja rahoitetaan avoimen lähdekoodin
+        painoksen kehitystä.
   zero_minutes: 0 minuuttia
   users:
     agreements:
@@ -1193,3 +1191,115 @@ fi:
       terms_of_service:
         terms_of_service: Käyttöehdot
   confirmation_go: Napsauta tästä vahvistaaksesi tilisi
+  admin:
+    config:
+      menu_item: Kokoonpano
+      overview:
+        description: Tämän osan asetuksia käytetään sovelluksen maailmanlaajuiseen
+          määrittämiseen. Kun muutoksia on tehty, sovellus voidaan käynnistää uudelleen
+          uusien asetusten soveltamiseksi.
+        subtitle: Täällä voit mukauttaa Password Pusherin asetuksia.
+        title: Sovelluksen asetukset
+      reset: Palauta oletusarvoihin
+      reset_confirm: Haluatko varmasti palauttaa tämän sivun asetukset oletusarvoihin?
+        Tämä ei vaikuta muiden sivujen asetuksiin.
+      save: Tallenna
+  models:
+    pwp_config:
+      app_config: Sovelluksen asetukset
+      as_container_hint: Säilö, jota käytetään tiedostojen tallentamiseen.
+      as_container_label: AS Säiliö
+      as_storage_access_key_hint: Tallennusavain, jota käytetään AS-palvelimen todentamiseen.
+      as_storage_access_key_label: AS-tallennusavain
+      as_storage_account_name_hint: Tallennustilin nimi, jota käytetään tiedostojen
+        tallentamiseen.
+      as_storage_account_name_label: AS-tallennustilin nimi
+      config_encryption_key_hint: Salausavain, jota käytetään näiden määritystietojen
+        salaukseen ja salauksen purkamiseen.
+      config_encryption_key_label: Config Salausavain
+      dark_logo_hint: Tumman teeman logo. Varmista ensin, että tiedostojen tallennus
+        on määritetty oikein.
+      dark_logo_label: Tumman teeman sivuston logo
+      default_locale_hint: Sovelluksen oletuskieli.
+      default_locale_label: Oletuskieli
+      email_raise_delivery_errors_hint: Määrittää, esitetäänkö virheilmoitus, jos
+        sähköpostin toimitusta ei voida suorittaa loppuun. Se on oletuksena tosi.
+      email_raise_delivery_errors_label: Lisää toimitusvirheitä
+      email_subtitle: Täällä voit mukauttaa tapaa, jolla Password Pusher lähettää
+        sähköposteja.
+      email_title: Sähköpostiasetukset
+      enabled_languages_hint: Alla valitut kielet ovat kaikkien käyttäjien saatavilla.
+      enabled_languages_label: Käytössä olevat kielet
+      encryption_subtitle: Täällä voit mukauttaa Password Pusherin salausasetuksia.
+      encryption_title: Salausasetukset
+      file_subtitle: Täällä voit mukauttaa, kuinka Password Pusher tallentaa ladatut
+        tiedostot.
+      file_title: Tiedostojen tallennusasetukset
+      from_address_hint: Sähköpostiosoite, jota käytetään sähköpostin lähettäjänä.
+      from_address_label: Osoitteesta
+      gcs_bucket_hint: Ämpäri tiedostojen tallentamiseen.
+      gcs_bucket_label: GCS kauha
+      gcs_credentials_hint: Tunnistetiedot, joita käytetään GCS-palvelimen todentamiseen.
+      gcs_credentials_label: GCS:n valtuustiedot
+      gcs_gsa_email_hint: GSA-sähköposti, jota käytetään GCS-palvelimen todentamiseen.
+      gcs_gsa_email_label: GCS GSA -sähköposti
+      gcs_iam_hint: IAM, jota käytetään GCS-palvelimen todentamiseen.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: Projekti, jota käytetään tiedostojen tallentamiseen.
+      gcs_project_label: GCS projekti
+      language_subtitle: Täällä voit mukauttaa Password Pusherin tukemia kieliä.
+      language_title: Kieliasetukset
+      light_logo_hint: Logo, jota käytetään Light-teemassa. Varmista ensin, että tiedostojen
+        tallennus on määritetty oikein.
+      light_logo_label: Kevyt teemasivuston logo
+      login_subtitle: Täällä voit mukauttaa kuinka Password Pusher käsittelee kirjautumisia.
+      login_tip: Kärki
+      login_tip_body: 'Käytä tätä työkalua sähköpostimallien testaamiseen:'
+      login_title: Kirjautumisasetukset
+      override_base_url_hint: Käytetään luotujen salaisten URL-osoitteiden perus-URL-osoitteen
+        pakottamiseen.
+      override_base_url_label: Ohita perus-URL-osoite
+      push_encryption_key_hint: Salausavain, jota käytetään työntöjen salaamiseen
+        ja salauksen purkamiseen.
+      push_encryption_key_label: Paina salausavain
+      s3_access_key_id_hint: Pääsyavaimen tunnus, jota käytetään S3-palvelimen todentamiseen.
+      s3_access_key_id_label: S3 Access Key ID
+      s3_bucket_hint: Ämpäri tiedostojen tallentamiseen.
+      s3_bucket_label: S3 Kauha
+      s3_endpoint_hint: S3-palvelimen päätepiste, jota käytetään tiedostojen tallentamiseen.
+      s3_endpoint_label: S3 Päätepiste
+      s3_region_hint: S3-palvelimen alue, jota käytetään tiedostojen tallentamiseen.
+      s3_region_label: S3 alue
+      s3_secret_access_key_hint: Salainen pääsyavain, jota käytetään S3-palvelimen
+        todentamiseen.
+      s3_secret_access_key_label: S3 salainen pääsyavain
+      signup_email_regexp_hint: Sähköpostit, jotka eivät vastaa tätä mallia, hylätään.
+      signup_email_regexp_label: Ilmoittautumissähköposti Regexp
+      site_name_hint: Ylä- ja alatunnisteessa käytettävän sivuston nimi.
+      site_name_label: Sivuston nimi
+      site_tagline_hint: Sivuston tunnuslause, jota käytetään ylä- ja alatunnisteessa.
+      site_tagline_label: Sivuston tunnuslause
+      smtp_address_hint: Sähköpostin lähettämiseen käytettävän SMTP-palvelimen osoite.
+      smtp_address_label: SMTP-palvelimen osoite
+      smtp_authentication_hint: SMTP-palvelimen kanssa käytettävä todennustyyppi.
+      smtp_authentication_label: SMTP-todennustyyppi
+      smtp_domain_hint: Sähköpostin lähettämiseen käytettävä SMTP-palvelimen toimialue.
+      smtp_domain_label: SMTP-verkkotunnus
+      smtp_enable_starttls_auto_hint: Havaitsee, onko STARTTLS käytössä SMTP-palvelimessasi,
+        ja alkaa käyttää sitä. Se on oletuksena tosi.
+      smtp_enable_starttls_auto_label: SMTP Automaattinen STARTTLS
+      smtp_enable_starttls_hint: Käytä STARTTLS:ää yhdistäessäsi SMTP-palvelimeesi
+        ja epäonnistu, jos sitä ei tueta. Se on oletuksena false.
+      smtp_enable_starttls_label: SMTP Ota STARTTLS käyttöön
+      smtp_openssl_verify_mode_hint: OpenSSL-vahvistustila, jota käytetään yhteyden
+        muodostamisessa SMTP-palvelimeen.
+      smtp_openssl_verify_mode_label: SMTP OpenSSL -vahvistustila
+      smtp_password_hint: Salasana, jota käytetään todentamiseen SMTP-palvelimella.
+      smtp_password_label: SMTP-salasana
+      smtp_port_hint: Sähköpostin lähettämiseen käytettävä SMTP-palvelimen portti.
+      smtp_port_label: SMTP-portti
+      smtp_user_name_hint: Käyttäjätunnus, jota käytetään todentamiseen SMTP-palvelimella.
+      smtp_user_name_label: SMTP-käyttäjänimi
+      storage_hint: Tiedostojen tallentamiseen käytettävä tallennustyyppi. Se on oletuksena
+        :local.
+      storage_label: Varastointi

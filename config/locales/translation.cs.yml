@@ -649,7 +649,6 @@ cs:
   accounts:
     policy:
       pwgen_syllables_count_help: Počet slabik ve vygenerovaném heslu.
-      back: Zpět k týmu
       edit: Upravit zásady
       team_policy_help: Týmová politika je sada pravidel, která platí pro všechny
         pushy provedené členy tohoto týmu.
@@ -664,7 +663,6 @@ cs:
       expire_after_duration_max_help: Maximální doba před vypršením push.
       expire_after_duration_default: Výchozí doba trvání
       expire_after_duration_default_help: Výchozí doba trvání před vypršením push.
-      minutes_tip: 1 den = 1440 minut, 7 dní = 10080 minut, 30 dní = 43200 minut
       header_view_expiration: Zobrazit vypršení platnosti
       expire_after_views_min: Minimální počet zhlédnutí
       expire_after_views_min_help: Minimální počet zobrazení před vypršením platnosti
@@ -741,17 +739,85 @@ cs:
       pwgen_max_syllable_length: Maximální délka slabiky
       pwgen_max_syllable_length_help: Maximální délka slabiky ve vygenerovaném heslu.
       pwgen_syllables_count: Počet slabik
-      switch: Přepínač
-    show:
-      edit_policy: Upravit zásady push
-      policy: Týmové zásady
+      policy: Politika
+    account_invitations:
+      max_users: Dosáhli jste maximálního počtu uživatelů pro váš tým. Chcete-li upgradovat
+        a přidat další uživatele, kontaktujte nás.
+    brand:
+      delivery_blur_tip: 'Tip: Použití rozmazání datové části můžete přepnout v nastavení
+        zásad týmu.'
+      delivery_description: Doručovací stránka je stránka, kterou vaši koncoví uživatelé
+        uvidí, když si zobrazí obsah push.
+      delivery_preview: Níže je uveden náhled toho, kdy vaši koncoví uživatelé <em>uvidí
+        obsah push</em> .
+      expired_description: Stránka s vypršenou platností je stránka, kterou uvidí
+        vaši koncoví uživatelé, když vyprší platnost push.
+      expired_preview: Níže je uveden náhled toho, co vaši koncoví uživatelé uvidí,
+        až <em>vyprší platnost push</em> .
+      form:
+        logo_info: Následující logo lze použít k přizpůsobení a označení push stránek,
+          které uvidí vaši koncoví uživatelé.
+        no_logo: Dosud nebylo nahráno žádné logo. Začněte nahráním loga.
+        show_expiration: Zobrazit zbývající dobu trvání a zobrazit zprávu?
+        show_logo: Zobrazit logo?
+      navbar:
+        brand: Logo
+        delivery: Dodání
+        edit_brand: Upravit značku
+        edit_delivery: Upravit doručení
+        edit_expired: Platnost úprav vypršela
+        edit_passphrase: Upravit přístupovou frázi
+        edit_preliminary: Upravit načtení jedním kliknutím
+        expired: Platnost vypršela
+        passphrase: Zámek přístupové fráze
+        preliminary: 1-Klikněte na Retrieval
+      passphrase_description: Stránka passphrase se používá jako součást funkce Passphrase
+        Lockdown. Uživatelé, kteří obdrží push, musí pro přístup k obsahu zadat přístupovou
+        frázi.
+      passphrase_preview: Níže je uveden náhled toho, co uvidí vaši koncoví uživatelé,
+        když <em>budou vyzváni k zadání přístupové fráze</em> .
+      preliminary_description: Stránka pro získávání jedním kliknutím pomáhá zabránit
+        tomu, aby roboti, chatovací systémy a skenery spotřebovávali pohledy. Uživatelé,
+        kteří obdrží push, musí pro přístup k obsahu proklikat tuto předběžnou stránku.
+      preliminary_preview: Níže je uveden náhled toho, co uvidí vaši koncoví uživatelé
+        u <em>možnosti kroku načtení jedním kliknutím</em> .
+      preview:
+        payload: Toto je příklad užitečného zatížení, které by se zobrazilo koncovému
+          uživateli.
+      save: Uložit
+      tip_custom_domain: "<strong>Tip pro předplatitele</strong> : Můžete si nakonfigurovat
+        vlastní doménu v %{link}."
+      tip_team_page: Stránka konfigurace týmu
+    brands:
+      form:
+        documentation: dokumentace
+        domain_documentation: Další informace o konfiguraci vlastní domény naleznete
+          v %{link}.
+        domain_note_1: "<strong>Zadejte název domény</strong> bez protokolu nebo cesty,
+          například <code>pwp.example.com</code> ."
+        domain_note_2: "<strong>Nakonfigurujte nastavení DNS</strong> : Vytvořte záznam
+          ALIAS, který odkazuje na <code>domain.pwpush.com</code> ."
+        domain_note_3: Rozšíření nastavení DNS může trvat až 24 hodin.
+        domain_note_4: Jakmile nakonfigurujete nastavení DNS, můžete <strong>otestovat
+          doménu</strong> návštěvou %{link} ve vašem prohlížeči. Měli byste vidět
+          zelenou obrazovku signalizující úspěch.
+        domain_placeholder: 'Pro předplatitelé: Použijte Password Pusher k doručování
+          push s vaší firemní doménou.'
+    edit_policy:
+      edit_policy: Upravit zásady
+    form:
+      custom_domain_notes: Vlastní poznámky k doméně
+    form_brand:
+      branding: Branding
   tag_line: Pokračuj. Email Jiné heslo.
-  about: O aplikaci
   app_name: Posunovač hesel
   application:
     card_newsletter:
       enter_email: Vložte svůj e-mail...
       subscribe: předplatit
+      get_the_newsletter: Získejte Newsletter
+      updates_on: Aktualizace velkých vydání, bezpečnostní problémy, funkce, integrace,
+        tipy a další.
     cookie_consent:
       notice: Soubory cookie prohlížeče pomáhají tomuto nástroji fungovat. Jeho používáním
         souhlasíte s používáním těchto souborů cookie.
@@ -764,9 +830,11 @@ cs:
       key_generator: Generátor klíčů
       newsletter: Zpravodaj
       password_generator: Generátor hesel
-      tools: Nástroje, API a CLI
       api_docs: Dokumentace API
       features: Funkce
+      languages: Jazyky
+      pricing: Ceny
+      support: Podpora
     pw_generator_modal:
       cancel: Storno
       configure: Nastavení generování hesel
@@ -787,25 +855,26 @@ cs:
       vowels: Samohlásky
     navbar:
       edit_policy: Politika
+      branding: Branding
     secret_url_bar:
       secret_link_lang: Tajný jazyk odkazů
       autodetect: Auto detekce
+    left_nav:
+      pushes: Tlačí
+    right_nav:
+      features: Funkce
   audit_logs:
     audit_log:
-      created: Vytvořeno
-      created_by: Vytvořil %{user}
       log_created: Push vytvořen na %{date} uživatelem %{user}
       log_expired: Platnost push ručně vypršela %{date} od %{user}
       log_failed_view: Selhal pokus o zobrazení z IP adresy %{ip} na %{date} od %{user}
-      log_manual_expiration: Platnost push ručně vypršela %{date} uživatelem %{user}
-        na IP adrese %{ip}
-      log_referrer: 'Referrer: %{referrer}'
-      log_user_agent: 'User Agent: %{user_agent}'
       log_viewed: Úspěšné zobrazení z IP adresy %{ip} na %{date} uživatelem %{user}
       unknown: Neznámý
-      viewed_by: Zobrazeno %{user}
       log_failed_passphrase: Neúspěšný pokus o zadání přístupové fráze na %{date}
         od %{user}
+      ip_address: 'IP adresa:'
+      referrer: 'Referrer:'
+      user_agent: 'User Agent:'
   dashboard:
     show:
       detail: Detail
@@ -834,33 +903,12 @@ cs:
       email: E-mail
       have_idea: Máte nápad nebo přání? Něco co se ti nelíbí? Chcete pomoci? Chceme
         to slyšet!
-      leave_blank: Nechte toto pole prázdné!
       math_question: Kolik je sto mínus 3?
       send_feedback: Poslat zpětnou vazbu
       tip: 'Tip: Zkopírujte zprávu do schránky v případě nepravděpodobného selhání
         odeslání.'
       your_name: Tvé jméno
   none: Žádný
-  pages:
-    about:
-      about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
-        citlivých informací s ostatními lidmi.
-      about_2: Pomocí Password Pusher můžete vytvořit jedinečnou, jednorázovou adresu
-        URL, jejíž platnost vyprší po určité době nebo po určitém počtu přístupů,
-        což zajistí, že vaše informace zůstanou soukromé a bezpečné.
-      about_3: Často jej používají jednotlivci a organizace ke sdílení přihlašovacích
-        údajů nebo jiných citlivých údajů s kolegy, klienty nebo partnery.
-      about_4: Password Pusher je jednoduché a pohodlné řešení pro bezpečné sdílení
-        hesel bez potřeby e-mailu nebo jiných méně bezpečných komunikačních metod.
-      about_pwpush: O Password Pusheru
-      hosted_at_html: Hostováno na <a href="https://pwpush.com">pwpush.com</a> nebo
-        můžete provozovat svou vlastní soukromou instanci, kdekoli chcete.
-      my_name: Jmenuji se Peter Giacomo Lombardo. Najdete mě na %{linkedin}, %{github}
-        nebo %{blog}.
-      source_avail_html: Zdrojový kód je <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">dostupný na GitHubu</a> . Je to
-        open source a každý jej může zdarma používat, kontrolovat nebo upravovat.
-      the_author: Autor
   pushes:
     access:
       incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte
@@ -871,19 +919,14 @@ cs:
         skenery adres URL spotřebovávaly pohledy.
       active: Aktivní
       attached_files: Přiložené soubory
-      attached_files_help: Byly k tomuto push připojeny soubory?
       audit_log_for: Protokol auditu pro %{push_id}
       contains_text: Obsahuje Text
       contains_text_help: Byl k tomuto push přidán textový náklad?
-      created: Vytvořeno
-      created_by: Vytvořil %{user}
       current_status: Současný stav
       deletable_by_viewers: Smazatelné diváky
       deletable_by_viewers_help: To umožňuje koncovým uživatelům odstranit obsah po
         načtení.
-      detail: Detail
       end_audit_log: Konec protokolu auditu
-      event: událost
       event_log: Protokol auditu
       expire_after: 'Vyprší po:'
       expire_after_time_help: Push vyprší po uplynutí této doby od vytvoření.
@@ -893,7 +936,6 @@ cs:
         veškerý související obsah z databáze. Protokol auditu (včetně budoucích pokusů
         o zobrazení) bude nadále udržován. Jsi si jistá?
       expired: Platnost vypršela
-      failed_view: Neúspěšný pokus o zobrazení
       failed_view_attempts: Neúspěšné pokusy o zobrazení
       failed_view_attempts_help: Počet pokusů o zobrazení tohoto push po vypršení
         platnosti.
@@ -902,7 +944,6 @@ cs:
         žádné."
       log_note: Jakmile push obdrží aktivitu, zobrazí se zde protokol každého s identifikačními
         informacemi.
-      manual_expiration: Manuální expirace
       message_length: Délka zprávy
       message_length_help: Délka užitečného zatížení připojeného textu.
       none: Žádný
@@ -911,29 +952,22 @@ cs:
       passphrase_lock: Uzamčení přístupové fráze
       passphrase_lock_help: Vyžadovat od příjemců zadání přístupové fráze pro zobrazení
         tohoto push.
-      payload: Užitečné zatížení
       push_date: Publikováno %{date}
       reference_note: Referenční poznámka
       secret_url: Tajná adresa URL pro tento push
       size: 'Velikost: %{size}'
       start_audit_log: Začátek protokolu auditu
-      start_log: Začátek protokolu auditu
       state: Stát
       state_help_active: Aktivní a stále dostupné pro zobrazení.
       state_help_expired: Push obsah byl smazán a platnost tajné adresy URL vypršela.
-      successful_view: Úspěšné zobrazení
       successful_views: Úspěšné zhlédnutí
       successful_views_help: Počet úspěšných zobrazení push.
       time_remaining: Zbývající čas
       time_remaining_help: Doba zbývající do vypršení platnosti push.
       title: Push Audit Log
       visible_to: Viditelné pouze pro vás
-      when: Když
       preview: Sdílejte tento Push
     copy_to_clipboard: Zkopírovat do schránky
-    day:
-      one: 1 den
-      other: "%{count} dny"
     deleted: Smazáno
     expiration_html: Tento tajný odkaz a veškerý obsah budou smazány v <strong>%{duration}</strong>
       nebo <strong>%{count} dalších zobrazeních</strong> , podle toho, co nastane
@@ -964,11 +998,8 @@ cs:
       5_days: 5 dní
       6_days: 6 dní
       6_hours: 6 hodin
-      add_files: Přidat soubory...
       audit_tip: Po přihlášení je uchováván protokol auditu o činnosti a je k dispozici
         po neomezenou dobu.
-      day: Den
-      days: Dní
       deletable: Umožnit okamžité smazání
       deletable_tip: Povolit uživatelům smazat tento push po načtení.
       encryption_tip: Obsah je před uložením zašifrován a je k dispozici pouze uživatelům
@@ -976,18 +1007,9 @@ cs:
       expiration_label: 'Vyprší platnost tohoto push a smaže po:'
       expiration_tip: Po vypršení platnosti se veškerý obsah a soubory push okamžitě
         a úplně odstraní.
-      generator_tip: Pomocí tlačítka výše vygenerujte náhodné heslo.
-      hour: Hodina
-      hours: hodiny
-      login_to_upload: Chcete-li nahrát a připojit soubory k tomuto push, přihlaste
-        se...
-      minutes: Minut
-      month: Měsíc
-      months: měsíce
       note_label: Referenční poznámka
       note_placeholder: Soukromá poznámka, která vám pomůže zapamatovat si, pro koho
         nebo k čemu je tato výzva určena.
-      passphrase_label: Zámek přístupové fráze
       passphrase_placeholder: Vyžadovat od příjemců zadání přístupové fráze pro zobrazení
         tohoto push.
       password_tip: 'Tip: Do pole zadejte pouze heslo. Jiné identifikační informace
@@ -997,38 +1019,22 @@ cs:
       upload_limit: Na jedno push můžete nahrát až 10 souborů.
       view: Pohled
       views: Pohledy
-      week: Týden
-      weeks: týdny
       payload_url_placeholder: Zadejte adresu URL pro přesměrování na...
       url_push_tip: Vytvořený push bude přesměrován na poskytnutou URL.
-    hour:
-      one: 1 hodina
-      other: "%{count} hodin"
     index:
       actions: Akce
       clear_filters: Vymazat filtry
       created: Vytvořeno
-      created_by: Podle
-      expires: Platnost vyprší
       file_count: Soubory
       note: Poznámka
       nothing_here: Zatím tu nic není.
       push_id: Push ID
       pushes: Tlačí
-      remaining_time: Zbývající čas
-      status: Postavení
-      views: Pohledy
-      views_remaining: Zbývající zobrazení
       active: Aktivní
       expired: Platnost vypršela
       all: Všechno
       remaining: Zbývající
-    minute:
-      one: 1 minuta
-      other: "%{count} minuty"
-    more_view:
-      one: 1 další zobrazení
-      other: "%{count} více zobrazení"
+      team_pushes: Týmové tahy
     'no': Ne
     none: Žádný
     passphrase:
@@ -1039,23 +1045,16 @@ cs:
     payload: Užitečné zatížení
     preliminary:
       click_proceed: Pokračujte kliknutím sem
+      title: Klikněte pro pokračování
     preview:
-      and: a
-      can_be: může být
-      can_not_be: nemůže být
-      deleted_by_viewers: smazané diváky.
       link_lang_tip: 'Tip: Zasílat mezinárodnímu uživateli? Změňte jazyk tajného odkazu
         pomocí rozbalovací nabídky napravo od adresy URL.'
       or: nebo
-      or_after: nebo po
       push_another: Push Another
       push_created: Váš push byl vytvořen.
       use_link_to_share: 'Pro sdílení použijte tento tajný odkaz:'
       view_push_now: Zobrazit toto Push Now
       will_burn_view: "(vypálí pohled)"
-      will_expire_after: Platnost tohoto push vyprší za
-      with_preliminary_step: Zahrnuje také %{strong_start}krok předběžného vyvolání
-        jedním kliknutím%{strong_end}.
       example: Příklad
       generate: generovat
       include_id: Zahrnout ID
@@ -1070,32 +1069,22 @@ cs:
     provide_text_or_file: Chcete-li vytvořit push, musíte zadat text, připojit soubor
       nebo obojí.
     push:
-      active: Aktivní
       audit: Kontrola
       expired: Platnost vypršela
       none: Žádný
-      preview: Náhled
-      push_controls: Push Controls
       title: Nový Push
       unknown: Neznámý
       share: Podíl
     settings: Nastavení
     show:
-      blurred: Vaše heslo je rozmazané. Kliknutím níže jej odhalíte.
       click_to_reveal: Obsah je rozmazaný. Kliknutím níže jej odhalíte.
       delete_now: Smazat tento tajný odkaz teď
       delete_now_confirm: Tímto vyprší platnost tohoto tajného odkazu a navždy smažete
         veškerý související obsah z databáze. Jsi si jistá?
       download_file: Stáhnout soubor
-      files_sent: Byly vám zaslány následující soubory.
-      last_view: Toto je poslední pohled.
       obtain: Bezpečně načtěte a uložte tento obsah pomocí správce hesel a/nebo šifrovaného
         úložiště. Nezapomeňte okamžitě odstranit všechna data, která již nepotřebujete.
       open_file: Otevřít soubor
-      please_download: Prosím stáhněte a uložte v zabezpečené oblasti.
-      will_be_deleted: Tento tajný odkaz a veškerý obsah budou smazány v %{b_tag}%{time_count}
-        %{time_unit}%{b_tag} nebo %{b_tag}%{view_count} dalších %{view_unit}%{b_tag}
-        (podle toho, co nastane dříve).
       your_link: Váš tajný odkaz
       intro: Byl vám zaslán následující obsah.
     show_expired:
@@ -1112,6 +1101,12 @@ cs:
     payload_too_large: Užitečné zatížení je příliš velké. Můžete vložit pouze %{count}
       bajtů.
     too_many_files: Na jedno push můžete připojit maximálně %{count} souborů.
+    navbar:
+      files: Soubory
+      text: Hesla a text
+      url: URL
+    new:
+      title: Bezpečně odešlete heslo, text nebo soubor
   static:
     about:
       about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
@@ -1134,26 +1129,15 @@ cs:
         nebo %{blog}.
       author_2: Pro aktualizace sledujte Password Pusher na %{twitter} (nebo moje
         %{twitter_personal}) nebo se přihlaste k odběru %{newsletter}.
-      facebook: Facebook
       github: Github
-      help_1: Zdaleka největší pomocí je šíření informací. Sdílejte Password Puher
-        se svými přáteli, kolegy a organizacemi.
-      help_2: 'Můžete také:'
-      help_3: Spusťte projekt %{github}. Je to benzín pro algy, které jsou trendem
-        Password Pusher.
-      help_4: Nápověda %{translate}. Vylepšete stávající jazyk nebo přidejte nový.
-      help_5: Přihlaste se k odběru %{newsletter} a získejte aktualizace o důležitých
-        vydáních, bezpečnostních problémech, tipy a další.
-      help_6: Postupujte podle hesla pusher na %{facebook}, %{twitter} a %{github}.
-      help_translate: Pomozte Přeložit
-      newsletter: Zpravodaj
       pwpush_domain: pwpush.com
       section_about: O aplikaci
       section_author: Autor
-      section_follow: Kde sledovat Password pusher
-      section_help: Chcete pomoci?
       title: O Password Pusheru
-      twitter: Cvrlikání
+      birthday: Narozeniny
+      original_theme: Původní téma
+      original_theme_body: Původní design stránek sestával z tmavého pozadí s výrazným
+        žlutým písmem.
     generate_key:
       env_var: Tento klíč můžete použít ve své aplikaci nastavením proměnné prostředí
       generate_key: Generovat klíč
@@ -1181,9 +1165,30 @@ cs:
       notes: 'Poznámky:'
       reload: Znovu načtěte tuto stránku a znovu vygenerujte nový klíč.
       title: Vygenerujte šifrovací klíč
+      explanation: Vysvětlení
     password_generator:
       push_it: Push toto heslo
       pwgen_title: Generátor hesel
+    features:
+      intro_4: 'Existují čtyři různé varianty Password Pusher, které vyhovují vašim
+        potřebám: <strong>Open Source</strong> , <strong>Premium</strong> , <strong>Pro</strong>
+        a <strong>Self-hosted</strong> .'
+      intro_5: Níže je uvedena matice funkcí, která nastiňuje klíčové vlastnosti každé
+        příchuti.
+      title: Funkce
+    languages:
+      lang_description: Níže jsou uvedeny jazyky, které Password Pusher podporuje.
+        K dispozici je 30 podporovaných jazyků. Při vlastním hostování můžete povolit
+        nebo zakázat jazyky pro vaši instanci.
+      languages: Jazyky
+      pwp_languages: Jazyky pro posun hesel
+    pricing:
+      coming_soon: Plán pro funkce Pro s vlastním hostováním bude brzy k dispozici.
+      custom_subhead: Podpora Open Source. Získejte prémiové funkce.
+      feature_pipeline: Prémiové funkce jsou pravidelně přesouvány do edice s otevřeným
+        zdrojovým kódem.
+      footer_note: Předplatné platí pro pwpush.com a financuje vývoj edice s otevřeným
+        zdrojovým kódem.
   zero_minutes: 0 minut
   users:
     agreements:
@@ -1192,3 +1197,118 @@ cs:
       terms_of_service:
         terms_of_service: Podmínky služby
   confirmation_go: Kliknutím sem potvrďte svůj účet
+  admin:
+    config:
+      menu_item: Konfigurace
+      overview:
+        description: Nastavení v této části slouží ke globální konfiguraci aplikace.
+          Po provedení změn může být aplikace restartována, aby se nová nastavení
+          uplatnila.
+        subtitle: Zde můžete upravit nastavení pro Password Pusher.
+        title: Konfigurace aplikace
+      reset: Obnovit výchozí
+      reset_confirm: Opravdu chcete obnovit konfiguraci na této stránce na výchozí
+        hodnoty? Nastavení na jiných stránkách to neovlivní.
+      save: Uložit
+  models:
+    pwp_config:
+      app_config: Konfigurace aplikace
+      as_container_hint: Kontejner, který se má použít pro ukládání souborů.
+      as_container_label: AS kontejner
+      as_storage_access_key_hint: Přístupový klíč úložiště, který se má použít pro
+        autentizaci se serverem AS.
+      as_storage_access_key_label: AS přístupový klíč úložiště
+      as_storage_account_name_hint: Název účtu úložiště, který se má použít pro ukládání
+        souborů.
+      as_storage_account_name_label: Název účtu úložiště AS
+      config_encryption_key_hint: Šifrovací klíč, který se má použít pro šifrování
+        a dešifrování těchto konfiguračních dat.
+      config_encryption_key_label: Šifrovací klíč konfigurace
+      dark_logo_hint: Logo k použití pro temné téma. Nejprve se ujistěte, že je úložiště
+        souborů správně nakonfigurováno.
+      dark_logo_label: Logo temného motivu webu
+      default_locale_hint: Výchozí jazyk pro použití aplikace.
+      default_locale_label: Výchozí jazyk
+      email_raise_delivery_errors_hint: Určuje, zda se má vyvolat chyba, pokud nelze
+        doručit e-mail. Výchozí hodnota je true.
+      email_raise_delivery_errors_label: Zvýšit chyby doručení
+      email_subtitle: Zde si můžete přizpůsobit, jak Password Pusher odesílá e-maily.
+      email_title: Konfigurace e-mailu
+      enabled_languages_hint: Vybrané jazyky níže budou dostupné všem uživatelům.
+      enabled_languages_label: Povolené jazyky
+      encryption_subtitle: Zde můžete upravit nastavení šifrování pro Password Pusher.
+      encryption_title: Konfigurace šifrování
+      file_subtitle: Zde si můžete přizpůsobit, jak Password Pusher ukládá nahrané
+        soubory.
+      file_title: Konfigurace úložiště souborů
+      from_address_hint: E-mailová adresa, kterou chcete použít jako odesílatele e-mailu.
+      from_address_label: Z adresy
+      gcs_bucket_hint: Kbelík, který se má použít pro ukládání souborů.
+      gcs_bucket_label: GCS Bucket
+      gcs_credentials_hint: Pověření, která se mají použít pro ověření se serverem
+        GCS.
+      gcs_credentials_label: Pověření GCS
+      gcs_gsa_email_hint: E-mail GSA, který se má použít pro ověření se serverem GCS.
+      gcs_gsa_email_label: E-mail GCS GSA
+      gcs_iam_hint: IAM, který se má použít pro ověřování se serverem GCS.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: Projekt, který se má použít pro ukládání souborů.
+      gcs_project_label: Projekt GCS
+      language_subtitle: Zde si můžete přizpůsobit jazyky, které Password Pusher podporuje.
+      language_title: Konfigurace jazyka
+      light_logo_hint: Logo, které se má použít pro téma Světlo. Nejprve se ujistěte,
+        že je úložiště souborů správně nakonfigurováno.
+      light_logo_label: Světlo Téma Stránky Logo
+      login_subtitle: Zde si můžete přizpůsobit, jak Password Pusher zpracovává přihlášení.
+      login_tip: Tip
+      login_tip_body: 'Pomocí tohoto nástroje otestujte své vzory e-mailů:'
+      login_title: Konfigurace přihlášení
+      override_base_url_hint: Používá se k vynucení základní adresy URL generovaných
+        tajných adres URL.
+      override_base_url_label: Přepsat základní URL
+      push_encryption_key_hint: Šifrovací klíč, který se má použít pro šifrování a
+        dešifrování push.
+      push_encryption_key_label: Push šifrovací klíč
+      s3_access_key_id_hint: ID přístupového klíče, které se má použít pro ověření
+        se serverem S3.
+      s3_access_key_id_label: ID přístupového klíče S3
+      s3_bucket_hint: Kbelík, který se má použít pro ukládání souborů.
+      s3_bucket_label: Kbelík S3
+      s3_endpoint_hint: Koncový bod serveru S3, který se má použít pro ukládání souborů.
+      s3_endpoint_label: Koncový bod S3
+      s3_region_hint: Oblast serveru S3, která se má použít pro ukládání souborů.
+      s3_region_label: Region S3
+      s3_secret_access_key_hint: Tajný přístupový klíč, který se má použít pro ověření
+        se serverem S3.
+      s3_secret_access_key_label: Tajný přístupový klíč S3
+      signup_email_regexp_hint: E-maily, které tomuto vzoru neodpovídají, budou odmítnuty.
+      signup_email_regexp_label: Registrační e-mail Regexp
+      site_name_hint: Název webu, který se má použít v záhlaví a zápatí.
+      site_name_label: Název webu
+      site_tagline_hint: Slogan webu, který se má použít v záhlaví a zápatí.
+      site_tagline_label: Slogan webu
+      smtp_address_hint: Adresa serveru SMTP, který se má použít pro odesílání e-mailů.
+      smtp_address_label: Adresa serveru SMTP
+      smtp_authentication_hint: Typ ověřování, který se má použít se serverem SMTP.
+      smtp_authentication_label: Typ ověřování SMTP
+      smtp_domain_hint: Doména serveru SMTP, který se má použít pro odesílání e-mailů.
+      smtp_domain_label: Doména SMTP
+      smtp_enable_starttls_auto_hint: Zjistí, zda je na vašem SMTP serveru povolen
+        STARTTLS a začne jej používat. Výchozí hodnota je true.
+      smtp_enable_starttls_auto_label: SMTP automatické STARTTLS
+      smtp_enable_starttls_hint: Při připojování k serveru SMTP použijte STARTTLS
+        a pokud není podporován, selže. Výchozí hodnota je false.
+      smtp_enable_starttls_label: SMTP Povolit STARTTLS
+      smtp_openssl_verify_mode_hint: Režim ověření OpenSSL, který se má použít při
+        připojování k serveru SMTP.
+      smtp_openssl_verify_mode_label: Režim ověření SMTP OpenSSL
+      smtp_password_hint: Heslo, které se má použít pro ověření se serverem SMTP.
+      smtp_password_label: Heslo SMTP
+      smtp_port_hint: Port serveru SMTP, který se má použít pro odesílání e-mailů.
+      smtp_port_label: Port SMTP
+      smtp_user_name_hint: Uživatelské jméno, které se má použít pro ověření se serverem
+        SMTP.
+      smtp_user_name_label: Uživatelské jméno SMTP
+      storage_hint: Typ úložiště, který se má použít pro ukládání souborů. Výchozí
+        je :local.
+      storage_label: Skladování

@@ -616,7 +616,6 @@ th:
   accounts:
     policy:
       pwgen_syllables_count_help: จำนวนพยางค์ในรหัสผ่านที่สร้างขึ้น
-      back: กลับสู่ทีม
       edit: แก้ไขนโยบาย
       team_policy_help: นโยบายของทีมคือชุดกฎที่ใช้กับการผลักดันทั้งหมดที่สมาชิกในทีมนี้ทำ
       personal_policy: นโยบายส่วนบุคคล
@@ -629,7 +628,6 @@ th:
       expire_after_duration_max_help: ระยะเวลาสูงสุดก่อนที่การพุชจะหมดอายุ
       expire_after_duration_default: ระยะเวลาเริ่มต้น
       expire_after_duration_default_help: ระยะเวลาเริ่มต้นก่อนที่การพุชจะหมดอายุ
-      minutes_tip: 1 วัน = 1440 นาที 7 วัน = 10080 นาที 30 วัน = 43200 นาที
       header_view_expiration: ดูวันหมดอายุ
       expire_after_views_min: จำนวนการดูขั้นต่ำ
       expire_after_views_min_help: จำนวนการดูขั้นต่ำก่อนที่การพุชจะหมดอายุ
@@ -697,17 +695,72 @@ th:
       pwgen_max_syllable_length: ความยาวพยางค์สูงสุด
       pwgen_max_syllable_length_help: ความยาวสูงสุดของพยางค์ในรหัสผ่านที่สร้างขึ้น
       pwgen_syllables_count: จำนวนพยางค์
-      switch: สวิตช์
-    show:
-      edit_policy: แก้ไขนโยบายการพุช
-      policy: นโยบายของทีม
+      policy: นโยบาย
+    account_invitations:
+      max_users: คุณได้เข้าถึงจำนวนผู้ใช้สูงสุดสำหรับทีมของคุณแล้ว โปรดติดต่อเราเพื่ออัปเกรดและเพิ่มผู้ใช้เพิ่มเติม
+    brand:
+      delivery_blur_tip: 'เคล็ดลับ: คุณสามารถสลับการใช้การเบลอเนื้อหาได้ในการตั้งค่านโยบายทีมของคุณ'
+      delivery_description: หน้าส่งมอบคือหน้าที่ผู้ใช้ปลายทางของคุณจะเห็นเมื่อดูเนื้อหาของการส่ง
+      delivery_preview: ด้านล่างนี้คือการแสดงตัวอย่างเวลาที่ผู้ใช้ปลายทางของคุณจะเห็นเมื่อ
+        <em>มีการดูเนื้อหาแบบพุช</em>
+      expired_description: หน้าที่หมดอายุคือหน้าที่ผู้ใช้ปลายทางของคุณจะเห็นเมื่อการส่งหมดอายุ
+      expired_preview: ด้านล่างนี้เป็นตัวอย่างสิ่งที่ผู้ใช้ของคุณจะเห็นเมื่อ <em>การส่งหมดอายุ</em>
+      form:
+        logo_info: คุณสามารถใช้โลโก้ต่อไปนี้เพื่อปรับแต่งและสร้างแบรนด์ให้กับหน้าพุชที่ผู้ใช้ปลายทางของคุณจะเห็น
+        no_logo: ยังไม่มีโลโก้ที่อัปโหลด อัปโหลดโลโก้เพื่อเริ่มต้น
+        show_expiration: แสดงระยะเวลาที่เหลือและมุมมองข้อความ?
+        show_logo: แสดงโลโก้?
+      navbar:
+        brand: โลโก้
+        delivery: จัดส่ง
+        edit_brand: แก้ไขแบรนด์
+        edit_delivery: แก้ไขการจัดส่ง
+        edit_expired: แก้ไขหมดอายุ
+        edit_passphrase: แก้ไขรหัสผ่าน
+        edit_preliminary: แก้ไขการเรียกค้นข้อมูลด้วยการคลิกเพียงครั้งเดียว
+        expired: หมดอายุ
+        passphrase: ล็อครหัสผ่าน
+        preliminary: การดึงข้อมูลด้วยการคลิกเพียงครั้งเดียว
+      passphrase_description: หน้ารหัสผ่านจะใช้เป็นส่วนหนึ่งของฟีเจอร์การล็อกรหัสผ่าน
+        ผู้ใช้ที่ได้รับการส่งรหัสผ่านจะต้องป้อนรหัสผ่านเพื่อเข้าถึงเนื้อหา
+      passphrase_preview: ด้านล่างนี้เป็นตัวอย่างสิ่งที่ผู้ใช้ของคุณจะเห็นเมื่อ <em>ได้รับแจ้งให้ใส่รหัสผ่าน</em>
+      preliminary_description: หน้าการเรียกค้นข้อมูลด้วยการคลิกเพียงครั้งเดียวช่วยป้องกันไม่ให้บอท
+        ระบบแชท และโปรแกรมสแกนเข้ามากินข้อมูล ผู้ใช้ที่ได้รับการผลักดันจะต้องคลิกผ่านหน้าเบื้องต้นนี้เพื่อเข้าถึงเนื้อหา
+      preliminary_preview: ด้านล่างนี้เป็นตัวอย่างสิ่งที่ผู้ใช้ของคุณจะเห็นสำหรับ
+        <em>ตัวเลือกขั้นตอนการดึงข้อมูลด้วยการคลิก 1 ครั้ง</em>
+      preview:
+        payload: นี่คือตัวอย่างของเพย์โหลดที่จะแสดงให้กับผู้ใช้ปลายทาง
+      save: บันทึก
+      tip_custom_domain: "<strong>เคล็ดลับสำหรับสมาชิกระดับ Pro</strong> : คุณสามารถกำหนดค่าโดเมนที่กำหนดเองใน
+        %{link} ได้"
+      tip_team_page: หน้าการกำหนดค่าทีม
+    brands:
+      form:
+        documentation: เอกสารประกอบ
+        domain_documentation: ดู %{link} สำหรับข้อมูลเพิ่มเติมเกี่ยวกับการกำหนดค่าโดเมนที่กำหนดเอง
+        domain_note_1: "<strong>กรอกชื่อโดเมน</strong> โดยไม่ต้องมีโปรโตคอลหรือเส้นทาง
+          เช่น <code>pwp.example.com</code>"
+        domain_note_2: "<strong>กำหนดค่าการตั้งค่า DNS</strong> : สร้างระเบียน ALIAS
+          ที่ชี้ไปที่ <code>domain.pwpush.com</code>"
+        domain_note_3: การตั้งค่า DNS อาจต้องใช้เวลานานถึง 24 ชั่วโมงในการเผยแพร่
+        domain_note_4: เมื่อคุณกำหนดค่าการตั้งค่า DNS เรียบร้อยแล้ว คุณสามารถ <strong>ทดสอบโดเมนได้</strong>
+          โดยไปที่ %{link} ในเบราว์เซอร์ของคุณ คุณควรเห็นหน้าจอสีเขียวที่แจ้งว่าการดำเนินการสำเร็จ
+        domain_placeholder: 'สมาชิกระดับ Pro: ใช้ Password Pusher เพื่อส่งข้อความโดยใช้โดเมนบริษัทของคุณ'
+    edit_policy:
+      edit_policy: แก้ไขนโยบาย
+    form:
+      custom_domain_notes: หมายเหตุโดเมนที่กำหนดเอง
+    form_brand:
+      branding: การสร้างแบรนด์
   tag_line: ไปข้างหน้า ส่งอีเมลรหัสผ่านอื่น
-  about: เกี่ยวกับ
   app_name: ตัวดันรหัสผ่าน
   application:
     card_newsletter:
       enter_email: กรอกอีเมล์ของคุณ...
       subscribe: ติดตาม
+      get_the_newsletter: รับจดหมายข่าว
+      updates_on: อัปเดตเกี่ยวกับรุ่นใหญ่ ปัญหาด้านความปลอดภัย ฟีเจอร์ การรวมระบบ
+        เคล็ดลับ และอื่นๆ
     cookie_consent:
       notice: คุกกี้ของเบราว์เซอร์ช่วยให้เครื่องมือนี้ทำงานได้ ในการใช้งานแสดงว่าคุณยอมรับการใช้คุกกี้เหล่านี้
     footer:
@@ -719,9 +772,11 @@ th:
       key_generator: เครื่องกำเนิดคีย์
       newsletter: จดหมายข่าว
       password_generator: ตัวสร้างรหัสผ่าน
-      tools: เครื่องมือ, API และ CLI
       api_docs: เอกสาร API
       features: คุณสมบัติ
+      languages: ภาษา
+      pricing: การกำหนดราคา
+      support: สนับสนุน
     pw_generator_modal:
       cancel: ยกเลิก
       configure: กำหนดค่าการสร้างรหัสผ่าน
@@ -742,25 +797,26 @@ th:
       vowels: สระ
     navbar:
       edit_policy: นโยบาย
+      branding: การสร้างแบรนด์
     secret_url_bar:
       secret_link_lang: ภาษาลิงค์ลับ
       autodetect: ตรวจจับอัตโนมัติ
+    left_nav:
+      pushes: ดัน
+    right_nav:
+      features: คุณสมบัติ
   audit_logs:
     audit_log:
-      created: สร้าง
-      created_by: สร้างโดย %{user}
       log_created: พุชที่สร้างบน %{date} โดย %{user}
       log_expired: การพุชหมดอายุด้วยตนเองใน %{date} โดย %{user}
       log_failed_view: ความพยายามในการดูล้มเหลวจากที่อยู่ IP %{ip} บน %{date} โดย
         %{user}
-      log_manual_expiration: การพุชหมดอายุด้วยตนเองใน %{date} โดย %{user} ที่ที่อยู่
-        IP %{ip}
-      log_referrer: 'ผู้อ้างอิง: %{referrer}'
-      log_user_agent: 'ตัวแทนผู้ใช้: %{user_agent}'
       log_viewed: ดูสำเร็จจากที่อยู่ IP %{ip} บน %{date} โดย %{user}
       unknown: ไม่ทราบ
-      viewed_by: ดูโดย %{user}
       log_failed_passphrase: การพยายามใช้ข้อความรหัสผ่านล้มเหลวใน %{date} โดย %{user}
+      ip_address: 'ที่อยู่ IP:'
+      referrer: 'ผู้อ้างอิง:'
+      user_agent: 'ตัวแทนผู้ใช้:'
   dashboard:
     show:
       detail: รายละเอียด
@@ -789,30 +845,11 @@ th:
       email: อีเมล
       have_idea: มีความคิดหรือความปรารถนา? สิ่งที่คุณไม่ชอบ? ต้องการความช่วยเหลือหรือไม่?
         เราต้องการที่จะได้ยินมัน!
-      leave_blank: เว้นช่องนี้ว่างไว้!
       math_question: หนึ่งร้อยลบ 3 คืออะไร?
       send_feedback: ส่งความคิดเห็น
       tip: 'เคล็ดลับ: คัดลอกข้อความของคุณไปยังคลิปบอร์ดในกรณีที่การส่งล้มเหลว'
       your_name: ชื่อของคุณ
   none: ไม่มี
-  pages:
-    about:
-      about_1: Password Pusher เป็นเครื่องมือที่ใช้สำหรับแบ่งปันรหัสผ่านและข้อมูลที่ละเอียดอ่อนอื่น
-        ๆ กับบุคคลอื่นอย่างปลอดภัย
-      about_2: ด้วย Password Pusher คุณสามารถสร้าง URL ที่ใช้ครั้งเดียวและไม่ซ้ำใครซึ่งจะหมดอายุหลังจากระยะเวลาหนึ่งหรือหลังจากที่มีการเข้าถึงตามจำนวนครั้งที่กำหนด
-        เพื่อให้มั่นใจว่าข้อมูลของคุณยังคงเป็นส่วนตัวและปลอดภัย
-      about_3: บุคคลและองค์กรมักใช้เพื่อแบ่งปันข้อมูลรับรองการเข้าสู่ระบบหรือข้อมูลที่ละเอียดอ่อนอื่นๆ
-        กับเพื่อนร่วมงาน ลูกค้า หรือคู่ค้า
-      about_4: Password Pusher เป็นโซลูชันที่ง่ายและสะดวกสำหรับการแบ่งปันรหัสผ่านอย่างปลอดภัยโดยไม่จำเป็นต้องใช้อีเมลหรือวิธีการสื่อสารอื่นๆ
-        ที่ปลอดภัยน้อยกว่า
-      about_pwpush: เกี่ยวกับตัวดันรหัสผ่าน
-      hosted_at_html: โฮสต์ที่ <a href="https://pwpush.com">pwpush.com</a> หรือคุณสามารถเรียกใช้อินสแตนซ์ส่วนตัวของคุณเองได้ทุกที่ที่คุณต้องการ
-      my_name: ฉันชื่อปีเตอร์ จิอาโคโม ลอมบาร์โด คุณสามารถหาฉันได้ที่ %{linkedin},
-        %{github} หรือ %{blog}
-      source_avail_html: ซอร์สโค้ด <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">มีอยู่ใน GitHub</a> เป็นโอเพ่นซอร์สและฟรีสำหรับทุกคนที่ใช้
-        ตรวจสอบ หรือแก้ไข
-      the_author: ผู้เขียน
   pushes:
     access:
       incorrect: ข้อความรหัสผ่านนั้นไม่ถูกต้อง โปรดลองอีกครั้งหรือติดต่อบุคคลหรือองค์กรที่ส่งลิงก์นี้ให้คุณ
@@ -821,18 +858,13 @@ th:
       1click_retrieval_step_help: ช่วยหลีกเลี่ยงระบบแชทและตัวสแกน URL ไม่ให้กินยอดวิว
       active: คล่องแคล่ว
       attached_files: ไฟล์ที่แนบมา
-      attached_files_help: มีการแนบไฟล์มากับการพุชนี้หรือไม่?
       audit_log_for: บันทึกการตรวจสอบสำหรับ %{push_id}
       contains_text: ประกอบด้วยข้อความ
       contains_text_help: เพย์โหลดข้อความถูกเพิ่มในการพุชนี้หรือไม่
-      created: สร้าง
-      created_by: สร้างโดย %{user}
       current_status: สถานะปัจจุบัน
       deletable_by_viewers: ลบได้โดยผู้ชม
       deletable_by_viewers_help: วิธีนี้ทำให้ผู้ใช้สามารถลบเนื้อหาได้เมื่อดึงข้อมูลแล้ว
-      detail: รายละเอียด
       end_audit_log: สิ้นสุดบันทึกการตรวจสอบ
-      event: เหตุการณ์
       event_log: บันทึกการตรวจสอบ
       expire_after: 'หมดอายุหลังจาก:'
       expire_after_time_help: การพุชจะหมดอายุหลังจากระยะเวลานี้นับจากการสร้าง
@@ -841,13 +873,11 @@ th:
       expire_now_confirm: การดำเนินการนี้จะทำให้ลิงก์ลับนี้หมดอายุและลบเนื้อหาที่เกี่ยวข้องทั้งหมดออกจากฐานข้อมูลอย่างถาวร
         บันทึกการตรวจสอบ (รวมถึงการดูที่พยายามในอนาคต) จะยังคงอยู่ต่อไป คุณแน่ใจไหม?
       expired: หมดอายุ
-      failed_view: ความพยายามในการดูล้มเหลว
       failed_view_attempts: ความพยายามในการดูล้มเหลว
       failed_view_attempts_help: จำนวนครั้งที่พยายามดูการพุชนี้หลังจากหมดอายุ
       filename: ชื่อไฟล์
       files_deleted: ไฟล์ที่แนบมาก่อนหน้านี้ทั้งหมดถูกลบไปแล้ว หรือไม่มีการแนบเลย"
       log_note: เมื่อพุชได้รับกิจกรรม บันทึกของแต่ละรายการพร้อมข้อมูลที่ระบุจะแสดงขึ้นที่นี่
-      manual_expiration: การหมดอายุด้วยตนเอง
       message_length: ความยาวของข้อความ
       message_length_help: ความยาวของเพย์โหลดข้อความที่แนบมา
       none: ไม่มี
@@ -855,29 +885,22 @@ th:
       num_files_attached_help: จำนวนไฟล์ที่แนบมากับการพุชนี้
       passphrase_lock: ล็อคข้อความรหัสผ่าน
       passphrase_lock_help: กำหนดให้ผู้รับต้องป้อนข้อความรหัสผ่านเพื่อดูพุชนี้
-      payload: น้ำหนักบรรทุก
       push_date: กดไปที่ %{date}
       reference_note: หมายเหตุอ้างอิง
       secret_url: URL ลับสำหรับการพุชนี้
       size: 'ขนาด: %{size}'
       start_audit_log: เริ่มต้นบันทึกการตรวจสอบ
-      start_log: เริ่มต้นบันทึกการตรวจสอบ
       state: สถานะ
       state_help_active: ใช้งานอยู่และยังสามารถรับชมได้
       state_help_expired: เนื้อหาพุชถูกลบและ URL ลับหมดอายุ
-      successful_view: ดูสำเร็จ
       successful_views: การดูที่ประสบความสำเร็จ
       successful_views_help: จำนวนครั้งที่มีการดูการพุชสำเร็จ
       time_remaining: เวลาที่เหลืออยู่
       time_remaining_help: ระยะเวลาที่เหลือก่อนที่การพุชจะหมดอายุ
       title: พุชบันทึกการตรวจสอบ
       visible_to: มองเห็นได้เฉพาะคุณเท่านั้น
-      when: เมื่อไร
       preview: แชร์พุชนี้
     copy_to_clipboard: คัดลอกไปยังคลิปบอร์ด
-    day:
-      one: 1 วัน
-      other: "%{count} วัน"
     deleted: ลบแล้ว
     expiration_html: ลิงก์ลับนี้และเนื้อหาทั้งหมดจะถูกลบในการดู <strong>%{duration}</strong>
       หรือ <strong>%{count} มากกว่า ขึ้น</strong> อยู่กับว่ากรณีใดจะเกิดขึ้นก่อน
@@ -906,25 +929,14 @@ th:
       5_days: 5 วัน
       6_days: 6 วัน
       6_hours: 6 ชั่วโมง
-      add_files: เพิ่มไฟล์...
       audit_tip: เมื่อเข้าสู่ระบบ บันทึกการตรวจสอบกิจกรรมจะถูกเก็บไว้และสามารถใช้ได้อย่างไม่มีกำหนด
-      day: วัน
-      days: วัน
       deletable: อนุญาตให้ลบทันที
       deletable_tip: อนุญาตให้ผู้ใช้ลบการพุชนี้เมื่อเรียกข้อมูลแล้ว
       encryption_tip: เนื้อหาได้รับการเข้ารหัสก่อนการจัดเก็บและพร้อมใช้งานเฉพาะผู้ที่มีลิงก์ลับเท่านั้น
       expiration_label: 'หมดอายุการพุชและลบนี้หลังจาก:'
       expiration_tip: เมื่อหมดอายุ เนื้อหาและไฟล์ทั้งหมดของพุชจะถูกลบทันทีและทั้งหมด
-      generator_tip: ใช้ปุ่มด้านบนเพื่อสร้างรหัสผ่านแบบสุ่ม
-      hour: ชั่วโมง
-      hours: ชั่วโมง
-      login_to_upload: เข้าสู่ระบบเพื่ออัพโหลดและแนบไฟล์ในการพุชนี้...
-      minutes: นาที
-      month: เดือน
-      months: เดือน
       note_label: หมายเหตุอ้างอิง
       note_placeholder: บันทึกส่วนตัวเพื่อช่วยจำไว้ว่าการผลักดันนี้มีไว้เพื่อใครหรืออะไร
-      passphrase_label: ล็อครหัสผ่าน
       passphrase_placeholder: กำหนดให้ผู้รับต้องป้อนข้อความรหัสผ่านเพื่อดูพุชนี้
       password_tip: 'เคล็ดลับ: ใส่เฉพาะรหัสผ่านลงในช่องเท่านั้น ข้อมูลระบุตัวตนอื่นๆ
         อาจส่งผลต่อความปลอดภัยได้'
@@ -933,38 +945,22 @@ th:
       upload_limit: คุณสามารถอัปโหลดไฟล์ได้สูงสุด 10 ไฟล์ต่อการพุช
       view: ดู
       views: มุมมอง
-      week: สัปดาห์
-      weeks: สัปดาห์
       payload_url_placeholder: ป้อน URL เพื่อเปลี่ยนเส้นทางไปที่...
       url_push_tip: การพุชที่สร้างขึ้นจะเปลี่ยนเส้นทางไปยัง URL ที่ให้ไว้
-    hour:
-      one: 1 ชั่วโมง
-      other: "%{count} ชั่วโมง"
     index:
       actions: การดำเนินการ
       clear_filters: ล้างตัวกรอง
       created: สร้าง
-      created_by: โดย
-      expires: หมดอายุ
       file_count: ไฟล์
       note: บันทึก
       nothing_here: ยังไม่มีอะไรที่นี่
       push_id: กด ID
       pushes: ดัน
-      remaining_time: เวลาที่เหลืออยู่
-      status: สถานะ
-      views: มุมมอง
-      views_remaining: จำนวนการดูที่เหลืออยู่
       active: คล่องแคล่ว
       expired: หมดอายุ
       all: ทั้งหมด
       remaining: ที่เหลืออยู่
-    minute:
-      one: 1 นาที
-      other: "%{count} นาที"
-    more_view:
-      one: อีก 1 วิว
-      other: "%{count} การดูเพิ่มเติม"
+      team_pushes: ทีมผลักดัน
     'no': ไม่
     none: ไม่มี
     passphrase:
@@ -975,23 +971,16 @@ th:
     payload: น้ำหนักบรรทุก
     preliminary:
       click_proceed: คลิกที่นี่เพื่อดำเนินการต่อ
+      title: คลิกเพื่อดำเนินการต่อ
     preview:
-      and: และ
-      can_be: เป็นไปได้
-      can_not_be: ไม่สามารถ
-      deleted_by_viewers: ลบโดยผู้ชม
       link_lang_tip: 'เคล็ดลับ: ส่งไปยังผู้ใช้ต่างประเทศหรือไม่ เปลี่ยนภาษาของลิงก์ลับโดยใช้เมนูแบบเลื่อนลงทางด้านขวาของ
         URL'
       or: หรือ
-      or_after: หรือหลังจากนั้น
       push_another: ดันอีก
       push_created: สร้างการพุชของคุณแล้ว
       use_link_to_share: 'ใช้ลิงค์ลับนี้เพื่อแบ่งปัน:'
       view_push_now: ดูกดนี้เลย
       will_burn_view: "(จะเผาวิว)"
-      will_expire_after: การผลักดันนี้จะสิ้นสุดใน
-      with_preliminary_step: นอกจากนี้ยังมี %{strong_start}ขั้นตอนการดึงข้อมูลเบื้องต้น
-        1 คลิก%{strong_end} อีกด้วย
       example: ตัวอย่าง
       generate: สร้าง
       include_id: รวมบัตรประจำตัว
@@ -1004,32 +993,22 @@ th:
       link_lang_auto: อีกทางหนึ่ง การตรวจจับอัตโนมัติจะเลือกภาษาตามการตั้งค่าเบราว์เซอร์ของผู้ใช้ปลายทาง
     provide_text_or_file: หากต้องการสร้างการพุช คุณต้องระบุข้อความ แนบไฟล์ หรือทั้งสองอย่าง
     push:
-      active: คล่องแคล่ว
       audit: การตรวจสอบ
       expired: หมดอายุ
       none: ไม่มี
-      preview: ดูตัวอย่าง
-      push_controls: การควบคุมแบบกด
       title: ดันใหม่
       unknown: ไม่ทราบ
       share: แบ่งปัน
     settings: การตั้งค่า
     show:
-      blurred: รหัสผ่านของคุณถูกเบลอ คลิกด้านล่างเพื่อเปิดเผย
       click_to_reveal: เนื้อหาถูกเบลอ คลิกด้านล่างเพื่อเปิดเผย
       delete_now: ลบลิงค์ลับนี้ทันที
       delete_now_confirm: การดำเนินการนี้จะทำให้ลิงก์ลับนี้หมดอายุและลบเนื้อหาที่เกี่ยวข้องทั้งหมดออกจากฐานข้อมูลอย่างถาวร
         คุณแน่ใจไหม?
       download_file: ดาวน์โหลดไฟล์
-      files_sent: ไฟล์ต่อไปนี้ถูกส่งถึงคุณแล้ว
-      last_view: นี่คือมุมมองสุดท้าย
       obtain: ดึงและจัดเก็บเนื้อหานี้อย่างปลอดภัยโดยใช้ตัวจัดการรหัสผ่านและ/หรือที่เก็บข้อมูลที่เข้ารหัส
         อย่าลืมลบข้อมูลที่ไม่จำเป็นอีกต่อไปทันที
       open_file: เปิดไฟล์
-      please_download: โปรดดาวน์โหลดและจัดเก็บในพื้นที่ที่ปลอดภัย
-      will_be_deleted: ลิงก์ลับนี้และเนื้อหาทั้งหมดจะถูกลบใน %{b_tag}%{time_count}
-        %{time_unit}%{b_tag} หรือ %{b_tag}%{view_count} เพิ่มเติม %{view_unit}%{b_tag}
-        (ขึ้นอยู่กับว่ากรณีใดจะเกิดขึ้นก่อน)
       your_link: ลิงค์ลับของคุณ
       intro: เนื้อหาต่อไปนี้ถูกส่งถึงคุณแล้ว
     show_expired:
@@ -1044,6 +1023,12 @@ th:
     'yes': ใช่
     payload_too_large: เพย์โหลดมีขนาดใหญ่เกินไป คุณสามารถพุชได้สูงสุด %{count} ไบต์เท่านั้น
     too_many_files: คุณสามารถแนบไฟล์ได้สูงสุด %{count} ต่อการพุชแต่ละครั้ง
+    navbar:
+      files: ไฟล์
+      text: รหัสผ่านและข้อความ
+      url: URL
+    new:
+      title: ส่งรหัสผ่าน ข้อความ หรือไฟล์อย่างปลอดภัย
   static:
     about:
       about_1: Password Pusher เป็นเครื่องมือที่ใช้สำหรับแบ่งปันรหัสผ่านและข้อมูลที่ละเอียดอ่อนอื่น
@@ -1064,26 +1049,14 @@ th:
         %{github} หรือ %{blog}
       author_2: สำหรับการอัปเดต ให้ติดตาม Password Pusher บน %{twitter} (หรือ %{twitter_personal}
         ของฉัน) หรือสมัครรับข้อมูล %{newsletter}
-      facebook: เฟสบุ๊ค
       github: Github
-      help_1: ความช่วยเหลือที่ใหญ่ที่สุดคือการบอกต่อ แบ่งปัน Password Pusher กับเพื่อน
-        เพื่อนร่วมงาน และองค์กรของคุณ
-      help_2: 'นอกจากนี้คุณยังสามารถ:'
-      help_3: ติดดาวโปรเจ็กต์ %{github} มันเป็นน้ำมันเบนซินสำหรับอัลกอสที่เทรนด์ Password
-        Pusher
-      help_4: ช่วยด้วย %{translate} ปรับปรุงภาษาที่มีอยู่หรือเพิ่มภาษาใหม่
-      help_5: ลงทะเบียนเพื่อรับ %{newsletter} เพื่อรับข้อมูลอัปเดตเกี่ยวกับรุ่นสำคัญ
-        ปัญหาด้านความปลอดภัย เคล็ดลับ และอื่นๆ
-      help_6: ติดตาม Password Pusher บน %{facebook}, %{twitter} และ %{github}
-      help_translate: ช่วยแปล
-      newsletter: จดหมายข่าว
       pwpush_domain: pwpush.com
       section_about: เกี่ยวกับ
       section_author: ผู้เขียน
-      section_follow: จะติดตามรหัสผ่าน Pusher ได้ที่ไหน
-      section_help: ต้องการความช่วยเหลือหรือไม่
       title: เกี่ยวกับตัวดันรหัสผ่าน
-      twitter: ทวิตเตอร์
+      birthday: วันเกิด
+      original_theme: ธีมดั้งเดิม
+      original_theme_body: การออกแบบไซต์ดั้งเดิมประกอบด้วยพื้นหลังสีเข้มพร้อมฟอนต์สีเหลืองตัวหนา
     generate_key:
       env_var: คุณสามารถใช้คีย์นี้กับแอปพลิเคชันของคุณโดยตั้งค่าตัวแปรสภาพแวดล้อม
       generate_key: สร้างคีย์
@@ -1106,9 +1079,26 @@ th:
       notes: 'หมายเหตุ:'
       reload: โหลดหน้านี้ซ้ำเพื่อสร้างคีย์ใหม่อีกครั้ง
       title: สร้างคีย์เข้ารหัส
+      explanation: คำอธิบาย
     password_generator:
       push_it: กดรหัสผ่านนี้
       pwgen_title: ตัวสร้างรหัสผ่าน
+    features:
+      intro_4: 'มี Password Pusher สี่รูปแบบให้เลือกเพื่อให้เหมาะกับความต้องการของคุณ:
+        <strong>โอเพ่นซอร์ส</strong> , <strong>พรีเมียม</strong> , <strong>โปร</strong>
+        และ <strong>โฮสต์ด้วยตนเอง</strong>'
+      intro_5: ด้านล่างนี้เป็นเมทริกซ์คุณสมบัติที่แสดงคุณลักษณะหลักของแต่ละรสชาติ
+      title: คุณสมบัติ
+    languages:
+      lang_description: ด้านล่างนี้เป็นภาษาที่ Password Pusher รองรับ มีภาษาที่รองรับทั้งหมด
+        30 ภาษา เมื่อโฮสต์ด้วยตนเอง คุณสามารถเปิดใช้งานหรือปิดใช้งานภาษาสำหรับอินสแตนซ์ของคุณได้
+      languages: ภาษา
+      pwp_languages: ภาษาที่ใช้ในการผลักดันรหัสผ่าน
+    pricing:
+      coming_soon: แผนการโฮสต์ด้วยตนเองสำหรับคุณสมบัติ Pro กำลังจะมาในเร็วๆ นี้
+      custom_subhead: รองรับโอเพ่นซอร์ส รับฟีเจอร์พรีเมียม
+      feature_pipeline: คุณสมบัติพรีเมียมจะถูกย้ายไปยังรุ่นโอเพ่นซอร์สเป็นระยะๆ
+      footer_note: การสมัครสมาชิกมีไว้สำหรับ pwpush.com และนำเงินทุนไปพัฒนาเวอร์ชันโอเพนซอร์ส
   zero_minutes: 0 นาที
   users:
     agreements:
@@ -1117,3 +1107,110 @@ th:
       terms_of_service:
         terms_of_service: เงื่อนไขการให้บริการ
   confirmation_go: คลิกที่นี่เพื่อยืนยันบัญชีของคุณ
+  admin:
+    config:
+      menu_item: การกำหนดค่า
+      overview:
+        description: การตั้งค่าในส่วนนี้ใช้สำหรับกำหนดค่าแอปพลิเคชันโดยรวม เมื่อมีการเปลี่ยนแปลง
+          แอปพลิเคชันอาจรีสตาร์ทเพื่อใช้การตั้งค่าใหม่
+        subtitle: คุณสามารถปรับแต่งการตั้งค่าสำหรับ Password Pusher ได้ที่นี่
+        title: การกำหนดค่าแอปพลิเคชัน
+      reset: รีเซ็ตเป็นค่าเริ่มต้น
+      reset_confirm: คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตค่าคอนฟิกูเรชันบนหน้านี้ให้เป็นค่าเริ่มต้น
+        การดำเนินการนี้จะไม่ส่งผลต่อการตั้งค่าในหน้าอื่นๆ
+      save: บันทึก
+  models:
+    pwp_config:
+      app_config: การกำหนดค่าแอปพลิเคชัน
+      as_container_hint: คอนเทนเนอร์ที่จะใช้สำหรับจัดเก็บไฟล์
+      as_container_label: เอเอส คอนเทนเนอร์
+      as_storage_access_key_hint: คีย์การเข้าถึงที่จัดเก็บข้อมูลที่จะใช้สำหรับการตรวจสอบสิทธิ์กับเซิร์ฟเวอร์
+        AS
+      as_storage_access_key_label: รหัสการเข้าถึงที่เก็บข้อมูล AS
+      as_storage_account_name_hint: ชื่อบัญชีที่จัดเก็บข้อมูลที่จะใช้สำหรับจัดเก็บไฟล์
+      as_storage_account_name_label: ชื่อบัญชีการจัดเก็บข้อมูล AS
+      config_encryption_key_hint: คีย์การเข้ารหัสที่จะใช้ในการเข้ารหัสและถอดรหัสข้อมูลการกำหนดค่านี้
+      config_encryption_key_label: กำหนดค่าคีย์การเข้ารหัส
+      dark_logo_hint: โลโก้ที่จะใช้สำหรับธีมสีเข้ม ตรวจสอบให้แน่ใจว่าการจัดเก็บไฟล์ได้รับการกำหนดค่าอย่างถูกต้องก่อน
+      dark_logo_label: โลโก้ไซต์ธีมสีเข้ม
+      default_locale_hint: ภาษาเริ่มต้นที่จะใช้สำหรับแอปพลิเคชัน
+      default_locale_label: ภาษาเริ่มต้น
+      email_raise_delivery_errors_hint: ระบุว่าจะแสดงข้อผิดพลาดหรือไม่หากไม่สามารถส่งอีเมลได้
+        โดยค่าเริ่มต้นคือ true
+      email_raise_delivery_errors_label: ยกระดับข้อผิดพลาดในการจัดส่ง
+      email_subtitle: คุณสามารถปรับแต่งวิธีการส่งอีเมลของ Password Pusher ได้ที่นี่
+      email_title: การกำหนดค่าอีเมล์
+      enabled_languages_hint: ภาษาที่เลือกด้านล่างนี้จะพร้อมใช้งานสำหรับผู้ใช้ทั้งหมด
+      enabled_languages_label: ภาษาที่เปิดใช้งาน
+      encryption_subtitle: คุณสามารถปรับแต่งการตั้งค่าการเข้ารหัสสำหรับ Password Pusher
+        ได้ที่นี่
+      encryption_title: การกำหนดค่าการเข้ารหัส
+      file_subtitle: คุณสามารถปรับแต่งวิธีที่ Password Pusher จัดเก็บไฟล์ที่อัพโหลดได้ที่นี่
+      file_title: การกำหนดค่าการจัดเก็บไฟล์
+      from_address_hint: ที่อยู่อีเมลที่จะใช้เป็นผู้ส่งอีเมล
+      from_address_label: จากที่อยู่
+      gcs_bucket_hint: บัคเก็ตที่จะใช้สำหรับจัดเก็บไฟล์
+      gcs_bucket_label: ถัง GCS
+      gcs_credentials_hint: ข้อมูลประจำตัวที่จะใช้ในการพิสูจน์ตัวตนกับเซิร์ฟเวอร์
+        GCS
+      gcs_credentials_label: ข้อมูลรับรอง GCS
+      gcs_gsa_email_hint: อีเมล GSA ที่จะใช้สำหรับการตรวจสอบสิทธิ์กับเซิร์ฟเวอร์ GCS
+      gcs_gsa_email_label: อีเมล์ GCS GSA
+      gcs_iam_hint: IAM ที่จะใช้ในการตรวจสอบสิทธิ์กับเซิร์ฟเวอร์ GCS
+      gcs_iam_label: จีซีเอส ไอเอเอ็ม
+      gcs_project_hint: โครงการที่จะใช้สำหรับการจัดเก็บไฟล์
+      gcs_project_label: โครงการ GCS
+      language_subtitle: คุณสามารถปรับแต่งภาษาที่ Password Pusher รองรับได้ที่นี่
+      language_title: การกำหนดค่าภาษา
+      light_logo_hint: โลโก้ที่จะใช้สำหรับธีม Light ตรวจสอบให้แน่ใจว่าได้กำหนดค่าการจัดเก็บไฟล์อย่างถูกต้องก่อน
+      light_logo_label: โลโก้เว็บไซต์ธีมแสง
+      login_subtitle: คุณสามารถปรับแต่งวิธีที่ Password Pusher จัดการการเข้าสู่ระบบได้ที่นี่
+      login_tip: เคล็ดลับ
+      login_tip_body: 'ใช้เครื่องมือนี้เพื่อทดสอบรูปแบบอีเมลของคุณ:'
+      login_title: การกำหนดค่าการเข้าสู่ระบบ
+      override_base_url_hint: ใช้เพื่อบังคับให้มี URL ฐานของ URL ลับที่สร้างขึ้น
+      override_base_url_label: การแทนที่ URL ฐาน
+      push_encryption_key_hint: คีย์การเข้ารหัสที่จะใช้ในการเข้ารหัสและถอดรหัส
+      push_encryption_key_label: การเข้ารหัสแบบพุชคีย์
+      s3_access_key_id_hint: รหัสรหัสการเข้าถึงที่จะใช้ในการพิสูจน์ตัวตนกับเซิร์ฟเวอร์
+        S3
+      s3_access_key_id_label: รหัสการเข้าถึง S3
+      s3_bucket_hint: บัคเก็ตที่จะใช้สำหรับจัดเก็บไฟล์
+      s3_bucket_label: ถัง S3
+      s3_endpoint_hint: จุดสิ้นสุดของเซิร์ฟเวอร์ S3 ที่จะใช้สำหรับจัดเก็บไฟล์
+      s3_endpoint_label: จุดสิ้นสุด S3
+      s3_region_hint: ภูมิภาคของเซิร์ฟเวอร์ S3 ที่จะใช้สำหรับจัดเก็บไฟล์
+      s3_region_label: ภาค S3
+      s3_secret_access_key_hint: รหัสการเข้าถึงความลับที่จะใช้ในการพิสูจน์ตัวตนกับเซิร์ฟเวอร์
+        S3
+      s3_secret_access_key_label: รหัสการเข้าถึงความลับ S3
+      signup_email_regexp_hint: อีเมล์ที่ไม่ตรงกับรูปแบบนี้จะถูกปฏิเสธ
+      signup_email_regexp_label: ลงทะเบียนอีเมล Regexp
+      site_name_hint: ชื่อเว็บไซต์ที่จะใช้ในส่วนหัวและส่วนท้าย
+      site_name_label: ชื่อไซต์
+      site_tagline_hint: สโลแกนของไซต์ที่จะใช้ในส่วนหัวและส่วนท้าย
+      site_tagline_label: แท็กไลน์ของไซต์
+      smtp_address_hint: ที่อยู่ของเซิร์ฟเวอร์ SMTP ที่จะใช้ในการส่งอีเมล
+      smtp_address_label: ที่อยู่เซิร์ฟเวอร์ SMTP
+      smtp_authentication_hint: ประเภทของการตรวจสอบสิทธิ์ที่จะใช้กับเซิร์ฟเวอร์ SMTP
+      smtp_authentication_label: ประเภทการตรวจสอบสิทธิ์ SMTP
+      smtp_domain_hint: โดเมนของเซิร์ฟเวอร์ SMTP ที่จะใช้ในการส่งอีเมล
+      smtp_domain_label: โดเมน SMTP
+      smtp_enable_starttls_auto_hint: ตรวจสอบว่าเซิร์ฟเวอร์ SMTP ของคุณเปิดใช้งาน
+        STARTTLS หรือไม่ และเริ่มใช้งาน โดยค่าเริ่มต้นคือ true
+      smtp_enable_starttls_auto_label: SMTP STARTTLS อัตโนมัติ
+      smtp_enable_starttls_hint: ใช้ STARTTLS เมื่อเชื่อมต่อกับเซิร์ฟเวอร์ SMTP ของคุณและจะล้มเหลวหากไม่ได้รับการสนับสนุน
+        โดยค่าเริ่มต้นคือ false
+      smtp_enable_starttls_label: SMTP เปิดใช้งาน STARTTLS
+      smtp_openssl_verify_mode_hint: โหมดตรวจสอบ OpenSSL ที่จะใช้เมื่อเชื่อมต่อกับเซิร์ฟเวอร์
+        SMTP
+      smtp_openssl_verify_mode_label: โหมดตรวจสอบ SMTP OpenSSL
+      smtp_password_hint: รหัสผ่านที่จะใช้ในการพิสูจน์ตัวตนกับเซิร์ฟเวอร์ SMTP
+      smtp_password_label: รหัสผ่าน SMTP
+      smtp_port_hint: พอร์ตของเซิร์ฟเวอร์ SMTP ที่จะใช้ในการส่งอีเมล
+      smtp_port_label: พอร์ต SMTP
+      smtp_user_name_hint: ชื่อผู้ใช้ที่จะใช้ในการตรวจสอบสิทธิ์กับเซิร์ฟเวอร์ SMTP
+      smtp_user_name_label: ชื่อผู้ใช้ SMTP
+      storage_hint: ประเภทการจัดเก็บข้อมูลที่จะใช้สำหรับจัดเก็บไฟล์ โดยค่าเริ่มต้นคือ
+        :local
+      storage_label: พื้นที่จัดเก็บ

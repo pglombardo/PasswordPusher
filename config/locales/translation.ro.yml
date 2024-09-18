@@ -662,7 +662,6 @@ ro:
   accounts:
     policy:
       pwgen_syllables_count_help: Numărul de silabe din parola generată.
-      back: Înapoi la Echipa
       edit: Politica de editare
       team_policy_help: O politică de echipă este un set de reguli care se aplică
         la toate împingerile făcute de membrii echipei respective.
@@ -678,7 +677,6 @@ ro:
       expire_after_duration_default: Durata implicită
       expire_after_duration_default_help: Durata implicită înainte de expirarea unui
         push.
-      minutes_tip: 1 zi = 1440 minute, 7 zile = 10080 minute, 30 zile = 43200 minute
       header_view_expiration: Vezi Expirare
       expire_after_views_min: Numărul minim de vizualizări
       expire_after_views_min_help: Numărul minim de vizualizări înainte ca un push
@@ -759,17 +757,87 @@ ro:
       pwgen_max_syllable_length: Lungimea maximă a silabelor
       pwgen_max_syllable_length_help: Lungimea maximă a unei silabe în parola generată.
       pwgen_syllables_count: Syllables Count
-      switch: Comutator
-    show:
-      edit_policy: Editați politica Push
-      policy: Politica echipei
+      policy: Politica
+    account_invitations:
+      max_users: Ați atins numărul maxim de utilizatori pentru echipa dumneavoastră.  Vă
+        rugăm să ne contactați pentru a face upgrade și a adăuga mai mulți utilizatori.
+    brand:
+      delivery_blur_tip: 'Sfat: Puteți comuta utilizarea estompării încărcăturii utile
+        în setările Politicii echipei.'
+      delivery_description: Pagina de livrare este pagina pe care o vor vedea utilizatorii
+        finali atunci când vor vizualiza conținutul push-ului.
+      delivery_preview: Mai jos este o previzualizare a ceea ce vor vedea utilizatorii
+        finali atunci când <em>conținutul push este vizualizat</em>.
+      expired_description: Pagina expirată este pagina pe care o vor vedea utilizatorii
+        finali atunci când push-ul a expirat.
+      expired_preview: Mai jos este o previzualizare a ceea ce vor vedea utilizatorii
+        finali atunci când <em>push-ul a expirat</em>.
+      form:
+        logo_info: Următorul logo poate fi utilizat pentru a personaliza și marca
+          paginile push pe care le vor vedea utilizatorii finali.
+        no_logo: Nici un logo nu a fost încărcat încă.  Încărcați un logo pentru a
+          începe.
+        show_expiration: Afișați durata rămasă și mesajul de vizualizare?
+        show_logo: Logo-ul spectacolului?
+      navbar:
+        brand: Logo
+        delivery: Livrare
+        edit_brand: Edit Brand
+        edit_delivery: Editare livrare
+        edit_expired: Editare Expirat
+        edit_passphrase: Editare frază de acces
+        edit_preliminary: Edit 1-Click Retrieval
+        expired: Expirat
+        passphrase: Blocare prin frază de siguranță
+        preliminary: recuperare 1-Click
+      passphrase_description: Pagina cu frază de acces este utilizată ca parte a funcției
+        Passphrase Lockdown.  Utilizatorii care primesc mesajul push trebuie să introducă
+        o frază de acces pentru a accesa conținutul.
+      passphrase_preview: Mai jos este o previzualizare a ceea ce vor vedea utilizatorii
+        finali atunci când <em>li se solicită o frază de acces</em>.
+      preliminary_description: Pagina de preluare cu un singur clic ajută la evitarea
+        ca roboții, sistemele de chat și scanerele să consume vizualizări.  Utilizatorii
+        care primesc push-ul trebuie să facă clic pe această pagină preliminară pentru
+        a accesa conținutul.
+      preliminary_preview: Mai jos este o previzualizare a ceea ce vor vedea utilizatorii
+        finali pentru <em>opțiunea Pas de recuperare cu 1 clic</em>.
+      preview:
+        payload: Acesta este un exemplu de sarcină utilă care ar fi afișată utilizatorului
+          final.
+      save: Salvați
+      tip_custom_domain: "<strong>Sfat pentru abonații Pro</strong>: Puteți configura
+        un domeniu personalizat în %{link}."
+      tip_team_page: Pagina de configurare a echipei
+    brands:
+      form:
+        documentation: documentație
+        domain_documentation: Consultați %{link} pentru mai multe informații privind
+          configurarea unui domeniu personalizat.
+        domain_note_1: "<strong>Introduceți numele domeniului</strong> fără protocol
+          sau cale, cum ar fi <code>pwp.example.com</code>."
+        domain_note_2: "<strong>Configurați setările DNS</strong>: Creați o înregistrare
+          ALIAS care să direcționeze către <code>domain.pwpush.com</code>."
+        domain_note_3: Poate dura până la 24 de ore pentru ca setările DNS să se propage.
+        domain_note_4: După ce ați configurat setările DNS, puteți <strong>testa domeniul</strong>
+          vizitând %{link} în browserul dvs.  Ar trebui să vedeți un ecran verde semnalând
+          succesul.
+        domain_placeholder: 'Abonați Pro:  Folosiți Password Pusher pentru a livra
+          push-uri cu domeniul companiei dvs.'
+    edit_policy:
+      edit_policy: Politica de editare
+    form:
+      custom_domain_notes: Note privind domeniul personalizat
+    form_brand:
+      branding: Branding
   tag_line: Dă-i drumul.  Trimiteți prin e-mail o altă parolă.
-  about: Despre
   app_name: Parola Pusher
   application:
     card_newsletter:
       enter_email: Introduceți e-mailul dumneavoastră...
       subscribe: Abonează-te la
+      get_the_newsletter: Obțineți buletinul informativ
+      updates_on: Actualizări privind lansările importante, probleme de securitate,
+        caracteristici, integrări, sfaturi și multe altele.
     cookie_consent:
       notice: Cookie-urile din browser ajută la funcționarea acestui instrument. Utilizându-l,
         sunteți de acord cu utilizarea acestor cookie-uri.
@@ -782,9 +850,11 @@ ro:
       key_generator: Generator de chei
       newsletter: Buletin informativ
       password_generator: Generator de parole
-      tools: Instrumente, API și CLI-uri
       api_docs: Documentație API
       features: Caracteristici
+      languages: Limbi străine
+      pricing: Prețuri
+      support: Sprijin
     pw_generator_modal:
       cancel: Anulează
       configure: Configurați generarea parolei
@@ -805,26 +875,27 @@ ro:
       vowels: Vocale
     navbar:
       edit_policy: Politica
+      branding: Branding
     secret_url_bar:
       secret_link_lang: Limba secretă de legătură
       autodetect: Auto-Detecție
+    left_nav:
+      pushes: Împinge
+    right_nav:
+      features: Caracteristici
   audit_logs:
     audit_log:
-      created: Creat
-      created_by: Creat de %{user}
       log_created: Push creat pe %{date} de %{user}
       log_expired: Push expirat manual pe %{date} de către %{user}
       log_failed_view: Încercare eșuată de vizualizare de la adresa IP %{ip} pe %{date}
         de către %{user}
-      log_manual_expiration: Push expirat manual pe %{date} de către %{user} la adresa
-        IP %{ip}
-      log_referrer: 'Referitor: %{referrer}'
-      log_user_agent: 'Agent utilizator: %{user_agent}'
       log_viewed: Vizualizare reușită de la adresa IP %{ip} pe %{date} de către %{user}
       unknown: Necunoscut
-      viewed_by: Vizualizat de %{user}
       log_failed_passphrase: Tentativă de frază de acces eșuată pe %{date} de către
         %{user}
+      ip_address: 'Adresa IP:'
+      referrer: 'Referitor:'
+      user_agent: 'Agent utilizator:'
   dashboard:
     show:
       detail: Detaliu
@@ -853,36 +924,12 @@ ro:
       email: Email
       have_idea: Aveți o idee sau o dorință?  Ceva ce nu vă place?  Vrei să ne ajuți?  Vrem
         să ne spui!
-      leave_blank: Lăsați acest câmp gol!
       math_question: Cât este o sută minus 3?
       send_feedback: Trimiteți feedback
       tip: 'Sfat: Copiați-vă mesajul în clipboard în cazul în care nu reușiți să trimiteți
         mesajul.'
       your_name: Numele dvs
   none: Nici unul
-  pages:
-    about:
-      about_1: Password Pusher este un instrument utilizat pentru a partaja parole
-        și alte informații sensibile cu alte persoane în siguranță.
-      about_2: Cu Password Pusher, puteți crea un URL unic, care va expira după o
-        anumită perioadă de timp sau după ce a fost accesat de un anumit număr de
-        ori, asigurându-vă că informațiile dvs. rămân private și sigure.
-      about_3: Acesta este adesea utilizat de persoane și organizații pentru a partaja
-        credențiale de conectare sau alte date sensibile cu colegii, clienții sau
-        partenerii.
-      about_4: Password Pusher este o soluție simplă și convenabilă pentru partajarea
-        în siguranță a parolelor, fără a fi nevoie de e-mail sau alte metode de comunicare
-        mai puțin sigure.
-      about_pwpush: Despre Password Pusher
-      hosted_at_html: Găzduit la <a href="https://pwpush.com">pwpush.com</a> sau vă
-        puteți rula propria instanță privată oriunde doriți.
-      my_name: Numele meu este Peter Giacomo Lombardo. Mă puteți găsi pe %{linkedin},
-        %{github} sau %{blog}.
-      source_avail_html: Codul sursă este <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">disponibil pe GitHub</a>.  Este
-        open source și este liber pentru oricine să îl folosească, să îl revizuiască
-        sau să îl modifice.
-      the_author: Autorul
   pushes:
     access:
       incorrect: Această frază de acces este incorectă.  Vă rugăm să încercați din
@@ -893,19 +940,14 @@ ro:
         de adrese URL de la consumul de vizualizări.
       active: Activ
       attached_files: Fișiere atașate
-      attached_files_help: Au fost atașate fișiere la acest push?
       audit_log_for: Jurnal de audit pentru %{push_id}
       contains_text: Conține text
       contains_text_help: A fost adăugată o încărcătură de text la acest push?
-      created: Creat
-      created_by: Creat de %{user}
       current_status: Starea actuală
       deletable_by_viewers: Șterse de către telespectatori
       deletable_by_viewers_help: Acest lucru permite utilizatorilor finali să șteargă
         conținutul odată ce a fost recuperat.
-      detail: Detaliu
       end_audit_log: Sfârșitul jurnalului de audit
-      event: Eveniment
       event_log: Jurnal de audit
       expire_after: 'Expiră după:'
       expire_after_time_help: Push expiră după această perioadă de timp de la creare.
@@ -916,7 +958,6 @@ ro:
         (inclusiv încercările viitoare de vizualizare) va fi păstrat și în continuare.
         Sunteți sigur?
       expired: Expirat
-      failed_view: Încercare eșuată de vizualizare
       failed_view_attempts: Încercări eșuate de vizualizare
       failed_view_attempts_help: Numărul de încercări de vizualizare a acestui push
         după expirare.
@@ -925,7 +966,6 @@ ro:
         atașate."
       log_note: Pe măsură ce push primește activitate, aici va apărea un jurnal cu
         informații de identificare pentru fiecare dintre acestea.
-      manual_expiration: Expirare manuală
       message_length: Lungimea mesajului
       message_length_help: Lungimea încărcăturii utile de text atașate.
       none: Nici unul
@@ -934,17 +974,14 @@ ro:
       passphrase_lock: Blocarea frazei de acces
       passphrase_lock_help: Solicitați destinatarilor să introducă o frază de acces
         pentru a vizualiza acest push.
-      payload: Sarcina utilă
       push_date: A fost împins pe %{date}
       reference_note: Notă de referință
       secret_url: URL secret pentru acest push
       size: 'Dimensiune: %{size}'
       start_audit_log: Începutul jurnalului de audit
-      start_log: Începutul jurnalului de audit
       state: Stat
       state_help_active: Activ și încă disponibil pentru vizionare.
       state_help_expired: Conținutul push a fost șters, iar URL-ul secret a expirat.
-      successful_view: Vizualizare de succes
       successful_views: Vizualizări de succes
       successful_views_help: Numărul de ori de câte ori a fost vizualizat cu succes
         push-ul.
@@ -952,12 +989,8 @@ ro:
       time_remaining_help: Perioada de timp rămasă până când expiră "push".
       title: Jurnal de audit Push
       visible_to: Vizibil doar pentru tine
-      when: Când
       preview: Împărtășește acest Push
     copy_to_clipboard: Copiere în clipboard
-    day:
-      one: 1 zi
-      other: "%{count} zile"
     deleted: Șters
     expiration_html: Această legătură secretă și întregul conținut vor fi șterse în
       <strong>%{duration}</strong> sau <strong>%{count} vizualizări suplimentare</strong>,
@@ -988,11 +1021,8 @@ ro:
       5_days: 5 zile
       6_days: 6 zile
       6_hours: 6 ore
-      add_files: Adăugați fișiere...
       audit_tip: Atunci când vă conectați, se păstrează un jurnal de audit al activității,
         care este disponibil pe termen nelimitat.
-      day: ziua
-      days: Zile
       deletable: Permite ștergerea imediată
       deletable_tip: Permiteți utilizatorilor să șteargă acest push după ce a fost
         recuperat.
@@ -1001,18 +1031,9 @@ ro:
       expiration_label: 'Expirați acest push și ștergeți-l după:'
       expiration_tip: Odată expirat, tot conținutul și fișierele din push sunt șterse
         imediat și în întregime.
-      generator_tip: Utilizați butonul de mai sus pentru a genera o parolă aleatorie.
-      hour: ora
-      hours: Ore
-      login_to_upload: Autentificați-vă pentru a încărca și atașa fișiere la acest
-        push...
-      minutes: Proces-verbal
-      month: luna
-      months: Luni
       note_label: Notă de referință
       note_placeholder: O notă privată pentru a vă ajuta să vă amintiți pentru cine
         sau pentru ce este acest impuls.
-      passphrase_label: Blocare prin frază de siguranță
       passphrase_placeholder: Solicitați destinatarilor să introducă o frază de acces
         pentru a vizualiza acest push.
       password_tip: 'Sfat: Introduceți doar o parolă în căsuță. Alte informații de
@@ -1022,38 +1043,22 @@ ro:
       upload_limit: Puteți încărca până la 10 fișiere per push.
       view: Vezi
       views: Vizualizări
-      week: Săptămâna
-      weeks: Săptămâni
       payload_url_placeholder: Introduceți URL-ul către care doriți să redirecționați...
       url_push_tip: Push-ul creat va fi redirecționat către URL-ul furnizat.
-    hour:
-      one: 1 oră
-      other: "%{count} ore"
     index:
       actions: Acțiuni
       clear_filters: Curățați filtrele
       created: Creat
-      created_by: De către
-      expires: Expiră
       file_count: Fișiere
       note: Notă
       nothing_here: Încă nu e nimic aici.
       push_id: Push ID
       pushes: Împinge
-      remaining_time: Timp rămas
-      status: Stare
-      views: Vizualizări
-      views_remaining: Vizualizări rămase
       active: Activ
       expired: Expirat
       all: Toate
       remaining: Rămase
-    minute:
-      one: 1 minut
-      other: "%{count} minute"
-    more_view:
-      one: 1 vizualizare suplimentară
-      other: "%{count} mai multe vizualizări"
+      team_pushes: Echipa Pushes
     'no': Nu
     none: Nici unul
     passphrase:
@@ -1064,23 +1069,16 @@ ro:
     payload: Sarcina utilă
     preliminary:
       click_proceed: Faceți clic aici pentru a continua
+      title: Faceți clic pentru a continua
     preview:
-      and: și
-      can_be: poate fi
-      can_not_be: nu poate fi
-      deleted_by_viewers: șterse de către telespectatori.
       link_lang_tip: 'Sfat: Trimiterea către un utilizator internațional?  Schimbați
         limba legăturii secrete utilizând meniul derulant din dreapta URL-ului.'
       or: sau
-      or_after: sau după
       push_another: Împingeți un altul
       push_created: A fost creat push-ul tău.
       use_link_to_share: 'Folosiți acest link secret pentru a-l distribui:'
       view_push_now: Vezi acest Push acum
       will_burn_view: "(va arde o vedere)"
-      will_expire_after: Acest push expiră în
-      with_preliminary_step: Acesta include, de asemenea, o etapă de recuperare preliminară
-        cu %{strong_start}1-clic%{strong_end}.
       example: Exemplu
       generate: Generați
       include_id: Includeți ID-ul
@@ -1096,33 +1094,23 @@ ro:
     provide_text_or_file: Pentru a crea un push, trebuie fie să furnizați un text,
       fie să atașați un fișier, fie ambele.
     push:
-      active: Activ
       audit: Audit
       expired: Expirat
       none: Nici unul
-      preview: Previzualizare
-      push_controls: Comenzi de împingere
       title: Noul Push
       unknown: Necunoscut
       share: Share
     settings: Setări
     show:
-      blurred: Parola dvs. este estompată.  Faceți clic mai jos pentru a o dezvălui.
       click_to_reveal: Conținutul este estompat. Faceți clic mai jos pentru a-l dezvălui.
       delete_now: Ștergeți acest link secret acum
       delete_now_confirm: Acest lucru va expira această legătură secretă și va șterge
         tot conținutul aferent din baza de date pentru totdeauna. Sunteți sigur?
       download_file: Descărcați fișierul
-      files_sent: Următoarele fișiere v-au fost trimise.
-      last_view: Aceasta este ultima vedere.
       obtain: Recuperați și stocați în siguranță acest conținut, utilizând un manager
         de parole și/sau un sistem de stocare criptat. Nu uitați să ștergeți imediat
         orice date care nu mai sunt necesare.
       open_file: Deschidere fișier
-      please_download: Vă rugăm să le descărcați și să le păstrați într-o zonă sigură.
-      will_be_deleted: Această legătură secretă și tot conținutul acesteia vor fi
-        șterse în %{b_tag}%{time_count} %{time_unit}%{b_tag} sau %{b_tag}%{view_count}
-        mai mult %{view_unit}%{b_tag} (oricare dintre acestea are loc mai întâi).
       your_link: Legătura ta secretă
       intro: Următorul conținut a fost trimis către dvs.
     show_expired:
@@ -1139,6 +1127,12 @@ ro:
     payload_too_large: Sarcina utilă este prea mare.  Puteți împinge doar până la
       %{count} bytes.
     too_many_files: Puteți atașa numai până la %{count} fișiere per push.
+    navbar:
+      files: Fișiere
+      text: Parole și text
+      url: URL-uri
+    new:
+      title: Trimiteți în siguranță o parolă, un text sau un fișier
   static:
     about:
       about_1: Password Pusher este un instrument utilizat pentru a partaja parole
@@ -1163,27 +1157,15 @@ ro:
         %{github} sau %{blog}.
       author_2: Pentru actualizări, urmăriți Password Pusher pe %{twitter} (sau pe
         %{twitter_personal}) sau abonați-vă la %{newsletter}.
-      facebook: Facebook
       github: Github
-      help_1: De departe, cel mai mare ajutor este să răspândești vestea.  Împărtășiți
-        Password Pusher cu prietenii, colegii și organizațiile dumneavoastră.
-      help_2: 'De asemenea, puteți:'
-      help_3: Porniți proiectul %{github}. Este benzină pentru alogeni care au tendința
-        de a se dezvolta Password Pusher.
-      help_4: Ajutor %{translate}. Îmbunătățiți o limbă existentă sau adăugați una
-        nouă.
-      help_5: Înscrieți-vă la %{newsletter} pentru a primi actualizări despre versiuni
-        importante, probleme de securitate, sfaturi și multe altele.
-      help_6: Urmați Password Pusher pe %{facebook}, %{twitter} și %{github}.
-      help_translate: Ajută la traducere
-      newsletter: Buletin informativ
       pwpush_domain: pwpush.com
       section_about: Despre
       section_author: Autorul
-      section_follow: În cazul în care pentru a urmări Parola Pusher
-      section_help: Vrei să ajuți?
       title: Despre Password Pusher
-      twitter: Twitter
+      birthday: Ziua de naștere
+      original_theme: Tema originală
+      original_theme_body: Designul original al site-ului era format dintr-un fundal
+        întunecat cu un font galben îndrăzneț.
     generate_key:
       env_var: Puteți aplica această cheie aplicației dumneavoastră prin setarea variabilei
         de mediu
@@ -1214,9 +1196,31 @@ ro:
       notes: 'Note:'
       reload: Reîncărcați această pagină pentru a genera din nou o nouă cheie.
       title: Generarea unei chei de criptare
+      explanation: Explicație
     password_generator:
       push_it: Apăsați această parolă
       pwgen_title: Generator de parole
+    features:
+      intro_4: 'Există patru versiuni diferite de Password Pusher pentru a vă satisface
+        nevoile: <strong>Open Source</strong>, <strong>Premium</strong>, <strong>Pro</strong>
+        și <strong>Self-Hosted</strong>.'
+      intro_5: Mai jos este prezentată o matrice de caracteristici care evidențiază
+        caracteristicile cheie ale fiecărei arome.
+      title: Caracteristici
+    languages:
+      lang_description: Mai jos sunt prezentate limbile acceptate de Password Pusher.  Există
+        30 de limbi acceptate.  Atunci când vă găzduiți singur, puteți activa sau
+        dezactiva limbile pentru instanța dvs.
+      languages: Limbi străine
+      pwp_languages: Limbi de utilizare a parolei Pusher
+    pricing:
+      coming_soon: Un plan de găzduire proprie pentru caracteristicile Pro este disponibil
+        în curând.
+      custom_subhead: Sprijiniți Open Source.  Obțineți caracteristici premium.
+      feature_pipeline: Caracteristicile premium sunt mutate periodic în ediția open
+        source.
+      footer_note: Abonamentele sunt pentru pwpush.com și finanțează dezvoltarea ediției
+        open source.
   zero_minutes: 0 minute
   users:
     agreements:
@@ -1225,3 +1229,133 @@ ro:
       terms_of_service:
         terms_of_service: Termeni și condiții de utilizare
   confirmation_go: Faceți clic aici pentru a vă confirma contul
+  admin:
+    config:
+      menu_item: Configurație
+      overview:
+        description: Setările din această secțiune sunt utilizate pentru configurarea
+          globală a aplicației.  Atunci când se fac modificări, aplicația poate fi
+          repornită pentru a aplica noile setări.
+        subtitle: Aici puteți personaliza setările pentru Password Pusher.
+        title: Configurarea aplicației
+      reset: Resetare la valorile implicite
+      reset_confirm: Sunteți sigur că doriți să resetați configurația de pe această
+        pagină la valorile implicite?  Acest lucru nu va afecta setările de pe alte
+        pagini.
+      save: Salvați
+  models:
+    pwp_config:
+      app_config: Configurarea aplicației
+      as_container_hint: Containerul utilizat pentru stocarea fișierelor.
+      as_container_label: Container AS
+      as_storage_access_key_hint: Cheia de acces la stocare care se utilizează pentru
+        autentificarea cu serverul AS.
+      as_storage_access_key_label: Cheie de acces la stocare AS
+      as_storage_account_name_hint: Numele contului de stocare utilizat pentru stocarea
+        fișierelor.
+      as_storage_account_name_label: Numele contului de stocare AS
+      config_encryption_key_hint: Cheia de criptare care trebuie utilizată pentru
+        criptarea și decriptarea acestor date de configurare.
+      config_encryption_key_label: Configurare cheie de criptare
+      dark_logo_hint: Logo-ul care urmează să fie utilizat pentru tema întunecată.
+        Asigurați-vă mai întâi că stocarea fișierelor este configurată corect.
+      dark_logo_label: Tema întunecată Logo-ul site-ului
+      default_locale_hint: Limba implicită care urmează să fie utilizată pentru aplicație.
+      default_locale_label: Limba implicită
+      email_raise_delivery_errors_hint: Specifică dacă se ridică o eroare în cazul
+        în care livrarea e-mailului nu poate fi finalizată. Valoarea implicită este
+        true.
+      email_raise_delivery_errors_label: Ridicați erorile de livrare
+      email_subtitle: Aici puteți personaliza modul în care Password Pusher trimite
+        e-mailuri.
+      email_title: Configurare e-mail
+      enabled_languages_hint: Limbile selectate mai jos vor fi disponibile pentru
+        toți utilizatorii.
+      enabled_languages_label: Limbi activate
+      encryption_subtitle: Aici puteți personaliza setările de criptare pentru Password
+        Pusher.
+      encryption_title: Configurare criptare
+      file_subtitle: Aici puteți personaliza modul în care Password Pusher stochează
+        fișierele încărcate.
+      file_title: Configurarea stocării fișierelor
+      from_address_hint: Adresa de e-mail care urmează să fie utilizată ca expeditor
+        de e-mail.
+      from_address_label: De la adresă
+      gcs_bucket_hint: Găleata care urmează să fie utilizată pentru stocarea fișierelor.
+      gcs_bucket_label: Găleată GCS
+      gcs_credentials_hint: Datele de identificare care trebuie utilizate pentru autentificarea
+        cu serverul GCS.
+      gcs_credentials_label: Acreditările GCS
+      gcs_gsa_email_hint: Adresa de e-mail GSA care urmează să fie utilizată pentru
+        autentificarea cu serverul GCS.
+      gcs_gsa_email_label: GCS GSA E-mail
+      gcs_iam_hint: IAM de utilizat pentru autentificarea cu serverul GCS.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: Proiectul care urmează să fie utilizat pentru stocarea fișierelor.
+      gcs_project_label: Proiectul GCS
+      language_subtitle: Aici puteți personaliza limbile acceptate de Password Pusher.
+      language_title: Configurarea limbii
+      light_logo_hint: Logo-ul care urmează să fie utilizat pentru tema ușoară. Asigurați-vă
+        mai întâi că stocarea fișierelor este configurată corect.
+      light_logo_label: Logo-ul site-ului tematic ușor
+      login_subtitle: Aici puteți personaliza modul în care Password Pusher gestionează
+        autentificările.
+      login_tip: Sfat
+      login_tip_body: 'Utilizați acest instrument pentru a vă testa modelele de e-mail:'
+      login_title: Configurație de conectare
+      override_base_url_hint: Utilizat pentru a forța URL-ul de bază al URL-urilor
+        secrete generate.
+      override_base_url_label: Suprascriere URL de bază
+      push_encryption_key_hint: Cheia de criptare care urmează să fie utilizată pentru
+        criptarea și decriptarea push-urilor.
+      push_encryption_key_label: Cheie de criptare Push
+      s3_access_key_id_hint: ID-ul cheii de acces care se utilizează pentru autentificarea
+        cu serverul S3.
+      s3_access_key_id_label: ID cheie de acces S3
+      s3_bucket_hint: Găleata care urmează să fie utilizată pentru stocarea fișierelor.
+      s3_bucket_label: S3 Găleată
+      s3_endpoint_hint: Punctul final al serverului S3 care urmează să fie utilizat
+        pentru stocarea fișierelor.
+      s3_endpoint_label: Punct final S3
+      s3_region_hint: Regiunea serverului S3 care urmează să fie utilizată pentru
+        stocarea fișierelor.
+      s3_region_label: Regiunea S3
+      s3_secret_access_key_hint: Cheia secretă de acces care se utilizează pentru
+        autentificarea cu serverul S3.
+      s3_secret_access_key_label: S3 Cheie de acces secretă
+      signup_email_regexp_hint: E-mailurile care nu corespund acestui model vor fi
+        respinse.
+      signup_email_regexp_label: Înregistrare e-mail Regexp
+      site_name_hint: Numele site-ului care urmează să fie utilizat în antet și subsol.
+      site_name_label: Numele sitului
+      site_tagline_hint: Sloganul site-ului pentru a fi utilizat în antet și subsol.
+      site_tagline_label: Sloganul site-ului
+      smtp_address_hint: Adresa serverului SMTP care urmează să fie utilizată pentru
+        trimiterea de e-mailuri.
+      smtp_address_label: Adresa serverului SMTP
+      smtp_authentication_hint: Tipul de autentificare care urmează să fie utilizat
+        cu serverul SMTP.
+      smtp_authentication_label: Tip de autentificare SMTP
+      smtp_domain_hint: Domeniul serverului SMTP care urmează să fie utilizat pentru
+        trimiterea de e-mailuri.
+      smtp_domain_label: Domeniu SMTP
+      smtp_enable_starttls_auto_hint: Detectează dacă STARTTLS este activat în serverul
+        SMTP și începe să îl utilizeze. Valoarea implicită este true.
+      smtp_enable_starttls_auto_label: SMTP automat STARTTLS
+      smtp_enable_starttls_hint: Utilizează STARTTLS la conectarea la serverul SMTP
+        și eșuează dacă nu este acceptat. Valoarea implicită este falsă.
+      smtp_enable_starttls_label: SMTP Activare STARTTLS
+      smtp_openssl_verify_mode_hint: Modul de verificare OpenSSL care trebuie utilizat
+        la conectarea la serverul SMTP.
+      smtp_openssl_verify_mode_label: Modul de verificare SMTP OpenSSL
+      smtp_password_hint: Parola de utilizat pentru autentificarea la serverul SMTP.
+      smtp_password_label: Parolă SMTP
+      smtp_port_hint: Portul serverului SMTP care urmează să fie utilizat pentru trimiterea
+        de e-mailuri.
+      smtp_port_label: Port SMTP
+      smtp_user_name_hint: Numele de utilizator care urmează să fie utilizat pentru
+        autentificarea la serverul SMTP.
+      smtp_user_name_label: Nume utilizator SMTP
+      storage_hint: Tipul de stocare utilizat pentru stocarea fișierelor. Valoarea
+        implicită este :local.
+      storage_label: Depozitare

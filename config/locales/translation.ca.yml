@@ -667,7 +667,6 @@ ca:
   accounts:
     policy:
       pwgen_syllables_count_help: El nombre de síl·labes de la contrasenya generada.
-      back: Torna a l'equip
       edit: Edita la política
       team_policy_help: Una política d'equip és un conjunt de regles que s'apliquen
         a totes les pressions fetes pels membres d'aquest equip.
@@ -683,7 +682,6 @@ ca:
       expire_after_duration_default: Durada per defecte
       expire_after_duration_default_help: La durada predeterminada abans que caduqui
         un push.
-      minutes_tip: 1 dia = 1440 minuts, 7 dies = 10080 minuts, 30 dies = 43200 minuts
       header_view_expiration: Veure caducitat
       expire_after_views_min: Recompte mínim de visualitzacions
       expire_after_views_min_help: El nombre mínim de visualitzacions abans que caduqui
@@ -765,17 +763,87 @@ ca:
       pwgen_max_syllable_length_help: La longitud màxima d'una síl·laba a la contrasenya
         generada.
       pwgen_syllables_count: Recompte de síl·labes
-      switch: Interruptor
-    show:
-      edit_policy: Edita la política Push
-      policy: Política d'equip
+      policy: Política
+    account_invitations:
+      max_users: Heu assolit el nombre màxim d'usuaris per al vostre equip. Si us
+        plau, poseu-vos en contacte amb nosaltres per actualitzar i afegir més usuaris.
+    brand:
+      delivery_blur_tip: 'Consell: podeu canviar l''ús de la difuminació de la càrrega
+        útil a la configuració de la política d''equip.'
+      delivery_description: La pàgina de lliurament és la pàgina que els usuaris finals
+        veuran quan es visualitzi el contingut de la push.
+      delivery_preview: A continuació es mostra una vista prèvia de quan els usuaris
+        finals veuran quan <em>es visualitzi el contingut push</em> .
+      expired_description: La pàgina caducada és la pàgina que els usuaris finals
+        veuran quan hagi caducat el push.
+      expired_preview: A continuació es mostra una vista prèvia del que veuran els
+        usuaris finals quan <em>hagi expirat l'empenta</em> .
+      form:
+        logo_info: El logotip següent es pot utilitzar per personalitzar i marcar
+          les pàgines push que veuran els vostres usuaris finals.
+        no_logo: Encara no s'ha carregat cap logotip. Carregueu un logotip per començar.
+        show_expiration: Vols mostrar la durada restant i el missatge de visualitzacions?
+        show_logo: Mostra el logotip?
+      navbar:
+        brand: Logotip
+        delivery: Lliurament
+        edit_brand: Edita la marca
+        edit_delivery: Edita el lliurament
+        edit_expired: Edita caducada
+        edit_passphrase: Edita la contrasenya
+        edit_preliminary: Edita Recuperació amb 1 clic
+        expired: Caducat
+        passphrase: Bloqueig de frase de contrasenya
+        preliminary: 1-Feu clic a Recuperació
+      passphrase_description: La pàgina de contrasenya s'utilitza com a part de la
+        funció de bloqueig de contrasenya. Els usuaris que reben el push han d'introduir
+        una contrasenya per accedir als continguts.
+      passphrase_preview: A continuació es mostra una vista prèvia del que veuran
+        els usuaris finals quan <em>se'ls demani una frase de contrasenya</em> .
+      preliminary_description: La pàgina de recuperació d'1 clic ajuda a evitar que
+        els robots, els sistemes de xat i els escàners consumeixin les vistes. Els
+        usuaris que rebin el push han de fer clic a través d'aquesta pàgina preliminar
+        per accedir als continguts.
+      preliminary_preview: A continuació es mostra una vista prèvia del que veuran
+        els usuaris finals per a l' <em>opció de pas de recuperació d'un clic</em>
+        .
+      preview:
+        payload: Aquest és un exemple de càrrega útil que es mostraria a l'usuari
+          final.
+      save: Desa
+      tip_custom_domain: "<strong>Consell per a subscriptors professionals</strong>
+        : podeu configurar un domini personalitzat al vostre %{link}."
+      tip_team_page: Pàgina de configuració de l'equip
+    brands:
+      form:
+        documentation: documentació
+        domain_documentation: Consulteu %{link} per obtenir més informació sobre la
+          configuració d'un domini personalitzat.
+        domain_note_1: "<strong>Introduïu el nom de domini</strong> sense el protocol
+          ni el camí, com ara <code>pwp.example.com</code> ."
+        domain_note_2: "<strong>Configureu la configuració del DNS</strong> : creeu
+          un registre ALIAS que apunti a <code>domain.pwpush.com</code> ."
+        domain_note_3: La configuració del DNS pot trigar fins a 24 hores a propagar-se.
+        domain_note_4: Un cop hàgiu configurat la configuració del DNS, podeu <strong>provar
+          el domini</strong> visitant %{link} al vostre navegador. Hauríeu de veure
+          una pantalla verda que indica l'èxit.
+        domain_placeholder: 'Subscriptors professionals: utilitzeu Password Pusher
+          per oferir pushs amb el domini de la vostra empresa.'
+    edit_policy:
+      edit_policy: Edita la política
+    form:
+      custom_domain_notes: Notes de domini personalitzades
+    form_brand:
+      branding: Marca
   tag_line: Endavant. Envieu una altra contrasenya per correu electrònic.
-  about: Quant a
   app_name: Impulsor de contrasenyes
   application:
     card_newsletter:
       enter_email: Introdueix el teu correu electrònic...
       subscribe: Subscriu-te
+      get_the_newsletter: Obteniu el butlletí
+      updates_on: Actualitzacions sobre grans llançaments, problemes de seguretat,
+        funcions, integracions, consells i molt més.
     cookie_consent:
       notice: Les galetes del navegador ajuden a fer que aquesta eina funcioni. En
         utilitzar-lo, acceptes l'ús d'aquestes cookies.
@@ -788,9 +856,11 @@ ca:
       key_generator: Generador de claus
       newsletter: Butlletí informatiu
       password_generator: Generador de contrasenyes
-      tools: Eines, API i CLI
       api_docs: Documentació de l'API
       features: Característiques
+      languages: Idiomes
+      pricing: Preus
+      support: Suport
     pw_generator_modal:
       cancel: Cancel·lar
       configure: Configura la generació de contrasenyes
@@ -811,25 +881,26 @@ ca:
       vowels: Vocals
     navbar:
       edit_policy: Política
+      branding: Marca
     secret_url_bar:
       secret_link_lang: Llenguatge d'enllaç secret
       autodetect: Auto detectar
+    left_nav:
+      pushes: Empènyers
+    right_nav:
+      features: Característiques
   audit_logs:
     audit_log:
-      created: Creat
-      created_by: Creat per %{user}
       log_created: Push creat a %{date} per %{user}
       log_expired: Push caducat manualment a %{date} per %{user}
       log_failed_view: Intent de visualització fallit des de l'adreça IP %{ip} a %{date}
         per %{user}
-      log_manual_expiration: Push caducat manualment a %{date} per %{user} a l'adreça
-        IP %{ip}
-      log_referrer: 'Referent: %{referrer}'
-      log_user_agent: 'Agent d''usuari: %{user_agent}'
       log_viewed: Visualització correcta des de l'adreça IP %{ip} a %{date} per %{user}
       unknown: Desconegut
-      viewed_by: Visualitzat per %{user}
       log_failed_passphrase: Intent fallit de frase de contrasenya a %{date} per %{user}
+      ip_address: 'Adreça IP:'
+      referrer: 'Referent:'
+      user_agent: 'Agent d''usuari:'
   dashboard:
     show:
       detail: Detall
@@ -859,34 +930,12 @@ ca:
       email: Correu electrònic
       have_idea: Tens una idea o un desig? Alguna cosa que no t'agrada? Vols ajudar?
         Ho volem escoltar!
-      leave_blank: Deixeu aquest camp en blanc!
       math_question: Què és cent menys 3?
       send_feedback: Envia comentaris
       tip: 'Consell: copieu el vostre missatge al porta-retalls en la improbable possibilitat
         que l''enviament falli.'
       your_name: El teu nom
   none: Cap
-  pages:
-    about:
-      about_1: Password Pusher és una eina que s'utilitza per compartir contrasenyes
-        i altra informació sensible amb altres persones de manera segura.
-      about_2: Amb Password Pusher, podeu crear un URL únic i únic que caducarà després
-        d'un cert període de temps o després d'haver accedit un nombre determinat
-        de vegades, assegurant-vos que la vostra informació romangui privada i segura.
-      about_3: Sovint l'utilitzen persones i organitzacions per compartir credencials
-        d'inici de sessió o altres dades sensibles amb col·legues, clients o socis.
-      about_4: Password Pusher és una solució senzilla i còmoda per compartir contrasenyes
-        de manera segura sense necessitat de correu electrònic o altres mètodes de
-        comunicació menys segurs.
-      about_pwpush: Quant a Password Pusher
-      hosted_at_html: Allotjat a <a href="https://pwpush.com">pwpush.com</a> o podeu
-        executar la vostra pròpia instància privada allà on vulgueu.
-      my_name: Em dic Peter Giacomo Lombardo. Em podeu trobar a %{linkedin}, %{github}
-        o %{blog}.
-      source_avail_html: El codi font està <a href="https://github.com/pglombardo/PasswordPusher"
-        target="_blank" rel="noopener noreferrer">disponible a GitHub</a> . És de
-        codi obert i gratuït per a qualsevol persona que l'utilitzi, revise o modifiqui.
-      the_author: L'autor
   pushes:
     access:
       incorrect: Aquesta frase de contrasenya és incorrecta. Torna-ho a provar o contacta
@@ -897,19 +946,14 @@ ca:
         d'URL consumeixin les vistes.
       active: Activa
       attached_files: Fitxers adjunts
-      attached_files_help: S'han adjuntat fitxers a aquest push?
       audit_log_for: Registre d'auditoria per a %{push_id}
       contains_text: Conté text
       contains_text_help: S'ha afegit una càrrega útil de text a aquest push?
-      created: Creat
-      created_by: Creat per %{user}
       current_status: Estat actual
       deletable_by_viewers: Esborrable pels espectadors
       deletable_by_viewers_help: Això permet als usuaris finals eliminar el contingut
         un cop recuperat.
-      detail: Detall
       end_audit_log: Fi del registre d'auditoria
-      event: Esdeveniment
       event_log: Registre d'auditoria
       expire_after: 'Caduca després de:'
       expire_after_time_help: El push caduca després d'aquest període de temps des
@@ -920,7 +964,6 @@ ca:
         tot el contingut relacionat de la base de dades. El registre d'auditoria (incloent-hi
         els intents de visualització futurs) es mantindrà a partir d'ara. Estàs segur?
       expired: Caducat
-      failed_view: Intent de visualització fallit
       failed_view_attempts: Intents de visualització fallits
       failed_view_attempts_help: El nombre d'intents per veure aquesta empenta després
         de la caducitat.
@@ -929,7 +972,6 @@ ca:
         ha cap adjunt."
       log_note: A mesura que l'empenta rebi activitat, aquí apareixerà un registre
         de cadascun amb informació d'identificació.
-      manual_expiration: Caducitat manual
       message_length: Longitud del missatge
       message_length_help: La longitud de la càrrega útil del text adjunt.
       none: Cap
@@ -938,29 +980,22 @@ ca:
       passphrase_lock: Bloqueig de frase de contrasenya
       passphrase_lock_help: Demana als destinataris que introdueixin una frase de
         contrasenya per veure aquesta emissió.
-      payload: Càrrega útil
       push_date: Prem a %{date}
       reference_note: Nota de referència
       secret_url: URL secret per a aquesta pujada
       size: 'Mida: %{size}'
       start_audit_log: Inici del registre d'auditoria
-      start_log: Inici del registre d'auditoria
       state: Estat
       state_help_active: Activa i encara disponible per a la seva visualització.
       state_help_expired: El contingut pujat s'ha suprimit i l'URL secret ha caducat.
-      successful_view: Vista d'èxit
       successful_views: 'Visualitzacions exitoses:'
       successful_views_help: El nombre de vegades que s'ha vist correctament l'impuls.
       time_remaining: Temps restant
       time_remaining_help: La quantitat de temps que queda abans que caduqui l'empenta.
       title: Push Registre d'auditoria
       visible_to: Visible només per a tu
-      when: Quan
       preview: Comparteix aquest push
     copy_to_clipboard: Copiar al portapapers
-    day:
-      one: 1 dia
-      other: "%{count} dies"
     deleted: S'ha suprimit
     expiration_html: Aquest enllaç secret i tot el contingut se suprimiran en <strong>%{duration}</strong>
       o <strong>%{count} més visualitzacions</strong> , el que passi primer.
@@ -990,11 +1025,8 @@ ca:
       5_days: 5 dies
       6_days: 6 dies
       6_hours: 6 hores
-      add_files: Afegeix arxius...
       audit_tip: Quan s'inicia la sessió, es conserva un registre d'auditoria de l'activitat
         i està disponible indefinidament.
-      day: dia
-      days: Dies
       deletable: Permet la supressió immediata
       deletable_tip: Permet als usuaris eliminar aquest push un cop recuperat.
       encryption_tip: El contingut es xifra abans de l'emmagatzematge i només està
@@ -1002,18 +1034,9 @@ ca:
       expiration_label: 'Expira aquest push i suprimeix després de:'
       expiration_tip: Un cop caducat, tot el contingut i els fitxers del push s'eliminen
         immediatament i completament.
-      generator_tip: Utilitzeu el botó de dalt per generar una contrasenya aleatòria.
-      hour: hora
-      hours: Hores
-      login_to_upload: Inicieu la sessió per carregar i adjuntar fitxers a aquest
-        push...
-      minutes: Minuts
-      month: mes
-      months: Mesos
       note_label: Nota de referència
       note_placeholder: Una nota privada per ajudar a recordar a qui o per a què serveix
         aquesta empenta.
-      passphrase_label: Bloqueig de frase de contrasenya
       passphrase_placeholder: Demana als destinataris que introdueixin una frase de
         contrasenya per veure aquesta emissió.
       password_tip: 'Consell: només introduïu una contrasenya al quadre. Una altra
@@ -1023,38 +1046,22 @@ ca:
       upload_limit: Podeu pujar fins a 10 fitxers per push.
       view: Veure
       views: Vistes
-      week: Setmana
-      weeks: Setmanes
       payload_url_placeholder: Introduïu l'URL per redirigir a...
       url_push_tip: El push creat es redirigirà a l'URL proporcionat.
-    hour:
-      one: 1 hora
-      other: "%{count} hores"
     index:
       actions: Accions
       clear_filters: Esborra els filtres
       created: Creat
-      created_by: Per
-      expires: Caduca
       file_count: Fitxers
       note: Nota
       nothing_here: Encara no hi ha res aquí.
       push_id: ID de la pujada
       pushes: Empènyers
-      remaining_time: Temps restant
-      status: Estat
-      views: Vistes
-      views_remaining: Visualitzacions restants
       active: Activa
       expired: Caducat
       all: Tots
       remaining: Restant
-    minute:
-      one: 1 minut
-      other: "%{count} minuts"
-    more_view:
-      one: 1 vista més
-      other: "%{count} visualitzacions més"
+      team_pushes: Empenta d'equip
     'no': 'No'
     none: Cap
     passphrase:
@@ -1065,23 +1072,16 @@ ca:
     payload: Càrrega útil
     preliminary:
       click_proceed: Feu clic aquí per continuar
+      title: Feu clic per continuar
     preview:
-      and: i
-      can_be: pot ser
-      can_not_be: no pot ser
-      deleted_by_viewers: esborrat pels usuaris
       link_lang_tip: 'Consell: voleu enviar a un usuari internacional? Canvieu l''idioma
         de l''enllaç secret mitjançant el menú desplegable a la dreta de l''URL.'
       or: o
-      or_after: o després
       push_another: Empènyer un altre
       push_created: La teva empenta s'ha creat.
       use_link_to_share: 'Utilitzeu aquest enllaç secret per compartir-lo:'
       view_push_now: Veure aquesta empenta ara
       will_burn_view: "(cremarà una vista)"
-      will_expire_after: Aquesta empenta caduca en
-      with_preliminary_step: També inclou un %{strong_start}pas de recuperació preliminar
-        d'1 clic%{strong_end}.
       example: Exemple
       generate: Generar
       include_id: Incloeu el DNI
@@ -1097,33 +1097,23 @@ ca:
     provide_text_or_file: Per crear un push, heu de proporcionar text, adjuntar un
       fitxer o tots dos.
     push:
-      active: Activa
       audit: Auditoria
       expired: Caducat
       none: Cap
-      preview: Vista prèvia
-      push_controls: Controls de les pujades
       title: Nou Push
       unknown: Desconegut
       share: Compartir
     settings: Configuració
     show:
-      blurred: La teva contrasenya està borrosa. Feu clic a continuació per revelar-lo.
       click_to_reveal: El contingut està desdibuixat. Feu clic a continuació per revelar-lo.
       delete_now: Suprimeix aquest enllaç secret ara
       delete_now_confirm: Això caducarà aquest enllaç secret i suprimirà per sempre
         tot el contingut relacionat de la base de dades. Estàs segur?
       download_file: Descarrega l'arxiu
-      files_sent: Us han enviat els fitxers següents.
-      last_view: Aquesta és l'última vista.
       obtain: Recupereu i emmagatzemeu aquest contingut de manera segura mitjançant
         un gestor de contrasenyes i/o emmagatzematge encriptat. Recordeu eliminar
         ràpidament les dades que ja no necessiteu.
       open_file: Arxiu obert
-      please_download: Si us plau, descarregueu-lo i deseu-lo en una àrea segura.
-      will_be_deleted: Aquest enllaç secret i tot el contingut se suprimiran a %{b_tag}%{time_count}
-        %{time_unit}%{b_tag} o %{b_tag}%{view_count} més %{view_unit}%{b_tag} (el
-        que passi primer).
       your_link: El teu enllaç secret
       intro: S'ha enviat el següent contingut.
     show_expired:
@@ -1140,6 +1130,12 @@ ca:
     payload_too_large: La càrrega útil és massa gran. Només podeu enviar fins a %{count}
       bytes.
     too_many_files: Només podeu adjuntar fins a %{count} fitxers per push.
+    navbar:
+      files: Fitxers
+      text: Contrasenyes i text
+      url: URL
+    new:
+      title: Envieu de manera segura una contrasenya, text o fitxer
   static:
     about:
       about_1: Password Pusher és una eina que s'utilitza per compartir contrasenyes
@@ -1163,26 +1159,15 @@ ca:
         o %{blog}.
       author_2: Per obtenir actualitzacions, seguiu Password Pusher a %{twitter} (o
         el meu %{twitter_personal}) o subscriviu-vos a %{newsletter}.
-      facebook: Facebook
       github: Github
-      help_1: De lluny, la major ajuda és difondre la veu. Comparteix Password Pusher
-        amb els teus amics, companys i organitzacions.
-      help_2: 'Tu pots també:'
-      help_3: Destaca el projecte %{github}. És gasolina per als algos que tendeixen
-        a Password Pusher.
-      help_4: Ajuda %{translate}. Millora un idioma existent o afegeix-ne un de nou.
-      help_5: Registra't a %{newsletter} per rebre actualitzacions sobre versions
-        importants, problemes de seguretat, consells i molt més.
-      help_6: Seguiu Password Pusher a %{facebook}, %{twitter} i %{github}.
-      help_translate: Ajudeu a traduir
-      newsletter: Butlletí informatiu
       pwpush_domain: pwpush.com
       section_about: Quant a
       section_author: L'autor
-      section_follow: On seguir Contrasenya Pusher
-      section_help: Vols ajudar?
       title: Quant a Password Pusher
-      twitter: Twitter
+      birthday: Aniversari
+      original_theme: El tema original
+      original_theme_body: El disseny del lloc original consistia en un fons fosc
+        amb una lletra groga en negreta.
     generate_key:
       env_var: Podeu aplicar aquesta clau a la vostra aplicació establint la variable
         d'entorn
@@ -1213,9 +1198,30 @@ ca:
       notes: 'Notes:'
       reload: Torneu a carregar aquesta pàgina per tornar a generar una clau nova.
       title: Genera una clau de xifratge
+      explanation: Explicació
     password_generator:
       push_it: Premeu aquesta contrasenya
       pwgen_title: Generador de contrasenyes
+    features:
+      intro_4: 'Hi ha quatre tipus diferents de Password Pusher per adaptar-se a les
+        vostres necessitats: <strong>codi obert</strong> , <strong>Premium</strong>
+        , <strong>Pro</strong> i <strong>Self-Hosted</strong> .'
+      intro_5: A continuació es mostra una matriu de característiques que descriu
+        les característiques clau de cada sabor.
+      title: Característiques
+    languages:
+      lang_description: A continuació es mostren els idiomes que admet Password Pusher.
+        Hi ha 30 idiomes compatibles. Quan s'allotja automàticament, podeu activar
+        o desactivar els idiomes per a la vostra instància.
+      languages: Idiomes
+      pwp_languages: Idiomes de la contrasenya
+    pricing:
+      coming_soon: Aviat arribarà un pla autoallotjat per a les funcions Pro.
+      custom_subhead: Suport de codi obert. Obteniu funcions premium.
+      feature_pipeline: Les funcions premium es mouen periòdicament a l'edició de
+        codi obert.
+      footer_note: Les subscripcions són per a pwpush.com i finança el desenvolupament
+        de l'edició de codi obert.
   zero_minutes: 0 minuts
   users:
     agreements:
@@ -1224,3 +1230,133 @@ ca:
       terms_of_service:
         terms_of_service: Termes del servei
   confirmation_go: Feu clic aquí per confirmar el vostre compte
+  admin:
+    config:
+      menu_item: Configuració
+      overview:
+        description: La configuració d'aquesta secció s'utilitza per configurar globalment
+          l'aplicació. Quan es facin canvis, es pot reiniciar l'aplicació per aplicar
+          la nova configuració.
+        subtitle: Aquí podeu personalitzar la configuració de Password Pusher.
+        title: Configuració de l'aplicació
+      reset: Restableix els valors per defecte
+      reset_confirm: Esteu segur que voleu restablir la configuració d'aquesta pàgina
+        als valors predeterminats? Això no afectarà la configuració d'altres pàgines.
+      save: Desa
+  models:
+    pwp_config:
+      app_config: Configuració de l'aplicació
+      as_container_hint: El contenidor que s'utilitza per emmagatzemar fitxers.
+      as_container_label: Contenidor AS
+      as_storage_access_key_hint: La clau d'accés a l'emmagatzematge que cal utilitzar
+        per autenticar-se amb el servidor AS.
+      as_storage_access_key_label: Clau d'accés a l'emmagatzematge AS
+      as_storage_account_name_hint: El nom del compte d'emmagatzematge que s'utilitzarà
+        per emmagatzemar fitxers.
+      as_storage_account_name_label: AS Nom del compte d'emmagatzematge
+      config_encryption_key_hint: La clau de xifratge que cal utilitzar per xifrar
+        i desxifrar aquestes dades de configuració.
+      config_encryption_key_label: Configuració de la clau de xifratge
+      dark_logo_hint: Logotip per utilitzar per al tema fosc. Assegureu-vos que l'emmagatzematge
+        de fitxers estigui configurat correctament primer.
+      dark_logo_label: Logotip del lloc del tema fosc
+      default_locale_hint: L'idioma predeterminat que s'utilitza per a l'aplicació.
+      default_locale_label: Idioma per defecte
+      email_raise_delivery_errors_hint: Especifica si s'ha de generar un error si
+        no es pot completar el lliurament del correu electrònic. Per defecte, és cert.
+      email_raise_delivery_errors_label: Augmenta els errors de lliurament
+      email_subtitle: Aquí podeu personalitzar com Password Pusher envia els correus
+        electrònics.
+      email_title: Configuració del correu electrònic
+      enabled_languages_hint: Els idiomes seleccionats a continuació estaran disponibles
+        per a tots els usuaris.
+      enabled_languages_label: Idiomes habilitats
+      encryption_subtitle: Aquí podeu personalitzar la configuració de xifratge de
+        Password Pusher.
+      encryption_title: Configuració de xifratge
+      file_subtitle: Aquí podeu personalitzar com Password Pusher emmagatzema els
+        fitxers penjats.
+      file_title: Configuració d'emmagatzematge de fitxers
+      from_address_hint: L'adreça de correu electrònic a utilitzar com a remitent
+        del correu electrònic.
+      from_address_label: Des de Adreça
+      gcs_bucket_hint: El cub per utilitzar per emmagatzemar fitxers.
+      gcs_bucket_label: Cubeta GCS
+      gcs_credentials_hint: Les credencials que cal utilitzar per autenticar-se amb
+        el servidor GCS.
+      gcs_credentials_label: Credencials GCS
+      gcs_gsa_email_hint: El correu electrònic de GSA que cal utilitzar per autenticar-se
+        amb el servidor de GCS.
+      gcs_gsa_email_label: Correu electrònic de GCS GSA
+      gcs_iam_hint: L'IAM que cal utilitzar per autenticar-se amb el servidor GCS.
+      gcs_iam_label: GCS IAM
+      gcs_project_hint: El projecte a utilitzar per emmagatzemar fitxers.
+      gcs_project_label: Projecte GCS
+      language_subtitle: Aquí podeu personalitzar els idiomes que admet Password Pusher.
+      language_title: Configuració de l'idioma
+      light_logo_hint: Logotip per utilitzar per al tema Light. Assegureu-vos que
+        l'emmagatzematge de fitxers estigui configurat correctament primer.
+      light_logo_label: Logotip del lloc de tema lleuger
+      login_subtitle: Aquí podeu personalitzar com Password Pusher gestiona els inicis
+        de sessió.
+      login_tip: Consell
+      login_tip_body: 'Utilitzeu aquesta eina per provar els vostres patrons de correu
+        electrònic:'
+      login_title: Configuració d'inici de sessió
+      override_base_url_hint: S'utilitza per forçar l'URL base dels URL secrets generats.
+      override_base_url_label: Substituïu l'URL base
+      push_encryption_key_hint: La clau de xifratge que s'utilitza per xifrar i desxifrar
+        pushs.
+      push_encryption_key_label: Premeu la clau de xifratge
+      s3_access_key_id_hint: L'identificador de la clau d'accés que cal utilitzar
+        per autenticar-se amb el servidor S3.
+      s3_access_key_id_label: ID de la clau d'accés S3
+      s3_bucket_hint: El cub per utilitzar per emmagatzemar fitxers.
+      s3_bucket_label: Cubell S3
+      s3_endpoint_hint: El punt final del servidor S3 que s'utilitzarà per emmagatzemar
+        fitxers.
+      s3_endpoint_label: Punt final S3
+      s3_region_hint: La regió del servidor S3 que s'utilitzarà per emmagatzemar fitxers.
+      s3_region_label: Regió S3
+      s3_secret_access_key_hint: La clau d'accés secreta que cal utilitzar per autenticar-se
+        amb el servidor S3.
+      s3_secret_access_key_label: Clau d'accés secreta S3
+      signup_email_regexp_hint: Els correus electrònics que no coincideixin amb aquest
+        patró seran rebutjats.
+      signup_email_regexp_label: Registre de correu electrònic Regexp
+      site_name_hint: El nom del lloc que s'utilitzarà a la capçalera i al peu de
+        pàgina.
+      site_name_label: Nom del lloc
+      site_tagline_hint: El lema del lloc que s'ha d'utilitzar a la capçalera i al
+        peu de pàgina.
+      site_tagline_label: Eslogan del lloc
+      smtp_address_hint: L'adreça del servidor SMTP que s'utilitzarà per enviar correu
+        electrònic.
+      smtp_address_label: Adreça del servidor SMTP
+      smtp_authentication_hint: El tipus d'autenticació que cal utilitzar amb el servidor
+        SMTP.
+      smtp_authentication_label: Tipus d'autenticació SMTP
+      smtp_domain_hint: El domini del servidor SMTP que s'utilitzarà per enviar correu
+        electrònic.
+      smtp_domain_label: Domini SMTP
+      smtp_enable_starttls_auto_hint: Detecta si STARTTLS està habilitat al vostre
+        servidor SMTP i comença a utilitzar-lo. Per defecte, és cert.
+      smtp_enable_starttls_auto_label: SMTP STARTTLS automàtic
+      smtp_enable_starttls_hint: Utilitzeu STARTTLS quan us connecteu al vostre servidor
+        SMTP i falla si no és compatible. Per defecte, és fals.
+      smtp_enable_starttls_label: SMTP Activa STARTTLS
+      smtp_openssl_verify_mode_hint: El mode de verificació d'OpenSSL que s'utilitzarà
+        quan us connecteu al servidor SMTP.
+      smtp_openssl_verify_mode_label: Mode de verificació SMTP OpenSSL
+      smtp_password_hint: La contrasenya que cal utilitzar per autenticar-se amb el
+        servidor SMTP.
+      smtp_password_label: Contrasenya SMTP
+      smtp_port_hint: El port del servidor SMTP que s'utilitzarà per enviar correu
+        electrònic.
+      smtp_port_label: Port SMTP
+      smtp_user_name_hint: El nom d'usuari que cal utilitzar per autenticar-se amb
+        el servidor SMTP.
+      smtp_user_name_label: Nom d'usuari SMTP
+      storage_hint: El tipus d'emmagatzematge que s'utilitza per emmagatzemar fitxers.
+        El valor predeterminat és :local.
+      storage_label: Emmagatzematge
