@@ -20,7 +20,7 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
 Give your users the tools to be secure by default.
 
-Password Pusher is an open source application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
+Password Pusher is an open source application to communicate sensitive information over the web. Secret links expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
