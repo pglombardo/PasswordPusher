@@ -69,7 +69,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(expired_p.first.content.include?("We apologize but this secret link has expired."))
 
     # Delete the already expired push
-    delete request.url
+    delete push_url
     assert_response :redirect
 
     # Get redirected to the push that is now expired
