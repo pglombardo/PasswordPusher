@@ -8,8 +8,8 @@ environment rails_env
 
 case rails_env
 when "production"
-  require "concurrent-ruby"
-  workers_count = Integer(ENV.fetch("WEB_CONCURRENCY") { Concurrent.available_processor_count })
+  # Default to 2 workers.  To override, set the WEB_CONCURRENCY environment variable
+  workers_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 2 })
   workers workers_count if workers_count > 1
 
   preload_app!
