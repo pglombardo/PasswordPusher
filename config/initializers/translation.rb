@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# If PWP__ENABLED_LANGUAGE_CODES was used, convert the string to an array
+if Settings.enabled_language_codes.is_a?(String)
+  Settings.enabled_language_codes = Settings.enabled_language_codes.split(",")
+end
+
 # Permitted locales available for the application
 I18n.available_locales = Settings.enabled_language_codes.map(&:to_sym)
 
