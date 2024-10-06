@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     draw :public_pushes
 
     # Add a route that handles the root path and returns a 404 error
-    get "/", to: proc { |env| [404, {"Content-Type" => "text/html"}, ["<h1>Not Found</h1>"]] }
+    root to: proc { |env| [404, {"Content-Type" => "text/html"}, ["<h1>Not Found</h1>"]] }
   else
     draw :admin
     draw :users
