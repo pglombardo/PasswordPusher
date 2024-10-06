@@ -143,7 +143,8 @@ class FilePushesController < BaseController
 
     @push = FilePush.new(file_push_params)
 
-    if file_push_params.key?(:files) && file_push_params[:files].count > Settings.files.max_file_uploads
+    if file_push_params.key?(:files) &&
+        file_push_params[:files].count { |e| !e.empty? } > Settings.files.max_file_uploads
       msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
       respond_to do |format|
         format.html do
