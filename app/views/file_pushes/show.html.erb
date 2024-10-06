@@ -51,7 +51,7 @@
             <%= _('(whichever occurs first).') %>
         <% end %>
       </p>
-      <% if @push.deletable_by_viewer %>
+      <% if @push.deletable_by_viewer && @push.views_remaining.positive? %>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
           <em class="bi bi-trash"></em> <%= _('Delete This Secret Link Now') %>
         </button>
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<% if @push.deletable_by_viewer %>
+<% if @push.deletable_by_viewer && @push.views_remaining.positive? %>
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" data-controller="form">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">

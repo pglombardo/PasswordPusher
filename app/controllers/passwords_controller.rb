@@ -272,19 +272,16 @@ class PasswordsController < BaseController
   description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must " \
               "have been created with _deleteable_by_viewer_."
   def destroy
-    is_owner = false
-
-    if user_signed_in?
-      # Check if logged in user owns the password to be expired
-      if @push.user_id == current_user.id
-        is_owner = true
-      else
-        redirect_to :root, notice: _("That push does not belong to you.")
-        return
+    # Check if the push is deletable by the viewer or if the user is the owner
+    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+      respond_to do |format|
+        format.html {
+          redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
+        }
+        format.json {
+          render json: {error: _("That push is not deletable by viewers and does not belong to you.")}, status: :unprocessable_entity
+        }
       end
-    elsif @push.deletable_by_viewer == false
-      # Anonymous user - assure deletable_by_viewer enabled
-      redirect_to :root, notice: _("That push is not deletable by viewers.")
       return
     end
 
@@ -306,13 +303,7 @@ class PasswordsController < BaseController
     respond_to do |format|
       if @push.save
         format.html do
-          if is_owner && !ENV.key?("PWP_PUBLIC_GATEWAY")
-            redirect_to audit_password_path(@push),
-              notice: _("The push content has been deleted and the secret URL expired.")
-          else
-            redirect_to @push,
-              notice: _("The push content has been deleted and the secret URL expired.")
-          end
+          redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
         end
         format.json { render json: @push, status: :ok }
       else
