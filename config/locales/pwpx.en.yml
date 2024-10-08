@@ -6,34 +6,47 @@ en:
     brand:
       delivery_blur_tip: 'Tip: You can toggle the use of payload blurring in your Team Policy settings.'
       delivery_description: The delivery page is the page that your end users will see when the contents of the push is viewed.
-      delivery_preview: Below is a preview of when your end users will see when the <em>push contents is viewed</em>.
-      expired_description: The expired page is the page that your end users will see when the push has expired.
+      delivery_preview: Below is a preview of when your end users will see when the <em>contents of a push is viewed</em>.
+      expired_description: The expired page is the page that your end users will see when the push or request has expired.
       expired_preview: Below is a preview of what your end users will see when the <em>push has expired</em>.
       form:
         logo_info: The following logo can be used to customize and brand the push pages that your end-users will see.
         no_logo: No Logo has between uploaded yet.  Upload a logo to get started.
         show_expiration: Show remaining duration & views message?
         show_logo: Show logo?
+      header_lead: Here you can customize the appearance of the pushes and requests that are sent to your users.
+      header_sublead: Customize the logo, messaging, add links, toggle the visibility of elements and more.
       navbar:
         brand: Logo
-        delivery: Delivery
+        delivery: Push Delivery
         edit_brand: Edit Brand
-        edit_delivery: Edit Delivery
+        edit_delivery: Edit Push Delivery
         edit_expired: Edit Expired
         edit_passphrase: Edit Passphrase
         edit_preliminary: Edit 1-Click Retrieval
+        edit_request_: Edit Request Ready
+        edit_request_delivery: Edit Request Delivery
+        edit_request_ready: Edit Request Ready
         expired: Expired
         passphrase: Passphrase
         preliminary: 1-Click Retrieval
+        request_delivery: Request Delivery
+        request_ready: Request Ready
       passphrase_description: The passphrase page is used as part of the Passphrase Lockdown feature.  Users who receive the push have to enter a passphrase to access the contents.
       passphrase_preview: Below is a preview of what your end users will see when <em>prompted for a passphrase</em>.
       preliminary_description: The 1-click retrieval page helps to avoid bots, chat systems and scanners from eating up views.  Users who receive the push have to click through this preliminary page to access the contents.
       preliminary_preview: Below is a preview of what your end users will see for the <em>1-click retrieval step option</em>.
       preview:
         payload: This is an example of a payload that would be displayed to the end user.
+        request_payload: This is an example of a request that would be displayed to the end user.
+      request_delivery_description: The delivery page is the page that your end users will see when receiving a request.
+      request_delivery_preview: Below is a preview of a request.
+      request_ready_description: The ready page is shown when a request has already received a response.
+      request_ready_preview: Below is a preview of the request ready page for end users.
       save: Save
       tip_custom_domain: "<strong>Pro Subscribers Tip</strong>: You can configure a custom domain in your %{link}."
       tip_team_page: Team configuration page
+      title: Push & Request Branding
     brands:
       form:
         documentation: documentation
@@ -157,6 +170,7 @@ en:
       pricing: Pricing
       support: Support
     left_nav:
+      pulls: Requests ᴮᴱᵀᴬ
       pushes: Pushes
     navbar:
       branding: Branding
@@ -182,15 +196,19 @@ en:
     right_nav:
       features: Features
     secret_url_bar:
-      autodetect: Autodetect
-      secret_link_lang: Secret Link Language
+      autodetect: "Autodetect the recipient's language"
+      secret_link_lang: "Send this link in the following language:"
   audit_logs:
     audit_log:
+      automatic: Automatic
       ip_address: 'IP Address:'
-      log_created: Push created on %{date} by %{user}
-      log_expired: Push manually expired on %{date} by %{user}
+      log_close: Closed on %{date} by %{user}.  Response deleted.
+      log_created: Created on %{date} by %{user}
+      log_expired: Manually expired on %{date} by %{user}
       log_failed_passphrase: Failed passphrase attempt on %{date} by %{user}
       log_failed_view: Failed view attempt on %{date} by %{user}
+      log_response: Recipient Response received on %{date} by %{user}
+      log_retrieve: Retrieve page viewed on %{date} by %{user}
       log_viewed: Successful view on %{date} by %{user}
       referrer: 'Referrer:'
       unknown: Anonymous
@@ -315,6 +333,305 @@ en:
       storage_hint: The storage type to use for storing files. It defaults to :local.
       storage_label: Storage
   none: None
+  notifiers:
+    pull:
+      response_notifier:
+        message: Your request ID %{url_token} has received a response.  It will be closed and expired in %{remaining}.
+        now_closed_message: Your request ID %{url_token} has received a response.  The request has since been closed.
+  pages:
+    about:
+      about_1: Password Pusher is a tool used for securely sharing passwords and other sensitive information with other people securely.
+      about_2: With Password Pusher, you can create a unique, one-time URL that will expire after a certain amount of time or after it has been accessed a certain number of times, ensuring that your information remains private and secure.
+      about_3: It is often used by individuals and organizations to share login credentials or other sensitive data with colleagues, clients, or partners.
+      about_4: Password Pusher is a simple and convenient solution for securely sharing passwords without the need for email or other less secure communication methods.
+      about_pwpush: About Password Pusher
+      hosted_at_html: Hosted at <a href="https://pwpush.com">pwpush.com</a> or you can run your own private instance wherever you like.
+      my_name: My name is Peter Giacomo Lombardo. You can find me on %{linkedin}, %{github} or %{blog}.
+      source_avail_html: The source code is <a href="https://github.com/pglombardo/PasswordPusher" target="_blank" rel="noopener noreferrer">available on GitHub</a>.  It's open source and free for anyone to use, review or modify.
+      the_author: The Author
+  pulls:
+    access:
+      incorrect: That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.
+    audit:
+      1click_retrieval_step: 1-Click Retrieval Step
+      1click_retrieval_step_help: Helps to avoid chat systems and URL scanners from eating up views.
+      active: Active
+      attached_files: Attached Files
+      attached_files_help: Have files been attached to this request?
+      audit_log_for: Audit Log for %{pull_id}
+      closed: Closed
+      contains_text: Contains Text
+      contains_text_help: Has a text payload been added to this request?
+      created: Created
+      created_by: Created By %{user}
+      current_status: Current Status
+      deletable_by_viewers: Deletable By Viewers
+      deletable_by_viewers_help: This allows end users to delete the content once retrieved.
+      detail: Detail
+      end_audit_log: End of Audit Log
+      event: Event
+      event_log: Audit Log
+      expire_after: 'Expire After:'
+      expire_after_time_help: The request expires after this amount of time from creation.
+      expire_after_view_help: The request expires after this number of views.
+      expire_now: Expire Now
+      expire_now_confirm: This will expire this secret link and delete all related content from the database forever. The audit log (including future attempted views) will still be maintained going forward. Are you sure?
+      expired: Expired
+      failed_view: Failed View Attempt
+      failed_view_attempts: Failed View Attempts
+      failed_view_attempts_help: The number of attempts to view this request after expiration.
+      filename: Filename
+      files_deleted: All previously attached files have been deleted, or there were none attached.
+      log_note: As the request receives activity, a log of each with identifying information will show up here.
+      manual_expiration: Manual Expiration
+      message_length: Message Length
+      message_length_help: The length of the attached text payload.
+      none: None
+      num_files_attached: Number of Files Attached
+      num_files_attached_help: The number of files attached to this request.
+      open: Request Open
+      passphrase_lock: Passphrase Lockdown
+      passphrase_lock_help: Require recipients to enter a passphrase to view this request.
+      payload: Payload
+      preview: Share
+      pull_creation: Created on %{date} by %{name}
+      ready: Response Ready
+      reference_note: Reference Note
+      request_date: Created on %{date}
+      retrieve: Retrieve
+      secret_url: Secret URL for this Request
+      size: 'Size: %{size}'
+      start_audit_log: Start of Audit Log
+      start_log: Start of Audit Log
+      state: State
+      state_help_closed: The request has been closed and response content deleted.
+      state_help_open: The request is open and and has not received a response yet.
+      state_help_ready: The recipient has responded to the request and the content is ready for retrieval.
+      successful_view: Successful View
+      successful_views: Successful Views
+      successful_views_help: The number of times the request has been successfully viewed.
+      time_remaining: Time Remaining
+      time_remaining_help: The amount of time remaining before the request closes and content is deleted.
+      title: 'Audit Log for Request ID: %{pull_id}'
+      visible_to: Visible Only To You
+      when: When
+    close:
+      done: Response successfully deleted and request closed.
+    copy_to_clipboard: Copy to Clipboard
+    create:
+      need_subscription: You need to subscribe to attach files.
+    day:
+      one: 1 day
+      other: "%{count} days"
+    deleted: Deleted
+    expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
+    expire:
+      already_expired: That request has already expired.
+      expired: The request content has been deleted and the secret URL expired.
+      not_deletable: That request is not deletable by viewers.
+    form:
+      12_hours: 12 Hours
+      15_minutes: 15 Minutes
+      1_day: 1 Day
+      1_hour: 1 Hour
+      1_month: 1 Month
+      1_week: 1 Week
+      1click: Use a 1-click retrieval step
+      1click_tip: Helps to avoid chat systems and URL scanners
+      2_days: 2 Days
+      2_months: 2 Months
+      2_weeks: 2 Weeks
+      30_minutes: 30 Minutes
+      3_days: 3 Days
+      3_months: 3 Months
+      3_weeks: 3 Weeks
+      45_minutes: 45 Minutes
+      4_days: 4 Days
+      5_days: 5 Days
+      6_days: 6 Days
+      6_hours: 6 Hours
+      attach_files: Attach Files
+      attach_files_help: 'Example: A form to fill out.'
+      audit_tip: An audit log of activity is kept and available indefinitely for logged in users.
+      beta: This feature is BETA and may change.  Feedback is appreciated!
+      day: Day
+      days: Days
+      deletable: Allow immediate deletion
+      deletable_tip: Allow users to delete this request once retrieved.
+      encryption_tip: A shareable secret URL will be created for your request.
+      expiration_label: 'Once a response is received, the submitted information will be deleted after:'
+      expiration_tip: The recipient of this secret URL can view the request and respond with text or files.
+      generator_tip: Use the button above to generate a random password.
+      hour: Hour
+      hours: Hours
+      login_to_upload: Login to upload and attach files to this request...
+      minutes: Minutes
+      month: Month
+      months: Months
+      note_label: Reference Note
+      note_placeholder: A private note for this request.  Encrypted & visible only to you and your team.
+      passphrase_label: Passphrase
+      passphrase_lockdown: Passphrase Lockdown
+      passphrase_placeholder: Require the recipient to enter a passphrase to respond to this request.
+      password_tip: 'Example: Hi John, could you please enter your username and attach your documents here?  Once received, we will get back in touch with you very soon.'
+      payload_url_placeholder: Enter the URL to redirect to...
+      pull_it: Create Request
+      request_placeholder: Enter your request here...
+      respond: Send Your Response
+      response_placeholder: Enter your response here...
+      tip_section_title: Securely request sensitive information from your clients, colleagues or customers.
+      upload_limit: You can upload up to %{count} files per request.
+      url_pull_tip: The created request will redirect to the URL provided.
+      view: View
+      views: Views
+      week: Week
+      weeks: Weeks
+    hour:
+      one: 1 hour
+      other: "%{count} hours"
+    index:
+      actions: Actions
+      active: Active
+      all: All
+      clear_filters: Clear Filters
+      closed: Closed
+      created: Created
+      created_by: By
+      deletion: Deletion in
+      expired: Expired
+      expires: Expires
+      file_count: Files
+      note: Note
+      nothing_here: There's nothing here yet.
+      open: Open
+      pull_id: Request ID
+      pulls: Requests
+      ready: Ready
+      remaining_time: Time Remaining
+      state: State
+      status: Status
+      team_pulls: Team Requests
+      views: Views
+      views_remaining: Views Remaining
+    minute:
+      one: 1 minute
+      other: "%{count} minutes"
+    more_view:
+      one: 1 more view
+      other: "%{count} more views"
+    navbar:
+      files: Files
+      text: Passwords & Text
+      url: URLs
+    new:
+      title: Securely Send a Password, Text or File
+    'no': 'No'
+    none: None
+    passphrase:
+      enter_passphrase: Enter Passphrase
+      go: Go
+      placeholder: Enter the secret passphrase provided with this URL
+      tip: Enter the secret passphrase
+    payload: Payload
+    payload_too_large: The payload is too large.  You can only enter up to %{count} bytes.
+    preliminary:
+      click_proceed: Click Here to Proceed
+      title: Click to Proceed
+    preview:
+      and: and
+      can_be: can be
+      can_not_be: cannot be
+      deleted_by_viewers: deleted by viewers.
+      example: Example
+      generate: Generate
+      include_id: Include ID
+      link_lang_auto: Alternatively auto-detection will select a language based on end-user browser settings.
+      link_lang_tip: 'Tip: Making a Request to an international user?  Change the secret link language using the dropdown menu to the right of the URL.'
+      message_example: Please ensure that this document is securely destroyed after retrieval to protect sensitive information and maintain confidentiality.
+      message_placeholder: Optional Custom Message
+      or: or
+      or_after: or after
+      print_and_share: Print & Share
+      print_and_share_tip: Generate a Printable Page for End Users
+      pull_another: Make Another Request
+      pull_created: Your request has been created.
+      show_expiration: Show Expiration Details
+      use_link_to_share: 'Use this secret link to share it:'
+      view_pull_now: View This Request Now
+      will_burn_view: "(will burn a view)"
+      will_expire_after: This request expires in
+      with_preliminary_step: It also includes a %{strong_start}1-click preliminary retrieval step%{strong_end}.
+    provide_text_or_file: To create a request, you must either provide text, attach a file, or both.
+    pull:
+      audit: Audit
+      closed: Closed
+      none: None
+      not_applicable: N/A
+      open: Request Open
+      preview: Preview
+      pull_controls: Request Controls
+      ready: Response Ready
+      retrieve: Retrieve
+      share: Share
+      title: New Request
+      unknown: Unknown
+      view: View
+    retrieve:
+      attached_files: Attached Files
+      audit: Audit Log
+      close_now: Close
+      close_now_confirm: Closing request will immediately delete all sensitive information and files.  The audit log will be maintained indefinitely.  Are you sure?
+      close_warning: This request will automatically be closed and all sensitive information deleted in %{duration}.
+      closed: This request has been closed and all sensitive data deleted.
+      deleted: All content has been deleted.
+      no_response: No response has been received yet.
+      preview: Share
+      pull_creation: Created on %{date} by %{name}
+      reference_note: Reference Note
+      state: State
+      state_closed: Closed
+      state_help_closed: The request has been closed and response content deleted.
+      state_help_open: The request is open and and has not received a response yet.
+      state_help_ready: The recipient has responded to the request and the content is ready for retrieval.
+      state_open: Open
+      state_ready: Ready
+      the_request: The Request
+      the_response: The Recipient's Response
+      title: 'Retrieval for Request ID: %{pull_id}'
+      visible_to: Visible Only To You
+    settings: Settings
+    show:
+      blurred: Your password is blurred out.  Click below to reveal it.
+      click_to_reveal: The content is blurred out. Click below to reveal it.
+      delete_now: Delete This Secret Link Now
+      delete_now_confirm: This will expire this secret link and delete all related content from the database forever. Are you sure?
+      download_file: Download File
+      intro: The following request has been sent to you.
+      last_view: This is the last view.
+      open_file: Open File
+      please_download: Please download and store in a secure area.
+      response_retrieval: Response Retrieval
+      security_note: The information submitted here will be securely stored, available to only the requestor and completely deleted within %{duration}.
+      will_be_deleted: This secret link and all content will be deleted in %{b_tag}%{time_count} %{time_unit}%{b_tag} or %{b_tag}%{view_count} more %{view_unit}%{b_tag} (whichever occurs first).
+      your_link: You Have Received a Request
+      your_response: Your Response
+    show_expired:
+      expired_help: If needed, please contact the person or organization who gave you this secret URL.
+      expired_message: We apologize but this secret link has expired.
+      link_expired: Your Secret Link Has Expired
+    show_ready:
+      help: If you have any questions or need further assistance, please contact the person or organization who sent you this link.
+      message: Thank you for your response.  The requestor has been notified and will be in touch with you soon.
+      title: Thank you for your response.
+    too_many_files: You can only attach up to %{count} files per request.
+    update:
+      done: Thank You.  Your response was successfully received.
+    view:
+      one: 1 view
+      other: "%{count} views"
+    view_audit_log: View Audit Log
+    whichever: "(whichever comes first)"
+    'yes': 'Yes'
   pushes:
     access:
       incorrect: That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.
@@ -345,11 +662,13 @@ en:
       message_length: Message Length
       message_length_help: The length of the attached text payload.
       none: None
+      not_owner: That push doesn't belong to you.
       num_files_attached: Number of Files Attached
       num_files_attached_help: The number of files attached to this push.
       passphrase_lock: Passphrase Lockdown
       passphrase_lock_help: Require recipients to enter a passphrase to view this push.
-      preview: Share this Push
+      preview: Share
+      push_creation: Created on %{date} by %{name}
       push_date: Pushed on %{date}
       reference_note: Reference Note
       secret_url: Secret URL for this push
@@ -362,9 +681,11 @@ en:
       successful_views_help: The number of times the push has been successfully viewed.
       time_remaining: Time Remaining
       time_remaining_help: The amount of time remaining before the push expires.
-      title: Push Audit Log
+      title: 'Audit Log for Push ID: %{push_id}'
       visible_to: Visible Only To You
     copy_to_clipboard: Copy to Clipboard
+    create:
+      premium_required: You need to subscribe to attach files.
     deleted: Deleted
     expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
     expire:
@@ -392,6 +713,7 @@ en:
       5_days: 5 Days
       6_days: 6 Days
       6_hours: 6 Hours
+      account_policy: Account Policy
       audit_tip: An audit log of activity is kept and available indefinitely for logged in users.
       deletable: Allow immediate deletion
       deletable_tip: Allow users to delete this push once retrieved.
@@ -400,11 +722,14 @@ en:
       expiration_tip: All content and files of the push are deleted entirely on expiration.
       note_label: Reference Note
       note_placeholder: A private note for this push.  Encrypted & visible only to you and your team.
+      passphrase_lockdown: Passphrase Lockdown
       passphrase_placeholder: Require recipients to enter a passphrase to view this push.
       password_tip: Use Compartmentalization. Send usernames, passwords and login locations in separate pushes.
       payload_placeholder: Enter the password or text to push...
       payload_url_placeholder: Enter the URL to redirect to...
+      policy_tip: 'Tip: You can set defaults and more in your %{link}.'
       push_it: Push It!
+      short_expiration_tip: Short expiration times and view counts reduce exposure risk.
       upload_limit: You can upload up to %{count} files per push.
       url_push_tip: The created push will redirect to the URL provided.
       view: View
@@ -460,10 +785,8 @@ en:
       will_burn_view: "(will burn a view)"
     provide_text_or_file: To create a push, you must either provide text, attach a file, or both.
     push:
-      audit: Audit
       expired: Expired
       none: None
-      share: Share
       title: New Push
       unknown: Unknown
     settings: Settings
@@ -481,6 +804,8 @@ en:
       expired_message: We apologize but this secret link has expired.
       link_expired: Your Secret Link Has Expired
     too_many_files: You can only attach up to %{count} files per push.
+    update:
+      successful: Push was successfully updated.
     view:
       one: 1 view
       other: "%{count} views"
@@ -547,4 +872,9 @@ en:
         privacy_policy: Privacy Policy
       terms_of_service:
         terms_of_service: Terms of Service
+  words:
+    audit: Audit
+    forbidden: Forbidden
+    not_found: Not Found
+    share: Share
   zero_minutes: 0 minutes
