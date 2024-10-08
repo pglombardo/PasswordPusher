@@ -1,0 +1,42 @@
+# production:
+#   periodic_cleanup:
+#     class: CleanSoftDeletedRecordsJob
+#     queue: background
+#     args: [ 1000, { batch_size: 500 } ]
+#     schedule: every hour
+#   periodic_command:
+#     command: "SoftDeletedRecord.due.delete_all"
+#     priority: 2
+#     schedule: at 5am every day
+
+production:
+  expire_pushes:
+    class: ExpirePushesJob
+    queue: background
+    schedule: every 2 hours
+
+#  expire_pulls:
+#    class: ExpirePullsJob
+#    queue: background
+#    schedule: every 3 hours
+
+  cleanup_pushes:
+    class: CleanUpPushesJob
+    queue: background
+    schedule: every day at 5am
+
+development:
+  expire_pushes:
+    class: ExpirePushesJob
+    queue: background
+    schedule: every 4 hours
+
+#  expire_pulls:
+#    class: ExpirePullsJob
+#    queue: background
+#    schedule: every 5 hours
+
+  cleanup_pushes:
+    class: CleanUpPushesJob
+    queue: background
+    schedule: every 7 hours
