@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.1.4"
+ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.2"
 
 gem "rails", "~> 7.2.1"
 
@@ -121,11 +121,7 @@ group :production do
   gem "rack-attack"
 end
 
-# gem "rollbar"
-gem "stackprof"
-gem "sentry-ruby"
-gem "sentry-rails"
-
+gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "administrate", "~> 0.20.1"
 gem "rqrcode", "~> 2.2"
