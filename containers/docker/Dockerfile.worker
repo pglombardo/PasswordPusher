@@ -3,4 +3,4 @@ FROM pglombardo/pwpush:latest
 ENV PWP_WORKER=true
 
 USER pwpusher
-ENTRYPOINT ["bundle", "exec", "solid_queue:start"]
+ENTRYPOINT ["containers/docker/worker-entrypoint.sh"]
