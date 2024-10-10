@@ -23,6 +23,6 @@ echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
 echo "Password Pusher: starting background workers..."
-bundle exec solid_queue:start
+bin/rails solid_queue:start
 
 exec "$@"
