@@ -103,6 +103,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :unprocessable_entity
+    Settings.files.max_file_uploads = @old_max_files_uploads
   end
 
   def test_ascii_8bit_message_creation
