@@ -74,6 +74,38 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert(download_link.first.content.include?("monkey.png"))
   end
 
+  def test_file_push_creation_with_limits
+    @old_max_files_uploads = Settings.files.max_file_uploads
+    Settings.files.max_file_uploads = 1
+
+    # Upload 1 file
+    post file_pushes_path, params: {
+      file_push: {
+        payload: "Message",
+        files: [
+          fixture_file_upload("monkey.png", "image/jpeg")
+        ]
+      }
+    }
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "h2", "Your push has been created."
+
+    # Upload 2 files should fail
+    post file_pushes_path, params: {
+      file_push: {
+        payload: "Message",
+        files: [
+          fixture_file_upload("monkey.png", "image/jpeg"),
+          fixture_file_upload("test-file.txt", "text/plain")
+        ]
+      }
+    }
+    assert_response :unprocessable_entity
+    Settings.files.max_file_uploads = @old_max_files_uploads
+  end
+
   def test_ascii_8bit_message_creation
     get new_file_push_path
     assert_response :success
