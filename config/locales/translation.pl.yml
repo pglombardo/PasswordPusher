@@ -778,6 +778,11 @@ pl:
         expired: Wygasłe
         passphrase: Blokada hasła
         preliminary: Odzyskiwanie jednym kliknięciem
+        edit_request_: Żądanie edycji gotowe
+        edit_request_delivery: Edytuj żądanie dostarczenia
+        edit_request_ready: Żądanie edycji gotowe
+        request_delivery: Poproś o dostawę
+        request_ready: Żądanie gotowe
       passphrase_description: Strona hasła jest używana jako część funkcji blokady
         hasła. Użytkownicy, którzy otrzymują powiadomienie push, muszą wprowadzić
         hasło, aby uzyskać dostęp do zawartości.
@@ -790,10 +795,24 @@ pl:
         końcowi w ramach <em>opcji pobierania jednym kliknięciem</em> .
       preview:
         payload: Oto przykład ładunku, który będzie wyświetlany użytkownikowi końcowemu.
+        request_payload: Oto przykład żądania, które zostanie wyświetlone użytkownikowi
+          końcowemu.
       save: Zapisz
       tip_custom_domain: "<strong>Wskazówka dla subskrybentów Pro</strong> : Możesz
         skonfigurować niestandardową domenę w swoim %{link}."
       tip_team_page: Strona konfiguracji zespołu
+      header_lead: Tutaj możesz dostosować wygląd powiadomień i żądań wysyłanych do
+        użytkowników.
+      header_sublead: Dostosuj logo, komunikaty, dodaj linki, przełącz widoczność
+        elementów i nie tylko.
+      request_delivery_description: Strona dostawy to strona, którą zobaczą użytkownicy
+        końcowi po otrzymaniu żądania.
+      request_delivery_preview: Poniżej znajduje się podgląd prośby.
+      request_ready_description: Strona gotowości wyświetla się, gdy żądanie otrzymało
+        już odpowiedź.
+      request_ready_preview: Poniżej znajduje się podgląd strony z gotowym żądaniem
+        dla użytkowników końcowych.
+      title: Branding typu push & request
     brands:
       form:
         documentation: dokumentacja
@@ -867,6 +886,7 @@ pl:
       autodetect: Automatyczne wykrywanie
     left_nav:
       pushes: Popycha
+      pulls: Prośby o pomoc
     right_nav:
       features: Cechy
   audit_logs:
@@ -881,6 +901,10 @@ pl:
       ip_address: 'Adres IP:'
       referrer: 'Polecający:'
       user_agent: 'Agent użytkownika:'
+      automatic: Automatyczny
+      log_close: Zamknięto %{date} przez %{user}. Odpowiedź usunięta.
+      log_response: Odpowiedź odbiorcy otrzymana w dniu %{date} przez %{user}
+      log_retrieve: Pobierz stronę przeglądaną na %{date} przez %{user}
   dashboard:
     show:
       detail: Szczegół
@@ -915,6 +939,28 @@ pl:
         wiadomości się nie powiedzie.'
       your_name: Twoje imię
   none: Brak
+  pages:
+    about:
+      about_1: Password Pusher to narzędzie służące do bezpiecznego udostępniania
+        haseł i innych poufnych informacji innym osobom.
+      about_2: Dzięki Password Pusher możesz utworzyć unikalny, jednorazowy adres
+        URL, który wygaśnie po określonym czasie lub po uzyskaniu dostępu do niego
+        określoną liczbę razy, zapewniając prywatność i bezpieczeństwo Twoich informacji.
+      about_3: Jest często używany przez osoby i organizacje do udostępniania danych
+        logowania lub innych poufnych danych współpracownikom, klientom lub partnerom.
+      about_4: Password Pusher to proste i wygodne rozwiązanie do bezpiecznego udostępniania
+        haseł bez potrzeby korzystania z poczty e-mail lub innych mniej bezpiecznych
+        metod komunikacji.
+      about_pwpush: O Password Pusher
+      hosted_at_html: Hostowane na <a href="https://pwpush.com">pwpush.com</a> lub
+        możesz uruchomić własną prywatną instancję, gdziekolwiek chcesz.
+      my_name: Nazywam się Peter Giacomo Lombardo. Znajdziesz mnie na %{linkedin},
+        %{github} lub %{blog}.
+      source_avail_html: Kod źródłowy jest <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">dostępny na GitHubie</a> . Jest
+        to oprogramowanie typu open source, które każdy może używać, przeglądać i
+        modyfikować.
+      the_author: Autor
   pushes:
     access:
       incorrect: To hasło jest nieprawidłowe. Spróbuj ponownie lub skontaktuj się
@@ -972,6 +1018,8 @@ pl:
       title: Wyślij dziennik audytu
       visible_to: Widoczna tylko dla Ciebie
       preview: Udostępnij to Push
+      not_owner: To przekazanie nie należy do ciebie.
+      push_creation: Utworzono w %{date} przez %{name}
     copy_to_clipboard: Skopiuj do schowka
     deleted: Usunięto
     expiration_html: Ten tajny link i cała zawartość zostaną usunięte w kolejnych
@@ -1025,6 +1073,11 @@ pl:
       views: Wyświetlenia
       payload_url_placeholder: Wprowadź adres URL, aby przekierować do...
       url_push_tip: Utworzony push przekieruje na podany adres URL.
+      account_policy: Zasady dotyczące konta
+      passphrase_lockdown: Blokada hasła
+      policy_tip: 'Wskazówka: Możesz ustawić wartości domyślne i inne w %{link}.'
+      short_expiration_tip: Krótkie terminy wygaśnięcia i liczba wyświetleń zmniejszają
+        ryzyko narażenia.
     index:
       actions: działania
       clear_filters: Wyczyść filtry
@@ -1073,12 +1126,10 @@ pl:
     provide_text_or_file: Aby utworzyć push, musisz podać tekst, załączyć plik lub
       jedno i drugie.
     push:
-      audit: Audyt
       expired: Wygasłe
       none: Brak
       title: Nowe pchnięcie
       unknown: Nieznany
-      share: Udział
     settings: Ustawienia
     show:
       click_to_reveal: Treść jest zamazana. Kliknij poniżej, aby je odsłonić.
@@ -1111,6 +1162,10 @@ pl:
       url: adresy URL
     new:
       title: Bezpieczne wysyłanie hasła, tekstu lub pliku
+    create:
+      premium_required: Musisz się zarejestrować, aby móc załączać pliki.
+    update:
+      successful: Aktualizacja push została pomyślnie zakończona.
   static:
     about:
       about_1: Password Pusher to narzędzie służące do bezpiecznego udostępniania
@@ -1330,3 +1385,334 @@ pl:
       storage_hint: Typ pamięci masowej używany do przechowywania plików. Domyślnie
         jest to :local.
       storage_label: Składowanie
+  notifiers:
+    pull:
+      response_notifier:
+        message: Twoje ID żądania %{url_token} otrzymało odpowiedź. Zostanie ono zamknięte
+          i wygasło w %{remaining}.
+        now_closed_message: Twoje ID żądania %{url_token} otrzymało odpowiedź. Żądanie
+          zostało już zamknięte.
+  pulls:
+    access:
+      incorrect: To hasło jest nieprawidłowe. Spróbuj ponownie lub skontaktuj się
+        z osobą lub organizacją, która wysłała Ci ten link.
+    audit:
+      1click_retrieval_step: Krok pobierania jednym kliknięciem
+      1click_retrieval_step_help: Pomaga uniknąć zliczania wyświetleń przez systemy
+        czatu i skanery adresów URL.
+      active: Aktywne
+      attached_files: Załączone pliki
+      attached_files_help: Czy do tego wniosku dołączono pliki?
+      audit_log_for: Dziennik audytu dla %{pull_id}
+      closed: Zamknięte
+      contains_text: Zawiera tekst
+      contains_text_help: Czy do tego żądania dodano ładunek tekstowy?
+      created: Utworzono
+      created_by: Utworzony przez %{user}
+      current_status: Obecny status
+      deletable_by_viewers: Możliwość usunięcia przez widzów
+      deletable_by_viewers_help: Dzięki temu użytkownicy końcowi mogą usunąć pobraną
+        treść.
+      detail: Szczegół
+      end_audit_log: Koniec dziennika audytu
+      event: Wydarzenie
+      event_log: Dziennik kontroli
+      expire_after: 'Wygasa po:'
+      expire_after_time_help: Żądanie wygasa po upływie tego czasu od utworzenia.
+      expire_after_view_help: Żądanie wygasa po tej liczbie wyświetleń.
+      expire_now: Wygaś teraz
+      expire_now_confirm: Spowoduje to wygaśnięcie tego tajnego łącza i trwałe usunięcie
+        całej powiązanej zawartości z bazy danych. Dziennik kontroli (w tym przyszłe
+        próby przeglądania) będzie nadal prowadzony. Jesteś pewny?
+      expired: Wygasłe
+      failed_view: Nieudana próba wyświetlenia
+      failed_view_attempts: Nieudane próby wyświetlenia
+      failed_view_attempts_help: Liczba prób wyświetlenia tego żądania po wygaśnięciu.
+      filename: Nazwa pliku
+      files_deleted: Wszystkie wcześniej dołączone pliki zostały usunięte lub nie
+        zostały dołączone żadne pliki.”
+      log_note: W miarę jak żądanie będzie reagować na zdarzenia, w tym miejscu będzie
+        wyświetlany dziennik każdego żądania wraz z informacjami identyfikacyjnymi.
+      manual_expiration: Ręczne wygaśnięcie
+      message_length: Długość wiadomości
+      message_length_help: Długość dołączonej informacji tekstowej.
+      none: Brak
+      num_files_attached: Liczba załączonych plików
+      num_files_attached_help: Liczba plików dołączonych do tego żądania.
+      open: Prośba otwarta
+      passphrase_lock: Blokada hasła
+      passphrase_lock_help: Wymagaj od odbiorców podania hasła, aby mogli wyświetlić
+        tę prośbę.
+      payload: Ładunek
+      preview: Udział
+      pull_creation: Utworzono w %{date} przez %{name}
+      ready: Gotowość do odpowiedzi
+      reference_note: Notatka referencyjna
+      request_date: Utworzono dnia %{date}
+      retrieve: Odzyskać
+      secret_url: Tajny adres URL dla tego żądania
+      size: 'Rozmiar: %{size}'
+      start_audit_log: Początek dziennika audytu
+      start_log: Początek dziennika audytu
+      state: Państwo
+      state_help_closed: Żądanie zostało zamknięte, a treść odpowiedzi usunięto.
+      state_help_open: Zapytanie jest otwarte i nie otrzymano jeszcze odpowiedzi.
+      state_help_ready: Odbiorca odpowiedział na żądanie i treść jest gotowa do pobrania.
+      successful_view: Pomyślny widok
+      successful_views: Udane wyświetlenia
+      successful_views_help: Liczba pomyślnych wyświetleń żądania.
+      time_remaining: Pozostały czas
+      time_remaining_help: Czas pozostały do zamknięcia żądania i usunięcia treści.
+      title: 'Dziennik audytu dla żądania o identyfikatorze: %{pull_id}'
+      visible_to: Widoczna tylko dla Ciebie
+      when: Gdy
+    close:
+      done: Odpowiedź została pomyślnie usunięta, a żądanie zamknięte.
+    copy_to_clipboard: Skopiuj do schowka
+    create:
+      need_subscription: Musisz się zarejestrować, aby móc załączać pliki.
+    day:
+      one: 1 dzień
+      other: "%{count} dni"
+    deleted: Usunięto
+    expiration_html: Ten tajny link i cała zawartość zostaną usunięte w kolejnych
+      <strong>%{duration}</strong> lub <strong>%{count} wyświetleniach</strong> ,
+      w zależności od tego, co nastąpi wcześniej.
+    expire:
+      already_expired: Ta prośba już wygasła.
+      expired: Treść żądania została usunięta, a tajny adres URL wygasł.
+      not_deletable: Widzowie nie mogą usunąć tej prośby.
+    form:
+      12_hours: 12 godzin
+      15_minutes: 15 minut
+      1_day: 1 dzień
+      1_hour: 1 godzina
+      1_month: 1 miesiąc
+      1_week: 1 tydzień
+      1click: Wyświetlenie po kliknięciu
+      1click_tip: Pomaga unikać systemów czatów i skanerów URL
+      2_days: 2 dni
+      2_months: 2 miesiące
+      2_weeks: 2 tygodnie
+      30_minutes: 30 minut
+      3_days: 3 dni
+      3_months: 3 miesiące
+      3_weeks: 3 tygodnie
+      45_minutes: 45 minut
+      4_days: 4 dni
+      5_days: 5 dni
+      6_days: 6 dni
+      6_hours: 6 godzin
+      attach_files: Dołącz pliki
+      attach_files_help: 'Przykład: Formularz do wypełnienia.'
+      audit_tip: Po zalogowaniu dziennik audytu aktywności jest prowadzony i dostępny
+        przez czas nieokreślony.
+      beta: Ta funkcja jest w wersji BETA i może ulec zmianie. Opinie mile widziane!
+      day: Dzień
+      days: Dni
+      deletable: Zezwól na natychmiastowe usunięcie
+      deletable_tip: Zezwól użytkownikom na usunięcie tego żądania po jego otrzymaniu.
+      encryption_tip: Na potrzeby Twojego żądania zostanie utworzony tajny adres URL,
+        który będziesz mógł udostępnić.
+      expiration_label: 'Po otrzymaniu odpowiedzi przesłane informacje zostaną usunięte
+        po:'
+      expiration_tip: Odbiorca tego tajnego adresu URL może zobaczyć żądanie i odpowiedzieć
+        tekstem lub plikami.
+      generator_tip: Użyj powyższego przycisku do wygenerowania losowego hasła.
+      hour: Godzina
+      hours: godziny
+      login_to_upload: Zaloguj się, aby przesłać i załączyć pliki do tego żądania...
+      minutes: Minuty
+      month: Miesiąc
+      months: Miesiące
+      note_label: Notatka referencyjna
+      note_placeholder: Prywatna notatka do tej prośby. Zaszyfrowana i widoczna tylko
+        dla Ciebie i Twojego zespołu.
+      passphrase_label: Blokada hasła
+      passphrase_lockdown: Blokada hasła
+      passphrase_placeholder: Wymagaj od odbiorcy podania hasła, aby odpowiedzieć
+        na to żądanie.
+      password_tip: 'Przykład: Cześć John, czy mógłbyś wpisać swoją nazwę użytkownika
+        i załączyć tutaj swoje dokumenty? Po otrzymaniu skontaktujemy się z Tobą wkrótce.'
+      payload_url_placeholder: Wprowadź adres URL, aby przekierować do...
+      pull_it: Utwórz żądanie
+      request_placeholder: Wpisz swoją prośbę tutaj...
+      respond: Wyślij swoją odpowiedź
+      response_placeholder: Wpisz swoją odpowiedź tutaj...
+      tip_section_title: Bezpiecznie żądaj od swoich klientów, współpracowników i
+        kontrahentów dostępu do poufnych informacji.
+      upload_limit: Na jedno żądanie można przesłać maksymalnie %{count} plików.
+      url_pull_tip: Utworzone żądanie zostanie przekierowane do podanego adresu URL.
+      view: Pogląd
+      views: Wyświetlenia
+      week: Tydzień
+      weeks: Tygodnie
+    hour:
+      one: 1 godzina
+      other: "%{count} godz"
+    index:
+      actions: działania
+      active: Aktywne
+      all: Wszystko
+      clear_filters: Wyczyść filtry
+      closed: Zamknięte
+      created: Utworzono
+      created_by: Przez
+      deletion: Usunięcie w
+      expired: Wygasłe
+      expires: Wygasa
+      file_count: Pliki
+      note: Notatka
+      nothing_here: Jeszcze nic tu nie ma.
+      open: Otwarte
+      pull_id: ID żądania
+      pulls: Upraszanie
+      ready: Gotowy
+      remaining_time: Pozostały czas
+      state: Państwo
+      status: Status
+      team_pulls: Prośby zespołu
+      views: Wyświetlenia
+      views_remaining: Pozostało wyświetleń
+    minute:
+      one: 1 minuta
+      other: "%{count} minut"
+    more_view:
+      one: Jeszcze 1 widok
+      other: "%{count} więcej wyświetleń"
+    navbar:
+      files: Pliki
+      text: Hasła i tekst
+      url: adresy URL
+    new:
+      title: Bezpieczne wysyłanie hasła, tekstu lub pliku
+    'no': Nie
+    none: Brak
+    passphrase:
+      enter_passphrase: Wprowadź hasło
+      go: Iść
+      placeholder: Wprowadź tajne hasło dostarczone z tym adresem URL
+      tip: Wprowadź tajne hasło
+    payload: Ładunek
+    payload_too_large: Ładunek jest za duży. Możesz wprowadzić maksymalnie %{count}
+      bajtów.
+    preliminary:
+      click_proceed: Kliknij tutaj, aby kontynuować
+      title: Kliknij, aby kontynuować
+    preview:
+      and: i
+      can_be: może być
+      can_not_be: nie może być
+      deleted_by_viewers: usunięte przez odbiorców.
+      example: Przykład
+      generate: Generować
+      include_id: Dołącz identyfikator
+      link_lang_auto: Alternatywnie, automatyczne wykrywanie wybierze język na podstawie
+        ustawień przeglądarki użytkownika końcowego.
+      link_lang_tip: 'Wskazówka: Wysyłasz prośbę do użytkownika międzynarodowego?
+        Zmień język tajnego łącza, korzystając z menu rozwijanego po prawej stronie
+        adresu URL.'
+      message_example: Prosimy upewnić się, że niniejszy dokument zostanie bezpiecznie
+        zniszczony po odzyskaniu, aby chronić poufne informacje i zachować poufność.
+      message_placeholder: Opcjonalna wiadomość niestandardowa
+      or: lub
+      or_after: lub później
+      print_and_share: Drukuj i udostępniaj
+      print_and_share_tip: Wygeneruj stronę do wydrukowania dla użytkowników końcowych
+      pull_another: Złóż kolejne żądanie
+      pull_created: Twoje zapytanie zostało utworzone.
+      show_expiration: Pokaż szczegóły wygaśnięcia
+      use_link_to_share: 'Użyj poniższego tajnego linku, aby go udostępnić:'
+      view_pull_now: Zobacz tę prośbę teraz
+      will_burn_view: "(spali widok)"
+      will_expire_after: Ta prośba wygasa za
+      with_preliminary_step: Zawiera także %{strong_start}etap wstępnego pobierania
+        jednym kliknięciem%{strong_end}.
+    provide_text_or_file: Aby utworzyć prośbę, musisz podać tekst, załączyć plik lub
+      wykonać jedno i drugie.
+    pull:
+      audit: Audyt
+      closed: Zamknięte
+      none: Brak
+      not_applicable: Brak
+      open: Prośba otwarta
+      preview: Podgląd
+      pull_controls: Żądanie kontroli
+      ready: Gotowość do odpowiedzi
+      retrieve: Odzyskać
+      share: Udział
+      title: Nowe żądanie
+      unknown: Nieznany
+      view: Pogląd
+    retrieve:
+      attached_files: Załączone pliki
+      audit: Dziennik kontroli
+      close_now: Zamknąć
+      close_now_confirm: Zamknięcie żądania spowoduje natychmiastowe usunięcie wszystkich
+        poufnych informacji i plików. Dziennik audytu będzie przechowywany bezterminowo.
+        Czy jesteś pewien?
+      close_warning: To żądanie zostanie automatycznie zamknięte, a wszystkie poufne
+        informacje usunięte z %{duration}.
+      closed: Ta prośba została zamknięta, a wszystkie poufne dane zostały usunięte.
+      deleted: Cała treść została usunięta.
+      no_response: Nie otrzymano jeszcze żadnej odpowiedzi.
+      preview: Udział
+      pull_creation: Utworzono w %{date} przez %{name}
+      reference_note: Notatka referencyjna
+      state: Państwo
+      state_closed: Zamknięte
+      state_help_closed: Żądanie zostało zamknięte, a treść odpowiedzi usunięto.
+      state_help_open: Zapytanie jest otwarte i nie otrzymano jeszcze odpowiedzi.
+      state_help_ready: Odbiorca odpowiedział na żądanie i treść jest gotowa do pobrania.
+      state_open: Otwarte
+      state_ready: Gotowy
+      the_request: Prośba
+      the_response: Odpowiedź odbiorcy
+      title: 'Pobieranie dla ID żądania: %{pull_id}'
+      visible_to: Widoczna tylko dla Ciebie
+    settings: Ustawienia
+    show:
+      blurred: Twoje hasło jest rozmyte. Kliknij poniżej, aby je odsłonić.
+      click_to_reveal: Treść jest zamazana. Kliknij poniżej, aby je odsłonić.
+      delete_now: Wygaś już ten tajny link
+      delete_now_confirm: Spowoduje to wygaśnięcie tego tajnego łącza i trwałe usunięcie
+        całej powiązanej zawartości z bazy danych. Jesteś pewny?
+      download_file: Pobieranie pliku
+      intro: Następujące zapytanie zostało do Ciebie wysłane.
+      last_view: To już ostatni widok.
+      open_file: Otwórz plik
+      please_download: Proszę pobrać i przechowywać w bezpiecznym miejscu.
+      response_retrieval: Pobieranie odpowiedzi
+      security_note: Podane tutaj informacje zostaną bezpiecznie zapisane, będą dostępne
+        wyłącznie dla wnioskodawcy i całkowicie usunięte w ramach %{duration}.
+      will_be_deleted: Ten tajny link i cała zawartość zostaną usunięte w %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} lub %{b_tag}%{view_count} więcej %{view_unit}%{b_tag}
+        (w zależności od tego, co nastąpi wcześniej).
+      your_link: Otrzymałeś prośbę
+      your_response: Twoja odpowiedź
+    show_expired:
+      expired_help: W razie potrzeby skontaktuj się z osobą lub organizacją, która
+        przekazała Ci ten tajny adres URL.
+      expired_message: Przepraszamy, ale ten tajny link wygasł.
+      link_expired: Twój tajny link wygasł
+    show_ready:
+      help: Jeśli masz jakiekolwiek pytania lub potrzebujesz dalszej pomocy, skontaktuj
+        się z osobą lub organizacją, która wysłała Ci ten link.
+      message: Dziękujemy za odpowiedź. Osoba składająca wniosek została powiadomiona
+        i wkrótce się z Tobą skontaktuje.
+      title: Dziękuję za odpowiedź.
+    too_many_files: Maksymalna liczba plików, które można dołączyć do jednego żądania,
+      to %{count}.
+    update:
+      done: Dziękuję. Twoja odpowiedź została pomyślnie odebrana.
+    view:
+      one: 1 widok
+      other: "%{count} wyświetleń"
+    view_audit_log: Wyświetl dziennik kontroli
+    whichever: "(cokolwiek nastąpi wcześniej)"
+    'yes': Tak
+  words:
+    audit: Audyt
+    forbidden: Zabroniony
+    not_found: Nie znaleziono
+    share: Udział

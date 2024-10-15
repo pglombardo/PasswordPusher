@@ -786,6 +786,11 @@ id:
         expired: Kadaluarsa
         passphrase: Kunci Frasa Sandi
         preliminary: pengambilan 1-Klik
+        edit_request_: Permintaan Edit Siap
+        edit_request_delivery: Edit Pengiriman Permintaan
+        edit_request_ready: Permintaan Edit Siap
+        request_delivery: Permintaan Pengiriman
+        request_ready: Permintaan Siap
       passphrase_description: Halaman kata sandi digunakan sebagai bagian dari fitur
         Penguncian Kata Sandi.  Pengguna yang menerima push harus memasukkan kata
         sandi untuk mengakses konten.
@@ -798,10 +803,24 @@ id:
         pengguna akhir Anda untuk <em>opsi langkah pengambilan 1-klik</em>.
       preview:
         payload: Ini adalah contoh muatan yang akan ditampilkan kepada pengguna akhir.
+        request_payload: Ini adalah contoh permintaan yang akan ditampilkan kepada
+          pengguna akhir.
       save: Simpan
       tip_custom_domain: "<strong>Tip Pelanggan Pro</strong>: Anda dapat mengonfigurasi
         domain khusus di %{link}."
       tip_team_page: Halaman konfigurasi tim
+      header_lead: Di sini Anda dapat menyesuaikan tampilan push dan permintaan yang
+        dikirim ke pengguna Anda.
+      header_sublead: Sesuaikan logo, pesan, tambahkan tautan, alihkan visibilitas
+        elemen, dan banyak lagi.
+      request_delivery_description: Halaman pengiriman adalah halaman yang akan dilihat
+        oleh pengguna akhir Anda saat menerima permintaan.
+      request_delivery_preview: Di bawah ini adalah pratinjau permintaan.
+      request_ready_description: Halaman siap ditampilkan ketika permintaan telah
+        menerima respons.
+      request_ready_preview: Di bawah ini adalah pratinjau halaman permintaan siap
+        untuk pengguna akhir.
+      title: Mendorong & Meminta Pencitraan Merek
     brands:
       form:
         documentation: dokumentasi
@@ -876,6 +895,7 @@ id:
       autodetect: Deteksi Otomatis
     left_nav:
       pushes: Mendorong
+      pulls: Permintaan ᴮᴱᵀᴬ
     right_nav:
       features: Fitur
   audit_logs:
@@ -890,6 +910,10 @@ id:
       ip_address: 'Alamat IP:'
       referrer: 'Perujuk:'
       user_agent: 'Agen Pengguna:'
+      automatic: Otomatis
+      log_close: Ditutup pada %{date} oleh %{user}.  Tanggapan dihapus.
+      log_response: Tanggapan Penerima yang diterima pada %{date} oleh %{user}
+      log_retrieve: Mengambil halaman yang dilihat di %{date} oleh %{user}
   dashboard:
     show:
       detail: Detail
@@ -923,6 +947,28 @@ id:
       tip: 'Tip: Salin pesan Anda ke papan klip jika pengiriman gagal.'
       your_name: Nama Anda
   none: Tidak ada
+  pages:
+    about:
+      about_1: Password Pusher adalah alat yang digunakan untuk berbagi kata sandi
+        dan informasi sensitif lainnya dengan orang lain secara aman.
+      about_2: Dengan Password Pusher, Anda bisa membuat URL unik sekali pakai yang
+        akan kedaluwarsa setelah jangka waktu tertentu atau setelah diakses dalam
+        jumlah tertentu, sehingga informasi Anda tetap pribadi dan aman.
+      about_3: Ini sering digunakan oleh individu dan organisasi untuk berbagi kredensial
+        login atau data sensitif lainnya dengan kolega, klien, atau mitra.
+      about_4: Password Pusher adalah solusi sederhana dan nyaman untuk berbagi kata
+        sandi dengan aman tanpa perlu email atau metode komunikasi lain yang kurang
+        aman.
+      about_pwpush: Tentang Pendorong Kata Sandi
+      hosted_at_html: Di-host di <a href="https://pwpush.com">pwpush.com</a> atau
+        Anda dapat menjalankan instance pribadi Anda sendiri di mana pun Anda suka.
+      my_name: Nama saya Peter Giacomo Lombardo. Anda dapat menemukan saya di %{linkedin},
+        %{github} atau %{blog}.
+      source_avail_html: Kode sumber <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">tersedia di GitHub</a>.  Kode sumber
+        ini bersifat terbuka dan gratis bagi siapa saja untuk digunakan, ditinjau,
+        atau dimodifikasi.
+      the_author: Penulis
   pushes:
     access:
       incorrect: Kata sandi tersebut salah.  Silakan coba lagi atau hubungi orang
@@ -983,6 +1029,8 @@ id:
       title: Log Audit Push
       visible_to: Hanya Dapat Dilihat Oleh Anda
       preview: Bagikan Dorong ini
+      not_owner: Dorongan itu bukan milik Anda.
+      push_creation: Dibuat pada %{date} oleh %{name}
     copy_to_clipboard: Menyalin ke Papan Klip
     deleted: Dihapus
     expiration_html: Tautan rahasia ini dan semua konten akan dihapus dalam <strong>[%{duration}</strong>
@@ -1036,6 +1084,11 @@ id:
       views: Tampilan
       payload_url_placeholder: Masukkan URL yang akan dialihkan ke...
       url_push_tip: Push yang dibuat akan mengarahkan ke URL yang disediakan.
+      account_policy: Kebijakan Akun
+      passphrase_lockdown: Penguncian Frasa Sandi
+      policy_tip: 'Saran: Anda dapat menetapkan default dan lainnya di %{link}.'
+      short_expiration_tip: Waktu kedaluwarsa yang singkat dan jumlah penayangan mengurangi
+        risiko paparan.
     index:
       actions: Tindakan
       clear_filters: Hapus Filter
@@ -1084,12 +1137,10 @@ id:
     provide_text_or_file: Untuk membuat push, Anda harus menyediakan teks, melampirkan
       file, atau keduanya.
     push:
-      audit: Audit
       expired: Kadaluarsa
       none: Tidak ada
       title: Dorongan Baru
       unknown: Tidak diketahui
-      share: Bagikan
     settings: Pengaturan
     show:
       click_to_reveal: Konten diburamkan. Klik di bawah ini untuk menyingkapkannya.
@@ -1123,6 +1174,10 @@ id:
       url: URL
     new:
       title: Mengirim Kata Sandi, Teks, atau File dengan Aman
+    create:
+      premium_required: Anda harus berlangganan untuk melampirkan file.
+    update:
+      successful: Push berhasil diperbarui.
   static:
     about:
       about_1: Password Pusher adalah alat yang digunakan untuk berbagi kata sandi
@@ -1342,3 +1397,342 @@ id:
       storage_hint: Jenis penyimpanan yang digunakan untuk menyimpan file. Nilai defaultnya
         adalah :local.
       storage_label: Penyimpanan
+  notifiers:
+    pull:
+      response_notifier:
+        message: ID permintaan Anda %{url_token} telah menerima tanggapan.  Permintaan
+          akan ditutup dan kedaluwarsa di %{remaining}.
+        now_closed_message: ID permintaan Anda %{url_token} telah menerima tanggapan.  Permintaan
+          tersebut telah ditutup.
+  pulls:
+    access:
+      incorrect: Kata sandi tersebut salah.  Silakan coba lagi atau hubungi orang
+        atau organisasi yang mengirimi Anda tautan ini.
+    audit:
+      1click_retrieval_step: langkah Pengambilan 1-Klik
+      1click_retrieval_step_help: Membantu menghindari sistem obrolan dan pemindai
+        URL memakan tampilan.
+      active: Aktif
+      attached_files: File Terlampir
+      attached_files_help: Apakah berkas-berkas telah dilampirkan pada permintaan
+        ini?
+      audit_log_for: Log Audit untuk %{pull_id}
+      closed: Ditutup
+      contains_text: Berisi Teks
+      contains_text_help: Apakah muatan teks telah ditambahkan ke permintaan ini?
+      created: Dibuat
+      created_by: Dibuat oleh %{user}
+      current_status: Status Saat Ini
+      deletable_by_viewers: Dapat dihapus oleh pemirsa
+      deletable_by_viewers_help: Hal ini memungkinkan pengguna akhir untuk menghapus
+        konten setelah diambil.
+      detail: Detail
+      end_audit_log: Catatan Akhir Audit
+      event: Acara
+      event_log: Log Audit
+      expire_after: 'Berakhir Setelah:'
+      expire_after_time_help: Permintaan akan kedaluwarsa setelah jangka waktu tersebut
+        sejak dibuat.
+      expire_after_view_help: Permintaan akan kedaluwarsa setelah jumlah penayangan
+        ini.
+      expire_now: Kedaluwarsa Sekarang
+      expire_now_confirm: Ini akan membuat tautan rahasia ini kedaluwarsa dan menghapus
+        semua konten terkait dari basis data selamanya. Log audit (termasuk percobaan
+        penayangan di masa mendatang) akan tetap dipertahankan di masa mendatang.
+        Apakah Anda yakin?
+      expired: Kadaluarsa
+      failed_view: Upaya Melihat Gagal
+      failed_view_attempts: Upaya Melihat Gagal
+      failed_view_attempts_help: Jumlah upaya untuk melihat permintaan ini setelah
+        kedaluwarsa.
+      filename: Nama file
+      files_deleted: Semua file yang sebelumnya dilampirkan telah dihapus, atau tidak
+        ada file yang dilampirkan."
+      log_note: Saat permintaan menerima aktivitas, log masing-masing dengan informasi
+        identifikasi akan muncul di sini.
+      manual_expiration: Kedaluwarsa Manual
+      message_length: Panjang Pesan
+      message_length_help: Panjang muatan teks yang dilampirkan.
+      none: Tidak ada
+      num_files_attached: Jumlah File yang Dilampirkan
+      num_files_attached_help: Jumlah file yang dilampirkan pada permintaan ini.
+      open: Permintaan Terbuka
+      passphrase_lock: Penguncian Frasa Sandi
+      passphrase_lock_help: Meminta penerima untuk memasukkan kata sandi untuk melihat
+        permintaan ini.
+      payload: Muatan
+      preview: Bagikan
+      pull_creation: Dibuat pada %{date} oleh %{name}
+      ready: Respon Siap
+      reference_note: Catatan Referensi
+      request_date: Dibuat pada %{date}
+      retrieve: Mengambil
+      secret_url: URL Rahasia untuk Permintaan ini
+      size: 'Ukuran: %{size}'
+      start_audit_log: Memulai Catatan Audit
+      start_log: Memulai Catatan Audit
+      state: Negara
+      state_help_closed: Permintaan telah ditutup dan konten respons telah dihapus.
+      state_help_open: Permintaan ini masih terbuka dan belum mendapatkan tanggapan.
+      state_help_ready: Penerima telah merespons permintaan tersebut dan konten siap
+        untuk diambil.
+      successful_view: Tampilan Berhasil
+      successful_views: Tampilan yang Berhasil
+      successful_views_help: Berapa kali permintaan berhasil dilihat.
+      time_remaining: Sisa Waktu
+      time_remaining_help: Jumlah waktu yang tersisa sebelum permintaan ditutup dan
+        konten dihapus.
+      title: 'Log Audit untuk ID Permintaan: %{pull_id}'
+      visible_to: Hanya Dapat Dilihat Oleh Anda
+      when: Kapan
+    close:
+      done: Respons berhasil dihapus dan permintaan ditutup.
+    copy_to_clipboard: Menyalin ke Papan Klip
+    create:
+      need_subscription: Anda harus berlangganan untuk melampirkan file.
+    day:
+      one: 1 hari
+      other: "%{count} hari"
+    deleted: Dihapus
+    expiration_html: Tautan rahasia ini dan semua konten akan dihapus dalam <strong>[%{duration}</strong>
+      ] atau <strong>%{count} lebih banyak tampilan</strong>, mana saja yang lebih
+      dulu muncul.
+    expire:
+      already_expired: Permintaan tersebut telah kedaluwarsa.
+      expired: Konten permintaan telah dihapus dan URL rahasia telah kedaluwarsa.
+      not_deletable: Permintaan tersebut tidak dapat dihapus oleh pemirsa.
+    form:
+      12_hours: 12 Jam
+      15_minutes: 15 Menit
+      1_day: 1 hari
+      1_hour: 1 Jam
+      1_month: 1 Bulan
+      1_week: 1 Minggu
+      1click: Gunakan langkah pengambilan dengan 1 klik
+      1click_tip: Membantu menghindari sistem obrolan dan pemindai URL
+      2_days: 2 Hari
+      2_months: 2 Bulan
+      2_weeks: 2 Minggu
+      30_minutes: 30 Menit
+      3_days: 3 Hari
+      3_months: 3 Bulan
+      3_weeks: 3 Minggu
+      45_minutes: 45 Menit
+      4_days: 4 Hari
+      5_days: 5 Hari
+      6_days: 6 Hari
+      6_hours: 6 Jam
+      attach_files: Lampirkan File
+      attach_files_help: 'Contoh: Formulir untuk diisi.'
+      audit_tip: Ketika masuk, log audit aktivitas disimpan dan tersedia tanpa batas
+        waktu.
+      beta: Fitur ini masih dalam versi BETA dan dapat berubah.  Umpan balik sangat
+        dihargai!
+      day: Hari
+      days: Hari
+      deletable: Izinkan penghapusan segera
+      deletable_tip: Izinkan pengguna untuk menghapus permintaan ini setelah diambil.
+      encryption_tip: URL rahasia yang dapat dibagikan akan dibuat untuk permintaan
+        Anda.
+      expiration_label: 'Setelah tanggapan diterima, informasi yang dikirimkan akan
+        dihapus setelahnya:'
+      expiration_tip: Penerima URL rahasia ini dapat melihat permintaan dan merespons
+        dengan teks atau file.
+      generator_tip: Gunakan tombol di atas untuk membuat kata sandi acak.
+      hour: Jam
+      hours: Jam
+      login_to_upload: Login untuk mengunggah dan melampirkan file ke permintaan ini...
+      minutes: Menit
+      month: Bulan
+      months: Bulan
+      note_label: Catatan Referensi
+      note_placeholder: Catatan pribadi untuk permintaan ini.  Terenkripsi & hanya
+        dapat dilihat oleh Anda dan tim Anda.
+      passphrase_label: Kunci Frasa Sandi
+      passphrase_lockdown: Penguncian Frasa Sandi
+      passphrase_placeholder: Meminta penerima untuk memasukkan kata sandi untuk menanggapi
+        permintaan ini.
+      password_tip: 'Contoh: Hai John, bisakah Anda memasukkan nama pengguna Anda
+        dan melampirkan dokumen Anda di sini?  Setelah diterima, kami akan segera
+        menghubungi Anda.'
+      payload_url_placeholder: Masukkan URL yang akan dialihkan ke...
+      pull_it: Buat Permintaan
+      request_placeholder: Masukkan permintaan Anda di sini...
+      respond: Kirim Tanggapan Anda
+      response_placeholder: Masukkan tanggapan Anda di sini...
+      tip_section_title: Meminta informasi sensitif dari klien, kolega, atau pelanggan
+        Anda dengan aman.
+      upload_limit: Anda dapat mengunggah hingga %{count} file per permintaan.
+      url_pull_tip: Permintaan yang dibuat akan dialihkan ke URL yang disediakan.
+      view: Melihat
+      views: Tampilan
+      week: Minggu
+      weeks: Minggu
+    hour:
+      one: 1 jam
+      other: "%{count} jam"
+    index:
+      actions: Tindakan
+      active: Aktif
+      all: Semua
+      clear_filters: Hapus Filter
+      closed: Ditutup
+      created: Dibuat
+      created_by: Oleh
+      deletion: Penghapusan dalam
+      expired: Kadaluarsa
+      expires: Kedaluwarsa
+      file_count: File
+      note: Catatan
+      nothing_here: Belum ada apa-apa di sini.
+      open: Buka
+      pull_id: Minta ID
+      pulls: Permintaan
+      ready: Siap
+      remaining_time: Sisa Waktu
+      state: Negara
+      status: Status
+      team_pulls: Permintaan Tim
+      views: Tampilan
+      views_remaining: Tampilan yang tersisa
+    minute:
+      one: 1 menit
+      other: "%{count} menit"
+    more_view:
+      one: 1 tampilan lainnya
+      other: "%{count} lebih banyak tampilan"
+    navbar:
+      files: File
+      text: Kata Sandi & Teks
+      url: URL
+    new:
+      title: Mengirim Kata Sandi, Teks, atau File dengan Aman
+    'no': Tidak
+    none: Tidak ada
+    passphrase:
+      enter_passphrase: Masukkan Frasa Sandi
+      go: Pergi
+      placeholder: Masukkan kata sandi rahasia yang disediakan dengan URL ini
+      tip: Masukkan kata sandi rahasia
+    payload: Muatan
+    payload_too_large: Muatannya terlalu besar.  Anda hanya dapat memasukkan hingga
+      %{count} byte.
+    preliminary:
+      click_proceed: Klik di sini untuk melanjutkan
+      title: Klik untuk melanjutkan
+    preview:
+      and: dan
+      can_be: bisa jadi
+      can_not_be: tidak bisa
+      deleted_by_viewers: dihapus oleh pemirsa.
+      example: Contoh
+      generate: Menghasilkan
+      include_id: Sertakan ID
+      link_lang_auto: Sebagai alternatif, deteksi otomatis akan memilih bahasa berdasarkan
+        pengaturan browser pengguna akhir.
+      link_lang_tip: 'Kiat: Membuat Permintaan ke pengguna internasional?  Ubah bahasa
+        tautan rahasia menggunakan menu tarik-turun di sebelah kanan URL.'
+      message_example: Harap pastikan bahwa dokumen ini dimusnahkan dengan aman setelah
+        diambil untuk melindungi informasi sensitif dan menjaga kerahasiaannya.
+      message_placeholder: Pesan Khusus Opsional
+      or: atau
+      or_after: atau setelah
+      print_and_share: Cetak & Bagikan
+      print_and_share_tip: Hasilkan Halaman yang Dapat Dicetak untuk Pengguna Akhir
+      pull_another: Buat Permintaan Lain
+      pull_created: Permintaan Anda telah dibuat.
+      show_expiration: Tampilkan Detail Kedaluwarsa
+      use_link_to_share: 'Gunakan tautan rahasia ini untuk membagikannya:'
+      view_pull_now: Lihat Permintaan Ini Sekarang
+      will_burn_view: "(akan membakar pemandangan)"
+      will_expire_after: Permintaan ini akan kedaluwarsa dalam waktu
+      with_preliminary_step: Ini juga mencakup langkah pengambilan awal 1-klik %{strong_start}
+        %{strong_end}.
+    provide_text_or_file: Untuk membuat permintaan, Anda harus menyediakan teks, melampirkan
+      file, atau keduanya.
+    pull:
+      audit: Audit
+      closed: Ditutup
+      none: Tidak ada
+      not_applicable: N/A
+      open: Permintaan Terbuka
+      preview: Pratinjau
+      pull_controls: Kontrol Permintaan
+      ready: Respon Siap
+      retrieve: Mengambil
+      share: Bagikan
+      title: Permintaan Baru
+      unknown: Tidak diketahui
+      view: Melihat
+    retrieve:
+      attached_files: File Terlampir
+      audit: Log Audit
+      close_now: Tutup
+      close_now_confirm: Menutup permintaan akan segera menghapus semua informasi
+        dan file sensitif.  Catatan audit akan disimpan tanpa batas waktu.  Apakah
+        Anda yakin?
+      close_warning: Permintaan ini akan secara otomatis ditutup dan semua informasi
+        sensitif akan dihapus di %{duration}.
+      closed: Permintaan ini telah ditutup dan semua data sensitif telah dihapus.
+      deleted: Semua konten telah dihapus.
+      no_response: Belum ada tanggapan yang diterima.
+      preview: Bagikan
+      pull_creation: Dibuat pada %{date} oleh %{name}
+      reference_note: Catatan Referensi
+      state: Negara
+      state_closed: Ditutup
+      state_help_closed: Permintaan telah ditutup dan konten respons telah dihapus.
+      state_help_open: Permintaan ini masih terbuka dan belum mendapatkan tanggapan.
+      state_help_ready: Penerima telah merespons permintaan tersebut dan konten siap
+        untuk diambil.
+      state_open: Buka
+      state_ready: Siap
+      the_request: Permintaan
+      the_response: Tanggapan Penerima
+      title: 'Pengambilan untuk ID Permintaan: %{pull_id}'
+      visible_to: Hanya Dapat Dilihat Oleh Anda
+    settings: Pengaturan
+    show:
+      blurred: Kata sandi Anda kabur.  Klik di bawah ini untuk mengungkapkannya.
+      click_to_reveal: Konten diburamkan. Klik di bawah ini untuk menyingkapkannya.
+      delete_now: Hapus Tautan Rahasia Ini Sekarang
+      delete_now_confirm: Ini akan membuat tautan rahasia ini kedaluwarsa dan menghapus
+        semua konten terkait dari basis data selamanya. Apakah Anda yakin?
+      download_file: Unduh File
+      intro: Permintaan berikut ini telah dikirimkan kepada Anda.
+      last_view: Ini adalah tampilan terakhir.
+      open_file: Buka File
+      please_download: Silakan unduh dan simpan di tempat yang aman.
+      response_retrieval: Pengambilan Tanggapan
+      security_note: Informasi yang dikirimkan di sini akan disimpan dengan aman,
+        tersedia hanya untuk pemohon dan sepenuhnya dihapus dalam %{duration}.
+      will_be_deleted: Tautan rahasia ini dan semua konten akan dihapus dalam %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} atau %{b_tag}%{view_count} lagi %{view_unit}%{b_tag}
+        (mana yang lebih dulu).
+      your_link: Anda Telah Menerima Permintaan
+      your_response: Tanggapan Anda
+    show_expired:
+      expired_help: Jika diperlukan, silakan hubungi orang atau organisasi yang memberi
+        Anda URL rahasia ini.
+      expired_message: Kami mohon maaf, namun tautan rahasia ini telah kedaluwarsa.
+      link_expired: Tautan Rahasia Anda Telah Kedaluwarsa
+    show_ready:
+      help: Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, silakan
+        hubungi orang atau organisasi yang mengirimi Anda tautan ini.
+      message: Terima kasih atas tanggapan Anda.  Pemohon telah diberitahu dan akan
+        segera menghubungi Anda.
+      title: Terima kasih atas tanggapan Anda.
+    too_many_files: Anda hanya dapat melampirkan hingga %{count} file per permintaan.
+    update:
+      done: Terima kasih.  Tanggapan Anda telah berhasil diterima.
+    view:
+      one: 1 tampilan
+      other: "%{count} tampilan"
+    view_audit_log: Lihat Log Audit
+    whichever: "(mana saja yang lebih dulu)"
+    'yes': Ya
+  words:
+    audit: Audit
+    forbidden: Dilarang
+    not_found: Tidak ditemukan
+    share: Bagikan
