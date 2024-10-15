@@ -653,9 +653,12 @@ hu:
     policy:
       pwgen_syllables_count_help: A generált jelszó szótagjainak száma.
       edit: Szabályzat szerkesztése
+      team_policy_help: A csapatszabályzat olyan szabályok összessége, amelyek a csapat
+        tagjai által végrehajtott összes lökésre vonatkoznak.
       personal_policy: Személyes szabályzat
       personal_policy_help: A házirend olyan szabályok összessége, amelyek az Ön által
         létrehozott összes push-ra vonatkoznak.
+      team_policy: Csapatszabályzat
       header_timed_expiration: Időzített lejárat
       expire_after_duration_min: Minimális időtartam
       expire_after_duration_min_help: A leküldés lejárta előtti minimális időtartam.
@@ -745,45 +748,6 @@ hu:
       pwgen_max_syllable_length_help: Egy szótag maximális hossza a generált jelszóban.
       pwgen_syllables_count: Szótagszám
       policy: Irányelv
-      account_policy: Fiókszabályzat
-      account_policy_help: A fiókszabályzat egy olyan szabálykészlet, amely a fiók
-        minden tagjára vonatkozik.
-      header_pull_passphrase: Jelszó zárolása
-      header_pull_retrieval_step: 1-Kattintson a Visszakeresési lépésre
-      header_pull_timed_expiration: Időzített lejárat
-      header_pwgen_options: Jelszógenerálási lehetőségek
-      pull_close_after_duration_default: Alapértelmezett időtartam
-      pull_close_after_duration_default_help: Ha egy kérésre választ kap, ez az alapértelmezett
-        időtartam, mielőtt lejár.
-      pull_close_after_duration_max: Maximális időtartam
-      pull_close_after_duration_max_help: Ha egy kérésre választ kap, ez a maximális
-        időtartam, mielőtt lejár.
-      pull_close_after_duration_min: Minimális időtartam
-      pull_close_after_duration_min_help: Ha egy kérés választ kap, ez a minimális
-        időtartam, mielőtt lejár.
-      pull_enable_retrieval_step: Engedélyezze?
-      pull_enable_retrieval_step_help: Engedélyezi az 1-kattintásos visszakeresést
-        ennél a csapatnál? Ha le van tiltva, ez az opció el van rejtve, és nem használható.
-      pull_header_passphrase: Jelszó zárolása
-      pull_header_retrieval_step: 1-Kattintson a Visszakeresési lépésre
-      pull_hide_passphrase: Elrejti az opciót?
-      pull_hide_passphrase_help: Elrejti a Passphrase Lock opciót. Hasznos, ha teljesen
-        letiltja ennek az opciónak a használatát.
-      pull_hide_retrieval_step: Elrejti az opciót?
-      pull_hide_retrieval_step_help: Elrejti az 1-kattintásos visszakeresés lépés
-        opciót a csapattagok elől. Ez akkor hasznos, ha kikényszeríti az alapértelmezett
-        beállítást anélkül, hogy megmutatná a csapattagoknak.
-      pull_retrieval_step_default: Alapértelmezett érték
-      pull_retrieval_step_default_help: Az 1-kattintásos visszakeresési lépés alapértelmezett
-        értéke.
-      pull_retrieval_step_forced: Kikényszeríti az alapértelmezett értéket?
-      pull_retrieval_step_forced_help: Kényszeríti ennek a beállításnak a használatát
-        az alapértelmezett értékkel az összes csapattag számára. A csapattagok nem
-        módosíthatják.
-      require_2fa: Kéttényezős hitelesítést igényel?
-      require_2fa_help: A fiókhoz való hozzáféréshez a fióktagoknak kétfaktoros hitelesítést
-        (2FA) kell használniuk.
-      security_header_logins: Bejelentkezési biztonság
     account_invitations:
       max_users: Elérte csapata maximális felhasználói számát. Kérjük, lépjen kapcsolatba
         velünk a frissítéshez és további felhasználók hozzáadásához.
@@ -932,16 +896,6 @@ hu:
       will_expire_in: 'A fenti fájlletöltési linkek a következő napon lejárnak:'
       you_can_refresh: Frissítheti az oldalt az új letöltési hivatkozások újragenerálásához,
         ha a nézetek megmaradnak.
-    layout:
-      blank_brand:
-        description: Ez a link úgy van beállítva, hogy meghatározott idő vagy számú
-          megtekintés után automatikusan lejár és öntörlődjön.
-        title: Titkos linket küldtek Önnek.
-    policy_navbar:
-      password_generator: Jelszógenerátor
-      pushes: Tolja
-      requests: Kérések
-      security: Biztonság
   audit_logs:
     audit_log:
       log_created: Push létrehozta %{date} oldalon, %{user}
@@ -1134,8 +1088,6 @@ hu:
         sok mást.'
       short_expiration_tip: A rövid lejárati idők és a megtekintések száma csökkenti
         az expozíció kockázatát.
-      qr_payload_placeholder: Adjon meg legfeljebb 1024 alfanumerikus karaktert...
-      qr_tip: Csak alfanumerikus karakterek. Legfeljebb 1024 karakter megengedett.
     index:
       actions: Akciók
       clear_filters: Szűrők törlése
@@ -1150,9 +1102,6 @@ hu:
       all: Minden
       remaining: Többi
       team_pushes: Csapat lökések
-      pushes_help: Ezen az oldalon látható az összes általad létrehozott push.
-      team_pushes_help: Ezen az oldalon a fiók összes tagja által létrehozott összes
-        push látható.
     'no': Nem
     none: Egyik sem
     passphrase:
@@ -1223,13 +1172,10 @@ hu:
       files: Fájlok
       text: Jelszavak és szöveg
       url: URL-ek
-      qr: QR-kódok ᴮᴱᵀᴬ
     new:
       title: Biztonságosan küldjön jelszót, szöveget vagy fájlt
     create:
       premium_required: A fájlok csatolásához elő kell fizetni.
-      qr_max_length: A QR-kód rakománya túl nagy. Legfeljebb %{count} bájtot küldhet
-        le.
     update:
       successful: A Push frissítése sikeresen megtörtént.
   static:
@@ -1449,12 +1395,6 @@ hu:
           az %{remaining}-ben.
         now_closed_message: Az Ön %{url_token} azonosítója választ kapott. A kérelmet
           azóta lezárták.
-        email:
-          description_html: Az <strong>%{url_token}</strong> kérelem azonosítója választ
-            kapott. Le lesz zárva és lejár <strong>az %{remaining}</strong> -ben.
-          html_header: Kérésére választ kaptunk.
-          subject: Válasz érkezett kérésére
-          view_audit_log: Kérelem megtekintése
   pulls:
     access:
       incorrect: Ez a jelszó hibás. Kérjük, próbálja újra, vagy lépjen kapcsolatba
@@ -1641,9 +1581,6 @@ hu:
       team_pulls: Csapatkérések
       views: megtekintés
       views_remaining: Hátralévő nézetek
-      pulls_help: Ezen az oldalon az összes Ön által létrehozott kérés látható.
-      team_pulls_help: Ezen az oldalon a fiók összes tagja által létrehozott összes
-        kérés látható.
     minute:
       one: 1 perc
       other: "%{count} perce"

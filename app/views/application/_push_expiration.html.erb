@@ -13,7 +13,7 @@
 
       if (timeRemaining < 0) {
         clearInterval(countdown);
-        document.getElementById("countdown-timer").innerHTML = "Expired";
+        document.getElementById("countdown-timer").innerHTML = "<%= t('words.expired') %>";
       } else {
         var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);

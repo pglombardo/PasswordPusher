@@ -658,9 +658,12 @@ ro:
     policy:
       pwgen_syllables_count_help: Numărul de silabe din parola generată.
       edit: Politica de editare
+      team_policy_help: O politică de echipă este un set de reguli care se aplică
+        la toate împingerile făcute de membrii echipei respective.
       personal_policy: Politica personală
       personal_policy_help: O politică este un set de reguli care se aplică tuturor
         push-urilor create de dumneavoastră.
+      team_policy: Politica echipei
       header_timed_expiration: Expirare temporizată
       expire_after_duration_min: Durata minimă
       expire_after_duration_min_help: Durata minimă înainte de expirarea unui push.
@@ -750,45 +753,6 @@ ro:
       pwgen_max_syllable_length_help: Lungimea maximă a unei silabe în parola generată.
       pwgen_syllables_count: Syllables Count
       policy: Politica
-      account_policy: Politica de cont
-      account_policy_help: Politica contului este un set de reguli care se aplică
-        tuturor membrilor acestui cont.
-      header_pull_passphrase: Blocare prin frază de siguranță
-      header_pull_retrieval_step: pasul de recuperare cu 1-clic
-      header_pull_timed_expiration: Expirare temporizată
-      header_pwgen_options: Opțiuni de generare a parolei
-      pull_close_after_duration_default: Durata implicită
-      pull_close_after_duration_default_help: După ce o cerere primește un răspuns,
-        aceasta este durata implicită înainte ca aceasta să expire.
-      pull_close_after_duration_max: Durata maximă
-      pull_close_after_duration_max_help: După ce o cerere primește un răspuns, aceasta
-        este durata maximă înainte ca aceasta să expire.
-      pull_close_after_duration_min: Durata minimă
-      pull_close_after_duration_min_help: După ce o cerere primește un răspuns, aceasta
-        este durata minimă înainte ca aceasta să expire.
-      pull_enable_retrieval_step: Activare?
-      pull_enable_retrieval_step_help: Activați 1-Click Retrieval pentru această echipă?  Dacă
-        este dezactivată, această opțiune va fi ascunsă și nu va fi utilizată.
-      pull_header_passphrase: Blocare prin frază de siguranță
-      pull_header_retrieval_step: pasul de recuperare cu 1-clic
-      pull_hide_passphrase: Ascundeți opțiunea?
-      pull_hide_passphrase_help: Ascunde opțiunea de blocare a frazei de acces.  Utilă
-        pentru a dezactiva complet utilizarea acestei opțiuni.
-      pull_hide_retrieval_step: Ascundeți opțiunea?
-      pull_hide_retrieval_step_help: Ascunde opțiunea 1-Click Retrieval step de la
-        membrii echipei.  Acest lucru este util pentru a forța opțiunea implicită
-        fără a o afișa membrilor echipei.
-      pull_retrieval_step_default: Valoare implicită
-      pull_retrieval_step_default_help: Valoarea implicită pentru opțiunea de etapă
-        1-Click Retrieval.
-      pull_retrieval_step_forced: Forțați valoarea implicită?
-      pull_retrieval_step_forced_help: Forțează utilizarea acestei opțiuni cu valoarea
-        implicită pentru toți membrii echipei.  Aceasta nu poate fi modificată de
-        către membrii echipei.
-      require_2fa: Solicitați autentificarea cu doi factori?
-      require_2fa_help: Cereți membrilor contului să utilizeze autentificarea cu doi
-        factori (2FA) pentru a accesa acest cont.
-      security_header_logins: Securitatea conectării
     account_invitations:
       max_users: Ați atins numărul maxim de utilizatori pentru echipa dumneavoastră.  Vă
         rugăm să ne contactați pentru a face upgrade și a adăuga mai mulți utilizatori.
@@ -939,16 +903,6 @@ ro:
         în:'
       you_can_refresh: Puteți reîmprospăta pagina pentru a regenera noi linkuri de
         descărcare dacă rămân vizualizări.
-    layout:
-      blank_brand:
-        description: Acest link este setat să expire automat și să se șteargă singur
-          după un anumit timp sau număr de vizualizări.
-        title: Ați primit un link secret.
-    policy_navbar:
-      password_generator: Generator de parole
-      pushes: Împinge
-      requests: Cereri
-      security: Securitate
   audit_logs:
     audit_log:
       log_created: Push creat pe %{date} de %{user}
@@ -1145,8 +1099,6 @@ ro:
       policy_tip: 'Sfat: Puteți seta valorile implicite și multe altele în %{link}.'
       short_expiration_tip: Termenele de expirare scurte și numărul de vizualizări
         reduc riscul de expunere.
-      qr_payload_placeholder: Introduceți până la 1024 de caractere alfanumerice...
-      qr_tip: Numai caractere alfanumerice.  Sunt permise până la 1024 de caractere.
     index:
       actions: Acțiuni
       clear_filters: Curățați filtrele
@@ -1161,9 +1113,6 @@ ro:
       all: Toate
       remaining: Rămase
       team_pushes: Echipa Pushes
-      pushes_help: Această pagină afișează toate împingerile create de dvs.
-      team_pushes_help: Această pagină afișează toate împingerile create de toți membrii
-        contului.
     'no': Nu
     none: Nici unul
     passphrase:
@@ -1234,13 +1183,10 @@ ro:
       files: Fișiere
       text: Parole și text
       url: URL-uri
-      qr: Coduri QR ᴮᴱᵀᴬ
     new:
       title: Trimiteți în siguranță o parolă, un text sau un fișier
     create:
       premium_required: Trebuie să vă abonați pentru a atașa fișiere.
-      qr_max_length: Sarcina utilă a codului QR este prea mare.  Puteți împinge numai
-        până la %{count} octeți.
     update:
       successful: Push a fost actualizat cu succes.
   static:
@@ -1476,12 +1422,6 @@ ro:
           și va expira în %{remaining}.
         now_closed_message: Cererea dvs. ID %{url_token} a primit un răspuns.  Cererea
           a fost între timp închisă.
-        email:
-          description_html: ID-ul cererii <strong>%{url_token}</strong> a primit un
-            răspuns.  Aceasta va fi închisă și va expira în <strong>%{remaining}</strong>.
-          html_header: Cererea dvs. a primit un răspuns.
-          subject: Cererea dvs. a primit un răspuns
-          view_audit_log: Vezi cererea
   pulls:
     access:
       incorrect: Această frază de acces este incorectă.  Vă rugăm să încercați din
@@ -1669,9 +1609,6 @@ ro:
       team_pulls: Cereri de echipă
       views: Vizualizări
       views_remaining: Vizualizări rămase
-      pulls_help: Această pagină afișează toate cererile create de dvs.
-      team_pulls_help: Această pagină afișează toate cererile create de toți membrii
-        acestui cont.
     minute:
       one: 1 minut
       other: "%{count} minute"

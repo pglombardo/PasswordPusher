@@ -705,9 +705,12 @@ da:
     policy:
       pwgen_syllables_count_help: Antallet af stavelser i den genererede adgangskode.
       edit: Rediger politik
+      team_policy_help: En teampolitik er et sæt regler, der gælder for alle push
+        foretaget af medlemmer af dette team.
       personal_policy: Personlig politik
       personal_policy_help: En politik er et sæt regler, der gælder for alle push
         oprettet af dig.
+      team_policy: Teampolitik
       header_timed_expiration: Tidsbestemt udløb
       expire_after_duration_min: Minimum varighed
       expire_after_duration_min_help: Minimumsvarigheden før et push udløber.
@@ -793,44 +796,6 @@ da:
         adgangskode.
       pwgen_syllables_count: Stavelser tæller
       policy: Politik
-      account_policy: Kontopolitik
-      account_policy_help: Kontopolitikken er et sæt regler, der gælder for alle medlemmer
-        af denne konto.
-      header_pull_passphrase: Passphrase Lock
-      header_pull_retrieval_step: 1-klik på Hentetrin
-      header_pull_timed_expiration: Tidsbestemt udløb
-      header_pwgen_options: Indstillinger for generering af adgangskode
-      pull_close_after_duration_default: Standard varighed
-      pull_close_after_duration_default_help: Når en anmodning modtager et svar, er
-        dette standardvarigheden, før den udløber.
-      pull_close_after_duration_max: Maksimal varighed
-      pull_close_after_duration_max_help: Når en anmodning modtager et svar, er dette
-        den maksimale varighed, før den udløber.
-      pull_close_after_duration_min: Minimum varighed
-      pull_close_after_duration_min_help: Når en anmodning modtager et svar, er dette
-        minimumsvarigheden, før den udløber.
-      pull_enable_retrieval_step: Aktiver?
-      pull_enable_retrieval_step_help: Vil du aktivere 1-klik-hentning for dette team?
-        Hvis den er deaktiveret, vil denne mulighed blive skjult og ikke brugt.
-      pull_header_passphrase: Passphrase Lock
-      pull_header_retrieval_step: 1-klik på Hentetrin
-      pull_hide_passphrase: Skjul indstilling?
-      pull_hide_passphrase_help: Skjuler indstillingen Passphrase Lock. Nyttigt at
-        deaktivere brugen af denne mulighed helt.
-      pull_hide_retrieval_step: Skjul indstilling?
-      pull_hide_retrieval_step_help: Skjuler indstillingen 1-klik-hentningstrin for
-        teammedlemmerne. Dette er nyttigt for at fremtvinge standardindstillingen
-        uden at vise den til teammedlemmer.
-      pull_retrieval_step_default: Standard værdi
-      pull_retrieval_step_default_help: Standardværdien for trinindstillingen 1-Click
-        Retrieval.
-      pull_retrieval_step_forced: Tvinge standardværdien?
-      pull_retrieval_step_forced_help: Tvinger brugen af denne mulighed med standardværdien
-        for alle teammedlemmer. Det kan ikke ændres af teammedlemmer.
-      require_2fa: Kræver to-faktor-godkendelse?
-      require_2fa_help: Kræv, at kontomedlemmer bruger Two-Factor Authentication (2FA)
-        for at få adgang til denne konto.
-      security_header_logins: Login sikkerhed
     account_invitations:
       max_users: Du har nået det maksimale antal brugere for dit team. Kontakt os
         venligst for at opgradere og tilføje flere brugere.
@@ -979,16 +944,6 @@ da:
       will_expire_in: 'Fildownloadlinkene ovenfor udløber om:'
       you_can_refresh: Du kan opdatere siden for at genskabe nye downloadlinks, hvis
         der stadig er visninger.
-    layout:
-      blank_brand:
-        description: Dette link er indstillet til automatisk at udløbe og selvslette
-          efter et angivet tidspunkt eller antal visninger.
-        title: Du har fået tilsendt et hemmeligt link.
-    policy_navbar:
-      password_generator: Password Generator
-      pushes: Skubber
-      requests: Forespørgsler
-      security: Sikkerhed
   audit_logs:
     audit_log:
       log_created: Push oprettet på %{date} af %{user}
@@ -1177,8 +1132,6 @@ da:
       passphrase_lockdown: Passphrase Lockdown
       policy_tip: 'Tip: Du kan indstille standardindstillinger og mere i din %{link}.'
       short_expiration_tip: Korte udløbstider og visningstal reducerer eksponeringsrisikoen.
-      qr_payload_placeholder: Indtast op til 1024 alfanumeriske tegn...
-      qr_tip: Kun alfanumeriske tegn. Op til 1024 tegn er tilladt.
     index:
       actions: Handlinger
       clear_filters: Ryd filtre
@@ -1193,8 +1146,6 @@ da:
       all: Alle
       remaining: Tilbage
       team_pushes: Team skubber
-      pushes_help: Denne side viser alle push oprettet af dig.
-      team_pushes_help: Denne side viser alle push oprettet af alle medlemmer af kontoen.
     'no': Ingen
     none: Ingen
     passphrase:
@@ -1264,13 +1215,10 @@ da:
       files: Filer
       text: Adgangskoder og tekst
       url: URL'er
-      qr: QR-koder ᴮᴱᵀᴬ
     new:
       title: Send en adgangskode, tekst eller fil sikkert
     create:
       premium_required: Du skal abonnere for at vedhæfte filer.
-      qr_max_length: QR-kodens nyttelast er for stor. Du kan kun skubbe op til %{count}
-        bytes.
     update:
       successful: Push blev opdateret.
   static:
@@ -1491,13 +1439,6 @@ da:
           lukket og udløbet i %{remaining}.
         now_closed_message: Dit anmodnings-id %{url_token} har modtaget et svar. Anmodningen
           er siden blevet lukket.
-        email:
-          description_html: Anmodnings-id <strong>%{url_token}</strong> har modtaget
-            et svar. Det vil blive lukket og udløbet i <strong>%{remaining}</strong>
-            .
-          html_header: Din anmodning har modtaget et svar.
-          subject: Din anmodning har modtaget et svar
-          view_audit_log: Se anmodning
   pulls:
     access:
       incorrect: Den adgangssætning er forkert. Prøv igen, eller kontakt den person
@@ -1683,9 +1624,6 @@ da:
       team_pulls: Team anmodninger
       views: Visninger
       views_remaining: Udsigter tilbage
-      pulls_help: Denne side viser alle anmodninger oprettet af dig.
-      team_pulls_help: Denne side viser alle anmodninger oprettet af alle medlemmer
-        af denne konto.
     minute:
       one: 1 minut
       other: "%{count} minutter"

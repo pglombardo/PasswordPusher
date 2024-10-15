@@ -658,9 +658,12 @@ id:
     policy:
       pwgen_syllables_count_help: Jumlah suku kata dalam kata sandi yang dibuat.
       edit: Edit Kebijakan
+      team_policy_help: Kebijakan tim adalah seperangkat aturan yang berlaku untuk
+        semua dorongan yang dibuat oleh anggota tim ini.
       personal_policy: Kebijakan Pribadi
       personal_policy_help: Kebijakan adalah seperangkat aturan yang berlaku untuk
         semua push yang Anda buat.
+      team_policy: Kebijakan Tim
       header_timed_expiration: Kadaluarsa Berjangka Waktu
       expire_after_duration_min: Durasi Minimum
       expire_after_duration_min_help: Durasi minimum sebelum sebuah push berakhir.
@@ -747,44 +750,6 @@ id:
         yang dibuat.
       pwgen_syllables_count: Hitungan Suku Kata
       policy: Kebijakan
-      account_policy: Kebijakan Akun
-      account_policy_help: Kebijakan akun adalah seperangkat aturan yang berlaku untuk
-        semua anggota akun ini.
-      header_pull_passphrase: Kunci Frasa Sandi
-      header_pull_retrieval_step: langkah Pengambilan 1-Klik
-      header_pull_timed_expiration: Kadaluarsa Berjangka Waktu
-      header_pwgen_options: Opsi Pembuatan Kata Sandi
-      pull_close_after_duration_default: Durasi Default
-      pull_close_after_duration_default_help: Setelah permintaan menerima respons,
-        ini adalah durasi default sebelum kedaluwarsa.
-      pull_close_after_duration_max: Durasi Maksimum
-      pull_close_after_duration_max_help: Setelah permintaan menerima respons, ini
-        adalah durasi maksimum sebelum kedaluwarsa.
-      pull_close_after_duration_min: Durasi Minimum
-      pull_close_after_duration_min_help: Setelah permintaan menerima respons, ini
-        adalah durasi minimum sebelum kedaluwarsa.
-      pull_enable_retrieval_step: Aktifkan?
-      pull_enable_retrieval_step_help: Aktifkan Pengambilan 1-Klik untuk tim ini?  Jika
-        dinonaktifkan, opsi ini akan disembunyikan dan tidak digunakan.
-      pull_header_passphrase: Kunci Frasa Sandi
-      pull_header_retrieval_step: langkah Pengambilan 1-Klik
-      pull_hide_passphrase: Opsi Sembunyikan?
-      pull_hide_passphrase_help: Menyembunyikan opsi Kunci Kata Sandi.  Berguna untuk
-        menonaktifkan penggunaan opsi ini sepenuhnya.
-      pull_hide_retrieval_step: Opsi Sembunyikan?
-      pull_hide_retrieval_step_help: Menyembunyikan opsi langkah Pengambilan 1-Klik
-        dari anggota tim.  Ini berguna untuk memaksa opsi tersebut menjadi default
-        tanpa menunjukkannya kepada anggota tim.
-      pull_retrieval_step_default: Nilai Default
-      pull_retrieval_step_default_help: Nilai default untuk opsi langkah Pengambilan
-        1-Klik.
-      pull_retrieval_step_forced: Memaksakan Nilai Default?
-      pull_retrieval_step_forced_help: Memaksa penggunaan opsi ini dengan nilai default
-        untuk semua anggota tim.  Ini tidak dapat diubah oleh anggota tim.
-      require_2fa: Membutuhkan Autentikasi Dua Faktor?
-      require_2fa_help: Mewajibkan anggota akun untuk menggunakan Autentikasi Dua
-        Faktor (2FA) untuk mengakses akun ini.
-      security_header_logins: Keamanan Masuk
     account_invitations:
       max_users: Anda telah mencapai jumlah maksimum pengguna untuk tim Anda.  Silakan
         hubungi kami untuk meningkatkan dan menambahkan lebih banyak pengguna.
@@ -933,16 +898,6 @@ id:
         hari:'
       you_can_refresh: Anda dapat menyegarkan halaman untuk membuat ulang tautan unduhan
         baru jika tampilan tetap ada.
-    layout:
-      blank_brand:
-        description: Tautan ini diatur untuk kedaluwarsa otomatis dan dihapus sendiri
-          setelah waktu atau jumlah tampilan tertentu.
-        title: Anda telah dikirimi tautan rahasia.
-    policy_navbar:
-      password_generator: Generator Kata Sandi
-      pushes: Mendorong
-      requests: Permintaan
-      security: Keamanan
   audit_logs:
     audit_log:
       log_created: Push dibuat pada %{date} oleh %{user}
@@ -1134,8 +1089,6 @@ id:
       policy_tip: 'Saran: Anda dapat menetapkan default dan lainnya di %{link}.'
       short_expiration_tip: Waktu kedaluwarsa yang singkat dan jumlah penayangan mengurangi
         risiko paparan.
-      qr_payload_placeholder: Masukkan hingga 1024 karakter alfanumerik...
-      qr_tip: Hanya karakter alfanumerik.  Maksimal 1024 karakter diperbolehkan.
     index:
       actions: Tindakan
       clear_filters: Hapus Filter
@@ -1150,9 +1103,6 @@ id:
       all: Semua
       remaining: Sisa
       team_pushes: Dorongan Tim
-      pushes_help: Halaman ini menampilkan semua push yang Anda buat.
-      team_pushes_help: Halaman ini menampilkan semua push yang dibuat oleh semua
-        anggota akun.
     'no': Tidak
     none: Tidak ada
     passphrase:
@@ -1222,13 +1172,10 @@ id:
       files: File
       text: Kata Sandi & Teks
       url: URL
-      qr: Kode QR ᴮᴱᵀᴬ
     new:
       title: Mengirim Kata Sandi, Teks, atau File dengan Aman
     create:
       premium_required: Anda harus berlangganan untuk melampirkan file.
-      qr_max_length: Muatan kode QR terlalu besar.  Anda hanya dapat mendorong hingga
-        %{count} byte.
     update:
       successful: Push berhasil diperbarui.
   static:
@@ -1457,12 +1404,6 @@ id:
           akan ditutup dan kedaluwarsa di %{remaining}.
         now_closed_message: ID permintaan Anda %{url_token} telah menerima tanggapan.  Permintaan
           tersebut telah ditutup.
-        email:
-          description_html: Permintaan ID <strong>%{url_token}</strong> telah menerima
-            respons.  Permintaan ini akan ditutup dan kedaluwarsa di <strong>[%{remaining}</strong>].
-          html_header: Permintaan Anda telah menerima tanggapan.
-          subject: Permintaan Anda Telah Menerima Tanggapan
-          view_audit_log: Lihat Permintaan
   pulls:
     access:
       incorrect: Kata sandi tersebut salah.  Silakan coba lagi atau hubungi orang
@@ -1654,9 +1595,6 @@ id:
       team_pulls: Permintaan Tim
       views: Tampilan
       views_remaining: Tampilan yang tersisa
-      pulls_help: Halaman ini menampilkan semua permintaan yang Anda buat.
-      team_pulls_help: Halaman ini menampilkan semua permintaan yang dibuat oleh semua
-        anggota akun ini.
     minute:
       one: 1 menit
       other: "%{count} menit"

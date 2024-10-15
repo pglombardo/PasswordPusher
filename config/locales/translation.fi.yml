@@ -643,9 +643,12 @@ fi:
     policy:
       pwgen_syllables_count_help: Luodussa salasanassa olevien tavujen määrä.
       edit: Muokkaa käytäntöä
+      team_policy_help: Tiimikäytäntö on joukko sääntöjä, jotka koskevat kaikkia tämän
+        joukkueen jäsenten tekemiä työntöjä.
       personal_policy: Henkilökohtainen politiikka
       personal_policy_help: Käytäntö on joukko sääntöjä, jotka koskevat kaikkia luomiasi
         työntöjä.
+      team_policy: Joukkueen käytäntö
       header_timed_expiration: Ajastettu vanheneminen
       expire_after_duration_min: Minimikesto
       expire_after_duration_min_help: Vähimmäiskesto ennen työntöajan päättymistä.
@@ -729,44 +732,6 @@ fi:
       pwgen_max_syllable_length_help: Luodussa salasanassa olevan tavun enimmäispituus.
       pwgen_syllables_count: Tavut Count
       policy: Käytäntö
-      account_policy: Tilikäytäntö
-      account_policy_help: Tilikäytäntö on joukko sääntöjä, jotka koskevat tämän tilin
-        kaikkia jäseniä.
-      header_pull_passphrase: Salalauseen lukitus
-      header_pull_retrieval_step: 1-Napsauta Hakuvaihe
-      header_pull_timed_expiration: Ajastettu vanheneminen
-      header_pwgen_options: Salasanan luontivaihtoehdot
-      pull_close_after_duration_default: Oletuskesto
-      pull_close_after_duration_default_help: Kun pyyntöön on vastattu, tämä on oletusaika
-        ennen sen vanhenemista.
-      pull_close_after_duration_max: Enimmäiskesto
-      pull_close_after_duration_max_help: Kun pyyntöön on vastattu, tämä on enimmäiskesto
-        ennen sen vanhenemista.
-      pull_close_after_duration_min: Minimikesto
-      pull_close_after_duration_min_help: Kun pyyntöön on vastattu, tämä on vähimmäiskesto
-        ennen sen vanhenemista.
-      pull_enable_retrieval_step: Ota käyttöön?
-      pull_enable_retrieval_step_help: Otetaanko yhden napsautuksen haku käyttöön
-        tälle tiimille? Jos tämä vaihtoehto ei ole käytössä, se piilotetaan eikä sitä
-        käytetä.
-      pull_header_passphrase: Salalauseen lukitus
-      pull_header_retrieval_step: 1-Napsauta Hakuvaihe
-      pull_hide_passphrase: Piilota vaihtoehto?
-      pull_hide_passphrase_help: Piilottaa Passphrase Lock -vaihtoehdon. Hyödyllinen,
-        jos haluat poistaa tämän vaihtoehdon käytöstä kokonaan.
-      pull_hide_retrieval_step: Piilota vaihtoehto?
-      pull_hide_retrieval_step_help: Piilottaa yhden napsautuksen hakuvaiheen vaihtoehdon
-        tiimin jäseniltä. Tämä on hyödyllistä pakottaaksesi oletusasetuksen näyttämättä
-        sitä ryhmän jäsenille.
-      pull_retrieval_step_default: Oletusarvo
-      pull_retrieval_step_default_help: 1-Click Retrieval -vaihevaihtoehdon oletusarvo.
-      pull_retrieval_step_forced: Pakottaako oletusarvo?
-      pull_retrieval_step_forced_help: Pakottaa käyttämään tätä vaihtoehtoa oletusarvolla
-        kaikille ryhmän jäsenille. Ryhmän jäsenet eivät voi muuttaa sitä.
-      require_2fa: Vaaditaanko kaksivaiheista todennusta?
-      require_2fa_help: Vaadi tilin jäseniä käyttämään kaksivaiheista todennusta (2FA)
-        päästäkseen tälle tilille.
-      security_header_logins: Kirjautumisturvallisuus
     account_invitations:
       max_users: Olet saavuttanut tiimisi käyttäjien enimmäismäärän. Ota meihin yhteyttä
         päivittääksesi ja lisätäksesi käyttäjiä.
@@ -910,16 +875,6 @@ fi:
       will_expire_in: 'Yllä olevat tiedostojen latauslinkit vanhenevat:'
       you_can_refresh: Voit päivittää sivun uusien latauslinkkien luomiseksi, jos
         näkymiä on jäljellä.
-    layout:
-      blank_brand:
-        description: Tämä linkki on asetettu vanhentumaan automaattisesti ja poistumaan
-          itsestään tietyn ajan tai näyttökertojen määrän jälkeen.
-        title: Sinulle on lähetetty salainen linkki.
-    policy_navbar:
-      password_generator: Salasanageneraattori
-      pushes: Työntää
-      requests: Pyynnöt
-      security: Turvallisuus
   audit_logs:
     audit_log:
       log_created: 'Push loi %{date}: %{user}'
@@ -1109,8 +1064,6 @@ fi:
       policy_tip: 'Vihje: Voit määrittää oletusasetukset ja paljon muuta kohdassa
         %{link}.'
       short_expiration_tip: Lyhyet vanhentumisajat ja näyttökerrat vähentävät altistumisriskiä.
-      qr_payload_placeholder: Syötä enintään 1024 aakkosnumeerista merkkiä...
-      qr_tip: Vain aakkosnumeeriset merkit. Enintään 1024 merkkiä sallitaan.
     index:
       actions: Toiminnot
       clear_filters: Tyhjennä suodattimet
@@ -1125,9 +1078,6 @@ fi:
       all: Kaikki
       remaining: Jäljelle jäänyt
       team_pushes: Joukkueen työnnät
-      pushes_help: Tällä sivulla näkyvät kaikki luomasi työnnät.
-      team_pushes_help: Tällä sivulla näkyvät kaikki tilin kaikkien jäsenten luomat
-        työnnät.
     'no': Ei
     none: Ei mitään
     passphrase:
@@ -1197,13 +1147,10 @@ fi:
       files: Tiedostot
       text: Salasanat ja teksti
       url: URL-osoitteet
-      qr: QR-koodit ᴮᴱᵀᴬ
     new:
       title: Lähetä turvallisesti salasana, teksti tai tiedosto
     create:
       premium_required: Sinun on tilattava liitetiedostoja.
-      qr_max_length: QR-koodin hyötykuorma on liian suuri. Voit työntää enintään %{count}
-        tavua.
     update:
       successful: Push päivitettiin onnistuneesti.
   static:
@@ -1414,12 +1361,6 @@ fi:
           ja vanhenee %{remaining}:ssä.
         now_closed_message: Pyyntötunnuksesi %{url_token} on saanut vastauksen. Pyyntö
           on sittemmin suljettu.
-        email:
-          description_html: Pyyntötunnus <strong>%{url_token}</strong> on saanut vastauksen.
-            Se suljetaan ja vanhenee <strong>%{remaining}</strong> .
-          html_header: Pyyntöösi on vastattu.
-          subject: Pyyntöösi on vastattu
-          view_audit_log: Näytä pyyntö
   pulls:
     access:
       incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
@@ -1601,9 +1542,6 @@ fi:
       team_pulls: Ryhmän pyynnöt
       views: katselukerrat
       views_remaining: Näkymät jäljellä
-      pulls_help: Tällä sivulla näkyvät kaikki luomasi pyynnöt.
-      team_pulls_help: Tällä sivulla näkyvät kaikki tämän tilin kaikkien jäsenten
-        luomat pyynnöt.
     minute:
       one: 1 minuutti
       other: "%{count} minuuttia"

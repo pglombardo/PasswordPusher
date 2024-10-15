@@ -666,9 +666,12 @@ fr:
     policy:
       pwgen_syllables_count_help: Le nombre de syllabes dans le mot de passe généré.
       edit: Modifier la politique
+      team_policy_help: Une politique d'équipe est un ensemble de règles qui s'appliquent
+        à toutes les poussées effectuées par les membres de cette équipe.
       personal_policy: Politique personnelle
       personal_policy_help: Une stratégie est un ensemble de règles qui s'appliquent
         à tous les push que vous créez.
+      team_policy: Politique d'équipe
       header_timed_expiration: Expiration programmée
       expire_after_duration_min: Durée minimale
       expire_after_duration_min_help: La durée minimale avant l'expiration d'un push.
@@ -764,45 +767,6 @@ fr:
         de passe généré.
       pwgen_syllables_count: Nombre de syllabes
       policy: Politique
-      account_policy: Politique de compte
-      account_policy_help: La politique de compte est un ensemble de règles qui s'appliquent
-        à tous les membres de ce compte.
-      header_pull_passphrase: Verrouillage par passphrase
-      header_pull_retrieval_step: Étape de récupération en 1 clic
-      header_pull_timed_expiration: Expiration programmée
-      header_pwgen_options: Options de génération de mot de passe
-      pull_close_after_duration_default: Durée par défaut
-      pull_close_after_duration_default_help: Une fois qu'une demande reçoit une réponse,
-        il s'agit de la durée par défaut avant son expiration.
-      pull_close_after_duration_max: Durée maximale
-      pull_close_after_duration_max_help: Une fois qu'une demande reçoit une réponse,
-        il s'agit de la durée maximale avant son expiration.
-      pull_close_after_duration_min: Durée minimale
-      pull_close_after_duration_min_help: Une fois qu'une demande reçoit une réponse,
-        il s'agit de la durée minimale avant son expiration.
-      pull_enable_retrieval_step: Activer?
-      pull_enable_retrieval_step_help: Activer la récupération en 1 clic pour cette
-        équipe ? Si elle est désactivée, cette option sera masquée et non utilisée.
-      pull_header_passphrase: Verrouillage par passphrase
-      pull_header_retrieval_step: Étape de récupération en 1 clic
-      pull_hide_passphrase: Masquer l'option ?
-      pull_hide_passphrase_help: Masque l’option Verrouillage par Passphrase. Utile
-        pour désactiver complètement l’utilisation de cette option.
-      pull_hide_retrieval_step: Masquer l'option ?
-      pull_hide_retrieval_step_help: Masque l’option récupération en 1 clic aux membres
-        de l’équipe. Ceci est utile pour forcer l’option par défaut sans l'afficher
-        aux membres de l’équipe.
-      pull_retrieval_step_default: Valeur par défaut
-      pull_retrieval_step_default_help: La valeur par défaut de l'option d'étape de
-        récupération en 1 clic.
-      pull_retrieval_step_forced: Forcer la valeur par défaut ?
-      pull_retrieval_step_forced_help: Force l'utilisation de cette option avec la
-        valeur par défaut pour tous les membres de l'équipe. Il ne peut pas être modifié
-        par les membres de l'équipe.
-      require_2fa: Besoin d’une authentification à deux facteurs ?
-      require_2fa_help: Exiger que les membres du compte utilisent l’authentification
-        à deux facteurs (2FA) pour accéder à ce compte.
-      security_header_logins: Sécurité de connexion
     account_invitations:
       max_users: Vous avez atteint le nombre maximum d'utilisateurs pour votre équipe.
         Veuillez nous contacter pour effectuer une mise à niveau et ajouter d'autres
@@ -826,22 +790,22 @@ fr:
         show_logo: Afficher le logo ?
       navbar:
         brand: Logo
-        delivery: Livraison
+        delivery: Livraison du push
         edit_brand: Modifier la marque
-        edit_delivery: Modifier la livraison
+        edit_delivery: Modifier la livraison du push
         edit_expired: Modifier expiré
-        edit_passphrase: Modifier la phrase de passe
+        edit_passphrase: Modifier la passphrase
         edit_preliminary: Modifier la récupération en 1 clic
         expired: Expiré
-        passphrase: Verrouillage par phrase secrète
+        passphrase: Passphrase
         preliminary: Récupération en 1 clic
         edit_request_: Demande de modification prête
         edit_request_delivery: Modifier la demande de livraison
         edit_request_ready: Demande de modification prête
         request_delivery: Demande de livraison
         request_ready: Demande prête
-      passphrase_description: La page de mot de passe est utilisée dans le cadre de
-        la fonctionnalité de verrouillage du mot de passe. Les utilisateurs qui reçoivent
+      passphrase_description: La page de passphrase est utilisée dans le cadre de
+        la fonctionnalité de verrouillage par passphrase. Les utilisateurs qui reçoivent
         le push doivent saisir un mot de passe pour accéder au contenu.
       passphrase_preview: Vous trouverez ci-dessous un aperçu de ce que vos utilisateurs
         finaux verront lorsqu'ils <em>seront invités à saisir une phrase secrète</em>
@@ -954,16 +918,6 @@ fr:
         dans :'
       you_can_refresh: Vous pouvez actualiser la page pour régénérer de nouveaux liens
         de téléchargement s'il reste des vues.
-    layout:
-      blank_brand:
-        description: Ce lien est configuré pour expirer et s'auto-supprimer après
-          une durée ou un nombre de vues spécifié.
-        title: Un lien secret vous a été envoyé.
-    policy_navbar:
-      password_generator: Générateur de mot de passe
-      pushes: Publications
-      requests: Demandes
-      security: Sécurité
   audit_logs:
     audit_log:
       log_created: Push créé sur %{date} par %{user}
@@ -975,8 +929,8 @@ fr:
       log_failed_passphrase: Échec de la tentative de phrase secrète sur %{date} par
         %{user}
       ip_address: 'Adresse IP:'
-      referrer: 'Référent :'
-      user_agent: 'Agent utilisateur :'
+      referrer: URL référente
+      user_agent: 'En-tête User Agent: %{user_agent}'
       automatic: Automatique
       log_close: Fermé le %{date} par %{user}. Réponse supprimée.
       log_response: Réponse du destinataire reçue le %{date} par %{user}
@@ -1160,9 +1114,6 @@ fr:
         dans votre %{link}.'
       short_expiration_tip: Les délais d’expiration courts et le nombre de vues réduisent
         le risque d’exposition.
-      qr_payload_placeholder: Entrez jusqu'à 1024 caractères alphanumériques...
-      qr_tip: Caractères alphanumériques uniquement. Jusqu'à 1024 caractères sont
-        autorisés.
     index:
       actions: Actions
       clear_filters: Effacer les filtres
@@ -1177,9 +1128,6 @@ fr:
       all: Tous
       remaining: Restant
       team_pushes: L'équipe pousse
-      pushes_help: Cette page affiche tous les push créés par vous.
-      team_pushes_help: Cette page affiche tous les push créés par tous les membres
-        du compte.
     'no': Non
     none: Aucun(e)
     passphrase:
@@ -1251,13 +1199,10 @@ fr:
       files: Fichiers
       text: Mots de passe et texte
       url: URLs
-      qr: Codes QR
     new:
       title: Envoyez un mot de passe, un texte ou un fichier en toute sécurité
     create:
       premium_required: Vous devez vous abonner pour joindre des fichiers.
-      qr_max_length: La charge utile du code QR est trop importante. Vous ne pouvez
-        envoyer que jusqu'à %{count} octets.
     update:
       successful: Push a été mis à jour avec succès.
   static:
@@ -1492,13 +1437,6 @@ fr:
           et expirera dans %{remaining}.
         now_closed_message: Votre demande ID %{url_token} a reçu une réponse. La demande
           a depuis été clôturée.
-        email:
-          description_html: La requête ID <strong>%{url_token}</strong> a reçu une
-            réponse. Elle sera fermée et expirera dans <strong>%{remaining}</strong>
-            .
-          html_header: Votre demande a reçu une réponse.
-          subject: Votre demande a reçu une réponse
-          view_audit_log: Voir la demande
   pulls:
     access:
       incorrect: Cette passphrase est incorrecte. Veuillez réessayer ou contacter
@@ -1689,9 +1627,6 @@ fr:
       team_pulls: Demandes d'équipe
       views: Vues
       views_remaining: Vues restantes
-      pulls_help: Cette page affiche toutes les demandes que vous avez créées.
-      team_pulls_help: Cette page affiche toutes les demandes créées par tous les
-        membres de ce compte.
     minute:
       one: 1 minute
       other: "%{count} minutes"
