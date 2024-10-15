@@ -1,4 +1,4 @@
-<% if push.files.attached? && Settings.files.try(:storage).to_s != "local" %>
+<% if push.files.attached? && Rails.application.config.active_storage.try(:service).to_s != "local" %>
   <div class="text-muted fs-6">
     <%= t('application.push_expiration.will_expire_in') %> <span id="countdown-timer">4:59</span>
     <div class="mt-2 mb-4">
