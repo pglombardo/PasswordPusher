@@ -779,6 +779,11 @@ sv:
         expired: Utgånget
         passphrase: Lösenfraslås
         preliminary: 1-Klicka på Hämta
+        edit_request_: Redigera begäran klar
+        edit_request_delivery: Redigera leveransförfrågan
+        edit_request_ready: Redigera begäran klar
+        request_delivery: Begär leverans
+        request_ready: Begäran är klar
       passphrase_description: Lösenfrassidan används som en del av funktionen Lösenfraslås.
         Användare som får pushen måste ange en lösenordsfras för att komma åt innehållet.
       passphrase_preview: Nedan är en förhandsvisning av vad dina slutanvändare kommer
@@ -790,10 +795,23 @@ sv:
         kommer att se för <em>alternativet för 1-klickshämtning</em> .
       preview:
         payload: Detta är ett exempel på en nyttolast som skulle visas för slutanvändaren.
+        request_payload: Detta är ett exempel på en begäran som skulle visas för slutanvändaren.
       save: Spara
       tip_custom_domain: "<strong>Tips för professionella prenumeranter</strong> :
         Du kan konfigurera en anpassad domän i din %{link}."
       tip_team_page: Gruppkonfigurationssida
+      header_lead: Här kan du anpassa utseendet på pusharna och förfrågningarna som
+        skickas till dina användare.
+      header_sublead: Anpassa logotypen, meddelanden, lägg till länkar, växla synligheten
+        för element och mer.
+      request_delivery_description: Leveranssidan är sidan som dina slutanvändare
+        kommer att se när de tar emot en förfrågan.
+      request_delivery_preview: Nedan finns en förhandsvisning av en förfrågan.
+      request_ready_description: Klarsidan visas när en förfrågan redan har fått ett
+        svar.
+      request_ready_preview: Nedan finns en förhandsgranskning av sidan för begäran
+        redo för slutanvändare.
+      title: Push & Request Branding
     brands:
       form:
         documentation: dokumentation
@@ -867,6 +885,7 @@ sv:
       autodetect: Automatisk upptäckt
     left_nav:
       pushes: Knuffar
+      pulls: Begäran ᴮᴱᵀᴬ
     right_nav:
       features: Funktioner
   audit_logs:
@@ -881,6 +900,10 @@ sv:
       ip_address: 'IP-adress:'
       referrer: 'Hänvisare:'
       user_agent: 'Användaragent:'
+      automatic: Automatisk
+      log_close: Stängd på %{date} av %{user}. Svar raderade.
+      log_response: Mottagarens svar mottaget den %{date} av %{user}
+      log_retrieve: Hämta sida visad på %{date} av %{user}
   dashboard:
     show:
       detail: Detalj
@@ -915,6 +938,26 @@ sv:
         att inloggningen misslyckas.'
       your_name: Ditt namn
   none: Ingen
+  pages:
+    about:
+      about_1: Password Pusher är ett verktyg som används för att dela lösenord och
+        annan känslig information med andra människor på ett säkert sätt.
+      about_2: Med Password Pusher kan du skapa en unik engångs-URL som kommer att
+        upphöra efter en viss tid eller efter att den har nåtts ett visst antal gånger,
+        vilket säkerställer att din information förblir privat och säker.
+      about_3: Det används ofta av individer och organisationer för att dela inloggningsuppgifter
+        eller annan känslig data med kollegor, kunder eller partners.
+      about_4: Password Pusher är en enkel och bekväm lösning för att säkert dela
+        lösenord utan behov av e-post eller andra mindre säkra kommunikationsmetoder.
+      about_pwpush: Om Password Pusher
+      hosted_at_html: Hosted på <a href="https://pwpush.com">pwpush.com</a> eller
+        så kan du köra din egen privata instans var du vill.
+      my_name: Jag heter Peter Giacomo Lombardo. Du kan hitta mig på %{linkedin},
+        %{github} eller %{blog}.
+      source_avail_html: Källkoden är <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">tillgänglig på GitHub</a> . Det
+        är öppen källkod och gratis för alla att använda, granska eller ändra.
+      the_author: Författaren
   pushes:
     access:
       incorrect: Den lösenfrasen är felaktig. Försök igen eller kontakta personen
@@ -974,6 +1017,8 @@ sv:
       title: Tryck på revisionslogg
       visible_to: Bara synligt för dig
       preview: Dela denna push
+      not_owner: Den pushen tillhör inte dig.
+      push_creation: Skapad den %{date} av %{name}
     copy_to_clipboard: Kopiera till urklipp
     deleted: raderade
     expiration_html: Den här hemliga länken och allt innehåll kommer att raderas i
@@ -1028,6 +1073,10 @@ sv:
       views: Visningar
       payload_url_placeholder: Ange webbadressen som du vill omdirigera till...
       url_push_tip: Den skapade pushen omdirigerar till den angivna URL:en.
+      account_policy: Kontopolicy
+      passphrase_lockdown: Lösenfraslåsning
+      policy_tip: 'Tips: Du kan ställa in standardinställningar och mer i din %{link}.'
+      short_expiration_tip: Korta utgångstider och visningsantal minskar exponeringsrisken.
     index:
       actions: Handlingar
       clear_filters: Rensa filter
@@ -1076,12 +1125,10 @@ sv:
     provide_text_or_file: För att skapa en push måste du antingen tillhandahålla text,
       bifoga en fil eller båda.
     push:
-      audit: Granska
       expired: Utgånget
       none: Ingen
       title: Ny push
       unknown: Okänd
-      share: Dela med sig
     settings: Inställningar
     show:
       click_to_reveal: Innehållet är suddigt. Klicka nedan för att avslöja det.
@@ -1115,6 +1162,10 @@ sv:
       url: webbadresser
     new:
       title: Skicka ett lösenord, text eller fil säkert
+    create:
+      premium_required: Du måste prenumerera för att bifoga filer.
+    update:
+      successful: Push uppdaterades framgångsrikt.
   static:
     about:
       about_1: Password Pusher är ett verktyg som används för att dela lösenord och
@@ -1324,3 +1375,337 @@ sv:
       storage_hint: Lagringstypen som ska användas för att lagra filer. Den har som
         standard :local.
       storage_label: Lagring
+  notifiers:
+    pull:
+      response_notifier:
+        message: Ditt begäran-ID %{url_token} har fått ett svar. Den kommer att stängas
+          och upphöra att gälla i %{remaining}.
+        now_closed_message: Ditt begäran-ID %{url_token} har fått ett svar. Begäran
+          har sedan avslutats.
+  pulls:
+    access:
+      incorrect: Den lösenfrasen är felaktig. Försök igen eller kontakta personen
+        eller organisationen som skickade den här länken till dig.
+    audit:
+      1click_retrieval_step: 1-Klicka på Retrieval Step
+      1click_retrieval_step_help: Hjälper till att undvika att chattsystem och URL-skannrar
+        äter upp visningar.
+      active: Aktiv
+      attached_files: Bifogade filer
+      attached_files_help: Har filer bifogats till denna begäran?
+      audit_log_for: Granskningslogg för %{pull_id}
+      closed: Stängd
+      contains_text: Innehåller text
+      contains_text_help: Har en textnyttolast lagts till i denna begäran?
+      created: Skapad
+      created_by: Skapad av %{user}
+      current_status: Nuvarande status
+      deletable_by_viewers: Kan raderas av tittare
+      deletable_by_viewers_help: Detta tillåter slutanvändare att radera innehållet
+        när det har hämtats.
+      detail: Detalj
+      end_audit_log: Slut på granskningslogg
+      event: Händelse
+      event_log: Revisionslogg
+      expire_after: 'Upphör efter:'
+      expire_after_time_help: Begäran löper ut efter denna tid från skapandet.
+      expire_after_view_help: Begäran upphör att gälla efter detta antal visningar.
+      expire_now: Förfall nu
+      expire_now_confirm: Detta kommer att förfalla denna hemliga länk och radera
+        allt relaterat innehåll från databasen för alltid. Granskningsloggen (inklusive
+        framtida försök till visningar) kommer fortfarande att underhållas framöver.
+        Är du säker?
+      expired: Utgånget
+      failed_view: Misslyckades visningsförsök
+      failed_view_attempts: Misslyckade visningsförsök
+      failed_view_attempts_help: Antalet försök att se denna begäran efter utgången.
+      filename: Filnamn
+      files_deleted: Alla tidigare bifogade filer har raderats, eller så fanns det
+        inga bifogade."
+      log_note: När förfrågan tar emot aktivitet kommer en logg över var och en med
+        identifierande information att dyka upp här.
+      manual_expiration: Manuell utgång
+      message_length: Meddelande Längd
+      message_length_help: Längden på den bifogade textnyttolasten.
+      none: Ingen
+      num_files_attached: Antal bifogade filer
+      num_files_attached_help: Antalet filer som bifogas denna begäran.
+      open: Begär öppen
+      passphrase_lock: Lösenfraslåsning
+      passphrase_lock_help: Kräv att mottagare anger en lösenfras för att se denna
+        begäran.
+      payload: Nyttolast
+      preview: Dela med sig
+      pull_creation: Skapad den %{date} av %{name}
+      ready: Svar redo
+      reference_note: Referens
+      request_date: Skapad den %{date}
+      retrieve: Hämta
+      secret_url: Hemlig URL för denna begäran
+      size: 'Storlek: %{size}'
+      start_audit_log: Start av granskningslogg
+      start_log: Start av granskningslogg
+      state: stat
+      state_help_closed: Förfrågan har stängts och svarsinnehållet raderats.
+      state_help_open: Förfrågan är öppen och har inte fått något svar än.
+      state_help_ready: Mottagaren har svarat på begäran och innehållet är klart för
+        hämtning.
+      successful_view: Framgångsrik vy
+      successful_views: Lyckade visningar
+      successful_views_help: Antalet gånger som begäran har visats.
+      time_remaining: Återstående tid
+      time_remaining_help: Den tid som återstår innan begäran avslutas och innehållet
+        raderas.
+      title: 'Granskningslogg för begäran-ID: %{pull_id}'
+      visible_to: Bara synligt för dig
+      when: När
+    close:
+      done: Svaret har raderats och begäran stängts.
+    copy_to_clipboard: Kopiera till urklipp
+    create:
+      need_subscription: Du måste prenumerera för att bifoga filer.
+    day:
+      one: 1 dag
+      other: "%{count} dagar"
+    deleted: raderade
+    expiration_html: Den här hemliga länken och allt innehåll kommer att raderas i
+      <strong>%{duration}</strong> eller <strong>%{count} fler visningar,</strong>
+      beroende på vilket som inträffar först.
+    expire:
+      already_expired: Den begäran har redan löpt ut.
+      expired: Begärans innehåll har tagits bort och den hemliga webbadressen har
+        upphört att gälla.
+      not_deletable: Den begäran kan inte tas bort av tittarna.
+    form:
+      12_hours: 12 timmar
+      15_minutes: 15 minuter
+      1_day: 1 dag
+      1_hour: 1 timme
+      1_month: 1 månad
+      1_week: 1 vecka
+      1click: Använd 1-klicksteg för hämtning
+      1click_tip: Hjälper till att undvika chattsystem och URL-skannrar
+      2_days: 2 dagar
+      2_months: 2 månader
+      2_weeks: 2 veckor
+      30_minutes: 30 minuter
+      3_days: 3 dagar
+      3_months: 3 månader
+      3_weeks: 3 veckor
+      45_minutes: 45 minuter
+      4_days: 4 dagar
+      5_days: 5 dagar
+      6_days: 6 dagar
+      6_hours: 6 timmar
+      attach_files: Bifoga filer
+      attach_files_help: 'Exempel: Ett formulär att fylla i.'
+      audit_tip: När du är inloggad förs en revisionslogg över aktiviteten och är
+        tillgänglig på obestämd tid.
+      beta: Denna funktion är BETA och kan ändras. Feedback uppskattas!
+      day: Dag
+      days: Dagar
+      deletable: Tillåt omedelbar radering
+      deletable_tip: Tillåt användare att ta bort denna begäran när den har hämtats.
+      encryption_tip: En delbar hemlig URL kommer att skapas för din begäran.
+      expiration_label: 'När ett svar har mottagits kommer den inlämnade informationen
+        att raderas efter:'
+      expiration_tip: Mottagaren av denna hemliga URL kan se begäran och svara med
+        text eller filer.
+      generator_tip: Använd knappen ovan för att skapa ett slumpmässigt lösenord.
+      hour: Timme
+      hours: Timmar
+      login_to_upload: Logga in för att ladda upp och bifoga filer till denna begäran...
+      minutes: Minuter
+      month: Månad
+      months: månader
+      note_label: Referens
+      note_placeholder: En privat anteckning för denna begäran. Krypterad och endast
+        synlig för dig och ditt team.
+      passphrase_label: Lösenfraslås
+      passphrase_lockdown: Lösenfraslåsning
+      passphrase_placeholder: Kräv att mottagaren anger en lösenfras för att svara
+        på denna begäran.
+      password_tip: 'Exempel: Hej John, kan du ange ditt användarnamn och bifoga dina
+        dokument här? När vi har mottagit det kommer vi att återkomma till dig mycket
+        snart.'
+      payload_url_placeholder: Ange webbadressen som du vill omdirigera till...
+      pull_it: Skapa förfrågan
+      request_placeholder: Ange din förfrågan här...
+      respond: Skicka ditt svar
+      response_placeholder: Ange ditt svar här...
+      tip_section_title: Begär säkert känslig information från dina kunder, kollegor
+        eller kunder.
+      upload_limit: Du kan ladda upp upp till %{count} filer per begäran.
+      url_pull_tip: Den skapade begäran omdirigeras till den angivna webbadressen.
+      view: Se
+      views: Visningar
+      week: Vecka
+      weeks: Veckor
+    hour:
+      one: 1 timme
+      other: "%{count} timmar"
+    index:
+      actions: Handlingar
+      active: Aktiv
+      all: Allt
+      clear_filters: Rensa filter
+      closed: Stängd
+      created: Skapad
+      created_by: Förbi
+      deletion: Radering i
+      expired: Utgånget
+      expires: Upphör att gälla
+      file_count: Filer
+      note: Notera
+      nothing_here: Det finns inget här ännu.
+      open: Öppna
+      pull_id: Begär ID
+      pulls: Förfrågningar
+      ready: Redo
+      remaining_time: Återstående tid
+      state: stat
+      status: Status
+      team_pulls: Teamförfrågningar
+      views: Visningar
+      views_remaining: Återstående vyer
+    minute:
+      one: 1 minut
+      other: "%{count} minuter"
+    more_view:
+      one: 1 visning till
+      other: "%{count} fler visningar"
+    navbar:
+      files: Filer
+      text: Lösenord och text
+      url: webbadresser
+    new:
+      title: Skicka ett lösenord, text eller fil säkert
+    'no': Nej
+    none: Ingen
+    passphrase:
+      enter_passphrase: Ange lösenordsfras
+      go: Gå
+      placeholder: Ange den hemliga lösenfrasen som tillhandahålls med denna URL
+      tip: Ange den hemliga lösenfrasen
+    payload: Nyttolast
+    payload_too_large: Nyttolasten är för stor. Du kan bara ange upp till %{count}
+      byte.
+    preliminary:
+      click_proceed: Klicka här för att gå vidare
+      title: Klicka för att fortsätta
+    preview:
+      and: och
+      can_be: kan vara
+      can_not_be: kan inte vara
+      deleted_by_viewers: raderas av tittarna.
+      example: Exempel
+      generate: Generera
+      include_id: Inkludera ID
+      link_lang_auto: Alternativt kommer automatisk identifiering att välja ett språk
+        baserat på slutanvändarens webbläsarinställningar.
+      link_lang_tip: 'Tips: Göra en förfrågan till en internationell användare? Ändra
+        det hemliga länkspråket med hjälp av rullgardinsmenyn till höger om URL:en.'
+      message_example: Se till att detta dokument förstörs på ett säkert sätt efter
+        hämtning för att skydda känslig information och upprätthålla konfidentialitet.
+      message_placeholder: Valfritt anpassat meddelande
+      or: eller
+      or_after: eller efter
+      print_and_share: Skriv ut och dela
+      print_and_share_tip: Skapa en utskrivbar sida för slutanvändare
+      pull_another: Gör en ny förfrågan
+      pull_created: Din begäran har skapats.
+      show_expiration: Visa utgångsinformation
+      use_link_to_share: 'Använd den här hemliga länken för att dela den:'
+      view_pull_now: Se denna förfrågan nu
+      will_burn_view: "(kommer att bränna en vy)"
+      will_expire_after: Denna begäran löper ut om
+      with_preliminary_step: Den innehåller också ett %{strong_start}1-klicks preliminärt
+        hämtningssteg%{strong_end}.
+    provide_text_or_file: För att skapa en begäran måste du antingen tillhandahålla
+      text, bifoga en fil eller båda.
+    pull:
+      audit: Granska
+      closed: Stängd
+      none: Ingen
+      not_applicable: N/A
+      open: Begär öppen
+      preview: Förhandsgranska
+      pull_controls: Begär kontroller
+      ready: Svar redo
+      retrieve: Hämta
+      share: Dela med sig
+      title: Ny förfrågan
+      unknown: Okänd
+      view: Se
+    retrieve:
+      attached_files: Bifogade filer
+      audit: Revisionslogg
+      close_now: Stänga
+      close_now_confirm: Stängningsförfrågan kommer omedelbart att radera all känslig
+        information och filer. Granskningsloggen kommer att bibehållas på obestämd
+        tid. Är du säker?
+      close_warning: Denna begäran kommer automatiskt att stängas och all känslig
+        information raderas i %{duration}.
+      closed: Denna begäran har stängts och all känslig data raderats.
+      deleted: Allt innehåll har raderats.
+      no_response: Inget svar har kommit ännu.
+      preview: Dela med sig
+      pull_creation: Skapad den %{date} av %{name}
+      reference_note: Referens
+      state: stat
+      state_closed: Stängd
+      state_help_closed: Förfrågan har stängts och svarsinnehållet raderats.
+      state_help_open: Förfrågan är öppen och har inte fått något svar än.
+      state_help_ready: Mottagaren har svarat på begäran och innehållet är klart för
+        hämtning.
+      state_open: Öppna
+      state_ready: Redo
+      the_request: Förfrågan
+      the_response: Mottagarens svar
+      title: 'Hämtning för begäran-ID: %{pull_id}'
+      visible_to: Bara synligt för dig
+    settings: Inställningar
+    show:
+      blurred: Ditt lösenord är utsuddat. Klicka nedan för att visa det.
+      click_to_reveal: Innehållet är suddigt. Klicka nedan för att avslöja det.
+      delete_now: Ta bort den här hemliga länken nu
+      delete_now_confirm: Detta kommer att förfalla denna hemliga länk och radera
+        allt relaterat innehåll från databasen för alltid. Är du säker?
+      download_file: Nedladdning fil
+      intro: Följande begäran har skickats till dig.
+      last_view: Detta är den sista utsikten.
+      open_file: Öppna fil
+      please_download: Ladda ner och lagra på ett säkert område.
+      response_retrieval: Svarshämtning
+      security_note: Informationen som lämnas här kommer att lagras säkert, endast
+        tillgänglig för den som begär det och raderas helt inom %{duration}.
+      will_be_deleted: Den här hemliga länken och allt innehåll kommer att raderas
+        i %{b_tag}%{time_count} %{time_unit}%{b_tag} eller %{b_tag}%{view_count} mer
+        %{view_unit}%{b_tag} (beroende på vilket som inträffar först).
+      your_link: Du har fått en förfrågan
+      your_response: Ditt svar
+    show_expired:
+      expired_help: Om det behövs kontaktar du personen eller organisationen som gav
+        dig denna hemliga URL.
+      expired_message: Vi ber om ursäkt, men denna hemliga länk har upphört att gälla.
+      link_expired: Din hemliga länk har upphört
+    show_ready:
+      help: Om du har några frågor eller behöver ytterligare hjälp, vänligen kontakta
+        den person eller organisation som skickade den här länken till dig.
+      message: Tack för ditt svar. Beställaren har underrättats och kommer att kontakta
+        dig inom kort.
+      title: Tack för ditt svar.
+    too_many_files: Du kan bara bifoga upp till %{count} filer per begäran.
+    update:
+      done: Tack. Ditt svar togs emot.
+    view:
+      one: 1 vy
+      other: "%{count} visningar"
+    view_audit_log: Visa granskningslogg
+    whichever: "(det som kommer först)"
+    'yes': Ja
+  words:
+    audit: Granska
+    forbidden: Förbjuden
+    not_found: Hittade inte
+    share: Dela med sig

@@ -779,6 +779,11 @@ pt-BR:
         expired: Expirado
         passphrase: Bloqueio de senha
         preliminary: Recuperação com 1 clique
+        edit_request_: Solicitação de edição pronta
+        edit_request_delivery: Editar Solicitação de Entrega
+        edit_request_ready: Solicitação de edição pronta
+        request_delivery: Solicitar entrega
+        request_ready: Solicitação pronta
       passphrase_description: A página de passphrase é usada como parte do recurso
         Passphrase Lockdown. Usuários que recebem o push precisam digitar uma passphrase
         para acessar o conteúdo.
@@ -792,10 +797,24 @@ pt-BR:
       preview:
         payload: Este é um exemplo de uma carga útil que seria exibida ao usuário
           final.
+        request_payload: Este é um exemplo de uma solicitação que seria exibida ao
+          usuário final.
       save: Salvar
       tip_custom_domain: "<strong>Dica para assinantes Pro</strong> : você pode configurar
         um domínio personalizado em seu %{link}."
       tip_team_page: Página de configuração da equipe
+      header_lead: Aqui você pode personalizar a aparência dos pushes e solicitações
+        que são enviados aos seus usuários.
+      header_sublead: Personalize o logotipo, as mensagens, adicione links, alterne
+        a visibilidade dos elementos e muito mais.
+      request_delivery_description: A página de entrega é a página que seus usuários
+        finais verão ao receber uma solicitação.
+      request_delivery_preview: Abaixo está uma prévia de uma solicitação.
+      request_ready_description: A página pronta é exibida quando uma solicitação
+        já recebeu uma resposta.
+      request_ready_preview: Abaixo está uma prévia da página de solicitação pronta
+        para usuários finais.
+      title: Marca Push & Request
     brands:
       form:
         documentation: documentação
@@ -870,6 +889,7 @@ pt-BR:
       autodetect: Detecção automática
     left_nav:
       pushes: Empurra
+      pulls: Pedidos ᴮᴱᵀᴬ
     right_nav:
       features: Características
   audit_logs:
@@ -884,6 +904,10 @@ pt-BR:
       ip_address: 'Endereço IP:'
       referrer: 'Referenciador:'
       user_agent: 'Agente do usuário:'
+      automatic: Automático
+      log_close: Fechado em %{date} por %{user}. Resposta excluída.
+      log_response: Resposta do destinatário recebida em %{date} por %{user}
+      log_retrieve: Recuperar página visualizada em %{date} por %{user}
   dashboard:
     show:
       detail: Detalhe
@@ -919,6 +943,28 @@ pt-BR:
         de falha no envio.'
       your_name: Seu nome
   none: Nenhum
+  pages:
+    about:
+      about_1: Password Pusher é uma ferramenta usada para compartilhar senhas e outras
+        informações confidenciais com outras pessoas de forma segura.
+      about_2: Com o Password Pusher, você pode criar um URL exclusivo e único que
+        expirará após um determinado período de tempo ou após ser acessado um determinado
+        número de vezes, garantindo que suas informações permaneçam privadas e seguras.
+      about_3: Geralmente é usado por indivíduos e organizações para compartilhar
+        credenciais de login ou outros dados confidenciais com colegas, clientes ou
+        parceiros.
+      about_4: O Password Pusher é uma solução simples e conveniente para compartilhar
+        senhas com segurança sem a necessidade de e-mail ou outros métodos de comunicação
+        menos seguros.
+      about_pwpush: Sobre o Password Pusher
+      hosted_at_html: Hospedado em <a href="https://pwpush.com">pwpush.com</a> ou
+        você pode executar sua própria instância privada onde quiser.
+      my_name: Meu nome é Peter Giacomo Lombardo. Você pode me encontrar em %{linkedin},
+        %{github} ou %{blog}.
+      source_avail_html: O código fonte está <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">disponível no GitHub</a> . É de
+        código aberto e gratuito para qualquer pessoa usar, revisar ou modificar.
+      the_author: O autor
   pushes:
     access:
       incorrect: Essa senha está incorreta. Tente novamente ou entre em contato com
@@ -978,6 +1024,8 @@ pt-BR:
       title: Registro de auditoria push
       visible_to: Visível apenas para você
       preview: Compartilhe este impulso
+      not_owner: Esse envio não pertence a você.
+      push_creation: Criado em %{date} por %{name}
     copy_to_clipboard: Copiar para área de transferência
     deleted: Excluído
     expiration_html: Este link secreto e todo o conteúdo serão excluídos em <strong>%{duration}</strong>
@@ -1030,6 +1078,11 @@ pt-BR:
       views: Visualizações
       payload_url_placeholder: Digite a URL para redirecionar para...
       url_push_tip: O push criado será redirecionado para o URL fornecido.
+      account_policy: Política de conta
+      passphrase_lockdown: Frase secreta de bloqueio
+      policy_tip: 'Dica: Você pode definir padrões e muito mais em seu %{link}.'
+      short_expiration_tip: Tempos de expiração curtos e contagens de visualizações
+        reduzem o risco de exposição.
     index:
       actions: Ações
       clear_filters: Limpar filtros
@@ -1078,12 +1131,10 @@ pt-BR:
     provide_text_or_file: Para criar um push, você deve fornecer texto, anexar um
       arquivo ou ambos.
     push:
-      audit: Auditoria
       expired: Expirado
       none: Nenhum
       title: Novo impulso
       unknown: Desconhecido
-      share: Compartilhar
     settings: Configurações
     show:
       click_to_reveal: O conteúdo está desfocado. Clique abaixo para revelá-lo.
@@ -1117,6 +1168,10 @@ pt-BR:
       url: URLs
     new:
       title: Envie com segurança uma senha, texto ou arquivo
+    create:
+      premium_required: Você precisa se inscrever para anexar arquivos.
+    update:
+      successful: O push foi atualizado com sucesso.
   static:
     about:
       about_1: Password Pusher é uma ferramenta usada para compartilhar senhas e outras
@@ -1335,3 +1390,339 @@ pt-BR:
       storage_hint: O tipo de armazenamento a ser usado para armazenar arquivos. O
         padrão é :local.
       storage_label: Armazenar
+  notifiers:
+    pull:
+      response_notifier:
+        message: Sua solicitação ID %{url_token} recebeu uma resposta. Ela será fechada
+          e expirada em %{remaining}.
+        now_closed_message: Seu ID de solicitação %{url_token} recebeu uma resposta.
+          A solicitação já foi fechada.
+  pulls:
+    access:
+      incorrect: Essa senha está incorreta. Tente novamente ou entre em contato com
+        a pessoa ou organização que lhe enviou este link.
+    audit:
+      1click_retrieval_step: Etapa de recuperação com 1 clique
+      1click_retrieval_step_help: Ajuda a evitar que sistemas de bate-papo e scanners
+        de URL consumam visualizações.
+      active: Ativo
+      attached_files: Arquivos anexados
+      attached_files_help: Os arquivos foram anexados a esta solicitação?
+      audit_log_for: Registro de auditoria para %{pull_id}
+      closed: Fechado
+      contains_text: Contém texto
+      contains_text_help: Uma carga de texto foi adicionada a esta solicitação?
+      created: Criado
+      created_by: Criado por %{user}
+      current_status: Status atual
+      deletable_by_viewers: Excluível pelos visualizadores
+      deletable_by_viewers_help: Isso permite que os usuários finais excluam o conteúdo
+        depois de recuperado.
+      detail: Detalhe
+      end_audit_log: Fim do Log de auditoria
+      event: Evento
+      event_log: Registro de Auditoria
+      expire_after: 'Expira depois:'
+      expire_after_time_help: A solicitação expira após esse período de tempo a partir
+        da criação.
+      expire_after_view_help: A solicitação expira após esse número de visualizações.
+      expire_now: Expirar agora
+      expire_now_confirm: Isso irá expirar este link secreto e excluir todo o conteúdo
+        relacionado do banco de dados para sempre. O registro de auditoria (incluindo
+        futuras tentativas de visualização) ainda será mantido daqui para frente.
+        Tem certeza?
+      expired: Expirado
+      failed_view: Falha na tentativa de visualização
+      failed_view_attempts: Tentativas de visualização com falhas
+      failed_view_attempts_help: O número de tentativas de visualização desta solicitação
+        após a expiração.
+      filename: Nome do arquivo
+      files_deleted: Todos os arquivos anexados anteriormente foram excluídos ou não
+        havia nenhum anexado."
+      log_note: À medida que a solicitação recebe atividade, um log de cada uma com
+        informações de identificação será exibido aqui.
+      manual_expiration: Expiração manual
+      message_length: Comprimento da mensagem
+      message_length_help: O comprimento da carga de texto anexada.
+      none: Nenhum
+      num_files_attached: Número de arquivos anexados
+      num_files_attached_help: O número de arquivos anexados a esta solicitação.
+      open: Solicitação aberta
+      passphrase_lock: Frase secreta de bloqueio
+      passphrase_lock_help: Exija que os destinatários insiram uma senha para visualizar
+        esta solicitação.
+      payload: Carga útil
+      preview: Compartilhar
+      pull_creation: Criado em %{date} por %{name}
+      ready: Pronto para resposta
+      reference_note: Nota de referência
+      request_date: Criado em %{date}
+      retrieve: Recuperar
+      secret_url: URL secreta para esta solicitação
+      size: 'Tamanho: %{size}'
+      start_audit_log: Início do registro de auditoria
+      start_log: Início do registro de auditoria
+      state: Estado
+      state_help_closed: A solicitação foi fechada e o conteúdo da resposta foi excluído.
+      state_help_open: A solicitação está aberta e ainda não recebeu resposta.
+      state_help_ready: O destinatário respondeu à solicitação e o conteúdo está pronto
+        para recuperação.
+      successful_view: Visualização bem-sucedida
+      successful_views: Visualizações bem-sucedidas
+      successful_views_help: O número de vezes que a solicitação foi visualizada com
+        sucesso.
+      time_remaining: Tempo restante
+      time_remaining_help: O tempo restante antes que a solicitação seja fechada e
+        o conteúdo seja excluído.
+      title: 'Log de auditoria para ID de solicitação: %{pull_id}'
+      visible_to: Visível apenas para você
+      when: Quando
+    close:
+      done: Resposta excluída com sucesso e solicitação encerrada.
+    copy_to_clipboard: Copiar para área de transferência
+    create:
+      need_subscription: Você precisa se inscrever para anexar arquivos.
+    day:
+      one: 1 dia
+      other: "%{count} dias"
+    deleted: Excluído
+    expiration_html: Este link secreto e todo o conteúdo serão excluídos em <strong>%{duration}</strong>
+      ou <strong>%{count} mais visualizações</strong> , o que ocorrer primeiro.
+    expire:
+      already_expired: Essa solicitação já expirou.
+      expired: O conteúdo da solicitação foi excluído e a URL secreta expirou.
+      not_deletable: Essa solicitação não pode ser excluída pelos espectadores.
+    form:
+      12_hours: 12 horas
+      15_minutes: 15 minutos
+      1_day: 1 dia
+      1_hour: 1 hora
+      1_month: 1 mês
+      1_week: 1 semana
+      1click: Use a etapa de recuperação em 1-clique
+      1click_tip: Ajuda a evitar sistemas de bate-papo e scanners de URL
+      2_days: 2 dias
+      2_months: 2 meses
+      2_weeks: 2 semanas
+      30_minutes: 30 minutos
+      3_days: 3 dias
+      3_months: 3 meses
+      3_weeks: 3 semanas
+      45_minutes: 45 minutos
+      4_days: 4 dias
+      5_days: 5 dias
+      6_days: 6 dias
+      6_hours: 6 horas
+      attach_files: Anexar arquivos
+      attach_files_help: 'Exemplo: Um formulário para preencher.'
+      audit_tip: Quando conectado, um registro de auditoria de atividades é mantido
+        e fica disponível indefinidamente.
+      beta: Este recurso é BETA e pode mudar. Comentários são bem-vindos!
+      day: Dia
+      days: Dias
+      deletable: Permitir exclusão imediata
+      deletable_tip: Permitir que os usuários excluam esta solicitação depois de recuperada.
+      encryption_tip: Uma URL secreta compartilhável será criada para sua solicitação.
+      expiration_label: 'Após o recebimento da resposta, as informações enviadas serão
+        excluídas após:'
+      expiration_tip: O destinatário desta URL secreta pode visualizar a solicitação
+        e responder com texto ou arquivos.
+      generator_tip: Use o botão acima para gerar uma senha aleatória.
+      hour: Hora
+      hours: Horas
+      login_to_upload: Efetue login para enviar e anexar arquivos a esta solicitação...
+      minutes: Minutos
+      month: Mês
+      months: Meses
+      note_label: Nota de referência
+      note_placeholder: Uma nota privada para esta solicitação. Criptografada e visível
+        somente para você e sua equipe.
+      passphrase_label: Bloqueio de senha
+      passphrase_lockdown: Frase secreta de bloqueio
+      passphrase_placeholder: Exija que o destinatário insira uma senha para responder
+        a esta solicitação.
+      password_tip: 'Exemplo: Olá John, você poderia, por favor, digitar seu nome
+        de usuário e anexar seus documentos aqui? Assim que recebermos, entraremos
+        em contato com você em breve.'
+      payload_url_placeholder: Digite a URL para redirecionar para...
+      pull_it: Criar solicitação
+      request_placeholder: Insira sua solicitação aqui...
+      respond: Envie sua resposta
+      response_placeholder: Insira sua resposta aqui...
+      tip_section_title: Solicite com segurança informações confidenciais de seus
+        clientes, colegas ou consumidores.
+      upload_limit: Você pode enviar até %{count} arquivos por solicitação.
+      url_pull_tip: A solicitação criada será redirecionada para a URL fornecida.
+      view: Visualizar
+      views: Visualizações
+      week: Semana
+      weeks: Semanas
+    hour:
+      one: 1 hora
+      other: "%{count} horas"
+    index:
+      actions: Ações
+      active: Ativo
+      all: Todos
+      clear_filters: Limpar filtros
+      closed: Fechado
+      created: Criado
+      created_by: Por
+      deletion: Exclusão em
+      expired: Expirado
+      expires: Expira
+      file_count: Arquivos
+      note: Observação
+      nothing_here: Não há nada aqui ainda.
+      open: Abrir
+      pull_id: ID da solicitação
+      pulls: Pedidos
+      ready: Preparar
+      remaining_time: Tempo restante
+      state: Estado
+      status: Status
+      team_pulls: Solicitações de equipe
+      views: Visualizações
+      views_remaining: Visualizações restantes
+    minute:
+      one: 1 minuto
+      other: "%{count} minutos"
+    more_view:
+      one: mais 1 visualização
+      other: "%{count} mais visualizações"
+    navbar:
+      files: Arquivos
+      text: Senhas e Texto
+      url: URLs
+    new:
+      title: Envie com segurança uma senha, texto ou arquivo
+    'no': Não
+    none: Nenhum
+    passphrase:
+      enter_passphrase: Digite a senha
+      go: Ir
+      placeholder: Digite a senha secreta fornecida com este URL
+      tip: Digite a senha secreta
+    payload: Carga útil
+    payload_too_large: A carga útil é muito grande. Você só pode inserir até %{count}
+      bytes.
+    preliminary:
+      click_proceed: Clique aqui para prosseguir
+      title: Clique para prosseguir
+    preview:
+      and: e
+      can_be: pode ser
+      can_not_be: não pode ser
+      deleted_by_viewers: excluído pelos visualizadores.
+      example: Exemplo
+      generate: Gerar
+      include_id: Incluir ID
+      link_lang_auto: Alternativamente, a detecção automática selecionará um idioma
+        com base nas configurações do navegador do usuário final.
+      link_lang_tip: 'Dica: Fazendo uma solicitação para um usuário internacional?
+        Altere o idioma do link secreto usando o menu suspenso à direita da URL.'
+      message_example: Certifique-se de que este documento seja destruído com segurança
+        após a recuperação para proteger informações confidenciais e manter a confidencialidade.
+      message_placeholder: Mensagem personalizada opcional
+      or: ou
+      or_after: ou depois
+      print_and_share: Imprimir e compartilhar
+      print_and_share_tip: Gere uma página imprimível para usuários finais
+      pull_another: Faça outra solicitação
+      pull_created: Sua solicitação foi criada.
+      show_expiration: Mostrar detalhes de expiração
+      use_link_to_share: 'Use essa URL secreta para compartilhar:'
+      view_pull_now: Ver esta solicitação agora
+      will_burn_view: "(vai queimar uma vista)"
+      will_expire_after: Esta solicitação expira em
+      with_preliminary_step: Também inclui uma etapa de recuperação preliminar com
+        1 clique %{strong_start}%{strong_end}.
+    provide_text_or_file: Para criar uma solicitação, você deve fornecer um texto,
+      anexar um arquivo ou ambos.
+    pull:
+      audit: Auditoria
+      closed: Fechado
+      none: Nenhum
+      not_applicable: N / D
+      open: Solicitação aberta
+      preview: Visualizar
+      pull_controls: Controles de solicitação
+      ready: Pronto para resposta
+      retrieve: Recuperar
+      share: Compartilhar
+      title: Nova solicitação
+      unknown: Desconhecido
+      view: Visualizar
+    retrieve:
+      attached_files: Arquivos anexados
+      audit: Registro de Auditoria
+      close_now: Fechar
+      close_now_confirm: O pedido de fechamento excluirá imediatamente todas as informações
+        e arquivos sensíveis. O log de auditoria será mantido indefinidamente. Tem
+        certeza?
+      close_warning: Esta solicitação será fechada automaticamente e todas as informações
+        confidenciais serão excluídas em %{duration}.
+      closed: Esta solicitação foi encerrada e todos os dados confidenciais foram
+        excluídos.
+      deleted: Todo o conteúdo foi excluído.
+      no_response: Nenhuma resposta foi recebida ainda.
+      preview: Compartilhar
+      pull_creation: Criado em %{date} por %{name}
+      reference_note: Nota de referência
+      state: Estado
+      state_closed: Fechado
+      state_help_closed: A solicitação foi fechada e o conteúdo da resposta foi excluído.
+      state_help_open: A solicitação está aberta e ainda não recebeu resposta.
+      state_help_ready: O destinatário respondeu à solicitação e o conteúdo está pronto
+        para recuperação.
+      state_open: Abrir
+      state_ready: Preparar
+      the_request: O Pedido
+      the_response: A resposta do destinatário
+      title: 'Recuperação para ID de solicitação: %{pull_id}'
+      visible_to: Visível apenas para você
+    settings: Configurações
+    show:
+      blurred: Sua senha está borrada. Clique abaixo para revelá-la.
+      click_to_reveal: O conteúdo está desfocado. Clique abaixo para revelá-lo.
+      delete_now: Excluir este link secreto agora
+      delete_now_confirm: Isso irá expirar este link secreto e excluir todo o conteúdo
+        relacionado do banco de dados para sempre. Tem certeza?
+      download_file: "⇬ Fazer download do arquivo"
+      intro: A seguinte solicitação foi enviada a você.
+      last_view: Esta é a última visão.
+      open_file: Abrir arquivo
+      please_download: Faça o download e armazene em uma área segura.
+      response_retrieval: Recuperação de Resposta
+      security_note: As informações aqui enviadas serão armazenadas com segurança,
+        disponíveis apenas para o solicitante e completamente excluídas em %{duration}.
+      will_be_deleted: Este link secreto e todo o conteúdo serão excluídos em %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} ou %{b_tag}%{view_count} mais %{view_unit}%{b_tag} (o
+        que ocorrer primeiro).
+      your_link: Você recebeu uma solicitação
+      your_response: Sua resposta
+    show_expired:
+      expired_help: Caso necessário, por gentileza contate a pessoa ou organização
+        que passou essa URL secreta.
+      expired_message: Pedimos desculpas, mas este link secreto expirou.
+      link_expired: Seu link secreto expirou
+    show_ready:
+      help: Caso tenha alguma dúvida ou precise de mais assistência, entre em contato
+        com a pessoa ou organização que lhe enviou este link.
+      message: Obrigado pela sua resposta. O solicitante foi notificado e entrará
+        em contato com você em breve.
+      title: Obrigado pela sua resposta.
+    too_many_files: Você só pode anexar até %{count} arquivos por solicitação.
+    update:
+      done: Obrigado. Sua resposta foi recebida com sucesso.
+    view:
+      one: 1 visualização
+      other: "%{count} visualizações"
+    view_audit_log: Ver registro de auditoria
+    whichever: "(o que ocorrer primeiro)"
+    'yes': Sim
+  words:
+    audit: Auditoria
+    forbidden: Proibido
+    not_found: Não encontrado
+    share: Compartilhar

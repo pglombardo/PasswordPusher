@@ -702,15 +702,28 @@ ja:
         expired: 期限切れ
         passphrase: パスフレーズロック
         preliminary: 1クリック検索
+        edit_request_: 編集リクエスト準備完了
+        edit_request_delivery: 編集リクエスト配信
+        edit_request_ready: 編集リクエスト準備完了
+        request_delivery: 配送をリクエストする
+        request_ready: リクエスト準備完了
       passphrase_description: パスフレーズ ページは、パスフレーズ ロックダウン機能の一部として使用されます。プッシュを受信したユーザーは、コンテンツにアクセスするためにパスフレーズを入力する必要があります。
       passphrase_preview: 以下は、<em>パスフレーズの入力を求められ</em>たときにエンドユーザーに表示される内容のプレビューです。
       preliminary_description: 1 クリック取得ページは、ボット、チャット システム、スキャナーによるビューの消費を防ぐのに役立ちます。プッシュを受け取ったユーザーは、この予備ページをクリックしてコンテンツにアクセスする必要があります。
       preliminary_preview: 以下は、 <em>1 クリック取得ステップ オプション</em>でエンドユーザーに表示される内容のプレビューです。
       preview:
         payload: これは、エンドユーザーに表示されるペイロードの例です。
+        request_payload: これはエンドユーザーに表示されるリクエストの例です。
       save: 保存
       tip_custom_domain: "<strong>Pro サブスクライバーのヒント</strong>: %{link} でカスタム ドメインを設定できます。"
       tip_team_page: チーム構成ページ
+      header_lead: ここでは、ユーザーに送信されるプッシュとリクエストの外観をカスタマイズできます。
+      header_sublead: ロゴやメッセージをカスタマイズしたり、リンクを追加したり、要素の表示/非表示を切り替えたりできます。
+      request_delivery_description: 配信ページは、エンドユーザーがリクエストを受信したときに表示されるページです。
+      request_delivery_preview: 以下はリクエストのプレビューです。
+      request_ready_description: リクエストがすでに応答を受信している場合は、準備完了ページが表示されます。
+      request_ready_preview: 以下は、エンドユーザー向けのリクエスト準備ページのプレビューです。
+      title: プッシュ＆リクエストブランディング
     brands:
       form:
         documentation: ドキュメント
@@ -777,6 +790,7 @@ ja:
       autodetect: 自動検出
     left_nav:
       pushes: プッシュ
+      pulls: リクエスト
     right_nav:
       features: 特徴
   audit_logs:
@@ -790,6 +804,10 @@ ja:
       ip_address: 'IPアドレス:'
       referrer: '参照元:'
       user_agent: 'ユーザーエージェント:'
+      automatic: 自動
+      log_close: "%{date} は %{user} によってクローズされました。応答は削除されました。"
+      log_response: "%{date} に %{user} が受信者の応答を受信しました"
+      log_retrieve: "%{date} で %{user} が閲覧したページを取得します"
   dashboard:
     show:
       detail: 詳細
@@ -820,6 +838,19 @@ ja:
       tip: 'ヒント: 送信が失敗する可能性は低いので、メッセージをクリップボードにコピーしてください。'
       your_name: あなたの名前
   none: なし
+  pages:
+    about:
+      about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
+      about_2: Password Pusher を使用すると、一定時間後または一定回数アクセスした後に有効期限が切れる一意の 1 回限りの URL を作成して、情報のプライバシーと安全性を確保できます。
+      about_3: 個人や組織が、ログイン資格情報やその他の機密データを同僚、クライアント、またはパートナーと共有するためによく使用されます。
+      about_4: Password Pusher は、電子メールやその他の安全性の低い通信方法を必要とせずに、パスワードを安全に共有するためのシンプルで便利なソリューションです。
+      about_pwpush: パスワードプッシャーについて
+      hosted_at_html: <a href="https://pwpush.com">pwpush.com</a>でホストされるか、好きな場所で独自のプライベート
+        インスタンスを実行できます。
+      my_name: 私の名前はピーター・ジャコモ・ロンバルドです。 %{linkedin}、%{github}、または %{blog} で私を見つけることができます。
+      source_avail_html: ソース コードは<a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">GitHub で入手できます</a>。これはオープンソースであり、誰でも無料で使用、レビュー、変更できます。
+      the_author: 著者
   pushes:
     access:
       incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。
@@ -870,6 +901,8 @@ ja:
       title: プッシュ監査ログ
       visible_to: 自分だけに見える
       preview: このプッシュを共有する
+      not_owner: そのプッシュはあなたのものではありません。
+      push_creation: "%{date} に %{name} によって作成されました"
     copy_to_clipboard: クリップボードにコピー
     deleted: 削除しました
     expiration_html: この秘密のリンクとすべてのコンテンツは、 <strong>%{duration} 回</strong>または<strong>%{count}
@@ -916,6 +949,10 @@ ja:
       views: ビュー
       payload_url_placeholder: リダイレクト先の URL を入力してください...
       url_push_tip: 作成されたプッシュは指定された URL にリダイレクトされます。
+      account_policy: アカウントポリシー
+      passphrase_lockdown: パスフレーズのロックダウン
+      policy_tip: 'ヒント: %{link} でデフォルトなどを設定できます。'
+      short_expiration_tip: 有効期限と閲覧回数が短いため、露出リスクが軽減されます。
     index:
       actions: 行動
       clear_filters: フィルターをクリアする
@@ -960,12 +997,10 @@ ja:
       link_lang_auto: あるいは、自動検出により、エンドユーザーのブラウザ設定に基づいて言語を選択します。
     provide_text_or_file: プッシュを作成するには、テキストを入力するか、ファイルを添付するか、またはその両方を行う必要があります。
     push:
-      audit: 監査
       expired: 期限切れ
       none: なし
       title: 新しいプッシュ
       unknown: 未知
-      share: 共有
     settings: 設定
     show:
       click_to_reveal: 内容がぼやけています。表示するには下をクリックしてください。
@@ -994,6 +1029,10 @@ ja:
       url: URL
     new:
       title: パスワード、テキスト、ファイルを安全に送信する
+    create:
+      premium_required: ファイルを添付するには登録する必要があります。
+    update:
+      successful: プッシュが正常に更新されました。
   static:
     about:
       about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
@@ -1158,3 +1197,299 @@ ja:
       smtp_user_name_label: SMTPユーザー名
       storage_hint: ファイルの保存に使用するストレージ タイプ。デフォルトは :local です。
       storage_label: ストレージ
+  notifiers:
+    pull:
+      response_notifier:
+        message: リクエストID %{url_token} は応答を受信しました。%{remaining} に終了し、期限切れになります。
+        now_closed_message: リクエスト ID %{url_token} は応答を受け取りました。リクエストは終了しました。
+  pulls:
+    access:
+      incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。
+    audit:
+      1click_retrieval_step: 1-Click 取得ステップ
+      1click_retrieval_step_help: チャット システムや URL スキャナーがビューを食い尽くすのを防ぐのに役立ちます。
+      active: アクティブ
+      attached_files: 添付ファイル
+      attached_files_help: このリクエストにファイルは添付されていますか?
+      audit_log_for: "%{pull_id} の監査ログ"
+      closed: 閉鎖
+      contains_text: テキストが含まれています
+      contains_text_help: このリクエストにテキスト ペイロードが追加されましたか?
+      created: 作成した
+      created_by: '作成者: %{user}'
+      current_status: 現在のステータス
+      deletable_by_viewers: 閲覧者により削除可能
+      deletable_by_viewers_help: これにより、エンド ユーザーは、取得したコンテンツを削除できます。
+      detail: 詳細
+      end_audit_log: 監査ログの終わり
+      event: イベント
+      event_log: 監査ログ
+      expire_after: '次の後に期限切れになります:'
+      expire_after_time_help: リクエストは作成からこの時間が経過すると期限切れになります。
+      expire_after_view_help: この回数表示されるとリクエストは期限切れになります。
+      expire_now: 今すぐ期限切れ
+      expire_now_confirm: これにより、この秘密のリンクが期限切れになり、関連するすべてのコンテンツがデータベースから永久に削除されます。監査ログ
+        (将来試行されたビューを含む) は今後も維持されます。本気ですか？
+      expired: 期限切れ
+      failed_view: 失敗した表示の試行
+      failed_view_attempts: 失敗した表示試行
+      failed_view_attempts_help: 有効期限後にこのリクエストを表示しようとする試行回数。
+      filename: ファイル名
+      files_deleted: 以前に添付されたファイルはすべて削除されているか、何も添付されていません。」
+      log_note: リクエストがアクティビティを受信すると、識別情報を含むそれぞれのログがここに表示されます。
+      manual_expiration: 手動有効期限
+      message_length: メッセージの長さ
+      message_length_help: 添付されたテキスト ペイロードの長さ。
+      none: なし
+      num_files_attached: 添付ファイル数
+      num_files_attached_help: このリクエストに添付されたファイルの数。
+      open: リクエストオープン
+      passphrase_lock: パスフレーズのロックダウン
+      passphrase_lock_help: このリクエストを表示するには、受信者にパスフレーズの入力を要求します。
+      payload: ペイロード
+      preview: 共有
+      pull_creation: "%{date} に %{name} によって作成されました"
+      ready: 応答準備完了
+      reference_note: 参考書
+      request_date: "%{date} に作成"
+      retrieve: 取得
+      secret_url: このリクエストの秘密の URL
+      size: 'サイズ: %{size}'
+      start_audit_log: 監査ログの開始
+      start_log: 監査ログの開始
+      state: 州
+      state_help_closed: リクエストは終了し、応答コンテンツは削除されました。
+      state_help_open: リクエストはオープンされており、まだ応答がありません。
+      state_help_ready: 受信者がリクエストに応答し、コンテンツを取得する準備が整いました。
+      successful_view: 成功したビュー
+      successful_views: 成功したビュー
+      successful_views_help: リクエストが正常に表示された回数。
+      time_remaining: 残り時間
+      time_remaining_help: リクエストが終了し、コンテンツが削除されるまでの残り時間。
+      title: 'リクエストIDの監査ログ: %{pull_id}'
+      visible_to: 自分だけに見える
+      when: いつ
+    close:
+      done: 応答は正常に削除され、リクエストは終了しました。
+    copy_to_clipboard: クリップボードにコピー
+    create:
+      need_subscription: ファイルを添付するには登録する必要があります。
+    day:
+      one: 1日
+      other: "%{count}日"
+    deleted: 削除しました
+    expiration_html: この秘密のリンクとすべてのコンテンツは、 <strong>%{duration} 回</strong>または<strong>%{count}
+      回以上のビューの</strong>いずれか早い方で削除されます。
+    expire:
+      already_expired: そのリクエストはすでに期限切れです。
+      expired: リクエストの内容が削除され、シークレット URL の有効期限が切れました。
+      not_deletable: そのリクエストは閲覧者によって削除できません。
+    form:
+      12_hours: 12時間
+      15_minutes: 15分
+      1_day: 1日
+      1_hour: 1時間
+      1_month: 1ヶ月
+      1_week: 1週間
+      1click: ワンクリック取得ステップを使用する
+      1click_tip: チャットシステムやURLスキャナーを回避するのに役立ちます
+      2_days: 2日
+      2_months: 2ヶ月
+      2_weeks: 2週間
+      30_minutes: 30分
+      3_days: 3日
+      3_months: 3ヶ月
+      3_weeks: 3週間
+      45_minutes: 45分
+      4_days: 4日
+      5_days: 5日間
+      6_days: 6日間
+      6_hours: 6時間
+      attach_files: ファイルを添付する
+      attach_files_help: '例: 記入するフォーム。'
+      audit_tip: ログインすると、アクティビティの監査ログが保存され、無期限に利用できます。
+      beta: この機能はベータ版であり、変更される可能性があります。フィードバックをお待ちしています。
+      day: 日
+      days: 日々
+      deletable: 即時削除を許可する
+      deletable_tip: 取得後にユーザーがこのリクエストを削除できるようにします。
+      encryption_tip: リクエストに対して共有可能な秘密の URL が作成されます。
+      expiration_label: 回答を受け取った後、送信された情報は以下の期間後に削除されます。
+      expiration_tip: この秘密の URL の受信者はリクエストを表示し、テキストまたはファイルで応答できます。
+      generator_tip: 上のボタンを使用してランダムなパスワードを生成します。
+      hour: 時
+      hours: 時間
+      login_to_upload: このリクエストにファイルをアップロードして添付するにはログインしてください...
+      minutes: 分
+      month: 月
+      months: 月
+      note_label: 参考書
+      note_placeholder: このリクエストに関する非公開メモ。暗号化されており、あなたとあなたのチームにのみ表示されます。
+      passphrase_label: パスフレーズロック
+      passphrase_lockdown: パスフレーズのロックダウン
+      passphrase_placeholder: このリクエストに応答するには、受信者にパスフレーズの入力を求めます。
+      password_tip: '例: こんにちは、ジョンさん。ユーザー名を入力して、ここに書類を添付していただけますか? 受け取り次第、すぐにご連絡させていただきます。'
+      payload_url_placeholder: リダイレクト先の URL を入力してください...
+      pull_it: リクエストの作成
+      request_placeholder: ここにリクエストを入力してください...
+      respond: 回答を送信
+      response_placeholder: ここに回答を入力してください...
+      tip_section_title: クライアント、同僚、顧客から機密情報を安全に要求します。
+      upload_limit: 1回のリクエストにつき最大 %{count} 個のファイルをアップロードできます。
+      url_pull_tip: 作成されたリクエストは指定された URL にリダイレクトされます。
+      view: ビュー
+      views: ビュー
+      week: 週
+      weeks: 週間
+    hour:
+      one: 1時間
+      other: "%{count}時間"
+    index:
+      actions: 行動
+      active: アクティブ
+      all: 全て
+      clear_filters: フィルターをクリアする
+      closed: 閉鎖
+      created: 作成した
+      created_by: による
+      deletion: 削除中
+      expired: 期限切れ
+      expires: 有効期限が切れます
+      file_count: ファイル
+      note: ノート
+      nothing_here: まだ何もありません。
+      open: 開ける
+      pull_id: リクエストID
+      pulls: リクエスト
+      ready: 準備ができて
+      remaining_time: 残り時間
+      state: 州
+      status: 状態
+      team_pulls: チームリクエスト
+      views: ビュー
+      views_remaining: 残りのビュー数
+    minute:
+      one: 1分
+      other: "%{count}分"
+    more_view:
+      one: さらに 1 件のビュー
+      other: "%{count} 件以上のビュー"
+    navbar:
+      files: ファイル
+      text: パスワードとテキスト
+      url: URL
+    new:
+      title: パスワード、テキスト、ファイルを安全に送信する
+    'no': いいえ
+    none: なし
+    passphrase:
+      enter_passphrase: パスフレーズを入力してください
+      go: 行け
+      placeholder: この URL で提供される秘密のパスフレーズを入力してください
+      tip: 秘密のパスフレーズを入力してください
+    payload: ペイロード
+    payload_too_large: ペイロードが大きすぎます。入力できるのは %{count} バイトまでです。
+    preliminary:
+      click_proceed: ここをクリックして続行します
+      title: クリックして進む
+    preview:
+      and: と
+      can_be: することができます
+      can_not_be: できない
+      deleted_by_viewers: 閲覧者により削除されました。
+      example: 例
+      generate: 生成する
+      include_id: IDを含める
+      link_lang_auto: あるいは、自動検出により、エンドユーザーのブラウザ設定に基づいて言語を選択します。
+      link_lang_tip: 'ヒント: 海外のユーザーにリクエストを送信していますか? URL の右側にあるドロップダウン メニューを使用して、シークレット
+        リンクの言語を変更します。'
+      message_example: 機密情報を保護し、機密性を維持するために、この文書は取得後に安全に破棄されるようにしてください。
+      message_placeholder: オプションのカスタムメッセージ
+      or: また
+      or_after: またはそれ以降
+      print_and_share: 印刷して共有
+      print_and_share_tip: エンドユーザー向けの印刷可能なページを生成する
+      pull_another: 別のリクエストをする
+      pull_created: リクエストが作成されました。
+      show_expiration: 有効期限の詳細を表示
+      use_link_to_share: 'この秘密のリンクを使用して共有してください:'
+      view_pull_now: 今すぐこのリクエストを表示
+      will_burn_view: "(ビューを焼きます)"
+      will_expire_after: このリクエストの有効期限は
+      with_preliminary_step: また、%{strong_start}1 クリックの予備取得ステップ%{strong_end}も含まれています。
+    provide_text_or_file: リクエストを作成するには、テキストを入力するか、ファイルを添付するか、またはその両方を行う必要があります。
+    pull:
+      audit: 監査
+      closed: 閉鎖
+      none: なし
+      not_applicable: 該当なし
+      open: リクエストオープン
+      preview: プレビュー
+      pull_controls: リクエストコントロール
+      ready: 応答準備完了
+      retrieve: 取得
+      share: 共有
+      title: 新しいリクエスト
+      unknown: 未知
+      view: ビュー
+    retrieve:
+      attached_files: 添付ファイル
+      audit: 監査ログ
+      close_now: 近い
+      close_now_confirm: リクエストを閉じると、すべての機密情報とファイルが直ちに削除されます。監査ログは無期限に保持されます。よろしいですか?
+      close_warning: このリクエストは自動的に閉じられ、%{duration} 内のすべての機密情報が削除されます。
+      closed: このリクエストは終了し、すべての機密データは削除されました。
+      deleted: すべてのコンテンツが削除されました。
+      no_response: まだ返答はありません。
+      preview: 共有
+      pull_creation: "%{date} に %{name} によって作成されました"
+      reference_note: 参考書
+      state: 州
+      state_closed: 閉鎖
+      state_help_closed: リクエストは終了し、応答コンテンツは削除されました。
+      state_help_open: リクエストはオープンされており、まだ応答がありません。
+      state_help_ready: 受信者がリクエストに応答し、コンテンツを取得する準備が整いました。
+      state_open: 開ける
+      state_ready: 準備ができて
+      the_request: リクエスト
+      the_response: 受信者の反応
+      title: 'リクエストIDの取得: %{pull_id}'
+      visible_to: 自分だけに見える
+    settings: 設定
+    show:
+      blurred: パスワードがぼやけています。下をクリックすると表示されます。
+      click_to_reveal: 内容がぼやけています。表示するには下をクリックしてください。
+      delete_now: この秘密のリンクを今すぐ削除
+      delete_now_confirm: これにより、この秘密のリンクが期限切れになり、関連するすべてのコンテンツがデータベースから永久に削除されます。本気ですか？
+      download_file: ダウンロードファイル
+      intro: 以下のリクエストが送信されました。
+      last_view: これが最後の眺めです。
+      open_file: ファイルを開く
+      please_download: ダウンロードして安全な場所に保管してください。
+      response_retrieval: レスポンスの取得
+      security_note: ここで送信された情報は安全に保管され、要求者のみがアクセスでき、%{duration}内で完全に削除されます。
+      will_be_deleted: この秘密リンクとすべてのコンテンツは、%{b_tag}%{time_count}%{time_unit}%{b_tag}または%{b_tag}%{view_count}以上%{view_unit}%{b_tag}(どちらか先に発生した方)で削除されます。
+      your_link: リクエストを受け取りました
+      your_response: あなたの反応
+    show_expired:
+      expired_help: 必要に応じて、この秘密の URL を提供した個人または組織に連絡してください。
+      expired_message: 申し訳ありませんが、この秘密のリンクは期限切れです。
+      link_expired: 秘密のリンクの有効期限が切れています
+    show_ready:
+      help: ご質問がある場合やさらにサポートが必要な場合は、このリンクを送信した個人または組織にお問い合わせください。
+      message: ご返信ありがとうございます。リクエスト者に通知しましたので、近日中にご連絡いたします。
+      title: ご返信ありがとうございます。
+    too_many_files: 1回のリクエストにつき最大 %{count} ファイルまで添付できます。
+    update:
+      done: ありがとうございます。ご返信を正常に受信しました。
+    view:
+      one: 1件のビュー
+      other: "%{count} ビュー"
+    view_audit_log: 監査ログを表示
+    whichever: "（いずれか早い方）"
+    'yes': はい
+  words:
+    audit: 監査
+    forbidden: 禁断
+    not_found: 見つかりません
+    share: 共有

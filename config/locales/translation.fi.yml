@@ -769,6 +769,11 @@ fi:
         expired: Vanhentunut
         passphrase: Salalauseen lukitus
         preliminary: 1-Napsauta Haku
+        edit_request_: Muokkaa pyyntöä valmis
+        edit_request_delivery: Muokkaa toimituspyyntöä
+        edit_request_ready: Muokkaa pyyntöä valmis
+        request_delivery: Pyydä toimitusta
+        request_ready: Pyyntö valmis
       passphrase_description: Salalausesivua käytetään osana Passphrase Lockdown -ominaisuutta.
         Käyttäjien, jotka saavat push-ilmoituksen, on syötettävä tunnuslause päästäkseen
         sisältöön.
@@ -781,10 +786,21 @@ fi:
         napsautuksen hakuvaiheessa</em> .
       preview:
         payload: Tämä on esimerkki hyötykuormasta, joka näytetään loppukäyttäjälle.
+        request_payload: Tämä on esimerkki pyynnöstä, joka näytetään loppukäyttäjälle.
       save: Tallenna
       tip_custom_domain: "<strong>Vinkki Pro-tilaajille</strong> : Voit määrittää
         mukautetun toimialueen %{link}:ssa."
       tip_team_page: Joukkueen määrityssivu
+      header_lead: Täällä voit muokata käyttäjillesi lähetettävien työntöjen ja pyyntöjen
+        ulkoasua.
+      header_sublead: Mukauta logoa, viestejä, lisää linkkejä, vaihda elementtien
+        näkyvyyttä ja paljon muuta.
+      request_delivery_description: Toimitussivu on sivu, jonka loppukäyttäjät näkevät
+        vastaanottaessaan pyynnön.
+      request_delivery_preview: Alla on esikatselu pyynnöstä.
+      request_ready_description: Valmis-sivu näytetään, kun pyyntöön on jo vastattu.
+      request_ready_preview: Alla on esikatselu pyyntövalmis sivusta loppukäyttäjille.
+      title: Push & Request Branding
     brands:
       form:
         documentation: dokumentaatio
@@ -858,6 +874,7 @@ fi:
       autodetect: Automaattinen havainnointi
     left_nav:
       pushes: Työntää
+      pulls: Pyynnöt ᴮᴱᵀᴬ
     right_nav:
       features: ominaisuudet
   audit_logs:
@@ -872,6 +889,10 @@ fi:
       ip_address: 'IP-osoite:'
       referrer: 'Viittaus:'
       user_agent: 'Käyttäjäagentti:'
+      automatic: Automaattinen
+      log_close: 'Suljettiin %{date}: %{user}. Vastaus poistettu.'
+      log_response: "%{user} vastaanotti vastaanottajan vastauksen %{date}"
+      log_retrieve: Hae sivu, jonka %{user} katseli %{date}
   dashboard:
     show:
       detail: Yksityiskohta
@@ -906,6 +927,29 @@ fi:
         syystä epäonnistuu.'
       your_name: Nimesi
   none: Ei mitään
+  pages:
+    about:
+      about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
+        jakamiseen muiden ihmisten kanssa turvallisesti.
+      about_2: Password Pusherin avulla voit luoda ainutlaatuisen, kertaluonteisen
+        URL-osoitteen, joka vanhenee tietyn ajan kuluttua tai sen jälkeen, kun sitä
+        on käytetty tietyn määrän kertoja, mikä varmistaa, että tietosi pysyvät yksityisinä
+        ja turvassa.
+      about_3: Yksityishenkilöt ja organisaatiot käyttävät sitä usein jakaakseen kirjautumistietoja
+        tai muita arkaluonteisia tietoja kollegoiden, asiakkaiden tai kumppaneiden
+        kanssa.
+      about_4: Password Pusher on yksinkertainen ja kätevä ratkaisu salasanojen turvalliseen
+        jakamiseen ilman sähköpostia tai muita vähemmän turvallisia viestintätapoja.
+      about_pwpush: Tietoja Password Pusherista
+      hosted_at_html: Isännöi osoitteessa <a href="https://pwpush.com">pwpush.com</a>
+        tai voit käyttää omaa yksityistä ilmentymääsi missä haluat.
+      my_name: Nimeni on Peter Giacomo Lombardo. Löydät minut osoitteesta %{linkedin},
+        %{github} tai %{blog}.
+      source_avail_html: Lähdekoodi on <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">saatavilla GitHubissa</a> . Se on
+        avoimen lähdekoodin ja ilmainen kenen tahansa käytettäväksi, tarkastettavaksi
+        tai muokattavaksi.
+      the_author: Kirjoittaja
   pushes:
     access:
       incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
@@ -963,6 +1007,8 @@ fi:
       title: Push Audit Log
       visible_to: Näkyy vain sinulle
       preview: Jaa tämä Push
+      not_owner: Tämä lähetys ei kuulu sinulle.
+      push_creation: 'Luonut %{date}: %{name}'
     copy_to_clipboard: Kopioi leikepöydälle
     deleted: Poistettu
     expiration_html: Tämä salainen linkki ja kaikki sisältö poistetaan <strong>%{duration}</strong>
@@ -1015,6 +1061,11 @@ fi:
       views: katselukerrat
       payload_url_placeholder: Anna URL-osoite, johon uudelleenohjataan...
       url_push_tip: Luotu push uudelleenohjaa annettuun URL-osoitteeseen.
+      account_policy: Tilikäytäntö
+      passphrase_lockdown: Salalauseen lukitus
+      policy_tip: 'Vihje: Voit määrittää oletusasetukset ja paljon muuta kohdassa
+        %{link}.'
+      short_expiration_tip: Lyhyet vanhentumisajat ja näyttökerrat vähentävät altistumisriskiä.
     index:
       actions: Toiminnot
       clear_filters: Tyhjennä suodattimet
@@ -1063,12 +1114,10 @@ fi:
     provide_text_or_file: Push-työn luomiseksi sinun on joko annettava tekstiä, liitettävä
       tiedosto tai molemmat.
     push:
-      audit: Auditointi
       expired: Vanhentunut
       none: Ei mitään
       title: Uusi Push
       unknown: Tuntematon
-      share: Jaa
     settings: Asetukset
     show:
       click_to_reveal: Sisältö on hämärtynyt. Napsauta alla paljastaaksesi sen.
@@ -1102,6 +1151,10 @@ fi:
       url: URL-osoitteet
     new:
       title: Lähetä turvallisesti salasana, teksti tai tiedosto
+    create:
+      premium_required: Sinun on tilattava liitetiedostoja.
+    update:
+      successful: Push päivitettiin onnistuneesti.
   static:
     about:
       about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
@@ -1303,3 +1356,332 @@ fi:
       storage_hint: Tiedostojen tallentamiseen käytettävä tallennustyyppi. Se on oletuksena
         :local.
       storage_label: Varastointi
+  notifiers:
+    pull:
+      response_notifier:
+        message: Pyyntötunnuksesi %{url_token} on saanut vastauksen. Se suljetaan
+          ja vanhenee %{remaining}:ssä.
+        now_closed_message: Pyyntötunnuksesi %{url_token} on saanut vastauksen. Pyyntö
+          on sittemmin suljettu.
+  pulls:
+    access:
+      incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
+        tai organisaatioon, joka lähetti sinulle tämän linkin.
+    audit:
+      1click_retrieval_step: 1-Napsauta Hakuvaihe
+      1click_retrieval_step_help: Auttaa estämään chat-järjestelmiä ja URL-skannereita
+        käyttämästä näyttökertoja.
+      active: Aktiivinen
+      attached_files: Liitetyt tiedostot
+      attached_files_help: Onko tähän pyyntöön liitetty tiedostoja?
+      audit_log_for: Tarkastusloki kohteelle %{pull_id}
+      closed: Suljettu
+      contains_text: Sisältää tekstiä
+      contains_text_help: Onko tähän pyyntöön lisätty tekstiviesti?
+      created: Luotu
+      created_by: Tekijä %{user}
+      current_status: Nykyinen tila
+      deletable_by_viewers: Katsojien poistettavissa
+      deletable_by_viewers_help: Näin loppukäyttäjät voivat poistaa sisällön haettuaan.
+      detail: Yksityiskohta
+      end_audit_log: Tarkastuslokin loppu
+      event: Tapahtuma
+      event_log: Tarkastusloki
+      expire_after: 'Vanhenee jälkeen:'
+      expire_after_time_help: Pyyntö vanhenee tämän ajan kuluttua luomisesta.
+      expire_after_view_help: Pyyntö vanhenee tämän näyttökertojen määrän jälkeen.
+      expire_now: Merkitse vanhentuneeksi
+      expire_now_confirm: Tämä vanhenee tämän salaisen linkin ja poistaa kaiken siihen
+        liittyvän sisällön tietokannasta pysyvästi. Tarkastusloki (mukaan lukien tulevat
+        katseluyritykset) säilytetään edelleen. Oletko varma?
+      expired: Vanhentunut
+      failed_view: Epäonnistunut katseluyritys
+      failed_view_attempts: Epäonnistuneet katseluyritykset
+      failed_view_attempts_help: Tämän pyynnön katseluyritysten määrä vanhenemisen
+        jälkeen.
+      filename: Tiedoston nimi
+      files_deleted: Kaikki aiemmin liitetyt tiedostot on poistettu tai niitä ei ollut
+        liitetty."
+      log_note: Kun pyyntö vastaanottaa toimintaa, jokaisen loki, joka sisältää tunnistetiedot,
+        näkyy täällä.
+      manual_expiration: Manuaalinen vanheneminen
+      message_length: Viestin pituus
+      message_length_help: Liitteenä olevan tekstin hyötykuorman pituus.
+      none: Ei mitään
+      num_files_attached: Liitettyjen tiedostojen määrä
+      num_files_attached_help: Tähän pyyntöön liitettyjen tiedostojen määrä.
+      open: Pyyntö auki
+      passphrase_lock: Salalauseen lukitus
+      passphrase_lock_help: Vaadi vastaanottajia antamaan tunnuslause nähdäkseen tämän
+        pyynnön.
+      payload: Hyötykuorma
+      preview: Jaa
+      pull_creation: 'Luonut %{date}: %{name}'
+      ready: Vastaus valmis
+      reference_note: Viitehuomautus
+      request_date: Luotu %{date}
+      retrieve: Hakea
+      secret_url: Tämän pyynnön salainen URL-osoite
+      size: 'Koko: %{size}'
+      start_audit_log: Tarkastuslokin alku
+      start_log: Tarkastuslokin alku
+      state: Osavaltio
+      state_help_closed: Pyyntö on suljettu ja vastauksen sisältö poistettu.
+      state_help_open: Pyyntö on avoin, eikä siihen ole vielä vastattu.
+      state_help_ready: Vastaanottaja on vastannut pyyntöön ja sisältö on valmis noudettavaksi.
+      successful_view: Onnistunut näkymä
+      successful_views: Onnistuneet näytöt
+      successful_views_help: Kuinka monta kertaa pyyntöä on tarkasteltu onnistuneesti.
+      time_remaining: Aikaa jäljellä
+      time_remaining_help: Aika, joka on jäljellä ennen pyynnön sulkemista ja sisällön
+        poistamista.
+      title: 'Pyynnön tunnuksen tarkastusloki: %{pull_id}'
+      visible_to: Näkyy vain sinulle
+      when: Kun
+    close:
+      done: Vastauksen poistaminen onnistui ja pyyntö suljettu.
+    copy_to_clipboard: Kopioi leikepöydälle
+    create:
+      need_subscription: Sinun on tilattava liitetiedostoja.
+    day:
+      one: 1 päivä
+      other: "%{count} päivää"
+    deleted: Poistettu
+    expiration_html: Tämä salainen linkki ja kaikki sisältö poistetaan <strong>%{duration}</strong>
+      tai <strong>%{count} muissa näkymissä</strong> sen mukaan, kumpi tapahtuu ensin.
+    expire:
+      already_expired: Tämä pyyntö on jo vanhentunut.
+      expired: Pyynnön sisältö on poistettu ja salainen URL-osoite on vanhentunut.
+      not_deletable: Katsojat eivät voi poistaa tätä pyyntöä.
+    form:
+      12_hours: 12 tuntia
+      15_minutes: 15 minuuttia
+      1_day: 1 päivä
+      1_hour: 1 tunti
+      1_month: 1 kuukausi
+      1_week: 1 viikko
+      1click: Käytä yhden napautuksen hakuvaihetta
+      1click_tip: Auttaa välttämään chat-järjestelmiä ja URL-skannereita
+      2_days: 2 päivää
+      2_months: 2 kuukautta
+      2_weeks: 2 viikkoa
+      30_minutes: 30 minuuttia
+      3_days: 3 päivää
+      3_months: 3 kuukautta
+      3_weeks: 3 viikkoa
+      45_minutes: 45 minuuttia
+      4_days: 4 päivää
+      5_days: 5 päivää
+      6_days: 6 päivää
+      6_hours: 6 tuntia
+      attach_files: Liitä tiedostot
+      attach_files_help: 'Esimerkki: Täytettävä lomake.'
+      audit_tip: Sisäänkirjautuneena toiminnasta pidetään tarkastusloki, joka on käytettävissä
+        toistaiseksi.
+      beta: Tämä ominaisuus on BETA ja voi muuttua. Palautetta arvostetaan!
+      day: Päivä
+      days: Päiviä
+      deletable: Salli välitön poistaminen
+      deletable_tip: Salli käyttäjien poistaa tämä pyyntö, kun se on haettu.
+      encryption_tip: Pyyntöäsi varten luodaan jaettava salainen URL-osoite.
+      expiration_label: 'Kun vastaus on saatu, lähetetyt tiedot poistetaan, kun:'
+      expiration_tip: Tämän salaisen URL-osoitteen vastaanottaja voi tarkastella pyyntöä
+        ja vastata tekstillä tai tiedostoilla.
+      generator_tip: Käytä yllä olevaa painiketta luodaksesi satunnaisen salasanan.
+      hour: Tunti
+      hours: Tuntia
+      login_to_upload: Kirjaudu sisään ladataksesi ja liittääksesi tiedostoja tähän
+        pyyntöön...
+      minutes: Pöytäkirja
+      month: Kuukausi
+      months: Kuukaudet
+      note_label: Viitehuomautus
+      note_placeholder: Yksityinen huomautus tähän pyyntöön. Salattu ja näkyvissä
+        vain sinulle ja tiimillesi.
+      passphrase_label: Salalauseen lukitus
+      passphrase_lockdown: Salalauseen lukitus
+      passphrase_placeholder: Pyydä vastaanottajaa antamaan tunnuslause vastataksesi
+        tähän pyyntöön.
+      password_tip: 'Esimerkki: Hei John, voisitko kirjoittaa käyttäjätunnuksesi ja
+        liittää asiakirjasi tähän? Kun vastaanotamme, otamme sinuun pian yhteyttä.'
+      payload_url_placeholder: Anna URL-osoite, johon uudelleenohjataan...
+      pull_it: Luo pyyntö
+      request_placeholder: Kirjoita pyyntösi tähän...
+      respond: Lähetä vastauksesi
+      response_placeholder: Kirjoita vastauksesi tähän...
+      tip_section_title: Pyydä turvallisesti arkaluontoisia tietoja asiakkailtasi,
+        kollegoiltasi tai asiakkailtasi.
+      upload_limit: Voit ladata enintään %{count} tiedostoa pyyntöä kohden.
+      url_pull_tip: Luotu pyyntö ohjaa annettuun URL-osoitteeseen.
+      view: Näytä
+      views: katselukerrat
+      week: Viikko
+      weeks: Viikot
+    hour:
+      one: 1 tunti
+      other: "%{count} tuntia"
+    index:
+      actions: Toiminnot
+      active: Aktiivinen
+      all: Kaikki
+      clear_filters: Tyhjennä suodattimet
+      closed: Suljettu
+      created: Luotu
+      created_by: 'Tekijä:'
+      deletion: Poisto sisään
+      expired: Vanhentunut
+      expires: Vanhenee
+      file_count: Tiedostot
+      note: Lisätieto
+      nothing_here: Täällä ei ole vielä mitään.
+      open: Avata
+      pull_id: Pyydä tunnus
+      pulls: Pyynnöt
+      ready: Valmis
+      remaining_time: Aikaa jäljellä
+      state: Osavaltio
+      status: Tila
+      team_pulls: Ryhmän pyynnöt
+      views: katselukerrat
+      views_remaining: Näkymät jäljellä
+    minute:
+      one: 1 minuutti
+      other: "%{count} minuuttia"
+    more_view:
+      one: 1 katselu lisää
+      other: "%{count} lisää katselukertoja"
+    navbar:
+      files: Tiedostot
+      text: Salasanat ja teksti
+      url: URL-osoitteet
+    new:
+      title: Lähetä turvallisesti salasana, teksti tai tiedosto
+    'no': Ei
+    none: Ei mitään
+    passphrase:
+      enter_passphrase: Anna salasana
+      go: Mennä
+      placeholder: Anna tämän URL-osoitteen mukana toimitettu salainen tunnuslause
+      tip: Syötä salainen tunnuslause
+    payload: Hyötykuorma
+    payload_too_large: Hyötykuorma on liian suuri. Voit syöttää enintään %{count}
+      tavua.
+    preliminary:
+      click_proceed: Napsauta tästä jatkaaksesi
+      title: Napsauta jatkaaksesi
+    preview:
+      and: ja
+      can_be: 'on'
+      can_not_be: ei voi olla
+      deleted_by_viewers: katsojien poistettavissa
+      example: Esimerkki
+      generate: Tuottaa
+      include_id: Sisällytä henkilöllisyystodistus
+      link_lang_auto: Vaihtoehtoisesti automaattinen tunnistus valitsee kielen loppukäyttäjän
+        selaimen asetusten perusteella.
+      link_lang_tip: 'Vinkki: Teetkö pyynnön kansainväliselle käyttäjälle? Vaihda
+        salaisen linkin kieli URL-osoitteen oikealla puolella olevasta avattavasta
+        valikosta.'
+      message_example: Varmista, että tämä asiakirja tuhotaan turvallisesti haun jälkeen
+        arkaluonteisten tietojen suojaamiseksi ja luottamuksellisuuden säilyttämiseksi.
+      message_placeholder: Valinnainen mukautettu viesti
+      or: tai
+      or_after: tai sen jälkeen
+      print_and_share: Tulosta ja jaa
+      print_and_share_tip: Luo tulostettava sivu loppukäyttäjille
+      pull_another: Tee toinen pyyntö
+      pull_created: Pyyntösi on luotu.
+      show_expiration: Näytä vanhenemistiedot
+      use_link_to_share: 'Käytä tätä salaista linkkiä sen jakamiseen:'
+      view_pull_now: Katso tämä pyyntö nyt
+      will_burn_view: "(polttaa näkymän)"
+      will_expire_after: Tämä pyyntö vanhenee vuonna
+      with_preliminary_step: Se sisältää myös %{strong_start}1 napsautuksen alustavan
+        hakuvaiheen%{strong_end}.
+    provide_text_or_file: Pyynnön luomiseksi sinun on joko annettava tekstiä, liitettävä
+      tiedosto tai molemmat.
+    pull:
+      audit: Auditointi
+      closed: Suljettu
+      none: Ei mitään
+      not_applicable: Ei käytössä
+      open: Pyyntö auki
+      preview: Esikatselu
+      pull_controls: Pyydä ohjaimet
+      ready: Vastaus valmis
+      retrieve: Hakea
+      share: Jaa
+      title: Uusi pyyntö
+      unknown: Tuntematon
+      view: Näytä
+    retrieve:
+      attached_files: Liitetyt tiedostot
+      audit: Tarkastusloki
+      close_now: kiinni
+      close_now_confirm: Pyynnön sulkeminen poistaa välittömästi kaikki arkaluontoiset
+        tiedot ja tiedostot. Tarkastuslokia säilytetään toistaiseksi. Oletko varma?
+      close_warning: Tämä pyyntö suljetaan automaattisesti ja kaikki arkaluonteiset
+        tiedot poistetaan %{duration}:sta.
+      closed: Tämä pyyntö on suljettu ja kaikki arkaluontoiset tiedot poistettu.
+      deleted: Kaikki sisältö on poistettu.
+      no_response: Vastausta ei ole vielä saatu.
+      preview: Jaa
+      pull_creation: 'Luonut %{date}: %{name}'
+      reference_note: Viitehuomautus
+      state: Osavaltio
+      state_closed: Suljettu
+      state_help_closed: Pyyntö on suljettu ja vastauksen sisältö poistettu.
+      state_help_open: Pyyntö on avoin, eikä siihen ole vielä vastattu.
+      state_help_ready: Vastaanottaja on vastannut pyyntöön ja sisältö on valmis noudettavaksi.
+      state_open: Avata
+      state_ready: Valmis
+      the_request: Pyyntö
+      the_response: Vastaanottajan vastaus
+      title: 'Pyynnön tunnuksen haku: %{pull_id}'
+      visible_to: Näkyy vain sinulle
+    settings: Asetukset
+    show:
+      blurred: Salasanasi on sumennettu sen suojaamiseksi. Napsauta alapuolelta näyttääksesi
+        sen.
+      click_to_reveal: Sisältö on hämärtynyt. Napsauta alla paljastaaksesi sen.
+      delete_now: Poista tämä salainen linkki nyt
+      delete_now_confirm: Tämä vanhenee tämän salaisen linkin ja poistaa kaiken siihen
+        liittyvän sisällön tietokannasta pysyvästi. Oletko varma?
+      download_file: Lataa tiedosto
+      intro: Sinulle on lähetetty seuraava pyyntö.
+      last_view: Tämä on viimeinen näkymä.
+      open_file: Avaa tiedosto
+      please_download: Lataa ja säilytä suojatussa paikassa.
+      response_retrieval: Vastauksen haku
+      security_note: Tässä lähetetyt tiedot tallennetaan turvallisesti, vain pyynnön
+        esittäjän käytettävissä ja poistetaan kokonaan %{duration}:ssa.
+      will_be_deleted: Tämä salainen linkki ja kaikki sisältö poistetaan kansiosta
+        %{b_tag}%{time_count} %{time_unit}%{b_tag} tai %{b_tag}%{view_count} lisää
+        %{view_unit}%{b_tag} (sen mukaan, kumpi tapahtuu ensin).
+      your_link: Olet vastaanottanut pyynnön
+      your_response: Sinun vastauksesi
+    show_expired:
+      expired_help: Ota tarvittaessa yhteyttä henkilöön tai organisaatioon, joka antoi
+        sinulle tämän salaisen URL-osoitteen.
+      expired_message: Pahoittelemme, mutta tämä salainen linkki on vanhentunut.
+      link_expired: Salainen linkkisi on vanhentunut
+    show_ready:
+      help: Jos sinulla on kysyttävää tai tarvitset lisäapua, ota yhteyttä henkilöön
+        tai organisaatioon, joka lähetti sinulle tämän linkin.
+      message: Kiitos vastauksestasi. Pyynnön esittäjälle on ilmoitettu, ja hän on
+        sinuun pian yhteydessä.
+      title: Kiitos vastauksestasi.
+    too_many_files: Voit liittää enintään %{count} tiedostoa pyyntöä kohden.
+    update:
+      done: Kiitos. Vastauksesi vastaanotettiin onnistuneesti.
+    view:
+      one: 1 näkymä
+      other: "%{count} näkymät"
+    view_audit_log: Näytä tarkastusloki
+    whichever: "(Kumpi tahansa tuleekin ensin)"
+    'yes': Joo
+  words:
+    audit: Auditointi
+    forbidden: Kielletty
+    not_found: Ei löydy
+    share: Jaa
