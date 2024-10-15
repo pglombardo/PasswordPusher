@@ -771,6 +771,11 @@ cs:
         expired: Platnost vypršela
         passphrase: Zámek přístupové fráze
         preliminary: 1-Klikněte na Retrieval
+        edit_request_: Požadavek na úpravy připraven
+        edit_request_delivery: Upravit žádost o doručení
+        edit_request_ready: Požadavek na úpravy připraven
+        request_delivery: Žádost o doručení
+        request_ready: Požadavek připraven
       passphrase_description: Stránka passphrase se používá jako součást funkce Passphrase
         Lockdown. Uživatelé, kteří obdrží push, musí pro přístup k obsahu zadat přístupovou
         frázi.
@@ -784,10 +789,24 @@ cs:
       preview:
         payload: Toto je příklad užitečného zatížení, které by se zobrazilo koncovému
           uživateli.
+        request_payload: Toto je příklad požadavku, který by se zobrazil koncovému
+          uživateli.
       save: Uložit
       tip_custom_domain: "<strong>Tip pro předplatitele</strong> : Můžete si nakonfigurovat
         vlastní doménu v %{link}."
       tip_team_page: Stránka konfigurace týmu
+      header_lead: Zde si můžete přizpůsobit vzhled push a požadavků, které jsou zasílány
+        vašim uživatelům.
+      header_sublead: Přizpůsobte si logo, zprávy, přidejte odkazy, přepínejte viditelnost
+        prvků a další.
+      request_delivery_description: Stránka doručení je stránka, kterou uvidí vaši
+        koncoví uživatelé, když obdrží požadavek.
+      request_delivery_preview: Níže je náhled požadavku.
+      request_ready_description: Stránka připravena se zobrazí, když již požadavek
+        obdržel odpověď.
+      request_ready_preview: Níže je uveden náhled stránky připravené na žádost pro
+        koncové uživatele.
+      title: Push & Request Branding
     brands:
       form:
         documentation: dokumentace
@@ -861,6 +880,7 @@ cs:
       autodetect: Auto detekce
     left_nav:
       pushes: Tlačí
+      pulls: Žádosti ᴮᴱᵀᴬ
     right_nav:
       features: Funkce
   audit_logs:
@@ -875,6 +895,10 @@ cs:
       ip_address: 'IP adresa:'
       referrer: 'Referrer:'
       user_agent: 'User Agent:'
+      automatic: Automatický
+      log_close: Uzavřeno dne %{date} uživatelem %{user}. Odpověď smazána.
+      log_response: Odpověď příjemce přijata dne %{date} uživatelem %{user}
+      log_retrieve: Načíst stránku zobrazenou na %{date} uživatelem %{user}
   dashboard:
     show:
       detail: Detail
@@ -909,6 +933,26 @@ cs:
         odeslání.'
       your_name: Tvé jméno
   none: Žádný
+  pages:
+    about:
+      about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
+        citlivých informací s ostatními lidmi.
+      about_2: Pomocí Password Pusher můžete vytvořit jedinečnou, jednorázovou adresu
+        URL, jejíž platnost vyprší po určité době nebo po určitém počtu přístupů,
+        což zajistí, že vaše informace zůstanou soukromé a bezpečné.
+      about_3: Často jej používají jednotlivci a organizace ke sdílení přihlašovacích
+        údajů nebo jiných citlivých údajů s kolegy, klienty nebo partnery.
+      about_4: Password Pusher je jednoduché a pohodlné řešení pro bezpečné sdílení
+        hesel bez potřeby e-mailu nebo jiných méně bezpečných komunikačních metod.
+      about_pwpush: O Password Pusheru
+      hosted_at_html: Hostováno na <a href="https://pwpush.com">pwpush.com</a> nebo
+        můžete provozovat svou vlastní soukromou instanci, kdekoli chcete.
+      my_name: Jmenuji se Peter Giacomo Lombardo. Najdete mě na %{linkedin}, %{github}
+        nebo %{blog}.
+      source_avail_html: Zdrojový kód je <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">dostupný na GitHubu</a> . Je to
+        open source a každý jej může zdarma používat, kontrolovat nebo upravovat.
+      the_author: Autor
   pushes:
     access:
       incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte
@@ -967,6 +1011,8 @@ cs:
       title: Push Audit Log
       visible_to: Viditelné pouze pro vás
       preview: Sdílejte tento Push
+      not_owner: Ten tlak ti nepatří.
+      push_creation: Vytvořeno dne %{date} uživatelem %{name}
     copy_to_clipboard: Zkopírovat do schránky
     deleted: Smazáno
     expiration_html: Tento tajný odkaz a veškerý obsah budou smazány v <strong>%{duration}</strong>
@@ -1021,6 +1067,11 @@ cs:
       views: Pohledy
       payload_url_placeholder: Zadejte adresu URL pro přesměrování na...
       url_push_tip: Vytvořený push bude přesměrován na poskytnutou URL.
+      account_policy: Zásady účtu
+      passphrase_lockdown: Uzamčení přístupové fráze
+      policy_tip: 'Tip: Výchozí hodnoty a další můžete nastavit v %{link}.'
+      short_expiration_tip: Krátké doby expirace a počet zhlédnutí snižují riziko
+        expozice.
     index:
       actions: Akce
       clear_filters: Vymazat filtry
@@ -1069,12 +1120,10 @@ cs:
     provide_text_or_file: Chcete-li vytvořit push, musíte zadat text, připojit soubor
       nebo obojí.
     push:
-      audit: Kontrola
       expired: Platnost vypršela
       none: Žádný
       title: Nový Push
       unknown: Neznámý
-      share: Podíl
     settings: Nastavení
     show:
       click_to_reveal: Obsah je rozmazaný. Kliknutím níže jej odhalíte.
@@ -1107,6 +1156,10 @@ cs:
       url: URL
     new:
       title: Bezpečně odešlete heslo, text nebo soubor
+    create:
+      premium_required: Pro připojení souborů se musíte přihlásit.
+    update:
+      successful: Push byl úspěšně aktualizován.
   static:
     about:
       about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
@@ -1312,3 +1365,330 @@ cs:
       storage_hint: Typ úložiště, který se má použít pro ukládání souborů. Výchozí
         je :local.
       storage_label: Skladování
+  notifiers:
+    pull:
+      response_notifier:
+        message: Vaše ID požadavku %{url_token} obdrželo odpověď. Bude uzavřen a jeho
+          platnost vyprší v %{remaining}.
+        now_closed_message: Vaše ID požadavku %{url_token} obdrželo odpověď. Žádost
+          byla mezitím uzavřena.
+  pulls:
+    access:
+      incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte
+        osobu či organizaci, která vám poslala tento odkaz.
+    audit:
+      1click_retrieval_step: 1-Klikněte na Krok načítání
+      1click_retrieval_step_help: Pomáhá předcházet tomu, aby chatovací systémy a
+        skenery adres URL spotřebovávaly pohledy.
+      active: Aktivní
+      attached_files: Přiložené soubory
+      attached_files_help: Byly k této žádosti připojeny soubory?
+      audit_log_for: Protokol auditu pro %{pull_id}
+      closed: ZAVŘENO
+      contains_text: Obsahuje Text
+      contains_text_help: Byl k tomuto požadavku přidán textový náklad?
+      created: Vytvořeno
+      created_by: Vytvořil %{user}
+      current_status: Současný stav
+      deletable_by_viewers: Smazatelné diváky
+      deletable_by_viewers_help: To umožňuje koncovým uživatelům odstranit obsah po
+        načtení.
+      detail: Detail
+      end_audit_log: Konec protokolu auditu
+      event: událost
+      event_log: Protokol auditu
+      expire_after: 'Vyprší po:'
+      expire_after_time_help: Platnost požadavku vyprší po uplynutí této doby od vytvoření.
+      expire_after_view_help: Po tomto počtu zobrazení žádost vyprší.
+      expire_now: Vyprší nyní
+      expire_now_confirm: Tímto vyprší platnost tohoto tajného odkazu a navždy smažete
+        veškerý související obsah z databáze. Protokol auditu (včetně budoucích pokusů
+        o zobrazení) bude nadále udržován. Jsi si jistá?
+      expired: Platnost vypršela
+      failed_view: Neúspěšný pokus o zobrazení
+      failed_view_attempts: Neúspěšné pokusy o zobrazení
+      failed_view_attempts_help: Počet pokusů o zobrazení tohoto požadavku po vypršení
+        platnosti.
+      filename: Název souboru
+      files_deleted: Všechny dříve připojené soubory byly smazány nebo nebyly připojeny
+        žádné."
+      log_note: Jakmile požadavek obdrží aktivitu, zobrazí se zde protokol každého
+        s identifikačními údaji.
+      manual_expiration: Manuální expirace
+      message_length: Délka zprávy
+      message_length_help: Délka užitečného zatížení připojeného textu.
+      none: Žádný
+      num_files_attached: Počet připojených souborů
+      num_files_attached_help: Počet souborů připojených k této žádosti.
+      open: Otevřená žádost
+      passphrase_lock: Uzamčení přístupové fráze
+      passphrase_lock_help: Pro zobrazení tohoto požadavku vyžadovat od příjemců zadání
+        přístupového hesla.
+      payload: Užitečné zatížení
+      preview: Podíl
+      pull_creation: Vytvořeno dne %{date} uživatelem %{name}
+      ready: Odpověď připravena
+      reference_note: Referenční poznámka
+      request_date: Vytvořeno %{date}
+      retrieve: Načíst
+      secret_url: Tajná adresa URL pro tento požadavek
+      size: 'Velikost: %{size}'
+      start_audit_log: Začátek protokolu auditu
+      start_log: Začátek protokolu auditu
+      state: Stát
+      state_help_closed: Požadavek byl uzavřen a obsah odpovědi byl smazán.
+      state_help_open: Žádost je otevřená a dosud neobdržela odpověď.
+      state_help_ready: Příjemce odpověděl na požadavek a obsah je připraven k načtení.
+      successful_view: Úspěšné zobrazení
+      successful_views: Úspěšné zhlédnutí
+      successful_views_help: Počet úspěšných zobrazení požadavku.
+      time_remaining: Zbývající čas
+      time_remaining_help: Doba zbývající do uzavření požadavku a odstranění obsahu.
+      title: 'Protokol auditu pro ID požadavku: %{pull_id}'
+      visible_to: Viditelné pouze pro vás
+      when: Když
+    close:
+      done: Odpověď byla úspěšně odstraněna a požadavek uzavřen.
+    copy_to_clipboard: Zkopírovat do schránky
+    create:
+      need_subscription: Pro připojení souborů se musíte přihlásit.
+    day:
+      one: 1 den
+      other: "%{count} dny"
+    deleted: Smazáno
+    expiration_html: Tento tajný odkaz a veškerý obsah budou smazány v <strong>%{duration}</strong>
+      nebo <strong>%{count} dalších zobrazeních</strong> , podle toho, co nastane
+      dříve.
+    expire:
+      already_expired: Platnost této žádosti již vypršela.
+      expired: Obsah požadavku byl smazán a platnost tajné adresy URL vypršela.
+      not_deletable: Tento požadavek diváci nemohou smazat.
+    form:
+      12_hours: 12 hodin
+      15_minutes: 15 minut
+      1_day: 1 den
+      1_hour: 1 hodina
+      1_month: 1 měsíc
+      1_week: 1 týden
+      1click: Použijte krok načítání jedním kliknutím
+      1click_tip: Pomáhá vyhnout se chatovacím systémům a skenerům URL
+      2_days: 2 dny
+      2_months: 2 měsíce
+      2_weeks: 2 týdny
+      30_minutes: 30 minut
+      3_days: 3 dny
+      3_months: 3 měsíce
+      3_weeks: 3 týdny
+      45_minutes: 45 minut
+      4_days: 4 dny
+      5_days: 5 dní
+      6_days: 6 dní
+      6_hours: 6 hodin
+      attach_files: Připojit soubory
+      attach_files_help: 'Příklad: Formulář k vyplnění.'
+      audit_tip: Po přihlášení je uchováván protokol auditu o činnosti a je k dispozici
+        po neomezenou dobu.
+      beta: Tato funkce je BETA a může se změnit. Zpětná vazba se cení!
+      day: Den
+      days: Dní
+      deletable: Umožnit okamžité smazání
+      deletable_tip: Povolit uživatelům smazat tento požadavek, jakmile bude načten.
+      encryption_tip: Pro váš požadavek bude vytvořena tajná adresa URL ke sdílení.
+      expiration_label: 'Po obdržení odpovědi budou odeslané informace smazány po:'
+      expiration_tip: Příjemce této tajné adresy URL může požadavek zobrazit a odpovědět
+        textem nebo soubory.
+      generator_tip: Pomocí tlačítka výše vygenerujte náhodné heslo.
+      hour: Hodina
+      hours: hodiny
+      login_to_upload: Chcete-li nahrát a připojit soubory k této žádosti, přihlaste
+        se...
+      minutes: Minut
+      month: Měsíc
+      months: měsíce
+      note_label: Referenční poznámka
+      note_placeholder: Soukromá poznámka k tomuto požadavku. Šifrované a viditelné
+        pouze pro vás a váš tým.
+      passphrase_label: Zámek přístupové fráze
+      passphrase_lockdown: Uzamčení přístupové fráze
+      passphrase_placeholder: Vyžadovat, aby příjemce zadal přístupovou frázi, aby
+        mohl na tento požadavek odpovědět.
+      password_tip: 'Příklad: Ahoj Johne, mohl bys prosím zadat své uživatelské jméno
+        a připojit sem své dokumenty? Po obdržení se s vámi brzy spojíme.'
+      payload_url_placeholder: Zadejte adresu URL pro přesměrování na...
+      pull_it: Vytvořit požadavek
+      request_placeholder: Zde zadejte svůj požadavek...
+      respond: Pošlete svou odpověď
+      response_placeholder: Zde zadejte svou odpověď...
+      tip_section_title: Bezpečně si vyžádejte citlivé informace od svých klientů,
+        kolegů nebo zákazníků.
+      upload_limit: Na jeden požadavek můžete nahrát až %{count} souborů.
+      url_pull_tip: Vytvořený požadavek bude přesměrován na zadanou adresu URL.
+      view: Pohled
+      views: Pohledy
+      week: Týden
+      weeks: týdny
+    hour:
+      one: 1 hodina
+      other: "%{count} hodin"
+    index:
+      actions: Akce
+      active: Aktivní
+      all: Všechno
+      clear_filters: Vymazat filtry
+      closed: ZAVŘENO
+      created: Vytvořeno
+      created_by: Podle
+      deletion: Smazání v
+      expired: Platnost vypršela
+      expires: Platnost vyprší
+      file_count: Soubory
+      note: Poznámka
+      nothing_here: Zatím tu nic není.
+      open: OTEVŘENO
+      pull_id: ID žádosti
+      pulls: Žádosti
+      ready: Připraven
+      remaining_time: Zbývající čas
+      state: Stát
+      status: Postavení
+      team_pulls: Týmové požadavky
+      views: Pohledy
+      views_remaining: Zbývající zobrazení
+    minute:
+      one: 1 minuta
+      other: "%{count} minuty"
+    more_view:
+      one: 1 další zobrazení
+      other: "%{count} více zobrazení"
+    navbar:
+      files: Soubory
+      text: Hesla a text
+      url: URL
+    new:
+      title: Bezpečně odešlete heslo, text nebo soubor
+    'no': Ne
+    none: Žádný
+    passphrase:
+      enter_passphrase: Zadejte přístupovou frázi
+      go: Jít
+      placeholder: Zadejte tajnou přístupovou frázi poskytnutou s touto adresou URL
+      tip: Zadejte tajnou přístupovou frázi
+    payload: Užitečné zatížení
+    payload_too_large: Užitečné zatížení je příliš velké. Můžete zadat maximálně %{count}
+      bajtů.
+    preliminary:
+      click_proceed: Pokračujte kliknutím sem
+      title: Klikněte pro pokračování
+    preview:
+      and: a
+      can_be: může být
+      can_not_be: nemůže být
+      deleted_by_viewers: smazané diváky.
+      example: Příklad
+      generate: generovat
+      include_id: Zahrnout ID
+      link_lang_auto: Alternativně automatická detekce vybere jazyk na základě nastavení
+        prohlížeče koncového uživatele.
+      link_lang_tip: 'Tip: Podáváte žádost mezinárodnímu uživateli? Změňte jazyk tajného
+        odkazu pomocí rozbalovací nabídky napravo od adresy URL.'
+      message_example: Zajistěte prosím, aby byl tento dokument po načtení bezpečně
+        zničen, aby byly chráněny citlivé informace a zachována důvěrnost.
+      message_placeholder: Volitelná vlastní zpráva
+      or: nebo
+      or_after: nebo po
+      print_and_share: Tisk a sdílení
+      print_and_share_tip: Vygenerujte stránku pro tisk pro koncové uživatele
+      pull_another: Podejte další žádost
+      pull_created: Váš požadavek byl vytvořen.
+      show_expiration: Zobrazit podrobnosti o vypršení platnosti
+      use_link_to_share: 'Pro sdílení použijte tento tajný odkaz:'
+      view_pull_now: Zobrazit tento požadavek
+      will_burn_view: "(vypálí pohled)"
+      will_expire_after: Platnost této žádosti vyprší za
+      with_preliminary_step: Zahrnuje také %{strong_start}krok předběžného vyvolání
+        jedním kliknutím%{strong_end}.
+    provide_text_or_file: Chcete-li vytvořit požadavek, musíte zadat text, připojit
+      soubor nebo obojí.
+    pull:
+      audit: Kontrola
+      closed: ZAVŘENO
+      none: Žádný
+      not_applicable: N/A
+      open: Otevřená žádost
+      preview: Náhled
+      pull_controls: Ovládací prvky žádosti
+      ready: Odpověď připravena
+      retrieve: Načíst
+      share: Podíl
+      title: Nová žádost
+      unknown: Neznámý
+      view: Pohled
+    retrieve:
+      attached_files: Přiložené soubory
+      audit: Protokol auditu
+      close_now: Blízko
+      close_now_confirm: Ukončení požadavku okamžitě odstraní všechny citlivé informace
+        a soubory. Protokol auditu bude uchováván po neomezenou dobu. jsi si jistý?
+      close_warning: Tento požadavek bude automaticky uzavřen a všechny citlivé informace
+        smazány v %{duration}.
+      closed: Tento požadavek byl uzavřen a všechna citlivá data smazána.
+      deleted: Veškerý obsah byl smazán.
+      no_response: Dosud nepřišla žádná odpověď.
+      preview: Podíl
+      pull_creation: Vytvořeno dne %{date} uživatelem %{name}
+      reference_note: Referenční poznámka
+      state: Stát
+      state_closed: ZAVŘENO
+      state_help_closed: Požadavek byl uzavřen a obsah odpovědi byl smazán.
+      state_help_open: Žádost je otevřená a dosud neobdržela odpověď.
+      state_help_ready: Příjemce odpověděl na požadavek a obsah je připraven k načtení.
+      state_open: OTEVŘENO
+      state_ready: Připraven
+      the_request: Žádost
+      the_response: Odpověď příjemce
+      title: 'Načtení pro ID požadavku: %{pull_id}'
+      visible_to: Viditelné pouze pro vás
+    settings: Nastavení
+    show:
+      blurred: Vaše heslo je rozmazané. Kliknutím níže jej odhalíte.
+      click_to_reveal: Obsah je rozmazaný. Kliknutím níže jej odhalíte.
+      delete_now: Smazat tento tajný odkaz teď
+      delete_now_confirm: Tímto vyprší platnost tohoto tajného odkazu a navždy smažete
+        veškerý související obsah z databáze. Jsi si jistá?
+      download_file: Stáhnout soubor
+      intro: Byla vám zaslána následující žádost.
+      last_view: Toto je poslední pohled.
+      open_file: Otevřít soubor
+      please_download: Prosím stáhněte a uložte v zabezpečené oblasti.
+      response_retrieval: Načítání odezvy
+      security_note: Zde zaslané informace budou bezpečně uloženy, dostupné pouze
+        žadateli a zcela vymazány v rámci %{duration}.
+      will_be_deleted: Tento tajný odkaz a veškerý obsah budou smazány v %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} nebo %{b_tag}%{view_count} dalších %{view_unit}%{b_tag}
+        (podle toho, co nastane dříve).
+      your_link: Obdrželi jste žádost
+      your_response: Vaše odpověď
+    show_expired:
+      expired_help: V případě potřeby kontaktujte osobu nebo organizaci, která vám
+        tuto tajnou adresu URL poskytla.
+      expired_message: Omlouváme se, ale platnost tohoto tajného odkazu vypršela.
+      link_expired: Platnost vašeho tajného odkazu vypršela
+    show_ready:
+      help: Máte-li jakékoli dotazy nebo potřebujete další pomoc, kontaktujte osobu
+        nebo organizaci, která vám poslala tento odkaz.
+      message: děkuji za odpověď. Žadatel byl informován a brzy se s vámi spojí.
+      title: děkuji za odpověď.
+    too_many_files: Na jeden požadavek můžete připojit maximálně %{count} souborů.
+    update:
+      done: Děkuju. Vaše odpověď byla úspěšně přijata.
+    view:
+      one: 1 pohled
+      other: "%{count} zobrazení"
+    view_audit_log: Zobrazit protokol auditu
+    whichever: "(dle toho co nastane dřív)"
+    'yes': Ano
+  words:
+    audit: Kontrola
+    forbidden: Zakázáno
+    not_found: Nenalezeno
+    share: Podíl

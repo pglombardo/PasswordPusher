@@ -772,6 +772,11 @@
         expired: Utløpt
         passphrase: Passordlås
         preliminary: 1-klikk Hent
+        edit_request_: Rediger forespørsel klar
+        edit_request_delivery: Rediger forespørsel om levering
+        edit_request_ready: Rediger forespørsel klar
+        request_delivery: Be om levering
+        request_ready: Forespørselen er klar
       passphrase_description: Passordfrasesiden brukes som en del av funksjonen Passphrase
         Lockdown. Brukere som mottar push-en må angi en passordfrase for å få tilgang
         til innholdet.
@@ -784,10 +789,24 @@
         se for <em>alternativet for 1-klikks hentingstrinn</em> .
       preview:
         payload: Dette er et eksempel på en nyttelast som vil bli vist til sluttbrukeren.
+        request_payload: Dette er et eksempel på en forespørsel som vil bli vist til
+          sluttbrukeren.
       save: Lagre
       tip_custom_domain: "<strong>Tips for profesjonelle abonnenter</strong> : Du
         kan konfigurere et tilpasset domene i %{link}."
       tip_team_page: Lagkonfigurasjonsside
+      header_lead: Her kan du tilpasse utseendet på pushene og forespørslene som sendes
+        til brukerne dine.
+      header_sublead: Tilpass logoen, meldinger, legg til lenker, veksle mellom synligheten
+        av elementer og mer.
+      request_delivery_description: Leveringssiden er siden sluttbrukerne vil se når
+        de mottar en forespørsel.
+      request_delivery_preview: Nedenfor er en forhåndsvisning av en forespørsel.
+      request_ready_description: Klar-siden vises når en forespørsel allerede har
+        mottatt svar.
+      request_ready_preview: Nedenfor er en forhåndsvisning av forespørselsklar-siden
+        for sluttbrukere.
+      title: Push & Request Branding
     brands:
       form:
         documentation: dokumentasjon
@@ -861,6 +880,7 @@
       autodetect: Automatisk gjenkjenning
     left_nav:
       pushes: Dytter
+      pulls: Forespørsler ᴮᴱᵀᴬ
     right_nav:
       features: Egenskaper
   audit_logs:
@@ -875,6 +895,10 @@
       ip_address: 'IP-adresse:'
       referrer: 'Henviser:'
       user_agent: 'Brukeragent:'
+      automatic: Automatisk
+      log_close: Stengt på %{date} av %{user}. Svar slettet.
+      log_response: Mottakersvar mottatt %{date} av %{user}
+      log_retrieve: Hent siden vist på %{date} av %{user}
   dashboard:
     show:
       detail: Detalj
@@ -910,6 +934,26 @@
         at innsending mislykkes.'
       your_name: Navnet ditt
   none: Ingen
+  pages:
+    about:
+      about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
+        sensitiv informasjon med andre mennesker på en sikker måte.
+      about_2: Med Password Pusher kan du opprette en unik engangs-URL som utløper
+        etter en viss tid eller etter at den har blitt åpnet et visst antall ganger,
+        og sikrer at informasjonen din forblir privat og sikker.
+      about_3: Den brukes ofte av enkeltpersoner og organisasjoner til å dele påloggingsinformasjon
+        eller andre sensitive data med kolleger, klienter eller partnere.
+      about_4: Password Pusher er en enkel og praktisk løsning for sikker deling av
+        passord uten behov for e-post eller andre mindre sikre kommunikasjonsmetoder.
+      about_pwpush: Om Password Pusher
+      hosted_at_html: Hosted på <a href="https://pwpush.com">pwpush.com</a> eller
+        du kan kjøre din egen private instans hvor du vil.
+      my_name: Mitt navn er Peter Giacomo Lombardo. Du finner meg på %{linkedin},
+        %{github} eller %{blog}.
+      source_avail_html: Kildekoden er <a href="https://github.com/pglombardo/PasswordPusher"
+        target="_blank" rel="noopener noreferrer">tilgjengelig på GitHub</a> . Det
+        er åpen kildekode og gratis for alle å bruke, gjennomgå eller endre.
+      the_author: Forfatteren
   pushes:
     access:
       incorrect: Passordet er feil. Vennligst prøv igjen eller kontakt personen eller
@@ -967,6 +1011,8 @@
       title: Trykk på revisjonslogg
       visible_to: Bare synlig for deg
       preview: Del denne push
+      not_owner: Det pushet tilhører ikke deg.
+      push_creation: Opprettet på %{date} av %{name}
     copy_to_clipboard: Kopier til utklippstavle
     deleted: Slettet
     expiration_html: Denne hemmelige lenken og alt innhold vil bli slettet i <strong>%{duration}</strong>
@@ -1020,6 +1066,10 @@
       views: Visninger
       payload_url_placeholder: Skriv inn nettadressen du vil omdirigere til...
       url_push_tip: Den opprettede push vil omdirigere til URL-en som er oppgitt.
+      account_policy: Kontopolicy
+      passphrase_lockdown: Passphrase Lockdown
+      policy_tip: 'Tips: Du kan angi standardinnstillinger og mer i %{link}.'
+      short_expiration_tip: Korte utløpstider og visningstall reduserer eksponeringsrisikoen.
     index:
       actions: Handlinger
       clear_filters: Tøm filtre
@@ -1068,12 +1118,10 @@
     provide_text_or_file: For å lage en push må du enten gi tekst, legge ved en fil
       eller begge deler.
     push:
-      audit: Revidere
       expired: Utløpt
       none: Ingen
       title: Ny Push
       unknown: Ukjent
-      share: Dele
     settings: Innstillinger
     show:
       click_to_reveal: Innholdet er uskarpt. Klikk nedenfor for å avsløre det.
@@ -1106,6 +1154,10 @@
       url: URL-er
     new:
       title: Send et passord, tekst eller fil på en sikker måte
+    create:
+      premium_required: Du må abonnere for å legge ved filer.
+    update:
+      successful: Push ble oppdatert.
   static:
     about:
       about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
@@ -1312,3 +1364,336 @@
       storage_hint: Lagringstypen som skal brukes til å lagre filer. Den er som standard
         :local.
       storage_label: Oppbevaring
+  notifiers:
+    pull:
+      response_notifier:
+        message: Din forespørsels-ID %{url_token} har mottatt et svar. Den vil bli
+          stengt og utløpt i %{remaining}.
+        now_closed_message: Din forespørsels-ID %{url_token} har mottatt et svar.
+          Søknaden har siden blitt lukket.
+  pulls:
+    access:
+      incorrect: Passordet er feil. Vennligst prøv igjen eller kontakt personen eller
+        organisasjonen som sendte deg denne linken.
+    audit:
+      1click_retrieval_step: 1-klikk hentingstrinn
+      1click_retrieval_step_help: Bidrar til å unngå at chatsystemer og URL-skannere
+        spiser opp visninger.
+      active: Aktiv
+      attached_files: Vedlagte filer
+      attached_files_help: Har filer blitt lagt ved denne forespørselen?
+      audit_log_for: Revisjonslogg for %{pull_id}
+      closed: Lukket
+      contains_text: Inneholder tekst
+      contains_text_help: Har en tekstnyttelast blitt lagt til denne forespørselen?
+      created: Opprettet
+      created_by: Laget av %{user}
+      current_status: Nåværende status
+      deletable_by_viewers: Slettbar av Mottakere
+      deletable_by_viewers_help: Dette lar sluttbrukere slette innholdet når det er
+        hentet.
+      detail: Detalj
+      end_audit_log: Slutt på revisjonslogg
+      event: Begivenhet
+      event_log: Revisjonslogg
+      expire_after: 'Utløper etter:'
+      expire_after_time_help: Forespørselen utløper etter denne tidsperioden fra opprettelsen.
+      expire_after_view_help: Forespørselen utløper etter dette antallet visninger.
+      expire_now: Utløper nå
+      expire_now_confirm: Dette vil utløpe denne hemmelige koblingen og slette alt
+        relatert innhold fra databasen for alltid. Revisjonsloggen (inkludert fremtidige
+        forsøk på visninger) vil fortsatt opprettholdes fremover. Er du sikker?
+      expired: Utløpt
+      failed_view: Mislykket visningsforsøk
+      failed_view_attempts: Mislykkede visningsforsøk
+      failed_view_attempts_help: Antall forsøk på å se denne forespørselen etter utløp.
+      filename: Filnavn
+      files_deleted: Alle tidligere vedlagte filer er slettet, eller det var ingen
+        vedlagt."
+      log_note: Etter hvert som forespørselen mottar aktivitet, vil en logg over hver
+        med identifiserende informasjon vises her.
+      manual_expiration: Manuell utløp
+      message_length: Meldingslengde
+      message_length_help: Lengden på det vedlagte tekstinnholdet.
+      none: Ingen
+      num_files_attached: Antall filer vedlagt
+      num_files_attached_help: Antall filer vedlagt denne forespørselen.
+      open: Forespørsel åpen
+      passphrase_lock: Passphrase Lockdown
+      passphrase_lock_help: Krev at mottakerne oppgir en passordfrase for å se denne
+        forespørselen.
+      payload: Innhold
+      preview: Dele
+      pull_creation: Opprettet på %{date} av %{name}
+      ready: Svar klar
+      reference_note: Referansemerknad
+      request_date: Opprettet på %{date}
+      retrieve: Hent
+      secret_url: Hemmelig URL for denne forespørselen
+      size: 'Størrelse: %{size}'
+      start_audit_log: Start av revisjonslogg
+      start_log: Start av revisjonslogg
+      state: Stat
+      state_help_closed: Forespørselen er lukket og svarinnholdet er slettet.
+      state_help_open: Forespørselen er åpen og har ikke mottatt svar ennå.
+      state_help_ready: Mottakeren har svart på forespørselen og innholdet er klart
+        for henting.
+      successful_view: Vellykket visning
+      successful_views: Vellykkede visninger
+      successful_views_help: Antall ganger forespørselen har blitt sett.
+      time_remaining: Gjenstående tid
+      time_remaining_help: Hvor lang tid som gjenstår før forespørselen lukkes og
+        innhold slettes.
+      title: 'Revisjonslogg for forespørsels-ID: %{pull_id}'
+      visible_to: Bare synlig for deg
+      when: Når
+    close:
+      done: Svaret ble slettet og forespørselen ble lukket.
+    copy_to_clipboard: Kopier til utklippstavle
+    create:
+      need_subscription: Du må abonnere for å legge ved filer.
+    day:
+      one: 1 dag
+      other: "%{count} dager"
+    deleted: Slettet
+    expiration_html: Denne hemmelige lenken og alt innhold vil bli slettet i <strong>%{duration}</strong>
+      eller <strong>%{count} flere visninger</strong> , avhengig av hva som inntreffer
+      først.
+    expire:
+      already_expired: Den forespørselen er allerede utløpt.
+      expired: Forespørselsinnholdet er slettet og den hemmelige nettadressen er utløpt.
+      not_deletable: Den forespørselen kan ikke slettes av seerne.
+    form:
+      12_hours: 12 timer
+      15_minutes: 15 minutter
+      1_day: 1 dag
+      1_hour: 1 time
+      1_month: 1 måned
+      1_week: 1 uke
+      1click: Bruk et 1-klikks gjenopprettelsestrinn
+      1click_tip: Hjelper med å unngå chat-systemer og URL-skannere
+      2_days: 2 dager
+      2_months: 2 måneder
+      2_weeks: 2 uker
+      30_minutes: 30 minutter
+      3_days: 3 dager
+      3_months: 3 måneder
+      3_weeks: 3 uker
+      45_minutes: 45 minutter
+      4_days: 4 dager
+      5_days: 5 dager
+      6_days: 6 dager
+      6_hours: 6 timer
+      attach_files: Legg ved filer
+      attach_files_help: 'Eksempel: Et skjema som skal fylles ut.'
+      audit_tip: Når du er logget på, holdes en revisjonslogg over aktivitet og er
+        tilgjengelig på ubestemt tid.
+      beta: Denne funksjonen er BETA og kan endres. Tilbakemeldinger settes pris på!
+      day: Dag
+      days: Dager
+      deletable: Tillat umiddelbar sletting
+      deletable_tip: Tillat brukere å slette denne forespørselen når den er hentet.
+      encryption_tip: En delbar hemmelig URL vil bli opprettet for forespørselen din.
+      expiration_label: 'Når et svar er mottatt, vil den innsendte informasjonen bli
+        slettet etter:'
+      expiration_tip: Mottakeren av denne hemmelige URL-adressen kan se forespørselen
+        og svare med tekst eller filer.
+      generator_tip: Bruk knappen ovenfor for å generere et tilfeldig passord.
+      hour: Time
+      hours: Timer
+      login_to_upload: Logg på for å laste opp og legge ved filer til denne forespørselen...
+      minutes: Minutter
+      month: Måned
+      months: Måneder
+      note_label: Referansemerknad
+      note_placeholder: En privat merknad for denne forespørselen. Kryptert og synlig
+        kun for deg og teamet ditt.
+      passphrase_label: Passordlås
+      passphrase_lockdown: Passphrase Lockdown
+      passphrase_placeholder: Krev at mottakeren skriver inn en passordfrase for å
+        svare på denne forespørselen.
+      password_tip: 'Eksempel: Hei John, kan du skrive inn brukernavnet ditt og legge
+        ved dokumentene dine her? Så snart vi har mottatt det, tar vi kontakt med
+        deg snart.'
+      payload_url_placeholder: Skriv inn nettadressen du vil omdirigere til...
+      pull_it: Opprett forespørsel
+      request_placeholder: Skriv inn forespørselen din her...
+      respond: Send ditt svar
+      response_placeholder: Skriv inn svaret ditt her...
+      tip_section_title: Be om sensitiv informasjon på en sikker måte fra dine kunder,
+        kolleger eller kunder.
+      upload_limit: Du kan laste opp opptil %{count} filer per forespørsel.
+      url_pull_tip: Den opprettede forespørselen vil omdirigere til URL-en som er
+        oppgitt.
+      view: Utsikt
+      views: Visninger
+      week: Uke
+      weeks: Uker
+    hour:
+      one: 1 time
+      other: "%{count} timer"
+    index:
+      actions: Handlinger
+      active: Aktiv
+      all: Alle
+      clear_filters: Tøm filtre
+      closed: Lukket
+      created: Opprettet
+      created_by: Av
+      deletion: Sletting i
+      expired: Utløpt
+      expires: Utløper
+      file_count: Filer
+      note: Merk
+      nothing_here: Det er ingenting her ennå.
+      open: Åpne
+      pull_id: Be om ID
+      pulls: Forespørsler
+      ready: Ferdig
+      remaining_time: Gjenstående tid
+      state: Stat
+      status: Status
+      team_pulls: Teamforespørsler
+      views: Visninger
+      views_remaining: Gjenstående visninger
+    minute:
+      one: 1 minutt
+      other: "%{count} minutter"
+    more_view:
+      one: 1 visning til
+      other: "%{count} flere visninger"
+    navbar:
+      files: Filer
+      text: Passord og tekst
+      url: URL-er
+    new:
+      title: Send et passord, tekst eller fil på en sikker måte
+    'no': Nei
+    none: Ingen
+    passphrase:
+      enter_passphrase: Skriv inn passordfrase
+      go: Gå
+      placeholder: Skriv inn den hemmelige passordfrasen som følger med denne nettadressen
+      tip: Skriv inn den hemmelige passordfrasen
+    payload: Innhold
+    payload_too_large: Nyttelasten er for stor. Du kan bare legge inn opptil %{count}
+      byte.
+    preliminary:
+      click_proceed: Klikk her for å fortsette
+      title: Klikk for å fortsette
+    preview:
+      and: og
+      can_be: kan være
+      can_not_be: Kan ikke være
+      deleted_by_viewers: slettet av mottakere.
+      example: Eksempel
+      generate: generere
+      include_id: Inkluder ID
+      link_lang_auto: Alternativt vil automatisk gjenkjenning velge et språk basert
+        på nettleserinnstillingene for sluttbrukeren.
+      link_lang_tip: 'Tips: Sender du en forespørsel til en internasjonal bruker?
+        Endre det hemmelige lenkespråket ved å bruke rullegardinmenyen til høyre for
+        URL-en.'
+      message_example: Vennligst sørg for at dette dokumentet er sikkert destruert
+        etter henting for å beskytte sensitiv informasjon og opprettholde konfidensialitet.
+      message_placeholder: Valgfri egendefinert melding
+      or: eller
+      or_after: eller etter
+      print_and_share: Skriv ut og del
+      print_and_share_tip: Generer en utskrivbar side for sluttbrukere
+      pull_another: Gjør en ny forespørsel
+      pull_created: Forespørselen din er opprettet.
+      show_expiration: Vis utløpsdetaljer
+      use_link_to_share: 'Bruk denne hemmelige lenken for å dele den:'
+      view_pull_now: Se denne forespørselen nå
+      will_burn_view: "(vil brenne en visning)"
+      will_expire_after: Denne forespørselen utløper om
+      with_preliminary_step: Den inkluderer også et %{strong_start}1-klikks foreløpig
+        gjenfinningstrinn%{strong_end}.
+    provide_text_or_file: For å opprette en forespørsel må du enten gi tekst, legge
+      ved en fil eller begge deler.
+    pull:
+      audit: Revidere
+      closed: Lukket
+      none: Ingen
+      not_applicable: N/A
+      open: Forespørsel åpen
+      preview: Forhåndsvisning
+      pull_controls: Be om kontroller
+      ready: Svar klar
+      retrieve: Hent
+      share: Dele
+      title: Ny forespørsel
+      unknown: Ukjent
+      view: Utsikt
+    retrieve:
+      attached_files: Vedlagte filer
+      audit: Revisjonslogg
+      close_now: Lukke
+      close_now_confirm: Avslutningsforespørsel vil umiddelbart slette all sensitiv
+        informasjon og filer. Tilsynsloggen vil opprettholdes på ubestemt tid. Er
+        du sikker?
+      close_warning: Denne forespørselen vil automatisk bli lukket og all sensitiv
+        informasjon slettet i %{duration}.
+      closed: Denne forespørselen er lukket og alle sensitive data slettet.
+      deleted: Alt innhold er slettet.
+      no_response: Det er ikke mottatt noe svar ennå.
+      preview: Dele
+      pull_creation: Opprettet på %{date} av %{name}
+      reference_note: Referansemerknad
+      state: Stat
+      state_closed: Lukket
+      state_help_closed: Forespørselen er lukket og svarinnholdet er slettet.
+      state_help_open: Forespørselen er åpen og har ikke mottatt svar ennå.
+      state_help_ready: Mottakeren har svart på forespørselen og innholdet er klart
+        for henting.
+      state_open: Åpne
+      state_ready: Ferdig
+      the_request: Forespørselen
+      the_response: Mottakerens svar
+      title: 'Henting for forespørsels-ID: %{pull_id}'
+      visible_to: Bare synlig for deg
+    settings: Innstillinger
+    show:
+      blurred: Passordet ditt er uklart. Klikk nedenfor for å se det.
+      click_to_reveal: Innholdet er uskarpt. Klikk nedenfor for å avsløre det.
+      delete_now: Slett denne hemmelige lenken nå
+      delete_now_confirm: Dette vil utløpe denne hemmelige koblingen og slette alt
+        relatert innhold fra databasen for alltid. Er du sikker?
+      download_file: Last ned fil
+      intro: Følgende forespørsel er sendt til deg.
+      last_view: Dette er den siste utsikten.
+      open_file: Åpen fil
+      please_download: Last ned og lagre på et sikkert område.
+      response_retrieval: Henting av svar
+      security_note: Informasjonen som sendes inn her vil bli lagret på en sikker
+        måte, kun tilgjengelig for forespørselen og fullstendig slettet i %{duration}.
+      will_be_deleted: Denne hemmelige lenken og alt innhold vil bli slettet i %{b_tag}%{time_count}
+        %{time_unit}%{b_tag} eller %{b_tag}%{view_count} mer %{view_unit}%{b_tag}
+        (avhengig av hva som inntreffer først).
+      your_link: Du har mottatt en forespørsel
+      your_response: Ditt svar
+    show_expired:
+      expired_help: Om nødvendig, vennligst kontakt personen eller organisasjonen
+        som ga deg denne hemmelige nettadressen.
+      expired_message: Vi beklager, men denne hemmelige lenken er utløpt.
+      link_expired: Din hemmelige lenke har utløpt
+    show_ready:
+      help: Hvis du har spørsmål eller trenger mer hjelp, vennligst kontakt personen
+        eller organisasjonen som sendte deg denne lenken.
+      message: Takk for ditt svar. Anmoderen er varslet og vil snart kontakte deg.
+      title: Takk for ditt svar.
+    too_many_files: Du kan bare legge ved opptil %{count} filer per forespørsel.
+    update:
+      done: Takk. Svaret ditt ble mottatt.
+    view:
+      one: 1 visning
+      other: "%{count} visninger"
+    view_audit_log: Se revisjonslogg
+    whichever: "(det som kommer først)"
+    'yes': Ja
+  words:
+    audit: Revidere
+    forbidden: Forbudt
+    not_found: Ikke funnet
+    share: Dele
