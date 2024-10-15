@@ -81,8 +81,6 @@ See the full [Password Pusher documentation here](https://docs.pwpush.com).
 
 Thanks to our great translators!
 
-If you would like to volunteer and assist in translating, see [this page](https://pwpush.com/en/pages/translate).
-
 | Name   | Language  | |
 |---|---|---|
 | [Oyale](https://github.com/oyale) | [Catalan](https://pwpush.com/ca) | |
