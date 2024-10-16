@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  match "(*any)", to: redirect(subdomain: ""), via: :all, constraints: {subdomain: "www"} if ENV.key?("PWPUSH_COM")
-
   if ENV.key?("PWP_PUBLIC_GATEWAY")
     draw :public_users
     draw :public_pushes
@@ -16,10 +14,8 @@ Rails.application.routes.draw do
     apipie
 
     get "/pages/*id" => "pages#show", :as => :page, :format => false
-    resources :feedbacks, only: %i[new create]
 
     draw :legacy_devise
-    draw :legacy_feedbacks
     draw :legacy_pages
     draw :legacy_pushes
 
