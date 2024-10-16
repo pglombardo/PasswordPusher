@@ -562,6 +562,9 @@ uk:
     sessions:
       new:
         sign_in: Увійти
+      already_signed_out: Успішний вихід з системи.
+      signed_in: Ви увійшли в систему.
+      signed_out: Успішний вихід з системи.
     shared:
       links:
         back: Повернутися
@@ -593,27 +596,6 @@ uk:
       login: Увійдіть в систему
       remember_me: Пам'ятай Мене
       sign_up: Зареєструватися
-  routes:
-    users: користувачі
-    passwords: паролі
-    files: файли
-    urls: адреси
-    sessions: сесії
-    registrations: реєстрації
-    unlocks: розблоковує
-    feedbacks: відгуки
-    pages: сторінок
-    new: новий
-    edit: редагувати
-    update: оновлення
-    destroy: знищувати
-    create: створювати
-    expired: закінчився
-    active: активний
-    audit: аудит
-    access: доступ
-    passphrase: парольна фраза
-    preview: попередній перегляд
   views:
     pagination:
       first: "&laquo; Перша"
@@ -760,44 +742,59 @@ uk:
       pwgen_syllables_count: Підрахунок складів
       policy: Політика
     account_invitations:
-      max_users:
+      max_users: Ви досягли максимальної кількості користувачів для вашої команди.  Будь
+        ласка, зв'яжіться з нами для оновлення та додавання нових користувачів.
     brand:
-      delivery_blur_tip:
-      delivery_description:
-      delivery_preview:
-      expired_description:
-      expired_preview:
+      delivery_blur_tip: 'Підказка: Ви можете увімкнути розмиття корисного навантаження
+        у налаштуваннях політики команди.'
+      delivery_description: Сторінка доставки - це сторінка, яку побачать ваші кінцеві
+        користувачі, коли переглянуть вміст push-повідомлення.
+      delivery_preview: Нижче наведено попередній перегляд того, що побачать ваші
+        кінцеві користувачі, коли <em>переглянуть вміст push-повідомлення</em>.
+      expired_description: Прострочена сторінка - це сторінка, яку побачать ваші кінцеві
+        користувачі, коли закінчиться термін дії push або запиту.
+      expired_preview: Нижче наведено попередній перегляд того, що побачать ваші кінцеві
+        користувачі після закінчення терміну <em>дії push-повідомлення</em>.
       form:
-        logo_info:
-        no_logo:
-        show_expiration:
-        show_logo:
+        logo_info: Наступний логотип можна використовувати для кастомізації та брендування
+          push-сторінок, які бачитимуть ваші кінцеві користувачі.
+        no_logo: Ще не завантажено жодного логотипу.  Завантажте логотип, щоб почати.
+        show_expiration: Показати повідомлення про залишкову тривалість та перегляди?
+        show_logo: Показати логотип?
       navbar:
-        brand:
+        brand: Логотип
         delivery: Доставка
-        edit_brand:
-        edit_delivery:
-        edit_expired:
-        edit_passphrase:
-        edit_preliminary:
+        edit_brand: Редагувати бренд
+        edit_delivery: Редагувати Push-доставку
+        edit_expired: Редагувати Закінчився термін дії
+        edit_passphrase: Редагувати парольну фразу
+        edit_preliminary: Редагування пошуку в 1 клік
         expired: Закінчився
         passphrase: Блокування парольної фрази
-        preliminary:
+        preliminary: пошук в 1 клік
         edit_request_: Запит на редагування готовий
         edit_request_delivery: Редагувати запит на доставку
         edit_request_ready: Запит на редагування готовий
         request_delivery: Замовити доставку
         request_ready: Запит готовий
-      passphrase_description:
-      passphrase_preview:
-      preliminary_description:
-      preliminary_preview:
+      passphrase_description: Сторінка з парольною фразою використовується як частина
+        функції блокування паролем.  Користувачі, які отримують push-повідомлення,
+        повинні ввести парольну фразу, щоб отримати доступ до вмісту.
+      passphrase_preview: Нижче наведено попередній перегляд того, що побачать ваші
+        кінцеві користувачі, коли їм буде запропоновано <em>ввести парольну фразу</em>.
+      preliminary_description: Сторінка пошуку в 1 клік допомагає уникнути поглинання
+        переглядів ботами, чат-системами та сканерами.  Користувачі, які отримують
+        push-повідомлення, повинні перейти на цю попередню сторінку, щоб отримати
+        доступ до контенту.
+      preliminary_preview: Нижче наведено попередній перегляд того, що побачать ваші
+        кінцеві користувачі для <em>опції пошуку в 1 клік</em>.
       preview:
-        payload:
+        payload: Це приклад корисного навантаження, яке буде показано кінцевому користувачеві.
         request_payload: Це приклад запиту, який буде показано кінцевому користувачеві.
       save: Зберегти
-      tip_custom_domain:
-      tip_team_page:
+      tip_custom_domain: "<strong>Порада для професійних підписників</strong>: Ви
+        можете налаштувати власний домен у своєму %{link}."
+      tip_team_page: Сторінка конфігурації команди
       header_lead: Тут ви можете налаштувати зовнішній вигляд push-повідомлень і запитів,
         які надсилаються вашим користувачам.
       header_sublead: Налаштуйте логотип, повідомлення, додайте посилання, перемикайте
@@ -812,19 +809,25 @@ uk:
       title: Push & Request Branding
     brands:
       form:
-        documentation:
-        domain_documentation:
-        domain_note_1:
-        domain_note_2:
-        domain_note_3:
-        domain_note_4:
-        domain_placeholder:
+        documentation: документація
+        domain_documentation: Дивіться %{link} для отримання додаткової інформації
+          про налаштування користувацького домену.
+        domain_note_1: "<strong>Введіть доменне ім'я</strong> без протоколу або шляху,
+          <code>наприклад, pwp.example.com</code>."
+        domain_note_2: "<strong>Налаштуйте параметри DNS</strong>: Створіть запис
+          ALIAS, який вказує на <code>домен.pwpush.com</code>."
+        domain_note_3: На розповсюдження налаштувань DNS може знадобитися до 24 годин.
+        domain_note_4: Після того, як ви налаштували параметри DNS, ви можете <strong>протестувати
+          домен</strong>, перейшовши за адресою %{link} у вашому браузері.  Ви повинні
+          побачити зелений екран, що свідчить про успіх.
+        domain_placeholder: 'Професійні підписники:  Використовуйте Password Pusher,
+          щоб надсилати пуші з доменом вашої компанії.'
     edit_policy:
       edit_policy: Редагувати політику
     form:
-      custom_domain_notes:
+      custom_domain_notes: Користувацькі примітки до домену
     form_brand:
-      branding:
+      branding: Брендування
   tag_line: Вперед.  Надішліть інший пароль.
   app_name: Password Pusher
   application:
@@ -848,9 +851,9 @@ uk:
       password_generator: Генератор паролів
       api_docs: Документація API
       features: Особливості
-      languages:
-      pricing:
-      support:
+      languages: Мови
+      pricing: Ціноутворення
+      support: Підтримка
     pw_generator_modal:
       cancel: Скасувати
       configure: Налаштування генерації паролів
@@ -871,7 +874,7 @@ uk:
       vowels: Голосні
     navbar:
       edit_policy: Політика
-      branding:
+      branding: Брендування
     secret_url_bar:
       secret_link_lang: Мова секретного посилання
       autodetect: Автоматичне визначення
@@ -889,9 +892,9 @@ uk:
       unknown: Невідомо
       log_failed_passphrase: Невдала спроба введення парольної фрази на %{date} від
         %{user}
-      ip_address:
-      referrer:
-      user_agent:
+      ip_address: 'IP-адреса:'
+      referrer: 'Направляю:'
+      user_agent: 'Користувацький агент:'
       automatic: Автоматично
       log_close: Закрито на %{date} на %{user}.  Відповідь видалено.
       log_response: Отримувач Відповідь отримано на %{date} від %{user}
@@ -1086,7 +1089,7 @@ uk:
       expired: Закінчився
       all: Усе
       remaining: Залишилося
-      team_pushes:
+      team_pushes: Команда штовхає
     'no': Ні
     none: Ні
     passphrase:
@@ -1097,7 +1100,7 @@ uk:
     payload: Корисне навантаження
     preliminary:
       click_proceed: Натисніть тут, щоб продовжити
-      title:
+      title: Натисніть, щоб продовжити
     preview:
       link_lang_tip: 'Підказка: Надсилаєте посилання міжнародному користувачеві?  Змініть
         мову секретного посилання за допомогою випадаючого меню праворуч від URL-адреси.'
@@ -1155,10 +1158,10 @@ uk:
     too_many_files: Ви можете прикріпити до %{count} файлів за одне відправлення.
     navbar:
       files: Файли
-      text:
+      text: Паролі та текст
       url: URL-адреси
     new:
-      title:
+      title: Безпечне надсилання пароля, тексту або файлу
     create:
       premium_required: Щоб прикріплювати файли, потрібно підписатися.
     update:
@@ -1239,7 +1242,7 @@ uk:
       lang_description: Нижче перераховані мови, які підтримує Password Pusher.  Всього
         підтримується 30 мов.  При самостійному розміщенні ви можете ввімкнути або
         вимкнути мови для свого екземпляра.
-      languages:
+      languages: Мови
       pwp_languages: Мови зчитувача паролів
     pricing:
       coming_soon: Незабаром з'явиться тарифний план для Pro-функцій на власному хостингу.
@@ -1258,19 +1261,22 @@ uk:
   confirmation_go: Натисніть тут, щоб підтвердити свій обліковий запис
   admin:
     config:
-      menu_item:
+      menu_item: Конфігурація
       overview:
-        description:
-        subtitle:
-        title:
+        description: Налаштування в цьому розділі використовуються для глобального
+          налаштування програми.  Після внесення змін програму можна перезапустити,
+          щоб застосувати нові налаштування.
+        subtitle: Тут ви можете налаштувати параметри Password Pusher.
+        title: Конфігурація програми
       reset: Скидання до налаштувань за замовчуванням
-      reset_confirm:
+      reset_confirm: Ви впевнені, що хочете скинути конфігурацію на цій сторінці до
+        значень за замовчуванням?  Це не вплине на налаштування на інших сторінках.
       save: Зберегти
   models:
     pwp_config:
-      app_config:
-      as_container_hint:
-      as_container_label:
+      app_config: Конфігурація програми
+      as_container_hint: Контейнер для зберігання файлів.
+      as_container_label: Контейнер AS Container
       as_storage_access_key_hint: Ключ доступу до сховища, який використовується для
         автентифікації на AS-сервері.
       as_storage_access_key_label: Ключ доступу до сховища AS
