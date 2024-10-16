@@ -51,6 +51,7 @@
             <%= _('(whichever occurs first).') %>
         <% end %>
       </p>
+      <%= render partial: 'application/push_expiration', locals: { push: @push } %>
       <% if @push.deletable_by_viewer && @push.views_remaining.positive? %>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
           <em class="bi bi-trash"></em> <%= _('Delete This Secret Link Now') %>
