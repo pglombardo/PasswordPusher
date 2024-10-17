@@ -24,6 +24,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     sign_in @luca
     get admin_root_path
     assert_response :not_found
+    sign_out @luca
   end
 
   def test_dashboard_available_to_admin_user
@@ -31,5 +32,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     sign_in @mr_admin
     get admin_root_path
     assert_response :success
+    sign_out @mr_admin
   end
 end
