@@ -7,10 +7,12 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
 
   setup do
     Settings.enable_logins = true
+    Rails.application.reload_routes!
   end
 
   teardown do
     Settings.enable_logins = false
+    Rails.application.reload_routes!
   end
 
   def test_dashboard_not_available_by_default
