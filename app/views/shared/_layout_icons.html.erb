@@ -34,28 +34,3 @@
   <meta name="msapplication-TileImage" content="<%= asset_path('ms-icon-144x144.png') %>">
   <meta name="theme-color" content="#ffffff">
 <% end %>
-
-<% if ENV.key?('PWPUSH_COM') %>
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@pwpush">
-  <meta name="twitter:creator" content="@pglombardo">
-  <meta name="twitter:title" content="Password Pusher">
-  <meta name="twitter:url" content="https://pwpush.com">
-  <meta name="twitter:description" content="Securely communicate passwords, data & files. Secret URLs expire after X views or X days. Track access with audit logs.">
-  <meta name="twitter:image:src" content="https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/square-logo-small.png">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Password Pusher">
-  <meta property="og:title" content="Password Pusher">
-  <meta property="og:url" content="https://pwpush.com">
-  <meta property="og:description" content="Securely communicate passwords, data & files. Secret URLs expire after X views or X days. Track access with audit logs.">
-  <meta property="og:image" content="https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/square-logo-small.png">
-  <meta property="og:image:width" content="600">
-  <meta property="og:image:height" content="400">
-  <meta property="og:locale" content="<%= I18n.locale %>">
-  <% for lang in I18n.available_locales do %>
-    <meta property="og:locale:alternate" content="<%= lang %>">
-  <% end %>
-<% end %>
