@@ -37,6 +37,11 @@
               <%= _('Account') %>
             </a>
             <ul class="dropdown-menu" aria-labelledby="accountDropdownMenuLink">
+              <% if current_user.admin? %>
+                <li>
+                  <%= link_to _('Admin Dashboard'), admin_root_path, class: "dropdown-item" %>
+                </li>
+              <% end %>
               <li>
                 <%= link_to _('Edit Login Details'), edit_user_registration_path, class: "dropdown-item" %>
               </li>
