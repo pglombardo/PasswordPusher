@@ -117,7 +117,7 @@ gem "mysql2"
 gem "pg"
 gem "sqlite3", force_ruby_platform: true
 
-group :production do
+group :production, :development do
   gem "rack-attack"
 end
 

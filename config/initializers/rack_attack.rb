@@ -31,14 +31,16 @@ if defined? Rack::Attack
     unless Rails.env.test?
       # Throttle all requests by IP
       #
-      throttle("req/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
-        req.ip # unless req.path.start_with?('/assets')
+      if Settings.throttling&.minute.present?
+        throttle("req/minute/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
+          req.ip unless req.path.start_with?("/assets")
+        end
       end
 
       # Throttle API requests by IP address
       #
-      throttle("api/ip", limit: Settings.throttling.second, period: 1.second) do |req|
-        if req.path == "/api"
+      if Settings.throttling&.second.present?
+        throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
           req.ip
         end
       end
@@ -55,11 +57,11 @@ if defined? Rack::Attack
 
     # Throttle POST requests to /users/sign_in by IP address
     #
-    # throttle("logins/ip", limit: 5, period: 20.seconds) do |req|
-    #   if req.path == "/users/sign_in" && req.post?
-    #     req.ip
-    #   end
-    # end
+    throttle("logins/ip", limit: 5, period: 20.seconds) do |req|
+      if req.path == "/users/sign_in" && req.post?
+        req.ip
+      end
+    end
 
     # Throttle POST requests to /users/sign_in by email param
     #
@@ -68,12 +70,12 @@ if defined? Rack::Attack
     # denied, but that's not very common and shouldn't happen to you. (Knock
     # on wood!)
     #
-    # throttle("logins/email", limit: 5, period: 20.seconds) do |req|
-    #   if req.path == "/users/sign_in" && req.post?
-    #     # Normalize the email, using the same logic as your authentication process, to
-    #     # protect against rate limit bypasses. Return the normalized email if present, nil otherwise.
-    #     req.params["email"].to_s.downcase.gsub(/\s+/, "").presence
-    #   end
-    # end
+    throttle("logins/email", limit: 5, period: 20.seconds) do |req|
+      if req.path == "/users/sign_in" && req.post?
+        # Normalize the email, using the same logic as your authentication process, to
+        # protect against rate limit bypasses. Return the normalized email if present, nil otherwise.
+        req.params["email"].to_s.downcase.gsub(/\s+/, "").presence
+      end
+    end
   end
 end
