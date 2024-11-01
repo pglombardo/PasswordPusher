@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "8eba704398108c2df9de213ec60cf60339bd484ced2b64c2a9b27dee42e035d1",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/urls_controller.rb",
+      "line": 67,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Url.includes(:views).find_by!(:url_token => params[:id]).payload, :allow_other_host => true, :status => :see_other)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "UrlsController",
+        "method": "show"
+      },
+      "user_input": "Url.includes(:views).find_by!(:url_token => params[:id]).payload",
+      "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
+      "note": "Other host redirection is the core feature of this code."
+    }
+  ],
+  "updated": "2024-11-01 17:35:04 +0100",
+  "brakeman_version": "6.2.2"
+}
