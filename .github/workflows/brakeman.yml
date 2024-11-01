@@ -35,13 +35,14 @@ jobs:
 
     # Customize the ruby version depending on your needs
     - name: Setup Ruby
-      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '2.7'
+        ruby-version: '3.3'
+        bundler-cache: true
 
     - name: Setup Brakeman
       env:
-        BRAKEMAN_VERSION: '4.10' # SARIF support is provided in Brakeman version 4.10+
+        BRAKEMAN_VERSION: '6.2.2'
       run: |
         gem install brakeman --version $BRAKEMAN_VERSION
 
