@@ -17,4 +17,4 @@ This is a general rule but I would be open to hear any and all security reports 
 
 ## Reporting a Vulnerability
 
-Please contact me at security@pwpush.com and I will send you a secure request URL to provide the report.
+You can use the Github "Report a vulnerability" feature or contact me at security@pwpush.com and I will send you a secure request URL to provide the report.
