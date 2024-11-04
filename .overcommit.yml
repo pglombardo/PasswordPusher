@@ -18,14 +18,41 @@
 verify_signatures: false
 
 PreCommit:
-  StandardRB:
+  I18nTasksNormalize:
+    enabled: true
+    description: 'Run i18n-tasks normalize on locales'
+    required_executable: 'i18n-tasks'
+    include:
+      - 'config/locales/**/*.yml'
+    command: ['bundle', 'exec', 'i18n-tasks', 'normalize']
+    on_warn: fail # Ensure it stops commit if there's a warning
+
+  RuboCop:
     enabled: true
     required: true
-    command: ['bundle', 'exec', 'standardrb']
+    command: ['bundle', 'exec', 'rubocop', '-f', 'simple']
+
+  AutoFixTrailingWhitespace:
+    enabled: true
+    description: 'Removes trailing whitespace in files'
+    command: 'sed -i -e "s/[[:space:]]\+$//"'
+    include: '**/*.{rb,yml}'  # Fix for file pattern matching
+    exclude: ['vendor/**/*']   # You can add more exclusions as needed
+  
+  TrailingWhitespace:
+    enabled: false
+    exclude:
+      - '**/db/structure.sql' # Ignore trailing whitespace in generated files
+  
   ErbLint:
     enabled: true
     required: true
     command: ['bundle', 'exec', 'erblint', '--lint-all']
+
+#   StandardRB:
+#    enabled: false
+#    required: true
+#    command: ['bundle', 'exec', 'standardrb']
 #  RustyWind:
 #    enabled: true
 #    required: true
@@ -41,11 +68,6 @@ PreCommit:
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures
-#
-#  TrailingWhitespace:
-#    enabled: true
-#    exclude:
-#      - '**/db/structure.sql' # Ignore trailing whitespace in generated files
 #
 #PostCheckout:
 #  ALL: # Special hook name that customizes all hooks of this type
