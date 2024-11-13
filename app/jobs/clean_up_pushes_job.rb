@@ -65,7 +65,7 @@ class CleanUpPushesJob < ApplicationJob
   private
 
   def logger
-    @logger ||= if ENV.key?(PWP_WORKER)
+    @logger ||= if ENV.key?("PWP_WORKER")
       # We are running inside the pwpush-worker container.  Log to STDOUT
       Logger.new($stdout)
     else

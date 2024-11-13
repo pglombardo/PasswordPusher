@@ -53,7 +53,7 @@ class ExpirePushesJob < ApplicationJob
   private
 
   def logger
-    @logger ||= if ENV.key?(PWP_WORKER)
+    @logger ||= if ENV.key?("PWP_WORKER")
       # We are running inside the pwpush-worker container.  Log to STDOUT
       # so that docker logs works to investigate problems.
       Logger.new($stdout)
