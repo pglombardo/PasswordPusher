@@ -905,6 +905,11 @@ de:
         ab in:'
       you_can_refresh: Sie können die Seite aktualisieren, um neue Download-Links
         zu generieren, wenn noch Aufrufe vorhanden sind.
+    layout:
+      blank_brand:
+        description: Dieser Link ist so eingestellt, dass er nach einer bestimmten
+          Zeit oder Anzahl von Aufrufen automatisch abläuft und sich selbst löscht.
+        title: Ihnen wurde ein geheimer Link gesendet.
   audit_logs:
     audit_log:
       log_created: Push erstellt am %{date} von %{user}
@@ -1102,6 +1107,8 @@ de:
       passphrase_lockdown: Sperrung der Passphrase
       policy_tip: 'Tipp: In %{link} können Sie Voreinstellungen und mehr festlegen.'
       short_expiration_tip: Kurze Ablaufzeiten und Aufrufzahlen verringern das Expositionsrisiko.
+      qr_payload_placeholder: Geben Sie bis zu 1024 alphanumerische Zeichen ein ...
+      qr_tip: Nur alphanumerische Zeichen. Bis zu 1024 Zeichen sind zulässig.
     index:
       actions: Aktionen
       clear_filters: Filter löschen
@@ -1188,10 +1195,13 @@ de:
       files: Dateien
       text: Passwörter und Texte
       url: URLs
+      qr: QR-Codes ᴮᴱᵀᴬ
     new:
       title: Sicheres Senden eines Passworts, Textes oder einer Datei
     create:
       premium_required: Um Dateien anzuhängen, müssen Sie sich anmelden.
+      qr_max_length: Die Nutzlast des QR-Codes ist zu groß. Sie können nur bis zu
+        %{count} Bytes pushen.
     update:
       successful: Push wurde erfolgreich aktualisiert.
   static:
@@ -1430,6 +1440,13 @@ de:
           geschlossen und läuft in %{remaining} ab.
         now_closed_message: Ihre Anfrage-ID %{url_token} wurde beantwortet. Die Anfrage
           wurde inzwischen geschlossen.
+        email:
+          description_html: Die Anforderungs-ID <strong>%{url_token}</strong> hat
+            eine Antwort erhalten. Sie wird geschlossen und läuft in <strong>%{remaining}</strong>
+            ab.
+          html_header: Ihre Anfrage wurde beantwortet.
+          subject: Ihre Anfrage wurde beantwortet
+          view_audit_log: Anfrage anzeigen
   pulls:
     access:
       incorrect: Diese Passphrase ist falsch. Bitte versuchen Sie es erneut oder wenden

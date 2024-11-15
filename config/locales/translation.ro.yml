@@ -903,6 +903,11 @@ ro:
         în:'
       you_can_refresh: Puteți reîmprospăta pagina pentru a regenera noi linkuri de
         descărcare dacă rămân vizualizări.
+    layout:
+      blank_brand:
+        description: Acest link este setat să expire automat și să se șteargă singur
+          după un anumit timp sau număr de vizualizări.
+        title: Ați primit un link secret.
   audit_logs:
     audit_log:
       log_created: Push creat pe %{date} de %{user}
@@ -1099,6 +1104,8 @@ ro:
       policy_tip: 'Sfat: Puteți seta valorile implicite și multe altele în %{link}.'
       short_expiration_tip: Termenele de expirare scurte și numărul de vizualizări
         reduc riscul de expunere.
+      qr_payload_placeholder: Introduceți până la 1024 de caractere alfanumerice...
+      qr_tip: Numai caractere alfanumerice.  Sunt permise până la 1024 de caractere.
     index:
       actions: Acțiuni
       clear_filters: Curățați filtrele
@@ -1183,10 +1190,13 @@ ro:
       files: Fișiere
       text: Parole și text
       url: URL-uri
+      qr: Coduri QR ᴮᴱᵀᴬ
     new:
       title: Trimiteți în siguranță o parolă, un text sau un fișier
     create:
       premium_required: Trebuie să vă abonați pentru a atașa fișiere.
+      qr_max_length: Sarcina utilă a codului QR este prea mare.  Puteți împinge numai
+        până la %{count} octeți.
     update:
       successful: Push a fost actualizat cu succes.
   static:
@@ -1422,6 +1432,12 @@ ro:
           și va expira în %{remaining}.
         now_closed_message: Cererea dvs. ID %{url_token} a primit un răspuns.  Cererea
           a fost între timp închisă.
+        email:
+          description_html: ID-ul cererii <strong>%{url_token}</strong> a primit un
+            răspuns.  Aceasta va fi închisă și va expira în <strong>%{remaining}</strong>.
+          html_header: Cererea dvs. a primit un răspuns.
+          subject: Cererea dvs. a primit un răspuns
+          view_audit_log: Vezi cererea
   pulls:
     access:
       incorrect: Această frază de acces este incorectă.  Vă rugăm să încercați din

@@ -782,6 +782,10 @@ zh-CN:
     push_expiration:
       will_expire_in: 上述文件下载链接将在以下时间过期：
       you_can_refresh: 如果仍有浏览量，您可以刷新页面以重新生成新的下载链接。
+    layout:
+      blank_brand:
+        description: 此链接设置为在指定时间或浏览次数后自动过期并自行删除。
+        title: 您已收到一个秘密链接。
   audit_logs:
     audit_log:
       log_created: "%{user} 在 %{date} 上创建的推送"
@@ -939,6 +943,8 @@ zh-CN:
       passphrase_lockdown: 密码锁定
       policy_tip: 提示：您可以在 %{link} 中设置默认值及更多内容。
       short_expiration_tip: 较短的到期时间和浏览次数可降低暴露风险。
+      qr_payload_placeholder: 输入最多 1024 个字母数字字符...
+      qr_tip: 仅限字母数字字符。最多允许 1024 个字符。
     index:
       actions: 行动
       clear_filters: 清除过滤器
@@ -1013,10 +1019,12 @@ zh-CN:
       files: 文件
       text: 密码和文本
       url: 网址
+      qr: QR 码
     new:
       title: 安全地发送密码、文本或文件
     create:
       premium_required: 您需要订阅才能附加文件。
+      qr_max_length: QR 码负载过大。您最多只能推送 %{count} 个字节。
     update:
       successful: 推送已成功更新。
   static:
@@ -1180,6 +1188,11 @@ zh-CN:
       response_notifier:
         message: 您的请求 ID %{url_token} 已收到回复。该请求将于 %{remaining} 关闭并过期。
         now_closed_message: 您的请求 ID %{url_token} 已收到回复。该请求现已关闭。
+        email:
+          description_html: 请求 ID <strong>%{url_token}</strong>已收到响应。它将在<strong>%{remaining}</strong>中关闭并过期。
+          html_header: 您的请求已收到回复。
+          subject: 您的请求已收到回复
+          view_audit_log: 查看请求
   pulls:
     access:
       incorrect: 该密码不正确。请重试或联系向您发送此链接的个人或组织。

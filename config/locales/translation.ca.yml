@@ -908,6 +908,11 @@ ca:
       will_expire_in: 'Els enllaços de descàrrega de fitxers anteriors caducaran a:'
       you_can_refresh: Podeu actualitzar la pàgina per regenerar nous enllaços de
         descàrrega si es mantenen les visualitzacions.
+    layout:
+      blank_brand:
+        description: Aquest enllaç està configurat per caducar i suprimir automàticament
+          després d'un temps o nombre de visualitzacions especificats.
+        title: T'han enviat un enllaç secret.
   audit_logs:
     audit_log:
       log_created: Push creat a %{date} per %{user}
@@ -1099,6 +1104,8 @@ ca:
       policy_tip: 'Consell: podeu establir valors predeterminats i més al vostre %{link}.'
       short_expiration_tip: Els temps de caducitat curts i el recompte de visualitzacions
         redueixen el risc d'exposició.
+      qr_payload_placeholder: Introduïu fins a 1024 caràcters alfanumèrics...
+      qr_tip: Només caràcters alfanumèrics. Es permeten fins a 1024 caràcters.
     index:
       actions: Accions
       clear_filters: Esborra els filtres
@@ -1183,10 +1190,13 @@ ca:
       files: Fitxers
       text: Contrasenyes i text
       url: URL
+      qr: Codis QR ᴮᴱᵀᴬ
     new:
       title: Envieu de manera segura una contrasenya, text o fitxer
     create:
       premium_required: Cal subscriure's per adjuntar fitxers.
+      qr_max_length: La càrrega útil del codi QR és massa gran. Només podeu enviar
+        fins a %{count} bytes.
     update:
       successful: Push s'ha actualitzat correctament.
   static:
@@ -1420,6 +1430,13 @@ ca:
           resposta. Es tancarà i caducarà a %{remaining}.
         now_closed_message: El vostre identificador de sol·licitud %{url_token} ha
           rebut una resposta. La sol·licitud s'ha tancat des de llavors.
+        email:
+          description_html: L'identificador de sol·licitud <strong>%{url_token}</strong>
+            ha rebut una resposta. Es tancarà i caducarà a <strong>%{remaining}</strong>
+            .
+          html_header: La vostra sol·licitud ha rebut una resposta.
+          subject: La vostra sol·licitud ha rebut una resposta
+          view_audit_log: Veure sol·licitud
   pulls:
     access:
       incorrect: Aquesta frase de contrasenya és incorrecta. Torna-ho a provar o contacta

@@ -912,6 +912,11 @@ es:
       will_expire_in: 'Los enlaces de descarga de archivos anteriores caducarán en:'
       you_can_refresh: Puede actualizar la página para regenerar nuevos enlaces de
         descarga si aún quedan vistas.
+    layout:
+      blank_brand:
+        description: Este enlace está configurado para expirar automáticamente y eliminarse
+          automáticamente después de un tiempo o una cantidad de vistas específicos.
+        title: Se le ha enviado un enlace secreto.
   audit_logs:
     audit_log:
       log_created: Push creado en %{date} por %{user}
@@ -1109,6 +1114,8 @@ es:
         %{link}.'
       short_expiration_tip: Los tiempos de expiración cortos y los recuentos de visitas
         reducen el riesgo de exposición.
+      qr_payload_placeholder: Introduzca hasta 1024 caracteres alfanuméricos...
+      qr_tip: Sólo caracteres alfanuméricos. Se permiten hasta 1024 caracteres.
     index:
       actions: Comportamiento
       clear_filters: Borrar filtros
@@ -1195,10 +1202,13 @@ es:
       files: archivos
       text: Contraseñas y texto
       url: URL
+      qr: Códigos QR
     new:
       title: Enviar una contraseña, un texto o un archivo de forma segura
     create:
       premium_required: Necesitas suscribirte para adjuntar archivos.
+      qr_max_length: La carga útil del código QR es demasiado grande. Solo se pueden
+        insertar hasta %{count} bytes.
     update:
       successful: Push se actualizó exitosamente.
   static:
@@ -1437,6 +1447,13 @@ es:
           y caducará en %{remaining}.
         now_closed_message: Su solicitud con ID %{url_token} ha recibido una respuesta.
           La solicitud ha sido cerrada.
+        email:
+          description_html: La solicitud con ID <strong>%{url_token}</strong> ha recibido
+            una respuesta. Se cerrará y caducará en <strong>%{remaining}</strong>
+            .
+          html_header: Su solicitud ha recibido una respuesta.
+          subject: Su solicitud ha recibido una respuesta
+          view_audit_log: Ver solicitud
   pulls:
     access:
       incorrect: Esa contraseña es incorrecta. Vuelve a intentarlo o comunícate con

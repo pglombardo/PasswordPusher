@@ -787,6 +787,10 @@ ja:
     push_expiration:
       will_expire_in: '上記のファイルのダウンロード リンクの有効期限は以下のとおりです:'
       you_can_refresh: ビューが残っている場合は、ページを更新して新しいダウンロード リンクを再生成できます。
+    layout:
+      blank_brand:
+        description: このリンクは、指定された時間または表示回数の後に自動的に期限切れになり、自動的に削除されるように設定されています。
+        title: 秘密のリンクが送信されました。
   audit_logs:
     audit_log:
       log_created: "%{user} によって %{date} にプッシュが作成されました"
@@ -947,6 +951,8 @@ ja:
       passphrase_lockdown: パスフレーズのロックダウン
       policy_tip: 'ヒント: %{link} でデフォルトなどを設定できます。'
       short_expiration_tip: 有効期限と閲覧回数が短いため、露出リスクが軽減されます。
+      qr_payload_placeholder: 最大 1024 文字の英数字を入力してください...
+      qr_tip: 英数字のみ。最大 1024 文字まで使用できます。
     index:
       actions: 行動
       clear_filters: フィルターをクリアする
@@ -1021,10 +1027,12 @@ ja:
       files: ファイル
       text: パスワードとテキスト
       url: URL
+      qr: QRコード
     new:
       title: パスワード、テキスト、ファイルを安全に送信する
     create:
       premium_required: ファイルを添付するには登録する必要があります。
+      qr_max_length: QR コードのペイロードが大きすぎます。プッシュできるのは最大 %{count} バイトまでです。
     update:
       successful: プッシュが正常に更新されました。
   static:
@@ -1196,6 +1204,11 @@ ja:
       response_notifier:
         message: リクエストID %{url_token} は応答を受信しました。%{remaining} に終了し、期限切れになります。
         now_closed_message: リクエスト ID %{url_token} は応答を受け取りました。リクエストは終了しました。
+        email:
+          description_html: リクエストID <strong>%{url_token} は</strong>応答を受信しました。 <strong>%{remaining}</strong>に終了し、期限切れになります。
+          html_header: あなたのリクエストに応答がありました。
+          subject: あなたのリクエストに応答がありました
+          view_audit_log: リクエストを表示
   pulls:
     access:
       incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。

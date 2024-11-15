@@ -893,6 +893,11 @@ pt-PT:
       will_expire_in: 'Os links para download de arquivos acima irão expirar em:'
       you_can_refresh: Pode atualizar a página para gerar novos links de download
         caso ainda haja visualizações.
+    layout:
+      blank_brand:
+        description: Este link está configurado para expirar automaticamente e ser
+          excluído automaticamente após um tempo ou número de visualizações especificado.
+        title: Você recebeu um link secreto.
   audit_logs:
     audit_log:
       log_created: Push criado em %{date} por %{user}
@@ -1084,6 +1089,8 @@ pt-PT:
       policy_tip: 'Dica: Pode definir padrões e muito mais em seu %{link}.'
       short_expiration_tip: Tempos de expiração curtos e contagens de visualizações
         reduzem o risco de exposição.
+      qr_payload_placeholder: Insira até 1024 caracteres alfanuméricos...
+      qr_tip: Somente caracteres alfanuméricos. São permitidos até 1024 caracteres.
     index:
       actions: Ações
       clear_filters: Limpar filtros
@@ -1166,10 +1173,13 @@ pt-PT:
       files: Ficheiros
       text: Senhas e Texto
       url: URLs
+      qr: Códigos QR ᴮᴱᵀᴬ
     new:
       title: Envie com segurança uma senha, texto ou arquivo
     create:
       premium_required: Precisa inscrever-se para anexar arquivos.
+      qr_max_length: O payload do código QR é muito grande. Você só pode enviar até
+        %{count} bytes.
     update:
       successful: O push foi atualizado com sucesso.
   static:
@@ -1394,6 +1404,13 @@ pt-PT:
           fechada e expirada em %{remaining}.
         now_closed_message: Seu ID de solicitação %{url_token} recebeu uma resposta.
           A solicitação já foi fechada.
+        email:
+          description_html: O ID da solicitação <strong>%{url_token}</strong> recebeu
+            uma resposta. Ele será fechado e expirado em <strong>%{remaining}</strong>
+            .
+          html_header: Sua solicitação recebeu uma resposta.
+          subject: Sua solicitação recebeu uma resposta
+          view_audit_log: Ver solicitação
   pulls:
     access:
       incorrect: Essa senha está incorreta. Tente novamente ou entre em contacto com

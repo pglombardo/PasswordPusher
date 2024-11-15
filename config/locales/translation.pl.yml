@@ -887,6 +887,11 @@ pl:
       will_expire_in: 'Powyższe łącza do pobierania plików wygasną za:'
       you_can_refresh: Jeśli liczba wyświetleń nadal będzie rosła, możesz odświeżyć
         stronę, aby wygenerować nowe linki do pobierania.
+    layout:
+      blank_brand:
+        description: Ten link wygasa automatycznie i usuwa się po określonym czasie
+          lub liczbie wyświetleń.
+        title: Został Ci wysłany tajny link.
   audit_logs:
     audit_log:
       log_created: Push utworzony w %{date} przez %{user}
@@ -1076,6 +1081,8 @@ pl:
       policy_tip: 'Wskazówka: Możesz ustawić wartości domyślne i inne w %{link}.'
       short_expiration_tip: Krótkie terminy wygaśnięcia i liczba wyświetleń zmniejszają
         ryzyko narażenia.
+      qr_payload_placeholder: Wprowadź maksymalnie 1024 znaki alfanumeryczne...
+      qr_tip: Tylko znaki alfanumeryczne. Dozwolone jest do 1024 znaków.
     index:
       actions: działania
       clear_filters: Wyczyść filtry
@@ -1158,10 +1165,13 @@ pl:
       files: Pliki
       text: Hasła i tekst
       url: adresy URL
+      qr: Kody QR
     new:
       title: Bezpieczne wysyłanie hasła, tekstu lub pliku
     create:
       premium_required: Musisz się zarejestrować, aby móc załączać pliki.
+      qr_max_length: Ładunek kodu QR jest za duży. Można przesłać maksymalnie %{count}
+        bajtów.
     update:
       successful: Aktualizacja push została pomyślnie zakończona.
   static:
@@ -1390,6 +1400,12 @@ pl:
           i wygasło w %{remaining}.
         now_closed_message: Twoje ID żądania %{url_token} otrzymało odpowiedź. Żądanie
           zostało już zamknięte.
+        email:
+          description_html: Żądanie ID <strong>%{url_token}</strong> otrzymało odpowiedź.
+            Zostanie zamknięte i wygasło w <strong>%{remaining}</strong> .
+          html_header: Otrzymaliśmy odpowiedź na Twoje zapytanie.
+          subject: Twoja prośba otrzymała odpowiedź
+          view_audit_log: Wyświetl prośbę
   pulls:
     access:
       incorrect: To hasło jest nieprawidłowe. Spróbuj ponownie lub skontaktuj się

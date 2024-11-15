@@ -944,6 +944,11 @@ da:
       will_expire_in: 'Fildownloadlinkene ovenfor udløber om:'
       you_can_refresh: Du kan opdatere siden for at genskabe nye downloadlinks, hvis
         der stadig er visninger.
+    layout:
+      blank_brand:
+        description: Dette link er indstillet til automatisk at udløbe og selvslette
+          efter et angivet tidspunkt eller antal visninger.
+        title: Du har fået tilsendt et hemmeligt link.
   audit_logs:
     audit_log:
       log_created: Push oprettet på %{date} af %{user}
@@ -1132,6 +1137,8 @@ da:
       passphrase_lockdown: Passphrase Lockdown
       policy_tip: 'Tip: Du kan indstille standardindstillinger og mere i din %{link}.'
       short_expiration_tip: Korte udløbstider og visningstal reducerer eksponeringsrisikoen.
+      qr_payload_placeholder: Indtast op til 1024 alfanumeriske tegn...
+      qr_tip: Kun alfanumeriske tegn. Op til 1024 tegn er tilladt.
     index:
       actions: Handlinger
       clear_filters: Ryd filtre
@@ -1215,10 +1222,13 @@ da:
       files: Filer
       text: Adgangskoder og tekst
       url: URL'er
+      qr: QR-koder ᴮᴱᵀᴬ
     new:
       title: Send en adgangskode, tekst eller fil sikkert
     create:
       premium_required: Du skal abonnere for at vedhæfte filer.
+      qr_max_length: QR-kodens nyttelast er for stor. Du kan kun skubbe op til %{count}
+        bytes.
     update:
       successful: Push blev opdateret.
   static:
@@ -1439,6 +1449,13 @@ da:
           lukket og udløbet i %{remaining}.
         now_closed_message: Dit anmodnings-id %{url_token} har modtaget et svar. Anmodningen
           er siden blevet lukket.
+        email:
+          description_html: Anmodnings-id <strong>%{url_token}</strong> har modtaget
+            et svar. Det vil blive lukket og udløbet i <strong>%{remaining}</strong>
+            .
+          html_header: Din anmodning har modtaget et svar.
+          subject: Din anmodning har modtaget et svar
+          view_audit_log: Se anmodning
   pulls:
     access:
       incorrect: Den adgangssætning er forkert. Prøv igen, eller kontakt den person

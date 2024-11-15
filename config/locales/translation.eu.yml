@@ -892,6 +892,11 @@ eu:
       will_expire_in: 'Goiko fitxategiak deskargatzeko estekak hemen iraungiko dira:'
       you_can_refresh: Orria freskatu dezakezu deskarga-esteka berriak birsortzeko,
         bistak geratzen badira.
+    layout:
+      blank_brand:
+        description: Esteka hau automatikoki iraungitzeko eta ezabatzeko ezarrita
+          dago denbora edo ikustaldi kopuru jakin baten ondoren.
+        title: Esteka sekretu bat bidali dizute.
   audit_logs:
     audit_log:
       log_created: "%{user}-k %{date}-n sortutako Push"
@@ -1080,6 +1085,8 @@ eu:
       policy_tip: 'Aholkua: lehenetsiak eta gehiago ezar ditzakezu zure %{link}.'
       short_expiration_tip: Iraungitze denbora laburrak eta ikustaldien kopuruak esposizio
         arriskua murrizten du.
+      qr_payload_placeholder: Sartu gehienez 1024 karaktere alfanumeriko...
+      qr_tip: Karaktere alfanumerikoak soilik. Gehienez 1024 karaktere onartzen dira.
     index:
       actions: Ekintzak
       clear_filters: Garbitu iragazkiak
@@ -1164,10 +1171,13 @@ eu:
       files: Fitxategiak
       text: Pasahitzak eta testua
       url: URLak
+      qr: QR kodeak ᴮᴱᵀᴬ
     new:
       title: Bidali pasahitza, testua edo fitxategia modu seguruan
     create:
       premium_required: Harpidetu egin behar duzu fitxategiak eransteko.
+      qr_max_length: QR kodearen karga handiegia da. %{count} byte baino ez dituzu
+        igo.
     update:
       successful: Push behar bezala eguneratu da.
   static:
@@ -1397,6 +1407,12 @@ eu:
           itxi eta iraungiko da.
         now_closed_message: Zure eskaera ID %{url_token} erantzun bat jaso du. Ordutik
           eskaera itxi egin da.
+        email:
+          description_html: "<strong>%{url_token}</strong> eskaeraren IDa erantzun
+            bat jaso du. <strong>%{remaining}</strong> -n itxi eta iraungiko da."
+          html_header: Zure eskaerak erantzuna jaso du.
+          subject: Zure eskaerak erantzuna jaso du
+          view_audit_log: Ikusi eskaera
   pulls:
     access:
       incorrect: Pasaesaldi hori okerra da. Saiatu berriro edo jarri harremanetan
