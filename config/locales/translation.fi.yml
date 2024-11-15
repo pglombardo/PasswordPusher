@@ -875,6 +875,11 @@ fi:
       will_expire_in: 'Yllä olevat tiedostojen latauslinkit vanhenevat:'
       you_can_refresh: Voit päivittää sivun uusien latauslinkkien luomiseksi, jos
         näkymiä on jäljellä.
+    layout:
+      blank_brand:
+        description: Tämä linkki on asetettu vanhentumaan automaattisesti ja poistumaan
+          itsestään tietyn ajan tai näyttökertojen määrän jälkeen.
+        title: Sinulle on lähetetty salainen linkki.
   audit_logs:
     audit_log:
       log_created: 'Push loi %{date}: %{user}'
@@ -1064,6 +1069,8 @@ fi:
       policy_tip: 'Vihje: Voit määrittää oletusasetukset ja paljon muuta kohdassa
         %{link}.'
       short_expiration_tip: Lyhyet vanhentumisajat ja näyttökerrat vähentävät altistumisriskiä.
+      qr_payload_placeholder: Syötä enintään 1024 aakkosnumeerista merkkiä...
+      qr_tip: Vain aakkosnumeeriset merkit. Enintään 1024 merkkiä sallitaan.
     index:
       actions: Toiminnot
       clear_filters: Tyhjennä suodattimet
@@ -1147,10 +1154,13 @@ fi:
       files: Tiedostot
       text: Salasanat ja teksti
       url: URL-osoitteet
+      qr: QR-koodit ᴮᴱᵀᴬ
     new:
       title: Lähetä turvallisesti salasana, teksti tai tiedosto
     create:
       premium_required: Sinun on tilattava liitetiedostoja.
+      qr_max_length: QR-koodin hyötykuorma on liian suuri. Voit työntää enintään %{count}
+        tavua.
     update:
       successful: Push päivitettiin onnistuneesti.
   static:
@@ -1361,6 +1371,12 @@ fi:
           ja vanhenee %{remaining}:ssä.
         now_closed_message: Pyyntötunnuksesi %{url_token} on saanut vastauksen. Pyyntö
           on sittemmin suljettu.
+        email:
+          description_html: Pyyntötunnus <strong>%{url_token}</strong> on saanut vastauksen.
+            Se suljetaan ja vanhenee <strong>%{remaining}</strong> .
+          html_header: Pyyntöösi on vastattu.
+          subject: Pyyntöösi on vastattu
+          view_audit_log: Näytä pyyntö
   pulls:
     access:
       incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön

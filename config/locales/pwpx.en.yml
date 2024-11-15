@@ -169,6 +169,10 @@ en:
       password_generator: Password Generator
       pricing: Pricing
       support: Support
+    layout:
+      blank_brand:
+        description: This link is set to auto-expire and self-delete after a specified time or number of views.
+        title: You have been sent a secret link.
     left_nav:
       pulls: Requests ᴮᴱᵀᴬ
       pushes: Pushes
@@ -339,6 +343,11 @@ en:
   notifiers:
     pull:
       response_notifier:
+        email:
+          description_html: Request ID <strong>%{url_token}</strong> has received a response.  It will be closed and expired in <strong>%{remaining}</strong>.
+          html_header: Your request has received a response.
+          subject: Your Request Has Received a Response
+          view_audit_log: View Request
         message: Your request ID %{url_token} has received a response.  It will be closed and expired in %{remaining}.
         now_closed_message: Your request ID %{url_token} has received a response.  The request has since been closed.
   pages:
@@ -689,6 +698,7 @@ en:
     copy_to_clipboard: Copy to Clipboard
     create:
       premium_required: You need to subscribe to attach files.
+      qr_max_length: The QR code payload is too large.  You can only push up to %{count} bytes.
     deleted: Deleted
     expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
     expire:
@@ -732,6 +742,8 @@ en:
       payload_url_placeholder: Enter the URL to redirect to...
       policy_tip: 'Tip: You can set defaults and more in your %{link}.'
       push_it: Push It!
+      qr_payload_placeholder: Enter up to 1024 alphanumeric characters...
+      qr_tip: Alphanumeric characters only.  Up to 1024 characters are allowed.
       short_expiration_tip: Short expiration times and view counts reduce exposure risk.
       upload_limit: You can upload up to %{count} files per push.
       url_push_tip: The created push will redirect to the URL provided.
@@ -753,6 +765,7 @@ en:
       team_pushes: Team Pushes
     navbar:
       files: Files
+      qr: QR Codes ᴮᴱᵀᴬ
       text: Passwords & Text
       url: URLs
     new:
@@ -798,7 +811,7 @@ en:
       delete_now: Delete This Secret Link Now
       delete_now_confirm: This will expire this secret link and delete all related content from the database forever. Are you sure?
       download_file: Download File
-      intro: The following content has been sent to you.
+      intro: The following has been sent to you.
       obtain: Securely retrieve and store this content, using a password manager and/or encrypted storage. Remember to promptly delete any data that is no longer needed.
       open_file: Open File
       your_link: Your Secret Link

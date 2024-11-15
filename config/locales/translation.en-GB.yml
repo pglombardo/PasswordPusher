@@ -881,6 +881,11 @@ en-GB:
       will_expire_in: 'The file download links above will expire in:'
       you_can_refresh: You can refresh the page to regenerate new download links if
         views remain.
+    layout:
+      blank_brand:
+        description: This link is set to auto-expire and self-delete after a specified
+          time or number of views.
+        title: You have been sent a secret link.
   audit_logs:
     audit_log:
       log_created: Push created on %{date} by %{user}
@@ -1066,6 +1071,8 @@ en-GB:
       policy_tip: 'Tip: You can set defaults and more in your %{link}.'
       short_expiration_tip: Short expiration times and view counts reduce exposure
         risk.
+      qr_payload_placeholder: Enter up to 1024 alphanumeric characters...
+      qr_tip: Alphanumeric characters only.  Up to 1024 characters are allowed.
     index:
       actions: Actions
       active: Active
@@ -1149,10 +1156,13 @@ en-GB:
       files: Files
       text: Passwords & Text
       url: URLs
+      qr: QR Codes ᴮᴱᵀᴬ
     new:
       title: Securely Send a Password, Text or File
     create:
       premium_required: You need to subscribe to attach files.
+      qr_max_length: The QR code payload is too large.  You can only push up to %{count}
+        bytes.
     update:
       successful: Push was successfully updated.
   static:
@@ -1363,6 +1373,12 @@ en-GB:
           closed and expired in %{remaining}.
         now_closed_message: Your request ID %{url_token} has received a response.  The
           request has since been closed.
+        email:
+          description_html: Request ID <strong>%{url_token}</strong> has received
+            a response.  It will be closed and expired in <strong>%{remaining}</strong>.
+          html_header: Your request has received a response.
+          subject: Your Request Has Received a Response
+          view_audit_log: View Request
   pulls:
     access:
       incorrect: That passphrase is incorrect.  Please try again or contact the person

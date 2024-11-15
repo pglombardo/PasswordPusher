@@ -881,6 +881,11 @@ cs:
       will_expire_in: 'Platnost odkazů pro stažení souboru výše vyprší za:'
       you_can_refresh: Pokud zůstanou zobrazení, můžete stránku obnovit a znovu vygenerovat
         nové odkazy ke stažení.
+    layout:
+      blank_brand:
+        description: Tento odkaz je nastaven tak, aby automaticky vypršel a po zadané
+          době nebo počtu zobrazení se sám smazal.
+        title: Byl vám zaslán tajný odkaz.
   audit_logs:
     audit_log:
       log_created: Push vytvořen na %{date} uživatelem %{user}
@@ -1070,6 +1075,8 @@ cs:
       policy_tip: 'Tip: Výchozí hodnoty a další můžete nastavit v %{link}.'
       short_expiration_tip: Krátké doby expirace a počet zhlédnutí snižují riziko
         expozice.
+      qr_payload_placeholder: Zadejte až 1024 alfanumerických znaků...
+      qr_tip: Pouze alfanumerické znaky. Je povoleno až 1024 znaků.
     index:
       actions: Akce
       clear_filters: Vymazat filtry
@@ -1152,10 +1159,13 @@ cs:
       files: Soubory
       text: Hesla a text
       url: URL
+      qr: QR kódy ᴮᴱᵀᴬ
     new:
       title: Bezpečně odešlete heslo, text nebo soubor
     create:
       premium_required: Pro připojení souborů se musíte přihlásit.
+      qr_max_length: Obsah QR kódu je příliš velký. Můžete vložit maximálně %{count}
+        bajtů.
     update:
       successful: Push byl úspěšně aktualizován.
   static:
@@ -1370,6 +1380,12 @@ cs:
           platnost vyprší v %{remaining}.
         now_closed_message: Vaše ID požadavku %{url_token} obdrželo odpověď. Žádost
           byla mezitím uzavřena.
+        email:
+          description_html: ID požadavku <strong>%{url_token}</strong> obdržel odpověď.
+            Bude uzavřen a jeho platnost vyprší v <strong>%{remaining}</strong> .
+          html_header: Vaše žádost obdržela odpověď.
+          subject: Vaše žádost obdržela odpověď
+          view_audit_log: Zobrazit požadavek
   pulls:
     access:
       incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte

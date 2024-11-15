@@ -882,6 +882,11 @@
       will_expire_in: 'Linken for filnedlasting ovenfor vil utløpe om:'
       you_can_refresh: Du kan oppdatere siden for å gjenskape nye nedlastingskoblinger
         hvis visninger gjenstår.
+    layout:
+      blank_brand:
+        description: Denne koblingen er satt til å utløpe automatisk og selvslette
+          etter en angitt tid eller antall visninger.
+        title: Du har fått tilsendt en hemmelig lenke.
   audit_logs:
     audit_log:
       log_created: Push opprettet på %{date} av %{user}
@@ -1069,6 +1074,8 @@
       passphrase_lockdown: Passphrase Lockdown
       policy_tip: 'Tips: Du kan angi standardinnstillinger og mer i %{link}.'
       short_expiration_tip: Korte utløpstider og visningstall reduserer eksponeringsrisikoen.
+      qr_payload_placeholder: Skriv inn opptil 1024 alfanumeriske tegn...
+      qr_tip: Kun alfanumeriske tegn. Opptil 1024 tegn er tillatt.
     index:
       actions: Handlinger
       clear_filters: Tøm filtre
@@ -1151,10 +1158,13 @@
       files: Filer
       text: Passord og tekst
       url: URL-er
+      qr: QR-koder ᴮᴱᵀᴬ
     new:
       title: Send et passord, tekst eller fil på en sikker måte
     create:
       premium_required: Du må abonnere for å legge ved filer.
+      qr_max_length: Nyttelasten for QR-koden er for stor. Du kan bare skyve opp til
+        %{count} byte.
     update:
       successful: Push ble oppdatert.
   static:
@@ -1370,6 +1380,13 @@
           stengt og utløpt i %{remaining}.
         now_closed_message: Din forespørsels-ID %{url_token} har mottatt et svar.
           Søknaden har siden blitt lukket.
+        email:
+          description_html: Forespørsels-ID <strong>%{url_token}</strong> har mottatt
+            et svar. Den vil bli stengt og utløpt i <strong>%{remaining}</strong>
+            .
+          html_header: Din forespørsel har mottatt et svar.
+          subject: Din forespørsel har mottatt svar
+          view_audit_log: Se forespørsel
   pulls:
     access:
       incorrect: Passordet er feil. Vennligst prøv igjen eller kontakt personen eller

@@ -918,6 +918,11 @@ fr:
         dans :'
       you_can_refresh: Vous pouvez actualiser la page pour régénérer de nouveaux liens
         de téléchargement s'il reste des vues.
+    layout:
+      blank_brand:
+        description: Ce lien est configuré pour expirer et s'auto-supprimer après
+          une durée ou un nombre de vues spécifié.
+        title: Un lien secret vous a été envoyé.
   audit_logs:
     audit_log:
       log_created: Push créé sur %{date} par %{user}
@@ -1114,6 +1119,9 @@ fr:
         dans votre %{link}.'
       short_expiration_tip: Les délais d’expiration courts et le nombre de vues réduisent
         le risque d’exposition.
+      qr_payload_placeholder: Entrez jusqu'à 1024 caractères alphanumériques...
+      qr_tip: Caractères alphanumériques uniquement. Jusqu'à 1024 caractères sont
+        autorisés.
     index:
       actions: Actions
       clear_filters: Effacer les filtres
@@ -1199,10 +1207,13 @@ fr:
       files: Fichiers
       text: Mots de passe et texte
       url: URLs
+      qr: Codes QR
     new:
       title: Envoyez un mot de passe, un texte ou un fichier en toute sécurité
     create:
       premium_required: Vous devez vous abonner pour joindre des fichiers.
+      qr_max_length: La charge utile du code QR est trop importante. Vous ne pouvez
+        envoyer que jusqu'à %{count} octets.
     update:
       successful: Push a été mis à jour avec succès.
   static:
@@ -1437,6 +1448,13 @@ fr:
           et expirera dans %{remaining}.
         now_closed_message: Votre demande ID %{url_token} a reçu une réponse. La demande
           a depuis été clôturée.
+        email:
+          description_html: La requête ID <strong>%{url_token}</strong> a reçu une
+            réponse. Elle sera fermée et expirera dans <strong>%{remaining}</strong>
+            .
+          html_header: Votre demande a reçu une réponse.
+          subject: Votre demande a reçu une réponse
+          view_audit_log: Voir la demande
   pulls:
     access:
       incorrect: Cette passphrase est incorrecte. Veuillez réessayer ou contacter

@@ -907,6 +907,11 @@ it:
       will_expire_in: 'I link per il download dei file sopra indicati scadranno tra:'
       you_can_refresh: È possibile aggiornare la pagina per rigenerare nuovi link
         per il download se ci sono ancora visualizzazioni.
+    layout:
+      blank_brand:
+        description: Questo collegamento è impostato per scadere automaticamente e
+          autoeliminarsi dopo un periodo di tempo o un numero di visualizzazioni specificato.
+        title: Ti è stato inviato un link segreto.
   audit_logs:
     audit_log:
       log_created: Push creato su %{date} da %{user}
@@ -1103,6 +1108,8 @@ it:
         in %{link}.'
       short_expiration_tip: Tempi di scadenza e conteggi delle visualizzazioni brevi
         riducono il rischio di esposizione.
+      qr_payload_placeholder: Inserisci fino a 1024 caratteri alfanumerici...
+      qr_tip: Solo caratteri alfanumerici. Sono consentiti fino a 1024 caratteri.
     index:
       actions: Azioni
       clear_filters: Cancella filtri
@@ -1188,10 +1195,13 @@ it:
       files: File
       text: Password e testo
       url: URL
+      qr: Codici QR
     new:
       title: Invia in modo sicuro una password, un testo o un file
     create:
       premium_required: Per allegare i file è necessario abbonarsi.
+      qr_max_length: Il payload del codice QR è troppo grande. Puoi caricare solo
+        fino a %{count} byte.
     update:
       successful: Push è stato aggiornato correttamente.
   static:
@@ -1427,6 +1437,13 @@ it:
           chiusa e scadrà tra %{remaining}.
         now_closed_message: Il tuo ID richiesta %{url_token} ha ricevuto una risposta.
           La richiesta è stata chiusa.
+        email:
+          description_html: L'ID richiesta <strong>%{url_token}</strong> ha ricevuto
+            una risposta. Verrà chiusa e scadrà tra <strong>%{remaining}</strong>
+            .
+          html_header: La tua richiesta ha ricevuto risposta.
+          subject: La tua richiesta ha ricevuto una risposta
+          view_audit_log: Visualizza richiesta
   pulls:
     access:
       incorrect: Quella passphrase non è corretta. Riprova o contatta la persona o

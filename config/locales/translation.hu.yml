@@ -896,6 +896,11 @@ hu:
       will_expire_in: 'A fenti fájlletöltési linkek a következő napon lejárnak:'
       you_can_refresh: Frissítheti az oldalt az új letöltési hivatkozások újragenerálásához,
         ha a nézetek megmaradnak.
+    layout:
+      blank_brand:
+        description: Ez a link úgy van beállítva, hogy meghatározott idő vagy számú
+          megtekintés után automatikusan lejár és öntörlődjön.
+        title: Titkos linket küldtek Önnek.
   audit_logs:
     audit_log:
       log_created: Push létrehozta %{date} oldalon, %{user}
@@ -1088,6 +1093,8 @@ hu:
         sok mást.'
       short_expiration_tip: A rövid lejárati idők és a megtekintések száma csökkenti
         az expozíció kockázatát.
+      qr_payload_placeholder: Adjon meg legfeljebb 1024 alfanumerikus karaktert...
+      qr_tip: Csak alfanumerikus karakterek. Legfeljebb 1024 karakter megengedett.
     index:
       actions: Akciók
       clear_filters: Szűrők törlése
@@ -1172,10 +1179,13 @@ hu:
       files: Fájlok
       text: Jelszavak és szöveg
       url: URL-ek
+      qr: QR-kódok ᴮᴱᵀᴬ
     new:
       title: Biztonságosan küldjön jelszót, szöveget vagy fájlt
     create:
       premium_required: A fájlok csatolásához elő kell fizetni.
+      qr_max_length: A QR-kód rakománya túl nagy. Legfeljebb %{count} bájtot küldhet
+        le.
     update:
       successful: A Push frissítése sikeresen megtörtént.
   static:
@@ -1395,6 +1405,12 @@ hu:
           az %{remaining}-ben.
         now_closed_message: Az Ön %{url_token} azonosítója választ kapott. A kérelmet
           azóta lezárták.
+        email:
+          description_html: Az <strong>%{url_token}</strong> kérelem azonosítója választ
+            kapott. Le lesz zárva és lejár <strong>az %{remaining}</strong> -ben.
+          html_header: Kérésére választ kaptunk.
+          subject: Válasz érkezett kérésére
+          view_audit_log: Kérelem megtekintése
   pulls:
     access:
       incorrect: Ez a jelszó hibás. Kérjük, próbálja újra, vagy lépjen kapcsolatba

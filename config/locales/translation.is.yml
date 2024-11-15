@@ -881,6 +881,11 @@ is:
         út eftir:'
       you_can_refresh: Þú getur endurnýjað síðuna til að endurnýja nýja niðurhalstengla
         ef skoðanir eru eftir.
+    layout:
+      blank_brand:
+        description: Þessi hlekkur er stilltur á að renna út sjálfkrafa og eyða sjálfkrafa
+          eftir tiltekinn tíma eða fjölda áhorfa.
+        title: Þér hefur verið sendur leynilegur hlekkur.
   audit_logs:
     audit_log:
       log_created: Push búin til á %{date} af %{user}
@@ -1067,6 +1072,8 @@ is:
       passphrase_lockdown: Lokun lykilorða
       policy_tip: 'Ábending: Þú getur stillt sjálfgefnar stillingar og fleira í %{link}.'
       short_expiration_tip: Stuttur fyrningartími og áhorfsfjöldi draga úr áhættu.
+      qr_payload_placeholder: Sláðu inn allt að 1024 tölustafi...
+      qr_tip: Einungis bókstafir. Allt að 1024 stafir eru leyfðir.
     index:
       actions: Aðgerðir
       clear_filters: Hreinsaðu síur
@@ -1151,10 +1158,13 @@ is:
       files: Skrár
       text: Lykilorð og texti
       url: vefslóðir
+      qr: QR kóðar ᴮᴱᵀᴬ
     new:
       title: Sendu lykilorð, texta eða skrá á öruggan hátt
     create:
       premium_required: Þú þarft að gerast áskrifandi til að hengja skrár við.
+      qr_max_length: Hleðsla QR kóðans er of stór. Þú getur aðeins ýtt upp í %{count}
+        bæti.
     update:
       successful: Push var uppfært.
   static:
@@ -1368,6 +1378,12 @@ is:
           lokað og útrunnið í %{remaining}.
         now_closed_message: Auðkenni beiðni þinnar %{url_token} hefur fengið svar.
           Beiðninni hefur síðan verið lokað.
+        email:
+          description_html: Auðkenni beiðni <strong>%{url_token}</strong> hefur fengið
+            svar. Það verður lokað og rennur út í <strong>%{remaining}</strong> .
+          html_header: Beiðni þinni hefur borist svar.
+          subject: Beiðni þín hefur fengið svar
+          view_audit_log: Skoða beiðni
   pulls:
     access:
       incorrect: Það lykilorð er rangt. Vinsamlegast reyndu aftur eða hafðu samband

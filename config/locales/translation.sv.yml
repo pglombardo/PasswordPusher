@@ -887,6 +887,11 @@ sv:
       will_expire_in: 'Filnedladdningslänkarna ovan upphör att gälla om:'
       you_can_refresh: Du kan uppdatera sidan för att återskapa nya nedladdningslänkar
         om visningar kvarstår.
+    layout:
+      blank_brand:
+        description: Den här länken är inställd på att automatiskt upphöra och radera
+          själv efter en viss tid eller antal visningar.
+        title: Du har fått en hemlig länk.
   audit_logs:
     audit_log:
       log_created: Push skapad på %{date} av %{user}
@@ -1076,6 +1081,8 @@ sv:
       passphrase_lockdown: Lösenfraslåsning
       policy_tip: 'Tips: Du kan ställa in standardinställningar och mer i din %{link}.'
       short_expiration_tip: Korta utgångstider och visningsantal minskar exponeringsrisken.
+      qr_payload_placeholder: Ange upp till 1024 alfanumeriska tecken...
+      qr_tip: Endast alfanumeriska tecken. Upp till 1024 tecken är tillåtna.
     index:
       actions: Handlingar
       clear_filters: Rensa filter
@@ -1159,10 +1166,13 @@ sv:
       files: Filer
       text: Lösenord och text
       url: webbadresser
+      qr: QR-koder ᴮᴱᵀᴬ
     new:
       title: Skicka ett lösenord, text eller fil säkert
     create:
       premium_required: Du måste prenumerera för att bifoga filer.
+      qr_max_length: QR-kodens nyttolast är för stor. Du kan bara trycka upp till
+        %{count} byte.
     update:
       successful: Push uppdaterades framgångsrikt.
   static:
@@ -1381,6 +1391,13 @@ sv:
           och upphöra att gälla i %{remaining}.
         now_closed_message: Ditt begäran-ID %{url_token} har fått ett svar. Begäran
           har sedan avslutats.
+        email:
+          description_html: Request ID <strong>%{url_token}</strong> har fått ett
+            svar. Den kommer att stängas och upphöra att gälla i <strong>%{remaining}</strong>
+            .
+          html_header: Din förfrågan har fått ett svar.
+          subject: Din förfrågan har fått ett svar
+          view_audit_log: Visa förfrågan
   pulls:
     access:
       incorrect: Den lösenfrasen är felaktig. Försök igen eller kontakta personen
