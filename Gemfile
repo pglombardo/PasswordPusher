@@ -129,4 +129,4 @@ gem "turnout2024", require: "turnout"
 
 gem "solid_queue", "~> 1.0"
 
-gem "mission_control-jobs", "~> 0.5.0"
+gem "mission_control-jobs", "~> 0.6.0"
