@@ -54,6 +54,19 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = ENV.key?("FORCE_SSL")
 
+  # The list of trusted proxies from which we will accept proxy related headers.
+  config.action_dispatch.trusted_proxies = [
+    "127.0.0.1",         # Localhost
+    /^::1$/,             # IPv6 localhost
+    /192\.168\.\d{1,3}\.\d{1,3}/, # Local network
+    /10\.\d{1,3}\.\d{1,3}\.\d{1,3}/ # Private networks
+  ]
+
+  if Settings.trusted_proxies.present?
+    trusted_proxies = Settings.trusted_proxies.split(",").map(&:strip)
+    config.action_dispatch.trusted_proxies.concat(trusted_proxies)
+  end
+
   # Logging
   config.logger = if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
     # Log to STDOUT by default

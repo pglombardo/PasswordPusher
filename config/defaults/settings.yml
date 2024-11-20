@@ -695,6 +695,24 @@ throttling:
   # Environment Variable Override: PWP__THROTTLING__SECOND='20'
   second: 60
 
+### Trusted Proxies
+#
+# By default, Password Pusher will only proxy related headers from proxies on
+# the local network.  If you are using a proxy that is not on the local network,
+# you will need to add the IP address of the proxy to the list below.
+#
+# This is useful if you are using a remote reverse proxy such as Cloudflare to
+# serve the application.  If local, you can leave this setting as is.
+# 
+# Multiple IP addresses can be added by separating them with a comma.
+#
+# Environment Variable Override:
+# PWP__TRUSTED_PROXIES='<ipaddress>'
+# PWP__TRUSTED_PROXIES='<ipaddress1>,<ipaddress2>'
+#
+# trusted_proxies:
+#   - '1.2.3.4'
+#   - '2.3.4.5'
 
 ### Mail Server Configuration
 #
