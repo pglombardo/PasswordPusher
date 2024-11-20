@@ -118,6 +118,19 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
+  # The list of trusted proxies from which we will accept proxy related headers.
+  config.action_dispatch.trusted_proxies = [
+    "127.0.0.1",         # Localhost
+    /^::1$/,             # IPv6 localhost
+    /192\.168\.\d{1,3}\.\d{1,3}/, # Local network
+    /10\.\d{1,3}\.\d{1,3}\.\d{1,3}/ # Private networks
+  ]
+
+  if Settings.trusted_proxies.present?
+    trusted_proxies = Settings.trusted_proxies.split(",").map(&:strip)
+    config.action_dispatch.trusted_proxies.concat(trusted_proxies)
+  end
+
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
   if Settings.allowed_hosts.present?
     if Settings.allowed_hosts.is_a?(Array)
