@@ -94,7 +94,14 @@ class PasswordsController < BaseController
     if @push.passphrase == params[:passphrase]
       # Passphrase is valid
       # Set the passphrase cookie
-      cookies[name] = {value: @push.passphrase_ciphertext, expires: 10.minutes.from_now}
+      cookies[name] = {
+        value: @push.passphrase_ciphertext,
+        expires: 3.minutes.from_now,
+        secure: Rails.env.production?, # Only send the cookie over HTTPS in production
+        httponly: true,                # Prevent JavaScript access to the cookie
+        same_site: :strict             # Restrict the cookie to same-site requests
+      }
+
       # Redirect to the payload
       redirect_to password_path(@push.url_token)
     else
