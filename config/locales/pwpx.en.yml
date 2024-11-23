@@ -2,9 +2,9 @@
 en:
   accounts:
     account_invitations:
-      max_users: You've reached the maximum number of users for your team.  Please contact us to upgrade and add more users.
+      max_users: You've reached the maximum number of users for your account.  Please contact us to upgrade and add more users.
     brand:
-      delivery_blur_tip: 'Tip: You can toggle the use of payload blurring in your Team Policy settings.'
+      delivery_blur_tip: 'Tip: You can toggle the use of payload blurring in your Account Policy settings.'
       delivery_description: The delivery page is the page that your end users will see when the contents of the push is viewed.
       delivery_preview: Below is a preview of when your end users will see when the <em>contents of a push is viewed</em>.
       expired_description: The expired page is the page that your end users will see when the push or request has expired.
@@ -45,7 +45,7 @@ en:
       request_ready_preview: Below is a preview of the request ready page for end users.
       save: Save
       tip_custom_domain: "<strong>Pro Subscribers Tip</strong>: You can configure a custom domain in your %{link}."
-      tip_team_page: Team configuration page
+      tip_team_page: Account configuration page
       title: Push & Request Branding
     brands:
       form:
@@ -63,19 +63,21 @@ en:
     form_brand:
       branding: Branding
     policy:
+      account_policy: Account Policy
+      account_policy_help: The account policy is a set of rules that apply to all members of this account.
       deletable_default: Default Value
       deletable_default_help: The default value for the Deletable by Viewer option.
       deletable_forced: Force The Default Value?
-      deletable_forced_help: Forces the use of this option with the default value for all team members.  It cannot be changed by team members.
-      edit: Edit Policy
+      deletable_forced_help: Forces the use of this option with the default value for all account members.  It cannot be changed by account members.
+      edit: Edit
       enable_blur: Enable?
       enable_blur_help: Payload Blurring obscures the contents of the payload on the secret URL delivery page. Recipients can toggle the blur with a click to reveal the original data.
       enable_deletable: Enable?
-      enable_deletable_help: Enable this option for the team?  If disabled, this option will be hidden and not used.
+      enable_deletable_help: Enable this option for the account?  If disabled, this option will be hidden and not used.
       enable_pwgen: Enable?
-      enable_pwgen_help: Enable the Password Generation option for this team?  If disabled, this option will be hidden and not used.
+      enable_pwgen_help: Enable the Password Generator for this account?  If disabled, this option will be hidden and not used.
       enable_retrieval_step: Enable?
-      enable_retrieval_step_help: Enable 1-Click Retrieval for this team?  If disabled, this option will be hidden and not used.
+      enable_retrieval_step_help: Enable 1-Click Retrieval for this account?  If disabled, this option will be hidden and not used.
       expire_after_duration_default: Default Duration
       expire_after_duration_default_help: The default duration before a push expires.
       expire_after_duration_max: Maximum Duration
@@ -92,25 +94,47 @@ en:
       header_deletable: Deletable by Viewer
       header_passphrase: Passphrase Lock
       header_payload_limits: Payload Limits
+      header_pull_passphrase: Passphrase Lock
+      header_pull_retrieval_step: 1-Click Retrieval Step
+      header_pull_timed_expiration: Timed Expiration
       header_pwgen: Password Generation
+      header_pwgen_options: Password Generation Options
       header_retrieval_step: 1-Click Retrieval Step
       header_timed_expiration: Timed Expiration
       header_view_expiration: View Expiration
       hide_deletable: Hide Option?
-      hide_deletable_help: Hides the Deletable by Viewer option from the team members.  This is useful to force the option default without showing it to team members.
+      hide_deletable_help: Hides the Deletable by Viewer option from the account members.  This is useful to force the option default without showing it to account members.
       hide_passphrase: Hide Option?
       hide_passphrase_help: Hides the Passphrase Lock option.  Useful to disable the use of this option entirely.
       hide_retrieval_step: Hide Option?
-      hide_retrieval_step_help: Hides the 1-Click Retrieval step option from the team members.  This is useful to force the option default without showing it to team members.
+      hide_retrieval_step_help: Hides the 1-Click Retrieval step option from the account members.  This is useful to force the option default without showing it to account members.
       personal_policy: Personal Policy
       personal_policy_help: A policy is a set of rules that apply to all pushes created by you.
       policy: Policy
+      pull_close_after_duration_default: Default Duration
+      pull_close_after_duration_default_help: Once a request receives a response, this is the default duration before it expires.
+      pull_close_after_duration_max: Maximum Duration
+      pull_close_after_duration_max_help: Once a request receives a response, this is the maximum duration before it expires.
+      pull_close_after_duration_min: Minimum Duration
+      pull_close_after_duration_min_help: Once a request receives a response, this is the minimum duration before it expires.
+      pull_enable_retrieval_step: Enable?
+      pull_enable_retrieval_step_help: Enable 1-Click Retrieval for this account?  If disabled, this option will be hidden and not used.
+      pull_header_passphrase: Passphrase Lock
+      pull_header_retrieval_step: 1-Click Retrieval Step
+      pull_hide_passphrase: Hide Option?
+      pull_hide_passphrase_help: Hides the Passphrase Lock option.  Useful to disable the use of this option entirely.
+      pull_hide_retrieval_step: Hide Option?
+      pull_hide_retrieval_step_help: Hides the 1-Click Retrieval step option from the account members.  This is useful to force the option default without showing it to account members.
+      pull_retrieval_step_default: Default Value
+      pull_retrieval_step_default_help: The default value for the 1-Click Retrieval step option.
+      pull_retrieval_step_forced: Force The Default Value?
+      pull_retrieval_step_forced_help: Forces the use of this option with the default value for all account members.  It cannot be changed by account members.
       push_files_max: Maximum Allowed Files
       push_files_max_help: The maximum number of files allowed in a push. [Max. 100]
       push_text_max: Maximum Text Size
       push_text_max_help: The maximum size of text in a push.  Measured in bytes. [Max. 1048576]
       pwgen_configurable: Configurable?
-      pwgen_configurable_help: Allow team members to configure the Password Generator?  If disabled, the option will be forced to the configuration below and cannot be changed by team members.
+      pwgen_configurable_help: Allow account members to configure the Password Generator?  If disabled, the option will be forced to the configuration below and cannot be changed by account members.
       pwgen_consonants: Consonants
       pwgen_consonants_help: The consonants to use in the generated password.
       pwgen_has_numbers: Include Numbers?
@@ -129,13 +153,14 @@ en:
       pwgen_use_separators_help: Use separators in the generated password.
       pwgen_vowels: Vowels
       pwgen_vowels_help: The vowels to use in the generated password.
+      require_2fa: Require Two-Factor Authentication?
+      require_2fa_help: Require account members to use Two-Factor Authentication (2FA) to access this account.
       retrieval_step_default: Default Value
       retrieval_step_default_help: The default value for the 1-Click Retrieval step option.
       retrieval_step_forced: Force The Default Value?
-      retrieval_step_forced_help: Forces the use of this option with the default value for all team members.  It cannot be changed by team members.
+      retrieval_step_forced_help: Forces the use of this option with the default value for all account members.  It cannot be changed by account members.
       save: Save Policy
-      team_policy: Team Policy
-      team_policy_help: A team policy is a set of rules that apply to all pushes made by members of this team.
+      security_header_logins: Login Security
   admin:
     config:
       menu_item: Configuration
@@ -179,6 +204,11 @@ en:
     navbar:
       branding: Branding
       edit_policy: Policy
+    policy_navbar:
+      password_generator: Password Generator
+      pushes: Pushes
+      requests: Requests
+      security: Security
     push_expiration:
       will_expire_in: 'The file download links above will expire in:'
       you_can_refresh: You can refresh the page to regenerate new download links if views remain.
@@ -518,11 +548,13 @@ en:
       open: Open
       pull_id: Request ID
       pulls: Requests
+      pulls_help: This page shows all requests created by you.
       ready: Ready
       remaining_time: Time Remaining
       state: State
       status: Status
-      team_pulls: Team Requests
+      team_pulls: " / Requests"
+      team_pulls_help: This page shows all requests created by all members of this account.
       views: Views
       views_remaining: Views Remaining
     minute:
@@ -761,8 +793,10 @@ en:
       nothing_here: There's nothing here yet.
       push_id: Push ID
       pushes: Pushes
+      pushes_help: This page shows all pushes created by you.
       remaining: Remaining
-      team_pushes: Team Pushes
+      team_pushes: " / Pushes"
+      team_pushes_help: This page shows all pushes created by all members of the account.
     navbar:
       files: Files
       qr: QR Codes ᴮᴱᵀᴬ
