@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
-      - uses: release-drafter/release-drafter@v6.0.0
-        with:
-          token: ${{ secrets.RELDRAFTER_TOKEN }}
+      - uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELDRAFTER_TOKEN }}
