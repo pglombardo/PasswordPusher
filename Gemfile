@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.2"
 
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 7.2.2"
 
 group :development do
   gem "listen"
