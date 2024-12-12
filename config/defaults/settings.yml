@@ -714,6 +714,21 @@ throttling:
 #   - '1.2.3.4'
 #   - '2.3.4.5'
 
+## Cloudflare Proxy
+#
+# If you are using Cloudflare as a proxy, you will need to set the following
+# value to true.  This will cause the application to fetch the list of Cloudflare
+# proxy IP addresses and add them to the list of trusted proxies.
+#
+# Note that on application boot, this will trigger two HTTPs requests to fetch
+# the list of Cloudflare IP addresses.  The requests each have a timeout of 15 seconds
+# and may delay on container boot.
+#
+# Environment Variable Override:
+# PWP__CLOUDFLARE_PROXY='false'
+#
+cloudflare_proxy: false
+
 ### Mail Server Configuration
 #
 # When logins are enabled, an SMTP server is required to send emails to users
