@@ -120,6 +120,8 @@ class PasswordsController < BaseController
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Password.new
+    # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
+    @push.passphrase = ""
 
     respond_to(&:html)
   end
