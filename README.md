@@ -58,10 +58,17 @@ Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https:
 [![](./app/assets/images/features/dark-theme-thumb.png)](./app/assets/images/features/dark-theme.gif)
 [![](./app/assets/images/features/preliminary-step-thumb.png)](./app/assets/images/features/preliminary-step.gif)
 
+# Editions
+
+If you wish the self-host, this open source version is available immediately.  You can try it out at [https://oss.pwpush.com](https://oss.pwpush.com) or read on for how to get started.
+
+In 2024, I introduced a set of **Pro features** exclusively on [pwpush.com](https://pwpush.com) to better support the project.  These Pro features are part of the new _Feature Pipeline_ and are migrated to the OSS edition periodically over time.  You can read more about how this works [here](https://docs.pwpush.com/docs/editions/).
+
+To see the differences between pwpush.com and the OSS edition take a look at the [Feature Matrix](https://pwpush.com/features#matrix).
 
 # ⚡️ Quick Start
 
-→ Go to [pwpush.com](https://pwpush.com) and try it out.
+→ Go to [https://pwpush.com](https://pwpush.com) and try it out.
 
 _or_
 
