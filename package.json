@@ -2,9 +2,6 @@
   "name": "PasswordPusher",
   "private": true,
   "dependencies": {
-    "@fontsource/roboto": "^5.1.0",
-    "@fontsource/roboto-mono": "^5.1.0",
-    "@fontsource/roboto-slab": "^5.1.0",
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^8.0.3",
     "@popperjs/core": "^2.11.8",
@@ -32,8 +29,8 @@
   "scripts": {
     "set:theme": "node ./set_theme.js",
     "build": "node esbuild.config.mjs",
-    "build:css:compile": "sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets",
-    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css --config ./postcss.config.js",
+    "build:css:compile": "sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets",
+    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css -c postcss.config.js --verbose",
     "build:css": "yarn set:theme && yarn build:css:compile && yarn build:css:prefix",
     "watch:css": "nodemon --ignore app/assets/stylesheets/themes/selected.css --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
   },
