@@ -70,9 +70,10 @@ gem "bootsnap", require: false
 
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0", ">= 6.0.0"
+gem "cssbundling-rails", "~> 1.4"
 gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "bootstrap", "5.2.3"
+gem "bootstrap"
 gem "json", "~> 2.9" # Legacy carry-over
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
