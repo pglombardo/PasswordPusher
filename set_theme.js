@@ -4,33 +4,36 @@ const path = require("path");
 // Get the theme name from the environment variable, default to "default"
 const theme = process.env.PWP__THEME || "default";
 
-// Define the paths
+// Define paths
 const themesDir = path.resolve(__dirname, "./app/assets/stylesheets/themes");
 const selectedThemePath = path.join(themesDir, "selected.css");
 const themeFilePath = path.join(themesDir, `${theme}.css`);
 
-// Check if the selected theme file exists
+// Validate if the theme file exists
 if (!fs.existsSync(themeFilePath)) {
   console.error(`Error: Theme "${theme}" not found at ${themeFilePath}`);
   process.exit(1);
 }
 
-// Check if the symlink already exists and points to the correct theme
+// Ensure cleanup: Remove existing symlink or file before creating a new one
 try {
-  if (fs.existsSync(selectedThemePath)) {
-    const existingTarget = fs.readlinkSync(selectedThemePath);
-    if (existingTarget === themeFilePath) {
-      console.log(`Symlink already set: ${selectedThemePath} -> ${existingTarget}`);
-      process.exit(0); // Exit since the symlink is correct
-    } else {
-      fs.unlinkSync(selectedThemePath); // Remove the existing symlink or file
-    }
+  if (fs.lstatSync(selectedThemePath).isSymbolicLink()) {
+    fs.unlinkSync(selectedThemePath); // Remove symlink
+  } else if (fs.existsSync(selectedThemePath)) {
+    fs.unlinkSync(selectedThemePath); // Remove file if it exists
   }
 } catch (err) {
-  console.error(`Failed to check existing symlink: ${err.message}`);
-  fs.unlinkSync(selectedThemePath); // Force removal if something goes wrong
+  if (err.code !== "ENOENT") { // Ignore "no such file" errors
+    console.error(`Failed to clean up existing file/symlink: ${err.message}`);
+    process.exit(1);
+  }
 }
 
-// Create the new symlink
-fs.symlinkSync(themeFilePath, selectedThemePath);
-console.log(`Symlink created: ${selectedThemePath} -> ${themeFilePath}`);
+// Create the symlink
+try {
+  fs.symlinkSync(themeFilePath, selectedThemePath, "file"); // "file" type symlink
+  console.log(`Symlink created: ${selectedThemePath} -> ${themeFilePath}`);
+} catch (err) {
+  console.error(`Failed to create symlink: ${err.message}`);
+  process.exit(1);
+}
