@@ -23,6 +23,11 @@ then
     bundle exec rails assets:precompile
 fi
 
+if [ -n "$PWP__THEME" ]; then
+    echo "Password Pusher: Rebuilding CSS for custom theme..."
+    yarn build:css
+fi
+
 echo "Password Pusher: starting puma webserver..."
 bundle exec puma -C config/puma.rb
 
