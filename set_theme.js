@@ -15,11 +15,22 @@ if (!fs.existsSync(themeFilePath)) {
   process.exit(1);
 }
 
-// Remove existing symlink or file
-if (fs.existsSync(selectedThemePath)) {
-  fs.unlinkSync(selectedThemePath);
+// Check if the symlink already exists and points to the correct theme
+try {
+  if (fs.existsSync(selectedThemePath)) {
+    const existingTarget = fs.readlinkSync(selectedThemePath);
+    if (existingTarget === themeFilePath) {
+      console.log(`Symlink already set: ${selectedThemePath} -> ${existingTarget}`);
+      process.exit(0); // Exit since the symlink is correct
+    } else {
+      fs.unlinkSync(selectedThemePath); // Remove the existing symlink or file
+    }
+  }
+} catch (err) {
+  console.error(`Failed to check existing symlink: ${err.message}`);
+  fs.unlinkSync(selectedThemePath); // Force removal if something goes wrong
 }
 
-// Create a new symlink pointing to the selected theme
+// Create the new symlink
 fs.symlinkSync(themeFilePath, selectedThemePath);
 console.log(`Symlink created: ${selectedThemePath} -> ${themeFilePath}`);
