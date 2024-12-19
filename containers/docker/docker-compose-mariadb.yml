@@ -1,22 +1,20 @@
-version: '2.1'
-
 services:
   db:
     image: mariadb:11.4
     ports:
       - "3306:3306"
     environment:
-      MARIADB_USER: 'passwordpusher_user'
-      MARIADB_PASSWORD: 'passwordpusher_passwd'
-      MARIADB_DATABASE: 'passwordpusher_db'
+      MARIADB_USER: 'pwpush_user'
+      MARIADB_PASSWORD: 'pwpush_passwd'
+      MARIADB_DATABASE: 'pwpush_db'
       MARIADB_RANDOM_ROOT_PASSWORD: 'yes'
     volumes:
-      - /var/lib/pwpush-mariadb/data:/var/lib/mysql
+      - ./mariadb-data:/var/lib/mysql
 
   pwpush:
     image: docker.io/pglombardo/pwpush:latest
     environment:
-      DATABASE_URL: 'mysql2://passwordpusher_user:passwordpusher_passwd@db:3306/passwordpusher_db'
+      DATABASE_URL: 'mysql2://pwpush_user:pwpush_passwd@db:3306/pwpush_db'
     ports:
       - "5100:5100"
     depends_on:

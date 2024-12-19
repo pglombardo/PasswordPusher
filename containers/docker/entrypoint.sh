@@ -17,15 +17,9 @@ echo ""
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
-if [ "$PWP_PRECOMPILE" == "true" ]
-then
-    echo "Password Pusher: precompiling assets for customisations..."
+if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
+    echo "Password Pusher: precompiling assets for customizations..."
     bundle exec rails assets:precompile
-fi
-
-if [ -n "$PWP__THEME" ]; then
-    echo "Password Pusher: Rebuilding CSS for custom theme..."
-    yarn build:css
 fi
 
 echo "Password Pusher: starting puma webserver..."
