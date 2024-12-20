@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 // Get the theme name from the environment variable, default to "default"
-const theme = process.env.PWP__THEME || "default";
+const theme = (process.env.PWP__THEME || "default").toLowerCase();
 
 // Define paths
 const themesDir = path.resolve(__dirname, "./app/assets/stylesheets/themes");
