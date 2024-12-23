@@ -35,7 +35,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
 * __Admin Dashboard:__ Manage your self-hosted instance with a built in admin dashboard.
 * __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
-* __Themes:__ [26 themes](https://docs.pwpush.com/docs/themes/) bundled in courtesy of Bootswatch.  Select with a simple environment variable.
+* __Themes:__ [26 themes](https://docs.pwpush.com/docs/themes/) bundled in courtesy of [Bootswatch](https://github.com/thomaspark/bootswatch).  Select with a simple environment variable.
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
