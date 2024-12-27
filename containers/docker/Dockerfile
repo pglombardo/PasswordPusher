@@ -81,7 +81,8 @@ RUN apk add --no-cache \
     mariadb-connector-c \
     nodejs \
     sqlite-dev \
-    tzdata
+    tzdata \
+    yarn
 
 # Create a user and group to run the application
 ARG UID=1000

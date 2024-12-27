@@ -148,6 +148,7 @@ pre {
     --bs-danger: #c00;
     --bs-light: #222;
     --bs-dark: #adafae;
+    --bs-secondary-color: #ccc;
     --bs-primary-rgb: 42, 159, 214;
     --bs-secondary-rgb: 85, 85, 85;
     --bs-success-rgb: 119, 179, 0;
@@ -159,7 +160,8 @@ pre {
     --bs-white-rgb: 255, 255, 255;
     --bs-black-rgb: 0, 0, 0;
     --bs-body-rgb: 173, 175, 174;
-    --bs-font-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    /* --bs-body-color: #adb5bd; */
+    --bs-ans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     --bs-font-monospace: 'Roboto Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
@@ -169,6 +171,38 @@ pre {
     --bs-body-color: var(--bs-gray-300);
     --bs-link-color: var(--bs-yellow);
     --bs-body-bg: #060606;
+    --bs-tertiary-bg: #888;
+  
+  }
+
+  .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-control-plaintext ~ label, .form-floating > .form-select ~ label {
+    color: var(--bs-white-100);
+  }
+
+  .navbar-dark, .navbar[data-bs-theme="dark"] {
+    background-color: var(--bs-black-300);
+  }
+
+  .table thead th {
+    color: var(--bs-body-color);
+    background-color: var(--bs-gray-700);
+  }
+
+  .table > :not(caption) > * > * {
+    color: var(--bs-body-color);
+    background-color: var(--bs-gray-700);
+  }
+
+  .table-striped > tbody > tr:nth-of-type(2n+1) > *
+  {
+    background-color: var(--bs-gray-900);
+    color: var(--bs-body-color);
+  }
+
+  .nav-tabs .nav-link.active {
+    color: var(--bs-white);
+    background-color: #121212;;
+    border-color: var(--bs-gray-700);
   }
 
   .accordion-button {

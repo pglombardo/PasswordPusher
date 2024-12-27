@@ -1,123 +1,192 @@
-$fontName: "Roboto Mono";
-$fontId: "roboto-mono";
-$style: normal;
-$display: swap;
-$weight: 400;
-$fontDir: "~@fontsource/#{$fontId}/files";
-$unicodeMap: (cyrillic-ext: (U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F), cyrillic: (U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116), greek: (U+0370-03FF), vietnamese: (U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EF9,U+20AB), latin-ext: (U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF), latin: (U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD));
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
 
-@mixin fontFace(
-  $fontName: $fontName,
-  $fontId: $fontId,
-  $style: $style,
+@use 'metadata';
+
+$metadata: meta.module-variables(metadata) !default;
+$directory: null !default;
+
+$family: null !default;
+$display: null !default;
+$formats: null !default;
+$subsets: null !default;
+$weights: null !default;
+$styles: null !default;
+$axes: null !default;
+
+// Deprecated
+$displayVar: null !default;
+
+@mixin generator(
+  $metadata: $metadata,
+  $directory: $directory,
+  $family: $family,
   $display: $display,
-  $weight: $weight,
-  $fontDir: $fontDir,
-  $unicodeMap: $unicodeMap
+  $formats: $formats,
+  $subsets: $subsets,
+  $weights: $weights,
+  $styles: $styles,
+  $axes: $axes,
+
+  // Deprecated
+  $displayVar: $displayVar
 ) {
-  @each $subset, $unicodeRangeValues in $unicodeMap {
-    @font-face {
-      font-family: "#{$fontName}";
-      font-style: $style;
-      font-display: $display;
-      font-weight: $weight;
-      src: url("#{$fontDir}/#{$fontId}-#{$subset}-#{$weight}-#{$style}.woff2") format("woff2"),
-        url("#{$fontDir}/#{$fontId}-all-#{$weight}-#{$style}.woff") format("woff");
-      unicode-range: $unicodeRangeValues;
-    }
-  }
-}
 
-$defSubset: "latin";
-$unicodeRange: false;
-$unicodeRangeValues: (U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD);
-
-@mixin fontFaceCustom(
-  $fontName: $fontName,
-  $fontId: $fontId,
-  $style: $style,
-  $display: $display,
-  $weight: $weight,
-  $woff2Path: null,
-  $woffPath: null,
-  $unicodeRange: $unicodeRange,
-  $unicodeRangeValues: $unicodeRangeValues
-) {
-  @if $woffPath == null {
-    $woffPath: "#{$fontDir}/#{$fontId}-#{$defSubset}-#{$weight}-#{$style}.woff";
-  }
-  @if $woff2Path == null {
-    $woff2Path: "#{$fontDir}/#{$fontId}-#{$defSubset}-#{$weight}-#{$style}.woff2";
+  @if $displayVar != null {
+    @warn "$displayVar is deprecated due to the limitation of using css variables in @font-face (https://github.com/fontsource/fontsource/issues/726).";
   }
 
-  @font-face {
-    font-family: "#{$fontName}";
-    font-style: $style;
-    font-display: $display;
-    font-weight: $weight;
-    src: url("#{$woff2Path}") format("woff2"), url("#{$woffPath}") format("woff");
-    @if $unicodeRange {
-      unicode-range: $unicodeRangeValues;
-    }
-  }
-}
+  $isVariable: map.get($metadata, axes) != null;
 
-$fontNameVariable: "Roboto MonoVariable";
-$weightVariable: 100 700;
-$type: "wghtOnly";
-$stretch: null;
+  $directory: if(
+    $directory,
+    $directory,
+    '~@fontsource#{if($isVariable, '-variable', '')}/#{map.get($metadata, id)}/files'
+  );
 
-@mixin fontFaceVariable(
-  $fontName: $fontNameVariable,
-  $fontId: $fontId,
-  $style: $style,
-  $display: $display,
-  $weight: $weightVariable,
-  $fontDir: $fontDir,
-  $type: $type,
-  $stretch: $stretch,
-  $unicodeMap: $unicodeMap
-) {
-  @each $subset, $unicodeRangeValues in $unicodeMap {
-    @font-face {
-      font-family: "#{$fontName}";
-      font-style: $style;
-      font-display: $display;
-      font-weight: $weight;
-      @if $type == "full" {
-        font-stretch: $stretch;
+  $family: if($family, $family, map.get($metadata, family) + if($isVariable, ' Variable', ''));
+  $display: if($display, $display, swap);
+  $formats: if(not $formats or $formats == all, if($isVariable, woff2, (woff2, woff)), $formats);
+  $subsets: if(
+    $subsets,
+    if($subsets == all, map.get($metadata, subsets), $subsets),
+    map.get($metadata, subsets)
+  );
+  $weights: if(
+    $weights,
+    if($weights == all, map.get($metadata, weights), $weights),
+    map.get($metadata, defaults, weight)
+  );
+  $styles: if(
+    $styles,
+    if($styles == all, map.get($metadata, styles), $styles),
+    map.get($metadata, defaults, style)
+  );
+  $axes: if(
+    $axes,
+    if($axes == all, full, $axes),
+    if($isVariable, if(map.has-key($metadata, axes, wght), wght, full), null)
+  );
+
+  @each $subset in $subsets {
+    @each $unicodeSubset, $unicodeRange in map.get($metadata, unicode) {
+      // If condition is true, generate faces for the current subset
+      @if (
+      	// If there is no unicode information for the font or
+        ($unicodeSubset == null) or
+        	// If the subset match a unicode subset or
+        	($subset == $unicodeSubset) or
+						(
+							// If $unicodeSubset is a numeric unicode subset
+							// and current subset exists in the list of font subsets but does not match any unicode subset
+							// then generate faces for this numeric unicode subset as it is representing part of the current subset
+							list.index(map.get($metadata, subsets), $subset) and not
+								map.has-key($metadata, unicode, $subset) and not
+									list.index(map.get($metadata, subsets), $unicodeSubset)
+						)
+      ) {
+        @each $weight in if($axes, null, $weights) {
+          @each $axis in $axes {
+            @each $style in $styles {
+              $variant: '#{map.get($metadata, id)}-#{if($unicodeSubset, $unicodeSubset, $subset)}-#{if($axis, $axis, $weight)}-#{$style}';
+
+              $src: ();
+              @each $format in $formats {
+                $src: append(
+                  $src,
+                  url('#{$directory}/#{$variant}.#{$format}')
+                    format('#{$format}#{if($axis, '-variations', '')}'),
+                  comma
+                );
+              }
+
+              @content ((
+                metadata: $metadata,
+                directory: $directory,
+                family: $family,
+                display: $display,
+                formats: $formats,
+                subsets: $subsets,
+                weights: $weights,
+                styles: $styles,
+                axes: $axes,
+
+                variant: $variant,
+                subset: $subset,
+                unicodeSubset: $unicodeSubset,
+                unicodeRange: $unicodeRange,
+                weight: $weight,
+                axis: $axis,
+                style: $style,
+
+                font-family: string.quote($family),
+                font-style: if(
+                  (($axis == full) or ($axis == slnt)) and map.has-key($metadata, axes, slnt),
+                  oblique map.get($metadata, axes, slnt, min) + deg map.get($metadata, axes, slnt, max) + deg,
+                  $style
+                ),
+                font-display: $display,
+                font-weight: if(
+                  (($axis == full) or ($axis == wght)) and map.has-key($metadata, axes, wght),
+                  map.get($metadata, axes, wght, min) map.get($metadata, axes, wght, max),
+                  $weight
+                ),
+                font-stretch: if(
+                  (($axis == full) or ($axis == wdth)) and map.has-key($metadata, axes, wdth),
+                  '#{map.get($metadata, axes, wdth, min)}% #{map.get($metadata, axes, wdth, max)}%',
+                  null
+                ),
+                src: $src,
+                unicode-range: $unicodeRange,
+              ));
+            }
+          }
+        }
       }
-      src: url("#{$fontDir}/#{$fontId}-#{$subset}-variable-#{$type}-#{$style}.woff2") format("woff2");
-      unicode-range: $unicodeRangeValues;
     }
   }
 }
 
-@mixin fontFaceVariableCustom(
-  $fontName: $fontNameVariable,
-  $fontId: $fontId,
-  $style: $style,
+@mixin faces(
+  $metadata: $metadata,
+  $directory: $directory,
+  $family: $family,
   $display: $display,
-  $weight: $weightVariable,
-  $woff2Path: null,
-  $unicodeRange: $unicodeRange,
-  $unicodeRangeValues: $unicodeRangeValues
-) {
-  @if $woff2Path == null {
-    $woff2Path: "#{$fontDir}/#{$fontId}-#{$defSubset}-variable-#{$type}-#{$style}.woff2";
-  }
+  $formats: $formats,
+  $subsets: $subsets,
+  $weights: $weights,
+  $styles: $styles,
+  $axes: $axes,
 
-  @font-face {
-    font-family: "#{$fontName}";
-    font-style: $style;
-    font-display: $display;
-    font-weight: $weight;
-    @if $type == "full" {
-      font-stretch: $stretch;
-    }
-    src: url("#{$woff2Path}") format("woff2");
-    @if $unicodeRange {
-      unicode-range: $unicodeRangeValues;
+  // Deprecated
+  $displayVar: $displayVar
+) {
+  @include generator(
+      $metadata: $metadata,
+      $directory: $directory,
+      $family: $family,
+      $display: $display,
+      $formats: $formats,
+      $subsets: $subsets,
+      $weights: $weights,
+      $styles: $styles,
+      $axes: $axes,
+
+      $displayVar: $displayVar
+    )
+    using ($props) {
+    /* #{map.get($props, variant)} */
+    @font-face {
+      font-family: map.get($props, font-family);
+      font-style: map.get($props, font-style);
+      font-display: map.get($props, font-display);
+      font-weight: map.get($props, font-weight);
+      font-stretch: map.get($props, font-stretch);
+      unicode-range: map.get($props, unicode-range);
+      src: map.get($props, src);
     }
   }
 }

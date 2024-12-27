@@ -7,18 +7,34 @@
     "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^7.0.4",
     "@rails/activestorage": "^7.0.5",
-    "bootstrap": "^5.2.3",
+    "autoprefixer": "^10.4.20",
+    "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "chokidar": "^4.0.2",
     "clipboard": "^2.0.11",
     "esbuild": "^0.24.0",
     "esbuild-rails": "^1.0.3",
     "flag-icons": "^7.2.3",
     "js-cookie": "^3.0.4",
+    "nodemon": "^3.1.9",
     "omgopass": "^3.2.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-env-function": "^7.0.0",
+    "postcss-import": "^16.1.0",
+    "postcss-simple-vars": "^7.0.1",
+    "sass": "^1.83.0",
     "spoiler-alert": "^0.1.0"
   },
   "scripts": {
-    "build": "esbuild --bundle         app/javascript/application.js --outfile=app/assets/javascripts/application.js",
-    "watch": "esbuild --watch --bundle app/javascript/application.js --outfile=app/assets/javascripts/application.js"
-  }
+    "set:theme": "node ./set_theme.js",
+    "build": "node esbuild.config.mjs",
+    "build:css:compile": "sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets",
+    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css -c postcss.config.js --verbose",
+    "build:css": "yarn set:theme && yarn build:css:compile && yarn build:css:prefix",
+    "watch:css": "nodemon --ignore app/assets/stylesheets/themes/selected.css --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
