@@ -6,23 +6,26 @@ The CSS and web font files to easily self-host the “Roboto Slab” font. Pleas
 
 ## Quick Installation
 
-Fontsource has a variety of methods to import CSS, such as using a bundler like Webpack. Alternatively, it supports SASS. Full documentation can be found [here](https://fontsource.org/docs/introduction).
+Fontsource offers multiple methods to import the CSS, including using a bundler like Vite or using SASS. You can find full documentation [here](https://fontsource.org/docs/getting-started/introduction).
 
 ```javascript
-yarn add @fontsource/roboto-slab // npm install @fontsource/roboto-slab
+npm install @fontsource/roboto-slab
 ```
 
 Within your app entry file or site component, import it in.
 
 ```javascript
-import "@fontsource/roboto-slab"; // Defaults to weight 400.
+import "@fontsource/roboto-slab"; // Defaults to weight 400
+import "@fontsource/roboto-slab/400.css"; // Specify weight
+import "@fontsource/roboto-slab/400-italic.css"; // Specify weight and style
 ```
 
 Supported variables:
-
 - Weights: `[100,200,300,400,500,600,700,800,900]`
 - Styles: `[normal]`
-- Supported subsets: `[cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese]`
+- Subsets: `[cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese]`
+
+> Note: `italic` may not be supported by all fonts. To learn more about what weights and styles are supported, please visit the [Fontsource website](https://fontsource.org/fonts/roboto-slab).
 
 Finally, you can reference the font name in a CSS stylesheet, CSS Module, or CSS-in-JS.
 
@@ -32,21 +35,13 @@ body {
 }
 ```
 
-## Variable Fonts
-
-This particular typeface supports [variable fonts](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide).
-
-Variable documentation can be found [here](https://fontsource.org/docs/variable-fonts).
-
 ## Licensing
+Always make sure to read the license for each font you use. Most of the fonts in the collection use the SIL Open Font License, v1.1. Some fonts use the Apache 2 license. The Ubuntu fonts use the Ubuntu Font License v1.0.
 
-It is important to always read the license for every font that you use.
-Most of the fonts in the collection use the SIL Open Font License, v1.1. Some fonts use the Apache 2 license. The Ubuntu fonts use the Ubuntu Font License v1.0.
-
-[Google Fonts License Attributions](https://fonts.google.com/attribution)
+Copyright 2018 The Roboto Slab Project Authors (https://github.com/googlefonts/robotoslab)
+[Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## Other Notes
+Font version (provided by source): `v34`.
 
-Font version (provided by source): `v24`.
-
-Feel free to star and contribute new ideas to this repository that aim to improve the performance of font loading, as well as expanding the existing library we already have. Any suggestions or ideas can be voiced via an [issue](https://github.com/fontsource/fontsource/issues).
+If you have any suggestions or ideas to improve the performance of font loading or expand the existing library, feel free to star and contribute to this repository. You can share your suggestions or ideas by creating an [issue](https://github.com/fontsource/fontsource/issues).

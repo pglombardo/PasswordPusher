@@ -1,27 +1,25 @@
-version: '2.1'
-
 services:
-  postgres:
-    image: docker.io/postgres:15
+  db:
+    image: docker.io/postgres:16
     volumes:
-      - /var/lib/postgresql/data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: passwordpusher_user
-      POSTGRES_PASSWORD: passwordpusher_passwd
-      POSTGRES_DB: passwordpusher_db
+      POSTGRES_USER: pwpush_user
+      POSTGRES_PASSWORD: pwpush_passwd
+      POSTGRES_DB: pwpush_db
 
-  passwordpusher:
+  pwpush:
     image: docker.io/pglombardo/pwpush:latest
     environment:
-      DATABASE_URL: 'postgres://passwordpusher_user:passwordpusher_passwd@postgres:5432/passwordpusher_db'
+      DATABASE_URL: 'postgres://pwpush_user:pwpush_passwd@db:5432/pwpush_db'
     ports:
       - "5100:5100"
     depends_on:
-      - postgres
+      - db
     links:
-     - postgres:postgres
+     - db:db
     #
     # You can set environment variables here, or in a .env file.  See:
     # https://docs.docker.com/compose/environment-variables/
