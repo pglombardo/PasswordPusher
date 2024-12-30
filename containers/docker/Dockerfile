@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.3-alpine AS build-env
+FROM ruby:3.4-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -65,7 +65,7 @@ RUN bundle exec rake db:setup
 
 ################## Build done ##################
 
-FROM ruby:3.3-alpine
+FROM ruby:3.4-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
