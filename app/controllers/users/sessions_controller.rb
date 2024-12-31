@@ -20,6 +20,17 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  # after_sign_out_path_for
+  #
+  # This method is called after the user has signed out.
+  # Ensure the session data is cleared and the session cookie is deleted.
+  #
+  def after_sign_out_path_for(resource_or_scope)
+    reset_session  # Explicitly clear the session data
+    cookies.delete("_PasswordPusher_session") # Delete the session cookie
+    root_path      # Redirect to the root path after logout
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
