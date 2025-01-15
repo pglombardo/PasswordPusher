@@ -57,12 +57,11 @@ ENV DATABASE_URL=sqlite3:db/db.sqlite3
 #    SECRET_KEY_BASE=<value>
 ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
 
-RUN bundle exec bootsnap precompile --gemfile
-RUN bundle exec bootsnap precompile app/ lib/
-RUN bundle exec rails assets:precompile
-RUN bundle exec rake db:setup
-
-RUN rm -rf tmp/cache tmp/pids tmp/sockets
+RUN bundle exec bootsnap precompile --gemfile \
+    && bundle exec bootsnap precompile app/ lib/ \
+    && bundle exec rails assets:precompile \
+    && bundle exec rake db:setup \
+    && rm -rf tmp/cache tmp/pids tmp/sockets
 
 ################## Build done ##################
 
