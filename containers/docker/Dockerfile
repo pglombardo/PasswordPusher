@@ -33,10 +33,8 @@ ENV RACK_ENV=production RAILS_ENV=production
 
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
-    && bundle install
-
-# Removing unneccesary files/directories
-RUN rm -rf vendor/bundle/ruby/*/cache \
+    && bundle install --jobs=4 --retry=3 \
+    && rm -rf vendor/bundle/ruby/*/cache \
     && rm -rf vendor/bundle/ruby/*/bundler/gems/*/.git \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
@@ -64,6 +62,8 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN bundle exec rails assets:precompile
 RUN bundle exec rake db:setup
 
+RUN rm -rf tmp/cache tmp/pids tmp/sockets
+
 ################## Build done ##################
 
 FROM ruby:3.3-alpine
@@ -90,13 +90,14 @@ RUN apk add --no-cache \
 ARG UID=1000
 ARG GID=1000
 
-RUN addgroup -g "${GID}" pwpusher \
-  && adduser -D -u "${UID}" -G pwpusher pwpusher
-
 ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher
 WORKDIR ${APP_ROOT}
 ENV RACK_ENV=production RAILS_ENV=production
+
+RUN addgroup -g "${GID}" pwpusher \
+  && adduser -D -u "${UID}" -G pwpusher pwpusher \
+  && chown -R pwpusher:pwpusher ${APP_ROOT}
 
 # Set a default secret_key_base
 # For those self-hosting this app, you should
@@ -108,7 +109,11 @@ ENV RACK_ENV=production RAILS_ENV=production
 #    SECRET_KEY_BASE=<value>
 ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
 
-COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
+COPY --from=build-env --chown=pwpusher:pwpusher \
+    /opt/PasswordPusher/public/assets /opt/PasswordPusher/public/assets
+COPY --from=build-env --chown=pwpusher:pwpusher \
+    /opt/PasswordPusher/vendor /opt/PasswordPusher/vendor
+COPY ./ ${APP_ROOT}/
 
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
