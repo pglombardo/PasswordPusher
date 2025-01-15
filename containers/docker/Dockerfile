@@ -21,6 +21,7 @@ RUN apk add --no-cache \
     nodejs \
     sqlite-dev \
     tzdata \
+    yaml-dev \
     yarn
 
 ENV APP_ROOT=/opt/PasswordPusher
@@ -82,6 +83,7 @@ RUN apk add --no-cache \
     nodejs \
     sqlite-dev \
     tzdata \
+    yaml-dev \
     yarn
 
 # Create a user and group to run the application
