@@ -5,7 +5,7 @@ set -e
 
 # Check for input arguments
 if [ "$#" -ne 1 ]; then
-  echo "Usage: ./move_up_stable_tag.sh <target-tab-without-v>"
+  echo "Usage: ./move_up_stable_tag.sh <target-tag-without-v>"
   exit 1
 fi
 
