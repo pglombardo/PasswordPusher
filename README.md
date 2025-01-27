@@ -84,6 +84,12 @@ See the full [Password Pusher documentation here](https://docs.pwpush.com).
 
 # 📼 Credits
 
+## Security Researchers
+
+* Kullai Metikala | [Github](https://github.com/kullaisec) | [LinkedIn](https://www.linkedin.com/in/kullai-metikala-8378b122a/)
+* [Positive Technologies](https://global.ptsecurity.com)
+* Igniter | [Github](https://github.com/igniter07)
+
 ## Translators
 
 Thanks to our great translators!
