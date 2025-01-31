@@ -22,7 +22,7 @@ RUN apk add --no-cache \
     tzdata \
     yaml-dev \
     yarn \
-    pkg-config
+    pkgconf
 
 
 ENV APP_ROOT=/opt/PasswordPusher
