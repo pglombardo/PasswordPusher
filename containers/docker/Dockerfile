@@ -10,7 +10,7 @@ ARG BUNDLE_DEPLOYMENT
 
 LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
-# Required packages
+# Required build packages
 RUN apk add --no-cache \
     build-base \
     curl \
@@ -23,6 +23,7 @@ RUN apk add --no-cache \
     tzdata \
     yaml-dev \
     yarn
+
 
 ENV APP_ROOT=/opt/PasswordPusher
 
@@ -74,16 +75,14 @@ ARG BUNDLE_DEPLOYMENT
 
 LABEL maintainer='pglombardo@hey.com'
 
-# install packages
+# install only runtime packages (removed build-related packages)
 RUN apk add --no-cache \
     bash \
     libc6-compat \
     libpq \
     mariadb-connector-c \
     nodejs \
-    sqlite-dev \
     tzdata \
-    yaml-dev \
     yarn
 
 # Create a user and group to run the application
