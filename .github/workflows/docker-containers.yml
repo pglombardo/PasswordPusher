@@ -4,7 +4,6 @@ name: Docker Container Builds
 on:
   push:
     tags:
-      - "stable"
       - "v*.*.*"
 
   workflow_dispatch:
@@ -51,6 +50,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -96,6 +96,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -141,6 +142,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
