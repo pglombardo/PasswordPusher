@@ -21,7 +21,8 @@ RUN apk add --no-cache \
     sqlite-dev \
     tzdata \
     yaml-dev \
-    yarn
+    yarn \
+    pkg-config
 
 
 ENV APP_ROOT=/opt/PasswordPusher
