@@ -113,6 +113,9 @@ ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d61797
 
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 
+RUN bundle config set without "${BUNDLE_WITHOUT}" \
+    && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
+
 USER pwpusher
 EXPOSE 5100
 ENTRYPOINT ["containers/docker/entrypoint.sh"]
