@@ -14,6 +14,7 @@ LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 RUN apk add --no-cache \
     git \
     build-base \
+    musl-dev \
     libc6-compat \
     libpq-dev \
     mariadb-dev \
