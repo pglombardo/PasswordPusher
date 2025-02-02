@@ -11,10 +11,19 @@ console.log(' --> 🏝 May all your pushes be stored securely, read once and exp
 
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-if (prefersDarkScheme.matches) {
-    document.body.classList.add('dark-mode')
-} else {
-    document.body.classList.remove('dark-mode')
+// Function to handle theme changes
+const handleThemeChange = (e) => {
+    if (e.matches) {
+        document.documentElement.setAttribute('data-bs-theme', 'dark')
+    } else {
+        document.documentElement.setAttribute('data-bs-theme', 'light')
+    }
 }
+
+// Initial check
+handleThemeChange(prefersDarkScheme);
+
+// Listen for changes
+prefersDarkScheme.addEventListener('change', handleThemeChange);
 
 export { application }
