@@ -10,10 +10,12 @@ ARG BUNDLE_DEPLOYMENT
 
 LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
-# Required build packages
+# Required build packages - adding clang and llvm only in build stage
 RUN apk add --no-cache \
     git \
     build-base \
+    clang \
+    llvm \
     libc6-compat \
     libpq-dev \
     mariadb-dev \
@@ -24,6 +26,9 @@ RUN apk add --no-cache \
     yarn \
     pkgconf
 
+# Set compiler to clang
+ENV CC=clang
+ENV CXX=clang++
 
 ENV APP_ROOT=/opt/PasswordPusher
 
