@@ -17,10 +17,16 @@ on:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'nightly' docker containers
     - cron: "24 17 * * *"
+
+  pull_request_target:
+    types:
+      - labeled
+
 env:
   DOCKER_PUSH: true
 jobs:
   pwpush-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,6 +44,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
@@ -64,6 +71,7 @@ jobs:
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
 
   public-gateway-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
@@ -82,6 +90,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
@@ -108,6 +117,7 @@ jobs:
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
 
   worker-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
@@ -126,6 +136,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
