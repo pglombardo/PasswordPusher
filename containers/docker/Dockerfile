@@ -63,10 +63,8 @@ ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d61797
 # Precompile bootsnap cache for gems an application code to improve load time
 # This creates a cache of the gem requires and application code which speeds up application boot
 # Note: This must be run AFTER bundle install since it caches the installed gems
-# Disable bootsnap for now because it's not working:
-# https://github.com/Shopify/bootsnap/issues/495#issuecomment-2631895354
-# RUN bundle exec bootsnap precompile --gemfile
-# RUN bundle exec bootsnap precompile app/ lib/
+RUN bundle exec bootsnap precompile --gemfile
+RUN bundle exec bootsnap precompile app/ lib/
 RUN bundle exec rails assets:precompile
 RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets
 
