@@ -36,7 +36,7 @@ ENV RACK_ENV=production RAILS_ENV=production
 
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
-    && bundle install --jobs=4 --retry=3 \
+    && bundle install \
     && rm -rf vendor/bundle/ruby/*/cache \
     && rm -rf vendor/bundle/ruby/*/bundler/gems/*/.git \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
