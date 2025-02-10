@@ -648,9 +648,12 @@ pt-BR:
     policy:
       pwgen_syllables_count_help: O número de sílabas na senha gerada.
       edit: Editar política
+      team_policy_help: Uma política de equipe é um conjunto de regras que se aplicam
+        a todos os pushes feitos por membros desta equipe.
       personal_policy: Política Pessoal
       personal_policy_help: Uma política é um conjunto de regras que se aplicam a
         todos os pushes criados por você.
+      team_policy: Política de equipe
       header_timed_expiration: Expiração cronometrada
       expire_after_duration_min: Duração Mínima
       expire_after_duration_min_help: A duração mínima antes que um push expire.
@@ -740,44 +743,6 @@ pt-BR:
         gerada.
       pwgen_syllables_count: Contagem de sílabas
       policy: Política
-      account_policy: Política de conta
-      account_policy_help: A política da conta é um conjunto de regras que se aplicam
-        a todos os membros desta conta.
-      header_pull_passphrase: Bloqueio de senha
-      header_pull_retrieval_step: Etapa de recuperação com 1 clique
-      header_pull_timed_expiration: Expiração cronometrada
-      header_pwgen_options: Opções de geração de senha
-      pull_close_after_duration_default: Duração padrão
-      pull_close_after_duration_default_help: Depois que uma solicitação recebe uma
-        resposta, esta é a duração padrão antes de expirar.
-      pull_close_after_duration_max: Duração Máxima
-      pull_close_after_duration_max_help: Depois que uma solicitação recebe uma resposta,
-        esta é a duração máxima antes de expirar.
-      pull_close_after_duration_min: Duração Mínima
-      pull_close_after_duration_min_help: Depois que uma solicitação recebe uma resposta,
-        esta é a duração mínima antes de ela expirar.
-      pull_enable_retrieval_step: Habilitar?
-      pull_enable_retrieval_step_help: Ativar a recuperação com 1 clique para esta
-        equipe? Se desabilitada, esta opção ficará oculta e não será usada.
-      pull_header_passphrase: Bloqueio de senha
-      pull_header_retrieval_step: Etapa de recuperação com 1 clique
-      pull_hide_passphrase: Ocultar opção?
-      pull_hide_passphrase_help: Oculta a opção Bloqueio de senha. Útil para desabilitar
-        totalmente o uso desta opção.
-      pull_hide_retrieval_step: Ocultar opção?
-      pull_hide_retrieval_step_help: Oculta a opção da etapa de recuperação com 1
-        clique dos membros da equipe. Isso é útil para forçar o padrão da opção sem
-        mostrá-la aos membros da equipe.
-      pull_retrieval_step_default: Valor padrão
-      pull_retrieval_step_default_help: O valor padrão para a opção da etapa de recuperação
-        com 1 clique.
-      pull_retrieval_step_forced: Forçar o valor padrão?
-      pull_retrieval_step_forced_help: Força o uso desta opção com o valor padrão
-        para todos os membros da equipe. Não pode ser alterado pelos membros da equipe.
-      require_2fa: Exige autenticação de dois fatores?
-      require_2fa_help: Exigir que os membros da conta usem a autenticação de dois
-        fatores (2FA) para acessar esta conta.
-      security_header_logins: Segurança de login
     account_invitations:
       max_users: Você atingiu o número máximo de usuários para sua equipe. Entre em
         contato conosco para atualizar e adicionar mais usuários.
@@ -926,16 +891,6 @@ pt-BR:
       will_expire_in: 'Os links para download de arquivos acima irão expirar em:'
       you_can_refresh: Você pode atualizar a página para gerar novos links de download
         caso ainda haja visualizações.
-    layout:
-      blank_brand:
-        description: Este link está configurado para expirar automaticamente e ser
-          excluído automaticamente após um tempo ou número de visualizações especificado.
-        title: Você recebeu um link secreto.
-    policy_navbar:
-      password_generator: Gerador de senhas
-      pushes: Empurra
-      requests: Pedidos
-      security: Segurança
   audit_logs:
     audit_log:
       log_created: Push criado em %{date} por %{user}
@@ -1127,8 +1082,6 @@ pt-BR:
       policy_tip: 'Dica: Você pode definir padrões e muito mais em seu %{link}.'
       short_expiration_tip: Tempos de expiração curtos e contagens de visualizações
         reduzem o risco de exposição.
-      qr_payload_placeholder: Insira até 1024 caracteres alfanuméricos...
-      qr_tip: Somente caracteres alfanuméricos. São permitidos até 1024 caracteres.
     index:
       actions: Ações
       clear_filters: Limpar filtros
@@ -1143,9 +1096,6 @@ pt-BR:
       all: Todos
       remaining: Restante
       team_pushes: Empurrões de equipe
-      pushes_help: Esta página mostra todos os pushes criados por você.
-      team_pushes_help: Esta página mostra todos os pushes criados por todos os membros
-        da conta.
     'no': Não
     none: Nenhum
     passphrase:
@@ -1215,13 +1165,10 @@ pt-BR:
       files: Arquivos
       text: Senhas e Texto
       url: URLs
-      qr: Códigos QR ᴮᴱᵀᴬ
     new:
       title: Envie com segurança uma senha, texto ou arquivo
     create:
       premium_required: Você precisa se inscrever para anexar arquivos.
-      qr_max_length: O payload do código QR é muito grande. Você só pode enviar até
-        %{count} bytes.
     update:
       successful: O push foi atualizado com sucesso.
   static:
@@ -1449,13 +1396,6 @@ pt-BR:
           e expirada em %{remaining}.
         now_closed_message: Seu ID de solicitação %{url_token} recebeu uma resposta.
           A solicitação já foi fechada.
-        email:
-          description_html: O ID da solicitação <strong>%{url_token}</strong> recebeu
-            uma resposta. Ele será fechado e expirado em <strong>%{remaining}</strong>
-            .
-          html_header: Sua solicitação recebeu uma resposta.
-          subject: Sua solicitação recebeu uma resposta
-          view_audit_log: Ver solicitação
   pulls:
     access:
       incorrect: Essa senha está incorreta. Tente novamente ou entre em contato com
@@ -1643,9 +1583,6 @@ pt-BR:
       team_pulls: Solicitações de equipe
       views: Visualizações
       views_remaining: Visualizações restantes
-      pulls_help: Esta página mostra todas as solicitações criadas por você.
-      team_pulls_help: Esta página mostra todas as solicitações criadas por todos
-        os membros desta conta.
     minute:
       one: 1 minuto
       other: "%{count} minutos"

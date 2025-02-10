@@ -1,0 +1,25 @@
+<% if push.files.attached? && Rails.application.config.active_storage.try(:service).to_s != "local" %>
+  <div class="text-muted fs-6">
+    <%= t('application.push_expiration.will_expire_in') %> <span id="countdown-timer">4:59</span>
+    <div class="mt-2 mb-4">
+      <%= t('application.push_expiration.you_can_refresh') %>
+    </div>
+  </div>
+  <script>
+    var endTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes in milliseconds
+    var countdown = setInterval(function() {
+      var now = new Date().getTime();
+      var timeRemaining = endTime - now;
+
+      if (timeRemaining < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown-timer").innerHTML = "<%= t('words.expired') %>";
+      } else {
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+        seconds = seconds.toString().padStart(2, '0');
+        document.getElementById("countdown-timer").innerHTML = minutes + ":" + seconds;
+      }
+    }, 1000);
+  </script>
+<% end %>

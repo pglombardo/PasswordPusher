@@ -660,9 +660,12 @@ it:
     policy:
       pwgen_syllables_count_help: Il numero di sillabe nella password generata.
       edit: Modifica Policy
+      team_policy_help: Una policy del team è un insieme di regole che si applicano
+        a tutti i push effettuati dai membri di questo team.
       personal_policy: Politica personale
       personal_policy_help: Una policy è un insieme di regole che si applicano a tutti
         i push creati dall'utente.
+      team_policy: Politica della squadra
       header_timed_expiration: Scadenza temporizzata
       expire_after_duration_min: Durata minima
       expire_after_duration_min_help: La durata minima prima della scadenza di un
@@ -756,45 +759,6 @@ it:
         generata.
       pwgen_syllables_count: Conteggio delle sillabe
       policy: Politica
-      account_policy: Politica dell'account
-      account_policy_help: La politica dell'account è un insieme di regole che si
-        applicano a tutti i membri di questo account.
-      header_pull_passphrase: Blocco della passphrase
-      header_pull_retrieval_step: Passaggio di recupero con 1 clic
-      header_pull_timed_expiration: Scadenza temporizzata
-      header_pwgen_options: Opzioni di generazione della password
-      pull_close_after_duration_default: Durata predefinita
-      pull_close_after_duration_default_help: Una volta che una richiesta riceve una
-        risposta, questa è la durata predefinita prima della scadenza.
-      pull_close_after_duration_max: Durata massima
-      pull_close_after_duration_max_help: Una volta che una richiesta riceve una risposta,
-        questa è la durata massima prima della scadenza.
-      pull_close_after_duration_min: Durata minima
-      pull_close_after_duration_min_help: Una volta che una richiesta riceve una risposta,
-        questa è la durata minima prima della scadenza.
-      pull_enable_retrieval_step: Abilitare?
-      pull_enable_retrieval_step_help: Abilitare il recupero con 1 clic per questo
-        team? Se disabilitata, questa opzione verrà nascosta e non utilizzata.
-      pull_header_passphrase: Blocco della passphrase
-      pull_header_retrieval_step: Passaggio di recupero con 1 clic
-      pull_hide_passphrase: Nascondi opzione?
-      pull_hide_passphrase_help: Nasconde l'opzione Blocco passphrase. Utile per disabilitare
-        completamente l'uso di questa opzione.
-      pull_hide_retrieval_step: Nascondi opzione?
-      pull_hide_retrieval_step_help: Nasconde l'opzione del passaggio Recupero con
-        1 clic ai membri del team. Ciò è utile per forzare l'opzione predefinita senza
-        mostrarla ai membri del team.
-      pull_retrieval_step_default: Valore predefinito
-      pull_retrieval_step_default_help: Il valore predefinito per l'opzione del passaggio
-        Recupero con 1 clic.
-      pull_retrieval_step_forced: Forzare il valore predefinito?
-      pull_retrieval_step_forced_help: Forza l'uso di questa opzione con il valore
-        predefinito per tutti i membri del team. Non può essere modificato dai membri
-        del team.
-      require_2fa: Richiedi l'autenticazione a due fattori?
-      require_2fa_help: Richiedi ai membri dell'account di utilizzare l'autenticazione
-        a due fattori (2FA) per accedere a questo account.
-      security_header_logins: Sicurezza di accesso
     account_invitations:
       max_users: Hai raggiunto il numero massimo di utenti per il tuo team. Contattaci
         per effettuare l'upgrade e aggiungere altri utenti.
@@ -943,16 +907,6 @@ it:
       will_expire_in: 'I link per il download dei file sopra indicati scadranno tra:'
       you_can_refresh: È possibile aggiornare la pagina per rigenerare nuovi link
         per il download se ci sono ancora visualizzazioni.
-    layout:
-      blank_brand:
-        description: Questo collegamento è impostato per scadere automaticamente e
-          autoeliminarsi dopo un periodo di tempo o un numero di visualizzazioni specificato.
-        title: Ti è stato inviato un link segreto.
-    policy_navbar:
-      password_generator: Generatore di password
-      pushes: Spinge
-      requests: Richieste
-      security: Sicurezza
   audit_logs:
     audit_log:
       log_created: Push creato su %{date} da %{user}
@@ -1149,8 +1103,6 @@ it:
         in %{link}.'
       short_expiration_tip: Tempi di scadenza e conteggi delle visualizzazioni brevi
         riducono il rischio di esposizione.
-      qr_payload_placeholder: Inserisci fino a 1024 caratteri alfanumerici...
-      qr_tip: Solo caratteri alfanumerici. Sono consentiti fino a 1024 caratteri.
     index:
       actions: Azioni
       clear_filters: Cancella filtri
@@ -1165,9 +1117,6 @@ it:
       all: Tutto
       remaining: Residuo
       team_pushes: Spinte di squadra
-      pushes_help: Questa pagina mostra tutti i push creati da te.
-      team_pushes_help: Questa pagina mostra tutte le push create da tutti i membri
-        dell'account.
     'no': 'No'
     none: Nessuna
     passphrase:
@@ -1239,13 +1188,10 @@ it:
       files: File
       text: Password e testo
       url: URL
-      qr: Codici QR
     new:
       title: Invia in modo sicuro una password, un testo o un file
     create:
       premium_required: Per allegare i file è necessario abbonarsi.
-      qr_max_length: Il payload del codice QR è troppo grande. Puoi caricare solo
-        fino a %{count} byte.
     update:
       successful: Push è stato aggiornato correttamente.
   static:
@@ -1481,13 +1427,6 @@ it:
           chiusa e scadrà tra %{remaining}.
         now_closed_message: Il tuo ID richiesta %{url_token} ha ricevuto una risposta.
           La richiesta è stata chiusa.
-        email:
-          description_html: L'ID richiesta <strong>%{url_token}</strong> ha ricevuto
-            una risposta. Verrà chiusa e scadrà tra <strong>%{remaining}</strong>
-            .
-          html_header: La tua richiesta ha ricevuto risposta.
-          subject: La tua richiesta ha ricevuto una risposta
-          view_audit_log: Visualizza richiesta
   pulls:
     access:
       incorrect: Quella passphrase non è corretta. Riprova o contatta la persona o
@@ -1677,9 +1616,6 @@ it:
       team_pulls: Richieste del team
       views: Visualizzazioni
       views_remaining: Visualizzazioni rimanenti
-      pulls_help: Questa pagina mostra tutte le richieste da te create.
-      team_pulls_help: Questa pagina mostra tutte le richieste create da tutti i membri
-        di questo account.
     minute:
       one: 1 minuto
       other: "%{count} minuti"

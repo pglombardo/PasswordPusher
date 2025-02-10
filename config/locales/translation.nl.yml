@@ -653,9 +653,12 @@ nl:
     policy:
       pwgen_syllables_count_help: Het aantal lettergrepen in het gegenereerde wachtwoord.
       edit: Beleid bewerken
+      team_policy_help: Een teambeleid is een reeks regels die van toepassing zijn
+        op alle pushes van leden van dit team.
       personal_policy: Persoonlijk beleid
       personal_policy_help: Een beleid is een reeks regels die van toepassing zijn
         op alle pushes die u maakt.
+      team_policy: Teambeleid
       header_timed_expiration: Getimede vervaldatum
       expire_after_duration_min: Minimale duur
       expire_after_duration_min_help: De minimale duur voordat een push verloopt.
@@ -748,44 +751,6 @@ nl:
         gegenereerde wachtwoord.
       pwgen_syllables_count: Lettergrepen tellen
       policy: Beleid
-      account_policy: Accountbeleid
-      account_policy_help: Het accountbeleid bestaat uit een reeks regels die gelden
-        voor alle leden van dit account.
-      header_pull_passphrase: Wachtwoordzin vergrendelen
-      header_pull_retrieval_step: Ophaalstap met 1 klik
-      header_pull_timed_expiration: Getimede vervaldatum
-      header_pwgen_options: Opties voor het genereren van wachtwoorden
-      pull_close_after_duration_default: Standaardduur
-      pull_close_after_duration_default_help: Zodra een aanvraag een reactie ontvangt,
-        is dit de standaardduur voordat de reactie verloopt.
-      pull_close_after_duration_max: Maximale duur
-      pull_close_after_duration_max_help: Zodra een verzoek een reactie heeft ontvangen,
-        is dit de maximale duur voordat het verzoek verloopt.
-      pull_close_after_duration_min: Minimale duur
-      pull_close_after_duration_min_help: Zodra een verzoek een reactie heeft ontvangen,
-        is dit de minimale duur voordat het verzoek verloopt.
-      pull_enable_retrieval_step: Inschakelen?
-      pull_enable_retrieval_step_help: 1-Click Retrieval inschakelen voor dit team?
-        Indien uitgeschakeld, wordt deze optie verborgen en niet gebruikt.
-      pull_header_passphrase: Wachtwoordzin vergrendelen
-      pull_header_retrieval_step: Ophaalstap met 1 klik
-      pull_hide_passphrase: Optie verbergen?
-      pull_hide_passphrase_help: Verbergt de optie Wachtwoordvergrendeling. Handig
-        om het gebruik van deze optie geheel uit te schakelen.
-      pull_hide_retrieval_step: Optie verbergen?
-      pull_hide_retrieval_step_help: Verbergt de optie Ophalen met 1 klik voor de
-        teamleden. Dit is handig om de standaardoptie te forceren zonder deze aan
-        teamleden te tonen.
-      pull_retrieval_step_default: Standaardwaarde
-      pull_retrieval_step_default_help: De standaardwaarde voor de optie Ophalen met
-        1 klik.
-      pull_retrieval_step_forced: De standaardwaarde forceren?
-      pull_retrieval_step_forced_help: Forceert het gebruik van deze optie met de
-        standaardwaarde voor alle teamleden. Het kan niet door teamleden worden gewijzigd.
-      require_2fa: Twee-factor-authenticatie vereist?
-      require_2fa_help: Vereist dat accountleden twee-factorauthenticatie (2FA) gebruiken
-        om toegang te krijgen tot dit account.
-      security_header_logins: Inloggen Beveiliging
     account_invitations:
       max_users: U hebt het maximum aantal gebruikers voor uw team bereikt. Neem contact
         met ons op om te upgraden en meer gebruikers toe te voegen.
@@ -935,16 +900,6 @@ nl:
         over:'
       you_can_refresh: U kunt de pagina vernieuwen om nieuwe downloadlinks te genereren
         als de pagina nog steeds bekeken wordt.
-    layout:
-      blank_brand:
-        description: Deze link verloopt automatisch en wordt verwijderd na een bepaalde
-          tijd of een bepaald aantal weergaven.
-        title: Er is een geheime link naar u verzonden.
-    policy_navbar:
-      password_generator: Wachtwoord generator
-      pushes: Duwt
-      requests: Verzoeken
-      security: Beveiliging
   audit_logs:
     audit_log:
       log_created: Push gemaakt op %{date} door %{user}
@@ -1135,8 +1090,6 @@ nl:
       policy_tip: 'Tip: U kunt standaardinstellingen en meer instellen in uw %{link}.'
       short_expiration_tip: Korte houdbaarheidsdata en korte weergaven beperken het
         risico op blootstelling.
-      qr_payload_placeholder: Voer maximaal 1024 alfanumerieke tekens in...
-      qr_tip: Alleen alfanumerieke tekens. Maximaal 1024 tekens zijn toegestaan.
     index:
       actions: Acties
       clear_filters: Filters wissen
@@ -1151,9 +1104,6 @@ nl:
       all: Alle
       remaining: Overig
       team_pushes: Team duwt
-      pushes_help: Op deze pagina worden alle door u gemaakte pushes weergegeven.
-      team_pushes_help: Op deze pagina worden alle pushes weergegeven die door alle
-        leden van het account zijn gemaakt.
     'no': Nee
     none: Geen
     passphrase:
@@ -1222,13 +1172,10 @@ nl:
       files: Bestanden
       text: Wachtwoorden en tekst
       url: URLs
-      qr: QR-codes ᴮᴱᵀᴬ
     new:
       title: Veilig een wachtwoord, tekst of bestand verzenden
     create:
       premium_required: U moet zich abonneren om bestanden te kunnen toevoegen.
-      qr_max_length: De QR-code payload is te groot. U kunt maximaal %{count} bytes
-        pushen.
     update:
       successful: Push is succesvol bijgewerkt.
   static:
@@ -1464,13 +1411,6 @@ nl:
           gesloten en verloopt in %{remaining}.
         now_closed_message: Uw verzoek-ID %{url_token} heeft een reactie ontvangen.
           Het verzoek is inmiddels gesloten.
-        email:
-          description_html: Verzoek-ID <strong>%{url_token}</strong> heeft een reactie
-            ontvangen. Het wordt gesloten en verloopt in <strong>%{remaining}</strong>
-            .
-          html_header: Er is gereageerd op uw verzoek.
-          subject: Er is gereageerd op uw verzoek
-          view_audit_log: Bekijk verzoek
   pulls:
     access:
       incorrect: Dat wachtwoord is onjuist. Probeer het opnieuw of neem contact op
@@ -1661,9 +1601,6 @@ nl:
       team_pulls: Teamverzoeken
       views: Weergaven
       views_remaining: Aantal resterende weergaven
-      pulls_help: Op deze pagina worden alle door u gemaakte verzoeken weergegeven.
-      team_pulls_help: Op deze pagina worden alle verzoeken weergegeven die door alle
-        leden van dit account zijn gedaan.
     minute:
       one: 1 minuut
       other: "%{count} minuten"

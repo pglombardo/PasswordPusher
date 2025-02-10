@@ -642,9 +642,12 @@ is:
     policy:
       pwgen_syllables_count_help: Fjöldi atkvæða í lykilorðinu sem búið er til.
       edit: Breyta stefnu
+      team_policy_help: Liðsstefna er sett af reglum sem gilda um allar ýtingar sem
+        meðlimir þessa liðs gera.
       personal_policy: Persónuleg stefna
       personal_policy_help: Stefna er sett af reglum sem gilda um allar ýtingar sem
         þú hefur búið til.
+      team_policy: Stefna liðsins
       header_timed_expiration: Tímasett fyrning
       expire_after_duration_min: Lágmarkslengd
       expire_after_duration_min_help: Lágmarkslengd áður en ýta rennur út.
@@ -731,44 +734,6 @@ is:
         er til.
       pwgen_syllables_count: Atkvæði telja
       policy: Stefna
-      account_policy: Reikningsstefna
-      account_policy_help: Reikningsstefnan er sett af reglum sem gilda um alla meðlimi
-        þessa reiknings.
-      header_pull_passphrase: Aðgangsorðalás
-      header_pull_retrieval_step: 1-Smelltu á Retrieval Step
-      header_pull_timed_expiration: Tímasett fyrning
-      header_pwgen_options: Valkostir til að búa til lykilorð
-      pull_close_after_duration_default: Sjálfgefin tímalengd
-      pull_close_after_duration_default_help: Þegar beiðni hefur borist svar er þetta
-        sjálfgefin tímalengd áður en hún rennur út.
-      pull_close_after_duration_max: Hámarkslengd
-      pull_close_after_duration_max_help: Þegar beiðni hefur borist svar er þetta
-        hámarkstíminn áður en hún rennur út.
-      pull_close_after_duration_min: Lágmarkslengd
-      pull_close_after_duration_min_help: Þegar beiðni hefur borist svar er þetta
-        lágmarkstíminn áður en hún rennur út.
-      pull_enable_retrieval_step: Virkja?
-      pull_enable_retrieval_step_help: Virkja 1-Click Retrival fyrir þetta lið? Ef
-        slökkt er á honum verður þessi valkostur falinn og ekki notaður.
-      pull_header_passphrase: Aðgangsorðalás
-      pull_header_retrieval_step: 1-Smelltu á Retrieval Step
-      pull_hide_passphrase: Fela valkost?
-      pull_hide_passphrase_help: Felur valkostinn Passphrase Lock. Gagnlegt til að
-        slökkva á notkun þessa valkosts algjörlega.
-      pull_hide_retrieval_step: Fela valkost?
-      pull_hide_retrieval_step_help: Felur 1-Click Retrieval skref valkostinn fyrir
-        liðsmönnum. Þetta er gagnlegt til að þvinga valmöguleikann sjálfgefið án þess
-        að sýna það liðsmönnum.
-      pull_retrieval_step_default: Sjálfgefið gildi
-      pull_retrieval_step_default_help: Sjálfgefið gildi fyrir 1-Click Retrieval skref
-        valmöguleikann.
-      pull_retrieval_step_forced: Þvinga fram sjálfgefið gildi?
-      pull_retrieval_step_forced_help: Þvingar fram notkun þessa valmöguleika með
-        sjálfgefnu gildi fyrir alla liðsmenn. Það er ekki hægt að breyta því af liðsmönnum.
-      require_2fa: Krefjast tveggja þátta auðkenningar?
-      require_2fa_help: Krefjast þess að reikningsmeðlimir noti tvíþætta auðkenningu
-        (2FA) til að fá aðgang að þessum reikningi.
-      security_header_logins: Innskráningaröryggi
     account_invitations:
       max_users: Þú hefur náð hámarksfjölda notenda fyrir teymið þitt. Vinsamlegast
         hafðu samband við okkur til að uppfæra og bæta við fleiri notendum.
@@ -916,16 +881,6 @@ is:
         út eftir:'
       you_can_refresh: Þú getur endurnýjað síðuna til að endurnýja nýja niðurhalstengla
         ef skoðanir eru eftir.
-    layout:
-      blank_brand:
-        description: Þessi hlekkur er stilltur á að renna út sjálfkrafa og eyða sjálfkrafa
-          eftir tiltekinn tíma eða fjölda áhorfa.
-        title: Þér hefur verið sendur leynilegur hlekkur.
-    policy_navbar:
-      password_generator: Lykilorðsframleiðandi
-      pushes: Þrýstir
-      requests: Beiðnir
-      security: Öryggi
   audit_logs:
     audit_log:
       log_created: Push búin til á %{date} af %{user}
@@ -1112,8 +1067,6 @@ is:
       passphrase_lockdown: Lokun lykilorða
       policy_tip: 'Ábending: Þú getur stillt sjálfgefnar stillingar og fleira í %{link}.'
       short_expiration_tip: Stuttur fyrningartími og áhorfsfjöldi draga úr áhættu.
-      qr_payload_placeholder: Sláðu inn allt að 1024 tölustafi...
-      qr_tip: Einungis bókstafir. Allt að 1024 stafir eru leyfðir.
     index:
       actions: Aðgerðir
       clear_filters: Hreinsaðu síur
@@ -1128,9 +1081,6 @@ is:
       all: Allt
       remaining: Eftir
       team_pushes: Team ýtir
-      pushes_help: Þessi síða sýnir allar ýtingar sem þú hefur búið til.
-      team_pushes_help: Þessi síða sýnir allar ýtingar sem allir meðlimir reikningsins
-        hafa búið til.
     'no': Nei
     none: Enginn
     passphrase:
@@ -1201,13 +1151,10 @@ is:
       files: Skrár
       text: Lykilorð og texti
       url: vefslóðir
-      qr: QR kóðar ᴮᴱᵀᴬ
     new:
       title: Sendu lykilorð, texta eða skrá á öruggan hátt
     create:
       premium_required: Þú þarft að gerast áskrifandi til að hengja skrár við.
-      qr_max_length: Hleðsla QR kóðans er of stór. Þú getur aðeins ýtt upp í %{count}
-        bæti.
     update:
       successful: Push var uppfært.
   static:
@@ -1421,12 +1368,6 @@ is:
           lokað og útrunnið í %{remaining}.
         now_closed_message: Auðkenni beiðni þinnar %{url_token} hefur fengið svar.
           Beiðninni hefur síðan verið lokað.
-        email:
-          description_html: Auðkenni beiðni <strong>%{url_token}</strong> hefur fengið
-            svar. Það verður lokað og rennur út í <strong>%{remaining}</strong> .
-          html_header: Beiðni þinni hefur borist svar.
-          subject: Beiðni þín hefur fengið svar
-          view_audit_log: Skoða beiðni
   pulls:
     access:
       incorrect: Það lykilorð er rangt. Vinsamlegast reyndu aftur eða hafðu samband
@@ -1611,9 +1552,6 @@ is:
       team_pulls: Team beiðnir
       views: Útsýni
       views_remaining: Útsýni eftir
-      pulls_help: Þessi síða sýnir allar beiðnir sem þú hefur búið til.
-      team_pulls_help: Þessi síða sýnir allar beiðnir búnar til af öllum meðlimum
-        þessa reiknings.
     minute:
       one: 1 mínúta
       other: "%{count} mínútur"

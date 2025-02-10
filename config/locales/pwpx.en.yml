@@ -63,8 +63,6 @@ en:
     form_brand:
       branding: Branding
     policy:
-      account_policy: Account Policy
-      account_policy_help: The account policy is a set of rules that apply to all members of this account.
       deletable_default: Default Value
       deletable_default_help: The default value for the Deletable by Viewer option.
       deletable_forced: Force The Default Value?
@@ -94,11 +92,7 @@ en:
       header_deletable: Deletable by Viewer
       header_passphrase: Passphrase Lock
       header_payload_limits: Payload Limits
-      header_pull_passphrase: Passphrase Lock
-      header_pull_retrieval_step: 1-Click Retrieval Step
-      header_pull_timed_expiration: Timed Expiration
       header_pwgen: Password Generation
-      header_pwgen_options: Password Generation Options
       header_retrieval_step: 1-Click Retrieval Step
       header_timed_expiration: Timed Expiration
       header_view_expiration: View Expiration
@@ -111,24 +105,6 @@ en:
       personal_policy: Personal Policy
       personal_policy_help: A policy is a set of rules that apply to all pushes created by you.
       policy: Policy
-      pull_close_after_duration_default: Default Duration
-      pull_close_after_duration_default_help: Once a request receives a response, this is the default duration before it expires.
-      pull_close_after_duration_max: Maximum Duration
-      pull_close_after_duration_max_help: Once a request receives a response, this is the maximum duration before it expires.
-      pull_close_after_duration_min: Minimum Duration
-      pull_close_after_duration_min_help: Once a request receives a response, this is the minimum duration before it expires.
-      pull_enable_retrieval_step: Enable?
-      pull_enable_retrieval_step_help: Enable 1-Click Retrieval for this account?  If disabled, this option will be hidden and not used.
-      pull_header_passphrase: Passphrase Lock
-      pull_header_retrieval_step: 1-Click Retrieval Step
-      pull_hide_passphrase: Hide Option?
-      pull_hide_passphrase_help: Hides the Passphrase Lock option.  Useful to disable the use of this option entirely.
-      pull_hide_retrieval_step: Hide Option?
-      pull_hide_retrieval_step_help: Hides the 1-Click Retrieval step option from the account members.  This is useful to force the option default without showing it to account members.
-      pull_retrieval_step_default: Default Value
-      pull_retrieval_step_default_help: The default value for the 1-Click Retrieval step option.
-      pull_retrieval_step_forced: Force The Default Value?
-      pull_retrieval_step_forced_help: Forces the use of this option with the default value for all account members.  It cannot be changed by account members.
       push_files_max: Maximum Allowed Files
       push_files_max_help: The maximum number of files allowed in a push. [Max. 100]
       push_text_max: Maximum Text Size
@@ -153,14 +129,13 @@ en:
       pwgen_use_separators_help: Use separators in the generated password.
       pwgen_vowels: Vowels
       pwgen_vowels_help: The vowels to use in the generated password.
-      require_2fa: Require Two-Factor Authentication?
-      require_2fa_help: Require account members to use Two-Factor Authentication (2FA) to access this account.
       retrieval_step_default: Default Value
       retrieval_step_default_help: The default value for the 1-Click Retrieval step option.
       retrieval_step_forced: Force The Default Value?
       retrieval_step_forced_help: Forces the use of this option with the default value for all account members.  It cannot be changed by account members.
       save: Save Policy
-      security_header_logins: Login Security
+      team_policy: Team Policy
+      team_policy_help: A team policy is a set of rules that apply to all pushes made by members of this team.
   admin:
     config:
       menu_item: Configuration
@@ -194,21 +169,12 @@ en:
       password_generator: Password Generator
       pricing: Pricing
       support: Support
-    layout:
-      blank_brand:
-        description: This link is set to auto-expire and self-delete after a specified time or number of views.
-        title: You have been sent a secret link.
     left_nav:
       pulls: Requests ᴮᴱᵀᴬ
       pushes: Pushes
     navbar:
       branding: Branding
       edit_policy: Policy
-    policy_navbar:
-      password_generator: Password Generator
-      pushes: Pushes
-      requests: Requests
-      security: Security
     push_expiration:
       will_expire_in: 'The file download links above will expire in:'
       you_can_refresh: You can refresh the page to regenerate new download links if views remain.
@@ -373,11 +339,6 @@ en:
   notifiers:
     pull:
       response_notifier:
-        email:
-          description_html: Request ID <strong>%{url_token}</strong> has received a response.  It will be closed and expired in <strong>%{remaining}</strong>.
-          html_header: Your request has received a response.
-          subject: Your Request Has Received a Response
-          view_audit_log: View Request
         message: Your request ID %{url_token} has received a response.  It will be closed and expired in %{remaining}.
         now_closed_message: Your request ID %{url_token} has received a response.  The request has since been closed.
   pages:
@@ -548,13 +509,11 @@ en:
       open: Open
       pull_id: Request ID
       pulls: Requests
-      pulls_help: This page shows all requests created by you.
       ready: Ready
       remaining_time: Time Remaining
       state: State
       status: Status
       team_pulls: " / Requests"
-      team_pulls_help: This page shows all requests created by all members of this account.
       views: Views
       views_remaining: Views Remaining
     minute:
@@ -730,7 +689,6 @@ en:
     copy_to_clipboard: Copy to Clipboard
     create:
       premium_required: You need to subscribe to attach files.
-      qr_max_length: The QR code payload is too large.  You can only push up to %{count} bytes.
     deleted: Deleted
     expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
     expire:
@@ -774,8 +732,6 @@ en:
       payload_url_placeholder: Enter the URL to redirect to...
       policy_tip: 'Tip: You can set defaults and more in your %{link}.'
       push_it: Push It!
-      qr_payload_placeholder: Enter up to 1024 alphanumeric characters...
-      qr_tip: Alphanumeric characters only.  Up to 1024 characters are allowed.
       short_expiration_tip: Short expiration times and view counts reduce exposure risk.
       upload_limit: You can upload up to %{count} files per push.
       url_push_tip: The created push will redirect to the URL provided.
@@ -793,13 +749,10 @@ en:
       nothing_here: There's nothing here yet.
       push_id: Push ID
       pushes: Pushes
-      pushes_help: This page shows all pushes created by you.
       remaining: Remaining
       team_pushes: " / Pushes"
-      team_pushes_help: This page shows all pushes created by all members of the account.
     navbar:
       files: Files
-      qr: QR Codes ᴮᴱᵀᴬ
       text: Passwords & Text
       url: URLs
     new:

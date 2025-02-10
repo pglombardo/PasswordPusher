@@ -666,9 +666,12 @@ lv:
     policy:
       pwgen_syllables_count_help: Zilbju skaits ģenerētajā parolē.
       edit: Rediģēt politiku
+      team_policy_help: Komandas politika ir noteikumu kopums, kas attiecas uz visiem
+        šīs komandas dalībnieku izdarītajiem grūdieniem.
       personal_policy: Personīgā politika
       personal_policy_help: Politika ir noteikumu kopums, kas attiecas uz visiem jūsu
         izveidotajiem pushiem.
+      team_policy: Komandas politika
       header_timed_expiration: Termizēts derīguma termiņš
       expire_after_duration_min: Minimālais ilgums
       expire_after_duration_min_help: Minimālais ilgums, pirms beidzas push.
@@ -752,44 +755,6 @@ lv:
       pwgen_max_syllable_length_help: Maksimālais zilbes garums ģenerētajā parolē.
       pwgen_syllables_count: Zilbju skaits
       policy: Politika
-      account_policy: Konta politika
-      account_policy_help: Konta politika ir noteikumu kopums, kas attiecas uz visiem
-        šī konta dalībniekiem.
-      header_pull_passphrase: Ieejas frāzes bloķēšana
-      header_pull_retrieval_step: 1 Noklikšķiniet uz Atgūšanas solis
-      header_pull_timed_expiration: Termizēts derīguma termiņš
-      header_pwgen_options: Paroles ģenerēšanas opcijas
-      pull_close_after_duration_default: Noklusējuma ilgums
-      pull_close_after_duration_default_help: Kad pieprasījums ir saņēmis atbildi,
-        šis ir noklusējuma ilgums, pirms tas beidzas.
-      pull_close_after_duration_max: Maksimālais ilgums
-      pull_close_after_duration_max_help: Tiklīdz pieprasījums ir saņēmis atbildi,
-        tas ir maksimālais ilgums, līdz tas beidzas.
-      pull_close_after_duration_min: Minimālais ilgums
-      pull_close_after_duration_min_help: Tiklīdz pieprasījums ir saņēmis atbildi,
-        tas ir minimālais ilgums, pirms tas beidzas.
-      pull_enable_retrieval_step: Vai iespējot?
-      pull_enable_retrieval_step_help: Vai iespējot viena klikšķa izgūšanu šai komandai?
-        Ja šī opcija ir atspējota, tā tiks paslēpta un netiks izmantota.
-      pull_header_passphrase: Ieejas frāzes bloķēšana
-      pull_header_retrieval_step: 1 Noklikšķiniet uz Atgūšanas solis
-      pull_hide_passphrase: Paslēpt opciju?
-      pull_hide_passphrase_help: Paslēpj opciju Passphrase Lock. Noderīgi, lai pilnībā
-        atspējotu šīs opcijas izmantošanu.
-      pull_hide_retrieval_step: Paslēpt opciju?
-      pull_hide_retrieval_step_help: Slēpj komandas dalībniekiem opciju 1 klikšķa
-        izgūšana. Tas ir noderīgi, lai piespiestu iestatīt noklusējuma opciju, nerādot
-        to komandas dalībniekiem.
-      pull_retrieval_step_default: Noklusējuma vērtība
-      pull_retrieval_step_default_help: Noklusējuma vērtība opcijai 1 Click Retrieval
-        Step.
-      pull_retrieval_step_forced: Vai piespiest noklusējuma vērtību?
-      pull_retrieval_step_forced_help: Visiem komandas dalībniekiem liek izmantot
-        šo opciju ar noklusējuma vērtību. Komandas dalībnieki to nevar mainīt.
-      require_2fa: Vai nepieciešama divu faktoru autentifikācija?
-      require_2fa_help: Pieprasīt konta dalībniekiem izmantot divu faktoru autentifikāciju
-        (2FA), lai piekļūtu šim kontam.
-      security_header_logins: Pieteikšanās drošība
     account_invitations:
       max_users: Jūs esat sasniedzis maksimālo lietotāju skaitu savai komandai. Lūdzu,
         sazinieties ar mums, lai veiktu jaunināšanu un pievienotu citus lietotājus.
@@ -937,16 +902,6 @@ lv:
         beigsies:'
       you_can_refresh: Varat atsvaidzināt lapu, lai atjaunotu jaunas lejupielādes
         saites, ja skati paliek.
-    layout:
-      blank_brand:
-        description: Šai saitei ir iestatīts automātisks derīguma termiņš un pēc noteikta
-          laika vai skatījumu skaita pašas dzēšana.
-        title: Jums ir nosūtīta slepena saite.
-    policy_navbar:
-      password_generator: Paroļu ģenerators
-      pushes: Spiež
-      requests: Pieprasījumi
-      security: Drošība
   audit_logs:
     audit_log:
       log_created: Push %{date} izveidoja %{user}
@@ -1140,8 +1095,6 @@ lv:
         citus iestatījumus.
       short_expiration_tip: Īss derīguma termiņš un skatījumu skaits samazina iedarbības
         risku.
-      qr_payload_placeholder: Ievadiet līdz 1024 burtciparu rakstzīmēm...
-      qr_tip: Tikai burtciparu rakstzīmes. Ir atļauts līdz 1024 rakstzīmēm.
     index:
       actions: Darbības
       clear_filters: Notīrīt filtrus
@@ -1156,9 +1109,6 @@ lv:
       all: Visi
       remaining: Atlikušais
       team_pushes: Komandas grūdieni
-      pushes_help: Šajā lapā ir redzami visi jūsu izveidotie grūdieni.
-      team_pushes_help: Šajā lapā ir redzami visi paziņojumi, ko izveidojuši visi
-        konta dalībnieki.
     'no': Nē
     none: Nav
     passphrase:
@@ -1229,13 +1179,10 @@ lv:
       files: Faili
       text: Paroles un teksts
       url: URL
-      qr: QR kodi ᴮᴱᵀᴬ
     new:
       title: Droši nosūtiet paroli, tekstu vai failu
     create:
       premium_required: Lai pievienotu failus, jums ir jāabonē.
-      qr_max_length: QR koda slodze ir pārāk liela. Varat nospiest tikai līdz %{count}
-        baitiem.
     update:
       successful: Push tika veiksmīgi atjaunināts.
   static:
@@ -1454,12 +1401,6 @@ lv:
           un beigsies %{remaining}.
         now_closed_message: Jūsu pieprasījuma ID %{url_token} ir saņēmis atbildi.
           Kopš tā laika pieprasījums ir slēgts.
-        email:
-          description_html: Pieprasījuma ID <strong>%{url_token}</strong> ir saņemta
-            atbilde. Tas tiks slēgts un beigsies <strong>%{remaining}</strong> .
-          html_header: Jūsu pieprasījums ir saņēmis atbildi.
-          subject: Uz jūsu pieprasījumu ir saņemta atbilde
-          view_audit_log: Skatīt pieprasījumu
   pulls:
     access:
       incorrect: Šī ieejas frāze ir nepareiza. Lūdzu, mēģiniet vēlreiz vai sazinieties
@@ -1647,9 +1588,6 @@ lv:
       team_pulls: Komandas pieprasījumi
       views: Skatījumi
       views_remaining: Atlikušie skati
-      pulls_help: Šajā lapā ir redzami visi jūsu izveidotie pieprasījumi.
-      team_pulls_help: Šajā lapā ir redzami visi pieprasījumi, ko izveidojuši visi
-        šī konta dalībnieki.
     minute:
       one: 1 minūte
       other: "%{count} minūtes"

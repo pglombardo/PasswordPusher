@@ -596,8 +596,10 @@ ja:
     policy:
       pwgen_syllables_count_help: 生成されたパスワードの音節の数。
       edit: ポリシーの編集
+      team_policy_help: チーム ポリシーは、このチームのメンバーによって行われるすべてのプッシュに適用される一連のルールです。
       personal_policy: 個人ポリシー
       personal_policy_help: ポリシーは、ユーザーが作成したすべてのプッシュに適用される一連のルールです。
+      team_policy: チームポリシー
       header_timed_expiration: 期限付き有効期限
       expire_after_duration_min: 最小期間
       expire_after_duration_min_help: プッシュが期限切れになるまでの最小期間。
@@ -667,34 +669,6 @@ ja:
       pwgen_max_syllable_length_help: 生成されたパスワードの音節の最大長。
       pwgen_syllables_count: 音節数
       policy: ポリシー
-      account_policy: アカウントポリシー
-      account_policy_help: アカウント ポリシーは、このアカウントのすべてのメンバーに適用される一連のルールです。
-      header_pull_passphrase: パスフレーズロック
-      header_pull_retrieval_step: 1-Click 取得ステップ
-      header_pull_timed_expiration: 期限付き有効期限
-      header_pwgen_options: パスワード生成オプション
-      pull_close_after_duration_default: デフォルトの期間
-      pull_close_after_duration_default_help: リクエストが応答を受信すると、これが期限切れになるまでのデフォルトの期間になります。
-      pull_close_after_duration_max: 最大持続時間
-      pull_close_after_duration_max_help: リクエストが応答を受信した後、これが期限切れになるまでの最大期間です。
-      pull_close_after_duration_min: 最小期間
-      pull_close_after_duration_min_help: リクエストが応答を受信した後、これが期限切れになるまでの最小期間です。
-      pull_enable_retrieval_step: 有効にする？
-      pull_enable_retrieval_step_help: このチームに対して 1-Click 取得を有効にしますか?無効にすると、このオプションは非表示になり、使用されなくなります。
-      pull_header_passphrase: パスフレーズロック
-      pull_header_retrieval_step: 1-Click 取得ステップ
-      pull_hide_passphrase: オプションを非表示にしますか?
-      pull_hide_passphrase_help: パスフレーズ ロック オプションを非表示にします。このオプションの使用を完全に無効にする場合に便利です。
-      pull_hide_retrieval_step: オプションを非表示にしますか?
-      pull_hide_retrieval_step_help: 1-Click Retrieval ステップ オプションをチーム メンバーから非表示にします。これは、チーム
-        メンバーにオプションを表示せずにデフォルトを強制する場合に便利です。
-      pull_retrieval_step_default: デフォルト値
-      pull_retrieval_step_default_help: 1 クリック取得ステップ オプションのデフォルト値。
-      pull_retrieval_step_forced: デフォルト値を強制しますか?
-      pull_retrieval_step_forced_help: すべてのチーム メンバーに対して、このオプションをデフォルト値で強制的に使用します。チームメンバーが変更することはできません。
-      require_2fa: 2要素認証が必要ですか?
-      require_2fa_help: このアカウントにアクセスするには、アカウント メンバーに 2 要素認証 (2FA) の使用を要求します。
-      security_header_logins: ログインセキュリティ
     account_invitations:
       max_users: チームのユーザー数が上限に達しました。アップグレードしてユーザーを追加するには、弊社までご連絡ください。
     brand:
@@ -813,15 +787,6 @@ ja:
     push_expiration:
       will_expire_in: '上記のファイルのダウンロード リンクの有効期限は以下のとおりです:'
       you_can_refresh: ビューが残っている場合は、ページを更新して新しいダウンロード リンクを再生成できます。
-    layout:
-      blank_brand:
-        description: このリンクは、指定された時間または表示回数の後に自動的に期限切れになり、自動的に削除されるように設定されています。
-        title: 秘密のリンクが送信されました。
-    policy_navbar:
-      password_generator: パスワードジェネレータ
-      pushes: プッシュ
-      requests: リクエスト
-      security: 安全
   audit_logs:
     audit_log:
       log_created: "%{user} によって %{date} にプッシュが作成されました"
@@ -982,8 +947,6 @@ ja:
       passphrase_lockdown: パスフレーズ
       policy_tip: 'ヒント: %{link} でデフォルトなどを設定できます。'
       short_expiration_tip: 有効期限と閲覧回数が短いため、露出リスクが軽減されます。
-      qr_payload_placeholder: 最大 1024 文字の英数字を入力してください...
-      qr_tip: 英数字のみ。最大 1024 文字まで使用できます。
     index:
       actions: 行動
       clear_filters: フィルターをクリアする
@@ -998,8 +961,6 @@ ja:
       all: 全て
       remaining: 残り
       team_pushes: チームプッシュ
-      pushes_help: このページには、あなたが作成したすべてのプッシュが表示されます。
-      team_pushes_help: このページには、アカウントのすべてのメンバーによって作成されたすべてのプッシュが表示されます。
     'no': いいえ
     none: なし
     passphrase:
@@ -1060,12 +1021,10 @@ ja:
       files: ファイル
       text: パスワードとテキスト
       url: URL
-      qr: QRコード
     new:
       title: パスワード、テキスト、ファイルを安全に送信する
     create:
       premium_required: ファイルを添付するには登録する必要があります。
-      qr_max_length: QR コードのペイロードが大きすぎます。プッシュできるのは最大 %{count} バイトまでです。
     update:
       successful: プッシュが正常に更新されました。
   static:
@@ -1237,11 +1196,6 @@ ja:
       response_notifier:
         message: リクエストID %{url_token} は応答を受信しました。%{remaining} に終了し、期限切れになります。
         now_closed_message: リクエスト ID %{url_token} は応答を受け取りました。リクエストは終了しました。
-        email:
-          description_html: リクエストID <strong>%{url_token} は</strong>応答を受信しました。 <strong>%{remaining}</strong>に終了し、期限切れになります。
-          html_header: あなたのリクエストに応答がありました。
-          subject: あなたのリクエストに応答がありました
-          view_audit_log: リクエストを表示
   pulls:
     access:
       incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。
@@ -1408,8 +1362,6 @@ ja:
       team_pulls: チームリクエスト
       views: 回の閲覧
       views_remaining: 残りの閲覧回数
-      pulls_help: このページには、あなたが作成したすべてのリクエストが表示されます。
-      team_pulls_help: このページには、このアカウントのすべてのメンバーによって作成されたすべてのリクエストが表示されます。
     minute:
       one: 1分
       other: "%{count}分"
