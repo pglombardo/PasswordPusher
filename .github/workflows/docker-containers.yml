@@ -4,7 +4,6 @@ name: Docker Container Builds
 on:
   push:
     tags:
-      - "stable"
       - "v*.*.*"
 
   workflow_dispatch:
@@ -18,10 +17,16 @@ on:
     # * is a special character in YAML so you have to quote this string
     # Run every day at 5:24 UTC - build 'nightly' docker containers
     - cron: "24 17 * * *"
+
+  pull_request_target:
+    types:
+      - labeled
+
 env:
   DOCKER_PUSH: true
 jobs:
   pwpush-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,6 +34,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:qemu-v8.1.5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -39,11 +46,13 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -55,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
@@ -64,6 +73,7 @@ jobs:
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
 
   public-gateway-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
@@ -72,6 +82,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:qemu-v8.1.5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -82,11 +94,13 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -98,15 +112,16 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.public-gateway
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-  
+
   worker-container:
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
@@ -115,6 +130,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:qemu-v8.1.5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -125,11 +142,13 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
           tags: |
+            type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -141,7 +160,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.worker
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
