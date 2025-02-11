@@ -7,11 +7,11 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     Settings.enable_logins = true
+    @luca = users(:luca)
   end
 
   teardown do
-    @luca = users(:luca)
-    sign_out @luca
+    Settings.enable_logins = false
   end
 
   test "New push form is available anonymous" do
@@ -33,8 +33,6 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in users can access their dashboard" do
-    @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get active_passwords_path
@@ -47,8 +45,6 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in users with pushes can access their dashboard" do
-    @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get new_password_path
@@ -70,17 +66,11 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get active dashboard with token" do
-    @luca = users(:luca)
-    @luca.confirm
-
     get active_passwords_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
-    @luca = users(:luca)
-    @luca.confirm
-
     get expired_passwords_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
