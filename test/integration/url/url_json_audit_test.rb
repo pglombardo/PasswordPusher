@@ -16,8 +16,8 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     @luca.confirm
 
     # Create a push
-    post urls_path, params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -66,8 +66,8 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     @luca.confirm
 
     # Create a push
-    post urls_path, params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -93,9 +93,5 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     # Get the Audit Log without a token
     get "/r/#{url_token}/audit.json", as: :json
     assert_response :unauthorized
-
-    res = JSON.parse(@response.body)
-    assert res.key?("error")
-    assert res["error"] == "You need to sign in or sign up before continuing."
   end
 end

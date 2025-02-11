@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     draw :admin
     draw :users
     draw :pushes
+    draw :pushes_api
     apipie
 
     get "/pages/*id" => "pages#show", :as => :page, :format => false

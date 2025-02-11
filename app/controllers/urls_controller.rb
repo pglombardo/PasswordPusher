@@ -5,23 +5,11 @@ require "securerandom"
 class UrlsController < BaseController
   helper UrlsHelper
 
-  # Authentication always except for the following:
-  acts_as_token_authentication_handler_for User, except: %i[show new preliminary passphrase access]
+  before_action :set_push, except: %i[new create active expired]
 
-  before_action :set_push, only: %i[show passphrase access preview print_preview preliminary audit destroy]
+  # Authentication always except for these actions
+  before_action :authenticate_user!, except: %i[preliminary passphrase access show destroy]
 
-  resource_description do
-    name "URL Pushes"
-    short "Interact directly with URL pushes.  This feature (and corresponding API) is currently in beta."
-  end
-
-  api :GET, "/r/:url_token.json", "Retrieve a URL push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["json"]
-  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fk27vnslkd.json'
-  description "Retrieves a push including it's payload and details.  If the push is still active, " \
-              "this will burn a view and the transaction will be logged in the push audit log.  If the push " \
-              "has a passphrase, provide it in a ?passphrase=xxx GET parameter."
   def show
     # This url may have expired since the last view.  Validate the url
     # expiration before doing anything.
@@ -29,10 +17,7 @@ class UrlsController < BaseController
 
     if @push.expired
       log_view(@push)
-      respond_to do |format|
-        format.html { render template: "urls/show_expired", layout: "naked" }
-        format.json { render json: @push.to_json(payload: true) }
-      end
+      render template: "urls/show_expired", layout: "naked"
       return
     end
 
@@ -49,10 +34,7 @@ class UrlsController < BaseController
       if !has_correct_passphrase
         # Passphrase hasn't been provided or is incorrect
         # Redirect to the passphrase page
-        respond_to do |format|
-          format.html { redirect_to passphrase_url_path(@push.url_token) }
-          format.json { render json: {error: "This push has a passphrase that was incorrect or not provided."} }
-        end
+        redirect_to passphrase_url_path(@push.url_token)
         return
       end
 
@@ -63,10 +45,7 @@ class UrlsController < BaseController
     log_view(@push)
     expires_now
 
-    respond_to do |format|
-      format.html { redirect_to @push.payload, allow_other_host: true, status: :see_other }
-      format.json { render json: @push.to_json(payload: true) }
-    end
+    redirect_to @push.payload, allow_other_host: true, status: :see_other
 
     @push.expire unless @push.views_remaining.positive?
   end
@@ -115,30 +94,9 @@ class UrlsController < BaseController
 
   # GET /urls/new
   def new
-    if user_signed_in?
-      @push = Url.new
-
-      respond_to(&:html)
-    else
-      respond_to do |format|
-        format.html { render template: "urls/new_anonymous" }
-      end
-    end
+    @push = Url.new
   end
 
-  api :POST, "/r.json", "Create a new URL push."
-  param :url, Hash, "Push details", required: true do
-    param :payload, String, desc: "The URL encoded URL to redirect to.", required: true
-    param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
-    param :note, String,
-      desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
-    param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
-    param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
-    param :retrieval_step, %w[true false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
-  end
-  formats ["json"]
-  example 'curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" ' \
-          '--data "url[payload]=myurl&url[expire_after_days]=2&url[expire_after_views]=10" https://pwpush.com/r.json'
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
@@ -148,10 +106,7 @@ class UrlsController < BaseController
       @push = Url.new(url_params)
     rescue ActionController::ParameterMissing
       @push = Url.new
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: {error: "No URL or note provided."}, status: :unprocessable_entity }
-      end
+      render :new, status: :unprocessable_entity
       return
     end
 
@@ -160,13 +115,7 @@ class UrlsController < BaseController
 
     unless helpers.valid_url?(payload_param)
       msg = _("Invalid URL: Must have a valid URI scheme.")
-      respond_to do |format|
-        format.html do
-          flash.now[:error] = msg
-          render :new, status: :unprocessable_entity
-        end
-        format.json { render json: {error: msg}, status: :unprocessable_entity }
-      end
+      render :new, status: :unprocessable_entity, notice: msg
       return
     end
 
@@ -183,30 +132,16 @@ class UrlsController < BaseController
 
     @push.validate!
 
-    respond_to do |format|
-      if @push.save
-        format.html { redirect_to preview_url_path(@push) }
-        format.json { render json: @push, status: :created }
-      else
-        format.html { render action: "new", status: :unprocessable_entity }
-        format.json { render json: @push.errors, status: :unprocessable_entity }
-      end
+    if @push.save
+      redirect_to preview_url_path(@push)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  api :GET, "/r/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["json"]
-  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fk27vnslkd/preview.json'
-  description ""
   def preview
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
-
-    respond_to do |format|
-      format.html { render action: "preview" }
-      format.json { render json: {url: @secret_url}, status: :ok }
-    end
   end
 
   def print_preview
@@ -217,10 +152,7 @@ class UrlsController < BaseController
     @show_expiration = print_preview_params[:show_expiration]
     @show_id = print_preview_params[:show_id]
 
-    respond_to do |format|
-      format.html { render action: "print_preview", layout: "naked" }
-      format.json { render json: {url: @secret_url}, status: :ok }
-    end
+    render :print_preview, layout: "naked"
   end
 
   def preliminary
@@ -230,10 +162,7 @@ class UrlsController < BaseController
 
     if @push.expired
       log_view(@push)
-      respond_to do |format|
-        format.html { render template: "urls/show_expired", layout: "naked" }
-        format.json { render json: @push.to_json(payload: true) }
-      end
+      render template: "urls/show_expired", layout: "naked"
       return
     else
       @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
@@ -244,55 +173,24 @@ class UrlsController < BaseController
     end
   end
 
-  api :GET, "/r/:url_token/audit.json", "Retrieve the audit log for a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["json"]
-  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fk27vnslkd/audit.json'
-  description "This will return array of views including IP, referrer and other such metadata.  The _successful_ " \
-              "field indicates whether the view was made while the push was still active (and not expired).  " \
-              "Note that you must be the owner of the push to retrieve " \
-              "the audit log and this call will always return 401 Unauthorized for pushes not owned by the " \
-              "credentials provided."
   def audit
     if @push.user_id != current_user.id
-      respond_to do |format|
-        format.html { redirect_to :root, notice: _("That push doesn't belong to you.") }
-        format.json { render json: {error: "That push doesn't belong to you."} }
-      end
+      redirect_to :root, notice: _("That push doesn't belong to you.")
       return
     end
 
     @secret_url = helpers.secret_url(@push)
-
-    respond_to do |format|
-      format.html {}
-      format.json do
-        render json: {views: @push.views}.to_json(except: %i[user_id url_id id])
-      end
-    end
   end
 
-  api :DELETE, "/r/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["json"]
-  example 'curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/fkwjfvhall92.json'
-  description "Expires a push immediately.  Must be authenticated & owner of the push _or_ the " \
-              "push must have been created with _deleteable_by_viewer_."
   def destroy
     # Check ownership
     if @push.user_id != current_user&.id
-      respond_to do |format|
-        format.html { redirect_to :root, notice: _("That push does not belong to you.") }
-        format.json { render json: {error: _("That push does not belong to you.")}, status: :unprocessable_entity }
-      end
+      redirect_to :root, notice: _("That push does not belong to you.")
       return
     end
 
     if @push.expired
-      respond_to do |format|
-        format.html { redirect_to @push }
-        format.json { render json: {error: _("That push is already expired.")}, status: :unprocessable_entity }
-      end
+      redirect_to @push
       return
     end
 
@@ -303,23 +201,13 @@ class UrlsController < BaseController
     @push.deleted = true
     @push.expired_on = Time.zone.now
 
-    respond_to do |format|
-      if @push.save
-        format.html do
-          redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
-        end
-        format.json { render json: @push, status: :ok }
-      else
-        format.html { render action: "new", status: :unprocessable_entity }
-        format.json { render json: @push.errors, status: :unprocessable_entity }
-      end
+    if @push.save
+      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  api :GET, "/r/active.json", "Retrieve your active URL pushes."
-  formats ["json"]
-  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/active.json'
-  description "Returns the list of URL pushes that you previously pushed which are still active."
   def active
     unless Settings.enable_logins
       redirect_to :root
@@ -330,23 +218,8 @@ class UrlsController < BaseController
       .where(user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
-
-    respond_to do |format|
-      format.html {}
-      format.json do
-        json_parts = []
-        @pushes.each do |push|
-          json_parts << push.to_json(owner: true, payload: false)
-        end
-        render json: "[#{json_parts.join(",")}]"
-      end
-    end
   end
 
-  api :GET, "/r/expired.json", "Retrieve your expired URL pushes."
-  formats ["json"]
-  example 'curl -X GET -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken" https://pwpush.com/r/expired.json'
-  description "Returns the list of URL pushes that you previously pushed which have expired."
   def expired
     unless Settings.enable_logins
       redirect_to :root
@@ -357,17 +230,6 @@ class UrlsController < BaseController
       .where(user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
-
-    respond_to do |format|
-      format.html {}
-      format.json do
-        json_parts = []
-        @pushes.each do |push|
-          json_parts << push.to_json(owner: true, payload: false)
-        end
-        render json: "[#{json_parts.join(",")}]"
-      end
-    end
   end
 
   private
@@ -438,7 +300,6 @@ class UrlsController < BaseController
     # No easy fix for JSON unfortunately as we don't have a record to show.
     respond_to do |format|
       format.html { render template: "urls/show_expired", layout: "naked" }
-      format.json { render json: {error: "not-found"}.to_json, status: :not_found }
       format.any { head :not_acceptable }
     end
   end

@@ -98,7 +98,6 @@ gem "lograge"
 gem "mail_form", ">= 1.9.0"
 gem "oj"
 gem "puma"
-gem "simple_token_authentication"
 gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
 
