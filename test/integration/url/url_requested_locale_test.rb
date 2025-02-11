@@ -35,7 +35,7 @@ class UrlReqLocaleTest < ActionDispatch::IntegrationTest
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
     get push_with_locale
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     links = assert_select("a")
     assert_equal 1, links.count
@@ -47,7 +47,7 @@ class UrlReqLocaleTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     # We should be on the passphrase page now
 
@@ -81,7 +81,7 @@ class UrlReqLocaleTest < ActionDispatch::IntegrationTest
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
     get push_with_locale
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     links = assert_select("a")
     assert_equal 1, links.count

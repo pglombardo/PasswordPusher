@@ -19,7 +19,7 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
     get push_with_locale
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     links = assert_select("a")
     assert_equal 1, links.count
@@ -31,7 +31,7 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     # We should be on the passphrase page now
 
@@ -46,7 +46,7 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
 
     # We should be on the password#show page now
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
   end
 
   def test_requested_locale_without_passphrase
@@ -65,7 +65,7 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
     get push_with_locale
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
 
     links = assert_select("a")
     assert_equal 1, links.count
@@ -75,6 +75,6 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
 
     # We should be on the password#show page now
     assert_response :success
-    assert response.body.include?("<html lang=\"es\">\n")
+    assert_select "html[lang=es]"
   end
 end
