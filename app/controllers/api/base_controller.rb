@@ -14,6 +14,7 @@ class Api::BaseController < ApplicationController
     elsif request.headers.key?("Authorization") || request.headers.key?("X-User-Token")
       # The user is trying to authenticate with a bad token
       head :unauthorized
+
     elsif params["controller"] == "api/v1/passwords"
       if %w[audit active expired].include?(params["action"])
         # These paths require a valid token
