@@ -46,6 +46,8 @@ RUN yarn install
 
 COPY ./ ${APP_ROOT}/
 
+RUN yarn build
+
 # Set DATABASE_URL to sqlite to have a ready
 # to use db file for ephemeral configuration
 ENV DATABASE_URL=sqlite3:db/db.sqlite3
