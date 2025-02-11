@@ -50,12 +50,11 @@ echo "Checking out version tag: v${SOURCE_TAG}"
 git checkout "v${SOURCE_TAG}"
 
 echo "Deleting the 'stable' tag from git: local and remote"
-git tag -d stable
-git push oss --delete stable
+git tag -d "${ALIAS_TAG}"
+git push oss --delete "${ALIAS_TAG}"
 
 echo "Moving stable tag to new version: v${SOURCE_TAG}"
-git tag stable
-git push oss stable
+git tag "${ALIAS_TAG}"
+git push oss "${ALIAS_TAG}"
 
-echo "All Docker images have been retagged as '${ALIAS_TAG}' successfully."
-echo "git 'stable' tag has been moved up to v${SOURCE_TAG}"
+echo "v${SOURCE_TAG} has been tagged as '${ALIAS_TAG}' successfully."
