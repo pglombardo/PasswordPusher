@@ -46,4 +46,16 @@ for IMAGE in "${IMAGES[@]}"; do
   docker manifest push "${IMAGE}:${ALIAS_TAG}"
 done
 
-echo "All images have been tagged as '${ALIAS_TAG}' successfully."
+echo "Checking out version tag: v${SOURCE_TAG}"
+git checkout "v${SOURCE_TAG}"
+
+echo "Deleting the 'stable' tag from git: local and remote"
+git tag -d stable
+git push oss --delete stable
+
+echo "Moving stable tag to new version: v${SOURCE_TAG}"
+git tag stable
+git push oss stable
+
+echo "All Docker images have been retagged as '${ALIAS_TAG}' successfully."
+echo "git 'stable' tag has been moved up to v${SOURCE_TAG}"
