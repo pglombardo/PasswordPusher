@@ -43,7 +43,9 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "erb_lint", "~> 0.9.0"
+  gem "i18n-tasks", "~> 1.0.14", require: false
+
+  gem "erb_lint", "~> 0.9.0", require: false
   gem "standardrb", "~> 1.0"
 end
 
@@ -101,7 +103,6 @@ gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
 
 gem "devise-i18n"
-gem "i18n-tasks", "~> 1.0.14" # , group: :development
 gem "rails-i18n", "~> 7.0.10"
 gem "translation"
 
