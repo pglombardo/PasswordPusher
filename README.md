@@ -161,7 +161,7 @@ Donations are used to pay for the following:
 
 **See Also:**
 
-* [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic-llc)
+* [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic)
 * [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
 * [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
 
