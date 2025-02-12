@@ -4,26 +4,43 @@ Apipie.configure do |config|
   config.app_name = "Password Pusher"
   config.copyright = "&copy; 2011-Present Peter Giacomo Lombardo"
   config.api_base_url = ""
+  config.api_base_url["1.3"] = ""
   config.doc_base_url = "/api"
   config.api_controllers_matcher = Rails.root.join("app/controllers/**/*.rb").to_s
   config.validate = false
+  config.default_version = "1.3"
   config.app_info = <<-APPINFO
-    The Password Pusher JSON API documentation.
-
+    The Password Pusher JSON API.
 
     This API allows for both anonymous and authenticated access.
 
-    To authenticate, get your API token from {the API token page}[/en/users/token] and then apply it in your
+    For more information including language-specific examples to copy, see: https://docs.pwpush.com/docs/json-api/
+
+    == Authentication
+
+    To authenticate, get your API token from {the API token page}[/api_tokens] and then apply it in your
     API calls as request headers:
 
+        'Authorization': "Bearer <token>"
 
-    'X-User-Email': "<email>"
+    == Examples
 
-    'X-User-Token': "<token>"
+    Curl
 
+        curl -X POST -H "Authorization: Bearer YOUR_API_TOKEN" --data "password[payload]=mypassword" https://pwpush.com/p.json
 
-    Example:
+    For more information including language-specific examples to copy, see: https://docs.pwpush.com/docs/json-api/
 
-    curl -X DELETE -H "X-User-Email: <email>" -H "X-User-Token: <token>" https://pwpush.com/p/fkwjfvhall92.json
+    == February 2025 Update
+
+    The API has been updated to use Bearer tokens for authentication and a general cleanup of the API.
+
+    Some clients may need minor updates if they were relying on non-standard behavior.
+
+    If something has broken recently, please see this {pull request}[https://github.com/pglombardo/PasswordPusher/pull/3068] for more details.
+
+    == May 2024 Update
+
+    /f and /r paths are now merged into /p.  Please use /p/* & /p.json for all new API calls.
   APPINFO
 end
