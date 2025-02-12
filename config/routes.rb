@@ -21,4 +21,9 @@ Rails.application.routes.draw do
 
     root to: "passwords#new"
   end
+
+  # Health check endpoint that returns a simple 200 OK response
+  get "/up" => proc { |env|
+    [200, {"Content-Type" => "text/html"}, ["<html style='background:green;width:100%;height:100vh'></html>"]]
+  }
 end
