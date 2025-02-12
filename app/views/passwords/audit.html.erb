@@ -177,13 +177,23 @@
                             <% if view.user_id %>
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
-                                <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                                <%= _('at IP address') %>
+                                <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
+                                  <strong><%= view.ip %></strong>
+                                <% else %>
+                                  <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
+                                <% end %>
                                 <%= _('on') %>
                                 <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <% else %>
                                 <%= _('Password manually expired by an anonymous user') %>
                             <% end %>
-                            <%= _('at IP address') %> <strong><%= view.ip %></strong>
+                            <%= _('at IP address') %>
+                            <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
+                              <strong><%= view.ip %></strong>
+                            <% else %>
+                              <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
+                            <% end %>
                             <br>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
                             <br>
@@ -195,7 +205,11 @@
                         <div class="list-group-item list-group-item-action list-group-item-success">
                             <em class="bi bi-check2-square"></em>
                             <%= _('Successful view from IP address') %>
-                            <strong><%= view.ip %></strong>
+                            <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
+                              <strong><%= view.ip %></strong>
+                            <% else %>
+                              <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
+                            <% end %>
                             <%= _('on') %>
                             <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <br>
@@ -207,7 +221,12 @@
                         <div class="list-group-item list-group-item-action list-group-item-warning">
                             <em class="bi bi-x-octagon"></em>
                             <%= _('Failed view attempt (already expired) by') %>
-                            <strong><%= view.ip %></strong>
+                            <%= _('at IP address') %>
+                            <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
+                              <strong><%= view.ip %></strong>
+                            <% else %>
+                              <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
+                            <% end %>
                             <%= _('on') %>
                             <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <br>
