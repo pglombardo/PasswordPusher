@@ -18,8 +18,7 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
 
   test "New push form is NOT available anonymous" do
     get new_url_path
-    assert_response :success
-    assert response.body.include?("Please login or sign up to use this feature.")
+    assert_redirected_to new_user_session_path
   end
 
   test '"active" and "expired" should redirect anonymous to user sign in' do
@@ -73,7 +72,7 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     @luca.confirm
 
-    get active_urls_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get active_urls_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 
@@ -81,7 +80,7 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     @luca.confirm
 
-    get expired_urls_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get expired_urls_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 end

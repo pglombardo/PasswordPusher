@@ -66,12 +66,12 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get active dashboard with token" do
-    get active_passwords_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get active_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
-    get expired_passwords_path, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get expired_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 end

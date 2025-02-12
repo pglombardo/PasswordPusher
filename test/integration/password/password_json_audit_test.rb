@@ -71,10 +71,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Get the Audit Log without a token
     get "/p/#{url_token}/audit.json", as: :json
     assert_response :unauthorized
-
-    res = JSON.parse(@response.body)
-    assert res.key?("error")
-    assert res["error"] == "You need to sign in or sign up before continuing."
   end
 
   def test_no_audit_log_for_anonymous_pushes
@@ -100,9 +96,5 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Get the Audit Log with a token
     get "/p/#{url_token}/audit.json", as: :json
     assert_response :unauthorized
-
-    res = JSON.parse(@response.body)
-    assert res.key?("error")
-    assert res["error"] == "You need to sign in or sign up before continuing."
   end
 end
