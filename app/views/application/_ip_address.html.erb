@@ -1,0 +1,13 @@
+<% begin %>
+  <% ip.split(',').each do |single_ip| %>
+    <% single_ip = single_ip.strip %>
+    <% if IPAddr.new(single_ip).private? || IPAddr.new(single_ip).loopback? %>
+      <strong><%= single_ip %></strong>
+    <% else %>
+      <strong><%= link_to single_ip, "https://iplocation.io/ip/#{single_ip}", target: '_blank' %></strong>
+    <% end %>
+    <%= ',' unless single_ip == ip.split(',').last %>
+  <% end %>
+<% rescue StandardError %>
+  <%= ip %>
+<% end %>
