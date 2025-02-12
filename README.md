@@ -80,37 +80,6 @@ _or_
 
 See the full [Password Pusher documentation here](https://docs.pwpush.com).
 
-# 🎁 Donations
-
-Donations are in no way required of any Password Pusher user.  The project, at it's core, is and always has been open source and free to use.
-
-With that said, if you find Password Pusher useful and would like to support & accelerate it's continued development all donations are _greatly appreciated_.
-
-[![Donate](https://img.shields.io/badge/Donate-Stripe-blue.svg)](https://buy.stripe.com/7sI4gCgTT1tr6WY3cd)
-
-As an alternative to donations, you can also support the project by signing up for a [paid plan at pwpush.com](https://pwpush.com/pricing).
-
-Donations are used to pay for the following:
-
-* Hosting costs (Digital Ocean, Hatchbox, Brevo Support & Transactional Email, Docker Hub, Uptime Robot)
-* Community Support
-* On-going Maintenance
-  * Upgrades
-  * Testing 
-* Continued development
-  * Development tools
-  * License costs
-  * Documentation
-
-
-**Legal Disclaimer:** Please note that Password Pusher is owned and operated by Apnotic, LLC, a for-profit company owned and operated by [me](https://github.com/pglombardo). While donations are greatly appreciated and help support the project's development, they are not tax deductible as charitable contributions. Donations made to Password Pusher directly support a commercial entity and should be viewed as a voluntary payment to help sustain the service and encourage continued development.
-
-**See Also:**
-
-* [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic-llc)
-* [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
-* [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
-
 # 📼 Credits
 
 ## Security Researchers
@@ -166,6 +135,36 @@ Thanks to:
 
 ...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
 
+# 🎁 Donations
+
+Donations are in no way required of any Password Pusher user.  The project, at it's core, is and always has been open source and free to use.
+
+With that said, if you find Password Pusher useful and would like to support & accelerate it's continued development all donations are _greatly appreciated_.
+
+[![Donate](https://img.shields.io/badge/Donate-Stripe-blue.svg)](https://buy.stripe.com/7sI4gCgTT1tr6WY3cd)
+
+As an alternative to donations, you can also support the project by signing up for a [paid plan at pwpush.com](https://pwpush.com/pricing).
+
+Donations are used to pay for the following:
+
+* Hosting costs (Digital Ocean, Hatchbox, Brevo Support & Transactional Email, Docker Hub, Uptime Robot)
+* Community Support
+* On-going Maintenance
+  * Upgrades
+  * Testing 
+* Continued development
+  * Development tools
+  * License costs
+  * Documentation
+
+**Legal Disclaimer:** Please note that Password Pusher is owned and operated by Apnotic, LLC, a for-profit company owned and operated by [me](https://github.com/pglombardo). While donations are greatly appreciated and help support the project's development, they are not tax deductible as charitable contributions. Donations made to Password Pusher directly support a commercial entity and should be viewed as a voluntary payment to help sustain the service and encourage continued development.
+
+**See Also:**
+
+* [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic-llc)
+* [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
+* [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
+
 # 🛡 License
 
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/master/LICENSE)
@@ -177,8 +176,8 @@ This project is licensed under the terms of the `Apache License 2.0` license. Se
 ```bibtex
 @misc{PasswordPusher,
   author = {Peter Giacomo Lombardo},
-  title = {An application to securely communicate passwords over the web. Passwords automatically expire after a certain number of views and/or time has passed.},
-  year = {2024},
+  title = {Securely share sensitive information with automatic expiration & deletion after a set number of views or duration. Track who, what and when with full audit logs.},
+  year = {2025},
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/pglombardo/PasswordPusher}}
