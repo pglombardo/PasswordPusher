@@ -19,8 +19,6 @@ group :development do
   gem "pry-rails"
   gem "web-console"
 
-  gem "i18n-tasks", "~> 1.0.14", require: false
-
   # A fully configurable and extendable Git hook manager
   gem "overcommit", require: false
 end
@@ -44,6 +42,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "i18n-tasks", "~> 1.0.14", require: false
 
   gem "erb_lint", "~> 0.9.0", require: false
   gem "standardrb", "~> 1.0"
