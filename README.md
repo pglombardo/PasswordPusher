@@ -30,24 +30,24 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Audit logging:__ Track and control what you've shared and see who has viewed it.
 * __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
+* __Admin Dashboard:__ Manage your self-hosted instance with a built in admin dashboard.
+* __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
+* __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
+* __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
-* __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
-* __Admin Dashboard:__ Manage your self-hosted instance with a built in admin dashboard.
-* __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
 * __Themes:__ [26 themes](https://docs.pwpush.com/docs/themes/) bundled in courtesy of [Bootswatch](https://github.com/thomaspark/bootswatch).  Select with a simple environment variable.
-* __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the default site theme follows your local preferences.
-* __Re-Brandable:__ Customize the site name, tagline and logo to fit your environment.
+* __Re-Brandable:__ Completely white label: customize the theme, site name, tagline and logo to fit your environment.
 * __Custom CSS:__ Bundle in your own custom CSS to add your own design.
-* __>10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 10 year history.
+* __>10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in its 14 year history.
 * __Actively Maintained:__ I happily work for the good karma of the great IT/Security community.
 * __Honest Software:__  Open source written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
 💌 --> Sign up for [the newsletter](https://buttondown.email/pwpush?tag=github) to get updates on big releases, security issues, new features, integrations, tips and more.
 
-Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) and [on Facebook](https://www.facebook.com/pwpush)
+Follow Password Pusher updates on [X](https://x.com/pwpush), [Reddit](https://www.reddit.com/r/pwpush), [Gettr](https://gettr.com/user/pwpush) and [Facebook](https://www.facebook.com/pwpush).
 
 -----
 
@@ -60,27 +60,56 @@ Password Pusher is also [on Twitter](https://twitter.com/pwpush), [Gettr](https:
 
 # Editions
 
-If you wish the self-host, this open source version is available immediately.  You can try it out at [https://oss.pwpush.com](https://oss.pwpush.com) or read on for how to get started.
+If you are considering to self-host the OSS edition, you can try it out immediately at [https://oss.pwpush.com](https://oss.pwpush.com).
 
-In 2024, I introduced a set of **Pro features** exclusively on [pwpush.com](https://pwpush.com) to better support the project.  These Pro features are part of the new _Feature Pipeline_ and are migrated to the OSS edition periodically over time.  You can read more about how this works [here](https://docs.pwpush.com/docs/editions/).
+In 2024, I introduced a set of **Pro features** exclusively on [pwpush.com](https://pwpush.com) to better support the project.
+
+These Pro features are periodically migrated to the OSS edition.  You can read more about how this works [here](https://docs.pwpush.com/docs/editions/).
 
 To see the differences between pwpush.com and the OSS edition take a look at the [Feature Matrix](https://pwpush.com/features#matrix).
 
 # ⚡️ Quick Start
 
-→ Go to [https://pwpush.com](https://pwpush.com) and try it out.
-
-_or_
-
-→ Run your own instance with `docker run -d -p "5100:5100" pglombardo/pwpush:latest` or a [production ready setup with a database & SSL/TLS](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/all-in-one).
+→ Run your own instance with `docker run -d -p "5100:5100" pglombardo/pwpush:stable` or a [production ready setup with a database & SSL/TLS](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/all-in-one).
 
 _or_
 
 → Use one of the [3rd party tools](https://docs.pwpush.com/docs/3rd-party-tools/) that interface with Password Pusher.
 
-# Documentation
+# 📚 Documentation
 
 See the full [Password Pusher documentation here](https://docs.pwpush.com).
+
+# 🎁 Donations
+
+Donations are in no way required of any Password Pusher user.  The project, at it's core, is and always has been open source and free to use.
+
+With that said, if you find Password Pusher useful and would like to support & accelerate it's continued development all donations are _greatly appreciated_.
+
+[![Donate](https://img.shields.io/badge/Donate-Stripe-blue.svg)](https://buy.stripe.com/7sI4gCgTT1tr6WY3cd)
+
+As an alternative to donations, you can also support the project by signing up for a [paid plan at pwpush.com](https://pwpush.com/pricing).
+
+Donations are used to pay for the following:
+
+* Hosting costs (Digital Ocean, Hatchbox, Brevo Support & Transactional Email, Docker Hub, Uptime Robot)
+* Community Support
+* On-going Maintenance
+  * Upgrades
+  * Testing 
+* Continued development
+  * Development tools
+  * License costs
+  * Documentation
+
+
+**Legal Disclaimer:** Please note that Password Pusher is owned and operated by Apnotic, LLC, a for-profit company owned and operated by [me](https://github.com/pglombardo). While donations are greatly appreciated and help support the project's development, they are not tax deductible as charitable contributions. Donations made to Password Pusher directly support a commercial entity and should be viewed as a voluntary payment to help sustain the service and encourage continued development.
+
+**See Also:**
+
+* [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic-llc)
+* [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
+* [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
 
 # 📼 Credits
 
