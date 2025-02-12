@@ -246,15 +246,17 @@
                             <% if view.user_id %>
                                 <%= _('Password manually expired by user') %>
                                 <strong><%= view.user.email %></strong>
-                                <%= _('at IP address') %>
-                                <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
-                                  <strong><%= view.ip %></strong>
-                                <% else %>
-                                  <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
-                                <% end %>
-                                <%= _('on') %>
-                                <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
+                            <% else %>
+                              <%= _('Password manually expired by an anonymous user') %>
                             <% end %>
+                            <%= _('at IP address') %>
+                            <% if IPAddr.new(view.ip).private? || IPAddr.new(view.ip).loopback? %>
+                              <strong><%= view.ip %></strong>
+                            <% else %>
+                              <strong><%= link_to view.ip, "https://iplocation.io/ip/#{view.ip}", target: '_blank' %></strong>
+                            <% end %>
+                            <%= _('on') %>
+                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
                             <br>
                             <%= _('The push content has been deleted and the secret URL expired.') %>
                             <br>
