@@ -141,7 +141,9 @@ Donations are in no way required of any Password Pusher user.  The project, at i
 
 With that said, if you find Password Pusher useful and would like to support & accelerate it's continued development all donations are _greatly appreciated_.
 
-[![Donate](https://img.shields.io/badge/Donate-Stripe-blue.svg)](https://buy.stripe.com/7sI4gCgTT1tr6WY3cd)
+| [![Donate](https://pwpush.fra1.cdn.digitaloceanspaces.com/misc/pwpush-donate-stripe-qr-small.png)]() | or | [![Donate](https://img.shields.io/badge/Donate-Stripe-blue.svg)](https://buy.stripe.com/7sI4gCgTT1tr6WY3cd) |
+|---|---|---|
+
 
 As an alternative to donations, you can also support the project by signing up for a [paid plan at pwpush.com](https://pwpush.com/pricing).
 
