@@ -108,7 +108,7 @@ gem "translation"
 # For File Uploads
 gem "aws-sdk-s3", require: false
 gem "azure-storage-blob", "~> 2.0", require: false
-gem "google-cloud-storage", "~> 1.54", require: false
+gem "google-cloud-storage", "~> 1.55", require: false
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
