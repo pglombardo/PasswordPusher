@@ -46,18 +46,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/token
   def token
     redirect_to user_session_path if current_user.nil?
-
-    # Pre-existing accounts don't have a token yet.
-    # Save the user record to have one automatically generated.
-    current_user.save if current_user && current_user.authentication_token.blank?
+    current_user.regenerate_authentication_token! if current_user.authentication_token.blank?
   end
 
   # PUT /resource/token
   def regen_token
-    redirect_to user_session_path unless user_signed_in?
-    current_user.authentication_token = nil
-    current_user.save
-
+    redirect_to user_session_path if current_user.nil?
+    current_user.regenerate_authentication_token!
     redirect_to token_user_registration_path
   end
 
