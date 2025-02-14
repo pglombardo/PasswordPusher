@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     current_user.regenerate_authentication_token! if current_user.authentication_token.blank?
   end
 
-  # PUT /resource/token
+  # DELETE /resource/token
   def regen_token
     redirect_to user_session_path if current_user.nil?
     current_user.regenerate_authentication_token!
