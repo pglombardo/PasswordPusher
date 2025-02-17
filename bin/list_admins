@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../config/environment', __FILE__)
+
+begin
+  admin_users = User.where(admin: true).order(:email)
+
+  if admin_users.any?
+    puts "\n\e[32mAdmin Users\e[0m"
+    puts "\e[32m==========\e[0m"
+
+    admin_users.each do |user|
+      puts "\e[36m#{user.email}\e[0m"
+      puts "Created: \e[33m#{user.created_at.strftime('%Y-%m-%d %H:%M:%S')}\e[0m"
+      puts "Last Sign In: \e[33m#{user.last_sign_in_at&.strftime('%Y-%m-%d %H:%M:%S') || 'Never'}\e[0m"
+      puts "\e[32m----------\e[0m"
+    end
+
+    puts "\n\e[32mTotal admin users: #{admin_users.count}\e[0m"
+  else
+    puts "\n\e[33mNo admin users found.\e[0m"
+  end
+
+rescue StandardError => e
+  puts "\n\e[31mAn error occurred:\e[0m"
+  puts "\e[31m#{e.message}\e[0m"
+  exit 1
+end

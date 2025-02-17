@@ -28,20 +28,10 @@ begin
   user.confirm
 
   if user.save
-    # Create a test push
-    push = Push.create!(
-      user: user,
-      payload: "This is a test password push created during admin user setup.",
-      expire_after_days: 7,
-      expire_after_views: 5
-    )
-
     puts "\n\e[32mAdmin user created successfully!\e[0m"
     puts "\e[32m==============================\e[0m"
     puts "Email: \e[36m#{email}\e[0m"
     puts "Password: \e[33m#{password}\e[0m"
-    puts "Login URL: \e[36m#{Rails.application.routes.url_helpers.new_user_session_url(host: ENV['APP_HOST'] || 'localhost:5100')}\e[0m"
-    puts "Test Push URL: \e[36m#{Rails.application.routes.url_helpers.password_url(push, host: ENV['APP_HOST'] || 'localhost:5100')}\e[0m"
     puts "\n\e[32mPlease save these credentials and change the password after first login.\e[0m"
   else
     puts "\n\e[31mError creating user:\e[0m"
