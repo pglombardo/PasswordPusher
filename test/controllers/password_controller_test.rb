@@ -7,11 +7,15 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     Settings.enable_logins = true
+    Settings.enable_file_pushes = false
+    Settings.enable_url_pushes = false
     @luca = users(:luca)
   end
 
   teardown do
     Settings.enable_logins = false
+    Settings.enable_file_pushes = false
+    Settings.enable_url_pushes = false
   end
 
   test "New push form is available anonymous" do
