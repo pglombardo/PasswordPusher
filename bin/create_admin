@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../config/environment', __FILE__)
+require_relative '../app/models/password'
+
+# Check if email argument is provided
+if ARGV.empty?
+  puts "Usage: #{$0} <email_address>"
+  exit 1
+end
+
+email = ARGV[0]
+
+# Generate a random password (16 characters)
+password = Devise.friendly_token.first(16)
+
+begin
+  # Create and setup the user
+  user = User.new(
+    email: email,
+    password: password,
+    password_confirmation: password,
+    admin: true
+  )
+
+  # Skip all emails and confirm the user
+  user.skip_confirmation_notification!
+  user.skip_confirmation!
+  user.confirm
+
+  if user.save
+    puts "\nAdmin user created successfully!"
+    puts "=============================="
+    puts "Email: #{email}"
+    puts "Password: #{password}"
+    puts "\nPlease save these credentials and change the password after first login."
+  else
+    puts "\nError creating user:"
+    puts user.errors.full_messages.join("\n")
+    exit 1
+  end
+
+rescue StandardError => e
+  puts "\nAn error occurred:"
+  puts e.message
+  exit 1
+end
