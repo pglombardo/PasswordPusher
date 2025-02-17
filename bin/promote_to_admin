@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../config/environment', __FILE__)
+
+# Check if email argument is provided
+if ARGV.empty?
+  puts "\e[31mUsage: #{$0} <email_address>\e[0m"
+  exit 1
+end
+
+email = ARGV[0]
+
+begin
+  user = User.find_by!(email: email)
+
+  if user.update(admin: true)
+    puts "\n\e[32mUser successfully promoted!\e[0m"
+    puts "\e[32m=========================\e[0m"
+    puts "Email: \e[36m#{email}\e[0m"
+    puts "\e[32mAdmin access has been granted.\e[0m"
+  else
+    puts "\n\e[31mError updating user:\e[0m"
+    puts "\e[31m#{user.errors.full_messages.join("\n")}\e[0m"
+    exit 1
+  end
+
+rescue ActiveRecord::RecordNotFound
+  puts "\n\e[31mError: No user found with email '#{email}'\e[0m"
+  exit 1
+rescue StandardError => e
+  puts "\n\e[31mAn error occurred:\e[0m"
+  puts "\e[31m#{e.message}\e[0m"
+  exit 1
+end
