@@ -45,15 +45,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/token
   def token
-    redirect_to user_session_path if current_user.nil?
-    current_user.regenerate_authentication_token! if current_user.authentication_token.blank?
+    if current_user.nil?
+      redirect_to user_session_path
+    elsif current_user&.authentication_token.blank?
+      current_user.regenerate_authentication_token!
+    end
   end
 
   # DELETE /resource/token
   def regen_token
-    redirect_to user_session_path if current_user.nil?
-    current_user.regenerate_authentication_token!
-    redirect_to token_user_registration_path
+    if current_user.nil?
+      redirect_to user_session_path
+    else
+      current_user.regenerate_authentication_token!
+      redirect_to token_user_registration_path
+    end
   end
 
   # protected
