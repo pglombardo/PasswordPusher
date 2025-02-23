@@ -137,7 +137,7 @@ Thanks to:
 
 # 🎁 Donations
 
-Donations are in no way required of any Password Pusher user.  The project, at it's core, is and always has been open source and free to use.
+**Donations are in no way required of any Password Pusher user.  The project, at it's core, is and always has been open source and free to use.**
 
 With that said, if you find Password Pusher useful and would like to support & accelerate it's continued development all donations are _greatly appreciated_.
 
