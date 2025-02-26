@@ -6,22 +6,20 @@
 # See the Securing Rails Applications Guide for more information:
 # https://guides.rubyonrails.org/security.html#content-security-policy-header
 
-# Rails.application.configure do
-#   config.content_security_policy do |policy|
-#     policy.default_src :self, :https
-#     policy.font_src    :self, :https, :data
-#     policy.img_src     :self, :https, :data
-#     policy.object_src  :none
-#     policy.script_src  :self, :https
-#     policy.style_src   :self, :https
-#     # Specify URI for violation reports
-#     # policy.report_uri "/csp-violation-report-endpoint"
-#   end
-#
-#   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
-#   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
-#   config.content_security_policy_nonce_directives = %w(script-src style-src)
-#
-#   # Report violations without enforcing the policy.
-#   # config.content_security_policy_report_only = true
-# end
+Rails.application.configure do
+  config.content_security_policy do |policy|
+    policy.default_src :self, :https, :http, :ws, :wss
+    policy.font_src :self, :https, :http, :data
+    policy.img_src :self, :https, :http, :data, :blob
+    policy.media_src :self, :https, :http, :data, :blob
+    policy.object_src :none
+    policy.script_src :self, :https, :http, :unsafe_inline, :unsafe_eval
+    policy.style_src :self, :https, :http, :unsafe_inline
+    policy.style_src_attr :unsafe_inline
+    policy.connect_src :self, :https, :http, :ws, :wss
+    policy.report_uri "/csp-violation-report"
+  end
+
+  # Initially run in report-only mode to avoid breaking functionality
+  config.content_security_policy_report_only = true
+end
