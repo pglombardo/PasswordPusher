@@ -76,7 +76,6 @@ class UrlsController < BaseController
       cookies[name] = {
         value: @push.passphrase_ciphertext,
         expires: 3.minutes.from_now,
-        secure: Rails.env.production?, # Only send the cookie over HTTPS in production
         httponly: true,                # Prevent JavaScript access to the cookie
         same_site: :strict             # Restrict the cookie to same-site requests
       }
