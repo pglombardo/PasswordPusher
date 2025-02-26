@@ -27,4 +27,6 @@ Rails.application.routes.draw do
   get "/up" => proc { |env|
     [200, {"Content-Type" => "text/html"}, ["<html style='background:green;width:100%;height:100vh'></html>"]]
   }
+
+  post "/csp-violation-report", to: "csp_reports#create"
 end
