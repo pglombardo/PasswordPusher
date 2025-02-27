@@ -13,13 +13,13 @@ Rails.application.configure do
     policy.img_src :self, :https, :http, :data, :blob
     policy.media_src :self, :https, :http, :data, :blob
     policy.object_src :none
-    policy.script_src :self, :https, :http, :unsafe_inline, :unsafe_eval
+    policy.script_src :self, :https, :http
     policy.style_src :self, :https, :http, :unsafe_inline
     policy.style_src_attr :unsafe_inline
     policy.connect_src :self, :https, :http, :ws, :wss
     policy.report_uri "/csp-violation-report"
   end
 
-  # Initially run in report-only mode to avoid breaking functionality
-  config.content_security_policy_report_only = true
+  config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
+  config.content_security_policy_nonce_directives = %w[script-src]
 end
