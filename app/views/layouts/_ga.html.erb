@@ -1,18 +1,18 @@
 <% if ENV.key?('GA_ENABLE') %>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV['GA_ACCOUNT'] %>" nonce="true"></script>
-  <script nonce="true">
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      <% if current_user.nil? %>
-        gtag('config', '<%= ENV['GA_ACCOUNT'] %>');
-      <% else %>
-        gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {'user_id': '<%= current_user.id %>' });
-      <% end %>
+  <script nonce="<%= request.content_security_policy_nonce %>" src="https://www.googletagmanager.com/gtag/js?id=<%= ENV['GA_ACCOUNT'] %>" async></script>
+  <script nonce="<%= request.content_security_policy_nonce %>">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    <% if current_user.nil? %>
+      gtag('config', '<%= ENV['GA_ACCOUNT'] %>');
+    <% else %>
+      gtag('config', '<%= ENV['GA_ACCOUNT'] %>', {'user_id': '<%= current_user.id %>' });
+    <% end %>
   </script>
 
-  <script type="text/javascript">
+  <script nonce="<%= request.content_security_policy_nonce %>">
     let isInitialLoad = true;
     document.addEventListener('turbolinks:load', () => {
       if (isInitialLoad){isInitialLoad = false; return;}
