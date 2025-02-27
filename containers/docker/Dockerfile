@@ -89,7 +89,8 @@ RUN apk add --no-cache \
     mariadb-connector-c \
     nodejs \
     tzdata \
-    yarn
+    yarn \
+    jemalloc
 
 # Create a user and group to run the application
 ARG UID=1000
@@ -99,6 +100,7 @@ ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher
 WORKDIR ${APP_ROOT}
 ENV RACK_ENV=production RAILS_ENV=production
+ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
 
 RUN addgroup -g "${GID}" pwpusher \
   && adduser -D -u "${UID}" -G pwpusher pwpusher \
