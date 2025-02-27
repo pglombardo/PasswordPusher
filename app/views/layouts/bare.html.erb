@@ -13,7 +13,7 @@
   <%= render partial: "layouts/ga" if Rails.env == "production" %>
 
   <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <%= csp_meta_tag if defined?(csp_meta_tag) %>
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
