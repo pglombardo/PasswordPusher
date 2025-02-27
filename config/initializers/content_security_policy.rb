@@ -13,14 +13,17 @@ Rails.application.configure do
     policy.img_src :self, :https, :http, :data, :blob
     policy.media_src :self, :https, :http, :data, :blob
     policy.object_src :none
-    policy.script_src :self, :https, :http
+    policy.script_src :self, :https, :http, :unsafe_inline
     policy.style_src :self, :https, :http, :unsafe_inline
     policy.style_src_attr :unsafe_inline
     policy.connect_src :self, :https, :http, :ws, :wss
     policy.report_uri "/csp-violation-report"
+    policy.script_src_elem :self, :https, :http, :unsafe_inline
   end
 end
 
-# Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies
+# Configure the nonce generator
 Rails.application.config.content_security_policy_nonce_generator = ->(request) { SecureRandom.base64(16) }
-Rails.application.config.content_security_policy_nonce_directives = %w[script-src]
+
+# Specify which directives should receive the nonce
+Rails.application.config.content_security_policy_nonce_directives = %w[script-src script-src-elem]
