@@ -4,11 +4,11 @@ Apipie.configure do |config|
   config.app_name = "Password Pusher"
   config.copyright = "&copy; 2011-Present Peter Giacomo Lombardo"
   config.api_base_url = ""
-  config.api_base_url["1.3"] = ""
+  config.api_base_url["1.4"] = ""
   config.doc_base_url = "/api"
   config.api_controllers_matcher = Rails.root.join("app/controllers/**/*.rb").to_s
   config.validate = false
-  config.default_version = "1.3"
+  config.default_version = "1.4"
   config.app_info = <<-APPINFO
     The Password Pusher JSON API.
 
@@ -31,7 +31,12 @@ Apipie.configure do |config|
 
     For more information including language-specific examples to copy, see: https://docs.pwpush.com/docs/json-api/
 
-    == February 2025 Update
+    == February 2025 Update (v1.4)
+
+    Added a new version endpoint to get the current application version, API version, and edition information.  This will be expanded
+    soon to include more information.
+
+    == February 2025 Update (v1.3)
 
     The API has been updated to use Bearer tokens for authentication and a general cleanup of the API.
 

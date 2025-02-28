@@ -11,6 +11,10 @@ class Api::BaseController < ApplicationController
     if (user = user_from_token)
       sign_in user, store: false
 
+    elsif params["controller"] == "api/v1/version"
+      # Version endpoint is public
+      nil
+
     elsif request.headers.key?("Authorization") || request.headers.key?("X-User-Token")
       # The user is trying to authenticate with a bad token
       head :unauthorized

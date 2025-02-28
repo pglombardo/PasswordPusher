@@ -1,4 +1,10 @@
 constraints(format: :json) do
+  namespace :api do
+    namespace :v1 do
+      get :version, to: "version#show"
+    end
+  end
+
   resources :p, controller: "api/v1/passwords", as: :passwords, except: %i[new index edit update] do
     get "preview", on: :member
     get "audit", on: :member
