@@ -22,7 +22,10 @@ if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
     bundle exec rails assets:precompile
 fi
 
-echo "Password Pusher: starting puma webserver..."
-bundle exec puma -C config/puma.rb
+echo "Password Pusher: starting foreman..."
 
-exec "$@"
+if [ -n "$PWP__NO_WORKER" ] || [ -n "$PWP_PUBLIC_GATEWAY" ]; then
+    exec bundle exec foreman start -m web=1
+else
+    exec bundle exec foreman start -m web=1,worker=1
+fi
