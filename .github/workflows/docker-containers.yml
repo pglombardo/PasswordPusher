@@ -32,7 +32,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -82,7 +83,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -132,7 +134,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.ref }}
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
