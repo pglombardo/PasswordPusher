@@ -31,6 +31,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -64,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
@@ -79,6 +82,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -112,7 +118,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.public-gateway
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
@@ -127,6 +133,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 1
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -160,7 +169,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.worker
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
           labels: ${{ steps.meta.outputs.labels }}
