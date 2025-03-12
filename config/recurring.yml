@@ -25,6 +25,11 @@ production:
     queue: background
     schedule: every day at 5am
 
+  purge_unattached_blobs:
+    class: PurgeUnattachedBlobsJob
+    queue: background
+    schedule: every 3 days
+
 development:
   expire_pushes:
     class: ExpirePushesJob
@@ -40,3 +45,8 @@ development:
     class: CleanUpPushesJob
     queue: background
     schedule: every 7 hours
+
+  purge_unattached_blobs:
+    class: PurgeUnattachedBlobsJob
+    queue: background
+    schedule: every 3 days
