@@ -12,41 +12,31 @@
 production:
   expire_pushes:
     class: ExpirePushesJob
-    queue: background
+    queue: recurring
     schedule: every 2 hours
-
-#  expire_pulls:
-#    class: ExpirePullsJob
-#    queue: background
-#    schedule: every 3 hours
 
   cleanup_pushes:
     class: CleanUpPushesJob
-    queue: background
+    queue: recurring
     schedule: every day at 5am
 
   purge_unattached_blobs:
     class: PurgeUnattachedBlobsJob
-    queue: background
+    queue: recurring
     schedule: every 3 days
 
 development:
   expire_pushes:
     class: ExpirePushesJob
-    queue: background
+    queue: recurring
     schedule: every 4 hours
-
-#  expire_pulls:
-#    class: ExpirePullsJob
-#    queue: background
-#    schedule: every 5 hours
 
   cleanup_pushes:
     class: CleanUpPushesJob
-    queue: background
+    queue: recurring
     schedule: every 7 hours
 
   purge_unattached_blobs:
     class: PurgeUnattachedBlobsJob
-    queue: background
+    queue: recurring
     schedule: every 3 days
