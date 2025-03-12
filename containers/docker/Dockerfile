@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.4-alpine AS build-env
+FROM ruby:3.4.2-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -62,17 +62,20 @@ ENV DATABASE_URL=sqlite3:db/db.sqlite3
 #    SECRET_KEY_BASE=<value>
 ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
 
-# Precompile bootsnap cache for gems an application code to improve load time
-# This creates a cache of the gem requires and application code which speeds up application boot
-# Note: This must be run AFTER bundle install since it caches the installed gems
-RUN bundle exec bootsnap precompile --gemfile
-RUN bundle exec bootsnap precompile app/ lib/
+# Precompile bootsnap cache only for amd64 architecture
+RUN if [ "$TARGETARCH" = "amd64" ]; then \
+      bundle exec bootsnap precompile --gemfile && \
+      bundle exec bootsnap precompile app/ lib/ ; \
+    else \
+      echo "Skipping bootsnap precompilation for $TARGETARCH" ; \
+    fi
+
 RUN bundle exec rails assets:precompile
 RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
-FROM ruby:3.4-alpine
+FROM ruby:3.4.2-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
