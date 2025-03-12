@@ -68,7 +68,7 @@ ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d61797
 RUN bundle exec bootsnap precompile --gemfile
 RUN bundle exec bootsnap precompile app/ lib/
 RUN bundle exec rails assets:precompile
-RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets
+RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
