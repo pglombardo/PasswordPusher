@@ -29,8 +29,7 @@ group :test do
   gem "minitest"
   gem "minitest-rails", ">= 6.1.0"
   gem "minitest-reporters"
-  gem "selenium-webdriver"
-  gem "webdrivers", "~> 5.3", require: false
+  gem "selenium-webdriver", ">= 4.20.1"
 end
 
 group :development, :test do
