@@ -106,7 +106,7 @@ Thanks to our great translators!
 | [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
 | [Ivan Freitas](https://github.com/IvanMFreitas)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
 | Sara Faria| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
-| [Oyale](https://github.com/oyale) |[Spanish](https://pwpush.com/pt-br/p/novo) | |
+| [Oyale](https://github.com/oyale) |[Spanish](https://pwpush.com/es) | |
 | johan323 |[Swedish](https://pwpush.com/sv/p/ny) | |
 | Fredrik Arvas|[Swedish](https://pwpush.com/sv/p/ny) | |
 | Pedro Marques | [European Portuguese](https://pwpush.com/pt-pt/p/novo) | |
