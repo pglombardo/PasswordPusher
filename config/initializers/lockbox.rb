@@ -24,3 +24,9 @@
 # or go to https://pwpush.com/pages/generate_key
 #
 Lockbox.master_key = ENV.fetch("PWPUSH_MASTER_KEY", "749b1022e1cb83fb04f3022eacaf3bfef60c6d47f83e6fb41f534a05fc69929f")
+
+if ENV.key?("PWPUSH_MASTER_KEY_PREVIOUS")
+  ENV.fetch("PWPUSH_MASTER_KEY_PREVIOUS").split(",").each do |previous_key|
+    Lockbox.default_options[:previous_versions] << {master_key: previous_key}
+  end
+end
