@@ -6,7 +6,7 @@ class PasswordsController < BaseController
   before_action :set_push, except: %i[new create active expired]
 
   # Authentication always except for these actions
-  before_action :authenticate_user!, except: %i[new create preview preliminary passphrase access show destroy]
+  before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show destroy]
 
   def show
     # This password may have expired since the last view.  Validate the password
