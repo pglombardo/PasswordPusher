@@ -5,6 +5,7 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    restart: unless-stopped
     environment:
       POSTGRES_USER: pwpush_user
       POSTGRES_PASSWORD: pwpush_passwd
@@ -16,6 +17,7 @@ services:
       DATABASE_URL: 'postgres://pwpush_user:pwpush_passwd@db:5432/pwpush_db'
     ports:
       - "5100:5100"
+    restart: unless-stopped
     depends_on:
       - db
     links:
