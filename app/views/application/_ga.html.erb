@@ -1,4 +1,4 @@
-<% if ENV.key?('GA_ENABLE') %>
+<% if ENV.key?('GA_ENABLE') && Rails.env == "production" %>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script nonce="<%= request.content_security_policy_nonce %>" src="https://www.googletagmanager.com/gtag/js?id=<%= ENV['GA_ACCOUNT'] %>" async></script>
   <script nonce="<%= request.content_security_policy_nonce %>">

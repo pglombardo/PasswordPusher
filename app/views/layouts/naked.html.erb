@@ -10,7 +10,8 @@
 
   <%= render partial: "shared/layout_icons", cached: true %>
 
-  <%= render partial: "layouts/ga" if Rails.env == "production" %>
+  <%= render partial: "application/ga", cached: true %>
+  <%= render partial: "application/plausible", cached: true %>
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if defined?(csp_meta_tag) %>
