@@ -21,6 +21,8 @@ group :development do
 
   # A fully configurable and extendable Git hook manager
   gem "overcommit", require: false
+
+  gem "mailbin"
 end
 
 group :test do
