@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.2"
+ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.4.3"
 
 gem "rails", "~> 7.2.2"
 
