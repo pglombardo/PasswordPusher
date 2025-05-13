@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordTest < Minitest::Test
+class PasswordUnitTest < Minitest::Test
   def test_save
     password = Password.new
     password.validate!
