@@ -9,6 +9,27 @@ class PasswordTest < Minitest::Test
     assert password.save
   end
 
+  def test_save_with_name
+    # Test that name can be set and retrieved
+    password = Password.new(name: "Test Password")
+    password.validate!
+    assert password.save
+    assert_equal "Test Password", password.name
+  end
+
+  def test_name_in_json
+    # Test that name is included in the JSON representation
+    password = Password.new(
+      payload: "test_payload",
+      name: "Test Password"
+    )
+    password.validate!
+    assert password.save
+
+    json = JSON.parse(password.to_json({}))
+    assert_equal "Test Password", json["name"]
+  end
+
   def test_expired_check
     password = Password.new(payload: "asdf")
     password.validate!
@@ -38,6 +59,7 @@ class PasswordTest < Minitest::Test
 
     assert push.retrieval_step == Settings.pw.retrieval_step_default if Settings.pw.enable_retrieval_step
     assert push.deletable_by_viewer == Settings.pw.deletable_pushes_default if Settings.pw.enable_deletable_pushes
+    assert_nil push.name
   end
 
   def test_days_expiration

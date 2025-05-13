@@ -10,6 +10,8 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
+    assert res.key?("name")
+    assert_nil res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -26,6 +28,15 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.pw.expire_after_days_default, res["expire_after_days"]
     assert res.key?("expire_after_views")
     assert_equal Settings.pw.expire_after_views_default, res["expire_after_views"]
+  end
+
+  def test_basic_json_creation_with_name
+    post passwords_path(format: :json), params: {password: {payload: "testpw", name: "Test Password"}}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("name")
+    assert_equal "Test Password", res["name"]
   end
 
   def test_json_creation_with_uncommon_characters

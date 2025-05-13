@@ -46,6 +46,25 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.files.expire_after_views_default, res["expire_after_views"]
   end
 
+
+  def test_basic_json_creation_with_name
+    post file_pushes_path(format: :json), params: {
+                                            file_push: {
+                                              payload: "Message",
+                                              files: [
+                                                fixture_file_upload("monkey.png", "image/jpeg")
+                                              ],
+                                              name: "Test File Push"
+                                            }
+                                          },
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("name")
+    assert_equal "Test File Push", res["name"]
+  end
+
   def test_json_creation_with_uncommon_characters
     post file_pushes_path(format: :json), params: {
                                             file_push: {
