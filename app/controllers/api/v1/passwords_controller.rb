@@ -382,7 +382,6 @@ class Api::V1::PasswordsController < Api::BaseController
       [
         {
           "url_token": "fkwjfvhall92",
-          "name": null,
           "created_at": "2023-10-20T15:32:01Z",
           "expires_on": "2023-10-23T15:32:01Z",
           "expire_after_days": 7,

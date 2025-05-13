@@ -289,6 +289,7 @@ class Api::V1::UrlsController < Api::BaseController
       [
         {
           "url_token": "fkwjfvhall92",
+          "name": null,
           "created_at": "2023-10-20T15:32:01Z",
           "expires_on": "2023-10-23T15:32:01Z",
           ...
@@ -334,7 +335,6 @@ class Api::V1::UrlsController < Api::BaseController
           "url_token": "fkwjfvhall92",
           "created_at": "2023-10-20T15:32:01Z",
           "expires_on": "2023-10-23T15:32:01Z",
-          "name": null,
           ...
         },
         ...
