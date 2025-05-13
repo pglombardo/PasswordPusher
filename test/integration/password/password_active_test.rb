@@ -2,12 +2,11 @@
 
 require "test_helper"
 
-class FilePushActiveTest < ActionDispatch::IntegrationTest
+class PasswordActiveTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
     Settings.enable_logins = true
-    Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
     @luca.confirm
@@ -38,7 +37,7 @@ class FilePushActiveTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Just verify that we have the expected number of th elements
-    assert_select "th", 6 # 7 columns in the table
+    assert_select "th", 6 # 6 columns in the table
 
     # Verify that the table headers exist with the expected content
     assert_select "th", /Name or ID/ # First column should contain 'Name' or 'ID'
