@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_08_192458) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_13_074136) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_192458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "passphrase_ciphertext", limit: 2048
+    t.string "name"
     t.index ["url_token"], name: "index_file_pushes_on_url_token", unique: true
     t.index ["user_id"], name: "index_file_pushes_on_user_id"
   end
@@ -74,6 +75,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_192458) do
     t.text "payload_ciphertext", limit: 16777215
     t.text "note_ciphertext"
     t.text "passphrase_ciphertext", limit: 2048
+    t.string "name"
     t.index ["url_token"], name: "index_passwords_on_url_token", unique: true
     t.index ["user_id"], name: "index_passwords_on_user_id"
   end
@@ -214,6 +216,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_192458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "passphrase_ciphertext", limit: 2048
+    t.string "name"
     t.index ["url_token"], name: "index_urls_on_url_token", unique: true
     t.index ["user_id"], name: "index_urls_on_user_id"
   end
