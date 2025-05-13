@@ -12,14 +12,6 @@ class UrlTest < ActiveSupport::TestCase
     assert_equal "Test URL", url.name
   end
 
-  test "should save url without name" do
-    url = Url.new(
-      payload: "https://example.com"
-    )
-    assert url.save
-    assert_nil url.name
-  end
-
   test "should include name in json representation" do
     url = Url.new(
       payload: "https://example.com",
@@ -31,5 +23,25 @@ class UrlTest < ActiveSupport::TestCase
 
     json = JSON.parse(url.to_json({}))
     assert_equal "Test URL", json["name"]
+  end
+
+  test "should save url without name" do
+    url = Url.new(
+      payload: "https://example.com"
+    )
+    assert url.save
+    assert_nil url.name
+  end
+
+  test "should include name as nil in json representation" do
+    url = Url.new(
+      payload: "https://example.com",
+      expire_after_days: 7,
+      expire_after_views: 10
+    )
+    assert url.save
+
+    json = JSON.parse(url.to_json({}))
+    assert_nil json["name"]
   end
 end
