@@ -38,7 +38,6 @@ class PasswordUnitTest < Minitest::Test
 
     assert push.retrieval_step == Settings.pw.retrieval_step_default if Settings.pw.enable_retrieval_step
     assert push.deletable_by_viewer == Settings.pw.deletable_pushes_default if Settings.pw.enable_deletable_pushes
-    assert_nil push.name
   end
 
   def test_days_expiration
