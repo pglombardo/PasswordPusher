@@ -121,6 +121,15 @@
         <div class='col'>
             <div class='row mb-3'>
                 <div class="input-group">
+                    <span class="input-group-text"><%= FilePush.human_attribute_name("name") %></span>
+                    <%= f.text_field(:name, { class: "form-control",
+                                            placeholder: _('Optional'),
+                                            autocomplete: "off" }) %>
+                </div>
+                <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
+            </div>
+            <div class='row mb-3'>
+                <div class="input-group">
                     <span class="input-group-text"><%= _('Message') %></span>
                     <%= f.text_area(:payload, { class: "form-control",
                                             rows: 3,

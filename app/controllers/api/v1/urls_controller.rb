@@ -82,6 +82,7 @@ class Api::V1::UrlsController < Api::BaseController
   param :url, Hash, "Push details", required: true do
     param :payload, String, desc: "The URL encoded URL to redirect to.", required: true
     param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
+    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
     param :note, String,
       desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
     param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
@@ -110,6 +111,7 @@ class Api::V1::UrlsController < Api::BaseController
         "created_at": "2023-10-20T15:32:01Z",
         "expire_after_days": 2,
         "expire_after_views": 10,
+        "name": null
         ...
       }
   EOS
@@ -142,6 +144,7 @@ class Api::V1::UrlsController < Api::BaseController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:url][:payload]
+    @push.name = params[:url][:name]
     @push.note = params[:url][:note] if params[:url].fetch(:note, "").present?
     @push.passphrase = params[:url].fetch(:passphrase, "")
 
@@ -331,6 +334,7 @@ class Api::V1::UrlsController < Api::BaseController
           "url_token": "fkwjfvhall92",
           "created_at": "2023-10-20T15:32:01Z",
           "expires_on": "2023-10-23T15:32:01Z",
+          "name": null,
           ...
         },
         ...
@@ -424,6 +428,6 @@ class Api::V1::UrlsController < Api::BaseController
   end
 
   def url_params
-    params.require(:url).permit(:payload, :expire_after_days, :expire_after_views, :retrieval_step, :note, :passphrase)
+    params.require(:url).permit(:payload, :expire_after_days, :expire_after_views, :retrieval_step, :name, :note, :passphrase)
   end
 end

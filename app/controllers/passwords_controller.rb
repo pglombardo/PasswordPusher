@@ -133,6 +133,7 @@ class PasswordsController < BaseController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:password][:payload]
+    @push.name = params[:password][:name]
     @push.note = params[:password].fetch(:note, "")
     @push.passphrase = params[:password].fetch(:passphrase, "")
 
@@ -337,7 +338,7 @@ class PasswordsController < BaseController
 
   def password_params
     params.require(:password).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note)
+      :retrieval_step, :deletable_by_viewer, :name, :note)
   end
 
   def print_preview_params
