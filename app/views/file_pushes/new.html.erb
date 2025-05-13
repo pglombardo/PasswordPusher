@@ -89,7 +89,8 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "file_push[retrieval_step]", nil, Settings.files.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.files.retrieval_step_default } %>
+                                              x_default: Settings.files.retrieval_step_default,
+                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
@@ -100,7 +101,8 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "file_push[deletable_by_viewer]", nil, Settings.files.deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                                x_default: Settings.files.deletable_pushes_default } %>
+                                                x_default: Settings.files.deletable_pushes_default,
+                                                "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
                                 <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
