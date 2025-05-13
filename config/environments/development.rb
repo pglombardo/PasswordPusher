@@ -40,6 +40,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :mailbin
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = {host: "127.0.0.1:5100"}
 
   config.logger = Logger.new($stdout) if Settings.log_to_stdout
   config.log_level = :debug
