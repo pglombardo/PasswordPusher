@@ -111,7 +111,6 @@ class Api::V1::UrlsController < Api::BaseController
         "created_at": "2023-10-20T15:32:01Z",
         "expire_after_days": 2,
         "expire_after_views": 10,
-        "name": null
         ...
       }
   EOS

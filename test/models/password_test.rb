@@ -12,7 +12,28 @@ class PasswordTest < ActiveSupport::TestCase
     assert_equal "Test Password", password.name
   end
 
-  test "should include name in json representation" do
+  test "should save password without name" do
+    password = Password.new(
+      payload: "test_payload"
+    )
+    assert password.save
+    assert_nil password.name
+  end
+
+  test "should include name in json representation when owner is true" do
+    password = Password.new(
+      payload: "test_payload",
+      name: "Test Password",
+      expire_after_days: 7,
+      expire_after_views: 10
+    )
+    assert password.save
+
+    json = JSON.parse(password.to_json({ owner: true }))
+    assert_equal "Test Password", json["name"]
+  end
+
+  test "should not include name in json representation when owner is false" do
     password = Password.new(
       payload: "test_payload",
       name: "Test Password",
@@ -22,26 +43,6 @@ class PasswordTest < ActiveSupport::TestCase
     assert password.save
 
     json = JSON.parse(password.to_json({}))
-    assert_equal "Test Password", json["name"]
-  end
-
-  test "should save password without name" do
-    password = Password.new(
-      payload: "test_payload"
-    )
-    assert password.save
-    assert_nil password.name
-  end
-
-  test "should include name as nil in json representation" do
-    password = Password.new(
-      payload: "test_payload",
-      expire_after_days: 7,
-      expire_after_views: 10
-    )
-    assert password.save
-
-    json = JSON.parse(password.to_json({}))
-    assert_nil json["name"]
+    assert_not json.key?("name")
   end
 end

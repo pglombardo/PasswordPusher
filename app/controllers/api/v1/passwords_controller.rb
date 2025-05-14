@@ -142,7 +142,6 @@ class Api::V1::PasswordsController < Api::BaseController
         "expires_at": "2023-10-20T15:32:01Z",
         "views_remaining": 10,
         "passphrase": null,
-        "name": null,
         "note": null,
         ...
       }

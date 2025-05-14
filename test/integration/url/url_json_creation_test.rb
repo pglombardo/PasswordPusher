@@ -21,8 +21,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert res.key?("name")
-    assert_nil res["name"]
+    assert res.key?("name") == false
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -38,15 +37,6 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.url.expire_after_days_default, res["expire_after_days"]
     assert res.key?("expire_after_views")
     assert_equal Settings.url.expire_after_views_default, res["expire_after_views"]
-  end
-
-  def test_basic_json_creation_with_name
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", name: "Test URL"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
-    assert_response :success
-
-    res = JSON.parse(@response.body)
-    assert res.key?("name")
-    assert_equal "Test URL", res["name"]
   end
 
   def test_custom_days_expiration

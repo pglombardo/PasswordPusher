@@ -28,8 +28,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert res.key?("name")
-    assert_nil res["name"]
+    assert res.key?("name") == false
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -46,25 +45,6 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal Settings.files.expire_after_days_default, res["expire_after_days"]
     assert res.key?("expire_after_views")
     assert_equal Settings.files.expire_after_views_default, res["expire_after_views"]
-  end
-
-
-  def test_basic_json_creation_with_name
-    post file_pushes_path(format: :json), params: {
-                                            file_push: {
-                                              payload: "Message",
-                                              files: [
-                                                fixture_file_upload("monkey.png", "image/jpeg")
-                                              ],
-                                              name: "Test File Push"
-                                            }
-                                          },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
-    assert_response :success
-
-    res = JSON.parse(@response.body)
-    assert res.key?("name")
-    assert_equal "Test File Push", res["name"]
   end
 
   def test_json_creation_with_uncommon_characters
