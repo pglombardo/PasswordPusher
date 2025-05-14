@@ -2,12 +2,15 @@
 
 <div class='container'
     data-controller="knobs form"
+    data-knobs-tab-name-value="file"
     data-knobs-lang-day-value="<%= _('Day') %>"
     data-knobs-lang-days-value="<%= _('Days') %>"
     data-knobs-default-days-value="<%= Settings.files.expire_after_days_default %>"
     data-knobs-lang-view-value="<%= _('View') %>"
     data-knobs-lang-views-value="<%= _('Views') %>"
     data-knobs-default-views-value="<%= Settings.files.expire_after_views_default %>"
+    data-knobs-lang-save-value="<%= _('Save') %>"
+    data-knobs-lang-saved-value="<%= _('Saved!') %>"
     data-knobs-default-retrieval-step-value="<%= Settings.files.retrieval_step_default %>"
     data-knobs-default-deletable-by-viewer-value="<%= Settings.files.deletable_pushes_default %>"
     data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
@@ -86,7 +89,8 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "file_push[retrieval_step]", nil, Settings.files.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.files.retrieval_step_default } %>
+                                              x_default: Settings.files.retrieval_step_default,
+                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
@@ -97,7 +101,8 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "file_push[deletable_by_viewer]", nil, Settings.files.deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                                x_default: Settings.files.deletable_pushes_default } %>
+                                                x_default: Settings.files.deletable_pushes_default,
+                                                "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>
                                 <%= _('Allow immediate deletion') %>
                                 <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
@@ -115,6 +120,15 @@
                                                         autocomplete: "off",
                                                         placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                     </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <p class='mb-3'>
+                        <div id='cookie-save'>
+                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                        </div>
+                    </p>
                 </div>
             </div>
         </div>
