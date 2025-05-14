@@ -2,12 +2,15 @@
 
 <div class='container'
     data-controller="knobs form"
+    data-knobs-tab-name-value="url"
     data-knobs-lang-day-value="<%= _('Day') %>"
     data-knobs-lang-days-value="<%= _('Days') %>"
     data-knobs-default-days-value="<%= Settings.url.expire_after_days_default %>"
     data-knobs-lang-view-value="<%= _('View') %>"
     data-knobs-lang-views-value="<%= _('Views') %>"
     data-knobs-default-views-value="<%= Settings.url.expire_after_views_default %>"
+    data-knobs-lang-save-value="<%= _('Save') %>"
+    data-knobs-lang-saved-value="<%= _('Saved!') %>"
     data-knobs-default-retrieval-step-value="<%= Settings.url.retrieval_step_default %>"
     data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
 <%= render partial: "shared/topnav" %>
@@ -17,10 +20,10 @@
         <div class='col-sm-8'>
             <div class='row mb-3'>
                 <div class='col'>
-                    <div class="card">
-                        <h5 class="card-header"><%= _('URL Redirection') %></h5>
-                        <div class="card-body">
-                            <div class="input-group">
+                    <div class=" card ">
+                        <h5 class=" card-header "><%= _('URL Redirection') %></h5>
+                        <div class=" card-body ">
+                            <div class=" input-group ">
                                 <%= f.text_field(:payload, { class: "form-control",
                                                             placeholder: _('Enter the URL to redirect to...'),
                                                             autocomplete: "off",
@@ -81,7 +84,8 @@
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "url[retrieval_step]", nil, Settings.url.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
-                                            x_default: Settings.url.retrieval_step_default } %>
+                                              x_default: Settings.url.retrieval_step_default,
+                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up redirects.') %></small>
@@ -99,6 +103,15 @@
                                                         autocomplete: "off",
                                                         placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                     </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <p class='mb-3'>
+                        <div id='cookie-save'>
+                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                        </div>
+                    </p>
                 </div>
             </div>
         </div>

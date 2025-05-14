@@ -11,6 +11,8 @@ export default class extends Controller {
         "generatePasswordButton"
      ]
     static values = {
+        tabName: String,
+
         langDay: String,
         langDays: String,
         defaultDays: Number,
@@ -49,13 +51,13 @@ export default class extends Controller {
     }
 
     loadSettings() {
-        this.daysRangeTarget.value = Cookies.get('pwpush_days') || this.defaultDaysValue
+        this.daysRangeTarget.value = Cookies.get(`pwpush_${this.tabNameValue}_days`) || this.defaultDaysValue
         this.daysRangeLabelTarget.innerText = this.daysRangeTarget.value + " " + this.langDaysValue
-        this.viewsRangeTarget.value = Cookies.get('pwpush_views') || this.defaultViewsValue
+        this.viewsRangeTarget.value = Cookies.get(`pwpush_${this.tabNameValue}_views`) || this.defaultViewsValue
         this.viewsRangeLabelTarget.innerText = this.viewsRangeTarget.value + " " + this.langViewsValue
 
         if (this.hasRetrievalStepCheckboxTarget) {
-            let checkboxValue = Cookies.get('pwpush_retrieval_step')
+            let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_retrieval_step`)
             if (typeof checkboxValue == 'string') {
                 this.retrievalStepCheckboxTarget.checked = this.toBoolean(checkboxValue)
             } else {
@@ -63,7 +65,7 @@ export default class extends Controller {
             }
         }
         if (this.hasDeletableByViewerCheckboxTarget) {
-            let checkboxValue = Cookies.get('pwpush_deletable_by_viewer')
+            let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_deletable_by_viewer`)
             if (typeof checkboxValue == 'string') {
                 this.deletableByViewerCheckboxTarget.checked = this.toBoolean(checkboxValue)
             } else {
@@ -74,14 +76,14 @@ export default class extends Controller {
 
     saveSettings(event) {
         event.preventDefault()
-        Cookies.set('pwpush_days', this.daysRangeTarget.value, { expires: 365 })
-        Cookies.set('pwpush_views', this.viewsRangeTarget.value, { expires: 365 })
+        Cookies.set(`pwpush_${this.tabNameValue}_days`, this.daysRangeTarget.value, { expires: 365 })
+        Cookies.set(`pwpush_${this.tabNameValue}_views`, this.viewsRangeTarget.value, { expires: 365 })
 
         if (this.hasDeletableByViewerCheckboxTarget) {
-            Cookies.set('pwpush_deletable_by_viewer', this.deletableByViewerCheckboxTarget.checked, { expires: 365 })
+            Cookies.set(`pwpush_${this.tabNameValue}_deletable_by_viewer`, this.deletableByViewerCheckboxTarget.checked, { expires: 365 })
         }
         if (this.hasRetrievalStepCheckboxTarget) {
-            Cookies.set('pwpush_retrieval_step', this.retrievalStepCheckboxTarget.checked, { expires: 365 })
+            Cookies.set(`pwpush_${this.tabNameValue}_retrieval_step`, this.retrievalStepCheckboxTarget.checked, { expires: 365 })
         }
 
         let defaultTextValue = this.langSaveValue
