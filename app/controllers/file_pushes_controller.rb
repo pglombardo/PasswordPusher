@@ -323,7 +323,7 @@ class FilePushesController < BaseController
 
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note, :passphrase, files: [])
+      :retrieval_step, :deletable_by_viewer, :name, :note, :passphrase, files: [])
   end
 
   def print_preview_params

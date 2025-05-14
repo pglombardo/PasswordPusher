@@ -153,6 +153,15 @@
             <% if user_signed_in? %>
                 <div class='row mb-3'>
                     <div class="input-group">
+                        <span class="input-group-text"><%= Password.human_attribute_name(:name) %></span>
+                        <%= f.text_field(:name, { class: "form-control",
+                                                placeholder: _('Optional'),
+                                                autocomplete: "off" }) %>
+                    </div>
+                    <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
+                </div>
+                <div class='row mb-3'>
+                    <div class="input-group">
                         <span class="input-group-text"><%= _('Reference Note') %></span>
                         <%= f.text_area(:note, { class: "form-control",
                                                 rows: 1,

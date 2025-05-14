@@ -76,6 +76,7 @@ class FilePush < ApplicationRecord
     attr_hash.delete("id")
 
     attr_hash.delete("passphrase")
+    attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload
 

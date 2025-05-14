@@ -126,6 +126,7 @@ class UrlsController < BaseController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:url][:payload]
+    @push.name = params[:url][:name]
     @push.note = params[:url][:note] if params[:url].fetch(:note, "").present?
     @push.passphrase = params[:url].fetch(:passphrase, "")
 
@@ -304,7 +305,7 @@ class UrlsController < BaseController
   end
 
   def url_params
-    params.require(:url).permit(:payload, :expire_after_days, :expire_after_views, :retrieval_step, :note, :passphrase)
+    params.require(:url).permit(:payload, :expire_after_days, :expire_after_views, :retrieval_step, :name, :note, :passphrase)
   end
 
   def print_preview_params

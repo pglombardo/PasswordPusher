@@ -93,6 +93,7 @@ class Api::V1::PasswordsController < Api::BaseController
   param :password, Hash, "Push details", required: true do
     param :payload, String, desc: "The URL encoded password or secret text to share.", required: true
     param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
+    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
     param :note, String, desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
     param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
     param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
@@ -177,6 +178,7 @@ class Api::V1::PasswordsController < Api::BaseController
     create_detect_retrieval_step(@push, params)
 
     @push.payload = params[:password][:payload]
+    @push.name = params[:password][:name]
     @push.note = params[:password].fetch(:note, "")
     @push.passphrase = params[:password].fetch(:passphrase, "")
 
@@ -332,6 +334,7 @@ class Api::V1::PasswordsController < Api::BaseController
           {
             "url_token": "fkwjfvhall92",
             "created_at": "2023-10-20T15:32:01Z",
+            "name": null,
             "expire_after_days": 7,
             "expire_after_views": 1,
             "expired": false,
@@ -506,6 +509,6 @@ class Api::V1::PasswordsController < Api::BaseController
 
   def password_params
     params.require(:password).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note)
+      :retrieval_step, :deletable_by_viewer, :name, :note)
   end
 end

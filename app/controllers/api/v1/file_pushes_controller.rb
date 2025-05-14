@@ -98,6 +98,7 @@ class Api::V1::FilePushesController < Api::BaseController
   param :file_push, Hash, "Push details", required: true do
     param :payload, String, desc: "The URL encoded secret text to share.", required: true
     param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
+    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
     param :note, String,
       desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
     param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
@@ -297,6 +298,7 @@ class Api::V1::FilePushesController < Api::BaseController
           "url_token": "fkwjfvhall92",
           "created_at": "2023-10-20T15:32:01Z",
           "expires_on": "2023-10-23T15:32:01Z",
+          "name": null,
           ...
         },
         ...
@@ -463,7 +465,7 @@ class Api::V1::FilePushesController < Api::BaseController
 
   def file_push_params
     params.require(:file_push).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :note, :passphrase, files: [])
+      :retrieval_step, :deletable_by_viewer, :name, :note, :passphrase, files: [])
   end
 
   def print_preview_params

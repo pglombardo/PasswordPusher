@@ -10,6 +10,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
+    assert res.key?("name") == false
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
