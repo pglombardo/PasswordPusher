@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_15_110051) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_15_193130) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_15_110051) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "audit_logs", force: :cascade do |t|
+    t.string "ip"
+    t.string "user_agent"
+    t.string "referrer"
+    t.integer "kind"
+    t.integer "user_id"
+    t.integer "push_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind"], name: "index_audit_logs_on_kind"
+    t.index ["push_id"], name: "index_audit_logs_on_push_id"
+    t.index ["user_id"], name: "index_audit_logs_on_user_id"
   end
 
   create_table "file_pushes", force: :cascade do |t|
@@ -77,6 +91,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_15_110051) do
     t.string "name"
     t.index ["url_token"], name: "index_passwords_on_url_token", unique: true
     t.index ["user_id"], name: "index_passwords_on_user_id"
+  end
+
+  create_table "pushes", force: :cascade do |t|
+    t.integer "kind"
+    t.integer "expire_after_days"
+    t.integer "expire_after_views"
+    t.boolean "expired", default: false
+    t.string "url_token"
+    t.boolean "deleted", default: false
+    t.boolean "deletable_by_viewer", default: true
+    t.boolean "retrieval_step", default: false
+    t.datetime "expired_on"
+    t.text "payload_ciphertext", limit: 16777215
+    t.text "note_ciphertext"
+    t.text "passphrase_ciphertext", limit: 2048
+    t.string "name"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["url_token"], name: "index_pushes_on_url_token", unique: true
+    t.index ["user_id"], name: "index_pushes_on_user_id"
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -270,6 +305,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_15_110051) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "audit_logs", "pushes"
+  add_foreign_key "pushes", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
