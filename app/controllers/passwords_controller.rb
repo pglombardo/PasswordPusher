@@ -8,59 +8,6 @@ class PasswordsController < BaseController
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show destroy]
 
-  def show
-    # This password may have expired since the last view.  Validate the password
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render template: "passwords/show_expired", layout: "naked"
-      return
-    else
-      @payload = @push.payload
-    end
-
-    # Passphrase handling
-    if !@push.passphrase.nil? && @push.passphrase.present?
-      # Construct the passphrase cookie name
-      name = "#{@push.url_token}-p"
-
-      # The passphrase can be passed in the params or in the cookie (default)
-      # JSON requests must pass the passphrase in the params
-      has_passphrase = params.fetch(:passphrase,
-        nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
-
-      unless has_passphrase
-        # Passphrase hasn't been provided or is incorrect
-        # Redirect to the passphrase page
-        redirect_to passphrase_password_path(@push.url_token)
-        return
-      end
-
-      # Delete the cookie
-      cookies.delete name
-    end
-
-    log_view(@push)
-    expires_now
-
-    # Optionally blur the text payload
-    @blur_css_class = Settings.pw.enable_blur ? "spoiler" : ""
-
-    render layout: "bare"
-
-    # Expire if this is the last view for this push
-    @push.expire unless @push.views_remaining.positive?
-  end
-
-  # GET /p/:url_token/passphrase
-  def passphrase
-    respond_to do |format|
-      format.html { render action: "passphrase", layout: "naked" }
-    end
-  end
-
   # POST /p/:url_token/access
   def access
     # Construct the passphrase cookie name
@@ -88,17 +35,25 @@ class PasswordsController < BaseController
     end
   end
 
-  # GET /passwords/new
-  def new
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+  def active
+    unless Settings.enable_logins
+      redirect_to :root
+      return
+    end
 
-    @push = Password.new
-    # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
-    @push.passphrase = ""
+    @pushes = Password.includes(:views)
+      .where(user_id: current_user.id, expired: false)
+      .page(params[:page])
+      .order(created_at: :desc)
+  end
 
-    respond_to(&:html)
+  def audit
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: _("That push doesn't belong to you.")
+      return
+    end
+
+    @secret_url = helpers.secret_url(@push)
   end
 
   def create
@@ -146,47 +101,6 @@ class PasswordsController < BaseController
     end
   end
 
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-  end
-
-  def print_preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-
-    @message = print_preview_params[:message]
-    @show_expiration = print_preview_params[:show_expiration]
-    @show_id = print_preview_params[:show_id]
-
-    render action: "print_preview", layout: "naked"
-  end
-
-  def preliminary
-    # This password may have expired since the last view.  Validate the password
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render template: "passwords/show_expired", layout: "naked"
-      return
-    else
-      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
-    end
-
-    render action: "preliminary", layout: "naked"
-  end
-
-  def audit
-    if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
-      return
-    end
-
-    @secret_url = helpers.secret_url(@push)
-  end
-
   def destroy
     # Check if the push is deletable by the viewer or if the user is the owner
     if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
@@ -213,18 +127,6 @@ class PasswordsController < BaseController
     end
   end
 
-  def active
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = Password.includes(:views)
-      .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
-  end
-
   def expired
     unless Settings.enable_logins
       redirect_to :root
@@ -236,6 +138,105 @@ class PasswordsController < BaseController
       .page(params[:page])
       .order(created_at: :desc)
   end
+
+  # GET /passwords/new
+  def new
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
+    @push = Password.new
+    # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
+    @push.passphrase = ""
+
+    respond_to(&:html)
+  end
+
+  # GET /p/:url_token/passphrase
+  def passphrase
+    respond_to do |format|
+      format.html { render action: "passphrase", layout: "naked" }
+    end
+  end
+
+  def preliminary
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "passwords/show_expired", layout: "naked"
+      return
+    else
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
+    end
+
+    render action: "preliminary", layout: "naked"
+  end
+
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+  end
+
+  def print_preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    @message = print_preview_params[:message]
+    @show_expiration = print_preview_params[:show_expiration]
+    @show_id = print_preview_params[:show_id]
+
+    render action: "print_preview", layout: "naked"
+  end
+
+  def show
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "passwords/show_expired", layout: "naked"
+      return
+    else
+      @payload = @push.payload
+    end
+
+    # Passphrase handling
+    if !@push.passphrase.nil? && @push.passphrase.present?
+      # Construct the passphrase cookie name
+      name = "#{@push.url_token}-p"
+
+      # The passphrase can be passed in the params or in the cookie (default)
+      # JSON requests must pass the passphrase in the params
+      has_passphrase = params.fetch(:passphrase,
+        nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
+
+      unless has_passphrase
+        # Passphrase hasn't been provided or is incorrect
+        # Redirect to the passphrase page
+        redirect_to passphrase_password_path(@push.url_token)
+        return
+      end
+
+      # Delete the cookie
+      cookies.delete name
+    end
+
+    log_view(@push)
+    expires_now
+
+    # Optionally blur the text payload
+    @blur_css_class = Settings.pw.enable_blur ? "spoiler" : ""
+
+    render layout: "bare"
+
+    # Expire if this is the last view for this push
+    @push.expire unless @push.views_remaining.positive?
+  end
+
 
   private
 

@@ -10,6 +10,176 @@ class FilePushesController < BaseController
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[preliminary passphrase access show destroy]
 
+ 
+  # POST /f/:url_token/access
+  def access
+    # Construct the passphrase cookie name
+    name = "#{@push.url_token}-f"
+
+    # Validate the passphrase
+    if @push.passphrase == params[:passphrase]
+      # Passphrase is valid
+      # Set the passphrase cookie
+      cookies[name] = {
+        value: @push.passphrase_ciphertext,
+        expires: 3.minutes.from_now,
+        httponly: true,                # Prevent JavaScript access to the cookie
+        same_site: :strict             # Restrict the cookie to same-site requests
+      }
+
+      # Redirect to the payload
+      redirect_to file_push_path(@push.url_token)
+    else
+      # Passphrase is invalid
+      # Redirect to the passphrase page
+      flash[:alert] =
+        _("That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.")
+      redirect_to passphrase_file_push_path(@push.url_token)
+    end
+  end
+
+  def active
+    unless Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = FilePush.includes(:views)
+      .where(user_id: current_user.id, expired: false)
+      .page(params[:page])
+      .order(created_at: :desc)
+  end
+
+
+  def audit
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: _("That push doesn't belong to you.")
+      return
+    end
+
+    @secret_url = helpers.secret_url(@push)
+  end
+
+  def destroy
+    # Check if the push is deletable by the viewer or if the user is the owner
+    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
+      return
+    end
+
+    if @push.expired
+      redirect_to @push, notice: _("That push is already expired.")
+      return
+    end
+
+    log_view(@push, manual_expiration: true)
+
+    @push.expired = true
+    @push.payload = nil
+    @push.deleted = true
+    @push.files.purge
+    @push.expired_on = Time.zone.now
+
+    if @push.save
+      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
+    else
+      render action: "new", status: :unprocessable_entity
+    end
+  end
+
+
+
+
+  def create
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
+    @push = FilePush.new(file_push_params)
+
+    if file_push_params.key?(:files) &&
+        file_push_params[:files].count { |e| e != "" } > Settings.files.max_file_uploads
+      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
+      flash.now[:alert] = msg
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    @push.expire_after_days ||= Settings.files.expire_after_days_default
+    @push.expire_after_views ||= Settings.files.expire_after_views_default
+
+    @push.user_id = current_user.id if user_signed_in?
+    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
+
+    create_detect_deletable_by_viewer(@push, file_push_params)
+    create_detect_retrieval_step(@push, file_push_params)
+
+    @push.validate!
+
+    if @push.save
+      redirect_to preview_file_push_path(@push)
+    else
+      render action: "new", status: :unprocessable_entity
+    end
+  end
+
+  def expired
+    unless Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = FilePush.includes(:views)
+      .where(user_id: current_user.id, expired: true)
+      .page(params[:page])
+      .order(created_at: :desc)
+  end
+
+
+  # GET /file_pushes/new
+  def new
+    @push = FilePush.new
+  end
+
+  # GET /f/:url_token/passphrase
+  def passphrase
+    respond_to do |format|
+      format.html { render action: "passphrase", layout: "naked" }
+    end
+  end
+
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+  end
+
+  def print_preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    @message = print_preview_params[:message]
+    @show_expiration = print_preview_params[:show_expiration]
+    @show_id = print_preview_params[:show_id]
+
+    render action: "print_preview", layout: "naked"
+  end
+
+  def preliminary
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "file_pushes/show_expired", layout: "naked"
+      return
+    else
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
+    end
+
+    render action: "preliminary", layout: "naked"
+  end
+
   def show
     # This file_push may have expired since the last view.  Validate the file_push
     # expiration before doing anything.
@@ -58,171 +228,7 @@ class FilePushesController < BaseController
     # # Expire if this is the last view for this push
     # @push.expire if !@push.views_remaining.positive?
   end
-
-  # GET /f/:url_token/passphrase
-  def passphrase
-    respond_to do |format|
-      format.html { render action: "passphrase", layout: "naked" }
-    end
-  end
-
-  # POST /f/:url_token/access
-  def access
-    # Construct the passphrase cookie name
-    name = "#{@push.url_token}-f"
-
-    # Validate the passphrase
-    if @push.passphrase == params[:passphrase]
-      # Passphrase is valid
-      # Set the passphrase cookie
-      cookies[name] = {
-        value: @push.passphrase_ciphertext,
-        expires: 3.minutes.from_now,
-        httponly: true,                # Prevent JavaScript access to the cookie
-        same_site: :strict             # Restrict the cookie to same-site requests
-      }
-
-      # Redirect to the payload
-      redirect_to file_push_path(@push.url_token)
-    else
-      # Passphrase is invalid
-      # Redirect to the passphrase page
-      flash[:alert] =
-        _("That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.")
-      redirect_to passphrase_file_push_path(@push.url_token)
-    end
-  end
-
-  # GET /file_pushes/new
-  def new
-    @push = FilePush.new
-  end
-
-  def create
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
-    @push = FilePush.new(file_push_params)
-
-    if file_push_params.key?(:files) &&
-        file_push_params[:files].count { |e| e != "" } > Settings.files.max_file_uploads
-      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
-      flash.now[:alert] = msg
-      render :new, status: :unprocessable_entity
-      return
-    end
-
-    @push.expire_after_days ||= Settings.files.expire_after_days_default
-    @push.expire_after_views ||= Settings.files.expire_after_views_default
-
-    @push.user_id = current_user.id if user_signed_in?
-    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
-
-    create_detect_deletable_by_viewer(@push, file_push_params)
-    create_detect_retrieval_step(@push, file_push_params)
-
-    @push.validate!
-
-    if @push.save
-      redirect_to preview_file_push_path(@push)
-    else
-      render action: "new", status: :unprocessable_entity
-    end
-  end
-
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-  end
-
-  def print_preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-
-    @message = print_preview_params[:message]
-    @show_expiration = print_preview_params[:show_expiration]
-    @show_id = print_preview_params[:show_id]
-
-    render action: "print_preview", layout: "naked"
-  end
-
-  def preliminary
-    # This password may have expired since the last view.  Validate the password
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render template: "file_pushes/show_expired", layout: "naked"
-      return
-    else
-      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
-    end
-
-    render action: "preliminary", layout: "naked"
-  end
-
-  def audit
-    if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
-      return
-    end
-
-    @secret_url = helpers.secret_url(@push)
-  end
-
-  def destroy
-    # Check if the push is deletable by the viewer or if the user is the owner
-    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
-      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
-      return
-    end
-
-    if @push.expired
-      redirect_to @push, notice: _("That push is already expired.")
-      return
-    end
-
-    log_view(@push, manual_expiration: true)
-
-    @push.expired = true
-    @push.payload = nil
-    @push.deleted = true
-    @push.files.purge
-    @push.expired_on = Time.zone.now
-
-    if @push.save
-      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
-    else
-      render action: "new", status: :unprocessable_entity
-    end
-  end
-
-  def active
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = FilePush.includes(:views)
-      .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
-  end
-
-  def expired
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = FilePush.includes(:views)
-      .where(user_id: current_user.id, expired: true)
-      .page(params[:page])
-      .order(created_at: :desc)
-  end
-
+  
   private
 
   ##

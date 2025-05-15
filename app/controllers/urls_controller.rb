@@ -10,58 +10,14 @@ class UrlsController < BaseController
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[preliminary passphrase access show destroy]
 
-  def show
-    # This url may have expired since the last view.  Validate the url
-    # expiration before doing anything.
-    @push.validate!
 
-    if @push.expired
-      log_view(@push)
-      render template: "urls/show_expired", layout: "naked"
+  def audit
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: _("That push doesn't belong to you.")
       return
     end
 
-    # Passphrase handling
-    if @push.passphrase.present?
-      # Construct the passphrase cookie name
-      name = "#{@push.url_token}-r"
-
-      # The passphrase can be passed in the params or in the cookie (default)
-      # JSON requests must pass the passphrase in the params
-      has_correct_passphrase =
-        params.fetch(:passphrase, nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
-
-      if !has_correct_passphrase
-        # Passphrase hasn't been provided or is incorrect
-        # Redirect to the passphrase page
-        redirect_to passphrase_url_path(@push.url_token)
-        return
-      end
-
-      # Delete the cookie
-      cookies.delete name
-    end
-
-    log_view(@push)
-    expires_now
-
-    redirect_to @push.payload, allow_other_host: true, status: :see_other
-
-    @push.expire unless @push.views_remaining.positive?
-  end
-
-  # GET /r/:url_token/passphrase
-  def passphrase
-    if @push.expired
-      respond_to do |format|
-        format.html { render template: "urls/show_expired", layout: "naked" }
-      end
-      return
-    end
-
-    respond_to do |format|
-      format.html { render action: "passphrase", layout: "naked" }
-    end
+    @secret_url = helpers.secret_url(@push)
   end
 
   # POST /r/:url_token/access
@@ -91,9 +47,16 @@ class UrlsController < BaseController
     end
   end
 
-  # GET /urls/new
-  def new
-    @push = Url.new
+  def active
+    unless Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @pushes = Url.includes(:views)
+      .where(user_id: current_user.id, expired: false)
+      .page(params[:page])
+      .order(created_at: :desc)
   end
 
   def create
@@ -138,50 +101,7 @@ class UrlsController < BaseController
       render :new, status: :unprocessable_entity
     end
   end
-
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-  end
-
-  def print_preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-
-    @message = print_preview_params[:message]
-    @show_expiration = print_preview_params[:show_expiration]
-    @show_id = print_preview_params[:show_id]
-
-    render :print_preview, layout: "naked"
-  end
-
-  def preliminary
-    # This password may have expired since the last view.  Validate the password
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render template: "urls/show_expired", layout: "naked"
-      return
-    else
-      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
-    end
-
-    respond_to do |format|
-      format.html { render action: "preliminary", layout: "naked" }
-    end
-  end
-
-  def audit
-    if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
-      return
-    end
-
-    @secret_url = helpers.secret_url(@push)
-  end
-
+  
   def destroy
     # Check ownership
     if @push.user_id != current_user&.id
@@ -208,18 +128,6 @@ class UrlsController < BaseController
     end
   end
 
-  def active
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = Url.includes(:views)
-      .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
-  end
-
   def expired
     unless Settings.enable_logins
       redirect_to :root
@@ -230,6 +138,101 @@ class UrlsController < BaseController
       .where(user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
+  end
+
+  # GET /urls/new
+  def new
+    @push = Url.new
+  end
+
+  # GET /r/:url_token/passphrase
+  def passphrase
+    if @push.expired
+      respond_to do |format|
+        format.html { render template: "urls/show_expired", layout: "naked" }
+      end
+      return
+    end
+
+    respond_to do |format|
+      format.html { render action: "passphrase", layout: "naked" }
+    end
+  end
+  
+
+  def preliminary
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "urls/show_expired", layout: "naked"
+      return
+    else
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
+    end
+
+    respond_to do |format|
+      format.html { render action: "preliminary", layout: "naked" }
+    end
+  end
+
+
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+  end
+
+  def print_preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    @message = print_preview_params[:message]
+    @show_expiration = print_preview_params[:show_expiration]
+    @show_id = print_preview_params[:show_id]
+
+    render :print_preview, layout: "naked"
+  end
+  
+  def show
+    # This url may have expired since the last view.  Validate the url
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "urls/show_expired", layout: "naked"
+      return
+    end
+
+    # Passphrase handling
+    if @push.passphrase.present?
+      # Construct the passphrase cookie name
+      name = "#{@push.url_token}-r"
+
+      # The passphrase can be passed in the params or in the cookie (default)
+      # JSON requests must pass the passphrase in the params
+      has_correct_passphrase =
+        params.fetch(:passphrase, nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
+
+      if !has_correct_passphrase
+        # Passphrase hasn't been provided or is incorrect
+        # Redirect to the passphrase page
+        redirect_to passphrase_url_path(@push.url_token)
+        return
+      end
+
+      # Delete the cookie
+      cookies.delete name
+    end
+
+    log_view(@push)
+    expires_now
+
+    redirect_to @push.payload, allow_other_host: true, status: :see_other
+
+    @push.expire unless @push.views_remaining.positive?
   end
 
   private
