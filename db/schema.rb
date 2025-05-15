@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_13_074136) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_15_110051) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,7 +50,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_074136) do
     t.boolean "retrieval_step", default: false
     t.datetime "expired_on"
     t.text "payload_ciphertext", limit: 16777215
-    t.text "text", limit: 16777215
     t.text "note_ciphertext"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -211,7 +210,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_13_074136) do
     t.boolean "retrieval_step", default: false
     t.datetime "expired_on"
     t.text "payload_ciphertext", limit: 2097152
-    t.text "text", limit: 2097152
     t.text "note_ciphertext"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
