@@ -10,16 +10,6 @@ class UrlsController < BaseController
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[preliminary passphrase access show destroy]
 
-
-  def audit
-    if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
-      return
-    end
-
-    @secret_url = helpers.secret_url(@push)
-  end
-
   # POST /r/:url_token/access
   def access
     # Construct the passphrase cookie name
@@ -57,6 +47,15 @@ class UrlsController < BaseController
       .where(user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
+  end
+
+  def audit
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: _("That push doesn't belong to you.")
+      return
+    end
+
+    @secret_url = helpers.secret_url(@push)
   end
 
   def create

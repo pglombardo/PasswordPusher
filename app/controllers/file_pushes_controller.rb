@@ -50,7 +50,6 @@ class FilePushesController < BaseController
       .order(created_at: :desc)
   end
 
-
   def audit
     if @push.user_id != current_user.id
       redirect_to :root, notice: _("That push doesn't belong to you.")
@@ -59,36 +58,6 @@ class FilePushesController < BaseController
 
     @secret_url = helpers.secret_url(@push)
   end
-
-  def destroy
-    # Check if the push is deletable by the viewer or if the user is the owner
-    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
-      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
-      return
-    end
-
-    if @push.expired
-      redirect_to @push, notice: _("That push is already expired.")
-      return
-    end
-
-    log_view(@push, manual_expiration: true)
-
-    @push.expired = true
-    @push.payload = nil
-    @push.deleted = true
-    @push.files.purge
-    @push.expired_on = Time.zone.now
-
-    if @push.save
-      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
-    else
-      render action: "new", status: :unprocessable_entity
-    end
-  end
-
-
-
 
   def create
     # Require authentication if allow_anonymous is false
@@ -123,6 +92,33 @@ class FilePushesController < BaseController
     end
   end
 
+  def destroy
+    # Check if the push is deletable by the viewer or if the user is the owner
+    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
+      return
+    end
+
+    if @push.expired
+      redirect_to @push, notice: _("That push is already expired.")
+      return
+    end
+
+    log_view(@push, manual_expiration: true)
+
+    @push.expired = true
+    @push.payload = nil
+    @push.deleted = true
+    @push.files.purge
+    @push.expired_on = Time.zone.now
+
+    if @push.save
+      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
+    else
+      render action: "new", status: :unprocessable_entity
+    end
+  end
+
   def expired
     unless Settings.enable_logins
       redirect_to :root
@@ -135,7 +131,6 @@ class FilePushesController < BaseController
       .order(created_at: :desc)
   end
 
-
   # GET /file_pushes/new
   def new
     @push = FilePush.new
@@ -146,6 +141,22 @@ class FilePushesController < BaseController
     respond_to do |format|
       format.html { render action: "passphrase", layout: "naked" }
     end
+  end
+
+  def preliminary
+    # This password may have expired since the last view.  Validate the password
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render template: "file_pushes/show_expired", layout: "naked"
+      return
+    else
+      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
+    end
+
+    render action: "preliminary", layout: "naked"
   end
 
   def preview
@@ -164,21 +175,6 @@ class FilePushesController < BaseController
     render action: "print_preview", layout: "naked"
   end
 
-  def preliminary
-    # This password may have expired since the last view.  Validate the password
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render template: "file_pushes/show_expired", layout: "naked"
-      return
-    else
-      @secret_url = helpers.secret_url(@push, with_retrieval_step: false, locale: params[:locale])
-    end
-
-    render action: "preliminary", layout: "naked"
-  end
 
   def show
     # This file_push may have expired since the last view.  Validate the file_push
