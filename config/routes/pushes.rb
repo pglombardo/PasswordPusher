@@ -1,5 +1,5 @@
 constraints(format: :html) do
-  resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
+  resources :p, controller: :pushes, as: :passwords, except: %i[index edit update] do
     get "preview", on: :member
     get "print_preview", on: :member
     get "passphrase", on: :member
@@ -12,7 +12,7 @@ constraints(format: :html) do
 
   # File pushes only enabled when logins are enabled.
   if Settings.enable_logins && Settings.enable_file_pushes
-    resources :f, controller: :file_pushes, as: :file_pushes, except: %i[index edit update] do
+    resources :f, controller: :pushes, as: :file_pushes, except: %i[index edit update] do
       get "preview", on: :member
       get "print_preview", on: :member
       get "passphrase", on: :member
@@ -26,7 +26,7 @@ constraints(format: :html) do
 
   # URL based pushes can only enabled when logins are enabled.
   if Settings.enable_logins && Settings.enable_url_pushes
-    resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
+    resources :r, controller: :pushes, as: :urls, except: %i[index edit update] do
       get "preview", on: :member
       get "print_preview", on: :member
       get "passphrase", on: :member

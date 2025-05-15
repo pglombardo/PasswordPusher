@@ -1,9 +1,7 @@
 if Settings.enable_logins
   authenticated :user, ->(u) { u.admin? } do
     namespace :admin do
-      resources :file_pushes
-      resources :passwords
-      resources :urls
+      resources :pushes
       resources :users
       resources :views
 
