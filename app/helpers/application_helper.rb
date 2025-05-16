@@ -81,15 +81,4 @@ module ApplicationHelper
       standalone: true
     ).html_safe
   end
-
-  def settings_for(push)
-    if push.text?
-      Settings.pw
-    elsif push.url?
-      Settings.url
-    elsif push.file?
-      Settings.files
-    end
-  end
-  
 end

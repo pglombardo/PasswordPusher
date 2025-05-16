@@ -25,6 +25,8 @@
     data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
 <%= render partial: "shared/topnav" %>
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
+    <%= f.hidden_field :kind, value: :text %>
+
     <div class='row'>
         <div class='col'>
             <%= f.text_area(:payload, { class: "form-control",
