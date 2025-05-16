@@ -1,0 +1,9 @@
+<%= content_for :title, t("pushes.new.title") %>
+
+<% if @text_tab %>
+  <%= render "form", push: @push %>
+<% elsif @files_tab %>
+  <%= render "files_form", push: @push %>
+<% elsif @url_tab %>
+  <%= render "url_form", push: @push %>
+<% end %>

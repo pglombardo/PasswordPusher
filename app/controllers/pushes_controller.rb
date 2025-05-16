@@ -3,10 +3,11 @@
 require "securerandom"
 
 class PushesController < BaseController
-  before_action :set_push, except: %i[new create active expired]
+  before_action :set_push, except: %i[new create index]
 
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show destroy]
+  before_action :set_active_tab, only: %i[new]
 
  
   # POST /p/:url_token/access
@@ -105,9 +106,23 @@ class PushesController < BaseController
 
     @push.validate!
 
-    if @push.save
+    @push.audit_logs.build(kind: :creation, user_id:, ip: request.remote_ip,
+      user_agent: request.env["HTTP_USER_AGENT"], referrer: request.env["HTTP_REFERER"])
+
+    if @push.errors.empty? && @push.save
       redirect_to preview_push_path(@push)
     else
+      if @push.kind == "text"
+        @text_tab = true
+      elsif @push.kind == "files"
+        @files_tab = true
+      elsif @push.kind == "url"
+        @url_tab = true
+      elsif @push.kind == "qr"
+        @qr_tab = true
+      else
+        @text_tab = true
+      end
       render action: "new", status: :unprocessable_entity
     end
   end
@@ -151,6 +166,28 @@ class PushesController < BaseController
       .where(user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
+  end
+
+  def index
+    unless Settings.enable_logins
+      redirect_to :root
+      return
+    end
+
+    @filter = params[:filter]
+
+
+    if @filter
+      @pushes = Push.includes(:audit_log)
+        .where(user_id: current_user.id, expired: @filter == "expired")
+        .page(params[:page])
+        .order(created_at: :desc)
+    else
+      @pushes = Push.includes(:audit_log)
+        .where(user_id: current_user.id)
+        .page(params[:page])
+        .order(created_at: :desc)
+    end
   end
 
   # GET /passwords/new
@@ -358,5 +395,22 @@ class PushesController < BaseController
 
   def print_preview_params
     params.permit(:id, :locale, :message, :show_expiration, :show_id)
+  end
+
+  def set_active_tab
+    # Track which tab to show
+    if params.key?("tab")
+      if params["tab"] == "text"
+        @text_tab = true
+      elsif params["tab"] == "files"
+        @files_tab = true
+      elsif params["tab"] == "url"
+        @url_tab = true
+      else
+        @text_tab = true
+      end
+    else
+      @text_tab = true
+    end
   end
 end
