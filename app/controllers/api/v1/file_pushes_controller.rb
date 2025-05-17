@@ -12,6 +12,284 @@ class Api::V1::FilePushesController < Api::BaseController
     short "Interact directly with file pushes."
   end
 
+
+
+  api :GET, "/f/active.json", "Retrieve your active file pushes."
+  formats ["JSON"]
+  description <<-EOS
+    == Active File Pushes Retrieval
+
+    Returns the list of file pushes that you previously pushed which are still active.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/f/active.json
+
+    == Example Response
+
+      [
+        {
+          "url_token": "fkwjfvhall92",
+          "created_at": "2023-10-20T15:32:01Z",
+          "expires_on": "2023-10-23T15:32:01Z",
+          "name": null,
+          ...
+        },
+        ...
+      ]
+  EOS
+  def active
+    unless Settings.enable_logins
+      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
+      return
+    end
+
+    @pushes = FilePush.includes(:views)
+      .where(user_id: current_user.id, expired: false)
+      .page(params[:page])
+      .order(created_at: :desc)
+
+    json_parts = []
+    @pushes.each do |push|
+      json_parts << push.to_json(owner: true, payload: false)
+    end
+    render json: "[#{json_parts.join(",")}]"
+  end
+  
+
+  api :GET, "/f/:url_token/audit.json", "Retrieve the audit log for a push."
+  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
+  formats ["JSON"]
+  description <<-EOS
+    == File Push Audit
+
+    Retrieves the audit log for a push.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/f/fk27vnslkd/audit.json
+
+    == Example Response
+
+      [
+        {
+          "ip": "127.0.0.1",
+          "referrer": "https://example.com",
+          "created_at": "2023-10-20T15:32:01Z",
+          "successful": true,
+          ...
+        },
+        ...
+      ]
+  EOS
+  def audit
+    if @push.user_id != current_user.id
+      render json: {error: "That push doesn't belong to you."}
+      return
+    end
+
+    @secret_url = helpers.secret_url(@push)
+
+    render json: {views: @push.views}.to_json(except: %i[user_id file_push_id id])
+  end
+
+
+  api :POST, "/f.json", "Create a new file push."
+  param :file_push, Hash, "Push details", required: true do
+    param :payload, String, desc: "The URL encoded secret text to share.", required: true
+    param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
+    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
+    param :note, String,
+      desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
+    param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
+    param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
+    param :deletable_by_viewer, %w[true false], desc: "Allow users to delete the push once retrieved."
+    param :retrieval_step, %w[true false],
+      desc: "Helps to avoid chat systems and URL scanners from eating up views."
+  end
+  formats ["JSON"]
+  description <<-EOS
+    == File Push Creation
+
+    Creates a new file push with the given payload and files.
+
+    == Example Request
+
+      curl -X POST \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        -F "file_push[files][]=@/path/to/file/file1.extension" \\
+        -F "file_push[files][]=@/path/to/file/file2.extension" \\
+        https://pwpush.com/f.json
+
+    == Example Response
+
+      {
+        "url_token": "quyul5r5w18",
+        "created_at": "2023-10-20T15:32:01Z",
+        "expire_after_days": 2,
+        "expire_after_views": 5,
+        ...
+      }
+  EOS
+  def create
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
+    @push = FilePush.new(file_push_params)
+
+    if file_push_params.key?(:files) &&
+        file_push_params[:files].count { |e| e != "" } > Settings.files.max_file_uploads
+      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
+      render json: {error: msg}, status: :unprocessable_entity
+      return
+    end
+
+    @push.expire_after_days ||= Settings.files.expire_after_days_default
+    @push.expire_after_views ||= Settings.files.expire_after_views_default
+
+    @push.user_id = current_user.id if user_signed_in?
+    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
+
+    create_detect_deletable_by_viewer(@push, file_push_params)
+    create_detect_retrieval_step(@push, file_push_params)
+
+    @push.validate!
+
+    if @push.save
+      render json: @push, status: :created
+    else
+      render json: @push.errors, status: :unprocessable_entity
+    end
+  end
+
+
+  api :DELETE, "/f/:url_token.json", "Expire a push: delete the files, payload and expire the secret URL."
+  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
+  formats ["JSON"]
+  description <<-EOS
+    == File Push Expiration
+
+    Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must
+    have been created with _deleteable_by_viewer_.
+
+    == Example Request
+
+      curl -X DELETE \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/f/fkwjfvhall92.json
+
+    == Example Response
+
+      {
+        "expired": true,
+        "expired_on": "2023-10-23T15:32:01Z",
+        ...
+      }
+  EOS
+  def destroy
+    # Check if the push is deletable by the viewer or if the user is the owner
+    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+      render json: {error: _("That push is not deletable by viewers and does not belong to you.")}, status: :unprocessable_entity
+      return
+    end
+
+    if @push.expired
+      render json: {error: _("That push is already expired.")}, status: :unprocessable_entity
+      return
+    end
+
+    log_view(@push, manual_expiration: true)
+
+    @push.expired = true
+    @push.payload = nil
+    @push.deleted = true
+    @push.files.purge
+    @push.expired_on = Time.zone.now
+
+    if @push.save
+      render json: @push, status: :ok
+    else
+      render json: @push.errors, status: :unprocessable_entity
+    end
+  end
+
+
+  api :GET, "/f/expired.json", "Retrieve your expired file pushes."
+  formats ["JSON"]
+  description <<-EOS
+    == Expired File Pushes Retrieval
+
+    Returns the list of expired file pushes.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/f/expired.json
+
+    == Example Response
+
+      [
+        {
+          "url_token": "fkwjfvhall92",
+          "created_at": "2023-10-20T15:32:01Z",
+          "expires_on": "2023-10-23T15:32:01Z",
+          ...
+        },
+      ]
+  EOS
+  def expired
+    unless Settings.enable_logins
+      render json: {error: _("You must be logged in to view your expired pushes.")}, status: :unauthorized
+      return
+    end
+
+    @pushes = FilePush.includes(:views)
+      .where(user_id: current_user.id, expired: true)
+      .page(params[:page])
+      .order(created_at: :desc)
+
+    json_parts = []
+    @pushes.each do |push|
+      json_parts << push.to_json(owner: true, payload: false)
+    end
+    render json: "[#{json_parts.join(",")}]"
+  end
+
+
+  api :GET, "/f/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
+  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
+  formats ["JSON"]
+  description <<-EOS
+    == File Push Preview
+
+    Retrieves the fully qualified secret URL of a push.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/f/fk27vnslkd/preview.json
+
+    == Example Response
+
+      {
+        "url": "https://pwpush.com/f/fk27vnslkd"
+      }
+  EOS
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+
+    render json: {url: @secret_url}, status: :ok
+  end
+  
+
   api :GET, "/f/:url_token.json", "Retrieve a file push."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
   formats ["JSON"]
@@ -92,276 +370,6 @@ class Api::V1::FilePushesController < Api::BaseController
     # TODO: ActiveJob delete in 15 minutes after last view is shown.
     # # Expire if this is the last view for this push
     # @push.expire if !@push.views_remaining.positive?
-  end
-
-  api :POST, "/f.json", "Create a new file push."
-  param :file_push, Hash, "Push details", required: true do
-    param :payload, String, desc: "The URL encoded secret text to share.", required: true
-    param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
-    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
-    param :note, String,
-      desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
-    param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
-    param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
-    param :deletable_by_viewer, %w[true false], desc: "Allow users to delete the push once retrieved."
-    param :retrieval_step, %w[true false],
-      desc: "Helps to avoid chat systems and URL scanners from eating up views."
-  end
-  formats ["JSON"]
-  description <<-EOS
-    == File Push Creation
-
-    Creates a new file push with the given payload and files.
-
-    == Example Request
-
-      curl -X POST \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        -F "file_push[files][]=@/path/to/file/file1.extension" \\
-        -F "file_push[files][]=@/path/to/file/file2.extension" \\
-        https://pwpush.com/f.json
-
-    == Example Response
-
-      {
-        "url_token": "quyul5r5w18",
-        "created_at": "2023-10-20T15:32:01Z",
-        "expire_after_days": 2,
-        "expire_after_views": 5,
-        ...
-      }
-  EOS
-  def create
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
-    @push = FilePush.new(file_push_params)
-
-    if file_push_params.key?(:files) &&
-        file_push_params[:files].count { |e| e != "" } > Settings.files.max_file_uploads
-      msg = t("pushes.form.upload_limit", count: Settings.files.max_file_uploads)
-      render json: {error: msg}, status: :unprocessable_entity
-      return
-    end
-
-    @push.expire_after_days ||= Settings.files.expire_after_days_default
-    @push.expire_after_views ||= Settings.files.expire_after_views_default
-
-    @push.user_id = current_user.id if user_signed_in?
-    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
-
-    create_detect_deletable_by_viewer(@push, file_push_params)
-    create_detect_retrieval_step(@push, file_push_params)
-
-    @push.validate!
-
-    if @push.save
-      render json: @push, status: :created
-    else
-      render json: @push.errors, status: :unprocessable_entity
-    end
-  end
-
-  api :GET, "/f/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["JSON"]
-  description <<-EOS
-    == File Push Preview
-
-    Retrieves the fully qualified secret URL of a push.
-
-    == Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/f/fk27vnslkd/preview.json
-
-    == Example Response
-
-      {
-        "url": "https://pwpush.com/f/fk27vnslkd"
-      }
-  EOS
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
-
-    render json: {url: @secret_url}, status: :ok
-  end
-
-  api :GET, "/f/:url_token/audit.json", "Retrieve the audit log for a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["JSON"]
-  description <<-EOS
-    == File Push Audit
-
-    Retrieves the audit log for a push.
-
-    == Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/f/fk27vnslkd/audit.json
-
-    == Example Response
-
-      [
-        {
-          "ip": "127.0.0.1",
-          "referrer": "https://example.com",
-          "created_at": "2023-10-20T15:32:01Z",
-          "successful": true,
-          ...
-        },
-        ...
-      ]
-  EOS
-  def audit
-    if @push.user_id != current_user.id
-      render json: {error: "That push doesn't belong to you."}
-      return
-    end
-
-    @secret_url = helpers.secret_url(@push)
-
-    render json: {views: @push.views}.to_json(except: %i[user_id file_push_id id])
-  end
-
-  api :DELETE, "/f/:url_token.json", "Expire a push: delete the files, payload and expire the secret URL."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["JSON"]
-  description <<-EOS
-    == File Push Expiration
-
-    Expires a push immediately.  Must be authenticated & owner of the push _or_ the push must
-    have been created with _deleteable_by_viewer_.
-
-    == Example Request
-
-      curl -X DELETE \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/f/fkwjfvhall92.json
-
-    == Example Response
-
-      {
-        "expired": true,
-        "expired_on": "2023-10-23T15:32:01Z",
-        ...
-      }
-  EOS
-  def destroy
-    # Check if the push is deletable by the viewer or if the user is the owner
-    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
-      render json: {error: _("That push is not deletable by viewers and does not belong to you.")}, status: :unprocessable_entity
-      return
-    end
-
-    if @push.expired
-      render json: {error: _("That push is already expired.")}, status: :unprocessable_entity
-      return
-    end
-
-    log_view(@push, manual_expiration: true)
-
-    @push.expired = true
-    @push.payload = nil
-    @push.deleted = true
-    @push.files.purge
-    @push.expired_on = Time.zone.now
-
-    if @push.save
-      render json: @push, status: :ok
-    else
-      render json: @push.errors, status: :unprocessable_entity
-    end
-  end
-
-  api :GET, "/f/active.json", "Retrieve your active file pushes."
-  formats ["JSON"]
-  description <<-EOS
-    == Active File Pushes Retrieval
-
-    Returns the list of file pushes that you previously pushed which are still active.
-
-    == Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/f/active.json
-
-    == Example Response
-
-      [
-        {
-          "url_token": "fkwjfvhall92",
-          "created_at": "2023-10-20T15:32:01Z",
-          "expires_on": "2023-10-23T15:32:01Z",
-          "name": null,
-          ...
-        },
-        ...
-      ]
-  EOS
-  def active
-    unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
-      return
-    end
-
-    @pushes = FilePush.includes(:views)
-      .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
-
-    json_parts = []
-    @pushes.each do |push|
-      json_parts << push.to_json(owner: true, payload: false)
-    end
-    render json: "[#{json_parts.join(",")}]"
-  end
-
-  api :GET, "/f/expired.json", "Retrieve your expired file pushes."
-  formats ["JSON"]
-  description <<-EOS
-    == Expired File Pushes Retrieval
-
-    Returns the list of expired file pushes.
-
-    == Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/f/expired.json
-
-    == Example Response
-
-      [
-        {
-          "url_token": "fkwjfvhall92",
-          "created_at": "2023-10-20T15:32:01Z",
-          "expires_on": "2023-10-23T15:32:01Z",
-          ...
-        },
-      ]
-  EOS
-  def expired
-    unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your expired pushes.")}, status: :unauthorized
-      return
-    end
-
-    @pushes = FilePush.includes(:views)
-      .where(user_id: current_user.id, expired: true)
-      .page(params[:page])
-      .order(created_at: :desc)
-
-    json_parts = []
-    @pushes.each do |push|
-      json_parts << push.to_json(owner: true, payload: false)
-    end
-    render json: "[#{json_parts.join(",")}]"
   end
 
   private
