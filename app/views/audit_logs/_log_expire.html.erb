@@ -1,0 +1,15 @@
+<div class="list-group-item list-group-item-action list-group-item-danger">
+    <em class="bi bi-trash"></em>
+    <% if audit_log.user_id %>
+        <%= _('URL Push manually expired by user') %>
+        <strong><%= audit_log.user.email %></strong>
+        <%= _('at IP address') %>
+        <%= render partial: 'application/ip_address', locals: { ip: audit_log.ip } %>
+    <% end %>
+    <br>
+    <%= _('The push content has been deleted and the secret URL expired.') %>
+    <br>
+    <%= _('User Agent') %>: <code><%= audit_log.user_agent %></code>
+    <br>
+    <%= _('Referrer') %>: <code><%= audit_log.referrer.empty? ? "None" : audit_log.referrer %></code>
+</div>

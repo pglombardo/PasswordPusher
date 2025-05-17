@@ -6,7 +6,7 @@ class PushesController < BaseController
   before_action :set_push, except: %i[new create index]
 
   # Authentication always except for these actions
-  before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show destroy]
+  before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show expire]
   before_action :set_active_tab, only: %i[new]
 
  
@@ -30,23 +30,13 @@ class PushesController < BaseController
       redirect_to push_path(@push.url_token)
     else
       # Passphrase is invalid
+      log_failed_passphrase(@push)
+
       # Redirect to the passphrase page
       flash[:alert] =
         _("That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.")
       redirect_to passphrase_push_path(@push.url_token)
     end
-  end
-
-  def active
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = Push.includes(:audit_logs)
-      .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
   end
 
   def audit
@@ -129,7 +119,7 @@ class PushesController < BaseController
     end
   end
 
-  def destroy
+  def expire
     # Check if the push is deletable by the viewer or if the user is the owner
     if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
       redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
@@ -141,7 +131,7 @@ class PushesController < BaseController
       return
     end
 
-    log_view(@push, manual_expiration: true)
+    log_expire(@push)
 
     @push.expired = true
     @push.payload = nil
@@ -158,18 +148,6 @@ class PushesController < BaseController
     end
   end
 
-  def expired
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
-    @pushes = Push.includes(:audit_log)
-      .where(user_id: current_user.id, expired: true)
-      .page(params[:page])
-      .order(created_at: :desc)
-  end
-
   def index
     unless Settings.enable_logins
       redirect_to :root
@@ -180,12 +158,12 @@ class PushesController < BaseController
 
 
     if @filter
-      @pushes = Push.includes(:audit_log)
+      @pushes = Push.includes(:audit_logs)
         .where(user_id: current_user.id, expired: @filter == "expired")
         .page(params[:page])
         .order(created_at: :desc)
     else
-      @pushes = Push.includes(:audit_log)
+      @pushes = Push.includes(:audit_logs)
         .where(user_id: current_user.id)
         .page(params[:page])
         .order(created_at: :desc)
@@ -195,6 +173,21 @@ class PushesController < BaseController
   # GET /passwords/new
   def new
     @push = Push.new
+
+    if params.key?("tab")
+      if params["tab"] == "text"
+        @push.kind = "text"
+      elsif params["tab"] == "files"
+        @push.kind = "file"
+      elsif params["tab"] == "url"
+        @push.kind = "url"
+      else
+        @push.kind = "text"
+      end
+    else
+      @push.kind = "text"
+    end
+    
     # MIGRATION - ask
     # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
     @push.passphrase = ""
@@ -298,25 +291,32 @@ class PushesController < BaseController
   #
   # Record that a view is being made for a push
   #
-  def log_view(push, manual_expiration: false)
-    record = {}
+  def log_view(push)
+    if push.expired
+      log_event(push, :failed_view)
+    else
+      log_event(push, :view)
+    end
+    push
+  end
 
-    # 0 - standard user view
-    # 1 - manual expiration
-    record[:kind] = manual_expiration ? 1 : 0
+  def log_failed_passphrase(push)
+    log_event(push, :failed_passphrase)
+  end
 
-    record[:user_id] = current_user.id if user_signed_in?
-    record[:ip] =
-      request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
+  def log_expire(push)
+    log_event(push, :expire)
+  end
+  
+  def log_event(push, kind)
+    ip = request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
     # Limit retrieved values to 256 characters
-    record[:user_agent] = request.env["HTTP_USER_AGENT"].to_s[0, 255]
-    record[:referrer] = request.env["HTTP_REFERER"].to_s[0, 255]
+    user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
+    referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    record[:successful] = push.expired ? false : true
-
-    push.audit_logs.create(record)
-    push
+    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    nil
   end
 
   # Since determining this value between and HTML forms and JSON API requests can be a bit

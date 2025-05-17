@@ -1,0 +1,13 @@
+<div class="list-group-item list-group-item-action list-group-item-warning">
+    <em class="bi bi-x-octagon"></em>
+    <%= t('audit_logs.audit_log.log_failed_passphrase',
+                date: I18n.l(audit_log.created_at, format: :long),
+                user: audit_log.subject_name) %>
+    <%= render partial: 'application/ip_address', locals: { ip: audit_log.ip } %>
+    <%= _('on') %>
+    <%= I18n.l audit_log.created_at.in_time_zone(Settings.timezone) %>
+    <br>
+    <%= _('User Agent') %>: <code><%= audit_log.user_agent %></code>
+    <br>
+    <%= _('Referrer') %>: <code><%= audit_log.referrer.empty? ? _('None') : audit_log.referrer %></code>
+</div>

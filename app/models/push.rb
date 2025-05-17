@@ -27,15 +27,15 @@ class Push < ApplicationRecord
   end
 
   def view_count
-    views.where(kind: 0).size
+    audit_logs.where(kind: %i[view failed_view]).size
   end
 
   def successful_views
-    views.where(successful: true, kind: 0).order(:created_at)
+    audit_logs.where(kind: :view).order(:created_at)
   end
 
   def failed_views
-    views.where(successful: false, kind: 0).order(:created_at)
+    audit_logs.where(kind: :failed_view).order(:created_at)
   end
 
   # Expire this password, delete the password and save the record

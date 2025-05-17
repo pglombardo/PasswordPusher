@@ -103,13 +103,13 @@
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    <%= _('Successful Views') %>: <strong class='text-success'><%= @push.successful_audit_logs.count %></strong>
+                    <%= _('Successful Views') %>: <strong class='text-success'><%= @push.successful_views.count %></strong>
                     <small class="d-block text-muted"><%= _('The number of times this push has been viewed before expiration.') %></small>
                 </span>
                 </label>
                 <label class="list-group-item d-flex gap-2">
                 <span>
-                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @push.failed_audit_logs.count %></strong>
+                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @push.failed_views.count %></strong>
                     <small class="d-block text-muted"><%= _('The number of times this push has been viewed after expiration.') %></small>
                 </span>
                 </label>
@@ -228,63 +228,20 @@
         <div class='col'>
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
+                <%# TODO: MIGRATE - log_creation.html.erb is added, which one do you prefer %>
                 <div class="list-group-item list-group-item-action list-group-item-primary">
                     <em class="bi bi-stars"></em>
                     <%= _('Push created on') %> <%= I18n.l @push.created_at.in_time_zone(Settings.timezone) %> by <%= @push.user.email %>
                 </div>
 
-                <% if @push.views.empty? && !@push.expired %>
+                <% if @push.audit_logs.empty? && !@push.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
                         <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
                     </div>
                 <% end %>
 
-                <% for view in @push.views %>
-                    <% if view.kind == 1 %>
-                        <div class="list-group-item list-group-item-action list-group-item-danger">
-                            <em class="bi bi-trash"></em>
-                            <% if view.user_id %>
-                                <%= _('Password manually expired by user') %>
-                                <strong><%= view.user.email %></strong>
-                            <% else %>
-                              <%= _('Password manually expired by an anonymous user') %>
-                            <% end %>
-                            <%= _('at IP address') %>
-                            <%= render partial: 'application/ip_address', locals: { ip: view.ip } %>
-                            <%= _('on') %>
-                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
-                            <br>
-                            <%= _('The push content has been deleted and the secret URL expired.') %>
-                            <br>
-                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br>
-                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? "None" : view.referrer %></code>
-                        </div>
-                    <% elsif view.successful %>
-                        <div class="list-group-item list-group-item-action list-group-item-success">
-                            <em class="bi bi-check2-square"></em>
-                            <%= _('Successful view from IP address') %>
-                            <%= render partial: 'application/ip_address', locals: { ip: view.ip } %>
-                            <%= _('on') %>
-                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
-                            <br>
-                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br>
-                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
-                        </div>
-                    <% else %>
-                        <div class="list-group-item list-group-item-action list-group-item-warning">
-                            <em class="bi bi-x-octagon"></em>
-                            <%= _('Failed view attempt (already expired) by') %>
-                            <%= render partial: 'application/ip_address', locals: { ip: view.ip } %>
-                            <%= _('on') %>
-                            <%= I18n.l view.created_at.in_time_zone(Settings.timezone) %>
-                            <br>
-                            <%= _('User Agent') %>: <code><%= view.user_agent %></code>
-                            <br>
-                            <%= _('Referrer') %>: <code><%= view.referrer.empty? ? _('None') : view.referrer %></code>
-                        </div>
-                    <% end %>
+                <% for audit_log in @push.audit_logs %>
+                    <%= render "audit_logs/log_#{audit_log.kind}", audit_log: %>
                 <% end %>
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('End of Audit Log') %></div>
             </div>

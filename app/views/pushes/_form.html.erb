@@ -5,14 +5,14 @@
     data-knobs-tab-name-value="password"
     data-knobs-lang-day-value="<%= _('Day') %>"
     data-knobs-lang-days-value="<%= _('Days') %>"
-    data-knobs-default-days-value="<%= Settings.pw.expire_after_days_default %>"
+    data-knobs-default-days-value="<%= settings_for(@push).expire_after_days_default %>"
     data-knobs-lang-view-value="<%= _('View') %>"
     data-knobs-lang-views-value="<%= _('Views') %>"
-    data-knobs-default-views-value="<%= Settings.pw.expire_after_views_default %>"
+    data-knobs-default-views-value="<%= settings_for(@push).expire_after_views_default %>"
     data-knobs-lang-save-value="<%= _('Save') %>"
     data-knobs-lang-saved-value="<%= _('Saved!') %>"
-    data-knobs-default-retrieval-step-value="<%= Settings.pw.retrieval_step_default %>"
-    data-knobs-default-deletable-by-viewer-value="<%= Settings.pw.deletable_pushes_default %>"
+    data-knobs-default-retrieval-step-value="<%= settings_for(@push).retrieval_step_default %>"
+    data-knobs-default-deletable-by-viewer-value="<%= settings_for(@push).deletable_pushes_default %>"
     data-pwgen-use-numbers-default-value="<%= Settings.gen.has_numbers %>"
     data-pwgen-title-cased-default-value="<%= Settings.gen.title_cased %>"
     data-pwgen-use-separators-default-value="<%= Settings.gen.use_separators %>"
@@ -53,27 +53,27 @@
             <div class='row'>
                 <div><%= _('Expire secret link and delete after:') %></div>
                 <div class='col-10'>
-                    <%= range_field_tag("password_expire_after_days", Settings.pw.expire_after_days_default,
+                    <%= range_field_tag("password_expire_after_days", settings_for(@push).expire_after_days_default,
                                         { :name => "password[expire_after_days]",
                                           :class => "form-range",
-                                          :min => Settings.pw.expire_after_days_min,
-                                          :max => Settings.pw.expire_after_days_max,
+                                          :min => settings_for(@push).expire_after_days_min,
+                                          :max => settings_for(@push).expire_after_days_max,
                                           :step => "1",
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
                                         }) %>
                 </div>
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= Settings.pw.expire_after_days_default %> <%= _('Days') %></div>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= settings_for(@push).expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
             <div class='row'>
                 <div class='col-10'>
-                    <%= range_field_tag("password_expire_after_views", Settings.pw.expire_after_views_default,
+                    <%= range_field_tag("password_expire_after_views", settings_for(@push).expire_after_views_default,
                                         { :name => "password[expire_after_views]",
                                             :class => "form-range",
-                                            :min => Settings.pw.expire_after_views_min,
-                                            :max => Settings.pw.expire_after_views_max,
+                                            :min => settings_for(@push).expire_after_views_min,
+                                            :max => settings_for(@push).expire_after_views_max,
                                             :step => "1",
                                             "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                             "data-knobs-target" => "viewsRange"
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= Settings.pw.expire_after_views_default %> <%= _('Views') %></div>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= settings_for(@push).expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
@@ -93,9 +93,9 @@
             <div class='row mb-3'>
                 <div class='col'>
                     <div class="list-group mx-0">
-                        <% if Settings.pw.enable_retrieval_step %>
+                        <% if settings_for(@push).enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "password[retrieval_step]", nil, Settings.pw.retrieval_step_default,
+                            <%= check_box_tag "push[retrieval_step]", nil, settings_for(@push).retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               "data-knobs-target" => "retrievalStepCheckbox" } %>
                             <span>
@@ -104,9 +104,9 @@
                             </span>
                             </label>
                         <% end %>
-                        <% if Settings.pw.enable_deletable_pushes %>
+                        <% if settings_for(@push).enable_deletable_pushes %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "password[deletable_by_viewer]", nil, Settings.pw.deletable_pushes_default,
+                            <%= check_box_tag "push[deletable_by_viewer]", nil, settings_for(@push).deletable_pushes_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               "data-knobs-target" => "deletableByViewerCheckbox" } %>
                             <span>
