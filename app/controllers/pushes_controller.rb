@@ -131,20 +131,11 @@ class PushesController < BaseController
       return
     end
 
+    @push.expire!
     log_expire(@push)
 
-    @push.expired = true
-    @push.payload = nil
-    @push.deleted = true
-    if @push.file?
-      @push.files.purge
-    end
-    @push.expired_on = Time.zone.now
-
-    if @push.save
-      redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.")
-    else
-      render action: "new", status: :unprocessable_entity
+    respond_to do |format|
+      format.html { redirect_to @push, notice: t("pushes.expire.expired") }
     end
   end
 
@@ -275,13 +266,21 @@ class PushesController < BaseController
     # Optionally blur the text payload
     @blur_css_class = settings_for(@push).enable_blur ? "spoiler" : ""
 
-    render layout: "bare"
-
-    # Expire if this is the last view for this push
-    if @push.text?
-      @push.expire unless @push.views_remaining.positive?
+    # If files are attached, we can't expire immediately as the viewer still needs
+    # to download the files.  In the case of files, this push will be expired on the
+    # next ExpirePushesJob run or next view attempt.  Whichever comes first.
+    if !@push.files.attached? && !@push.views_remaining.positive?
+      # Expire if this is the last view for this push
+      @push.expire!
     end
-  end
+    
+    if @push.kind == "url"
+      # Redirect to the URL
+      redirect_to @push.payload, allow_other_host: true, status: :see_other
+    else
+      render layout: "bare"
+    end
+   end
 
 
   private

@@ -110,4 +110,16 @@ class Push < ApplicationRecord
 
     expire if !days_remaining.positive? || !views_remaining.positive?
   end
+
+  def expire!
+    # Delete content
+    self.payload = nil
+    self.passphrase = nil
+    files.purge
+
+    # Mark as expired
+    self.expired = true
+    self.expired_on = Time.current.utc
+    save!
+  end
 end
