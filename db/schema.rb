@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_15_193130) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_17_213532) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,7 +99,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_15_193130) do
     t.integer "expire_after_views"
     t.boolean "expired", default: false
     t.string "url_token"
-    t.boolean "deleted", default: false
     t.boolean "deletable_by_viewer", default: true
     t.boolean "retrieval_step", default: false
     t.datetime "expired_on"
