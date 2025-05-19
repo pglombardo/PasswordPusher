@@ -47,9 +47,9 @@
           </td>
           <%# MIGRATE - ask - which columns should be shown %>
           <% if push.expired? %>
-            <td><%= I18n.l push.expired_on.in_time_zone(Settings.timezone), format: :long %></td>  
+            <td class="text-center"><%= I18n.l push.expired_on.in_time_zone(Settings.timezone), format: :long %> (Expired) </td>  
           <% else  %>
-            <td class="text-center"><%= "#{push.audit_logs.size}/#{push.expire_after_views}" %> - <%= "#{push.days_old}/#{push.expire_after_days}" %></td>
+            <td class="text-center"><%= "#{push.audit_logs.size}/#{push.expire_after_views}"  + " " +_('Views') %> - <%= "#{push.days_old}/#{push.expire_after_days}" + " " + _('Days') %></td>
           <% end %>
           <td class="text-center">
             <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">
