@@ -93,9 +93,6 @@ class PushesController < BaseController
     create_detect_deletable_by_viewer(@push, push_params)
     create_detect_retrieval_step(@push, push_params)
 
-    @push.note = push_params.fetch(:note, "")
-    @push.passphrase = push_params.fetch(:passphrase, "")
-
     @push.validate!
 
     user_id = current_user.id if user_signed_in?
