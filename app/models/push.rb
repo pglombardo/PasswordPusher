@@ -149,6 +149,7 @@ class Push < ApplicationRecord
       #   self.expire_after_views = settings_for(self).expire_after_views_default
       # end
 
+      return
     end
 
     expire if !days_remaining.positive? || !views_remaining.positive?
