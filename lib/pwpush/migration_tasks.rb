@@ -79,41 +79,4 @@ module Pwpush::MigrationTasks
       puts "  -> Skipping view with invalid user_id: #{v.id}/#{v.user_id}"
     end
   end
-
-  # DURATIONS = {
-  #   0 => "15 minutes", 1 => "30 minutes", 2 => "45 minutes",
-  #   3 => "1 hour", 4 => "6 hours", 5 => "12 hours",
-  #   6 => "1 day", 7 => "2 days", 8 => "3 days", 9 => "4 days", 10 => "5 days", 11 => "6 days",
-  #   12 => "1 week", 13 => "2 weeks", 14 => "3 weeks",
-  #   15 => "1 month", 16 => "2 months", 17 => "3 months"
-  # }
-  def convert_days_to_duration_enum(days)
-    if days == 1
-      6
-    elsif days == 2
-      7
-    elsif days == 3
-      8
-    elsif days == 4
-      9
-    elsif days == 5
-      10
-    elsif days == 6
-      11
-    elsif days == 7
-      12
-    elsif days.between?(8, 14)
-      13
-    elsif days.between?(15, 21)
-      14
-    elsif days.between?(22, 30)
-      15
-    elsif days.between?(31, 60)
-      16
-    elsif days > 60
-      17
-    else
-      12
-    end
-  end
 end
