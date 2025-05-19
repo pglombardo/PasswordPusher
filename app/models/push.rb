@@ -1,4 +1,6 @@
 class Push < ApplicationRecord
+  include Pwpush::UrlConcern
+  
   enum :kind, [:text, :file, :url]
 
   belongs_to :user, optional: true

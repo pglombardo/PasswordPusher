@@ -1,11 +1,4 @@
 module PushesHelper
-  def valid_url?(url)
-    parsed = Addressable::URI.parse(url) or return false
-    !parsed.scheme.nil?
-  rescue Addressable::URI::InvalidURIError
-    false
-  end
-
   def filesize(size)
     units = %w[B KiB MiB GiB TiB Pib EiB ZiB]
 
