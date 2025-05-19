@@ -110,8 +110,6 @@ class PushesController < BaseController
         @files_tab = true
       elsif @push.kind == "url"
         @url_tab = true
-      elsif @push.kind == "qr"
-        @qr_tab = true
       else
         @text_tab = true
       end
