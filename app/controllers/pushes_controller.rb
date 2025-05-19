@@ -90,8 +90,8 @@ class PushesController < BaseController
     @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
     set_expire_limits(@push)
-    create_detect_deletable_by_viewer(@push)
-    create_detect_retrieval_step(@push)
+    create_detect_deletable_by_viewer(@push, push_params)
+    create_detect_retrieval_step(@push, push_params)
 
     @push.note = push_params.fetch(:note, "")
     @push.passphrase = push_params.fetch(:passphrase, "")
