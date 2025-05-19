@@ -124,9 +124,6 @@ class Push < ApplicationRecord
         else
           errors.add(:payload, I18n.t("pushes.create.payload_required"))
         end
-        
-        # URLs cannot be preemptively deleted by end users ever
-        self.deletable_by_viewer = false
       end
 
       if self.kind == "file"
@@ -134,20 +131,6 @@ class Push < ApplicationRecord
           errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
         end
       end
-
-      # Range checking
-      self.expire_after_days ||= settings_for(self).expire_after_days_default
-      self.expire_after_views ||= settings_for(self).expire_after_views_default
-
-      # MIGRATE - ask
-      # Are these assignments needed?
-      # unless expire_after_days.between?(settings_for(self).expire_after_days_min, settings_for(self).expire_after_days_max)
-      #   self.expire_after_days = settings_for(self).expire_after_days_default
-      # end
-
-      # unless expire_after_views.between?(settings_for(self).expire_after_views_min, settings_for(self).expire_after_views_max)
-      #   self.expire_after_views = settings_for(self).expire_after_views_default
-      # end
 
       return
     end
@@ -165,5 +148,15 @@ class Push < ApplicationRecord
     self.expired = true
     self.expired_on = Time.current.utc
     save!
+  end
+  
+  def settings_for(push)
+    if self.text?
+      Settings.pw
+    elsif self.url?
+      Settings.url
+    elsif self.file?
+      Settings.files
+    end
   end
 end

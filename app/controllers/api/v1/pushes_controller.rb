@@ -3,6 +3,8 @@
 require "securerandom"
 
 class Api::V1::PushesController < Api::BaseController
+  include SetPushAttributes
+
   helper UrlsHelper
 
   before_action :set_push, only: %i[show preview audit destroy]
@@ -207,10 +209,9 @@ class Api::V1::PushesController < Api::BaseController
 
     @push.user_id = current_user.id if user_signed_in?
 
-    unless @push.url?
-      create_detect_deletable_by_viewer(@push, push_params)
-    end
-    create_detect_retrieval_step(@push, push_params)
+    set_expire_limits(@push)
+    create_detect_deletable_by_viewer(@push)
+    create_detect_retrieval_step(@push)
 
     @push.validate!
 
@@ -463,56 +464,6 @@ class Api::V1::PushesController < Api::BaseController
 
     push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
     nil
-  end
-
-  # Since determining this value between and HTML forms and JSON API requests can be a bit
-  # tricky, we break this out to it's own function.
-  def create_detect_retrieval_step(push, params)
-    if settings_for(push).enable_retrieval_step == true
-      if params[:push].key?(:retrieval_step)
-        # User form data or json API request: :deletable_by_viewer can
-        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_rs = params[:push][:retrieval_step].to_s.downcase
-        push.retrieval_step = %w[on yes checked true].include?(user_rs)
-      else
-        push.retrieval_step = if request.format.html?
-          # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
-          # at all so we set false - NOT deletable by viewers
-          false
-        else
-          # The JSON API is implicit so if it's not specified, use the app
-          # configured default
-          settings_for(push).retrieval_step_default
-        end
-      end
-    else
-      # RETRIEVAL_STEP_ENABLED not enabled
-      push.retrieval_step = false
-    end
-  end
-
-  def create_detect_deletable_by_viewer(push, params)
-    if settings_for(push).enable_deletable_pushes == true
-      if params[:push].key?(:deletable_by_viewer)
-        # User form data or json API request: :deletable_by_viewer can
-        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_dvb = params[:push][:deletable_by_viewer].to_s.downcase
-        push.deletable_by_viewer = %w[on yes checked true].include?(user_dvb)
-      else
-        push.deletable_by_viewer = if request.format.html?
-          # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
-          # at all so we set false - NOT deletable by viewers
-          false
-        else
-          # The JSON API is implicit so if it's not specified, use the app
-          # configured default
-          settings_for(push).deletable_pushes_default
-        end
-      end
-    else
-      # DELETABLE_PASSWORDS_ENABLED not enabled
-      push.deletable_by_viewer = false
-    end
   end
 
   def set_push
