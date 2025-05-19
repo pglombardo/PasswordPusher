@@ -3,13 +3,14 @@
 require "securerandom"
 
 class Api::V1::PushesController < Api::BaseController
+  helper UrlsHelper
+
   before_action :set_push, only: %i[show preview audit destroy]
 
   resource_description do
-    name "Text Pushes"
-    short "Interact directly with text pushes."
+    name "Pushes"
+    short "Interact directly with pushes."
   end
-
   
   api :GET, "/p/active.json", "Retrieve your active pushes."
   formats ["JSON"]
@@ -29,25 +30,27 @@ class Api::V1::PushesController < Api::BaseController
         [
           {
             "url_token": "fkwjfvhall92",
+            "html_url": "https://pwpush.com/p/fkwjfvhall92",
+            "json_url": "https://pwpush.com/p/fkwjfvhall92.json",
             "created_at": "2023-10-20T15:32:01Z",
-            "name": null,
-            "expire_after_days": 7,
-            "expire_after_views": 1,
-            "expired": false,
-            "days_remaining": 7,
-            "views_remaining": 1,
+            "expires_at": "2023-10-20T15:32:01Z",
             ...
           },
           ...
         ]
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
   EOS
   def active
     unless Settings.enable_logins
-      redirect_to :root
+      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
       return
     end
 
-    @pushes = Password.includes(:audit_logs)
+    @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
@@ -92,11 +95,15 @@ class Api::V1::PushesController < Api::BaseController
             "user_agent": "Mozilla/5.0...",
             "referrer": "https://example.com",
             "created_at": "2023-10-20T15:32:01Z",
-            "successful": true,
-            ...
+            "kind": "view"
           }
         ]
       }
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
   EOS
   def audit
     if @push.user_id != current_user.id
@@ -106,27 +113,32 @@ class Api::V1::PushesController < Api::BaseController
 
     @secret_url = helpers.secret_url(@push)
 
-    render json: {views: @push.views}.to_json(except: %i[user_id password_id id])
+    render json: {views: @push.audit_logs}.to_json(except: %i[user_id push_id id])
   end
-
 
   api :POST, "/p.json", "Create a new push."
   param :password, Hash, "Push details", required: true do
     param :payload, String, desc: "The URL encoded password or secret text to share.", required: true
+    param :files, Array, desc: "File(s) to upload and attach to the push."
     param :passphrase, String, desc: "Require recipients to enter this passphrase to view the created push."
-    param :name, String, desc: "Visible only to the push creator.", allow_blank: true
+    param :name, String, desc: "A name shown in the dashboard, notifications and emails.", allow_blank: true
     param :note, String, desc: "If authenticated, the URL encoded note for this push.  Visible only to the push creator.", allow_blank: true
     param :expire_after_days, Integer, desc: "Expire secret link and delete after this many days."
     param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
     param :deletable_by_viewer, %w[true false], desc: "Allow users to delete passwords once retrieved."
     param :retrieval_step, %w[true false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
+    param :kind, %w[text file url], desc: "The kind of push to create. Defaults to 'text'.", required: false
   end
   param :account_id, Integer, desc: "The account ID to associate the push with. See: https://docs.pwpush.com/docs/json-api/#multiple-accounts", required: false
   formats ["JSON"]
   description <<-EOS
     == Creating a New Push
 
-    Creates a new push (secret URL) containing the provided payload.
+    Creates a new push (secret URL) containing the provided payload. The payload can be:
+
+    * Text/password (default)
+    * File attachments (requires authentication & subscription)
+    * URLs
 
     === Required Parameters
 
@@ -147,6 +159,10 @@ class Api::V1::PushesController < Api::BaseController
     * Retrieval step helps prevent automated URL scanners from burning views
     * Deletable by viewer allows recipients to manually expire the push
 
+    == Language Specific Examples
+
+    See language specific examples in the docs: https://docs.pwpush.com/docs/json-api/
+
     == Example Request
 
       curl -X POST \\
@@ -159,12 +175,17 @@ class Api::V1::PushesController < Api::BaseController
 
       {
         "url_token": "fkwjfvhall92",
+        "html_url": "https://pwpush.com/p/fkwjfvhall92",
+        "json_url": "https://pwpush.com/p/fkwjfvhall92.json",
         "created_at": "2023-10-20T15:32:01Z",
         "expires_at": "2023-10-20T15:32:01Z",
         "views_remaining": 10,
+        "views_total": 10,
+        "files": [],
         "passphrase": null,
+        "name": null,
         "note": null,
-        ...
+        "expire_after_days": null,
       }
   EOS
   def create
@@ -172,38 +193,40 @@ class Api::V1::PushesController < Api::BaseController
     # See config/settings.yml
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
-    # params[:password] has to exist
-    # params[:password] has to be a ActionController::Parameters (Hash)
-    password_param = params.fetch(:password, {})
-    unless password_param.respond_to?(:fetch)
-      render json: {error: "No password, text or files provided."}, status: :unprocessable_entity
-      return
+    @push = Push.new(push_params)
+    
+    if !push_params[:kind].present?
+      @push.kind = if request.path.include?("/f.json")
+        "file"
+      elsif request.path.include?("/r.json")
+        "url"
+      else
+        "text"
+      end
     end
 
-    # params[:password][:payload] || params[:password][:payload] has to exist
-    # params[:password][:payload] can't be blank
-    # params[:password][:payload] must have a length between 1 and 1 megabyte
-    payload_param = password_param.fetch(:payload, "")
-    unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
-      render json: {error: "Payload length must be between 1 and 1_048_576."}, status: :unprocessable_entity
-      return
-    end
-
-    @push = Password.new
-    @push.expire_after_days = params[:password].fetch(:expire_after_days, Settings.pw.expire_after_days_default)
-    @push.expire_after_views = params[:password].fetch(:expire_after_views, Settings.pw.expire_after_views_default)
     @push.user_id = current_user.id if user_signed_in?
-    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
-    create_detect_deletable_by_viewer(@push, params)
-    create_detect_retrieval_step(@push, params)
+    # MIGRATE - ask
+    # This method is not available for url
+    # So, if it is Url push, it is skipped
+    unless @push.url?
+      create_detect_deletable_by_viewer(@push, push_params)
+    end
+    create_detect_retrieval_step(@push, push_params)
 
-    @push.payload = params[:password][:payload]
-    @push.name = params[:password][:name]
-    @push.note = params[:password].fetch(:note, "")
-    @push.passphrase = params[:password].fetch(:passphrase, "")
+    # MIGRATE - ask
+    # Is this needed?
+    @push.note = push_params.fetch(:note, "")
+    @push.passphrase = push_params.fetch(:passphrase, "")
 
     @push.validate!
+
+    user_id = current_user.id if user_signed_in?
+    # MIGRATE - ask
+    # Why log_event is not used? Is selecting ip here different than selecting ip in log_event
+    @push.audit_logs.build(kind: :creation, user_id:, ip: request.remote_ip,
+      user_agent: request.env["HTTP_USER_AGENT"], referrer: request.env["HTTP_REFERER"])
 
     if @push.save
       render json: @push, status: :created
@@ -232,8 +255,12 @@ class Api::V1::PushesController < Api::BaseController
 
       {
         "expired": true,
-        "expired_on": "2024-12-10T15:32:01Z"
+        "expired_on": "2023-10-20T15:32:01Z"
       }
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
   EOS
   def destroy
     # Check if the push is deletable by the viewer or if the user is the owner
@@ -249,10 +276,8 @@ class Api::V1::PushesController < Api::BaseController
 
     log_view(@push, manual_expiration: true)
 
-    @push.expired = true
-    @push.payload = nil
-    @push.deleted = true
-    @push.expired_on = Time.zone.now
+    @push.expire!
+    log_expire(@push)
 
     if @push.save
       render json: @push, status: :ok
@@ -280,15 +305,19 @@ class Api::V1::PushesController < Api::BaseController
       [
         {
           "url_token": "fkwjfvhall92",
+          "html_url": "https://pwpush.com/p/fkwjfvhall92",
+          "json_url": "https://pwpush.com/p/fkwjfvhall92.json",
           "created_at": "2023-10-20T15:32:01Z",
-          "expires_on": "2023-10-23T15:32:01Z",
-          "expire_after_days": 7,
-          "expire_after_views": 1,
-          "expired": true,
+          "expires_at": "2023-10-20T15:32:01Z",
           ...
         },
         ...
       ]
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
   EOS
   def expired
     unless Settings.enable_logins
@@ -296,7 +325,7 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    @pushes = Password.includes(:audit_logs)
+    @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
@@ -305,7 +334,7 @@ class Api::V1::PushesController < Api::BaseController
     @pushes.each do |push|
       json_parts << push.to_json(owner: true, payload: false)
     end
-    render json: "[#{jsaon_parts.join(",")}]"
+    render json: "[#{json_parts.join(",")}]"
   end
 
 
@@ -324,15 +353,13 @@ class Api::V1::PushesController < Api::BaseController
         -H "Authorization: Bearer MyAPIToken" \\
         https://pwpush.com/p/fk27vnslkd/preview.json
 
-    === Example Response
+    == Language Specific Examples
 
-      {
-        "url": "https://pwpush.com/p/fk27vnslkd"
-      }
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
   EOS
   def preview
     @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
     render json: {url: @secret_url}, status: :ok
   end
 
@@ -368,9 +395,14 @@ class Api::V1::PushesController < Api::BaseController
         "retrieval_step": false,
         ...
       }
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
   EOS
   def show
-    # This password may have expired since the last view.  Validate the password
+    # This push may have expired since the last view.  Validate the url
     # expiration before doing anything.
     @push.validate!
 
@@ -378,126 +410,127 @@ class Api::V1::PushesController < Api::BaseController
       log_view(@push)
       render json: @push.to_json(payload: true)
       return
-    else
-      @payload = @push.payload
     end
 
-    # Passphrase handling
-    if !@push.passphrase.nil? && @push.passphrase.present?
-      # Construct the passphrase cookie name
-      name = "#{@push.url_token}-p"
-
-      # The passphrase can be passed in the params or in the cookie (default)
+    # MIGRATE - ask
+    # Previously, pushes has some steps related to cookies. Will it be added or not?
+    if @push.passphrase.present?
       # JSON requests must pass the passphrase in the params
-      has_passphrase = params.fetch(:passphrase,
-        nil) == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
+      has_passphrase = params.fetch(:passphrase, nil) == @push.passphrase
 
       unless has_passphrase
         # Passphrase hasn't been provided or is incorrect
-        # Redirect to the passphrase page
-        render json: {error: "This push has a passphrase that was incorrect or not provided."}
+        render json: {
+          error: "Authentication required",
+          message: "This push requires a passphrase. Please provide it using the 'passphrase' parameter (e.g. ?passphrase=mysecret)",
+          status: :unauthorized
+        }, status: :unauthorized
         return
       end
-
-      # Delete the cookie
-      cookies.delete name
     end
 
     log_view(@push)
     expires_now
 
-    # Optionally blur the text payload
-    @blur_css_class = Settings.pw.enable_blur ? "spoiler" : ""
-
     render json: @push.to_json(payload: true)
 
-    # Expire if this is the last view for this push
-    @push.expire unless @push.views_remaining.positive?
-  end
 
+    # If files are attached, we can't expire immediately as the viewer still needs
+    # to download the files.  In the case of files, this push will be expired on the
+    # next ExpirePushesJob run or next view attempt.  Whichever comes first.
+    if !@push.files.attached? && !@push.views_remaining.positive?
+      # Expire if this is the last view for this push
+      @push.expire!
+    end
+  end
 
   private
 
   ##
   # log_view
   #
-  # Record that a view is being made for a password
+  # Record that a view is being made for a url
   #
-  def log_view(password, manual_expiration: false)
-    record = {}
+  def log_view(push)
+    if push.expired
+      log_event(push, :failed_view)
+    else
+      log_event(push, :view)
+    end
+    push
+  end
 
-    # 0 - standard user view
-    # 1 - manual expiration
-    record[:kind] = manual_expiration ? 1 : 0
+  def log_failed_passphrase(push)
+    log_event(push, :failed_passphrase)
+  end
 
-    record[:user_id] = current_user.id if user_signed_in?
-    record[:ip] =
-      request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
+  def log_expire(push)
+    log_event(push, :expire)
+  end
+  
+  def log_event(push, kind)
+    ip = request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
     # Limit retrieved values to 256 characters
-    record[:user_agent] = request.env["HTTP_USER_AGENT"].to_s[0, 255]
-    record[:referrer] = request.env["HTTP_REFERER"].to_s[0, 255]
+    user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
+    referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    record[:successful] = password.expired ? false : true
-
-    password.views.create(record)
-    password
+    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    nil
   end
 
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
-  def create_detect_retrieval_step(password, params)
-    if Settings.pw.enable_retrieval_step == true
-      if params[:password].key?(:retrieval_step)
+  def create_detect_retrieval_step(push, params)
+    if settings_for(push).enable_retrieval_step == true
+      if params[:push].key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_rs = params[:password][:retrieval_step].to_s.downcase
-        password.retrieval_step = %w[on yes checked true].include?(user_rs)
+        user_rs = params[:push][:retrieval_step].to_s.downcase
+        push.retrieval_step = %w[on yes checked true].include?(user_rs)
       else
-        password.retrieval_step = if request.format.html?
+        push.retrieval_step = if request.format.html?
           # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
           # at all so we set false - NOT deletable by viewers
           false
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          Settings.pw.retrieval_step_default
+          settings_for(push).retrieval_step_default
         end
       end
     else
       # RETRIEVAL_STEP_ENABLED not enabled
-      password.retrieval_step = false
+      push.retrieval_step = false
     end
   end
 
-  # Since determining this value between and HTML forms and JSON API requests can be a bit
-  # tricky, we break this out to it's own function.
-  def create_detect_deletable_by_viewer(password, params)
-    if Settings.pw.enable_deletable_pushes == true
-      if params[:password].key?(:deletable_by_viewer)
+  def create_detect_deletable_by_viewer(push, params)
+    if settings_for(push).enable_deletable_pushes == true
+      if params[:push].key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
-        user_dvb = params[:password][:deletable_by_viewer].to_s.downcase
-        password.deletable_by_viewer = %w[on yes checked true].include?(user_dvb)
+        user_dvb = params[:push][:deletable_by_viewer].to_s.downcase
+        push.deletable_by_viewer = %w[on yes checked true].include?(user_dvb)
       else
-        password.deletable_by_viewer = if request.format.html?
+        push.deletable_by_viewer = if request.format.html?
           # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
           # at all so we set false - NOT deletable by viewers
           false
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          Settings.pw.deletable_pushes_default
+          settings_for(push).deletable_pushes_default
         end
       end
     else
       # DELETABLE_PASSWORDS_ENABLED not enabled
-      password.deletable_by_viewer = false
+      push.deletable_by_viewer = false
     end
   end
 
   def set_push
-    @push = Password.includes(:audit_logs).find_by!(url_token: params[:id])
+    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)
@@ -510,12 +543,26 @@ class Api::V1::PushesController < Api::BaseController
     # No easy fix for JSON unfortunately as we don't have a record to show.
     respond_to do |format|
       format.json { render json: {error: "not-found"}.to_json, status: :not_found }
-      format.any { head :not_acceptable }
     end
   end
+  
+  def push_params
+    sanitized_params = if params.key?(:file_push)
+      params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    elsif params.key?(:url)
+      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    elsif params.key?(:password)
+      params.require(:password).permit(:name, :kind, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    else
+      return nil
+    end
 
-  def password_params
-    params.require(:password).permit(:payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :name, :note)
+    sanitized_params
+  rescue => e
+    Rails.logger.error("Error in push_params: #{e.message}")
+    nil
   end
 end

@@ -94,19 +94,62 @@ class Push < ApplicationRecord
   def validate!
     return if expired
 
-    # Range checking
-    self.expire_after_days ||= Settings.files.expire_after_days_default
-    self.expire_after_views ||= Settings.files.expire_after_views_default
+    if new_record?
+      self.url_token ||= SecureRandom.urlsafe_base64(rand(8..14)).downcase
+      self.kind ||= "text"
+      
+      if self.kind == "text" 
+        # params[:push][:payload] || params[:password][:payload] has to exist
+        # params[:push][:payload] can't be blank
+        # params[:push][:payload] must have a length between 1 and 1 megabyte
+        if payload.blank?
+          errors.add(:payload, I18n.t("pushes.create.payload_required"))
+          return
+        end
 
-    unless expire_after_days.between?(Settings.files.expire_after_days_min, Settings.files.expire_after_days_max)
-      self.expire_after_days = Settings.files.expire_after_days_default
+        # MIGRATE - ask - Why is this check necessary?
+        # payload.is_a?(String)
+        unless (payload.is_a?(String) && payload.length.between?(1, 1.megabyte))
+          errors.add(:payload, I18n.t("pushes.payload_too_large"))
+          return
+        end
+      end
+  
+      if self.kind == "url"
+        if payload.present? 
+          if !valid_url?(payload)
+            errors.add(:payload, I18n.t("pushes.create.invalid_url"))
+            return
+          end
+        else
+          errors.add(:payload, I18n.t("pushes.create.payload_required"))
+        end
+        
+        # URLs cannot be preemptively deleted by end users ever
+        self.deletable_by_viewer = false
+      end
+
+      if self.kind == "file"
+        if files.attached? && files.size > settings_for(self).max_file_uploads
+          errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
+        end
+      end
+
+      # Range checking
+      self.expire_after_days ||= settings_for(self).expire_after_days_default
+      self.expire_after_views ||= settings_for(self).expire_after_views_default
+
+      # MIGRATE - ask
+      # Are these assignments needed?
+      # unless expire_after_days.between?(settings_for(self).expire_after_days_min, settings_for(self).expire_after_days_max)
+      #   self.expire_after_days = settings_for(self).expire_after_days_default
+      # end
+
+      # unless expire_after_views.between?(settings_for(self).expire_after_views_min, settings_for(self).expire_after_views_max)
+      #   self.expire_after_views = settings_for(self).expire_after_views_default
+      # end
+
     end
-
-    unless expire_after_views.between?(Settings.files.expire_after_views_min, Settings.files.expire_after_views_max)
-      self.expire_after_views = Settings.files.expire_after_views_default
-    end
-
-    return if new_record?
 
     expire if !days_remaining.positive? || !views_remaining.positive?
   end
