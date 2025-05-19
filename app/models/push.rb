@@ -107,8 +107,6 @@ class Push < ApplicationRecord
           return
         end
 
-        # MIGRATE - ask - Why is this check necessary?
-        # payload.is_a?(String)
         unless (payload.is_a?(String) && payload.length.between?(1, 1.megabyte))
           errors.add(:payload, I18n.t("pushes.payload_too_large"))
           return
@@ -130,7 +128,7 @@ class Push < ApplicationRecord
       end
 
       if self.kind == "file"
-        if files.attached? && files.size > settings_for(self).max_file_uploads
+        if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for(self).max_file_uploads
           errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
         end
       end

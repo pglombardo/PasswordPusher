@@ -207,24 +207,15 @@ class Api::V1::PushesController < Api::BaseController
 
     @push.user_id = current_user.id if user_signed_in?
 
-    # MIGRATE - ask
-    # This method is not available for url
-    # So, if it is Url push, it is skipped
     unless @push.url?
       create_detect_deletable_by_viewer(@push, push_params)
     end
     create_detect_retrieval_step(@push, push_params)
 
-    # MIGRATE - ask
-    # Is this needed?
-    @push.note = push_params.fetch(:note, "")
-    @push.passphrase = push_params.fetch(:passphrase, "")
-
     @push.validate!
 
     user_id = current_user.id if user_signed_in?
-    # MIGRATE - ask
-    # Why log_event is not used? Is selecting ip here different than selecting ip in log_event
+    
     @push.audit_logs.build(kind: :creation, user_id:, ip: request.remote_ip,
       user_agent: request.env["HTTP_USER_AGENT"], referrer: request.env["HTTP_REFERER"])
 
@@ -410,8 +401,6 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    # MIGRATE - ask
-    # Previously, pushes has some steps related to cookies. Will it be added or not?
     if @push.passphrase.present?
       # JSON requests must pass the passphrase in the params
       has_passphrase = params.fetch(:passphrase, nil) == @push.passphrase
@@ -431,7 +420,6 @@ class Api::V1::PushesController < Api::BaseController
     expires_now
 
     render json: @push.to_json(payload: true)
-
 
     # If files are attached, we can't expire immediately as the viewer still needs
     # to download the files.  In the case of files, this push will be expired on the
