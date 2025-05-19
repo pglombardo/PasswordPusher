@@ -228,12 +228,6 @@
         <div class='col'>
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
-                <%# TODO: MIGRATE - log_creation.html.erb is added, which one do you prefer %>
-                <div class="list-group-item list-group-item-action list-group-item-primary">
-                    <em class="bi bi-stars"></em>
-                    <%= _('Push created on') %> <%= I18n.l @push.created_at.in_time_zone(Settings.timezone) %> by <%= @push.user.email %>
-                </div>
-
                 <% if @push.audit_logs.empty? && !@push.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
                         <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
