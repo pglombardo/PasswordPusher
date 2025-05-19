@@ -274,8 +274,6 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    log_view(@push, manual_expiration: true)
-
     @push.expire!
     log_expire(@push)
 
