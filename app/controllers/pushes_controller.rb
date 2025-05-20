@@ -96,7 +96,7 @@ class PushesController < BaseController
 
     @push.validate!
 
-    log_creation(push)
+    log_creation(@push)
 
     if @push.errors.empty? && @push.save
       redirect_to preview_push_path(@push)
