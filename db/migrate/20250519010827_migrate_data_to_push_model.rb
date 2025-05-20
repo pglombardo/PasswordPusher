@@ -93,16 +93,13 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           updated_at: file_push.created_at
         )
         
-        # Migrate attached files
+        # Migrate attached files by updating existing attachments
         file_push.files.each do |file|
-          # Create a new blob record with the same attributes
-          attachment = ActiveStorage::Attachment.new(
-            name: 'files',
+          # Update the existing attachment record to point to the new Push
+          file.update!(
             record_type: 'Push',
-            record_id: push.id,
-            blob_id: file.blob_id
+            record_id: push.id
           )
-          attachment.save!
         end
         
         puts "Migrated file push #{file_push.id} to push #{push.id}"
