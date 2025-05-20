@@ -464,13 +464,14 @@ class Api::V1::PushesController < Api::BaseController
       params.require(:password).permit(:name, :kind, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
     else
-      return nil
+      raise ActionController::ParameterMissing, "The request must contain a file_push, url, or password parameter."
     end
 
     sanitized_params
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
-    nil
+      
+    raise e
   end
 
   def select_kind
