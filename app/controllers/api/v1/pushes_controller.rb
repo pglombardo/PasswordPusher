@@ -317,8 +317,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     kind = select_kind
-    puts "\n\n\e[32;3m#{"⟱"*40}\e[0m\n#{__FILE__} : #{__LINE__}\n"
-    puts "kind: #{kind} \n\e[32;3m#{"⟰"*40}\e[0m\n\n"
+    
     @pushes = Push.includes(:audit_logs)
       .where(kind: , user_id: current_user.id, expired: true)
       .page(params[:page])
