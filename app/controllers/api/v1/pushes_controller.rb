@@ -52,8 +52,10 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
+    kind = select_kind
+
     @pushes = Push.includes(:audit_logs)
-      .where(user_id: current_user.id, expired: false)
+      .where(kind:, user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -315,8 +317,11 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
+    kind = select_kind
+    puts "\n\n\e[32;3m#{"⟱"*40}\e[0m\n#{__FILE__} : #{__LINE__}\n"
+    puts "kind: #{kind} \n\e[32;3m#{"⟰"*40}\e[0m\n\n"
     @pushes = Push.includes(:audit_logs)
-      .where(user_id: current_user.id, expired: true)
+      .where(kind: , user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -501,5 +506,15 @@ class Api::V1::PushesController < Api::BaseController
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
     nil
+  end
+
+  def select_kind
+    kind = if request.path.include?("/f/")
+             "file"
+           elsif request.path.include?("/r/")
+             "url"
+           elsif request.path.include?("/p/") 
+             "text"
+           end
   end
 end
