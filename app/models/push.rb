@@ -3,6 +3,8 @@ class Push < ApplicationRecord
   
   enum :kind, [:text, :file, :url]
 
+  validates :kind, inclusion: { in: %w(text file url), message: "%{value} is not a valid push type" }
+  
   belongs_to :user, optional: true
   
   has_encrypted :payload, :note, :passphrase

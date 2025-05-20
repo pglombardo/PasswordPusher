@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_20_201633) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
   end
 
   create_table "pushes", force: :cascade do |t|
-    t.integer "kind"
+    t.integer "kind", null: false
     t.integer "expire_after_days"
     t.integer "expire_after_views"
     t.boolean "expired", default: false
