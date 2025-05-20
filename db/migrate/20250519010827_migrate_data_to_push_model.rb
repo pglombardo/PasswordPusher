@@ -179,12 +179,12 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       end
       
       if push_id.present?
-        # Determine the kind of audit log based on the view's successful attribute
-        kind = view.successful ? :view : :failed_view
+        # Determine the kind of audit log based on the view's kind and successful attributes
+        audit_log_kind = determine_audit_log_kind(view)
         
         # Create a new AuditLog record
         audit_log = AuditLog.new(
-          kind: kind,
+          kind: audit_log_kind,
           push_id: push_id,
           user_id: view.user_id,
           ip: view.ip,
@@ -202,6 +202,17 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       else
         puts "Could not find corresponding push for view #{view.id}"
       end
+    end
+  end
+  
+  # Determine the appropriate audit log kind based on view kind and successful status
+  def determine_audit_log_kind(view)
+    # Standard view (kind 0)
+    if view.kind == 0
+      view.successful ? :view : :failed_view
+    # Admin view (kind 1) - these are typically just views, not failures
+    elsif view.kind == 1
+      :expire
     end
   end
 end
