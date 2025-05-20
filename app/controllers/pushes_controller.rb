@@ -95,9 +95,7 @@ class PushesController < BaseController
 
     @push.validate!
 
-    user_id = current_user.id if user_signed_in?
-    @push.audit_logs.build(kind: :creation, user_id:, ip: request.remote_ip,
-      user_agent: request.env["HTTP_USER_AGENT"], referrer: request.env["HTTP_REFERER"])
+    log_creation(push)
 
     if @push.errors.empty? && @push.save
       redirect_to preview_push_path(@push)
@@ -295,6 +293,10 @@ class PushesController < BaseController
     push
   end
 
+  def log_creation(push)
+    log_event(@push, :creation)
+  end
+
   def log_failed_passphrase(push)
     log_event(push, :failed_passphrase)
   end
@@ -310,7 +312,11 @@ class PushesController < BaseController
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    if kind == :creation
+      push.audit_logs.build(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    else
+      push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    end
     nil
   end
 
