@@ -199,16 +199,7 @@ class Api::V1::PushesController < Api::BaseController
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Push.new(push_params)
-    
-    if !push_params[:kind].present?
-      @push.kind = if request.path.include?("/f.json")
-        "file"
-      elsif request.path.include?("/r.json")
-        "url"
-      else
-        "text"
-      end
-    end
+    @push.kind = select_kind
 
     @push.user_id = current_user.id if user_signed_in?
 
@@ -473,11 +464,11 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   def select_kind
-    kind = if request.path.include?("/f/")
+    kind = if request.path.start_with?("/f")
              "file"
-           elsif request.path.include?("/r/")
+           elsif request.path.start_with?("/r")
              "url"
-           elsif request.path.include?("/p/") 
+           elsif request.path.start_with?("/p") 
              "text"
            end
   end
