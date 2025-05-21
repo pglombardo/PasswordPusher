@@ -10,6 +10,7 @@ class Push < ApplicationRecord
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
+    create.before_validation :set_note_and_passphrase
 
     create.after_validation :check_payload_for_text, if: :text?
     create.after_validation :check_files_for_file, if: :file?
@@ -182,5 +183,10 @@ class Push < ApplicationRecord
     if self.kind == "url" && !Settings.enable_url_pushes
       errors.add(:kind, _("URL pushes are disabled."))
     end
+  end
+
+  def set_note_and_passphrase
+    note ||= "" 
+    passphrase ||= ""
   end
 end
