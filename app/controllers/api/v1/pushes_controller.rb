@@ -445,11 +445,11 @@ class Api::V1::PushesController < Api::BaseController
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
     elsif params.key?(:url)
-      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
+      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, 
+        :retrieval_step, :payload, :note, :passphrase)
     elsif params.key?(:password)
-      params.require(:password).permit(:name, :kind, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
+      params.require(:password).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase)
     else
       raise ActionController::ParameterMissing, "The request must contain a file_push, url, or password parameter."
     end

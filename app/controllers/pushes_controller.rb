@@ -265,8 +265,21 @@ class PushesController < BaseController
   end
 
   def push_params
-    params.require(:push).permit(:kind, :payload, :expire_after_days, :expire_after_views,
-      :retrieval_step, :deletable_by_viewer, :name, :note, :passphrase, files: [])
+    case params.dig(:push, :kind) 
+    when "url"
+      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, 
+        :retrieval_step, :payload, :note, :passphrase)
+    when "file"
+      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    else
+      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase)
+    end
+    
+  rescue => e
+    Rails.logger.error("Error in push_params: #{e.message}")
+    raise e
   end
 
   def print_preview_params
