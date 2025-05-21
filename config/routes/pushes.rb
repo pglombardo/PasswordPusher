@@ -4,8 +4,8 @@ constraints(format: :html) do
     get "print_preview", on: :member
     get "passphrase", on: :member
     post "access", on: :member
-    delete "expire", on: :member
     get "r", on: :member, as: "preliminary", action: "preliminary"
+    delete "expire", on: :member
     get "audit", on: :member
   end
 end
