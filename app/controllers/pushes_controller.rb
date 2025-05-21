@@ -262,6 +262,13 @@ class PushesController < BaseController
 
     # Optionally blur the text payload
     @blur_css_class = settings_for(@push).enable_blur ? "spoiler" : ""
+    
+    if @push.kind == "url"
+      # Redirect to the URL
+      redirect_to @push.payload, allow_other_host: true, status: :see_other
+    else
+      render layout: "bare"
+    end
 
     # If files are attached, we can't expire immediately as the viewer still needs
     # to download the files.  In the case of files, this push will be expired on the
@@ -270,14 +277,7 @@ class PushesController < BaseController
       # Expire if this is the last view for this push
       @push.expire!
     end
-    
-    if @push.kind == "url"
-      # Redirect to the URL
-      redirect_to @push.payload, allow_other_host: true, status: :see_other
-    else
-      render layout: "bare"
-    end
-   end
+  end
 
 
   private
