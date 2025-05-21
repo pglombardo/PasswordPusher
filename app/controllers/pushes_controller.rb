@@ -57,6 +57,22 @@ class PushesController < BaseController
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Push.new(push_params)
+
+    if @push.file? 
+      if Settings.enable_file_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("File pushes are disabled.")
+      end
+    elsif @push.url? 
+      if Settings.enable_url_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("URL pushes are disabled.")
+      end
+    else
+      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    end
     
     @push.user_id = current_user.id if user_signed_in?
 
@@ -140,6 +156,23 @@ class PushesController < BaseController
     else
       @push.kind = "text"
     end
+
+    if @push.file? 
+      if Settings.enable_file_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("File pushes are disabled.")
+      end
+    elsif @push.url? 
+      if Settings.enable_url_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("URL pushes are disabled.")
+      end
+    else
+      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    end
+    
     
     # MIGRATION - ask
     # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
@@ -172,6 +205,8 @@ class PushesController < BaseController
   end
 
   def preview
+    
+    
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
   end

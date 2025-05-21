@@ -196,7 +196,22 @@ class Api::V1::PushesController < Api::BaseController
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    
+    if @push.file? 
+      if Settings.enable_file_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("File pushes are disabled.")
+      end
+    elsif @push.url? 
+      if Settings.enable_url_pushes
+        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+      else
+        redirect_to root_path, notice: _("URL pushes are disabled.")
+      end
+    else
+      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    end
 
     @push = Push.new(push_params)
     @push.kind = select_kind
