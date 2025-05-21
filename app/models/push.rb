@@ -6,11 +6,14 @@ class Push < ApplicationRecord
   validates :kind, inclusion: { in: self.kinds, message: "%{value} is not a valid push type" }, presence: true
   validates :url_token, presence: true, uniqueness: true
 
-  before_validation :set_expire_limits, if: :new_record?
-  before_validation :set_url_token, if: :new_record?
-  before_validation :check_payload_for_text, if: :text? && :new_record?
-  before_validation :check_files_for_file, if: :file? && :new_record?
-  before_validation :check_payload_for_url, if: :url? && :new_record?
+  with_options on: :create do |create|
+    create.before_validation :set_expire_limits
+    create.before_validation :set_url_token
+
+    create.after_validation :check_payload_for_text, if: :text?
+    create.after_validation :check_files_for_file, if: :file?
+    create.after_validation :check_payload_for_url, if: :url?
+  end
 
   belongs_to :user, optional: true
   
