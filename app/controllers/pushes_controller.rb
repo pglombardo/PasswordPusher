@@ -58,45 +58,12 @@ class PushesController < BaseController
 
     @push = Push.new(push_params)
     
-
-    if @push.file? && push_params.key?(:files) &&
-        push_params[:files].count { |e| e != "" } > settings_for(@push).max_file_uploads
-      msg = t("pushes.form.upload_limit", count: settings_for(@push).max_file_uploads)
-      flash.now[:alert] = msg
-      render :new, status: :unprocessable_entity
-      return
-    end
-    
-    if @push.text? 
-      
-      # params[:push] has to exist
-      # params[:push] has to be a ActionController::Parameters (Hash)
-      text_param = params.fetch(:push, {})
-      unless text_param.respond_to?(:fetch)
-        redirect_to new_push_path(locale: locale.to_s), status: :unprocessable_entity, notice: "Bad Request"
-        return
-      end
-
-      # params[:push][:payload] || params[:password][:payload] has to exist
-      # params[:push][:payload] can't be blank
-      # params[:push][:payload] must have a length between 1 and 1 megabyte
-      payload_param = text_param.fetch(:payload, "")
-      unless payload_param.is_a?(String) && payload_param.length.between?(1, 1.megabyte)
-        redirect_to root_path(locale: locale.to_s), status: :unprocessable_entity, notice: "Bad Request"
-        return
-      end
-    end
-    
     @push.user_id = current_user.id if user_signed_in?
-    @push.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
 
-    set_expire_limits(@push)
     create_detect_deletable_by_viewer(@push, push_params)
     create_detect_retrieval_step(@push, push_params)
 
-    @push.validate!
-    
-    if @push.errors.empty? && @push.save!
+    if @push.save
       log_creation(@push)
       
       redirect_to preview_push_path(@push)
@@ -191,7 +158,7 @@ class PushesController < BaseController
   def preliminary
     # This password may have expired since the last view.  Validate the password
     # expiration before doing anything.
-    @push.validate!
+    @push.check_limits
 
     if @push.expired
       log_view(@push)
@@ -224,7 +191,7 @@ class PushesController < BaseController
   def show
     # This push may have expired since the last view.  Validate the push
     # expiration before doing anything.
-    @push.validate!
+    @push.check_limits
 
     if @push.expired
       log_view(@push)

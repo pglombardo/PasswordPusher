@@ -203,11 +203,9 @@ class Api::V1::PushesController < Api::BaseController
 
     @push.user_id = current_user.id if user_signed_in?
 
-    set_expire_limits(@push)
     create_detect_deletable_by_viewer(@push, push_params)
     create_detect_retrieval_step(@push, push_params)
 
-    @push.validate!
     if @push.save
       log_creation(@push)
 

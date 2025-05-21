@@ -1,10 +1,17 @@
 class Push < ApplicationRecord
   include Pwpush::UrlConcern
   
-  enum :kind, [:text, :file, :url]
+  enum :kind, [:text, :file, :url], default: :text
 
-  validates :kind, inclusion: { in: %w(text file url), message: "%{value} is not a valid push type" }
-  
+  validates :kind, inclusion: { in: self.kinds, message: "%{value} is not a valid push type" }, presence: true
+  validates :url_token, presence: true, uniqueness: true
+
+  before_validation :set_expire_limits, if: :new_record?
+  before_validation :set_url_token, if: :new_record?
+  before_validation :check_payload_for_text, if: :text? && :new_record?
+  before_validation :check_files_for_file, if: :file? && :new_record?
+  before_validation :check_payload_for_url, if: :url? && :new_record?
+
   belongs_to :user, optional: true
   
   has_encrypted :payload, :note, :passphrase
@@ -89,55 +96,56 @@ class Push < ApplicationRecord
     Oj.dump attr_hash
   end
 
-  ##
-  # validate!
-  #
-  # Run basic validations on the password.  Expire the password
-  # if it's limits have been reached (time or views)
-  #
-  def validate!
-    return if expired
-
-    if new_record?
-      self.url_token ||= SecureRandom.urlsafe_base64(rand(8..14)).downcase
-      self.kind ||= "text"
-      
-      if self.kind == "text" 
-        # params[:push][:payload] || params[:password][:payload] has to exist
-        # params[:push][:payload] can't be blank
-        # params[:push][:payload] must have a length between 1 and 1 megabyte
-        if payload.blank?
-          errors.add(:payload, I18n.t("pushes.create.payload_required"))
-          return
-        end
-
-        unless (payload.is_a?(String) && payload.length.between?(1, 1.megabyte))
-          errors.add(:payload, I18n.t("pushes.payload_too_large"))
-          return
-        end
-      end
+  def check_files_for_file
+    if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for(self).max_file_uploads
+      errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
+    end
+  end
   
-      if self.kind == "url"
-        if payload.present? 
-          if !valid_url?(payload)
-            errors.add(:payload, I18n.t("pushes.create.invalid_url"))
-            return
-          end
-        else
-          errors.add(:payload, I18n.t("pushes.create.payload_required"))
-        end
-      end
-
-      if self.kind == "file"
-        if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for(self).max_file_uploads
-          errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
-        end
-      end
-
+  def check_payload_for_text
+    if payload.blank?
+      errors.add(:payload, I18n.t("pushes.create.payload_required"))
       return
     end
 
-    expire if !days_remaining.positive? || !views_remaining.positive?
+    unless (payload.is_a?(String) && payload.length.between?(1, 1.megabyte))
+      errors.add(:payload, I18n.t("pushes.payload_too_large"))
+      return
+    end
+  end
+
+  def check_payload_for_url
+    if payload.present? 
+      if !valid_url?(payload)
+        errors.add(:payload, I18n.t("pushes.create.invalid_url"))
+        return
+      end
+    else
+      errors.add(:payload, I18n.t("pushes.create.payload_required"))
+    end  
+  end
+
+  def set_expire_limits
+    self.expire_after_days ||= settings_for(self).expire_after_days_default
+    self.expire_after_views ||= settings_for(self).expire_after_views_default
+
+    # MIGRATE - ask
+    # Are these assignments needed?
+    unless self.expire_after_days.between?(settings_for(self).expire_after_days_min, settings_for(self).expire_after_days_max)
+      self.expire_after_days = settings_for(self).expire_after_days_default
+    end
+
+    unless self.expire_after_views.between?(settings_for(self).expire_after_views_min, settings_for(self).expire_after_views_max)
+      self.expire_after_views = settings_for(self).expire_after_views_default
+    end
+  end
+
+  def check_limits
+    expire if !expired? && (!days_remaining.positive? || !views_remaining.positive?)
+  end
+
+  def set_url_token
+    self.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
   end
 
   def expire!

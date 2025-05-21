@@ -56,19 +56,4 @@ module SetPushAttributes
     end
   end
 
-  def set_expire_limits(push)
-    push.expire_after_days ||= settings_for(push).expire_after_days_default
-    push.expire_after_views ||= settings_for(push).expire_after_views_default
-
-    # MIGRATE - ask
-    # Are these assignments needed?
-    unless push.expire_after_days.between?(settings_for(push).expire_after_days_min, settings_for(push).expire_after_days_max)
-      push.expire_after_days = settings_for(push).expire_after_days_default
-    end
-
-    unless push.expire_after_views.between?(settings_for(push).expire_after_views_min, settings_for(push).expire_after_views_max)
-      push.expire_after_views = settings_for(push).expire_after_views_default
-    end
-  end
-
 end
