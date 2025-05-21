@@ -143,19 +143,7 @@ class PushesController < BaseController
   def new
     @push = Push.new
 
-    if params.key?("tab")
-      if params["tab"] == "text"
-        @push.kind = "text"
-      elsif params["tab"] == "files"
-        @push.kind = "file"
-      elsif params["tab"] == "url"
-        @push.kind = "url"
-      else
-        @push.kind = "text"
-      end
-    else
-      @push.kind = "text"
-    end
+    set_kind_by_tab
 
     if @push.file? 
       if Settings.enable_file_pushes
@@ -321,19 +309,24 @@ class PushesController < BaseController
     params.permit(:id, :locale, :message, :show_expiration, :show_id)
   end
 
-  def set_active_tab
+  def set_kind_by_tab
     # Track which tab to show
     if params.key?("tab")
       if params["tab"] == "text"
+        @push.kind = "text"
         @text_tab = true
       elsif params["tab"] == "files"
+        @push.kind = "file"
         @files_tab = true
       elsif params["tab"] == "url"
+        @push.kind = "url"
         @url_tab = true
       else
+        @push.kind = "text"
         @text_tab = true
       end
     else
+      @push.kind = "text"
       @text_tab = true
     end
   end
