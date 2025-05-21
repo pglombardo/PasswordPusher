@@ -7,10 +7,9 @@ class PushesController < BaseController
   include LogEvents
   
   before_action :set_push, except: %i[new create index]
-
+  before_action :check_allowed
   # Authentication always except for these actions
   before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show expire]
-  before_action :set_active_tab, only: %i[new]
 
  
   # POST /p/:url_token/access
@@ -124,11 +123,18 @@ class PushesController < BaseController
     end
 
     @filter = params[:filter]
+    allowed_kinds = ["text"]
+    if Settings.enable_file_pushes
+      allowed_kinds << "file"  
+    end
 
+    if Settings.enable_url_pushes
+      allowed_kinds << "url"  
+    end
 
     if @filter
       @pushes = Push.includes(:audit_logs)
-        .where(user_id: current_user.id, expired: @filter == "expired")
+        .where(user_id: current_user.id, expired: @filter == "expired", kind: allowed_kinds)
         .page(params[:page])
         .order(created_at: :desc)
     else
@@ -328,6 +334,33 @@ class PushesController < BaseController
     else
       @push.kind = "text"
       @text_tab = true
+    end
+  end
+
+  def check_allowed
+    push_kind = if %i[preview print_preview preliminary passphrase access show expire].include?(action_name)
+                  @push.kind
+                elsif action_name == :new
+                  case params["tab"]
+                  when "files"
+                    "file"
+                  when "url"
+                    "url"
+                  else
+                    "text"
+                  end
+                elsif action_name == :create
+                  push_params.dig(:push, :kind) || "text"
+                end
+    
+    # File pushes only enabled when logins are enabled.
+    if push_kind == "file" && !(Settings.enable_logins && Settings.enable_file_pushes)
+      redirect_to root_path, notice: _("File pushes are disabled.")
+    end
+
+    # URL based pushes can only enabled when logins are enabled.
+    if push_kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
+      redirect_to root_path, notice: _("URL pushes are disabled.")
     end
   end
 end
