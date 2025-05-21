@@ -33,11 +33,6 @@ module LogEvents
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    if kind == :creation
-      push.audit_logs.build(kind: kind, user: current_user, ip:, user_agent:, referrer:)
-    else
-      push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
-    end
-    nil
+    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
   end
 end

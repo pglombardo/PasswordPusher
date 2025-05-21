@@ -95,10 +95,10 @@ class PushesController < BaseController
     create_detect_retrieval_step(@push, push_params)
 
     @push.validate!
-
-    log_creation(@push)
-
-    if @push.errors.empty? && @push.save
+    
+    if @push.errors.empty? && @push.save!
+      log_creation(@push)
+      
       redirect_to preview_push_path(@push)
     else
       if @push.kind == "text"

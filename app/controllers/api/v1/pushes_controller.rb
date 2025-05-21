@@ -217,11 +217,9 @@ class Api::V1::PushesController < Api::BaseController
     create_detect_retrieval_step(@push, push_params)
 
     @push.validate!
-
-    user_id = current_user.id if user_signed_in?
-    log_creation(@push)
-
     if @push.save
+      log_creation(@push)
+
       render json: @push, status: :created
     else
       render json: @push.errors, status: :unprocessable_entity
