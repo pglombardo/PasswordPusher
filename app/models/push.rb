@@ -4,6 +4,7 @@ class Push < ApplicationRecord
   enum :kind, [:text, :file, :url], default: :text
 
   validates :kind, inclusion: { in: self.kinds, message: "%{value} is not a valid push type" }, presence: true
+  validate :check_enabled_push_kinds
   validates :url_token, presence: true, uniqueness: true
 
   with_options on: :create do |create|
@@ -170,6 +171,16 @@ class Push < ApplicationRecord
       Settings.url
     elsif self.file?
       Settings.files
+    end
+  end
+
+  def check_enabled_push_kinds
+    if self.kind == "file" && !Settings.enable_file_pushes
+      errors.add(:kind, _("File pushes are disabled."))
+    end
+
+    if self.kind == "url" && !Settings.enable_url_pushes
+      errors.add(:kind, _("URL pushes are disabled."))
     end
   end
 end
