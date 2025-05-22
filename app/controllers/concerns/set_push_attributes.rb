@@ -6,7 +6,7 @@ module SetPushAttributes
   def create_detect_deletable_by_viewer(push, push_params)
     if push.url?
       # URLs cannot be preemptively deleted by end users ever
-      push.deletable_by_viewer = false
+      push.deletable_by_viewer = nil
     elsif settings_for(push).enable_deletable_pushes == true
       if push_params.key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
