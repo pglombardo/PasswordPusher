@@ -14,8 +14,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   def down
-    # This migration is not reversible
-    raise ActiveRecord::IrreversibleMigration
+    # It is not necessary to make this migration reversible
   end
   
   private
