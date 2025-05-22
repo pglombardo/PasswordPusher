@@ -8,6 +8,7 @@ class Api::V1::PushesController < Api::BaseController
 
   helper UrlsHelper
 
+  before_action :set_kind
   before_action :set_push, only: %i[show preview audit destroy]
 
   resource_description do
@@ -53,10 +54,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    kind = select_kind
-
     @pushes = Push.includes(:audit_logs)
-      .where(kind:, user_id: current_user.id, expired: false)
+      .where(kind: @kind, user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -196,25 +195,10 @@ class Api::V1::PushesController < Api::BaseController
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
-    
-    if @push.file? 
-      if Settings.enable_file_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("File pushes are disabled.")
-      end
-    elsif @push.url? 
-      if Settings.enable_url_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("URL pushes are disabled.")
-      end
-    else
-      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-    end
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Push.new(push_params)
-    @push.kind = select_kind
+    @push.kind = @kind
 
     @push.user_id = current_user.id if user_signed_in?
 
@@ -269,10 +253,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    @push.expire!
-    log_expire(@push)
-
-    if @push.save
+    if @push.expire
+      log_expire(@push)
       render json: @push, status: :ok
     else
       render json: @push.errors, status: :unprocessable_entity
@@ -318,10 +300,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    kind = select_kind
-    
     @pushes = Push.includes(:audit_logs)
-      .where(kind: , user_id: current_user.id, expired: true)
+      .where(kind: @kind , user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -439,7 +419,7 @@ class Api::V1::PushesController < Api::BaseController
   private
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id], kind: @kind)
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)
@@ -456,13 +436,13 @@ class Api::V1::PushesController < Api::BaseController
   end
   
   def push_params
-    sanitized_params = if params.key?(:file_push)
+    sanitized_params = if @kind == "file"
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
-    elsif params.key?(:url)
+    elsif @kind == "url"
       params.require(:url).permit(:name, :expire_after_days, :expire_after_views, 
         :retrieval_step, :payload, :note, :passphrase)
-    elsif params.key?(:password)
+    elsif @kind == "text"
       params.require(:password).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase)
     else
@@ -476,8 +456,8 @@ class Api::V1::PushesController < Api::BaseController
     raise e
   end
 
-  def select_kind
-    kind = if request.path.start_with?("/f")
+  def set_kind
+    @kind = if request.path.start_with?("/f")
              "file"
            elsif request.path.start_with?("/r")
              "url"
