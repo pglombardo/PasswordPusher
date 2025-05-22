@@ -78,6 +78,7 @@ class Push < ApplicationRecord
 
     attr_hash["days_remaining"] = days_remaining
     attr_hash["views_remaining"] = views_remaining
+    attr_hash["deleted"] = self.audit_logs.any?(&:expire?)
 
     if file?
       file_list = {}
@@ -99,6 +100,7 @@ class Push < ApplicationRecord
     attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload
+    attr_hash.delete("deletable_by_viewer") if url?
 
     Oj.dump attr_hash
   end
