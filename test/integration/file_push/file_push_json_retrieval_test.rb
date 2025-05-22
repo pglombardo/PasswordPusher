@@ -15,10 +15,11 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
 
   def test_view_expiration
     mock_params = {}
-    mock_prams[:file_push] = {}
-    mock_prams[:file_push][:payload] = "testpw"
-    mock_prams[:file_push][:expire_after_views] = 2
-    mock_prams[:file_push][:files] = [fixture_file_upload("monkey.png", "image/jpeg")]
+
+    mock_params[:file_push] = {}
+    mock_params[:file_push][:payload] = "testpw"
+    mock_params[:file_push][:expire_after_views] = 2
+    mock_params[:file_push][:files] = [fixture_file_upload("monkey.png", "image/jpeg")]
 
     mock_headers = {}
     mock_headers["X-User-Email"] = @luca.email
