@@ -79,12 +79,14 @@ class Push < ApplicationRecord
     attr_hash["days_remaining"] = days_remaining
     attr_hash["views_remaining"] = views_remaining
 
-    file_list = {}
-    files.each do |file|
-      # FIXME: default host?
-      file_list[file.filename] = Rails.application.routes.url_helpers.rails_blob_url(file, only_path: true)
+    if file?
+      file_list = {}
+      files.each do |file|
+        # FIXME: default host?
+        file_list[file.filename] = Rails.application.routes.url_helpers.rails_blob_url(file, only_path: true)
+      end
+      attr_hash["files"] = file_list.to_json
     end
-    attr_hash["files"] = file_list.to_json
 
     # Remove unnecessary fields
     attr_hash.delete("payload_ciphertext")

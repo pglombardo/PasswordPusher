@@ -8,9 +8,6 @@ class PushesController < BaseController
   
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
-  # Authentication always except for these actions
-  before_action :authenticate_user!, except: %i[new create preview print_preview preliminary passphrase access show expire]
-
  
   # POST /p/:url_token/access
   def access
@@ -57,22 +54,6 @@ class PushesController < BaseController
 
     @push = Push.new(push_params)
 
-    if @push.file? 
-      if Settings.enable_file_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("File pushes are disabled.")
-      end
-    elsif @push.url? 
-      if Settings.enable_url_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("URL pushes are disabled.")
-      end
-    else
-      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-    end
-    
     @push.user_id = current_user.id if user_signed_in?
 
     create_detect_deletable_by_viewer(@push, push_params)
@@ -147,32 +128,17 @@ class PushesController < BaseController
 
   # GET /passwords/new
   def new
+    # Require authentication if allow_anonymous is false
+    # See config/settings.yml
+    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+
     @push = Push.new
 
     set_kind_by_tab
-
-    if @push.file? 
-      if Settings.enable_file_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("File pushes are disabled.")
-      end
-    elsif @push.url? 
-      if Settings.enable_url_pushes
-        authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-      else
-        redirect_to root_path, notice: _("URL pushes are disabled.")
-      end
-    else
-      authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-    end
-    
     
     # MIGRATION - ask
     # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
     @push.passphrase = ""
-
-    respond_to(&:html)
   end
 
   # GET /p/:url_token/passphrase
@@ -318,7 +284,7 @@ class PushesController < BaseController
   def set_kind_by_tab
     # Track which tab to show
     if params.key?("tab")
-      if params["tab"] == "text"
+      if params["tab"] == "text @push.text?"
         @push.kind = "text"
         @text_tab = true
       elsif params["tab"] == "files"
@@ -338,9 +304,10 @@ class PushesController < BaseController
   end
 
   def check_allowed
-    push_kind = if %i[preview print_preview preliminary passphrase access show expire].include?(action_name)
+    
+    push_kind = if %w[preview print_preview preliminary passphrase access show expire].include?(action_name)
                   @push.kind
-                elsif action_name == :new
+                elsif action_name == "new"
                   case params["tab"]
                   when "files"
                     "file"
@@ -349,18 +316,34 @@ class PushesController < BaseController
                   else
                     "text"
                   end
-                elsif action_name == :create
+                elsif action_name == "create"
                   push_params.dig(:push, :kind) || "text"
                 end
-    
-    # File pushes only enabled when logins are enabled.
-    if push_kind == "file" && !(Settings.enable_logins && Settings.enable_file_pushes)
-      redirect_to root_path, notice: _("File pushes are disabled.")
+
+    if push_kind == "file" 
+      # File pushes only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_file_pushes
+        if %w[new create preview print_preview].include?(action_name)
+          authenticate_user!
+        end
+      else
+        redirect_to root_path, notice: _("File pushes are disabled.")
+      end
     end
 
-    # URL based pushes can only enabled when logins are enabled.
-    if push_kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
-      redirect_to root_path, notice: _("URL pushes are disabled.")
+    if push_kind == "url" 
+      # URL pushes only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_url_pushes
+        if %w[new create preview print_preview].include?(action_name)
+          authenticate_user!
+        end
+      else
+        redirect_to root_path, notice: _("URL pushes are disabled.")
+      end
+    end
+
+    unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
+      authenticate_user!
     end
   end
 end
