@@ -28,6 +28,18 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal false, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
     assert res.key?("days_remaining")
+    assert_equal res.keys, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining"]
+    assert_equal res.except("url_token", "created_at", "updated_at"), {
+      "expire_after_days" => 7,
+      "expire_after_views" => 5,
+      "expired" => false,
+      "deleted" => false,
+      "retrieval_step" => false,
+      "expired_on" => nil,
+      "days_remaining" => 7,
+      "views_remaining" => 5
+    }
+
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.url.expire_after_views_default, res["views_remaining"]

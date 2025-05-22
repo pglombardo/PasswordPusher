@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
+class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -31,7 +31,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("payload") == false # No payload on create response
+    assert res.key?("payload") == true # No payload on create response
     assert res.key?("url_token")
     assert res.key?("expired")
     assert_equal false, res["expired"]
@@ -91,5 +91,15 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
+      "payload" => nil,
+      "expire_after_days" => 7,
+      "expire_after_views" => 2,
+      "deleted" => false,
+      "deletable_by_viewer" => true,
+      "retrieval_step" => false,
+      "days_remaining" => 7,
+      "views_remaining" => 0,
+      "files" => "{}"}
   end
 end

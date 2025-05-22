@@ -16,6 +16,17 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
+    assert_equal res.keys, ["expire_after_days", "expire_after_views", "expired", "url_token", "created_at", "updated_at", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "days_remaining", "views_remaining"]
+    assert_equal res.except("url_token", "created_at", "updated_at"), {"expire_after_days" => 7,
+        "expire_after_views" => 5,
+        "expired" => false,
+        "deleted" => false,
+        "deletable_by_viewer" => true,
+        "retrieval_step" => false,
+        "expired_on" => nil,
+        "days_remaining" => 7,
+        "views_remaining" => 5}
+
     assert_equal Settings.pw.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
     assert_equal Settings.pw.expire_after_days_default, res["days_remaining"]
