@@ -4,10 +4,10 @@ require "test_helper"
 
 class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
   def test_requested_locale
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
 
-    post passwords_path, params: {password: {payload: "testpw", passphrase: "asdf", retrieval_step: true}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", passphrase: "asdf", retrieval_step: true}}
     assert_response :redirect
 
     # Preview page
@@ -50,10 +50,10 @@ class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
   end
 
   def test_requested_locale_without_passphrase
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
 
-    post passwords_path, params: {password: {payload: "testpw", retrieval_step: true}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", retrieval_step: true}}
     assert_response :redirect
 
     # Preview page

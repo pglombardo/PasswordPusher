@@ -55,7 +55,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 2, res["expire_after_views"]
 
     # Check the record directly; it should be expired after the last view
-    password = Password.find_by!(url_token: res["url_token"])
+    password = Push.find_by!(url_token: res["url_token"])
     assert password.expired
     assert_nil password.payload
     assert_equal 0, password.views_remaining

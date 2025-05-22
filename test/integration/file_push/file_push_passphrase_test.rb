@@ -19,11 +19,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [
@@ -67,11 +68,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_bad_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [
@@ -118,11 +120,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_anonymous_can_access_file_push_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [

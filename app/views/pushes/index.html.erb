@@ -5,7 +5,13 @@
 <main>
   <% if @pushes.length.zero? %>
     <p class='text-center mt-3'>
-      <%= _('You currently have no active URL pushes.') %>
+      <% if @filter == "active" %>
+        <%= _('You currently have no active pushes.') %>
+      <% elsif @filter == "expired" %>
+        <%= _('You currently have no expired pushes.') %>
+      <% else %>
+        <%= _('You currently have no pushes.') %>
+      <% end %>
     </p>
     <p class='text-center'>
       <%= link_to new_push_path, class: 'btn btn-primary' do %>
@@ -15,7 +21,15 @@
     </p>
   <% else %>
     <div class="text-center my-3">
-      <h1 class="display-6"><%= _('Active URL Pushes') %></h1>
+      <h1 class="display-6">
+        <% if @filter == "active" %>
+          <%= _('Active Pushes') %>
+        <% elsif @filter == "expired" %>
+          <%= _('Expired Pushes') %>
+        <% else %>
+          <%= _('All Pushes') %>
+        <% end %>
+      </h1>
     </div>
     <table class="table table-striped table-bordered table-sm table-hover caption-top align-middle" aria-label='<%= _('Active Pushes') %>'>
       <thead>

@@ -33,6 +33,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
+
     assert res.key?("views")
     assert res["views"].length == 3
 

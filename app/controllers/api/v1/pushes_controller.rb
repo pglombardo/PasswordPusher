@@ -8,14 +8,14 @@ class Api::V1::PushesController < Api::BaseController
 
   helper UrlsHelper
 
-  before_action :set_kind
+  before_action :set_current_kind
   before_action :set_push, only: %i[show preview audit destroy]
 
   resource_description do
     name "Pushes"
     short "Interact directly with pushes."
   end
-  
+
   api :GET, "/p/active.json", "Retrieve your active pushes."
   formats ["JSON"]
   description <<-EOS
@@ -55,7 +55,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: @kind, user_id: current_user.id, expired: false)
+      .where(kind: @current_kind, user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -65,7 +65,6 @@ class Api::V1::PushesController < Api::BaseController
     end
     render json: "[#{json_parts.join(",")}]"
   end
-
 
   api :GET, "/p/:url_token/audit.json", "Retrieve the audit log for a push."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
@@ -117,7 +116,25 @@ class Api::V1::PushesController < Api::BaseController
 
     @secret_url = helpers.secret_url(@push)
 
-    render json: {views: @push.audit_logs}.to_json(except: %i[user_id push_id id])
+    # Get the raw logs excluding creation and failed_passphrase events
+    logs = @push.audit_logs.where.not(kind: %i[creation failed_passphrase])
+
+    # Transform the logs into the desired format
+    json_logs = logs.map do |log|
+      kind_value = log.kind_before_type_cast
+
+      {
+        ip: log.ip,
+        user_agent: log.user_agent,
+        referrer: log.referrer,
+        created_at: log.created_at,
+        updated_at: log.updated_at,
+        successful: [AuditLog.kinds[:view], AuditLog.kinds[:expire]].include?(kind_value),
+        kind: (kind_value == AuditLog.kinds[:expire]) ? 1 : 0
+      }
+    end
+
+    render json: {views: json_logs}
   end
 
   api :POST, "/p.json", "Create a new push."
@@ -198,7 +215,7 @@ class Api::V1::PushesController < Api::BaseController
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Push.new(push_params)
-    @push.kind = @kind
+    @push.kind = @current_kind
 
     @push.user_id = current_user.id if user_signed_in?
 
@@ -214,7 +231,6 @@ class Api::V1::PushesController < Api::BaseController
     end
   end
 
-  
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
   formats ["JSON"]
@@ -261,7 +277,6 @@ class Api::V1::PushesController < Api::BaseController
     end
   end
 
-
   api :GET, "/p/expired.json", "Retrieve your expired pushes."
   formats ["JSON"]
   description <<-EOS
@@ -301,7 +316,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: @kind , user_id: current_user.id, expired: true)
+      .where(kind: @current_kind, user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -311,7 +326,6 @@ class Api::V1::PushesController < Api::BaseController
     end
     render json: "[#{json_parts.join(",")}]"
   end
-
 
   api :GET, "/p/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
@@ -389,15 +403,12 @@ class Api::V1::PushesController < Api::BaseController
 
     if @push.passphrase.present?
       # JSON requests must pass the passphrase in the params
-      has_passphrase = params.fetch(:passphrase, nil) == @push.passphrase
+      has_passphrase = params[:passphrase] == @push.passphrase
 
       unless has_passphrase
         # Passphrase hasn't been provided or is incorrect
-        render json: {
-          error: "Authentication required",
-          message: "This push requires a passphrase. Please provide it using the 'passphrase' parameter (e.g. ?passphrase=mysecret)",
-          status: :unauthorized
-        }, status: :unauthorized
+        # Passphrase hasn't been provided or is incorrect
+        render json: {error: "This push has a passphrase that was incorrect or not provided."}
         return
       end
     end
@@ -419,7 +430,7 @@ class Api::V1::PushesController < Api::BaseController
   private
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id], kind: @kind)
+    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id], kind: @current_kind)
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)
@@ -434,35 +445,31 @@ class Api::V1::PushesController < Api::BaseController
       format.json { render json: {error: "not-found"}.to_json, status: :not_found }
     end
   end
-  
+
   def push_params
-    sanitized_params = if @kind == "file"
+    if @current_kind == "file"
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
-    elsif @kind == "url"
-      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, 
+    elsif @current_kind == "url"
+      params.require(:url).permit(:name, :expire_after_days, :expire_after_views,
         :retrieval_step, :payload, :note, :passphrase)
-    elsif @kind == "text"
+    elsif @current_kind == "text"
       params.require(:password).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase)
-    else
-      raise ActionController::ParameterMissing, "The request must contain a file_push, url, or password parameter."
     end
-
-    sanitized_params
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
-      
+
     raise e
   end
 
-  def set_kind
-    @kind = if request.path.start_with?("/f")
-             "file"
-           elsif request.path.start_with?("/r")
-             "url"
-           elsif request.path.start_with?("/p") 
-             "text"
-           end
+  def set_current_kind
+    @current_kind = if request.path.start_with?("/f")
+      "file"
+    elsif request.path.start_with?("/r")
+      "url"
+    elsif request.path.start_with?("/p")
+      "text"
+    end
   end
 end

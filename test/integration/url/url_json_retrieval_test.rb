@@ -90,7 +90,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 2, res["expire_after_views"]
 
     # Check the record directly; it should be expired after the last view
-    url = Url.find_by!(url_token: res["url_token"])
+    url = Push.find_by!(url_token: res["url_token"], kind: "url")
     assert url.expired
     assert_nil url.payload
     assert_equal 0, url.views_remaining

@@ -5,10 +5,10 @@ require "securerandom"
 class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
-  
+
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
- 
+
   # POST /p/:url_token/access
   def access
     # Construct the passphrase cookie name
@@ -61,7 +61,7 @@ class PushesController < BaseController
 
     if @push.save
       log_creation(@push)
-      
+
       redirect_to preview_push_path(@push)
     else
       if @push.kind == "text"
@@ -106,20 +106,20 @@ class PushesController < BaseController
     @filter = params[:filter]
     allowed_kinds = ["text"]
     if Settings.enable_file_pushes
-      allowed_kinds << "file"  
+      allowed_kinds << "file"
     end
 
     if Settings.enable_url_pushes
-      allowed_kinds << "url"  
+      allowed_kinds << "url"
     end
 
-    if @filter
-      @pushes = Push.includes(:audit_logs)
+    @pushes = if @filter
+      Push.includes(:audit_logs)
         .where(user_id: current_user.id, expired: @filter == "expired", kind: allowed_kinds)
         .page(params[:page])
         .order(created_at: :desc)
     else
-      @pushes = Push.includes(:audit_logs)
+      Push.includes(:audit_logs)
         .where(user_id: current_user.id)
         .page(params[:page])
         .order(created_at: :desc)
@@ -135,7 +135,7 @@ class PushesController < BaseController
     @push = Push.new
 
     set_kind_by_tab
-    
+
     # MIGRATION - ask
     # Special fix for: https://github.com/pglombardo/PasswordPusher/issues/2811
     @push.passphrase = ""
@@ -165,8 +165,6 @@ class PushesController < BaseController
   end
 
   def preview
-    
-    
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
   end
@@ -181,7 +179,6 @@ class PushesController < BaseController
 
     render action: "print_preview", layout: "naked"
   end
-
 
   def show
     # This push may have expired since the last view.  Validate the push
@@ -222,7 +219,7 @@ class PushesController < BaseController
 
     # Optionally blur the text payload
     @blur_css_class = settings_for(@push).enable_blur ? "spoiler" : ""
-    
+
     if @push.kind == "url"
       # Redirect to the URL
       redirect_to @push.payload, allow_other_host: true, status: :see_other
@@ -238,7 +235,6 @@ class PushesController < BaseController
       @push.expire!
     end
   end
-
 
   private
 
@@ -260,9 +256,9 @@ class PushesController < BaseController
   end
 
   def push_params
-    case params.dig(:push, :kind) 
+    case params.dig(:push, :kind)
     when "url"
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, 
+      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views,
         :retrieval_step, :payload, :note, :passphrase)
     when "file"
       params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
@@ -271,7 +267,6 @@ class PushesController < BaseController
       params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase)
     end
-    
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
     raise e
@@ -304,46 +299,55 @@ class PushesController < BaseController
   end
 
   def check_allowed
-    
-    push_kind = if %w[preview print_preview preliminary passphrase access show expire].include?(action_name)
-                  @push.kind
-                elsif action_name == "new"
-                  case params["tab"]
-                  when "files"
-                    "file"
-                  when "url"
-                    "url"
-                  else
-                    "text"
-                  end
-                elsif action_name == "create"
-                  push_params.dig(:push, :kind) || "text"
-                end
+    if action_name == "index"
+      if Settings.enable_logins
+        authenticate_user!
+      else
+        redirect_to :root
+        return
+      end
+    end
 
-    if push_kind == "file" 
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit].include?(action_name)
+      @push.kind
+    elsif action_name == "new"
+      case params["tab"]
+      when "files"
+        "file"
+      when "url"
+        "url"
+      else
+        "text"
+      end
+    elsif action_name == "create"
+      push_params.dig(:push, :kind) || "text"
+    end
+
+    case @push_kind
+    when "file"
       # File pushes only enabled when logins are enabled.
+
       if Settings.enable_logins && Settings.enable_file_pushes
-        if %w[new create preview print_preview].include?(action_name)
+        unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
       else
         redirect_to root_path, notice: _("File pushes are disabled.")
       end
-    end
 
-    if push_kind == "url" 
+    when "url"
       # URL pushes only enabled when logins are enabled.
       if Settings.enable_logins && Settings.enable_url_pushes
-        if %w[new create preview print_preview].include?(action_name)
+        unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
       else
         redirect_to root_path, notice: _("URL pushes are disabled.")
       end
-    end
-
-    unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
-      authenticate_user!
+    when "text"
+      unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
+        authenticate_user!
+      end
     end
   end
 end
