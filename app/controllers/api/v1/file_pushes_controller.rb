@@ -3,8 +3,6 @@
 require "securerandom"
 
 class Api::V1::FilePushesController < Api::BaseController
-  helper FilePushesHelper
-
   before_action :set_push, only: %i[show preview audit destroy]
 
   resource_description do
