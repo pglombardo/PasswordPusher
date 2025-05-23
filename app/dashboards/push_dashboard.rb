@@ -100,13 +100,13 @@ class PushDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how passwords are displayed
+  # Overwrite this method to customize how pushes are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(password)
-  #   "Password ##{password.id}"
+  # def display_resource(push)
+  #   "Push ##{push.id}"
   # end
-  def display_resource(password)
-    "Push-#{password.url_token}"
+  def display_resource(push)
+    "Push-#{push.url_token}"
   end
 end
