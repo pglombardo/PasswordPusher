@@ -138,7 +138,7 @@ class PushesController < BaseController
     else
       if @push.kind == "text"
         @text_tab = true
-      elsif @push.kind == "files"
+      elsif @push.kind == "file"
         @files_tab = true
       elsif @push.kind == "url"
         @url_tab = true
@@ -285,7 +285,7 @@ class PushesController < BaseController
   def set_kind_by_tab
     # Track which tab to show
     if params.key?("tab")
-      if params["tab"] == "text @push.text?"
+      if params["tab"] == "text"
         @push.kind = "text"
         @text_tab = true
       elsif params["tab"] == "files"
