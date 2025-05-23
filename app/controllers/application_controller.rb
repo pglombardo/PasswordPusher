@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include SetLocale
-  
+
   private
 
   # To add extra fields to Devise registration, add the attribute names to `extra_keys`
