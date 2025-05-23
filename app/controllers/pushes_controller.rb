@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "securerandom"
-
 class PushesController < BaseController
   include SetPushAttributes
   include LogEvents

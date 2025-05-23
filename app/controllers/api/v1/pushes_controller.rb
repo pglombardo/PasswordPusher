@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "securerandom"
-
 class Api::V1::PushesController < Api::BaseController
   include SetPushAttributes
   include LogEvents

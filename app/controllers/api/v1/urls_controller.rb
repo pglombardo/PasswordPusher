@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "securerandom"
-
 class Api::V1::UrlsController < Api::BaseController
   before_action :set_push, only: %i[show preview audit destroy]
 
