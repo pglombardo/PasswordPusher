@@ -187,8 +187,8 @@ class Push < ApplicationRecord
   end
 
   def set_note_and_passphrase
-    note ||= "" 
-    passphrase ||= ""
+    self.note ||= ""
+    self.passphrase ||= ""
   end
 
   def valid_url?(url)
