@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
 
   include SetLocale
   
-  helper_method :settings_for
-
   private
 
   # To add extra fields to Devise registration, add the attribute names to `extra_keys`
