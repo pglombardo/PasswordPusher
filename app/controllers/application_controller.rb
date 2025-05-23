@@ -20,14 +20,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: extra_keys)
     devise_parameter_sanitizer.permit(:accept_invitation, keys: extra_keys)
   end
-
-  def settings_for(push)
-    if push.text?
-      Settings.pw
-    elsif push.url?
-      Settings.url
-    elsif push.file?
-      Settings.files
-    end
-  end
 end

@@ -48,7 +48,7 @@ class PushesController < BaseController
     expires_now
 
     # Optionally blur the text payload
-    @blur_css_class = settings_for(@push).enable_blur ? "spoiler" : ""
+    @blur_css_class = @push.settings_for_kind.enable_blur ? "spoiler" : ""
 
     if @push.kind == "url"
       # Redirect to the URL

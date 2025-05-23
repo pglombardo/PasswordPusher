@@ -7,7 +7,7 @@ module SetPushAttributes
     if push.url?
       # URLs cannot be preemptively deleted by end users ever
       push.deletable_by_viewer = nil
-    elsif settings_for(push).enable_deletable_pushes == true
+    elsif push.settings_for_kind.enable_deletable_pushes == true
       if push_params.key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -21,7 +21,7 @@ module SetPushAttributes
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          settings_for(push).deletable_pushes_default
+          push.settings_for_kind.deletable_pushes_default
         end
       end
     else
@@ -33,7 +33,7 @@ module SetPushAttributes
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def create_detect_retrieval_step(push, push_params)
-    if settings_for(push).enable_retrieval_step == true
+    if push.settings_for_kind.enable_retrieval_step == true
       if push_params.key?(:retrieval_step)
         # User form data or json API request: :deletable_by_viewer can
         # be 'on', 'true', 'checked' or 'yes' to indicate a positive
@@ -47,7 +47,7 @@ module SetPushAttributes
         else
           # The JSON API is implicit so if it's not specified, use the app
           # configured default
-          settings_for(push).retrieval_step_default
+          push.settings_for_kind.retrieval_step_default
         end
       end
     else

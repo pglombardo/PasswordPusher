@@ -107,8 +107,8 @@ class Push < ApplicationRecord
   end
 
   def check_files_for_file
-    if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for(self).max_file_uploads
-      errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for(self).max_file_uploads))
+    if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for_kind.max_file_uploads
+      errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for_kind.max_file_uploads))
     end
   end
   
@@ -136,17 +136,17 @@ class Push < ApplicationRecord
   end
 
   def set_expire_limits
-    self.expire_after_days ||= settings_for(self).expire_after_days_default
-    self.expire_after_views ||= settings_for(self).expire_after_views_default
+    self.expire_after_days ||= settings_for_kind.expire_after_days_default
+    self.expire_after_views ||= settings_for_kind.expire_after_views_default
 
     # MIGRATE - ask
     # Are these assignments needed?
-    unless self.expire_after_days.between?(settings_for(self).expire_after_days_min, settings_for(self).expire_after_days_max)
-      self.expire_after_days = settings_for(self).expire_after_days_default
+    unless self.expire_after_days.between?(settings_for_kind.expire_after_days_min, settings_for_kind.expire_after_days_max)
+      self.expire_after_days = settings_for_kind.expire_after_days_default
     end
 
-    unless self.expire_after_views.between?(settings_for(self).expire_after_views_min, settings_for(self).expire_after_views_max)
-      self.expire_after_views = settings_for(self).expire_after_views_default
+    unless self.expire_after_views.between?(settings_for_kind.expire_after_views_min, settings_for_kind.expire_after_views_max)
+      self.expire_after_views = settings_for_kind.expire_after_views_default
     end
   end
 
@@ -170,7 +170,7 @@ class Push < ApplicationRecord
     save!
   end
   
-  def settings_for(push)
+  def settings_for_kind
     if self.text?
       Settings.pw
     elsif self.url?
