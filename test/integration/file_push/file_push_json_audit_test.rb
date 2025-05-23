@@ -54,7 +54,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}], res["views"].map { |view| view.except('created_at', 'updated_at') }
+    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
