@@ -19,36 +19,14 @@ module ApplicationHelper
 
   # Constructs a fully qualified secret URL for a push.
   #
-  # @param [Password, Url, FilePush, Push] push - The push to generate a URL for
+  # @param [Push] push - The push to generate a URL for
   # @param [Boolean] with_retrieval_step - Whether to include the retrieval step in the URL
   # @return [String] - The fully qualified URL
   def secret_url(push, with_retrieval_step: true, locale: nil)
     raw_url = if push.retrieval_step && with_retrieval_step
-      case push
-      when Push
-        Settings.override_base_url ? Settings.override_base_url + preliminary_push_path(push) : preliminary_push_url(push)
-      when Password
-        Settings.override_base_url ? Settings.override_base_url + preliminary_password_path(push) : preliminary_password_url(push)
-      when Url
-        Settings.override_base_url ? Settings.override_base_url + preliminary_url_path(push) : preliminary_url_url(push)
-      when FilePush
-        Settings.override_base_url ? Settings.override_base_url + preliminary_file_push_path(push) : preliminary_file_push_url(push)
-      else
-        raise "Unknown push type: #{push.class}"
-      end
+      Settings.override_base_url ? Settings.override_base_url + preliminary_push_path(push) : preliminary_push_url(push)
     else
-      case push
-      when Push
-        Settings.override_base_url ? Settings.override_base_url + push_path(push) : push_url(push)
-      when Password
-        Settings.override_base_url ? Settings.override_base_url + password_path(push) : password_url(push)
-      when Url
-        Settings.override_base_url ? Settings.override_base_url + url_path(push) : url_url(push)
-      when FilePush
-        Settings.override_base_url ? Settings.override_base_url + file_push_path(push) : file_push_url(push)
-      else
-        raise "Unknown push type: #{push.class}"
-      end
+      Settings.override_base_url ? Settings.override_base_url + push_path(push) : push_url(push)
     end
 
     # Delete any existing ?locale= query parameter
