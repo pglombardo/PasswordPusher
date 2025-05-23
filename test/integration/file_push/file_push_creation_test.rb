@@ -38,7 +38,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert file_input.attribute("required").value == "required"
   end
 
-  def t_file_push_creation
+  def test_file_push_creation
     get new_push_path(tab: "files")
     assert_response :success
 
@@ -75,7 +75,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert(download_link.first.content.include?("monkey.png"))
   end
 
-  def t_file_push_creation_with_limits
+  def test_file_push_creation_with_limits
     @old_max_files_uploads = Settings.files.max_file_uploads
     Settings.files.max_file_uploads = 1
 
