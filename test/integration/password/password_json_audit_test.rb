@@ -45,6 +45,63 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
+    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil, "url_id" => nil}]
+  end
+
+  def test_audit_response_for_created_expired_successful_and_unsuccessful_views
+    Settings.enable_logins = true
+
+    @luca = users(:luca)
+    @luca.confirm
+
+    # Create a push
+    post passwords_path(format: :json), params: {password: {payload: "testpw", passphrase: "asdf", expire_after_views: 3 }},
+      headers: {"X-User-Email": @luca.email,
+                "X-User-Token": @luca.authentication_token}, as: :json
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("url_token")
+    url_token = res["url_token"]
+
+    # Generate views on that push
+    2.times do
+      get "/p/#{url_token}.json?passphrase=asdf"
+      assert_response :success
+    end
+
+    # Generate unsuccessful views on that push because of wrong passphrase
+    get "/p/#{url_token}.json"
+    assert_response :success
+
+    delete password_path(url_token, format: :json),
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+    assert_response :success
+
+      # Generate views on that push
+    2.times do
+      get "/p/#{url_token}.json"
+      assert_response :success
+    end
+
+    # Get the Audit Log
+    get "/p/#{url_token}/audit.json",
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("views")
+    assert res["views"].length == 5
+
+    first_view = res["views"].first
+    assert first_view.key?("ip")
+    assert first_view.key?("user_agent")
+    assert first_view.key?("referrer")
+    assert first_view.key?("successful")
+    assert first_view.key?("created_at")
+    assert first_view.key?("updated_at")
+    assert first_view.key?("kind")
+    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil, "url_id" => nil}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil, "url_id" => nil}]
   end
 
   def test_no_token_no_audit_log
