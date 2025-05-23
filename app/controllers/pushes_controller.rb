@@ -24,7 +24,7 @@ class PushesController < BaseController
     end
 
     # Passphrase handling
-    if !@push.passphrase.nil? && @push.passphrase.present?
+    if @push.passphrase.present?
       # Construct the passphrase cookie name
       name = "#{@push.url_token}-p"
 
