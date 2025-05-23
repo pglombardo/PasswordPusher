@@ -60,9 +60,9 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal password.deletable_by_viewer, push.deletable_by_viewer
       assert_equal password.retrieval_step, push.retrieval_step
       assert_equal password.expired_on, push.expired_on
-      assert_equal password.payload_ciphertext, push.payload_ciphertext
-      assert_equal password.note_ciphertext, push.note_ciphertext
-      assert_equal password.passphrase_ciphertext, push.passphrase_ciphertext
+      assert_equal password.payload, push.payload
+      assert_equal password.note, push.note
+      assert_equal password.passphrase, push.passphrase
       assert_equal password.name, push.name
       
       # Check that an audit log was created
@@ -123,6 +123,9 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal file_push.retrieval_step, push.retrieval_step
       assert_equal file_push.expired_on, push.expired_on
       assert_equal file_push.name, push.name
+      assert_equal file_push.payload, push.payload
+      assert_equal file_push.note, push.note
+      assert_equal file_push.passphrase, push.passphrase
       
       # Check that an audit log was created
       audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
@@ -170,12 +173,12 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal url.expire_after_views, push.expire_after_views
       assert_equal url.expired, push.expired
       assert_equal url.url_token, push.url_token
-      assert_equal false, push.deletable_by_viewer # URLs cannot be deleted by viewers
+      assert_equal nil, push.deletable_by_viewer # URLs cannot be deleted by viewers
       assert_equal url.retrieval_step, push.retrieval_step
       assert_equal url.expired_on, push.expired_on
-      assert_equal url.payload_ciphertext, push.payload_ciphertext
-      assert_equal url.note_ciphertext, push.note_ciphertext
-      assert_equal url.passphrase_ciphertext, push.passphrase_ciphertext
+      assert_equal url.payload, push.payload
+      assert_equal url.note, push.note
+      assert_equal url.passphrase, push.passphrase
       assert_equal url.name, push.name
       
       # Check that an audit log was created
