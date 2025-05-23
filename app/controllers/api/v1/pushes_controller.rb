@@ -152,7 +152,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def expired
     unless Settings.enable_logins
-      redirect_to :root
+      render json: {error: _("You must be logged in to view your expired pushes.")}, status: :unauthorized
       return
     end
 
