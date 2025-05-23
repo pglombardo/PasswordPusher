@@ -53,7 +53,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
             push: push,
             user_id: password.user_id,
             created_at: password.created_at,
-            updated_at: password.created_at
+            updated_at: password.created_at,
+            referrer: "",
+            user_agent: ""
           )
           
           puts "Migrated password #{password.id} to push #{push.id}"
@@ -100,7 +102,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
             push: push,
             user_id: file_push.user_id,
             created_at: file_push.created_at,
-            updated_at: file_push.created_at
+            updated_at: file_push.created_at,
+            referrer: "",
+            user_agent: ""
           )
           
           # Migrate attached files by updating existing attachments
@@ -156,7 +160,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
             push: push,
             user_id: url.user_id,
             created_at: url.created_at,
-            updated_at: url.created_at
+            updated_at: url.created_at,
+            referrer: "",
+            user_agent: ""
           )
           
           puts "Migrated url #{url.id} to push #{push.id}"
@@ -208,8 +214,8 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           push_id: push_id,
           user_id: view.user_id,
           ip: view.ip,
-          user_agent: view.user_agent,
-          referrer: view.referrer,
+          user_agent: view.user_agent || "",
+          referrer: view.referrer || "",
           created_at: view.created_at,
           updated_at: view.updated_at
         )
