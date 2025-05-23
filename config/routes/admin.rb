@@ -3,7 +3,7 @@ if Settings.enable_logins
     namespace :admin do
       resources :pushes
       resources :users
-      resources :views
+      resources :audit_logs
 
       root to: "users#index"
     end

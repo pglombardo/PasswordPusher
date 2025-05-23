@@ -17,6 +17,7 @@ class PushDashboard < Administrate::BaseDashboard
     expired_on: Field::DateTime.with_options(timezone: Settings.timezone),
     files_attachments: Field::HasMany,
     files_blobs: Field::HasMany,
+    kind: Field::String,
     note_ciphertext: Field::Text,
     passphrase_ciphertext: Field::Text,
     payload_ciphertext: Field::Text,
@@ -35,6 +36,7 @@ class PushDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    kind
     url_token
     expired
     created_at
@@ -47,6 +49,7 @@ class PushDashboard < Administrate::BaseDashboard
   # files_obs
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    kind
     deletable_by_viewer
     expire_after_days
     expire_after_views
@@ -70,6 +73,7 @@ class PushDashboard < Administrate::BaseDashboard
   # files_attachments
   # files_blobs
   FORM_ATTRIBUTES = %i[
+    kind
     deletable_by_viewer
     expire_after_days
     expire_after_views
