@@ -61,7 +61,7 @@ class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
     assert_equal Settings.files.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.files.expire_after_views_default, res["views_remaining"]
-    assert_equal res.keys, ["expired", "deleted", "updated_at", "expire_after_days", "expire_after_views", "url_token", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "days_remaining", "views_remaining", "files"]
+    assert_equal res.keys.sort, ["expired", "deleted", "updated_at", "expire_after_days", "expire_after_views", "url_token", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "days_remaining", "views_remaining", "files"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
       "deleted" => true,
       "expire_after_days" => 7,

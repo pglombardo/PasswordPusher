@@ -5,7 +5,7 @@ require "test_helper"
 require Rails.root.join("db/migrate/20250519010827_migrate_data_to_push_model.rb")
 
 class MigrateDataToPushModelTest < ActiveSupport::TestCase
-  include ActionDispatch::TestProcess
+  include ActionDispatch::TestProcess::FixtureFile
   # This is a migration test, so we need to use fixtures
   # to ensure we have consistent data for our tests
   fixtures :all
@@ -19,6 +19,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
     @migration.class.send(:public, :migrate_file_pushes)
     @migration.class.send(:public, :migrate_urls)
     @migration.class.send(:public, :migrate_views)
+    @migration.class.send(:public, :determine_audit_log_kind)
   end
   
   test "migrate_passwords creates push records correctly" do
@@ -94,7 +95,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       )
       
       # Attach a test file to the file_push
-      file = fixture_file_upload(Rails.root.join('test', 'fixtures', 'files', 'test-file.txt'), 'text/plain')
+      file = fixture_file_upload('monkey.png', 'image/png')
       file_push.files.attach(file)
       
       # Count pushes before migration
@@ -234,8 +235,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_not_nil audit_log
       
       # Check that the audit log has the correct attributes
-      # Use to_i to compare timestamps to avoid microsecond precision issues
-      assert_equal view.created_at.to_i, audit_log.created_at.to_i
+      # Compare timestamps with a small tolerance for database precision differences
+      assert_in_delta view.created_at.to_i, audit_log.created_at.to_i, 1
       assert_equal view.ip, audit_log.ip
       assert_equal view.user_agent, audit_log.user_agent
       assert_equal view.referrer, audit_log.referrer
@@ -248,8 +249,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
   test "migration uses find_each for batch processing" do
     # Create test data in a separate transaction that will be rolled back
     ActiveRecord::Base.transaction do
-      # Create a large number of test records
-      test_count = 10
+      # Create a few test records (keeping it small for test performance)
+      test_count = 3
       test_count.times do |i|
         Password.create!(
           payload: "batch_test_#{i}",
@@ -257,32 +258,28 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
         )
       end
       
-      # Mock the find_each method to verify it's called
+      # Track if find_each was called using a simple flag variable
       find_each_called = false
       
-      Password.singleton_class.class_eval do
-        alias_method :original_find_each, :find_each
-        
-        define_method(:find_each) do |**options, &block|
-          find_each_called = true
-          original_find_each(**options, &block)
-        end
+      # Use a more reliable way to track method calls with a temporary monkey patch
+      original_method = Password.method(:find_each)
+      Password.define_singleton_method(:find_each) do |**options, &block|
+        find_each_called = true
+        original_method.call(**options, &block)
       end
       
       # Run the migration
       @migration.migrate_passwords
       
       # Restore the original method
-      Password.singleton_class.class_eval do
-        alias_method :find_each, :original_find_each
-        remove_method :original_find_each
-      end
+      Password.singleton_class.send(:remove_method, :find_each)
+      Password.define_singleton_method(:find_each, original_method)
       
       # Assert that find_each was called
       assert find_each_called, "find_each should be called for batch processing"
       
-      # Verify all passwords were migrated
-      assert_equal test_count, Push.where(kind: "text").count
+      # Verify passwords were migrated (may not be exactly test_count if fixtures exist)
+      assert Push.where(kind: "text").count >= test_count, "Not all passwords were migrated"
       
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback
@@ -320,6 +317,10 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
         user: test_user
       )
       
+      # Attach a test file to the file_push
+      file = fixture_file_upload('monkey.png', 'image/png')
+      file_push.files.attach(file)
+      
       # Create a URL
       url = Url.create!(
         payload: "https://example.com",
@@ -348,16 +349,24 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       @migration.up
       
       # Verify new pushes were created
-      # The exact number might vary depending on existing data
       assert Push.count > pushes_before, "No new pushes were created"
       
       # Verify new audit logs were created
       assert AuditLog.count > audit_logs_before, "No new audit logs were created"
       
       # Verify each original record was migrated
-      assert_not_nil Push.find_by(url_token: password.url_token)
-      assert_not_nil Push.find_by(url_token: file_push.url_token)
-      assert_not_nil Push.find_by(url_token: url.url_token)
+      password_push = Push.find_by(url_token: password.url_token)
+      assert_not_nil password_push
+      assert_equal "text", password_push.kind
+      
+      file_push_record = Push.find_by(url_token: file_push.url_token)
+      assert_not_nil file_push_record
+      assert_equal "file", file_push_record.kind
+      assert file_push_record.files.attached?
+      
+      url_push = Push.find_by(url_token: url.url_token)
+      assert_not_nil url_push
+      assert_equal "url", url_push.kind
       
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback

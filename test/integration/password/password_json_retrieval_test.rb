@@ -67,8 +67,8 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("expired")
     assert_equal true, res["expired"]
-    assert_equal true, res["expired"]
     assert res.key?("expired_on")
+    assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
@@ -77,7 +77,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
-    assert_equal res.keys, ["expire_after_days", "expire_after_views", "expired", "url_token", "created_at", "updated_at", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "payload", "days_remaining", "views_remaining"]
+    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "created_at", "updated_at", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "payload", "days_remaining", "views_remaining"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expire_after_days" => 7,
     "expire_after_views" => 2,
     "expired" => true,

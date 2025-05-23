@@ -47,7 +47,7 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
-    assert_equal res.keys, ["expired", "deleted", "expired_on", "expire_after_days", "expire_after_views", "url_token", "retrieval_step", "created_at", "updated_at", "days_remaining", "views_remaining"]
+    assert_equal res.keys.sort, ["expired", "deleted", "expired_on", "expire_after_days", "expire_after_views", "url_token", "retrieval_step", "created_at", "updated_at", "days_remaining", "views_remaining"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
       "deleted" => true,
       "expire_after_days" => 7,

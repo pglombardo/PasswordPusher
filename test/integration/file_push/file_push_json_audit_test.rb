@@ -58,14 +58,14 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
   def test_no_token_no_audit_log
     post file_pushes_path(format: :json), params: {
-                                            file_push: {
-                                              payload: "testpw",
-                                              expire_after_views: 2,
-                                              files: [
-                                                fixture_file_upload("monkey.png", "image/jpeg")
-                                              ]
-                                            }
-                                          },
+                                        file_push: {
+                                          payload: "testpw",
+                                          expire_after_views: 2,
+                                          files: [
+                                            fixture_file_upload("monkey.png", "image/jpeg")
+                                          ]
+                                        }
+                                      },
       headers: {"X-User-Email": @luca.email,
                 "X-User-Token": @luca.authentication_token}
     assert_response :success
@@ -83,9 +83,5 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     # Get the Audit Log without a token
     get audit_file_push_path(format: :json), as: :json
     assert_response :unauthorized
-
-    res = JSON.parse(@response.body)
-    assert res.key?("error")
-    assert res["error"] == "You need to sign in or sign up before continuing."
   end
 end

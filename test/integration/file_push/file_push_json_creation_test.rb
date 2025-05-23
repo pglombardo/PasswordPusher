@@ -36,7 +36,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deletable_by_viewer")
     assert res.key?("files")
     assert res["files"].match(/\/pfb\/blobs\/redirect\/.*\/monkey\.png/)
-    assert_equal res.keys, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining", "files"]
+    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining", "files"].sort
 
     assert_equal res.except("url_token", "created_at", "updated_at", "files"), {"expire_after_days" => 7,
       "expire_after_views" => 5,

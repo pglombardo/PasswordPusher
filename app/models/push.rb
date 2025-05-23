@@ -90,6 +90,7 @@ class Push < ApplicationRecord
     end
 
     # Remove unnecessary fields
+    attr_hash.delete("kind")
     attr_hash.delete("payload_ciphertext")
     attr_hash.delete("note_ciphertext")
     attr_hash.delete("passphrase_ciphertext")

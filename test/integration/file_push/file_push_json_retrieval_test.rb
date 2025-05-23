@@ -31,7 +31,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("payload") == true # No payload on create response
+    assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
     assert res.key?("expired")
     assert_equal false, res["expired"]
@@ -83,6 +83,8 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("expired")
     assert_equal true, res["expired"]
+    assert res.key?("expired_on")
+    assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
