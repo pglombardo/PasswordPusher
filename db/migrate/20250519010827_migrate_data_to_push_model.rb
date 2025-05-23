@@ -138,7 +138,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           expire_after_views: url.expire_after_views,
           expired: url.expired,
           url_token: url.url_token,
-          deletable_by_viewer: false, # URLs cannot be preemptively deleted by end users ever
+          deletable_by_viewer: nil, # URLs cannot be preemptively deleted by end users ever
           retrieval_step: url.retrieval_step,
           expired_on: url.expired_on,
           payload_ciphertext: url.payload_ciphertext,
