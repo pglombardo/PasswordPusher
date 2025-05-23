@@ -15,6 +15,8 @@ class PushDashboard < Administrate::BaseDashboard
     expire_after_views: Field::Number,
     expired: Field::Boolean,
     expired_on: Field::DateTime.with_options(timezone: Settings.timezone),
+    files_attachments: Field::HasMany,
+    files_blobs: Field::HasMany,
     note_ciphertext: Field::Text,
     passphrase_ciphertext: Field::Text,
     payload_ciphertext: Field::Text,
@@ -40,6 +42,9 @@ class PushDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
+  # Disabled as Administrate has trouble with ActiveStorage
+  # files_attachments
+  # files_obs
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     deletable_by_viewer
@@ -61,6 +66,9 @@ class PushDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
+  # Disabled as Administrate has trouble with ActiveStorage
+  # files_attachments
+  # files_blobs
   FORM_ATTRIBUTES = %i[
     deletable_by_viewer
     expire_after_days
