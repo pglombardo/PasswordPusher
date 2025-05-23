@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlNotFoundTest < ActionDispatch::IntegrationTest
+class UrlNotfoundTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

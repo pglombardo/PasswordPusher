@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordCreationTest < ActionDispatch::IntegrationTest
+class PasswordDeletionTest < ActionDispatch::IntegrationTest
   def test_anonymous_password_deletion
     assert Settings.pw.enable_deletable_pushes == true
     # create

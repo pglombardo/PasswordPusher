@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordReqLocaleTest < ActionDispatch::IntegrationTest
+class PasswordRequestedLocaleTest < ActionDispatch::IntegrationTest
   def test_requested_locale
     get new_push_path(tab: "text")
     assert_response :success

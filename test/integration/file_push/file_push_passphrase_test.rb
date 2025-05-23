@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class FilePushCreationTest < ActionDispatch::IntegrationTest
+class FilePushPassphraseTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlControllerTest < ActionDispatch::IntegrationTest
+class UrlsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

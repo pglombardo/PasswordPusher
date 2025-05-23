@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class FilePushReqLocaleTest < ActionDispatch::IntegrationTest
+class FilePushRequestedLocaleTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
+class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

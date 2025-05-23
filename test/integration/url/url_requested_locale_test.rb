@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlReqLocaleTest < ActionDispatch::IntegrationTest
+class UrlRequestedLocaleTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do

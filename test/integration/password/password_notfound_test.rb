@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordCreationTest < ActionDispatch::IntegrationTest
+class PasswordNotfoundTest < ActionDispatch::IntegrationTest
   def test_password_not_found
     # Non existant push should return the expired page
     get "/p/doesnotexist"
