@@ -6,8 +6,6 @@ class Api::V1::PushesController < Api::BaseController
   include SetPushAttributes
   include LogEvents
 
-  helper UrlsHelper
-
   before_action :set_current_kind
   before_action :set_push, only: %i[show preview audit destroy]
 

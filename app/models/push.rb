@@ -1,6 +1,4 @@
 class Push < ApplicationRecord
-  include Pwpush::UrlConcern
-  
   enum :kind, [:text, :file, :url], default: :text
 
   validates :kind, inclusion: { in: self.kinds, message: "%{value} is not a valid push type" }, presence: true
@@ -193,5 +191,11 @@ class Push < ApplicationRecord
   def set_note_and_passphrase
     note ||= "" 
     passphrase ||= ""
+  end
+
+  def valid_url?(url)
+    !Addressable::URI.parse(url).scheme.nil?
+  rescue Addressable::URI::InvalidURIError
+    false
   end
 end
