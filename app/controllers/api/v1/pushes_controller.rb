@@ -16,91 +16,38 @@ class Api::V1::PushesController < Api::BaseController
     short "Interact directly with pushes."
   end
 
-  api :GET, "/p/active.json", "Retrieve your active pushes."
-  formats ["JSON"]
-  description <<-EOS
-    == Active Pushes Retrieval
 
-    Returns the list of pushes for your account that are still active.
-
-    == Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/p/active.json
-
-    == Example Response
-
-        [
-          {
-            "url_token": "fkwjfvhall92",
-            "html_url": "https://pwpush.com/p/fkwjfvhall92",
-            "json_url": "https://pwpush.com/p/fkwjfvhall92.json",
-            "created_at": "2023-10-20T15:32:01Z",
-            "expires_at": "2023-10-20T15:32:01Z",
-            ...
-          },
-          ...
-        ]
-
-    == Language Specific Examples
-
-    For language-specific examples and detailed API documentation, see:
-    https://docs.pwpush.com/docs/json-api/
-  EOS
-  def active
-    unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
-      return
-    end
-
-    @pushes = Push.includes(:audit_logs)
-      .where(kind: @current_kind, user_id: current_user.id, expired: false)
-      .page(params[:page])
-      .order(created_at: :desc)
-
-    json_parts = []
-    @pushes.each do |push|
-      json_parts << push.to_json(owner: true, payload: false)
-    end
-    render json: "[#{json_parts.join(",")}]"
-  end
-
-  api :GET, "/p/:url_token/audit.json", "Retrieve the audit log for a push."
+  api :GET, "/p/:url_token.json", "Retrieve a push."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
   formats ["JSON"]
   description <<-EOS
-    == Push Audit Log Retrieval
+    == Retrieving a Push
 
-    Returns the audit log for a push, containing an array of view events with metadata including:
-    - IP address of viewer
-    - User agent
-    - Referrer URL
-    - Timestamp
-    - Event type (view, failed_view, expire, etc)
+    Retrieves a push and its payload. If the push is active, this request will count as a view and be logged in the audit log.
 
-    Authentication is required. Only the owner of the push can retrieve its audit log.
-    Requests for pushes not owned by the authenticated user will receive a 403 Forbidden response.
+    === Security Features
 
-    == Example Request
+    * Passphrase protection - Requires a passphrase to view.
+
+      Provide the passphrase as a GET parameter: ?passphrase=xxx
+
+    === Example Request
 
       curl -X GET \\
-        -H "X-User-Email: user@example.com" \\
-        -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/p/fk27vnslkd/audit.json
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/p/fk27vnslkd.json
 
-    == Example Response
+    === Example Response
 
       {
-        "views": [
-          {
-            "ip": "x.x.x.x",
-            "user_agent": "Mozilla/5.0...",
-            "referrer": "https://example.com",
-            "created_at": "2023-10-20T15:32:01Z",
-            "kind": "view"
-          }
-        ]
+        "payload": "secret_text",
+        "passphrase": null,
+        "note": "By user initiated request from the user@example.com account",
+        "expire_after_days": null,
+        "expire_after_views": null,
+        "deletable_by_viewer": false,
+        "retrieval_step": false,
+        ...
       }
 
     == Language Specific Examples
@@ -108,34 +55,43 @@ class Api::V1::PushesController < Api::BaseController
     For language-specific examples and detailed API documentation, see:
     https://docs.pwpush.com/docs/json-api/
   EOS
-  def audit
-    if @push.user_id != current_user.id
-      render json: {error: "That push doesn't belong to you."}
+  def show
+    # This push may have expired since the last view.  Validate the url
+    # expiration before doing anything.
+    @push.validate!
+
+    if @push.expired
+      log_view(@push)
+      render json: @push.to_json(payload: true)
       return
     end
 
-    @secret_url = helpers.secret_url(@push)
+    if @push.passphrase.present?
+      # JSON requests must pass the passphrase in the params
+      has_passphrase = params[:passphrase] == @push.passphrase
 
-    # Get the raw logs excluding creation and failed_passphrase events
-    logs = @push.audit_logs.where.not(kind: %i[creation failed_passphrase])
-
-    # Transform the logs into the desired format
-    json_logs = logs.map do |log|
-      kind_value = log.kind_before_type_cast
-
-      {
-        ip: log.ip,
-        user_agent: log.user_agent,
-        referrer: log.referrer,
-        created_at: log.created_at,
-        updated_at: log.updated_at,
-        successful: [AuditLog.kinds[:view], AuditLog.kinds[:expire]].include?(kind_value),
-        kind: (kind_value == AuditLog.kinds[:expire]) ? 1 : 0
-      }
+      unless has_passphrase
+        # Passphrase hasn't been provided or is incorrect
+        # Passphrase hasn't been provided or is incorrect
+        render json: {error: "This push has a passphrase that was incorrect or not provided."}
+        return
+      end
     end
 
-    render json: {views: json_logs}
+    log_view(@push)
+    expires_now
+
+    render json: @push.to_json(payload: true)
+
+    # If files are attached, we can't expire immediately as the viewer still needs
+    # to download the files.  In the case of files, this push will be expired on the
+    # next ExpirePushesJob run or next view attempt.  Whichever comes first.
+    if !@push.files.attached? && !@push.views_remaining.positive?
+      # Expire if this is the last view for this push
+      @push.expire!
+    end
   end
+
 
   api :POST, "/p.json", "Create a new push."
   param :password, Hash, "Push details", required: true do
@@ -231,6 +187,102 @@ class Api::V1::PushesController < Api::BaseController
     end
   end
 
+  api :GET, "/p/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
+  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
+  formats ["JSON"]
+  description <<-EOS
+    == Preview a Push
+
+    This method retrieves the preview URL of a push.  This is useful for getting the
+    fully qualified URL of a push before sharing it with others.
+
+    === Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/p/fk27vnslkd/preview.json
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
+  EOS
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    render json: {url: @secret_url}, status: :ok
+  end
+
+  api :GET, "/p/:url_token/audit.json", "Retrieve the audit log for a push."
+  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
+  formats ["JSON"]
+  description <<-EOS
+    == Push Audit Log Retrieval
+
+    Returns the audit log for a push, containing an array of view events with metadata including:
+    - IP address of viewer
+    - User agent
+    - Referrer URL
+    - Timestamp
+    - Event type (view, failed_view, expire, etc)
+
+    Authentication is required. Only the owner of the push can retrieve its audit log.
+    Requests for pushes not owned by the authenticated user will receive a 403 Forbidden response.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "X-User-Email: user@example.com" \\
+        -H "X-User-Token: MyAPIToken" \\
+        https://pwpush.com/p/fk27vnslkd/audit.json
+
+    == Example Response
+
+      {
+        "views": [
+          {
+            "ip": "x.x.x.x",
+            "user_agent": "Mozilla/5.0...",
+            "referrer": "https://example.com",
+            "created_at": "2023-10-20T15:32:01Z",
+            "kind": "view"
+          }
+        ]
+      }
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
+  EOS
+  def audit
+    if @push.user_id != current_user.id
+      render json: {error: "That push doesn't belong to you."}
+      return
+    end
+
+    @secret_url = helpers.secret_url(@push)
+
+    # Get the raw logs excluding creation and failed_passphrase events
+    logs = @push.audit_logs.where.not(kind: %i[creation failed_passphrase])
+
+    # Transform the logs into the desired format
+    json_logs = logs.map do |log|
+      kind_value = log.kind_before_type_cast
+
+      {
+        ip: log.ip,
+        user_agent: log.user_agent,
+        referrer: log.referrer,
+        created_at: log.created_at,
+        updated_at: log.updated_at,
+        successful: [AuditLog.kinds[:view], AuditLog.kinds[:expire]].include?(kind_value),
+        kind: (kind_value == AuditLog.kinds[:expire]) ? 1 : 0
+      }
+    end
+
+    render json: {views: json_logs}
+  end
+
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
   param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
   formats ["JSON"]
@@ -275,6 +327,56 @@ class Api::V1::PushesController < Api::BaseController
     else
       render json: @push.errors, status: :unprocessable_entity
     end
+  end
+
+  api :GET, "/p/active.json", "Retrieve your active pushes."
+  formats ["JSON"]
+  description <<-EOS
+    == Active Pushes Retrieval
+
+    Returns the list of pushes for your account that are still active.
+
+    == Example Request
+
+      curl -X GET \\
+        -H "Authorization: Bearer MyAPIToken" \\
+        https://pwpush.com/p/active.json
+
+    == Example Response
+
+        [
+          {
+            "url_token": "fkwjfvhall92",
+            "html_url": "https://pwpush.com/p/fkwjfvhall92",
+            "json_url": "https://pwpush.com/p/fkwjfvhall92.json",
+            "created_at": "2023-10-20T15:32:01Z",
+            "expires_at": "2023-10-20T15:32:01Z",
+            ...
+          },
+          ...
+        ]
+
+    == Language Specific Examples
+
+    For language-specific examples and detailed API documentation, see:
+    https://docs.pwpush.com/docs/json-api/
+  EOS
+  def active
+    unless Settings.enable_logins
+      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
+      return
+    end
+
+    @pushes = Push.includes(:audit_logs)
+      .where(kind: @current_kind, user_id: current_user.id, expired: false)
+      .page(params[:page])
+      .order(created_at: :desc)
+
+    json_parts = []
+    @pushes.each do |push|
+      json_parts << push.to_json(owner: true, payload: false)
+    end
+    render json: "[#{json_parts.join(",")}]"
   end
 
   api :GET, "/p/expired.json", "Retrieve your expired pushes."
@@ -325,106 +427,6 @@ class Api::V1::PushesController < Api::BaseController
       json_parts << push.to_json(owner: true, payload: false)
     end
     render json: "[#{json_parts.join(",")}]"
-  end
-
-  api :GET, "/p/:url_token/preview.json", "Helper endpoint to retrieve the fully qualified secret URL of a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["JSON"]
-  description <<-EOS
-    == Preview a Push
-
-    This method retrieves the preview URL of a push.  This is useful for getting the
-    fully qualified URL of a push before sharing it with others.
-
-    === Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/p/fk27vnslkd/preview.json
-
-    == Language Specific Examples
-
-    For language-specific examples and detailed API documentation, see:
-    https://docs.pwpush.com/docs/json-api/
-  EOS
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    render json: {url: @secret_url}, status: :ok
-  end
-
-  api :GET, "/p/:url_token.json", "Retrieve a push."
-  param :url_token, String, desc: "Secret URL token of a previously created push.", required: true
-  formats ["JSON"]
-  description <<-EOS
-    == Retrieving a Push
-
-    Retrieves a push and its payload. If the push is active, this request will count as a view and be logged in the audit log.
-
-    === Security Features
-
-    * Passphrase protection - Requires a passphrase to view.
-
-      Provide the passphrase as a GET parameter: ?passphrase=xxx
-
-    === Example Request
-
-      curl -X GET \\
-        -H "Authorization: Bearer MyAPIToken" \\
-        https://pwpush.com/p/fk27vnslkd.json
-
-    === Example Response
-
-      {
-        "payload": "secret_text",
-        "passphrase": null,
-        "note": "By user initiated request from the user@example.com account",
-        "expire_after_days": null,
-        "expire_after_views": null,
-        "deletable_by_viewer": false,
-        "retrieval_step": false,
-        ...
-      }
-
-    == Language Specific Examples
-
-    For language-specific examples and detailed API documentation, see:
-    https://docs.pwpush.com/docs/json-api/
-  EOS
-  def show
-    # This push may have expired since the last view.  Validate the url
-    # expiration before doing anything.
-    @push.validate!
-
-    if @push.expired
-      log_view(@push)
-      render json: @push.to_json(payload: true)
-      return
-    end
-
-    if @push.passphrase.present?
-      # JSON requests must pass the passphrase in the params
-      has_passphrase = params[:passphrase] == @push.passphrase
-
-      unless has_passphrase
-        # Passphrase hasn't been provided or is incorrect
-        # Passphrase hasn't been provided or is incorrect
-        render json: {error: "This push has a passphrase that was incorrect or not provided."}
-        return
-      end
-    end
-
-    log_view(@push)
-    expires_now
-
-    render json: @push.to_json(payload: true)
-
-    # If files are attached, we can't expire immediately as the viewer still needs
-    # to download the files.  In the case of files, this push will be expired on the
-    # next ExpirePushesJob run or next view attempt.  Whichever comes first.
-    if !@push.files.attached? && !@push.views_remaining.positive?
-      # Expire if this is the last view for this push
-      @push.expire!
-    end
   end
 
   private
