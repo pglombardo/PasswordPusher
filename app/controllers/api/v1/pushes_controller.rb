@@ -58,7 +58,7 @@ class Api::V1::PushesController < Api::BaseController
   def show
     # This push may have expired since the last view.  Validate the url
     # expiration before doing anything.
-    @push.validate!
+    @push.check_limits
 
     if @push.expired
       log_view(@push)
@@ -268,16 +268,26 @@ class Api::V1::PushesController < Api::BaseController
     # Transform the logs into the desired format
     json_logs = logs.map do |log|
       kind_value = log.kind_before_type_cast
-
+      except_key = if @push.file?
+        :file_push_id
+      elsif @push.url?
+        :url_id
+      else
+        :password_id
+      end
+      
       {
+        password_id: nil,
         ip: log.ip,
         user_agent: log.user_agent,
         referrer: log.referrer,
+        successful: [AuditLog.kinds[:view], AuditLog.kinds[:expire]].include?(kind_value),
         created_at: log.created_at,
         updated_at: log.updated_at,
-        successful: [AuditLog.kinds[:view], AuditLog.kinds[:expire]].include?(kind_value),
-        kind: (kind_value == AuditLog.kinds[:expire]) ? 1 : 0
-      }
+        kind: (kind_value == AuditLog.kinds[:expire]) ? 1 : 0,
+        file_push_id: nil,
+        url_id: nil
+      }.except(except_key)
     end
 
     render json: {views: json_logs}
