@@ -22,8 +22,6 @@ class Push < ApplicationRecord
   has_many :audit_logs, -> { order(created_at: :asc) }, dependent: :destroy
   has_many_attached :files, dependent: :destroy
 
-  has_one :creator_audit_log, -> { where(kind: AuditLog.kinds[:creation]) }, class_name: "AuditLog"
-
   def to_param
     url_token.to_s
   end
