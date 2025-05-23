@@ -61,9 +61,9 @@ class UrlCookiesTest < ApplicationSystemTestCase
 
     # Toggle retrieval step checkbox to opposite of default value
     if default_retrieval_step
-      uncheck "url_retrieval_step"
+      uncheck "push_retrieval_step"
     else
-      check "url_retrieval_step"
+      check "push_retrieval_step"
     end
 
     # Save the settings

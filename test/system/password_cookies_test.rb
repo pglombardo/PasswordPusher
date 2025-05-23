@@ -35,18 +35,18 @@ class PasswordCookiesTest < ApplicationSystemTestCase
     assert_equal "Saved!", container_data["knobsLangSavedValue"]
 
     # Check form elements have correct knobs targets
-    assert_equal "retrievalStepCheckbox", find("#password_retrieval_step")["data-knobs-target"]
-    assert_equal "deletableByViewerCheckbox", find("#password_deletable_by_viewer")["data-knobs-target"]
+    assert_equal "retrievalStepCheckbox", find("#push_retrieval_step")["data-knobs-target"]
+    assert_equal "deletableByViewerCheckbox", find("#push_deletable_by_viewer")["data-knobs-target"]
   end
 
   test "saving settings persists when revisiting password page" do
     visit new_push_path(tab: "text")
 
     # Get the default values for comparison
-    default_days = evaluate_script("document.querySelector('#password_expire_after_days').value")
-    default_views = evaluate_script("document.querySelector('#password_expire_after_views').value")
-    default_retrieval_step = find("#password_retrieval_step").checked?
-    default_deletable_by_viewer = find("#password_deletable_by_viewer").checked?
+    default_days = evaluate_script("document.querySelector('#push_expire_after_days').value")
+    default_views = evaluate_script("document.querySelector('#push_expire_after_views').value")
+    default_retrieval_step = find("#push_retrieval_step").checked?
+    default_deletable_by_viewer = find("#push_deletable_by_viewer").checked?
 
     # Set custom values (different from defaults)
     custom_days = (default_days.to_i + 3).to_s
@@ -54,23 +54,23 @@ class PasswordCookiesTest < ApplicationSystemTestCase
 
     # Change form values
     execute_script("
-      document.querySelector('#password_expire_after_days').value = #{custom_days};
-      document.querySelector('#password_expire_after_days').dispatchEvent(new Event('input'));
-      document.querySelector('#password_expire_after_views').value = #{custom_views};
-      document.querySelector('#password_expire_after_views').dispatchEvent(new Event('input'));
+      document.querySelector('#push_expire_after_days').value = #{custom_days};
+      document.querySelector('#push_expire_after_days').dispatchEvent(new Event('input'));
+      document.querySelector('#push_expire_after_views').value = #{custom_views};
+      document.querySelector('#push_expire_after_views').dispatchEvent(new Event('input'));
     ")
 
     # Toggle checkboxes to opposite of default values
     if default_retrieval_step
-      uncheck "password_retrieval_step"
+      uncheck "push_retrieval_step"
     else
-      check "password_retrieval_step"
+      check "push_retrieval_step"
     end
 
     if default_deletable_by_viewer
-      uncheck "password_deletable_by_viewer"
+      uncheck "push_deletable_by_viewer"
     else
-      check "password_deletable_by_viewer"
+      check "push_deletable_by_viewer"
     end
 
     # Save the settings
@@ -84,9 +84,9 @@ class PasswordCookiesTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     # Verify the saved values are restored
-    assert_equal custom_days, evaluate_script("document.querySelector('#password_expire_after_days').value")
-    assert_equal custom_views, evaluate_script("document.querySelector('#password_expire_after_views').value")
-    assert_equal !default_retrieval_step, find("#password_retrieval_step").checked?
-    assert_equal !default_deletable_by_viewer, find("#password_deletable_by_viewer").checked?
+    assert_equal custom_days, evaluate_script("document.querySelector('#push_expire_after_days').value")
+    assert_equal custom_views, evaluate_script("document.querySelector('#push_expire_after_views').value")
+    assert_equal !default_retrieval_step, find("#push_retrieval_step").checked?
+    assert_equal !default_deletable_by_viewer, find("#push_deletable_by_viewer").checked?
   end
 end

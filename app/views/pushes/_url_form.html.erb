@@ -41,7 +41,7 @@
                 <div><%= _('Expire secret link and delete after:') %></div>
                 <div class='col-10'>
                     <%= range_field_tag("push_expire_after_days", Settings.url.expire_after_days_default,
-                                        { :name => "url[expire_after_days]",
+                                        { :name => "push[expire_after_days]",
                                           :class => "form-range",
                                           :min => Settings.url.expire_after_days_min,
                                           :max => Settings.url.expire_after_days_max,
@@ -58,7 +58,7 @@
             <div class='row'>
                 <div class='col-10'>
                     <%= range_field_tag("push_expire_after_views", Settings.url.expire_after_views_default,
-                                       { :name => "url[expire_after_views]",
+                                       { :name => "push[expire_after_views]",
                                          :class => "form-range",
                                          :min => Settings.url.expire_after_views_min,
                                          :max => Settings.url.expire_after_views_max,
@@ -84,7 +84,7 @@
                     <div class="list-group mx-0">
                         <% if Settings.url.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "url[retrieval_step]", nil, Settings.url.retrieval_step_default,
+                            <%= check_box_tag "push[retrieval_step]", nil, Settings.url.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               x_default: Settings.url.retrieval_step_default,
                                               "data-knobs-target" => "retrievalStepCheckbox" } %>
