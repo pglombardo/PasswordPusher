@@ -43,9 +43,6 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           updated_at: password.updated_at
         )
         
-        # Skip validation that causes decryption
-        # push.define_singleton_method(:check_payload_for_text) { true }
-        
         if push.save(validate: false)
           # Create an audit log for the creation
           AuditLog.create!(
@@ -91,9 +88,6 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           created_at: file_push.created_at,
           updated_at: file_push.updated_at
         )
-        
-        # Skip validation that causes decryption
-        # push.define_singleton_method(:check_files_for_file) { true }
         
         if push.save(validate: false)
           # Create an audit log for the creation
@@ -149,9 +143,6 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
           created_at: url.created_at,
           updated_at: url.updated_at
         )
-        
-        # Skip validation that causes decryption
-        # push.define_singleton_method(:check_payload_for_url) { true }
         
         if push.save(validate: false)
           # Create an audit log for the creation
@@ -233,10 +224,8 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   
   # Determine the appropriate audit log kind based on view kind and successful status
   def determine_audit_log_kind(view)
-    # Standard view (kind 0)
     if view.kind == 0
       view.successful ? :view : :failed_view
-    # Admin view (kind 1) - these are typically just views, not failures
     elsif view.kind == 1
       :expire
     end
