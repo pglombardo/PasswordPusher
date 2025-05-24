@@ -27,7 +27,7 @@ class Api::V1::PushesController < Api::BaseController
         
         # Passphrase hasn't been provided or is incorrect
         # Passphrase hasn't been provided or is incorrect
-        render json: {error: "This push has a passphrase that was incorrect or not provided."}
+        render json: {error: t("pushes.passphrase_incorrect")}
         return
       end
     end
@@ -75,7 +75,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def audit
     if @push.user_id != current_user.id
-      render json: {error: "That push doesn't belong to you."}
+      render json: {error: t("pushes.not_owner_push")}
       return
     end
 
@@ -115,12 +115,12 @@ class Api::V1::PushesController < Api::BaseController
   def destroy
     # Check if the push is deletable by the viewer or if the user is the owner
     if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
-      render json: {error: _("That push is not deletable by viewers and does not belong to you.")}, status: :unprocessable_entity
+      render json: {error: t("pushes.not_deletable_or_not_owner")}, status: :unprocessable_entity
       return
     end
 
     if @push.expired
-      render json: {error: _("That push is already expired.")}, status: :unprocessable_entity
+      render json: {error: t("pushes.expire.already_expired")}, status: :unprocessable_entity
       return
     end
 
@@ -134,7 +134,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def active
     unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
+      render json: {error: t("pushes.need_login_for_active")}, status: :unauthorized
       return
     end
 
@@ -152,7 +152,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def expired
     unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your expired pushes.")}, status: :unauthorized
+      render json: {error: t("pushes.need_login_for_expired")}, status: :unauthorized
       return
     end
 

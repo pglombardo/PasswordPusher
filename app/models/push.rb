@@ -178,11 +178,11 @@ class Push < ApplicationRecord
 
   def check_enabled_push_kinds
     if self.kind == "file" && !Settings.enable_file_pushes
-      errors.add(:kind, _("File pushes are disabled."))
+      errors.add(:kind, t("pushes.file_pushes_disabled"))
     end
 
     if self.kind == "url" && !Settings.enable_url_pushes
-      errors.add(:kind, _("URL pushes are disabled."))
+      errors.add(:kind, t("pushes.url_pushes_disabled"))
     end
   end
 

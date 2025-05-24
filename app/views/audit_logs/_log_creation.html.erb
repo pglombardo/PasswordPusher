@@ -4,7 +4,7 @@
     <%= _('at IP address') %>
     <%= render partial: 'application/ip_address', locals: { ip: audit_log.ip } %>
     <br>
-    <%= _('User Agent') %>: <code><%= audit_log.user_agent.blank? ? _('None') : audit_log.user_agent %></code>
+    <%= t("audit_logs.audit_log.user_agent") %> <code><%= audit_log.user_agent.blank? ? t("audit_logs.audit_log.unknown") : audit_log.user_agent %></code>
     <br>
-    <%= _('Referrer') %>: <code><%= audit_log.referrer.blank? ? _('None') : audit_log.referrer %></code>
+    <%= t("audit_logs.audit_log.referrer") %> <code><%= audit_log.referrer.blank? ? t("audit_logs.audit_log.unknown") : audit_log.referrer %></code>
 </div>

@@ -94,8 +94,7 @@ class PushesController < BaseController
       log_failed_passphrase(@push)
 
       # Redirect to the passphrase page
-      flash[:alert] =
-        _("That passphrase is incorrect.  Please try again or contact the person or organization that sent you this link.")
+      flash[:alert] = t("pushes.access.incorrect")
       redirect_to passphrase_push_path(@push.url_token)
     end
   end
@@ -182,7 +181,7 @@ class PushesController < BaseController
 
   def audit
     if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
+      redirect_to :root, notice: t("pushes.not_owner_push")
       return
     end
 
@@ -193,12 +192,12 @@ class PushesController < BaseController
   def expire
     # Check if the push is deletable by the viewer or if the user is the owner
     if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
-      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
+      redirect_to :root, notice: t("pushes.not_deletable_or_not_owner")
       return
     end
 
     if @push.expired
-      redirect_to @push, notice: _("That push is already expired.")
+      redirect_to @push, notice: t("pushes.expire.already_expired")
       return
     end
 
@@ -335,7 +334,7 @@ class PushesController < BaseController
           authenticate_user!
         end
       else
-        redirect_to root_path, notice: _("File pushes are disabled.")
+        redirect_to root_path, notice: t("pushes.file_pushes_disabled")
       end
 
     when "url"
@@ -345,7 +344,7 @@ class PushesController < BaseController
           authenticate_user!
         end
       else
-        redirect_to root_path, notice: _("URL pushes are disabled.")
+        redirect_to root_path, notice: t("pushes.url_pushes_disabled")
       end
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
