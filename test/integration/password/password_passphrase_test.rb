@@ -70,6 +70,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     forms = css_select "form"
     assert_select "form input", 1
     input = css_select "input#passphrase.form-control"
+    failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
 
     # Provide a bad passphrase
@@ -77,7 +78,8 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-
+    assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
+    
     # We should be back on the passphrase page now with an error message
     divs = css_select "div.alert-warning"
     assert divs.first.content.include?("That passphrase is incorrect")
