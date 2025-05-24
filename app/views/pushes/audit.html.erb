@@ -232,15 +232,15 @@
         <div class='col'>
             <div class="list-group w-100">
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
-                <% if @push.audit_logs.empty? && !@push.expired %>
+                <% for audit_log in @push.audit_logs %>
+                    <%= render "audit_logs/log_#{audit_log.kind}", audit_log: %>
+                <% end %>
+                <% if @push.audit_logs.count == 1 && !@push.expired %>
                     <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
                         <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
                     </div>
                 <% end %>
 
-                <% for audit_log in @push.audit_logs %>
-                    <%= render "audit_logs/log_#{audit_log.kind}", audit_log: %>
-                <% end %>
                 <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('End of Audit Log') %></div>
             </div>
         </div>
