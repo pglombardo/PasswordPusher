@@ -22,7 +22,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   def migrate_passwords
     puts "Migrating passwords to pushes..."
     
-    Password.find_each do |password|
+    Password.where(expired: false).find_each do |password|
       begin
         # Create a new Push record
         push = Push.new(
@@ -71,7 +71,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   def migrate_file_pushes
     puts "Migrating file pushes to pushes..."
     
-    FilePush.find_each do |file_push|
+    FilePush.where(expired: false).find_each do |file_push|
       begin
         # Create a new Push record
         push = Push.new(
@@ -129,7 +129,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   def migrate_urls
     puts "Migrating urls to pushes..."
     
-    Url.find_each do |url|
+    Url.where(expired: false).find_each do |url|
       begin
         # Create a new Push record
         push = Push.new(
