@@ -57,7 +57,18 @@
         <strong><%= @push.expire_after_days %> <%= n_('day', 'days', @push.expire_after_days) %></strong>
         <%= _('or') %>
         <strong><%= @push.expire_after_views %> <%= n_('view', 'views', @push.expire_after_views) %></strong>
-        <%= _('(whichever comes first)') %>.
+        <% if @push.url? %>
+          <%= _('(whichever comes first)') %>.
+        <% else %>
+          <%= _('(whichever comes first)') %>
+          <% if @push.deletable_by_viewer %>
+            <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
+          <% else %>
+            <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
+          <% end %>
+        <% end %>
+      
+        
       </p>
 
       <% if @push.retrieval_step == true %>
