@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlReqLocaleTest < ActionDispatch::IntegrationTest
+class UrlRequestedLocaleTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -20,10 +20,10 @@ class UrlReqLocaleTest < ActionDispatch::IntegrationTest
   end
 
   def test_requested_locale
-    get new_url_path
+    get new_push_path(tab: "url")
     assert_response :success
 
-    post urls_path, params: {url: {payload: "https://the0x00.dev", passphrase: "asdf", retrieval_step: true}}
+    post pushes_path, params: {push: {kind: "url", payload: "https://the0x00.dev", passphrase: "asdf", retrieval_step: true}}
     assert_response :redirect
 
     # Preview page
@@ -66,10 +66,10 @@ class UrlReqLocaleTest < ActionDispatch::IntegrationTest
   end
 
   def test_requested_locale_without_passphrase
-    get new_url_path
+    get new_push_path(tab: "url")
     assert_response :success
 
-    post urls_path, params: {url: {payload: "https://the0x00.dev", retrieval_step: true}}
+    post pushes_path, params: {push: {kind: "url", payload: "https://the0x00.dev", retrieval_step: true}}
     assert_response :redirect
 
     # Preview page

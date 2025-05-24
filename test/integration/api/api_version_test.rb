@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class VersionEndpointTest < ActionDispatch::IntegrationTest
+class ApiVersionTest < ActionDispatch::IntegrationTest
   def test_anonymous_version_endpoint
     get "/api/v1/version.json"
     assert_response :success

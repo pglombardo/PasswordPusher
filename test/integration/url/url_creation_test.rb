@@ -20,11 +20,11 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_textarea_has_safeties
-    get new_url_path
+    get new_push_path(tab: "url")
     assert_response :success
 
     # Validate some elements
-    input = css_select "input#url_payload.form-control"
+    input = css_select "input#push_payload.form-control"
 
     assert input.attribute("spellcheck")
     assert input.attribute("spellcheck").value == "false"
@@ -40,10 +40,10 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_url_creation
-    get new_url_path
+    get new_push_path(tab: "url")
     assert_response :success
 
-    post urls_path, params: {url: {payload: "https://the0x00.dev"}}
+    post pushes_path, params: {push: {kind: "url", payload: "https://the0x00.dev"}}
     assert_response :redirect
 
     # Preview page

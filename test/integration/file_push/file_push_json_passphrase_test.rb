@@ -74,7 +74,8 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     assert_not res.key?("passphrase")
 
     url_token = res["url_token"]
-
+    failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
+    
     # Now try to retrieve the file push directly
     # We should get an error because we didn't provide a passphrase
     get "/f/#{url_token}.json"
@@ -83,6 +84,7 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("error")
     assert_equal "This push has a passphrase that was incorrect or not provided.", res["error"]
+    assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
 
     # Now try to retrieve the password with the incorrect passphrase
     get "/f/#{url_token}.json?passphrase=badpassphrase"
@@ -91,5 +93,6 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("error")
     assert_equal "This push has a passphrase that was incorrect or not provided.", res["error"]
+    assert_equal failed_passphrase_log_count + 2, AuditLog.where(kind: :failed_passphrase).count
   end
 end

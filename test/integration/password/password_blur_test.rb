@@ -14,7 +14,7 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
   end
 
   def test_blur_enabled
-    post passwords_path, params: {password: {payload: "testpw"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw"}}
     assert_response :redirect
 
     # Preview page
@@ -34,7 +34,7 @@ class PasswordBlurTest < ActionDispatch::IntegrationTest
   def test_blur_when_disabled
     Settings.pw.enable_blur = false
 
-    post passwords_path, params: {password: {payload: "testpw"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw"}}
     assert_response :redirect
 
     # Preview page

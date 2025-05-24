@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlJsonCreationTest < ActionDispatch::IntegrationTest
+class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -42,9 +42,20 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("url_token")
     assert res.key?("expired")
     assert_equal true, res["expired"]
+    assert res.key?("expired_on")
+    assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
+    assert_equal res.keys.sort, ["expired", "deleted", "expired_on", "expire_after_days", "expire_after_views", "url_token", "retrieval_step", "created_at", "updated_at", "days_remaining", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
+      "deleted" => true,
+      "expire_after_days" => 7,
+      "expire_after_views" => 5,
+      "retrieval_step" => false,
+      "days_remaining" => 7,
+      "views_remaining" => 5}
+
     assert res.key?("days_remaining")
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")

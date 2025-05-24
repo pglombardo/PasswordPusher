@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
+class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -15,10 +15,11 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
 
   def test_view_expiration
     mock_params = {}
-    mock_prams[:file_push] = {}
-    mock_prams[:file_push][:payload] = "testpw"
-    mock_prams[:file_push][:expire_after_views] = 2
-    mock_prams[:file_push][:files] = [fixture_file_upload("monkey.png", "image/jpeg")]
+
+    mock_params[:file_push] = {}
+    mock_params[:file_push][:payload] = "testpw"
+    mock_params[:file_push][:expire_after_views] = 2
+    mock_params[:file_push][:files] = [fixture_file_upload("monkey.png", "image/jpeg")]
 
     mock_headers = {}
     mock_headers["X-User-Email"] = @luca.email
@@ -82,6 +83,8 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("expired")
     assert_equal true, res["expired"]
+    assert res.key?("expired_on")
+    assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
@@ -90,5 +93,15 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
+      "payload" => nil,
+      "expire_after_days" => 7,
+      "expire_after_views" => 2,
+      "deleted" => false,
+      "deletable_by_viewer" => true,
+      "retrieval_step" => false,
+      "days_remaining" => 7,
+      "views_remaining" => 0,
+      "files" => "{}"}
   end
 end

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     draw :legacy_pages
     draw :legacy_pushes
 
-    root to: "passwords#new"
+    root to: "pushes#new"
   end
 
   # Health check endpoint that returns a simple 200 OK response

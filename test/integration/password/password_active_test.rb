@@ -18,11 +18,12 @@ class PasswordActiveTest < ActionDispatch::IntegrationTest
   end
 
   def test_active
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
 
-    post passwords_path, params: {
-      password: {
+    post pushes_path, params: {
+      push: {
+        kind: "text",
         payload: "testpw",
         name: "Test Password"
       }
@@ -33,18 +34,17 @@ class PasswordActiveTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h2", "Your push has been created."
 
-    get active_passwords_path
+    get pushes_path(filter: "active")
     assert_response :success
 
     # Just verify that we have the expected number of th elements
-    assert_select "th", 6 # 6 columns in the table
+    assert_select "th", 5 # 5 columns in the table
 
     # Verify that the table headers exist with the expected content
     assert_select "th", /Name or ID/ # First column should contain 'Name' or 'ID'
     assert_select "th", /Created/ # Second column
     assert_select "th", /Note/ # Third column
-    assert_select "th", /Views/ # Fifth column
-    assert_select "th", /Days/ # Sixth column
+    assert_select "th", /Views-Days/ # Fourth column
 
     # Verify that our created file push appears in the list
     assert_select "td", "Test Password"

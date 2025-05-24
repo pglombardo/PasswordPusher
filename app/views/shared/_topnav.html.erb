@@ -1,16 +1,16 @@
 <% if Settings.enable_logins %>
   <ul class="nav nav-tabs mb-3">
     <li class="nav-item">
-      <a class="nav-link <%= current_controller?("passwords") ? 'active' : '' %>" aria-current="page" href="<%= new_password_path %>"><%= _('Passwords') %></a>
+      <a class="nav-link <%= @text_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'text') %>"><%= _('Passwords') %></a>
     </li>
     <% if Settings.enable_file_pushes %>
       <li class="nav-item">
-        <a class="nav-link <%= current_controller?("file_pushes") ? 'active' : '' %>" href="<%= new_file_push_path %>"><%= _('Files') %></a>
+        <a class="nav-link <%= @files_tab ? 'active' : '' %>" href="<%= new_push_path(tab: 'files') %>"><%= _('Files') %></a>
       </li>
     <% end %>
     <% if Settings.enable_url_pushes %>
       <li class="nav-item">
-        <a class="nav-link <%= current_controller?("urls") ? 'active' : '' %>" aria-current="page" href="<%= new_url_path %>"><%= _('URLs') %></a>
+        <a class="nav-link <%= @url_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'url') %>"><%= _('URLs') %></a>
       </li>
     <% end %>
   </ul>
