@@ -23,6 +23,8 @@ class Api::V1::PushesController < Api::BaseController
       has_passphrase = params[:passphrase] == @push.passphrase
 
       unless has_passphrase
+        log_failed_passphrase(@push)
+        
         # Passphrase hasn't been provided or is incorrect
         # Passphrase hasn't been provided or is incorrect
         render json: {error: "This push has a passphrase that was incorrect or not provided."}
