@@ -45,19 +45,21 @@
                     <small class="d-block text-muted"><%= _('The push expires after this number of days.') %></small>
                 </span>
                 </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Deletable by Viewers') %>:
-                    <strong>
-                        <% if @push.deletable_by_viewer %>
-                            <%= _('True') %>
-                        <% else %>
-                            <%= _('False') %>
-                        <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('This allows end users to delete content once retrieved.') %></small>
-                </span>
-                </label>
+                <% unless @push.url? %>
+                    <label class="list-group-item d-flex gap-2">
+                        <span>
+                            <%= _('Deletable by Viewers') %>:
+                            <strong>
+                                <% if @push.deletable_by_viewer %>
+                                    <%= _('True') %>
+                                <% else %>
+                                    <%= _('False') %>
+                                <% end %>
+                            </strong>
+                            <small class="d-block text-muted"><%= _('This allows end users to delete content once retrieved.') %></small>
+                        </span>
+                    </label>
+                <% end %>
                 <label class="list-group-item d-flex gap-2">
                 <span>
                     <%= _('1-click Retrieval Step') %>:
