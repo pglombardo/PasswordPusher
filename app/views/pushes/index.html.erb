@@ -1,4 +1,4 @@
-<% title(_('Active URL Pushes')) %>
+<% title(_('Active Pushes')) %>
 
 <%= render partial: 'shared/dashboard_header' %>
 
@@ -14,9 +14,9 @@
       <% end %>
     </p>
     <p class='text-center'>
-      <%= link_to new_push_path, class: 'btn btn-primary' do %>
+      <%= link_to new_push_path(tab: "text"), class: 'btn btn-primary' do %>
         <em class="bi bi-stars"></em>
-        <%= _('Push a URL Now') %>
+        <%= _('Push a Password Now') %>
       <% end %>
     </p>
   <% else %>
@@ -59,11 +59,10 @@
               </div>
             <% end %>
           </td>
-          <%# MIGRATE - ask - which columns should be shown %>
           <% if push.expired? %>
             <td class="text-center"><%= I18n.l push.expired_on.in_time_zone(Settings.timezone), format: :long %> (Expired) </td>  
           <% else  %>
-            <td class="text-center"><%= "#{push.audit_logs.size}/#{push.expire_after_views}"  + " " +_('Views') %> - <%= "#{push.days_old}/#{push.expire_after_days}" + " " + _('Days') %></td>
+            <td class="text-center"><%= "#{push.view_count}/#{push.expire_after_views}"  + " " +_('Views') %> - <%= "#{push.days_old}/#{push.expire_after_days}" + " " + _('Days') %></td>
           <% end %>
           <td class="text-center">
             <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">
@@ -79,6 +78,6 @@
       <% end %>
       </tbody>
     </table>
-    <%= paginate @pushes %>
+    <%= paginate @pushes, list_classes: %w(pagination justify-content-center) %>
   <% end %>
 </main>
