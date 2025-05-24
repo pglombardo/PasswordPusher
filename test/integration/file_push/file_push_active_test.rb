@@ -19,7 +19,7 @@ class FilePushActiveTest < ActionDispatch::IntegrationTest
   end
 
   def test_active
-    get new_push_path(tab: "file")
+    get new_push_path(tab: "files")
     assert_response :success
 
     post pushes_path, params: {

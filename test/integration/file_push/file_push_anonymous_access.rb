@@ -19,7 +19,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
   def test_anonymous_disabled_signups_no_signup_link
     Settings.disable_signups = true
 
-    get new_push_path(tab: "file")
+    get new_push_path(tab: "files")
     assert_response :success
 
     assert response.body.include?("Please login to use this feature.")
