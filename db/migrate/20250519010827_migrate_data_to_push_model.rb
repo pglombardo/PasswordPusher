@@ -11,10 +11,27 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   def down
-    # It is not necessary to make this migration reversible
+    attach_files_to_old_records
   end
   
   private
+
+  def attach_files_to_old_records
+    Push.where(kind: "file", expired: false).find_each do |push|
+      begin 
+        file_push = FilePush.find_by(url_token: push.url_token)
+        if file_push
+          push.files.attachments.each do |attachment|
+            attachment.update!(record_type: "FilePush", record_id: file_push.id)
+          end
+        else
+          puts "FilePush not found for push #{push.id} and url_token #{push.url_token}"
+        end
+      rescue => e
+        puts "Error migrating attachments of push #{file_push.id} having 'file' kind: #{e.message}"
+      end
+    end
+  end
   
   # Password migration methods
   def migrate_passwords
@@ -100,13 +117,12 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   def migrate_file_attachments(file_push, push)
+    # Migrate attached files by updating existing attachments
     file_push.files.each do |file|
-       # Create attachment record directly without triggering model validations
-      ActiveStorage::Attachment.find_or_create_by!(
-        name: "files",
-        record_type: "Push",
-        record_id: push.id,
-        blob_id: file.blob_id
+      # Update the existing attachment record to point to the new Push
+      file.update!(
+        record_type: 'Push',
+        record_id: push.id
       )
     end
   end
