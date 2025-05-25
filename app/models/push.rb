@@ -55,7 +55,7 @@ class Push < ApplicationRecord
     # Delete content
     self.payload = nil
     self.passphrase = nil
-    files.purge
+    remove_files
 
     # Mark as expired
     self.expired = true
@@ -161,7 +161,7 @@ class Push < ApplicationRecord
     # Delete content
     self.payload = nil
     self.passphrase = nil
-    files.purge
+    remove_files
 
     # Mark as expired
     self.expired = true
@@ -198,5 +198,15 @@ class Push < ApplicationRecord
     !Addressable::URI.parse(url).scheme.nil?
   rescue Addressable::URI::InvalidURIError
     false
+  end
+
+  private
+  
+  def remove_files
+    Push.last.files.each do |file|
+      blob = file.blob
+      blob.attachments.delete_all
+      blob.purge
+    end
   end
 end
