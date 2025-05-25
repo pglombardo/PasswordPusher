@@ -25,8 +25,8 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         push = create_push_from_password(password)
         
         if push.save(validate: false)
-          create_audit_log_for_push(push, password.user_id, password.created_at)
-          migrate_views(push)
+          create_audit_log_for_push(password, push)
+          migrate_views(password, push)
           puts "Migrated password #{password.id} to push #{push.id}"
         else
           puts "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(', ')}"
@@ -66,9 +66,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         push = create_push_from_file_push(file_push)
         
         if push.save(validate: false)
-          create_audit_log_for_push(push, file_push.user_id, file_push.created_at)
+          create_audit_log_for_push(file_push, push)
           migrate_file_attachments(file_push, push)
-          migrate_views(push)
+          migrate_views(file_push, push)
           puts "Migrated file push #{file_push.id} to push #{push.id}"
         else
           puts "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(', ')}"
@@ -101,11 +101,13 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   
   def migrate_file_attachments(file_push, push)
     file_push.files.each do |file|
-      # Duplicate the attachment
-      new_attachment = file.dup
-      new_attachment.record_type = 'Push'
-      new_attachment.record_id = push.id
-      new_attachment.save!
+       # Create attachment record directly without triggering model validations
+      ActiveStorage::Attachment.create!(
+        name: "files",
+        record_type: "Push",
+        record_id: push.id,
+        blob_id: file.blob_id
+      )
     end
   end
   
@@ -118,8 +120,8 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         push = create_push_from_url(url)
         
         if push.save(validate: false)
-          create_audit_log_for_push(push, url.user_id, url.created_at)
-          migrate_views(push)
+          create_audit_log_for_push(url, push)
+          migrate_views(url, push)
           puts "Migrated url #{url.id} to push #{push.id}"
         else
           puts "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(', ')}"
@@ -151,24 +153,24 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   # Common method for creating audit logs
-  def create_audit_log_for_push(push, user_id, created_at)
+  def create_audit_log_for_push(old_push_record, new_push_record)
     AuditLog.create!(
       kind: :creation,
-      push: push,
-      user_id: user_id,
-      created_at: created_at,
-      updated_at: created_at,
+      push: new_push_record,
+      user_id: old_push_record.user_id,
+      created_at: old_push_record.created_at,
+      updated_at: old_push_record.updated_at,
       referrer: "",
       user_agent: ""
     )
   end
   
   # View migration methods
-  def migrate_views(push)
+  def migrate_views(old_push_record, new_push_record)
     puts "Migrating views to audit logs..."
     
-    push.views.find_each do |view|
-      create_audit_log_from_view(view, push.id)
+    old_push_record.views.find_each do |view|
+      create_audit_log_from_view(view, new_push_record.id)
     end
   end
   
