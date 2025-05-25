@@ -55,7 +55,7 @@ class Push < ApplicationRecord
     # Delete content
     self.payload = nil
     self.passphrase = nil
-    remove_files
+    files.purge
 
     # Mark as expired
     self.expired = true
@@ -161,7 +161,7 @@ class Push < ApplicationRecord
     # Delete content
     self.payload = nil
     self.passphrase = nil
-    remove_files
+    files.purge
 
     # Mark as expired
     self.expired = true
@@ -200,13 +200,4 @@ class Push < ApplicationRecord
     false
   end
 
-  private
-  
-  def remove_files
-    files.each do |file|
-      blob = file.blob
-      blob.attachments.destroy_all
-      blob.purge
-    end
-  end
 end
