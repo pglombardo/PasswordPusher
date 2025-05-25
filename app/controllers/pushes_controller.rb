@@ -216,18 +216,10 @@ class PushesController < BaseController
     end
 
     @filter = params[:filter]
-    allowed_kinds = ["text"]
-    if Settings.enable_file_pushes
-      allowed_kinds << "file"
-    end
-
-    if Settings.enable_url_pushes
-      allowed_kinds << "url"
-    end
 
     @pushes = if @filter
       Push.includes(:audit_logs)
-        .where(user_id: current_user.id, expired: @filter == "expired", kind: allowed_kinds)
+        .where(user_id: current_user.id, expired: @filter == "expired")
         .page(params[:page])
         .order(created_at: :desc)
     else
