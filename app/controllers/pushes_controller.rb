@@ -101,10 +101,6 @@ class PushesController < BaseController
 
   # GET /passwords/new
   def new
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
     @push = Push.new
 
     set_kind_by_tab
@@ -116,10 +112,6 @@ class PushesController < BaseController
 
 
   def create
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
-
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
@@ -340,6 +332,12 @@ class PushesController < BaseController
       end
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
+        authenticate_user!
+      end
+
+      if %w[new create].include?(action_name) && Settings.enable_logins && !Settings.allow_anonymous
+        # Require authentication if allow_anonymous is false
+        # See config/settings.yml
         authenticate_user!
       end
     end
