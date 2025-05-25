@@ -101,10 +101,11 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   
   def migrate_file_attachments(file_push, push)
     file_push.files.each do |file|
-      file.update!(
-        record_type: 'Push',
-        record_id: push.id
-      )
+      # Duplicate the attachment
+      new_attachment = file.dup
+      new_attachment.record_type = 'Push'
+      new_attachment.record_id = push.id
+      new_attachment.save!
     end
   end
   
