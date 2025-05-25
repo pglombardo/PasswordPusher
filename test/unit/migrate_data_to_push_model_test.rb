@@ -20,6 +20,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
     @migration.class.send(:public, :migrate_urls)
     @migration.class.send(:public, :migrate_views)
     @migration.class.send(:public, :determine_audit_log_kind)
+    
+    View.delete_all
+    Password.delete_all
+    FilePush.delete_all
+    Url.delete_all
   end
   
   test "migrate_passwords creates push records correctly" do

@@ -1,12 +1,11 @@
 class CreatePushes < ActiveRecord::Migration[7.2]
   def change
     create_table(:pushes) do |t|
-      t.integer :kind
+      t.integer :kind, null: false
       t.integer :expire_after_days
       t.integer :expire_after_views
       t.boolean :expired, default: false
       t.string :url_token
-      t.boolean :deleted, default: false
       t.boolean :deletable_by_viewer, default: true
       t.boolean :retrieval_step, default: false
       t.datetime :expired_on

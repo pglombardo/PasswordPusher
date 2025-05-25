@@ -4,7 +4,7 @@ class CreateAuditLog < ActiveRecord::Migration[7.2]
       t.string :ip
       t.string :user_agent
       t.string :referrer
-      t.integer :kind
+      t.integer :kind, null: false
 
       t.index :kind
 
