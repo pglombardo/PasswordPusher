@@ -29,8 +29,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       password = Password.create!(
         payload: "test_password_payload",
         name: "Test Password",
-        expire_after_days: 7,
-        expire_after_views: 5,
+        expire_after_days: 27,
+        expire_after_views: 32,
         deletable_by_viewer: true,
         retrieval_step: false,
         url_token: "password123"
@@ -199,8 +199,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       password = Password.create!(
         payload: "test_password_payload",
         name: "Test Password",
-        expire_after_days: 7,
-        expire_after_views: 5,
+        expire_after_days: 17,
+        expire_after_views: 15,
         deletable_by_viewer: true,
         retrieval_step: false,
         url_token: "password123"
@@ -292,8 +292,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       password = Password.create!(
         payload: "test_password_payload",
         name: "Test Password",
-        expire_after_days: 7,
-        expire_after_views: 5,
+        expire_after_days: 27,
+        expire_after_views: 32,
         deletable_by_viewer: true,
         retrieval_step: false,
         url_token: "password123"
