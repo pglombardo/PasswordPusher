@@ -102,7 +102,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   def migrate_file_attachments(file_push, push)
     file_push.files.each do |file|
        # Create attachment record directly without triggering model validations
-      ActiveStorage::Attachment.create!(
+      ActiveStorage::Attachment.find_or_create_by!(
         name: "files",
         record_type: "Push",
         record_id: push.id,
