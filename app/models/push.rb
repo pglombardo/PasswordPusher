@@ -203,9 +203,9 @@ class Push < ApplicationRecord
   private
   
   def remove_files
-    Push.last.files.each do |file|
+    files.each do |file|
       blob = file.blob
-      blob.attachments.delete_all
+      blob.attachments.destroy_all
       blob.purge
     end
   end
