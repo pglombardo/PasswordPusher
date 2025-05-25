@@ -8,9 +8,6 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     
     # Migrate data from Url model to Push model
     migrate_urls
-    
-    # Migrate views to audit_logs
-    migrate_views
   end
   
   def down
@@ -29,6 +26,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         
         if push.save(validate: false)
           create_audit_log_for_push(push, password.user_id, password.created_at)
+          migrate_views(push)
           puts "Migrated password #{password.id} to push #{push.id}"
         else
           puts "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(', ')}"
@@ -70,6 +68,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         if push.save(validate: false)
           create_audit_log_for_push(push, file_push.user_id, file_push.created_at)
           migrate_file_attachments(file_push, push)
+          migrate_views(push)
           puts "Migrated file push #{file_push.id} to push #{push.id}"
         else
           puts "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(', ')}"
@@ -119,6 +118,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         
         if push.save(validate: false)
           create_audit_log_for_push(push, url.user_id, url.created_at)
+          migrate_views(push)
           puts "Migrated url #{url.id} to push #{push.id}"
         else
           puts "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(', ')}"
@@ -163,38 +163,15 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   # View migration methods
-  def migrate_views
+  def migrate_views(push)
     puts "Migrating views to audit logs..."
     
-    View.find_each do |view|
-      push_id = find_push_id_for_view(view)
-      
-      if push_id.present?
-        create_audit_log_from_view(view, push_id)
-      else
-        puts "Could not find corresponding push for view #{view.id}"
-      end
+    push.views.find_each do |view|
+      create_audit_log_from_view(view, push.id)
     end
   end
   
-  def find_push_id_for_view(view)
-    if view.password_id.present?
-      find_push_id_by_source_record(Password, view.password_id)
-    elsif view.file_push_id.present?
-      find_push_id_by_source_record(FilePush, view.file_push_id)
-    elsif view.url_id.present?
-      find_push_id_by_source_record(Url, view.url_id)
-    end
-  end
-  
-  def find_push_id_by_source_record(model_class, record_id)
-    source_record = model_class.find_by(id: record_id)
-    return nil unless source_record
-    
-    push = Push.find_by(url_token: source_record.url_token)
-    push&.id
-  end
-  
+
   def create_audit_log_from_view(view, push_id)
     audit_log_kind = determine_audit_log_kind(view)
     
