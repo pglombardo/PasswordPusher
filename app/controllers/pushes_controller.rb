@@ -202,11 +202,6 @@ class PushesController < BaseController
   end
 
   def index
-    unless Settings.enable_logins
-      redirect_to :root
-      return
-    end
-
     @filter = params[:filter]
 
     @pushes = if @filter
