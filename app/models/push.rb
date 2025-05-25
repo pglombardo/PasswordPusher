@@ -52,11 +52,14 @@ class Push < ApplicationRecord
 
   # Expire this password, delete the password and save the record
   def expire
-    self.expired = true
+    # Delete content
     self.payload = nil
     self.passphrase = nil
-    self.expired_on = Time.zone.now
     files.purge
+
+    # Mark as expired
+    self.expired = true
+    self.expired_on = Time.current.utc
     save
   end
 
