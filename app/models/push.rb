@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Push < ApplicationRecord
   enum :kind, [:text, :file, :url], default: :text
 
