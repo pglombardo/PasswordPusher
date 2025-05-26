@@ -20,7 +20,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   private
 
   def attach_files_to_old_records
-    Push.where(kind: "file", expired: false).find_each do |push|
+    Push.where(kind: "file").find_each do |push|
       begin 
         file_push = FilePush.find_by(url_token: push.url_token)
         if file_push
@@ -41,7 +41,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     puts "Migrating passwords to pushes..."
     successful_password_count = 0
     failed_password_count = 0
-    Password.where(expired: false).find_each do |password|
+    Password.find_each do |password|
       begin
         push = create_push_from_password(password)
         
@@ -87,7 +87,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     successful_file_push_count = 0
     failed_file_push_count = 0
 
-    FilePush.where(expired: false).find_each do |file_push|
+    FilePush.find_each do |file_push|
       begin
         push = create_push_from_file_push(file_push)
         
@@ -145,7 +145,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     successful_url_count = 0
     failed_url_count = 0
 
-    Url.where(expired: false).find_each do |url|
+    Url.find_each do |url|
       begin
         push = create_push_from_url(url)
         
