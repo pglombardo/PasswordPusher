@@ -8,6 +8,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     
     # Migrate data from Url model to Push model
     migrate_urls
+    
+    # Migrate views to audit logs
+    migrate_views
   end
   
   def down
@@ -36,22 +39,26 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   # Password migration methods
   def migrate_passwords
     puts "Migrating passwords to pushes..."
-    
+    successful_password_count = 0
+    failed_password_count = 0
     Password.where(expired: false).find_each do |password|
       begin
         push = create_push_from_password(password)
         
         if push.save(validate: false)
-          create_audit_log_for_push(password, push)
-          migrate_views(password, push)
-          puts "Migrated password #{password.id} to push #{push.id}"
+          create_audit_log_for(push)
+          successful_password_count += 1
         else
           puts "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(', ')}"
+          failed_password_count += 1
         end
       rescue => e
         puts "Error migrating password #{password.id}: #{e.message}"
+        failed_password_count += 1
       end
     end
+    puts "Successfully migrated #{successful_password_count} passwords to pushes."
+    puts "Failed to migrate #{failed_password_count} passwords to pushes." if failed_password_count > 0
   end
   
   def create_push_from_password(password)
@@ -77,23 +84,28 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   # FilePush migration methods
   def migrate_file_pushes
     puts "Migrating file pushes to pushes..."
-    
+    successful_file_push_count = 0
+    failed_file_push_count = 0
+
     FilePush.where(expired: false).find_each do |file_push|
       begin
         push = create_push_from_file_push(file_push)
         
         if push.save(validate: false)
-          create_audit_log_for_push(file_push, push)
+          create_audit_log_for(push)
           migrate_file_attachments(file_push, push)
-          migrate_views(file_push, push)
-          puts "Migrated file push #{file_push.id} to push #{push.id}"
+          successful_file_push_count += 1
         else
           puts "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(', ')}"
+          failed_file_push_count += 1
         end
       rescue => e
         puts "Error migrating file push #{file_push.id}: #{e.message}"
+        failed_file_push_count += 1
       end
     end
+    puts "Successfully migrated #{successful_file_push_count} file pushes to pushes."
+    puts "Failed to migrate #{failed_file_push_count} file pushes to pushes." if failed_file_push_count > 0
   end
   
   def create_push_from_file_push(file_push)
@@ -130,22 +142,26 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   # URL migration methods
   def migrate_urls
     puts "Migrating urls to pushes..."
-    
+    successful_url_count = 0
+    failed_url_count = 0
+
     Url.where(expired: false).find_each do |url|
       begin
         push = create_push_from_url(url)
         
         if push.save(validate: false)
-          create_audit_log_for_push(url, push)
-          migrate_views(url, push)
-          puts "Migrated url #{url.id} to push #{push.id}"
+          create_audit_log_for(push)
+          successful_url_count += 1
         else
           puts "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(', ')}"
         end
       rescue => e
         puts "Error migrating url #{url.id}: #{e.message}"
+        failed_url_count += 1
       end
     end
+    puts "Successfully migrated #{successful_url_count} urls to pushes."
+    puts "Failed to migrate #{failed_url_count} urls to pushes." if failed_url_count > 0
   end
   
   def create_push_from_url(url)
@@ -169,34 +185,55 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
   
   # Common method for creating audit logs
-  def create_audit_log_for_push(old_push_record, new_push_record)
+  def create_audit_log_for(new_push_record)
     AuditLog.create!(
       kind: :creation,
       push: new_push_record,
-      user_id: old_push_record.user_id,
-      created_at: old_push_record.created_at,
-      updated_at: old_push_record.updated_at,
+      user_id: new_push_record.user_id,
+      created_at: new_push_record.created_at,
+      updated_at: new_push_record.updated_at,
       referrer: "",
       user_agent: ""
     )
   end
   
-  # View migration methods
-  def migrate_views(old_push_record, new_push_record)
+  # Views migration method
+  def migrate_views
     puts "Migrating views to audit logs..."
-    
-    old_push_record.views.find_each do |view|
-      create_audit_log_from_view(view, new_push_record.id)
+    successful_view_count = 0
+    failed_view_count = 0
+
+    View.find_each do |view|
+      begin
+        if view.file_push_id
+          push = view.file_push
+        elsif view.password_id
+          push = view.password
+        elsif view.url_id
+          push = view.url
+        else
+          raise ActiveRecord::RecordNotFound
+        end
+        
+        create_audit_log_from_view(view, push)
+        successful_view_count += 1
+      rescue => exception
+        failed_view_count += 1
+        puts "Failed to migrate view #{view.id}: #{exception.message}"
+      end
     end
+    
+    puts "Successfully migrated #{successful_view_count} views to audit logs."
+    puts "Failed to migrate #{failed_view_count} views to audit logs." if failed_view_count > 0
   end
   
-
-  def create_audit_log_from_view(view, push_id)
+  # Create audit logs from views
+  def create_audit_log_from_view(view, push)
     audit_log_kind = determine_audit_log_kind(view)
     
     audit_log = AuditLog.new(
       kind: audit_log_kind,
-      push_id: push_id,
+      push_id: push.id,
       user_id: view.user_id,
       ip: view.ip,
       user_agent: view.user_agent || "",
@@ -205,13 +242,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       updated_at: view.updated_at
     )
     
-    if audit_log.save
-      puts "Migrated view #{view.id} to audit log #{audit_log.id}"
-    else
-      puts "Failed to migrate view #{view.id}: #{audit_log.errors.full_messages.join(', ')}"
-    end
+    audit_log.save!
   end
-  
+
   # Determine the appropriate audit log kind based on view kind and successful status
   def determine_audit_log_kind(view)
     if view.kind == 0
