@@ -222,14 +222,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
         kind: 0
       )
       
-      # First run the password migration to create the push
-      @migration.migrate_passwords
-      
       # Count audit logs before migration
       audit_logs_before = AuditLog.count
       
-      # Run the views migration
-      @migration.migrate_views
+      # First run the password migration to create the push
+      @migration.migrate_passwords
       
       # Find the push that was created from the password
       push = Push.find_by(url_token: password.url_token)
