@@ -423,14 +423,14 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       
       # Count pushes before migration
       pushes_count_before = Push.count
-      audit_log_count_before = Push.count
       
       # Run the migration
       @migration.up
       
       # Verify at least one new push was created
       assert Push.count == pushes_count_before + 3, "Pushes are not created correctly"
-      assert AuditLog.where(kind: :view).count == audit_log_count_before + 1, "Audit logs are not created correctly"
+      assert_equal AuditLog.where(kind: :view).count, 1, "View audit logs are not created correctly"
+      assert_equal AuditLog.where(kind: :creation).count, 3, "Creation audit logs are not created correctly"
       
       new_file_push = Push.where(kind: "file").last
       assert new_file_push.files.attached?
