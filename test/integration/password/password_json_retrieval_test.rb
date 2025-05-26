@@ -3,6 +3,29 @@
 require "test_helper"
 
 class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
+  def test_view_with_passphrase
+    post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2, passphrase: "asdf"}}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    url_token = res["url_token"]
+
+    # Now try to retrieve the password without the passphrase
+    get "/p/#{url_token}.json"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("error")
+
+    # Now try to retrieve the password WITH the passphrase
+    get "/p/#{url_token}.json?passphrase=asdf"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("payload")
+    assert_equal "testpw", res["payload"]
+  end
+  
   def test_view_expiration
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}}
     assert_response :success

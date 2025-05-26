@@ -29,6 +29,12 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("error")
 
     # Now try to retrieve the url WITH the passphrase
+    # Url push links were generated with '/p/' after unifying controllers and models
+    get "/p/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    # Now try to retrieve the url WITH the passphrase
+    # Url push links were generated with '/r/' before unifying controllers and models
     get "/r/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
 

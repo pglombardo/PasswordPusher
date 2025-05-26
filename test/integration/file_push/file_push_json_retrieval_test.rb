@@ -13,6 +13,47 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     @luca.confirm
   end
 
+  def test_view_with_passphrase
+    mock_params = {}
+
+    mock_params[:file_push] = {}
+    mock_params[:file_push][:payload] = "testpw"
+    mock_params[:file_push][:expire_after_views] = 10
+    mock_params[:file_push][:files] = [fixture_file_upload("monkey.png", "image/jpeg")]
+    mock_params[:file_push][:passphrase] = "asdf"
+
+    mock_headers = {}
+    mock_headers["X-User-Email"] = @luca.email
+    mock_headers["X-User-Token"] = @luca.authentication_token
+
+    post file_pushes_path(format: :json), params: mock_params, headers: mock_headers
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    url_token = res["url_token"]
+
+    # Now try to retrieve the file push without the passphrase
+    get "/f/#{url_token}.json"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("error")
+
+    # Now try to retrieve the file push WITH the passphrase
+    # File push links were generated with '/p/' after unifying controllers and models
+    get "/p/#{url_token}.json?passphrase=asdf"
+    assert_response :success
+
+    # Now try to retrieve the file push WITH the passphrase
+    # File push links were generated with '/f/' before unifying controllers and models
+    get "/f/#{url_token}.json?passphrase=asdf"
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("payload")
+    assert_equal "testpw", res["payload"]
+  end
+
   def test_view_expiration
     mock_params = {}
 

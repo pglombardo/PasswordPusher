@@ -171,7 +171,7 @@ class Api::V1::PushesController < Api::BaseController
   private
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id], kind: @current_kind)
+    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)
