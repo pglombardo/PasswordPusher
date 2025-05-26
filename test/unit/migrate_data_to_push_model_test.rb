@@ -25,6 +25,32 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
     Password.delete_all
     FilePush.delete_all
     Url.delete_all
+    
+    # Suppress puts output during tests
+    suppress_output
+  end
+  
+  teardown do
+    # Restore normal output after each test
+    restore_output
+  end
+  
+  # Method to suppress standard output
+  def suppress_output
+    # Save the original stdout and stderr
+    @original_stdout = $stdout
+    @original_stderr = $stderr
+    
+    # Redirect stdout and stderr to /dev/null
+    $stdout = File.open(File::NULL, 'w')
+    $stderr = File.open(File::NULL, 'w')
+  end
+  
+  # Method to restore standard output
+  def restore_output
+    # Restore the original stdout and stderr
+    $stdout = @original_stdout if @original_stdout
+    $stderr = @original_stderr if @original_stderr
   end
   
   test "migrate_passwords creates push records correctly" do
