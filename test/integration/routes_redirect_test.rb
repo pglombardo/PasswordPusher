@@ -57,7 +57,7 @@ class RoutesRedirectTest < ActionDispatch::IntegrationTest
     get "/f/abc123?locale=bar&baz=qux"
     # The redirect doesn't automatically preserve query params in the assertion
     # It only redirects the path portion
-    assert_redirected_to "/p/abc123?"
+    assert_redirected_to "/p/abc123"
     assert_response :redirect
     assert_equal 301, response.status
   end
