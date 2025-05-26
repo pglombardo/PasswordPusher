@@ -341,6 +341,80 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
     end
   end
 
+  test "expired old records are migrated correctly" do
+    ActiveRecord::Base.transaction do
+      # Create a test user first
+      test_user = User.create!(
+        email: 'test2@example.com',
+        password: 'password123'
+      )
+      
+      password = Password.create!(
+        payload: "test_password_payload",
+        name: "Test Password",
+        expire_after_days: 27,
+        expire_after_views: 32,
+        deletable_by_viewer: true,
+        retrieval_step: false,
+        url_token: "password123",
+        expired: true
+      )
+
+      url = Url.create!(
+        payload: "https://example.com",
+        name: "Test URL",
+        expire_after_days: 30,
+        expire_after_views: 15,
+        url_token: "url123",
+        user: test_user,
+        expired: true
+      )
+        
+      file_push = FilePush.create!(
+        name: "Test File Push",
+        expire_after_days: 14,
+        expire_after_views: 10,
+        deletable_by_viewer: true,
+        retrieval_step: true,
+        url_token: "filepush123",
+        user: test_user,
+        expired: true
+      )
+
+      # Attach a test file to the file_push
+      file = fixture_file_upload('monkey.png', 'image/png')
+      file_push.files.attach(file)
+
+      view = View.create!(
+        password_id: password.id,
+        created_at: 1.day.ago,
+        ip: "127.0.0.1",
+        user_agent: "Test Agent",
+        referrer: "https://test.com",
+        successful: true,
+        kind: 0
+      )
+      
+      # Count pushes before migration
+      pushes_count_before = Push.count
+      audit_log_count_before = Push.count
+      
+      # Run the migration
+      @migration.up
+      
+      # Verify at least one new push was created
+      assert Push.count == pushes_count_before + 3, "Pushes are not created correctly"
+      assert AuditLog.where(kind: :view).count == audit_log_count_before + 1, "Audit logs are not created correctly"
+      
+      new_file_push = Push.where(kind: "file").last
+      assert new_file_push.files.attached?
+      assert_equal 1, new_file_push.files.count, "File was not attached to push"
+      
+      # Always rollback to keep test isolated
+      raise ActiveRecord::Rollback
+    end
+  end
+
   test "down method works correctly" do
     # Create test data in a separate transaction that will be rolled back
     ActiveRecord::Base.transaction do
