@@ -15,9 +15,19 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   
   def down
     attach_files_to_old_records
+    remove_all_audit_logs
+    remove_all_pushes
   end
   
   private
+
+  def remove_all_pushes
+    Push.delete_all
+  end
+
+  def remove_all_audit_logs
+    AuditLog.delete_all
+  end
 
   def attach_files_to_old_records
     Push.where(kind: "file").find_each do |push|
