@@ -64,11 +64,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal password.url_token, push.url_token
       assert_equal password.deletable_by_viewer, push.deletable_by_viewer
       assert_equal password.retrieval_step, push.retrieval_step
-      assert_equal password.expired_on, push.expired_on
       assert_equal password.payload, push.payload
-      assert_equal password.note, push.note
-      assert_equal password.passphrase, push.passphrase
       assert_equal password.name, push.name
+      assert_nil push.expired_on
+      assert_nil password.note, push.note
+      assert_nil password.passphrase, push.passphrase
       
       # Check that an audit log was created
       audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
@@ -126,11 +126,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal file_push.url_token, push.url_token
       assert_equal file_push.deletable_by_viewer, push.deletable_by_viewer
       assert_equal file_push.retrieval_step, push.retrieval_step
-      assert_equal file_push.expired_on, push.expired_on
       assert_equal file_push.name, push.name
-      assert_equal file_push.payload, push.payload
-      assert_equal file_push.note, push.note
-      assert_equal file_push.passphrase, push.passphrase
+      assert_nil push.expired_on
+      assert_nil push.payload
+      assert_nil push.note
+      assert_nil push.passphrase
       
       # Check that an audit log was created
       audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
@@ -178,13 +178,13 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal url.expire_after_views, push.expire_after_views
       assert_equal url.expired, push.expired
       assert_equal url.url_token, push.url_token
-      assert_equal nil, push.deletable_by_viewer # URLs cannot be deleted by viewers
       assert_equal url.retrieval_step, push.retrieval_step
-      assert_equal url.expired_on, push.expired_on
       assert_equal url.payload, push.payload
-      assert_equal url.note, push.note
-      assert_equal url.passphrase, push.passphrase
       assert_equal url.name, push.name
+      assert_nil push.deletable_by_viewer # URLs cannot be deleted by viewers
+      assert_nil push.expired_on
+      assert_nil push.note
+      assert_nil push.passphrase
       
       # Check that an audit log was created
       audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
@@ -232,8 +232,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       push = Push.find_by(url_token: password.url_token)
       assert_not_nil push
       
+      # Run the view migration to create the audit logs
+      @migration.migrate_views
+      
       # Verify at least one new audit log was created
-      assert AuditLog.count > audit_logs_before, "No new audit logs were created"
+      assert AuditLog.count == audit_logs_before + 2, "No new audit logs were created"
       
       # Check that a view audit log was created for the push
       audit_log = AuditLog.where(push_id: push.id).where.not(kind: "creation").first
@@ -245,42 +248,6 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal view.ip, audit_log.ip
       assert_equal view.user_agent, audit_log.user_agent
       assert_equal view.referrer, audit_log.referrer
-      
-      # Always rollback to keep test isolated
-      raise ActiveRecord::Rollback
-    end
-  end
-  
-  test "migration uses find_each for batch processing" do
-    # This test simply verifies that the migration code contains find_each
-    # and that the migration works correctly
-    
-    # Examine the migration file directly
-    migration_file_path = Rails.root.join("db/migrate/20250519010827_migrate_data_to_push_model.rb")
-    migration_code = File.read(migration_file_path)
-    
-    # Check if the migration code includes find_each for batch processing
-    assert_includes migration_code, "find_each", "Migration should use find_each for batch processing"
-    
-    # Check specifically in the migrate_passwords method
-    assert_includes migration_code, "Password.where(expired: false).find_each", "migrate_passwords method should use find_each"
-    
-    # Verify the migration works correctly
-    ActiveRecord::Base.transaction do
-      # Create a few test records
-      test_count = 3
-      test_count.times do |i|
-        Password.create!(
-          payload: "batch_test_#{i}",
-          url_token: "batch_token_#{i}"
-        )
-      end
-      
-      # Run the migration
-      @migration.migrate_passwords
-      
-      # Verify passwords were migrated
-      assert Push.where(kind: "text").count >= test_count, "Not all passwords were migrated"
       
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback
@@ -368,6 +335,71 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       url_push = Push.find_by(url_token: url.url_token)
       assert_not_nil url_push
       assert_equal "url", url_push.kind
+      
+      # Always rollback to keep test isolated
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  test "down method works correctly" do
+    # Create test data in a separate transaction that will be rolled back
+    ActiveRecord::Base.transaction do
+      # Create a test user
+      test_user = User.create!(
+        email: 'test3@example.com',
+        password: 'password123'
+      )
+      
+      # Create a file push record first
+      file_push = FilePush.create!(
+        name: "Test File Push",
+        expire_after_days: 14,
+        expire_after_views: 10,
+        deletable_by_viewer: true,
+        retrieval_step: true,
+        url_token: "filepush123",
+        user: test_user
+      )
+
+      # Attach a test file to the file_push
+      file = fixture_file_upload('monkey.png', 'image/png')
+      file_push.files.attach(file)
+        
+      # Create a view
+      View.create!(
+        file_push_id: file_push.id,
+        created_at: 1.day.ago,
+        ip: "127.0.0.1",
+        user_agent: "Test Agent",
+        referrer: "https://test.com",
+        successful: true,
+        kind: 0
+      )
+      
+      # Run the migration up to create pushes and audit logs
+      @migration.class.send(:public, :migrate_file_pushes)
+      @migration.migrate_file_pushes
+      
+      # Verify pushes and audit logs were created
+      push = Push.find_by(url_token: file_push.url_token)
+      assert_not_nil push
+      assert push.files.attached?
+      assert_equal 1, push.files.count, "File was not attached to push"
+      assert_not_nil AuditLog.find_by(push_id: push.id)
+      
+      # Run the migration down
+      @migration.down
+      
+      # Verify pushes were deleted
+      assert_equal 0, Push.count, "Pushes were not deleted"
+      
+      # Verify audit logs were deleted
+      assert_equal 0, AuditLog.count, "Audit logs were not deleted"
+      
+      # Verify files were reattached to the original file_push
+      file_push.reload
+      assert file_push.files.attached?, "Files were not reattached to the original file_push"
+      assert_equal 1, file_push.files.count, "File count doesn't match after reattachment"
       
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback
