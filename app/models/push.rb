@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "addressable/uri"
+
 class Push < ApplicationRecord
   enum :kind, [:text, :file, :url], default: :text
 
