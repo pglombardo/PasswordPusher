@@ -66,8 +66,10 @@
           <% end %>
           <td class="text-center">
             <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">
-              <%= link_to preview_push_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow' do %>
-                <%= _('Preview') %>
+              <% unless push.expired? %>
+                <%= link_to preview_push_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow' do %>
+                  <%= _('Preview') %>
+                <% end %>
               <% end %>
               <%= link_to audit_push_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow' do %>
                 <%= _('Audit') %>
