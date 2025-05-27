@@ -13,7 +13,7 @@ class FilePushTest < ActiveSupport::TestCase
   teardown do
     Settings.enable_file_pushes = false
   end
-  
+
   test "should create file push with name" do
     file_push = Push.new(
       kind: "file",
@@ -40,7 +40,7 @@ class FilePushTest < ActiveSupport::TestCase
   test "should include name in json representation when owner is true" do
     file_push = Push.new(
       kind: "file",
-      name: "Test File Push",
+      name: "Test File Push"
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)
@@ -54,7 +54,7 @@ class FilePushTest < ActiveSupport::TestCase
   test "should not include name in json representation when owner is false" do
     file_push = Push.new(
       kind: "file",
-      name: "Test File Push",
+      name: "Test File Push"
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)

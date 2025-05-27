@@ -57,11 +57,11 @@ class RoutesRedirectTest < ActionDispatch::IntegrationTest
     get "/f/abc123?locale=bar&baz=qux"
     # Now we're checking that query parameters are preserved
     follow_redirect!
-    
+
     # Parse the query string to check parameters independent of order
-    path, query = request.fullpath.split('?')
+    path, query = request.fullpath.split("?")
     query_params = Rack::Utils.parse_query(query)
-    
+
     assert_equal "/p/abc123", path
     assert_equal "bar", query_params["locale"]
     assert_equal "qux", query_params["baz"]

@@ -24,7 +24,7 @@ class Api::V1::PushesController < Api::BaseController
 
       unless has_passphrase
         log_failed_passphrase(@push)
-        
+
         # Passphrase hasn't been provided or is incorrect
         # Passphrase hasn't been provided or is incorrect
         render json: {error: t("pushes.passphrase_incorrect")}
@@ -94,7 +94,7 @@ class Api::V1::PushesController < Api::BaseController
       else
         :password_id
       end
-      
+
       {
         password_id: nil,
         ip: log.ip,

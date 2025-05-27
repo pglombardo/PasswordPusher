@@ -1,5 +1,4 @@
 module LogEvents
-
   ##
   # log_view
   #
@@ -25,7 +24,7 @@ module LogEvents
   def log_expire(push)
     log_event(push, :expire)
   end
-  
+
   def log_event(push, kind)
     ip = request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 

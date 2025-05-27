@@ -57,9 +57,9 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
   end
-  
+
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
     @luca = users(:luca)
     @luca.confirm
@@ -88,7 +88,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
 
-      # Generate views on that push
+    # Generate views on that push
     2.times do
       get "/r/#{url_token}.json"
       assert_response :success
@@ -111,7 +111,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
   end
 
   def test_no_token_no_audit_log

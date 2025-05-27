@@ -32,7 +32,7 @@ class PasswordTest < ActiveSupport::TestCase
     )
     assert password.save
 
-    json = JSON.parse(password.to_json({ owner: true }))
+    json = JSON.parse(password.to_json({owner: true}))
     assert_equal "Test Password", json["name"]
   end
 

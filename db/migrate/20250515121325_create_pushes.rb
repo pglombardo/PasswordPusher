@@ -13,7 +13,7 @@ class CreatePushes < ActiveRecord::Migration[7.2]
       t.text :note_ciphertext
       t.text :passphrase_ciphertext, limit: 2048
       t.string :name
-      
+
       t.index [:url_token], unique: true
       t.references :user, foreign_key: true
       t.timestamps

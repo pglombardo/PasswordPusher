@@ -25,7 +25,7 @@ class PasswordJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("payload")
     assert_equal "testpw", res["payload"]
   end
-  
+
   def test_view_expiration
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}}
     assert_response :success

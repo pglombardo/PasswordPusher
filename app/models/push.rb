@@ -20,7 +20,7 @@ class Push < ApplicationRecord
   end
 
   belongs_to :user, optional: true
-  
+
   has_encrypted :payload, :note, :passphrase
 
   has_many :audit_logs, -> { order(created_at: :asc) }, dependent: :destroy
@@ -81,7 +81,7 @@ class Push < ApplicationRecord
 
     attr_hash["days_remaining"] = days_remaining
     attr_hash["views_remaining"] = views_remaining
-    attr_hash["deleted"] = self.audit_logs.any?(&:expire?)
+    attr_hash["deleted"] = audit_logs.any?(&:expire?)
 
     if file?
       file_list = {}
@@ -114,28 +114,28 @@ class Push < ApplicationRecord
       errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for_kind.max_file_uploads))
     end
   end
-  
+
   def check_payload_for_text
     if payload.blank?
       errors.add(:payload, I18n.t("pushes.create.payload_required"))
       return
     end
 
-    unless (payload.is_a?(String) && payload.length.between?(1, 1.megabyte))
+    unless payload.is_a?(String) && payload.length.between?(1, 1.megabyte)
       errors.add(:payload, I18n.t("pushes.payload_too_large"))
-      return
+      nil
     end
   end
 
   def check_payload_for_url
-    if payload.present? 
+    if payload.present?
       if !valid_url?(payload)
         errors.add(:payload, I18n.t("pushes.create.invalid_url"))
-        return
+        nil
       end
     else
       errors.add(:payload, I18n.t("pushes.create.payload_required"))
-    end  
+    end
   end
 
   def set_expire_limits
@@ -172,23 +172,23 @@ class Push < ApplicationRecord
     self.expired_on = Time.current.utc
     save!
   end
-  
+
   def settings_for_kind
-    if self.text?
+    if text?
       Settings.pw
-    elsif self.url?
+    elsif url?
       Settings.url
-    elsif self.file?
+    elsif file?
       Settings.files
     end
   end
 
   def check_enabled_push_kinds
-    if self.kind == "file" && !Settings.enable_file_pushes
+    if kind == "file" && !Settings.enable_file_pushes
       errors.add(:kind, I18n.t("pushes.file_pushes_disabled"))
     end
 
-    if self.kind == "url" && !Settings.enable_url_pushes
+    if kind == "url" && !Settings.enable_url_pushes
       errors.add(:kind, I18n.t("pushes.url_pushes_disabled"))
     end
   end
@@ -203,5 +203,4 @@ class Push < ApplicationRecord
   rescue Addressable::URI::InvalidURIError
     false
   end
-
 end

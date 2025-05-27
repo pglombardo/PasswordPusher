@@ -24,7 +24,7 @@ class FilePushRetrievalTest < ActionDispatch::IntegrationTest
 
     post pushes_path, params: {
       push: {
-        kind: "file", 
+        kind: "file",
         payload: "Message",
         files: [
           fixture_file_upload("monkey.png", "image/jpeg")

@@ -55,5 +55,4 @@ module SetPushAttributes
       push.retrieval_step = false
     end
   end
-
 end

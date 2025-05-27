@@ -75,7 +75,7 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
 
     url_token = res["url_token"]
     failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
-    
+
     # Now try to retrieve the file push directly
     # We should get an error because we didn't provide a passphrase
     get "/f/#{url_token}.json"

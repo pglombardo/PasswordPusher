@@ -21,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "can be admin" do
     assert_not @luca.admin?
-    
+
     @luca.update(admin: true)
 
     assert @luca.admin?

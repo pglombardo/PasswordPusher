@@ -2,7 +2,7 @@
 
 class AuditLog < ApplicationRecord
   enum :kind, [:creation, :view, :failed_view, :expire, :failed_passphrase]
-  
+
   validates :kind, presence: true
 
   belongs_to :push

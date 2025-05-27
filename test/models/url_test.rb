@@ -10,7 +10,7 @@ class UrlTest < ActiveSupport::TestCase
   teardown do
     Settings.enable_url_pushes = false
   end
-  
+
   test "should create url with name" do
     url = Push.new(
       kind: "url",
@@ -40,7 +40,7 @@ class UrlTest < ActiveSupport::TestCase
     )
     assert url.save
 
-    json = JSON.parse(url.to_json({ owner: true }))
+    json = JSON.parse(url.to_json({owner: true}))
     assert_equal "Test URL", json["name"]
   end
 

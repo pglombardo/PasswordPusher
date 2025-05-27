@@ -54,7 +54,7 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
     # Since this is an active push, both Preview and Audit buttons should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
       assert_select controls.first, "a", 2 # Should have 2 buttons (Preview and Audit)
-      
+
       # Check the text content of the buttons
       assert_select controls.first, "a", text: "Preview", count: 1
       assert_select controls.first, "a", text: "Audit", count: 1
@@ -64,22 +64,21 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
     delete expire_push_path(@luca.pushes.last)
     assert_response :redirect
     follow_redirect!
-    
+
     # Verify the push is now expired
     assert @luca.pushes.last.expired
-    
+
     # Check the expired pushes list
     get pushes_path(filter: "expired")
     assert_response :success
-    
-     # Verify the push controls buttons
+
+    # Verify the push controls buttons
     # Since this is an expired push, only Audit button should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
       assert_select controls.first, "a", 1 # Should have 1 buttons (Audit)
-      
+
       # Check the text content of the buttons
       assert_select controls.first, "a", text: "Audit", count: 1
     end
-
   end
 end

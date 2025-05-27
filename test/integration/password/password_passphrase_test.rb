@@ -79,7 +79,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
-    
+
     # We should be back on the passphrase page now with an error message
     divs = css_select "div.alert-warning"
     assert divs.first.content.include?("That passphrase is incorrect")

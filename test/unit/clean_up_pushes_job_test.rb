@@ -8,7 +8,7 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
     Push.delete_all
     AuditLog.delete_all
     User.delete_all
-    
+
     # Set default URL options for test environment to avoid missing host errors
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
   end
@@ -40,12 +40,12 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
 
     # Create a user-owned expired push (should not be deleted)
     user = User.create!(
-      email: "test@example.com", 
+      email: "test@example.com",
       password: "password123",
       password_confirmation: "password123",
       confirmed_at: Time.now # Skip confirmation email requirements
     )
-    
+
     user_expired_push = Push.create!(
       kind: :text,
       payload: "test_payload",
@@ -61,7 +61,7 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
     anonymous_expired_id = anonymous_expired_push.id
     anonymous_active_id = anonymous_active_push.id
     user_expired_id = user_expired_push.id
-    
+
     # Count pushes before running the job
     pushes_before = Push.count
     assert_equal 3, pushes_before
@@ -104,11 +104,11 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
     end
 
     # Capture the log output
-    original_logger = Rails.logger
+    Rails.logger
     begin
       log_output = StringIO.new
       logger = Logger.new(log_output)
-      
+
       # Override the logger method
       CleanUpPushesJob.class_eval do
         define_method(:logger) do
@@ -146,12 +146,12 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
 
     # Create some non-anonymous expired pushes (should not be deleted)
     user = User.create!(
-      email: "test2@example.com", 
+      email: "test2@example.com",
       password: "password123",
       password_confirmation: "password123",
       confirmed_at: Time.now # Skip confirmation email requirements
     )
-    
+
     3.times do |i|
       push = Push.create!(
         kind: :text,
@@ -186,7 +186,7 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
     end
 
     assert_equal 3, Push.count
-    
+
     # Run the job
     CleanUpPushesJob.perform_now
 

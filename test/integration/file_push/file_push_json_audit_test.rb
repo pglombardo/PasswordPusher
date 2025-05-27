@@ -54,7 +54,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
@@ -81,7 +81,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
       get file_push_path(url_token, format: :json, passphrase: "asdf")
       assert_response :success
     end
-    
+
     # Generate unsuccessful views on that push because of wrong passphrase
     get file_push_path(url_token, format: :json)
     assert_response :success
@@ -113,19 +113,19 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except('created_at', 'updated_at') }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
   end
 
   def test_no_token_no_audit_log
     post file_pushes_path(format: :json), params: {
-                                        file_push: {
-                                          payload: "testpw",
-                                          expire_after_views: 2,
-                                          files: [
-                                            fixture_file_upload("monkey.png", "image/jpeg")
-                                          ]
-                                        }
-                                      },
+                                            file_push: {
+                                              payload: "testpw",
+                                              expire_after_views: 2,
+                                              files: [
+                                                fixture_file_upload("monkey.png", "image/jpeg")
+                                              ]
+                                            }
+                                          },
       headers: {"X-User-Email": @luca.email,
                 "X-User-Token": @luca.authentication_token}
     assert_response :success

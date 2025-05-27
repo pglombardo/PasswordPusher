@@ -7,7 +7,6 @@ class PushesController < BaseController
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
 
-
   def show
     # This push may have expired since the last view.  Validate the push
     # expiration before doing anything.
@@ -63,14 +62,13 @@ class PushesController < BaseController
     end
   end
 
-
   # GET /p/:url_token/passphrase
   def passphrase
     respond_to do |format|
       format.html { render action: "passphrase", layout: "naked" }
     end
   end
-  
+
   # POST /p/:url_token/access
   def access
     # Construct the passphrase cookie name
@@ -110,7 +108,6 @@ class PushesController < BaseController
     @push.passphrase = ""
   end
 
-
   def create
     @push = Push.new(push_params)
 
@@ -142,7 +139,6 @@ class PushesController < BaseController
     @qr_code = helpers.qr_code(@secret_url)
   end
 
-
   def print_preview
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
@@ -153,7 +149,6 @@ class PushesController < BaseController
 
     render action: "print_preview", layout: "naked"
   end
-
 
   def preliminary
     # This password may have expired since the last view.  Validate the password
@@ -179,7 +174,6 @@ class PushesController < BaseController
 
     @secret_url = helpers.secret_url(@push)
   end
-
 
   def expire
     # Check if the push is deletable by the viewer or if the user is the owner

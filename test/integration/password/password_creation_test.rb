@@ -27,7 +27,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "text")
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text",payload: "testpw"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw"}}
     assert_response :redirect
 
     # Preview page
@@ -55,7 +55,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text",payload: "æ ¼ ö ç ý"}}
+    post pushes_path, params: {push: {kind: "text", payload: "æ ¼ ö ç ý"}}
     assert_response :redirect
 
     # Preview page
@@ -83,7 +83,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text",payload: "£"}}
+    post pushes_path, params: {push: {kind: "text", payload: "£"}}
     assert_response :redirect
 
     # Preview page
@@ -164,7 +164,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get "/"
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text",payload: "testpw"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw"}}
     assert_response :redirect
 
     follow_redirect!
