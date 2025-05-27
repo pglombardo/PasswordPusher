@@ -5,8 +5,8 @@ require "test_helper"
 class CleanUpPushesJobTest < ActiveSupport::TestCase
   setup do
     # Clear all pushes before running tests
-    Push.delete_all
     AuditLog.delete_all
+    Push.delete_all
     User.delete_all
 
     # Set default URL options for test environment to avoid missing host errors

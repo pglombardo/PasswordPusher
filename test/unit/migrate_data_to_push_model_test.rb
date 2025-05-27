@@ -26,6 +26,9 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
     FilePush.delete_all
     Url.delete_all
 
+    AuditLog.delete_all
+    Push.delete_all
+
     # Suppress puts output during tests
     suppress_output
   end
@@ -93,8 +96,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal password.payload, push.payload
       assert_equal password.name, push.name
       assert_nil push.expired_on
-      assert_nil password.note, push.note
-      assert_nil password.passphrase, push.passphrase
+      assert_nil push.note
+      assert_nil push.passphrase
 
       # Check that an audit log was created
       audit_log = push.audit_logs.find_by(kind: "creation")
