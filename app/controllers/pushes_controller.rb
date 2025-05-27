@@ -183,7 +183,7 @@ class PushesController < BaseController
 
   def expire
     # Check if the push is deletable by the viewer or if the user is the owner
-    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+    unless @push.deletable_by_viewer || (@push.user == current_user)
       redirect_to :root, notice: t("pushes.not_deletable_or_not_owner")
       return
     end

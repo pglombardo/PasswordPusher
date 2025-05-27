@@ -114,7 +114,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def destroy
     # Check if the push is deletable by the viewer or if the user is the owner
-    if @push.deletable_by_viewer == false && @push.user_id != current_user&.id
+    unless @push.deletable_by_viewer || (@push.user == current_user)
       render json: {error: t("pushes.not_deletable_or_not_owner")}, status: :unprocessable_entity
       return
     end
