@@ -123,7 +123,6 @@ class Push < ApplicationRecord
 
     unless payload.is_a?(String) && payload.length.between?(1, 1.megabyte)
       errors.add(:payload, I18n.t("pushes.payload_too_large"))
-      nil
     end
   end
 
@@ -131,7 +130,6 @@ class Push < ApplicationRecord
     if payload.present?
       if !valid_url?(payload)
         errors.add(:payload, I18n.t("pushes.create.invalid_url"))
-        nil
       end
     else
       errors.add(:payload, I18n.t("pushes.create.payload_required"))
