@@ -30,18 +30,19 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   end
 
   def attach_files_to_old_records
-    Push.where(kind: "file").find_each do |push|
-      begin 
+    Push.where(kind: Push.kinds[:file]).find_each do |push|
+      begin
         file_push = FilePush.find_by(url_token: push.url_token)
         if file_push
           push.files.attachments.each do |attachment|
-            attachment.update!(record_type: "FilePush", record_id: file_push.id)
+            attachment.update!(record_type: FilePush.name, record: file_push)
           end
         else
-          puts "FilePush not found for push #{push.id} and url_token #{push.url_token}"
+          puts "Warning: FilePush not found for push #{push.id} (url_token: #{push.url_token}) during rollback. Cannot reattach files."
         end
       rescue => e
-        puts "Error migrating attachments of push #{file_push.id} having 'file' kind: #{e.message}"
+        # Consider if this error should halt the rollback. Currently, it logs and continues.
+        puts "Error reverting attachments for push #{push.id} (url_token: #{push.url_token}): #{e.message}"
       end
     end
   end
@@ -85,7 +86,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       note: password.note,
       passphrase: password.passphrase,
       name: password.name,
-      user_id: password.user_id,
+      user: password.user,
       created_at: password.created_at,
       updated_at: password.updated_at
     )
@@ -132,19 +133,17 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       note: file_push.note,
       passphrase: file_push.passphrase,
       name: file_push.name,
-      user_id: file_push.user_id,
+      user: file_push.user,
       created_at: file_push.created_at,
       updated_at: file_push.updated_at
     )
   end
   
   def migrate_file_attachments(file_push, push)
-    # Migrate attached files by updating existing attachments
-    file_push.files.each do |file|
-      # Update the existing attachment record to point to the new Push
-      file.update!(
-        record_type: 'Push',
-        record_id: push.id
+    file_push.files.attachments.each do |attachment|
+      attachment.update!(
+        record_type: Push.name,
+        record: push
       )
     end
   end
@@ -188,7 +187,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       note: url.note,
       passphrase: url.passphrase,
       name: url.name,
-      user_id: url.user_id,
+      user: url.user,
       created_at: url.created_at,
       updated_at: url.updated_at
     )
@@ -199,7 +198,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     AuditLog.create!(
       kind: :creation,
       push: new_push_record,
-      user_id: new_push_record.user_id,
+      user: new_push_record.user,
       created_at: new_push_record.created_at,
       updated_at: new_push_record.updated_at,
       referrer: "",
@@ -215,21 +214,31 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
     View.find_each do |view|
       begin
+        original_push = nil
         if view.file_push_id
-          push = view.file_push
+          original_push = view.file_push
         elsif view.password_id
-          push = view.password
+          original_push = view.password
         elsif view.url_id
-          push = view.url
-        else
-          raise ActiveRecord::RecordNotFound
+          original_push = view.url
+        end
+
+        unless original_push
+          raise ActiveRecord::RecordNotFound, "Original record (Password/FilePush/Url) not found for View##{view.id}. Skipping audit log creation."
+        end
+
+        # Find the newly created Push record using the url_token from the original record
+        push = Push.find_by(url_token: original_push.url_token)
+
+        unless push
+          raise "Corresponding Push record not found for original #{original_push.class.name}##{original_push.id} (url_token: #{original_push.url_token}). Skipping audit log creation."
         end
         
         create_audit_log_from_view(view, push)
         successful_view_count += 1
-      rescue => exception
+      rescue => e
         failed_view_count += 1
-        puts "Failed to migrate view #{view.id}: #{exception.message}"
+        puts "Failed to migrate view #{view.id} to audit log: #{e.message}"
       end
     end
     
@@ -243,8 +252,8 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     
     audit_log = AuditLog.new(
       kind: audit_log_kind,
-      push_id: push.id,
-      user_id: view.user_id,
+      push: push,
+      user: view.user,
       ip: view.ip,
       user_agent: view.user_agent || "",
       referrer: view.referrer || "",
@@ -261,6 +270,9 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
       view.successful ? :view : :failed_view
     elsif view.kind == 1
       :expire
+    else
+      puts "Warning: Unknown view kind: #{view.kind} for View##{view.id}. Defaulting audit log kind to :unknown_event."
+      :unknown_event # Or raise an error, depending on desired strictness
     end
   end
 end

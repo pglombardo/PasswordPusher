@@ -97,7 +97,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_nil password.passphrase, push.passphrase
       
       # Check that an audit log was created
-      audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
+      audit_log = push.audit_logs.find_by(kind: "creation")
       assert_not_nil audit_log
       
       # Always rollback to keep test isolated
@@ -159,7 +159,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_nil push.passphrase
       
       # Check that an audit log was created
-      audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
+      audit_log = push.audit_logs.find_by(kind: "creation")
       assert_not_nil audit_log
       
       # Check that files were attached
@@ -213,7 +213,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_nil push.passphrase
       
       # Check that an audit log was created
-      audit_log = AuditLog.find_by(push_id: push.id, kind: "creation")
+      audit_log = push.audit_logs.find_by(kind: "creation")
       assert_not_nil audit_log
       
       # Always rollback to keep test isolated
@@ -239,7 +239,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       
       # Create a view for testing view migration
       view = View.create!(
-        password_id: password.id,
+        password: password,
         created_at: 1.day.ago,
         ip: "127.0.0.1",
         user_agent: "Test Agent",
@@ -265,8 +265,10 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert AuditLog.count == audit_logs_before + 2, "No new audit logs were created"
       
       # Check that a view audit log was created for the push
-      audit_log = AuditLog.where(push_id: push.id).where.not(kind: "creation").first
+      audit_log = push.audit_logs.where.not(kind: "creation").first
       assert_not_nil audit_log
+      assert_equal audit_log.push.class.name, Push.name
+
       
       # Check that the audit log has the correct attributes
       # Compare timestamps with a small tolerance for database precision differences
@@ -326,7 +328,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       
       # Create a view
       View.create!(
-        password_id: password.id,
+        password: password,
         created_at: 1.day.ago,
         ip: "127.0.0.1",
         user_agent: "Test Agent",
@@ -412,7 +414,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       file_push.files.attach(file)
 
       view = View.create!(
-        password_id: password.id,
+        password: password,
         created_at: 1.day.ago,
         ip: "127.0.0.1",
         user_agent: "Test Agent",
@@ -467,7 +469,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
         
       # Create a view
       View.create!(
-        file_push_id: file_push.id,
+        file_push: file_push,
         created_at: 1.day.ago,
         ip: "127.0.0.1",
         user_agent: "Test Agent",
@@ -485,7 +487,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_not_nil push
       assert push.files.attached?
       assert_equal 1, push.files.count, "File was not attached to push"
-      assert_not_nil AuditLog.find_by(push_id: push.id)
+      assert_not push.audit_logs.empty?
       
       # Run the migration down
       @migration.down
