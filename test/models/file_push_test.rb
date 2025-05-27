@@ -7,14 +7,17 @@ class FilePushTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   setup do
-    @user = users(:luca)
     Settings.enable_file_pushes = true
   end
+
+  teardown do
+    Settings.enable_file_pushes = false
+  end
+  
   test "should create file push with name" do
     file_push = Push.new(
       kind: "file",
-      name: "Test File Push",
-      user: @user
+      name: "Test File Push"
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)
@@ -25,8 +28,7 @@ class FilePushTest < ActiveSupport::TestCase
 
   test "should save file push without name" do
     file_push = Push.new(
-      kind: "file",
-      user: @user
+      kind: "file"
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)
@@ -39,9 +41,6 @@ class FilePushTest < ActiveSupport::TestCase
     file_push = Push.new(
       kind: "file",
       name: "Test File Push",
-      user: @user,
-      expire_after_days: 7,
-      expire_after_views: 10
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)
@@ -56,9 +55,6 @@ class FilePushTest < ActiveSupport::TestCase
     file_push = Push.new(
       kind: "file",
       name: "Test File Push",
-      user: @user,
-      expire_after_days: 7,
-      expire_after_views: 10
     )
     file = fixture_file_upload("monkey.png", "image/jpeg")
     file_push.files.attach(file)
