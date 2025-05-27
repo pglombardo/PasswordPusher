@@ -53,12 +53,18 @@ class RoutesRedirectTest < ActionDispatch::IntegrationTest
     assert_equal 301, response.status
   end
 
-  test "redirects not preserve query parameters" do
+  test "redirects preserve query parameters" do
     get "/f/abc123?locale=bar&baz=qux"
-    # The redirect doesn't automatically preserve query params in the assertion
-    # It only redirects the path portion
-    assert_redirected_to "/p/abc123"
-    assert_response :redirect
-    assert_equal 301, response.status
+    # Now we're checking that query parameters are preserved
+    follow_redirect!
+    
+    # Parse the query string to check parameters independent of order
+    path, query = request.fullpath.split('?')
+    query_params = Rack::Utils.parse_query(query)
+    
+    assert_equal "/p/abc123", path
+    assert_equal "bar", query_params["locale"]
+    assert_equal "qux", query_params["baz"]
+    assert_response :success
   end
 end
