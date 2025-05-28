@@ -54,9 +54,9 @@
 
       <p class='my-5 text-center'>
         <%= _("This secret link and all content will be deleted in") %>
-        <strong><%= @push.expire_after_days %> <%= n_('day', 'days', @push.expire_after_days) %></strong>
+        <strong><%= @push.days_remaining %> <%= n_('day', 'days', @push.days_remaining) %></strong>
         <%= _('or') %>
-        <strong><%= @push.expire_after_views %> <%= n_('view', 'views', @push.expire_after_views) %></strong>
+        <strong><%= @push.views_remaining %> <%= n_('view', 'views', @push.views_remaining) %></strong>
         <% if @push.url? %>
           <%= _('(whichever comes first)') %>.
         <% else %>
