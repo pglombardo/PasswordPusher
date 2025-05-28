@@ -22,36 +22,6 @@ task daily_expiration: :environment do
 
   puts "  -> Finished validating #{counter} unexpired pushes.  #{expiration_count} total pushes expired..."
 
-  Password.where(expired: false).find_each do |push|
-    counter += 1
-    push.validate!
-    expiration_count += 1 if push.expired
-  end
-
-  puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired..."
-
-  if Settings.enable_file_pushes
-    counter = 0
-    expiration_count = 0
-    FilePush.where(expired: false).find_each do |push|
-      counter += 1
-      push.validate!
-      expiration_count += 1 if push.expired
-    end
-    puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
-  end
-
-  if Settings.enable_url_pushes
-    counter = 0
-    expiration_count = 0
-    Url.where(expired: false).find_each do |push|
-      counter += 1
-      push.validate!
-      expiration_count += 1 if push.expired
-    end
-    puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
-  end
-
   puts "  -> Finished daily_expiration on #{Time.zone.now}"
 end
 
@@ -86,34 +56,6 @@ task delete_expired_and_anonymous: :environment do
     .find_each do |push|
     counter += 1
     push.destroy
-  end
-
-  Password.includes(:views)
-    .where(expired: true)
-    .where(user_id: nil)
-    .find_each do |push|
-    counter += 1
-    push.destroy
-  end
-
-  if Settings.enable_file_pushes
-    FilePush.includes(:views)
-      .where(expired: true)
-      .where(user_id: nil)
-      .find_each do |push|
-      counter += 1
-      push.destroy
-    end
-  end
-
-  if Settings.enable_url_pushes
-    Url.includes(:views)
-      .where(expired: true)
-      .where(user_id: nil)
-      .find_each do |push|
-      counter += 1
-      push.destroy
-    end
   end
 
   puts "  -> #{counter} total anonymous and expired pushes deleted."

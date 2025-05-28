@@ -21,36 +21,6 @@ class ExpirePushesJob < ApplicationJob
 
     logger.info("  -> Finished validating #{counter} unexpired pushes.  #{expiration_count} total pushes expired...")
 
-    Password.where(expired: false).find_each do |push|
-      counter += 1
-      push.validate!
-      expiration_count += 1 if push.expired
-    end
-
-    logger.info("  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired...")
-
-    if Settings.enable_file_pushes
-      counter = 0
-      expiration_count = 0
-      FilePush.where(expired: false).find_each do |push|
-        counter += 1
-        push.validate!
-        expiration_count += 1 if push.expired
-      end
-      logger.info("  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired...")
-    end
-
-    if Settings.enable_url_pushes
-      counter = 0
-      expiration_count = 0
-      Url.where(expired: false).find_each do |push|
-        counter += 1
-        push.validate!
-        expiration_count += 1 if push.expired
-      end
-      logger.info("  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired...")
-    end
-
     # Log results
     logger.info("  -> #{self.class.name}: #{counter} anonymous and expired pushes have been deleted.")
 
