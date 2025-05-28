@@ -70,10 +70,10 @@ class AuditLogDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how views are displayed
+  # Overwrite this method to customize how audit logs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(view)
-  #   "View ##{view.id}"
+  # def display_resource(audit_log)
+  # "Audit Log ##{audit_log.id}"
   # end
 end
