@@ -53,7 +53,7 @@ class Push < ApplicationRecord
     audit_logs.where(kind: :failed_view).order(:created_at)
   end
 
-  # Expire this password, delete the password and save the record
+  # Expire this push, delete the content and save the record
   def expire
     # Delete content
     self.payload = nil
@@ -67,7 +67,7 @@ class Push < ApplicationRecord
   end
 
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
-  # and show the clear password
+  # and show the clear push
   def to_json(*args)
     # def to_json(owner: false, payload: false)
     attr_hash = attributes
