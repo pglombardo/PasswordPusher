@@ -3,7 +3,7 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
-  enum :kind, [:text, :file, :url], default: :text, validate: true
+  enum :kind, [:text, :file, :url], validate: true
 
   validate :check_enabled_push_kinds
   validates :url_token, presence: true, uniqueness: true

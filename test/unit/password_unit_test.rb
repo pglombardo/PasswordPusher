@@ -4,13 +4,13 @@ require "test_helper"
 
 class PasswordUnitTest < Minitest::Test
   def test_save
-    password = Push.create(payload: "asdf")
+    password = Push.create(kind: "text", payload: "asdf")
     password.check_limits
     assert password.save
   end
 
   def test_kind_validation
-    password = Push.create(payload: "asdf")
+    password = Push.create(kind: "text", payload: "asdf")
     password.valid?
     assert password.errors[:kind].none?
 
@@ -28,11 +28,11 @@ class PasswordUnitTest < Minitest::Test
   end
 
   def test_expired_check
-    password = Push.create(payload: "asdf")
+    password = Push.create(kind: "text", payload: "asdf")
     password.check_limits
     assert_not password.expired?
 
-    password = Push.create(payload: "asdf", created_at: 100.weeks.ago, updated_at: 100.weeks.ago)
+    password = Push.create(kind: "text", payload: "asdf", created_at: 100.weeks.ago, updated_at: 100.weeks.ago)
     assert password
 
     password.check_limits
@@ -40,7 +40,7 @@ class PasswordUnitTest < Minitest::Test
   end
 
   def test_defaults
-    push = Push.create(created_at: 3.days.ago, updated_at: 3.days.ago, payload: "asdf")
+    push = Push.create(kind: "text", created_at: 3.days.ago, updated_at: 3.days.ago, payload: "asdf")
 
     assert push.expire_after_days == Settings.pw.expire_after_days_default
     assert push.expire_after_views == Settings.pw.expire_after_views_default
@@ -51,7 +51,7 @@ class PasswordUnitTest < Minitest::Test
 
   def test_days_expiration
     # 3 days left
-    push = Push.create(created_at: 3.days.ago, updated_at: 3.days.ago,
+    push = Push.create(kind: "text", created_at: 3.days.ago, updated_at: 3.days.ago,
       payload: "asdf", expire_after_days: 6)
     push.check_limits
 
@@ -60,7 +60,7 @@ class PasswordUnitTest < Minitest::Test
     assert_not push.expired
 
     # already expired
-    push = Push.create(created_at: 3.days.ago, updated_at: 3.days.ago,
+    push = Push.create(kind: "text", created_at: 3.days.ago, updated_at: 3.days.ago,
       payload: "asdf", expire_after_days: 1)
     push.check_limits
 
@@ -69,7 +69,7 @@ class PasswordUnitTest < Minitest::Test
     assert push.expired
 
     # Old expired push
-    push = Push.create(created_at: 100.days.ago, updated_at: 100.days.ago,
+    push = Push.create(kind: "text", created_at: 100.days.ago, updated_at: 100.days.ago,
       payload: "asdf", expire_after_days: 1)
     push.check_limits
 
@@ -78,7 +78,7 @@ class PasswordUnitTest < Minitest::Test
     assert push.expired
 
     # Today 1 day password
-    push = Push.create(payload: "asdf", expire_after_days: 1)
+    push = Push.create(kind: "text", payload: "asdf", expire_after_days: 1)
     push.check_limits
 
     assert push.days_old.zero?
@@ -88,14 +88,14 @@ class PasswordUnitTest < Minitest::Test
 
   def test_views_expiration
     # No views
-    push = Push.create(payload: "asdf", expire_after_views: 1)
+    push = Push.create(kind: "text", payload: "asdf", expire_after_views: 1)
     push.check_limits
 
     assert push.views_remaining == 1
     assert_not push.expired
 
     # 1 View should expire
-    push = Push.create(payload: "asdf", expire_after_views: 1)
+    push = Push.create(kind: "text", payload: "asdf", expire_after_views: 1)
     push.check_limits
 
     assert push.views_remaining == 1
