@@ -36,6 +36,34 @@ class CleanUpPushesJob < ApplicationJob
       push.destroy
     end
 
+    Password.includes(:views)
+      .where(expired: true)
+      .where(user_id: nil)
+      .find_each do |push|
+      counter += 1
+      push.destroy
+    end
+
+    if Settings.enable_file_pushes
+      FilePush.includes(:views)
+        .where(expired: true)
+        .where(user_id: nil)
+        .find_each do |push|
+        counter += 1
+        push.destroy
+      end
+    end
+
+    if Settings.enable_url_pushes
+      Url.includes(:views)
+        .where(expired: true)
+        .where(user_id: nil)
+        .find_each do |push|
+        counter += 1
+        push.destroy
+      end
+    end
+
     logger.info("  -> #{counter} total anonymous expired pushes deleted.")
 
     # Log completion
