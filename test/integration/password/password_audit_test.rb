@@ -188,7 +188,7 @@ class PasswordAuditTest < ActionDispatch::IntegrationTest
     get audit_push_path(push)
     assert_response :success
 
-    assert_select ".list-group-item-danger", {text: /Push manually expired by user/, count: 1}
+    assert_select ".list-group-item-danger", {text: /Manually expired on/, count: 1}
   end
 
   def test_audit_log_shows_failed_view_event_html_elements
