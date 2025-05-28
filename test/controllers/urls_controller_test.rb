@@ -51,6 +51,11 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
     get new_push_path(tab: "url")
     assert_response :success
     assert response.body.include?("URL Redirection")
@@ -63,9 +68,9 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :redirect
 
-    get pushes_path(filter: "active")
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active url pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do

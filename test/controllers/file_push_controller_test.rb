@@ -33,6 +33,10 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
+    get pushes_path
+    assert_response :success
+    assert response.body.include?("You currently have no pushes.")
+
     get pushes_path(filter: "active")
     assert_response :success
     assert response.body.include?("You currently have no active pushes.")
@@ -47,6 +51,11 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
     get new_push_path(tab: "files")
     assert_response :success
     assert response.body.include?("You can upload up to")
@@ -59,9 +68,9 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :redirect
 
-    get pushes_path(filter: "active")
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active password pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do

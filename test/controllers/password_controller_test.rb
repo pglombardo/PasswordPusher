@@ -50,6 +50,11 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   test "logged in users with pushes can access their dashboard" do
     sign_in @luca
 
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
     get new_push_path(tab: "text")
     assert_response :success
     assert response.body.include?("Tip: Only enter a password into the box")
@@ -64,9 +69,9 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
     # rubocop:enable Layout/LineLength
     assert_response :redirect
 
-    get pushes_path(filter: "active")
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do
