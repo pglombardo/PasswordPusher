@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class PasswordCookiesTest < ApplicationSystemTestCase
+class PushCookiesTest < ApplicationSystemTestCase
   setup do
     Settings.enable_logins = true
     Settings.enable_password_pushes = true
