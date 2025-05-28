@@ -20,15 +20,20 @@ class FilePushAnonymousAccessTest < ActionDispatch::IntegrationTest
     Settings.disable_signups = true
 
     get new_push_path(tab: "files")
-    assert_response :success
+    assert_response :redirect
 
-    assert response.body.include?("Please login to use this feature.")
+    follow_redirect!
+
+    assert response.body.include?("You need to sign in or sign up before continuing.")
   end
 
   def test_anonymous_enabled_signups_with_signup_link
     get new_push_path(tab: "files")
-    assert_response :success
-    assert response.body.include?("Please login or sign up to use this feature.")
+    assert_response :redirect
+
+    follow_redirect!
+
+    assert response.body.include?("You need to sign in or sign up before continuing.")
   end
 
   def test_no_access_for_anonymous
@@ -36,9 +41,13 @@ class FilePushAnonymousAccessTest < ActionDispatch::IntegrationTest
     assert_response :redirect
 
     post pushes_path, params: {blah: "blah"}
-    assert_response :redirect
+    assert_response :bad_request
 
     get new_push_path(tab: "files")
-    assert_response :success
+    assert_response :redirect
+
+    follow_redirect!
+
+    assert response.body.include?("You need to sign in or sign up before continuing.")
   end
 end
