@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordCreationTest < ActionDispatch::IntegrationTest
+class UrlAnonymousAccessTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
