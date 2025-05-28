@@ -9,13 +9,31 @@ class PasswordUnitTest < Minitest::Test
     assert password.save
   end
 
+  def test_kind_validation
+    password = Push.create(payload: "asdf")
+    password.valid?
+    assert password.errors[:kind].none?
+
+    password.kind = "test_kind"
+    password.valid?
+    assert password.errors[:kind].any?
+
+    password.kind = "text"
+    password.valid?
+    assert password.errors[:kind].none?
+
+    password.kind = nil
+    password.valid?
+    assert password.errors[:kind].any?
+  end
+
   def test_expired_check
     password = Push.create(payload: "asdf")
     password.check_limits
     assert_not password.expired?
 
-    password = Push.new(payload: "asdf", created_at: 100.weeks.ago, updated_at: 100.weeks.ago)
-    assert password.save
+    password = Push.create(payload: "asdf", created_at: 100.weeks.ago, updated_at: 100.weeks.ago)
+    assert password
 
     password.check_limits
     assert password.expired?
@@ -23,7 +41,6 @@ class PasswordUnitTest < Minitest::Test
 
   def test_defaults
     push = Push.create(created_at: 3.days.ago, updated_at: 3.days.ago, payload: "asdf")
-    push.check_limits
 
     assert push.expire_after_days == Settings.pw.expire_after_days_default
     assert push.expire_after_views == Settings.pw.expire_after_views_default
