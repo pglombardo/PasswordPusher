@@ -48,13 +48,12 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
       "days_remaining" => 7,
       "views_remaining" => 5}
 
+    # These should be default values since we didn't specify them in the params
     assert_equal Settings.files.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
     assert_equal Settings.files.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.files.expire_after_views_default, res["views_remaining"]
-
-    # These should be default values since we didn't specify them in the params
     assert res.key?("expire_after_days")
     assert_equal Settings.files.expire_after_days_default, res["expire_after_days"]
     assert res.key?("expire_after_views")
@@ -81,13 +80,13 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
+
+    # These should be default values since we didn't specify them in the params
     assert_equal Settings.files.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
     assert_equal Settings.files.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.files.expire_after_views_default, res["views_remaining"]
-
-    # These should be default values since we didn't specify them in the params
     assert res.key?("expire_after_days")
     assert_equal Settings.files.expire_after_days_default, res["expire_after_days"]
     assert res.key?("expire_after_views")
