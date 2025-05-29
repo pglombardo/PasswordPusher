@@ -6,7 +6,7 @@
         user: audit_log.subject_name
     ) %>
     <br>
-    <%= t("audit_logs.audit_log.ip_address") %> <code><%= audit_log.ip %></code>
+    <%= t("audit_logs.audit_log.ip_address") %> <code><%= render 'application/ip_address', ip: audit_log.ip %></code>
     <br>
     <%= t("audit_logs.audit_log.user_agent") %> <code><%= audit_log.user_agent.blank? ? t("audit_logs.audit_log.none") : audit_log.user_agent %></code>
     <br>
