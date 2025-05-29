@@ -7,11 +7,16 @@ class FilePushTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   setup do
+    @default_enable_logins = Settings.enable_logins
+    @default_enable_file_pushes = Settings.enable_file_pushes
+
+    Settings.enable_logins = true
     Settings.enable_file_pushes = true
   end
 
   teardown do
-    Settings.enable_file_pushes = false
+    Settings.enable_logins = @default_enable_logins
+    Settings.enable_file_pushes = @default_enable_file_pushes
   end
 
   test "should create file push with name" do
