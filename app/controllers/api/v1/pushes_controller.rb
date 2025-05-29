@@ -4,7 +4,6 @@ class Api::V1::PushesController < Api::BaseController
   include SetPushAttributes
   include LogEvents
 
-  before_action :set_current_kind, only: [:create, :active, :expired]
   before_action :set_push, only: %i[show preview audit destroy]
 
   def show
@@ -52,7 +51,18 @@ class Api::V1::PushesController < Api::BaseController
     authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
 
     @push = Push.new(push_params)
-    @push.kind = @current_kind
+
+    if !push_params[:kind].present?
+      @push.kind = if request.path.include?("/f.json")
+        "file"
+      elsif request.path.include?("/r.json")
+        "url"
+      elsif request.path.include?("/p.json") && push_params.key?(:files)
+        "file"
+      else
+        "text"
+      end
+    end
 
     @push.user_id = current_user.id if user_signed_in?
 
@@ -139,7 +149,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: @current_kind, user_id: current_user.id, expired: false)
+      .where(kind: kind_by_path, user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -157,7 +167,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: @current_kind, user_id: current_user.id, expired: true)
+      .where(kind: kind_by_path, user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -188,14 +198,26 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   def push_params
-    if @current_kind == "file"
+    if request.path.start_with?("/f")
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
-    elsif @current_kind == "url"
-      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
-    elsif @current_kind == "text"
-      params.require(:password).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+    elsif request.path.start_with?("/r")
+      params.require(:url).permit(:name, :expire_after_days, :expire_after_views,
+        :retrieval_step, :payload, :note, :passphrase)
+    else
+      # https://docs.pwpush.com/docs/json-api/#curl
+      # curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken"
+      # -F "password[payload]=my_secure_payload"
+      # -F "password[note]=For New Employee ID 12345"
+      # -F "password[files][]=@/path/to/file/file1.extension"
+      # -F "password[files][]=@/path/to/file/file2.extension"
+      # https://pwpush.com/p.json
+      # There is a differences between the premium and OSS features.
+      # It is allowed to create password pushes by using files on the premium one.
+      # To respond same request, password[files] are allowed, but it will create a file push.
+      #
+      # More, kind can be used to create different kind pushes.
+      params.require(:password).permit(:name, :kind, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
     end
   rescue => e
@@ -204,10 +226,10 @@ class Api::V1::PushesController < Api::BaseController
     raise e
   end
 
-  def set_current_kind
-    @current_kind = if request.path.start_with?("/f") || params.key?(:file_push)
+  def kind_by_path
+    if request.path.include?("/f.json")
       "file"
-    elsif request.path.start_with?("/r") || params.key?(:url)
+    elsif request.path.include?("/r.json")
       "url"
     else
       "text"

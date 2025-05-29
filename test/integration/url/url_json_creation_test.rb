@@ -77,6 +77,16 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal 5, res["expire_after_views"]
   end
 
+  def test_creation_with_kind_on_endpoint_starting_with_p
+    post json_pushes_path(format: :json), params: {password: {kind: "url", payload: "https://the0x00.dev", expire_after_views: 5}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    url_token = res["url_token"]
+    push = Push.find_by(url_token:)
+    assert_equal push.kind, "url"
+  end
+
   def test_bad_request
     post urls_path(format: :json), params: {},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
@@ -84,15 +94,5 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert_equal "param is missing or the value is empty: url", res["error"]
-  end
-
-  def test_creation_on_endpoint_starting_with_p
-    post json_pushes_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
-
-    assert_response :success
-
-    res = JSON.parse(@response.body)
-    get "/p/#{res["url_token"]}.json", as: :json
-    assert_response :success
   end
 end
