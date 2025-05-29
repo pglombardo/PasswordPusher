@@ -149,7 +149,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: kind_by_path, user_id: current_user.id, expired: false)
+      .where(user_id: current_user.id, expired: false)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -167,7 +167,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     @pushes = Push.includes(:audit_logs)
-      .where(kind: kind_by_path, user_id: current_user.id, expired: true)
+      .where(user_id: current_user.id, expired: true)
       .page(params[:page])
       .order(created_at: :desc)
 
@@ -224,15 +224,5 @@ class Api::V1::PushesController < Api::BaseController
     Rails.logger.error("Error in push_params: #{e.message}")
 
     raise e
-  end
-
-  def kind_by_path
-    if request.path.include?("/f.json")
-      "file"
-    elsif request.path.include?("/r.json")
-      "url"
-    else
-      "text"
-    end
   end
 end
