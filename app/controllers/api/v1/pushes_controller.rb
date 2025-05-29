@@ -192,11 +192,11 @@ class Api::V1::PushesController < Api::BaseController
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
         :retrieval_step, :payload, :note, :passphrase, files: [])
     elsif @current_kind == "url"
-      params.require(:url).permit(:name, :expire_after_days, :expire_after_views,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:url).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
     elsif @current_kind == "text"
       params.require(:password).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase)
+        :retrieval_step, :payload, :note, :passphrase, files: [])
     end
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")

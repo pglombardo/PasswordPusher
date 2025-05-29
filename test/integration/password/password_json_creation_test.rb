@@ -126,6 +126,25 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal 5, res["expire_after_views"]
   end
 
+  def test_support_for_old_requests_having_files
+    post passwords_path(format: :json), params: {password: {
+      payload: "Message",
+      files: [
+        fixture_file_upload("monkey.png", "image/jpeg")
+      ]
+    }}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+
+    assert res.key?("views_remaining")
+    assert_equal 5, res["views_remaining"]
+    assert_not res.key?("files")
+
+    assert res.key?("expire_after_days")
+    assert_equal 5, res["expire_after_views"]
+  end
+
   def test_bad_request
     post passwords_path(format: :json), params: {}
     assert_response :bad_request
