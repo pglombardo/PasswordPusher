@@ -204,4 +204,21 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :bad_request
   end
+
+  def test_creation_on_endpoint_starting_with_p
+    post json_pushes_path(format: :json), params: {
+                                            file_push: {
+                                              payload: "Message",
+                                              files: [
+                                                fixture_file_upload("monkey.png", "image/jpeg")
+                                              ]
+                                            }
+                                          },
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    get "/p/#{res["url_token"]}.json", as: :json
+    assert_response :success
+  end
 end

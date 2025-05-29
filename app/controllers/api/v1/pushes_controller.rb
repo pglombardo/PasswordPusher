@@ -4,7 +4,7 @@ class Api::V1::PushesController < Api::BaseController
   include SetPushAttributes
   include LogEvents
 
-  before_action :set_current_kind
+  before_action :set_current_kind, only: [:create, :active, :expired]
   before_action :set_push, only: %i[show preview audit destroy]
 
   def show
@@ -205,11 +205,11 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   def set_current_kind
-    @current_kind = if request.path.start_with?("/f")
+    @current_kind = if request.path.start_with?("/f") || params.key?(:file_push)
       "file"
-    elsif request.path.start_with?("/r")
+    elsif request.path.start_with?("/r") || params.key?(:url)
       "url"
-    elsif request.path.start_with?("/p")
+    else
       "text"
     end
   end
