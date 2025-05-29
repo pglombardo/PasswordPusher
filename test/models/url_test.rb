@@ -3,8 +3,17 @@
 require "test_helper"
 
 class UrlTest < ActiveSupport::TestCase
+  setup do
+    Settings.enable_url_pushes = true
+  end
+
+  teardown do
+    Settings.enable_url_pushes = false
+  end
+
   test "should create url with name" do
-    url = Url.new(
+    url = Push.new(
+      kind: "url",
       payload: "https://example.com",
       name: "Test URL"
     )
@@ -13,7 +22,8 @@ class UrlTest < ActiveSupport::TestCase
   end
 
   test "should save url without name" do
-    url = Url.new(
+    url = Push.new(
+      kind: "url",
       payload: "https://example.com"
     )
     assert url.save
@@ -21,7 +31,8 @@ class UrlTest < ActiveSupport::TestCase
   end
 
   test "should include name in json representation when owner is true" do
-    url = Url.new(
+    url = Push.new(
+      kind: "url",
       payload: "https://example.com",
       name: "Test URL",
       expire_after_days: 7,
@@ -29,12 +40,13 @@ class UrlTest < ActiveSupport::TestCase
     )
     assert url.save
 
-    json = JSON.parse(url.to_json({ owner: true }))
+    json = JSON.parse(url.to_json({owner: true}))
     assert_equal "Test URL", json["name"]
   end
 
   test "should not include name in json representation when owner is false" do
-    url = Url.new(
+    url = Push.new(
+      kind: "url",
       payload: "https://example.com",
       name: "Test URL",
       expire_after_days: 7,

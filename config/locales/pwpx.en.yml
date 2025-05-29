@@ -138,11 +138,7 @@ en:
       team_policy_help: A team policy is a set of rules that apply to all pushes made by members of this team.
   activerecord:
     attributes:
-      file_push:
-        name: Name
-      password:
-        name: Name
-      url:
+      push:
         name: Name
   admin:
     config:
@@ -221,6 +217,7 @@ en:
       log_response: Recipient Response received on %{date} by %{user}
       log_retrieve: Retrieve page viewed on %{date} by %{user}
       log_viewed: Successful view on %{date} by %{user}
+      none: None
       referrer: 'Referrer:'
       unknown: Anonymous
       user_agent: 'User Agent:'
@@ -696,6 +693,8 @@ en:
       visible_to: Visible Only To You
     copy_to_clipboard: Copy to Clipboard
     create:
+      invalid_url: must be a valid HTTP or HTTPS URL.
+      payload_required: Payload is required.
       premium_required: You need to subscribe to attach files.
     deleted: Deleted
     expiration_html: This secret link and all content will be deleted in <strong>%{duration}</strong> or <strong>%{count} more views</strong>, whichever occurs first.
@@ -703,6 +702,7 @@ en:
       already_expired: That push has already expired.
       expired: The push content has been deleted and the secret URL expired.
       not_deletable: That push is not deletable by viewers.
+    file_pushes_disabled: File pushes are disabled.
     form:
       12_hours: 12 Hours
       15_minutes: 15 Minutes
@@ -764,15 +764,20 @@ en:
       files: Files
       text: Passwords & Text
       url: URLs
+    need_login_for_active: You must be logged in to view your active pushes.
+    need_login_for_expired: You must be logged in to view your expired pushes.
     new:
       title: Securely Send a Password, Text or File
     'no': 'No'
     none: None
+    not_deletable_or_not_owner: That push is not deletable by viewers and does not belong to you.
+    not_owner_push: That push doesn't belong to you.
     passphrase:
       enter_passphrase: Enter Passphrase
       go: Go
       placeholder: Enter the secret passphrase provided with this URL
       tip: Enter the secret passphrase
+    passphrase_incorrect: This push has a passphrase that was incorrect or not provided.
     payload: Payload
     payload_too_large: The payload is too large.  You can only push up to %{count} bytes.
     preliminary:
@@ -818,6 +823,7 @@ en:
     too_many_files: You can only attach up to %{count} files per push.
     update:
       successful: Push was successfully updated.
+    url_pushes_disabled: URL pushes are disabled.
     view:
       one: 1 view
       other: "%{count} views"
@@ -888,6 +894,7 @@ en:
     audit: Audit
     expired: Expired
     forbidden: Forbidden
+    none: None
     not_found: Not Found
     share: Share
   zero_minutes: 0 minutes

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UrlControllerTest < ActionDispatch::IntegrationTest
+class UrlsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -17,17 +17,12 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "New push form is NOT available anonymous" do
-    get new_url_path
+    get new_push_path(tab: "url")
     assert_redirected_to new_user_session_path
   end
 
-  test '"active" and "expired" should redirect anonymous to user sign in' do
-    get active_urls_path
-    assert_response :redirect
-    follow_redirect!
-    assert response.body.include?("You need to sign in or sign up before continuing.")
-
-    get expired_urls_path
+  test '"index" should redirect anonymous to user sign in' do
+    get pushes_path
     assert_response :redirect
     follow_redirect!
     assert response.body.include?("You need to sign in or sign up before continuing.")
@@ -38,13 +33,17 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
-    get active_urls_path
+    get pushes_path
     assert_response :success
-    assert response.body.include?("You currently have no active URL pushes.")
+    assert response.body.include?("You currently have no pushes.")
 
-    get expired_urls_path
+    get pushes_path(filter: "active")
     assert_response :success
-    assert response.body.include?("You currently have no expired URL pushes.")
+    assert response.body.include?("You currently have no active pushes.")
+
+    get pushes_path(filter: "expired")
+    assert_response :success
+    assert response.body.include?("You currently have no expired pushes.")
   end
 
   test "logged in users with pushes can access their dashboard" do
@@ -52,20 +51,26 @@ class UrlControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
-    get new_url_path
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
+    get new_push_path(tab: "url")
     assert_response :success
     assert response.body.include?("URL Redirection")
 
-    post urls_path params: {
-      url: {
+    post pushes_path params: {
+      push: {
+        kind: "url",
         payload: "https://the0x00.dev"
       }
     }
     assert_response :redirect
 
-    get active_urls_path
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active url pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do

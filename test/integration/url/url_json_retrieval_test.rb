@@ -29,6 +29,12 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("error")
 
     # Now try to retrieve the url WITH the passphrase
+    # Url push links were generated with '/p/' after unifying controllers and models
+    get "/p/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    # Now try to retrieve the url WITH the passphrase
+    # Url push links were generated with '/r/' before unifying controllers and models
     get "/r/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
 
@@ -90,7 +96,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 2, res["expire_after_views"]
 
     # Check the record directly; it should be expired after the last view
-    url = Url.find_by!(url_token: res["url_token"])
+    url = Push.find_by!(url_token: res["url_token"])
     assert url.expired
     assert_nil url.payload
     assert_equal 0, url.views_remaining
@@ -103,6 +109,8 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("expired")
     assert_equal true, res["expired"]
+    assert res.key?("expired_on")
+    assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("payload")
@@ -111,5 +119,14 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
+    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "retrieval_step", "expired_on", "created_at", "updated_at", "payload", "days_remaining", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expire_after_days" => 7,
+      "expire_after_views" => 2,
+      "expired" => true,
+      "deleted" => false,
+      "retrieval_step" => false,
+      "payload" => nil,
+      "days_remaining" => 7,
+      "views_remaining" => 0}
   end
 end

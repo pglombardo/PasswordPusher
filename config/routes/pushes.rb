@@ -1,40 +1,21 @@
 constraints(format: :html) do
-  resources :p, controller: :passwords, as: :passwords, except: %i[index edit update] do
+  # File pushes redirects - with query string preservation
+  get "/f/:url_token", to: redirect(path: "/p/%{url_token}", status: 301)
+  get "/f/:url_token/r", to: redirect(path: "/p/%{url_token}/r", status: 301)
+  get "/f/:url_token/passphrase", to: redirect(path: "/p/%{url_token}/passphrase", status: 301)
+
+  # URL pushes redirects - with query string preservation
+  get "/r/:url_token", to: redirect(path: "/p/%{url_token}", status: 301)
+  get "/r/:url_token/r", to: redirect(path: "/p/%{url_token}/r", status: 301)
+  get "/r/:url_token/passphrase", to: redirect(path: "/p/%{url_token}/passphrase", status: 301)
+
+  resources :p, controller: :pushes, as: :pushes, except: %i[edit update destroy] do
     get "preview", on: :member
     get "print_preview", on: :member
     get "passphrase", on: :member
     post "access", on: :member
     get "r", on: :member, as: "preliminary", action: "preliminary"
+    delete "expire", on: :member
     get "audit", on: :member
-    get "active", on: :collection
-    get "expired", on: :collection
-  end
-
-  # File pushes only enabled when logins are enabled.
-  if Settings.enable_logins && Settings.enable_file_pushes
-    resources :f, controller: :file_pushes, as: :file_pushes, except: %i[index edit update] do
-      get "preview", on: :member
-      get "print_preview", on: :member
-      get "passphrase", on: :member
-      post "access", on: :member
-      get "r", on: :member, as: "preliminary", action: "preliminary"
-      get "audit", on: :member
-      get "active", on: :collection
-      get "expired", on: :collection
-    end
-  end
-
-  # URL based pushes can only enabled when logins are enabled.
-  if Settings.enable_logins && Settings.enable_url_pushes
-    resources :r, controller: :urls, as: :urls, except: %i[index edit update] do
-      get "preview", on: :member
-      get "print_preview", on: :member
-      get "passphrase", on: :member
-      post "access", on: :member
-      get "r", on: :member, as: "preliminary", action: "preliminary"
-      get "audit", on: :member
-      get "active", on: :collection
-      get "expired", on: :collection
-    end
   end
 end

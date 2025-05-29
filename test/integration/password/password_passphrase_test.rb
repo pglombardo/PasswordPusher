@@ -4,10 +4,10 @@ require "test_helper"
 
 class PasswordPassphraseTest < ActionDispatch::IntegrationTest
   def test_password_passphrase
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
 
-    post passwords_path, params: {password: {payload: "testpw", passphrase: "asdf"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", passphrase: "asdf"}}
     assert_response :redirect
 
     # Preview page
@@ -45,10 +45,10 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
   end
 
   def test_password_bad_passphrase
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
 
-    post passwords_path, params: {password: {payload: "testpw", passphrase: "asdf"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", passphrase: "asdf"}}
     assert_response :redirect
 
     # Preview page
@@ -70,6 +70,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     forms = css_select "form"
     assert_select "form input", 1
     input = css_select "input#passphrase.form-control"
+    failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
 
     # Provide a bad passphrase
@@ -77,6 +78,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
+    assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
 
     # We should be back on the passphrase page now with an error message
     divs = css_select "div.alert-warning"

@@ -22,8 +22,9 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   end
 
   def test_blur_enabled
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         files: [
           fixture_file_upload("monkey.png", "image/jpeg")
@@ -49,8 +50,9 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   def test_blur_when_disabled
     Settings.files.enable_blur = false
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         files: [
           fixture_file_upload("monkey.png", "image/jpeg")

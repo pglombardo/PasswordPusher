@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class FilePushCreationTest < ActionDispatch::IntegrationTest
+class FilePushPassphraseTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -19,11 +19,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [
@@ -67,11 +68,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_bad_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [
@@ -99,6 +101,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     forms = css_select "form"
     assert_select "form input", 1
     input = css_select "input#passphrase.form-control"
+    failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
 
     # Provide a bad passphrase
@@ -106,6 +109,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
+    assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
 
     # We should be back on the passphrase page now with an error message
     divs = css_select "div.alert-warning"
@@ -118,11 +122,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_anonymous_can_access_file_push_passphrase
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         passphrase: "asdf",
         files: [

@@ -1,53 +1,31 @@
 # frozen_string_literal: true
 
 # A task that should be run periodically (daily/weekly) to iterate through all unexpired
-# pushes and run .validate! which will determine if a push has expired or not.
+# pushes and run .check_limits which will determine if a push has expired or not.
 #
-# Note: .validate! is also run on each attempt to view an unexpired secret URL so this task is
+# Note: .check_limits is also run on each attempt to view an unexpired secret URL so this task is
 # a preemptive measure to expire pushes periodically.  It saves some CPU and DB calls
 # on live requests.
 #
-desc "Run through, validate and conditionally expire passwords."
+desc "Run through, validate and conditionally expire pushes."
 task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
 
   puts "--> Starting daily expiration on #{Time.zone.now}"
 
-  Password.where(expired: false).find_each do |push|
+  Push.where(expired: false).find_each do |push|
     counter += 1
-    push.validate!
+    push.check_limits
     expiration_count += 1 if push.expired
   end
 
-  puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired..."
+  puts "  -> Finished validating #{counter} unexpired pushes.  #{expiration_count} total pushes expired..."
 
-  if Settings.enable_file_pushes
-    counter = 0
-    expiration_count = 0
-    FilePush.where(expired: false).find_each do |push|
-      counter += 1
-      push.validate!
-      expiration_count += 1 if push.expired
-    end
-    puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
-  end
-
-  if Settings.enable_url_pushes
-    counter = 0
-    expiration_count = 0
-    Url.where(expired: false).find_each do |push|
-      counter += 1
-      push.validate!
-      expiration_count += 1 if push.expired
-    end
-    puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
-  end
-
-  puts "  -> Finished daily expiration on #{Time.zone.now}"
+  puts "  -> Finished daily_expiration on #{Time.zone.now}"
 end
 
-# When a Password expires, the payload is deleted but the metadata record still exists.  This
+# When a Push expires, the payload is deleted but the metadata record still exists.  This
 # includes information such as creation date, views, duration etc..  When the record
 # was created by an anonymous user, this data is no longer needed and we delete it (we
 # don't want it).
@@ -72,32 +50,12 @@ task delete_expired_and_anonymous: :environment do
 
   puts "--> Starting delete_expired_and_anonymous on #{Time.zone.now}"
 
-  Password.includes(:views)
+  Push.includes(:audit_logs)
     .where(expired: true)
     .where(user_id: nil)
     .find_each do |push|
     counter += 1
     push.destroy
-  end
-
-  if Settings.enable_file_pushes
-    FilePush.includes(:views)
-      .where(expired: true)
-      .where(user_id: nil)
-      .find_each do |push|
-      counter += 1
-      push.destroy
-    end
-  end
-
-  if Settings.enable_url_pushes
-    Url.includes(:views)
-      .where(expired: true)
-      .where(user_id: nil)
-      .find_each do |push|
-      counter += 1
-      push.destroy
-    end
   end
 
   puts "  -> #{counter} total anonymous and expired pushes deleted."
@@ -108,12 +66,14 @@ desc "Generate robots.txt."
 task generate_robots_txt: :environment do
   include Rails.application.routes.url_helpers
   contents = "User-agent: *\n"
+
+  # Old secret links have `/f/` and `/r/` in them for file pushes and url pushes respectively.
   contents += "Disallow: /p/\n"
   contents += "Disallow: /f/\n"
   contents += "Disallow: /r/\n"
+
+  # New secret links can be generated at `/p/new`.
   contents += "Allow: /p/new\n"
-  contents += "Allow: /f/new\n"
-  contents += "Allow: /r/new\n"
   contents += "Allow: /pages/\n"
 
   File.write("./public/robots.txt", contents)

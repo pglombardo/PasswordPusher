@@ -19,32 +19,14 @@ module ApplicationHelper
 
   # Constructs a fully qualified secret URL for a push.
   #
-  # @param [Password, Url, FilePush] password - The push to generate a URL for
+  # @param [Push] push - The push to generate a URL for
   # @param [Boolean] with_retrieval_step - Whether to include the retrieval step in the URL
   # @return [String] - The fully qualified URL
-  def secret_url(password, with_retrieval_step: true, locale: nil)
-    raw_url = if password.retrieval_step && with_retrieval_step
-      case password
-      when Password
-        Settings.override_base_url ? Settings.override_base_url + preliminary_password_path(password) : preliminary_password_url(password)
-      when Url
-        Settings.override_base_url ? Settings.override_base_url + preliminary_url_path(password) : preliminary_url_url(password)
-      when FilePush
-        Settings.override_base_url ? Settings.override_base_url + preliminary_file_push_path(password) : preliminary_file_push_url(password)
-      else
-        raise "Unknown push type: #{password.class}"
-      end
+  def secret_url(push, with_retrieval_step: true, locale: nil)
+    raw_url = if push.retrieval_step && with_retrieval_step
+      Settings.override_base_url ? Settings.override_base_url + preliminary_push_path(push) : preliminary_push_url(push)
     else
-      case password
-      when Password
-        Settings.override_base_url ? Settings.override_base_url + password_path(password) : password_url(password)
-      when Url
-        Settings.override_base_url ? Settings.override_base_url + url_path(password) : url_url(password)
-      when FilePush
-        Settings.override_base_url ? Settings.override_base_url + file_push_path(password) : file_push_url(password)
-      else
-        raise "Unknown push type: #{password.class}"
-      end
+      Settings.override_base_url ? Settings.override_base_url + push_path(push) : push_url(push)
     end
 
     # Delete any existing ?locale= query parameter

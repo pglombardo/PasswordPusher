@@ -17,17 +17,12 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "New push form is NOT available anonymous" do
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_redirected_to new_user_session_path
   end
 
-  test '"active" and "expired" should redirect anonymous to user sign in' do
-    get active_file_pushes_path
-    assert_response :redirect
-    follow_redirect!
-    assert response.body.include?("You need to sign in or sign up before continuing.")
-
-    get expired_file_pushes_path
+  test '"index" should redirect anonymous to user sign in' do
+    get pushes_path
     assert_response :redirect
     follow_redirect!
     assert response.body.include?("You need to sign in or sign up before continuing.")
@@ -38,13 +33,17 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
-    get active_file_pushes_path
+    get pushes_path
     assert_response :success
-    assert response.body.include?("You currently have no active file pushes.")
+    assert response.body.include?("You currently have no pushes.")
 
-    get expired_file_pushes_path
+    get pushes_path(filter: "active")
     assert_response :success
-    assert response.body.include?("You currently have no expired file pushes.")
+    assert response.body.include?("You currently have no active pushes.")
+
+    get pushes_path(filter: "expired")
+    assert_response :success
+    assert response.body.include?("You currently have no expired pushes.")
   end
 
   test "logged in users with pushes can access their dashboard" do
@@ -52,20 +51,26 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
-    get new_file_push_path
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
+    get new_push_path(tab: "files")
     assert_response :success
     assert response.body.include?("You can upload up to")
 
-    post file_pushes_path params: {
-      file_push: {
+    post pushes_path params: {
+      push: {
+        kind: "file",
         payload: "TWVycnkgQ2hyaXN0bWFzIDIwMjIgdG8gbXkgYmVhdXRpZnVsIGdpcmxzIExlYSAmIEdpdWxpYW5hLiAgSSBsb3ZlIHlvdS4gIFBhcGE="
       }
     }
     assert_response :redirect
 
-    get active_file_pushes_path
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active password pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do
@@ -91,8 +96,9 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     @luca.confirm
     sign_in @luca
 
-    post file_pushes_path params: {
-      file_push: {
+    post pushes_path params: {
+      push: {
+        kind: "file",
         payload: "TWVycnkgQ2hyaXN0bWFzIDIwMjIgdG8gbXkgYmVhdXRpZnVsIGdpcmxzIExlYSAmIEdpdWxpYW5hLg=="
       }
     }

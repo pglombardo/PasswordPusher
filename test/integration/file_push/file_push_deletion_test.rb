@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class FilePushCreationTest < ActionDispatch::IntegrationTest
+class FilePushDeletionTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -21,11 +21,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   def test_deletion
     assert Settings.files.enable_deletable_pushes == true
 
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         files: [
           fixture_file_upload("monkey.png", "image/jpeg")
@@ -44,7 +45,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Delete the file_push
-    delete request.url
+    delete expire_push_path(request.url.match(/\/p\/(.*)/)[1])
     assert_response :redirect
 
     # Get redirected to the password that is now expired
@@ -55,11 +56,12 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   def test_end_user_deletion_when_enabled
     assert Settings.files.enable_deletable_pushes == true
 
-    get new_file_push_path
+    get new_push_path(tab: "files")
     assert_response :success
 
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         deletable_by_viewer: true,
         files: [
@@ -82,7 +84,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     sign_out :user
 
     # Delete the file_push
-    delete request.url
+    delete expire_push_path(request.url.match(/\/p\/(.*)/)[1])
     assert_response :redirect
 
     # Get redirected to the password that is now expired
@@ -92,7 +94,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_select "p", "We apologize but this secret link has expired."
 
     # Retrieve the preliminary page.  It should show expired too.
-    get preliminary_password_path(FilePush.last)
+    get preliminary_push_path(Push.last)
     assert_response :success
     assert response.body.include?("We apologize but this secret link has expired.")
   end

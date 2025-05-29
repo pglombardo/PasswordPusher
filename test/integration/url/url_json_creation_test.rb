@@ -28,6 +28,18 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal false, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
     assert res.key?("days_remaining")
+    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at"), {
+      "expire_after_days" => 7,
+      "expire_after_views" => 5,
+      "expired" => false,
+      "deleted" => false,
+      "retrieval_step" => false,
+      "expired_on" => nil,
+      "days_remaining" => 7,
+      "views_remaining" => 5
+    }
+
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")
     assert_equal Settings.url.expire_after_views_default, res["views_remaining"]
@@ -68,9 +80,9 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   def test_bad_request
     post urls_path(format: :json), params: {},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
-    assert_response :unprocessable_entity
+    assert_response :bad_request
 
     res = JSON.parse(@response.body)
-    assert_equal "No URL or note provided.", res["error"]
+    assert_equal "param is missing or the value is empty: url", res["error"]
   end
 end

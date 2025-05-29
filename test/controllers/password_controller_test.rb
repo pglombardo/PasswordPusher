@@ -19,18 +19,13 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "New push form is available anonymous" do
-    get new_password_path
+    get new_push_path(tab: "text")
     assert_response :success
     assert response.body.include?("Tip: Only enter a password into the box")
   end
 
-  test '"active" and "expired" should redirect anonymous to user sign in' do
-    get active_passwords_path
-    assert_response :redirect
-    follow_redirect!
-    assert response.body.include?("You need to sign in or sign up before continuing.")
-
-    get expired_passwords_path
+  test '"index" should redirect anonymous to user sign in' do
+    get pushes_path
     assert_response :redirect
     follow_redirect!
     assert response.body.include?("You need to sign in or sign up before continuing.")
@@ -39,34 +34,44 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
   test "logged in users can access their dashboard" do
     sign_in @luca
 
-    get active_passwords_path
+    get pushes_path
     assert_response :success
-    assert response.body.include?("You currently have no active password pushes.")
+    assert response.body.include?("You currently have no pushes.")
 
-    get expired_passwords_path
+    get pushes_path(filter: "active")
     assert_response :success
-    assert response.body.include?("You currently have no expired password pushes.")
+    assert response.body.include?("You currently have no active pushes.")
+
+    get pushes_path(filter: "expired")
+    assert_response :success
+    assert response.body.include?("You currently have no expired pushes.")
   end
 
   test "logged in users with pushes can access their dashboard" do
     sign_in @luca
 
-    get new_password_path
+    no_push_text = "You currently have no pushes."
+    get pushes_path
+    assert_response :success
+    assert response.body.include?(no_push_text)
+
+    get new_push_path(tab: "text")
     assert_response :success
     assert response.body.include?("Tip: Only enter a password into the box")
 
     # rubocop:disable Layout/LineLength
-    post passwords_path params: {
-      password: {
+    post pushes_path params: {
+      push: {
+        kind: "text",
         payload: "TCZHOiBJIGxlYXZlIHRoZXNlIGhpZGRlbiBtZXNzYWdlcyB0byB5b3UgYm90aCBzbyB0aGF0IHRoZXkgbWF5IGV4aXN0IGZvcmV2ZXIuIExvdmUgUGFwYS4="
       }
     }
     # rubocop:enable Layout/LineLength
     assert_response :redirect
 
-    get active_passwords_path
+    get pushes_path
     assert_response :success
-    assert_not response.body.include?("You currently have no active password pushes.")
+    assert_not response.body.include?(no_push_text)
   end
 
   test "get active dashboard with token" do
