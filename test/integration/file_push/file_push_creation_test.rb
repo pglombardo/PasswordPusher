@@ -95,8 +95,9 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_select "h2", "Your push has been created."
 
     # Upload 2 files should fail
-    post file_pushes_path, params: {
-      file_push: {
+    post pushes_path, params: {
+      push: {
+        kind: "file",
         payload: "Message",
         files: [
           fixture_file_upload("monkey.png", "image/jpeg"),
