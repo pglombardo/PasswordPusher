@@ -44,7 +44,7 @@ class Api::V1::PushesController < Api::BaseController
     # Passphrase handling
     if @push.passphrase.present?
       # JSON requests must pass the passphrase in the params
-      has_passphrase = params.fetch(:passphrase, nil) == @push.passphrase
+      has_passphrase = params[:passphrase] == @push.passphrase
 
       unless has_passphrase
         log_failed_passphrase(@push)
