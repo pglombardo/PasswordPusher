@@ -88,7 +88,6 @@ class Api::V1::PushesController < Api::BaseController
     param :retrieval_step, %w[true false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
     param :kind, %w[text file url], desc: "The kind of push to create. Defaults to 'text'.", required: false
   end
-  param :account_id, Integer, desc: "The account ID to associate the push with. See: https://docs.pwpush.com/docs/json-api/#multiple-accounts", required: false
   formats ["JSON"]
   description <<-EOS
     == Creating a New Push
@@ -117,11 +116,6 @@ class Api::V1::PushesController < Api::BaseController
     * Passphrase protection requires viewers to enter a secret phrase
     * Retrieval step helps prevent automated URL scanners from burning views
     * Deletable by viewer allows recipients to manually expire the push
-
-    === Account Association
-
-    * Anonymous pushes can be created without authentication
-    * Authenticated users can associate pushes with specific accounts (see: https://docs.pwpush.com/docs/json-api/#multiple-accounts)
 
     == Language Specific Examples
 
