@@ -39,8 +39,6 @@ class Api::V1::PushesController < Api::BaseController
       log_view(@push)
       render template: "pushes/show", status: :ok
       return
-    else
-      @payload = @push.payload
     end
 
     # Passphrase handling
