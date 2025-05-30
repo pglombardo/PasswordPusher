@@ -55,7 +55,8 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal false, res["expired"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
-    assert_not res.key?("deletable_by_viewer")
+    assert res.key?("deletable_by_viewer")
+    assert_nil res["deletable_by_viewer"]
     assert res.key?("days_remaining")
     assert_equal 2, res["views_remaining"]
     assert res.key?("expire_after_days")
@@ -119,7 +120,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
-    assert_equal res.keys.sort, ["created_at", "days_remaining", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "passphrase", "payload", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "passphrase", "payload", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 2,
     "expired" => true,
     "retrieval_step" => false,
@@ -128,6 +129,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     "days_remaining" => 7,
     "views_remaining" => 0,
     "deleted" => false,
+    "deletable_by_viewer" => nil,
     "payload" => nil,
     "files" => []}
   end

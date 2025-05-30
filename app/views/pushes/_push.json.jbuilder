@@ -1,6 +1,7 @@
 json.extract! push, :expire_after_views,
   :expired,
   :url_token,
+  :deletable_by_viewer,
   :retrieval_step,
   :expired_on,
   :passphrase,
@@ -11,7 +12,6 @@ json.extract! push, :expire_after_views,
   :views_remaining,
   :deleted
 
-json.deletable_by_viewer push.deletable_by_viewer unless push.url?
 json.json_url secret_url(push) + ".json"
 json.html_url secret_url(push)
 
