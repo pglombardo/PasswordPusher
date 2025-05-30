@@ -42,12 +42,13 @@ class FilePushIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Just verify that we have the expected number of th elements
-    assert_select "th", 5 # 5 columns in the table
+    assert_select "th", 6 # 6 columns in the table
 
     # Verify that the table headers exist with the expected content
     assert_select "th", /Name or ID/ # First column should contain 'Name' or 'ID'
-    assert_select "th", /Created/ # Second column
-    assert_select "th", /Note/ # Third column
+    assert_select "th", /Kind/ # Second column
+    assert_select "th", /Created/ # Third column
+    assert_select "th", /Note/ # Fourth column
     assert_select "th", /Views-Days/ # Fourth column
 
     # Verify that our created file push appears in the list

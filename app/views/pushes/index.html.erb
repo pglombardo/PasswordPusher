@@ -35,6 +35,7 @@
       <thead>
       <tr>
           <th scope="col"><%= t("pushes.form.name_or_id") %></th>
+          <th scope="col" class="text-center"><%= t("pushes.form.kind") %></th>
           <th scope="col"><%= _('Created') %></th>
           <th scope="col"><%= _('Note') %></th>
           <th scope="col" class="text-center"><%= _('Views') + "-" + _('Days') %></th>
@@ -49,6 +50,15 @@
           <% else %>
             <td><%= push.url_token %></td>
           <% end %>
+          <td class="text-center">
+            <% if push.file? %>
+              File(s)
+            <% elsif push.url? %>
+              URL
+            <% else %>
+              Text
+            <% end %>
+          </td>
           <td><%= I18n.l push.created_at.in_time_zone(Settings.timezone), format: :long %></td>
           <td>
             <% if push.note.blank? %>
