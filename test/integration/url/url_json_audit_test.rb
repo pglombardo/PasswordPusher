@@ -47,17 +47,24 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("views")
-    assert res["views"].length == 3
+    assert_equal 4, res["views"].length
 
     first_view = res["views"].first
     assert first_view.key?("ip")
     assert first_view.key?("user_agent")
     assert first_view.key?("referrer")
-    assert first_view.key?("successful")
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
+
+    second_view = res["views"].second
+    assert second_view.key?("ip")
+    assert second_view.key?("user_agent")
+    assert second_view.key?("referrer")
+    assert second_view.key?("created_at")
+    assert second_view.key?("updated_at")
+    assert second_view.key?("kind")
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "creation"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}]
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
@@ -81,7 +88,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Generate unsuccessful views on that push because of wrong passphrase
     get "/r/#{url_token}.json"
-    assert_response :success
+    assert_response :unauthorized
 
     # Delete the new url via json e.g. /r/<url_token>.json
     delete "/r/#{res["url_token"]}.json",
@@ -101,17 +108,16 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("views")
-    assert res["views"].length == 5
+    assert_equal res["views"].length, 7
 
     first_view = res["views"].first
     assert first_view.key?("ip")
     assert first_view.key?("user_agent")
     assert first_view.key?("referrer")
-    assert first_view.key?("successful")
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "file_push_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "creation"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_passphrase"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "expire"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}]
   end
 
   def test_no_token_no_audit_log

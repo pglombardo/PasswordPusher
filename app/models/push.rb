@@ -11,7 +11,7 @@ class Push < ApplicationRecord
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
-    create.before_validation :set_note_and_passphrase
+    create.before_validation :set_default_attributes
 
     create.after_validation :check_payload_for_text, if: :text?
     create.after_validation :check_files_for_file, if: :file?
@@ -181,23 +181,28 @@ class Push < ApplicationRecord
   end
 
   def check_enabled_push_kinds
-    if kind == "file" && !Settings.enable_file_pushes
+    if kind == "file" && !(Settings.enable_logins && Settings.enable_file_pushes)
       errors.add(:kind, I18n.t("pushes.file_pushes_disabled"))
     end
 
-    if kind == "url" && !Settings.enable_url_pushes
+    if kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
       errors.add(:kind, I18n.t("pushes.url_pushes_disabled"))
     end
   end
 
-  def set_note_and_passphrase
+  def set_default_attributes
     self.note ||= ""
     self.passphrase ||= ""
+    self.name ||= ""
   end
 
   def valid_url?(url)
     !Addressable::URI.parse(url).scheme.nil?
   rescue Addressable::URI::InvalidURIError
     false
+  end
+
+  def deleted
+    audit_logs.where(kind: AuditLog.kinds[:expire]).exists?
   end
 end

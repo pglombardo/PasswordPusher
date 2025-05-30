@@ -35,15 +35,17 @@ class PasswordJsonDeletionTest < ActionDispatch::IntegrationTest
     assert_not_nil res["expired_on"]
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
-    assert_equal res.keys.sort, ["expired", "deleted", "expired_on", "expire_after_days", "expire_after_views", "url_token", "created_at", "updated_at", "deletable_by_viewer", "retrieval_step", "days_remaining", "views_remaining"].sort
-    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
-      "deleted" => true,
-      "expire_after_days" => 7,
-      "expire_after_views" => 5,
+    assert_equal res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 5,
+      "expired" => true,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
+      "passphrase" => nil,
+      "expire_after_days" => 7,
       "days_remaining" => 7,
-      "views_remaining" => 5}
+      "views_remaining" => 5,
+      "deleted" => true}
+
     assert res.key?("deletable_by_viewer")
     assert_equal Settings.pw.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")

@@ -10,22 +10,26 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert res.key?("name") == false
+    assert res.key?("name")
+    assert_equal "", res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "created_at", "updated_at", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "days_remaining", "views_remaining"].sort
-    assert_equal res.except("url_token", "created_at", "updated_at"), {"expire_after_days" => 7,
-        "expire_after_views" => 5,
-        "expired" => false,
-        "deleted" => false,
-        "deletable_by_viewer" => true,
-        "retrieval_step" => false,
-        "expired_on" => nil,
-        "days_remaining" => 7,
-        "views_remaining" => 5}
+    assert_equal res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "html_url", "json_url"), {"expire_after_views" => 5,
+      "expired" => false,
+      "retrieval_step" => false,
+      "expired_on" => nil,
+      "passphrase" => "",
+      "expire_after_days" => 7,
+      "days_remaining" => 7,
+      "views_remaining" => 5,
+      "deleted" => false,
+      "deletable_by_viewer" => true,
+      "note" => "",
+      "name" => ""}
 
     assert_equal Settings.pw.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")
@@ -124,6 +128,16 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
 
     assert res.key?("expire_after_days")
     assert_equal 5, res["expire_after_views"]
+  end
+
+  def test_creation_with_kind_on_endpoint_starting_with_p
+    post json_pushes_path(format: :json), params: {password: {kind: "text", payload: "testpw"}}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    url_token = res["url_token"]
+    push = Push.find_by(url_token:)
+    assert_equal push.kind, "text"
   end
 
   def test_bad_request

@@ -29,18 +29,18 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert_not res.key?("passphrase")
+    assert res.key?("passphrase")
 
     url_token = res["url_token"]
 
     # Now try to retrieve the file push directly
     # We should get an error because we didn't provide a passphrase
     get "/f/#{url_token}.json"
-    assert_response :success
+    assert_response :unauthorized
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "This push has a passphrase that was incorrect or not provided.", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
 
     # Now try to retrieve the password with the correct passphrase
     get "/f/#{url_token}.json?passphrase=asdf"
@@ -71,7 +71,7 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert_not res.key?("passphrase")
+    assert res.key?("passphrase")
 
     url_token = res["url_token"]
     failed_passphrase_log_count = AuditLog.where(kind: :failed_passphrase).count
@@ -79,20 +79,20 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
     # Now try to retrieve the file push directly
     # We should get an error because we didn't provide a passphrase
     get "/f/#{url_token}.json"
-    assert_response :success
+    assert_response :unauthorized
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "This push has a passphrase that was incorrect or not provided.", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
     assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
 
     # Now try to retrieve the password with the incorrect passphrase
     get "/f/#{url_token}.json?passphrase=badpassphrase"
-    assert_response :success
+    assert_response :unauthorized
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "This push has a passphrase that was incorrect or not provided.", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
     assert_equal failed_passphrase_log_count + 2, AuditLog.where(kind: :failed_passphrase).count
   end
 end

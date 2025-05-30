@@ -19,7 +19,7 @@ class PasswordTest < ActiveSupport::TestCase
       payload: "test_payload"
     )
     assert password.save
-    assert_nil password.name
+    assert_equal "", password.name
   end
 
   test "should include name in json representation when owner is true" do
