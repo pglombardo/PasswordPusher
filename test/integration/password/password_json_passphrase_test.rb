@@ -22,7 +22,7 @@ class PasswordJsonPassphraseTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "Authentication required", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
 
     # Now try to retrieve the password with the correct passphrase
     get "/p/#{url_token}.json?passphrase=asdf"
@@ -56,7 +56,7 @@ class PasswordJsonPassphraseTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "Authentication required", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
     assert_equal failed_passphrase_log_count + 1, AuditLog.where(kind: :failed_passphrase).count
 
     # Now try to retrieve the password with the correct passphrase
@@ -65,7 +65,7 @@ class PasswordJsonPassphraseTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
-    assert_equal "Authentication required", res["error"]
+    assert_equal "That passphrase is incorrect.", res["error"]
     assert_equal failed_passphrase_log_count + 2, AuditLog.where(kind: :failed_passphrase).count
   end
 end

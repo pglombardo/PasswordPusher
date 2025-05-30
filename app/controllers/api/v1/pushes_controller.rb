@@ -51,7 +51,7 @@ class Api::V1::PushesController < Api::BaseController
 
         # Passphrase hasn't been provided or is incorrect
         render json: {
-          error: "Authentication required",
+          error: "That passphrase is incorrect.",
           message: "This push requires a passphrase. Please provide it using the 'passphrase' parameter (e.g. ?passphrase=mysecret)",
           status: :unauthorized
         }, status: :unauthorized
