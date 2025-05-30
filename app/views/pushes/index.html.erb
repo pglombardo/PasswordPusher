@@ -50,7 +50,15 @@
           <% else %>
             <td><%= push.url_token %></td>
           <% end %>
-          <td class="text-center"><%= push.kind %></td>
+          <td class="text-center">
+            <% if push.file? %>
+              File(s)
+            <% elsif push.url? %>
+              URL
+            <% else %>
+              Text
+            <% end %>
+          </td>
           <td><%= I18n.l push.created_at.in_time_zone(Settings.timezone), format: :long %></td>
           <td>
             <% if push.note.blank? %>
