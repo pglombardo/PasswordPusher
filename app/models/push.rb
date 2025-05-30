@@ -11,7 +11,7 @@ class Push < ApplicationRecord
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
-    create.before_validation :set_note_and_passphrase
+    create.before_validation :set_default_attributes
 
     create.after_validation :check_payload_for_text, if: :text?
     create.after_validation :check_files_for_file, if: :file?
@@ -190,9 +190,10 @@ class Push < ApplicationRecord
     end
   end
 
-  def set_note_and_passphrase
+  def set_default_attributes
     self.note ||= ""
     self.passphrase ||= ""
+    self.name ||= ""
   end
 
   def valid_url?(url)

@@ -22,7 +22,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
     assert res.key?("name")
-    assert_nil res["name"]
+    assert_equal "", res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -40,7 +40,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
       "views_remaining" => 5,
       "deleted" => false,
       "note" => "",
-      "name" => nil}
+      "name" => ""}
 
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")

@@ -29,7 +29,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
     assert res.key?("name")
-    assert_nil res["name"]
+    assert_equal "", res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -48,7 +48,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     "views_remaining" => 5,
     "deleted" => false,
     "note" => "",
-    "name" => nil}
+    "name" => ""}
 
     # These should be default values since we didn't specify them in the params
     assert_equal Settings.files.deletable_pushes_default, res["deletable_by_viewer"]

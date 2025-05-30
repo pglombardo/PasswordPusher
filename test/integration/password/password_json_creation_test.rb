@@ -11,7 +11,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
     assert res.key?("name")
-    assert_nil res["name"]
+    assert_equal "", res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
@@ -29,7 +29,7 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
       "deleted" => false,
       "deletable_by_viewer" => true,
       "note" => "",
-      "name" => nil}
+      "name" => ""}
 
     assert_equal Settings.pw.deletable_pushes_default, res["deletable_by_viewer"]
     assert res.key?("days_remaining")

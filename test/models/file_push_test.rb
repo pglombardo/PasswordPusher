@@ -39,7 +39,7 @@ class FilePushTest < ActiveSupport::TestCase
     file_push.files.attach(file)
 
     assert file_push.save
-    assert_nil file_push.name
+    assert_equal "", file_push.name
   end
 
   test "should include name in json representation when owner is true" do

@@ -32,7 +32,7 @@ class UrlTest < ActiveSupport::TestCase
       payload: "https://example.com"
     )
     assert url.save
-    assert_nil url.name
+    assert_equal "", url.name
   end
 
   test "should include name in json representation when owner is true" do
