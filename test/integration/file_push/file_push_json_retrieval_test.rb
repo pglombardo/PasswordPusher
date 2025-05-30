@@ -34,7 +34,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
 
     # Now try to retrieve the file push without the passphrase
     get "/f/#{url_token}.json"
-    assert_response :success
+    assert_response :unauthorized
 
     res = JSON.parse(@response.body)
     assert res.key?("error")
@@ -134,15 +134,16 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 0, res["views_remaining"]
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
-    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
-      "payload" => nil,
-      "expire_after_days" => 7,
-      "expire_after_views" => 2,
-      "deleted" => false,
-      "deletable_by_viewer" => true,
-      "retrieval_step" => false,
-      "days_remaining" => 7,
-      "views_remaining" => 0,
-      "files" => "{}"}
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "json_url", "html_url"), {"expire_after_views" => 2,
+    "expired" => true,
+    "retrieval_step" => false,
+    "passphrase" => nil,
+    "expire_after_days" => 7,
+    "days_remaining" => 7,
+    "views_remaining" => 0,
+    "deleted" => false,
+    "deletable_by_viewer" => true,
+    "payload" => nil,
+    "files" => []}
   end
 end

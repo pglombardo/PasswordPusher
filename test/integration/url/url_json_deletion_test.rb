@@ -47,14 +47,15 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
     assert res.key?("deleted")
     assert_equal true, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
-    assert_equal res.keys.sort, ["expired", "deleted", "expired_on", "expire_after_days", "expire_after_views", "url_token", "retrieval_step", "created_at", "updated_at", "days_remaining", "views_remaining"].sort
-    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on"), {"expired" => true,
-      "deleted" => true,
-      "expire_after_days" => 7,
-      "expire_after_views" => 5,
+    assert_equal res.keys.sort, ["created_at", "days_remaining", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 5,
+      "expired" => true,
       "retrieval_step" => false,
+      "passphrase" => nil,
+      "expire_after_days" => 7,
       "days_remaining" => 7,
-      "views_remaining" => 5}
+      "views_remaining" => 5,
+      "deleted" => true}
 
     assert res.key?("days_remaining")
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]

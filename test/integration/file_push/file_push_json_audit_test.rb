@@ -44,17 +44,16 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("views")
-    assert res["views"].length == 3
+    assert res["views"].length == 4
 
     first_view = res["views"].first
     assert first_view.key?("ip")
     assert first_view.key?("user_agent")
     assert first_view.key?("referrer")
-    assert first_view.key?("successful")
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "creation"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}]
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
@@ -84,7 +83,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Generate unsuccessful views on that push because of wrong passphrase
     get file_push_path(url_token, format: :json)
-    assert_response :success
+    assert_response :unauthorized
 
     delete file_push_path(url_token, format: :json),
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
@@ -103,17 +102,16 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("views")
-    assert res["views"].length == 5
+    assert_equal 7, res["views"].length
 
     first_view = res["views"].first
     assert first_view.key?("ip")
     assert first_view.key?("user_agent")
     assert first_view.key?("referrer")
-    assert first_view.key?("successful")
     assert first_view.key?("created_at")
     assert first_view.key?("updated_at")
     assert first_view.key?("kind")
-    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => true, "kind" => 1, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}, {"password_id" => nil, "ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "successful" => false, "kind" => 0, "url_id" => nil}]
+    assert_equal res["views"].map { |view| view.except("created_at", "updated_at") }, [{"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "creation"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_passphrase"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "expire"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}, {"ip" => "127.0.0.1", "user_agent" => "", "referrer" => "", "kind" => "failed_view"}]
   end
 
   def test_no_token_no_audit_log

@@ -21,24 +21,26 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert res.key?("name") == false
+    assert res.key?("name")
+    assert_nil res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert_not res.key?("deletable_by_viewer")
     assert res.key?("days_remaining")
-    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining"].sort
-    assert_equal res.except("url_token", "created_at", "updated_at"), {
-      "expire_after_days" => 7,
-      "expire_after_views" => 5,
+    assert_equal res.keys.sort, ["created_at", "days_remaining", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal res.except("url_token", "created_at", "updated_at", "html_url", "json_url"), {"expire_after_views" => 5,
       "expired" => false,
-      "deleted" => false,
       "retrieval_step" => false,
       "expired_on" => nil,
+      "passphrase" => "",
+      "expire_after_days" => 7,
       "days_remaining" => 7,
-      "views_remaining" => 5
-    }
+      "views_remaining" => 5,
+      "deleted" => false,
+      "note" => "",
+      "name" => nil}
 
     assert_equal Settings.url.expire_after_days_default, res["days_remaining"]
     assert res.key?("views_remaining")

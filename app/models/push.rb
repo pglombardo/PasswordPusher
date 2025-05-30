@@ -200,4 +200,8 @@ class Push < ApplicationRecord
   rescue Addressable::URI::InvalidURIError
     false
   end
+
+  def deleted
+    audit_logs.where(kind: AuditLog.kinds[:expire]).exists?
+  end
 end

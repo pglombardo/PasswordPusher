@@ -28,25 +28,27 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("payload") == false # No payload on create response
     assert res.key?("url_token")
-    assert res.key?("name") == false
+    assert res.key?("name")
+    assert_nil res["name"]
     assert res.key?("expired")
     assert_equal false, res["expired"]
     assert res.key?("deleted")
     assert_equal false, res["deleted"]
     assert res.key?("deletable_by_viewer")
-    assert res.key?("files")
-    assert res["files"].match(/\/pfb\/blobs\/redirect\/.*\/monkey\.png/)
-    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining", "files"].sort
+    assert_equal res.keys.sort, ["expire_after_days", "expire_after_views", "expired", "url_token", "deleted", "deletable_by_viewer", "retrieval_step", "expired_on", "created_at", "updated_at", "days_remaining", "views_remaining", "html_url", "json_url", "name", "note", "passphrase"].sort
 
-    assert_equal res.except("url_token", "created_at", "updated_at", "files"), {"expire_after_days" => 7,
-      "expire_after_views" => 5,
-      "expired" => false,
-      "deleted" => false,
-      "deletable_by_viewer" => true,
-      "retrieval_step" => false,
-      "expired_on" => nil,
-      "days_remaining" => 7,
-      "views_remaining" => 5}
+    assert_equal res.except("url_token", "created_at", "updated_at", "html_url", "json_url"), {"expire_after_views" => 5,
+    "expired" => false,
+    "deletable_by_viewer" => true,
+    "retrieval_step" => false,
+    "expired_on" => nil,
+    "passphrase" => "",
+    "expire_after_days" => 7,
+    "days_remaining" => 7,
+    "views_remaining" => 5,
+    "deleted" => false,
+    "note" => "",
+    "name" => nil}
 
     # These should be default values since we didn't specify them in the params
     assert_equal Settings.files.deletable_pushes_default, res["deletable_by_viewer"]
@@ -212,8 +214,6 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert res.key?("files")
-
     url_token = res["url_token"]
     push = Push.find_by(url_token:)
     assert_equal push.kind, "file"
@@ -232,8 +232,6 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    assert_not_nil res["files"]
-
     url_token = res["url_token"]
     push = Push.find_by(url_token:)
     assert_equal push.kind, "file"
