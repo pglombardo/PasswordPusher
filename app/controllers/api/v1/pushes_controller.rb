@@ -299,29 +299,14 @@ class Api::V1::PushesController < Api::BaseController
   description <<-EOS
     == Active Pushes Retrieval
 
-    Returns the list of pushes for your account that are still active.
+    Returns the list of pushes that are still active.
 
-    == Example Request to list expired password pushes
+    == Example Request
 
       curl -X GET \\
         -H "X-User-Email: user@example.com" \\
         -H "X-User-Token: MyAPIToken" \\
         https://pwpush.com/p/active.json
-
-    == Example Request to list active file pushes
-
-      curl -X GET \\
-        -H "X-User-Email: user@example.com" \\
-        -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/f/active.json
-
-    == Example Request to list active url pushes
-
-      curl -X GET \\
-        -H "X-User-Email: user@example.com" \\
-        -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/r/active.json
-
 
     == Example Response
 
@@ -361,28 +346,14 @@ class Api::V1::PushesController < Api::BaseController
   description <<-EOS
     == Expired Pushes Retrieval
 
-    Returns the list of pushes for your account that have expired.
+    Returns the list of pushes that have expired.
 
-    == Example Request to list expired password pushes
+    == Example Request
 
       curl -X GET \\
         -H "X-User-Email: user@example.com" \\
         -H "X-User-Token: MyAPIToken" \\
         https://pwpush.com/p/expired.json
-
-    == Example Request to list expired file pushes
-
-      curl -X GET \\
-        -H "X-User-Email: user@example.com" \\
-        -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/f/expired.json
-
-    == Example Request to list expired url pushes
-
-      curl -X GET \\
-        -H "X-User-Email: user@example.com" \\
-        -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/r/expired.json
 
     == Example Response
 
