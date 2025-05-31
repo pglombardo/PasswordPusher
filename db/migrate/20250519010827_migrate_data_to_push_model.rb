@@ -47,10 +47,14 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
   # Password migration methods
   def migrate_passwords
-    puts "Migrating passwords to pushes..."
     successful_password_count = 0
     failed_password_count = 0
-    Password.find_each do |password|
+    total_count = Password.count
+    batch_size = 1000
+
+    puts "Migrating #{total_count} passwords to pushes..."
+
+    Password.find_each(batch_size: batch_size) do |password|
       push = create_push_from_password(password)
 
       if push.save(validate: false)
@@ -60,11 +64,19 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         puts "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(", ")}"
         failed_password_count += 1
       end
+
+      # Print progress after each batch
+      if (successful_password_count + failed_password_count) % batch_size == 0
+        current_batch = (successful_password_count + failed_password_count) / batch_size
+        total_batches = (total_count.to_f / batch_size).ceil
+        puts "Batch #{current_batch}/#{total_batches} (#{successful_password_count + failed_password_count}/#{total_count})"
+      end
     rescue => e
       puts "Error migrating password #{password.id}: #{e.message}"
       failed_password_count += 1
     end
-    puts "Successfully migrated #{successful_password_count} passwords to pushes."
+
+    puts "\nSuccessfully migrated #{successful_password_count} passwords to pushes."
     puts "Failed to migrate #{failed_password_count} passwords to pushes." if failed_password_count > 0
   end
 
@@ -90,11 +102,14 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
   # FilePush migration methods
   def migrate_file_pushes
-    puts "Migrating file pushes to pushes..."
     successful_file_push_count = 0
     failed_file_push_count = 0
+    total_count = FilePush.count
+    batch_size = 1000
 
-    FilePush.find_each do |file_push|
+    puts "Migrating #{total_count} file pushes to pushes..."
+
+    FilePush.find_each(batch_size: batch_size) do |file_push|
       push = create_push_from_file_push(file_push)
 
       if push.save(validate: false)
@@ -105,11 +120,19 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         puts "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(", ")}"
         failed_file_push_count += 1
       end
+
+      # Print progress after each batch
+      if (successful_file_push_count + failed_file_push_count) % batch_size == 0
+        current_batch = (successful_file_push_count + failed_file_push_count) / batch_size
+        total_batches = (total_count.to_f / batch_size).ceil
+        puts "Batch #{current_batch}/#{total_batches} (#{successful_file_push_count + failed_file_push_count}/#{total_count})"
+      end
     rescue => e
       puts "Error migrating file push #{file_push.id}: #{e.message}"
       failed_file_push_count += 1
     end
-    puts "Successfully migrated #{successful_file_push_count} file pushes to pushes."
+
+    puts "\nSuccessfully migrated #{successful_file_push_count} file pushes to pushes."
     puts "Failed to migrate #{failed_file_push_count} file pushes to pushes." if failed_file_push_count > 0
   end
 
@@ -144,11 +167,14 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
   # URL migration methods
   def migrate_urls
-    puts "Migrating urls to pushes..."
     successful_url_count = 0
     failed_url_count = 0
+    total_count = Url.count
+    batch_size = 1000
 
-    Url.find_each do |url|
+    puts "Migrating #{total_count} urls to pushes..."
+
+    Url.find_each(batch_size: batch_size) do |url|
       push = create_push_from_url(url)
 
       if push.save(validate: false)
@@ -156,12 +182,21 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
         successful_url_count += 1
       else
         puts "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(", ")}"
+        failed_url_count += 1
+      end
+
+      # Print progress after each batch
+      if (successful_url_count + failed_url_count) % batch_size == 0
+        current_batch = (successful_url_count + failed_url_count) / batch_size
+        total_batches = (total_count.to_f / batch_size).ceil
+        puts "Batch #{current_batch}/#{total_batches} (#{successful_url_count + failed_url_count}/#{total_count})"
       end
     rescue => e
       puts "Error migrating url #{url.id}: #{e.message}"
       failed_url_count += 1
     end
-    puts "Successfully migrated #{successful_url_count} urls to pushes."
+
+    puts "\nSuccessfully migrated #{successful_url_count} urls to pushes."
     puts "Failed to migrate #{failed_url_count} urls to pushes." if failed_url_count > 0
   end
 
@@ -200,11 +235,14 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
   # Views migration method
   def migrate_views
-    puts "Migrating views to audit logs..."
     successful_view_count = 0
     failed_view_count = 0
+    total_count = View.count
+    batch_size = 1000
 
-    View.find_each do |view|
+    puts "Migrating #{total_count} views to audit logs..."
+
+    View.find_each(batch_size: batch_size) do |view|
       original_push = nil
       if view.file_push_id
         original_push = view.file_push
@@ -227,12 +265,19 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
 
       create_audit_log_from_view(view, push)
       successful_view_count += 1
+
+      # Print progress after each batch
+      if (successful_view_count + failed_view_count) % batch_size == 0
+        current_batch = (successful_view_count + failed_view_count) / batch_size
+        total_batches = (total_count.to_f / batch_size).ceil
+        puts "Batch #{current_batch}/#{total_batches} (#{successful_view_count + failed_view_count}/#{total_count})"
+      end
     rescue => e
       failed_view_count += 1
       puts "Failed to migrate view #{view.id} to audit log: #{e.message}"
     end
 
-    puts "Successfully migrated #{successful_view_count} views to audit logs."
+    puts "\nSuccessfully migrated #{successful_view_count} views to audit logs."
     puts "Failed to migrate #{failed_view_count} views to audit logs." if failed_view_count > 0
   end
 
