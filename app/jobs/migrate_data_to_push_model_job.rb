@@ -2,14 +2,29 @@ class MigrateDataToPushModelJob < ApplicationJob
   queue_as :default
 
   def perform
-    # Migrate data from Password model to Push model
-    migrate_passwords
+    # Get or create migration status
+    status = DataMigrationStatus.find_or_create_by!(name: "push_model_migration")
+    return if status.completed?
 
-    # Migrate data from FilePush model to Push model
-    migrate_file_pushes
+    begin
+      # Migrate data from Password model to Push model
+      migrate_passwords
 
-    # Migrate data from Url model to Push model
-    migrate_urls
+      # Migrate data from FilePush model to Push model
+      migrate_file_pushes
+
+      # Migrate data from Url model to Push model
+      migrate_urls
+
+      # Mark migration as completed
+      status.update!(
+        completed: true,
+        completed_at: Time.current
+      )
+    rescue => e
+      Rails.logger.error("Migration failed: #{e.message}")
+      raise e
+    end
   end
 
   private

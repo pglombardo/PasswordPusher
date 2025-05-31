@@ -1,5 +1,23 @@
 class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
   def up
+    # Create migration status table if it doesn't exist
+    unless table_exists?(:data_migration_statuses)
+      create_table :data_migration_statuses do |t|
+        t.string :name, null: false
+        t.boolean :completed, default: false
+        t.datetime :completed_at
+        t.timestamps
+      end
+      add_index :data_migration_statuses, :name, unique: true
+    end
+
+    # Create initial status record
+    DataMigrationStatus.create_or_find_by(name: "push_model_migration").update!(
+      completed: false,
+      completed_at: nil
+    )
+
+    # Start the background data migration job
     MigrateDataToPushModelJob.perform_later
   end
 
@@ -7,6 +25,7 @@ class MigrateDataToPushModel < ActiveRecord::Migration[7.2]
     attach_files_to_old_records
     remove_all_audit_logs
     remove_all_pushes
+    drop_table :data_migration_statuses if table_exists?(:data_migration_statuses)
   end
 
   private
