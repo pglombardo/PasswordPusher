@@ -30,7 +30,12 @@ class MigrateDataToPushModelJob < ApplicationJob
   private
 
   def logger
-    @logger ||= Logger.new(Rails.root.join("log", "migration_data.log"))
+    unless @logger
+      @logger = Logger.new(Rails.root.join("log", "migration_data.log"))
+      @logger.level = :debug
+    end
+
+    @logger
   end
 
   def migrate_passwords
