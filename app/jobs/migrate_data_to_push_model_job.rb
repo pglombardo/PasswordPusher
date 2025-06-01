@@ -22,12 +22,21 @@ class MigrateDataToPushModelJob < ApplicationJob
         completed_at: Time.current
       )
     rescue => e
-      Rails.logger.error("Migration failed: #{e.message}")
+      logger.error("Migration failed: #{e.message}")
       raise e
     end
   end
 
   private
+
+  def logger
+    unless @logger
+      @logger = Logger.new(Rails.root.join("log", "migration_data.log"))
+      @logger.level = :debug
+    end
+
+    @logger
+  end
 
   def migrate_passwords
     successful_password_count = 0
@@ -35,7 +44,7 @@ class MigrateDataToPushModelJob < ApplicationJob
     total_count = Password.count
     batch_size = 1000
 
-    Rails.logger.info "Migrating #{total_count} passwords to pushes..."
+    logger.info "Migrating #{total_count} passwords to pushes..."
 
     Password.includes(:views, :user).find_each(batch_size: batch_size) do |password|
       push = create_push_from_password(password)
@@ -47,7 +56,7 @@ class MigrateDataToPushModelJob < ApplicationJob
         end
         successful_password_count += 1
       else
-        Rails.logger.error "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(", ")}"
+        logger.error "Failed to migrate password #{password.id}: #{push.errors.full_messages.join(", ")}"
         failed_password_count += 1
       end
 
@@ -55,15 +64,15 @@ class MigrateDataToPushModelJob < ApplicationJob
       if (successful_password_count + failed_password_count) % batch_size == 0
         current_batch = (successful_password_count + failed_password_count) / batch_size
         total_batches = (total_count.to_f / batch_size).ceil
-        Rails.logger.info "Batch #{current_batch}/#{total_batches} (#{successful_password_count + failed_password_count}/#{total_count})"
+        logger.info "Batch #{current_batch}/#{total_batches} (#{successful_password_count + failed_password_count}/#{total_count})"
       end
     rescue => e
-      Rails.logger.error "Error migrating password #{password.id}: #{e.message}"
+      logger.error "Error migrating password #{password.id}: #{e.message}"
       failed_password_count += 1
     end
 
-    Rails.logger.info "Successfully migrated #{successful_password_count} passwords to pushes."
-    Rails.logger.info "Failed to migrate #{failed_password_count} passwords to pushes." if failed_password_count > 0
+    logger.info "Successfully migrated #{successful_password_count} passwords to pushes."
+    logger.info "Failed to migrate #{failed_password_count} passwords to pushes." if failed_password_count > 0
   end
 
   def create_push_from_password(password)
@@ -92,7 +101,7 @@ class MigrateDataToPushModelJob < ApplicationJob
     total_count = FilePush.count
     batch_size = 1000
 
-    Rails.logger.info "Migrating #{total_count} file pushes to pushes..."
+    logger.info "Migrating #{total_count} file pushes to pushes..."
 
     FilePush.includes(:views, :user).find_each(batch_size: batch_size) do |file_push|
       push = create_push_from_file_push(file_push)
@@ -105,7 +114,7 @@ class MigrateDataToPushModelJob < ApplicationJob
         end
         successful_file_push_count += 1
       else
-        Rails.logger.error "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(", ")}"
+        logger.error "Failed to migrate file push #{file_push.id}: #{push.errors.full_messages.join(", ")}"
         failed_file_push_count += 1
       end
 
@@ -113,15 +122,15 @@ class MigrateDataToPushModelJob < ApplicationJob
       if (successful_file_push_count + failed_file_push_count) % batch_size == 0
         current_batch = (successful_file_push_count + failed_file_push_count) / batch_size
         total_batches = (total_count.to_f / batch_size).ceil
-        Rails.logger.info "Batch #{current_batch}/#{total_batches} (#{successful_file_push_count + failed_file_push_count}/#{total_count})"
+        logger.info "Batch #{current_batch}/#{total_batches} (#{successful_file_push_count + failed_file_push_count}/#{total_count})"
       end
     rescue => e
-      Rails.logger.error "Error migrating file push #{file_push.id}: #{e.message}"
+      logger.error "Error migrating file push #{file_push.id}: #{e.message}"
       failed_file_push_count += 1
     end
 
-    Rails.logger.info "Successfully migrated #{successful_file_push_count} file pushes to pushes."
-    Rails.logger.info "Failed to migrate #{failed_file_push_count} file pushes to pushes." if failed_file_push_count > 0
+    logger.info "Successfully migrated #{successful_file_push_count} file pushes to pushes."
+    logger.info "Failed to migrate #{failed_file_push_count} file pushes to pushes." if failed_file_push_count > 0
   end
 
   def create_push_from_file_push(file_push)
@@ -159,7 +168,7 @@ class MigrateDataToPushModelJob < ApplicationJob
     total_count = Url.count
     batch_size = 1000
 
-    Rails.logger.info "Migrating #{total_count} urls to pushes..."
+    logger.info "Migrating #{total_count} urls to pushes..."
 
     Url.includes(:views, :user).find_each(batch_size: batch_size) do |url|
       push = create_push_from_url(url)
@@ -171,7 +180,7 @@ class MigrateDataToPushModelJob < ApplicationJob
         end
         successful_url_count += 1
       else
-        Rails.logger.error "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(", ")}"
+        logger.error "Failed to migrate url #{url.id}: #{push.errors.full_messages.join(", ")}"
         failed_url_count += 1
       end
 
@@ -179,15 +188,15 @@ class MigrateDataToPushModelJob < ApplicationJob
       if (successful_url_count + failed_url_count) % batch_size == 0
         current_batch = (successful_url_count + failed_url_count) / batch_size
         total_batches = (total_count.to_f / batch_size).ceil
-        Rails.logger.info "Batch #{current_batch}/#{total_batches} (#{successful_url_count + failed_url_count}/#{total_count})"
+        logger.info "Batch #{current_batch}/#{total_batches} (#{successful_url_count + failed_url_count}/#{total_count})"
       end
     rescue => e
-      Rails.logger.error "Error migrating url #{url.id}: #{e.message}"
+      logger.error "Error migrating url #{url.id}: #{e.message}"
       failed_url_count += 1
     end
 
-    Rails.logger.info "Successfully migrated #{successful_url_count} urls to pushes."
-    Rails.logger.info "Failed to migrate #{failed_url_count} urls to pushes." if failed_url_count > 0
+    logger.info "Successfully migrated #{successful_url_count} urls to pushes."
+    logger.info "Failed to migrate #{failed_url_count} urls to pushes." if failed_url_count > 0
   end
 
   def create_push_from_url(url)
@@ -246,7 +255,7 @@ class MigrateDataToPushModelJob < ApplicationJob
     elsif view.kind == 1
       :expire
     else
-      Rails.logger.warn "Unknown view kind: #{view.kind} for View##{view.id}. Defaulting audit log kind to :unknown_event."
+      logger.warn "Unknown view kind: #{view.kind} for View##{view.id}. Defaulting audit log kind to :unknown_event."
       :unknown_event
     end
   end
