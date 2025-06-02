@@ -301,6 +301,8 @@ class PushesController < BaseController
         "file"
       when "url"
         "url"
+      when "qr"
+        "qr"
       else
         "text"
       end
