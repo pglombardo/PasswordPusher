@@ -4,7 +4,7 @@ class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
 
-  before_action :set_push, except: %i[new create index]
+  before_action :set_push, except: %i[new create index qr_preview]
   before_action :check_allowed
 
   def show
@@ -127,6 +127,8 @@ class PushesController < BaseController
         @files_tab = true
       elsif @push.kind == "url"
         @url_tab = true
+      elsif @push.kind == "qr"
+        @qr_tab = true
       else
         @text_tab = true
       end
@@ -148,6 +150,11 @@ class PushesController < BaseController
     @show_id = print_preview_params[:show_id]
 
     render action: "print_preview", layout: "naked"
+  end
+
+  def qr_preview
+    @content = params[:content]
+    render partial: "qr_preview", layout: false
   end
 
   def preliminary
@@ -263,6 +270,9 @@ class PushesController < BaseController
       elsif params["tab"] == "url"
         @push.kind = "url"
         @url_tab = true
+      elsif params["tab"] == "qr"
+        @push.kind = "qr"
+        @qr_tab = true
       else
         @push.kind = "text"
         @text_tab = true
@@ -318,6 +328,16 @@ class PushesController < BaseController
         end
       else
         redirect_to root_path, notice: t("pushes.url_pushes_disabled")
+      end
+
+    when "qr"
+      # QR pushes only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_qr_pushes
+        unless %w[preliminary passphrase access show expire].include?(action_name)
+          authenticate_user!
+        end
+      else
+        redirect_to root_path, notice: t("pushes.qr_pushes_disabled")
       end
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)

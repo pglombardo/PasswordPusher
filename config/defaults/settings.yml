@@ -36,6 +36,19 @@ enable_url_pushes: false
 #
 enable_file_pushes: false
 
+### QR Code Pushes
+#
+# Enable or disable QR code based pushes.  These allow you to share QR codes securely.
+# Like regular pushes, they expire after a set time or amount of views.
+#
+# Note that `enable_logins` is required for QR code based pushes to work.  It is a
+# feature for logged in users only.
+#
+# Environment variable override:
+# PWP__ENABLE_QR_PUSHES='false'
+#
+enable_qr_pushes: false
+
 ### Logins (User accounts)
 #
 # Logins are disabled by default since they require an MTA (email) server
@@ -538,6 +551,83 @@ files:
     # Environment Variable Override: PWP__FILES__AS__CONTAINER=''
     container: ''
 
+## Expiration Settings for QR Code Pushes
+#
+qr:
+  # Expire QR Code Pushes After XX Days
+  #
+  # Controls the "Expire After Days" for QR Code Pushes
+  #
+  # Environment variable overrides:
+  # PWP__URL__EXPIRE_AFTER_DAYS_DEFAULT=7
+  # PWP__URL__EXPIRE_AFTER_DAYS_MIN=1
+  # PWP__URL__EXPIRE_AFTER_DAYS_MAX=90
+  #
+  expire_after_days_default: 7
+  expire_after_days_min: 1
+  expire_after_days_max: 90
+
+  # Expire QR Code Pushes After XX Views
+  #
+  # Controls the "Expire After Views" form settings in Password#new
+  #
+  # Environment variable overrides:
+  # PWP__QR__EXPIRE_AFTER_VIEWS_DEFAULT=5
+  # PWP__QR__EXPIRE_AFTER_VIEWS_MIN=1
+  # PWP__QR__EXPIRE_AFTER_VIEWS_MAX=100
+  #
+  expire_after_views_default: 5
+  expire_after_views_min: 1
+  expire_after_views_max: 100
+
+  # Retrieval Step for QR Code Pushes
+  #
+  # This enables or disables the "1-click retrieval step" feature entirely.  For the default value
+  # when it is enabled here, see the next setting.
+  #
+  # Environment variable override:
+  # PWP__QR__ENABLE_RETRIEVAL_STEP='false'
+  #
+  enable_retrieval_step: true
+
+  # Default Form Value for the Retrieval Step
+  #
+  # When the retrieval step is enabled (above), what is the default value on the form?
+  #
+  # When true, secret URLs will be generated as /r/xxxxxxxx/r which will show a page
+  # requiring a click to view the page /r/xxxxxxxx
+  #
+  # Environment variable override:
+  # PWP__QR__RETRIEVAL_STEP_DEFAULT='true'
+  #
+  retrieval_step_default: false
+
+  # Deletable QR Code Pushes
+  #
+  # default: true
+  #
+  # This enables or disables the "Allow Immediate Deletion" feature entirely.  For the default value
+  # when it is enabled here, see the next setting.
+  #
+  # Environment variable override:
+  # PWP__QR__ENABLE_DELETABLE_PUSHES='false'
+  #
+  enable_deletable_pushes: true
+
+  # Deletable Pushes Default Value
+  #
+  # default: true
+  #
+  # When this is set to true, this option does two things:
+  #   1. Sets the default check state for the "Allow viewers to
+  #       optionally delete password before expiration" checkbox
+  #   2. JSON API: Sets the default value for newly pushed passwords if
+  #       unspecified
+  #
+  # Environment variable override:
+  # PWP__PW__DELETABLE_PUSHES_DEFAULT='false'
+  #
+  deletable_pushes_default: true
 
 ### Password Generator Defaults
 #
