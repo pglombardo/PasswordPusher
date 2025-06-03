@@ -333,7 +333,7 @@ class PushesController < BaseController
       end
 
     when "qr"
-      # QR pushes only enabled when logins are enabled.
+      # QR code pushes only enabled when logins are enabled.
       if Settings.enable_logins && Settings.enable_qr_pushes
         unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!

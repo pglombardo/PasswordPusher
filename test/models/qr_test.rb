@@ -16,7 +16,7 @@ class QrTest < ActiveSupport::TestCase
     Settings.enable_logins = @default_enable_logins
   end
 
-  test "should create QR Code push with name" do
+  test "should create QR code push with name" do
     qr = Push.new(
       kind: "qr",
       payload: "testqr",

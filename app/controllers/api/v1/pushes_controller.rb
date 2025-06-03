@@ -156,7 +156,7 @@ class Api::V1::PushesController < Api::BaseController
     if !push_params[:kind].present?
       # These are used to determine the default kind based on the request path
       # for old push records. Their paths are generated based on their kind.
-      # And, QR Code pushes are created by using `/p/` path.
+      # And, QR code pushes are created by using `/p/` path.
       # So, it is not necessary to check for a special path.
       @push.kind = if request.path.include?("/f.json")
         "file"
