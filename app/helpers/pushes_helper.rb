@@ -14,14 +14,4 @@ module PushesHelper
 
     format("%.1f #{units[exp]}", size.to_f / (1024**exp))
   end
-
-  def qr_code(url)
-    RQRCode::QRCode.new(url).as_svg(
-      offset: 0,
-      color: :currentColor,
-      shape_rendering: "crispEdges",
-      module_size: 6,
-      standalone: true
-    ).html_safe
-  end
 end
