@@ -4,7 +4,7 @@ class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
 
-  before_action :set_push, except: %i[new create index qr_preview]
+  before_action :set_push, except: %i[new create index]
   before_action :check_allowed
 
   def show
@@ -150,11 +150,6 @@ class PushesController < BaseController
     @show_id = print_preview_params[:show_id]
 
     render action: "print_preview", layout: "naked"
-  end
-
-  def qr_preview
-    @content = params[:content]
-    render partial: "qr_preview", layout: false
   end
 
   def preliminary
