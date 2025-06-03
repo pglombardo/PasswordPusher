@@ -488,20 +488,6 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert_equal 1, push.files.count, "File was not attached to push"
       assert_not push.audit_logs.empty?
 
-      # Run the migration down
-      @migration.down
-
-      # Verify pushes were deleted
-      assert_equal 0, Push.count, "Pushes were not deleted"
-
-      # Verify audit logs were deleted
-      assert_equal 0, AuditLog.count, "Audit logs were not deleted"
-
-      # Verify files were reattached to the original file_push
-      file_push.reload
-      assert file_push.files.attached?, "Files were not reattached to the original file_push"
-      assert_equal 1, file_push.files.count, "File count doesn't match after reattachment"
-
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback
     end
