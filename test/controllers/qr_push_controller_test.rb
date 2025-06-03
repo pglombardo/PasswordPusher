@@ -91,7 +91,7 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "override base url" do
-    Settings.override_base_url = "testqr"
+    Settings.override_base_url = "https://example.com:12345"
 
     @luca = users(:luca)
     @luca.confirm
@@ -108,6 +108,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    assert response.body.include?("testqr")
+    assert response.body.include?("https://example.com:12345")
   end
 end
