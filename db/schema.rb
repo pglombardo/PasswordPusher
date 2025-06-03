@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
     t.string "content_type"
     t.text "metadata"
     t.string "service_name", null: false
-    t.integer "byte_size", null: false
+    t.bigint "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -51,6 +51,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
     t.index ["kind"], name: "index_audit_logs_on_kind"
     t.index ["push_id"], name: "index_audit_logs_on_push_id"
     t.index ["user_id"], name: "index_audit_logs_on_user_id"
+  end
+
+  create_table "data_migration_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "completed", default: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_data_migration_statuses_on_name", unique: true
   end
 
   create_table "file_pushes", force: :cascade do |t|
