@@ -9,7 +9,7 @@ class QrAuthenticatedTest < ActionDispatch::IntegrationTest
   end
 
   def test_authenticated_json_creation
-    post passwords_path(format: :json),
+    post json_pushes_path(format: :json),
       params: {password: {kind: "qr", payload: "testpw"}},
       headers: {"Authorization" => "Bearer #{users(:luca).authentication_token}"}
     assert_response :success
@@ -19,7 +19,7 @@ class QrAuthenticatedTest < ActionDispatch::IntegrationTest
   end
 
   def test_authenticated_json_creation_with_bad_token
-    post passwords_path(format: :json),
+    post json_pushes_path(format: :json),
       params: {password: {kind: "qr", payload: "testpw"}},
       headers: {"Authorization" => "Bearer 00000200000000001000000000000000"}
     assert_response :unauthorized

@@ -78,7 +78,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     get "/p/#{url_token}.json"
     assert_response :unauthorized
 
-    delete password_path(url_token, format: :json),
+    delete json_push_path(url_token, format: :json),
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
     assert_response :success
 
