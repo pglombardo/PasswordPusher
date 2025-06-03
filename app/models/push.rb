@@ -138,6 +138,7 @@ class Push < ApplicationRecord
 
   def check_payload_for_qr
     if payload.present?
+      # If the push is a QR code, max payload length is 1024 characters
       if payload.length > 1024
         errors.add(:payload, t("pushes.create.qr_max_length", count: 1024))
       end
