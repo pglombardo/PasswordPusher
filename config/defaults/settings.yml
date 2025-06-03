@@ -559,9 +559,9 @@ qr:
   # Controls the "Expire After Days" for QR Code Pushes
   #
   # Environment variable overrides:
-  # PWP__URL__EXPIRE_AFTER_DAYS_DEFAULT=7
-  # PWP__URL__EXPIRE_AFTER_DAYS_MIN=1
-  # PWP__URL__EXPIRE_AFTER_DAYS_MAX=90
+  # PWP__QR__EXPIRE_AFTER_DAYS_DEFAULT=7
+  # PWP__QR__EXPIRE_AFTER_DAYS_MIN=1
+  # PWP__QR__EXPIRE_AFTER_DAYS_MAX=90
   #
   expire_after_days_default: 7
   expire_after_days_min: 1
@@ -594,8 +594,8 @@ qr:
   #
   # When the retrieval step is enabled (above), what is the default value on the form?
   #
-  # When true, secret URLs will be generated as /r/xxxxxxxx/r which will show a page
-  # requiring a click to view the page /r/xxxxxxxx
+  # When true, secret URLs will be generated as /p/xxxxxxxx/r which will show a page
+  # requiring a click to view the page /p/xxxxxxxx
   #
   # Environment variable override:
   # PWP__QR__RETRIEVAL_STEP_DEFAULT='true'
@@ -619,13 +619,12 @@ qr:
   # default: true
   #
   # When this is set to true, this option does two things:
-  #   1. Sets the default check state for the "Allow viewers to
-  #       optionally delete password before expiration" checkbox
-  #   2. JSON API: Sets the default value for newly pushed passwords if
+  #   1. Sets the default check state for the "Allow users to delete this push once retrieved." checkbox
+  #   2. JSON API: Sets the default value for newly pushed pushs if
   #       unspecified
   #
   # Environment variable override:
-  # PWP__PW__DELETABLE_PUSHES_DEFAULT='false'
+  # PWP__QR__DELETABLE_PUSHES_DEFAULT='false'
   #
   deletable_pushes_default: true
 

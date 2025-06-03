@@ -36,6 +36,19 @@ enable_url_pushes: false
 #
 enable_file_pushes: false
 
+### QR Code Pushes
+#
+# Enable or disable QR code based pushes.  These allow you to share QR codes securely.
+# Like regular pushes, they expire after a set time or amount of views.
+#
+# Note that `enable_logins` is required for QR code based pushes to work.  It is a
+# feature for logged in users only.
+#
+# Environment variable override:
+# PWP__ENABLE_QR_PUSHES='false'
+#
+enable_qr_pushes: false
+
 ### Logins (User accounts)
 #
 # Logins are disabled by default since they require an MTA (email) server
@@ -221,7 +234,7 @@ timezone: 'America/New_York'
 
 ## Expiration Settings for Password Pushes
 #
-pw:
+pw: 
   # Expire Password Pushes After XX Days
   #
   # Controls the "Expire After Days" for Password Pushes
@@ -538,7 +551,7 @@ files:
     # Environment Variable Override: PWP__FILES__AS__CONTAINER=''
     container: ''
 
-## Expiration Settings for QR Pushes
+## Expiration Settings for QR Code Pushes
 #
 qr:
   # Expire QR Code Pushes After XX Days
@@ -606,9 +619,8 @@ qr:
   # default: true
   #
   # When this is set to true, this option does two things:
-  #   1. Sets the default check state for the "Allow viewers to
-  #       optionally delete password before expiration" checkbox
-  #   2. JSON API: Sets the default value for newly pushed passwords if
+  #   1. Sets the default check state for the "Allow users to delete this push once retrieved." checkbox
+  #   2. JSON API: Sets the default value for newly pushed pushs if
   #       unspecified
   #
   # Environment variable override:
