@@ -66,7 +66,7 @@
       <% if @push.payload.present? %>
         <% if @push.text? %>
           <%= render partial: 'pushes/show_payload', locals: { payload: @payload, blur_css_class: @blur_css_class } %>
-        <% else @push.qr? %>
+        <% elsif @push.qr? %>
           <%= render partial: 'pushes/show_qr', locals: { push: @push } %>
         <% end %>
       <% end %>
