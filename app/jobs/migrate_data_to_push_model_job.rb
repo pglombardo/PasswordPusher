@@ -1,6 +1,10 @@
 class MigrateDataToPushModelJob < ApplicationJob
   queue_as :default
 
+  # Set a concurrency key to ensure only one instance runs at a time
+  # The key can be any string that uniquely identifies this job type
+  limits_concurrency key: "migrate_data_to_push_model", duration: 3.hours
+
   def perform
     # Get or create migration status
     status = DataMigrationStatus.find_or_create_by!(name: "push_model_migration")
