@@ -28,7 +28,7 @@ class CreateAuditLog < ActiveRecord::Migration[7.2]
 
         t.index :kind
 
-        t.references :user, foreign_key: true, type: :integer
+        t.references :user, foreign_key: false, type: :integer
         t.references :push, null: false, foreign_key: true, type: :integer
         t.timestamps
       end
