@@ -12,14 +12,14 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
 
   setup do
     # Create a migration instance for testing
+    @migration_job = MigrateDataToPushModelJob.new
     @migration = MigrateDataToPushModel.new
 
     # Make private methods accessible for testing
-    @migration.class.send(:public, :migrate_passwords)
-    @migration.class.send(:public, :migrate_file_pushes)
-    @migration.class.send(:public, :migrate_urls)
-    @migration.class.send(:public, :migrate_views)
-    @migration.class.send(:public, :determine_audit_log_kind)
+    @migration_job.class.send(:public, :migrate_passwords)
+    @migration_job.class.send(:public, :migrate_file_pushes)
+    @migration_job.class.send(:public, :migrate_urls)
+    @migration_job.class.send(:public, :determine_audit_log_kind)
 
     View.delete_all
     Password.delete_all
@@ -74,7 +74,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       pushes_before = Push.count
 
       # Run the migration
-      @migration.migrate_passwords
+      @migration_job.migrate_passwords
 
       # Verify at least one new push was created
       assert Push.count > pushes_before, "No new pushes were created"
@@ -136,7 +136,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       pushes_before = Push.count
 
       # Run the migration
-      @migration.migrate_file_pushes
+      @migration_job.migrate_file_pushes
 
       # Verify at least one new push was created
       assert Push.count > pushes_before, "No new pushes were created"
@@ -190,7 +190,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       pushes_before = Push.count
 
       # Run the migration
-      @migration.migrate_urls
+      @migration_job.migrate_urls
 
       # Verify at least one new push was created
       assert Push.count > pushes_before, "No new pushes were created"
@@ -255,14 +255,11 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       audit_logs_before = AuditLog.count
 
       # First run the password migration to create the push
-      @migration.migrate_passwords
+      @migration_job.migrate_passwords
 
       # Find the push that was created from the password
       push = Push.find_by(url_token: password.url_token)
       assert_not_nil push
-
-      # Run the view migration to create the audit logs
-      @migration.migrate_views
 
       # Verify at least one new audit log was created
       assert AuditLog.count == audit_logs_before + 2, "No new audit logs were created"
@@ -344,7 +341,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       audit_logs_before = AuditLog.count
 
       # Run the full migration
-      @migration.up
+      @migration_job.perform_now
 
       # Verify new pushes were created
       assert Push.count > pushes_before, "No new pushes were created"
@@ -429,7 +426,7 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       pushes_count_before = Push.count
 
       # Run the migration
-      @migration.up
+      @migration_job.perform_now
 
       # Verify at least one new push was created
       assert Push.count == pushes_count_before + 3, "Pushes are not created correctly"
@@ -481,8 +478,8 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       )
 
       # Run the migration up to create pushes and audit logs
-      @migration.class.send(:public, :migrate_file_pushes)
-      @migration.migrate_file_pushes
+      @migration_job.class.send(:public, :migrate_file_pushes)
+      @migration_job.migrate_file_pushes
 
       # Verify pushes and audit logs were created
       push = Push.find_by(url_token: file_push.url_token)
@@ -490,20 +487,6 @@ class MigrateDataToPushModelTest < ActiveSupport::TestCase
       assert push.files.attached?
       assert_equal 1, push.files.count, "File was not attached to push"
       assert_not push.audit_logs.empty?
-
-      # Run the migration down
-      @migration.down
-
-      # Verify pushes were deleted
-      assert_equal 0, Push.count, "Pushes were not deleted"
-
-      # Verify audit logs were deleted
-      assert_equal 0, AuditLog.count, "Audit logs were not deleted"
-
-      # Verify files were reattached to the original file_push
-      file_push.reload
-      assert file_push.files.attached?, "Files were not reattached to the original file_push"
-      assert_equal 1, file_push.files.count, "File count doesn't match after reattachment"
 
       # Always rollback to keep test isolated
       raise ActiveRecord::Rollback
