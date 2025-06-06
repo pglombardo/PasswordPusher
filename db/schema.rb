@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_06_094103) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
     t.string "content_type"
     t.text "metadata"
     t.string "service_name", null: false
-    t.bigint "byte_size", null: false
+    t.integer "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -60,46 +60,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_data_migration_statuses_on_name", unique: true
-  end
-
-  create_table "file_pushes", force: :cascade do |t|
-    t.integer "expire_after_days"
-    t.integer "expire_after_views"
-    t.boolean "expired", default: false
-    t.string "url_token"
-    t.integer "user_id"
-    t.boolean "deleted", default: false
-    t.boolean "deletable_by_viewer", default: true
-    t.boolean "retrieval_step", default: false
-    t.datetime "expired_on"
-    t.text "payload_ciphertext", limit: 16777215
-    t.text "note_ciphertext"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "passphrase_ciphertext", limit: 2048
-    t.string "name"
-    t.index ["url_token"], name: "index_file_pushes_on_url_token", unique: true
-    t.index ["user_id"], name: "index_file_pushes_on_user_id"
-  end
-
-  create_table "passwords", force: :cascade do |t|
-    t.integer "expire_after_days"
-    t.integer "expire_after_views"
-    t.boolean "expired", default: false
-    t.string "url_token"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.integer "user_id"
-    t.boolean "deleted", default: false
-    t.boolean "deletable_by_viewer", default: true
-    t.boolean "retrieval_step", default: false
-    t.datetime "expired_on", precision: nil
-    t.text "payload_ciphertext", limit: 16777215
-    t.text "note_ciphertext"
-    t.text "passphrase_ciphertext", limit: 2048
-    t.string "name"
-    t.index ["url_token"], name: "index_passwords_on_url_token", unique: true
-    t.index ["user_id"], name: "index_passwords_on_user_id"
   end
 
   create_table "pushes", force: :cascade do |t|
@@ -241,25 +201,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_19_010827) do
     t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
     t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
-  end
-
-  create_table "urls", force: :cascade do |t|
-    t.integer "expire_after_days"
-    t.integer "expire_after_views"
-    t.boolean "expired", default: false
-    t.string "url_token"
-    t.integer "user_id"
-    t.boolean "deleted", default: false
-    t.boolean "retrieval_step", default: false
-    t.datetime "expired_on"
-    t.text "payload_ciphertext", limit: 2097152
-    t.text "note_ciphertext"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "passphrase_ciphertext", limit: 2048
-    t.string "name"
-    t.index ["url_token"], name: "index_urls_on_url_token", unique: true
-    t.index ["user_id"], name: "index_urls_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
