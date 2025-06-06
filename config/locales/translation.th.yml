@@ -160,11 +160,7 @@ th:
         unconfirmed_email: อีเมลที่ไม่ได้รับการยืนยัน
         unlock_token: รหัสลับสำหรับปลดล็อก
         updated_at: แก้ไขเมื่อ
-      file_push:
-        name: ชื่อ
-      password:
-        name: ชื่อ
-      url:
+      push:
         name: ชื่อ
     models:
       user:
@@ -713,6 +709,7 @@ th:
       log_close: ปิดเมื่อ %{date} โดย %{user} ลบการตอบกลับแล้ว
       log_response: ผู้รับได้รับคำตอบเมื่อ %{date} โดย %{user}
       log_retrieve: ดึงข้อมูลหน้าที่ดูใน %{date} โดย %{user}
+      none: ไม่มี
   dashboard:
     show:
       detail: รายละเอียด
@@ -868,6 +865,7 @@ th:
       policy_tip: 'เคล็ดลับ: คุณสามารถตั้งค่าเริ่มต้นและอื่นๆ ได้ใน %{link}'
       short_expiration_tip: เวลาหมดอายุและจำนวนการดูสั้นจะช่วยลดความเสี่ยงในการเปิดเผย
       name_or_id: ชื่อ หรือ ID
+      kind: ใจดี
     index:
       actions: การดำเนินการ
       clear_filters: ล้างตัวกรอง
@@ -880,8 +878,8 @@ th:
       active: คล่องแคล่ว
       expired: หมดอายุ
       all: ทั้งหมด
-      remaining: ที่เหลืออยู่
       team_pushes: ทีมผลักดัน
+      views_days_remaining: "%{views} มุมมองหรือ %{days} วัน"
     'no': ไม่
     none: ไม่มี
     passphrase:
@@ -950,8 +948,17 @@ th:
       title: ส่งรหัสผ่าน ข้อความ หรือไฟล์อย่างปลอดภัย
     create:
       premium_required: คุณจะต้องสมัครสมาชิกจึงจะแนบไฟล์ได้
+      invalid_url: ต้องเป็น URL HTTP หรือ HTTPS ที่ถูกต้อง
+      payload_required: จำเป็นต้องมีเพย์โหลด
     update:
       successful: การอัปเดต Push สำเร็จแล้ว
+    file_pushes_disabled: การผลักไฟล์ถูกปิดใช้งาน
+    need_login_for_active: คุณจะต้องเข้าสู่ระบบเพื่อดูการผลักดันที่ใช้งานอยู่ของคุณ
+    need_login_for_expired: คุณจะต้องเข้าระบบเพื่อดูการผลักดันที่หมดอายุของคุณ
+    not_deletable_or_not_owner: การผลักดันนั้นไม่สามารถลบโดยผู้ชมและไม่เป็นของคุณ
+    not_owner_push: การผลักดันนั้นไม่ได้เป็นของคุณ
+    passphrase_incorrect: การพุชนี้มีวลีรหัสผ่านที่ไม่ถูกต้องหรือไม่ได้ให้มา
+    url_pushes_disabled: การผลัก URL ถูกปิดการใช้งาน
   static:
     about:
       about_1: Password Pusher เป็นเครื่องมือที่ใช้สำหรับแบ่งปันรหัสผ่านและข้อมูลที่ละเอียดอ่อนอื่น
@@ -1445,3 +1452,5 @@ th:
     not_found: ไม่พบ
     share: แบ่งปัน
     expired: หมดอายุ
+    none: ไม่มี
+    remaining: ที่เหลืออยู่

@@ -164,11 +164,7 @@ cs:
         unconfirmed_email: Nepotvrzený e-mail
         unlock_token: Odemykací token
         updated_at: Upraveno
-      file_push:
-        name: Jméno
-      password:
-        name: Jméno
-      url:
+      push:
         name: Jméno
     models:
       user:
@@ -766,6 +762,7 @@ cs:
       log_close: Uzavřeno dne %{date} uživatelem %{user}. Odpověď smazána.
       log_response: Odpověď příjemce přijata dne %{date} uživatelem %{user}
       log_retrieve: Načíst stránku zobrazenou na %{date} uživatelem %{user}
+      none: Žádný
   dashboard:
     show:
       detail: Detail
@@ -940,6 +937,7 @@ cs:
       short_expiration_tip: Krátké doby expirace a počet zhlédnutí snižují riziko
         expozice.
       name_or_id: Jméno nebo ID
+      kind: Druh
     index:
       actions: Akce
       clear_filters: Vymazat filtry
@@ -952,8 +950,8 @@ cs:
       active: Aktivní
       expired: Platnost vypršela
       all: Všechno
-      remaining: Zbývající
       team_pushes: Týmové tahy
+      views_days_remaining: "%{views} zhlédnutí nebo %{days} dní"
     'no': Ne
     none: Žádný
     passphrase:
@@ -1026,8 +1024,18 @@ cs:
       title: Bezpečně odešlete heslo, text nebo soubor
     create:
       premium_required: Pro připojení souborů se musíte přihlásit.
+      invalid_url: musí být platná URL adresa HTTP nebo HTTPS.
+      payload_required: Je vyžadováno užitečné zatížení.
     update:
       successful: Push byl úspěšně aktualizován.
+    file_pushes_disabled: Odesílání souborů je zakázáno.
+    need_login_for_active: Pro zobrazení aktivních pushů musíte být přihlášeni.
+    need_login_for_expired: Musíte být přihlášeni, abyste si mohli prohlédnout vypršení
+      platnosti push.
+    not_deletable_or_not_owner: Tento push není pro diváky smazatelný a nepatří vám.
+    not_owner_push: Ten tlak ti nepatří.
+    passphrase_incorrect: Toto odeslání má nesprávné nebo vůbec zadané heslo.
+    url_pushes_disabled: Odesílání URL adres je zakázáno.
   static:
     about:
       about_1: Password Pusher je nástroj používaný pro bezpečné sdílení hesel a dalších
@@ -1561,3 +1569,5 @@ cs:
     not_found: Nenalezeno
     share: Podíl
     expired: Platnost vypršela
+    none: Žádný
+    remaining: Zbývající

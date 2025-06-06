@@ -160,11 +160,7 @@ ko:
         unconfirmed_email: 확인되지 않은 이메일 주소
         unlock_token: 잠금해제 토큰
         updated_at: 업데이트된 시간
-      file_push:
-        name: 이름
-      password:
-        name: 이름
-      url:
+      push:
         name: 이름
     models:
       user:
@@ -702,6 +698,7 @@ ko:
       log_close: "%{date}에 %{user}가 마감했습니다. 응답이 삭제되었습니다."
       log_response: 수신자 응답은 %{date}에 %{user}에 의해 수신되었습니다.
       log_retrieve: "%{date}에서 %{user}가 본 페이지를 검색합니다."
+      none: 없음
   dashboard:
     show:
       detail: 세부 사항
@@ -852,6 +849,7 @@ ko:
       policy_tip: '팁: %{link}에서 기본값 및 기타 항목을 설정할 수 있습니다.'
       short_expiration_tip: 만료 시간이 짧고 조회수가 많으면 노출 위험이 줄어듭니다.
       name_or_id: 이름 또는 ID
+      kind: 친절한
     index:
       actions: 행위
       clear_filters: 필터 지우기
@@ -864,8 +862,8 @@ ko:
       active: 활동적인
       expired: 만료됨
       all: 모두
-      remaining: 남은
       team_pushes: 팀 푸시
+      views_days_remaining: "%{views}회 조회 또는 %{days}일"
     'no': 아니요
     none: 없음
     passphrase:
@@ -931,8 +929,17 @@ ko:
       title: 비밀번호, 문자 또는 파일을 안전하게 보내기
     create:
       premium_required: 파일을 첨부하려면 구독이 필요합니다.
+      invalid_url: 유효한 HTTP 또는 HTTPS URL이어야 합니다.
+      payload_required: 탑재량이 필요합니다.
     update:
       successful: 푸시가 성공적으로 업데이트되었습니다.
+    file_pushes_disabled: 파일 푸시가 비활성화되었습니다.
+    need_login_for_active: 활성 푸시를 보려면 로그인해야 합니다.
+    need_login_for_expired: 만료된 푸시를 보려면 로그인해야 합니다.
+    not_deletable_or_not_owner: 해당 푸시는 시청자가 삭제할 수 없으며 귀하에게 속하지 않습니다.
+    not_owner_push: 그 푸시는 당신의 것이 아닙니다.
+    passphrase_incorrect: 이 푸시에는 잘못된 암호가 있거나 제공되지 않았습니다.
+    url_pushes_disabled: URL 푸시가 비활성화되었습니다.
   static:
     about:
       about_1: Password Pusher는 암호 및 기타 중요한 정보를 다른 사람과 안전하게 공유하는 데 사용되는 도구입니다.
@@ -1402,3 +1409,5 @@ ko:
     not_found: 찾을 수 없음
     share: 공유하다
     expired: 만료됨
+    none: 없음
+    remaining: 남은

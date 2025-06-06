@@ -206,11 +206,7 @@ ru:
         unconfirmed_email: Неподтвержденный email
         unlock_token: Токен разблокировки
         updated_at: Дата обновления
-      file_push:
-        name: Имя
-      password:
-        name: Имя
-      url:
+      push:
         name: Имя
     models:
       user:
@@ -790,6 +786,7 @@ ru:
       log_close: Закрыто %{date} пользователем %{user}.  Ответ удален.
       log_response: Ответ получен %{date} от %{user}
       log_retrieve: Получить страницу, просмотренную на %{date} пользователем %{user}
+      none: Нет
   dashboard:
     show:
       detail: Деталь
@@ -973,6 +970,7 @@ ru:
       short_expiration_tip: Короткие сроки истечения и количество просмотров снижают
         риск экспирации.
       name_or_id: Имя или идентификатор
+      kind: Добрый
     index:
       actions: Действия
       clear_filters: Очистить фильтры
@@ -985,8 +983,8 @@ ru:
       active: Активный
       expired: Просрочена
       all: Все
-      remaining: Оставшиеся
       team_pushes: Команда толкает
+      views_days_remaining: "%{views} просмотров или %{days} дней"
     'no': Нет
     none: Нет
     passphrase:
@@ -1064,8 +1062,20 @@ ru:
       title: Безопасная отправка пароля, текста или файла
     create:
       premium_required: Чтобы прикреплять файлы, необходимо подписаться.
+      invalid_url: должен быть действительным HTTP или HTTPS URL.
+      payload_required: Необходима полезная нагрузка.
     update:
       successful: Push был успешно обновлен.
+    file_pushes_disabled: Проталкивание файлов отключено.
+    need_login_for_active: Вы должны войти в систему, чтобы просмотреть свои активные
+      пуши.
+    need_login_for_expired: Вы должны войти в систему, чтобы просмотреть свои истекшие
+      пуши.
+    not_deletable_or_not_owner: Этот толчок не может быть удален зрителями и не принадлежит
+      вам.
+    not_owner_push: Это отправление не принадлежит вам.
+    passphrase_incorrect: У этого push неверная или не предоставленная парольная фраза.
+    url_pushes_disabled: Проталкивание URL отключено.
   static:
     about:
       about_1: Password Pusher - это инструмент, используемый для безопасного обмена
@@ -1626,3 +1636,5 @@ ru:
     not_found: Не найдено
     share: Поделиться
     expired: Просрочена
+    none: Нет
+    remaining: Оставшиеся

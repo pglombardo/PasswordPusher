@@ -163,11 +163,7 @@ fi:
         unconfirmed_email: Vahvistamaton sähköposti
         unlock_token: Lukituksen poistotunniste
         updated_at: Päivitetty
-      file_push:
-        name: Nimi
-      password:
-        name: Nimi
-      url:
+      push:
         name: Nimi
     models:
       user:
@@ -764,6 +760,7 @@ fi:
       log_close: 'Suljettiin %{date}: %{user}. Vastaus poistettu.'
       log_response: "%{user} vastaanotti vastaanottajan vastauksen %{date}"
       log_retrieve: Hae sivu, jonka %{user} katseli %{date}
+      none: Ei mitään
   dashboard:
     show:
       detail: Yksityiskohta
@@ -938,6 +935,7 @@ fi:
         %{link}.'
       short_expiration_tip: Lyhyet vanhentumisajat ja näyttökerrat vähentävät altistumisriskiä.
       name_or_id: Nimi tai tunnus
+      kind: Ystävällinen
     index:
       actions: Toiminnot
       clear_filters: Tyhjennä suodattimet
@@ -950,8 +948,8 @@ fi:
       active: Aktiivinen
       expired: Vanhentunut
       all: Kaikki
-      remaining: Jäljelle jäänyt
       team_pushes: Joukkueen työnnät
+      views_days_remaining: "%{views} katselukertaa tai %{days} päivää"
     'no': Ei
     none: Ei mitään
     passphrase:
@@ -1025,8 +1023,21 @@ fi:
       title: Lähetä turvallisesti salasana, teksti tai tiedosto
     create:
       premium_required: Sinun on tilattava liitetiedostoja.
+      invalid_url: täytyy olla kelvollinen HTTP- tai HTTPS-URL-osoite.
+      payload_required: Hyötykuorma vaaditaan.
     update:
       successful: Push päivitettiin onnistuneesti.
+    file_pushes_disabled: Tiedostojen push-toiminnot ovat poissa käytöstä.
+    need_login_for_active: Sinun on oltava kirjautuneena sisään nähdäksesi aktiiviset
+      työnnät.
+    need_login_for_expired: Sinun on oltava kirjautuneena sisään nähdäksesi vanhentuneet
+      työnnät.
+    not_deletable_or_not_owner: Katsojat eivät voi poistaa tätä painostusta, eikä
+      se kuulu sinulle.
+    not_owner_push: Tämä lähetys ei kuulu sinulle.
+    passphrase_incorrect: Tämän push-viestin salasana on virheellinen tai sitä ei
+      ole annettu.
+    url_pushes_disabled: URL-sivujen lähettäminen on poistettu käytöstä.
   static:
     about:
       about_1: Password Pusher on työkalu salasanojen ja muiden arkaluonteisten tietojen
@@ -1558,3 +1569,5 @@ fi:
     not_found: Ei löydy
     share: Jaa
     expired: Vanhentunut
+    none: Ei mitään
+    remaining: Jäljellä
