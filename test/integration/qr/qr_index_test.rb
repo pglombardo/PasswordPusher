@@ -46,7 +46,7 @@ class QrIndexTest < ActionDispatch::IntegrationTest
     assert_select "th", /Kind/ # Second column
     assert_select "th", /Created/ # Third column
     assert_select "th", /Note/ # Fourth column
-    assert_select "th", /Views-Days/ # Fifth column
+    assert_select "th", /Remaining/ # Fifth column
 
     # Verify that our created file push appears in the list
     assert_select "td", "Test Password"
