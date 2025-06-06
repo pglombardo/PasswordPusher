@@ -35,10 +35,10 @@
       <thead>
       <tr>
           <th scope="col"><%= t("pushes.form.name_or_id") %></th>
-          <th scope="col" class="text-center"><%= t("pushes.form.kind") %></th>
+          <th scope="col" class=""><%= t("pushes.form.kind") %></th>
           <th scope="col"><%= _('Created') %></th>
           <th scope="col"><%= _('Note') %></th>
-          <th scope="col" class="text-center"><%= _('Views') + "-" + _('Days') %></th>
+          <th scope="col" class=""><%= t('words.remaining') %></th>
           <th scope="col" class="text-center"><em class='bi-tools'></em></th>
       </tr>
       </thead>
@@ -50,13 +50,13 @@
           <% else %>
             <td><%= push.url_token %></td>
           <% end %>
-          <td class="text-center">
+          <td class="">
             <% if push.file? %>
-              File(s)
+              <%= _('File(s)') %>
             <% elsif push.url? %>
-              URL
+              <%= _('URL') %>
             <% else %>
-              Text
+              <%= _('Text') %>
             <% end %>
           </td>
           <td><%= I18n.l push.created_at.in_time_zone(Settings.timezone), format: :long %></td>
@@ -70,9 +70,9 @@
             <% end %>
           </td>
           <% if push.expired? %>
-            <td class="text-center"><%= I18n.l push.expired_on.in_time_zone(Settings.timezone), format: :long %> (Expired) </td>
+            <td class=""><span class="badge rounded-pill bg-danger"><%= _('Expired') %></span></td>
           <% else %>
-            <td class="text-center"><%= "#{push.view_count}/#{push.expire_after_views}"  + " " +_('Views') %> - <%= "#{push.days_old}/#{push.expire_after_days}" + " " + _('Days') %></td>
+            <td class="text-success"><%= t('pushes.index.views_days_remaining', views: push.views_remaining, days: push.days_remaining) %></td>
           <% end %>
           <td class="text-center">
             <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">
