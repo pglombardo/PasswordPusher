@@ -1,7 +1,14 @@
 class DropLegacyModels < ActiveRecord::Migration[7.2]
   def up
     # Check if data migration is complete
-    if DataMigrationStatus.find_by(name: "push_model_migration")&.completed? || (Password.count + Url.count + FilePush.count) == 0
+    if DataMigrationStatus.find_by(name: "push_model_migration")&.completed? ||
+        ActiveRecord::Base.connection.execute(<<-SQL).first["total_count"] == 0
+         SELECT (
+           (SELECT COUNT(*) FROM passwords) +
+           (SELECT COUNT(*) FROM urls) +
+           (SELECT COUNT(*) FROM file_pushes)
+         ) as total_count
+        SQL
       drop_table :passwords, force: :cascade
       drop_table :urls, force: :cascade
       drop_table :file_pushes, force: :cascade
