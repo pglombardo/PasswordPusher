@@ -203,11 +203,7 @@ is:
         unconfirmed_email: Óstaðfest netfang
         unlock_token: Aflæsa tákni
         updated_at: Uppfært kl
-      file_push:
-        name: Nafn
-      password:
-        name: Nafn
-      url:
+      push:
         name: Nafn
     models:
       user:
@@ -771,6 +767,7 @@ is:
       log_close: Lokað á %{date} af %{user}. Svar eytt.
       log_response: Svar viðtakanda móttekið á %{date} af %{user}
       log_retrieve: Sækja síðu skoðað á %{date} af %{user}
+      none: Enginn
   dashboard:
     show:
       detail: Smáatriði
@@ -942,6 +939,7 @@ is:
       policy_tip: 'Ábending: Þú getur stillt sjálfgefnar stillingar og fleira í %{link}.'
       short_expiration_tip: Stuttur fyrningartími og áhorfsfjöldi draga úr áhættu.
       name_or_id: Nafn eða auðkenni
+      kind: Góð
     index:
       actions: Aðgerðir
       clear_filters: Hreinsaðu síur
@@ -954,8 +952,8 @@ is:
       active: Virkur
       expired: Útrunnið
       all: Allt
-      remaining: Eftir
       team_pushes: Team ýtir
+      views_days_remaining: "%{views} áhorf eða %{days} dagar"
     'no': Nei
     none: Enginn
     passphrase:
@@ -1030,8 +1028,20 @@ is:
       title: Sendu lykilorð, texta eða skrá á öruggan hátt
     create:
       premium_required: Þú þarft að gerast áskrifandi til að hengja skrár við.
+      invalid_url: verður að vera gild HTTP- eða HTTPS-slóð.
+      payload_required: Nauðsynlegt er að nota farm.
     update:
       successful: Push var uppfært.
+    file_pushes_disabled: Skráaflutningar eru óvirkir.
+    need_login_for_active: Þú verður að vera skráður inn til að sjá virku ýturnar
+      þínar.
+    need_login_for_expired: Þú verður að vera skráður inn til að sjá útrunna ýtingar
+      þínar.
+    not_deletable_or_not_owner: Áhorfendum er ekki hægt að eyða þeirri ýtu og tilheyrir
+      þér ekki.
+    not_owner_push: Þessi ýta tilheyrir þér ekki.
+    passphrase_incorrect: Þessi tilkynning inniheldur rangt eða ekki gefið upp lykilorð.
+    url_pushes_disabled: Vefslóðasendingar eru óvirkar.
   static:
     about:
       about_1: Password Pusher er tól sem notað er til að deila lykilorðum og öðrum
@@ -1568,3 +1578,5 @@ is:
     not_found: Fannst ekki
     share: Deila
     expired: Útrunnið
+    none: Enginn
+    remaining: Eftir

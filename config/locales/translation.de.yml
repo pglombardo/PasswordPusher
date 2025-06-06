@@ -165,11 +165,7 @@ de:
         unconfirmed_email: Unbestätigte E-Mail-Adresse
         unlock_token: Entsperrungs-Token
         updated_at: Aktualisiert am
-      file_push:
-        name: Name
-      password:
-        name: Name
-      url:
+      push:
         name: Name
     models:
       user:
@@ -788,6 +784,7 @@ de:
       log_close: Geschlossen am %{date} von %{user}. Antwort gelöscht.
       log_response: Empfängerantwort erhalten am %{date} von %{user}
       log_retrieve: Seite abrufen, die auf %{date} von %{user} aufgerufen wurde
+      none: Keine
   dashboard:
     show:
       detail: Detail
@@ -968,6 +965,7 @@ de:
       policy_tip: 'Tipp: In %{link} können Sie Voreinstellungen und mehr festlegen.'
       short_expiration_tip: Kurze Ablaufzeiten und Aufrufzahlen verringern das Expositionsrisiko.
       name_or_id: Name oder ID
+      kind: Art
     index:
       actions: Aktionen
       clear_filters: Filter löschen
@@ -980,8 +978,8 @@ de:
       active: Aktiv
       expired: Abgelaufen
       all: Alle
-      remaining: Übrig
       team_pushes: Team-Pushs
+      views_days_remaining: "%{views} Aufrufe oder %{days} Tage"
     'no': Nein
     none: Keine
     passphrase:
@@ -1058,8 +1056,20 @@ de:
       title: Sicheres Senden eines Passworts, Textes oder einer Datei
     create:
       premium_required: Um Dateien anzuhängen, müssen Sie sich anmelden.
+      invalid_url: muss eine gültige HTTP- oder HTTPS-URL sein.
+      payload_required: Nutzlast ist erforderlich.
     update:
       successful: Push wurde erfolgreich aktualisiert.
+    file_pushes_disabled: Datei-Pushes sind deaktiviert.
+    need_login_for_active: Sie müssen angemeldet sein, um Ihre aktiven Pushes anzuzeigen.
+    need_login_for_expired: Sie müssen angemeldet sein, um Ihre abgelaufenen Pushes
+      anzuzeigen.
+    not_deletable_or_not_owner: Dieser Push kann von den Zuschauern nicht gelöscht
+      werden und gehört nicht Ihnen.
+    not_owner_push: Dieser Push gehört nicht Ihnen.
+    passphrase_incorrect: Dieser Push enthält eine Passphrase, die falsch war oder
+      nicht angegeben wurde.
+    url_pushes_disabled: URL-Pushes sind deaktiviert.
   static:
     about:
       about_1: Password Pusher ist ein Tool zum sicheren Teilen von Passwörtern und
@@ -1634,3 +1644,5 @@ de:
     not_found: Nicht gefunden
     share: Aktie
     expired: Abgelaufen
+    none: Keine
+    remaining: Übrig
