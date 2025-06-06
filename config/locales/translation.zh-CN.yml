@@ -159,11 +159,7 @@ zh-CN:
         unconfirmed_email: 未确认邮件
         unlock_token: 帐户解锁令牌
         updated_at: 更新于
-      file_push:
-        name: 姓名
-      password:
-        name: 姓名
-      url:
+      push:
         name: 姓名
     models:
       user:
@@ -683,6 +679,7 @@ zh-CN:
       log_close: "%{user} 于 %{date} 关闭。已删除回复。"
       log_response: "%{user} 于 %{date} 收到收件人回复"
       log_retrieve: 检索 %{user} 在 %{date} 上查看的页面
+      none: 无
   dashboard:
     show:
       detail: 细节
@@ -826,6 +823,7 @@ zh-CN:
       policy_tip: 提示：您可以在 %{link} 中设置默认值及更多内容。
       short_expiration_tip: 较短的到期时间和浏览次数可降低暴露风险。
       name_or_id: 姓名或身份证
+      kind: 种类
     index:
       actions: 行动
       clear_filters: 清除过滤器
@@ -838,8 +836,8 @@ zh-CN:
       active: 活动的
       expired: 已到期
       all: 全部
-      remaining: 其余的
       team_pushes: 团队推动
+      views_days_remaining: "%{views} 次观看或 %{days} 天"
     'no': 否
     none: 无
     passphrase:
@@ -904,8 +902,17 @@ zh-CN:
       title: 安全地发送密码、文本或文件
     create:
       premium_required: 您需要订阅才能附加文件。
+      invalid_url: 必须是有效的 HTTP 或 HTTPS URL。
+      payload_required: 需要有效载荷。
     update:
       successful: 推送已成功更新。
+    file_pushes_disabled: 文件推送已禁用。
+    need_login_for_active: 您必须登录才能查看您的活动推送。
+    need_login_for_expired: 您必须登录才能查看已过期的推送。
+    not_deletable_or_not_owner: 该推送无法被观众删除，并且不属于您。
+    not_owner_push: 那个推送不属于你。
+    passphrase_incorrect: 此次推送的密码不正确或未提供。
+    url_pushes_disabled: URL 推送已禁用。
   static:
     about:
       about_1: Password Pusher 是一种用于与他人安全共享密码和其他敏感信息的工具。
@@ -1357,3 +1364,5 @@ zh-CN:
     not_found: 未找到
     share: 分享
     expired: 已到期
+    none: 无
+    remaining: 其余的

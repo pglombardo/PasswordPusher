@@ -165,11 +165,7 @@
         unconfirmed_email: Ubekreftet epost
         unlock_token: Nøkkelsymbol
         updated_at: Oppdatert
-      file_push:
-        name: Navn
-      password:
-        name: Navn
-      url:
+      push:
         name: Navn
     models:
       user:
@@ -771,6 +767,7 @@
       log_close: Stengt på %{date} av %{user}. Svar slettet.
       log_response: Mottakersvar mottatt %{date} av %{user}
       log_retrieve: Hent siden vist på %{date} av %{user}
+      none: Ingen
   dashboard:
     show:
       detail: Detalj
@@ -943,6 +940,7 @@
       policy_tip: 'Tips: Du kan angi standardinnstillinger og mer i %{link}.'
       short_expiration_tip: Korte utløpstider og visningstall reduserer eksponeringsrisikoen.
       name_or_id: Navn eller ID
+      kind: Type
     index:
       actions: Handlinger
       clear_filters: Tøm filtre
@@ -955,8 +953,8 @@
       active: Aktiv
       expired: Utløpt
       all: Alle
-      remaining: Gjenstående
       team_pushes: Team skyver
+      views_days_remaining: "%{views} visninger eller %{days} dager"
     'no': Nei
     none: Ingen
     passphrase:
@@ -1029,8 +1027,18 @@
       title: Send et passord, tekst eller fil på en sikker måte
     create:
       premium_required: Du må abonnere for å legge ved filer.
+      invalid_url: må være en gyldig HTTP- eller HTTPS-URL.
+      payload_required: Nyttelast er nødvendig.
     update:
       successful: Push ble oppdatert.
+    file_pushes_disabled: Filoverføringer er deaktivert.
+    need_login_for_active: Du må være logget inn for å se dine aktive push.
+    need_login_for_expired: Du må være logget inn for å se dine utløpte push.
+    not_deletable_or_not_owner: Den push kan ikke slettes av seerne og tilhører ikke
+      deg.
+    not_owner_push: Det pushet tilhører ikke deg.
+    passphrase_incorrect: Denne push-en har et passord som var feil eller ikke oppgitt.
+    url_pushes_disabled: URL-pushing er deaktivert.
   static:
     about:
       about_1: Password Pusher er et verktøy som brukes til å dele passord og annen
@@ -1571,3 +1579,5 @@
     not_found: Ikke funnet
     share: Dele
     expired: Utløpt
+    none: Ingen
+    remaining: Gjenstående

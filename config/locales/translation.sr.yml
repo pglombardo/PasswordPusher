@@ -163,11 +163,7 @@ sr:
         unconfirmed_email: Непотврђена е-пошта
         unlock_token: Токен за откључавање
         updated_at: Ажурирано у
-      file_push:
-        name: Име
-      password:
-        name: Име
-      url:
+      push:
         name: Име
     models:
       user:
@@ -763,6 +759,7 @@ sr:
       log_close: Затворено %{date} од стране %{user}. Одговор је избрисан.
       log_response: "%{user} је примио одговор примаоца на %{date}"
       log_retrieve: Преузми страницу коју је %{user} прегледао на %{date}
+      none: Ниједан
   dashboard:
     show:
       detail: Детаљ
@@ -934,6 +931,7 @@ sr:
         %{link}.'
       short_expiration_tip: Кратко време истека и број прегледа смањују ризик од излагања.
       name_or_id: Име или ИД
+      kind: Врста
     index:
       actions: Акције
       clear_filters: Обриши филтере
@@ -946,8 +944,8 @@ sr:
       active: Ацтиве
       expired: Истекао
       all: Све
-      remaining: Преостало
       team_pushes: Теам Пусхес
+      views_days_remaining: "%{views} прегледа или %{days} дана"
     'no': Не
     none: Ниједан
     passphrase:
@@ -1020,8 +1018,17 @@ sr:
       title: Безбедно пошаљите лозинку, текст или датотеку
     create:
       premium_required: Морате се претплатити на прилагање датотека.
+      invalid_url: мора бити важећи HTTP или HTTPS URL.
+      payload_required: Потребан је корисни терет.
     update:
       successful: Пусх је успешно ажуриран.
+    file_pushes_disabled: Слање датотека је онемогућено.
+    need_login_for_active: Морате бити пријављени да бисте видели своја активна притискања.
+    need_login_for_expired: Морате бити пријављени да бисте видели своје истекле пусх-ове.
+    not_deletable_or_not_owner: Гледаоци не бришу тај притисак и не припада вама.
+    not_owner_push: То гурање не припада теби.
+    passphrase_incorrect: Ова порука има лозинку која је била нетачна или није унета.
+    url_pushes_disabled: Слање URL адреса је онемогућено.
   static:
     about:
       about_1: Пассворд Пусхер је алатка која се користи за безбедно дељење лозинки
@@ -1556,3 +1563,5 @@ sr:
     not_found: Није пронађено
     share: Објави
     expired: Истекао
+    none: Ниједан
+    remaining: Преостало

@@ -159,11 +159,7 @@ ja:
         unconfirmed_email: 確認されていないメールアドレス
         unlock_token: ロック解除用トークン
         updated_at: 更新日
-      file_push:
-        name: 名前
-      password:
-        name: 名前
-      url:
+      push:
         name: 名前
     models:
       user:
@@ -685,6 +681,7 @@ ja:
       log_close: "%{date} は %{user} によってクローズされました。応答は削除されました。"
       log_response: "%{date} に %{user} が受信者の応答を受信しました"
       log_retrieve: "%{date} で %{user} が閲覧したページを取得します"
+      none: なし
   dashboard:
     show:
       detail: 詳細
@@ -831,6 +828,7 @@ ja:
       policy_tip: 'ヒント: %{link} でデフォルトなどを設定できます。'
       short_expiration_tip: 有効期限と閲覧回数が短いため、露出リスクが軽減されます。
       name_or_id: 名前またはID
+      kind: 親切
     index:
       actions: 行動
       clear_filters: フィルターをクリアする
@@ -843,8 +841,8 @@ ja:
       active: アクティブ
       expired: 期限切れ
       all: 全て
-      remaining: 残り
       team_pushes: チームプッシュ
+      views_days_remaining: "%{views} 回視聴または %{days} 日"
     'no': いいえ
     none: なし
     passphrase:
@@ -909,8 +907,17 @@ ja:
       title: パスワード、テキスト、ファイルを安全に送信する
     create:
       premium_required: ファイルを添付するには登録する必要があります。
+      invalid_url: 有効な HTTP または HTTPS URL である必要があります。
+      payload_required: ペイロードが必要です。
     update:
       successful: プッシュが正常に更新されました。
+    file_pushes_disabled: ファイルプッシュは無効です。
+    need_login_for_active: アクティブなプッシュを表示するにはログインする必要があります。
+    need_login_for_expired: 期限切れのプッシュを表示するには、ログインする必要があります。
+    not_deletable_or_not_owner: そのプッシュは閲覧者によって削除することはできず、あなたのものではありません。
+    not_owner_push: そのプッシュはあなたのものではありません。
+    passphrase_incorrect: このプッシュには、間違ったパスフレーズまたは指定されていないパスフレーズが含まれています。
+    url_pushes_disabled: URL プッシュは無効です。
   static:
     about:
       about_1: Password Pusher は、パスワードやその他の機密情報を他のユーザーと安全に共有するために使用されるツールです。
@@ -1372,3 +1379,5 @@ ja:
     not_found: 見つかりません
     share: 共有
     expired: 期限切れ
+    none: なし
+    remaining: 残り

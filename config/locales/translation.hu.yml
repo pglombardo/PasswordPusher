@@ -164,11 +164,7 @@ hu:
         unconfirmed_email: Meg nem erősített e-mail
         unlock_token: Token feloldása
         updated_at: 'Frissítve:'
-      file_push:
-        name: Név
-      password:
-        name: Név
-      url:
+      push:
         name: Név
     models:
       user:
@@ -775,6 +771,7 @@ hu:
       log_close: Az %{user} által bezárt %{date}. A válasz törölve.
       log_response: A címzett válasza érkezett %{date} napon, %{user}
       log_retrieve: Az %{user} által az %{date} oldalon megtekintett oldal lekérése
+      none: Egyik sem
   dashboard:
     show:
       detail: Részlet
@@ -952,6 +949,7 @@ hu:
       short_expiration_tip: A rövid lejárati idők és a megtekintések száma csökkenti
         az expozíció kockázatát.
       name_or_id: Név vagy azonosító
+      kind: Fajta
     index:
       actions: Akciók
       clear_filters: Szűrők törlése
@@ -964,8 +962,8 @@ hu:
       active: Aktív
       expired: Lejárt
       all: Minden
-      remaining: Többi
       team_pushes: Csapat lökések
+      views_days_remaining: "%{views} megtekintés vagy %{days} nap"
     'no': Nem
     none: Egyik sem
     passphrase:
@@ -1040,8 +1038,18 @@ hu:
       title: Biztonságosan küldjön jelszót, szöveget vagy fájlt
     create:
       premium_required: A fájlok csatolásához elő kell fizetni.
+      invalid_url: érvényes HTTP vagy HTTPS URL-címnek kell lennie.
+      payload_required: Hasznos teher megadása kötelező.
     update:
       successful: A Push frissítése sikeresen megtörtént.
+    file_pushes_disabled: A fájlküldések le vannak tiltva.
+    need_login_for_active: Az aktív lökések megtekintéséhez be kell jelentkeznie.
+    need_login_for_expired: A lejárt push-ok megtekintéséhez be kell jelentkeznie.
+    not_deletable_or_not_owner: Ezt a nyomást a nézők nem törölhetik, és nem tartozik
+      rád.
+    not_owner_push: Ez a küldés nem önhöz tartozik.
+    passphrase_incorrect: Ennek a push-nek a jelszava helytelen vagy nincs megadva.
+    url_pushes_disabled: Az URL-küldések le vannak tiltva.
   static:
     about:
       about_1: A Password Pusher egy eszköz a jelszavak és más bizalmas információk
@@ -1587,3 +1595,5 @@ hu:
     not_found: Nem található
     share: Ossza meg
     expired: Lejárt
+    none: Egyik sem
+    remaining: Többi
