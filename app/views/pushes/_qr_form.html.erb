@@ -1,0 +1,196 @@
+<% title(_('Securely Send a QR Code')) %>
+
+<div class='container'
+    data-controller="knobs pwgen passwords form"
+    data-knobs-tab-name-value="qr"
+    data-knobs-lang-day-value="<%= _('Day') %>"
+    data-knobs-lang-days-value="<%= _('Days') %>"
+    data-knobs-default-days-value="<%= @push.settings_for_kind.expire_after_days_default %>"
+    data-knobs-lang-view-value="<%= _('View') %>"
+    data-knobs-lang-views-value="<%= _('Views') %>"
+    data-knobs-default-views-value="<%= @push.settings_for_kind.expire_after_views_default %>"
+    data-knobs-lang-save-value="<%= _('Save') %>"
+    data-knobs-lang-saved-value="<%= _('Saved!') %>"
+    data-knobs-default-retrieval-step-value="<%= @push.settings_for_kind.retrieval_step_default %>"
+    data-knobs-default-deletable-by-viewer-value="<%= @push.settings_for_kind.deletable_pushes_default %>"
+    data-pwgen-use-numbers-default-value="<%= Settings.gen.has_numbers %>"
+    data-pwgen-title-cased-default-value="<%= Settings.gen.title_cased %>"
+    data-pwgen-use-separators-default-value="<%= Settings.gen.use_separators %>"
+    data-pwgen-consonants-default-value="<%= Settings.gen.consonants %>"
+    data-pwgen-vowels-default-value="<%= Settings.gen.vowels %>"
+    data-pwgen-separators-default-value="<%= Settings.gen.separators %>"
+    data-pwgen-min-syllable-length-default-value="<%= Settings.gen.min_syllable_length %>"
+    data-pwgen-max-syllable-length-default-value="<%= Settings.gen.max_syllable_length %>"
+    data-pwgen-syllables-count-default-value="<%= Settings.gen.syllables_count %>"
+    data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
+<%= render partial: "shared/topnav" %>
+<%= form_for @push, data: { action: 'form#submit' } do |f| %>
+    <%= f.hidden_field :kind, value: :qr %>
+
+    <div class='row'>
+        <div class='col'>
+            <%= f.text_area(:payload, { class: "form-control",
+                                        rows: 4,
+                                        placeholder: _('Enter up to 1024 characters...'),
+                                        autocomplete: "off",
+                                        spellcheck: "false",
+                                        maxlength: 1024,
+                                        autofocus: true,
+                                        required: true,
+                                        "data-pwgen-target" => "payloadInput",
+                                        "data-passwords-target" => "payloadInput",
+                                        "data-action" => "input->passwords#updateCharacterCount"
+                                         }) %>
+            <div class='position-relative'>
+                <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
+                    <span id="current" data-passwords-target="currentChars">0</span>
+                    <span id="maximum" data-passwords-target="maximumChars">/ 1024 <%= _('Characters') %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-12 col-sm-8 p-3'>
+            <div class='row'>
+                <div><%= _('Expire secret link and delete after:') %></div>
+                <div class='col-10'>
+                    <%= range_field_tag("push_expire_after_days", @push.settings_for_kind.expire_after_days_default,
+                                        { :name => "push[expire_after_days]",
+                                          :class => "form-range",
+                                          :min => @push.settings_for_kind.expire_after_days_min,
+                                          :max => @push.settings_for_kind.expire_after_days_max,
+                                          :step => "1",
+                                          "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
+                                          "data-knobs-target" => "daysRange"
+                                        }) %>
+                </div>
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-10'>
+                    <%= range_field_tag("push_expire_after_views", @push.settings_for_kind.expire_after_views_default,
+                                        { :name => "push[expire_after_views]",
+                                            :class => "form-range",
+                                            :min => @push.settings_for_kind.expire_after_views_min,
+                                            :max => @push.settings_for_kind.expire_after_views_max,
+                                            :step => "1",
+                                            "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
+                                            "data-knobs-target" => "viewsRange"
+                                        }) %>
+                </div>
+
+                <div class='col-2'>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <p class='text-center form-text'><%= _('(whichever comes first)') %></p>
+                </div>
+            </div>
+
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="list-group mx-0">
+                        <% if @push.settings_for_kind.enable_retrieval_step %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%= check_box_tag "push[retrieval_step]", nil, @push.settings_for_kind.retrieval_step_default,
+                                            { class: 'form-check-input flex-shrink-0',
+                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
+                            <span>
+                                <%= _('Use a 1-click retrieval step') %>
+                                <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
+                            </span>
+                            </label>
+                        <% end %>
+                        <% if @push.settings_for_kind.enable_deletable_pushes %>
+                            <label class="list-group-item d-flex gap-2">
+                            <%= check_box_tag "push[deletable_by_viewer]", nil, @push.settings_for_kind.deletable_pushes_default,
+                                            { class: 'form-check-input flex-shrink-0',
+                                              "data-knobs-target" => "deletableByViewerCheckbox" } %>
+                            <span>
+                                <%= _('Allow immediate deletion') %>
+                                <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
+                            </span>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class='row mb-3'>
+                <div class='col'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
+                        <%= f.text_field(:passphrase, { class: "form-control",
+                                                        autocomplete: "off",
+                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <p class='mb-3'>
+                        <div id='cookie-save'>
+                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class='col-12 col-sm-4 p-3 mt-3'>
+            <div class="row mb-3">
+                <div class="btn-group mb-3" role="group" aria-label="Password Generator button group with nested dropdown">
+                    <button class="btn btn-secondary w-75" type="button"
+                        id='generate_password'
+                        data-knobs-target="generatePasswordButton"
+                        data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
+                    <button class="btn btn-secondary" type="button" id='configure_generator'
+                        data-action="pwgen#configureGenerator"
+                        data-bs-toggle="modal" data-bs-target="#configureModal">
+                        <em class="bi bi-gear"></em>
+                    </button>
+                </div>
+                <p class='fst-italic fw-light'><%= _('Use the button above to generate a random password.') %></p>
+            </div>
+            <% if user_signed_in? %>
+                <div class='row mb-3'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= Push.human_attribute_name(:name) %></span>
+                        <%= f.text_field(:name, { class: "form-control",
+                                                placeholder: _('Optional'),
+                                                autocomplete: "off" }) %>
+                    </div>
+                    <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
+                </div>
+                <div class='row mb-3'>
+                    <div class="input-group">
+                        <span class="input-group-text"><%= _('Reference Note') %></span>
+                        <%= f.text_area(:note, { class: "form-control",
+                                                rows: 1,
+                                                placeholder: _('Optional'),
+                                                autocomplete: "off" }) %>
+                    </div>
+                    <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
+                </div>
+            <% end %>
+            <div class='row my-3 px-5'> <hr> </div>
+            <div class='row mb-3'>
+                <p class='fst-italic'><%= _('Tip: Only enter a password into the box.  Other identifying information can compromise security.') %></p>
+                <p class='fst-italic fw-light'><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link.  Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <p class='my-3'>
+                <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="Pushing..."><%= _('Push It!') %></button>
+            </p>
+        </div>
+    </div>
+<% end %>
+
+<%= render partial: 'shared/pw_generator_modal', cached: true %>
+
+</div>

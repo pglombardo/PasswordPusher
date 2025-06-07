@@ -127,6 +127,8 @@ class PushesController < BaseController
         @files_tab = true
       elsif @push.kind == "url"
         @url_tab = true
+      elsif @push.kind == "qr"
+        @qr_tab = true
       else
         @text_tab = true
       end
@@ -263,6 +265,9 @@ class PushesController < BaseController
       elsif params["tab"] == "url"
         @push.kind = "url"
         @url_tab = true
+      elsif params["tab"] == "qr"
+        @push.kind = "qr"
+        @qr_tab = true
       else
         @push.kind = "text"
         @text_tab = true
@@ -291,6 +296,8 @@ class PushesController < BaseController
         "file"
       when "url"
         "url"
+      when "qr"
+        "qr"
       else
         "text"
       end
@@ -318,6 +325,16 @@ class PushesController < BaseController
         end
       else
         redirect_to root_path, notice: t("pushes.url_pushes_disabled")
+      end
+
+    when "qr"
+      # QR code pushes only enabled when logins are enabled.
+      if Settings.enable_logins && Settings.enable_qr_pushes
+        unless %w[preliminary passphrase access show expire].include?(action_name)
+          authenticate_user!
+        end
+      else
+        redirect_to root_path, notice: t("pushes.qr_pushes_disabled")
       end
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)

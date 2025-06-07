@@ -13,5 +13,10 @@
         <a class="nav-link <%= @url_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'url') %>"><%= _('URLs') %></a>
       </li>
     <% end %>
+    <% if Settings.enable_qr_pushes %>
+      <li class="nav-item">
+        <a class="nav-link <%= @qr_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'qr') %>"><%= _('QR Codes ᴮᴱᵀᴬ') %></a>
+      </li>
+    <% end %>
   </ul>
 <% end %>
