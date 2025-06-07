@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rqrcode"
-
 module PushesHelper
   def filesize(size)
     units = %w[B KiB MiB GiB TiB Pib EiB ZiB]
