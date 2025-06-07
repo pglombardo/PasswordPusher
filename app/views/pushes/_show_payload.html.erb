@@ -4,10 +4,10 @@
         <p class="text-muted"><%= _('Your password is blurred out.  Click below to reveal it.') %></p>
     <% end %>
     <%= render partial: 'shared/copy_button', cached: true %>
-    </div>
+</div>
 
-    <% if payload.chomp.match?(/\n/) || payload.length > 100 %>
+<% if payload.chomp.match?(/\n/) || payload.length > 100 %>
     <div class='payload <%= blur_css_class %> notranslate px-5 border-top border-bottom border-5 w-100 bg-white d-flex justify-content-center' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='text-break my-5'><%= payload %></pre></div>
-    <% else %>
+<% else %>
     <div class='payload <%= blur_css_class %> notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2' id='push_payload' translate='no' data-copy-target="payloadDiv"><pre class='w-100 text-break text-wrap my-5 text-center'><%= payload %></pre></div>
 <% end %>
