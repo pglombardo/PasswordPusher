@@ -13,7 +13,7 @@ class DropLegacyModels < ActiveRecord::Migration[7.2]
       drop_table :urls, force: :cascade
       drop_table :file_pushes, force: :cascade
     else
-      error_message = "Data migration not completed. Please run v1.56.2 first and allow the data migration to complete. Then update to this version. See https://github.com/pglombardo/PasswordPusher/releases/tag/v1.56.0 for more information."
+      error_message = "Data migration not completed. Please run v1.56.3 first and allow the data migration to complete. Then update to this version. See https://github.com/pglombardo/PasswordPusher/releases/tag/v1.56.0 for more information."
       Rails.logger.error("Migration failed: #{error_message}")
       raise ActiveRecord::MigrationError, error_message
     end
