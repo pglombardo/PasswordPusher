@@ -11,7 +11,7 @@ class LocaleStringsTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
 
     # Create a user
-    @user = users(:luca)
+    @user = users(:giuliana)
     @user.confirm
     sign_in @user
 
