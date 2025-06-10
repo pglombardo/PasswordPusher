@@ -31,7 +31,6 @@ class UserDashboard < Administrate::BaseDashboard
     sign_in_count: Field::Number,
     unconfirmed_email: Field::String,
     unlock_token: Field::String,
-    urls: Field::HasMany,
     created_at: Field::DateTime.with_options(timezone: Settings.timezone),
     updated_at: Field::DateTime.with_options(timezone: Settings.timezone)
   }.freeze
@@ -102,7 +101,6 @@ class UserDashboard < Administrate::BaseDashboard
     sign_in_count
     unconfirmed_email
     unlock_token
-    urls
   ].freeze
 
   # COLLECTION_FILTERS
