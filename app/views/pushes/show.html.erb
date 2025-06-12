@@ -92,9 +92,11 @@
         <% end %>
       </div>
     </div>
-    <div class="fixed-bottom w-100 d-grid gap-2">
-      <%= render partial: 'shared/copy_button', cached: true %>
-    </div>
+    <% unless @push.qr? %>
+      <div class="fixed-bottom w-100 d-grid gap-2">
+        <%= render partial: 'shared/copy_button', cached: true %>
+      </div>
+    <% end %>
   </div>
 
 <% end %>
