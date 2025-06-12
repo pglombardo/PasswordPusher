@@ -15,6 +15,8 @@ constraints(format: :json) do
   resources :p, controller: "api/v1/pushes", as: :json_pushes, except: %i[new index edit update] do
     get "preview", on: :member
     get "audit", on: :member
+    get "active", on: :collection
+    get "expired", on: :collection
   end
 
   # File pushes only enabled when logins are enabled.

@@ -3,7 +3,7 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
-  enum :kind, [:text, :file, :url], validate: true
+  enum :kind, [:text, :file, :url, :qr], validate: true
 
   validate :check_enabled_push_kinds
   validates :url_token, presence: true, uniqueness: true
@@ -16,6 +16,7 @@ class Push < ApplicationRecord
     create.after_validation :check_payload_for_text, if: :text?
     create.after_validation :check_files_for_file, if: :file?
     create.after_validation :check_payload_for_url, if: :url?
+    create.after_validation :check_payload_for_qr, if: :qr?
   end
 
   belongs_to :user, optional: true
@@ -135,6 +136,17 @@ class Push < ApplicationRecord
     end
   end
 
+  def check_payload_for_qr
+    if payload.present?
+      # If the push is a QR code, max payload length is 1024 characters
+      if payload.length > 1024
+        errors.add(:payload, t("pushes.create.qr_max_length", count: 1024))
+      end
+    else
+      errors.add(:payload, I18n.t("pushes.create.payload_required"))
+    end
+  end
+
   def set_expire_limits
     self.expire_after_days ||= settings_for_kind.expire_after_days_default
     self.expire_after_views ||= settings_for_kind.expire_after_views_default
@@ -177,6 +189,8 @@ class Push < ApplicationRecord
       Settings.url
     elsif file?
       Settings.files
+    elsif qr?
+      Settings.qr
     end
   end
 
@@ -187,6 +201,10 @@ class Push < ApplicationRecord
 
     if kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
       errors.add(:kind, I18n.t("pushes.url_pushes_disabled"))
+    end
+
+    if kind == "qr" && !(Settings.enable_logins && Settings.enable_qr_pushes)
+      errors.add(:kind, I18n.t("pushes.qr_pushes_disabled"))
     end
   end
 

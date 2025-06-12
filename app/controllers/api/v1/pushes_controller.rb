@@ -84,7 +84,7 @@ class Api::V1::PushesController < Api::BaseController
     param :expire_after_views, Integer, desc: "Expire secret link and delete after this many views."
     param :deletable_by_viewer, %w[true false], desc: "Allow users to delete passwords once retrieved."
     param :retrieval_step, %w[true false], desc: "Helps to avoid chat systems and URL scanners from eating up views."
-    param :kind, %w[text file url], desc: "The kind of push to create. Defaults to 'text'.", required: false
+    param :kind, %w[text file url qr], desc: "The kind of push to create. Defaults to 'text'.", required: false
   end
   formats ["JSON"]
   description <<-EOS
@@ -95,6 +95,7 @@ class Api::V1::PushesController < Api::BaseController
     * Text/password (default)
     * File attachments (requires authentication & subscription)
     * URLs
+    * QR codes
 
     === Required Parameters
 
@@ -153,6 +154,10 @@ class Api::V1::PushesController < Api::BaseController
     @push = Push.new(push_params)
 
     if !push_params[:kind].present?
+      # These are used to determine the default kind based on the request path
+      # for old push records. Their paths are generated based on their kind.
+      # And, QR code pushes are created by using `/p/` path.
+      # So, it is not necessary to check for a special path.
       @push.kind = if request.path.include?("/f.json")
         "file"
       elsif request.path.include?("/r.json")
