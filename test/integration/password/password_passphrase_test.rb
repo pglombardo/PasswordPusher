@@ -45,7 +45,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
   end
 
   def test_password_access_cookies
-    @previous_secure_cookies = Settings.secure_cookies
+    previous_secure_cookies = Settings.secure_cookies
     Settings.secure_cookies = true
 
     push = pushes(:test_push)
@@ -70,7 +70,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
     assert p_tags[2].text.include?("This secret link and all content will be deleted")
 
-    Settings.secure_cookies = @previous_secure_cookies
+    Settings.secure_cookies = previous_secure_cookies
   end
 
   def test_password_bad_passphrase
