@@ -44,6 +44,35 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     assert p_tags[2].text.include?("This secret link and all content will be deleted")
   end
 
+  def test_password_access_cookies
+    previous_secure_cookies = Settings.secure_cookies
+    Settings.secure_cookies = true
+
+    push = pushes(:test_push)
+    push.update(passphrase: "asdf")
+
+    integration_session.https!
+    post access_push_path(push), params: {passphrase: "asdf"}
+
+    set_cookie_header = response.headers["set-cookie"]
+    assert_includes set_cookie_header, "secure"
+    assert_includes set_cookie_header, "httponly"
+    assert_includes set_cookie_header, "samesite=strict"
+
+    assert_response :redirect
+    integration_session.https!
+
+    follow_redirect!
+    assert_response :success
+
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
+
+    Settings.secure_cookies = previous_secure_cookies
+  end
+
   def test_password_bad_passphrase
     get new_push_path(tab: "text")
     assert_response :success
