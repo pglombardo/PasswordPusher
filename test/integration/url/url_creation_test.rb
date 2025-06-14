@@ -56,4 +56,13 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert response.redirect_url == "https://the0x00.dev"
   end
+
+  def test_url_creation_with_error
+    get new_push_path(tab: "url")
+    assert_response :success
+
+    post pushes_path, params: {push: {kind: "url", payload: "the0x00.dev"}}
+    assert_response :unprocessable_entity
+    assert_select "div", "1 error prohibited this push from being saved: Payload must be a valid HTTP or HTTPS URL."
+  end
 end
