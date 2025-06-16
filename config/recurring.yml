@@ -20,6 +20,11 @@ production:
     queue: recurring
     schedule: every day at 5am
 
+  cleanup_expired_pushes:
+    class: CleanUpExpiredPushesJob
+    queue: recurring
+    schedule: every day at 4am
+
   purge_unattached_blobs:
     class: PurgeUnattachedBlobsJob
     queue: recurring
@@ -35,6 +40,11 @@ development:
     class: CleanUpPushesJob
     queue: recurring
     schedule: every 7 hours
+
+  cleanup_expired_pushes_after_duration:
+    class: CleanUpExpiredPushesJob
+    queue: recurring
+    schedule: every day at 4am
 
   purge_unattached_blobs:
     class: PurgeUnattachedBlobsJob
