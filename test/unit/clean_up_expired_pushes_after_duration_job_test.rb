@@ -5,7 +5,7 @@ require "test_helper"
 class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
   setup do
     @previous_purge_after = Settings.purge_after
-    Settings.purge_after = "15 days"
+    Settings.purge_after = "3 months"
 
     # Clear all pushes before running tests
     AuditLog.delete_all
@@ -23,7 +23,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       kind: :text,
       payload: "test_payload",
       url_token: "user_expired",
-      expired_on: Time.now - 20.days,
+      expired_on: Time.now - 4.months,
       expired: true,
       user_id: user.id
     )
@@ -34,7 +34,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       kind: :text,
       payload: "test_payload",
       url_token: "user_expired_soon",
-      expired_on: Time.now - 10.days,
+      expired_on: Time.now - 2.months,
       expired: true,
       user_id: user.id
     )
@@ -74,7 +74,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       kind: :text,
       payload: "test_payload",
       url_token: "user_expired",
-      expired_on: Time.now - 20.days,
+      expired_on: Time.now - 4.months,
       expired: true,
       user_id: user.id
     )
@@ -96,7 +96,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
         kind: :text,
         payload: "test_payload_#{i}",
         url_token: "anonymous_expired_#{i}",
-        expired_on: Time.now - 20.days,
+        expired_on: Time.now - 4.months,
         expired: true,
         user_id: user.id
       )
@@ -123,7 +123,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       # Verify the log contains the correct count of deleted pushes
       log_output.rewind
       log_content = log_output.read
-      assert_match(/2 total pushes expired more than 15 days ago were deleted./, log_content)
+      assert_match(/2 total pushes expired more than 3 months ago were deleted./, log_content)
     ensure
       # Restore the original logger method
       CleanUpExpiredPushesAfterDurationJob.class_eval do
@@ -140,7 +140,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
         kind: :text,
         payload: "test_payload_#{i}",
         url_token: "anonymous_expired_#{i}",
-        expired_on: 20.days.ago,
+        expired_on: 4.months.ago,
         expired: true,
         user_id: user.id
       )
@@ -153,7 +153,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
         payload: "test_payload_user_#{i}",
         url_token: "user_expired_#{i}",
         expired: true,
-        expired_on: 10.days.ago,
+        expired_on: 2.months.ago,
         user_id: user.id
       )
       AuditLog.create!(push: push, kind: :creation, ip: "127.0.0.1")
@@ -161,7 +161,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
 
     CleanUpExpiredPushesAfterDurationJob.perform_now
 
-    assert_equal 0, Push.where(expired: true).where("expired_on < ?", 15.days.ago).count
+    assert_equal 0, Push.where(expired: true).where("expired_on < ?", 3.months.ago).count
     assert_equal 3, Push.where(expired: true).count
   end
 end
