@@ -20,7 +20,7 @@ class CleanUpExpiredPushesAfterDurationJob < ApplicationJob
   # expiration message.
   #
   def perform(*args)
-    return if Settings.purge_after == "none"
+    return if Settings.purge_after == "disabled"
 
     # Log task start
     logger.info("--> #{self.class.name}: Starting...")

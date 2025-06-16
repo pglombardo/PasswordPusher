@@ -65,8 +65,8 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
     end
   end
 
-  test "job does not delete any job if purge_after is 'none'" do
-    Settings.purge_after = "none"
+  test "job does not delete any job if purge_after is 'disabled'" do
+    Settings.purge_after = "disabled"
 
     user = users(:one)
 
