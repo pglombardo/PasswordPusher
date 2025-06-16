@@ -36,4 +36,21 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     assert_response :success
     sign_out @mr_admin
   end
+
+  def test_background_jobs_available_to_admin_user
+    @mr_admin = users(:mr_admin)
+    sign_in @mr_admin
+    get "/admin/jobs"
+    assert_response :success
+    sign_out @mr_admin
+  end
+
+  def test_background_jobs_not_available_to_user
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+    get "/admin/jobs"
+    assert_response :not_found
+    sign_out @luca
+  end
 end
