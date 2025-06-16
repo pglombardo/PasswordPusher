@@ -37,7 +37,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     sign_out @mr_admin
   end
 
-  def test_background_jobs_available_to_admin_user
+  def test_background_jobs_dashboard_available_to_admin_user
     @mr_admin = users(:mr_admin)
     sign_in @mr_admin
     get "/admin/jobs"
@@ -45,7 +45,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     sign_out @mr_admin
   end
 
-  def test_background_jobs_not_available_to_user
+  def test_background_jobs_dashboard_not_available_to_non_admin_user
     @luca = users(:luca)
     @luca.confirm
     sign_in @luca
