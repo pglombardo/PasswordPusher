@@ -31,6 +31,12 @@ module PasswordPusher
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # https://github.com/rails/mission_control-jobs?tab=readme-ov-file#custom-authentication
+    # Use the Admin::ApplicationController for authentication
+    config.mission_control.jobs.base_controller_class = "Admin::ApplicationController"
+    config.mission_control.jobs.http_basic_auth_enabled = false
+
     puts "Password Pusher Version: #{Version.current}"
   end
 
