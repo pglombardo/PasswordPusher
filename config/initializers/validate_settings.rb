@@ -13,7 +13,7 @@ module SettingsValidator
         unless duration.is_a?(ActiveSupport::Duration)
           raise_invalid_setting
         end
-      rescue StandardError, NoMethodError # rubocop:disable Lint/ShadowedException
+      rescue
         raise_invalid_setting
       end
     end
