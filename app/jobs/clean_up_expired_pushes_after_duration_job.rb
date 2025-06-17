@@ -27,8 +27,7 @@ class CleanUpExpiredPushesAfterDurationJob < ApplicationJob
 
     counter = 0
 
-    Push.includes(:audit_logs)
-      .where(expired: true)
+    Push.where(expired: true)
       .where("expired_on < ?", Time.current - to_duration(Settings.purge_after))
       .find_each do |push|
       counter += 1
