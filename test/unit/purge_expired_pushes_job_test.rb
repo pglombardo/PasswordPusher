@@ -168,8 +168,9 @@ class PurgeExpiredPushesJobTest < ActiveSupport::TestCase
   test "raises error for invalid value of purge_after setting" do
     Settings.purge_after = "123invalid"
 
-    assert_raises(StandardError) do
+    error = assert_raises(StandardError) do
       PurgeExpiredPushesJob.perform_now
     end
+    assert_equal "Invalid purge_after setting: 123invalid", error.message
   end
 end
