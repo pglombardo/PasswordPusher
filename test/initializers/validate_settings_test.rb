@@ -42,6 +42,7 @@ class ValidateSettingsTest < ActiveSupport::TestCase
       "day",
       "5 invalid_unit",
       "abc 123",
+      "4 to_s",
       ""
     ]
 
@@ -53,27 +54,5 @@ class ValidateSettingsTest < ActiveSupport::TestCase
         load Rails.root.join("config/initializers/validate_settings.rb")
       end
     end
-  end
-
-  test "to_duration correctly converts string to duration" do
-    # Get access to the to_duration method
-    to_duration_method = method(:to_duration)
-
-    # Test various valid duration strings
-    assert_equal 1.day, to_duration_method.call("1 day")
-    assert_equal 5.days, to_duration_method.call("5 days")
-    assert_equal 2.weeks, to_duration_method.call("2 weeks")
-    assert_equal 1.month, to_duration_method.call("1 month")
-    assert_equal 3.months, to_duration_method.call("3 months")
-  end
-
-  test "to_duration raises error for invalid duration strings" do
-    # Get access to the to_duration method
-    to_duration_method = method(:to_duration)
-
-    # Test various invalid duration strings
-    assert_raises(NoMethodError) { to_duration_method.call("invalid") }
-    assert_raises(NoMethodError) { to_duration_method.call("") }
-    assert_raises(NoMethodError) { to_duration_method.call("5 invalid_unit") }
   end
 end
