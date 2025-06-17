@@ -20,7 +20,7 @@ class CleanUpExpiredPushesAfterDurationJob < ApplicationJob
   # expiration message.
   #
   def perform(*args)
-    return if Settings.purge_after == "disabled"
+    return if Settings.purge_after == "disabled" || to_duration(Settings.purge_after).nil?
 
     # Log task start
     logger.info("--> #{self.class.name}: Starting...")
@@ -46,6 +46,10 @@ class CleanUpExpiredPushesAfterDurationJob < ApplicationJob
   # Convert a string duration to a time duration
   def to_duration(str)
     str.to_s.strip.split(" ").then { |quantity, unit| quantity.to_i.send(unit.downcase.to_sym) }
+  rescue
+    logger.error("Invalid duration: #{str}")
+
+    nil
   end
 
   def logger

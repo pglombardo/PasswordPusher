@@ -164,4 +164,33 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
     assert_equal 0, Push.where(expired: true).where("expired_on < ?", 3.months.ago).count
     assert_equal 3, Push.where(expired: true).count
   end
+
+  test "handles invalid value for purge_after setting" do
+    Settings.purge_after = "123invalid"
+
+    begin
+      log_output = StringIO.new
+      logger = Logger.new(log_output)
+
+      # Override the logger method
+      CleanUpExpiredPushesAfterDurationJob.class_eval do
+        define_method(:logger) do
+          logger
+        end
+      end
+
+      # Run the job
+      CleanUpExpiredPushesAfterDurationJob.perform_now
+
+      # Verify the log contains the correct count of deleted pushes
+      log_output.rewind
+      log_content = log_output.read
+      assert_match(/Invalid duration: 123invalid/, log_content)
+    ensure
+      # Restore the original logger method
+      CleanUpExpiredPushesAfterDurationJob.class_eval do
+        remove_method :logger if method_defined?(:logger)
+      end
+    end
+  end
 end
