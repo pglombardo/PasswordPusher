@@ -45,10 +45,6 @@ class PurgeExpiredPushesJob < ApplicationJob
   # Convert a string duration to a time duration
   def to_duration(str)
     str.to_s.strip.split(" ").then { |quantity, unit| quantity.to_i.send(unit.downcase.to_sym) }
-  rescue NoMethodError
-    logger.error("Invalid purge_after setting: #{str}")
-
-    raise StandardError, "Invalid purge_after setting: #{str}"
   end
 
   def logger
