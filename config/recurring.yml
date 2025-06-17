@@ -21,7 +21,7 @@ production:
     schedule: every day at 5am
 
   cleanup_expired_pushes:
-    class: CleanUpExpiredPushesAfterDurationJob
+    class: PurgeExpiredPushesJob
     queue: recurring
     schedule: every day at 4am
 
@@ -42,7 +42,7 @@ development:
     schedule: every 7 hours
 
   cleanup_expired_pushes_after_duration:
-    class: CleanUpExpiredPushesAfterDurationJob
+    class: PurgeExpiredPushesJob
     queue: recurring
     schedule: every day at 4am
 

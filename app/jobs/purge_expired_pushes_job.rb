@@ -1,4 +1,4 @@
-class CleanUpExpiredPushesAfterDurationJob < ApplicationJob
+class PurgeExpiredPushesJob < ApplicationJob
   queue_as :default
 
   # Delete Expired Pushes After Duration

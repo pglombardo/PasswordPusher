@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
+class PurgeExpiredPushesJobTest < ActiveSupport::TestCase
   setup do
     @previous_purge_after = Settings.purge_after
     Settings.purge_after = "3 months"
@@ -47,7 +47,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
     assert_equal 2, Push.count
     assert_equal 2, AuditLog.count
 
-    CleanUpExpiredPushesAfterDurationJob.perform_now
+    PurgeExpiredPushesJob.perform_now
 
     assert_equal 1, Push.count
     assert_nil Push.find_by(id: user_expired_id)
@@ -61,7 +61,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
 
     # Run the job - should not raise any errors
     assert_nothing_raised do
-      CleanUpExpiredPushesAfterDurationJob.perform_now
+      PurgeExpiredPushesJob.perform_now
     end
   end
 
@@ -81,7 +81,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
 
     # Run the job - should not raise any errors
     assert_nothing_raised do
-      CleanUpExpiredPushesAfterDurationJob.perform_now
+      PurgeExpiredPushesJob.perform_now
     end
 
     assert_not_nil Push.find(user_expired_push.id)
@@ -111,14 +111,14 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       logger = Logger.new(log_output)
 
       # Override the logger method
-      CleanUpExpiredPushesAfterDurationJob.class_eval do
+      PurgeExpiredPushesJob.class_eval do
         define_method(:logger) do
           logger
         end
       end
 
       # Run the job
-      CleanUpExpiredPushesAfterDurationJob.perform_now
+      PurgeExpiredPushesJob.perform_now
 
       # Verify the log contains the correct count of deleted pushes
       log_output.rewind
@@ -126,7 +126,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       assert_match(/2 total pushes expired more than 3 months ago were deleted./, log_content)
     ensure
       # Restore the original logger method
-      CleanUpExpiredPushesAfterDurationJob.class_eval do
+      PurgeExpiredPushesJob.class_eval do
         remove_method :logger if method_defined?(:logger)
       end
     end
@@ -159,7 +159,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
       AuditLog.create!(push: push, kind: :creation, ip: "127.0.0.1")
     end
 
-    CleanUpExpiredPushesAfterDurationJob.perform_now
+    PurgeExpiredPushesJob.perform_now
 
     assert_equal 0, Push.where(expired: true).where("expired_on < ?", 3.months.ago).count
     assert_equal 3, Push.where(expired: true).count
@@ -169,7 +169,7 @@ class CleanUpExpiredPushesAfterDurationJobTest < ActiveSupport::TestCase
     Settings.purge_after = "123invalid"
 
     assert_raises(StandardError) do
-      CleanUpExpiredPushesAfterDurationJob.perform_now
+      PurgeExpiredPushesJob.perform_now
     end
   end
 end
