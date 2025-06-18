@@ -123,7 +123,7 @@ class PurgeExpiredPushesJobTest < ActiveSupport::TestCase
       # Verify the log contains the correct count of deleted pushes
       log_output.rewind
       log_content = log_output.read
-      assert_match(/2 total pushes expired more than 3 months ago were deleted./, log_content)
+      assert_match(/2 expired pushes older than 3 months ago have been purged./, log_content)
     ensure
       # Restore the original logger method
       PurgeExpiredPushesJob.class_eval do

@@ -34,7 +34,7 @@ class PurgeExpiredPushesJob < ApplicationJob
       push.destroy
     end
 
-    logger.info("  -> #{counter} total pushes expired more than #{Settings.purge_after} ago were deleted.")
+    logger.info("  -> #{counter} expired pushes older than #{Settings.purge_after} ago have been purged.")
 
     # Log completion
     logger.info("  -> #{self.class.name}: Finished.")
