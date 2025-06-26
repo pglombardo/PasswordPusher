@@ -2,5 +2,9 @@ FROM pglombardo/pwpush:latest
 
 ENV PWP_WORKER=true
 
+# Copy entrypoint inside container
+COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
 USER pwpusher
-ENTRYPOINT ["containers/docker/worker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint"]
