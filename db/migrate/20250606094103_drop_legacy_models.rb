@@ -2,7 +2,7 @@ class DropLegacyModels < ActiveRecord::Migration[7.2]
   def up
     # Check if data migration is complete
     if DataMigrationStatus.find_by(name: "push_model_migration")&.completed? ||
-        ActiveRecord::Base.connection.execute(<<-SQL).first["total_count"] == 0
+        ActiveRecord::Base.connection.execute(<<-SQL).first["total_count"]&.to_i == 0
          SELECT (
            (SELECT COUNT(*) FROM passwords) +
            (SELECT COUNT(*) FROM urls) +
