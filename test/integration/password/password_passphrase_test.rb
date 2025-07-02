@@ -118,4 +118,32 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     input = css_select "input#passphrase.form-control"
     assert_equal input.first.attributes["placeholder"].value, "Enter the secret passphrase provided with this URL"
   end
+
+  def test_anonymous_can_access_push_with_params
+    get new_push_path(tab: "text")
+    assert_response :success
+
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", passphrase: "asdf"}}
+    assert_response :redirect
+
+    # Preview page
+    follow_redirect!
+    assert_response :success
+    assert_select "h2", "Your push has been created."
+
+    # Attempt to access the file push page
+    @push_url = request.url.sub("/preview", "")
+
+    sign_out :user
+
+    # As an anonymous user, attempt to retrieve the url with the passphrase
+    get @push_url, params: {passphrase: "asdf"}
+    assert_response :success
+
+    # We should be on the password#show page now
+    p_tags = assert_select "p"
+    assert p_tags[0].text == "Please obtain and securely store this content in a secure manner, such as in a password manager."
+    assert p_tags[1].text == "Your password is blurred out.  Click below to reveal it."
+    assert p_tags[2].text.include?("This secret link and all content will be deleted")
+  end
 end
