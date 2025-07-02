@@ -20,6 +20,7 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
+    # Delete the new password via json e.g. /p/<url_token>.json
     delete "/p/#{res["url_token"]}.json"
     assert_response :success
 
@@ -40,12 +41,13 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
     assert first_res.key?("deleted")
     assert_equal true, first_res["deleted"]
     assert first_res.key?("deletable_by_viewer")
-    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "name", "note", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal first_res.except("url_token", "created_at", "updated_at", "expired_on"), {
+    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {
       "expire_after_views" => 5,
       "expired" => true,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
+      "passphrase" => nil,
       "expire_after_days" => 7,
       "days_remaining" => 7,
       "views_remaining" => 5,

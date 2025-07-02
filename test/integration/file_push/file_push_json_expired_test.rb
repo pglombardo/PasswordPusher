@@ -51,19 +51,20 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
     assert_equal true, first_res["deleted"]
     assert first_res.key?("deletable_by_viewer")
     assert_equal true, first_res["deletable_by_viewer"]
-    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "name", "note", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal first_res.except("url_token", "created_at", "updated_at", "expired_on"), {
-      "expire_after_days" => 7,
+    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {
       "expire_after_views" => 5,
       "expired" => true,
-      "deleted" => true,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
-      "name" => "Test File Push",
-      "note" => "This is a test file push",
+      "passphrase" => nil,
+      "expire_after_days" => 7,
       "days_remaining" => 7,
       "views_remaining" => 5,
-      "files" => "{}"
+      "deleted" => true,
+      "note" => "This is a test file push",
+      "name" => "Test File Push",
+      "files" => []
     }
 
     # These should be default values since we didn't specify them in the params

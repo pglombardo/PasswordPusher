@@ -15,9 +15,19 @@ json.extract! push, :expire_after_views,
 json.json_url secret_url(push) + ".json"
 json.html_url secret_url(push)
 
-if controller.action_name == "create"
+if %w[create active expired].include?(controller.action_name)
   json.note push.note
   json.name push.name
+end
+
+if %w[active expired].include?(controller.action_name) && push.file?
+  json.files do
+    json.array! push.files do |file|
+      json.filename file.filename.to_s
+      json.content_type file.content_type
+      json.url rails_blob_url(file)
+    end
+  end
 end
 
 if controller.action_name == "show"

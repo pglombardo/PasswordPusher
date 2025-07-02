@@ -48,24 +48,27 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
     assert first_res.key?("deletable_by_viewer")
     assert_equal true, first_res["deletable_by_viewer"]
     assert first_res.key?("files")
-    assert_equal 1, JSON.parse(first_res["files"]).count
-    # p JSON.parse(first_res["files"])
-    # => {"monkey.png" => "/pfb/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwiZXhwIjoiMjAyNS0wNy0wMlQyMToyMDoxNS4xNzBaIiwicHVyIjoiYmxvYl9pZCJ9fQ==--6e3f646b9f57ea24e0753fd3e1af4240c6442ec3/monkey.png"}
-    assert_equal true, JSON.parse(first_res["files"]).key?("monkey.png")
-    assert_match(/\/pfb\/blobs\/redirect\/.*\/monkey.png/, JSON.parse(first_res["files"])["monkey.png"])
-    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "name", "note", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal first_res.except("url_token", "created_at", "updated_at", "expired_on", "files"), {
-      "expire_after_days" => 7,
-      "expire_after_views" => 5,
+    assert_equal 1, first_res["files"].count
+    # p first_res["files"]
+    # => [{"filename" => "monkey.png", "content_type" => "image/png", "url" => "http://www.example.com/pfb/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwiZXhwIjoiMjAyNS0wNy0wMlQyMToyODoyNi43MzhaIiwicHVyIjoiYmxvYl9pZCJ9fQ==--98a8c59aa58c4c6a943c4eb27cec92c2c04434fd/monkey.png"}]
+    assert_equal true, first_res["files"].first.key?("filename")
+    assert_equal "monkey.png", first_res["files"].first["filename"]
+    assert_equal true, first_res["files"].first.key?("content_type")
+    assert_equal "image/png", first_res["files"].first["content_type"]
+    assert_equal true, first_res["files"].first.key?("url")
+    assert_match(/\/pfb\/blobs\/redirect\/.*\/monkey.png/, first_res["files"].first["url"])
+    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on", "files"), {"expire_after_views" => 5,
       "expired" => false,
-      "deleted" => false,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
-      "name" => "Test File Push",
-      "note" => "This is a test file push",
+      "passphrase" => "",
+      "expire_after_days" => 7,
       "days_remaining" => 7,
-      "views_remaining" => 5
-    }
+      "views_remaining" => 5,
+      "deleted" => false,
+      "note" => "This is a test file push",
+      "name" => "Test File Push"}
 
     # These should be default values since we didn't specify them in the params
     assert_equal Settings.pw.deletable_pushes_default, first_res["deletable_by_viewer"]
