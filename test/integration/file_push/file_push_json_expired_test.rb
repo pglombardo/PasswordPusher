@@ -38,7 +38,7 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     push = res.first
-    assert push.key?("payload") == false # No payload on create response
+    assert_not push.key?("payload")
     assert push.key?("url_token")
     assert push.key?("name")
     assert_equal "Test File Push", push["name"]
