@@ -37,7 +37,8 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
     assert_equal false, first_res["deleted"]
     assert first_res.key?("deletable_by_viewer")
     assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {"expire_after_views" => 5,
+    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {
+      "expire_after_views" => 5,
       "expired" => false,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
@@ -47,7 +48,8 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
       "views_remaining" => 5,
       "deleted" => false,
       "note" => "This is a test password",
-      "name" => "Test Password"}
+      "name" => "Test Password"
+    }
 
     # These should be default values since we didn't specify them in the params
     assert_equal Settings.pw.deletable_pushes_default, first_res["deletable_by_viewer"]
