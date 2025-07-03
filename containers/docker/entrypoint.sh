@@ -28,7 +28,9 @@ fi
 # Thruster setting a PORT environment variable same as TARGET_PORT.
 #
 # So, we set TARGET_PORT to 5100 as default.
-if [ -z "$TARGET_PORT" ]; then
+if [ -n "$PORT" ]; then
+    export TARGET_PORT=$PORT
+else
     export TARGET_PORT=5100
 fi
 
