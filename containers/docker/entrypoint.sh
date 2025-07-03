@@ -23,8 +23,15 @@ if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
 fi
 
 # Set the default port if not specified
-if [ -z "$PORT" ]; then
-    export PORT=5100
+#
+# https://github.com/basecamp/thruster/blob/9a77a09fd256a4a8842a63808e11cc8ef3c77c52/internal/service.go#L63
+# Thruster setting a PORT environment variable same as TARGET_PORT.
+#
+# https://github.com/basecamp/thruster/
+# "Thruster's environment variables can optionally be prefixed with THRUSTER_".
+# So, we set THRUSTER_TARGET_PORT to 5100 as default.
+if [ -z "$THRUSTER_TARGET_PORT" ]; then
+    export THRUSTER_TARGET_PORT=5100
 fi
 
 echo "Password Pusher: starting foreman..."
