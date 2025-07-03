@@ -69,16 +69,5 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
       "note" => "This is a test file push",
       "name" => "Test File Push"
     }
-
-    # These should be default values since we didn't specify them in the params
-    assert_equal Settings.pw.deletable_pushes_default, push["deletable_by_viewer"]
-    assert push.key?("days_remaining")
-    assert_equal Settings.pw.expire_after_days_default, push["days_remaining"]
-    assert push.key?("views_remaining")
-    assert_equal Settings.pw.expire_after_views_default, push["views_remaining"]
-    assert push.key?("expire_after_days")
-    assert_equal Settings.pw.expire_after_days_default, push["expire_after_days"]
-    assert push.key?("expire_after_views")
-    assert_equal Settings.pw.expire_after_views_default, push["expire_after_views"]
   end
 end

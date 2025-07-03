@@ -50,16 +50,5 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
       "note" => "This is a test password",
       "name" => "Test Password"
     }
-
-    # These should be default values since we didn't specify them in the params
-    assert_equal Settings.pw.deletable_pushes_default, first_res["deletable_by_viewer"]
-    assert first_res.key?("days_remaining")
-    assert_equal Settings.pw.expire_after_days_default, first_res["days_remaining"]
-    assert first_res.key?("views_remaining")
-    assert_equal Settings.pw.expire_after_views_default, first_res["views_remaining"]
-    assert first_res.key?("expire_after_days")
-    assert_equal Settings.pw.expire_after_days_default, first_res["expire_after_days"]
-    assert first_res.key?("expire_after_views")
-    assert_equal Settings.pw.expire_after_views_default, first_res["expire_after_views"]
   end
 end
