@@ -27,10 +27,6 @@ class TestMailer < ApplicationMailer
       raise StandardError, "No host domain provided: host_domain. This is required to create fully qualified URLs in emails."
     end
 
-    if Settings.host_protocol.nil?
-      raise StandardError, "No host domain protocol provided: host_protocol.  This is required to create fully qualified URLs in emails."
-    end
-
     puts ""
     puts "The settings.yml mail configuration is:"
     puts "----------"

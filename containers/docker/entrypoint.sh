@@ -27,11 +27,14 @@ fi
 # https://github.com/basecamp/thruster/blob/9a77a09fd256a4a8842a63808e11cc8ef3c77c52/internal/service.go#L63
 # Thruster setting a PORT environment variable same as TARGET_PORT.
 #
-# https://github.com/basecamp/thruster/
-# "Thruster's environment variables can optionally be prefixed with THRUSTER_".
-# So, we set THRUSTER_TARGET_PORT to 5100 as default.
-if [ -z "$THRUSTER_TARGET_PORT" ]; then
-    export THRUSTER_TARGET_PORT=5100
+# So, we set TARGET_PORT to 5100 as default.
+if [ -z "$TARGET_PORT" ]; then
+    export TARGET_PORT=5100
+fi
+
+# If PWP__HOST_DOMAIN is set, TLS_DOMAIN is set to PWP__HOST_DOMAIN.
+if [ -n "$PWP__HOST_DOMAIN" ]; then
+    export TLS_DOMAIN=$PWP__HOST_DOMAIN
 fi
 
 echo "Password Pusher: starting foreman..."

@@ -129,7 +129,7 @@ Rails.application.configure do
 
     config.action_mailer.default_url_options = {
       host: Settings.host_domain,
-      protocol: Settings.host_protocol
+      protocol: Settings.host_domain.present? ? "https" : "http"
     }
 
     config.action_mailer.smtp_settings = {
