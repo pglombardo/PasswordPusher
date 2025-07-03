@@ -33,32 +33,30 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     res = JSON.parse(@response.body)
-    first_res = res.first
-    assert_not first_res.key?("payload")
-    assert first_res.key?("url_token")
-    assert first_res.key?("name")
-    assert_equal "Test File Push", first_res["name"]
-    assert first_res.key?("note")
-    assert_equal "This is a test file push", first_res["note"]
-    assert first_res.key?("expired")
-    assert_equal false, first_res["expired"]
-    assert first_res.key?("expired_on")
-    assert first_res.key?("deleted")
-    assert_equal false, first_res["deleted"]
-    assert first_res.key?("deletable_by_viewer")
-    assert_equal true, first_res["deletable_by_viewer"]
-    assert first_res.key?("files")
-    assert_equal 1, first_res["files"].count
-    # p first_res["files"]
-    # => [{"filename" => "monkey.png", "content_type" => "image/png", "url" => "http://www.example.com/pfb/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwiZXhwIjoiMjAyNS0wNy0wMlQyMToyODoyNi43MzhaIiwicHVyIjoiYmxvYl9pZCJ9fQ==--98a8c59aa58c4c6a943c4eb27cec92c2c04434fd/monkey.png"}]
-    assert_equal true, first_res["files"].first.key?("filename")
-    assert_equal "monkey.png", first_res["files"].first["filename"]
-    assert_equal true, first_res["files"].first.key?("content_type")
-    assert_equal "image/png", first_res["files"].first["content_type"]
-    assert_equal true, first_res["files"].first.key?("url")
-    assert_match(/\/pfb\/blobs\/redirect\/.*\/monkey.png/, first_res["files"].first["url"])
-    assert_equal first_res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal first_res.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on", "files"), {
+    push = res.first
+    assert_not push.key?("payload")
+    assert push.key?("url_token")
+    assert push.key?("name")
+    assert_equal "Test File Push", push["name"]
+    assert push.key?("note")
+    assert_equal "This is a test file push", push["note"]
+    assert push.key?("expired")
+    assert_equal false, push["expired"]
+    assert push.key?("expired_on")
+    assert push.key?("deleted")
+    assert_equal false, push["deleted"]
+    assert push.key?("deletable_by_viewer")
+    assert_equal true, push["deletable_by_viewer"]
+    assert push.key?("files")
+    assert_equal 1, push["files"].count
+    assert_equal true, push["files"].first.key?("filename")
+    assert_equal "monkey.png", push["files"].first["filename"]
+    assert_equal true, push["files"].first.key?("content_type")
+    assert_equal "image/png", push["files"].first["content_type"]
+    assert_equal true, push["files"].first.key?("url")
+    assert_match(/\/pfb\/blobs\/redirect\/.*\/monkey.png/, push["files"].first["url"])
+    assert_equal push.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal push.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on", "files"), {
       "expire_after_views" => 5,
       "expired" => false,
       "deletable_by_viewer" => true,
@@ -73,14 +71,14 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
     }
 
     # These should be default values since we didn't specify them in the params
-    assert_equal Settings.pw.deletable_pushes_default, first_res["deletable_by_viewer"]
-    assert first_res.key?("days_remaining")
-    assert_equal Settings.pw.expire_after_days_default, first_res["days_remaining"]
-    assert first_res.key?("views_remaining")
-    assert_equal Settings.pw.expire_after_views_default, first_res["views_remaining"]
-    assert first_res.key?("expire_after_days")
-    assert_equal Settings.pw.expire_after_days_default, first_res["expire_after_days"]
-    assert first_res.key?("expire_after_views")
-    assert_equal Settings.pw.expire_after_views_default, first_res["expire_after_views"]
+    assert_equal Settings.pw.deletable_pushes_default, push["deletable_by_viewer"]
+    assert push.key?("days_remaining")
+    assert_equal Settings.pw.expire_after_days_default, push["days_remaining"]
+    assert push.key?("views_remaining")
+    assert_equal Settings.pw.expire_after_views_default, push["views_remaining"]
+    assert push.key?("expire_after_days")
+    assert_equal Settings.pw.expire_after_days_default, push["expire_after_days"]
+    assert push.key?("expire_after_views")
+    assert_equal Settings.pw.expire_after_views_default, push["expire_after_views"]
   end
 end
