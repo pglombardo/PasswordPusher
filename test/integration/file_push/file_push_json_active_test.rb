@@ -47,16 +47,8 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
     assert_equal false, push["deleted"]
     assert push.key?("deletable_by_viewer")
     assert_equal true, push["deletable_by_viewer"]
-    assert push.key?("files")
-    assert_equal 1, push["files"].count
-    assert_equal true, push["files"].first.key?("filename")
-    assert_equal "monkey.png", push["files"].first["filename"]
-    assert_equal true, push["files"].first.key?("content_type")
-    assert_equal "image/png", push["files"].first["content_type"]
-    assert_equal true, push["files"].first.key?("url")
-    assert_match(/\/pfb\/blobs\/redirect\/.*\/monkey.png/, push["files"].first["url"])
-    assert_equal push.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
-    assert_equal push.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on", "files"), {
+    assert_equal push.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal push.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {
       "expire_after_views" => 5,
       "expired" => false,
       "deletable_by_viewer" => true,

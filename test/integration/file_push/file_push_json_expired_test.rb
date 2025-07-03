@@ -51,7 +51,7 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
     assert_equal true, push["deleted"]
     assert push.key?("deletable_by_viewer")
     assert_equal true, push["deletable_by_viewer"]
-    assert_equal push.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
+    assert_equal push.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
     assert_equal push.except("url_token", "created_at", "updated_at", "html_url", "json_url", "expired_on"), {
       "expire_after_views" => 5,
       "expired" => true,
@@ -63,8 +63,7 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
       "views_remaining" => 5,
       "deleted" => true,
       "note" => "This is a test file push",
-      "name" => "Test File Push",
-      "files" => []
+      "name" => "Test File Push"
     }
   end
 end
