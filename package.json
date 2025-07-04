@@ -27,7 +27,9 @@
     "postcss-import": "^16.1.0",
     "postcss-simple-vars": "^7.0.1",
     "sass": "^1.83.0",
-    "spoiler-alert": "^0.1.0"
+    "spoiler-alert": "^0.1.0",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "cssnano": "^7.0.6"
   },
   "scripts": {
     "set:theme": "node ./set_theme.js",
@@ -35,7 +37,12 @@
     "build:css:compile": "sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets",
     "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css -c postcss.config.js --verbose",
     "build:css": "yarn set:theme && yarn build:css:compile && yarn build:css:prefix",
-    "watch:css": "nodemon --ignore app/assets/stylesheets/themes/selected.css --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
+    "watch:css": "nodemon --ignore app/assets/stylesheets/themes/selected.css --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\"",
+    "build:production": "RAILS_ENV=production yarn build && RAILS_ENV=production yarn build:css",
+    "build:analyze": "node performance_build.js",
+    "build:all": "yarn build && yarn build:css && yarn build:production",
+    "analyze:css": "node optimize_css.js",
+    "optimize": "yarn build:analyze && yarn analyze:css"
   },
   "browserslist": [
     "defaults"

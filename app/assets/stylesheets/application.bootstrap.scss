@@ -1,18 +1,17 @@
-$accordion-color: #fff;
-$color-mode-type: media-query;
-
-@use "@fontsource/roboto";
-@use "@fontsource/roboto-slab";
-@use "@fontsource/roboto-mono";
-
+// @use rules must come first
 @use 'bootstrap/scss/bootstrap';
 @use 'bootstrap-icons/font/bootstrap-icons';
-
-$fi-path: "/flags" !default;
 @use "flag-icons/sass/flag-icons";
-
-/* Import the selected theme - to be setup before build */
 @use "themes/selected";
-
 @use "standard";
 @use "custom";
+
+// Variables
+$accordion-color: #fff;
+$color-mode-type: media-query;
+$fi-path: "/flags" !default;
+
+// Optimized font loading - only load required weights
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";

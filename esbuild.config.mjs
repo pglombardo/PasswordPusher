@@ -34,7 +34,19 @@ const config = {
   minify: process.env.RAILS_ENV == "production",
   outdir: path.join(process.cwd(), "app/assets/builds"),
   plugins: [rails()],
-  sourcemap: process.env.RAILS_ENV != "production"
+  sourcemap: process.env.RAILS_ENV != "production",
+  // Performance optimizations
+  treeShaking: true,
+  target: ['es2020'],
+  format: 'esm',
+  splitting: false, // Keep simple for Rails asset pipeline
+  drop: process.env.RAILS_ENV === "production" ? ['console', 'debugger'] : [],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+  },
+  // Optimize for better compression
+  legalComments: 'none',
+  keepNames: false
 }
 
 async function buildAndReload() {
