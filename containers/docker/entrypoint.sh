@@ -36,11 +36,6 @@ else
     export TARGET_PORT=5100
 fi
 
-# If PWP__HOST_DOMAIN is set, TLS_DOMAIN is set to PWP__HOST_DOMAIN.
-if [ -n "$PWP__HOST_DOMAIN" ]; then
-    export TLS_DOMAIN=$PWP__HOST_DOMAIN
-fi
-
 echo "Password Pusher: starting foreman..."
 if [ -n "$PWP__NO_WORKER" ] || [ -n "$PWP_PUBLIC_GATEWAY" ]; then
     exec bundle exec foreman start -m web=1
