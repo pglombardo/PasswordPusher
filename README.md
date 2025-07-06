@@ -84,6 +84,8 @@ See the full [Password Pusher documentation here](https://docs.pwpush.com).
 
 For years, [Translation.io](https://translation.io/?utm_source=pwpush) has provided free access to their translation tools for the open-source version of Password Pusher.
 
+[![](./app/assets/images/partners/translation-io-banner.png)](https://translation.io/?utm_source=pwpush)
+
 Please say thanks to [Translation.io](https://translation.io/?utm_source=pwpush) by considering them for any translation needs your company (or open source project) might have!
 
 
