@@ -80,9 +80,9 @@ _or_
 
 See the full [Password Pusher documentation here](https://docs.pwpush.com).
 
-# 🌎 31 Language Translations
+# 🌎 Language Translations
 
-For years, [Translation.io](https://translation.io/?utm_source=pwpush) has provided free access to their translation tools for the open-source version of Password Pusher.
+For years, [Translation.io](https://translation.io/?utm_source=pwpush) has provided free access to their translation tools for the open-source version of Password Pusher.  For this reason we now have 31 language translations built in!
 
 [![](./app/assets/images/partners/translation-io-banner.png)](https://translation.io/?utm_source=pwpush)
 
