@@ -2,7 +2,7 @@
 
 [![Password Pusher Front Page](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png)](https://pwpush.com/)
 
-__Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
+__Share sensitive information securely (files too!) with self-deleting links & full audit logs.__
 
 [![](https://badgen.net/twitter/follow/pwpush)](https://twitter.com/pwpush)
 ![](https://badgen.net/github/stars/pglombardo/PasswordPusher)
