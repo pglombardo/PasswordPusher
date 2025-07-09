@@ -176,6 +176,11 @@ Donations are used to pay for the following:
 * [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
 * [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
 
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=pglombardo/PasswordPusher&type=Date)](https://www.star-history.com/#pglombardo/PasswordPusher&Date)
+
+
 # 🛡 License
 
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/master/LICENSE)
