@@ -23,12 +23,12 @@ class TestMailer < ApplicationMailer
       raise StandardError, "No SMTP password provided: smtp_password" if Settings.mail.smtp_password.nil?
     end
 
-    unless ENV["TLS_DOMAIN"].present? || Settings.host_domain.present?
-      raise StandardError, "No TLS_DOMAIN or host domain provided: host_domain. This is required to create fully qualified URLs in emails."
+    if Settings.host_domain.nil?
+      raise StandardError, "No host domain provided: host_domain. This is required to create fully qualified URLs in emails."
     end
 
-    unless ENV["TLS_DOMAIN"].present? || Settings.host_protocol.present?
-      raise StandardError, "No TLS_DOMAIN or host domain protocol provided: host_protocol.  This is required to create fully qualified URLs in emails."
+    if Settings.host_protocol.nil?
+      raise StandardError, "No host domain protocol provided: host_protocol.  This is required to create fully qualified URLs in emails."
     end
 
     puts ""

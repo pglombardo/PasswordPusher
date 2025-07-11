@@ -128,8 +128,8 @@ Rails.application.configure do
     config.action_mailer.raise_delivery_errors = Settings.mail.raise_delivery_errors
 
     config.action_mailer.default_url_options = {
-      host: ENV["TLS_DOMAIN"] || Settings.host_domain,
-      protocol: (ENV["TLS_DOMAIN"].present? || Settings.host_protocol) ? "https" : "http"
+      host: Settings.host_domain,
+      protocol: Settings.host_protocol
     }
 
     config.action_mailer.smtp_settings = {
