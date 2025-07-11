@@ -3,8 +3,13 @@ services:
     image: docker.io/pglombardo/pwpush:latest
     environment:
       DATABASE_URL: "sqlite3:db/db.sqlite3"
+      # TLS_DOMAIN: sub_domain.example.com # Uncomment to enable HTTPS
     ports:
-      - "5100:5100"
+      - "80:80"
+      - "443:443"
+      #
+      # Uncomment the following line to enable custom port
+      # - "5100:5100"
     restart: unless-stopped
     # You can set environment variables here, or in a .env file.  See:
     # https://docs.docker.com/compose/environment-variables/
