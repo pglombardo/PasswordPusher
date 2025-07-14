@@ -131,6 +131,6 @@ gem "turnout2024", require: "turnout"
 
 gem "solid_queue", "~> 1.1"
 
-gem "mission_control-jobs", "~> 1.0.2"
+gem "mission_control-jobs", "~> 1.1.0"
 
 gem "overmind", "~> 2.5", group: :development
