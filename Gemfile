@@ -129,7 +129,7 @@ gem "administrate", "~> 0.20.1"
 gem "rqrcode", "~> 3.1"
 gem "turnout2024", require: "turnout"
 
-gem "solid_queue", "~> 1.1"
+gem "solid_queue", "~> 1.2"
 
 gem "mission_control-jobs", "~> 1.0.2"
 
