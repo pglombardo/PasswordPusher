@@ -23,13 +23,6 @@ if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
 fi
 
 # Set the default port if not specified
-#
-# https://github.com/basecamp/thruster/blob/9a77a09fd256a4a8842a63808e11cc8ef3c77c52/internal/service.go#L63
-# Thruster is setting a `PORT` environment variable same as `TARGET_PORT`.
-# `TARGET_PORT` is 3000 by thruster's default. 
-# So, we set `TARGET_PORT` to 5100 as before.
-# Also, changing `PORT` was available previously. 
-# So, we use `PORT` if it is set.
 if [ -n "$PORT" ]; then
     export TARGET_PORT=$PORT
 else
