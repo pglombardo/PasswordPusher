@@ -2,7 +2,7 @@
 
 [![Password Pusher Front Page](https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png)](https://pwpush.com/)
 
-__Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
+__Share sensitive information securely (files too!) with self-deleting links & full audit logs.__
 
 [![](https://badgen.net/twitter/follow/pwpush)](https://twitter.com/pwpush)
 ![](https://badgen.net/github/stars/pglombardo/PasswordPusher)
@@ -79,6 +79,15 @@ _or_
 # 📚 Documentation
 
 See the full [Password Pusher documentation here](https://docs.pwpush.com).
+
+# 🌎 Language Translations
+
+For years, [Translation.io](https://translation.io/?utm_source=pwpush) has provided free access to their translation tools for the open-source version of Password Pusher.  For this reason we now have **31 language translations built in**!
+
+[![](./app/assets/images/partners/translation-io-banner.png)](https://translation.io/?utm_source=pwpush)
+
+Please say thanks to [Translation.io](https://translation.io/?utm_source=pwpush) by considering them for any translation needs your company (or open source project) might have!
+
 
 # 📼 Credits
 
@@ -166,6 +175,11 @@ Donations are used to pay for the following:
 * [What is Apnotic, LLC?](https://docs.pwpush.com/docs/faq/#what-is-apnotic)
 * [Trust is a concern. Why should I trust and use Password Pusher?](https://docs.pwpush.com/docs/faq/#trust-is-a-concern--why-should-i-trust-and-use-password-pusher)
 * [How does the Pro feature pipeline work?](https://docs.pwpush.com/posts/feature-pipeline/)
+
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=pglombardo/PasswordPusher&type=Date)](https://www.star-history.com/#pglombardo/PasswordPusher&Date)
+
 
 # 🛡 License
 

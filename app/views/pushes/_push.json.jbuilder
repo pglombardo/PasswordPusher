@@ -15,7 +15,7 @@ json.extract! push, :expire_after_views,
 json.json_url secret_url(push) + ".json"
 json.html_url secret_url(push)
 
-if controller.action_name == "create"
+if %w[create active expired].include?(controller.action_name)
   json.note push.note
   json.name push.name
 end
