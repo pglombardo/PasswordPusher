@@ -130,4 +130,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 
 USER pwpusher
 EXPOSE 5100
-ENTRYPOINT ["docker-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
