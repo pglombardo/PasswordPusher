@@ -125,5 +125,5 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
 USER pwpusher
-EXPOSE 5100
+EXPOSE 80 443
 ENTRYPOINT ["containers/docker/entrypoint.sh"]
