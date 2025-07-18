@@ -47,7 +47,7 @@ group :development, :test do
   gem "i18n-tasks", "~> 1.0.15", require: false
 
   gem "erb_lint", "~> 0.9.0", require: false
-  gem "standardrb", "~> 1.0"
+  gem "standard", ">= 1.35.1"
 end
 
 gem "rack-cors"
@@ -134,3 +134,4 @@ gem "solid_queue", "~> 1.2"
 gem "mission_control-jobs", "~> 1.1.0"
 
 gem "overmind", "~> 2.5", group: :development
+gem "thruster", "~> 0.1.13"
