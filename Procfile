@@ -1,2 +1,2 @@
-web: TLS_DOMAIN=$TLS_DOMAIN bin/thrust bundle exec puma -C config/puma.rb
+web: bundle exec thrust bin/rails server
 worker: bundle exec rake solid_queue:start
