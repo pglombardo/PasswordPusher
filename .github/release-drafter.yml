@@ -35,10 +35,18 @@ template: |
   ## :running_man: Run This Version
 
   ```bash
-  docker run -d -p 5100:5100 pglombardo/pwpush:$NEXT_PATCH_VERSION
+  docker run -d -p 80:80 -p 443:443 pglombardo/pwpush:$NEXT_PATCH_VERSION
   ```
 
-  ..and go to `http://localhost:5100`
+  ..and browse to `http://localhost:5100`.
+
+  To enable automatic TLS, setup your DNS record to point to your server and set the `TLS_DOMAIN` environment variable to your domain.
+
+  ```bash
+  docker run -d -p 80:80 -p 443:443 -e TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:$NEXT_PATCH_VERSION
+  ```
+
+  ..and browse to `https://pwpush.example.com`.
 
   ## :link: Useful Links
 

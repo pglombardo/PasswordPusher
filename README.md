@@ -70,7 +70,15 @@ To see the differences between pwpush.com and the OSS edition take a look at the
 
 # ⚡️ Quick Start
 
-→ Run your own instance with `docker run -d -p "5100:5100" pglombardo/pwpush:stable` or a [production ready setup with a database & SSL/TLS](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/all-in-one).
+→ Run your own ephemeral instance:
+
+```sh
+docker run -d -p "80:80" -p "443:433" pglombardo/pwpush:stable`
+```
+
+_or_
+
+→ Use one of our [production ready Docker Compose files](https://docs.pwpush.com/docs/installation/#docker-compose).
 
 _or_
 
