@@ -47,7 +47,7 @@ group :development, :test do
   gem "i18n-tasks", "~> 1.0.15", require: false
 
   gem "erb_lint", "~> 0.9.0", require: false
-  gem "standard", ">= 1.35.1"
+  gem "standardrb", "~> 1.0"
 end
 
 gem "rack-cors"
