@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.4.4-alpine AS build-env
+FROM ruby:3.4.5-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -75,7 +75,7 @@ RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/asset
 
 ################## Build done ##################
 
-FROM ruby:3.4.4-alpine
+FROM ruby:3.4.5-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -124,9 +124,11 @@ COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
-# Copy entrypoint inside container
+# Copy entrypoints inside container
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-worker-entrypoint
 
 USER pwpusher
 EXPOSE 80 443 5100

@@ -2,10 +2,6 @@ FROM pglombardo/pwpush:latest
 
 ENV PWP_PUBLIC_GATEWAY=true
 
-# Copy entrypoint inside container
-COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
 USER pwpusher
 EXPOSE 80 443 5100
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
