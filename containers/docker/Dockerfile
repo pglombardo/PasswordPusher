@@ -124,9 +124,11 @@ COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
-# Copy entrypoint inside container
+# Copy entrypoints inside container
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-worker-entrypoint
 
 USER pwpusher
 EXPOSE 5100
