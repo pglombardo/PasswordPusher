@@ -1,4 +1,2 @@
-web: bundle exec puma -C config/puma.rb
+web: bundle exec bin/thrust bin/rails server
 worker: bundle exec rake solid_queue:start
-release: bundle exec rails db:migrate
-console: bundle exec rails console

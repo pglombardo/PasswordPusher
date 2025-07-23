@@ -131,5 +131,5 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-worker-entrypoint
 
 USER pwpusher
-EXPOSE 5100
+EXPOSE 80 443 5100
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]

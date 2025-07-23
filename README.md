@@ -70,11 +70,23 @@ To see the differences between pwpush.com and the OSS edition take a look at the
 
 # ⚡️ Quick Start
 
-→ Run your own instance with `docker run -d -p "5100:5100" pglombardo/pwpush:stable` or a [production ready setup with a database & SSL/TLS](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker/all-in-one).
+## Run your own ephemeral instance
 
-_or_
+→ Setup a DNS record to point to your server (e.g. `pwpush.example.com`) and run:
 
-→ Use one of the [3rd party tools](https://docs.pwpush.com/docs/3rd-party-tools/) that interface with Password Pusher.
+```sh
+docker run -d -p "80:80" -p "443:433" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest`
+```
+
+and browse to `https://pwpush.example.com`.
+
+_or alternatively_
+
+→ Use one of our [production ready Docker Compose files](https://docs.pwpush.com/docs/installation/#docker-compose) with persistent databases.
+
+## Use a Tool, Integration, API or CLI
+
+→ Use one of the many [3rd party tools](https://docs.pwpush.com/docs/3rd-party-tools/) that interface with Password Pusher.
 
 # 📚 Documentation
 

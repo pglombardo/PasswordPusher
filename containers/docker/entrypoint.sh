@@ -23,8 +23,10 @@ if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
 fi
 
 # Set the default port if not specified
-if [ -z "$PORT" ]; then
-    export PORT=5100
+if [ -n "$PORT" ]; then
+    export TARGET_PORT=$PORT
+else
+    export TARGET_PORT=5100
 fi
 
 echo "Password Pusher: starting foreman..."

@@ -134,3 +134,4 @@ gem "solid_queue", "~> 1.2"
 gem "mission_control-jobs", "~> 1.1.0"
 
 gem "overmind", "~> 2.5", group: :development
+gem "thruster", "~> 0.1.13"
