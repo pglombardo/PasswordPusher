@@ -31,6 +31,7 @@ Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own 
 * __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __Admin Dashboard:__ Manage your self-hosted instance with a built in admin dashboard.
+* __Automatic TLS:__ No more messing with Nginx, Apache or SSL/TLS termination points.  Secure out of the box and ready to go.
 * __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Internationalized:__ 29 language translations are bundled in.  Easily selectable via UI or URL
