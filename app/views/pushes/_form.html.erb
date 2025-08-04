@@ -40,7 +40,7 @@
                                         required: true,
                                         "data-pwgen-target" => "payloadInput",
                                         "data-passwords-target" => "payloadInput",
-                                        "data-action" => "input->passwords#updateCharacterCount"
+                                        "data-action" => "input->passwords#updateCharacterCount pwgen#setContentNotGenerated"
                                          }) %>
             <div class='position-relative'>
                 <div id="the-count" class="position-absolute bottom-0 end-0 m-2 px-3 opacity-75">
@@ -193,5 +193,6 @@
 <% end %>
 
 <%= render partial: 'shared/pw_generator_modal', cached: true %>
+<%= render partial: 'shared/pw_confirm_modal', cached: true %>
 
 </div>

@@ -1,0 +1,26 @@
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel"><%= _('Confirm Password Generation') %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex align-items-center mb-3">
+          <div>
+            <p class="mb-2"><strong><%= _('This will replace the existing content in the text area.') %></strong></p>
+            <p class="mb-0 text-muted"><%= _('Are you sure you want to continue?') %></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-pwgen-target="confirmCancel">
+          <%= _('Cancel') %>
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-pwgen-target="confirmProceed" data-action="click->pwgen#confirmGenerate">
+          <%= _('Generate Password') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
