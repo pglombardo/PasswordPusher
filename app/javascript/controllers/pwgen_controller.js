@@ -18,9 +18,6 @@ export default class extends Controller {
         "separatorsInput",
         "vowelsInput",
         "consonantsInput",
-
-        "confirmCancel",
-        "confirmProceed",
     ]
 
     static values = {
