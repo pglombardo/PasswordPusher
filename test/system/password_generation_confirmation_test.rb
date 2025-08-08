@@ -14,6 +14,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # Click the Generate Password button
     click_button "Generate Password"
 
+    sleep 1
+
     # Assert that the confirmation modal is visible
     assert_selector '[data-pwgen-target="generateConfirmModal"]', visible: true
     assert_text "Confirm Password Generation"
@@ -40,6 +42,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
 
     # Click the Generate Password button
     click_button "Generate Password"
+
+    sleep 1
 
     # Assert that the confirmation modal is visible
     assert_selector '[data-pwgen-target="generateConfirmModal"]', visible: true
@@ -94,6 +98,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # Click the Generate Password button to open modal
     click_button "Generate Password"
 
+    sleep 1
+
     # Verify modal is visible
     assert_selector '[data-pwgen-target="generateConfirmModal"]', visible: true
 
@@ -143,6 +149,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
 
     # Now clicking Generate Password should show the modal
     click_button "Generate Password"
+
+    sleep 1
 
     assert_selector '[data-pwgen-target="generateConfirmModal"]', visible: true
     assert_text "This will replace the existing content in the text area."
