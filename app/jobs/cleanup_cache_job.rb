@@ -18,6 +18,13 @@ class CleanupCacheJob < ApplicationJob
   def cleanup_cache_directory(cache_dir)
     return unless Dir.exist?(cache_dir)
 
+    # Safety check: ensure the cache directory is within the tmp directory
+    tmp_root = Rails.root.join("tmp").to_s
+    unless cache_dir.to_s.start_with?(tmp_root)
+      logger.error("  -> SAFETY VIOLATION: Cache directory #{cache_dir} is not within #{tmp_root}. Skipping cleanup.")
+      return
+    end
+
     logger.info("  -> Cleaning up cache directory: #{cache_dir}")
 
     # Remove files older than 24 hours
