@@ -36,7 +36,6 @@ class CleanupCacheJob < ApplicationJob
       if File.mtime(file) < cutoff_time
         begin
           File.delete(file)
-          logger.debug("  -> Deleted expired cache file: #{file}")
         rescue => e
           logger.warn("  -> Failed to delete cache file #{file}: #{e.message}")
         end
