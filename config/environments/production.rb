@@ -91,6 +91,14 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
+  # Configure file cache store with expiration
+  config.cache_store = :file_store, Rails.root.join("tmp", "cache"), {
+    expires_in: 1.hour,           # Default expiration for all cache entries
+    race_condition_ttl: 10.seconds, # Prevents race conditions
+    compress: true,               # Compress cache files to save space
+    compress_threshold: 1.kilobyte # Only compress files larger than 1KB
+  }
+
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :solid_queue
 

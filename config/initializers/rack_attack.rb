@@ -15,8 +15,15 @@ if defined? Rack::Attack
     # Use the memory store for faster tests
     if Rails.env.test?
       Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
-      # else
-      #   Rack::Attack.cache.store = ActiveSupport::Cache::RedisCacheStore.new(url: "...")
+    elsif Rails.env.production?
+      # Use a separate file cache store for Rack::Attack with shorter expiration
+      Rack::Attack.cache.store = ActiveSupport::Cache::FileStore.new(
+        Rails.root.join("tmp", "rack_attack_cache"),
+        expires_in: 2.hours,           # Shorter expiration for rate limiting data
+        race_condition_ttl: 10.seconds,
+        compress: true,
+        compress_threshold: 1.kilobyte
+      )
     end
 
     # Return a Retry-After header for throttled requests
@@ -33,7 +40,7 @@ if defined? Rack::Attack
       #
       if Settings.throttling&.minute.present?
         throttle("req/minute/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
-          req.ip unless req.path.start_with?("/assets")
+          req.ip unless req.path.start_with?("/assets") || req.path == "/up"
         end
       end
 
@@ -41,7 +48,7 @@ if defined? Rack::Attack
       #
       if Settings.throttling&.second.present?
         throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
-          req.ip
+          req.ip unless req.path == "/up"
         end
       end
     end
