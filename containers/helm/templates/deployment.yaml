@@ -2,10 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "helm.fullname" . }}
-  namespace: {{ .Values.namespace }}
   labels:
     {{- include "helm.labels" . | nindent 4 }}
-    {{- range $k, $v := .Values.deployment.labels }}
+    {{- range $k, $v := .Values.labels }}
     {{ $k }}: {{ $v | quote }}
     {{- end }}
 spec:
@@ -21,8 +20,8 @@ spec:
       {{- end }}
       labels:
         {{- include "helm.selectorLabels" . | nindent 8 }}
-        {{- range $k, $v := .Values.deployment.labels }}
-        {{ $k }}: {{ $v | quote }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       securityContext:
@@ -33,19 +32,18 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- range $key, $val := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+          {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.deployment.containerPort }}
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
-          {{- if .Values.deployment.livenessProbe.enabled }}
           livenessProbe:
-            httpGet:
-              path: {{ .Values.deployment.livenessProbe.path }}
-              port: http
-          {{- end }}
-          {{- if .Values.deployment.readinessProbe.enabled }}
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: {{ .Values.deployment.readinessProbe.path }}
-              port: http
-          {{- end }}
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
