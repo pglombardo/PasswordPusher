@@ -76,7 +76,7 @@ To see the differences between pwpush.com and the OSS edition take a look at the
 → Setup a DNS record to point to your server (e.g. `pwpush.example.com`) and run:
 
 ```sh
-docker run -d -p "80:80" -p "443:433" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest
+docker run -d -p "80:80" -p "443:443" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest
 ```
 
 and browse to `https://pwpush.example.com`.
