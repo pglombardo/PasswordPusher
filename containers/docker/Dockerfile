@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.4.5-alpine AS build-env
+FROM ruby:3.4.6-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -75,7 +75,7 @@ RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/asset
 
 ################## Build done ##################
 
-FROM ruby:3.4.5-alpine
+FROM ruby:3.4.6-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
