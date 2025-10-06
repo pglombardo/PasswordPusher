@@ -22,7 +22,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
-    page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
+    # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Assert that the confirmation modal is visible
     assert_text "Are you sure you want to continue?", wait: 10
@@ -53,7 +53,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
-    page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
+    # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Assert that the confirmation modal is visible
     assert_text "Are you sure you want to continue?", wait: 10
@@ -91,7 +91,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
-    page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
+    # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Verify modal is visible
     assert_text "Are you sure you want to continue?", wait: 10
@@ -120,7 +120,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
-    page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
+    # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Verify modal is visible
     assert_text "Are you sure you want to continue?", wait: 10
@@ -179,7 +179,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
-    page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
+    # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     assert_text "Are you sure you want to continue?", wait: 10
     assert_text "This will replace the existing content in the text area."
