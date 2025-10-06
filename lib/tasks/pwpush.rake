@@ -96,6 +96,7 @@ task update_themes: :environment do
   puts "Updating themes..."
 
   themes = %w[
+    brite
     cerulean
     cosmo
     cyborg

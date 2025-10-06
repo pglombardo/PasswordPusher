@@ -69,6 +69,14 @@ These Pro features are periodically migrated to the OSS edition.  You can read m
 
 To see the differences between pwpush.com and the OSS edition take a look at the [Feature Matrix](https://pwpush.com/features#matrix).
 
+# Self-Hosted Password Pusher Pro
+
+ Early BETA testing of Self-Hosted Password Pusher _Pro_ has started.  These are the Pro features not available yet in the open source edition.
+
+ If you want to get notified once it's available and/or volunteer to BETA test, [sign up here](https://waitlister.me/p/self-hosted-pro?utm_source=github&utm_medium=social&utm_campaign=self_hosted_pro_waitlist).
+
+ 🎁 __Also by signing up, you are guaranteed a 20% discount on your first year’s Self-Hosted Pro license fee__. We will send out a coupon code to you at launch.
+
 # ⚡️ Quick Start
 
 ## Run your own ephemeral instance
@@ -76,7 +84,7 @@ To see the differences between pwpush.com and the OSS edition take a look at the
 → Setup a DNS record to point to your server (e.g. `pwpush.example.com`) and run:
 
 ```sh
-docker run -d -p "80:80" -p "443:433" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest
+docker run -d -p "80:80" -p "443:443" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest
 ```
 
 and browse to `https://pwpush.example.com`.

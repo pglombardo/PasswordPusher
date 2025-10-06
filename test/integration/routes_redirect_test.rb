@@ -67,4 +67,11 @@ class RoutesRedirectTest < ActionDispatch::IntegrationTest
     assert_equal "qux", query_params["baz"]
     assert_response :success
   end
+
+  test "redirects from pwpx api_tokens route to oss users_token route" do
+    get "/api_tokens"
+    assert_redirected_to "/users/token"
+    assert_response :redirect
+    assert_equal 301, response.status
+  end
 end

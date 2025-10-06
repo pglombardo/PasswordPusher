@@ -30,6 +30,11 @@ production:
     queue: recurring
     schedule: every 3 days
 
+  cleanup_cache:
+    class: CleanupCacheJob
+    queue: recurring
+    schedule: every day at 3am
+
 development:
   expire_pushes:
     class: ExpirePushesJob
@@ -50,3 +55,8 @@ development:
     class: PurgeUnattachedBlobsJob
     queue: recurring
     schedule: every 3 days
+
+  cleanup_cache:
+    class: CleanupCacheJob
+    queue: recurring
+    schedule: every 6 hours

@@ -42,6 +42,7 @@ Where are you running/using Password Pusher?
 - [ ] Microsoft Azure
   - [ ] App Service
   - [ ] Container Instances (ACI)
+  - [ ] Container app (ACA)
   - [ ] Kubernetes Service (AKS)
 - [ ] Google Cloud
   - [ ] App Engine

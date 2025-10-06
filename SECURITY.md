@@ -17,6 +17,6 @@ This is a general rule but I would be open to hear any and all security reports 
 
 ## Reporting a Vulnerability
 
-You can use the Github "Report a vulnerability" feature or contact me at security@pwpush.com and I will send you a secure request URL to provide the report.
+Please use the Github [Report a vulnerability](https://github.com/pglombardo/PasswordPusher/security/advisories/new) feature.
 
 _I kindly ask you to not report any potential vulnerabilies publicly as it may put existing users at risk.  Your help in this is greatly appreciated!_

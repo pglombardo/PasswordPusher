@@ -22,7 +22,7 @@ class ExpirePushesJob < ApplicationJob
     logger.info("  -> Finished validating #{counter} unexpired pushes.  #{expiration_count} total pushes expired...")
 
     # Log results
-    logger.info("  -> #{self.class.name}: #{counter} anonymous and expired pushes have been deleted.")
+    logger.info("  -> #{self.class.name}: #{expiration_count} anonymous and expired pushes have been deleted.")
 
     # Log completion
     logger.info("  -> #{self.class.name}: Finished.")

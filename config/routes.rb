@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
     mount Mailbin::Engine => :mailbin if Rails.env.development?
 
+    draw :redirects
     draw :legacy_devise
     draw :legacy_pages
     draw :legacy_pushes
