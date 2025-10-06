@@ -6,6 +6,12 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   test "shows confirmation modal when existing content is present" do
     visit new_push_path(tab: "text")
 
+    # Wait for JavaScript to be fully loaded
+    assert_selector "div[data-controller*='pwgen']", wait: 10
+
+    # Verify the pwgen controller is connected by checking for the target
+    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+
     # Fill in some existing content in the textarea
     fill_in "push_payload", with: "My existing content"
 
@@ -15,8 +21,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Assert that the confirmation modal is visible
-    assert_text "This will replace the existing content in the text area."
-    assert_text "Are you sure you want to continue?", wait: 5
+    assert_text "This will replace the existing content in the text area.", wait: 10
+    assert_text "Are you sure you want to continue?", wait: 10
 
     # Check that modal has Cancel and Generate Password buttons
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -31,6 +37,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   test "shows confirmation modal when existing content is present for QR Code pushes" do
     visit new_push_path(tab: "qr")
 
+    # Wait for JavaScript to be fully loaded
+    assert_selector "div[data-controller*='pwgen']", wait: 10
+    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+
     # Fill in some existing content in the textarea
     fill_in "push_payload", with: "My existing content"
 
@@ -40,7 +50,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Assert that the confirmation modal is visible
-    assert_text "Are you sure you want to continue?", wait: 5
+    assert_text "Are you sure you want to continue?", wait: 10
   end
 
   test "generates password directly when no existing content" do
@@ -63,6 +73,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   test "cancels password generation from modal" do
     visit new_push_path(tab: "text")
 
+    # Wait for JavaScript to be fully loaded
+    assert_selector "div[data-controller*='pwgen']", wait: 10
+    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+
     # Fill in some existing content
     original_content = "My important content"
     fill_in "push_payload", with: original_content
@@ -71,7 +85,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Verify modal is visible
-    assert_text "Are you sure you want to continue?", wait: 5
+    assert_text "Are you sure you want to continue?", wait: 10
 
     # Click Cancel button
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -85,6 +99,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   test "confirms password generation from modal" do
     visit new_push_path(tab: "text")
 
+    # Wait for JavaScript to be fully loaded
+    assert_selector "div[data-controller*='pwgen']", wait: 10
+    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+
     # Fill in some existing content
     original_content = "My important content"
     fill_in "push_payload", with: original_content
@@ -93,7 +111,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     click_on "Generate Password"
 
     # Verify modal is visible
-    assert_text "Are you sure you want to continue?", wait: 5
+    assert_text "Are you sure you want to continue?", wait: 10
 
     # Click Generate Password button in modal
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -131,6 +149,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   test "shows modal when user manually types content after generation" do
     visit new_push_path(tab: "text")
 
+    # Wait for JavaScript to be fully loaded
+    assert_selector "div[data-controller*='pwgen']", wait: 10
+    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+
     # Generate a password first
     click_on "Generate Password"
     assert_no_text "Are you sure you want to continue?"
@@ -144,7 +166,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # Now clicking Generate Password should show the modal
     click_on "Generate Password"
 
-    assert_text "Are you sure you want to continue?", wait: 5
+    assert_text "Are you sure you want to continue?", wait: 10
     assert_text "This will replace the existing content in the text area."
   end
 end
