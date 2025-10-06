@@ -2,13 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import Cookies from 'js-cookie'
 import generatePassword from "omgopass";
 // Import Modal with fallback for test environments
-let Modal;
-try {
-    Modal = require("bootstrap").Modal;
-} catch (e) {
-    // Fallback for environments where bootstrap is not available
-    Modal = null;
-}
+import { Modal } from "bootstrap";
 
 export default class extends Controller {
     static targets = [
@@ -178,25 +172,35 @@ export default class extends Controller {
             // Show the modal using Bootstrap 5 API or fallback
             const modalElement = this.generateConfirmModalTarget;
             
-            if (Modal) {
-                const modal = new Modal(modalElement);
-                modal.show();
+            // Check if Bootstrap Modal is available at runtime
+            if (typeof Modal !== 'undefined' && Modal) {
+                try {
+                    const modal = new Modal(modalElement);
+                    modal.show();
+                } catch (e) {
+                    console.warn('Bootstrap Modal failed, using fallback:', e);
+                    this.showModalFallback(modalElement);
+                }
             } else {
                 // Fallback: show modal using CSS classes directly
-                modalElement.classList.add('show');
-                modalElement.style.display = 'block';
-                modalElement.setAttribute('aria-hidden', 'false');
-                // Add backdrop
-                const backdrop = document.createElement('div');
-                backdrop.className = 'modal-backdrop fade show';
-                backdrop.setAttribute('data-modal-backdrop', 'true');
-                document.body.appendChild(backdrop);
+                this.showModalFallback(modalElement);
             }
             return; // Exit and wait for user confirmation
         }
 
         // Generate password directly if no content exists OR if content was previously generated
         this.generatePassword();
+    }
+
+    showModalFallback(modalElement) {
+        modalElement.classList.add('show');
+        modalElement.style.display = 'block';
+        modalElement.setAttribute('aria-hidden', 'false');
+        // Add backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show';
+        backdrop.setAttribute('data-modal-backdrop', 'true');
+        document.body.appendChild(backdrop);
     }
 
     generateConfirm(event) {
@@ -209,19 +213,29 @@ export default class extends Controller {
         // Programmatically hide the modal
         const modalElement = this.generateConfirmModalTarget;
         
-        if (Modal) {
-            const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
-            modal.hide();
+        // Check if Bootstrap Modal is available at runtime
+        if (typeof Modal !== 'undefined' && Modal) {
+            try {
+                const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+                modal.hide();
+            } catch (e) {
+                console.warn('Bootstrap Modal hide failed, using fallback:', e);
+                this.hideModalFallback(modalElement);
+            }
         } else {
             // Fallback: hide modal using CSS classes directly
-            modalElement.classList.remove('show');
-            modalElement.style.display = 'none';
-            modalElement.setAttribute('aria-hidden', 'true');
-            // Remove backdrop
-            const backdrop = document.querySelector('[data-modal-backdrop="true"]');
-            if (backdrop) {
-                backdrop.remove();
-            }
+            this.hideModalFallback(modalElement);
+        }
+    }
+
+    hideModalFallback(modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.style.display = 'none';
+        modalElement.setAttribute('aria-hidden', 'true');
+        // Remove backdrop
+        const backdrop = document.querySelector('[data-modal-backdrop="true"]');
+        if (backdrop) {
+            backdrop.remove();
         }
     }
 
