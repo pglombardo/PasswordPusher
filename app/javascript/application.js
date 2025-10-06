@@ -11,3 +11,6 @@ if (!turboDriveEnabled) {
   console.log("⚡ Turbo Drive is disabled via environment variable")
   Turbo.session.drive = false
 }
+
+console.log('Bootstrap loaded:', typeof bootstrap !== 'undefined');
+console.log('Modal component:', typeof bootstrap.Modal !== 'undefined');
