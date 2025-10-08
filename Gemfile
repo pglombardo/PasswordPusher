@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.4.3"
 
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.0"
 
 group :development do
   gem "listen"
@@ -29,7 +29,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", ">= 3.37.1", "< 4.0"
   gem "minitest"
-  gem "minitest-rails", ">= 6.1.0"
+  gem "minitest-rails", ">= 8.0.0"
   gem "minitest-reporters"
   gem "selenium-webdriver", ">= 4.20.1"
 end
@@ -103,7 +103,7 @@ gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
 
 gem "devise-i18n"
-gem "rails-i18n", "~> 7.0.10"
+gem "rails-i18n", "~> 8.0.0"
 gem "translation"
 
 # For File Uploads
