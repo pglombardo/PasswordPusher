@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.4.3"
 
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.3"
 
 group :development do
   gem "listen"
@@ -103,7 +103,7 @@ gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
 
 gem "devise-i18n"
-gem "rails-i18n", "~> 7.0.10"
+gem "rails-i18n", "~> 8.0.2"
 gem "translation"
 
 # For File Uploads
@@ -125,7 +125,7 @@ end
 
 gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
-gem "administrate", "~> 0.20.1"
+gem "madmin"
 gem "rqrcode", "~> 3.1"
 gem "turnout2024", require: "turnout"
 

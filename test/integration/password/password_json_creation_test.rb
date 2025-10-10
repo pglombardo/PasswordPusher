@@ -145,6 +145,6 @@ class PasswordJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
-    assert res == {"error" => "param is missing or the value is empty: password"}
+    assert_equal "param is missing or the value is empty or invalid: password", res["error"]
   end
 end

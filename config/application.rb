@@ -13,7 +13,7 @@ Bundler.require(*Rails.groups)
 module PasswordPusher
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
     config.active_support.cache_format_version = 7.0
 
     config.active_storage.urls_expire_in = 5.minutes
@@ -33,8 +33,8 @@ module PasswordPusher
     # config.eager_load_paths << Rails.root.join("extras")
 
     # https://github.com/rails/mission_control-jobs?tab=readme-ov-file#custom-authentication
-    # Use the Admin::ApplicationController for authentication
-    config.mission_control.jobs.base_controller_class = "Admin::ApplicationController"
+    # Use the ApplicationController for authentication
+    config.mission_control.jobs.base_controller_class = "ApplicationController"
     config.mission_control.jobs.http_basic_auth_enabled = false
 
     puts "Password Pusher Version: #{Version.current}"
