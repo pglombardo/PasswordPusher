@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="ROBOTS" content="NOODP">
+    <meta name="viewport" content="initial-scale=1">
+    <title>
+      <% if content_for? :title %>
+        <%= yield(:title) %> -
+      <% end %>
+      Data Explorer - Administration - Password Pusher
+    </title>
+    <%= csrf_meta_tags %>
+    <%= render "madmin/application/javascript" %>
+  </head>
+  <body class="bg-light">
+    <% if Rails.env.staging? %>
+      <div class="alert alert-warning text-center mb-0" role="alert">
+        <strong>Staging Environment:</strong> This is a staging site for testing and data is reset frequently. Please use <a href="https://pwpush.com" class="alert-link">pwpush.com</a> unless you are testing new features.
+      </div>
+    <% end %>
+
+    <div class="min-vh-100 d-flex">
+      <!-- Sidebar -->
+      <aside class="bg-white shadow border-end" style="width: 280px; min-width: 280px;">
+        <%= render "madmin/application/navigation" %>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-grow-1 d-flex flex-column">
+        <!-- Page Content -->
+        <div class="flex-grow-1 p-4">
+          <%= render "madmin/application/flash" %>
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,24 +1,16 @@
 class PushResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :kind
+  attribute :url_token, index: true
+  attribute :kind, index: true
   attribute :expire_after_days
   attribute :expire_after_views
-  attribute :expired
-  attribute :url_token
+  attribute :expired, index: true
   attribute :deletable_by_viewer
   attribute :retrieval_step
   attribute :expired_on
-  attribute :payload_ciphertext
-  attribute :note_ciphertext
-  attribute :passphrase_ciphertext
-  attribute :name
   attribute :created_at, form: false
   attribute :updated_at, form: false
-  attribute :payload, index: false
-  attribute :note, index: false
-  attribute :passphrase, index: false
-  attribute :files, index: false
 
   # Associations
   attribute :user
@@ -33,10 +25,17 @@ class PushResource < Madmin::Resource
   # end
 
   # Customize the display name of records in the admin area.
-  # def self.display_name(record) = record.name
+  def self.display_name(record)
+    record.url_token
+  end
+
+  # Use url_token for lookups instead of id
+  def self.model_find(id)
+    model.find_by!(url_token: id)
+  end
 
   # Customize the default sort column and direction.
-  # def self.default_sort_column = "created_at"
-  #
-  # def self.default_sort_direction = "desc"
+  def self.default_sort_column = "created_at"
+
+  def self.default_sort_direction = "desc"
 end

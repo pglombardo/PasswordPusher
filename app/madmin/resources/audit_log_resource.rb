@@ -1,11 +1,11 @@
 class AuditLogResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :ip
-  attribute :user_agent
-  attribute :referrer
-  attribute :kind
   attribute :created_at, form: false
+  attribute :ip, index: true
+  attribute :user_agent, index: true
+  attribute :referrer, index: true
+  attribute :kind, index: true
   attribute :updated_at, form: false
 
   # Associations
