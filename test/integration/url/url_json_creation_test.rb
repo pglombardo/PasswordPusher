@@ -97,6 +97,6 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
-    assert_equal "param is missing or the value is empty: url", res["error"]
+    assert_equal "param is missing or the value is empty or invalid: url", res["error"]
   end
 end

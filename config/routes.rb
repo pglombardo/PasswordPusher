@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     root to: proc { |env| [404, {"Content-Type" => "text/html"}, ["<h1>Not Found</h1>"]] }
   else
     draw :admin
+    draw :madmin
     draw :users
     draw :pushes
     draw :pwp_api
