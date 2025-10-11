@@ -75,7 +75,7 @@ RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/asset
 
 ################## Build done ##################
 
-FROM ruby:3.4.6-alpine
+FROM ruby:3.4.7-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
