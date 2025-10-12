@@ -19,5 +19,4 @@ pin "js-cookie" # @3.0.5
 pin "omgopass" # @3.2.1
 pin "omgopass/random.js", to: "omgopass--random.js.js" # @3.2.1
 pin "local-time" # @3.0.3
-pin "@popperjs/core", to: "@popperjs--core.js" # @2.11.8
-pin "spoiler-alert", to: "spoiler-alert/index.js"
+pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

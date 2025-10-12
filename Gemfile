@@ -19,6 +19,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 gem "sass-embedded"
 gem "cssbundling-rails"
+gem "jsbundling-rails"
 
 group :development do
   gem "listen"
