@@ -17,11 +17,14 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
+gem "sass-embedded"
+gem "cssbundling-rails"
 
 group :development do
   gem "listen"
 
   # Visual Studio Additions
+  gem "debase"
   gem "ruby-debug-ide"
   gem "pry-rails"
   gem "web-console"
@@ -53,7 +56,7 @@ group :development, :test do
 
   gem "i18n-tasks", "~> 1.0.15", require: false
   gem "erb_lint", "~> 0.9.0", require: false
-  gem "standardrb", "~> 1.0"
+  gem "standard", ">= 1.35.1"
 end
 
 gem "rack-cors"
@@ -61,9 +64,6 @@ gem "high_voltage"
 gem "kramdown", require: false
 gem "lockbox"
 
-# Use SCSS for stylesheets
-gem "sass-rails", "~> 6.0", ">= 6.0.0"
-gem "cssbundling-rails", "~> 1.4"
 gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap"
