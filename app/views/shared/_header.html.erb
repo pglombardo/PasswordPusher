@@ -39,17 +39,37 @@
             <ul class="dropdown-menu" aria-labelledby="accountDropdownMenuLink">
               <% if current_user.admin? %>
                 <li>
-                  <%= link_to _('Admin Dashboard'), admin_root_path, class: "dropdown-item" %>
+                  <%= link_to admin_root_path, class: "dropdown-item d-flex align-items-center" do %>
+                    <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    <%= _('Administration Center') %>
+                  <% end %>
                 </li>
               <% end %>
               <li>
-                <%= link_to _('Edit Login Details'), edit_user_registration_path, class: "dropdown-item" %>
+                <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  <%= _('Edit Login Details') %>
+                <% end %>
               </li>
               <li>
-                <%= link_to _('API Token'), token_user_registration_path, class: "dropdown-item" %>
+                <%= link_to token_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
+                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                  </svg>
+                  <%= _('API Token') %>
+                <% end %>
               </li>
               <li>
-                <%= button_to _('Log Out'), destroy_user_session_path, method: :delete, class: "dropdown-item", form_class: "d-inline" %>
+                <%= button_to destroy_user_session_path, method: :delete, class: "dropdown-item d-flex align-items-center w-100", form_class: "d-inline w-100" do %>
+                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                  </svg>
+                  <%= _('Log Out') %>
+                <% end %>
               </li>
             </ul>
           </li>
