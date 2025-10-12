@@ -34,21 +34,4 @@ Rails.application.routes.draw do
   }
 
   post "/csp-violation-report", to: "csp_reports#create"
-
-  # Serve flag icons from node_modules
-  get "/flags/*path", to: proc { |env|
-    path = env["PATH_INFO"].gsub("/flags/", "")
-    flag_path = Rails.root.join("node_modules/flag-icons/flags", path)
-
-    if File.exist?(flag_path)
-      content_type = case File.extname(path)
-      when ".svg" then "image/svg+xml"
-      else "application/octet-stream"
-      end
-
-      [200, {"Content-Type" => content_type}, [File.read(flag_path)]]
-    else
-      [404, {"Content-Type" => "text/plain"}, ["Not Found"]]
-    end
-  }
 end
