@@ -88,7 +88,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
 
     get "/admin/dbexplore"
     assert_response :success
-    assert_select "h1", "Data Explorer"
+    assert_select "h4", "Direct Database Access"
 
     sign_out @mr_admin
   end
@@ -147,7 +147,7 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     # Test main dashboard
     get madmin_root_path
     assert_response :success
-    assert_select "h1", "Data Explorer"
+    assert_select "h4", "Direct Database Access"
 
     # Test users resource
     get madmin_users_path
