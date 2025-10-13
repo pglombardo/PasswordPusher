@@ -1,8 +1,7 @@
 import "@hotwired/turbo-rails"
 import "@rails/activestorage"
-import "bootstrap"
-import "@popperjs/core"
 import "./controllers"
+import "bootstrap"
 
 import LocalTime from "local-time"
 
