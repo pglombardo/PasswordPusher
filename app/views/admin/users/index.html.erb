@@ -118,11 +118,17 @@
 
     <!-- Regular Users -->
     <div>
-      <h2 class="h5 fw-semibold text-dark mb-4 d-flex align-items-center">
-        <svg class="text-muted me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-        </svg>
-        Regular Users
+      <h2 class="h5 fw-semibold text-dark mb-4 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <svg class="text-muted me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          Regular Users
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle bg-secondary" style="width: 8px; height: 8px;"></div>
+          <span class="text-muted small"><%= @regular_users.total_count %> Regular Users</span>
+        </div>
       </h2>
 
       <% if @regular_users.any? %>
@@ -180,6 +186,11 @@
               <% end %>
             </tbody>
           </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @regular_users, list_classes: %w(pagination justify-content-center) %>
         </div>
       <% else %>
         <div class="text-center py-5">

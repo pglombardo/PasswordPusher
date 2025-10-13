@@ -2,7 +2,7 @@ module Admin
   class UsersController < ::AdminController
     def index
       @admin_users = User.where(admin: true).order(:email)
-      @regular_users = User.where(admin: [false, nil]).order(:email)
+      @regular_users = User.where(admin: [false, nil]).order(:email).page(params[:page]).per(25)
     end
 
     def promote
