@@ -81,7 +81,7 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.hosts << "lvh.me:5100"
+  config.hosts << "lvh.me"
 
   # The list of trusted proxies from which we will accept proxy related headers.
   config.action_dispatch.trusted_proxies = [
