@@ -22,8 +22,13 @@ class UserTest < ActiveSupport::TestCase
   test "can be admin" do
     assert_not @luca.admin?
 
-    ActiveRecord::Base.connection.execute("UPDATE users SET admin = ? WHERE id = ?", true, @luca.id)
+    ActiveRecord::Base.connection.exec_update(
+      "UPDATE users SET admin = ? WHERE id = ?",
+      "Update User Admin Status",
+      [true, @luca.id]
+    )
 
+    @luca.reload
     assert @luca.admin?
   end
 end

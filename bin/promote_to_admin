@@ -16,7 +16,7 @@ begin
   affected_rows = ActiveRecord::Base.connection.exec_update(
     "UPDATE users SET admin = ? WHERE id = ?",
     "Promote User Admin Status",
-    [[nil, true], [nil, user.id]]
+    [true, user.id]
   )
 
   if affected_rows > 0
