@@ -55,6 +55,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=semver,pattern={{version}},enable={{is_prerelease}}
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
@@ -105,6 +106,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=semver,pattern={{version}},enable={{is_prerelease}}
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
@@ -155,6 +157,7 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            type=semver,pattern={{version}},enable={{is_prerelease}}
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
