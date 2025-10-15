@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 
-# Default to port 3000 if not specified
-export PORT="${PORT:-5100}"
-
-if ! command -v overmind 2>&1 >/dev/null; then
-  gem install overmind
+if gem list --no-installed --exact --silent foreman; then
+  echo "Installing foreman..."
+  gem install foreman
 fi
 
-exec overmind start -T -f Procfile.dev "$@"
+# Default to port 3000 if not specified
+export PORT="${PORT:-3000}"
+
+exec foreman start -f Procfile.dev --env /dev/null "$@"

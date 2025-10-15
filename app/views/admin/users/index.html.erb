@@ -1,0 +1,206 @@
+<% content_for :title, "Administrator Management" %>
+
+<% content_for :breadcrumbs do %>
+  <li class="breadcrumb-item">
+    <div class="d-flex align-items-center">
+      <svg class="text-muted me-1" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+      </svg>
+      <span class="text-muted small">Administrator Management</span>
+    </div>
+  </li>
+<% end %>
+
+<div class="card shadow-sm">
+  <!-- Header -->
+  <div class="card-header border-bottom">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <h1 class="h4 fw-bold text-dark mb-2 d-flex align-items-center">
+          <svg class="text-primary me-3" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          Administrator Management
+        </h1>
+        <p class="text-muted small mb-0">Manage administrator accounts and privileges</p>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="rounded-circle bg-success" style="width: 8px; height: 8px;"></div>
+        <span class="text-muted small"><%= @admin_users.count %> Administrators</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="card-body">
+    <!-- Current Administrators -->
+    <div class="mb-5">
+      <h2 class="h5 fw-semibold text-dark mb-4 d-flex align-items-center">
+        <svg class="text-success me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Current Administrators
+      </h2>
+
+      <% if @admin_users.any? %>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-success">
+              <tr>
+                <th class="border-0">Email</th>
+                <th class="border-0">Created</th>
+                <th class="border-0">Last Sign In</th>
+                <th class="border-0 text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @admin_users.each do |user| %>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px;">
+                        <svg class="text-success" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <div class="fw-medium text-dark">
+                          <%= user.email %>
+                          <% if user == current_user %>
+                            <span class="badge bg-primary ms-2">You</span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-muted small">
+                    <%= user.created_at.strftime("%B %d, %Y") %>
+                  </td>
+                  <td class="text-muted small">
+                    <% if user.last_sign_in_at %>
+                      <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
+                    <% else %>
+                      <span class="text-muted">Never</span>
+                    <% end %>
+                  </td>
+                  <td class="text-end">
+                    <% if user != current_user %>
+                      <%= button_to revoke_admin_user_path(user),
+                          method: :patch,
+                          class: "btn btn-outline-danger btn-sm d-flex align-items-center",
+                          data: {
+                            turbo_confirm: "Are you sure you want to revoke administrator privileges from #{user.email}? They will lose access to the administration panel."
+                          } do %>
+                        <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
+                        </svg>
+                        Revoke
+                      <% end %>
+                    <% else %>
+                      <span class="text-muted small">Cannot revoke your own privileges</span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <svg class="text-muted mx-auto mb-3" width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          <h3 class="h6 fw-medium text-dark">No administrators found</h3>
+          <p class="text-muted small">There are currently no administrator accounts in the system.</p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Regular Users -->
+    <div>
+      <h2 class="h5 fw-semibold text-dark mb-4 d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <svg class="text-muted me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          Regular Users
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle bg-secondary" style="width: 8px; height: 8px;"></div>
+          <span class="text-muted small"><%= @regular_users.total_count %> Regular Users</span>
+        </div>
+      </h2>
+
+      <% if @regular_users.any? %>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th class="border-0">Email</th>
+                <th class="border-0">Created</th>
+                <th class="border-0">Last Sign In</th>
+                <th class="border-0 text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @regular_users.each do |user| %>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px;">
+                        <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                      </div>
+                      <div>
+                        <div class="fw-medium text-dark">
+                          <%= user.email %>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-muted small">
+                    <%= user.created_at.strftime("%B %d, %Y") %>
+                  </td>
+                  <td class="text-muted small">
+                    <% if user.last_sign_in_at %>
+                      <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
+                    <% else %>
+                      <span class="text-muted">Never</span>
+                    <% end %>
+                  </td>
+                  <td class="text-end">
+                    <%= button_to promote_admin_user_path(user),
+                        method: :patch,
+                        class: "btn btn-outline-success btn-sm d-flex align-items-center",
+                        data: {
+                          turbo_confirm: "Are you sure you want to promote #{user.email} to administrator? This will give them full access to the administration panel."
+                        } do %>
+                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Promote
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @regular_users, list_classes: %w(pagination justify-content-center) %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <svg class="text-muted mx-auto mb-3" width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          <h3 class="h6 fw-medium text-dark">No regular users found</h3>
+          <p class="text-muted small">All users in the system are administrators.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

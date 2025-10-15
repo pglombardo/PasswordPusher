@@ -2,23 +2,18 @@
   "name": "PasswordPusher",
   "private": true,
   "dependencies": {
-    "@fontsource/roboto": "^5.1.1",
-    "@fontsource/roboto-mono": "^5.1.1",
-    "@fontsource/roboto-slab": "^5.1.1",
-    "@hotwired/stimulus": "^3.2.1",
-    "@hotwired/turbo-rails": "^8.0.3",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+    "@hotwired/turbo-rails": "^8.0.12",
     "@popperjs/core": "^2.11.8",
-    "@rails/actioncable": "^7.0.4",
-    "@rails/activestorage": "^7.0.5",
+    "@rails/activestorage": "^8.0.0",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chokidar": "^4.0.3",
-    "clipboard": "^2.0.11",
-    "esbuild": "^0.25.0",
-    "esbuild-rails": "^1.0.7",
     "flag-icons": "^7.2.3",
-    "js-cookie": "^3.0.4",
+    "js-cookie": "^3.0.5",
+    "local-time": "^3.0.3",
     "nodemon": "^3.1.9",
     "omgopass": "^3.2.1",
     "postcss": "^8.4.49",
@@ -26,19 +21,20 @@
     "postcss-env-function": "^7.0.0",
     "postcss-import": "^16.1.0",
     "postcss-simple-vars": "^7.0.1",
-    "sass": "^1.83.0",
-    "spoiler-alert": "^0.1.0"
+    "sass": "^1.83.0"
   },
   "scripts": {
     "set:theme": "node ./set_theme.js",
-    "build": "node esbuild.config.mjs",
-    "build:css:compile": "sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets",
+    "build:css:compile": "mkdir -p app/assets/builds/fonts && cp node_modules/bootstrap-icons/font/fonts/* app/assets/builds/fonts/ && sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets",
     "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css -c postcss.config.js --verbose",
     "build:css": "yarn set:theme && yarn build:css:compile && yarn build:css:prefix",
-    "watch:css": "nodemon --ignore app/assets/stylesheets/themes/selected.css --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
   "browserslist": [
     "defaults"
   ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "devDependencies": {
+    "esbuild": "^0.25.10"
+  }
 }

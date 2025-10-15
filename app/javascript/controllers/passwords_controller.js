@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { spoilerAlert } from "../../../vendor/javascript/spoiler-alert"
+import spoilerAlert from "../spoiler_alert.js"
 
 export default class extends Controller {
     static targets = [

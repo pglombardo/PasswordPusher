@@ -1,0 +1,106 @@
+<!-- Data Explorer Header -->
+<div class="d-flex flex-column justify-content-center align-items-center gap-2 mt-4 pb-4 border-bottom">
+  <div>
+    <%= link_to root_path do %>
+      <%= image_tag asset_path("naked-logo.png"), class: "img-fluid", style: "max-height: 60px;" %>
+    <% end %>
+  </div>
+  <div class="text-center">
+    <p class="h6 fw-bold text-dark mb-1">Password Pusher</p>
+    <h1 class="h6 fw-semibold">
+      <%= link_to madmin_root_path, class: "text-muted text-decoration-none" do %>
+        Administration Center
+      <% end %>
+    </h1>
+    <div class="mt-2">
+      <span class="badge bg-warning text-dark px-2 py-1 fw-semibold" style="font-size: 0.7rem;">
+        BETA
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="mt-4">
+  <!-- Back to Administration -->
+  <div class="mb-4">
+    <%= link_to "/admin", class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-muted hover-bg-light transition-all" do %>
+      <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Back to Admin Center
+    <% end %>
+  </div>
+
+  <!-- Data Explorer Home -->
+  <div class="mb-4">
+    <%= link_to madmin_root_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_root_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_root_path)}" do %>
+      <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+      </svg>
+      Data Explorer Home
+    <% end %>
+  </div>
+
+  <!-- Database Records Section -->
+  <div class="mb-4">
+    <h6 class="px-3 text-muted text-uppercase small fw-semibold mb-3">Database Records</h6>
+    <div class="d-grid gap-1">
+      <%= link_to madmin_users_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_users_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_users_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+        </svg>
+        Users
+      <% end %>
+
+      <%= link_to madmin_pushes_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_pushes_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_pushes_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+        </svg>
+        Pushes
+      <% end %>
+
+      <%= link_to madmin_audit_logs_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_audit_logs_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_audit_logs_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+        Audit Logs
+      <% end %>
+    </div>
+  </div>
+
+  <!-- File Storage Section -->
+  <div class="mb-4">
+    <h6 class="px-3 text-muted text-uppercase small fw-semibold mb-3">File Storage</h6>
+    <div class="d-grid gap-1">
+      <%= link_to madmin_active_storage_blobs_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_active_storage_blobs_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_active_storage_blobs_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+        </svg>
+        Blobs
+      <% end %>
+
+      <%= link_to madmin_active_storage_attachments_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_active_storage_attachments_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_active_storage_attachments_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+        </svg>
+        Attachments
+      <% end %>
+
+      <%= link_to madmin_active_storage_variant_records_path, class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?(madmin_active_storage_variant_records_path)} #{'text-dark hover-bg-light' unless current_page?(madmin_active_storage_variant_records_path)}" do %>
+        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        Variant Records
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<footer class="mt-auto pt-4">
+  <div class="px-3">
+    <%= link_to "https://apnotic.com", target: "_blank", class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-muted hover-bg-light transition-all small" do %>
+      © 2011-<%= Date.current.year %> Apnotic, LLC
+    <% end %>
+  </div>
+</footer>
