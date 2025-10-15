@@ -65,6 +65,7 @@ end
 desc "Generate robots.txt."
 task generate_robots_txt: :environment do
   include Rails.application.routes.url_helpers
+
   contents = "User-agent: *\n"
 
   # Old secret links have `/f/` and `/r/` in them for file pushes and url pushes respectively.

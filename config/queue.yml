@@ -1,13 +1,12 @@
 default: &default
   dispatchers:
-    - polling_interval: 3
+    - polling_interval: 5
       batch_size: 500
-      concurrency_maintenance_interval: 300
   workers:
     - queues: "*"
       threads: 3
       processes: <%= ENV.fetch("JOB_CONCURRENCY", 1) %>
-      polling_interval: 1
+      polling_interval: 5
 
 development:
   <<: *default

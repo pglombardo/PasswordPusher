@@ -110,7 +110,7 @@ class Push < ApplicationRecord
   end
 
   def check_files_for_file
-    if files.attached? && files.reject { |file| file.is_a?(String) && file.empty? }.size > settings_for_kind.max_file_uploads
+    if files.attached? && files.count { |file| !(file.is_a?(String) && file.empty?) } > settings_for_kind.max_file_uploads
       errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for_kind.max_file_uploads))
     end
   end
