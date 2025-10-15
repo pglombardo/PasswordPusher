@@ -53,7 +53,7 @@ export function spoilerAlert(selector, opts) {
     applyBlur(maxBlur);
 
     el.addEventListener('mouseover', function(e) {
-      el.style.pointer = 'Cursor';
+      el.style.cursor = 'pointer';
       el.title = hintText;
       if (el['data-spoiler-state'] === 'shrouded') applyBlur(partialBlur);
     })
