@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :pushes, dependent: :destroy
 
+  attr_readonly :admin
+
   def admin?
     admin
   end

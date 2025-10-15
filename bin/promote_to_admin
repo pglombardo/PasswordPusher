@@ -13,14 +13,20 @@ email = ARGV[0]
 begin
   user = User.find_by!(email: email)
 
-  if user.update(admin: true)
+  affected_rows = ActiveRecord::Base.connection.exec_update(
+    "UPDATE users SET admin = ? WHERE id = ?",
+    "Promote User Admin Status",
+    [[nil, true], [nil, user.id]]
+  )
+
+  if affected_rows > 0
     puts "\n\e[32mUser successfully promoted!\e[0m"
     puts "\e[32m=========================\e[0m"
     puts "Email: \e[36m#{email}\e[0m"
     puts "\e[32mAdmin access has been granted.\e[0m"
   else
     puts "\n\e[31mError updating user:\e[0m"
-    puts "\e[31m#{user.errors.full_messages.join("\n")}\e[0m"
+    puts "\e[31mNo rows were updated. User may not exist or already be promoted.\e[0m"
     exit 1
   end
 
