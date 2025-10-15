@@ -14,7 +14,6 @@ pin "@fontsource/roboto-mono", to: "@fontsource--roboto-mono.js" # @5.2.8
 pin "@fontsource/roboto-slab", to: "@fontsource--roboto-slab.js" # @5.2.8
 pin "@rails/actioncable", to: "@rails--actioncable.js" # @8.0.300
 pin "clipboard" # @2.0.11
-pin "flag-icons" # @7.5.0
 pin "js-cookie" # @3.0.5
 pin "omgopass" # @3.2.1
 pin "omgopass/random.js", to: "omgopass--random.js.js" # @3.2.1
