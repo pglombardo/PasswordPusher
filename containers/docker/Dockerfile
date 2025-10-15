@@ -10,7 +10,7 @@ ARG BUNDLE_DEPLOYMENT
 
 LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
-# Required build packages
+# Required build packages - install in single layer for better caching
 RUN apk add --no-cache \
     git \
     build-base \
@@ -26,14 +26,15 @@ RUN apk add --no-cache \
     pkgconf \
     openssl-dev
 
-
 ENV APP_ROOT=/opt/PasswordPusher
-
-WORKDIR ${APP_ROOT}
-COPY Gemfile Gemfile.lock package.json yarn.lock ./
-
 ENV RACK_ENV=production RAILS_ENV=production
 
+WORKDIR ${APP_ROOT}
+
+# Copy dependency files first for better layer caching
+COPY Gemfile Gemfile.lock ./
+
+# Install Ruby dependencies - this layer will be cached unless Gemfile changes
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
     && bundle install \
@@ -42,10 +43,16 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/*/gems/ -name "*.o" -delete
 
-RUN yarn install
+# Copy Node.js dependency files
+COPY package.json yarn.lock ./
 
+# Install Node.js dependencies - this layer will be cached unless package.json changes
+RUN yarn install --frozen-lockfile
+
+# Copy source code - this should be done as late as possible
 COPY ./ ${APP_ROOT}/
 
+# Build assets - this layer will be rebuilt when source code changes
 RUN yarn build
 
 # Set DATABASE_URL to sqlite to have a ready
@@ -70,8 +77,12 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
       echo "Skipping bootsnap precompilation for $TARGETARCH" ; \
     fi
 
+# Precompile Rails assets - this layer will be rebuilt when assets change
 RUN bundle exec rails assets:precompile
-RUN bundle exec rake db:setup && rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
+
+# Setup database and cleanup - combine operations for efficiency
+RUN bundle exec rake db:setup && \
+    rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
@@ -83,7 +94,7 @@ ARG BUNDLE_DEPLOYMENT
 
 LABEL maintainer='pglombardo@hey.com'
 
-# install only runtime packages (removed build-related packages)
+# Install runtime packages in single layer for better caching
 RUN apk add --no-cache \
     bash \
     curl \
@@ -99,15 +110,17 @@ RUN apk add --no-cache \
 ARG UID=1000
 ARG GID=1000
 
+# Set environment variables
 ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher
-WORKDIR ${APP_ROOT}
 ENV RACK_ENV=production RAILS_ENV=production
 ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
 
+WORKDIR ${APP_ROOT}
+
+# Create user and set permissions in single layer
 RUN addgroup -g "${GID}" pwpusher \
-  && adduser -D -u "${UID}" -G pwpusher pwpusher \
-  && chown -R pwpusher:pwpusher ${APP_ROOT}
+  && adduser -D -u "${UID}" -G pwpusher pwpusher
 
 # Set a default secret_key_base
 # For those self-hosting this app, you should
@@ -117,18 +130,19 @@ RUN addgroup -g "${GID}" pwpusher \
 #    bundle exec rails secret
 # 2. Set the secret_key_base in your environment:
 #    SECRET_KEY_BASE=<value>
-ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
+ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eeca58a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
 
+# Copy application from build stage
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 
+# Configure bundle for production
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
-# Copy entrypoints inside container
+# Copy and setup entrypoints in single layer
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-worker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/docker-worker-entrypoint
 
 USER pwpusher
 EXPOSE 80 443 5100
