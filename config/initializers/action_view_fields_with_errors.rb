@@ -5,7 +5,8 @@ ActionView::Base.field_error_proc = proc do |html_tag, instance|
 
   # Only add class if it's a form field
   if element && %w[input].include?(element.name)
-    element["class"] += " is-invalid"
+    existing_class = element["class"] || ""
+    element["class"] = existing_class.empty? ? "is-invalid" : "#{existing_class} is-invalid"
     # Since we're only adding a CSS class to a form element that was already in the HTML,
     # and not inserting any user-provided content, html_safe is acceptable here
     fragment.to_html.html_safe
