@@ -303,6 +303,11 @@ class Api::V1::PushesController < Api::BaseController
     == Active Pushes Retrieval
 
     Returns the list of pushes that are still active.
+    Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
@@ -336,9 +341,25 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
+    # Limit to maximum 200 pages (10,000 records)
+    # Validate page parameter more strictly
+    begin
+      page = Integer(params[:page] || 1)
+      page = [page, 1].max  # Ensure minimum of 1
+    rescue ArgumentError, TypeError
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
+    if page > 200
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
+      .page(page)
+      .per(50)
       .order(created_at: :desc)
 
     render template: "pushes/index", status: :ok
@@ -350,6 +371,11 @@ class Api::V1::PushesController < Api::BaseController
     == Expired Pushes Retrieval
 
     Returns the list of pushes that have expired.
+    Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
@@ -383,9 +409,25 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
+    # Limit to maximum 200 pages (10,000 records)
+    # Validate page parameter more strictly
+    begin
+      page = Integer(params[:page] || 1)
+      page = [page, 1].max  # Ensure minimum of 1
+    rescue ArgumentError, TypeError
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
+    if page > 200
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: true)
-      .page(params[:page])
+      .page(page)
+      .per(50)
       .order(created_at: :desc)
 
     render template: "pushes/index", status: :ok
