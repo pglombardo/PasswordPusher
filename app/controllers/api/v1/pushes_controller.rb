@@ -215,15 +215,21 @@ class Api::V1::PushesController < Api::BaseController
     - Timestamp
     - Event type (view, failed_view, expire, etc)
 
+    Results are paginated with a maximum of 50 audit log entries per page and 200 pages total.
+
     Authentication is required. Only the owner of the push can retrieve its audit log.
     Requests for pushes not owned by the authenticated user will receive a 403 Forbidden response.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
       curl -X GET \\
         -H "X-User-Email: user@example.com" \\
         -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/p/fk27vnslkd/audit.json
+        https://pwpush.com/p/fk27vnslkd/audit.json?page=1
 
     == Example Response
 
@@ -250,8 +256,29 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
+    # Limit to maximum 200 pages (10,000 records)
+    # Validate page parameter more strictly
+    begin
+      page = Integer(params[:page] || 1)
+      page = [page, 1].max  # Ensure minimum of 1
+    rescue ArgumentError, TypeError
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
+    # Additional bounds checking to prevent integer overflow issues
+    if page < 1 || page > 200
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return
+    end
+
+    @audit_logs = @push.audit_logs
+      .order(created_at: :desc)
+      .page(page)
+      .per(50)
+
     @secret_url = helpers.secret_url(@push)
-    render json: {views: @push.audit_logs}.to_json(except: %i[user_id push_id id])
+    render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
   end
 
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
