@@ -249,5 +249,14 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("error")
     assert_equal "Invalid page parameter", res["error"]
+
+    # Test page parameter zero (should be converted to 1)
+    get "/p/#{url_token}/audit.json?page=0",
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert res.key?("views")
+    # page=0 should be converted to page=1, so this should work
   end
 end
