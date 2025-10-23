@@ -256,21 +256,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    # Limit to maximum 200 pages (10,000 records)
-    # Validate page parameter more strictly
-    begin
-      page = Integer(params[:page] || 1)
-      page = [page, 1].max  # Ensure minimum of 1
-    rescue ArgumentError, TypeError
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
-
-    # Additional bounds checking to prevent integer overflow issues
-    if page < 1 || page > 200
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
+    page = validate_page_parameter
+    return if page.nil?
 
     @audit_logs = @push.audit_logs
       .order(created_at: :desc)
@@ -368,20 +355,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    # Limit to maximum 200 pages (10,000 records)
-    # Validate page parameter more strictly
-    begin
-      page = Integer(params[:page] || 1)
-      page = [page, 1].max  # Ensure minimum of 1
-    rescue ArgumentError, TypeError
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
-
-    if page > 200
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
+    page = validate_page_parameter
+    return if page.nil?
 
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: false)
@@ -436,20 +411,8 @@ class Api::V1::PushesController < Api::BaseController
       return
     end
 
-    # Limit to maximum 200 pages (10,000 records)
-    # Validate page parameter more strictly
-    begin
-      page = Integer(params[:page] || 1)
-      page = [page, 1].max  # Ensure minimum of 1
-    rescue ArgumentError, TypeError
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
-
-    if page > 200
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return
-    end
+    page = validate_page_parameter
+    return if page.nil?
 
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: true)
@@ -461,6 +424,29 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   private
+
+  # validate_page_parameter
+  #
+  # Validates and sanitizes the page parameter for pagination
+  # Returns the validated page number or renders an error response
+  #
+  # @return [Integer, nil] validated page number or nil if error rendered
+  def validate_page_parameter
+    begin
+      page = Integer(params[:page] || 1)
+      page = [page, 1].max  # Ensure minimum of 1
+    rescue ArgumentError, TypeError
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return nil
+    end
+
+    if page > 200
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return nil
+    end
+
+    page
+  end
 
   def set_push
     @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
