@@ -28,7 +28,8 @@ services:
     image: docker.io/pglombardo/pwpush:latest
     restart: unless-stopped
     ports:
-      - "5100:5100"
+      - "80:80"
+      - "443:443"
     <<: *x-op-app-environment
     depends_on:
       - db  # Comment out if using SQLite3 (Ephemeral)
