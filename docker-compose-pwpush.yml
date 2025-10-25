@@ -38,6 +38,8 @@ services:
       - db  # Comment out if using SQLite3 (Ephemeral)
     links:
       - db:db
+    environment:
+      PWP__NO_WORKER: true
 
   # The Password Pusher worker: runs background jobs & periodic cleanup tasks
   # Not a required component, but recommended for production use.
