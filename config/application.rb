@@ -32,13 +32,15 @@ module PasswordPusher
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # https://github.com/rails/mission_control-jobs?tab=readme-ov-file#custom-authentication
-    # Use the ApplicationController for authentication
-    config.mission_control.jobs.base_controller_class = "ApplicationController"
-    config.mission_control.jobs.http_basic_auth_enabled = false
+    if !(ENV.key?("PWP__NO_WORKER") || ENV.key?("PWP_PUBLIC_GATEWAY"))
+      # https://github.com/rails/mission_control-jobs?tab=readme-ov-file#custom-authentication
+      # Use the ApplicationController for authentication
+      config.mission_control.jobs.base_controller_class = "ApplicationController"
+      config.mission_control.jobs.http_basic_auth_enabled = false
 
-    # We already authenticate /admin routes
-    ::MissionControl::Jobs.http_basic_auth_enabled = false if defined?(::MissionControl::Jobs)
+      # We already authenticate /admin routes
+      ::MissionControl::Jobs.http_basic_auth_enabled = false if defined?(::MissionControl::Jobs)
+    end
 
     puts "Password Pusher Version: #{Version.current}"
   end

@@ -11,6 +11,8 @@ if Settings.enable_logins
       end
     end
 
-    mount MissionControl::Jobs::Engine, at: "/admin/jobs" if defined?(::MissionControl::Jobs::Engine)
+    if !(ENV.key?("PWP__NO_WORKER") || ENV.key?("PWP_PUBLIC_GATEWAY"))
+      mount MissionControl::Jobs::Engine, at: "/admin/jobs" if defined?(::MissionControl::Jobs::Engine)
+    end
   end
 end

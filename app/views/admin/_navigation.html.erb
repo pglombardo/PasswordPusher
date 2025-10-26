@@ -50,11 +50,13 @@
         Data Explorer
       <% end %>
 
-      <%= link_to "/admin/jobs", class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?('/admin/jobs')} #{'text-dark hover-bg-light' unless current_page?('/admin/jobs')}" do %>
-        <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-        </svg>
-        Background Jobs
+      <% if !(ENV.key?("PWP__NO_WORKER") || ENV.key?("PWP_PUBLIC_GATEWAY")) %>
+        <%= link_to "/admin/jobs", class: "d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 transition-all #{'bg-primary bg-opacity-10 text-primary fw-semibold' if current_page?('/admin/jobs')} #{'text-dark hover-bg-light' unless current_page?('/admin/jobs')}" do %>
+          <svg class="me-3" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+          </svg>
+          Background Jobs
+        <% end %>
       <% end %>
     </div>
   </div>
