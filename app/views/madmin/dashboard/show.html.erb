@@ -1,5 +1,13 @@
 <% content_for :title, "Data Explorer" %>
 
+<%
+  db_connected = begin
+    ActiveRecord::Base.connection.active?
+  rescue
+    false
+  end
+%>
+
 <div class="container-fluid py-4">
   <!-- Header -->
   <div class="d-flex align-items-center justify-content-between mb-4">
@@ -8,9 +16,9 @@
       <p class="text-muted mb-0">Direct database access and record management</p>
     </div>
     <div class="d-flex align-items-center gap-3">
-      <div class="d-flex align-items-center px-3 py-1 rounded-pill text-sm fw-medium bg-success bg-opacity-10 text-success">
-        <div class="rounded-circle bg-success me-2" style="width: 8px; height: 8px;"></div>
-        Database Connected
+      <div class="d-flex align-items-center px-3 py-1 rounded-pill text-sm fw-medium bg-<%= db_connected ? 'success' : 'danger' %> bg-opacity-10 text-<%= db_connected ? 'success' : 'danger' %>">
+        <div class="rounded-circle bg-<%= db_connected ? 'success' : 'danger' %> me-2" style="width: 8px; height: 8px;"></div>
+        Database <%= db_connected ? 'Connected' : 'Disconnected' %>
       </div>
       <%= link_to admin_root_path, class: "btn btn-outline-secondary btn-sm d-flex align-items-center" do %>
         <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,7 +172,7 @@
               <div class="d-flex flex-column">
                 <label class="form-label fw-semibold text-muted small mb-1">Database Type</label>
                 <div class="text-dark">
-                  <%= Rails.application.config.database_configuration[Rails.env]["adapter"].titleize %>
+                  <%= ActiveRecord::Base.connection_db_config.adapter.titleize %>
                 </div>
               </div>
             </div>
@@ -172,7 +180,7 @@
               <div class="d-flex flex-column">
                 <label class="form-label fw-semibold text-muted small mb-1">Database Name</label>
                 <div class="text-dark">
-                  <%= Rails.application.config.database_configuration[Rails.env]["database"] %>
+                  <%= ActiveRecord::Base.connection_db_config.database %>
                 </div>
               </div>
             </div>
@@ -190,11 +198,18 @@
               <div class="d-flex flex-column">
                 <label class="form-label fw-semibold text-muted small mb-1">Connection Status</label>
                 <div class="text-dark">
-                  <span class="badge bg-success">
-                    <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Connected
+                  <span class="badge bg-<%= db_connected ? 'success' : 'danger' %>">
+                    <% if db_connected %>
+                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Connected
+                    <% else %>
+                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                      Disconnected
+                    <% end %>
                   </span>
                 </div>
               </div>
