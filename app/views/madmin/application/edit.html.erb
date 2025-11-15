@@ -1,4 +1,4 @@
-<%= content_for :title, "Edit #{resource.display_name(@record)}" %>
+<%= content_for :title, _("Edit %{name}") % { name: resource.display_name(@record) } %>
 
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="mb-4">
@@ -10,15 +10,15 @@
       <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-decoration-none" %>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      Edit
+      <%= _("Edit") %>
     </li>
   </ol>
 </nav>
 
 <!-- Page Header -->
 <div class="mb-4">
-  <h1 class="h3 fw-bold text-dark mb-1">Edit <%= resource.display_name(@record) %></h1>
-  <p class="text-muted mb-0">Update <%= resource.friendly_name.downcase %> information</p>
+  <h1 class="h3 fw-bold text-dark mb-1"><%= _("Edit %{name}") % { name: resource.display_name(@record) } %></h1>
+  <p class="text-muted mb-0"><%= _("Update %{name} information") % { name: resource.friendly_name.downcase } %></p>
 </div>
 
 <!-- Form -->

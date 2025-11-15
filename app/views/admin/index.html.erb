@@ -1,4 +1,4 @@
-<% content_for :title, "Administration" %>
+<% content_for :title, _("Administration") %>
 
 <div class="container-fluid py-4">
   <!-- Welcome Header -->
@@ -8,17 +8,17 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
       </svg>
     </div>
-    <h1 class="display-4 fw-bold text-dark mb-3">Administration Center</h1>
+    <h1 class="display-4 fw-bold text-dark mb-3"><%= _("Administration Center") %></h1>
     <p class="lead text-muted mx-auto mb-3" style="max-width: 600px;">
-      Welcome to the Password Pusher administration panel.
-      Manage your application settings and system administration from this central location.
+      <%= _("Welcome to the Password Pusher administration panel.") %>
+      <%= _("Manage your application settings and system administration from this central location.") %>
     </p>
     <div class="d-flex align-items-center justify-content-center gap-2">
       <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 fw-semibold">
         <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
         </svg>
-        OSS Version <%= Version.current %>
+        <%= _("OSS Version %{version}") % { version: Version.current } %>
       </span>
     </div>
   </div>
@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="flex-grow-1 ms-3">
-              <p class="text-muted small mb-1">Total Users</p>
+              <p class="text-muted small mb-1"><%= _("Total Users") %></p>
               <p class="h4 fw-semibold text-dark mb-0"><%= User.count %></p>
             </div>
           </div>
@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="flex-grow-1 ms-3">
-              <p class="text-muted small mb-1">Total Pushes</p>
+              <p class="text-muted small mb-1"><%= _("Total Pushes") %></p>
               <p class="h4 fw-semibold text-dark mb-0"><%= Push.count %></p>
             </div>
           </div>
@@ -77,7 +77,7 @@
               </div>
             </div>
             <div class="flex-grow-1 ms-3">
-              <p class="text-muted small mb-1">Active Pushes</p>
+              <p class="text-muted small mb-1"><%= _("Active Pushes") %></p>
               <p class="h4 fw-semibold text-dark mb-0"><%= Push.where(expired: false).count %></p>
             </div>
           </div>
@@ -97,7 +97,7 @@
               </div>
             </div>
             <div class="flex-grow-1 ms-3">
-              <p class="text-muted small mb-1">Total Audit Logs</p>
+              <p class="text-muted small mb-1"><%= _("Total Audit Logs") %></p>
               <p class="h4 fw-semibold text-dark mb-0"><%= AuditLog.count %></p>
             </div>
           </div>
@@ -118,9 +118,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
-            <h2 class="h5 fw-semibold text-dark mb-0">System Administration</h2>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("System Administration") %></h2>
           </div>
-          <p class="text-muted mb-4">Monitor system performance, manage background jobs, and analyze usage patterns.</p>
+          <p class="text-muted mb-4"><%= _("Monitor system performance, manage background jobs, and analyze usage patterns.") %></p>
           <div class="d-grid gap-3">
             <%= link_to admin_users_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none" do %>
               <div class="d-flex align-items-center">
@@ -128,8 +128,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                 </svg>
                 <div>
-                  <div class="fw-medium text-dark">Administrator Management</div>
-                  <div class="small text-muted">Manage admin accounts and privileges</div>
+                  <div class="fw-medium text-dark"><%= _("Administrator Management") %></div>
+                  <div class="small text-muted"><%= _("Manage admin accounts and privileges") %></div>
                 </div>
               </div>
               <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,8 +143,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                 </svg>
                 <div>
-                  <div class="fw-medium text-dark">Background Jobs</div>
-                  <div class="small text-muted">Monitor and manage queued tasks</div>
+                  <div class="fw-medium text-dark"><%= _("Background Jobs") %></div>
+                  <div class="small text-muted"><%= _("Monitor and manage queued tasks") %></div>
                 </div>
               </div>
               <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,8 +158,8 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
                 <div>
-                  <div class="fw-medium text-dark">Data Explorer</div>
-                  <div class="small text-muted">Query data and manage records</div>
+                  <div class="fw-medium text-dark"><%= _("Data Explorer") %></div>
+                  <div class="small text-muted"><%= _("Query data and manage records") %></div>
                 </div>
               </div>
               <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,19 +181,19 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
               </svg>
             </div>
-            <h2 class="h5 fw-semibold text-dark mb-0">Database Administration</h2>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Database Administration") %></h2>
           </div>
-          <p class="text-muted mb-4">Direct access to database records and user management tools.</p>
+          <p class="text-muted mb-4"><%= _("Direct access to database records and user management tools.") %></p>
           <div class="alert alert-warning d-flex align-items-center" role="alert">
             <svg class="text-warning me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
             </svg>
             <div class="flex-grow-1">
-              <div class="fw-medium text-warning-emphasis">Advanced Database Access</div>
-              <div class="small text-warning-emphasis">Direct record manipulation and management</div>
+              <div class="fw-medium text-warning-emphasis"><%= _("Advanced Database Access") %></div>
+              <div class="small text-warning-emphasis"><%= _("Direct record manipulation and management") %></div>
             </div>
             <%= link_to madmin_root_path, class: "btn btn-warning btn-sm d-flex align-items-center", target: "_blank", rel: "noopener noreferrer" do %>
-              Open Data Explorer
+              <%= _("Open Data Explorer") %>
               <svg class="ms-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
@@ -215,9 +215,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
-            <h2 class="h5 fw-semibold text-dark mb-0">Resources & Support</h2>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Resources & Support") %></h2>
           </div>
-          <p class="text-muted mb-4">Access documentation, source code, releases, and get help when you need it.</p>
+          <p class="text-muted mb-4"><%= _("Access documentation, source code, releases, and get help when you need it.") %></p>
           <div class="row g-3">
             <div class="col-lg-3 col-md-6">
               <%= link_to "https://github.com/pglombardo/PasswordPusher", class: "d-flex align-items-center p-3 bg-light rounded-3 text-decoration-none h-100", target: "_blank", rel: "noopener noreferrer" do %>
@@ -227,8 +227,8 @@
                   </svg>
                 </div>
                 <div class="flex-grow-1">
-                  <div class="fw-medium text-dark">GitHub Repository</div>
-                  <div class="small text-muted">View source code and contribute</div>
+                  <div class="fw-medium text-dark"><%= _("GitHub Repository") %></div>
+                  <div class="small text-muted"><%= _("View source code and contribute") %></div>
                 </div>
                 <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -243,8 +243,8 @@
                   </svg>
                 </div>
                 <div class="flex-grow-1">
-                  <div class="fw-medium text-dark">Latest Releases</div>
-                  <div class="small text-muted">View changelog and download updates</div>
+                  <div class="fw-medium text-dark"><%= _("Latest Releases") %></div>
+                  <div class="small text-muted"><%= _("View changelog and download updates") %></div>
                 </div>
                 <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -259,8 +259,8 @@
                   </svg>
                 </div>
                 <div class="flex-grow-1">
-                  <div class="fw-medium text-dark">Documentation</div>
-                  <div class="small text-muted">Complete setup and usage guides</div>
+                  <div class="fw-medium text-dark"><%= _("Documentation") %></div>
+                  <div class="small text-muted"><%= _("Complete setup and usage guides") %></div>
                 </div>
                 <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -275,8 +275,8 @@
                   </svg>
                 </div>
                 <div class="flex-grow-1">
-                  <div class="fw-medium text-dark">Support</div>
-                  <div class="small text-muted">Get help and report issues</div>
+                  <div class="fw-medium text-dark"><%= _("Support") %></div>
+                  <div class="small text-muted"><%= _("Get help and report issues") %></div>
                 </div>
                 <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -296,16 +296,16 @@
         <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
         </svg>
-        Getting Started
+        <%= _("Getting Started") %>
       </h2>
       <div class="text-primary-emphasis">
-        <p class="mb-3">Welcome to the Password Pusher Administration Center! Here's your complete toolkit:</p>
+        <p class="mb-3"><%= _("Welcome to the Password Pusher Administration Center! Here's your complete toolkit:") %></p>
         <ul class="list-unstyled">
-          <li class="mb-2"><strong>👥 Manage Administrators:</strong> Promote or revoke admin privileges for users in your system</li>
-          <li class="mb-2"><strong>📊 Monitor Background Jobs:</strong> Track email notifications, push cleanup, and system processing tasks</li>
-          <li class="mb-2"><strong>🗄️ Explore Database:</strong> Direct access to users, pushes, audit logs, and file storage records</li>
-          <li class="mb-2"><strong>📈 View System Stats:</strong> Monitor user activity, push counts, and audit log entries</li>
-          <li class="mb-2"><strong>🔍 Track Activity:</strong> Review audit logs to understand system usage and security events</li>
+          <li class="mb-2"><strong><%= _("👥 Manage Administrators:") %></strong> <%= _("Promote or revoke admin privileges for users in your system") %></li>
+          <li class="mb-2"><strong><%= _("📊 Monitor Background Jobs:") %></strong> <%= _("Track email notifications, push cleanup, and system processing tasks") %></li>
+          <li class="mb-2"><strong><%= _("🗄️ Explore Database:") %></strong> <%= _("Direct access to users, pushes, audit logs, and file storage records") %></li>
+          <li class="mb-2"><strong><%= _("📈 View System Stats:") %></strong> <%= _("Monitor user activity, push counts, and audit log entries") %></li>
+          <li class="mb-2"><strong><%= _("🔍 Track Activity:") %></strong> <%= _("Review audit logs to understand system usage and security events") %></li>
         </ul>
       </div>
     </div>

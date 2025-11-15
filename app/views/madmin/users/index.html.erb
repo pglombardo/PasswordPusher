@@ -23,8 +23,8 @@
       <div class="col-md-6">
         <%= form_with url: request.path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
           <%= f.hidden_field :page, value: 1 %>
-          <%= f.search_field :q, value: params[:q], placeholder: "Search #{resource.friendly_name.downcase.pluralize}...", class: "form-control" %>
-          <%= f.submit "Search", class: "btn btn-outline-primary" %>
+          <%= f.search_field :q, value: params[:q], placeholder: _("Search %{name}...") % { name: resource.friendly_name.downcase.pluralize }, class: "form-control" %>
+          <%= f.submit _("Search"), class: "btn btn-outline-primary" %>
           <% if params[:q].present? %>
             <%= link_to clear_search_params, class: "btn btn-outline-secondary d-flex align-items-center" do %>
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
       <div class="col-md-6">
         <% if resource.scopes.any? %>
           <div class="d-flex gap-2 flex-wrap">
-            <%= link_to "All", resource.index_path, class: class_names("btn btn-sm", {"btn-primary" => params[:scope].blank?, "btn-outline-primary" => params[:scope].present?}) %>
+            <%= link_to _("All"), resource.index_path, class: class_names("btn btn-sm", {"btn-primary" => params[:scope].blank?, "btn-outline-primary" => params[:scope].present?}) %>
             <% resource.scopes.each do |scope| %>
               <%= link_to scope.to_s.humanize, resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction]), class: class_names("btn btn-sm", {"btn-primary" => params[:scope] == scope.to_s, "btn-outline-primary" => params[:scope] != scope.to_s}) %>
             <% end %>
@@ -60,7 +60,7 @@
               <% next unless attribute.field.visible?(action_name) %>
               <th class="border-0"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
             <% end %>
-            <th class="border-0 text-end">Actions</th>
+            <th class="border-0 text-end"><%= _("Actions") %></th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +73,7 @@
               <% end %>
               <td class="text-end">
                 <div class="btn-group btn-group-sm" role="group">
-                  <%= link_to "View", resource.show_path(record), class: "btn btn-outline-primary" %>
+                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary" %>
                   <%# Edit button removed - users cannot be edited %>
                 </div>
               </td>

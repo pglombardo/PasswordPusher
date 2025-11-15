@@ -11,7 +11,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
           </svg>
           <div>
-            <div class="fw-semibold">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission:</div>
+            <div class="fw-semibold"><%= _("There was %{count} with your submission:") % { count: pluralize(form.object.errors.full_messages.count, _("error")) } %></div>
             <ul class="mb-0 mt-2">
               <% form.object.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -29,7 +29,7 @@
           <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
           </svg>
-          User Information
+          <%= _("User Information") %>
         </h5>
       </div>
       <div class="card-body">
@@ -39,7 +39,7 @@
               <%= form.label :email, class: "form-label fw-semibold" %>
               <%= form.email_field :email, class: "form-control", required: true, autofocus: true %>
               <div class="form-text text-muted small mt-1">
-                The email address for the new user account.
+                <%= _("The email address for the new user account.") %>
               </div>
             </div>
           </div>
@@ -47,10 +47,10 @@
             <div class="mb-3">
               <div class="form-check">
                 <%= form.check_box :auto_confirm, { class: "form-check-input" }, "1", "0" %>
-                <%= form.label :auto_confirm, "Auto-confirm account", class: "form-check-label fw-semibold" %>
+                <%= form.label :auto_confirm, _("Auto-confirm account"), class: "form-check-label fw-semibold" %>
               </div>
               <div class="form-text text-muted small mt-1">
-                If checked, the user account will be automatically confirmed and ready to use. Otherwise, the user will need to confirm their email address.
+                <%= _("If checked, the user account will be automatically confirmed and ready to use. Otherwise, the user will need to confirm their email address.") %>
               </div>
             </div>
           </div>
@@ -65,9 +65,9 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         <div>
-          <div class="fw-semibold mb-1">Password Information</div>
+          <div class="fw-semibold mb-1"><%= _("Password Information") %></div>
           <p class="mb-0">
-            A secure password will be automatically generated for this user. The user can reset their password using the "Forgot Password" link on the login page.
+            <%= _("A secure password will be automatically generated for this user. The user can reset their password using the \"Forgot Password\" link on the login page.") %>
           </p>
         </div>
       </div>
@@ -77,12 +77,12 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex gap-3 justify-content-end">
-          <%= link_to "Cancel", resource.index_path, class: "btn btn-outline-secondary px-4" %>
+          <%= link_to _("Cancel"), resource.index_path, class: "btn btn-outline-secondary px-4" %>
           <button type="submit" class="btn btn-primary px-4 d-flex align-items-center">
             <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
-            Create User
+            <%= _("Create User") %>
           </button>
         </div>
       </div>
