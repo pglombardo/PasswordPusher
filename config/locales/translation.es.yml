@@ -116,8 +116,9 @@ es:
       not_locked: no estaba bloqueada
       in: debe estar dentro de %{count}
       password_too_long: es demasiado largo
-      one: 'Ocurrió un error al tratar de guardar %{resource}:'
-      other: 'Ocurrieron %{count} errores al tratar de guardar %{resource}:'
+      not_saved:
+        one: 'Ocurrió un error al tratar de guardar %{resource}:'
+        other: 'Ocurrieron %{count} errores al tratar de guardar %{resource}:'
     unavailable_session: |-
       La sesión %{id} ya no está disponible en la memoria.
 
@@ -479,81 +480,3 @@ es:
       previous: "&lsaquo; Anterior"
       next: Siguiente &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Este panel de administración proporciona acceso directo a la
-          base de datos de la aplicación Password Pusher. Tenga cuidado y considere
-          hacer una copia de seguridad antes de realizar cualquier cambio.
-        admin_note: 'Nota: La destrucción de un registro también destruye todos los
-          registros secundarios. Por ejemplo, destruir un usuario también destruirá
-          todas las contraseñas, archivos y URL ingresados para ese usuario.'
-  audit_logs:
-    audit_log:
-      log_created: Push creado en %{date} por %{user}
-      log_expired: El push expiró manualmente en %{date} por %{user}
-      log_failed_view: Intento de visualización fallido en %{date} por parte de %{user}
-      log_viewed: Vista exitosa de %{date} por %{user}
-      log_failed_passphrase: Intento fallido de frase de contraseña en %{date} por
-        %{user}
-      ip_address: 'Dirección IP:'
-      referrer: 'Referente:'
-      user_agent: 'Agente de usuario:'
-      none: Ninguna
-  pushes:
-    access:
-      incorrect: Esa contraseña es incorrecta. Vuelve a intentarlo o comunícate con
-        la persona u organización que te envió este vínculo.
-    audit:
-      title: Registro de auditoría push
-    expire:
-      expired: El contenido del enlace se eliminó y la URL secreta caducó.
-      not_deletable: Los espectadores no pueden borrar ese enlace.
-      already_expired: Ese impulso ya expiró.
-    form:
-      upload_limit: Puede cargar hasta 10 archivos por enlace.
-      name_or_id: Nombre o identificación
-      kind: Amable
-    preview:
-      link_lang_tip: 'Sugerencia: ¿Compartiendo con un usuario internacional? Cambie
-        el idioma del enlace secreto usando el menú desplegable a la derecha de la
-        URL.'
-      link_lang_auto: Alternativamente, la detección automática seleccionará un idioma
-        según la configuración del navegador del usuario final.
-    payload_too_large: La carga útil es demasiado grande. Solo puede enviar hasta
-      %{count} bytes.
-    too_many_files: Solo puede adjuntar hasta archivos %{count} por envío.
-    new:
-      title: Enviar una contraseña, un texto o un archivo de forma segura
-    create:
-      qr_max_length: La carga útil del código QR es demasiado grande. Solo se pueden
-        insertar hasta %{count} bytes.
-      invalid_url: Debe ser una URL HTTP o HTTPS válida.
-      payload_required: Se requiere carga útil.
-    file_pushes_disabled: Los envíos de archivos están deshabilitados.
-    need_login_for_active: Debes iniciar sesión para ver tus push activos.
-    need_login_for_expired: Debes iniciar sesión para ver tus pushes vencidos.
-    not_deletable_or_not_owner: Ese mensaje no puede ser eliminado por los espectadores
-      y no te pertenece.
-    not_owner_push: Ese enlace no te pertenece.
-    url_pushes_disabled: Los envíos de URL están deshabilitados.
-    index:
-      views_days_remaining: "%{views} vistas o %{days} días"
-    qr_pushes_disabled: Los envíos de códigos QR están deshabilitados.
-  zero_minutes: 0 minutos
-  confirmation_go: Haga clic aquí para confirmar su cuenta
-  application:
-    secret_url_bar:
-      autodetect: Detección automática
-    push_expiration:
-      will_expire_in: 'Los enlaces de descarga de archivos anteriores caducarán en:'
-      you_can_refresh: Puede actualizar la página para regenerar nuevos enlaces de
-        descarga si aún quedan vistas.
-  words:
-    audit: Auditoría
-    forbidden: Prohibido
-    not_found: Extraviado
-    share: Compartir
-    expired: Expirado
-    none: Ninguna
-    remaining: Restante

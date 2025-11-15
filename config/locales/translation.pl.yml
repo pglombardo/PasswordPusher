@@ -116,8 +116,9 @@ pl:
       not_locked: nie był zablokowany
       in: musi być w %{count}
       password_too_long: jest za długi
-      one: "%{resource} nie został zapisany z powodu jednego błędu:"
-      other: "%{resource} nie został zapisany z powodu %{count} błędów:"
+      not_saved:
+        one: "%{resource} nie został zapisany z powodu jednego błędu:"
+        other: "%{resource} nie został zapisany z powodu %{count} błędów:"
     unavailable_session: |-
       Session %{id} is no longer available in memory.
 
@@ -472,78 +473,3 @@ pl:
       previous: "&lsaquo; Wstecz"
       next: Dalej &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Ten pulpit administracyjny zapewnia bezpośredni dostęp do bazy
-          danych aplikacji Password Pusher. Zachowaj ostrożność i rozważ wykonanie
-          kopii zapasowej przed wprowadzeniem jakichkolwiek zmian.
-        admin_note: 'Uwaga: zniszczenie rekordu powoduje również zniszczenie wszystkich
-          rekordów podrzędnych. Na przykład zniszczenie użytkownika spowoduje również
-          zniszczenie wszystkich przesłanych haseł, plików i adresów URL tego użytkownika.'
-  audit_logs:
-    audit_log:
-      log_created: Push utworzony w %{date} przez %{user}
-      log_expired: Ręczne przesyłanie wygasło w dniu %{date} przez %{user}
-      log_failed_view: Nieudana próba wyświetlenia %{date} przez %{user}
-      log_viewed: Udany widok na %{date} przez %{user}
-      log_failed_passphrase: Nieudana próba hasła w %{date} przez %{user}
-      ip_address: 'Adres IP:'
-      referrer: 'Polecający:'
-      user_agent: 'Agent użytkownika:'
-      none: Brak
-  pushes:
-    access:
-      incorrect: To hasło jest nieprawidłowe. Spróbuj ponownie lub skontaktuj się
-        z osobą lub organizacją, która wysłała Ci ten link.
-    audit:
-      title: Wyślij dziennik audytu
-    expire:
-      expired: Treść przekazania została usunięta, a tajny adres URL wygasł.
-      not_deletable: To przekazanie nie może być usuwane przez odbiorców.
-      already_expired: To wezwanie już wygasło.
-    form:
-      upload_limit: Możesz przesłać do 10 plików na jedno przekazanie.
-      name_or_id: Imię lub ID
-      kind: Uprzejmy
-    preview:
-      link_lang_tip: 'Wskazówka: Przekazujesz do użytkownika obcojęzycznego? Zmień
-        język tajnego linku za pomocą menu rozwijanego po prawej stronie adresu URL.'
-      link_lang_auto: Alternatywnie, automatyczne wykrywanie wybierze język na podstawie
-        ustawień przeglądarki użytkownika końcowego.
-    payload_too_large: Ładunek jest zbyt duży. Można przekazać tylko do %{count} bajtów.
-    too_many_files: Jednorazowo możesz załączyć maksymalnie %{count} plików.
-    new:
-      title: Bezpieczne wysyłanie hasła, tekstu lub pliku
-    create:
-      qr_max_length: Ładunek kodu QR jest za duży. Można przesłać maksymalnie %{count}
-        bajtów.
-      invalid_url: musi być prawidłowym adresem URL HTTP lub HTTPS.
-      payload_required: Ładunek jest wymagany.
-    file_pushes_disabled: Przesyłanie plików jest wyłączone.
-    need_login_for_active: Aby zobaczyć aktywne powiadomienia, musisz się zalogować.
-    need_login_for_expired: Aby zobaczyć wygasłe powiadomienia push, musisz się zalogować.
-    not_deletable_or_not_owner: Widzowie nie mogą usunąć tego powiadomienia i nie
-      należy ono do Ciebie.
-    not_owner_push: To przekazanie nie należy do ciebie.
-    url_pushes_disabled: Przesyłanie adresów URL jest wyłączone.
-    index:
-      views_days_remaining: "%{views} wyświetleń lub %{days} dni"
-    qr_pushes_disabled: Wysyłanie kodów QR jest wyłączone.
-  zero_minutes: 0 minut
-  confirmation_go: Kliknij tutaj, aby potwierdzić swoje konto
-  application:
-    secret_url_bar:
-      autodetect: Automatyczne wykrywanie
-    push_expiration:
-      will_expire_in: 'Powyższe łącza do pobierania plików wygasną za:'
-      you_can_refresh: Jeśli liczba wyświetleń nadal będzie rosła, możesz odświeżyć
-        stronę, aby wygenerować nowe linki do pobierania.
-  words:
-    audit: Audyt
-    forbidden: Zabroniony
-    not_found: Nie znaleziono
-    share: Udział
-    expired: Wygasłe
-    none: Brak
-    remaining: Pozostały

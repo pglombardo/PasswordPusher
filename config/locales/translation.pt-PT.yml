@@ -116,8 +116,9 @@ pt-PT:
       not_found: não foi encontrado
       not_locked: não foi bloqueado
       password_too_long: é muito longo
-      one: '1 erro impediu este %{resource} de ser gravado:'
-      other: "%{count} erros impediram %{resource} de ser gravado:"
+      not_saved:
+        one: "%{count} erro impediu %{resource} de ser gravado:"
+        other: "%{count} erros impediram %{resource} de ser gravado:"
     unavailable_session: "A sessão %{id} não está mais disponível na memória. \n\nSe
       estive a executar num servidor multi-processo (como Unicorn ou Puma), o processo
       que este pedido atingiu não armazena %{id} na memória. Considere alterar o número
@@ -472,79 +473,3 @@ pt-PT:
       previous: "&lsaquo; Anterior"
       next: Próximo &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Este painel de administração fornece acesso direto à base de
-          dados para o aplicativo Password Pusher. Tenha cuidado e considere fazer
-          um backup antes de fazer qualquer alteração.
-        admin_note: 'Nota: Destruir um registro também destrói todos os registros
-          secundários. Por exemplo, destruir um utilizador também destruirá todas
-          as senhas, arquivos e URLs enviados por esse utilizador.'
-  audit_logs:
-    audit_log:
-      log_created: Push criado em %{date} por %{user}
-      log_expired: Push expirou manualmente em %{date} por %{user}
-      log_failed_view: Falha na tentativa de visualização em %{date} por %{user}
-      log_viewed: Visualização bem-sucedida em %{date} por %{user}
-      log_failed_passphrase: Falha na tentativa de senha em %{date} por %{user}
-      ip_address: 'Endereço IP:'
-      referrer: 'Referenciador:'
-      user_agent: 'Agente do utilizador:'
-      none: Nenhum
-  pushes:
-    access:
-      incorrect: Essa senha está incorreta. Tente novamente ou entre em contacto com
-        a pessoa ou organização que lhe enviou este link.
-    audit:
-      title: Registro de auditoria push
-    expire:
-      expired: O conteúdo do envio foi eliminado e o URL secreto expirou.
-      not_deletable: Esse envio não pode ser eliminado pelos visualizadores.
-      already_expired: Esse impulso já expirou.
-    form:
-      upload_limit: Pode fazer upload até 10 ficheiros por envio.
-      name_or_id: Nome ou ID
-      kind: Tipo
-    preview:
-      link_lang_tip: 'Dica: Envio para um utilizador internacional? Altere o idioma
-        do link secreto usando o menu de idioma à direita do URL.'
-      link_lang_auto: Alternativamente, a detecção automática selecionará um idioma
-        com base nas configurações do navegador do usuário final.
-    payload_too_large: Os dados são muito grandes. Só pode enviar até %{count} bytes.
-    too_many_files: Só pode anexar até %{count} arquivos por push.
-    new:
-      title: Envie com segurança uma senha, texto ou arquivo
-    create:
-      qr_max_length: O payload do código QR é muito grande. Você só pode enviar até
-        %{count} bytes.
-      invalid_url: deve ser uma URL HTTP ou HTTPS válida.
-      payload_required: É necessária carga útil.
-    file_pushes_disabled: Os envios de arquivos estão desabilitados.
-    need_login_for_active: Você precisa estar logado para visualizar seus pushes ativos.
-    need_login_for_expired: Você precisa estar logado para visualizar seus pushes
-      expirados.
-    not_deletable_or_not_owner: Esse envio não pode ser eliminado pelos visualizadores
-      e não pertence a si.
-    not_owner_push: Esse envio não pertence a si.
-    url_pushes_disabled: Os envios de URL estão desabilitados.
-    index:
-      views_days_remaining: "%{views} visualizações ou %{days} dias"
-    qr_pushes_disabled: Os envios de códigos QR estão desativados.
-  zero_minutes: 0 minutos
-  confirmation_go: Clique aqui para confirmar sua conta
-  application:
-    secret_url_bar:
-      autodetect: Detecção automática
-    push_expiration:
-      will_expire_in: 'Os links para download de arquivos acima irão expirar em:'
-      you_can_refresh: Pode atualizar a página para gerar novos links de download
-        caso ainda haja visualizações.
-  words:
-    audit: Auditoria
-    forbidden: Proibido
-    not_found: Não encontrado
-    share: Compartilhar
-    expired: Expirado
-    none: Nenhum
-    remaining: Restante

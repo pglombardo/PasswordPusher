@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 21:43+0100\n"
-"PO-Revision-Date: 2025-11-15 20:43+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Indonesian\n"
 "Language: id\n"
@@ -17,6 +17,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Dorongan itu bukan milik Anda."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Dorongan itu tidak dapat dihapus oleh pemirsa."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Anda harus masuk untuk melihat push aktif Anda."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Anda harus masuk untuk melihat push yang kedaluwarsa."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Kata sandi tersebut salah.  Silakan coba lagi atau hubungi orang atau organisa"
+"si yang mengirimi Anda tautan ini."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Dorongan tersebut tidak dapat dihapus oleh pemirsa dan bukan milik Anda."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Dorongan tersebut telah kedaluwarsa."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Konten push telah dihapus dan URL rahasia telah kedaluwarsa."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Dorongan file dinonaktifkan."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Dorongan URL dinonaktifkan."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "Dorongan kode QR dinonaktifkan."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Anda hanya dapat melampirkan hingga %{count} file per push."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Diperlukan muatan."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "Muatannya terlalu besar.  Anda hanya dapat mendorong hingga %{count} byte."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "harus merupakan URL HTTP atau HTTPS yang valid."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr ""
+"Muatan kode QR terlalu besar.  Anda hanya dapat mendorong hingga %{count} byte"
+"."
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -53,10 +129,12 @@ msgstr "Penjelajah Data"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
 #: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
 msgid "Background Jobs"
 msgstr "Pekerjaan Latar Belakang"
 
 #: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
 msgid "Administration"
 msgstr "Administrasi"
 
@@ -332,9 +410,30 @@ msgstr "Tidak ditemukan pengguna biasa"
 msgid "All users in the system are administrators."
 msgstr "Semua pengguna dalam sistem adalah administrator."
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "Tautan unduhan file di atas akan kedaluwarsa dalam beberapa hari:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Anda dapat menyegarkan halaman untuk membuat ulang tautan unduhan baru jika ta"
+"mpilan tetap ada."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Kadaluarsa"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Bahasa Tautan Rahasia"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Deteksi Otomatis"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -342,6 +441,69 @@ msgstr "Bahasa Tautan Rahasia"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Menyalin ke Papan Klip"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push dibuat pada %{date} oleh %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "Alamat IP:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Agen Pengguna:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Tidak ada"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Perujuk:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push secara manual kedaluwarsa pada %{date} oleh %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Gagal mencoba kata sandi pada %{date} oleh %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Upaya tampilan gagal pada %{date} oleh %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Tampilan berhasil pada %{date} oleh %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Klik di sini untuk mengonfirmasi akun Anda"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -589,6 +751,18 @@ msgstr "Pemrosesan..."
 msgid "Password"
 msgstr "Kata sandi"
 
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Administrasi - Pendorong Kata Sandi"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "Sistem Aktif"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Kembali ke Aplikasi"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -596,6 +770,95 @@ msgstr "Kata sandi"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Logo Pendorong Kata Sandi"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Penjelajah Data - Administrasi - Pendorong Kata Sandi"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Lingkungan Pementasan"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Ini adalah tempat pementasan untuk pengujian dan data sering diatur ulang. Sil"
+"akan gunakan %{production_link} kecuali jika Anda sedang menguji fitur baru."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Kembali ke Pusat Administrasi"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Memantau dan mengelola pemrosesan dan antrean pekerjaan di latar belakang"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Apa yang dimaksud dengan Pekerjaan Latar Belakang?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"Pekerjaan latar belakang menangani tugas yang berjalan secara asinkron tanpa m"
+"emblokir aplikasi utama. Di Password Pusher, ini termasuk:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "Pemberitahuan email"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Mengirim peringatan kedaluwarsa push dan pemberitahuan admin"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Dorong pembersihan"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Secara otomatis menghapus push yang kedaluwarsa dari basis data"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Pemrosesan file"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Menangani pengunggahan file dan tugas pasca-pemrosesan apa pun."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Pencatatan audit"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Merekam peristiwa sistem dan tindakan pengguna"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Gunakan tab di bawah ini untuk memantau antrean pekerjaan, melihat pekerjaan y"
+"ang gagal, dan mengelola pemrosesan pekerjaan."
 
 #: ../../../app/views/madmin/application/_form.html.erb:42
 #: ../../../app/views/madmin/users/_form.html.erb:14
@@ -1096,12 +1359,12 @@ msgid "and"
 msgstr "dan"
 
 #: ../../../app/views/pages/about.html.erb:72
-msgid "See the Github project."
-msgstr "Lihat proyek Github."
-
-#: ../../../app/views/pages/about.html.erb:72
 msgid "Fix an issue, add a feature or write some documentation."
 msgstr "Memperbaiki masalah, menambahkan fitur atau menulis dokumentasi."
+
+#: ../../../app/views/pages/about.html.erb:72
+msgid "See the Github project."
+msgstr "Lihat proyek Github."
 
 #: ../../../app/views/pages/about.html.erb:75
 msgid "Sign up to Digital Ocean"
@@ -1343,6 +1606,10 @@ msgstr "Selamat!"
 msgid "Add Files..."
 msgstr "Menambahkan File..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Anda dapat mengunggah hingga %{count} file per push."
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1572,6 +1839,10 @@ msgstr "Setelah kedaluwarsa, URL push akan dihapus seluruhnya."
 msgid "Audit Log for %{push_id}"
 msgstr "Log Audit untuk %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Log Audit untuk ID Push: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Didorong terus %{date}"
@@ -1583,11 +1854,6 @@ msgstr "URL rahasia untuk push ini"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Hanya Dapat Dilihat Oleh Anda"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Tidak ada"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1649,16 +1915,6 @@ msgstr "Status Saat Ini"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Negara:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Kadaluarsa"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Konten push telah dihapus dan URL rahasia telah kedaluwarsa."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1817,9 +2073,21 @@ msgstr "Dorongan Kedaluwarsa"
 msgid "All Pushes"
 msgstr "Semua Dorongan"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Nama atau ID"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Jenis"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Catatan"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Sisa"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1837,6 +2105,10 @@ msgstr "Kode QR"
 msgid "Text"
 msgstr "Teks"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "tampilan %{views} atau %{days} hari"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Kontrol Dorong"
@@ -1848,6 +2120,10 @@ msgstr "Pratinjau"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Audit"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Mengirim Kata Sandi, Teks, atau File dengan Aman"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1966,6 +2242,22 @@ msgstr "Dorong yang lain"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "Lihat Log Audit"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Tip: Mendorong ke pengguna internasional?  Ubah bahasa tautan rahasia mengguna"
+"kan menu tarik-turun di sebelah kanan URL."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Sebagai alternatif, deteksi otomatis akan memilih bahasa berdasarkan pengatura"
+"n browser pengguna akhir."
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

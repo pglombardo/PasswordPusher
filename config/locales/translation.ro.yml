@@ -157,8 +157,9 @@ ro:
       not_found: nu există
       not_locked: nu este blocat
       password_too_long: este prea lungă
-      one: '1 eroare nu a permis %{resource} să fie salvat:'
-      other: "%{count} erori nu au permis %{resource} să fie salvat:"
+      not_saved:
+        one: '1 eroare nu a permis %{resource} să fie salvat:'
+        other: "%{count} erori nu au permis %{resource} să fie salvat:"
     template:
       body: 'Încearcă să corectezi urmatoarele câmpuri:'
       header:
@@ -479,84 +480,3 @@ ro:
       previous: "' Anterior"
       next: Următorul '
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Acest tablou de bord de administrare oferă acces direct la baza
-          de date a aplicației Password Pusher.  Vă rugăm să fiți atenți și să luați
-          în considerare efectuarea unei copii de rezervă înainte de a face orice
-          modificări.
-        admin_note: 'Notă: Distrugerea unei înregistrări distruge, de asemenea, toate
-          înregistrările copil. De exemplu, distrugerea unui utilizator va distruge,
-          de asemenea, toate parolele, fișierele și adresele URL pentru acel utilizator.'
-  audit_logs:
-    audit_log:
-      log_created: Push creat pe %{date} de %{user}
-      log_expired: Push expirat manual pe %{date} de către %{user}
-      log_failed_view: Încercare de vizualizare eșuată pe %{date} de către %{user}
-      log_viewed: Vizualizare reușită pe %{date} de către %{user}
-      log_failed_passphrase: Tentativă de frază de acces eșuată pe %{date} de către
-        %{user}
-      ip_address: 'Adresa IP:'
-      referrer: 'Referitor:'
-      user_agent: 'Agent utilizator:'
-      none: Nici unul
-  pushes:
-    access:
-      incorrect: Această frază de acces este incorectă.  Vă rugăm să încercați din
-        nou sau să contactați persoana sau organizația care v-a trimis acest link.
-    audit:
-      title: Jurnal de audit Push
-    expire:
-      expired: Conținutul push a fost șters, iar URL-ul secret a expirat.
-      not_deletable: Acest push nu poate fi șters de către telespectatori.
-      already_expired: Acel impuls a expirat deja.
-    form:
-      upload_limit: Puteți încărca până la 10 fișiere per push.
-      name_or_id: Nume sau ID
-      kind: Tip
-    preview:
-      link_lang_tip: 'Sfat: Trimiterea către un utilizator internațional?  Schimbați
-        limba legăturii secrete utilizând meniul derulant din dreapta URL-ului.'
-      link_lang_auto: Alternativ, detectarea automată va selecta o limbă pe baza setărilor
-        browserului utilizatorului final.
-    payload_too_large: Sarcina utilă este prea mare.  Puteți împinge doar până la
-      %{count} bytes.
-    too_many_files: Puteți atașa numai până la %{count} fișiere per push.
-    new:
-      title: Trimiteți în siguranță o parolă, un text sau un fișier
-    create:
-      qr_max_length: Sarcina utilă a codului QR este prea mare.  Puteți împinge numai
-        până la %{count} octeți.
-      invalid_url: trebuie să fie o adresă URL HTTP sau HTTPS validă.
-      payload_required: Sarcina utilă este necesară.
-    file_pushes_disabled: Împingerea fișierelor este dezactivată.
-    need_login_for_active: Trebuie să fiți autentificat pentru a vizualiza împingerile
-      dvs. active.
-    need_login_for_expired: Trebuie să fiți autentificat pentru a vizualiza împingerile
-      expirate.
-    not_deletable_or_not_owner: Acel push nu poate fi șters de spectatori și nu vă
-      aparține.
-    not_owner_push: Acel imbold nu-ți aparține.
-    url_pushes_disabled: URL împingeri sunt dezactivate.
-    index:
-      views_days_remaining: "%{views} vizualizări sau %{days} zile"
-    qr_pushes_disabled: Impulsurile codului QR sunt dezactivate.
-  zero_minutes: 0 minute
-  confirmation_go: Faceți clic aici pentru a vă confirma contul
-  application:
-    secret_url_bar:
-      autodetect: Auto-Detecție
-    push_expiration:
-      will_expire_in: 'Link-urile de descărcare a fișierelor de mai sus vor expira
-        în:'
-      you_can_refresh: Puteți reîmprospăta pagina pentru a regenera noi linkuri de
-        descărcare dacă rămân vizualizări.
-  words:
-    audit: Audit
-    forbidden: Interzis
-    not_found: Nu a fost găsit
-    share: Share
-    expired: Expirat
-    none: Nici unul
-    remaining: Rămase

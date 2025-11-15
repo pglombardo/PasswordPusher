@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 21:43+0100\n"
-"PO-Revision-Date: 2025-11-15 20:43+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Thai\n"
 "Language: th\n"
@@ -17,6 +17,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "การผลักดันนั้นไม่ได้เป็นของคุณ"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "ผู้ชมไม่สามารถลบการพุชนั้นได้"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "คุณจะต้องเข้าสู่ระบบเพื่อดูการผลักดันที่ใช้งานอยู่ของคุณ"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "คุณจะต้องเข้าระบบเพื่อดูการผลักดันที่หมดอายุของคุณ"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"ข้อความรหัสผ่านนั้นไม่ถูกต้อง โปรดลองอีกครั้งหรือติดต่อบุคคลหรือองค์กรที่ส่งลิ"
+"งก์นี้ให้คุณ"
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "การผลักดันนั้นไม่สามารถลบโดยผู้ชมและไม่เป็นของคุณ"
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "การผลักดันนั้นหมดเวลาไปแล้ว"
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "เนื้อหาพุชถูกลบและ URL ลับหมดอายุ"
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "การผลักไฟล์ถูกปิดใช้งาน"
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "การผลัก URL ถูกปิดการใช้งาน"
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "การพุชรหัส QR ถูกปิดใช้งาน"
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "คุณสามารถแนบไฟล์ได้สูงสุด %{count} ต่อการพุชแต่ละครั้ง"
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "จำเป็นต้องมีเพย์โหลด"
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "เพย์โหลดมีขนาดใหญ่เกินไป คุณสามารถพุชได้สูงสุด %{count} ไบต์เท่านั้น"
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "ต้องเป็น URL HTTP หรือ HTTPS ที่ถูกต้อง"
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "เพย์โหลดรหัส QR มีขนาดใหญ่เกินไป คุณสามารถส่งได้สูงสุดถึง %{count} ไบต์"
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -53,10 +127,12 @@ msgstr "นักสำรวจข้อมูล"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
 #: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
 msgid "Background Jobs"
 msgstr "งานเบื้องหลัง"
 
 #: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
 msgid "Administration"
 msgstr "การบริหารจัดการ"
 
@@ -330,9 +406,28 @@ msgstr "ไม่พบผู้ใช้ปกติ"
 msgid "All users in the system are administrators."
 msgstr "ผู้ใช้ทั้งหมดในระบบคือผู้ดูแลระบบ"
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "ลิงก์ดาวน์โหลดไฟล์ด้านบนจะหมดอายุใน:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr "คุณสามารถรีเฟรชหน้าเพื่อสร้างลิงก์ดาวน์โหลดใหม่หากจำนวนการดูยังคงอยู่"
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "หมดอายุ"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "ภาษาลิงค์ลับ"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "ตรวจจับอัตโนมัติ"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -340,6 +435,69 @@ msgstr "ภาษาลิงค์ลับ"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ด"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "พุชที่สร้างบน %{date} โดย %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "ที่อยู่ IP:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "ตัวแทนผู้ใช้:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "ไม่มี"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "ผู้อ้างอิง:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "การพุชหมดอายุด้วยตนเองใน %{date} โดย %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "การพยายามใช้ข้อความรหัสผ่านล้มเหลวใน %{date} โดย %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "ความพยายามในการดู %{date} โดย %{user} ล้มเหลว"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "การดู %{date} โดย %{user} ประสบความสำเร็จ"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "คลิกที่นี่เพื่อยืนยันบัญชีของคุณ"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -570,6 +728,18 @@ msgstr "กำลังประมวลผล..."
 msgid "Password"
 msgstr "รหัสผ่าน"
 
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "การดูแลระบบ - การส่งรหัสผ่าน"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "ระบบใช้งานอยู่"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "กลับไปที่แอพ"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -577,6 +747,93 @@ msgstr "รหัสผ่าน"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "โลโก้ตัวดันรหัสผ่าน"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Data Explorer - การดูแลระบบ - เครื่องมือผลักดันรหัสผ่าน"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "สภาพแวดล้อมการจัดเตรียม"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"นี่คือเว็บไซต์สำหรับการทดสอบชั่วคราว และข้อมูลจะถูกรีเซ็ตบ่อยครั้ง โปรดใช้ %{p"
+"roduction_link} เว้นแต่คุณจะกำลังทดสอบฟีเจอร์ใหม่"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "กลับสู่ศูนย์การบริหาร"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "ตรวจสอบและจัดการการประมวลผลงานเบื้องหลังและคิว"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "งานเบื้องหลังคืออะไร?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"งานเบื้องหลังจะจัดการงานที่ทำงานแบบอะซิงโครนัสโดยไม่บล็อกแอปพลิเคชันหลัก ใน Pa"
+"ssword Pusher งานเหล่านี้ประกอบด้วย:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "การแจ้งเตือนทางอีเมล์"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "การส่งการแจ้งเตือนการหมดอายุแบบพุชและการแจ้งเตือนผู้ดูแลระบบ"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "ดันทำความสะอาด"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "การลบการพุชที่หมดอายุออกจากฐานข้อมูลโดยอัตโนมัติ"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "การประมวลผลไฟล์"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "จัดการการอัพโหลดไฟล์และงานหลังการประมวลผลใดๆ"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "การบันทึกการตรวจสอบ"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "การบันทึกเหตุการณ์ระบบและการกระทำของผู้ใช้"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr "ใช้แท็บด้านล่างเพื่อตรวจสอบคิวงาน ดูงานที่ล้มเหลว และจัดการการประมวลผลงาน"
 
 #: ../../../app/views/madmin/application/_form.html.erb:42
 #: ../../../app/views/madmin/users/_form.html.erb:14
@@ -1070,12 +1327,12 @@ msgid "and"
 msgstr "และ"
 
 #: ../../../app/views/pages/about.html.erb:72
-msgid "See the Github project."
-msgstr "ดูโครงการ Github"
-
-#: ../../../app/views/pages/about.html.erb:72
 msgid "Fix an issue, add a feature or write some documentation."
 msgstr "แก้ไขปัญหา เพิ่มฟีเจอร์ หรือเขียนเอกสารประกอบ"
+
+#: ../../../app/views/pages/about.html.erb:72
+msgid "See the Github project."
+msgstr "ดูโครงการ Github"
 
 #: ../../../app/views/pages/about.html.erb:75
 msgid "Sign up to Digital Ocean"
@@ -1308,6 +1565,10 @@ msgstr "รอดแล้ว!"
 msgid "Add Files..."
 msgstr "เพิ่มไฟล์..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "คุณสามารถอัปโหลดไฟล์ได้สูงสุด %{count} ไฟล์ต่อการส่ง"
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1532,6 +1793,10 @@ msgstr "เมื่อหมดอายุ URL พุชจะถูกลบ�
 msgid "Audit Log for %{push_id}"
 msgstr "บันทึกการตรวจสอบสำหรับ %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "บันทึกการตรวจสอบสำหรับ Push ID: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "กดไปที่ %{date}"
@@ -1543,11 +1808,6 @@ msgstr "URL ลับสำหรับการพุชนี้"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "มองเห็นได้เฉพาะคุณเท่านั้น"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "ไม่มี"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1609,16 +1869,6 @@ msgstr "สถานะปัจจุบัน"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "สถานะ:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "หมดอายุ"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "เนื้อหาพุชถูกลบและ URL ลับหมดอายุ"
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1769,9 +2019,21 @@ msgstr "การผลักดันที่หมดอายุ"
 msgid "All Pushes"
 msgstr "การผลักดันทั้งหมด"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "ชื่อ หรือ ID"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "ใจดี"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "บันทึก"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "ที่เหลืออยู่"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1789,6 +2051,10 @@ msgstr "รหัส QR"
 msgid "Text"
 msgstr "ข้อความ"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} มุมมองหรือ %{days} วัน"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "การควบคุมแบบกด"
@@ -1800,6 +2066,10 @@ msgstr "ดูตัวอย่าง"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "การตรวจสอบ"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "ส่งรหัสผ่าน ข้อความ หรือไฟล์อย่างปลอดภัย"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1918,6 +2188,22 @@ msgstr "ดันอีก"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "ดูบันทึกการตรวจสอบ"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"เคล็ดลับ: ส่งไปยังผู้ใช้ต่างประเทศหรือไม่ เปลี่ยนภาษาของลิงก์ลับโดยใช้เมนูแบบเ"
+"ลื่อนลงทางด้านขวาของ URL"
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"อีกทางหนึ่ง การตรวจจับอัตโนมัติจะเลือกภาษาตามการตั้งค่าเบราว์เซอร์ของผู้ใช้ปลา"
+"ยทาง"
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

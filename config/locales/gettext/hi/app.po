@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 21:43+0100\n"
-"PO-Revision-Date: 2025-11-15 20:43+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi\n"
 "Language: hi\n"
@@ -17,6 +17,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "वह धक्का आपका नहीं है."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "वह पुश दर्शकों द्वारा हटाया नहीं जा सकता."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "अपने सक्रिय पुश देखने के लिए आपको लॉग इन होना होगा।"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "अपने समाप्त हो चुके पुश देखने के लिए आपको लॉग इन होना होगा।"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"वह पासफ़्रेज़ ग़लत है. कृपया पुनः प्रयास करें या उस व्यक्ति या संगठन से संपर्क"
+" करें जिसने आपको यह लिंक भेजा है।"
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "वह पुश दर्शकों द्वारा हटाया नहीं जा सकता और वह आपका नहीं है।"
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "वह धक्का पहले ही समाप्त हो चुका है।"
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "पुश सामग्री हटा दी गई है और गुप्त यूआरएल समाप्त हो गया है।"
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "फ़ाइल पुश अक्षम हैं."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "यूआरएल पुश अक्षम हैं."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "क्यूआर कोड पुशिंग अक्षम है."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "आप प्रति पुश अधिकतम %{count} फ़ाइलें ही संलग्न कर सकते हैं."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "पेलोड आवश्यक है."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "पेलोड बहुत बड़ा है। आप केवल %{count} बाइट्स तक ही पुश कर सकते हैं।"
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "एक मान्य HTTP या HTTPS URL होना चाहिए।"
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "QR कोड पेलोड बहुत बड़ा है। आप केवल %{count} बाइट्स तक ही पुश कर सकते हैं।"
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -53,10 +127,12 @@ msgstr "डेटा एक्सप्लोरर"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
 #: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
 msgid "Background Jobs"
 msgstr "बैकग्राउंड जॉब्स"
 
 #: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
 msgid "Administration"
 msgstr "प्रशासन"
 
@@ -334,9 +410,30 @@ msgstr "कोई नियमित उपयोगकर्ता नहीं
 msgid "All users in the system are administrators."
 msgstr "सिस्टम में सभी उपयोगकर्ता प्रशासक हैं।"
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "उपरोक्त फ़ाइल डाउनलोड लिंक की समयसीमा समाप्त हो जाएगी:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"यदि दृश्य शेष रह जाते हैं तो आप नए डाउनलोड लिंक पुनः उत्पन्न करने के लिए पृष्ठ"
+" को ताज़ा कर सकते हैं।"
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "खत्म हो चुका"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "गुप्त लिंक भाषा"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "ऑटो का पता लगाने"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -344,6 +441,69 @@ msgstr "गुप्त लिंक भाषा"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड पर कॉपी करें"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "%{date} पर %{user} द्वारा बनाया गया पुश"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "आईपी पता:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "उपयोगकर्ता एजेंट:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "कोई भी नहीं"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "संदर्भकर्ता:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "%{date} पर %{user} द्वारा पुश मैन्युअल रूप से समाप्त हो गया"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "%{user} द्वारा %{date} पर पासफ़्रेज़ का प्रयास विफल"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "%{date} पर %{user} द्वारा विफल दृश्य प्रयास"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "%{date} पर %{user} द्वारा सफल दृश्य"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "अपना खाता पुष्टि करने के लिए यहां क्लिक करें"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -591,6 +751,18 @@ msgstr "प्रसंस्करण..."
 msgid "Password"
 msgstr "पासवर्ड"
 
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "प्रशासन - पासवर्ड पुशर"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "सिस्टम सक्रिय"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "ऐप पर वापस जाएं"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -598,6 +770,96 @@ msgstr "पासवर्ड"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "पासवर्ड पुशर लोगो"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "डेटा एक्सप्लोरर - प्रशासन - पासवर्ड पुशर"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "स्टेजिंग वातावरण"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"यह परीक्षण के लिए एक स्टेजिंग साइट है और डेटा बार-बार रीसेट होता रहता है। कृपय"
+"ा %{production_link} का प्रयोग करें, जब तक कि आप नई सुविधाओं का परीक्षण नहीं क"
+"र रहे हों।"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "प्रशासन केंद्र पर वापस जाएं"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "पृष्ठभूमि कार्य प्रसंस्करण और कतारों की निगरानी और प्रबंधन करें"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "बैकग्राउंड जॉब्स क्या हैं?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"बैकग्राउंड जॉब्स ऐसे कार्यों को संभालते हैं जो मुख्य एप्लिकेशन को ब्लॉक किए बि"
+"ना एसिंक्रोनस रूप से चलते हैं। पासवर्ड पुशर में, इनमें शामिल हैं:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "ईमेल सूचनाएं"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "पुश समाप्ति अलर्ट और व्यवस्थापक सूचनाएं भेजना"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "पुश क्लीनअप"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "डेटाबेस से समाप्त हो चुके पुश को स्वचालित रूप से हटाना"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "फ़ाइल प्रसंस्करण"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "फ़ाइल अपलोड और किसी भी पोस्ट-प्रोसेसिंग कार्यों को संभालना।"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "ऑडिट लॉगिंग"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "सिस्टम ईवेंट और उपयोगकर्ता क्रियाएँ रिकॉर्ड करना"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"कार्य कतारों की निगरानी करने, असफल कार्यों को देखने और कार्य प्रसंस्करण का प्र"
+"बंधन करने के लिए नीचे दिए गए टैब का उपयोग करें।"
 
 #: ../../../app/views/madmin/application/_form.html.erb:42
 #: ../../../app/views/madmin/users/_form.html.erb:14
@@ -1092,12 +1354,12 @@ msgid "and"
 msgstr "और"
 
 #: ../../../app/views/pages/about.html.erb:72
-msgid "See the Github project."
-msgstr "जीथब प्रोजेक्ट देखें।"
-
-#: ../../../app/views/pages/about.html.erb:72
 msgid "Fix an issue, add a feature or write some documentation."
 msgstr "किसी समस्या को ठीक करें, कोई सुविधा जोड़ें या कुछ दस्तावेज़ लिखें।"
+
+#: ../../../app/views/pages/about.html.erb:72
+msgid "See the Github project."
+msgstr "जीथब प्रोजेक्ट देखें।"
 
 #: ../../../app/views/pages/about.html.erb:75
 msgid "Sign up to Digital Ocean"
@@ -1337,6 +1599,10 @@ msgstr "बचाया!"
 msgid "Add Files..."
 msgstr "फाइलें जोड़ो..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "आप प्रति पुश %{count} फ़ाइलें अपलोड कर सकते हैं।"
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1570,6 +1836,10 @@ msgstr "समाप्ति पर, पुश यूआरएल पूरी 
 msgid "Audit Log for %{push_id}"
 msgstr "%{push_id} के लिए ऑडिट लॉग"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "पुश आईडी के लिए ऑडिट लॉग: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "%{date} पर धकेला गया"
@@ -1581,11 +1851,6 @@ msgstr "इस पुश के लिए गुप्त यूआरएल"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "केवल आपके लिए दृश्यमान"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "कोई भी नहीं"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1649,16 +1914,6 @@ msgstr "वर्तमान स्थिति"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "राज्य:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "खत्म हो चुका"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "पुश सामग्री हटा दी गई है और गुप्त यूआरएल समाप्त हो गया है।"
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1813,9 +2068,21 @@ msgstr "समाप्त हो चुके पुश"
 msgid "All Pushes"
 msgstr "सभी पुश"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "नाम या आईडी"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "प्रकार"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "टिप्पणी"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "शेष"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1833,6 +2100,10 @@ msgstr "क्यू आर संहिता"
 msgid "Text"
 msgstr "मूलपाठ"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} दृश्य या %{days} दिन"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "पुश नियंत्रण"
@@ -1844,6 +2115,10 @@ msgstr "पूर्व दर्शन"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "अंकेक्षण"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "सुरक्षित तरीके से पासवर्ड, टेक्स्ट या फ़ाइल भेजें"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1962,6 +2237,22 @@ msgstr "दूसरे को धक्का दो"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "ऑडिट लॉग देखें"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"युक्ति: किसी अंतर्राष्ट्रीय उपयोगकर्ता को धक्का दे रहे हैं? यूआरएल के दाईं ओर "
+"ड्रॉपडाउन मेनू का उपयोग करके गुप्त लिंक भाषा बदलें।"
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"वैकल्पिक रूप से स्वतः पहचान अंतिम उपयोगकर्ता ब्राउज़र सेटिंग्स के आधार पर एक भ"
+"ाषा का चयन करेगी।"
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

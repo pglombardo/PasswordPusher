@@ -116,8 +116,9 @@ cs:
       not_locked: nebyl uzamčen
       in: musí být v %{count}
       password_too_long: je to moc dlouhé
-      one: '1 chyba zabránila %{resource} v uložení:'
-      other: 'Počet chyb: %{count}. Nelze uložit %{resource}:'
+      not_saved:
+        one: "%{resource} nebyl uložen kvůli chybě:"
+        other: "%{resource} nebyl uložen kvůli %{count} chybám:"
     unavailable_session: |-
       Relace %{id} již není v paměti dostupná.
 
@@ -466,80 +467,3 @@ cs:
       previous: "&lsaquo; Předchozí"
       next: Další &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Tento administrační panel poskytuje přímý databázový přístup
-          k aplikaci Password Pusher. Buďte opatrní a před provedením jakýchkoli změn
-          zvažte vytvoření zálohy.
-        admin_note: 'Poznámka: Zničení záznamu také zničí všechny podřízené záznamy.
-          Například zničením uživatele dojde také ke zničení všech zatlačených hesel,
-          souborů a adres URL tohoto uživatele.'
-  audit_logs:
-    audit_log:
-      log_created: Push vytvořen na %{date} uživatelem %{user}
-      log_expired: Platnost push ručně vypršela %{date} od %{user}
-      log_failed_view: Neúspěšný pokus o zobrazení %{date} uživatelem %{user}
-      log_viewed: Úspěšné zobrazení %{date} uživatelem %{user}
-      log_failed_passphrase: Neúspěšný pokus o zadání přístupové fráze na %{date}
-        od %{user}
-      ip_address: 'IP adresa:'
-      referrer: 'Referrer:'
-      user_agent: 'User Agent:'
-      none: Žádný
-  pushes:
-    access:
-      incorrect: Tato přístupová fráze je nesprávná. Zkuste to prosím znovu nebo kontaktujte
-        osobu či organizaci, která vám poslala tento odkaz.
-    audit:
-      title: Push Audit Log
-    expire:
-      expired: Push obsah byl smazán a platnost tajné adresy URL vypršela.
-      not_deletable: Tento push není pro diváky smazatelný.
-      already_expired: Platnost tohoto podnětu již vypršela.
-    form:
-      upload_limit: Na jedno push můžete nahrát až 10 souborů.
-      name_or_id: Jméno nebo ID
-      kind: Druh
-    preview:
-      link_lang_tip: 'Tip: Zasílat mezinárodnímu uživateli? Změňte jazyk tajného odkazu
-        pomocí rozbalovací nabídky napravo od adresy URL.'
-      link_lang_auto: Alternativně automatická detekce vybere jazyk na základě nastavení
-        prohlížeče koncového uživatele.
-    payload_too_large: Užitečné zatížení je příliš velké. Můžete vložit pouze %{count}
-      bajtů.
-    too_many_files: Na jedno push můžete připojit maximálně %{count} souborů.
-    new:
-      title: Bezpečně odešlete heslo, text nebo soubor
-    create:
-      qr_max_length: Obsah QR kódu je příliš velký. Můžete vložit maximálně %{count}
-        bajtů.
-      invalid_url: musí být platná URL adresa HTTP nebo HTTPS.
-      payload_required: Je vyžadováno užitečné zatížení.
-    file_pushes_disabled: Odesílání souborů je zakázáno.
-    need_login_for_active: Pro zobrazení aktivních pushů musíte být přihlášeni.
-    need_login_for_expired: Musíte být přihlášeni, abyste si mohli prohlédnout vypršení
-      platnosti push.
-    not_deletable_or_not_owner: Tento push není pro diváky smazatelný a nepatří vám.
-    not_owner_push: Ten tlak ti nepatří.
-    url_pushes_disabled: Odesílání URL adres je zakázáno.
-    index:
-      views_days_remaining: "%{views} zhlédnutí nebo %{days} dní"
-    qr_pushes_disabled: Odesílání QR kódů je zakázáno.
-  zero_minutes: 0 minut
-  confirmation_go: Kliknutím sem potvrďte svůj účet
-  application:
-    secret_url_bar:
-      autodetect: Auto detekce
-    push_expiration:
-      will_expire_in: 'Platnost odkazů pro stažení souboru výše vyprší za:'
-      you_can_refresh: Pokud zůstanou zobrazení, můžete stránku obnovit a znovu vygenerovat
-        nové odkazy ke stažení.
-  words:
-    audit: Kontrola
-    forbidden: Zakázáno
-    not_found: Nenalezeno
-    share: Podíl
-    expired: Platnost vypršela
-    none: Žádný
-    remaining: Zbývající

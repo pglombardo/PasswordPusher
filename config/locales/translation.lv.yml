@@ -116,8 +116,9 @@ lv:
       not_found: nav atrasts
       not_locked: netika nobloķēts
       password_too_long: ir pārāk garš
-      one: "%{resource} netika saglabāts %{count} kļūdas dēļ:"
-      other: "%{resource} netika saglabāts %{count} kļūdu dēļ:"
+      not_saved:
+        one: "%{resource} netika saglabāts %{count} kļūdas dēļ:"
+        other: "%{resource} netika saglabāts %{count} kļūdu dēļ:"
     unavailable_session: 'Sesija %{id} vairs nav pieejama atmiņā. Ja izmantojat vairāku
       procesu serveri (piemēram, Unicorn vai Puma), šis pieprasījuma trāpījums nesaglabājas
       %{id} atmiņā. Apsveriet iespēju palielināt procesu/strādņu skaitu uz vienu (1)
@@ -489,82 +490,3 @@ lv:
       previous: "&lsaquo; Iepriekšējais"
       next: Nākošais &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Šis administratora informācijas panelis nodrošina tiešu datubāzes
-          piekļuvi lietojumprogrammai Password Pusher. Lūdzu, esiet piesardzīgs un
-          apsveriet iespēju izveidot dublējumu pirms izmaiņu veikšanas.
-        admin_note: Piezīme. Ieraksta iznīcināšana iznīcina arī visus pakārtotos ierakstus.
-          Piemēram, iznīcinot lietotāju, tiks iznīcinātas arī visas šī lietotāja nosūtītās
-          paroles, faili un vietrāži URL.
-  audit_logs:
-    audit_log:
-      log_created: Push %{date} izveidoja %{user}
-      log_expired: Push manuāli beidzās %{date}, %{user}
-      log_failed_view: Neizdevās skatīt %{date}, ko veica %{user}
-      log_viewed: Veiksmīgs %{date} skatījums, izmantojot %{user}
-      log_failed_passphrase: Neveiksmīgs ieejas frāzes mēģinājums %{date} no %{user}
-      ip_address: 'IP adrese:'
-      referrer: 'Referents:'
-      user_agent: 'Lietotāja aģents:'
-      none: Nav
-  pushes:
-    access:
-      incorrect: Šī ieejas frāze ir nepareiza. Lūdzu, mēģiniet vēlreiz vai sazinieties
-        ar personu vai organizāciju, kas jums nosūtīja šo saiti.
-    audit:
-      title: Push Audit Log
-    expire:
-      expired: Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir
-        beidzies.
-      not_deletable: Šo nosūtīto paroli skatītāji nevar dzēst.
-      already_expired: Šis grūdiens jau ir beidzies.
-    form:
-      upload_limit: Varat augšupielādēt līdz 10 failiem vienā nospiešanā.
-      name_or_id: Vārds vai ID
-      kind: Laipns
-    preview:
-      link_lang_tip: 'Padoms: vēlaties kopīgot paroli ar starptautisku lietotāju?
-        Mainiet slepenās saites valodu, izmantojot nolaižamo izvēlni pa labi no URL.'
-      link_lang_auto: Vai arī automātiskā noteikšana atlasīs valodu, pamatojoties
-        uz galalietotāja pārlūkprogrammas iestatījumiem.
-    payload_too_large: Kravnesība ir pārāk liela. Varat nospiest tikai līdz %{count}
-      baitiem.
-    too_many_files: Vienā nosūtījumā varat pievienot ne vairāk kā %{count} failus.
-    new:
-      title: Droši nosūtiet paroli, tekstu vai failu
-    create:
-      qr_max_length: QR koda slodze ir pārāk liela. Varat nospiest tikai līdz %{count}
-        baitiem.
-      invalid_url: jābūt derīgam HTTP vai HTTPS URL.
-      payload_required: Nepieciešama lietderīgā slodze.
-    file_pushes_disabled: Failu nosūtīšana ir atspējota.
-    need_login_for_active: Lai skatītu savus aktīvos grūdienus, jums ir jāpiesakās.
-    need_login_for_expired: Jums ir jāpiesakās, lai skatītu savus paziņojumus, kuriem
-      beidzies derīguma termiņš.
-    not_deletable_or_not_owner: Šo grūdienu skatītāji nevar dzēst, un tas nepieder
-      jums.
-    not_owner_push: Šī nosūtītā paroles saite nepieder Jums
-    url_pushes_disabled: URL nosūtīšana ir atspējota.
-    index:
-      views_days_remaining: "%{views} skatījumi vai %{days} dienas"
-    qr_pushes_disabled: QR koda nosūtīšana ir atspējota.
-  zero_minutes: 0 minūtes
-  confirmation_go: Noklikšķiniet šeit, lai apstiprinātu savu kontu
-  application:
-    secret_url_bar:
-      autodetect: Automātiska noteikšana
-    push_expiration:
-      will_expire_in: 'Iepriekš norādīto failu lejupielādes saišu derīguma termiņš
-        beigsies:'
-      you_can_refresh: Varat atsvaidzināt lapu, lai atjaunotu jaunas lejupielādes
-        saites, ja skati paliek.
-  words:
-    audit: Audits
-    forbidden: Aizliegts
-    not_found: Nav atrasts
-    share: Dalīties
-    expired: Beidzies derīguma termiņš
-    none: Nav
-    remaining: Atlikušais

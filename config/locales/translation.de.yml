@@ -116,8 +116,9 @@ de:
       not_locked: ist nicht gesperrt
       in: muss in %{count} sein
       password_too_long: es ist zu lang
-      one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
-      other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
+      not_saved:
+        one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
+        other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
     unavailable_session: |
       Sitzung %{id} ist nicht mehr im Speicher verfügbar.
 
@@ -476,82 +477,3 @@ de:
       previous: "&lsaquo; Zurück"
       next: Weiter &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Dieses Admin-Dashboard bietet direkten Datenbankzugriff auf die
-          Password Pusher-Anwendung. Bitte seien Sie vorsichtig und überlegen Sie,
-          ein Backup zu erstellen, bevor Sie Änderungen vornehmen.
-        admin_note: 'Hinweis: Durch die Zerstörung eines Datensatzes werden auch alle
-          untergeordneten Datensätze zerstört. Wenn Sie beispielsweise einen Benutzer
-          löschen, werden auch alle übertragenen Passwörter, Dateien und URLs für
-          diesen Benutzer gelöscht.'
-  audit_logs:
-    audit_log:
-      log_created: Push erstellt am %{date} von %{user}
-      log_expired: Manueller Push ist am %{date} durch %{user} abgelaufen
-      log_failed_view: Fehlgeschlagener Anzeigeversuch von %{date} durch %{user}
-      log_viewed: Erfolgreiche Ansicht von %{date} durch %{user}
-      log_failed_passphrase: Fehlgeschlagener Entsperrversuch auf %{date} durch %{user}
-      ip_address: 'IP Adresse:'
-      referrer: 'Referrer:'
-      user_agent: 'Benutzeragent:'
-      none: Keine
-  pushes:
-    access:
-      incorrect: Dieses Passwort ist falsch. Bitte versuchen Sie es erneut oder wenden
-        Sie sich an die Person oder Organisation, die Ihnen diesen Link gesendet hat.
-    audit:
-      title: Push-Audit-Protokoll
-    expire:
-      expired: Der Push-Inhalt wurde gelöscht und die geheime URL ist abgelaufen.
-      not_deletable: Dieser Push kann von Betrachtern nicht gelöscht werden.
-      already_expired: Dieser Push ist bereits abgelaufen.
-    form:
-      upload_limit: Es können bis zu %{count} Dateien pro Push hochladen werden.
-      name_or_id: Name oder ID
-      kind: Art
-    preview:
-      link_lang_tip: 'Tipp: Versand an anderssprachige Benutzer? Über das Dropdown-Menü
-        (rechts neben dem generierten Link) lässt sich die Sprache ändern.'
-      link_lang_auto: Alternativ wird durch die automatische Erkennung eine Sprache
-        basierend auf den Browsereinstellungen des Endbenutzers ausgewählt.
-    payload_too_large: Die Nutzlast ist zu groß. Sie können nur bis zu %{count} Bytes
-      pushen.
-    too_many_files: Sie können pro Push nur bis zu %{count} Dateien anhängen.
-    new:
-      title: Sicheres Senden eines Passworts, Textes oder einer Datei
-    create:
-      qr_max_length: Die Nutzlast des QR-Codes ist zu groß. Sie können nur bis zu
-        %{count} Bytes pushen.
-      invalid_url: muss eine gültige HTTP- oder HTTPS-URL sein.
-      payload_required: Nutzlast ist erforderlich.
-    file_pushes_disabled: Datei-Pushes sind deaktiviert.
-    need_login_for_active: Sie müssen angemeldet sein, um Ihre aktiven Pushes anzuzeigen.
-    need_login_for_expired: Sie müssen angemeldet sein, um Ihre abgelaufenen Pushes
-      anzuzeigen.
-    not_deletable_or_not_owner: Dieser Push kann von den Zuschauern nicht gelöscht
-      werden und gehört nicht Ihnen.
-    not_owner_push: Dieser Push gehört nicht Ihnen.
-    url_pushes_disabled: URL-Pushes sind deaktiviert.
-    index:
-      views_days_remaining: "%{views} Aufrufe oder %{days} Tage"
-    qr_pushes_disabled: QR-Code-Pushes sind deaktiviert.
-  zero_minutes: 0 Minuten
-  confirmation_go: Klicken Sie hier, um Ihr Konto zu bestätigen
-  application:
-    secret_url_bar:
-      autodetect: Automatische Erkennung
-    push_expiration:
-      will_expire_in: 'Die oben stehenden Links zum Herunterladen von Dateien laufen
-        ab in:'
-      you_can_refresh: Sie können die Seite aktualisieren, um neue Download-Links
-        zu generieren, wenn noch Aufrufe vorhanden sind.
-  words:
-    audit: Prüfung
-    forbidden: Verboten
-    not_found: Nicht gefunden
-    share: Aktie
-    expired: Abgelaufen
-    none: Keine
-    remaining: Übrig

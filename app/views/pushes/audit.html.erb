@@ -1,7 +1,7 @@
 <% title(_('Audit Log for %{push_id}') % { push_id: @push.url_token }) %>
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h4 class=''> <%= t('pushes.audit.title', push_id: @push.url_token) %></h4>
+    <h4 class=''> <%= _('Audit Log for Push ID: %{push_id}') % { push_id: @push.url_token } %></h4>
     <p class='text-muted mb-5'>
         <%= _('Pushed on %{date}') % { date: I18n.l(@push.created_at.in_time_zone(Settings.timezone), format: :long) } %>
     </p>

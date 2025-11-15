@@ -116,8 +116,9 @@ ca:
       not_locked: no està bloquejat
       in: ha d'estar a %{count}
       password_too_long: és massa llarg
-      one: '1 error ha evitat que %{resource} es pugui desar:'
-      other: "%{count} errors han evitat que %{resource} es pugui desar:"
+      not_saved:
+        one: '1 error ha evitat que %{resource} es pugui desar:'
+        other: "%{count} errors han evitat que %{resource} es pugui desar:"
     unavailable_session: |
       La sessió %{id} ja no està disponible a la memòria.
 
@@ -482,79 +483,3 @@ ca:
       previous: "&lsaquo; Anterior"
       next: Següent &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Aquest tauler d'administració proporciona accés directe a la
-          base de dades a l'aplicació Password Pusher. Aneu amb compte i considereu
-          fer una còpia de seguretat abans de fer qualsevol canvi.
-        admin_note: 'Nota: la destrucció d''un registre també destrueix tots els registres
-          secundaris. Per exemple, destruir un usuari també destruirà totes les contrasenyes,
-          fitxers i URL enviats per a aquest usuari.'
-  audit_logs:
-    audit_log:
-      log_created: Push creat a %{date} per %{user}
-      log_expired: Push caducat manualment a %{date} per %{user}
-      log_failed_view: Intent fallit de visualització a %{date} per part de %{user}
-      log_viewed: Vista satisfactòria a %{date} per part de %{user}
-      log_failed_passphrase: Intent fallit de frase de contrasenya a %{date} per %{user}
-      ip_address: 'Adreça IP:'
-      referrer: 'Referent:'
-      user_agent: 'Agent d''usuari:'
-      none: Cap
-  pushes:
-    access:
-      incorrect: Aquesta frase de contrasenya és incorrecta. Torna-ho a provar o contacta
-        amb la persona o l'organització que t'ha enviat aquest enllaç.
-    audit:
-      title: Push Registre d'auditoria
-    expire:
-      expired: El contingut pujat s'ha suprimit i l'URL secret ha caducat.
-      not_deletable: Aquesta pujada no es pot ser esborrada.
-      already_expired: Aquella empenta ja ha caducat.
-    form:
-      upload_limit: Podeu pujar fins a 10 fitxers per push.
-      name_or_id: Nom o identificació
-      kind: Amable
-    preview:
-      link_lang_tip: 'Consell: voleu enviar a un usuari internacional? Canvieu l''idioma
-        de l''enllaç secret mitjançant el menú desplegable a la dreta de l''URL.'
-      link_lang_auto: Alternativament, la detecció automàtica seleccionarà un idioma
-        en funció de la configuració del navegador de l'usuari final.
-    payload_too_large: La càrrega útil és massa gran. Només podeu enviar fins a %{count}
-      bytes.
-    too_many_files: Només podeu adjuntar fins a %{count} fitxers per push.
-    new:
-      title: Envieu de manera segura una contrasenya, text o fitxer
-    create:
-      qr_max_length: La càrrega útil del codi QR és massa gran. Només podeu enviar
-        fins a %{count} bytes.
-      invalid_url: ha de ser una URL HTTP o HTTPS vàlida.
-      payload_required: Cal una càrrega útil.
-    file_pushes_disabled: Els enviaments de fitxers estan desactivats.
-    need_login_for_active: Heu d'iniciar sessió per veure els vostres pushs actius.
-    need_login_for_expired: Heu d'iniciar sessió per veure els vostres pushs caducats.
-    not_deletable_or_not_owner: Els espectadors no poden esborrar aquesta empenta
-      i no us pertany.
-    not_owner_push: Aquesta pujada no et pertany.
-    url_pushes_disabled: Els enviaments d'URL estan desactivats.
-    index:
-      views_days_remaining: "%{views} visualitzacions o %{days} dies"
-    qr_pushes_disabled: Les insercions de codis QR estan desactivades.
-  zero_minutes: 0 minuts
-  confirmation_go: Feu clic aquí per confirmar el vostre compte
-  application:
-    secret_url_bar:
-      autodetect: Auto detectar
-    push_expiration:
-      will_expire_in: 'Els enllaços de descàrrega de fitxers anteriors caducaran a:'
-      you_can_refresh: Podeu actualitzar la pàgina per regenerar nous enllaços de
-        descàrrega si es mantenen les visualitzacions.
-  words:
-    audit: Auditoria
-    forbidden: Prohibit
-    not_found: No trobat
-    share: Compartir
-    expired: Caducat
-    none: Cap
-    remaining: Restant

@@ -1,5 +1,7 @@
 module Madmin
   class ApplicationController < Madmin::BaseController
+    include SetLocale
+
     before_action :authenticate_user!
     before_action :authenticate_admin_user
 

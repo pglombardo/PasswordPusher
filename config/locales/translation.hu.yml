@@ -116,8 +116,9 @@ hu:
       not_locked: nincs zárolva
       in: kell lennie %{count}
       password_too_long: túl hosszú
-      one: '1 hiba miatt %{resource} mentése nem lehetséges:'
-      other: "%{count} hiba miatt %{resource} mentése nem lehetséges:"
+      not_saved:
+        one: '1 hiba miatt %{resource} mentése nem lehetséges:'
+        other: "%{count} hiba miatt %{resource} mentése nem lehetséges:"
     unavailable_session: Az %{id} munkamenet már nem érhető el a memóriában. Ha történetesen
       többfolyamatos szerveren fut (mint például az Unicorn vagy a Puma), a kérés
       lekérése nem tárolja az %{id} értéket a memóriában. Fontolja meg a folyamatok/munkavállalók
@@ -469,80 +470,3 @@ hu:
       previous: "&lsaquo; Előző"
       next: Következő &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Ez a rendszergazdai irányítópult közvetlen adatbázis-hozzáférést
-          biztosít a Password Pusher alkalmazáshoz. Kérjük, legyen óvatos, és fontolja
-          meg a biztonsági másolat készítését, mielőtt bármilyen változtatást végrehajtana.
-        admin_note: 'Megjegyzés: Egy rekord megsemmisítése az összes gyermekrekordot
-          is megsemmisíti. Például egy felhasználó megsemmisítése az adott felhasználó
-          összes letoltott jelszavát, fájlját és URL-jét is megsemmisíti.'
-  audit_logs:
-    audit_log:
-      log_created: Push létrehozta %{date} oldalon, %{user}
-      log_expired: A kézi leküldés lejárt %{date} időpontban, %{user}
-      log_failed_view: 'Sikertelen megtekintési kísérlet a(z) %{date} elemen, felhasználó:
-        %{user}'
-      log_viewed: Sikeres megtekintés az %{date} oldalon %{user} felhasználó által
-      log_failed_passphrase: Sikertelen jelmondat-kísérlet az %{date} oldalon, %{user}
-      ip_address: 'IP cím:'
-      referrer: 'Hivatkozó:'
-      user_agent: 'Felhasználói ügynök:'
-      none: Egyik sem
-  pushes:
-    access:
-      incorrect: Ez a jelszó hibás. Kérjük, próbálja újra, vagy lépjen kapcsolatba
-        azzal a személlyel vagy szervezettel, aki ezt a linket küldte Önnek.
-    audit:
-      title: Push Audit Log
-    expire:
-      expired: A küldés tartalmát törölték, és a titkos URL lejárt.
-      not_deletable: Ez a küldés nem törölhető a nézők által.
-      already_expired: Ez a nyomás már lejárt.
-    form:
-      upload_limit: Letöltésenként legfeljebb 10 fájlt tölthet fel.
-      name_or_id: Név vagy azonosító
-      kind: Fajta
-    preview:
-      link_lang_tip: 'Tipp: Egy nemzetközi felhasználónak küldi? Módosítsa a titkos
-        link nyelvét az URL-től jobbra található legördülő menü segítségével.'
-      link_lang_auto: Alternatív megoldásként az automatikus észlelés a végfelhasználói
-        böngészőbeállítások alapján választ ki egy nyelvet.
-    payload_too_large: A hasznos teher túl nagy. Legfeljebb %{count} bájtot küldhet
-      le.
-    too_many_files: Leküldésenként legfeljebb %{count} fájlt csatolhat.
-    new:
-      title: Biztonságosan küldjön jelszót, szöveget vagy fájlt
-    create:
-      qr_max_length: A QR-kód rakománya túl nagy. Legfeljebb %{count} bájtot küldhet
-        le.
-      invalid_url: érvényes HTTP vagy HTTPS URL-címnek kell lennie.
-      payload_required: Hasznos teher megadása kötelező.
-    file_pushes_disabled: A fájlküldések le vannak tiltva.
-    need_login_for_active: Az aktív lökések megtekintéséhez be kell jelentkeznie.
-    need_login_for_expired: A lejárt push-ok megtekintéséhez be kell jelentkeznie.
-    not_deletable_or_not_owner: Ezt a nyomást a nézők nem törölhetik, és nem tartozik
-      rád.
-    not_owner_push: Ez a küldés nem önhöz tartozik.
-    url_pushes_disabled: Az URL-küldések le vannak tiltva.
-    index:
-      views_days_remaining: "%{views} megtekintés vagy %{days} nap"
-    qr_pushes_disabled: A QR-kódok küldése le van tiltva.
-  zero_minutes: 0 perc
-  confirmation_go: Kattintson ide fiókja megerősítéséhez
-  application:
-    secret_url_bar:
-      autodetect: Auto felismerés
-    push_expiration:
-      will_expire_in: 'A fenti fájlletöltési linkek a következő napon lejárnak:'
-      you_can_refresh: Frissítheti az oldalt az új letöltési hivatkozások újragenerálásához,
-        ha a nézetek megmaradnak.
-  words:
-    audit: Ellenőrzés
-    forbidden: Tiltott
-    not_found: Nem található
-    share: Ossza meg
-    expired: Lejárt
-    none: Egyik sem
-    remaining: Többi

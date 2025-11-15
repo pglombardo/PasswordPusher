@@ -116,8 +116,9 @@ it:
       not_locked: non era bloccato
       in: deve essere in %{count}
       password_too_long: è troppo lungo
-      one: 'Non posso salvare questo %{resource}: 1 errore'
-      other: 'Non posso salvare questo %{resource}: %{count} errori.'
+      not_saved:
+        one: 'Non posso salvare questo %{resource}: 1 errore'
+        other: 'Non posso salvare questo %{resource}: %{count} errori.'
     unavailable_session: |
       Session %{id} non è più disponibile in memoria.
 
@@ -482,84 +483,3 @@ it:
       previous: "&lsaquo; Prec."
       next: Succ. &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Questo dashboard di amministrazione fornisce l'accesso diretto
-          al database all'applicazione Password Pusher. Si prega di fare attenzione
-          e di effettuare un backup prima di apportare qualsiasi modifica.
-        admin_note: 'Nota: la distruzione di un record distrugge anche tutti i record
-          secondari. Ad esempio, la distruzione di un utente distruggerà anche tutte
-          le password, i file e gli URL inviati per quell''utente.'
-  audit_logs:
-    audit_log:
-      log_created: Push creato su %{date} da %{user}
-      log_expired: Push scaduto manualmente il %{date} da %{user}
-      log_failed_view: Tentativo di visualizzazione non riuscito su %{date} da parte
-        di %{user}
-      log_viewed: Visualizzazione riuscita su %{date} da parte di %{user}
-      log_failed_passphrase: Tentativo di passphrase non riuscito su %{date} da parte
-        di %{user}
-      ip_address: 'Indirizzo IP:'
-      referrer: 'Referente:'
-      user_agent: 'Agente utente:'
-      none: Nessuna
-  pushes:
-    access:
-      incorrect: Quella passphrase non è corretta. Riprova o contatta la persona o
-        l'organizzazione che ti ha inviato questo link.
-    audit:
-      title: Registro di controllo per %{push_id}
-    expire:
-      expired: Il contenuto push è stato eliminato e l'URL segreto è scaduto.
-      not_deletable: Quel push non è cancellabile dai visualizzatori.
-      already_expired: Quella spinta è già scaduta.
-    form:
-      upload_limit: Puoi caricare fino a %{count} file per push.
-      name_or_id: Nome o documento d'identità
-      kind: Tipo
-    preview:
-      link_lang_tip: 'Suggerimento: vuoi caricare una password verso un utente internazionale?
-        Modifica la lingua del collegamento segreto utilizzando il menu a discesa
-        a destra della URL.'
-      link_lang_auto: In alternativa, il rilevamento automatico selezionerà una lingua
-        in base alle impostazioni del browser dell'utente finale.
-    payload_too_large: Il carico utile è troppo grande. È possibile eseguire il push
-      solo fino a %{count} byte.
-    too_many_files: È possibile allegare solo un massimo di file %{count} per push.
-    new:
-      title: Invia in modo sicuro una password, un testo o un file
-    create:
-      qr_max_length: Il payload del codice QR è troppo grande. Puoi caricare solo
-        fino a %{count} byte.
-      invalid_url: deve essere un URL HTTP o HTTPS valido.
-      payload_required: È richiesto il carico utile.
-    file_pushes_disabled: I push dei file sono disabilitati.
-    need_login_for_active: Devi aver effettuato l'accesso per visualizzare le tue
-      spinte attive.
-    need_login_for_expired: Devi aver effettuato l'accesso per visualizzare le tue
-      push scadute.
-    not_deletable_or_not_owner: Tale spinta non può essere eliminata dagli spettatori
-      e non ti appartiene.
-    not_owner_push: Quel push non ti appartiene.
-    url_pushes_disabled: Gli URL push sono disabilitati.
-    index:
-      views_days_remaining: "%{views} visualizzazioni o %{days} giorni"
-    qr_pushes_disabled: L'invio di codici QR è disabilitato.
-  zero_minutes: 0 minuti
-  confirmation_go: Clicca qui per confermare il tuo account
-  application:
-    secret_url_bar:
-      autodetect: Trovato automaticamente
-    push_expiration:
-      will_expire_in: 'I link per il download dei file sopra indicati scadranno tra:'
-      you_can_refresh: È possibile aggiornare la pagina per rigenerare nuovi link
-        per il download se ci sono ancora visualizzazioni.
-  words:
-    audit: Audit
-    forbidden: Vietato
-    not_found: Non trovato
-    share: Condividere
-    expired: Scaduto
-    none: Nessuna
-    remaining: Residuo

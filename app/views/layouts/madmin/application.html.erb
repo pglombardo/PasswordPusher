@@ -8,7 +8,7 @@
       <% if content_for? :title %>
         <%= yield(:title) %> -
       <% end %>
-      Data Explorer - Administration - Password Pusher
+      <%= _('Data Explorer - Administration - Password Pusher') %>
     </title>
     <%= csrf_meta_tags %>
     <%= render "madmin/application/javascript" %>
@@ -16,7 +16,7 @@
   <body class="bg-light">
     <% if Rails.env.staging? %>
       <div class="alert alert-warning text-center mb-0" role="alert">
-        <strong>Staging Environment:</strong> This is a staging site for testing and data is reset frequently. Please use <a href="https://pwpush.com" class="alert-link">pwpush.com</a> unless you are testing new features.
+        <strong><%= _('Staging Environment') %>:</strong> <%= (_('This is a staging site for testing and data is reset frequently. Please use %{production_link} unless you are testing new features.') % { production_link: link_to('pwpush.com', 'https://pwpush.com', class: 'alert-link') }).html_safe %>
       </div>
     <% end %>
 
