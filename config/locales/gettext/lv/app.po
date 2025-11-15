@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:44+0100\n"
-"PO-Revision-Date: 2025-11-15 21:44+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Latvian\n"
 "Language: lv\n"
@@ -21,8 +21,22 @@ msgstr ""
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
-msgid "That push doesn"
-msgstr "Tas grūdiens nedarbojas"
+msgid "That push doesn't belong to you."
+msgstr "Šī nosūtītā paroles saite nepieder Jums"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Šo nosūtīto paroli skatītāji nevar dzēst."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Lai skatītu savus aktīvos grūdienus, jums ir jāpiesakās."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr ""
+"Jums ir jāpiesakās, lai skatītu savus paziņojumus, kuriem beidzies derīguma te"
+"rmiņš."
 
 #: ../../../app/controllers/pushes_controller.rb:96
 msgid ""
@@ -31,6 +45,19 @@ msgid ""
 msgstr ""
 "Šī ieejas frāze ir nepareiza. Lūdzu, mēģiniet vēlreiz vai sazinieties ar perso"
 "nu vai organizāciju, kas jums nosūtīja šo saiti."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Skatītāji nevar izdzēst šo grūdienu, un tas nepieder jums."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Šis grūdiens jau ir beidzies."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir beidzies."
 
 #: ../../../app/controllers/pushes_controller.rb:318
 #: ../../../app/models/push.rb:199
@@ -428,30 +455,30 @@ msgstr "Kopēt starpliktuvē"
 msgid "Created on %{date} by %{user}"
 msgstr "Push %{date} izveidoja %{user}"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:7
-#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "IP adrese:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "Lietotāja aģents:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -459,10 +486,10 @@ msgstr "Lietotāja aģents:"
 msgid "None"
 msgstr "Nav"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "Referents:"
@@ -1901,10 +1928,6 @@ msgstr "Pašreizējais statuss"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Valsts:"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir beidzies."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10

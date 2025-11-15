@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:44+0100\n"
-"PO-Revision-Date: 2025-11-15 21:44+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -21,8 +21,20 @@ msgstr ""
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
-msgid "That push doesn"
-msgstr "Цей поштовх не"
+msgid "That push doesn't belong to you."
+msgstr "Цей поштовх не належить вам."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Глядачі не можуть видалити цей поштовх."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Ви повинні увійти в систему, щоб переглянути свої активні push-повідомлення."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Ви повинні увійти в систему, щоб переглянути прострочені пуші."
 
 #: ../../../app/controllers/pushes_controller.rb:96
 msgid ""
@@ -31,6 +43,19 @@ msgid ""
 msgstr ""
 "Ця парольна фраза є неправильною.  Будь ласка, спробуйте ще раз або зверніться"
 " до особи чи організації, яка надіслала вам це посилання."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Цей push не може бути видалений глядачами і не належить вам."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Цей поштовх вже вичерпався."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Пуш-контент видалено, а термін дії секретної URL-адреси закінчився."
 
 #: ../../../app/controllers/pushes_controller.rb:318
 #: ../../../app/models/push.rb:199
@@ -434,30 +459,30 @@ msgstr "Скопіювати в буфер обміну"
 msgid "Created on %{date} by %{user}"
 msgstr "Створено %{date} користувачем %{user}"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:7
-#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "IP-адреса:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "User Agent:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -465,10 +490,10 @@ msgstr "User Agent:"
 msgid "None"
 msgstr "Ні"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "Джерело переходу:"
@@ -1907,10 +1932,6 @@ msgstr "Поточний стан"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Стан:"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Пуш-контент видалено, а термін дії секретної URL-адреси закінчився."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10

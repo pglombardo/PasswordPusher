@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:44+0100\n"
-"PO-Revision-Date: 2025-11-15 21:44+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi\n"
 "Language: hi\n"
@@ -20,8 +20,20 @@ msgstr ""
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
-msgid "That push doesn"
-msgstr "वह धक्का"
+msgid "That push doesn't belong to you."
+msgstr "वह धक्का आपका नहीं है."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "वह पुश दर्शकों द्वारा हटाया नहीं जा सकता."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "अपने सक्रिय पुश देखने के लिए आपको लॉग इन होना होगा।"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "अपने समाप्त हो चुके पुश देखने के लिए आपको लॉग इन होना होगा।"
 
 #: ../../../app/controllers/pushes_controller.rb:96
 msgid ""
@@ -30,6 +42,19 @@ msgid ""
 msgstr ""
 "वह पासफ़्रेज़ ग़लत है. कृपया पुनः प्रयास करें या उस व्यक्ति या संगठन से संपर्क"
 " करें जिसने आपको यह लिंक भेजा है।"
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "वह पुश दर्शकों द्वारा हटाया नहीं जा सकता और वह आपका नहीं है।"
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "वह धक्का पहले ही समाप्त हो चुका है।"
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "पुश सामग्री हटा दी गई है और गुप्त यूआरएल समाप्त हो गया है।"
 
 #: ../../../app/controllers/pushes_controller.rb:318
 #: ../../../app/models/push.rb:199
@@ -421,30 +446,30 @@ msgstr "क्लिपबोर्ड पर कॉपी करें"
 msgid "Created on %{date} by %{user}"
 msgstr "%{date} पर %{user} द्वारा बनाया गया पुश"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:7
-#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "आईपी पता:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "उपयोगकर्ता एजेंट:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -452,10 +477,10 @@ msgstr "उपयोगकर्ता एजेंट:"
 msgid "None"
 msgstr "कोई भी नहीं"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "संदर्भकर्ता:"
@@ -1889,10 +1914,6 @@ msgstr "वर्तमान स्थिति"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "राज्य:"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "पुश सामग्री हटा दी गई है और गुप्त यूआरएल समाप्त हो गया है।"
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10

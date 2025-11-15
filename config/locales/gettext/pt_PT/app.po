@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:44+0100\n"
-"PO-Revision-Date: 2025-11-15 21:44+0000\n"
+"POT-Creation-Date: 2025-11-16 00:01+0100\n"
+"PO-Revision-Date: 2025-11-15 23:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -20,8 +20,20 @@ msgstr ""
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
-msgid "That push doesn"
-msgstr "Esse empurrão não"
+msgid "That push doesn't belong to you."
+msgstr "Esse envio não pertence a si."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Esse envio não pode ser eliminado pelos visualizadores."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Você precisa estar logado para visualizar seus pushes ativos."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Você precisa estar logado para visualizar seus pushes expirados."
 
 #: ../../../app/controllers/pushes_controller.rb:96
 msgid ""
@@ -30,6 +42,21 @@ msgid ""
 msgstr ""
 "Essa senha está incorreta. Tente novamente ou entre em contacto com a pessoa o"
 "u organização que lhe enviou este link."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr ""
+"Essa publicação não pode ser excluída pelos espectadores e não pertence a você"
+"."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Esse impulso já expirou."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "O conteúdo do envio foi eliminado e o URL secreto expirou."
 
 #: ../../../app/controllers/pushes_controller.rb:318
 #: ../../../app/models/push.rb:199
@@ -431,30 +458,30 @@ msgstr "Copiar para área de transferência"
 msgid "Created on %{date} by %{user}"
 msgstr "Push criado em %{date} por %{user}"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:7
-#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "Endereço IP:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "Agente do utilizador:"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:9
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:9
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -462,10 +489,10 @@ msgstr "Agente do utilizador:"
 msgid "None"
 msgstr "Nenhum"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:11
-#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "Referenciador:"
@@ -1903,10 +1930,6 @@ msgstr "Estado Atual"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Estado:"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "O conteúdo do envio foi eliminado e o URL secreto expirou."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
