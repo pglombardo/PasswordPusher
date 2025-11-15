@@ -14,7 +14,7 @@ module LogEvents
   end
 
   def log_creation(push)
-    log_event(@push, :creation)
+    log_event(push, :creation)
   end
 
   def log_failed_passphrase(push)
@@ -26,7 +26,7 @@ module LogEvents
   end
 
   def log_event(push, kind)
-    ip = request.env["HTTP_X_FORWARDED_FOR"].nil? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
+    ip = request.env["HTTP_X_FORWARDED_FOR"].blank? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
     # Limit retrieved values to 256 characters
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
