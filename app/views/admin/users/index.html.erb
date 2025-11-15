@@ -1,4 +1,4 @@
-<% content_for :title, "Administrator Management" %>
+<% content_for :title, _("Administrator Management") %>
 
 <% content_for :breadcrumbs do %>
   <li class="breadcrumb-item">
@@ -6,7 +6,7 @@
       <svg class="text-muted me-1" width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
       </svg>
-      <span class="text-muted small">Administrator Management</span>
+      <span class="text-muted small"><%= _("Administrator Management") %></span>
     </div>
   </li>
 <% end %>
@@ -20,13 +20,13 @@
           <svg class="text-primary me-3" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
           </svg>
-          Administrator Management
+          <%= _("Administrator Management") %>
         </h1>
-        <p class="text-muted small mb-0">Manage administrator accounts and privileges</p>
+        <p class="text-muted small mb-0"><%= _("Manage administrator accounts and privileges") %></p>
       </div>
       <div class="d-flex align-items-center gap-2">
         <div class="rounded-circle bg-success" style="width: 8px; height: 8px;"></div>
-        <span class="text-muted small"><%= @admin_users.count %> Administrators</span>
+        <span class="text-muted small"><%= _("%{count} Administrators") % { count: @admin_users.count } %></span>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
         <svg class="text-success me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
-        Current Administrators
+        <%= _("Current Administrators") %>
       </h2>
 
       <% if @admin_users.any? %>
@@ -47,10 +47,10 @@
           <table class="table table-hover">
             <thead class="table-success">
               <tr>
-                <th class="border-0">Email</th>
-                <th class="border-0">Created</th>
-                <th class="border-0">Last Sign In</th>
-                <th class="border-0 text-end">Actions</th>
+                <th class="border-0"><%= _("Email") %></th>
+                <th class="border-0"><%= _("Created") %></th>
+                <th class="border-0"><%= _("Last Sign In") %></th>
+                <th class="border-0 text-end"><%= _("Actions") %></th>
               </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
                         <div class="fw-medium text-dark">
                           <%= user.email %>
                           <% if user == current_user %>
-                            <span class="badge bg-primary ms-2">You</span>
+                            <span class="badge bg-primary ms-2"><%= _("You") %></span>
                           <% end %>
                         </div>
                       </div>
@@ -80,7 +80,7 @@
                     <% if user.last_sign_in_at %>
                       <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
                     <% else %>
-                      <span class="text-muted">Never</span>
+                      <span class="text-muted"><%= _("Never") %></span>
                     <% end %>
                   </td>
                   <td class="text-end">
@@ -89,15 +89,15 @@
                           method: :patch,
                           class: "btn btn-outline-danger btn-sm d-flex align-items-center",
                           data: {
-                            turbo_confirm: "Are you sure you want to revoke administrator privileges from #{user.email}? They will lose access to the administration panel."
+                            turbo_confirm: _("Are you sure you want to revoke administrator privileges from %{email}? They will lose access to the administration panel.") % { email: user.email }
                           } do %>
                         <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
                         </svg>
-                        Revoke
+                        <%= _("Revoke") %>
                       <% end %>
                     <% else %>
-                      <span class="text-muted small">Cannot revoke your own privileges</span>
+                      <span class="text-muted small"><%= _("Cannot revoke your own privileges") %></span>
                     <% end %>
                   </td>
                 </tr>
@@ -110,8 +110,8 @@
           <svg class="text-muted mx-auto mb-3" width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
           </svg>
-          <h3 class="h6 fw-medium text-dark">No administrators found</h3>
-          <p class="text-muted small">There are currently no administrator accounts in the system.</p>
+          <h3 class="h6 fw-medium text-dark"><%= _("No administrators found") %></h3>
+          <p class="text-muted small"><%= _("There are currently no administrator accounts in the system.") %></p>
         </div>
       <% end %>
     </div>
@@ -123,11 +123,11 @@
           <svg class="text-muted me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
           </svg>
-          Regular Users
+          <%= _("Regular Users") %>
         </div>
         <div class="d-flex align-items-center gap-2">
           <div class="rounded-circle bg-secondary" style="width: 8px; height: 8px;"></div>
-          <span class="text-muted small"><%= @regular_users.total_count %> Regular Users</span>
+          <span class="text-muted small"><%= _("%{count} Regular Users") % { count: @regular_users.total_count } %></span>
         </div>
       </h2>
 
@@ -136,10 +136,10 @@
           <table class="table table-hover">
             <thead class="table-light">
               <tr>
-                <th class="border-0">Email</th>
-                <th class="border-0">Created</th>
-                <th class="border-0">Last Sign In</th>
-                <th class="border-0 text-end">Actions</th>
+                <th class="border-0"><%= _("Email") %></th>
+                <th class="border-0"><%= _("Created") %></th>
+                <th class="border-0"><%= _("Last Sign In") %></th>
+                <th class="border-0 text-end"><%= _("Actions") %></th>
               </tr>
             </thead>
             <tbody>
@@ -166,7 +166,7 @@
                     <% if user.last_sign_in_at %>
                       <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
                     <% else %>
-                      <span class="text-muted">Never</span>
+                      <span class="text-muted"><%= _("Never") %></span>
                     <% end %>
                   </td>
                   <td class="text-end">
@@ -174,12 +174,12 @@
                         method: :patch,
                         class: "btn btn-outline-success btn-sm d-flex align-items-center",
                         data: {
-                          turbo_confirm: "Are you sure you want to promote #{user.email} to administrator? This will give them full access to the administration panel."
+                          turbo_confirm: _("Are you sure you want to promote %{email} to administrator? This will give them full access to the administration panel.") % { email: user.email }
                         } do %>
                       <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
-                      Promote
+                      <%= _("Promote") %>
                     <% end %>
                   </td>
                 </tr>
@@ -197,8 +197,8 @@
           <svg class="text-muted mx-auto mb-3" width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
           </svg>
-          <h3 class="h6 fw-medium text-dark">No regular users found</h3>
-          <p class="text-muted small">All users in the system are administrators.</p>
+          <h3 class="h6 fw-medium text-dark"><%= _("No regular users found") %></h3>
+          <p class="text-muted small"><%= _("All users in the system are administrators.") %></p>
         </div>
       <% end %>
     </div>
