@@ -13,10 +13,21 @@ email = ARGV[0]
 begin
   user = User.find_by!(email: email)
 
+  # Detect database adapter and use appropriate SQL syntax
+  adapter = ActiveRecord::Base.connection.adapter_name.downcase
+  if adapter == 'postgresql'
+    sql = "UPDATE users SET admin = $1 WHERE id = $2"
+    params = [true, user.id]
+  else
+    # SQLite3 and other databases use ? placeholders
+    sql = "UPDATE users SET admin = ? WHERE id = ?"
+    params = [true, user.id]
+  end
+
   affected_rows = ActiveRecord::Base.connection.exec_update(
-    "UPDATE users SET admin = ? WHERE id = ?",
+    sql,
     "Promote User Admin Status",
-    [true, user.id]
+    params
   )
 
   if affected_rows > 0
