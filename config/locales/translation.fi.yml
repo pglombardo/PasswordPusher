@@ -116,8 +116,9 @@ fi:
       not_locked: ei ollut lukittu
       in: täytyy olla kohdassa %{count}
       password_too_long: on liian pitkä
-      one: '1 virhe esti %{resource} tallentamisen:'
-      other: "%{count} virhettä esti %{resource} tallentamisen:"
+      not_saved:
+        one: '1 virhe esti %{resource} tallentamisen:'
+        other: "%{count} virhettä esti %{resource} tallentamisen:"
     unavailable_session: Istunto %{id} ei ole enää käytettävissä muistissa. Jos käytät
       moniprosessipalvelinta (kuten Unicorn tai Puma), tämä pyyntöosuma ei tallenna
       %{id}:tä muistiin. Harkitse prosessien määrän kääntämistä yhteen (1) tai toisen
@@ -469,81 +470,3 @@ fi:
       previous: "&lsaquo; Edellinen"
       next: Seuraava &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Tämä järjestelmänvalvojan hallintapaneeli tarjoaa suoran tietokannan
-          pääsyn Password Pusher -sovellukseen. Ole varovainen ja harkitse varmuuskopion
-          tekemistä ennen muutosten tekemistä.
-        admin_note: 'Huomautus: Tietueen tuhoaminen tuhoaa myös kaikki alatason tietueet.
-          Esimerkiksi käyttäjän tuhoaminen tuhoaa myös kaikki kyseisen käyttäjän työnnetyt
-          salasanat, tiedostot ja URL-osoitteet.'
-  audit_logs:
-    audit_log:
-      log_created: 'Push loi %{date}: %{user}'
-      log_expired: 'Push vanhentui manuaalisesti %{date}: %{user}'
-      log_failed_view: Epäonnistui katseluyritys %{date} käyttäjältä %{user}
-      log_viewed: "%{user} onnistui tarkastelemaan kohdetta %{date}"
-      log_failed_passphrase: 'Epäonnistunut tunnuslauseyritys %{date}: %{user}'
-      ip_address: 'IP-osoite:'
-      referrer: 'Viittaus:'
-      user_agent: 'Käyttäjäagentti:'
-      none: Ei mitään
-  pushes:
-    access:
-      incorrect: Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön
-        tai organisaatioon, joka lähetti sinulle tämän linkin.
-    audit:
-      title: Push Audit Log
-    expire:
-      expired: Lähetys on poistettu ja salainen URL-osoite vanhentunut.
-      not_deletable: Katsojat eivät voi poistaa tätä lähetystä.
-      already_expired: Tuo työntö on jo vanhentunut.
-    form:
-      upload_limit: Voit ladata enintään 10 tiedostoa työntöä kohti.
-      name_or_id: Nimi tai tunnus
-      kind: Ystävällinen
-    preview:
-      link_lang_tip: 'Vinkki: lähetätkö kansainväliselle käyttäjälle? Vaihda salaisen
-        linkin kieli URL-osoitteen oikealla puolella olevasta valikosta.'
-      link_lang_auto: Vaihtoehtoisesti automaattinen tunnistus valitsee kielen loppukäyttäjän
-        selaimen asetusten perusteella.
-    payload_too_large: Hyötykuorma on liian suuri. Voit työntää enintään %{count}
-      tavua.
-    too_many_files: Voit liittää enintään %{count} tiedostoa työntöä kohti.
-    new:
-      title: Lähetä turvallisesti salasana, teksti tai tiedosto
-    create:
-      qr_max_length: QR-koodin hyötykuorma on liian suuri. Voit työntää enintään %{count}
-        tavua.
-      invalid_url: täytyy olla kelvollinen HTTP- tai HTTPS-URL-osoite.
-      payload_required: Hyötykuorma vaaditaan.
-    file_pushes_disabled: Tiedostojen push-toiminnot ovat poissa käytöstä.
-    need_login_for_active: Sinun on oltava kirjautuneena sisään nähdäksesi aktiiviset
-      työnnät.
-    need_login_for_expired: Sinun on oltava kirjautuneena sisään nähdäksesi vanhentuneet
-      työnnät.
-    not_deletable_or_not_owner: Katsojat eivät voi poistaa tätä painostusta, eikä
-      se kuulu sinulle.
-    not_owner_push: Tämä lähetys ei kuulu sinulle.
-    url_pushes_disabled: URL-sivujen lähettäminen on poistettu käytöstä.
-    index:
-      views_days_remaining: "%{views} katselukertaa tai %{days} päivää"
-    qr_pushes_disabled: QR-koodien lähettäminen on poistettu käytöstä.
-  zero_minutes: 0 minuuttia
-  confirmation_go: Napsauta tästä vahvistaaksesi tilisi
-  application:
-    secret_url_bar:
-      autodetect: Automaattinen havainnointi
-    push_expiration:
-      will_expire_in: 'Yllä olevat tiedostojen latauslinkit vanhenevat:'
-      you_can_refresh: Voit päivittää sivun uusien latauslinkkien luomiseksi, jos
-        näkymiä on jäljellä.
-  words:
-    audit: Auditointi
-    forbidden: Kielletty
-    not_found: Ei löydy
-    share: Jaa
-    expired: Vanhentunut
-    none: Ei mitään
-    remaining: Jäljellä

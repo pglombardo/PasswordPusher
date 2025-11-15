@@ -116,8 +116,9 @@ sv:
       not_locked: var inte låst
       in: måste vara i %{count}
       password_too_long: är för lång
-      one: 'Ett fel hindrade denna %{resource} från att sparas:'
-      other: "%{count} fel hindrade denna %{resource} från att sparas:"
+      not_saved:
+        one: '1 fel hindrade denna %{resource} från att sparas:'
+        other: "%{count} fel hindrade denna %{resource} från att sparas:"
     unavailable_session: |-
       Sessionen %{id} är inte längre tillgänglig i minnet.
 
@@ -474,80 +475,3 @@ sv:
       previous: "&lsaquo; Föregående"
       next: Nästa &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Denna administratörspanel ger direkt databasåtkomst till applikationen
-          Password Pusher. Var försiktig och överväg att göra en säkerhetskopia innan
-          du gör några ändringar.
-        admin_note: 'Obs: Att förstöra en post förstör också alla underordnade poster.
-          Om du till exempel förstör en användare förstörs också alla pushade lösenord,
-          filer och webbadresser för den användaren.'
-  audit_logs:
-    audit_log:
-      log_created: Push skapad på %{date} av %{user}
-      log_expired: Push gick ut manuellt på %{date} av %{user}
-      log_failed_view: Misslyckad visning av %{date} av %{user}
-      log_viewed: Lyckad visning av %{date} av %{user}
-      log_failed_passphrase: Misslyckat lösenfrasförsök på %{date} av %{user}
-      ip_address: 'IP-adress:'
-      referrer: 'Hänvisare:'
-      user_agent: 'Användaragent:'
-      none: Ingen
-  pushes:
-    access:
-      incorrect: Den lösenfrasen är felaktig. Försök igen eller kontakta personen
-        eller organisationen som skickade den här länken till dig.
-    audit:
-      title: Tryck på revisionslogg
-    expire:
-      expired: Det pushade innehållet har tagits bort och den hemliga länken har löpt
-        ut.
-      not_deletable: Det här värdet kan inte raderas av personer med läsbehörighet.
-      already_expired: Den pushen har redan gått ut.
-    form:
-      upload_limit: Du kan ladda upp upp till 10 filer per push.
-      name_or_id: Namn eller ID
-      kind: Slag
-    preview:
-      link_lang_tip: 'Tips: Skickar du till en internationell användare? Ändra det
-        hemliga länkspråket med rullgardinsmenyn till höger om URLen.'
-      link_lang_auto: Alternativt kommer automatisk identifiering att välja ett språk
-        baserat på slutanvändarens webbläsarinställningar.
-    payload_too_large: Nyttolasten är för stor. Du kan bara trycka upp till %{count}
-      byte.
-    too_many_files: Du kan bara bifoga upp till %{count}-filer per tryckning.
-    new:
-      title: Skicka ett lösenord, text eller fil säkert
-    create:
-      qr_max_length: QR-kodens nyttolast är för stor. Du kan bara trycka upp till
-        %{count} byte.
-      invalid_url: måste vara en giltig HTTP- eller HTTPS-URL.
-      payload_required: Nyttolast krävs.
-    file_pushes_disabled: Filöverföringar är inaktiverade.
-    need_login_for_active: Du måste vara inloggad för att se dina aktiva pushar.
-    need_login_for_expired: Du måste vara inloggad för att se dina utgångna pushar.
-    not_deletable_or_not_owner: Den pushen kan inte tas bort av tittarna och tillhör
-      inte dig.
-    not_owner_push: Den pushen tillhör inte dig.
-    url_pushes_disabled: URL-pushs är inaktiverade.
-    index:
-      views_days_remaining: "%{views} visningar eller %{days} dagar"
-    qr_pushes_disabled: QR-kodsöverföringar är inaktiverade.
-  zero_minutes: 0 minuter
-  confirmation_go: Klicka här för att bekräfta ditt konto
-  application:
-    secret_url_bar:
-      autodetect: Automatisk upptäckt
-    push_expiration:
-      will_expire_in: 'Filnedladdningslänkarna ovan upphör att gälla om:'
-      you_can_refresh: Du kan uppdatera sidan för att återskapa nya nedladdningslänkar
-        om visningar kvarstår.
-  words:
-    audit: Granska
-    forbidden: Förbjuden
-    not_found: Hittade inte
-    share: Dela med sig
-    expired: Utgånget
-    none: Ingen
-    remaining: Återstående

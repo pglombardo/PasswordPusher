@@ -6,7 +6,6 @@
 #
 ---
 en-GB:
-  zero_minutes: 0 minutes
   date:
     day_names:
     - Sunday
@@ -117,8 +116,9 @@ en-GB:
       expired: has expired, please request a new one
       not_found: not found
       not_locked: was not locked
-      one: '1 error prohibited this %{resource} from being saved:'
-      other: "%{count} errors prohibited this %{resource} from being saved:"
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"
     template:
       body: 'There were problems with the following fields:'
       header:
@@ -474,78 +474,3 @@ en-GB:
       previous: "&lsaquo; Prev"
       next: Next &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: This admin dashboard provides direct database access to the Password
-          Pusher application.  Please be careful and consider making a backup before
-          making any changes.
-        admin_note: 'Note: Destroying a record also destroys all child records. For
-          example, destroying a user will also destroy all pushed passwords, files
-          and urls for that user.'
-  application:
-    secret_url_bar:
-      autodetect: Auto-Detect
-    push_expiration:
-      will_expire_in: 'The file download links above will expire in:'
-      you_can_refresh: You can refresh the page to regenerate new download links if
-        views remain.
-  audit_logs:
-    audit_log:
-      log_created: Push created on %{date} by %{user}
-      log_expired: Push manually expired on %{date} by %{user}
-      log_failed_passphrase: Failed passphrase attempt on %{date} by %{user}
-      log_failed_view: Failed view attempt on %{date} by %{user}
-      log_viewed: Successful view on %{date} by %{user}
-      ip_address: 'IP Address:'
-      referrer: 'Referrer:'
-      user_agent: 'User Agent:'
-      none: None
-  confirmation_go: Click Here to Confirm Your Account
-  pushes:
-    access:
-      incorrect: That passphrase is incorrect.  Please try again or contact the person
-        or organization that sent you this link.
-    audit:
-      title: Push Audit Log
-    expire:
-      already_expired: That push has already expired.
-      expired: The push content has been deleted and the secret URL expired.
-      not_deletable: That push is not deletable by viewers.
-    form:
-      upload_limit: You can upload up to %{count} files per push.
-      name_or_id: Name or ID
-      kind: Kind
-    payload_too_large: The payload is too large.  You can only push up to %{count}
-      bytes.
-    preview:
-      link_lang_auto: Alternatively auto-detection will select a language based on
-        end-user browser settings.
-      link_lang_tip: 'Tip: Pushing to an international user?  Change the secret link
-        language using the dropdown menu to the right of the URL.'
-    too_many_files: You can only attach up to %{count} files per push.
-    new:
-      title: Securely Send a Password, Text or File
-    create:
-      qr_max_length: The QR code payload is too large.  You can only push up to %{count}
-        bytes.
-      invalid_url: must be a valid HTTP or HTTPS URL.
-      payload_required: Payload is required.
-    file_pushes_disabled: File pushes are disabled.
-    need_login_for_active: You must be logged in to view your active pushes.
-    need_login_for_expired: You must be logged in to view your expired pushes.
-    not_deletable_or_not_owner: That push is not deletable by viewers and does not
-      belong to you.
-    not_owner_push: That push doesn't belong to you.
-    url_pushes_disabled: URL pushes are disabled.
-    index:
-      views_days_remaining: "%{views} views or %{days} days"
-    qr_pushes_disabled: QR code pushes are disabled.
-  words:
-    audit: Audit
-    forbidden: Forbidden
-    not_found: Not Found
-    share: Share
-    expired: Expired
-    none: None
-    remaining: Remaining

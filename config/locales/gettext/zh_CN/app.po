@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:18+0100\n"
-"PO-Revision-Date: 2025-11-15 21:18+0000\n"
+"POT-Creation-Date: 2025-11-15 22:44+0100\n"
+"PO-Revision-Date: 2025-11-15 21:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -17,6 +17,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn"
+msgstr "那股推动力"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr "该密码不正确。请重试或联系向您发送此链接的个人或组织。"
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "文件推送已禁用。"
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "URL 推送已禁用。"
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "二维码推送已禁用。"
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "每次推送最多只能附加 %{count} 个文件。"
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "需要有效载荷。"
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "有效负载太大。您最多只能推送 %{count} 个字节。"
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "必须是有效的 HTTP 或 HTTPS URL。"
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "QR 码负载过大。您最多只能推送 %{count} 个字节。"
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -324,9 +371,28 @@ msgstr "未找到固定用户"
 msgid "All users in the system are administrators."
 msgstr "系统中的所有用户都是管理员。"
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "上述文件下载链接将在以下时间过期："
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr "如果仍有浏览量，您可以刷新页面以重新生成新的下载链接。"
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "已到期"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "秘密链接语言"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "自动侦测"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -334,6 +400,69 @@ msgstr "秘密链接语言"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "%{user} 在 %{date} 上创建的推送"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:7
+#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP 地址："
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "用户代理："
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "无"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "引荐人："
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "手动推送已在 %{date} 上由 %{user} 过期"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "%{user} 对 %{date} 的密码尝试失败"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "%{user} 对 %{date} 的查看尝试失败"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "%{user} 对 %{date} 的查看成功"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "单击此处确认您的帐户"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -1353,6 +1482,10 @@ msgstr "已保存！"
 msgid "Add Files..."
 msgstr "添加文件..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "您每次推送最多可以上传 %{count} 个文件。"
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1573,6 +1706,10 @@ msgstr "到期后，推送 URL 将被完全删除。"
 msgid "Audit Log for %{push_id}"
 msgstr "%{push_id} 的审核日志"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "推送 ID 的审计日志：%{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "已推送至 %{date}"
@@ -1584,11 +1721,6 @@ msgstr "此推送的私密 URL"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "仅自己可见"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "无"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1650,12 +1782,6 @@ msgstr "当前状态"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "状态："
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "已到期"
 
 #: ../../../app/views/pushes/audit.html.erb:99
 msgid "The push content has been deleted and the secret URL expired."
@@ -1810,9 +1936,21 @@ msgstr "过期推送"
 msgid "All Pushes"
 msgstr "所有推送"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "姓名或身份证"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "种类"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "备注"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "其余的"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1830,6 +1968,10 @@ msgstr "二维码"
 msgid "Text"
 msgstr "文本"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} 次观看或 %{days} 天"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "推送设置"
@@ -1841,6 +1983,10 @@ msgstr "预览"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "审计"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "安全地发送密码、文本或文件"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1959,6 +2105,18 @@ msgstr "再推一个"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "查看审计日志"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr "提示：推送给国际用户？使用 URL 右侧的下拉菜单更改秘密链接的页面展示语言。"
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr "或者自动检测将根据最终用户的浏览器设置选择一种语言。"
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

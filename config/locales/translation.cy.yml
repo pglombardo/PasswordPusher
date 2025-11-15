@@ -6,7 +6,6 @@
 #
 ---
 cy:
-  zero_minutes: 0 munud
   date:
     day_names:
     - Dydd Sul
@@ -117,8 +116,9 @@ cy:
       expired: wedi dod i ben, gofynnwch am un newydd
       not_found: heb ei ganfod
       not_locked: nid oedd wedi'i gloi
-      one: 'Gwaharddodd 1 gwall hwn rhag cael ei gadw %{resource}:'
-      other: 'Roedd gwallau %{count} yn gwahardd cadw''r %{resource} hwn:'
+      not_saved:
+        one: 'Gwaharddodd 1 gwall hwn rhag cael ei gadw %{resource}:'
+        other: 'Roedd gwallau %{count} yn gwahardd cadw''r %{resource} hwn:'
     template:
       body: 'Cafwyd broblemau gyda''r meysydd canlynol:'
       header:
@@ -480,81 +480,3 @@ cy:
       previous: "‹ Blaenorol"
       next: Nesaf ›
       truncate: "…"
-  layouts:
-    admin:
-      application:
-        admin_intro: Mae'r dangosfwrdd gweinyddol hwn yn darparu mynediad uniongyrchol
-          i'r gronfa ddata i'r rhaglen Password Pusher. Byddwch yn ofalus ac ystyriwch
-          wneud copi wrth gefn cyn gwneud unrhyw newidiadau.
-        admin_note: 'Nodyn: Mae dinistrio cofnod hefyd yn dinistrio pob cofnod plentyn.
-          Er enghraifft, bydd dinistrio defnyddiwr hefyd yn dinistrio pob cyfrinair,
-          ffeil ac URL a anfonwyd at y defnyddiwr hwnnw.'
-  pushes:
-    index:
-      views_days_remaining: "%{views} golygfeydd neu %{days} diwrnod"
-    access:
-      incorrect: Mae'r cyfrinair hwnnw'n anghywir. Rhowch gynnig arall arni neu cysylltwch
-        â'r person neu'r sefydliad a anfonodd y ddolen hon atoch.
-    audit:
-      title: 'Log Archwilio ar gyfer ID Gwthio: %{push_id}'
-    create:
-      invalid_url: rhaid iddo fod yn URL HTTP neu HTTPS dilys.
-      payload_required: Mae angen llwyth tâl.
-      qr_max_length: Mae llwyth y cod QR yn rhy fawr. Dim ond hyd at %{count} beit
-        y gallwch ei wthio.
-    expire:
-      already_expired: Mae'r gwthiad hwnnw eisoes wedi dod i ben.
-      expired: Mae'r cynnwys gwthio wedi'i ddileu ac mae'r URL cyfrinachol wedi dod
-        i ben.
-      not_deletable: Ni ellir dileu'r gwthiad hwnnw gan wylwyr.
-    file_pushes_disabled: Mae gwthio ffeiliau wedi'u hanalluogi.
-    form:
-      kind: Caredig
-      name_or_id: Enw neu ID
-      upload_limit: Gallwch uwchlwytho hyd at %{count} o ffeiliau fesul gwthiad.
-    need_login_for_active: Rhaid i chi fod wedi mewngofnodi i weld eich gwthiadau
-      gweithredol.
-    need_login_for_expired: Rhaid i chi fod wedi mewngofnodi i weld eich gwthiadau
-      sydd wedi dod i ben.
-    new:
-      title: Anfon Cyfrinair, Neges Destun neu Ffeil yn Ddiogel
-    not_deletable_or_not_owner: Ni ellir dileu'r gwthiad hwnnw gan wylwyr ac nid yw'n
-      eiddo i chi.
-    not_owner_push: Nid yw'r gwthiad hwnnw'n perthyn i chi.
-    payload_too_large: Mae'r llwyth tâl yn rhy fawr. Dim ond hyd at %{count} beit
-      y gallwch ei wthio.
-    preview:
-      link_lang_auto: Fel arall, bydd canfod awtomatig yn dewis iaith yn seiliedig
-        ar osodiadau porwr y defnyddiwr terfynol.
-      link_lang_tip: 'Awgrym: Anfon at ddefnyddiwr rhyngwladol? Newidiwch iaith y
-        ddolen gyfrinachol gan ddefnyddio''r ddewislen i''r dde o''r URL.'
-    qr_pushes_disabled: Mae gwthio cod QR wedi'i analluogi.
-    too_many_files: Dim ond hyd at %{count} o ffeiliau y gallwch eu hatodi fesul gwthiad.
-    url_pushes_disabled: Mae gwthio URL wedi'u hanalluogi.
-  application:
-    push_expiration:
-      will_expire_in: 'Bydd y dolenni lawrlwytho ffeiliau uchod yn dod i ben ymhen:'
-      you_can_refresh: Gallwch adnewyddu'r dudalen i adfywio dolenni lawrlwytho newydd
-        os oes golygfeydd yn parhau.
-    secret_url_bar:
-      autodetect: Canfod iaith y derbynnydd yn awtomatig
-  audit_logs:
-    audit_log:
-      ip_address: 'Cyfeiriad IP:'
-      log_created: Crëwyd ar %{date} gan %{user}
-      log_expired: Wedi dod i ben â llaw ar %{date} gan %{user}
-      log_failed_passphrase: Ymgais cyfrinair aflwyddiannus ar %{date} gan %{user}
-      log_failed_view: Ymgais gweld aflwyddiannus ar %{date} gan %{user}
-      log_viewed: Golwg lwyddiannus ar %{date} gan %{user}
-      none: Dim
-      referrer: 'Cyfeiriwr:'
-      user_agent: 'Asiant Defnyddiwr:'
-  confirmation_go: Cliciwch Yma i Gadarnhau Eich Cyfrif
-  words:
-    audit: Archwiliad
-    expired: Wedi dod i ben
-    forbidden: Gwaharddedig
-    none: Dim
-    not_found: Heb ei Ganfod
-    remaining: Yn weddill
-    share: Rhannu

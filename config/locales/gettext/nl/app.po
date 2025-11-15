@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:18+0100\n"
-"PO-Revision-Date: 2025-11-15 21:18+0000\n"
+"POT-Creation-Date: 2025-11-15 22:44+0100\n"
+"PO-Revision-Date: 2025-11-15 21:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn"
+msgstr "Die duw doet het niet"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Dat wachtwoord is onjuist. Probeer het opnieuw of neem contact op met de perso"
+"on of organisatie die u deze link heeft gestuurd."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Bestandspushes zijn uitgeschakeld."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "URL-pushes zijn uitgeschakeld."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "QR-code pushes zijn uitgeschakeld."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "U kunt maximaal %{count}-bestanden per push bijvoegen."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Payload is vereist."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "De lading is te groot. U kunt maximaal %{count} bytes pushen."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "moet een geldige HTTP- of HTTPS-URL zijn."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "De QR-code payload is te groot. U kunt maximaal %{count} bytes pushen."
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -338,9 +387,30 @@ msgstr "Geen vaste gebruikers gevonden"
 msgid "All users in the system are administrators."
 msgstr "Alle gebruikers in het systeem zijn beheerders."
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "De bovenstaande links voor het downloaden van bestanden verlopen over:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"U kunt de pagina vernieuwen om nieuwe downloadlinks te genereren als de pagina"
+" nog steeds bekeken wordt."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Verlopen"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Taal van geheime link"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Automatische detectie"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -348,6 +418,69 @@ msgstr "Taal van geheime link"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopiëren naar het klembord"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push gemaakt op %{date} door %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:7
+#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP-adres:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Gebruikersagent:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Geen"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Verwijzer:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push handmatig verlopen op %{date} door %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Mislukte poging tot wachtwoordzin op %{date} door %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Mislukte weergavepoging op %{date} door %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Succesvolle weergave op %{date} door %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Klik hier om uw account te bevestigen"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -1449,6 +1582,10 @@ msgstr "Opgeslagen!"
 msgid "Add Files..."
 msgstr "Bestanden toevoegen..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Je kunt tot %{count} bestanden per push uploaden."
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1682,6 +1819,10 @@ msgstr "Na afloop wordt de push-URL volledig verwijderd."
 msgid "Audit Log for %{push_id}"
 msgstr "Auditlogboek voor %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Auditlog voor Push-ID: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Op %{date} geduwd"
@@ -1693,11 +1834,6 @@ msgstr "Geheime URL voor deze push"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Alleen Zichtbaar Voor Jou"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Geen"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1759,12 +1895,6 @@ msgstr "Huidige Status"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Staat:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Verlopen"
 
 #: ../../../app/views/pushes/audit.html.erb:99
 msgid "The push content has been deleted and the secret URL expired."
@@ -1927,9 +2057,21 @@ msgstr "Verlopen pushes"
 msgid "All Pushes"
 msgstr "Alle pushes"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Naam of ID"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Soort"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Opmerking"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Overig"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1947,6 +2089,10 @@ msgstr "QR-code"
 msgid "Text"
 msgstr "Tekst"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} weergaven of %{days} dagen"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Push Controle"
@@ -1958,6 +2104,10 @@ msgstr "Voorbeeld"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Audit"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Veilig een wachtwoord, tekst of bestand verzenden"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -2076,6 +2226,22 @@ msgstr "Push er nog één"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "Auditlogboek bekijken"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Tip: Pushen naar een internationale gebruiker? Wijzig de taal van de geheime l"
+"ink met behulp van het vervolgkeuzemenu rechts van de URL."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Als alternatief selecteert automatische detectie een taal op basis van de brow"
+"serinstellingen van de eindgebruiker."
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

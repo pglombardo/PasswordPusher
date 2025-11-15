@@ -6,7 +6,6 @@
 #
 ---
 sk:
-  zero_minutes: 0 minút
   date:
     day_names:
     - Nedeľa
@@ -117,8 +116,9 @@ sk:
       expired: vypršal, prosím vyžiadajte si nový
       not_found: nenájdený
       not_locked: nebol zamknutý
-      one: "%{resource} nebol uložený kvôli chybe:"
-      other: "%{resource} nebol uložený kvôli %{count} chybám:"
+      not_saved:
+        one: "%{resource} nebol uložený kvôli chybe:"
+        other: "%{resource} nebol uložený kvôli %{count} chybám:"
     template:
       body: 'Nasledujúce polia obsahujú chybne vyplnené údaje:'
       header:
@@ -475,82 +475,3 @@ sk:
       previous: "&lsaquo; Späť"
       next: Ďalej &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Tento panel správcu poskytuje priamy prístup k databáze aplikácie
-          Password Pusher.  Pred vykonaním akýchkoľvek zmien buďte opatrní a zvážte
-          vytvorenie zálohy.
-        admin_note: 'Poznámka: Zničenie záznamu zničí aj všetky podriadené záznamy.
-          Napríklad zničenie používateľa zničí aj všetky zatlačené heslá, súbory a
-          adresy URL pre tohto používateľa.'
-  audit_logs:
-    audit_log:
-      log_created: Push vytvorený na %{date} podľa %{user}
-      log_expired: Push manuálne vypršal na %{date} o %{user}
-      log_failed_view: Neúspešný pokus o zobrazenie %{date} zo strany %{user}
-      log_viewed: Úspešné zobrazenie %{date} podľa %{user}
-      log_failed_passphrase: Neúspešný pokus o zadanie prístupovej frázy na %{date}
-        od %{user}
-      ip_address: 'IP adresa:'
-      referrer: 'Odosielateľ:'
-      user_agent: 'Používateľský agent:'
-      none: Žiadne
-  confirmation_go: Kliknutím sem potvrďte svoje konto
-  pushes:
-    access:
-      incorrect: Táto prístupová fráza je nesprávna.  Skúste to znova alebo sa obráťte
-        na osobu alebo organizáciu, ktorá vám toto prepojenie poslala.
-    audit:
-      title: Protokol auditu Push
-    expire:
-      expired: Obsah push bol odstránený a platnosť tajnej adresy URL vypršala.
-      not_deletable: Tento push nie je možné vymazať zo strany divákov.
-      already_expired: Tento tlak už vypršal.
-    form:
-      upload_limit: Na jedno odoslanie môžete nahrať až %{count} súborov.
-      name_or_id: Meno alebo ID
-      kind: Láskavé
-    preview:
-      link_lang_tip: 'Tip: Tlačíte na medzinárodného používateľa?  Zmeňte jazyk tajného
-        odkazu pomocou rozbaľovacieho menu napravo od adresy URL.'
-      link_lang_auto: Prípadne automatická detekcia vyberie jazyk na základe nastavení
-        prehliadača koncového používateľa.
-    payload_too_large: Užitočné zaťaženie je príliš veľké.  Môžete odoslať len do
-      %{count} bajtov.
-    too_many_files: Na jedno odoslanie môžete pripojiť len %{count} súborov.
-    new:
-      title: Bezpečné odoslanie hesla, textu alebo súboru
-    create:
-      qr_max_length: Náklad QR kódu je príliš veľký.  Môžete odoslať len do %{count}
-        bajtov.
-      invalid_url: musí byť platná adresa URL HTTP alebo HTTPS.
-      payload_required: Vyžaduje sa užitočné zaťaženie.
-    file_pushes_disabled: Posúvanie súborov je zakázané.
-    need_login_for_active: Musíte byť prihlásený, aby ste si mohli prezerať svoje
-      aktívne tlaky.
-    need_login_for_expired: Musíte byť prihlásení, aby ste si mohli prezerať svoje
-      vypršané tlače.
-    not_deletable_or_not_owner: Tento push nie je odstrániteľný divákmi a nepatrí
-      vám.
-    not_owner_push: Toto tlačenie vám nepatrí.
-    url_pushes_disabled: Posunutie adresy URL je zakázané.
-    index:
-      views_days_remaining: "%{views} zobrazení alebo %{days} dní"
-    qr_pushes_disabled: Tlačenie QR kódov je vypnuté.
-  application:
-    secret_url_bar:
-      autodetect: Automatická detekcia
-    push_expiration:
-      will_expire_in: 'Platnosť vyššie uvedených odkazov na stiahnutie súborov vyprší
-        v:'
-      you_can_refresh: Ak zostanú zobrazenia, môžete stránku obnoviť a vygenerovať
-        nové odkazy na stiahnutie.
-  words:
-    audit: Audit
-    forbidden: Zakázané
-    not_found: Nenájdené
-    share: Zdieľať
-    expired: Vypršala platnosť
-    none: Žiadne
-    remaining: Zostávajúce

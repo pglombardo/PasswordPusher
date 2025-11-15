@@ -115,8 +115,9 @@ zh-CN:
       not_found: 找不到
       not_locked: 未被锁定
       password_too_long: 太长
-      one: 发生 1 个错误，导致%{resource}保存失败：
-      other: 发生 %{count} 个错误，导致%{resource}保存失败：
+      not_saved:
+        one: 发生 1 个错误，导致%{resource}保存失败：
+        other: 发生 %{count} 个错误，导致%{resource}保存失败：
     unavailable_session: 会话 %{id} 在内存中不再可用。如果您碰巧在多进程服务器（如 Unicorn 或 Puma）上运行，则此请求命中的进程不会将
       %{id} 存储在内存中。考虑将进程/worker进程的数量变成一 (1) 个或在开发中使用不同的服务器。
     unacceptable_request: Accept 标头中应包含受支持的版本号。
@@ -435,68 +436,3 @@ zh-CN:
       previous: "&lsaquo; 上一页"
       next: 下一页 &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: 此管理仪表板提供对 Password Pusher 应用程序的直接数据库访问。请小心谨慎，并在进行任何更改之前考虑进行备份。
-        admin_note: 注意：销毁记录也会销毁所有子记录。例如，销毁用户也会销毁该用户的所有推送的密码、文件和 URL。
-  audit_logs:
-    audit_log:
-      log_created: "%{user} 在 %{date} 上创建的推送"
-      log_expired: 手动推送已在 %{date} 上由 %{user} 过期
-      log_failed_view: "%{user} 查看 %{date} 失败"
-      log_viewed: "%{user} 成功浏览 %{date}"
-      log_failed_passphrase: "%{user} 对 %{date} 的密码尝试失败"
-      ip_address: IP 地址：
-      referrer: 引荐人：
-      user_agent: 用户代理：
-      none: 无
-  pushes:
-    access:
-      incorrect: 该密码不正确。请重试或联系向您发送此链接的个人或组织。
-    audit:
-      title: 推送审核日志
-    expire:
-      expired: 推送内容已被删除，密文网址已过期。
-      not_deletable: 观看者无法删除那个推送。
-      already_expired: 该推送已经过期。
-    form:
-      upload_limit: 每次推送最多可以上传 10 个文件。
-      name_or_id: 姓名或身份证
-      kind: 种类
-    preview:
-      link_lang_tip: 提示：推送给国际用户？使用 URL 右侧的下拉菜单更改秘密链接的页面展示语言。
-      link_lang_auto: 或者自动检测将根据最终用户的浏览器设置选择一种语言。
-    payload_too_large: 有效负载太大。您最多只能推送 %{count} 个字节。
-    too_many_files: 每次推送最多只能附加 %{count} 个文件。
-    new:
-      title: 安全地发送密码、文本或文件
-    create:
-      qr_max_length: QR 码负载过大。您最多只能推送 %{count} 个字节。
-      invalid_url: 必须是有效的 HTTP 或 HTTPS URL。
-      payload_required: 需要有效载荷。
-    file_pushes_disabled: 文件推送已禁用。
-    need_login_for_active: 您必须登录才能查看您的活动推送。
-    need_login_for_expired: 您必须登录才能查看已过期的推送。
-    not_deletable_or_not_owner: 该推送无法被观众删除，并且不属于您。
-    not_owner_push: 那个推送不属于你。
-    url_pushes_disabled: URL 推送已禁用。
-    index:
-      views_days_remaining: "%{views} 次观看或 %{days} 天"
-    qr_pushes_disabled: 二维码推送已禁用。
-  zero_minutes: 0 分钟
-  confirmation_go: 单击此处确认您的帐户
-  application:
-    secret_url_bar:
-      autodetect: 自动侦测
-    push_expiration:
-      will_expire_in: 上述文件下载链接将在以下时间过期：
-      you_can_refresh: 如果仍有浏览量，您可以刷新页面以重新生成新的下载链接。
-  words:
-    audit: 审计
-    forbidden: 禁止
-    not_found: 未找到
-    share: 分享
-    expired: 已到期
-    none: 无
-    remaining: 其余的

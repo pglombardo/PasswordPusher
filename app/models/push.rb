@@ -111,28 +111,28 @@ class Push < ApplicationRecord
 
   def check_files_for_file
     if files.attached? && files.count { |file| !(file.is_a?(String) && file.empty?) } > settings_for_kind.max_file_uploads
-      errors.add(:files, I18n.t("pushes.too_many_files", count: settings_for_kind.max_file_uploads))
+      errors.add(:files, I18n._("You can only attach up to %{count} files per push.", count: settings_for_kind.max_file_uploads))
     end
   end
 
   def check_payload_for_text
     if payload.blank?
-      errors.add(:payload, I18n.t("pushes.create.payload_required"))
+      errors.add(:payload, I18n._("Payload is required."))
       return
     end
 
     unless payload.is_a?(String) && payload.length.between?(1, 1.megabyte)
-      errors.add(:payload, I18n.t("pushes.payload_too_large"))
+      errors.add(:payload, I18n._("The payload is too large.  You can only push up to %{count} bytes.", count: 1.megabyte))
     end
   end
 
   def check_payload_for_url
     if payload.present?
       if !valid_url?(payload)
-        errors.add(:payload, I18n.t("pushes.create.invalid_url"))
+        errors.add(:payload, I18n._("must be a valid HTTP or HTTPS URL."))
       end
     else
-      errors.add(:payload, I18n.t("pushes.create.payload_required"))
+      errors.add(:payload, I18n._("Payload is required."))
     end
   end
 
@@ -140,10 +140,10 @@ class Push < ApplicationRecord
     if payload.present?
       # If the push is a QR code, max payload length is 1024 characters
       if payload.length > 1024
-        errors.add(:payload, t("pushes.create.qr_max_length", count: 1024))
+        errors.add(:payload, I18n._("The QR code payload is too large.  You can only push up to %{count} bytes.", count: 1024))
       end
     else
-      errors.add(:payload, I18n.t("pushes.create.payload_required"))
+      errors.add(:payload, I18n._("Payload is required."))
     end
   end
 
@@ -196,15 +196,15 @@ class Push < ApplicationRecord
 
   def check_enabled_push_kinds
     if kind == "file" && !(Settings.enable_logins && Settings.enable_file_pushes)
-      errors.add(:kind, I18n.t("pushes.file_pushes_disabled"))
+      errors.add(:kind, I18n._("File pushes are disabled."))
     end
 
     if kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
-      errors.add(:kind, I18n.t("pushes.url_pushes_disabled"))
+      errors.add(:kind, I18n._("URL pushes are disabled."))
     end
 
     if kind == "qr" && !(Settings.enable_logins && Settings.enable_qr_pushes)
-      errors.add(:kind, I18n.t("pushes.qr_pushes_disabled"))
+      errors.add(:kind, I18n._("QR code pushes are disabled."))
     end
   end
 

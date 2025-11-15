@@ -116,10 +116,11 @@ fr:
       not_locked: n’était pas verrouillé(e)
       in: doit être égal à %{count}
       password_too_long: est trop long
-      one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e)
-        :'
-      other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être enregistré(e)
-        :"
+      not_saved:
+        one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e)
+          :'
+        other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être
+          enregistré(e) :"
     unavailable_session: |
       La session %{id} n'est plus disponible en mémoire.
 
@@ -484,84 +485,3 @@ fr:
       previous: "&lsaquo; Précédent"
       next: Suivant &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Ce tableau de bord d'administration fournit un accès direct à
-          la base de données à l'application Password Pusher. Soyez prudent et pensez
-          à faire une sauvegarde avant d’apporter des modifications.
-        admin_note: 'Remarque : La destruction d''un enregistrement détruit également
-          tous les enregistrements enfants. Par exemple, la destruction d’un utilisateur
-          détruira également tous les mots de passe, fichiers et URL poussés pour
-          cet utilisateur.'
-  audit_logs:
-    audit_log:
-      log_created: Push créé le %{date} par %{user}
-      log_expired: Push expiré manuellement le %{date} par %{user}
-      log_failed_view: Échec de la tentative d'affichage au %{date} par %{user}
-      log_viewed: Vue réussie sur %{date} par %{user}
-      log_failed_passphrase: Échec de la tentative de phrase secrète au %{date} par
-        %{user}
-      ip_address: 'Adresse IP:'
-      referrer: URL référente
-      user_agent: 'En-tête User Agent:'
-      none: Aucun(e)
-  pushes:
-    access:
-      incorrect: Cette passphrase est incorrecte. Veuillez réessayer ou contacter
-        la personne ou l'organisation qui vous a envoyé ce lien.
-    audit:
-      title: Journal d'audit push
-    expire:
-      expired: Le contenu de la publication a été supprimé et l'URL privée n'est plus
-        valable.
-      not_deletable: Cette publication ne peut pas être supprimée par l'utilisateur
-      already_expired: Cette publication a déjà expiré.
-    form:
-      upload_limit: Vous pouvez télécharger jusqu'à %{count} fichiers par publication.
-      name_or_id: Nom ou identifiant
-      kind: Type
-    preview:
-      link_lang_tip: 'Astuce : Vous voulez publier le mot de passe vers un utilisateur
-        parlant une autre langue ? Modifiez le choix du lien privé à l''aide du menu
-        déroulant à droite de l''URL.'
-      link_lang_auto: Alternativement, la détection automatique sélectionnera une
-        langue en fonction des paramètres du navigateur de l'utilisateur final.
-    payload_too_large: La charge utile est trop importante. Vous ne pouvez publier
-      que jusqu'à %{count} octets.
-    too_many_files: Vous ne pouvez joindre que jusqu'à %{count} fichiers par push.
-    new:
-      title: Envoyez un mot de passe, un texte ou un fichier en toute sécurité
-    create:
-      qr_max_length: La charge utile du code QR est trop importante. Vous ne pouvez
-        envoyer que jusqu'à %{count} octets.
-      invalid_url: doit être une URL HTTP ou HTTPS valide.
-      payload_required: Une charge utile est requise.
-    file_pushes_disabled: Les transferts de fichiers sont désactivés.
-    need_login_for_active: Vous devez être connecté pour voir vos pushs actifs.
-    need_login_for_expired: Vous devez être connecté pour voir vos push expirés.
-    not_deletable_or_not_owner: Ce push n'est pas supprimable par les téléspectateurs
-      et ne vous appartient pas.
-    not_owner_push: Cette publication ne vous appartient pas.
-    url_pushes_disabled: Les push d'URL sont désactivés.
-    index:
-      views_days_remaining: "%{views} vues ou %{days} jours"
-    qr_pushes_disabled: Les push de codes QR sont désactivés.
-  zero_minutes: 0 minutes
-  confirmation_go: Cliquez ici pour confirmer votre compte
-  application:
-    secret_url_bar:
-      autodetect: Détection automatique
-    push_expiration:
-      will_expire_in: 'Les liens de téléchargement de fichiers ci-dessus expireront
-        dans :'
-      you_can_refresh: Vous pouvez actualiser la page pour régénérer de nouveaux liens
-        de téléchargement s'il reste des vues.
-  words:
-    audit: Audit
-    forbidden: Interdit
-    not_found: Non trouvé
-    share: Partager
-    expired: Expiré
-    none: Aucun(e)
-    remaining: Restant

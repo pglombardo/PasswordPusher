@@ -115,8 +115,9 @@ ko:
       not_found: 찾을 수 없습니다.
       not_locked: 은(는) 잠기지 않았습니다.
       password_too_long: 너무 길어
-      one: '이 %{resource}이(가) 저장되지 않는 오류 1개:'
-      other: "%{count} 오류로 인해 이 %{resource}이(가) 저장되지 않았습니다."
+      not_saved:
+        one: '이 %{resource}이(가) 저장되지 않는 오류 1개:'
+        other: "%{count} 오류로 인해 이 %{resource}이(가) 저장되지 않았습니다."
     unavailable_session: '세션 %{id}은(는) 더 이상 메모리에서 사용할 수 없습니다. 다중 프로세스 서버(예: Unicorn
       또는 Puma)에서 실행하는 경우 이 요청 적중은 메모리에 %{id}을 저장하지 않습니다. 프로세스/워커 수를 1로 바꾸거나 개발 중인
       다른 서버를 사용하는 것을 고려하십시오.'
@@ -443,70 +444,3 @@ ko:
       previous: "&lsaquo; 이전"
       next: 다음 &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: 이 관리 대시보드는 비밀번호 푸셔 애플리케이션에 대한 직접적인 데이터베이스 액세스를 제공합니다. 변경하기 전에
-          주의 깊게 백업해 두시기 바랍니다.
-        admin_note: '참고: 기록을 삭제하면 모든 하위 기록도 삭제됩니다. 예를 들어 사용자를 삭제하면 해당 사용자에 대해 푸시된
-          모든 비밀번호, 파일 및 URL도 삭제됩니다.'
-  audit_logs:
-    audit_log:
-      log_created: "%{user}에 의해 %{date}에 푸시가 생성되었습니다."
-      log_expired: 푸시는 %{user}에 의해 %{date}에 수동으로 만료되었습니다.
-      log_failed_view: "%{user}의 %{date}에 대한 보기 시도가 실패했습니다."
-      log_viewed: "%{date}에 대한 %{user}의 성공적인 뷰"
-      log_failed_passphrase: "%{user}의 %{date}에 대한 암호 시도가 실패했습니다."
-      ip_address: 'IP 주소:'
-      referrer: '추천인:'
-      user_agent: '사용자 에이전트:'
-      none: 없음
-  pushes:
-    access:
-      incorrect: 해당 암호가 올바르지 않습니다. 다시 시도하거나 이 링크를 보낸 사람 또는 조직에 문의하십시오.
-    audit:
-      title: 푸시 감사 로그
-    expire:
-      expired: 푸시 콘텐츠가 삭제되었으며 비밀 URL이 만료되었습니다.
-      not_deletable: 그 푸시는 시청자가 삭제할 수 없습니다.
-      already_expired: 해당 푸시는 이미 만료되었습니다.
-    form:
-      upload_limit: 푸시당 최대 10개의 파일을 업로드할 수 있습니다.
-      name_or_id: 이름 또는 ID
-      kind: 친절한
-    preview:
-      link_lang_tip: '팁: 해외 사용자에게 푸시하시겠습니까? URL 오른쪽에 있는 드롭다운 메뉴를 사용하여 비밀 링크 언어를 변경합니다.'
-      link_lang_auto: 또는 자동 감지가 최종 사용자 브라우저 설정에 따라 언어를 선택합니다.
-    payload_too_large: 페이로드가 너무 큽니다. 최대 %{count}바이트까지만 푸시할 수 있습니다.
-    too_many_files: 푸시당 최대 %{count}개의 파일만 첨부할 수 있습니다.
-    new:
-      title: 비밀번호, 문자 또는 파일을 안전하게 보내기
-    create:
-      qr_max_length: QR 코드 페이로드가 너무 큽니다. 최대 %{count}바이트까지만 푸시할 수 있습니다.
-      invalid_url: 유효한 HTTP 또는 HTTPS URL이어야 합니다.
-      payload_required: 탑재량이 필요합니다.
-    file_pushes_disabled: 파일 푸시가 비활성화되었습니다.
-    need_login_for_active: 활성 푸시를 보려면 로그인해야 합니다.
-    need_login_for_expired: 만료된 푸시를 보려면 로그인해야 합니다.
-    not_deletable_or_not_owner: 해당 푸시는 시청자가 삭제할 수 없으며 귀하에게 속하지 않습니다.
-    not_owner_push: 그 푸시는 당신의 것이 아닙니다.
-    url_pushes_disabled: URL 푸시가 비활성화되었습니다.
-    index:
-      views_days_remaining: "%{views}회 조회 또는 %{days}일"
-    qr_pushes_disabled: QR 코드 푸시가 비활성화되었습니다.
-  zero_minutes: 0분
-  confirmation_go: 계정을 확인하려면 여기를 클릭하세요
-  application:
-    secret_url_bar:
-      autodetect: 자동 감지
-    push_expiration:
-      will_expire_in: 위의 파일 다운로드 링크는 다음 기간 동안 만료됩니다.
-      you_can_refresh: 조회수가 남아 있으면 페이지를 새로 고쳐 새로운 다운로드 링크를 다시 생성할 수 있습니다.
-  words:
-    audit: 심사
-    forbidden: 금지됨
-    not_found: 찾을 수 없음
-    share: 공유하다
-    expired: 만료됨
-    none: 없음
-    remaining: 남은

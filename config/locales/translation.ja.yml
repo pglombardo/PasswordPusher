@@ -115,8 +115,9 @@ ja:
       not_found: は見つかりませんでした。
       not_locked: はロックされていません。
       password_too_long: 長すぎます
-      one: エラーが発生したため %{resource} は保存されませんでした。
-      other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+      not_saved:
+        one: エラーが発生したため %{resource} は保存されませんでした。
+        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
     unavailable_session: セッション %{id} はメモリ内で使用できなくなりました。マルチプロセス サーバー (Unicorn や Puma
       など) で実行した場合、このリクエストにヒットしたプロセスは %{id} をメモリに格納しません。プロセス/ワーカーの数を 1 つにするか、開発で別のサーバーを使用することを検討してください。
     unacceptable_request: Accept ヘッダーには、サポートされているバージョンが含まれている必要があります。
@@ -435,69 +436,3 @@ ja:
       previous: "&lsaquo; 前"
       next: 次 &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: この管理ダッシュボードは、Password Pusher アプリケーションへのデータベースへの直接アクセスを提供します。変更を加える前に、注意してバックアップを作成することを検討してください。
-        admin_note: '注: レコードを破棄すると、すべての子レコードも破棄されます。たとえば、ユーザーを破棄すると、そのユーザーにプッシュされたすべてのパスワード、ファイル、URL
-          も破棄されます。'
-  audit_logs:
-    audit_log:
-      log_created: "%{user} によって %{date} にプッシュが作成されました"
-      log_expired: "%{user} による %{date} での手動プッシュの有効期限が切れました"
-      log_failed_view: "%{user} による %{date} の表示に失敗しました"
-      log_viewed: "%{user} による %{date} の視聴成功"
-      log_failed_passphrase: "%{user} による %{date} へのパスフレーズ試行が失敗しました"
-      ip_address: 'IPアドレス:'
-      referrer: '参照元:'
-      user_agent: 'ユーザーエージェント:'
-      none: なし
-  pushes:
-    access:
-      incorrect: そのパスフレーズは正しくありません。もう一度お試しいただくか、このリンクを送信した個人または組織にお問い合わせください。
-    audit:
-      title: プッシュ監査ログ
-    expire:
-      expired: プッシュ コンテンツが削除され、シークレット URL が期限切れになりました。
-      not_deletable: そのプッシュは、閲覧者が削除することはできません。
-      already_expired: そのプッシュはすでに期限切れです。
-    form:
-      upload_limit: プッシュごとに最大 10 個のファイルをアップロードできます。
-      name_or_id: 名前またはID
-      kind: 親切
-    preview:
-      link_lang_tip: 'ヒント: 国際ユーザーにプッシュしますか? URL の右側にあるドロップダウン メニューを使用して、シークレット リンクの言語を変更します。'
-      link_lang_auto: あるいは、自動検出により、エンドユーザーのブラウザ設定に基づいて言語を選択します。
-    payload_too_large: ペイロードが大きすぎます。プッシュできるのは最大 %{count} バイトまでです。
-    too_many_files: 1 回のプッシュで添付できるファイルは最大 %{count} 個です。
-    new:
-      title: パスワード、テキスト、ファイルを安全に送信する
-    create:
-      qr_max_length: QR コードのペイロードが大きすぎます。プッシュできるのは最大 %{count} バイトまでです。
-      invalid_url: 有効な HTTP または HTTPS URL である必要があります。
-      payload_required: ペイロードが必要です。
-    file_pushes_disabled: ファイルプッシュは無効です。
-    need_login_for_active: アクティブなプッシュを表示するにはログインする必要があります。
-    need_login_for_expired: 期限切れのプッシュを表示するには、ログインする必要があります。
-    not_deletable_or_not_owner: そのプッシュは閲覧者によって削除することはできず、あなたのものではありません。
-    not_owner_push: そのプッシュはあなたのものではありません。
-    url_pushes_disabled: URL プッシュは無効です。
-    index:
-      views_days_remaining: "%{views} 回視聴または %{days} 日"
-    qr_pushes_disabled: QR コードのプッシュは無効です。
-  zero_minutes: 0 分
-  confirmation_go: アカウントを確認するにはここをクリックしてください
-  application:
-    secret_url_bar:
-      autodetect: 自動検出
-    push_expiration:
-      will_expire_in: '上記のファイルのダウンロード リンクの有効期限は以下のとおりです:'
-      you_can_refresh: ビューが残っている場合は、ページを更新して新しいダウンロード リンクを再生成できます。
-  words:
-    audit: 監査
-    forbidden: 禁断
-    not_found: 見つかりません
-    share: 共有
-    expired: 期限切れ
-    none: なし
-    remaining: 残り

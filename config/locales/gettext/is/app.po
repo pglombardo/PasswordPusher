@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:18+0100\n"
-"PO-Revision-Date: 2025-11-15 21:18+0000\n"
+"POT-Creation-Date: 2025-11-15 22:44+0100\n"
+"PO-Revision-Date: 2025-11-15 21:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -17,6 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n%10!=1||n%100==11;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn"
+msgstr "Sú þrýstingur gerir ekki"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Það lykilorð er rangt. Vinsamlegast reyndu aftur eða hafðu samband við þann eð"
+"a stofnunina sem sendi þér þennan hlekk."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Skráaflutningar eru óvirkir."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Vefslóðasendingar eru óvirkar."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "QR kóðasendingar eru óvirkar."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Þú getur aðeins hengt allt að %{count} skrár við hverja ýtingu."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Nauðsynlegt er að nota farm."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "Burðargetan er of stór. Þú getur aðeins ýtt upp í %{count} bæti."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "verður að vera gild HTTP- eða HTTPS-slóð."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "Hleðsla QR kóðans er of stór. Þú getur aðeins ýtt upp í %{count} bæti."
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -336,9 +385,30 @@ msgstr "Engir reglulegir notendur fundust"
 msgid "All users in the system are administrators."
 msgstr "Allir notendur í kerfinu eru stjórnendur."
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "Hlekkirnir til að hlaða niður skrám hér að ofan munu renna út eftir:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Þú getur endurnýjað síðuna til að endurnýja nýja niðurhalstengla ef skoðanir e"
+"ru eftir."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Útrunnið"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Leyndarmál hlekkja"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Sjálfvirk uppgötvun"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -346,6 +416,69 @@ msgstr "Leyndarmál hlekkja"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Afritaðu á klemmuspjald"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push búin til á %{date} af %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:7
+#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP tölu:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Umboðsmaður notanda:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Enginn"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Tilvísun:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push rann út handvirkt á %{date} með %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Misheppnuð tilraun með aðgangsorð á %{date} af %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Mistakast skoðunartilraun á %{date} af %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Skoðun var árangursrík á %{date} af %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Smelltu hér til að staðfesta reikninginn þinn"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -1438,6 +1571,10 @@ msgstr "Vistað!"
 msgid "Add Files..."
 msgstr "Bæta við skrám..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Þú getur hlaðið upp að %{count} skrám fyrir hvern push."
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1673,6 +1810,10 @@ msgstr "Þegar það rennur út verður ýtt vefslóðinni eytt að öllu leyti.
 msgid "Audit Log for %{push_id}"
 msgstr "Endurskoðunarskrá fyrir %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Endurskoðunarskrá fyrir Push ID: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Ýtt á %{date}"
@@ -1684,11 +1825,6 @@ msgstr "Leynileg slóð fyrir þessa ýtingu"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Aðeins þér sýnilegt"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Enginn"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1750,12 +1886,6 @@ msgstr "Núverandi staða"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Ríki:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Útrunnið"
 
 #: ../../../app/views/pushes/audit.html.erb:99
 msgid "The push content has been deleted and the secret URL expired."
@@ -1914,9 +2044,21 @@ msgstr "Útrunnar tilkynningar"
 msgid "All Pushes"
 msgstr "Allar ýtingar"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Nafn eða auðkenni"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Tegund"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Athugið"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Eftir"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1934,6 +2076,10 @@ msgstr "QR kóði"
 msgid "Text"
 msgstr "Texti"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} áhorf eða %{days} dagar"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Ýttu á stýringar"
@@ -1945,6 +2091,10 @@ msgstr "Forskoðun"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Endurskoðun"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Sendu lykilorð, texta eða skrá á öruggan hátt"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -2063,6 +2213,22 @@ msgstr "Ýttu á annan"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "Skoða endurskoðunarskrá"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Ábending: Að ýta á alþjóðlegan notanda? Breyttu tungumáli leyndartengilsins me"
+"ð því að nota fellivalmyndina hægra megin við vefslóðina."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Að öðrum kosti mun sjálfvirk uppgötvun velja tungumál byggt á stillingum endan"
+"otenda vafra."
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

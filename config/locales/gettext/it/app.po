@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-15 22:18+0100\n"
-"PO-Revision-Date: 2025-11-15 21:18+0000\n"
+"POT-Creation-Date: 2025-11-15 22:44+0100\n"
+"PO-Revision-Date: 2025-11-15 21:44+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,6 +17,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn"
+msgstr "Quella spinta non"
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Quella passphrase non è corretta. Riprova o contatta la persona o l'organizzaz"
+"ione che ti ha inviato questo link."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "I push dei file sono disabilitati."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Gli URL push sono disabilitati."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "L'invio di codici QR è disabilitato."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "È possibile allegare solo un massimo di file %{count} per push."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "È richiesto il carico utile."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr ""
+"Il carico utile è troppo grande. È possibile eseguire il push solo fino a %{co"
+"unt} byte."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "deve essere un URL HTTP o HTTPS valido."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr ""
+"Il payload del codice QR è troppo grande. Puoi caricare solo fino a %{count} b"
+"yte."
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -346,9 +399,30 @@ msgstr "Nessun utente regolare trovato"
 msgid "All users in the system are administrators."
 msgstr "Tutti gli utenti del sistema sono amministratori."
 
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "I link per il download dei file sopra indicati scadranno tra:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"È possibile aggiornare la pagina per rigenerare nuovi link per il download se "
+"ci sono ancora visualizzazioni."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Scaduto"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Linguaggio collegamento segreto"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Trovato automaticamente"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -356,6 +430,69 @@ msgstr "Linguaggio collegamento segreto"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Copia negli Appunti"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push creato su %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:7
+#: ../../../app/views/audit_logs/_log_expire.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:9
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "Indirizzo IP:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Agente utente:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:9
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:9
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Nessuna"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:11
+#: ../../../app/views/audit_logs/_log_expire.html.erb:11
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:13
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Referente:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push scaduto manualmente il %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Tentativo di passphrase non riuscito su %{date} da parte di %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Tentativo di visualizzazione fallito su %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Visualizzazione riuscita su %{date} da %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Clicca qui per confermare il tuo account"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -1466,6 +1603,10 @@ msgstr "Salvato!"
 msgid "Add Files..."
 msgstr "Aggiungere i file..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Puoi caricare fino a %{count} file per push."
+
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
@@ -1698,6 +1839,10 @@ msgstr "Alla scadenza, l'URL push verrà eliminato completamente."
 msgid "Audit Log for %{push_id}"
 msgstr "Registro di controllo per %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Registro di controllo per %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Inserito su %{date}"
@@ -1709,11 +1854,6 @@ msgstr "URL segreto per questo push"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Visibile solo a te"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Nessuna"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -1777,12 +1917,6 @@ msgstr "Stato Attuale"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Stato:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Scaduto"
 
 #: ../../../app/views/pushes/audit.html.erb:99
 msgid "The push content has been deleted and the secret URL expired."
@@ -1945,9 +2079,21 @@ msgstr "Spinte scadute"
 msgid "All Pushes"
 msgstr "Tutte le spinte"
 
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Nome o documento d'identità"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Tipo"
+
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Nota"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Residuo"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1965,6 +2111,10 @@ msgstr "Codice QR"
 msgid "Text"
 msgstr "Testo"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} visualizzazioni o %{days} giorni"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Comandi di push"
@@ -1976,6 +2126,10 @@ msgstr "Anteprima"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Audit"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Invia in modo sicuro una password, un testo o un file"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -2094,6 +2248,23 @@ msgstr "Carica un'altra"
 #: ../../../app/views/pushes/preview.html.erb:94
 msgid "View Audit Log"
 msgstr "Visualizza Registro di Controllo"
+
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Suggerimento: vuoi caricare una password verso un utente internazionale? Modif"
+"ica la lingua del collegamento segreto utilizzando il menu a discesa a destra "
+"della URL."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"In alternativa, il rilevamento automatico selezionerà una lingua in base alle "
+"impostazioni del browser dell'utente finale."
 
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"

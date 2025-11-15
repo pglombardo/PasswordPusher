@@ -170,8 +170,9 @@ da:
       not_locked: var ikke låst
       in: skal være i %{count}
       password_too_long: er for lang
-      one: 'En fejl medførte, at denne %{resource} ikke kunne gemmes:'
-      other: "%{count} fejl medførte, at denne %{resource} ikke kunne gemmes:"
+      not_saved:
+        one: 'En fejl medførte, at denne %{resource} ikke kunne gemmes:'
+        other: "%{count} fejl medførte, at denne %{resource} ikke kunne gemmes:"
     unavailable_session: "Session %{id} er ikke længere tilgængelig i hukommelsen.\nHvis
       du benytter en multi-proces server (som Unicorn eller Puma). \nDenne forespørgsels
       \ gemmes ikke %{id} i hukommelsen. Overvej at ændre antallet af processer /
@@ -534,79 +535,3 @@ da:
       previous: "&lsaquo; Forrige"
       next: Næste &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Dette admin-dashboard giver direkte databaseadgang til Password
-          Pusher-applikationen. Vær forsigtig og overvej at tage en sikkerhedskopi,
-          før du foretager ændringer.
-        admin_note: 'Bemærk: Destruktion af en post ødelægger også alle underordnede
-          poster. For eksempel vil ødelæggelse af en bruger også ødelægge alle pushede
-          adgangskoder, filer og urls for den pågældende bruger.'
-  audit_logs:
-    audit_log:
-      log_created: Push oprettet på %{date} af %{user}
-      log_expired: Push udløb manuelt på %{date} af %{user}
-      log_failed_view: Mislykket visningsforsøg på %{date} af %{user}
-      log_viewed: Vellykket visning af %{date} af %{user}
-      log_failed_passphrase: Mislykket adgangssætningsforsøg på %{date} af %{user}
-      ip_address: 'IP-adresse:'
-      referrer: 'Henviser:'
-      user_agent: 'Brugeragent:'
-      none: Ingen
-  pushes:
-    access:
-      incorrect: Den adgangssætning er forkert. Prøv igen, eller kontakt den person
-        eller organisation, der sendte dig dette link.
-    audit:
-      title: Tryk på revisionslog
-    expire:
-      expired: Push-indholdet er blevet slettet, og den hemmelige URL er udløbet.
-      not_deletable: Dette "Push" kan ikke slettes af modtageren.
-      already_expired: Det push er allerede udløbet.
-    form:
-      upload_limit: Du kan uploade op til 10 filer pr. push.
-      name_or_id: Navn eller ID
-      kind: Slags
-    preview:
-      link_lang_tip: 'Tip: "Pusher" du til en international bruger? Skift det hemmelige
-        linksprog ved hjælp af rullemenuen til højre for URL''en.'
-      link_lang_auto: Alternativt vil automatisk registrering vælge et sprog baseret
-        på slutbrugerens browserindstillinger.
-    payload_too_large: Nyttelasten er for stor. Du kan kun skubbe op til %{count}
-      bytes.
-    too_many_files: Du kan kun vedhæfte op til %{count} filer pr. tryk.
-    new:
-      title: Send en adgangskode, tekst eller fil sikkert
-    create:
-      qr_max_length: QR-kodens nyttelast er for stor. Du kan kun skubbe op til %{count}
-        bytes.
-      invalid_url: skal være en gyldig HTTP- eller HTTPS-URL.
-      payload_required: Nyttelast er påkrævet.
-    file_pushes_disabled: Filoverførsler er deaktiveret.
-    need_login_for_active: Du skal være logget ind for at se dine aktive push.
-    need_login_for_expired: Du skal være logget ind for at se dine udløbne push.
-    not_deletable_or_not_owner: Det push kan ikke slettes af seerne og tilhører ikke
-      dig.
-    not_owner_push: Dette "push" tilhører ikke dig.
-    url_pushes_disabled: URL-push er deaktiveret.
-    index:
-      views_days_remaining: "%{views} visninger eller %{days} dage"
-    qr_pushes_disabled: QR-kode-push er deaktiveret.
-  zero_minutes: 0 minutter
-  confirmation_go: Klik her for at bekræfte din konto
-  application:
-    secret_url_bar:
-      autodetect: Finde pr. automatik
-    push_expiration:
-      will_expire_in: 'Fildownloadlinkene ovenfor udløber om:'
-      you_can_refresh: Du kan opdatere siden for at genskabe nye downloadlinks, hvis
-        der stadig er visninger.
-  words:
-    audit: Revidere
-    forbidden: Forbudt
-    not_found: Ikke fundet
-    share: Del
-    expired: Udløbet
-    none: Ingen
-    remaining: Resterende

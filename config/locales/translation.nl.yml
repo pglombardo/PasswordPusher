@@ -116,8 +116,9 @@ nl:
       not_locked: was niet vergrendeld
       in: moet in %{count} zijn
       password_too_long: is te lang
-      one: 'Een fout verhinderde het opslaan van deze %{resource}:'
-      other: "%{count} fouten verhinderden het opslaan van deze %{resource}:"
+      not_saved:
+        one: 'Een fout verhinderde het opslaan van deze %{resource}:'
+        other: "%{count} fouten verhinderde het opslaan van deze %{resource}:"
     unavailable_session: |
       Sessie %{id} is niet langer beschikbaar in het geheugen.
 
@@ -472,79 +473,3 @@ nl:
       previous: "&lsaquo; Vorige"
       next: Volgende &rsaquo;
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Dit beheerdersdashboard biedt directe databasetoegang tot de
-          Password Pusher-applicatie. Wees voorzichtig en overweeg een back-up te
-          maken voordat u wijzigingen aanbrengt.
-        admin_note: 'Opmerking: Als u een record vernietigt, worden ook alle onderliggende
-          records vernietigd. Als u bijvoorbeeld een gebruiker vernietigt, worden
-          ook alle gepushte wachtwoorden, bestanden en URL''s voor die gebruiker vernietigd.'
-  audit_logs:
-    audit_log:
-      log_created: Push gemaakt op %{date} door %{user}
-      log_expired: Push handmatig verlopen op %{date} door %{user}
-      log_failed_view: Mislukte poging om %{date} te bekijken door %{user}
-      log_viewed: Succesvolle weergave van %{date} door %{user}
-      log_failed_passphrase: Mislukte poging tot wachtwoordzin op %{date} door %{user}
-      ip_address: 'IP-adres:'
-      referrer: 'Verwijzer:'
-      user_agent: 'Gebruikersagent:'
-      none: Geen
-  pushes:
-    access:
-      incorrect: Dat wachtwoord is onjuist. Probeer het opnieuw of neem contact op
-        met de persoon of organisatie die u deze link heeft gestuurd.
-    audit:
-      title: Push-auditlogboek
-    expire:
-      expired: De push-inhoud is verwijderd en de geheime URL is verlopen.
-      not_deletable: Die push is niet te verwijderen door kijkers.
-      already_expired: Die push is al verlopen.
-    form:
-      upload_limit: U kunt maximaal 10 bestanden per push uploaden.
-      name_or_id: Naam of ID
-      kind: Vriendelijk
-    preview:
-      link_lang_tip: 'Tip: Pushen naar een internationale gebruiker? Wijzig de taal
-        van de geheime link met behulp van het vervolgkeuzemenu rechts van de URL.'
-      link_lang_auto: Als alternatief selecteert automatische detectie een taal op
-        basis van de browserinstellingen van de eindgebruiker.
-    payload_too_large: De lading is te groot. U kunt maximaal %{count} bytes pushen.
-    too_many_files: U kunt maximaal %{count}-bestanden per push bijvoegen.
-    new:
-      title: Veilig een wachtwoord, tekst of bestand verzenden
-    create:
-      qr_max_length: De QR-code payload is te groot. U kunt maximaal %{count} bytes
-        pushen.
-      invalid_url: moet een geldige HTTP- of HTTPS-URL zijn.
-      payload_required: Payload is vereist.
-    file_pushes_disabled: Bestandspushes zijn uitgeschakeld.
-    need_login_for_active: U moet zijn ingelogd om uw actieve pushes te bekijken.
-    need_login_for_expired: U moet zijn ingelogd om uw verlopen pushes te bekijken.
-    not_deletable_or_not_owner: Deze push kan niet door kijkers worden verwijderd
-      en is niet van jou.
-    not_owner_push: Die push is niet van jou.
-    url_pushes_disabled: URL-pushes zijn uitgeschakeld.
-    index:
-      views_days_remaining: "%{views} weergaven of %{days} dagen"
-    qr_pushes_disabled: QR-code pushes zijn uitgeschakeld.
-  zero_minutes: 0 minuten
-  confirmation_go: Klik hier om uw account te bevestigen
-  application:
-    secret_url_bar:
-      autodetect: Automatische detectie
-    push_expiration:
-      will_expire_in: 'De bovenstaande links voor het downloaden van bestanden verlopen
-        over:'
-      you_can_refresh: U kunt de pagina vernieuwen om nieuwe downloadlinks te genereren
-        als de pagina nog steeds bekeken wordt.
-  words:
-    audit: Audit
-    forbidden: Verboden
-    not_found: Niet gevonden
-    share: Deel
-    expired: Verlopen
-    none: Geen
-    remaining: Overig

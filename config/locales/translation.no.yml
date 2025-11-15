@@ -116,8 +116,9 @@
       not_locked: var ikke låst
       in: må være i %{count}
       password_too_long: er for lang
-      one: 'Én feil gjorde at %{resource} ikke kunne lagres:'
-      other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
+      not_saved:
+        one: 'Én feil gjorde at %{resource} ikke kunne lagres:'
+        other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
     unavailable_session: Sesjon %{id} er ikke lenger tilgjengelig i minnet. Hvis du
       tilfeldigvis kjører på en multiprosessserver (som Unicorn eller Puma), lagrer
       ikke prosessen denne forespørselen %{id} i minnet. Vurder å gjøre om antallet
@@ -471,79 +472,3 @@
       previous: "‹ Forrige"
       next: Neste ›
       truncate: "&hellip;"
-  layouts:
-    admin:
-      application:
-        admin_intro: Dette admin-dashbordet gir direkte databasetilgang til Password
-          Pusher-applikasjonen. Vær forsiktig og vurder å ta en sikkerhetskopi før
-          du gjør endringer.
-        admin_note: 'Merk: Å ødelegge en post ødelegger også alle underordnede poster.
-          For eksempel vil ødeleggelse av en bruker også ødelegge alle pushede passord,
-          filer og nettadresser for den brukeren.'
-  audit_logs:
-    audit_log:
-      log_created: Push opprettet på %{date} av %{user}
-      log_expired: Push utløp manuelt på %{date} av %{user}
-      log_failed_view: Mislykket visningsforsøk på %{date} av %{user}
-      log_viewed: Vellykket visning av %{date} av %{user}
-      log_failed_passphrase: Mislykket passordfraseforsøk på %{date} av %{user}
-      ip_address: 'IP-adresse:'
-      referrer: 'Henviser:'
-      user_agent: 'Brukeragent:'
-      none: Ingen
-  pushes:
-    access:
-      incorrect: Passordet er feil. Vennligst prøv igjen eller kontakt personen eller
-        organisasjonen som sendte deg denne linken.
-    audit:
-      title: Trykk på revisjonslogg
-    expire:
-      expired: Push-innholdet er slettet og den hemmelige URL-en utløpt.
-      not_deletable: Den push-en kan ikke slettes av mottakere.
-      already_expired: Den push har allerede utløpt.
-    form:
-      upload_limit: Du kan laste opp opptil 10 filer per trykk.
-      name_or_id: Navn eller ID
-      kind: Type
-    preview:
-      link_lang_tip: 'Tips: Sender du til en internasjonal bruker? Endre det hemmelige
-        lenkespråket ved å bruke rullegardinmenyen til høyre for URL-en.'
-      link_lang_auto: Alternativt vil automatisk gjenkjenning velge et språk basert
-        på nettleserinnstillingene for sluttbrukeren.
-    payload_too_large: Nyttelasten er for stor. Du kan bare skyve opp til %{count}
-      byte.
-    too_many_files: Du kan bare legge ved opptil %{count} filer per trykk.
-    new:
-      title: Send et passord, tekst eller fil på en sikker måte
-    create:
-      qr_max_length: Nyttelasten for QR-koden er for stor. Du kan bare skyve opp til
-        %{count} byte.
-      invalid_url: må være en gyldig HTTP- eller HTTPS-URL.
-      payload_required: Nyttelast er nødvendig.
-    file_pushes_disabled: Filoverføringer er deaktivert.
-    need_login_for_active: Du må være logget inn for å se dine aktive push.
-    need_login_for_expired: Du må være logget inn for å se dine utløpte push.
-    not_deletable_or_not_owner: Den push kan ikke slettes av seerne og tilhører ikke
-      deg.
-    not_owner_push: Det pushet tilhører ikke deg.
-    url_pushes_disabled: URL-pushing er deaktivert.
-    index:
-      views_days_remaining: "%{views} visninger eller %{days} dager"
-    qr_pushes_disabled: QR-kodeutsendelser er deaktivert.
-  zero_minutes: 0 minutter
-  confirmation_go: Klikk her for å bekrefte kontoen din
-  application:
-    secret_url_bar:
-      autodetect: Automatisk gjenkjenning
-    push_expiration:
-      will_expire_in: 'Linken for filnedlasting ovenfor vil utløpe om:'
-      you_can_refresh: Du kan oppdatere siden for å gjenskape nye nedlastingskoblinger
-        hvis visninger gjenstår.
-  words:
-    audit: Revidere
-    forbidden: Forbudt
-    not_found: Ikke funnet
-    share: Dele
-    expired: Utløpt
-    none: Ingen
-    remaining: Gjenstående
