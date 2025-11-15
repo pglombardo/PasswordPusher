@@ -111,7 +111,7 @@ class Push < ApplicationRecord
 
   def check_files_for_file
     if files.attached? && files.count { |file| !(file.is_a?(String) && file.empty?) } > settings_for_kind.max_file_uploads
-      errors.add(:files, I18n._("You can only attach up to %{count} files per push.", count: settings_for_kind.max_file_uploads))
+      errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: settings_for_kind.max_file_uploads})
     end
   end
 
@@ -122,7 +122,7 @@ class Push < ApplicationRecord
     end
 
     unless payload.is_a?(String) && payload.length.between?(1, 1.megabyte)
-      errors.add(:payload, I18n._("The payload is too large.  You can only push up to %{count} bytes.", count: 1.megabyte))
+      errors.add(:payload, I18n._("The payload is too large.  You can only push up to %{count} bytes.") % {count: 1.megabyte})
     end
   end
 
@@ -140,7 +140,7 @@ class Push < ApplicationRecord
     if payload.present?
       # If the push is a QR code, max payload length is 1024 characters
       if payload.length > 1024
-        errors.add(:payload, I18n._("The QR code payload is too large.  You can only push up to %{count} bytes.", count: 1024))
+        errors.add(:payload, I18n._("The QR code payload is too large.  You can only push up to %{count} bytes.") % {count: 1024})
       end
     else
       errors.add(:payload, I18n._("Payload is required."))

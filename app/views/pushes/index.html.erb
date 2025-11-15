@@ -74,7 +74,7 @@
           <% if push.expired? %>
             <td class=""><span class="badge rounded-pill bg-danger"><%= _('Expired') %></span></td>
           <% else %>
-            <td class="text-success"><%= _('%{views} views or %{days} days', views: push.views_remaining, days: push.days_remaining) %></td>
+            <td class="text-success"><%= _('%{views} views or %{days} days') % { views: push.views_remaining, days: push.days_remaining } %></td>
           <% end %>
           <td class="text-center">
             <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">

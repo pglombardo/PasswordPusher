@@ -171,7 +171,7 @@ class PushesController < BaseController
 
   def audit
     if @push.user_id != current_user.id
-      redirect_to :root, notice: _("That push doesn't belong to you.")
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
       return
     end
 
@@ -181,12 +181,12 @@ class PushesController < BaseController
   def expire
     # Check if the push is deletable by the viewer or if the user is the owner
     unless @push.deletable_by_viewer || (@push.user == current_user)
-      redirect_to :root, notice: _("That push is not deletable by viewers and does not belong to you.")
+      redirect_to :root, notice: I18n._("That push is not deletable by viewers and does not belong to you.")
       return
     end
 
     if @push.expired
-      redirect_to @push, notice: _("That push has already expired.")
+      redirect_to @push, notice: I18n._("That push has already expired.")
       return
     end
 
@@ -194,7 +194,7 @@ class PushesController < BaseController
     log_expire(@push)
 
     respond_to do |format|
-      format.html { redirect_to @push, notice: _("The push content has been deleted and the secret URL expired.") }
+      format.html { redirect_to @push, notice: I18n._("The push content has been deleted and the secret URL expired.") }
     end
   end
 
@@ -315,7 +315,7 @@ class PushesController < BaseController
           authenticate_user!
         end
       else
-        redirect_to root_path, notice: _("File pushes are disabled.")
+        redirect_to root_path, notice: I18n._("File pushes are disabled.")
       end
 
     when "url"
@@ -325,7 +325,7 @@ class PushesController < BaseController
           authenticate_user!
         end
       else
-        redirect_to root_path, notice: _("URL pushes are disabled.")
+        redirect_to root_path, notice: I18n._("URL pushes are disabled.")
       end
 
     when "qr"
@@ -335,7 +335,7 @@ class PushesController < BaseController
           authenticate_user!
         end
       else
-        redirect_to root_path, notice: _("QR code pushes are disabled.")
+        redirect_to root_path, notice: I18n._("QR code pushes are disabled.")
       end
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)

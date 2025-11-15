@@ -252,7 +252,7 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def audit
     if @push.user != current_user
-      render json: {error: _("That push doesn't belong to you.")}, status: :forbidden
+      render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end
 
@@ -306,7 +306,7 @@ class Api::V1::PushesController < Api::BaseController
 
       render template: "pushes/show", status: :ok
     else
-      notice = _("That push is not deletable by viewers.")
+      notice = I18n._("That push is not deletable by viewers.")
       render json: {error: notice}, status: :unauthorized
     end
   end
@@ -351,7 +351,7 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def active
     unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your active pushes.")}, status: :unauthorized
+      render json: {error: I18n._("You must be logged in to view your active pushes.")}, status: :unauthorized
       return
     end
 
@@ -407,7 +407,7 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def expired
     unless Settings.enable_logins
-      render json: {error: _("You must be logged in to view your expired pushes.")}, status: :unauthorized
+      render json: {error: I18n._("You must be logged in to view your expired pushes.")}, status: :unauthorized
       return
     end
 
