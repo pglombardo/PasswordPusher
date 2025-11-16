@@ -9,6 +9,8 @@ then
     # Check if old database path exists, otherwise use new path based on RAILS_ENV
     if [ -f "/opt/PasswordPusher/db/db.sqlite3" ]
     then
+        echo "Using pre-existing database path: /opt/PasswordPusher/db/db.sqlite3"
+        echo "Please migrate to the new default path: /opt/PasswordPusher/storage/db/production.sqlite3. Ensure the database is moved to a persistent volume if it isn't on one already."
         export DATABASE_URL=sqlite3:db/db.sqlite3
     else
         export DATABASE_URL=sqlite3:storage/db/production.sqlite3
