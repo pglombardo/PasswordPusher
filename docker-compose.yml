@@ -1,0 +1,181 @@
+x-op-app-environment: &x-op-app-environment
+  # Environment variables for the Password Pusher application
+  # These variables are used to configure the Password Pusher application.
+  #
+  # For production use, consider using a .env file instead of hardcoding values here.
+  # Create a .env file in the same directory as this docker-compose.yml file.
+  # Example .env file:
+  #   PWPUSH_MASTER_KEY=your-generated-key-here
+  #   PWP__MAIL__SMTP_ADDRESS=smtp.example.com
+  #   PWP__MAIL__SMTP_PASSWORD=your-password
+  #
+  # Then reference it in docker-compose.yml with: env_file: - .env
+
+  environment:
+    ################################################################################################
+    # REQUIRED: Security & Encryption
+    ################################################################################################
+    #
+    # Generate your own custom encryption key here: https://us.pwpush.com/generate_key
+    # This key is REQUIRED for encrypting sensitive data. Without it, encrypted pushes may fail.
+    # PWPUSH_MASTER_KEY: 'ce3c302b66ae5eae249dea1d14e569e145c4025372caf392f407b68e5f64f015'
+    #
+    ################################################################################################
+    # OPTIONAL: TLS/SSL Configuration
+    ################################################################################################
+    #
+    # Specify a domain in the TLS_DOMAIN environment variable to automatically provision a TLS (SSL)
+    # certificate for the application using Let's Encrypt. The container's web server (thrust) will
+    # handle TLS termination on port 443. Ensure your domain points to this server and ports 80/443
+    # are accessible from the internet for certificate validation.
+    # TLS_DOMAIN: 'pwpush.example.com'
+    #
+    ################################################################################################
+    # REQUIRED: SMTP Configuration (if using logins or email features)
+    ################################################################################################
+    #
+    # You MUST configure an SMTP server to send emails and for user logins to work properly.
+    # If you don't need email functionality, you can leave these commented out.
+    #
+    # PWP__MAIL__RAISE_DELIVERY_ERRORS: true
+    # PWP__MAIL__SMTP_ADDRESS: smtp.example.com
+    # PWP__MAIL__SMTP_PORT: 587
+    # PWP__MAIL__SMTP_USER_NAME: smtp-username
+    # PWP__MAIL__SMTP_PASSWORD: smtp-password
+    # PWP__MAIL__SMTP_AUTHENTICATION: plain
+    # PWP__MAIL__SMTP_STARTTLS: true
+    #
+    ################################################################################################
+    # OPTIONAL: Feature Flags (defaults shown)
+    ################################################################################################
+    #
+    PWP__ENABLE_LOGINS: true
+    PWP__ENABLE_FILE_PUSHES: true
+    PWP__FILES__STORAGE: local
+    PWP__ENABLE_QR_PUSHES: true
+    PWP__ENABLE_URL_PUSHES: true
+    #
+    ################################################################################################
+    # OPTIONAL: Performance & Resource Optimization
+    ################################################################################################
+    #
+    # Disable the background worker process to reduce memory usage.
+    # When set, only the web server process runs (web=1), reducing memory footprint.
+    # The worker process handles background jobs like cleaning up expired pushes.
+    # Without the worker, some background tasks may not run automatically, but the web
+    # application will still function normally for creating and viewing pushes.
+    #
+    # Use this option if you:
+    # - Have limited memory resources
+    # - Are running in a memory-constrained environment
+    # - Don't need automatic background job processing
+    #
+    # Note: You can still manually run cleanup tasks or use external job processors if needed.
+    # PWP__NO_WORKER: true
+    #
+    ################################################################################################
+    # OPTIONAL: Theming
+    ################################################################################################
+    #
+    # Pick a theme: https://docs.pwpush.com/docs/rebranding/#themes
+    # PWP__THEME: "Cosmo"
+    # PWP__THEME: "Cerulean"
+    # PWP__THEME: "Cyborg"
+    # PWP__THEME: "Darkly"
+    # PWP__THEME: "Flatly"
+    # PWP__THEME: "Journal"
+    # PWP__THEME: "Litera"
+    # PWP__THEME: "Lumen"
+    # PWP__THEME: "Lux"
+    #
+    ################################################################################################
+    # Additional Configuration
+    ################################################################################################
+    #
+    # See the Password Pusher Configuration documentation for more information on available settings.
+    # https://docs.pwpush.com/docs/config-strategies/
+    #
+    # You can set other environment variables here, or in a .env file. See:
+    # https://docs.docker.com/compose/environment-variables/
+
+services:
+  # The Password Pusher application
+  pwpush:
+    # The Docker image is tagged with "stable" by default. The "latest" tag is also available
+    # but may occasionally break due to development on the master branch.
+    image: docker.io/pglombardo/pwpush:stable
+    restart: unless-stopped
+
+    # Port mapping:
+    # - Port 80: HTTP traffic (redirects to HTTPS if TLS_DOMAIN is set)
+    # - Port 443: HTTPS traffic (TLS termination handled by container's web server)
+    # - Port 5100: Internal application port (exposed but typically not mapped to host)
+    #
+    # WARNING: Ensure ports 80 and 443 are not already in use on your host system.
+    # If they are, change the left side of the mapping (e.g., "8080:80" for HTTP).
+    ports:
+      - "80:80"
+      - "443:443"
+      # - Port 5100: Internal application port (exposed but typically not mapped to host)
+
+    volumes:
+      - pwpush-db:/opt/PasswordPusher/db # Store database files on a persistent volume
+      - pwpush-storage:/opt/PasswordPusher/storage # Store file uploads on a persistent volume
+      # Alternative: Use bind mounts to specify host paths directly:
+      # - /host/path/to/db:/opt/PasswordPusher/db
+      # - /host/path/to/storage:/opt/PasswordPusher/storage
+
+    # Health check to monitor service status
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5100/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Optional: Set resource limits for production deployments
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 2G
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 512M
+
+    <<: *x-op-app-environment
+
+volumes:
+  # Named volumes persist data across container restarts and removals
+  # Docker manages these volumes, storing them in Docker's volume directory
+  pwpush-db:      # Database files (SQLite) - persists user accounts and push metadata
+  pwpush-storage: # File uploads - persists uploaded files pushed through the application
+
+  # To override with host paths, replace the above with bind mounts:
+  # pwpush-db:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /host/path/to/db
+  # pwpush-storage:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /host/path/to/storage
+
+###############################################################################
+# Other Notes
+###############################################################################
+#
+# You could override a single file in the container with a bind mount:
+# volumes:
+#   - type: bind
+#     source: /path/to/my/custom/settings.yml
+#     target: /opt/PasswordPusher/config/settings.yml
+#
+# To customize the application via configuration file, see settings.yml:
+# https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml
+#
+# Then you can use the above bind mount to overlay the file into the container on boot.

@@ -1,64 +1,99 @@
 {
   "name": "PasswordPusher",
-  "description": "An application to communicate passwords over the web. Passwords expire after a certain number of views and/or time has passed.",
+  "description": "An application to communicate sensitive information over the web. Secret links expire after a certain number of views and/or time has passed. Supports passwords, files, URLs, and QR codes with full audit logging.",
   "repository": "https://github.com/pglombardo/PasswordPusher",
-  "logo": "https://s3-eu-west-1.amazonaws.com/pwpush/pwpush_logo.png",
-  "keywords": ["password", "security", "expire"],
+  "logo": "https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png",
+  "keywords": ["password", "security", "expire", "file-sharing", "url-sharing", "qr-code"],
   "addons": [
     "heroku-postgresql"
   ],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate"
+    "postdeploy": "bundle exec rails db:migrate"
   },
   "env": {
-    "BUNDLE_WITHOUT": "development:test",
+    "BUNDLE_WITHOUT": {
+      "description": "Bundler groups to exclude",
+      "value": "development:test"
+    },
     "PWPUSH_MASTER_KEY": {
-      "description": "Application Encryption Key",
+      "description": "Application Encryption Key - Required for encrypting sensitive data. Generate with: rails runner 'puts Lockbox.generate_key'",
+      "generator": "secret"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "Rails secret key base for session encryption. Generate with: rails secret",
       "generator": "secret"
     },
     "WEB_CONCURRENCY": {
-      "description": "The number of processes to run.",
+      "description": "The number of Puma processes to run",
       "value": "3"
     },
-    "PWP__EXPIRE_AFTER_DAYS_DEFAULT": {
-      "description": "Default value for expire after days",
+    "PWP__PW__EXPIRE_AFTER_DAYS_DEFAULT": {
+      "description": "Default value for password push expiration (days)",
       "value": "7"
     },
-    "PWP__EXPIRE_AFTER_DAYS_MIN": {
-      "description": "Expire after days minimum value",
+    "PWP__PW__EXPIRE_AFTER_DAYS_MIN": {
+      "description": "Minimum value for password push expiration (days)",
       "value": "1"
     },
-    "PWP__EXPIRE_AFTER_DAYS_MAX": {
-      "description": "Expire after days maximum value",
+    "PWP__PW__EXPIRE_AFTER_DAYS_MAX": {
+      "description": "Maximum value for password push expiration (days)",
       "value": "90"
     },
-    "PWP__EXPIRE_AFTER_VIEWS_DEFAULT": {
-      "description": "Expire after views default value",
+    "PWP__PW__EXPIRE_AFTER_VIEWS_DEFAULT": {
+      "description": "Default value for password push expiration (views)",
       "value": "5"
     },
-    "PWP__EXPIRE_AFTER_VIEWS_MIN": {
-      "description": "Expire after views minimum value",
+    "PWP__PW__EXPIRE_AFTER_VIEWS_MIN": {
+      "description": "Minimum value for password push expiration (views)",
       "value": "1"
     },
-    "PWP__EXPIRE_AFTER_VIEWS_MAX": {
-      "description": "Expire after views maximum value",
+    "PWP__PW__EXPIRE_AFTER_VIEWS_MAX": {
+      "description": "Maximum value for password push expiration (views)",
       "value": "100"
     },
-    "PWP__ENABLE_DELETABLE_PUSHES": {
-      "description": "When true, passwords will have a link to optionally delete the password being viewed. When pushing a new password, this option will also add a checkbox to conditionally enable/disable this feature on a per-password basis.",
+    "PWP__PW__ENABLE_DELETABLE_PUSHES": {
+      "description": "Enable the ability for viewers to delete password pushes before expiration",
       "value": "true"
     },
-    "PWP__DELETABLE_PUSHES_DEFAULT": {
-      "description": "When the option DELETABLE_PASSWORDS_ENABLED is set to true, this option does two things: 1. Sets the default check state for the \"Allow viewers to optionally delete password before expiration\" checkbox. 2. Sets the default value for newly pushed passwords if unspecified (such as with a json request)",
+    "PWP__PW__DELETABLE_PUSHES_DEFAULT": {
+      "description": "Default value for deletable pushes checkbox and JSON API",
       "value": "true"
     },
-    "PWP__ENABLE_RETRIEVAL_STEP": {
-      "description": "An option to require an extra click through to get to the actual password?",
+    "PWP__PW__ENABLE_RETRIEVAL_STEP": {
+      "description": "Enable the 1-click retrieval step feature for password pushes",
       "value": "true"
     },
-    "PWP__RETRIEVAL_STEP_DEFAULT": {
-      "description": "The default value for the 1-click retrieval step option.",
-      "value": "true"
+    "PWP__PW__RETRIEVAL_STEP_DEFAULT": {
+      "description": "Default value for the 1-click retrieval step option",
+      "value": "false"
+    },
+    "PWP__ENABLE_LOGINS": {
+      "description": "Enable user account logins (requires SMTP configuration)",
+      "value": "false"
+    },
+    "PWP__ENABLE_FILE_PUSHES": {
+      "description": "Enable file upload pushes (requires logins and storage configuration)",
+      "value": "false"
+    },
+    "PWP__ENABLE_URL_PUSHES": {
+      "description": "Enable URL-based pushes (requires logins)",
+      "value": "false"
+    },
+    "PWP__ENABLE_QR_PUSHES": {
+      "description": "Enable QR code pushes (requires logins)",
+      "value": "false"
+    },
+    "PWP__HOST_DOMAIN": {
+      "description": "The domain where this instance is hosted (without protocol)",
+      "required": false
+    },
+    "PWP__HOST_PROTOCOL": {
+      "description": "The protocol to reach the domain (http or https)",
+      "value": "https"
+    },
+    "PWP__THEME": {
+      "description": "Bootswatch theme name (e.g., default, darkly, flatly, cosmo). See https://docs.pwpush.com/docs/themes/",
+      "value": "default"
     }
   }
 }
