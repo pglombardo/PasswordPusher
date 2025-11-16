@@ -1,0 +1,93 @@
+x-op-app-environment: &x-op-app-environment
+  # Environment variables for the Password Pusher application
+  # These variables are used to configure the Password Pusher application.
+
+  environment:
+    # Specify a domain in the TLS_DOMAIN environment variable to automatically provision a TLS (SSL) certificate for the application.
+    # TLS_DOMAIN: 'pwpush.example.com'
+    #
+    # Some default settings
+    #
+    PWP__ENABLE_LOGINS: true
+    PWP__ENABLE_FILE_PUSHES: true
+    PWP__FILES__STORAGE: local
+    PWP__ENABLE_QR_PUSHES: true
+    PWP__ENABLE_URL_PUSHES: true
+    #
+    # You MUST configure an SMTP server to send emails and for logins to work.
+    # PWP__MAIL__RAISE_DELIVERY_ERRORS: true
+    # PWP__MAIL__SMTP_ADDRESS: smtp.example.com
+    # PWP__MAIL__SMTP_PORT: 587
+    # PWP__MAIL__SMTP_USER_NAME: smtp-username
+    # PWP__MAIL__SMTP_PASSWORD: smtp-password
+    # PWP__MAIL__SMTP_AUTHENTICATION: plain
+    # PWP__MAIL__SMTP_STARTTLS: true
+    #
+    # Pick a theme: https://docs.pwpush.com/docs/rebranding/#themes
+    # PWP__THEME: "Cosmo"
+    # PWP__THEME: "Cerulean"
+    # PWP__THEME: "Cyborg"
+    # PWP__THEME: "Darkly"
+    # PWP__THEME: "Flatly"
+    # PWP__THEME: "Journal"
+    # PWP__THEME: "Litera"
+    # PWP__THEME: "Lumen"
+    # PWP__THEME: "Lux"
+    #
+    # See the Password Pusher Configuration documentation
+    # https://docs.pwpush.com/docs/config-strategies/
+    #
+    ################################################################################################
+    # You can set other environment variables here, or in a env file.  See:
+    # https://docs.docker.com/compose/environment-variables/
+
+services:
+  # The Password Pusher application
+  pwpush:
+    image: docker.io/pglombardo/pwpush:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - pwpush-db:/opt/PasswordPusher/db # Store database files on a persistent volume
+      - pwpush-storage:/opt/PasswordPusher/storage # Store file uploads on a persistent volume
+      # Alternative: Use bind mounts to specify host paths directly:
+      # - /host/path/to/db:/opt/PasswordPusher/db
+      # - /host/path/to/storage:/opt/PasswordPusher/storage
+    <<: *x-op-app-environment
+
+volumes:
+  # Named volumes persist data across container restarts and removals
+  # Docker manages these volumes, storing them in Docker's volume directory
+  pwpush-db:      # Database files (SQLite) - persists user accounts and push metadata
+  pwpush-storage: # File uploads - persists uploaded files pushed through the application
+
+  # To override with host paths, replace the above with bind mounts:
+  # pwpush-db:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /host/path/to/db
+  # pwpush-storage:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: /host/path/to/storage
+
+###############################################################################
+# Other Notes
+###############################################################################
+#
+# You could override a single file in the container with a bind mount:
+# volumes:
+#   - type: bind
+#     source: /path/to/my/custom/settings.yml
+#     target: /opt/PasswordPusher/config/settings.yml
+#
+# To customize the application via configuration file, see settings.yml:
+# https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml
+#
+# Then you can use the above bind mount to overlay the file into the container on boot.
