@@ -6,7 +6,13 @@ export RAILS_ENV=production
 echo ""
 if [ -z "$DATABASE_URL" ]
 then
-    export DATABASE_URL=sqlite3:db/db.sqlite3
+    # Check if old database path exists, otherwise use new path based on RAILS_ENV
+    if [ -f "/opt/PasswordPusher/db/db.sqlite3" ]
+    then
+        export DATABASE_URL=sqlite3:db/db.sqlite3
+    else
+        export DATABASE_URL=sqlite3:storage/db/production.sqlite3
+    fi
 else
     echo "According to DATABASE_URL database backend is set to $(echo $DATABASE_URL|cut -d ":" -f 1):..."
 fi
