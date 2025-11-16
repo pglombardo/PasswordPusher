@@ -1,23 +1,42 @@
 x-op-app-environment: &x-op-app-environment
   # Environment variables for the Password Pusher application
   # These variables are used to configure the Password Pusher application.
+  #
+  # For production use, consider using a .env file instead of hardcoding values here.
+  # Create a .env file in the same directory as this docker-compose.yml file.
+  # Example .env file:
+  #   PWPUSH_MASTER_KEY=your-generated-key-here
+  #   PWP__MAIL__SMTP_ADDRESS=smtp.example.com
+  #   PWP__MAIL__SMTP_PASSWORD=your-password
+  #
+  # Then reference it in docker-compose.yml with: env_file: - .env
 
   environment:
-    # Specify a domain in the TLS_DOMAIN environment variable to automatically provision a TLS (SSL) certificate for the application.
-    # TLS_DOMAIN: 'pwpush.example.com'
+    ################################################################################################
+    # REQUIRED: Security & Encryption
+    ################################################################################################
     #
     # Generate your own custom encryption key here: https://us.pwpush.com/generate_key
-    # PWPUSH_MASTER_KEY=ce3c302b66ae5eae249dea1d14e569e145c4025372caf392f407b68e5f64f015
+    # This key is REQUIRED for encrypting sensitive data. Without it, encrypted pushes may fail.
+    # PWPUSH_MASTER_KEY: 'ce3c302b66ae5eae249dea1d14e569e145c4025372caf392f407b68e5f64f015'
     #
-    # Some default settings
+    ################################################################################################
+    # OPTIONAL: TLS/SSL Configuration
+    ################################################################################################
     #
-    PWP__ENABLE_LOGINS: true
-    PWP__ENABLE_FILE_PUSHES: true
-    PWP__FILES__STORAGE: local
-    PWP__ENABLE_QR_PUSHES: true
-    PWP__ENABLE_URL_PUSHES: true
+    # Specify a domain in the TLS_DOMAIN environment variable to automatically provision a TLS (SSL)
+    # certificate for the application using Let's Encrypt. The container's web server (thrust) will
+    # handle TLS termination on port 443. Ensure your domain points to this server and ports 80/443
+    # are accessible from the internet for certificate validation.
+    # TLS_DOMAIN: 'pwpush.example.com'
     #
-    # You MUST configure an SMTP server to send emails and for logins to work.
+    ################################################################################################
+    # REQUIRED: SMTP Configuration (if using logins or email features)
+    ################################################################################################
+    #
+    # You MUST configure an SMTP server to send emails and for user logins to work properly.
+    # If you don't need email functionality, you can leave these commented out.
+    #
     # PWP__MAIL__RAISE_DELIVERY_ERRORS: true
     # PWP__MAIL__SMTP_ADDRESS: smtp.example.com
     # PWP__MAIL__SMTP_PORT: 587
@@ -25,6 +44,38 @@ x-op-app-environment: &x-op-app-environment
     # PWP__MAIL__SMTP_PASSWORD: smtp-password
     # PWP__MAIL__SMTP_AUTHENTICATION: plain
     # PWP__MAIL__SMTP_STARTTLS: true
+    #
+    ################################################################################################
+    # OPTIONAL: Feature Flags (defaults shown)
+    ################################################################################################
+    #
+    PWP__ENABLE_LOGINS: true
+    PWP__ENABLE_FILE_PUSHES: true
+    PWP__FILES__STORAGE: local
+    PWP__ENABLE_QR_PUSHES: true
+    PWP__ENABLE_URL_PUSHES: true
+    #
+    ################################################################################################
+    # OPTIONAL: Performance & Resource Optimization
+    ################################################################################################
+    #
+    # Disable the background worker process to reduce memory usage.
+    # When set, only the web server process runs (web=1), reducing memory footprint.
+    # The worker process handles background jobs like cleaning up expired pushes.
+    # Without the worker, some background tasks may not run automatically, but the web
+    # application will still function normally for creating and viewing pushes.
+    #
+    # Use this option if you:
+    # - Have limited memory resources
+    # - Are running in a memory-constrained environment
+    # - Don't need automatic background job processing
+    #
+    # Note: You can still manually run cleanup tasks or use external job processors if needed.
+    # PWP__NO_WORKER: true
+    #
+    ################################################################################################
+    # OPTIONAL: Theming
+    ################################################################################################
     #
     # Pick a theme: https://docs.pwpush.com/docs/rebranding/#themes
     # PWP__THEME: "Cosmo"
@@ -37,11 +88,14 @@ x-op-app-environment: &x-op-app-environment
     # PWP__THEME: "Lumen"
     # PWP__THEME: "Lux"
     #
-    # See the Password Pusher Configuration documentation
+    ################################################################################################
+    # Additional Configuration
+    ################################################################################################
+    #
+    # See the Password Pusher Configuration documentation for more information on available settings.
     # https://docs.pwpush.com/docs/config-strategies/
     #
-    ################################################################################################
-    # You can set other environment variables here, or in a env file.  See:
+    # You can set other environment variables here, or in a .env file. See:
     # https://docs.docker.com/compose/environment-variables/
 
 services:
@@ -51,15 +105,44 @@ services:
     # but may occasionally break due to development on the master branch.
     image: docker.io/pglombardo/pwpush:stable
     restart: unless-stopped
+
+    # Port mapping:
+    # - Port 80: HTTP traffic (redirects to HTTPS if TLS_DOMAIN is set)
+    # - Port 443: HTTPS traffic (TLS termination handled by container's web server)
+    # - Port 5100: Internal application port (exposed but typically not mapped to host)
+    #
+    # WARNING: Ensure ports 80 and 443 are not already in use on your host system.
+    # If they are, change the left side of the mapping (e.g., "8080:80" for HTTP).
     ports:
       - "80:80"
       - "443:443"
+      # - Port 5100: Internal application port (exposed but typically not mapped to host)
+
     volumes:
       - pwpush-db:/opt/PasswordPusher/db # Store database files on a persistent volume
       - pwpush-storage:/opt/PasswordPusher/storage # Store file uploads on a persistent volume
       # Alternative: Use bind mounts to specify host paths directly:
       # - /host/path/to/db:/opt/PasswordPusher/db
       # - /host/path/to/storage:/opt/PasswordPusher/storage
+
+    # Health check to monitor service status
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5100/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Optional: Set resource limits for production deployments
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 2G
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 512M
+
     <<: *x-op-app-environment
 
 volumes:
