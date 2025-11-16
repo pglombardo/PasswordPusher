@@ -47,7 +47,9 @@ x-op-app-environment: &x-op-app-environment
 services:
   # The Password Pusher application
   pwpush:
-    image: docker.io/pglombardo/pwpush:latest
+    # The Docker image is tagged with "stable" by default. The "latest" tag is also available
+    # but may occasionally break due to development on the master branch.
+    image: docker.io/pglombardo/pwpush:stable
     restart: unless-stopped
     ports:
       - "80:80"
