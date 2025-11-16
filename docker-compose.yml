@@ -119,11 +119,7 @@ services:
       # - Port 5100: Internal application port (exposed but typically not mapped to host)
 
     volumes:
-      - pwpush-db:/opt/PasswordPusher/db # Store database files on a persistent volume
-      - pwpush-storage:/opt/PasswordPusher/storage # Store file uploads on a persistent volume
-      # Alternative: Use bind mounts to specify host paths directly:
-      # - /host/path/to/db:/opt/PasswordPusher/db
-      # - /host/path/to/storage:/opt/PasswordPusher/storage
+      - pwpush-storage:/opt/PasswordPusher/storage # Store SQLite3 database and file uploads on a persistent volume
 
     # Health check to monitor service status
     healthcheck:
@@ -148,16 +144,9 @@ services:
 volumes:
   # Named volumes persist data across container restarts and removals
   # Docker manages these volumes, storing them in Docker's volume directory
-  pwpush-db:      # Database files (SQLite) - persists user accounts and push metadata
-  pwpush-storage: # File uploads - persists uploaded files pushed through the application
+  pwpush-storage: # SQLite3 database and file uploads - persists uploaded files pushed through the application
 
   # To override with host paths, replace the above with bind mounts:
-  # pwpush-db:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     o: bind
-  #     device: /host/path/to/db
   # pwpush-storage:
   #   driver: local
   #   driver_opts:
