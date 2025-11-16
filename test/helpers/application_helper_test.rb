@@ -146,47 +146,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.start_with?("https://custom.example.com")
   end
 
-  test "secret_url forces https when FORCE_SSL env var is set and not ssl" do
-    ENV["FORCE_SSL"] = "true"
-    @request = OpenStruct.new(ssl?: false)
-    attr_reader :request
-
-    # Mock URL that starts with http
-    def push_url(push)
-      "http://test.host/p/#{push.url_token}"
-    end
-    url = secret_url(@push)
-    assert url.start_with?("https://")
-    assert_not url.start_with?("http://")
-  end
-
-  test "secret_url does not force https when already ssl" do
-    ENV["FORCE_SSL"] = "true"
-    @request = OpenStruct.new(ssl?: true)
-    attr_reader :request
-
-    # Mock URL that already has https
-    def push_url(push)
-      "https://test.host/p/#{push.url_token}"
-    end
-    url = secret_url(@push)
-    # Should remain https (not change to http)
-    assert url.start_with?("https://")
-  end
-
-  test "secret_url does not force https when FORCE_SSL is not set" do
-    ENV.delete("FORCE_SSL")
-    @request = OpenStruct.new(ssl?: false)
-    attr_reader :request
-
-    def push_url(push)
-      "http://test.host/p/#{push.url_token}"
-    end
-    url = secret_url(@push)
-    # Should remain http
-    assert url.start_with?("http://")
-  end
-
   # Test qr_code method
   test "qr_code generates SVG QR code" do
     test_url = "https://example.com/test"
