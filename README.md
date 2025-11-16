@@ -79,19 +79,21 @@ To see the differences between pwpush.com and the OSS edition take a look at the
 
 # ⚡️ Quick Start
 
-## Run your own ephemeral instance
+## Run your own instance with Docker Compose
 
-→ Setup a DNS record to point to your server (e.g. `pwpush.example.com`) and run:
+→ Setup a DNS record to point to your server (e.g. `pwpush.example.com`), then:
+
+1. Clone this repository or download [docker-compose.yml](https://raw.githubusercontent.com/pglombardo/PasswordPusher/refs/heads/master/docker-compose.yml)
+2. Uncomment and set `TLS_DOMAIN: 'pwpush.example.com'` in `docker-compose.yml`
+3. Run:
 
 ```sh
-docker run -d -p "80:80" -p "443:443" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest
+docker compose up -d
 ```
 
-and browse to `https://pwpush.example.com`.
+Browse to `https://pwpush.example.com` - your TLS certificate will be automatically provisioned via Let's Encrypt.
 
-_or alternatively_
-
-→ Use one of our [production ready Docker Compose files](https://docs.pwpush.com/docs/installation/#docker-compose) with persistent databases.
+The `docker-compose.yml` file includes persistent database storage, health checks, and is production-ready out of the box.
 
 ## Use a Tool, Integration, API or CLI
 
@@ -183,7 +185,7 @@ Donations are used to pay for the following:
 * Community Support
 * On-going Maintenance
   * Upgrades
-  * Testing 
+  * Testing
 * Continued development
   * Development tools
   * License costs
