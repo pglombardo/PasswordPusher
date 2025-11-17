@@ -133,7 +133,7 @@ class PushesController < BaseController
       else
         @text_tab = true
       end
-      render action: "new", status: :unprocessable_entity
+      render action: "new", status: :unprocessable_content
     end
   end
 
