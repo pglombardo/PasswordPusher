@@ -55,11 +55,7 @@ COPY ./ ${APP_ROOT}/
 # Build assets - this layer will be rebuilt when source code changes
 RUN yarn build
 
-# Set DATABASE_URL to sqlite to have a ready
-# to use db file for ephemeral configuration
-ENV DATABASE_URL=sqlite3:db/db.sqlite3
-
-# Set a default secret_key_base
+# Set default secret_key_base
 # For those self-hosting this app, you should
 # generate your own secret_key_base and set it
 # in your environment.
@@ -143,6 +139,8 @@ RUN bundle config set without "${BUNDLE_WITHOUT}" \
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/docker-worker-entrypoint
+
+RUN touch /opt/PasswordPusher/.env.production && chown pwpusher:pwpusher /opt/PasswordPusher/.env.production
 
 USER pwpusher
 EXPOSE 80 443 5100
