@@ -179,7 +179,7 @@ class Api::V1::PushesController < Api::BaseController
 
       render template: "pushes/show", status: :created
     else
-      render json: @push.errors, status: :unprocessable_entity
+      render json: @push.errors, status: :unprocessable_content
     end
   end
 
