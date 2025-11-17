@@ -7,7 +7,7 @@ authenticated :user, lambda { |u| u.admin? } do
     end
     resources :audit_logs
     resources :pushes
-    resources :users
+    resources :users, except: [:edit, :update]
     root to: "dashboard#show"
   end
 end

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-12 10:48+0200\n"
-"PO-Revision-Date: 2025-09-12 10:48+0200\n"
+"POT-Creation-Date: 2025-11-16 00:30+0100\n"
+"PO-Revision-Date: 2025-11-15 23:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Norwegian\n"
 "Language: no\n"
@@ -18,9 +18,422 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Det pushet tilhører ikke deg."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Den push-en kan ikke slettes av mottakere."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Du må være logget inn for å se dine aktive push."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Du må være logget inn for å se dine utløpte push."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Passordet er feil. Vennligst prøv igjen eller kontakt personen eller organisas"
+"jonen som sendte deg denne linken."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Den pushen kan ikke slettes av seerne og tilhører ikke deg."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Den push har allerede utløpt."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Push-innholdet er slettet og den hemmelige URL-en utløpt."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Filoverføringer er deaktivert."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "URL-pushing er deaktivert."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "QR-kodeutsendelser er deaktivert."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Du kan bare legge ved opptil %{count} filer per trykk."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Nyttelast er nødvendig."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "Nyttelasten er for stor. Du kan bare skyve opp til %{count} byte."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "må være en gyldig HTTP- eller HTTPS-URL."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "Nyttelasten for QR-koden er for stor. Du kan bare skyve opp til %{count} byte."
+
+#: ../../../app/views/admin/_navigation.html.erb:9
+msgid "Password Pusher"
+msgstr "Passord pusher"
+
+#: ../../../app/views/admin/_navigation.html.erb:12
+#: ../../../app/views/admin/index.html.erb:11
+#: ../../../app/views/shared/_header.html.erb:46
+msgid "Administration Center"
+msgstr "Administrasjon"
+
+#: ../../../app/views/admin/_navigation.html.erb:17
+msgid "BETA"
+msgstr "BETAVERSJON"
+
+#: ../../../app/views/admin/_navigation.html.erb:31
+msgid "Administration Home"
+msgstr "Administrasjon Hjem"
+
+#: ../../../app/views/admin/_navigation.html.erb:37
+#: ../../../app/views/admin/index.html.erb:121
+msgid "System Administration"
+msgstr "Systemadministrasjon"
+
+#: ../../../app/views/admin/_navigation.html.erb:43
+msgid "Admin Users"
+msgstr "Administratorbrukere"
+
+#: ../../../app/views/admin/_navigation.html.erb:50
+#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/madmin/dashboard/show.html.erb:1
+msgid "Data Explorer"
+msgstr "Datautforsker"
+
+#: ../../../app/views/admin/_navigation.html.erb:57
+#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
+msgid "Background Jobs"
+msgstr "Bakgrunnsjobber"
+
+#: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
+msgid "Administration"
+msgstr "Administrasjon"
+
+#: ../../../app/views/admin/index.html.erb:13
+msgid "Welcome to the Password Pusher administration panel."
+msgstr "Velkommen til administrasjonspanelet for Password Pusher."
+
+#: ../../../app/views/admin/index.html.erb:14
+msgid ""
+"Manage your application settings and system administration from this central l"
+"ocation."
+msgstr ""
+"Administrer programinnstillingene og systemadministrasjonen din fra denne sent"
+"rale plasseringen."
+
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "OSS-versjon %{version}"
+
+#: ../../../app/views/admin/index.html.erb:40
+msgid "Total Users"
+msgstr "Totalt antall brukere"
+
+#: ../../../app/views/admin/index.html.erb:60
+msgid "Total Pushes"
+msgstr "Totalt antall pushes"
+
+#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/pushes/index.html.erb:26
+#: ../../../app/views/pushes/index.html.erb:34
+msgid "Active Pushes"
+msgstr "Aktive Push"
+
+#: ../../../app/views/admin/index.html.erb:100
+msgid "Total Audit Logs"
+msgstr "Totalt antall revisjonslogger"
+
+#: ../../../app/views/admin/index.html.erb:123
+msgid ""
+"Monitor system performance, manage background jobs, and analyze usage patterns"
+"."
+msgstr "Overvåk systemytelsen, administrer bakgrunnsjobber og analyser bruksmønstre."
+
+#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/users/index.html.erb:1
+#: ../../../app/views/admin/users/index.html.erb:9
+#: ../../../app/views/admin/users/index.html.erb:23
+msgid "Administrator Management"
+msgstr "Administratoradministrasjon"
+
+#: ../../../app/views/admin/index.html.erb:132
+msgid "Manage admin accounts and privileges"
+msgstr "Administrer administratorkontoer og -rettigheter"
+
+#: ../../../app/views/admin/index.html.erb:147
+msgid "Monitor and manage queued tasks"
+msgstr "Overvåk og administrer oppgaver i kø"
+
+#: ../../../app/views/admin/index.html.erb:162
+msgid "Query data and manage records"
+msgstr "Spør etter data og administrer poster"
+
+#: ../../../app/views/admin/index.html.erb:184
+msgid "Database Administration"
+msgstr "Databaseadministrasjon"
+
+#: ../../../app/views/admin/index.html.erb:186
+msgid "Direct access to database records and user management tools."
+msgstr "Direkte tilgang til databaseposter og brukeradministrasjonsverktøy."
+
+#: ../../../app/views/admin/index.html.erb:192
+msgid "Advanced Database Access"
+msgstr "Avansert databasetilgang"
+
+#: ../../../app/views/admin/index.html.erb:193
+msgid "Direct record manipulation and management"
+msgstr "Direkte manipulering og håndtering av poster"
+
+#: ../../../app/views/admin/index.html.erb:196
+msgid "Open Data Explorer"
+msgstr "Åpne Datautforsker"
+
+#: ../../../app/views/admin/index.html.erb:218
+msgid "Resources & Support"
+msgstr "Ressurser og støtte"
+
+#: ../../../app/views/admin/index.html.erb:220
+msgid "Access documentation, source code, releases, and get help when you need it."
+msgstr ""
+"Få tilgang til dokumentasjon, kildekode, utgivelser og få hjelp når du trenger"
+" det."
+
+#: ../../../app/views/admin/index.html.erb:230
+msgid "GitHub Repository"
+msgstr "GitHub-arkivet"
+
+#: ../../../app/views/admin/index.html.erb:231
+msgid "View source code and contribute"
+msgstr "Se kildekoden og bidra"
+
+#: ../../../app/views/admin/index.html.erb:246
+msgid "Latest Releases"
+msgstr "Siste utgivelser"
+
+#: ../../../app/views/admin/index.html.erb:247
+msgid "View changelog and download updates"
+msgstr "Se endringsloggen og last ned oppdateringer"
+
+#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/shared/_footer.html.erb:52
+msgid "Documentation"
+msgstr "Dokumentasjon"
+
+#: ../../../app/views/admin/index.html.erb:263
+msgid "Complete setup and usage guides"
+msgstr "Komplette oppsett- og bruksanvisninger"
+
+#: ../../../app/views/admin/index.html.erb:278
+msgid "Support"
+msgstr "Støtte"
+
+#: ../../../app/views/admin/index.html.erb:279
+msgid "Get help and report issues"
+msgstr "Få hjelp og rapporter problemer"
+
+#: ../../../app/views/admin/index.html.erb:299
+msgid "Getting Started"
+msgstr "Komme i gang"
+
+#: ../../../app/views/admin/index.html.erb:302
+msgid ""
+"Welcome to the Password Pusher Administration Center! Here's your complete too"
+"lkit:"
+msgstr ""
+"Velkommen til administrasjonssenteret for passordgjengere! Her er ditt komplet"
+"te verktøysett:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "👥 Manage Administrators:"
+msgstr "👥 Administrer administratorer:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "Promote or revoke admin privileges for users in your system"
+msgstr "Forfrem eller tilbakekal administratorrettigheter for brukere i systemet ditt"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "📊 Monitor Background Jobs:"
+msgstr "📊 Overvåk bakgrunnsjobber:"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "Track email notifications, push cleanup, and system processing tasks"
+msgstr "Spor e-postvarsler, push-opprydding og systembehandlingsoppgaver"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Utforsk databasen:"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "Direct access to users, pushes, audit logs, and file storage records"
+msgstr "Direkte tilgang til brukere, pushes, revisjonslogger og fillagringsposter"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "📈 View System Stats:"
+msgstr "📈 Se systemstatistikk:"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "Monitor user activity, push counts, and audit log entries"
+msgstr ""
+"Overvåk brukeraktivitet, antall push-meldinger og oppføringer i revisjonslogge"
+"n"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "🔍 Track Activity:"
+msgstr "🔍 Spor aktivitet:"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "Review audit logs to understand system usage and security events"
+msgstr "Gjennomgå revisjonslogger for å forstå systembruk og sikkerhetshendelser"
+
+#: ../../../app/views/admin/users/index.html.erb:25
+msgid "Manage administrator accounts and privileges"
+msgstr "Administrere administratorkontoer og -rettigheter"
+
+#: ../../../app/views/admin/users/index.html.erb:29
+msgid "%{count} Administrators"
+msgstr "%{count} Administratorer"
+
+#: ../../../app/views/admin/users/index.html.erb:42
+msgid "Current Administrators"
+msgstr "Nåværende administratorer"
+
+#: ../../../app/views/admin/users/index.html.erb:50
+#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/devise/sessions/new.html.erb:7
+msgid "Email"
+msgstr "E-post"
+
+#: ../../../app/views/admin/users/index.html.erb:51
+#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/pushes/index.html.erb:39
+msgid "Created"
+msgstr "Opprettet"
+
+#: ../../../app/views/admin/users/index.html.erb:52
+#: ../../../app/views/admin/users/index.html.erb:141
+msgid "Last Sign In"
+msgstr "Siste innlogging"
+
+#: ../../../app/views/admin/users/index.html.erb:53
+#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/users/index.html.erb:63
+msgid "Actions"
+msgstr "Handlinger"
+
+#: ../../../app/views/admin/users/index.html.erb:70
+msgid "You"
+msgstr "Du"
+
+#: ../../../app/views/admin/users/index.html.erb:83
+#: ../../../app/views/admin/users/index.html.erb:169
+msgid "Never"
+msgstr "Aldri"
+
+#: ../../../app/views/admin/users/index.html.erb:92
+msgid ""
+"Are you sure you want to revoke administrator privileges from %{email}? They w"
+"ill lose access to the administration panel."
+msgstr ""
+"Er du sikker på at du vil oppheve administratorrettighetene til %{email}? De v"
+"il miste tilgangen til administrasjonspanelet."
+
+#: ../../../app/views/admin/users/index.html.erb:97
+msgid "Revoke"
+msgstr "Tilbakekalle"
+
+#: ../../../app/views/admin/users/index.html.erb:100
+msgid "Cannot revoke your own privileges"
+msgstr "Kan ikke tilbakekalle dine egne privilegier"
+
+#: ../../../app/views/admin/users/index.html.erb:113
+msgid "No administrators found"
+msgstr "Ingen administratorer funnet"
+
+#: ../../../app/views/admin/users/index.html.erb:114
+msgid "There are currently no administrator accounts in the system."
+msgstr "Det finnes for øyeblikket ingen administratorkontoer i systemet."
+
+#: ../../../app/views/admin/users/index.html.erb:126
+msgid "Regular Users"
+msgstr "Vanlige brukere"
+
+#: ../../../app/views/admin/users/index.html.erb:130
+msgid "%{count} Regular Users"
+msgstr "%{count} Vanlige brukere"
+
+#: ../../../app/views/admin/users/index.html.erb:177
+msgid ""
+"Are you sure you want to promote %{email} to administrator? This will give the"
+"m full access to the administration panel."
+msgstr ""
+"Er du sikker på at du vil forfremme %{email} til administrator? Dette vil gi d"
+"em full tilgang til administrasjonspanelet."
+
+#: ../../../app/views/admin/users/index.html.erb:182
+msgid "Promote"
+msgstr "Fremme"
+
+#: ../../../app/views/admin/users/index.html.erb:200
+msgid "No regular users found"
+msgstr "Ingen faste brukere funnet"
+
+#: ../../../app/views/admin/users/index.html.erb:201
+msgid "All users in the system are administrators."
+msgstr "Alle brukere i systemet er administratorer."
+
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "Linken for filnedlasting ovenfor vil utløpe om:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Du kan oppdatere siden for å gjenskape nye nedlastingskoblinger hvis visninger"
+" gjenstår."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Utløpt"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Hemmelig lenkespråk"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Automatisk gjenkjenning"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -28,6 +441,69 @@ msgstr "Hemmelig lenkespråk"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopier til utklippstavle"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push opprettet på %{date} av %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP-adresse:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Brukeragent:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Ingen"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Henviser:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push utløp manuelt på %{date} av %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Mislykket passordfraseforsøk på %{date} av %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Mislykket visningsforsøk på %{date} av %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Vellykket visning av %{date} av %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Klikk her for å bekrefte kontoen din"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -172,7 +648,7 @@ msgid "Current Password"
 msgstr "Nåværende passord"
 
 #: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:49
+#: ../../../app/views/shared/_header.html.erb:63
 msgid "API Token"
 msgstr "API-token"
 
@@ -245,6 +721,8 @@ msgid "Are you sure?"
 msgstr "Er du sikker?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/madmin/application/_form.html.erb:212
+#: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
 msgid "Cancel"
@@ -260,15 +738,22 @@ msgstr "Slett og regenerer"
 msgid "Processing..."
 msgstr "Behandler..."
 
-#: ../../../app/views/devise/sessions/new.html.erb:7
-msgid "Email"
-msgstr "E-post"
-
 #: ../../../app/views/devise/sessions/new.html.erb:12
 msgid "Password"
 msgstr "Passord"
 
-#: ../../../app/views/layouts/admin/application.html.erb:41
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Administrasjon – Passordsender"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "System aktivt"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Tilbake til appen"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -276,6 +761,447 @@ msgstr "Passord"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Password Pusher Logo"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Datautforsker – Administrasjon – Passordsender"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Staging-miljø"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Dette er et teststed, og dataene tilbakestilles ofte. Bruk %{production_link} "
+"med mindre du tester nye funksjoner."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Tilbake til administrasjonssenteret"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Overvåk og administrer bakgrunnsjobbbehandling og køer"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Hva er bakgrunnsjobber?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"Bakgrunnsjobber håndterer oppgaver som kjører asynkront uten å blokkere hoveda"
+"pplikasjonen. I Password Pusher inkluderer disse:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "E-postvarsler"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Sende push-utløpsvarsler og administratorvarsler"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Push-opprydding"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Fjerner utløpte pushes automatisk fra databasen"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Filbehandling"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Håndtering av filopplastinger og eventuelle etterbehandlingsoppgaver."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Revisjonslogging"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Registrering av systemhendelser og brukerhandlinger"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Bruk fanene nedenfor til å overvåke jobbkøer, vise mislykkede jobber og admini"
+"strere jobbbehandling."
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "There was %{count} with your submission:"
+msgstr "Det var %{count} med innsendingen din:"
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "error"
+msgstr "feil"
+
+#: ../../../app/views/madmin/application/_form.html.erb:61
+msgid "Basic Information"
+msgstr "Grunnleggende informasjon"
+
+#: ../../../app/views/madmin/application/_form.html.erb:92
+msgid "Security & Access"
+msgstr "Sikkerhet og tilgang"
+
+#: ../../../app/views/madmin/application/_form.html.erb:123
+msgid "Activity & Timestamps"
+msgstr "Aktivitet og tidsstempler"
+
+#: ../../../app/views/madmin/application/_form.html.erb:154
+msgid "Related Records"
+msgstr "Relaterte poster"
+
+#: ../../../app/views/madmin/application/_form.html.erb:185
+msgid "Additional Fields"
+msgstr "Ytterligere felt"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Update"
+msgstr "Oppdater"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Create"
+msgstr "Skape"
+
+#: ../../../app/views/madmin/application/edit.html.erb:1
+#: ../../../app/views/madmin/application/edit.html.erb:20
+msgid "Edit %{name}"
+msgstr "Rediger %{name}"
+
+#: ../../../app/views/madmin/application/edit.html.erb:13
+#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/show.html.erb:25
+msgid "Edit"
+msgstr "Redigere"
+
+#: ../../../app/views/madmin/application/edit.html.erb:21
+msgid "Update %{name} information"
+msgstr "Oppdater %{name}-informasjon"
+
+#: ../../../app/views/madmin/application/index.html.erb:7
+msgid "Manage %{name} records"
+msgstr "Administrer %{name}-oppføringer"
+
+#: ../../../app/views/madmin/application/index.html.erb:14
+#: ../../../app/views/madmin/application/new.html.erb:1
+#: ../../../app/views/madmin/application/new.html.erb:10
+#: ../../../app/views/madmin/application/new.html.erb:17
+msgid "New %{name}"
+msgstr "Ny %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:26
+msgid "Search %{name}..."
+msgstr "Søk %{name}..."
+
+#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/users/index.html.erb:27
+msgid "Search"
+msgstr "Søk"
+
+#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/users/index.html.erb:40
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "All"
+msgstr "Alle"
+
+#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/pushes/_files_form.html.erb:9
+#: ../../../app/views/pushes/_form.html.erb:9
+#: ../../../app/views/pushes/_qr_form.html.erb:9
+#: ../../../app/views/pushes/_url_form.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:34
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Visning"
+msgstr[1] "Visninger"
+
+#: ../../../app/views/madmin/application/new.html.erb:18
+msgid "Create a new %{name} record"
+msgstr "Opprett en ny %{name}-post"
+
+#: ../../../app/views/madmin/application/show.html.erb:19
+msgid "View %{name} details"
+msgstr "Se detaljer om %{name}"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/show.html.erb:119
+msgid "Delete"
+msgstr "Slett"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+msgid "Are you sure you want to delete this %{name}?"
+msgstr "Er du sikker på at du vil slette denne %{name}?"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:15
+msgid "Database Explorer"
+msgstr "Databaseutforsker"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:16
+msgid "Direct database access and record management"
+msgstr "Direkte databasetilgang og arkivhåndtering"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+msgid "Database %{status}"
+msgstr "Database %{status}"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Tilkoblet"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:210
+msgid "Disconnected"
+msgstr "Frakoblet"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:27
+#: ../../../app/views/madmin/dashboard/show.html.erb:237
+msgid "Back to Admin Center"
+msgstr "Tilbake til administrasjonssenteret"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:40
+msgid "Direct Database Access"
+msgstr "Direkte databasetilgang"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Advarsel:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid ""
+"This interface provides direct access to your production database. All changes"
+" are immediate and irreversible. Exercise extreme caution when modifying recor"
+"ds."
+msgstr ""
+"Dette grensesnittet gir direkte tilgang til produksjonsdatabasen din. Alle end"
+"ringer er umiddelbare og kan ikke angres. Vær ekstremt forsiktig når du endrer"
+" poster."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid "Recommendation:"
+msgstr "Anbefaling:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid ""
+"Always backup your database before making any changes to ensure you can restor"
+"e data if needed."
+msgstr ""
+"Ta alltid sikkerhetskopi av databasen før du gjør endringer, slik at du kan gj"
+"enopprette dataene om nødvendig."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:60
+msgid "Getting Started with Data Explorer"
+msgstr "Komme i gang med Data Explorer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:62
+msgid ""
+"This tool provides direct access to your database records. Here's how to use i"
+"t effectively:"
+msgstr ""
+"Dette verktøyet gir direkte tilgang til databasepostene dine. Slik bruker du d"
+"et effektivt:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:66
+msgid "📊 Browse Records"
+msgstr "📊 Bla gjennom poster"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "Users:"
+msgstr "Brukere:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "View user accounts, check registration dates, and manage permissions"
+msgstr "Vis brukerkontoer, sjekk registreringsdatoer og administrer tillatelser"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Trykker:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Monitor password pushes, view expiration status, and track usage"
+msgstr "Overvåk passordoverføringer, se utløpsstatus og spor bruk"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Audit Logs:"
+msgstr "Revisjonslogger:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Track all system changes and user actions"
+msgstr "Spor alle systemendringer og brukerhandlinger"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:74
+msgid "🔧 Common Tasks"
+msgstr "🔧 Vanlige oppgaver"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Brukerstøtte:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "Impersonate users to troubleshoot issues"
+msgstr "Utgi deg for å være bruker for å feilsøke problemer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Dataopprydding:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Remove expired pushes or inactive accounts"
+msgstr "Fjern utløpte pushes eller inaktive kontoer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Security Review:"
+msgstr "Sikkerhetsgjennomgang:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Check audit logs for suspicious activity"
+msgstr "Sjekk revisjonslogger for mistenkelig aktivitet"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analyse:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analyze usage patterns and system health"
+msgstr "Analyser bruksmønstre og systemhelse"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:99
+msgid "Core Data"
+msgstr "Kjernedata"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:101
+msgid "Manage users, pushes, and audit logs."
+msgstr "Administrer brukere, pushes og revisjonslogger."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:109
+msgid "Users"
+msgstr "Brukere"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:110
+msgid "Manage user accounts and permissions"
+msgstr "Administrer brukerkontoer og tillatelser"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:124
+msgid "Pushes"
+msgstr "Dytter"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:125
+msgid "View and manage pushes"
+msgstr "Vis og administrer pushes"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:139
+msgid "Audit Logs"
+msgstr "Revisjonslogger"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:140
+msgid "Track system activity and changes"
+msgstr "Spor systemaktivitet og endringer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:165
+msgid "Database Connection"
+msgstr "Databasetilkobling"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:167
+msgid "Current database connection information and status."
+msgstr "Gjeldende informasjon og status for databasetilkobling."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:172
+msgid "Database Type"
+msgstr "Databasetype"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:180
+msgid "Database Name"
+msgstr "Databasenavn"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:188
+msgid "Environment"
+msgstr "Miljø"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:198
+msgid "Connection Status"
+msgstr "Tilkoblingsstatus"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:229
+msgid "Quick Actions"
+msgstr "Hurtighandlinger"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:245
+msgid "Admin Management"
+msgstr "Administrasjonsadministrasjon"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:253
+msgid "Go to Application"
+msgstr "Gå til applikasjon"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:261
+msgid "Manage Users"
+msgstr "Administrer brukere"
+
+#: ../../../app/views/madmin/users/_form.html.erb:32
+msgid "User Information"
+msgstr "Brukerinformasjon"
+
+#: ../../../app/views/madmin/users/_form.html.erb:42
+msgid "The email address for the new user account."
+msgstr "E-postadressen til den nye brukerkontoen."
+
+#: ../../../app/views/madmin/users/_form.html.erb:50
+msgid "Auto-confirm account"
+msgstr "Bekreft konto automatisk"
+
+#: ../../../app/views/madmin/users/_form.html.erb:53
+msgid ""
+"If checked, the user account will be automatically confirmed and ready to use."
+" Otherwise, the user will need to confirm their email address."
+msgstr ""
+"Hvis dette er avkrysset, vil brukerkontoen automatisk bli bekreftet og klar ti"
+"l bruk. Ellers må brukeren bekrefte e-postadressen sin."
+
+#: ../../../app/views/madmin/users/_form.html.erb:68
+msgid "Password Information"
+msgstr "Passordinformasjon"
+
+#: ../../../app/views/madmin/users/_form.html.erb:70
+msgid ""
+"A secure password will be automatically generated for this user. The user can "
+"reset their password using the \"Forgot Password\" link on the login page."
+msgstr ""
+"Et sikkert passord vil bli generert automatisk for denne brukeren. Brukeren ka"
+"n tilbakestille passordet sitt ved å bruke lenken «Glemt passord» på innloggin"
+"gssiden."
+
+#: ../../../app/views/madmin/users/_form.html.erb:85
+msgid "Create User"
+msgstr "Opprett bruker"
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -629,16 +1555,6 @@ msgstr[1] "Dager"
 msgid "Days"
 msgstr "Dager"
 
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
-msgid "View"
-msgid_plural "Views"
-msgstr[0] "Visning"
-msgstr[1] "Visninger"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
 #: ../../../app/views/pushes/_files_form.html.erb:80
 #: ../../../app/views/pushes/_form.html.erb:10
@@ -672,6 +1588,10 @@ msgstr "Lagret!"
 #: ../../../app/views/pushes/_files_form.html.erb:29
 msgid "Add Files..."
 msgstr "Legg til filer..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Du kan laste opp opptil %{count} filer per push."
 
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
@@ -802,6 +1722,13 @@ msgstr "En revisjonslogg over aktivitet vil være tilgjengelig."
 #: ../../../app/views/pushes/_form.html.erb:189
 #: ../../../app/views/pushes/_qr_form.html.erb:190
 #: ../../../app/views/pushes/_url_form.html.erb:161
+msgid "Pushing..."
+msgstr "Pusher..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:191
+#: ../../../app/views/pushes/_form.html.erb:189
+#: ../../../app/views/pushes/_qr_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:161
 msgid "Push It!"
 msgstr "Push den!"
 
@@ -901,6 +1828,10 @@ msgstr "Ved utløp vil push-URLen bli slettet helt."
 msgid "Audit Log for %{push_id}"
 msgstr "Revisjonslogg for %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Revisjonslogg for Push ID: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Trykket på %{date}"
@@ -912,11 +1843,6 @@ msgstr "Hemmelig URL for denne push"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Bare synlig for deg"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Ingen"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -978,16 +1904,6 @@ msgstr "Nåværende status"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Tilstand:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Utløpt"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Push-innholdet er slettet og den hemmelige URL-en utløpt."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1064,6 +1980,7 @@ msgid "The number of files attached to this push. This value will be 0 when expi
 msgstr "Antall filer knyttet til denne push. Denne verdien vil være 0 når utløpt."
 
 #: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Vedlagte filer"
 
@@ -1103,11 +2020,6 @@ msgstr ""
 "Revisjonsloggen (inkludert fremtidige forsøk på visninger) vil fortsatt oppret"
 "tholdes fremover."
 
-#: ../../../app/views/pushes/audit.html.erb:222
-#: ../../../app/views/pushes/show.html.erb:119
-msgid "Delete"
-msgstr "Slett"
-
 #: ../../../app/views/pushes/audit.html.erb:234
 msgid "Start of Audit Log"
 msgstr "Start av revisjonslogg"
@@ -1123,12 +2035,6 @@ msgstr ""
 #: ../../../app/views/pushes/audit.html.erb:244
 msgid "End of Audit Log"
 msgstr "Slutt på revisjonslogg"
-
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
-msgid "Active Pushes"
-msgstr "Aktive Push"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -1154,13 +2060,21 @@ msgstr "Utløpte pushes"
 msgid "All Pushes"
 msgstr "Alle pushes"
 
-#: ../../../app/views/pushes/index.html.erb:39
-msgid "Created"
-msgstr "Opprettet"
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Navn eller ID"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Type"
 
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Merk"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Gjenstående"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1178,6 +2092,10 @@ msgstr "QR-kode"
 msgid "Text"
 msgstr "Tekst"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} visninger eller %{days} dager"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Trykk på knapper"
@@ -1189,6 +2107,10 @@ msgstr "Forhåndsvisning"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Revidere"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Send et passord, tekst eller fil på en sikker måte"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1308,6 +2230,22 @@ msgstr "Skyv en annen"
 msgid "View Audit Log"
 msgstr "Se revisjonslogg"
 
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Tips: Sender du til en internasjonal bruker? Endre det hemmelige lenkespråket "
+"ved å bruke rullegardinmenyen til høyre for URL-en."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Alternativt vil automatisk gjenkjenning velge et språk basert på nettleserinns"
+"tillingene for sluttbrukeren."
+
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"
 msgstr "Din hemmelige URL"
@@ -1404,17 +2342,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Dashbord"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
-msgid "All"
-msgstr "Alle"
-
 #: ../../../app/views/shared/_dashboard_header.html.erb:13
 msgid "New"
 msgstr "Ny"
-
-#: ../../../app/views/shared/_footer.html.erb:4
-msgid "Peter"
-msgstr "Peter"
 
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
@@ -1448,31 +2378,23 @@ msgstr "Verktøy"
 msgid "Overview"
 msgstr "Oversikt"
 
-#: ../../../app/views/shared/_footer.html.erb:52
-msgid "Documentation"
-msgstr "Dokumentasjon"
-
 #: ../../../app/views/shared/_header.html.erb:37
 msgid "Account"
 msgstr "Konto"
 
-#: ../../../app/views/shared/_header.html.erb:42
-msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
-
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:55
 msgid "Edit Login Details"
 msgstr "Rediger påloggingsdetaljer"
 
-#: ../../../app/views/shared/_header.html.erb:52
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Log Out"
 msgstr "Logg ut"
 
-#: ../../../app/views/shared/_header.html.erb:58
+#: ../../../app/views/shared/_header.html.erb:78
 msgid "Log In"
 msgstr "Logg Inn"
 
-#: ../../../app/views/shared/_header.html.erb:62
+#: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "Meld deg på"
 
@@ -1541,5 +2463,5 @@ msgid "URLs"
 msgstr "URL-er"
 
 #: ../../../app/views/shared/_topnav.html.erb:18
-msgid "QR Codes ᴮᴱᵀᴬ"
+msgid "QR Codes"
 msgstr "QR-koder ᴮᴱᵀᴬ"

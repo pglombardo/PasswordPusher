@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-12 10:48+0200\n"
-"PO-Revision-Date: 2025-09-12 10:48+0200\n"
+"POT-Creation-Date: 2025-11-16 00:30+0100\n"
+"PO-Revision-Date: 2025-11-15 23:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hungarian\n"
 "Language: hu\n"
@@ -18,9 +18,432 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Ez a küldés nem önhöz tartozik."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Ez a küldés nem törölhető a nézők által."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Az aktív lökések megtekintéséhez be kell jelentkeznie."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "A lejárt push-ok megtekintéséhez be kell jelentkeznie."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Ez a jelszó hibás. Kérjük, próbálja újra, vagy lépjen kapcsolatba azzal a szem"
+"éllyel vagy szervezettel, aki ezt a linket küldte Önnek."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Ezt a push-t a nézők nem törölhetik, és nem a tiéd."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Ez a nyomás már lejárt."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "A küldés tartalmát törölték, és a titkos URL lejárt."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "A fájlküldések le vannak tiltva."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Az URL-küldések le vannak tiltva."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "A QR-kódok küldése le van tiltva."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Leküldésenként legfeljebb %{count} fájlt csatolhat."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Hasznos teher megadása kötelező."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "A hasznos teher túl nagy. Legfeljebb %{count} bájtot küldhet le."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "érvényes HTTP vagy HTTPS URL-címnek kell lennie."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "A QR-kód rakománya túl nagy. Legfeljebb %{count} bájtot küldhet le."
+
+#: ../../../app/views/admin/_navigation.html.erb:9
+msgid "Password Pusher"
+msgstr "Jelszótoló"
+
+#: ../../../app/views/admin/_navigation.html.erb:12
+#: ../../../app/views/admin/index.html.erb:11
+#: ../../../app/views/shared/_header.html.erb:46
+msgid "Administration Center"
+msgstr "Adminisztráció"
+
+#: ../../../app/views/admin/_navigation.html.erb:17
+msgid "BETA"
+msgstr "BÉTA"
+
+#: ../../../app/views/admin/_navigation.html.erb:31
+msgid "Administration Home"
+msgstr "Adminisztráció Főoldal"
+
+#: ../../../app/views/admin/_navigation.html.erb:37
+#: ../../../app/views/admin/index.html.erb:121
+msgid "System Administration"
+msgstr "Rendszeradminisztráció"
+
+#: ../../../app/views/admin/_navigation.html.erb:43
+msgid "Admin Users"
+msgstr "Adminisztrátori felhasználók"
+
+#: ../../../app/views/admin/_navigation.html.erb:50
+#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/madmin/dashboard/show.html.erb:1
+msgid "Data Explorer"
+msgstr "Adatkezelő"
+
+#: ../../../app/views/admin/_navigation.html.erb:57
+#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
+msgid "Background Jobs"
+msgstr "Háttérfeladatok"
+
+#: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
+msgid "Administration"
+msgstr "Adminisztráció"
+
+#: ../../../app/views/admin/index.html.erb:13
+msgid "Welcome to the Password Pusher administration panel."
+msgstr "Üdvözöljük a Password Pusher adminisztrációs paneljén."
+
+#: ../../../app/views/admin/index.html.erb:14
+msgid ""
+"Manage your application settings and system administration from this central l"
+"ocation."
+msgstr ""
+"Kezelje alkalmazásbeállításait és rendszeradminisztrációját erről a központi h"
+"elyről."
+
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "OSS verzió %{version}"
+
+#: ../../../app/views/admin/index.html.erb:40
+msgid "Total Users"
+msgstr "Összes felhasználó"
+
+#: ../../../app/views/admin/index.html.erb:60
+msgid "Total Pushes"
+msgstr "Összes leküldés"
+
+#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/pushes/index.html.erb:26
+#: ../../../app/views/pushes/index.html.erb:34
+msgid "Active Pushes"
+msgstr "Aktív küldések"
+
+#: ../../../app/views/admin/index.html.erb:100
+msgid "Total Audit Logs"
+msgstr "Összes naplófájl"
+
+#: ../../../app/views/admin/index.html.erb:123
+msgid ""
+"Monitor system performance, manage background jobs, and analyze usage patterns"
+"."
+msgstr ""
+"Figyelemmel kíséri a rendszer teljesítményét, kezeli a háttérben futó feladato"
+"kat és elemzi a használati mintákat."
+
+#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/users/index.html.erb:1
+#: ../../../app/views/admin/users/index.html.erb:9
+#: ../../../app/views/admin/users/index.html.erb:23
+msgid "Administrator Management"
+msgstr "Adminisztrátor menedzsment"
+
+#: ../../../app/views/admin/index.html.erb:132
+msgid "Manage admin accounts and privileges"
+msgstr "Rendszergazdai fiókok és jogosultságok kezelése"
+
+#: ../../../app/views/admin/index.html.erb:147
+msgid "Monitor and manage queued tasks"
+msgstr "Várakozó feladatok figyelése és kezelése"
+
+#: ../../../app/views/admin/index.html.erb:162
+msgid "Query data and manage records"
+msgstr "Adatok lekérdezése és rekordok kezelése"
+
+#: ../../../app/views/admin/index.html.erb:184
+msgid "Database Administration"
+msgstr "Adatbázis-adminisztráció"
+
+#: ../../../app/views/admin/index.html.erb:186
+msgid "Direct access to database records and user management tools."
+msgstr ""
+"Közvetlen hozzáférés az adatbázisrekordokhoz és a felhasználókezelő eszközökhö"
+"z."
+
+#: ../../../app/views/admin/index.html.erb:192
+msgid "Advanced Database Access"
+msgstr "Speciális adatbázis-hozzáférés"
+
+#: ../../../app/views/admin/index.html.erb:193
+msgid "Direct record manipulation and management"
+msgstr "Közvetlen rekordkezelés és -manipuláció"
+
+#: ../../../app/views/admin/index.html.erb:196
+msgid "Open Data Explorer"
+msgstr "Adatkezelő megnyitása"
+
+#: ../../../app/views/admin/index.html.erb:218
+msgid "Resources & Support"
+msgstr "Erőforrások és támogatás"
+
+#: ../../../app/views/admin/index.html.erb:220
+msgid "Access documentation, source code, releases, and get help when you need it."
+msgstr ""
+"Hozzáférhetsz a dokumentációhoz, a forráskódhoz, a kiadásokhoz, és segítséget "
+"kaphatsz, amikor szükséged van rá."
+
+#: ../../../app/views/admin/index.html.erb:230
+msgid "GitHub Repository"
+msgstr "GitHub adattár"
+
+#: ../../../app/views/admin/index.html.erb:231
+msgid "View source code and contribute"
+msgstr "Forráskód megtekintése és közreműködés"
+
+#: ../../../app/views/admin/index.html.erb:246
+msgid "Latest Releases"
+msgstr "Legújabb kiadások"
+
+#: ../../../app/views/admin/index.html.erb:247
+msgid "View changelog and download updates"
+msgstr "Változási napló megtekintése és frissítések letöltése"
+
+#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/shared/_footer.html.erb:52
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: ../../../app/views/admin/index.html.erb:263
+msgid "Complete setup and usage guides"
+msgstr "Teljes körű beállítási és használati útmutatók"
+
+#: ../../../app/views/admin/index.html.erb:278
+msgid "Support"
+msgstr "Támogatás"
+
+#: ../../../app/views/admin/index.html.erb:279
+msgid "Get help and report issues"
+msgstr "Segítség kérése és problémák jelentése"
+
+#: ../../../app/views/admin/index.html.erb:299
+msgid "Getting Started"
+msgstr "Első lépések"
+
+#: ../../../app/views/admin/index.html.erb:302
+msgid ""
+"Welcome to the Password Pusher Administration Center! Here's your complete too"
+"lkit:"
+msgstr ""
+"Üdvözöljük a Password Pusher adminisztrációs központjában! Íme a teljes eszköz"
+"készlet:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "👥 Manage Administrators:"
+msgstr "👥 Adminisztrátorok kezelése:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "Promote or revoke admin privileges for users in your system"
+msgstr ""
+"Előléptetheti vagy visszavonhatja a rendszer felhasználóinak rendszergazdai jo"
+"gosultságait"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "📊 Monitor Background Jobs:"
+msgstr "📊 Háttérfeladatok monitorozása:"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "Track email notifications, push cleanup, and system processing tasks"
+msgstr ""
+"E-mail értesítések, push értesítések és rendszerfeldolgozási feladatok nyomon "
+"követése"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Adatbázis felfedezése:"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "Direct access to users, pushes, audit logs, and file storage records"
+msgstr ""
+"Közvetlen hozzáférés a felhasználókhoz, push üzenetekhez, auditnaplókhoz és fá"
+"jltárolási rekordokhoz"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "📈 View System Stats:"
+msgstr "📈 Rendszerstatisztikák megtekintése:"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "Monitor user activity, push counts, and audit log entries"
+msgstr "Felhasználói aktivitás, push-számlálók és naplóbejegyzések figyelése"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "🔍 Track Activity:"
+msgstr "🔍 Tevékenység nyomon követése:"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "Review audit logs to understand system usage and security events"
+msgstr ""
+"A rendszerhasználat és a biztonsági események megértése érdekében tekintse át "
+"az auditnaplókat"
+
+#: ../../../app/views/admin/users/index.html.erb:25
+msgid "Manage administrator accounts and privileges"
+msgstr "Rendszergazdai fiókok és jogosultságok kezelése"
+
+#: ../../../app/views/admin/users/index.html.erb:29
+msgid "%{count} Administrators"
+msgstr "%{count} Adminisztrátorok"
+
+#: ../../../app/views/admin/users/index.html.erb:42
+msgid "Current Administrators"
+msgstr "Jelenlegi adminisztrátorok"
+
+#: ../../../app/views/admin/users/index.html.erb:50
+#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/devise/sessions/new.html.erb:7
+msgid "Email"
+msgstr "Email"
+
+#: ../../../app/views/admin/users/index.html.erb:51
+#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/pushes/index.html.erb:39
+msgid "Created"
+msgstr "Létrehozva"
+
+#: ../../../app/views/admin/users/index.html.erb:52
+#: ../../../app/views/admin/users/index.html.erb:141
+msgid "Last Sign In"
+msgstr "Utolsó bejelentkezés"
+
+#: ../../../app/views/admin/users/index.html.erb:53
+#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/users/index.html.erb:63
+msgid "Actions"
+msgstr "Akciók"
+
+#: ../../../app/views/admin/users/index.html.erb:70
+msgid "You"
+msgstr "Te"
+
+#: ../../../app/views/admin/users/index.html.erb:83
+#: ../../../app/views/admin/users/index.html.erb:169
+msgid "Never"
+msgstr "Soha"
+
+#: ../../../app/views/admin/users/index.html.erb:92
+msgid ""
+"Are you sure you want to revoke administrator privileges from %{email}? They w"
+"ill lose access to the administration panel."
+msgstr ""
+"Biztos, hogy vissza akarja vonni az %{email} rendszergazdai jogosultságait? El"
+"veszti a hozzáférést az adminisztrációs panelhez."
+
+#: ../../../app/views/admin/users/index.html.erb:97
+msgid "Revoke"
+msgstr "A  visszavonása"
+
+#: ../../../app/views/admin/users/index.html.erb:100
+msgid "Cannot revoke your own privileges"
+msgstr "Nem vonhatja vissza saját jogosultságait"
+
+#: ../../../app/views/admin/users/index.html.erb:113
+msgid "No administrators found"
+msgstr "Nem találtak rendszergazdákat"
+
+#: ../../../app/views/admin/users/index.html.erb:114
+msgid "There are currently no administrator accounts in the system."
+msgstr "Jelenleg nincsenek rendszergazdai fiókok a rendszerben."
+
+#: ../../../app/views/admin/users/index.html.erb:126
+msgid "Regular Users"
+msgstr "Rendszeres felhasználók"
+
+#: ../../../app/views/admin/users/index.html.erb:130
+msgid "%{count} Regular Users"
+msgstr "%{count} Rendszeres felhasználók"
+
+#: ../../../app/views/admin/users/index.html.erb:177
+msgid ""
+"Are you sure you want to promote %{email} to administrator? This will give the"
+"m full access to the administration panel."
+msgstr ""
+"Biztos, hogy %{email}-t el akarja léptetni rendszergazdává? Ezzel teljes hozzá"
+"férést kap az adminisztrációs panelhez."
+
+#: ../../../app/views/admin/users/index.html.erb:182
+msgid "Promote"
+msgstr "Promote"
+
+#: ../../../app/views/admin/users/index.html.erb:200
+msgid "No regular users found"
+msgstr "Nincs rendszeres felhasználó"
+
+#: ../../../app/views/admin/users/index.html.erb:201
+msgid "All users in the system are administrators."
+msgstr "A rendszerben minden felhasználó rendszergazda."
+
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "A fenti fájlletöltési linkek a következő napon lejárnak:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Frissítheti az oldalt az új letöltési hivatkozások újragenerálásához, ha a néz"
+"etek megmaradnak."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Lejárt"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Titkos hivatkozási nyelv"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Auto felismerés"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -28,6 +451,69 @@ msgstr "Titkos hivatkozási nyelv"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Másolja a vágólapra"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push létrehozta %{date} oldalon, %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP cím:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Felhasználói ügynök:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Egyik sem"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Hivatkozó:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "A kézi leküldés lejárt %{date} időpontban, %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Sikertelen jelmondat-kísérlet az %{date} oldalon, %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Sikertelen megtekintési kísérlet %{date} által %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Sikeres megtekintés az %{date} oldalon %{user} felhasználó által"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Kattintson ide fiókja megerősítéséhez"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -173,7 +659,7 @@ msgid "Current Password"
 msgstr "Jelenlegi jelszó"
 
 #: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:49
+#: ../../../app/views/shared/_header.html.erb:63
 msgid "API Token"
 msgstr "API-token"
 
@@ -250,6 +736,8 @@ msgid "Are you sure?"
 msgstr "Biztos vagy ebben?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/madmin/application/_form.html.erb:212
+#: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
 msgid "Cancel"
@@ -265,15 +753,22 @@ msgstr "Törlés és újragenerálás"
 msgid "Processing..."
 msgstr "Feldolgozás..."
 
-#: ../../../app/views/devise/sessions/new.html.erb:7
-msgid "Email"
-msgstr "Email"
-
 #: ../../../app/views/devise/sessions/new.html.erb:12
 msgid "Password"
 msgstr "Jelszó"
 
-#: ../../../app/views/layouts/admin/application.html.erb:41
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Adminisztráció - Jelszóküldő"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "Rendszer aktív"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Vissza az alkalmazáshoz"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -281,6 +776,453 @@ msgstr "Jelszó"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Password Pusher logo"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Adatkezelő – Adminisztráció – Jelszóküldő"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Színpadi környezet"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Ez egy tesztelésre szolgáló átmeneti oldal, és az adatokat gyakran visszaállít"
+"juk. Kérjük, használja az %{production_link} karakterláncot, kivéve, ha új fun"
+"kciókat tesztel."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Vissza az Adminisztrációs Központba"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Háttérben futó feladatok és sorok figyelése és kezelése"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Mik azok a háttérmunkák?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"A háttérfeladatok aszinkron módon futó feladatokat kezelnek a fő alkalmazás bl"
+"okkolása nélkül. A Password Pusherben ezek a következők:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "E-mail értesítések"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Lejárati push értesítések és adminisztrátori értesítések küldése"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Push takarítás"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Lejárt push-k automatikus eltávolítása az adatbázisból"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Fájlfeldolgozás"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Fájlfeltöltések és bármilyen utófeldolgozási feladat kezelése."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Naplózás"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Rendszeresemények és felhasználói műveletek rögzítése"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Az alábbi fülek segítségével figyelheti a feladatsorokat, megtekintheti a sike"
+"rtelen feladatokat és kezelheti a feladatfeldolgozást."
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "There was %{count} with your submission:"
+msgstr "A beküldésedben %{count} szerepelt:"
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "error"
+msgstr "hiba"
+
+#: ../../../app/views/madmin/application/_form.html.erb:61
+msgid "Basic Information"
+msgstr "Alapvető információk"
+
+#: ../../../app/views/madmin/application/_form.html.erb:92
+msgid "Security & Access"
+msgstr "Biztonság és hozzáférés"
+
+#: ../../../app/views/madmin/application/_form.html.erb:123
+msgid "Activity & Timestamps"
+msgstr "Tevékenység és időbélyegek"
+
+#: ../../../app/views/madmin/application/_form.html.erb:154
+msgid "Related Records"
+msgstr "Kapcsolódó rekordok"
+
+#: ../../../app/views/madmin/application/_form.html.erb:185
+msgid "Additional Fields"
+msgstr "További mezők"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Update"
+msgstr "Módosítás"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Create"
+msgstr "Teremt"
+
+#: ../../../app/views/madmin/application/edit.html.erb:1
+#: ../../../app/views/madmin/application/edit.html.erb:20
+msgid "Edit %{name}"
+msgstr "Szerkesztés %{name}"
+
+#: ../../../app/views/madmin/application/edit.html.erb:13
+#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/show.html.erb:25
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: ../../../app/views/madmin/application/edit.html.erb:21
+msgid "Update %{name} information"
+msgstr "%{name} információk frissítése"
+
+#: ../../../app/views/madmin/application/index.html.erb:7
+msgid "Manage %{name} records"
+msgstr "%{name} rekordok kezelése"
+
+#: ../../../app/views/madmin/application/index.html.erb:14
+#: ../../../app/views/madmin/application/new.html.erb:1
+#: ../../../app/views/madmin/application/new.html.erb:10
+#: ../../../app/views/madmin/application/new.html.erb:17
+msgid "New %{name}"
+msgstr "Új %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:26
+msgid "Search %{name}..."
+msgstr "Keresés %{name}..."
+
+#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/users/index.html.erb:27
+msgid "Search"
+msgstr "Keresés"
+
+#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/users/index.html.erb:40
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "All"
+msgstr "Minden"
+
+#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/pushes/_files_form.html.erb:9
+#: ../../../app/views/pushes/_form.html.erb:9
+#: ../../../app/views/pushes/_qr_form.html.erb:9
+#: ../../../app/views/pushes/_url_form.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:34
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Megtekintés"
+msgstr[1] "Megtekintések"
+
+#: ../../../app/views/madmin/application/new.html.erb:18
+msgid "Create a new %{name} record"
+msgstr "Hozzon létre egy új %{name} rekordot"
+
+#: ../../../app/views/madmin/application/show.html.erb:19
+msgid "View %{name} details"
+msgstr "%{name} részletek megtekintése"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/show.html.erb:119
+msgid "Delete"
+msgstr "Töröl"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+msgid "Are you sure you want to delete this %{name}?"
+msgstr "Biztosan törölni szeretné ezt: %{name}?"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:15
+msgid "Database Explorer"
+msgstr "Adatbázis-böngésző"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:16
+msgid "Direct database access and record management"
+msgstr "Közvetlen adatbázis-hozzáférés és rekordkezelés"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+msgid "Database %{status}"
+msgstr "Adatbázis %{status}"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Csatlakoztatva"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:210
+msgid "Disconnected"
+msgstr "Szétkapcsolt"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:27
+#: ../../../app/views/madmin/dashboard/show.html.erb:237
+msgid "Back to Admin Center"
+msgstr "Vissza az Adminisztrációs központba"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:40
+msgid "Direct Database Access"
+msgstr "Közvetlen adatbázis-hozzáférés"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Figyelmeztetés:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid ""
+"This interface provides direct access to your production database. All changes"
+" are immediate and irreversible. Exercise extreme caution when modifying recor"
+"ds."
+msgstr ""
+"Ez a felület közvetlen hozzáférést biztosít az éles adatbázishoz. Minden módos"
+"ítás azonnali és visszafordíthatatlan. Legyen rendkívül óvatos a rekordok módo"
+"sításakor."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid "Recommendation:"
+msgstr "Ajánlás:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid ""
+"Always backup your database before making any changes to ensure you can restor"
+"e data if needed."
+msgstr ""
+"Mindig készítsen biztonsági másolatot az adatbázisról, mielőtt bármilyen módos"
+"ítást végezne, hogy szükség esetén vissza tudja állítani az adatokat."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:60
+msgid "Getting Started with Data Explorer"
+msgstr "Első lépések az Adatkezelővel"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:62
+msgid ""
+"This tool provides direct access to your database records. Here's how to use i"
+"t effectively:"
+msgstr ""
+"Ez az eszköz közvetlen hozzáférést biztosít az adatbázisrekordjaihoz. Így hasz"
+"nálhatja hatékonyan:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:66
+msgid "📊 Browse Records"
+msgstr "📊 Böngésszen a rekordok között"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "Users:"
+msgstr "Felhasználók:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "View user accounts, check registration dates, and manage permissions"
+msgstr ""
+"Felhasználói fiókok megtekintése, regisztrációs dátumok ellenőrzése és jogosul"
+"tságok kezelése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Nyomások:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Monitor password pushes, view expiration status, and track usage"
+msgstr ""
+"Jelszóküldések figyelése, lejárati állapot megtekintése és használat nyomon kö"
+"vetése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Audit Logs:"
+msgstr "Auditnaplók:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Track all system changes and user actions"
+msgstr "Minden rendszerváltozás és felhasználói művelet nyomon követése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:74
+msgid "🔧 Common Tasks"
+msgstr "🔧 Gyakori feladatok"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Felhasználói támogatás:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "Impersonate users to troubleshoot issues"
+msgstr "Felhasználók megszemélyesítése a problémák elhárítása érdekében"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Adattisztítás:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Remove expired pushes or inactive accounts"
+msgstr "Lejárt push-ek vagy inaktív fiókok eltávolítása"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Security Review:"
+msgstr "Biztonsági áttekintés:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Check audit logs for suspicious activity"
+msgstr "Ellenőrizze a naplókat gyanús tevékenységek után kutatva"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analitika:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analyze usage patterns and system health"
+msgstr "Használati minták és rendszerállapot elemzése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:99
+msgid "Core Data"
+msgstr "Alapadatok"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:101
+msgid "Manage users, pushes, and audit logs."
+msgstr "Felhasználók, push-k és auditnaplók kezelése."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:109
+msgid "Users"
+msgstr "Felhasználók"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:110
+msgid "Manage user accounts and permissions"
+msgstr "Felhasználói fiókok és engedélyek kezelése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:124
+msgid "Pushes"
+msgstr "Tolja"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:125
+msgid "View and manage pushes"
+msgstr "Push-k megtekintése és kezelése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:139
+msgid "Audit Logs"
+msgstr "Audit naplók"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:140
+msgid "Track system activity and changes"
+msgstr "Rendszertevékenység és -változások nyomon követése"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:165
+msgid "Database Connection"
+msgstr "Adatbázis-kapcsolat"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:167
+msgid "Current database connection information and status."
+msgstr "Aktuális adatbázis-kapcsolati információk és állapot."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:172
+msgid "Database Type"
+msgstr "Adatbázis típusa"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:180
+msgid "Database Name"
+msgstr "Adatbázis neve"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:188
+msgid "Environment"
+msgstr "Környezet"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:198
+msgid "Connection Status"
+msgstr "Kapcsolat állapota"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:229
+msgid "Quick Actions"
+msgstr "Gyors műveletek"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:245
+msgid "Admin Management"
+msgstr "Adminisztrációs menedzsment"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:253
+msgid "Go to Application"
+msgstr "Ugrás az alkalmazáshoz"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:261
+msgid "Manage Users"
+msgstr "Felhasználók kezelése"
+
+#: ../../../app/views/madmin/users/_form.html.erb:32
+msgid "User Information"
+msgstr "Felhasználói információk"
+
+#: ../../../app/views/madmin/users/_form.html.erb:42
+msgid "The email address for the new user account."
+msgstr "Az új felhasználói fiókhoz tartozó e-mail cím."
+
+#: ../../../app/views/madmin/users/_form.html.erb:50
+msgid "Auto-confirm account"
+msgstr "Fiók automatikus megerősítése"
+
+#: ../../../app/views/madmin/users/_form.html.erb:53
+msgid ""
+"If checked, the user account will be automatically confirmed and ready to use."
+" Otherwise, the user will need to confirm their email address."
+msgstr ""
+"Ha be van jelölve, a felhasználói fiók automatikusan megerősítésre kerül és ha"
+"sználatra kész. Ellenkező esetben a felhasználónak meg kell erősítenie az e-ma"
+"il címét."
+
+#: ../../../app/views/madmin/users/_form.html.erb:68
+msgid "Password Information"
+msgstr "Jelszó információk"
+
+#: ../../../app/views/madmin/users/_form.html.erb:70
+msgid ""
+"A secure password will be automatically generated for this user. The user can "
+"reset their password using the \"Forgot Password\" link on the login page."
+msgstr ""
+"Egy biztonságos jelszó automatikusan generálódik ehhez a felhasználóhoz. A fel"
+"használó visszaállíthatja jelszavát a bejelentkezési oldalon található „Elfele"
+"jtett jelszó” linkre kattintva."
+
+#: ../../../app/views/madmin/users/_form.html.erb:85
+msgid "Create User"
+msgstr "Felhasználó létrehozása"
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -638,16 +1580,6 @@ msgstr[1] "nap"
 msgid "Days"
 msgstr "nap"
 
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
-msgid "View"
-msgid_plural "Views"
-msgstr[0] "Megtekintés"
-msgstr[1] "Megtekintések"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
 #: ../../../app/views/pushes/_files_form.html.erb:80
 #: ../../../app/views/pushes/_form.html.erb:10
@@ -681,6 +1613,10 @@ msgstr "Mentett!"
 #: ../../../app/views/pushes/_files_form.html.erb:29
 msgid "Add Files..."
 msgstr "Fájlok hozzáadása..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Legfeljebb %{count} fájlt tölthet fel push-onként."
 
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
@@ -817,6 +1753,13 @@ msgstr "A tevékenység ellenőrzési naplója elérhető lesz."
 #: ../../../app/views/pushes/_form.html.erb:189
 #: ../../../app/views/pushes/_qr_form.html.erb:190
 #: ../../../app/views/pushes/_url_form.html.erb:161
+msgid "Pushing..."
+msgstr "Töltés..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:191
+#: ../../../app/views/pushes/_form.html.erb:189
+#: ../../../app/views/pushes/_qr_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:161
 msgid "Push It!"
 msgstr "Küldjük!"
 
@@ -914,6 +1857,10 @@ msgstr "A lejárat után a push URL teljesen törlődik."
 msgid "Audit Log for %{push_id}"
 msgstr "Audit napló a következőhöz: %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Audit napló a Push ID-hez: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Megnyomva %{date}"
@@ -925,11 +1872,6 @@ msgstr "A küldés titkos URL-je"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Csak Önnek látható"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Egyik sem"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -993,16 +1935,6 @@ msgstr "Jelenlegi állapot"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Állapot:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Lejárt"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "A küldés tartalmát törölték, és a titkos URL lejárt."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1079,6 +2011,7 @@ msgid "The number of files attached to this push. This value will be 0 when expi
 msgstr "A leküldéshez csatolt fájlok száma. Ez az érték 0 lesz, amikor lejár."
 
 #: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Csatolt fájlok"
 
@@ -1118,11 +2051,6 @@ msgstr ""
 "Az ellenőrzési napló (beleértve a jövőbeli megkísérelt megtekintéséeket is) a "
 "továbbiakban is megőrződik."
 
-#: ../../../app/views/pushes/audit.html.erb:222
-#: ../../../app/views/pushes/show.html.erb:119
-msgid "Delete"
-msgstr "Töröl"
-
 #: ../../../app/views/pushes/audit.html.erb:234
 msgid "Start of Audit Log"
 msgstr "Ellenőrzési napló eleje"
@@ -1138,12 +2066,6 @@ msgstr ""
 #: ../../../app/views/pushes/audit.html.erb:244
 msgid "End of Audit Log"
 msgstr "Ellenőrzési napló vége"
-
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
-msgid "Active Pushes"
-msgstr "Aktív küldések"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -1169,13 +2091,21 @@ msgstr "Lejárt push-ek"
 msgid "All Pushes"
 msgstr "Minden leküldés"
 
-#: ../../../app/views/pushes/index.html.erb:39
-msgid "Created"
-msgstr "Létrehozva"
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Név vagy azonosító"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Típus"
 
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "jegyzet"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Többi"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1193,6 +2123,10 @@ msgstr "QR-kód"
 msgid "Text"
 msgstr "Szöveg"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} megtekintés vagy %{days} nap"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Push Controls"
@@ -1204,6 +2138,10 @@ msgstr "Előnézet"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Ellenőrzés"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Biztonságosan küldjön jelszót, szöveget vagy fájlt"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1323,6 +2261,22 @@ msgstr "Nyomj egy másikat"
 msgid "View Audit Log"
 msgstr "Ellenőrzési napló megtekintése"
 
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Tipp: Egy nemzetközi felhasználónak küldi? Módosítsa a titkos link nyelvét az "
+"URL-től jobbra található legördülő menü segítségével."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Alternatív megoldásként az automatikus észlelés a végfelhasználói böngészőbeál"
+"lítások alapján választ ki egy nyelvet."
+
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"
 msgstr "Titkos URL-je"
@@ -1419,17 +2373,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Irányítópult"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
-msgid "All"
-msgstr "Minden"
-
 #: ../../../app/views/shared/_dashboard_header.html.erb:13
 msgid "New"
 msgstr "Új"
-
-#: ../../../app/views/shared/_footer.html.erb:4
-msgid "Peter"
-msgstr "Peter"
 
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
@@ -1463,31 +2409,23 @@ msgstr "Eszközök"
 msgid "Overview"
 msgstr "Áttekintés"
 
-#: ../../../app/views/shared/_footer.html.erb:52
-msgid "Documentation"
-msgstr "Dokumentáció"
-
 #: ../../../app/views/shared/_header.html.erb:37
 msgid "Account"
 msgstr "Fiók"
 
-#: ../../../app/views/shared/_header.html.erb:42
-msgid "Admin Dashboard"
-msgstr "Rendszergazdai irányítópult"
-
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:55
 msgid "Edit Login Details"
 msgstr "Bejelentkezési adatok szerkesztése"
 
-#: ../../../app/views/shared/_header.html.erb:52
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Log Out"
 msgstr "Kijelentkezés"
 
-#: ../../../app/views/shared/_header.html.erb:58
+#: ../../../app/views/shared/_header.html.erb:78
 msgid "Log In"
 msgstr "Belépés"
 
-#: ../../../app/views/shared/_header.html.erb:62
+#: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "Regisztráció"
 
@@ -1556,5 +2494,5 @@ msgid "URLs"
 msgstr "URL-ek"
 
 #: ../../../app/views/shared/_topnav.html.erb:18
-msgid "QR Codes ᴮᴱᵀᴬ"
+msgid "QR Codes"
 msgstr "QR-kódok ᴮᴱᵀᴬ"

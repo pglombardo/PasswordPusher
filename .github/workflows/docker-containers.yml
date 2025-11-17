@@ -117,7 +117,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.public-gateway
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -171,7 +171,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.worker
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -181,4 +181,3 @@ jobs:
           cache-to: |
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
-

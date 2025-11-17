@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.4.3"
 
-gem "rails", "~> 8.0.3"
+gem "rails", "~> 8.1.1"
 gem "propshaft"
 gem "importmap-rails"
 gem "turbo-rails"
@@ -55,7 +55,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "i18n-tasks", "~> 1.0.15", require: false
+  gem "i18n-tasks", "~> 1.1.0", require: false
   gem "erb_lint", "~> 0.9.0", require: false
   gem "standard", ">= 1.35.1"
 end
@@ -68,7 +68,7 @@ gem "lockbox"
 gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap"
-gem "json", "~> 2.15" # Legacy carry-over
+gem "json", "~> 2.16" # Legacy carry-over
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -111,3 +111,5 @@ gem "rqrcode", "~> 3.1"
 gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.1.0"
 gem "overmind", "~> 2.5", group: :development
+
+gem "dotenv", "~> 3.1"

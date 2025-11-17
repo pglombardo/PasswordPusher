@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-12 10:48+0200\n"
-"PO-Revision-Date: 2025-09-12 10:48+0200\n"
+"POT-Creation-Date: 2025-11-16 00:30+0100\n"
+"PO-Revision-Date: 2025-11-15 23:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -18,9 +18,436 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Quel push non ti appartiene."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Quel push non è cancellabile dai visualizzatori."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Devi aver effettuato l'accesso per visualizzare le tue spinte attive."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Devi aver effettuato l'accesso per visualizzare le tue push scadute."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Quella passphrase non è corretta. Riprova o contatta la persona o l'organizzaz"
+"ione che ti ha inviato questo link."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Tale spinta non può essere eliminata dagli spettatori e non ti appartiene."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Quella spinta è già scaduta."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Il contenuto push è stato eliminato e l'URL segreto è scaduto."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "I push dei file sono disabilitati."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Gli URL push sono disabilitati."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "L'invio di codici QR è disabilitato."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "È possibile allegare solo un massimo di file %{count} per push."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "È richiesto il carico utile."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr ""
+"Il carico utile è troppo grande. È possibile eseguire il push solo fino a %{co"
+"unt} byte."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "deve essere un URL HTTP o HTTPS valido."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr ""
+"Il payload del codice QR è troppo grande. Puoi caricare solo fino a %{count} b"
+"yte."
+
+#: ../../../app/views/admin/_navigation.html.erb:9
+msgid "Password Pusher"
+msgstr "Spingipassword"
+
+#: ../../../app/views/admin/_navigation.html.erb:12
+#: ../../../app/views/admin/index.html.erb:11
+#: ../../../app/views/shared/_header.html.erb:46
+msgid "Administration Center"
+msgstr "Amministrazione"
+
+#: ../../../app/views/admin/_navigation.html.erb:17
+msgid "BETA"
+msgstr "BETA"
+
+#: ../../../app/views/admin/_navigation.html.erb:31
+msgid "Administration Home"
+msgstr "Amministrazione Home"
+
+#: ../../../app/views/admin/_navigation.html.erb:37
+#: ../../../app/views/admin/index.html.erb:121
+msgid "System Administration"
+msgstr "Amministrazione di sistema"
+
+#: ../../../app/views/admin/_navigation.html.erb:43
+msgid "Admin Users"
+msgstr "Utenti amministratori"
+
+#: ../../../app/views/admin/_navigation.html.erb:50
+#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/madmin/dashboard/show.html.erb:1
+msgid "Data Explorer"
+msgstr "Esploratore di dati"
+
+#: ../../../app/views/admin/_navigation.html.erb:57
+#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
+msgid "Background Jobs"
+msgstr "Lavori di sfondo"
+
+#: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
+msgid "Administration"
+msgstr "Amministrazione"
+
+#: ../../../app/views/admin/index.html.erb:13
+msgid "Welcome to the Password Pusher administration panel."
+msgstr "Benvenuti nel pannello di amministrazione di Password Pusher."
+
+#: ../../../app/views/admin/index.html.erb:14
+msgid ""
+"Manage your application settings and system administration from this central l"
+"ocation."
+msgstr ""
+"Gestisci le impostazioni delle tue applicazioni e l'amministrazione del sistem"
+"a da questa posizione centrale."
+
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "Versione OSS %{version}"
+
+#: ../../../app/views/admin/index.html.erb:40
+msgid "Total Users"
+msgstr "Utenti totali"
+
+#: ../../../app/views/admin/index.html.erb:60
+msgid "Total Pushes"
+msgstr "Spinte totali"
+
+#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/pushes/index.html.erb:26
+#: ../../../app/views/pushes/index.html.erb:34
+msgid "Active Pushes"
+msgstr "Push Attivi"
+
+#: ../../../app/views/admin/index.html.erb:100
+msgid "Total Audit Logs"
+msgstr "Registri di controllo totali"
+
+#: ../../../app/views/admin/index.html.erb:123
+msgid ""
+"Monitor system performance, manage background jobs, and analyze usage patterns"
+"."
+msgstr ""
+"Monitorare le prestazioni del sistema, gestire i processi in background e anal"
+"izzare i modelli di utilizzo."
+
+#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/users/index.html.erb:1
+#: ../../../app/views/admin/users/index.html.erb:9
+#: ../../../app/views/admin/users/index.html.erb:23
+msgid "Administrator Management"
+msgstr "Gestione degli amministratori"
+
+#: ../../../app/views/admin/index.html.erb:132
+msgid "Manage admin accounts and privileges"
+msgstr "Gestisci account e privilegi amministrativi"
+
+#: ../../../app/views/admin/index.html.erb:147
+msgid "Monitor and manage queued tasks"
+msgstr "Monitorare e gestire le attività in coda"
+
+#: ../../../app/views/admin/index.html.erb:162
+msgid "Query data and manage records"
+msgstr "Interrogare i dati e gestire i record"
+
+#: ../../../app/views/admin/index.html.erb:184
+msgid "Database Administration"
+msgstr "Amministrazione del database"
+
+#: ../../../app/views/admin/index.html.erb:186
+msgid "Direct access to database records and user management tools."
+msgstr ""
+"Accesso diretto ai record del database e agli strumenti di gestione degli uten"
+"ti."
+
+#: ../../../app/views/admin/index.html.erb:192
+msgid "Advanced Database Access"
+msgstr "Accesso avanzato al database"
+
+#: ../../../app/views/admin/index.html.erb:193
+msgid "Direct record manipulation and management"
+msgstr "Manipolazione e gestione diretta dei record"
+
+#: ../../../app/views/admin/index.html.erb:196
+msgid "Open Data Explorer"
+msgstr "Esplora dati aperti"
+
+#: ../../../app/views/admin/index.html.erb:218
+msgid "Resources & Support"
+msgstr "Risorse e supporto"
+
+#: ../../../app/views/admin/index.html.erb:220
+msgid "Access documentation, source code, releases, and get help when you need it."
+msgstr ""
+"Accedi alla documentazione, al codice sorgente, alle release e ricevi assisten"
+"za quando ne hai bisogno."
+
+#: ../../../app/views/admin/index.html.erb:230
+msgid "GitHub Repository"
+msgstr "Repository GitHub"
+
+#: ../../../app/views/admin/index.html.erb:231
+msgid "View source code and contribute"
+msgstr "Visualizza il codice sorgente e contribuisci"
+
+#: ../../../app/views/admin/index.html.erb:246
+msgid "Latest Releases"
+msgstr "Ultime uscite"
+
+#: ../../../app/views/admin/index.html.erb:247
+msgid "View changelog and download updates"
+msgstr "Visualizza il registro delle modifiche e scarica gli aggiornamenti"
+
+#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/shared/_footer.html.erb:52
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: ../../../app/views/admin/index.html.erb:263
+msgid "Complete setup and usage guides"
+msgstr "Guide complete per l'installazione e l'utilizzo"
+
+#: ../../../app/views/admin/index.html.erb:278
+msgid "Support"
+msgstr "Supporto"
+
+#: ../../../app/views/admin/index.html.erb:279
+msgid "Get help and report issues"
+msgstr "Ottieni aiuto e segnala problemi"
+
+#: ../../../app/views/admin/index.html.erb:299
+msgid "Getting Started"
+msgstr "Iniziare"
+
+#: ../../../app/views/admin/index.html.erb:302
+msgid ""
+"Welcome to the Password Pusher Administration Center! Here's your complete too"
+"lkit:"
+msgstr ""
+"Benvenuti al Centro di Amministrazione di Password Pusher! Ecco il vostro kit "
+"di strumenti completo:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "👥 Manage Administrators:"
+msgstr "👥 Gestisci amministratori:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "Promote or revoke admin privileges for users in your system"
+msgstr "Promuovi o revoca i privilegi di amministratore per gli utenti nel tuo sistema"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "📊 Monitor Background Jobs:"
+msgstr "📊 Monitora i lavori in background:"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "Track email notifications, push cleanup, and system processing tasks"
+msgstr ""
+"Tieni traccia delle notifiche e-mail, della pulizia push e delle attività di e"
+"laborazione del sistema"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Esplora il database:"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "Direct access to users, pushes, audit logs, and file storage records"
+msgstr ""
+"Accesso diretto a utenti, push, registri di controllo e record di archiviazion"
+"e dei file"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "📈 View System Stats:"
+msgstr "📈 Visualizza le statistiche di sistema:"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "Monitor user activity, push counts, and audit log entries"
+msgstr ""
+"Monitora l'attività degli utenti, i conteggi delle push e le voci del registro"
+" di controllo"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "🔍 Track Activity:"
+msgstr "🔍 Attività di monitoraggio:"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "Review audit logs to understand system usage and security events"
+msgstr ""
+"Esaminare i registri di controllo per comprendere l'utilizzo del sistema e gli"
+" eventi di sicurezza"
+
+#: ../../../app/views/admin/users/index.html.erb:25
+msgid "Manage administrator accounts and privileges"
+msgstr "Gestire gli account e i privilegi di amministratore"
+
+#: ../../../app/views/admin/users/index.html.erb:29
+msgid "%{count} Administrators"
+msgstr "%{count} Amministratori"
+
+#: ../../../app/views/admin/users/index.html.erb:42
+msgid "Current Administrators"
+msgstr "Amministratori attuali"
+
+#: ../../../app/views/admin/users/index.html.erb:50
+#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/devise/sessions/new.html.erb:7
+msgid "Email"
+msgstr "Email"
+
+#: ../../../app/views/admin/users/index.html.erb:51
+#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/pushes/index.html.erb:39
+msgid "Created"
+msgstr "Creato"
+
+#: ../../../app/views/admin/users/index.html.erb:52
+#: ../../../app/views/admin/users/index.html.erb:141
+msgid "Last Sign In"
+msgstr "Ultimo accesso"
+
+#: ../../../app/views/admin/users/index.html.erb:53
+#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/users/index.html.erb:63
+msgid "Actions"
+msgstr "Azioni"
+
+#: ../../../app/views/admin/users/index.html.erb:70
+msgid "You"
+msgstr "Tu"
+
+#: ../../../app/views/admin/users/index.html.erb:83
+#: ../../../app/views/admin/users/index.html.erb:169
+msgid "Never"
+msgstr "Mai"
+
+#: ../../../app/views/admin/users/index.html.erb:92
+msgid ""
+"Are you sure you want to revoke administrator privileges from %{email}? They w"
+"ill lose access to the administration panel."
+msgstr ""
+"Siete sicuri di voler revocare i privilegi di amministratore a %{email}? Perde"
+"rà l'accesso al pannello di amministrazione."
+
+#: ../../../app/views/admin/users/index.html.erb:97
+msgid "Revoke"
+msgstr "Revocare"
+
+#: ../../../app/views/admin/users/index.html.erb:100
+msgid "Cannot revoke your own privileges"
+msgstr "Non è possibile revocare i propri privilegi"
+
+#: ../../../app/views/admin/users/index.html.erb:113
+msgid "No administrators found"
+msgstr "Nessun amministratore trovato"
+
+#: ../../../app/views/admin/users/index.html.erb:114
+msgid "There are currently no administrator accounts in the system."
+msgstr "Attualmente non ci sono account di amministratore nel sistema."
+
+#: ../../../app/views/admin/users/index.html.erb:126
+msgid "Regular Users"
+msgstr "Utenti abituali"
+
+#: ../../../app/views/admin/users/index.html.erb:130
+msgid "%{count} Regular Users"
+msgstr "%{count} Utenti regolari"
+
+#: ../../../app/views/admin/users/index.html.erb:177
+msgid ""
+"Are you sure you want to promote %{email} to administrator? This will give the"
+"m full access to the administration panel."
+msgstr ""
+"Siete sicuri di voler promuovere %{email} ad amministratore? In questo modo av"
+"rà pieno accesso al pannello di amministrazione."
+
+#: ../../../app/views/admin/users/index.html.erb:182
+msgid "Promote"
+msgstr "Promuovere"
+
+#: ../../../app/views/admin/users/index.html.erb:200
+msgid "No regular users found"
+msgstr "Nessun utente regolare trovato"
+
+#: ../../../app/views/admin/users/index.html.erb:201
+msgid "All users in the system are administrators."
+msgstr "Tutti gli utenti del sistema sono amministratori."
+
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "I link per il download dei file sopra indicati scadranno tra:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"È possibile aggiornare la pagina per rigenerare nuovi link per il download se "
+"ci sono ancora visualizzazioni."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Scaduto"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Linguaggio collegamento segreto"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Trovato automaticamente"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -28,6 +455,69 @@ msgstr "Linguaggio collegamento segreto"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Copia negli Appunti"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push creato su %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "Indirizzo IP:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Agente utente:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Nessuna"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Referente:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push scaduto manualmente il %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Tentativo di passphrase non riuscito su %{date} da parte di %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Tentativo di visualizzazione fallito su %{date} da %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Visualizzazione riuscita su %{date} da %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Clicca qui per confermare il tuo account"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -179,7 +669,7 @@ msgid "Current Password"
 msgstr "Password Attuale"
 
 #: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:49
+#: ../../../app/views/shared/_header.html.erb:63
 msgid "API Token"
 msgstr "Token API"
 
@@ -254,6 +744,8 @@ msgid "Are you sure?"
 msgstr "Sei sicuro?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/madmin/application/_form.html.erb:212
+#: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
 msgid "Cancel"
@@ -269,15 +761,22 @@ msgstr "Elimina e Rigenera"
 msgid "Processing..."
 msgstr "In lavorazione..."
 
-#: ../../../app/views/devise/sessions/new.html.erb:7
-msgid "Email"
-msgstr "Email"
-
 #: ../../../app/views/devise/sessions/new.html.erb:12
 msgid "Password"
 msgstr "Password"
 
-#: ../../../app/views/layouts/admin/application.html.erb:41
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Amministrazione - Password Pusher"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "Sistema attivo"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Torna all'app"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -285,6 +784,453 @@ msgstr "Password"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Logo di Password Pusher"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Esploratore dati - Amministrazione - Password Pusher"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Ambiente di staging"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Questo è un sito di staging per i test e i dati vengono reimpostati frequentem"
+"ente. Si prega di utilizzare %{production_link} a meno che non si stiano testa"
+"ndo nuove funzionalità."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Torna al Centro di amministrazione"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Monitorare e gestire l'elaborazione dei lavori in background e le code"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Cosa sono i lavori in background?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"I processi in background gestiscono attività eseguite in modo asincrono senza "
+"bloccare l'applicazione principale. In Password Pusher, questi includono:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "Notifiche e-mail"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Invio di avvisi di scadenza push e notifiche amministrative"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Pulizia push"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Rimozione automatica delle push scadute dal database"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Elaborazione dei file"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Gestire il caricamento dei file e qualsiasi attività di post-elaborazione."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Registrazione di controllo"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Registrazione degli eventi di sistema e delle azioni dell'utente"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Utilizzare le schede sottostanti per monitorare le code dei lavori, visualizza"
+"re i lavori non riusciti e gestire l'elaborazione dei lavori."
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "There was %{count} with your submission:"
+msgstr "C'era %{count} con la tua richiesta:"
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "error"
+msgstr "errore"
+
+#: ../../../app/views/madmin/application/_form.html.erb:61
+msgid "Basic Information"
+msgstr "Informazioni di base"
+
+#: ../../../app/views/madmin/application/_form.html.erb:92
+msgid "Security & Access"
+msgstr "Sicurezza e accesso"
+
+#: ../../../app/views/madmin/application/_form.html.erb:123
+msgid "Activity & Timestamps"
+msgstr "Attività e timestamp"
+
+#: ../../../app/views/madmin/application/_form.html.erb:154
+msgid "Related Records"
+msgstr "Record correlati"
+
+#: ../../../app/views/madmin/application/_form.html.erb:185
+msgid "Additional Fields"
+msgstr "Campi aggiuntivi"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Update"
+msgstr "Aggiorna"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Create"
+msgstr "Creare"
+
+#: ../../../app/views/madmin/application/edit.html.erb:1
+#: ../../../app/views/madmin/application/edit.html.erb:20
+msgid "Edit %{name}"
+msgstr "Modifica %{name}"
+
+#: ../../../app/views/madmin/application/edit.html.erb:13
+#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/show.html.erb:25
+msgid "Edit"
+msgstr "Modificare"
+
+#: ../../../app/views/madmin/application/edit.html.erb:21
+msgid "Update %{name} information"
+msgstr "Aggiorna le informazioni %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:7
+msgid "Manage %{name} records"
+msgstr "Gestisci i record %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:14
+#: ../../../app/views/madmin/application/new.html.erb:1
+#: ../../../app/views/madmin/application/new.html.erb:10
+#: ../../../app/views/madmin/application/new.html.erb:17
+msgid "New %{name}"
+msgstr "Nuovo %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:26
+msgid "Search %{name}..."
+msgstr "Cerca %{name}..."
+
+#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/users/index.html.erb:27
+msgid "Search"
+msgstr "Ricerca"
+
+#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/users/index.html.erb:40
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "All"
+msgstr "Tutto"
+
+#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/pushes/_files_form.html.erb:9
+#: ../../../app/views/pushes/_form.html.erb:9
+#: ../../../app/views/pushes/_qr_form.html.erb:9
+#: ../../../app/views/pushes/_url_form.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:34
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Visualizzazione"
+msgstr[1] "Visualizzazioni"
+
+#: ../../../app/views/madmin/application/new.html.erb:18
+msgid "Create a new %{name} record"
+msgstr "Crea un nuovo record %{name}"
+
+#: ../../../app/views/madmin/application/show.html.erb:19
+msgid "View %{name} details"
+msgstr "Visualizza i dettagli %{name}"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/show.html.erb:119
+msgid "Delete"
+msgstr "Cancellare"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+msgid "Are you sure you want to delete this %{name}?"
+msgstr "Sei sicuro di voler eliminare questo %{name}?"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:15
+msgid "Database Explorer"
+msgstr "Esploratore di database"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:16
+msgid "Direct database access and record management"
+msgstr "Accesso diretto al database e gestione dei record"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+msgid "Database %{status}"
+msgstr "Banca dati %{status}"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Collegato"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:210
+msgid "Disconnected"
+msgstr "Disconnesso"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:27
+#: ../../../app/views/madmin/dashboard/show.html.erb:237
+msgid "Back to Admin Center"
+msgstr "Torna al Centro di amministrazione"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:40
+msgid "Direct Database Access"
+msgstr "Accesso diretto al database"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Avvertimento:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid ""
+"This interface provides direct access to your production database. All changes"
+" are immediate and irreversible. Exercise extreme caution when modifying recor"
+"ds."
+msgstr ""
+"Questa interfaccia fornisce accesso diretto al database di produzione. Tutte l"
+"e modifiche sono immediate e irreversibili. Prestare la massima attenzione qua"
+"ndo si modificano i record."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid "Recommendation:"
+msgstr "Raccomandazione:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid ""
+"Always backup your database before making any changes to ensure you can restor"
+"e data if needed."
+msgstr ""
+"Prima di apportare modifiche, esegui sempre il backup del database per assicur"
+"arti di poter ripristinare i dati in caso di necessità."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:60
+msgid "Getting Started with Data Explorer"
+msgstr "Introduzione a Data Explorer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:62
+msgid ""
+"This tool provides direct access to your database records. Here's how to use i"
+"t effectively:"
+msgstr ""
+"Questo strumento fornisce accesso diretto ai record del tuo database. Ecco com"
+"e utilizzarlo in modo efficace:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:66
+msgid "📊 Browse Records"
+msgstr "📊 Sfoglia i record"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "Users:"
+msgstr "Utenti:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "View user accounts, check registration dates, and manage permissions"
+msgstr ""
+"Visualizza gli account utente, controlla le date di registrazione e gestisci l"
+"e autorizzazioni"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Spinte:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Monitor password pushes, view expiration status, and track usage"
+msgstr ""
+"Monitora le password push, visualizza lo stato di scadenza e monitora l'utiliz"
+"zo"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Audit Logs:"
+msgstr "Registri di controllo:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Track all system changes and user actions"
+msgstr "Tieni traccia di tutte le modifiche al sistema e delle azioni degli utenti"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:74
+msgid "🔧 Common Tasks"
+msgstr "🔧 Attività comuni"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Supporto utente:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "Impersonate users to troubleshoot issues"
+msgstr "Impersonare gli utenti per risolvere i problemi"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Pulizia dei dati:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Remove expired pushes or inactive accounts"
+msgstr "Rimuovi push scaduti o account inattivi"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Security Review:"
+msgstr "Revisione della sicurezza:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Check audit logs for suspicious activity"
+msgstr "Controllare i registri di controllo per attività sospette"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analisi:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analyze usage patterns and system health"
+msgstr "Analizzare i modelli di utilizzo e lo stato di salute del sistema"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:99
+msgid "Core Data"
+msgstr "Dati principali"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:101
+msgid "Manage users, pushes, and audit logs."
+msgstr "Gestisci utenti, push e registri di controllo."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:109
+msgid "Users"
+msgstr "Utenti"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:110
+msgid "Manage user accounts and permissions"
+msgstr "Gestire gli account utente e le autorizzazioni"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:124
+msgid "Pushes"
+msgstr "Spinge"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:125
+msgid "View and manage pushes"
+msgstr "Visualizza e gestisci le push"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:139
+msgid "Audit Logs"
+msgstr "Registri di controllo"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:140
+msgid "Track system activity and changes"
+msgstr "Monitorare l'attività e le modifiche del sistema"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:165
+msgid "Database Connection"
+msgstr "Connessione al database"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:167
+msgid "Current database connection information and status."
+msgstr "Informazioni e stato attuali della connessione al database."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:172
+msgid "Database Type"
+msgstr "Tipo di database"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:180
+msgid "Database Name"
+msgstr "Nome del database"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:188
+msgid "Environment"
+msgstr "Ambiente"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:198
+msgid "Connection Status"
+msgstr "Stato della connessione"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:229
+msgid "Quick Actions"
+msgstr "Azioni rapide"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:245
+msgid "Admin Management"
+msgstr "Gestione amministrativa"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:253
+msgid "Go to Application"
+msgstr "Vai all'applicazione"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:261
+msgid "Manage Users"
+msgstr "Gestisci utenti"
+
+#: ../../../app/views/madmin/users/_form.html.erb:32
+msgid "User Information"
+msgstr "Informazioni utente"
+
+#: ../../../app/views/madmin/users/_form.html.erb:42
+msgid "The email address for the new user account."
+msgstr "L'indirizzo email del nuovo account utente."
+
+#: ../../../app/views/madmin/users/_form.html.erb:50
+msgid "Auto-confirm account"
+msgstr "Conferma automatica dell'account"
+
+#: ../../../app/views/madmin/users/_form.html.erb:53
+msgid ""
+"If checked, the user account will be automatically confirmed and ready to use."
+" Otherwise, the user will need to confirm their email address."
+msgstr ""
+"Se selezionata, l'account utente verrà automaticamente confermato e sarà pront"
+"o per l'uso. In caso contrario, l'utente dovrà confermare il proprio indirizzo"
+" email."
+
+#: ../../../app/views/madmin/users/_form.html.erb:68
+msgid "Password Information"
+msgstr "Informazioni sulla password"
+
+#: ../../../app/views/madmin/users/_form.html.erb:70
+msgid ""
+"A secure password will be automatically generated for this user. The user can "
+"reset their password using the \"Forgot Password\" link on the login page."
+msgstr ""
+"Verrà generata automaticamente una password sicura per questo utente. L'utente"
+" può reimpostare la password utilizzando il link \"Password dimenticata\" nella "
+"pagina di accesso."
+
+#: ../../../app/views/madmin/users/_form.html.erb:85
+msgid "Create User"
+msgstr "Crea utente"
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -648,16 +1594,6 @@ msgstr[1] "Giorni"
 msgid "Days"
 msgstr "Giorni"
 
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
-msgid "View"
-msgid_plural "Views"
-msgstr[0] "Visualizzazione"
-msgstr[1] "Visualizzazioni"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
 #: ../../../app/views/pushes/_files_form.html.erb:80
 #: ../../../app/views/pushes/_form.html.erb:10
@@ -691,6 +1627,10 @@ msgstr "Salvato!"
 #: ../../../app/views/pushes/_files_form.html.erb:29
 msgid "Add Files..."
 msgstr "Aggiungere i file..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Puoi caricare fino a %{count} file per push."
 
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
@@ -821,6 +1761,13 @@ msgstr "Sarà disponibile un registro di controllo delle attività."
 #: ../../../app/views/pushes/_form.html.erb:189
 #: ../../../app/views/pushes/_qr_form.html.erb:190
 #: ../../../app/views/pushes/_url_form.html.erb:161
+msgid "Pushing..."
+msgstr "Spingendo..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:191
+#: ../../../app/views/pushes/_form.html.erb:189
+#: ../../../app/views/pushes/_qr_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:161
 msgid "Push It!"
 msgstr "Invia!"
 
@@ -917,6 +1864,10 @@ msgstr "Alla scadenza, l'URL push verrà eliminato completamente."
 msgid "Audit Log for %{push_id}"
 msgstr "Registro di controllo per %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Registro di controllo per %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Inserito su %{date}"
@@ -928,11 +1879,6 @@ msgstr "URL segreto per questo push"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Visibile solo a te"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Nessuna"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -996,16 +1942,6 @@ msgstr "Stato Attuale"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Stato:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Scaduto"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Il contenuto push è stato eliminato e l'URL segreto è scaduto."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1084,6 +2020,7 @@ msgid "The number of files attached to this push. This value will be 0 when expi
 msgstr "Il numero di file allegati a questo push. Questo valore sarà 0 quando scaduto."
 
 #: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "File allegati"
 
@@ -1123,11 +2060,6 @@ msgstr ""
 "Il registro di controllo (compresi i tentativi di visualizzazione futuri) verr"
 "à comunque mantenuto in futuro."
 
-#: ../../../app/views/pushes/audit.html.erb:222
-#: ../../../app/views/pushes/show.html.erb:119
-msgid "Delete"
-msgstr "Cancellare"
-
 #: ../../../app/views/pushes/audit.html.erb:234
 msgid "Start of Audit Log"
 msgstr "Inizio del Registro di Controllo"
@@ -1143,12 +2075,6 @@ msgstr ""
 #: ../../../app/views/pushes/audit.html.erb:244
 msgid "End of Audit Log"
 msgstr "Fine del registro di controllo"
-
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
-msgid "Active Pushes"
-msgstr "Push Attivi"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -1174,13 +2100,21 @@ msgstr "Spinte scadute"
 msgid "All Pushes"
 msgstr "Tutte le spinte"
 
-#: ../../../app/views/pushes/index.html.erb:39
-msgid "Created"
-msgstr "Creato"
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Nome o documento d'identità"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Tipo"
 
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Nota"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Residuo"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1198,6 +2132,10 @@ msgstr "Codice QR"
 msgid "Text"
 msgstr "Testo"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} visualizzazioni o %{days} giorni"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Comandi di push"
@@ -1209,6 +2147,10 @@ msgstr "Anteprima"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Audit"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Invia in modo sicuro una password, un testo o un file"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1328,6 +2270,23 @@ msgstr "Carica un'altra"
 msgid "View Audit Log"
 msgstr "Visualizza Registro di Controllo"
 
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Suggerimento: vuoi caricare una password verso un utente internazionale? Modif"
+"ica la lingua del collegamento segreto utilizzando il menu a discesa a destra "
+"della URL."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"In alternativa, il rilevamento automatico selezionerà una lingua in base alle "
+"impostazioni del browser dell'utente finale."
+
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"
 msgstr "Il tuo URL segreto"
@@ -1424,17 +2383,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Cruscotto"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
-msgid "All"
-msgstr "Tutto"
-
 #: ../../../app/views/shared/_dashboard_header.html.erb:13
 msgid "New"
 msgstr "Nuovo"
-
-#: ../../../app/views/shared/_footer.html.erb:4
-msgid "Peter"
-msgstr "Pietro"
 
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
@@ -1468,31 +2419,23 @@ msgstr "Tools"
 msgid "Overview"
 msgstr "Panoramica"
 
-#: ../../../app/views/shared/_footer.html.erb:52
-msgid "Documentation"
-msgstr "Documentazione"
-
 #: ../../../app/views/shared/_header.html.erb:37
 msgid "Account"
 msgstr "Account"
 
-#: ../../../app/views/shared/_header.html.erb:42
-msgid "Admin Dashboard"
-msgstr "Pannello di controllo amministratore"
-
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:55
 msgid "Edit Login Details"
 msgstr "Modifica i Dettagli di Accesso"
 
-#: ../../../app/views/shared/_header.html.erb:52
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Log Out"
 msgstr "Esci"
 
-#: ../../../app/views/shared/_header.html.erb:58
+#: ../../../app/views/shared/_header.html.erb:78
 msgid "Log In"
 msgstr "Accedi"
 
-#: ../../../app/views/shared/_header.html.erb:62
+#: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "Registrazione"
 
@@ -1561,5 +2504,5 @@ msgid "URLs"
 msgstr "URL"
 
 #: ../../../app/views/shared/_topnav.html.erb:18
-msgid "QR Codes ᴮᴱᵀᴬ"
+msgid "QR Codes"
 msgstr "Codici QR"
