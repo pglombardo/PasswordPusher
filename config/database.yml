@@ -2,6 +2,7 @@ base: &base
   adapter: sqlite3
   pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
   retries: 100
+  timeout: 10000
   default_transaction_mode: immediate
 
 development:
