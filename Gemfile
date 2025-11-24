@@ -90,7 +90,7 @@ gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
 
 gem "devise-i18n"
-gem "rails-i18n", "~> 8.0.2"
+gem "rails-i18n", "~> 8.1.0"
 gem "translation"
 
 # For File Uploads
