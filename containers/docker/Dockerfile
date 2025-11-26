@@ -11,7 +11,7 @@ ARG BUNDLE_DEPLOYMENT
 LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
 # Required build packages - install in single layer for better caching
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     git \
     build-base \
     musl-dev \
@@ -91,7 +91,7 @@ ARG BUNDLE_DEPLOYMENT
 LABEL maintainer='pglombardo@hey.com'
 
 # Install runtime packages in single layer for better caching
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     bash \
     curl \
     libc6-compat \
