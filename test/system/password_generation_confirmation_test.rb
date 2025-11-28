@@ -7,10 +7,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     # Wait for JavaScript to be fully loaded
-    assert_selector "div[data-controller*='pwgen']", wait: 10
+    assert_selector "div[data-controller*='pwgen']"
 
     # Verify the pwgen controller is connected by checking for the target
-    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+    assert_selector "[data-pwgen-target='payloadInput']"
 
     # Fill in some existing content in the textarea
     fill_in "push_payload", with: "My existing content"
@@ -25,7 +25,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Assert that the confirmation modal is visible
-    assert_text "Are you sure you want to continue?", wait: 10
+    assert_text "Are you sure you want to continue?"
 
     # Check that modal has Cancel and Generate Password buttons
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -45,8 +45,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     visit new_push_path(tab: "qr")
 
     # Wait for JavaScript to be fully loaded
-    assert_selector "div[data-controller*='pwgen']", wait: 10
-    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+    assert_selector "div[data-controller*='pwgen']"
+    assert_selector "[data-pwgen-target='payloadInput']"
 
     # Fill in some existing content in the textarea
     fill_in "push_payload", with: "My existing content"
@@ -60,7 +60,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Assert that the confirmation modal is visible
-    assert_text "Are you sure you want to continue?", wait: 10
+    assert_text "Are you sure you want to continue?"
 
     logout(:user)
   end
@@ -86,8 +86,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     # Wait for JavaScript to be fully loaded
-    assert_selector "div[data-controller*='pwgen']", wait: 10
-    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+    assert_selector "div[data-controller*='pwgen']"
+    assert_selector "[data-pwgen-target='payloadInput']"
 
     # Fill in some existing content
     original_content = "My important content"
@@ -100,7 +100,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Verify modal is visible
-    assert_text "Are you sure you want to continue?", wait: 10
+    assert_text "Are you sure you want to continue?"
 
     # Click Cancel button
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -115,8 +115,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     # Wait for JavaScript to be fully loaded
-    assert_selector "div[data-controller*='pwgen']", wait: 10
-    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+    assert_selector "div[data-controller*='pwgen']"
+    assert_selector "[data-pwgen-target='payloadInput']"
 
     # Fill in some existing content
     original_content = "My important content"
@@ -129,7 +129,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
     # Verify modal is visible
-    assert_text "Are you sure you want to continue?", wait: 10
+    assert_text "Are you sure you want to continue?"
 
     # Click Generate Password button in modal
     within '[data-pwgen-target="generateConfirmModal"]' do
@@ -168,8 +168,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     # Wait for JavaScript to be fully loaded
-    assert_selector "div[data-controller*='pwgen']", wait: 10
-    assert_selector "[data-pwgen-target='payloadInput']", wait: 5
+    assert_selector "div[data-controller*='pwgen']"
+    assert_selector "[data-pwgen-target='payloadInput']"
 
     # Generate a password first
     click_on "Generate Password"
@@ -187,7 +187,7 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
     # Ensure modal is fully visible by forcing it via JavaScript (workaround for timing issues)
     # page.execute_script("document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').classList.add('show'); document.querySelector('[data-pwgen-target=\"generateConfirmModal\"]').style.display = 'block';")
 
-    assert_text "Are you sure you want to continue?", wait: 10
+    assert_text "Are you sure you want to continue?"
     assert_text "This will replace the existing content in the text area."
   end
 end
