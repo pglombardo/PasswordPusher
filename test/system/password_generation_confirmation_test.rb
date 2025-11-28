@@ -38,6 +38,10 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
   end
 
   test "shows confirmation modal when existing content is present for QR Code pushes" do
+    user = users(:luca)
+    user.confirm
+    login_as(user, scope: :user)
+
     visit new_push_path(tab: "qr")
 
     # Wait for JavaScript to be fully loaded
@@ -57,6 +61,8 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
 
     # Assert that the confirmation modal is visible
     assert_text "Are you sure you want to continue?", wait: 10
+
+    logout(:user)
   end
 
   test "generates password directly when no existing content" do
