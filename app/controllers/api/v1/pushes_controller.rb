@@ -179,7 +179,7 @@ class Api::V1::PushesController < Api::BaseController
 
       render template: "pushes/show", status: :created
     else
-      render json: @push.errors, status: :unprocessable_entity
+      render json: @push.errors, status: :unprocessable_content
     end
   end
 
@@ -215,15 +215,21 @@ class Api::V1::PushesController < Api::BaseController
     - Timestamp
     - Event type (view, failed_view, expire, etc)
 
+    Results are paginated with a maximum of 50 audit log entries per page and 200 pages total.
+
     Authentication is required. Only the owner of the push can retrieve its audit log.
     Requests for pushes not owned by the authenticated user will receive a 403 Forbidden response.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
       curl -X GET \\
         -H "X-User-Email: user@example.com" \\
         -H "X-User-Token: MyAPIToken" \\
-        https://pwpush.com/p/fk27vnslkd/audit.json
+        https://pwpush.com/p/fk27vnslkd/audit.json?page=1
 
     == Example Response
 
@@ -246,12 +252,20 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def audit
     if @push.user != current_user
-      render json: {error: t("pushes.not_owner_push")}, status: :forbidden
+      render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end
 
+    page = validate_page_parameter
+    return if page.nil?
+
+    @audit_logs = @push.audit_logs
+      .order(created_at: :desc)
+      .page(page)
+      .per(50)
+
     @secret_url = helpers.secret_url(@push)
-    render json: {views: @push.audit_logs}.to_json(except: %i[user_id push_id id])
+    render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
   end
 
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
@@ -292,7 +306,7 @@ class Api::V1::PushesController < Api::BaseController
 
       render template: "pushes/show", status: :ok
     else
-      notice = t("pushes.expire.not_deletable")
+      notice = I18n._("That push is not deletable by viewers.")
       render json: {error: notice}, status: :unauthorized
     end
   end
@@ -303,6 +317,11 @@ class Api::V1::PushesController < Api::BaseController
     == Active Pushes Retrieval
 
     Returns the list of pushes that are still active.
+    Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
@@ -332,13 +351,17 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def active
     unless Settings.enable_logins
-      render json: {error: t("pushes.need_login_for_active")}, status: :unauthorized
+      render json: {error: I18n._("You must be logged in to view your active pushes.")}, status: :unauthorized
       return
     end
 
+    page = validate_page_parameter
+    return if page.nil?
+
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: false)
-      .page(params[:page])
+      .page(page)
+      .per(50)
       .order(created_at: :desc)
 
     render template: "pushes/index", status: :ok
@@ -350,6 +373,11 @@ class Api::V1::PushesController < Api::BaseController
     == Expired Pushes Retrieval
 
     Returns the list of pushes that have expired.
+    Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+
+    == Parameters
+
+    * +page+ - Page number (default: 1)
 
     == Example Request
 
@@ -379,19 +407,46 @@ class Api::V1::PushesController < Api::BaseController
   EOS
   def expired
     unless Settings.enable_logins
-      render json: {error: t("pushes.need_login_for_expired")}, status: :unauthorized
+      render json: {error: I18n._("You must be logged in to view your expired pushes.")}, status: :unauthorized
       return
     end
 
+    page = validate_page_parameter
+    return if page.nil?
+
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: true)
-      .page(params[:page])
+      .page(page)
+      .per(50)
       .order(created_at: :desc)
 
     render template: "pushes/index", status: :ok
   end
 
   private
+
+  # validate_page_parameter
+  #
+  # Validates and sanitizes the page parameter for pagination
+  # Returns the validated page number or renders an error response
+  #
+  # @return [Integer, nil] validated page number or nil if error rendered
+  def validate_page_parameter
+    begin
+      page = Integer(params[:page] || 1)
+      page = [page, 1].max  # Ensure minimum of 1
+    rescue ArgumentError, TypeError
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return nil
+    end
+
+    if page > 200
+      render json: {error: "Invalid page parameter"}, status: :bad_request
+      return nil
+    end
+
+    page
+  end
 
   def set_push
     @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])

@@ -1,0 +1,104 @@
+<%= content_for :title, resource.friendly_name.pluralize %>
+
+<!-- Page Header -->
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <div>
+    <h1 class="h3 fw-bold text-dark mb-1"><%= resource.friendly_name.pluralize %></h1>
+    <p class="text-muted mb-0"><%= _("Manage %{name} records") % { name: resource.friendly_name.downcase } %></p>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <%= link_to resource.new_path, class: "btn btn-primary d-flex align-items-center" do %>
+      <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+      <%= _("New %{name}") % { name: resource.friendly_name } %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Search and Filters -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-6">
+        <%= form_with url: request.path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+          <%= f.hidden_field :page, value: 1 %>
+          <%= f.search_field :q, value: params[:q], placeholder: _("Search %{name}...") % { name: resource.friendly_name.downcase.pluralize }, class: "form-control" %>
+          <%= f.submit _("Search"), class: "btn btn-outline-primary" %>
+          <% if params[:q].present? %>
+            <%= link_to clear_search_params, class: "btn btn-outline-secondary d-flex align-items-center" do %>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <% if resource.scopes.any? %>
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to _("All"), resource.index_path, class: class_names("btn btn-sm", {"btn-primary" => params[:scope].blank?, "btn-outline-primary" => params[:scope].present?}) %>
+            <% resource.scopes.each do |scope| %>
+              <%= link_to scope.to_s.humanize, resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction]), class: class_names("btn btn-sm", {"btn-primary" => params[:scope] == scope.to_s, "btn-outline-primary" => params[:scope] != scope.to_s}) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Data Table -->
+<div class="card">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <% resource.attributes.values.each do |attribute| %>
+              <% next if attribute.field.nil? %>
+              <% next unless attribute.field.visible?(action_name) %>
+              <th class="border-0"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+            <% end %>
+            <th class="border-0 text-end"><%= _("Actions") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @records.each do |record| %>
+            <tr>
+              <% resource.attributes.values.each do |attribute| %>
+                <% next if attribute.field.nil? %>
+                <% next unless attribute.field.visible?(action_name) %>
+                <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+              <% end %>
+              <td class="text-end">
+                <div class="btn-group btn-group-sm" role="group">
+                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary" %>
+                  <%= link_to _("Edit"), resource.edit_path(record), class: "btn btn-outline-secondary" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-between align-items-center mt-4">
+  <div class="text-muted small">
+    <% if @pagy.respond_to?(:info_tag) %>
+      <%== @pagy.info_tag %>
+    <% else %>
+      <%== pagy_info @pagy %>
+    <% end %>
+  </div>
+  <div>
+    <% if @pagy.respond_to?(:series_nav) %>
+      <%== @pagy.series_nav if @pagy.last > 1 %>
+    <% else %>
+      <%== pagy_nav @pagy if @pagy.last > 1 %>
+    <% end %>
+  </div>
+</div>

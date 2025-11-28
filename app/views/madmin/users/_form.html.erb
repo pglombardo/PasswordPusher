@@ -1,0 +1,91 @@
+<% if record.persisted? %>
+  <%# Use default form for editing existing users %>
+  <%= render partial: "madmin/application/form", locals: { record: record, resource: resource } %>
+<% else %>
+  <%# Custom form for creating new users %>
+  <%= form_with model: [:madmin, record], url: resource.index_path, local: true, class: "needs-validation madmin-form", novalidate: true do |form| %>
+    <% if form.object.errors.any? %>
+      <div class="alert alert-danger mb-4">
+        <div class="d-flex align-items-start">
+          <svg class="text-danger me-2 mt-1" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+          </svg>
+          <div>
+            <div class="fw-semibold"><%= _("There was %{count} with your submission:") % { count: pluralize(form.object.errors.full_messages.count, _("error")) } %></div>
+            <ul class="mb-0 mt-2">
+              <% form.object.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- User Information Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          <%= _("User Information") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-12">
+            <div class="mb-3">
+              <%= form.label :email, class: "form-label fw-semibold" %>
+              <%= form.email_field :email, class: "form-control", required: true, autofocus: true %>
+              <div class="form-text text-muted small mt-1">
+                <%= _("The email address for the new user account.") %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="mb-3">
+              <div class="form-check">
+                <%= form.check_box :auto_confirm, { class: "form-check-input" }, "1", "0" %>
+                <%= form.label :auto_confirm, _("Auto-confirm account"), class: "form-check-label fw-semibold" %>
+              </div>
+              <div class="form-text text-muted small mt-1">
+                <%= _("If checked, the user account will be automatically confirmed and ready to use. Otherwise, the user will need to confirm their email address.") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information Notice -->
+    <div class="alert alert-info mb-4">
+      <div class="d-flex align-items-start">
+        <svg class="text-info me-2 mt-1" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+          <div class="fw-semibold mb-1"><%= _("Password Information") %></div>
+          <p class="mb-0">
+            <%= _("A secure password will be automatically generated for this user. The user can reset their password using the \"Forgot Password\" link on the login page.") %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex gap-3 justify-content-end">
+          <%= link_to _("Cancel"), resource.index_path, class: "btn btn-outline-secondary px-4" %>
+          <button type="submit" class="btn btn-primary px-4 d-flex align-items-center">
+            <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <%= _("Create User") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

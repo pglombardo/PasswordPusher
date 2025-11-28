@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-12 10:48+0200\n"
-"PO-Revision-Date: 2025-09-12 10:48+0200\n"
+"POT-Creation-Date: 2025-11-16 00:30+0100\n"
+"PO-Revision-Date: 2025-11-15 23:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
@@ -18,9 +18,426 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Tämä lähetys ei kuulu sinulle."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Katsojat eivät voi poistaa tätä lähetystä."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Sinun on oltava kirjautuneena sisään nähdäksesi aktiiviset työnnät."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Sinun on oltava kirjautuneena sisään nähdäksesi vanhentuneet työnnät."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Tuo tunnuslause on väärä. Yritä uudelleen tai ota yhteyttä henkilöön tai organ"
+"isaatioon, joka lähetti sinulle tämän linkin."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Katsojat eivät voi poistaa kyseistä push-kuvaa, eikä se kuulu sinulle."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Tuo työntö on jo vanhentunut."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Lähetys on poistettu ja salainen URL-osoite vanhentunut."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Tiedostojen push-toiminnot ovat poissa käytöstä."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "URL-sivujen lähettäminen on poistettu käytöstä."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "QR-koodien lähettäminen on poistettu käytöstä."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Voit liittää enintään %{count} tiedostoa työntöä kohti."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Hyötykuorma vaaditaan."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "Hyötykuorma on liian suuri. Voit työntää enintään %{count} tavua."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "täytyy olla voimassa oleva HTTP- tai HTTPS-URL."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "QR-koodin hyötykuorma on liian suuri. Voit työntää enintään %{count} tavua."
+
+#: ../../../app/views/admin/_navigation.html.erb:9
+msgid "Password Pusher"
+msgstr "Salasanan työntäjä"
+
+#: ../../../app/views/admin/_navigation.html.erb:12
+#: ../../../app/views/admin/index.html.erb:11
+#: ../../../app/views/shared/_header.html.erb:46
+msgid "Administration Center"
+msgstr "Hallinto"
+
+#: ../../../app/views/admin/_navigation.html.erb:17
+msgid "BETA"
+msgstr "BEETA"
+
+#: ../../../app/views/admin/_navigation.html.erb:31
+msgid "Administration Home"
+msgstr "Hallinnon kotisivu"
+
+#: ../../../app/views/admin/_navigation.html.erb:37
+#: ../../../app/views/admin/index.html.erb:121
+msgid "System Administration"
+msgstr "Järjestelmänvalvoja"
+
+#: ../../../app/views/admin/_navigation.html.erb:43
+msgid "Admin Users"
+msgstr "Järjestelmänvalvojat"
+
+#: ../../../app/views/admin/_navigation.html.erb:50
+#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/madmin/dashboard/show.html.erb:1
+msgid "Data Explorer"
+msgstr "Tietojen selain"
+
+#: ../../../app/views/admin/_navigation.html.erb:57
+#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
+msgid "Background Jobs"
+msgstr "Taustatyöt"
+
+#: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
+msgid "Administration"
+msgstr "Hallinta"
+
+#: ../../../app/views/admin/index.html.erb:13
+msgid "Welcome to the Password Pusher administration panel."
+msgstr "Tervetuloa Password Pusherin hallintapaneeliin."
+
+#: ../../../app/views/admin/index.html.erb:14
+msgid ""
+"Manage your application settings and system administration from this central l"
+"ocation."
+msgstr ""
+"Hallitse sovellusasetuksiasi ja järjestelmänvalvojaasi tästä keskitetystä sija"
+"innista."
+
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "OSS-versio %{version}"
+
+#: ../../../app/views/admin/index.html.erb:40
+msgid "Total Users"
+msgstr "Käyttäjiä yhteensä"
+
+#: ../../../app/views/admin/index.html.erb:60
+msgid "Total Pushes"
+msgstr "Yhteensä työntöjä"
+
+#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/pushes/index.html.erb:26
+#: ../../../app/views/pushes/index.html.erb:34
+msgid "Active Pushes"
+msgstr "Aktiiviset Lähetykset"
+
+#: ../../../app/views/admin/index.html.erb:100
+msgid "Total Audit Logs"
+msgstr "Yhteensä tarkastuslokeja"
+
+#: ../../../app/views/admin/index.html.erb:123
+msgid ""
+"Monitor system performance, manage background jobs, and analyze usage patterns"
+"."
+msgstr ""
+"Valvo järjestelmän suorituskykyä, hallitse taustalla suoritettavia töitä ja an"
+"alysoi käyttömalleja."
+
+#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/users/index.html.erb:1
+#: ../../../app/views/admin/users/index.html.erb:9
+#: ../../../app/views/admin/users/index.html.erb:23
+msgid "Administrator Management"
+msgstr "Hallinnoija Hallinto"
+
+#: ../../../app/views/admin/index.html.erb:132
+msgid "Manage admin accounts and privileges"
+msgstr "Hallinnoi järjestelmänvalvojan tilejä ja oikeuksia"
+
+#: ../../../app/views/admin/index.html.erb:147
+msgid "Monitor and manage queued tasks"
+msgstr "Jonottavien tehtävien valvonta ja hallinta"
+
+#: ../../../app/views/admin/index.html.erb:162
+msgid "Query data and manage records"
+msgstr "Kyselytietojen tekeminen ja tietueiden hallinta"
+
+#: ../../../app/views/admin/index.html.erb:184
+msgid "Database Administration"
+msgstr "Tietokannan hallinta"
+
+#: ../../../app/views/admin/index.html.erb:186
+msgid "Direct access to database records and user management tools."
+msgstr "Suora pääsy tietokantatietueisiin ja käyttäjähallintatyökaluihin."
+
+#: ../../../app/views/admin/index.html.erb:192
+msgid "Advanced Database Access"
+msgstr "Edistynyt tietokannan käyttö"
+
+#: ../../../app/views/admin/index.html.erb:193
+msgid "Direct record manipulation and management"
+msgstr "Suora tietueiden käsittely ja hallinta"
+
+#: ../../../app/views/admin/index.html.erb:196
+msgid "Open Data Explorer"
+msgstr "Avaa dataselain"
+
+#: ../../../app/views/admin/index.html.erb:218
+msgid "Resources & Support"
+msgstr "Resurssit ja tuki"
+
+#: ../../../app/views/admin/index.html.erb:220
+msgid "Access documentation, source code, releases, and get help when you need it."
+msgstr "Käytä dokumentaatiota, lähdekoodia ja julkaisuja sekä pyydä apua tarvittaessa."
+
+#: ../../../app/views/admin/index.html.erb:230
+msgid "GitHub Repository"
+msgstr "GitHub-arkisto"
+
+#: ../../../app/views/admin/index.html.erb:231
+msgid "View source code and contribute"
+msgstr "Näytä lähdekoodi ja osallistu"
+
+#: ../../../app/views/admin/index.html.erb:246
+msgid "Latest Releases"
+msgstr "Uusimmat julkaisut"
+
+#: ../../../app/views/admin/index.html.erb:247
+msgid "View changelog and download updates"
+msgstr "Näytä muutosloki ja lataa päivitykset"
+
+#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/shared/_footer.html.erb:52
+msgid "Documentation"
+msgstr "Dokumentointi"
+
+#: ../../../app/views/admin/index.html.erb:263
+msgid "Complete setup and usage guides"
+msgstr "Täydelliset asennus- ja käyttöoppaat"
+
+#: ../../../app/views/admin/index.html.erb:278
+msgid "Support"
+msgstr "Tuki"
+
+#: ../../../app/views/admin/index.html.erb:279
+msgid "Get help and report issues"
+msgstr "Hanki apua ja ilmoita ongelmista"
+
+#: ../../../app/views/admin/index.html.erb:299
+msgid "Getting Started"
+msgstr "Aloittaminen"
+
+#: ../../../app/views/admin/index.html.erb:302
+msgid ""
+"Welcome to the Password Pusher Administration Center! Here's your complete too"
+"lkit:"
+msgstr ""
+"Tervetuloa Password Pusher -hallintakeskukseen! Tässä on täydellinen työkalupa"
+"kki:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "👥 Manage Administrators:"
+msgstr "👥 Hallinnoi järjestelmänvalvojia:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "Promote or revoke admin privileges for users in your system"
+msgstr ""
+"Ylennä tai peruuta järjestelmänvalvojan oikeuksia järjestelmänvalvojan oikeuks"
+"illa"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "📊 Monitor Background Jobs:"
+msgstr "📊 Näytön taustatyöt:"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "Track email notifications, push cleanup, and system processing tasks"
+msgstr ""
+"Seuraa sähköposti-ilmoituksia, push-puhdistusta ja järjestelmän käsittelytehtä"
+"viä"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Tutustu tietokantaan:"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "Direct access to users, pushes, audit logs, and file storage records"
+msgstr ""
+"Suora pääsy käyttäjiin, push-tietoihin, tarkastuslokeihin ja tiedostojen talle"
+"nnustietoihin"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "📈 View System Stats:"
+msgstr "📈 Näytä järjestelmän tilastot:"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "Monitor user activity, push counts, and audit log entries"
+msgstr "Seuraa käyttäjien toimintaa, push-määriä ja tarkastuslokin merkintöjä"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "🔍 Track Activity:"
+msgstr "🔍 Seuraa aktiivisuutta:"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "Review audit logs to understand system usage and security events"
+msgstr "Tarkista lokitiedot ymmärtääksesi järjestelmän käyttöä ja tietoturvatapahtumia"
+
+#: ../../../app/views/admin/users/index.html.erb:25
+msgid "Manage administrator accounts and privileges"
+msgstr "Järjestelmänvalvojan tilien ja oikeuksien hallinta"
+
+#: ../../../app/views/admin/users/index.html.erb:29
+msgid "%{count} Administrators"
+msgstr "%{count} Ylläpitäjät"
+
+#: ../../../app/views/admin/users/index.html.erb:42
+msgid "Current Administrators"
+msgstr "Nykyiset hallintovirkamiehet"
+
+#: ../../../app/views/admin/users/index.html.erb:50
+#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/devise/sessions/new.html.erb:7
+msgid "Email"
+msgstr "Sähköposti"
+
+#: ../../../app/views/admin/users/index.html.erb:51
+#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/pushes/index.html.erb:39
+msgid "Created"
+msgstr "Luotu"
+
+#: ../../../app/views/admin/users/index.html.erb:52
+#: ../../../app/views/admin/users/index.html.erb:141
+msgid "Last Sign In"
+msgstr "Viimeisin sisäänkirjautuminen"
+
+#: ../../../app/views/admin/users/index.html.erb:53
+#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/users/index.html.erb:63
+msgid "Actions"
+msgstr "Toiminnot"
+
+#: ../../../app/views/admin/users/index.html.erb:70
+msgid "You"
+msgstr "Sinä"
+
+#: ../../../app/views/admin/users/index.html.erb:83
+#: ../../../app/views/admin/users/index.html.erb:169
+msgid "Never"
+msgstr "Ei koskaan"
+
+#: ../../../app/views/admin/users/index.html.erb:92
+msgid ""
+"Are you sure you want to revoke administrator privileges from %{email}? They w"
+"ill lose access to the administration panel."
+msgstr ""
+"Oletko varma, että haluat peruuttaa %{email}:n järjestelmänvalvojan oikeudet? "
+"He menettävät pääsyn hallintopaneeliin."
+
+#: ../../../app/views/admin/users/index.html.erb:97
+msgid "Revoke"
+msgstr "Peruuta"
+
+#: ../../../app/views/admin/users/index.html.erb:100
+msgid "Cannot revoke your own privileges"
+msgstr "Ei voi peruuttaa omia oikeuksiaan"
+
+#: ../../../app/views/admin/users/index.html.erb:113
+msgid "No administrators found"
+msgstr "Ylläpitäjiä ei löytynyt"
+
+#: ../../../app/views/admin/users/index.html.erb:114
+msgid "There are currently no administrator accounts in the system."
+msgstr "Järjestelmässä ei tällä hetkellä ole järjestelmänvalvojan tilejä."
+
+#: ../../../app/views/admin/users/index.html.erb:126
+msgid "Regular Users"
+msgstr "Säännölliset käyttäjät"
+
+#: ../../../app/views/admin/users/index.html.erb:130
+msgid "%{count} Regular Users"
+msgstr "%{count} Tavalliset käyttäjät"
+
+#: ../../../app/views/admin/users/index.html.erb:177
+msgid ""
+"Are you sure you want to promote %{email} to administrator? This will give the"
+"m full access to the administration panel."
+msgstr ""
+"Haluatko varmasti ylentää %{email} järjestelmänvalvojaksi? Tämä antaa hänelle "
+"täydet oikeudet hallintopaneeliin."
+
+#: ../../../app/views/admin/users/index.html.erb:182
+msgid "Promote"
+msgstr "Edistä"
+
+#: ../../../app/views/admin/users/index.html.erb:200
+msgid "No regular users found"
+msgstr "Ei tavallisia käyttäjiä löydetty"
+
+#: ../../../app/views/admin/users/index.html.erb:201
+msgid "All users in the system are administrators."
+msgstr "Kaikki järjestelmän käyttäjät ovat järjestelmänvalvojia."
+
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "Yllä olevat tiedostojen latauslinkit vanhenevat:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Voit päivittää sivun uusien latauslinkkien luomiseksi, jos näkymiä on jäljellä"
+"."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Vanhentunut"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Salainen linkkikieli"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Automaattinen havainnointi"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -28,6 +445,69 @@ msgstr "Salainen linkkikieli"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopioi leikepöydälle"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push loi %{date}: %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP-osoite:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Käyttäjäagentti:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Ei mitään"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Viittaus:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push vanhentui manuaalisesti %{date}: %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Epäonnistunut tunnuslauseyritys %{date}: %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Näyttöyritys epäonnistui %{date}:lla käyttäjältä %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "%{user} onnistui tarkastelemaan kohdetta %{date}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Napsauta tästä vahvistaaksesi tilisi"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -172,7 +652,7 @@ msgid "Current Password"
 msgstr "Nykyinen salasana"
 
 #: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:49
+#: ../../../app/views/shared/_header.html.erb:63
 msgid "API Token"
 msgstr "API-avain"
 
@@ -247,6 +727,8 @@ msgid "Are you sure?"
 msgstr "Oletko varma?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/madmin/application/_form.html.erb:212
+#: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
 msgid "Cancel"
@@ -262,15 +744,22 @@ msgstr "Poista ja luo uudelleen"
 msgid "Processing..."
 msgstr "Käsitellään..."
 
-#: ../../../app/views/devise/sessions/new.html.erb:7
-msgid "Email"
-msgstr "Sähköposti"
-
 #: ../../../app/views/devise/sessions/new.html.erb:12
 msgid "Password"
 msgstr "salasana"
 
-#: ../../../app/views/layouts/admin/application.html.erb:41
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Hallinta - Salasanan siirto"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "Järjestelmä aktiivinen"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Takaisin sovellukseen"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -278,6 +767,449 @@ msgstr "salasana"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Password Pusher logo"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Tietojen selain - Hallinta - Salasanan siirto"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Lavastusympäristö"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Tämä on testaussivusto, ja tiedot nollataan usein. Käytä %{production_link}-tu"
+"nnistetta, ellet testaa uusia ominaisuuksia."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Takaisin hallintokeskukseen"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Valvo ja hallinnoi taustalla tapahtuvaa töiden käsittelyä ja jonoja"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Mitä ovat taustatyöt?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"Taustatyöt käsittelevät asynkronisesti suoritettavia tehtäviä estämättä pääsov"
+"ellusta. Password Pusherissa näihin kuuluvat:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "Sähköposti-ilmoitukset"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Push-ilmoitusten ja järjestelmänvalvojan ilmoitusten lähettäminen"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Työnnä puhdistusta"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Vanhentuneiden push-tietojen automaattinen poistaminen tietokannasta"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Tiedoston käsittely"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Tiedostojen latausten ja mahdollisten jälkikäsittelytehtävien käsittely."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Tarkastusloki"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Järjestelmätapahtumien ja käyttäjän toimien tallentaminen"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Käytä alla olevia välilehtiä työjonojen valvontaan, epäonnistuneiden töiden ta"
+"rkasteluun ja töiden käsittelyn hallintaan."
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "There was %{count} with your submission:"
+msgstr "Lähetyksessäsi oli %{count}:"
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "error"
+msgstr "virhe"
+
+#: ../../../app/views/madmin/application/_form.html.erb:61
+msgid "Basic Information"
+msgstr "Perustiedot"
+
+#: ../../../app/views/madmin/application/_form.html.erb:92
+msgid "Security & Access"
+msgstr "Turvallisuus ja käyttöoikeudet"
+
+#: ../../../app/views/madmin/application/_form.html.erb:123
+msgid "Activity & Timestamps"
+msgstr "Toiminta ja aikaleimat"
+
+#: ../../../app/views/madmin/application/_form.html.erb:154
+msgid "Related Records"
+msgstr "Aiheeseen liittyvät tietueet"
+
+#: ../../../app/views/madmin/application/_form.html.erb:185
+msgid "Additional Fields"
+msgstr "Lisäkentät"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Update"
+msgstr "Päivitä"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Create"
+msgstr "Luoda"
+
+#: ../../../app/views/madmin/application/edit.html.erb:1
+#: ../../../app/views/madmin/application/edit.html.erb:20
+msgid "Edit %{name}"
+msgstr "Muokkaa %{name}"
+
+#: ../../../app/views/madmin/application/edit.html.erb:13
+#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/show.html.erb:25
+msgid "Edit"
+msgstr "Muokata"
+
+#: ../../../app/views/madmin/application/edit.html.erb:21
+msgid "Update %{name} information"
+msgstr "Päivitä %{name} -tiedot"
+
+#: ../../../app/views/madmin/application/index.html.erb:7
+msgid "Manage %{name} records"
+msgstr "Hallitse %{name}-tietueita"
+
+#: ../../../app/views/madmin/application/index.html.erb:14
+#: ../../../app/views/madmin/application/new.html.erb:1
+#: ../../../app/views/madmin/application/new.html.erb:10
+#: ../../../app/views/madmin/application/new.html.erb:17
+msgid "New %{name}"
+msgstr "Uusi %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:26
+msgid "Search %{name}..."
+msgstr "Hae %{name}..."
+
+#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/users/index.html.erb:27
+msgid "Search"
+msgstr "Haku"
+
+#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/users/index.html.erb:40
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "All"
+msgstr "Kaikki"
+
+#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/pushes/_files_form.html.erb:9
+#: ../../../app/views/pushes/_form.html.erb:9
+#: ../../../app/views/pushes/_qr_form.html.erb:9
+#: ../../../app/views/pushes/_url_form.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:34
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Katselukerta"
+msgstr[1] "Katselukertaa"
+
+#: ../../../app/views/madmin/application/new.html.erb:18
+msgid "Create a new %{name} record"
+msgstr "Luo uusi %{name}-tietue"
+
+#: ../../../app/views/madmin/application/show.html.erb:19
+msgid "View %{name} details"
+msgstr "Näytä %{name}-tiedot"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/show.html.erb:119
+msgid "Delete"
+msgstr "Poista"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+msgid "Are you sure you want to delete this %{name}?"
+msgstr "Haluatko varmasti poistaa tämän %{name}?"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:15
+msgid "Database Explorer"
+msgstr "Tietokannan selain"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:16
+msgid "Direct database access and record management"
+msgstr "Suora tietokannan käyttö ja tietueiden hallinta"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+msgid "Database %{status}"
+msgstr "Tietokanta %{status}"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Yhdistetty"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:210
+msgid "Disconnected"
+msgstr "Yhteys katkennut"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:27
+#: ../../../app/views/madmin/dashboard/show.html.erb:237
+msgid "Back to Admin Center"
+msgstr "Takaisin hallintakeskukseen"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:40
+msgid "Direct Database Access"
+msgstr "Suora tietokannan käyttö"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Varoitus:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid ""
+"This interface provides direct access to your production database. All changes"
+" are immediate and irreversible. Exercise extreme caution when modifying recor"
+"ds."
+msgstr ""
+"Tämä käyttöliittymä tarjoaa suoran pääsyn tuotantotietokantaasi. Kaikki muutok"
+"set ovat välittömiä ja peruuttamattomia. Ole erittäin varovainen muokaessasi t"
+"ietueita."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid "Recommendation:"
+msgstr "Suositus:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid ""
+"Always backup your database before making any changes to ensure you can restor"
+"e data if needed."
+msgstr ""
+"Varmuuskopioi aina tietokanta ennen muutosten tekemistä, jotta voit palauttaa "
+"tiedot tarvittaessa."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:60
+msgid "Getting Started with Data Explorer"
+msgstr "Tietojen hallinnan aloittaminen"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:62
+msgid ""
+"This tool provides direct access to your database records. Here's how to use i"
+"t effectively:"
+msgstr ""
+"Tämä työkalu tarjoaa suoran pääsyn tietokantatietoihisi. Näin käytät sitä teho"
+"kkaasti:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:66
+msgid "📊 Browse Records"
+msgstr "📊 Selaa tietueita"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "Users:"
+msgstr "Käyttäjät:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "View user accounts, check registration dates, and manage permissions"
+msgstr ""
+"Näytä käyttäjätilit, tarkista rekisteröintipäivämäärät ja hallinnoi käyttöoike"
+"uksia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Työnnöt:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Monitor password pushes, view expiration status, and track usage"
+msgstr "Salasanan lähetysten valvonta, vanhenemistilan tarkastelu ja käytön seuranta"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Audit Logs:"
+msgstr "Tarkastuslokit:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Track all system changes and user actions"
+msgstr "Seuraa kaikkia järjestelmämuutoksia ja käyttäjien toimia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:74
+msgid "🔧 Common Tasks"
+msgstr "🔧 Yleiset tehtävät"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Käyttäjätuki:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "Impersonate users to troubleshoot issues"
+msgstr "Tekeytymällä käyttäjiksi ongelmien vianmäärityksessä"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Tietojen puhdistus:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Remove expired pushes or inactive accounts"
+msgstr "Poista vanhentuneet push-viestit tai passiiviset tilit"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Security Review:"
+msgstr "Tietoturvatarkastus:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Check audit logs for suspicious activity"
+msgstr "Tarkista lokitiedot epäilyttävän toiminnan varalta"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analytiikka:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analyze usage patterns and system health"
+msgstr "Analysoi käyttömalleja ja järjestelmän kuntoa"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:99
+msgid "Core Data"
+msgstr "Ydintiedot"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:101
+msgid "Manage users, pushes, and audit logs."
+msgstr "Hallitse käyttäjiä, push-ilmoituksia ja tarkastuslokia."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:109
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:110
+msgid "Manage user accounts and permissions"
+msgstr "Hallinnoi käyttäjätilejä ja käyttöoikeuksia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:124
+msgid "Pushes"
+msgstr "Työntää"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:125
+msgid "View and manage pushes"
+msgstr "Näytä ja hallinnoi push-viestejä"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:139
+msgid "Audit Logs"
+msgstr "Tarkastuslokit"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:140
+msgid "Track system activity and changes"
+msgstr "Seuraa järjestelmän toimintaa ja muutoksia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:165
+msgid "Database Connection"
+msgstr "Tietokantayhteys"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:167
+msgid "Current database connection information and status."
+msgstr "Nykyisen tietokantayhteyden tiedot ja tila."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:172
+msgid "Database Type"
+msgstr "Tietokannan tyyppi"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:180
+msgid "Database Name"
+msgstr "Tietokannan nimi"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:188
+msgid "Environment"
+msgstr "Ympäristö"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:198
+msgid "Connection Status"
+msgstr "Yhteyden tila"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:229
+msgid "Quick Actions"
+msgstr "Pikatoiminnot"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:245
+msgid "Admin Management"
+msgstr "Ylläpitäjän hallinta"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:253
+msgid "Go to Application"
+msgstr "Siirry sovellukseen"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:261
+msgid "Manage Users"
+msgstr "Hallitse käyttäjiä"
+
+#: ../../../app/views/madmin/users/_form.html.erb:32
+msgid "User Information"
+msgstr "Käyttäjätiedot"
+
+#: ../../../app/views/madmin/users/_form.html.erb:42
+msgid "The email address for the new user account."
+msgstr "Uuden käyttäjätilin sähköpostiosoite."
+
+#: ../../../app/views/madmin/users/_form.html.erb:50
+msgid "Auto-confirm account"
+msgstr "Vahvista tili automaattisesti"
+
+#: ../../../app/views/madmin/users/_form.html.erb:53
+msgid ""
+"If checked, the user account will be automatically confirmed and ready to use."
+" Otherwise, the user will need to confirm their email address."
+msgstr ""
+"Jos tämä on valittuna, käyttäjätili vahvistetaan automaattisesti ja se on käyt"
+"tövalmis. Muussa tapauksessa käyttäjän on vahvistettava sähköpostiosoitteensa."
+
+#: ../../../app/views/madmin/users/_form.html.erb:68
+msgid "Password Information"
+msgstr "Salasanatiedot"
+
+#: ../../../app/views/madmin/users/_form.html.erb:70
+msgid ""
+"A secure password will be automatically generated for this user. The user can "
+"reset their password using the \"Forgot Password\" link on the login page."
+msgstr ""
+"Tälle käyttäjälle luodaan automaattisesti turvallinen salasana. Käyttäjä voi n"
+"ollata salasanansa kirjautumissivulla olevasta \"Unohditko salasanasi\" -linkist"
+"ä."
+
+#: ../../../app/views/madmin/users/_form.html.erb:85
+msgid "Create User"
+msgstr "Luo käyttäjä"
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -633,16 +1565,6 @@ msgstr[1] "Päivää"
 msgid "Days"
 msgstr "Päiviä"
 
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
-msgid "View"
-msgid_plural "Views"
-msgstr[0] "Katselukerta"
-msgstr[1] "Katselukertaa"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
 #: ../../../app/views/pushes/_files_form.html.erb:80
 #: ../../../app/views/pushes/_form.html.erb:10
@@ -676,6 +1598,10 @@ msgstr "Tallennettu!"
 #: ../../../app/views/pushes/_files_form.html.erb:29
 msgid "Add Files..."
 msgstr "Lisää tiedostoja..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Voit ladata enintään %{count} tiedostoa per push."
 
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
@@ -808,6 +1734,13 @@ msgstr "Tarkastusloki toiminnasta on saatavilla."
 #: ../../../app/views/pushes/_form.html.erb:189
 #: ../../../app/views/pushes/_qr_form.html.erb:190
 #: ../../../app/views/pushes/_url_form.html.erb:161
+msgid "Pushing..."
+msgstr "Työnnössä..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:191
+#: ../../../app/views/pushes/_form.html.erb:189
+#: ../../../app/views/pushes/_qr_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:161
 msgid "Push It!"
 msgstr "Lähetä se!"
 
@@ -907,6 +1840,10 @@ msgstr "Vanhentuessa push-URL poistetaan kokonaan."
 msgid "Audit Log for %{push_id}"
 msgstr "Tarkastusloki kohteelle %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Audit-logi Push ID:lle: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Painettu %{date}"
@@ -918,11 +1855,6 @@ msgstr "Tämän lähetyksen salainen URL-osoite"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Näkyy vain sinulle"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Ei mitään"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -984,16 +1916,6 @@ msgstr "Nykyinen tila"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Tila:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Vanhentunut"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Lähetys on poistettu ja salainen URL-osoite vanhentunut."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1072,6 +1994,7 @@ msgstr ""
 "nhenee."
 
 #: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Liitetyt tiedostot"
 
@@ -1109,11 +2032,6 @@ msgid ""
 "g forward."
 msgstr "Tarkastusloki (mukaan lukien tulevat katseluyritykset) säilytetään edelleen."
 
-#: ../../../app/views/pushes/audit.html.erb:222
-#: ../../../app/views/pushes/show.html.erb:119
-msgid "Delete"
-msgstr "Poista"
-
 #: ../../../app/views/pushes/audit.html.erb:234
 msgid "Start of Audit Log"
 msgstr "Tarkastuslokin alku"
@@ -1129,12 +2047,6 @@ msgstr ""
 #: ../../../app/views/pushes/audit.html.erb:244
 msgid "End of Audit Log"
 msgstr "Tarkastuslokin loppu"
-
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
-msgid "Active Pushes"
-msgstr "Aktiiviset Lähetykset"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -1160,13 +2072,21 @@ msgstr "Vanhentuneet push-ilmoitukset"
 msgid "All Pushes"
 msgstr "Kaikki työntöt"
 
-#: ../../../app/views/pushes/index.html.erb:39
-msgid "Created"
-msgstr "Luotu"
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Nimi tai tunnus"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Tyyppi"
 
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Lisätieto"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Jäljellä"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1184,6 +2104,10 @@ msgstr "QR-koodi"
 msgid "Text"
 msgstr "Teksti"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} katselukertaa tai %{days} päivää"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Lähetyskontrollit"
@@ -1195,6 +2119,10 @@ msgstr "Esikatselu"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Auditointi"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Lähetä turvallisesti salasana, teksti tai tiedosto"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1314,6 +2242,22 @@ msgstr "Työnnä toinen"
 msgid "View Audit Log"
 msgstr "Näytä tarkastusloki"
 
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Vinkki: lähetätkö kansainväliselle käyttäjälle? Vaihda salaisen linkin kieli U"
+"RL-osoitteen oikealla puolella olevasta valikosta."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Vaihtoehtoisesti automaattinen tunnistus valitsee kielen loppukäyttäjän selaim"
+"en asetusten perusteella."
+
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"
 msgstr "Salainen URL-osoite"
@@ -1410,17 +2354,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Lähetykset"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
-msgid "All"
-msgstr "Kaikki"
-
 #: ../../../app/views/shared/_dashboard_header.html.erb:13
 msgid "New"
 msgstr "Uusi"
-
-#: ../../../app/views/shared/_footer.html.erb:4
-msgid "Peter"
-msgstr "Peter"
 
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
@@ -1454,31 +2390,23 @@ msgstr "Työkalut"
 msgid "Overview"
 msgstr "Yleiskatsaus"
 
-#: ../../../app/views/shared/_footer.html.erb:52
-msgid "Documentation"
-msgstr "Dokumentointi"
-
 #: ../../../app/views/shared/_header.html.erb:37
 msgid "Account"
 msgstr "Tili"
 
-#: ../../../app/views/shared/_header.html.erb:42
-msgid "Admin Dashboard"
-msgstr "Admin Dashboard"
-
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:55
 msgid "Edit Login Details"
 msgstr "Muokkaa tilitietoja"
 
-#: ../../../app/views/shared/_header.html.erb:52
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Log Out"
 msgstr "Kirjaudu ulos"
 
-#: ../../../app/views/shared/_header.html.erb:58
+#: ../../../app/views/shared/_header.html.erb:78
 msgid "Log In"
 msgstr "Kirjaudu sisään"
 
-#: ../../../app/views/shared/_header.html.erb:62
+#: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "Rekisteröidy"
 
@@ -1547,5 +2475,5 @@ msgid "URLs"
 msgstr "URL-osoitteet"
 
 #: ../../../app/views/shared/_topnav.html.erb:18
-msgid "QR Codes ᴮᴱᵀᴬ"
+msgid "QR Codes"
 msgstr "QR-koodit ᴮᴱᵀᴬ"

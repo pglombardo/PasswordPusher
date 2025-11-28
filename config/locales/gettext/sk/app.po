@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-09-12 10:48+0200\n"
-"PO-Revision-Date: 2025-09-12 10:48+0200\n"
+"POT-Creation-Date: 2025-11-16 00:30+0100\n"
+"PO-Revision-Date: 2025-11-15 23:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -18,9 +18,426 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1)?0:((n>=2&&n<=4)?1:2);\n"
 "\n"
 
+#: ../../../app/controllers/api/v1/pushes_controller.rb:255
+#: ../../../app/controllers/pushes_controller.rb:174
+msgid "That push doesn't belong to you."
+msgstr "Toto tlačenie vám nepatrí."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+msgid "That push is not deletable by viewers."
+msgstr "Tento push nie je možné vymazať zo strany divákov."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:354
+msgid "You must be logged in to view your active pushes."
+msgstr "Musíte byť prihlásený, aby ste si mohli prezerať svoje aktívne tlaky."
+
+#: ../../../app/controllers/api/v1/pushes_controller.rb:410
+msgid "You must be logged in to view your expired pushes."
+msgstr "Musíte byť prihlásení, aby ste si mohli prezerať svoje vypršané tlače."
+
+#: ../../../app/controllers/pushes_controller.rb:96
+msgid ""
+"That passphrase is incorrect.  Please try again or contact the person or organ"
+"ization that sent you this link."
+msgstr ""
+"Táto prístupová fráza je nesprávna.  Skúste to znova alebo sa obráťte na osobu"
+" alebo organizáciu, ktorá vám toto prepojenie poslala."
+
+#: ../../../app/controllers/pushes_controller.rb:184
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Tento push nie je odstrániteľný divákmi a nepatrí vám."
+
+#: ../../../app/controllers/pushes_controller.rb:189
+msgid "That push has already expired."
+msgstr "Tento tlak už vypršal."
+
+#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Obsah push bol odstránený a platnosť tajnej adresy URL vypršala."
+
+#: ../../../app/controllers/pushes_controller.rb:318
+#: ../../../app/models/push.rb:199
+msgid "File pushes are disabled."
+msgstr "Posúvanie súborov je zakázané."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/models/push.rb:203
+msgid "URL pushes are disabled."
+msgstr "Posunutie adresy URL je zakázané."
+
+#: ../../../app/controllers/pushes_controller.rb:338
+#: ../../../app/models/push.rb:207
+msgid "QR code pushes are disabled."
+msgstr "Tlačenie QR kódov je vypnuté."
+
+#: ../../../app/models/push.rb:114
+msgid "You can only attach up to %{count} files per push."
+msgstr "Na jedno odoslanie môžete pripojiť len %{count} súborov."
+
+#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
+#: ../../../app/models/push.rb:146
+msgid "Payload is required."
+msgstr "Vyžaduje sa užitočné zaťaženie."
+
+#: ../../../app/models/push.rb:125
+msgid "The payload is too large.  You can only push up to %{count} bytes."
+msgstr "Užitočné zaťaženie je príliš veľké.  Môžete odoslať len do %{count} bajtov."
+
+#: ../../../app/models/push.rb:132
+msgid "must be a valid HTTP or HTTPS URL."
+msgstr "musí byť platná adresa URL HTTP alebo HTTPS."
+
+#: ../../../app/models/push.rb:143
+msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
+msgstr "Náklad QR kódu je príliš veľký.  Môžete odoslať len do %{count} bajtov."
+
+#: ../../../app/views/admin/_navigation.html.erb:9
+msgid "Password Pusher"
+msgstr "Tlačiareň hesiel"
+
+#: ../../../app/views/admin/_navigation.html.erb:12
+#: ../../../app/views/admin/index.html.erb:11
+#: ../../../app/views/shared/_header.html.erb:46
+msgid "Administration Center"
+msgstr "Administratíva"
+
+#: ../../../app/views/admin/_navigation.html.erb:17
+msgid "BETA"
+msgstr "BETA"
+
+#: ../../../app/views/admin/_navigation.html.erb:31
+msgid "Administration Home"
+msgstr "Administratíva Home"
+
+#: ../../../app/views/admin/_navigation.html.erb:37
+#: ../../../app/views/admin/index.html.erb:121
+msgid "System Administration"
+msgstr "Správa systému"
+
+#: ../../../app/views/admin/_navigation.html.erb:43
+msgid "Admin Users"
+msgstr "Používatelia administrátora"
+
+#: ../../../app/views/admin/_navigation.html.erb:50
+#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/madmin/dashboard/show.html.erb:1
+msgid "Data Explorer"
+msgstr "Prieskumník údajov"
+
+#: ../../../app/views/admin/_navigation.html.erb:57
+#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
+msgid "Background Jobs"
+msgstr "Pracovné miesta v pozadí"
+
+#: ../../../app/views/admin/index.html.erb:1
+#: ../../../app/views/layouts/admin.html.erb:38
+msgid "Administration"
+msgstr "Administratíva"
+
+#: ../../../app/views/admin/index.html.erb:13
+msgid "Welcome to the Password Pusher administration panel."
+msgstr "Vitajte na paneli správy aplikácie Password Pusher."
+
+#: ../../../app/views/admin/index.html.erb:14
+msgid ""
+"Manage your application settings and system administration from this central l"
+"ocation."
+msgstr "Spravujte nastavenia aplikácie a správu systému z tohto centrálneho miesta."
+
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "Verzia OSS %{version}"
+
+#: ../../../app/views/admin/index.html.erb:40
+msgid "Total Users"
+msgstr "Celkový počet používateľov"
+
+#: ../../../app/views/admin/index.html.erb:60
+msgid "Total Pushes"
+msgstr "Celkový počet tlakov"
+
+#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/pushes/index.html.erb:26
+#: ../../../app/views/pushes/index.html.erb:34
+msgid "Active Pushes"
+msgstr "Aktívne tlačenia"
+
+#: ../../../app/views/admin/index.html.erb:100
+msgid "Total Audit Logs"
+msgstr "Celkové protokoly auditu"
+
+#: ../../../app/views/admin/index.html.erb:123
+msgid ""
+"Monitor system performance, manage background jobs, and analyze usage patterns"
+"."
+msgstr ""
+"Monitorovanie výkonu systému, správa úloh na pozadí a analýza vzorcov používan"
+"ia."
+
+#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/users/index.html.erb:1
+#: ../../../app/views/admin/users/index.html.erb:9
+#: ../../../app/views/admin/users/index.html.erb:23
+msgid "Administrator Management"
+msgstr "Správa správcu"
+
+#: ../../../app/views/admin/index.html.erb:132
+msgid "Manage admin accounts and privileges"
+msgstr "Správa účtov a oprávnení správcu"
+
+#: ../../../app/views/admin/index.html.erb:147
+msgid "Monitor and manage queued tasks"
+msgstr "Monitorovanie a správa úloh vo fronte"
+
+#: ../../../app/views/admin/index.html.erb:162
+msgid "Query data and manage records"
+msgstr "Vyhľadávanie údajov a správa záznamov"
+
+#: ../../../app/views/admin/index.html.erb:184
+msgid "Database Administration"
+msgstr "Správa databázy"
+
+#: ../../../app/views/admin/index.html.erb:186
+msgid "Direct access to database records and user management tools."
+msgstr "Priamy prístup k záznamom v databáze a nástrojom na správu používateľov."
+
+#: ../../../app/views/admin/index.html.erb:192
+msgid "Advanced Database Access"
+msgstr "Pokročilý prístup k databáze"
+
+#: ../../../app/views/admin/index.html.erb:193
+msgid "Direct record manipulation and management"
+msgstr "Priama manipulácia so záznamami a ich správa"
+
+#: ../../../app/views/admin/index.html.erb:196
+msgid "Open Data Explorer"
+msgstr "Prieskumník otvorených údajov"
+
+#: ../../../app/views/admin/index.html.erb:218
+msgid "Resources & Support"
+msgstr "Zdroje a podpora"
+
+#: ../../../app/views/admin/index.html.erb:220
+msgid "Access documentation, source code, releases, and get help when you need it."
+msgstr ""
+"Získajte prístup k dokumentácii, zdrojovému kódu, verziám a pomoc, keď ju potr"
+"ebujete."
+
+#: ../../../app/views/admin/index.html.erb:230
+msgid "GitHub Repository"
+msgstr "Úložisko GitHub"
+
+#: ../../../app/views/admin/index.html.erb:231
+msgid "View source code and contribute"
+msgstr "Zobraziť zdrojový kód a prispieť"
+
+#: ../../../app/views/admin/index.html.erb:246
+msgid "Latest Releases"
+msgstr "Najnovšie vydania"
+
+#: ../../../app/views/admin/index.html.erb:247
+msgid "View changelog and download updates"
+msgstr "Zobraziť zoznam zmien a stiahnuť aktualizácie"
+
+#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/shared/_footer.html.erb:52
+msgid "Documentation"
+msgstr "Dokumentácia"
+
+#: ../../../app/views/admin/index.html.erb:263
+msgid "Complete setup and usage guides"
+msgstr "Kompletné príručky nastavenia a používania"
+
+#: ../../../app/views/admin/index.html.erb:278
+msgid "Support"
+msgstr "Podpora"
+
+#: ../../../app/views/admin/index.html.erb:279
+msgid "Get help and report issues"
+msgstr "Získajte pomoc a nahláste problémy"
+
+#: ../../../app/views/admin/index.html.erb:299
+msgid "Getting Started"
+msgstr "Začíname"
+
+#: ../../../app/views/admin/index.html.erb:302
+msgid ""
+"Welcome to the Password Pusher Administration Center! Here's your complete too"
+"lkit:"
+msgstr ""
+"Vitajte v Centre správy aplikácie Password Pusher! Tu nájdete kompletnú sadu n"
+"ástrojov:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "👥 Manage Administrators:"
+msgstr "👥 Správa správcov:"
+
+#: ../../../app/views/admin/index.html.erb:304
+msgid "Promote or revoke admin privileges for users in your system"
+msgstr "Povýšenie alebo zrušenie oprávnení správcu pre používateľov v systéme"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "📊 Monitor Background Jobs:"
+msgstr "📊 Monitorovanie úloh na pozadí:"
+
+#: ../../../app/views/admin/index.html.erb:305
+msgid "Track email notifications, push cleanup, and system processing tasks"
+msgstr "Sledovanie e-mailových oznámení, čistenia push a úloh spracovania systému"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Preskúmajte databázu:"
+
+#: ../../../app/views/admin/index.html.erb:306
+msgid "Direct access to users, pushes, audit logs, and file storage records"
+msgstr ""
+"Priamy prístup k používateľom, tlačeniam, protokolom auditu a záznamom o uklad"
+"aní súborov"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "📈 View System Stats:"
+msgstr "📈 Zobraziť systémové štatistiky:"
+
+#: ../../../app/views/admin/index.html.erb:307
+msgid "Monitor user activity, push counts, and audit log entries"
+msgstr ""
+"Monitorovanie aktivity používateľov, počtov tlačidiel a záznamov v denníku aud"
+"itu"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "🔍 Track Activity:"
+msgstr "🔍 Sledovanie aktivity:"
+
+#: ../../../app/views/admin/index.html.erb:308
+msgid "Review audit logs to understand system usage and security events"
+msgstr ""
+"Preskúmanie protokolov auditu s cieľom pochopiť používanie systému a bezpečnos"
+"tné udalosti"
+
+#: ../../../app/views/admin/users/index.html.erb:25
+msgid "Manage administrator accounts and privileges"
+msgstr "Správa účtov a oprávnení správcu"
+
+#: ../../../app/views/admin/users/index.html.erb:29
+msgid "%{count} Administrators"
+msgstr "%{count} Správcovia"
+
+#: ../../../app/views/admin/users/index.html.erb:42
+msgid "Current Administrators"
+msgstr "Súčasní správcovia"
+
+#: ../../../app/views/admin/users/index.html.erb:50
+#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/devise/sessions/new.html.erb:7
+msgid "Email"
+msgstr "Email"
+
+#: ../../../app/views/admin/users/index.html.erb:51
+#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/pushes/index.html.erb:39
+msgid "Created"
+msgstr "Vytvorené"
+
+#: ../../../app/views/admin/users/index.html.erb:52
+#: ../../../app/views/admin/users/index.html.erb:141
+msgid "Last Sign In"
+msgstr "Posledné prihlásenie"
+
+#: ../../../app/views/admin/users/index.html.erb:53
+#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/users/index.html.erb:63
+msgid "Actions"
+msgstr "Činnosti"
+
+#: ../../../app/views/admin/users/index.html.erb:70
+msgid "You"
+msgstr "Vy"
+
+#: ../../../app/views/admin/users/index.html.erb:83
+#: ../../../app/views/admin/users/index.html.erb:169
+msgid "Never"
+msgstr "Nikdy"
+
+#: ../../../app/views/admin/users/index.html.erb:92
+msgid ""
+"Are you sure you want to revoke administrator privileges from %{email}? They w"
+"ill lose access to the administration panel."
+msgstr ""
+"Ste si istí, že chcete odobrať oprávnenia správcu z %{email}? Stratí prístup k"
+" panelu administrácie."
+
+#: ../../../app/views/admin/users/index.html.erb:97
+msgid "Revoke"
+msgstr "Zrušiť"
+
+#: ../../../app/views/admin/users/index.html.erb:100
+msgid "Cannot revoke your own privileges"
+msgstr "Nemôžete zrušiť svoje vlastné oprávnenia"
+
+#: ../../../app/views/admin/users/index.html.erb:113
+msgid "No administrators found"
+msgstr "Nenašli sa žiadni správcovia"
+
+#: ../../../app/views/admin/users/index.html.erb:114
+msgid "There are currently no administrator accounts in the system."
+msgstr "V súčasnosti nie sú v systéme žiadne účty správcu."
+
+#: ../../../app/views/admin/users/index.html.erb:126
+msgid "Regular Users"
+msgstr "Pravidelní používatelia"
+
+#: ../../../app/views/admin/users/index.html.erb:130
+msgid "%{count} Regular Users"
+msgstr "%{count} Pravidelní používatelia"
+
+#: ../../../app/views/admin/users/index.html.erb:177
+msgid ""
+"Are you sure you want to promote %{email} to administrator? This will give the"
+"m full access to the administration panel."
+msgstr ""
+"Ste si istí, že chcete povýšiť %{email} na administrátora? Tým získa úplný prí"
+"stup k panelu administrácie."
+
+#: ../../../app/views/admin/users/index.html.erb:182
+msgid "Promote"
+msgstr "Propagácia"
+
+#: ../../../app/views/admin/users/index.html.erb:200
+msgid "No regular users found"
+msgstr "Nenašli sa žiadni pravidelní používatelia"
+
+#: ../../../app/views/admin/users/index.html.erb:201
+msgid "All users in the system are administrators."
+msgstr "Všetci používatelia v systéme sú správcovia."
+
+#: ../../../app/views/application/_push_expiration.html.erb:3
+msgid "The file download links above will expire in:"
+msgstr "Platnosť vyššie uvedených odkazov na stiahnutie súborov vyprší v:"
+
+#: ../../../app/views/application/_push_expiration.html.erb:5
+msgid "You can refresh the page to regenerate new download links if views remain."
+msgstr ""
+"Ak zostanú zobrazenia, môžete stránku obnoviť a vygenerovať nové odkazy na sti"
+"ahnutie."
+
+#: ../../../app/views/application/_push_expiration.html.erb:16
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/pushes/index.html.erb:75
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
+msgid "Expired"
+msgstr "Vypršala platnosť"
+
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Jazyk tajného prepojenia"
+
+#: ../../../app/views/application/_secret_url_bar.html.erb:19
+msgid "Autodetect the recipient's language"
+msgstr "Automatická detekcia"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
 #: ../../../app/views/pages/generate_key.html.erb:26
@@ -28,6 +445,69 @@ msgstr "Jazyk tajného prepojenia"
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopírovanie do schránky"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "Push vytvorený na %{date} podľa %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_expire.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_view.html.erb:8
+msgid "IP Address:"
+msgstr "IP adresa:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Používateľský agent:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+#: ../../../app/views/pushes/audit.html.erb:19
+#: ../../../app/views/pushes/index.html.erb:67
+msgid "None"
+msgstr "Žiadne"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_expire.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_view.html.erb:12
+msgid "Referrer:"
+msgstr "Odosielateľ:"
+
+#: ../../../app/views/audit_logs/_log_expire.html.erb:3
+msgid "Manually expired on %{date} by %{user}"
+msgstr "Push manuálne vypršal na %{date} o %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Neúspešný pokus o zadanie prístupovej frázy na %{date} od %{user}"
+
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
+msgid "Failed view attempt on %{date} by %{user}"
+msgstr "Neúspešný pokus o zobrazenie %{date} zo strany %{user}"
+
+#: ../../../app/views/audit_logs/_log_view.html.erb:3
+msgid "Successful view on %{date} by %{user}"
+msgstr "Úspešné zobrazenie %{date} podľa %{user}"
+
+#: ../../../app/views/devise/confirmations/show.html.erb:4
+msgid "Click Here to Confirm Your Account"
+msgstr "Kliknutím sem potvrďte svoje konto"
 
 #: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
 #: ../../../app/views/devise/mailer/email_changed.html.erb:8
@@ -168,7 +648,7 @@ msgid "Current Password"
 msgstr "Aktuálne heslo"
 
 #: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:49
+#: ../../../app/views/shared/_header.html.erb:63
 msgid "API Token"
 msgstr "Token API"
 
@@ -241,6 +721,8 @@ msgid "Are you sure?"
 msgstr "Ste si istý?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/madmin/application/_form.html.erb:212
+#: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
 msgid "Cancel"
@@ -256,15 +738,22 @@ msgstr "Odstrániť a regenerovať"
 msgid "Processing..."
 msgstr "Spracovanie..."
 
-#: ../../../app/views/devise/sessions/new.html.erb:7
-msgid "Email"
-msgstr "Email"
-
 #: ../../../app/views/devise/sessions/new.html.erb:12
 msgid "Password"
 msgstr "Heslo"
 
-#: ../../../app/views/layouts/admin/application.html.erb:41
+#: ../../../app/views/layouts/admin.html.erb:11
+msgid "Administration - Password Pusher"
+msgstr "Administrácia - Tlačiareň hesiel"
+
+#: ../../../app/views/layouts/admin.html.erb:52
+msgid "System Active"
+msgstr "Systém aktívny"
+
+#: ../../../app/views/layouts/admin.html.erb:60
+msgid "Back to App"
+msgstr "Späť na aplikáciu"
+
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:11
 #: ../../../app/views/shared/_footer.html.erb:15
@@ -272,6 +761,452 @@ msgstr "Heslo"
 #: ../../../app/views/shared/_header.html.erb:13
 msgid "Password Pusher Logo"
 msgstr "Logo Password Pusher"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:11
+msgid "Data Explorer - Administration - Password Pusher"
+msgstr "Prieskumník údajov - Administrácia - Tlačiareň hesiel"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid "Staging Environment"
+msgstr "Inscenačné prostredie"
+
+#: ../../../app/views/layouts/madmin/application.html.erb:19
+msgid ""
+"This is a staging site for testing and data is reset frequently. Please use %{"
+"production_link} unless you are testing new features."
+msgstr ""
+"Ide o miesto na testovanie a údaje sa často obnovujú. Ak netestujete nové funk"
+"cie, používajte %{production_link}."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:20
+msgid "Back to Administration Center"
+msgstr "Späť do administratívneho centra"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:36
+msgid "Monitor and manage background job processing and queues"
+msgstr "Monitorovanie a správa spracovania úloh a frontov na pozadí"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:47
+msgid "What are Background Jobs?"
+msgstr "Čo sú úlohy v pozadí?"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:50
+msgid ""
+"Background jobs handle tasks that run asynchronously without blocking the main"
+" application. In Password Pusher, these include:"
+msgstr ""
+"Úlohy na pozadí spracúvajú úlohy, ktoré sa spúšťajú asynchrónne bez blokovania"
+" hlavnej aplikácie. V aplikácii Password Pusher medzi ne patria:"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Email notifications"
+msgstr "E-mailové oznámenia"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:53
+msgid "Sending push expiration alerts and admin notifications"
+msgstr "Odosielanie push upozornení o vypršaní platnosti a upozornení pre správcu"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Push cleanup"
+msgstr "Čistenie pomocou tlačidla"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:54
+msgid "Automatically removing expired pushes from the database"
+msgstr "Automatické odstraňovanie vypršaných tlačení z databázy"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "File processing"
+msgstr "Spracovanie súborov"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:55
+msgid "Handling file uploads and any post-processing tasks."
+msgstr "Spracovanie odosielania súborov a akýchkoľvek úloh následného spracovania."
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Audit logging"
+msgstr "Zaznamenávanie auditov"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:56
+msgid "Recording system events and user actions"
+msgstr "Zaznamenávanie systémových udalostí a akcií používateľa"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid ""
+"Use the tabs below to monitor job queues, view failed jobs, and manage job pro"
+"cessing."
+msgstr ""
+"Pomocou nižšie uvedených kariet môžete sledovať fronty úloh, zobrazovať neúspe"
+"šné úlohy a spravovať spracovanie úloh."
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "There was %{count} with your submission:"
+msgstr "S vaším podaním sa vyskytol %{count}:"
+
+#: ../../../app/views/madmin/application/_form.html.erb:42
+#: ../../../app/views/madmin/users/_form.html.erb:14
+msgid "error"
+msgstr "chyba"
+
+#: ../../../app/views/madmin/application/_form.html.erb:61
+msgid "Basic Information"
+msgstr "Základné informácie"
+
+#: ../../../app/views/madmin/application/_form.html.erb:92
+msgid "Security & Access"
+msgstr "Bezpečnosť a prístup"
+
+#: ../../../app/views/madmin/application/_form.html.erb:123
+msgid "Activity & Timestamps"
+msgstr "Aktivita a časové pečiatky"
+
+#: ../../../app/views/madmin/application/_form.html.erb:154
+msgid "Related Records"
+msgstr "Súvisiace záznamy"
+
+#: ../../../app/views/madmin/application/_form.html.erb:185
+msgid "Additional Fields"
+msgstr "Ďalšie polia"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Update"
+msgstr "Aktualizovať"
+
+#: ../../../app/views/madmin/application/_form.html.erb:217
+msgid "Create"
+msgstr "Vytvoriť stránku"
+
+#: ../../../app/views/madmin/application/edit.html.erb:1
+#: ../../../app/views/madmin/application/edit.html.erb:20
+msgid "Edit %{name}"
+msgstr "Upraviť %{name}"
+
+#: ../../../app/views/madmin/application/edit.html.erb:13
+#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/show.html.erb:25
+msgid "Edit"
+msgstr "Upraviť politiku"
+
+#: ../../../app/views/madmin/application/edit.html.erb:21
+msgid "Update %{name} information"
+msgstr "Aktualizácia informácií %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:7
+msgid "Manage %{name} records"
+msgstr "Správa záznamov %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:14
+#: ../../../app/views/madmin/application/new.html.erb:1
+#: ../../../app/views/madmin/application/new.html.erb:10
+#: ../../../app/views/madmin/application/new.html.erb:17
+msgid "New %{name}"
+msgstr "Nové %{name}"
+
+#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:26
+msgid "Search %{name}..."
+msgstr "Vyhľadávanie %{name}..."
+
+#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/users/index.html.erb:27
+msgid "Search"
+msgstr "Vyhľadávanie"
+
+#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/users/index.html.erb:40
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "All"
+msgstr "Všetky"
+
+#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/pushes/_files_form.html.erb:9
+#: ../../../app/views/pushes/_form.html.erb:9
+#: ../../../app/views/pushes/_qr_form.html.erb:9
+#: ../../../app/views/pushes/_url_form.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:34
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Zobraziť"
+msgstr[1] "Zobrazenia"
+msgstr[2] "Zobrazenia"
+
+#: ../../../app/views/madmin/application/new.html.erb:18
+msgid "Create a new %{name} record"
+msgstr "Vytvorenie nového záznamu %{name}"
+
+#: ../../../app/views/madmin/application/show.html.erb:19
+msgid "View %{name} details"
+msgstr "Zobraziť %{name} podrobnosti"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/show.html.erb:119
+msgid "Delete"
+msgstr "Odstrániť"
+
+#: ../../../app/views/madmin/application/show.html.erb:26
+msgid "Are you sure you want to delete this %{name}?"
+msgstr "Ste si istí, že chcete odstrániť tento %{name}?"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:15
+msgid "Database Explorer"
+msgstr "Prieskumník databázy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:16
+msgid "Direct database access and record management"
+msgstr "Priamy prístup do databázy a správa záznamov"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+msgid "Database %{status}"
+msgstr "Databáza %{status}"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Pripojené"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:210
+msgid "Disconnected"
+msgstr "Odpojené"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:27
+#: ../../../app/views/madmin/dashboard/show.html.erb:237
+msgid "Back to Admin Center"
+msgstr "Späť do centra administrácie"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:40
+msgid "Direct Database Access"
+msgstr "Priamy prístup k databáze"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Varovanie:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid ""
+"This interface provides direct access to your production database. All changes"
+" are immediate and irreversible. Exercise extreme caution when modifying recor"
+"ds."
+msgstr ""
+"Toto rozhranie poskytuje priamy prístup k vašej produkčnej databáze. Všetky zm"
+"eny sú okamžité a nezvratné. Pri úprave záznamov buďte mimoriadne opatrní."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid "Recommendation:"
+msgstr "Odporúčanie:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:46
+msgid ""
+"Always backup your database before making any changes to ensure you can restor"
+"e data if needed."
+msgstr ""
+"Pred vykonaním akýchkoľvek zmien vždy zálohujte databázu, aby ste v prípade po"
+"treby mohli obnoviť údaje."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:60
+msgid "Getting Started with Data Explorer"
+msgstr "Začíname s programom Data Explorer"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:62
+msgid ""
+"This tool provides direct access to your database records. Here's how to use i"
+"t effectively:"
+msgstr ""
+"Tento nástroj poskytuje priamy prístup k záznamom v databáze. Tu je návod, ako"
+" ho efektívne používať:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:66
+msgid "📊 Browse Records"
+msgstr "📊 Prehľadávať záznamy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "Users:"
+msgstr "Používatelia:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:68
+msgid "View user accounts, check registration dates, and manage permissions"
+msgstr ""
+"Zobrazenie používateľských účtov, kontrola dátumov registrácie a správa oprávn"
+"ení"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Tlačí:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Monitor password pushes, view expiration status, and track usage"
+msgstr ""
+"Sledovanie posunov hesiel, zobrazenie stavu vypršania platnosti a sledovanie p"
+"oužívania"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Audit Logs:"
+msgstr "Protokoly o audite:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:70
+msgid "Track all system changes and user actions"
+msgstr "Sledovanie všetkých zmien v systéme a akcií používateľov"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:74
+msgid "🔧 Common Tasks"
+msgstr "🔧 Spoločné úlohy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Podpora používateľov:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "Impersonate users to troubleshoot issues"
+msgstr "Vydávanie sa za používateľov na riešenie problémov"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Čistenie údajov:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Remove expired pushes or inactive accounts"
+msgstr "Odstránenie vypršaných tlačí alebo neaktívnych účtov"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Security Review:"
+msgstr "Prehľad zabezpečenia:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:78
+msgid "Check audit logs for suspicious activity"
+msgstr "Kontrola protokolov auditu na podozrivú aktivitu"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analýza:"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analyze usage patterns and system health"
+msgstr "Analýza modelov používania a stavu systému"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:99
+msgid "Core Data"
+msgstr "Základné údaje"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:101
+msgid "Manage users, pushes, and audit logs."
+msgstr "Spravujte používateľov, tlačenia a protokoly auditu."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:109
+msgid "Users"
+msgstr "Používatelia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:110
+msgid "Manage user accounts and permissions"
+msgstr "Správa používateľských účtov a oprávnení"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:124
+msgid "Pushes"
+msgstr "Stlačí"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:125
+msgid "View and manage pushes"
+msgstr "Zobrazenie a správa tlačových správ"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:139
+msgid "Audit Logs"
+msgstr "Protokoly auditu"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:140
+msgid "Track system activity and changes"
+msgstr "Sledovanie aktivity a zmien v systéme"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:165
+msgid "Database Connection"
+msgstr "Pripojenie k databáze"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:167
+msgid "Current database connection information and status."
+msgstr "Informácie o aktuálnom pripojení k databáze a jeho stave."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:172
+msgid "Database Type"
+msgstr "Typ databázy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:180
+msgid "Database Name"
+msgstr "Názov databázy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:188
+msgid "Environment"
+msgstr "Životné prostredie"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:198
+msgid "Connection Status"
+msgstr "Stav pripojenia"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:229
+msgid "Quick Actions"
+msgstr "Rýchle akcie"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:245
+msgid "Admin Management"
+msgstr "Správa administratívy"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:253
+msgid "Go to Application"
+msgstr "Prejsť na aplikáciu"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:261
+msgid "Manage Users"
+msgstr "Správa používateľov"
+
+#: ../../../app/views/madmin/users/_form.html.erb:32
+msgid "User Information"
+msgstr "Informácie o používateľovi"
+
+#: ../../../app/views/madmin/users/_form.html.erb:42
+msgid "The email address for the new user account."
+msgstr "E-mailová adresa pre nové používateľské konto."
+
+#: ../../../app/views/madmin/users/_form.html.erb:50
+msgid "Auto-confirm account"
+msgstr "Automatické potvrdenie účtu"
+
+#: ../../../app/views/madmin/users/_form.html.erb:53
+msgid ""
+"If checked, the user account will be automatically confirmed and ready to use."
+" Otherwise, the user will need to confirm their email address."
+msgstr ""
+"Ak je začiarknuté, používateľské konto sa automaticky potvrdí a je pripravené "
+"na používanie. V opačnom prípade bude musieť používateľ potvrdiť svoju e-mailo"
+"vú adresu."
+
+#: ../../../app/views/madmin/users/_form.html.erb:68
+msgid "Password Information"
+msgstr "Informácie o hesle"
+
+#: ../../../app/views/madmin/users/_form.html.erb:70
+msgid ""
+"A secure password will be automatically generated for this user. The user can "
+"reset their password using the \"Forgot Password\" link on the login page."
+msgstr ""
+"Pre tohto používateľa sa automaticky vygeneruje bezpečné heslo. Používateľ môž"
+"e obnoviť svoje heslo pomocou odkazu \"Zabudol som heslo\" na prihlasovacej strá"
+"nke."
+
+#: ../../../app/views/madmin/users/_form.html.erb:85
+msgid "Create User"
+msgstr "Vytvoriť používateľa"
 
 #: ../../../app/views/pages/about.html.erb:1
 msgid "About Password Pusher"
@@ -623,17 +1558,6 @@ msgstr[2] "Dni"
 msgid "Days"
 msgstr "Dni"
 
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
-msgid "View"
-msgid_plural "Views"
-msgstr[0] "Zobraziť"
-msgstr[1] "Zobrazenia"
-msgstr[2] "Zobrazenia"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
 #: ../../../app/views/pushes/_files_form.html.erb:80
 #: ../../../app/views/pushes/_form.html.erb:10
@@ -667,6 +1591,10 @@ msgstr "Zachránené!"
 #: ../../../app/views/pushes/_files_form.html.erb:29
 msgid "Add Files..."
 msgstr "Pridať súbory..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:44
+msgid "You can upload up to %{count} files per push."
+msgstr "Na jedno odoslanie môžete nahrať až %{count} súborov."
 
 #: ../../../app/views/pushes/_files_form.html.erb:49
 #: ../../../app/views/pushes/_form.html.erb:56
@@ -799,6 +1727,13 @@ msgstr "K dispozícii bude auditný denník aktivít."
 #: ../../../app/views/pushes/_form.html.erb:189
 #: ../../../app/views/pushes/_qr_form.html.erb:190
 #: ../../../app/views/pushes/_url_form.html.erb:161
+msgid "Pushing..."
+msgstr "Tlačenie..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:191
+#: ../../../app/views/pushes/_form.html.erb:189
+#: ../../../app/views/pushes/_qr_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:161
 msgid "Push It!"
 msgstr "Push It!"
 
@@ -896,6 +1831,10 @@ msgstr "Po uplynutí platnosti sa adresa URL push úplne vymaže."
 msgid "Audit Log for %{push_id}"
 msgstr "Protokol auditu pre %{push_id}"
 
+#: ../../../app/views/pushes/audit.html.erb:4
+msgid "Audit Log for Push ID: %{push_id}"
+msgstr "Protokol auditu pre Push ID: %{push_id}"
+
 #: ../../../app/views/pushes/audit.html.erb:6
 msgid "Pushed on %{date}"
 msgstr "Stlačené na %{date}"
@@ -907,11 +1846,6 @@ msgstr "Tajná adresa URL pre tento push"
 #: ../../../app/views/pushes/audit.html.erb:16
 msgid "Visible Only To You"
 msgstr "Viditeľné len pre vás"
-
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
-msgid "None"
-msgstr "Žiadne"
 
 #: ../../../app/views/pushes/audit.html.erb:28
 msgid "Settings"
@@ -973,16 +1907,6 @@ msgstr "Súčasný stav"
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "State:"
 msgstr "Štát:"
-
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Vypršala platnosť"
-
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Obsah push bol odstránený a platnosť tajnej adresy URL vypršala."
 
 #: ../../../app/views/pushes/audit.html.erb:101
 #: ../../../app/views/shared/_dashboard_header.html.erb:10
@@ -1061,6 +1985,7 @@ msgstr ""
 "odnota 0."
 
 #: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Pripojené súbory"
 
@@ -1100,11 +2025,6 @@ msgstr ""
 "Protokol o audite (vrátane budúcich pokusov o zobrazenie) sa bude uchovávať aj"
 " v budúcnosti."
 
-#: ../../../app/views/pushes/audit.html.erb:222
-#: ../../../app/views/pushes/show.html.erb:119
-msgid "Delete"
-msgstr "Odstrániť"
-
 #: ../../../app/views/pushes/audit.html.erb:234
 msgid "Start of Audit Log"
 msgstr "Začiatok denníka auditov"
@@ -1120,12 +2040,6 @@ msgstr ""
 #: ../../../app/views/pushes/audit.html.erb:244
 msgid "End of Audit Log"
 msgstr "Koniec denníka auditu"
-
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
-msgid "Active Pushes"
-msgstr "Aktívne tlačenia"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -1151,13 +2065,21 @@ msgstr "Vypršala platnosť tlačidiel"
 msgid "All Pushes"
 msgstr "Všetky tlačenia"
 
-#: ../../../app/views/pushes/index.html.erb:39
-msgid "Created"
-msgstr "Vytvorené"
+#: ../../../app/views/pushes/index.html.erb:37
+msgid "Name or ID"
+msgstr "Meno alebo ID"
+
+#: ../../../app/views/pushes/index.html.erb:38
+msgid "Kind"
+msgstr "Láskavé"
 
 #: ../../../app/views/pushes/index.html.erb:40
 msgid "Note"
 msgstr "Poznámka"
+
+#: ../../../app/views/pushes/index.html.erb:41
+msgid "Remaining"
+msgstr "Zostávajúce"
 
 #: ../../../app/views/pushes/index.html.erb:55
 msgid "File(s)"
@@ -1175,6 +2097,10 @@ msgstr "Kód QR"
 msgid "Text"
 msgstr "Text"
 
+#: ../../../app/views/pushes/index.html.erb:77
+msgid "%{views} views or %{days} days"
+msgstr "%{views} zobrazení alebo %{days} dní"
+
 #: ../../../app/views/pushes/index.html.erb:80
 msgid "Push Controls"
 msgstr "Ovládacie prvky Push"
@@ -1186,6 +2112,10 @@ msgstr "Náhľad"
 #: ../../../app/views/pushes/index.html.erb:87
 msgid "Audit"
 msgstr "Audit"
+
+#: ../../../app/views/pushes/new.html.erb:1
+msgid "Securely Send a Password, Text or File"
+msgstr "Bezpečné odoslanie hesla, textu alebo súboru"
 
 #: ../../../app/views/pushes/passphrase.html.erb:1
 msgid "Enter The Secret Passphrase"
@@ -1307,6 +2237,22 @@ msgstr "Stlačte ďalší"
 msgid "View Audit Log"
 msgstr "Zobraziť protokol auditu"
 
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid ""
+"Tip: Pushing to an international user?  Change the secret link language using "
+"the dropdown menu to the right of the URL."
+msgstr ""
+"Tip: Tlačíte na medzinárodného používateľa?  Zmeňte jazyk tajného odkazu pomoc"
+"ou rozbaľovacieho menu napravo od adresy URL."
+
+#: ../../../app/views/pushes/preview.html.erb:99
+msgid ""
+"Alternatively auto-detection will select a language based on end-user browser "
+"settings."
+msgstr ""
+"Prípadne automatická detekcia vyberie jazyk na základe nastavení prehliadača k"
+"oncového používateľa."
+
 #: ../../../app/views/pushes/print_preview.html.erb:1
 msgid "Your Secret URL"
 msgstr "Vaša tajná adresa URL"
@@ -1404,17 +2350,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Prístrojová doska"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
-msgid "All"
-msgstr "Všetky"
-
 #: ../../../app/views/shared/_dashboard_header.html.erb:13
 msgid "New"
 msgstr "Nový"
-
-#: ../../../app/views/shared/_footer.html.erb:4
-msgid "Peter"
-msgstr "Peter"
 
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
@@ -1448,31 +2386,23 @@ msgstr "Nástroje"
 msgid "Overview"
 msgstr "Prehľad"
 
-#: ../../../app/views/shared/_footer.html.erb:52
-msgid "Documentation"
-msgstr "Dokumentácia"
-
 #: ../../../app/views/shared/_header.html.erb:37
 msgid "Account"
 msgstr "Účet"
 
-#: ../../../app/views/shared/_header.html.erb:42
-msgid "Admin Dashboard"
-msgstr "Ovládací panel správcu"
-
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:55
 msgid "Edit Login Details"
 msgstr "Upraviť prihlasovacie údaje"
 
-#: ../../../app/views/shared/_header.html.erb:52
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Log Out"
 msgstr "Odhlásenie"
 
-#: ../../../app/views/shared/_header.html.erb:58
+#: ../../../app/views/shared/_header.html.erb:78
 msgid "Log In"
 msgstr "Prihlásenie"
 
-#: ../../../app/views/shared/_header.html.erb:62
+#: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "Zaregistrujte sa"
 
@@ -1541,5 +2471,5 @@ msgid "URLs"
 msgstr "Adresy URL"
 
 #: ../../../app/views/shared/_topnav.html.erb:18
-msgid "QR Codes ᴮᴱᵀᴬ"
-msgstr "Kódy QR ᴮᴱᵀᴬ"
+msgid "QR Codes"
+msgstr "Kódy QR"

@@ -1,0 +1,222 @@
+<%
+  # Get all visible form fields
+  visible_fields = resource.attributes.values.select{ _1.field.present? && _1.field.visible?(action_name) }
+
+  # Group fields by type for better organization
+  basic_fields = visible_fields.select{ |attr|
+    ['id', 'url_token', 'kind', 'name', 'email', 'expire_after_days', 'expire_after_views', 'expired', 'deletable_by_viewer', 'retrieval_step', 'expired_on'].include?(attr.field.attribute_name.to_s)
+  }
+
+  timestamp_fields = visible_fields.select{ |attr|
+    ['created_at', 'updated_at', 'expired_on', 'confirmed_at', 'confirmation_sent_at', 'last_sign_in_at', 'current_sign_in_at', 'remember_created_at', 'reset_password_sent_at', 'locked_at'].include?(attr.field.attribute_name.to_s)
+  }
+
+  security_fields = visible_fields.select{ |attr|
+    ['admin', 'failed_attempts', 'encrypted_password', 'reset_password_token', 'unlock_token', 'confirmation_token', 'unconfirmed_email', 'authentication_token'].include?(attr.field.attribute_name.to_s)
+  }
+
+  ip_fields = visible_fields.select{ |attr|
+    ['current_sign_in_ip', 'last_sign_in_ip'].include?(attr.field.attribute_name.to_s)
+  }
+
+  preference_fields = visible_fields.select{ |attr|
+    ['preferred_language', 'sign_in_count'].include?(attr.field.attribute_name.to_s)
+  }
+
+  association_fields = visible_fields.select{ |attr|
+    attr.field.attribute_name.to_s.end_with?('_id') || ['pushes', 'user', 'audit_logs'].include?(attr.field.attribute_name.to_s)
+  }
+
+  # Get remaining fields that don't fit into categories
+  remaining_fields = visible_fields - basic_fields - timestamp_fields - security_fields - ip_fields - preference_fields - association_fields
+%>
+
+<%= form_with model: [:madmin, record], url: (record.persisted? ? resource.show_path(record) : resource.index_path), local: true, class: "needs-validation madmin-form", novalidate: true do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="alert alert-danger mb-4">
+      <div class="d-flex align-items-start">
+        <svg class="text-danger me-2 mt-1" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+        </svg>
+        <div>
+          <div class="fw-semibold"><%= _("There was %{count} with your submission:") % { count: pluralize(form.object.errors.full_messages.count, _("error")) } %></div>
+          <ul class="mb-0 mt-2">
+            <% form.object.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Basic Information Section -->
+  <% if basic_fields.any? %>
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <%= _("Basic Information") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <% basic_fields.each do |attribute| %>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= render "madmin/shared/label", form: form, field: attribute.field %>
+                <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+                <% if attribute.field.options.description.present? %>
+                  <div class="form-text text-muted small mt-1">
+                    <%= attribute.field.options.description %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Security & Access Section -->
+  <% if security_fields.any? %>
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          <%= _("Security & Access") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <% security_fields.each do |attribute| %>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= render "madmin/shared/label", form: form, field: attribute.field %>
+                <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+                <% if attribute.field.options.description.present? %>
+                  <div class="form-text text-muted small mt-1">
+                    <%= attribute.field.options.description %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Activity & Timestamps Section -->
+  <% if (timestamp_fields + ip_fields + preference_fields).any? %>
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <%= _("Activity & Timestamps") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <% (timestamp_fields + ip_fields + preference_fields).each do |attribute| %>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= render "madmin/shared/label", form: form, field: attribute.field %>
+                <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+                <% if attribute.field.options.description.present? %>
+                  <div class="form-text text-muted small mt-1">
+                    <%= attribute.field.options.description %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Associations Section -->
+  <% if association_fields.any? %>
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+          </svg>
+          <%= _("Related Records") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <% association_fields.each do |attribute| %>
+            <div class="col-12">
+              <div class="mb-3">
+                <%= render "madmin/shared/label", form: form, field: attribute.field %>
+                <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+                <% if attribute.field.options.description.present? %>
+                  <div class="form-text text-muted small mt-1">
+                    <%= attribute.field.options.description %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Additional Fields Section -->
+  <% if remaining_fields.any? %>
+    <div class="card mb-4">
+      <div class="card-header bg-light">
+        <h5 class="card-title mb-0 d-flex align-items-center">
+          <svg class="me-2 text-primary" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          <%= _("Additional Fields") %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <% remaining_fields.each do |attribute| %>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <%= render "madmin/shared/label", form: form, field: attribute.field %>
+                <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+                <% if attribute.field.options.description.present? %>
+                  <div class="form-text text-muted small mt-1">
+                    <%= attribute.field.options.description %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Form Actions -->
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex gap-3 justify-content-end">
+        <%= link_to _("Cancel"), (record.persisted? ? resource.show_path(record) : resource.index_path), class: "btn btn-outline-secondary px-4" %>
+        <%= form.submit class: "btn btn-primary px-4 d-flex align-items-center" do %>
+          <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <%= record.persisted? ? _("Update") : _("Create") %> <%= resource.friendly_name %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

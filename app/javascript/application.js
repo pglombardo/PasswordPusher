@@ -1,8 +1,9 @@
-//= require popper
 import "@hotwired/turbo-rails"
 import "@rails/activestorage"
-import "bootstrap"
 import "./controllers"
+import "bootstrap"
+
+import LocalTime from "local-time"
 
 // Check if Turbo Drive should be disabled
 const turboDriveEnabled = document.querySelector('meta[name="turbo-drive-enabled"]')?.content === 'true'
@@ -12,5 +13,4 @@ if (!turboDriveEnabled) {
   Turbo.session.drive = false
 }
 
-console.log('Bootstrap loaded:', typeof bootstrap !== 'undefined');
-console.log('Modal component:', typeof bootstrap.Modal !== 'undefined');
+LocalTime.start()

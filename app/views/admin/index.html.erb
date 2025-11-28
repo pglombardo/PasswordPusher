@@ -1,0 +1,313 @@
+<% content_for :title, _("Administration") %>
+
+<div class="container-fluid py-4">
+  <!-- Welcome Header -->
+  <div class="text-center mb-5">
+    <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-gradient rounded-circle mb-4" style="width: 80px; height: 80px;">
+      <svg class="text-white" width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+      </svg>
+    </div>
+    <h1 class="display-4 fw-bold text-dark mb-3"><%= _("Administration Center") %></h1>
+    <p class="lead text-muted mx-auto mb-3" style="max-width: 600px;">
+      <%= _("Welcome to the Password Pusher administration panel.") %>
+      <%= _("Manage your application settings and system administration from this central location.") %>
+    </p>
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 fw-semibold">
+        <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+        </svg>
+        <%= _("OSS Version %{version}") % { version: Version.current } %>
+      </span>
+    </div>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <div class="bg-primary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <svg class="text-primary" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <p class="text-muted small mb-1"><%= _("Total Users") %></p>
+              <p class="h4 fw-semibold text-dark mb-0"><%= User.count %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <div class="bg-success bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <svg class="text-success" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <p class="text-muted small mb-1"><%= _("Total Pushes") %></p>
+              <p class="h4 fw-semibold text-dark mb-0"><%= Push.count %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <div class="bg-warning bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <svg class="text-warning" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <p class="text-muted small mb-1"><%= _("Active Pushes") %></p>
+              <p class="h4 fw-semibold text-dark mb-0"><%= Push.where(expired: false).count %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <div class="bg-info bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <svg class="text-info" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+              <p class="text-muted small mb-1"><%= _("Total Audit Logs") %></p>
+              <p class="h4 fw-semibold text-dark mb-0"><%= AuditLog.count %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Administration Sections -->
+  <div class="row g-4 mb-5">
+    <!-- System Administration -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-success bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+              <svg class="text-success" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("System Administration") %></h2>
+          </div>
+          <p class="text-muted mb-4"><%= _("Monitor system performance, manage background jobs, and analyze usage patterns.") %></p>
+          <div class="d-grid gap-3">
+            <%= link_to admin_users_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Administrator Management") %></div>
+                  <div class="small text-muted"><%= _("Manage admin accounts and privileges") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            <% end %>
+
+            <%= link_to "/admin/jobs", class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none", target: "_blank", rel: "noopener noreferrer" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Background Jobs") %></div>
+                  <div class="small text-muted"><%= _("Monitor and manage queued tasks") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+            <% end %>
+
+            <%= link_to madmin_root_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none", target: "_blank", rel: "noopener noreferrer" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Data Explorer") %></div>
+                  <div class="small text-muted"><%= _("Query data and manage records") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Database Administration -->
+    <div class="col-lg-6">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+              <svg class="text-primary" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+              </svg>
+            </div>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Database Administration") %></h2>
+          </div>
+          <p class="text-muted mb-4"><%= _("Direct access to database records and user management tools.") %></p>
+          <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <svg class="text-warning me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+            <div class="flex-grow-1">
+              <div class="fw-medium text-warning-emphasis"><%= _("Advanced Database Access") %></div>
+              <div class="small text-warning-emphasis"><%= _("Direct record manipulation and management") %></div>
+            </div>
+            <%= link_to madmin_root_path, class: "btn btn-warning btn-sm d-flex align-items-center", target: "_blank", rel: "noopener noreferrer" do %>
+              <%= _("Open Data Explorer") %>
+              <svg class="ms-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources & Support -->
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-info bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+              <svg class="text-info" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Resources & Support") %></h2>
+          </div>
+          <p class="text-muted mb-4"><%= _("Access documentation, source code, releases, and get help when you need it.") %></p>
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-6">
+              <%= link_to "https://github.com/pglombardo/PasswordPusher", class: "d-flex align-items-center p-3 bg-light rounded-3 text-decoration-none h-100", target: "_blank", rel: "noopener noreferrer" do %>
+                <div class="flex-shrink-0 me-3">
+                  <svg class="text-dark" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-medium text-dark"><%= _("GitHub Repository") %></div>
+                  <div class="small text-muted"><%= _("View source code and contribute") %></div>
+                </div>
+                <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              <% end %>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <%= link_to "https://github.com/pglombardo/PasswordPusher/releases", class: "d-flex align-items-center p-3 bg-light rounded-3 text-decoration-none h-100", target: "_blank", rel: "noopener noreferrer" do %>
+                <div class="flex-shrink-0 me-3">
+                  <svg class="text-dark" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                  </svg>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-medium text-dark"><%= _("Latest Releases") %></div>
+                  <div class="small text-muted"><%= _("View changelog and download updates") %></div>
+                </div>
+                <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              <% end %>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <%= link_to "https://docs.pwpush.com", class: "d-flex align-items-center p-3 bg-light rounded-3 text-decoration-none h-100", target: "_blank", rel: "noopener noreferrer" do %>
+                <div class="flex-shrink-0 me-3">
+                  <svg class="text-dark" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  </svg>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-medium text-dark"><%= _("Documentation") %></div>
+                  <div class="small text-muted"><%= _("Complete setup and usage guides") %></div>
+                </div>
+                <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              <% end %>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <%= link_to "https://docs.pwpush.com/docs/support/", class: "d-flex align-items-center p-3 bg-light rounded-3 text-decoration-none h-100", target: "_blank", rel: "noopener noreferrer" do %>
+                <div class="flex-shrink-0 me-3">
+                  <svg class="text-dark" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                  </svg>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-medium text-dark"><%= _("Support") %></div>
+                  <div class="small text-muted"><%= _("Get help and report issues") %></div>
+                </div>
+                <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Getting Started -->
+  <div class="card bg-primary bg-opacity-10 border-primary">
+    <div class="card-body">
+      <h2 class="h5 fw-semibold text-primary mb-4 d-flex align-items-center">
+        <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+        </svg>
+        <%= _("Getting Started") %>
+      </h2>
+      <div class="text-primary-emphasis">
+        <p class="mb-3"><%= _("Welcome to the Password Pusher Administration Center! Here's your complete toolkit:") %></p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><strong><%= _("👥 Manage Administrators:") %></strong> <%= _("Promote or revoke admin privileges for users in your system") %></li>
+          <li class="mb-2"><strong><%= _("📊 Monitor Background Jobs:") %></strong> <%= _("Track email notifications, push cleanup, and system processing tasks") %></li>
+          <li class="mb-2"><strong><%= _("🗄️ Explore Database:") %></strong> <%= _("Direct access to users, pushes, audit logs, and file storage records") %></li>
+          <li class="mb-2"><strong><%= _("📈 View System Stats:") %></strong> <%= _("Monitor user activity, push counts, and audit log entries") %></li>
+          <li class="mb-2"><strong><%= _("🔍 Track Activity:") %></strong> <%= _("Review audit logs to understand system usage and security events") %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,14 +13,31 @@ email = ARGV[0]
 begin
   user = User.find_by!(email: email)
 
-  if user.update(admin: false)
+  # Detect database adapter and use appropriate SQL syntax
+  adapter = ActiveRecord::Base.connection.adapter_name.downcase
+  if adapter == 'postgresql'
+    sql = "UPDATE users SET admin = $1 WHERE id = $2"
+    params = [false, user.id]
+  else
+    # SQLite3 and other databases use ? placeholders
+    sql = "UPDATE users SET admin = ? WHERE id = ?"
+    params = [false, user.id]
+  end
+
+  affected_rows = ActiveRecord::Base.connection.exec_update(
+    sql,
+    "Demote User Admin Status",
+    params
+  )
+
+  if affected_rows > 0
     puts "\n\e[32mUser successfully demoted!\e[0m"
     puts "\e[32m========================\e[0m"
     puts "Email: \e[36m#{email}\e[0m"
     puts "\e[32mAdmin access has been removed.\e[0m"
   else
     puts "\n\e[31mError updating user:\e[0m"
-    puts "\e[31m#{user.errors.full_messages.join("\n")}\e[0m"
+    puts "\e[31mNo rows were updated. User may not exist or already be demoted.\e[0m"
     exit 1
   end
 

@@ -1,0 +1,267 @@
+<% content_for :title, _("Data Explorer") %>
+
+<%
+  db_connected = begin
+    ActiveRecord::Base.connection.active?
+  rescue
+    false
+  end
+%>
+
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h1 class="h3 fw-bold text-dark mb-1"><%= _("Database Explorer") %></h1>
+      <p class="text-muted mb-0"><%= _("Direct database access and record management") %></p>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center px-3 py-1 rounded-pill text-sm fw-medium bg-<%= db_connected ? 'success' : 'danger' %> bg-opacity-10 text-<%= db_connected ? 'success' : 'danger' %>">
+        <div class="rounded-circle bg-<%= db_connected ? 'success' : 'danger' %> me-2" style="width: 8px; height: 8px;"></div>
+        <%= _("Database %{status}") % { status: db_connected ? _("Connected") : _("Disconnected") } %>
+      </div>
+      <%= link_to admin_root_path, class: "btn btn-outline-secondary btn-sm d-flex align-items-center" do %>
+        <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        <%= _("Back to Admin Center") %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Critical Warning -->
+  <div class="alert alert-danger border-danger d-flex align-items-start mb-4" role="alert">
+    <div class="flex-shrink-0 me-3">
+      <svg class="text-danger" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+      </svg>
+    </div>
+    <div class="flex-grow-1">
+      <h4 class="alert-heading text-danger-emphasis mb-2"><%= _("Direct Database Access") %></h4>
+      <div class="text-danger-emphasis">
+        <p class="mb-2">
+          <strong><%= _("Warning:") %></strong> <%= _("This interface provides direct access to your production database. All changes are immediate and irreversible. Exercise extreme caution when modifying records.") %>
+        </p>
+        <p class="mb-0">
+          <strong><%= _("Recommendation:") %></strong> <%= _("Always backup your database before making any changes to ensure you can restore data if needed.") %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Getting Started -->
+  <div class="alert alert-info border-info d-flex align-items-start mb-4" role="alert">
+    <div class="flex-shrink-0 me-3">
+      <svg class="text-info" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+      </svg>
+    </div>
+    <div class="flex-grow-1">
+      <h2 class="h4 fw-semibold text-info-emphasis mb-3"><%= _("Getting Started with Data Explorer") %></h2>
+      <div class="text-info-emphasis">
+        <p class="mb-3"><%= _("This tool provides direct access to your database records. Here's how to use it effectively:") %></p>
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <h6 class="fw-semibold mb-2"><%= _("📊 Browse Records") %></h6>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-1">• <strong><%= _("Users:") %></strong> <%= _("View user accounts, check registration dates, and manage permissions") %></li>
+              <li class="mb-1">• <strong><%= _("Pushes:") %></strong> <%= _("Monitor password pushes, view expiration status, and track usage") %></li>
+              <li class="mb-0">• <strong><%= _("Audit Logs:") %></strong> <%= _("Track all system changes and user actions") %></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6 class="fw-semibold mb-2"><%= _("🔧 Common Tasks") %></h6>
+            <ul class="list-unstyled small mb-0">
+              <li class="mb-1">• <strong><%= _("User Support:") %></strong> <%= _("Impersonate users to troubleshoot issues") %></li>
+              <li class="mb-1">• <strong><%= _("Data Cleanup:") %></strong> <%= _("Remove expired pushes or inactive accounts") %></li>
+              <li class="mb-1">• <strong><%= _("Security Review:") %></strong> <%= _("Check audit logs for suspicious activity") %></li>
+              <li class="mb-0">• <strong><%= _("Analytics:") %></strong> <%= _("Analyze usage patterns and system health") %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Management Sections -->
+  <div class="row g-4 mb-5">
+    <!-- Core Data -->
+    <div class="col-12">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+              <svg class="text-primary" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+              </svg>
+            </div>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Core Data") %></h2>
+          </div>
+          <p class="text-muted mb-4"><%= _("Manage users, pushes, and audit logs.") %></p>
+          <div class="d-grid gap-3">
+            <%= link_to madmin_users_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Users") %></div>
+                  <div class="small text-muted"><%= _("Manage user accounts and permissions") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            <% end %>
+
+            <%= link_to madmin_pushes_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Pushes") %></div>
+                  <div class="small text-muted"><%= _("View and manage pushes") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            <% end %>
+
+            <%= link_to madmin_audit_logs_path, class: "d-flex align-items-center justify-content-between p-3 bg-light rounded-3 text-decoration-none" do %>
+              <div class="d-flex align-items-center">
+                <svg class="text-muted me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+                <div>
+                  <div class="fw-medium text-dark"><%= _("Audit Logs") %></div>
+                  <div class="small text-muted"><%= _("Track system activity and changes") %></div>
+                </div>
+              </div>
+              <svg class="text-muted" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Database Connection Details -->
+  <div class="row g-4 mb-5">
+    <div class="col-12">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-info bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px;">
+              <svg class="text-info" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+              </svg>
+            </div>
+            <h2 class="h5 fw-semibold text-dark mb-0"><%= _("Database Connection") %></h2>
+          </div>
+          <p class="text-muted mb-4"><%= _("Current database connection information and status.") %></p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="d-flex flex-column">
+                <label class="form-label fw-semibold text-muted small mb-1"><%= _("Database Type") %></label>
+                <div class="text-dark">
+                  <%= ActiveRecord::Base.connection_db_config.adapter.titleize %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex flex-column">
+                <label class="form-label fw-semibold text-muted small mb-1"><%= _("Database Name") %></label>
+                <div class="text-dark">
+                  <%= ActiveRecord::Base.connection_db_config.database %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex flex-column">
+                <label class="form-label fw-semibold text-muted small mb-1"><%= _("Environment") %></label>
+                <div class="text-dark">
+                  <span class="badge bg-<%= Rails.env.production? ? 'danger' : Rails.env.development? ? 'success' : 'warning' %>">
+                    <%= Rails.env.titleize %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex flex-column">
+                <label class="form-label fw-semibold text-muted small mb-1"><%= _("Connection Status") %></label>
+                <div class="text-dark">
+                  <span class="badge bg-<%= db_connected ? 'success' : 'danger' %>">
+                    <% if db_connected %>
+                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <%= _("Connected") %>
+                    <% else %>
+                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                      <%= _("Disconnected") %>
+                    <% end %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card bg-light">
+    <div class="card-body">
+      <h2 class="h5 fw-semibold text-dark mb-4 d-flex align-items-center">
+        <svg class="me-2" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        <%= _("Quick Actions") %>
+      </h2>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <%= link_to admin_root_path, class: "btn btn-outline-primary w-100 d-flex align-items-center justify-content-center" do %>
+            <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            <%= _("Back to Admin Center") %>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to admin_users_path, class: "btn btn-outline-success w-100 d-flex align-items-center justify-content-center" do %>
+            <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            <%= _("Admin Management") %>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to root_path, class: "btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center" do %>
+            <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <%= _("Go to Application") %>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to madmin_users_path, class: "btn btn-primary w-100 d-flex align-items-center justify-content-center" do %>
+            <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            <%= _("Manage Users") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

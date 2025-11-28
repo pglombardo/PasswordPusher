@@ -1,0 +1,64 @@
+<!-- Background Jobs Header -->
+<div style="margin-bottom: 1rem; padding: 1rem; background-color: white; border-bottom: 1px solid #e5e5e5;">
+  <!-- Top Section with Logo and Back Button -->
+  <div class="level mb-4">
+    <div class="level-left">
+      <div class="level-item">
+        <%= link_to root_path do %>
+          <%= image_tag asset_path("naked-logo.png"), class: "img-fluid", style: "max-height: 60px;" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <%= link_to "/admin", class: "button is-light" do %>
+          <span class="icon is-small">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+          </span>
+          <span><%= _('Back to Administration Center') %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Title Section -->
+  <div>
+    <h1 class="title is-4 has-text-dark">
+      <span class="icon is-medium has-text-primary">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+        </svg>
+      </span>
+      <%= _('Background Jobs') %>
+    </h1>
+    <p class="subtitle is-6 has-text-grey mt-3"><%= _('Monitor and manage background job processing and queues') %></p>
+
+    <!-- Helper Explanation Box -->
+    <div class="notification is-info is-light mt-4">
+      <div class="content">
+        <p class="has-text-weight-semibold mb-2">
+          <span class="icon is-small">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </span>
+          <%= _('What are Background Jobs?') %>
+        </p>
+        <p class="is-size-7">
+          <%= _('Background jobs handle tasks that run asynchronously without blocking the main application. In Password Pusher, these include:') %>
+        </p>
+        <ul class="is-size-7 mt-2">
+          <li><strong><%= _('Email notifications') %></strong> - <%= _('Sending push expiration alerts and admin notifications') %></li>
+          <li><strong><%= _('Push cleanup') %></strong> - <%= _('Automatically removing expired pushes from the database') %></li>
+          <li><strong><%= _('File processing') %></strong> - <%= _('Handling file uploads and any post-processing tasks.') %></li>
+          <li><strong><%= _('Audit logging') %></strong> - <%= _('Recording system events and user actions') %></li>
+        </ul>
+        <p class="is-size-7 mt-2">
+          <%= _('Use the tabs below to monitor job queues, view failed jobs, and manage job processing.') %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

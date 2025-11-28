@@ -105,7 +105,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
         ]
       }
     }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     Settings.files.max_file_uploads = @old_max_files_uploads
   end
 

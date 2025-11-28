@@ -1,0 +1,26 @@
+<%= content_for :title, _("New %{name}") % { name: resource.friendly_name } %>
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-decoration-none" %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= _("New %{name}") % { name: resource.friendly_name } %>
+    </li>
+  </ol>
+</nav>
+
+<!-- Page Header -->
+<div class="mb-4">
+  <h1 class="h3 fw-bold text-dark mb-1"><%= _("New %{name}") % { name: resource.friendly_name } %></h1>
+  <p class="text-muted mb-0"><%= _("Create a new %{name} record") % { name: resource.friendly_name.downcase } %></p>
+</div>
+
+<!-- Form -->
+<div class="card">
+  <div class="card-body">
+    <%= render partial: "form", locals: { record: @record, resource: resource } %>
+  </div>
+</div>

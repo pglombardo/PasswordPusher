@@ -1,0 +1,51 @@
+<%= content_for :title, resource.display_name(@record) %>
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-decoration-none" %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= resource.display_name(@record) %>
+    </li>
+  </ol>
+</nav>
+
+<!-- Page Header -->
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <div>
+    <h1 class="h3 fw-bold text-dark mb-1"><%= resource.display_name(@record) %></h1>
+    <p class="text-muted mb-0"><%= _("View %{name} details") % { name: resource.friendly_name.downcase } %></p>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <% resource.member_actions.each do |action| %>
+      <%= instance_exec(@record, &action) %>
+    <% end %>
+    <%= link_to _("Edit"), resource.edit_path(@record), class: "btn btn-primary" %>
+    <%= button_to _("Delete"), resource.show_path(@record), method: :delete, data: { turbo_confirm: _("Are you sure you want to delete this %{name}?") % { name: resource.friendly_name.downcase } }, class: "btn btn-outline-danger" %>
+  </div>
+</div>
+
+<!-- Record Details -->
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <% resource.attributes.values.each do |attribute| %>
+        <% next if attribute.field.nil? %>
+        <% next unless attribute.field.visible?(action_name) %>
+
+        <div class="col-md-6 mb-3">
+          <div class="d-flex flex-column">
+            <label class="form-label fw-semibold text-muted small mb-1">
+              <%= attribute.field.options.label || attribute.name.to_s.titleize %>
+            </label>
+            <div class="text-dark">
+              <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
