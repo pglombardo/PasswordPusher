@@ -3,6 +3,31 @@ set -e
 
 export RAILS_ENV=production
 
+# If arguments are passed, execute them directly (e.g., "bundle exec rails secret")
+# This allows running utility commands without starting the full application
+if [ $# -gt 0 ]; then
+    exec "$@"
+fi
+
+# Validate or generate SECRET_KEY_BASE
+if [ -z "$SECRET_KEY_BASE" ]; then
+    echo "⚠️  WARNING: SECRET_KEY_BASE not set!"
+    echo "   SECRET_KEY_BASE is used to encrypt and sign session cookies."
+    echo "   Generating a random secret_key_base for this session."
+    echo "   ⚠️  This will break sessions after container restart.  Users will need to login again."
+    echo "   If you want to avoid this:"
+    echo ""
+    echo "   Generate a secret_key_base with:"
+    echo "     docker run --rm pglombardo/pwpush bundle exec rails secret"
+    echo ""
+    echo "   Set it when running the container to persist it:"
+    echo "     docker run -e SECRET_KEY_BASE=<your-secret> pglombardo/pwpush"
+    echo ""
+    export SECRET_KEY_BASE=$(ruby -e "require 'securerandom'; puts SecureRandom.hex(64)")
+else
+    echo "✓ SECRET_KEY_BASE is set"
+fi
+
 echo ""
 if [ -z "$DATABASE_URL" ]
 then
@@ -33,6 +58,7 @@ echo ""
 # Persist DATABASE_URL and RAILS_ENV for shell access
 echo "export DATABASE_URL=\"${DATABASE_URL}\"" >> /opt/PasswordPusher/.env.production
 echo "export RAILS_ENV=\"${RAILS_ENV}\"" >> /opt/PasswordPusher/.env.production
+echo "export SECRET_KEY_BASE=\"${SECRET_KEY_BASE}\"" >> /opt/PasswordPusher/.env.production
 
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
