@@ -50,4 +50,13 @@
       <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.registrations.update_account') %></button>
     </div>
   <% end %>
+
+  <p class='my-3 py-3 lead border-top'><%= I18n.t('devise.registrations.edit.cancel_my_account') %></p>
+  <p class='text-muted'><%= I18n.t('devise.registrations.edit.cancel_my_account_description') %></p>
+  
+  <%= button_to I18n.t('devise.registrations.edit.cancel_my_account'), 
+                registration_path(resource_name), 
+                data: { turbo_confirm: I18n.t('devise.registrations.edit.are_you_sure') }, 
+                method: :delete, 
+                class: "btn btn-outline-danger" %>
 </main>

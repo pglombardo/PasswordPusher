@@ -1,7 +1,7 @@
 allowed_reg_routes = if Settings.disable_signups
-  %i[edit update]
+  %i[edit update destroy]
 else
-  %i[new create edit update]
+  %i[new create edit update destroy]
 end
 
 devise_for :users, skip: :registrations, controllers: {
