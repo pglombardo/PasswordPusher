@@ -31,19 +31,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    # Ensure user is authenticated
-    unless current_user
-      redirect_to new_user_session_path, alert: "You must be logged in to delete your account."
-      return
-    end
-
-    # Ensure the resource being deleted is the current user
-    # Devise's resource method returns the current_user, but we verify explicitly
-    unless resource == current_user
-      redirect_to root_path, alert: "You can only delete your own account."
-      return
-    end
-
     # Call Devise's default destroy behavior
     super
   end
