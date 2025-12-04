@@ -1,0 +1,14 @@
+<div class="list-group-item list-group-item-action list-group-item-info">
+    <em class="bi bi-person-check"></em>
+    <%= _('Owner view on %{date} by %{user}') % {
+        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone)),
+        user: audit_log.subject_name
+    } %>
+    <span class="badge bg-info"><%= _('Does not count towards view limit') %></span>
+    <br>
+    <%= _('IP Address:') %> <code><%= render 'application/ip_address', ip: audit_log.ip %></code>
+    <br>
+    <%= _('User Agent:') %> <code><%= audit_log.user_agent.blank? ? _('None') : audit_log.user_agent %></code>
+    <br>
+    <%= _('Referrer:') %> <code><%= audit_log.referrer.blank? ? _('None') : audit_log.referrer %></code>
+</div>
