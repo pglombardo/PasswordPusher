@@ -9,7 +9,7 @@ module LogEvents
     if push.expired
       log_event(push, :failed_view)
     elsif user_signed_in? && current_user.admin?
-      # Determine the type of view based on who is viewing
+      # Admin views take precedence over owner views
       log_event(push, :admin_view)
     elsif user_signed_in? && push.user_id == current_user.id
       log_event(push, :owner_view)
