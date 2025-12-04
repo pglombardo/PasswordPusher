@@ -71,7 +71,7 @@ gem "lockbox"
 gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap"
-gem "json", "~> 2.16" # Legacy carry-over
+gem "json", "~> 2.17" # Legacy carry-over
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
