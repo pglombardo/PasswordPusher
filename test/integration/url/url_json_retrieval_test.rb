@@ -62,9 +62,8 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("expire_after_days")
     assert_equal 2, res["expire_after_views"]
 
-    # Now try to retrieve the url for the first time
-    get "/r/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    # Now try to retrieve the url for the first time (without auth so it counts as regular view)
+    get "/r/#{res["url_token"]}.json"
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -79,9 +78,8 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert res.key?("expire_after_views")
     assert_equal 2, res["expire_after_views"]
 
-    # ...and the second view
-    get "/r/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    # ...and the second view (without auth so it counts as regular view)
+    get "/r/#{res["url_token"]}.json"
     assert_response :success
 
     res = JSON.parse(@response.body)
