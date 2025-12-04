@@ -123,6 +123,9 @@ COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
 
+# Make sure that the storage directory exists
+RUN mkdir -p ${APP_ROOT}/storage/db && chown -R pwpusher:pwpusher ${APP_ROOT}/storage
+
 # Copy and setup entrypoints in single layer
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
