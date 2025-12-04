@@ -55,30 +55,25 @@ COPY ./ ${APP_ROOT}/
 # Build assets - this layer will be rebuilt when source code changes
 RUN yarn build
 
-# Set default secret_key_base
-# For those self-hosting this app, you should
-# generate your own secret_key_base and set it
-# in your environment.
-# 1. Generate a secret_key_base value with:
+# SECRET_KEY_BASE must be set at runtime via environment variable
+# Do NOT hardcode secrets in Docker images for security reasons.
+# Users should generate their own secret_key_base:
 #    bundle exec rails secret
-# 2. Set the secret_key_base in your environment:
-#    SECRET_KEY_BASE=<value>
-ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eec658a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
+# Then set it when running the container:
+#    docker run -e SECRET_KEY_BASE=<your-secret> ...
 
 # Precompile bootsnap cache only for amd64 architecture
 RUN if [ "$TARGETARCH" = "amd64" ]; then \
-      bundle exec bootsnap precompile --gemfile && \
-      bundle exec bootsnap precompile app/ lib/ ; \
+      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile --gemfile && \
+      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile app/ lib/ ; \
     else \
       echo "Skipping bootsnap precompilation for $TARGETARCH" ; \
     fi
 
 # Precompile Rails assets - this layer will be rebuilt when assets change
-RUN bundle exec rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
-# Setup database and cleanup - combine operations for efficiency
-RUN bundle exec rake db:setup && \
-    rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
+RUN rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
@@ -118,15 +113,8 @@ WORKDIR ${APP_ROOT}
 RUN addgroup -g "${GID}" pwpusher \
   && adduser -D -u "${UID}" -G pwpusher pwpusher
 
-# Set a default secret_key_base
-# For those self-hosting this app, you should
-# generate your own secret_key_base and set it
-# in your environment.
-# 1. Generate a secret_key_base value with:
-#    bundle exec rails secret
-# 2. Set the secret_key_base in your environment:
-#    SECRET_KEY_BASE=<value>
-ENV SECRET_KEY_BASE=783ff1544b9612d8bceb8e26a0bab0cf22543eeca58a498e7ef9e1d617976f960092005c8a54cb588759dc6dd8fd054bc4eca4a94dd7b96c6efda4a14a01bfbd
+# SECRET_KEY_BASE must be set at runtime via environment variable
+# The entrypoint script will validate or generate one if missing
 
 # Copy application from build stage
 COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
@@ -134,6 +122,9 @@ COPY --from=build-env --chown=pwpusher:pwpusher ${APP_ROOT} ${APP_ROOT}
 # Configure bundle for production
 RUN bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}"
+
+# Make sure that the storage directory exists
+RUN mkdir -p ${APP_ROOT}/storage/db && chown -R pwpusher:pwpusher ${APP_ROOT}/storage
 
 # Copy and setup entrypoints in single layer
 COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
