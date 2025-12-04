@@ -115,4 +115,4 @@ gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.1.0"
 gem "overmind", "~> 2.5", group: :development
 
-gem "dotenv", "~> 3.1"
+gem "dotenv", "~> 3.2"
