@@ -12,6 +12,8 @@ class AuditLog < ApplicationRecord
   after_create :track_view_metric, if: :view?
   after_create :track_failed_view_metric, if: :failed_view?
   after_create :track_failed_passphrase_metric, if: :failed_passphrase?
+  after_create :track_admin_view_metric, if: :admin_view?
+  after_create :track_owner_view_metric, if: :owner_view?
 
   private
 
@@ -33,6 +35,20 @@ class AuditLog < ApplicationRecord
 
   def track_failed_passphrase_metric
     PrometheusMetrics.track_metric("push_failed_passphrase", {
+      push_kind: push.kind,
+      user_type: user_id.present? ? "authenticated" : "anonymous"
+    })
+  end
+
+  def track_admin_view_metric
+    PrometheusMetrics.track_metric("push_admin_view", {
+      push_kind: push.kind,
+      user_type: user_id.present? ? "authenticated" : "anonymous"
+    })
+  end
+
+  def track_owner_view_metric
+    PrometheusMetrics.track_metric("push_owner_view", {
       push_kind: push.kind,
       user_type: user_id.present? ? "authenticated" : "anonymous"
     })

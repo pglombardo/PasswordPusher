@@ -36,6 +36,14 @@ class PasswordPusherMetricsCollector < PrometheusExporter::Server::TypeCollector
       "pwpush_pushes_failed_passphrase_total",
       "Total number of failed passphrase attempts"
     )
+    @pushes_admin_view = PrometheusExporter::Metric::Counter.new(
+      "pwpush_pushes_admin_view_total",
+      "Total number of admin views on pushes"
+    )
+    @pushes_owner_view = PrometheusExporter::Metric::Counter.new(
+      "pwpush_pushes_owner_view_total",
+      "Total number of owner views on their own pushes"
+    )
 
     # File upload metrics
     @file_uploads_total = PrometheusExporter::Metric::Counter.new(
@@ -94,6 +102,10 @@ class PasswordPusherMetricsCollector < PrometheusExporter::Server::TypeCollector
       @pushes_failed_view.observe(1, labels)
     when "push_failed_passphrase"
       @pushes_failed_passphrase.observe(1, labels)
+    when "push_admin_view"
+      @pushes_admin_view.observe(1, labels)
+    when "push_owner_view"
+      @pushes_owner_view.observe(1, labels)
     when "user_signup"
       @user_signup.observe(1, labels)
     when "user_login_success"
@@ -114,6 +126,8 @@ class PasswordPusherMetricsCollector < PrometheusExporter::Server::TypeCollector
       @pushes_expired,
       @pushes_failed_view,
       @pushes_failed_passphrase,
+      @pushes_admin_view,
+      @pushes_owner_view,
       @file_uploads_total,
       @file_upload_bytes,
       @user_signup,

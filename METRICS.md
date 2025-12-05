@@ -148,6 +148,75 @@ sum by (user_type) (pwpush_pushes_failed_passphrase_total)
     summary: "Potential passphrase brute force attack"
 ```
 
+### Administrative & Audit Metrics
+
+#### `pwpush_pushes_admin_view_total`
+
+Total number of admin views on pushes (for audit and compliance).
+
+**Labels:**
+
+- `push_kind` - Type of push: `text`, `file`, `url`, or `qr`
+- `user_type` - Viewer type: `authenticated` or `anonymous`
+
+**Example queries:**
+
+```promql
+# Total admin views
+sum(pwpush_pushes_admin_view_total)
+
+# Admin view rate
+rate(pwpush_pushes_admin_view_total[5m])
+
+# Admin views by push type
+sum by (push_kind) (pwpush_pushes_admin_view_total)
+
+# Ratio of admin views to regular views
+sum(pwpush_pushes_admin_view_total) / sum(pwpush_pushes_viewed_total)
+```
+
+**Alert example:**
+
+```yaml
+- alert: HighAdminViewActivity
+  expr: rate(pwpush_pushes_admin_view_total[1h]) > 50
+  for: 5m
+  annotations:
+    summary: "Unusually high admin view activity detected"
+```
+
+#### `pwpush_pushes_owner_view_total`
+
+Total number of owner views on their own pushes (self-inspection tracking).
+
+**Labels:**
+
+- `push_kind` - Type of push: `text`, `file`, `url`, or `qr`
+- `user_type` - Viewer type: `authenticated` or `anonymous`
+
+**Example queries:**
+
+```promql
+# Total owner views
+sum(pwpush_pushes_owner_view_total)
+
+# Owner view rate
+rate(pwpush_pushes_owner_view_total[5m])
+
+# Owner views by push type
+sum by (push_kind) (pwpush_pushes_owner_view_total)
+
+# Percentage of users who check their own pushes
+sum(pwpush_pushes_owner_view_total) / sum(pwpush_pushes_created_total)
+```
+
+**Example queries:**
+
+```promql
+# Owner self-inspection behavior over time
+increase(pwpush_pushes_owner_view_total[24h])
+```
+
 ### File Upload Metrics
 
 #### `pwpush_file_uploads_total`
@@ -345,6 +414,28 @@ rate(pwpush_pushes_failed_view_total[5m])
 
 # Account lockouts in last hour
 increase(pwpush_user_locked_total[1h])
+
+# Admin view activity (audit trail)
+rate(pwpush_pushes_admin_view_total[1h])
+```
+
+### Audit & Compliance Dashboard
+
+```promql
+# Total admin views today
+increase(pwpush_pushes_admin_view_total[24h])
+
+# Admin view rate
+rate(pwpush_pushes_admin_view_total[5m])
+
+# Admin to regular view ratio
+sum(pwpush_pushes_admin_view_total) / sum(pwpush_pushes_viewed_total)
+
+# Owner self-inspection rate
+increase(pwpush_pushes_owner_view_total[24h])
+
+# Pushes checked by owners vs total created
+sum(pwpush_pushes_owner_view_total) / sum(pwpush_pushes_created_total)
 ```
 
 ### Business Metrics Dashboard
