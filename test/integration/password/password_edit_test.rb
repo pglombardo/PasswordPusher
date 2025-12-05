@@ -61,6 +61,8 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
       expire_after_views: 10
     )
 
+    initial_audit_count = push.audit_logs.count
+
     patch push_path(push), params: {
       push: {
         kind: "text",
@@ -80,6 +82,10 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_equal "Updated Name", push.name
     assert_equal 7, push.expire_after_days
     assert_equal 15, push.expire_after_views
+
+    # Verify audit log entry was created
+    assert_equal initial_audit_count + 1, push.audit_logs.count
+    assert push.audit_logs.last.update_kind?
   end
 
   test "update shows validation errors for invalid data" do

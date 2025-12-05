@@ -181,6 +181,7 @@ class PushesController < BaseController
     create_detect_retrieval_step(@push, push_params)
 
     if @push.update(push_params)
+      log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
       if @push.kind == "text"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AuditLog < ApplicationRecord
-  enum :kind, [:creation, :view, :failed_view, :expire, :failed_passphrase, :admin_view, :owner_view], validate: true
+  enum :kind, [:creation, :view, :failed_view, :expire, :failed_passphrase, :admin_view, :owner_view, :update], suffix: true, validate: true
 
   belongs_to :push
   belongs_to :user, optional: true
