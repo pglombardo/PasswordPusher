@@ -3,10 +3,16 @@ module LogEvents
   # log_view
   #
   # Record that a view is being made for a push
+  # If the viewer is the owner or an admin, it won't count towards view limits
   #
   def log_view(push)
     if push.expired
       log_event(push, :failed_view)
+    elsif user_signed_in? && current_user.admin?
+      # Admin views take precedence over owner views
+      log_event(push, :admin_view)
+    elsif user_signed_in? && push.user_id == current_user.id
+      log_event(push, :owner_view)
     else
       log_event(push, :view)
     end

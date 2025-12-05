@@ -60,6 +60,71 @@ class LogEventsTest < ActionController::TestCase
     assert_equal @push, result
   end
 
+  test "log_view creates owner_view audit log when current_user is push owner" do
+    @push.update(expired: false, user: @user)
+    sign_in @user
+
+    @request.env["REMOTE_ADDR"] = "192.168.1.1"
+    @request.env["HTTP_USER_AGENT"] = "Mozilla/5.0"
+    @request.env["HTTP_REFERER"] = "https://example.com"
+
+    result = @controller.log_view(@push)
+
+    assert_equal @push, result
+    assert_equal 1, AuditLog.count
+    log = AuditLog.last
+    assert_equal :owner_view, log.kind.to_sym
+    assert_equal @push, log.push
+    assert_equal @user, log.user
+    assert_equal "192.168.1.1", log.ip
+    assert_equal "Mozilla/5.0", log.user_agent
+    assert_equal "https://example.com", log.referrer
+  end
+
+  test "log_view creates admin_view audit log when current_user is admin but not owner" do
+    admin = users(:mr_admin)
+    @push.update(expired: false, user: @user)
+    sign_in admin
+
+    @request.env["REMOTE_ADDR"] = "10.0.0.5"
+    @request.env["HTTP_USER_AGENT"] = "AdminBrowser/1.0"
+    @request.env["HTTP_REFERER"] = "https://admin.com"
+
+    result = @controller.log_view(@push)
+
+    assert_equal @push, result
+    assert_equal 1, AuditLog.count
+    log = AuditLog.last
+    assert_equal :admin_view, log.kind.to_sym
+    assert_equal @push, log.push
+    assert_equal admin, log.user
+    assert_equal "10.0.0.5", log.ip
+    assert_equal "AdminBrowser/1.0", log.user_agent
+    assert_equal "https://admin.com", log.referrer
+  end
+
+  test "log_view creates regular view audit log when signed in user is neither owner nor admin" do
+    other_user = users(:one)
+    @push.update(expired: false, user: @user)
+    sign_in other_user
+
+    @request.env["REMOTE_ADDR"] = "172.16.0.10"
+    @request.env["HTTP_USER_AGENT"] = "UserBrowser/2.0"
+    @request.env["HTTP_REFERER"] = "https://user.com"
+
+    result = @controller.log_view(@push)
+
+    assert_equal @push, result
+    assert_equal 1, AuditLog.count
+    log = AuditLog.last
+    assert_equal :view, log.kind.to_sym
+    assert_equal @push, log.push
+    assert_equal other_user, log.user
+    assert_equal "172.16.0.10", log.ip
+    assert_equal "UserBrowser/2.0", log.user_agent
+    assert_equal "https://user.com", log.referrer
+  end
+
   # Test log_creation method
   test "log_creation creates creation audit log" do
     @request.env["REMOTE_ADDR"] = "172.16.0.1"
@@ -247,7 +312,7 @@ class LogEventsTest < ActionController::TestCase
 
   # Test edge cases
   test "log_event handles all valid audit log kinds" do
-    kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase]
+    kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase, :owner_view, :admin_view]
 
     kinds.each do |kind|
       AuditLog.delete_all
@@ -274,6 +339,18 @@ class LogEventsTest < ActionController::TestCase
       when :failed_view
         push.update(expired: true)
         @controller.log_view(push)
+      when :owner_view
+        owner = users(:luca)
+        push.update(user: owner)
+        sign_in owner
+        @controller.log_view(push)
+        sign_out owner
+      when :admin_view
+        admin = users(:mr_admin)
+        push.update(user: users(:one))
+        sign_in admin
+        @controller.log_view(push)
+        sign_out admin
       end
 
       assert_equal 1, AuditLog.count, "Expected 1 audit log for kind: #{kind}"

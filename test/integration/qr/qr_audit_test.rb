@@ -125,12 +125,20 @@ class QrAuditTest < ActionDispatch::IntegrationTest
       }
     }
 
+    push = @luca.pushes.last
+
+    # Sign out so we get a regular view, not an owner_view
+    sign_out @luca
+
     # View the push
-    get push_path(@luca.pushes.last)
+    get push_path(push)
     assert_response :success
 
+    # Sign back in to view audit log
+    sign_in @luca
+
     # View the audit log
-    get audit_push_path(@luca.pushes.last)
+    get audit_push_path(push)
     assert_response :success
 
     # Check HTML elements for view event
@@ -205,6 +213,9 @@ class QrAuditTest < ActionDispatch::IntegrationTest
     url_token = request.url.match("/p/(.*)/preview")[1]
     push = Push.find_by(url_token: url_token)
 
+    # Sign out so we get regular views, not owner_views
+    sign_out @luca
+
     # View the push once to use up the view
     get push_path(push)
     assert_response :success
@@ -212,6 +223,9 @@ class QrAuditTest < ActionDispatch::IntegrationTest
     # Try to view again (should fail)
     get push_path(push)
     assert_response :success
+
+    # Sign back in to view audit log
+    sign_in @luca
 
     # View the audit log
     get audit_push_path(push)

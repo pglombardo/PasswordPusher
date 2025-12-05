@@ -20,7 +20,7 @@ class AuditLogTest < ActiveSupport::TestCase
   end
 
   test "should have valid kinds" do
-    valid_kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase]
+    valid_kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase, :admin_view, :owner_view]
     valid_kinds.each do |kind|
       audit_log = AuditLog.new(kind: kind, push: @push)
       assert audit_log.valid?, "#{kind} should be a valid kind"
@@ -59,5 +59,17 @@ class AuditLogTest < ActiveSupport::TestCase
   test "subject_name returns '❓' when user does not exist" do
     audit_log = AuditLog.new(kind: :view, push: @push)
     assert_equal "❓", audit_log.subject_name
+  end
+
+  test "admin_view kind is valid" do
+    audit_log = AuditLog.new(kind: :admin_view, push: @push, user: @luca)
+    assert audit_log.valid?
+    assert_equal "admin_view", audit_log.kind
+  end
+
+  test "owner_view kind is valid" do
+    audit_log = AuditLog.new(kind: :owner_view, push: @push, user: @luca)
+    assert audit_log.valid?
+    assert_equal "owner_view", audit_log.kind
   end
 end
