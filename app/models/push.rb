@@ -71,7 +71,7 @@ class Push < ApplicationRecord
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save
+    save(validate: false)
   end
 
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
@@ -186,7 +186,7 @@ class Push < ApplicationRecord
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save!
+    save!(validate: false)
   end
 
   def settings_for_kind
