@@ -131,6 +131,15 @@ COPY containers/docker/entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY containers/docker/worker-entrypoint.sh /usr/local/bin/docker-worker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint /usr/local/bin/docker-worker-entrypoint
 
+# Clean up unnecessary files
+RUN rm -rf ${APP_ROOT}/.do \
+      ${APP_ROOT}/.github \
+      ${APP_ROOT}/app.json \
+      ${APP_ROOT}/bin/move_up_stable_tag.sh \
+      ${APP_ROOT}/containers \
+      ${APP_ROOT}/test \
+      ${APP_ROOT}/ct.yaml
+
 RUN touch /opt/PasswordPusher/.env.production && chown pwpusher:pwpusher /opt/PasswordPusher/.env.production
 
 USER pwpusher
