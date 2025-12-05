@@ -63,6 +63,9 @@ class QrDeletionTest < ActionDispatch::IntegrationTest
 
     push_url = request.url.sub("/preview", "")
 
+    # Sign out so views count as regular views, not owner_view
+    sign_out @luca
+
     # view the push
     get push_url
     assert_response :success

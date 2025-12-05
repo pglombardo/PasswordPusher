@@ -154,6 +154,9 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     push = Push.where(kind: "url").last
     view_count = push.views_remaining
 
+    # Sign out so the view counts as a regular view, not owner_view
+    sign_out @luca
+
     # Attempt to retrieve the url without the passphrase
     get request.url.sub("/preview", "")
     assert_response :redirect
@@ -195,6 +198,9 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     push = Push.where(kind: "url").last
     view_count = push.views_remaining
     secret_url = request.url.sub("/preview", "")
+
+    # Sign out so the view counts as a regular view, not owner_view
+    sign_out @luca
 
     # Attempt to retrieve the secret url
     get secret_url
