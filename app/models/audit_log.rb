@@ -15,6 +15,10 @@ class AuditLog < ApplicationRecord
   after_create :track_admin_view_metric, if: :admin_view?
   after_create :track_owner_view_metric, if: :owner_view?
 
+  def subject_name
+    user&.email || "❓"
+  end
+
   private
 
   def track_view_metric
@@ -52,9 +56,5 @@ class AuditLog < ApplicationRecord
       push_kind: push.kind,
       user_type: user_id.present? ? "authenticated" : "anonymous"
     })
-  end
-
-  def subject_name
-    user&.email || "❓"
   end
 end
