@@ -3,25 +3,55 @@ nameOverride: ""
 fullnameOverride: ""
 replicaCount: 1
 
-deployment:
-  labels:
-    app: "pwpush"
-    # component: ingress-controller
-    # type: nginx
-  containerPort: 5100
-  readinessProbe:
-    enabled: true
-    path: /
-  livenessProbe:
-    enabled: true
-    path: /
-
 image:
   repository: docker.io/pglombardo/pwpush
   pullPolicy: Always
   tag: "release"
 
+labels:
+  app: "pwpush"
+podLabels:
+  app: "pwpush"
+
+env: {}
+  # PWP__ENABLE_LOGINS: true
+  # PWP__ENABLE_FILE_PUSHES: true
+  # PWP__FILES__STORAGE: local
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 service:
   type: ClusterIP
   port: 5100
   sessionAffinity: None
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # cert-manager.io/cluster-issuer: cluster-issuer
+  hosts:
+    - host: pwpush.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: pwpush-tls
+  #    hosts:
+  #      - pwpush.example.com
