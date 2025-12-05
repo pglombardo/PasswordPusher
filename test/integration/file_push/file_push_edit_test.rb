@@ -32,6 +32,28 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     assert_select "textarea#push_payload", text: "Message for files"
   end
 
+  test "edit page shows current expire values for file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Test message",
+      user: @luca,
+      expire_after_days: 8,
+      expire_after_views: 20
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify data attributes contain current push values
+    assert_select "div[data-knobs-default-days-value='8']"
+    assert_select "div[data-knobs-default-views-value='20']"
+
+    # Verify range fields have correct values
+    assert_select "input[name='push[expire_after_days]'][value='8']"
+    assert_select "input[name='push[expire_after_views]'][value='20']"
+  end
+
   test "can update file push payload and metadata" do
     push = Push.create!(
       kind: "file",

@@ -30,6 +30,27 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     assert_select "textarea#push_payload", text: "QR code content"
   end
 
+  test "edit page shows current expire values for qr push" do
+    push = Push.create!(
+      kind: "qr",
+      payload: "Test QR content",
+      user: @luca,
+      expire_after_days: 10,
+      expire_after_views: 50
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify data attributes contain current push values
+    assert_select "div[data-knobs-default-days-value='10']"
+    assert_select "div[data-knobs-default-views-value='50']"
+
+    # Verify range fields have correct values
+    assert_select "input[name='push[expire_after_days]'][value='10']"
+    assert_select "input[name='push[expire_after_views]'][value='50']"
+  end
+
   test "can update qr push with valid content" do
     push = Push.create!(
       kind: "qr",

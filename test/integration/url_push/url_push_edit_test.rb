@@ -30,6 +30,27 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
     assert_select "input#push_payload[value=?]", "https://example.com"
   end
 
+  test "edit page shows current expire values for url push" do
+    push = Push.create!(
+      kind: "url",
+      payload: "https://example.com",
+      user: @luca,
+      expire_after_days: 15,
+      expire_after_views: 30
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify data attributes contain current push values
+    assert_select "div[data-knobs-default-days-value='15']"
+    assert_select "div[data-knobs-default-views-value='30']"
+
+    # Verify range fields have correct values
+    assert_select "input[name='push[expire_after_days]'][value='15']"
+    assert_select "input[name='push[expire_after_views]'][value='30']"
+  end
+
   test "can update url push with valid url" do
     push = Push.create!(
       kind: "url",

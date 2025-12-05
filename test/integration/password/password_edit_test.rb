@@ -51,6 +51,27 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_select "button[type=submit]", text: /Update Push/
   end
 
+  test "edit page shows current expire values in form" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Test password",
+      user: @luca,
+      expire_after_days: 12,
+      expire_after_views: 25
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify data attributes contain current push values
+    assert_select "div[data-knobs-default-days-value='12']"
+    assert_select "div[data-knobs-default-views-value='25']"
+
+    # Verify range fields have correct values
+    assert_select "input[name='push[expire_after_days]'][value='12']"
+    assert_select "input[name='push[expire_after_views]'][value='25']"
+  end
+
   test "can update push with valid data" do
     push = Push.create!(
       kind: "text",
