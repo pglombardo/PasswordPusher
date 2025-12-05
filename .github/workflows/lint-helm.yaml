@@ -45,3 +45,10 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct install --config ./ct.yaml --target-branch ${{ github.event.repository.default_branch }}
+
+      - name: Post job failure details to Campfire
+        if: failure() && github.ref == 'refs/heads/master'
+        uses: shane-lamb/campfire-notify-action@v1.1.6
+        with:
+          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+          template: job_failed
