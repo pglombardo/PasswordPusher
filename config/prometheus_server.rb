@@ -141,5 +141,16 @@ server.collector.register_collector(PasswordPusherMetricsCollector.new)
 # Start the server
 server.start
 
+# Handle graceful shutdown
+trap("INT") do
+  puts "\nShutting down Prometheus Exporter..."
+  exit(0)
+end
+
+trap("TERM") do
+  puts "\nShutting down Prometheus Exporter..."
+  exit(0)
+end
+
 # Keep the process running
 sleep
