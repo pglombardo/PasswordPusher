@@ -21,6 +21,6 @@ class AuditLog < ApplicationRecord
   end
 
   def subject_name
-    user&.email || "anonymous"
+    user&.email || "❓"
   end
 end
