@@ -1,4 +1,4 @@
-# Prometheus Metrics
+# Prometheus Metrics Setup
 
 Password Pusher includes built-in Prometheus metrics export for monitoring and observability.
 
@@ -28,6 +28,8 @@ The Prometheus exporter starts automatically as part of the application stack.
 
 Metrics are available at: **`http://localhost:9394/metrics`**
 
+For detailed information about available metrics, see [METRICS.md](METRICS.md).
+
 ## Architecture
 
 The Prometheus integration uses `prometheus_exporter` with two components:
@@ -36,27 +38,6 @@ The Prometheus integration uses `prometheus_exporter` with two components:
 2. **Client Instrumentation**: Middleware and callbacks in the Rails app that send metrics to the exporter
 
 Both components start automatically when you run `foreman start`.
-
-## Available Metrics
-
-### Standard Rails Metrics
-
-- `pwpush_http_requests_total` - Total HTTP requests
-- `pwpush_http_request_duration_seconds` - HTTP request duration
-- `pwpush_process_*` - Process metrics (CPU, memory)
-- `pwpush_puma_*` - Puma server metrics
-- `pwpush_active_record_*` - Database query metrics
-
-### Custom Password Pusher Metrics
-
-- `pwpush_pushes_created_total{kind, user_id}` - Total pushes created
-  - Labels: `kind` (text/file/url/qr), `user_id` (authenticated/anonymous)
-
-- `pwpush_pushes_viewed_total{push_kind, user_id}` - Total pushes viewed
-  - Labels: `push_kind` (text/file/url/qr), `user_id` (authenticated/anonymous)
-
-- `pwpush_pushes_expired_total{kind, days_lived, view_count}` - Total pushes expired
-  - Labels: `kind` (text/file/url/qr), `days_lived`, `view_count`
 
 ## Configuration
 
@@ -204,162 +185,6 @@ spec:
     path: /metrics
 ```
 
-## Example Prometheus Queries
-
-### Total pushes created in last 24h
-
-```promql
-increase(pwpush_pushes_created_total[24h])
-```
-
-### Push creation rate by kind
-
-```promql
-rate(pwpush_pushes_created_total[5m])
-```
-
-### Push creation rate by type
-
-```promql
-sum by (kind) (rate(pwpush_pushes_created_total[5m]))
-```
-
-### Most viewed push types
-
-```promql
-topk(5, sum by (push_kind) (pwpush_pushes_viewed_total))
-```
-
-### Total active pushes created today
-
-```promql
-sum(increase(pwpush_pushes_created_total[24h])) - sum(increase(pwpush_pushes_expired_total[24h]))
-```
-
-### Average HTTP request duration
-
-```promql
-rate(pwpush_http_request_duration_seconds_sum[5m]) / rate(pwpush_http_request_duration_seconds_count[5m])
-```
-
-### 95th percentile response time
-
-```promql
-histogram_quantile(0.95, rate(pwpush_http_request_duration_seconds_bucket[5m]))
-```
-
-### Anonymous vs Authenticated usage
-
-```promql
-sum by (user_id) (rate(pwpush_pushes_created_total[5m]))
-```
-
-## Grafana Dashboard
-
-### Sample Dashboard Panels
-
-A complete Grafana dashboard should include:
-
-1. **Total Pushes Created** - Counter/stat panel
-
-   ```promql
-   sum(pwpush_pushes_created_total)
-   ```
-
-2. **Push Creation Rate** - Graph panel
-
-   ```promql
-   sum(rate(pwpush_pushes_created_total[5m]))
-   ```
-
-3. **Push Views** - Graph panel
-
-   ```promql
-   sum(rate(pwpush_pushes_viewed_total[5m]))
-   ```
-
-4. **Push Types Distribution** - Pie chart
-
-   ```promql
-   sum by (kind) (pwpush_pushes_created_total)
-   ```
-
-5. **HTTP Request Duration** - Heatmap
-
-   ```promql
-   rate(pwpush_http_request_duration_seconds_bucket[5m])
-   ```
-
-6. **Request Rate** - Graph panel
-
-   ```promql
-   sum(rate(pwpush_http_requests_total[5m]))
-   ```
-
-7. **Error Rate** - Graph panel
-
-   ```promql
-   sum(rate(pwpush_http_requests_total{status=~"5.."}[5m]))
-   ```
-
-8. **Memory Usage** - Graph panel
-
-   ```promql
-   pwpush_process_resident_memory_bytes
-   ```
-
-### Import Dashboard
-
-You can create a new dashboard in Grafana and import these queries, or create a dashboard JSON file for sharing.
-
-## Alerting Examples
-
-### High Error Rate
-
-```yaml
-- alert: HighErrorRate
-  expr: |
-    sum(rate(pwpush_http_requests_total{status=~"5.."}[5m]))
-    /
-    sum(rate(pwpush_http_requests_total[5m]))
-    > 0.05
-  for: 5m
-  labels:
-    severity: warning
-  annotations:
-    summary: "High error rate detected"
-    description: "Error rate is {{ $value | humanizePercentage }}"
-```
-
-### Slow Response Time
-
-```yaml
-- alert: SlowResponseTime
-  expr: |
-    histogram_quantile(0.95,
-      rate(pwpush_http_request_duration_seconds_bucket[5m])
-    ) > 2
-  for: 10m
-  labels:
-    severity: warning
-  annotations:
-    summary: "Slow response times"
-    description: "95th percentile response time is {{ $value }}s"
-```
-
-### High Memory Usage
-
-```yaml
-- alert: HighMemoryUsage
-  expr: pwpush_process_resident_memory_bytes > 1e9
-  for: 5m
-  labels:
-    severity: warning
-  annotations:
-    summary: "High memory usage"
-    description: "Memory usage is {{ $value | humanize }}B"
-```
-
 ## Troubleshooting
 
 ### Metrics not appearing
@@ -438,9 +263,9 @@ The Rails app can't connect to the Prometheus exporter. Check:
 To add your own custom metrics, edit [app/models/concerns/prometheus_metrics.rb](app/models/concerns/prometheus_metrics.rb):
 
 ```ruby
-# Example: Track password strength
-PrometheusMetrics.track_metric("password_strength_checked", {
-  strength: "strong"
+# Example: Track custom events
+PrometheusMetrics.track_metric("custom_event", {
+  category: "example"
 })
 ```
 
@@ -457,8 +282,9 @@ You can add more collectors for other components:
 
 See the [prometheus_exporter documentation](https://github.com/discourse/prometheus_exporter) for details.
 
-## Additional Resources
+## Documentation
 
+- **[METRICS.md](METRICS.md)** - Complete metrics reference with all available metrics, labels, example queries, dashboards, and alerts
 - [prometheus_exporter gem](https://github.com/discourse/prometheus_exporter)
 - [Prometheus documentation](https://prometheus.io/docs/)
 - [Grafana dashboards](https://grafana.com/grafana/dashboards/)
