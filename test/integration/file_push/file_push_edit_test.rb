@@ -1,0 +1,157 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class FilePushEditTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+  include ActionDispatch::TestProcess
+
+  setup do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+  end
+
+  teardown do
+    sign_out :user
+  end
+
+  test "authenticated user can access edit page for their own file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Message for files",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    get edit_push_path(push)
+    assert_response :success
+    assert_select "textarea#push_payload", text: "Message for files"
+  end
+
+  test "can update file push payload and metadata" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Original message",
+      name: "Original Name",
+      user: @luca,
+      expire_after_days: 5,
+      expire_after_views: 10
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        payload: "Updated message",
+        name: "Updated Name",
+        expire_after_days: 7,
+        expire_after_views: 15
+      }
+    }
+
+    assert_redirected_to preview_push_path(push)
+
+    push.reload
+    assert_equal "Updated message", push.payload
+    assert_equal "Updated Name", push.name
+    assert_equal 7, push.expire_after_days
+    assert_equal 15, push.expire_after_views
+  end
+
+  test "can update file push files" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Message",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    initial_file_count = push.files.count
+    assert_equal 1, initial_file_count
+
+    original_filename = push.files.first.filename.to_s
+    assert_equal "monkey.png", original_filename
+
+    # Updating with new files replaces the old ones (standard Rails behavior)
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        payload: "Updated message",
+        files: [fixture_file_upload("test-file.txt", "text/plain")]
+      }
+    }
+
+    assert_redirected_to preview_push_path(push)
+
+    push.reload
+    # Files are replaced, not appended
+    assert_equal 1, push.files.count
+    assert_equal "test-file.txt", push.files.first.filename.to_s
+    assert_equal "Updated message", push.payload
+  end
+
+  test "cannot edit file push belonging to another user" do
+    other_user = users(:one)
+
+    push = Push.create!(
+      kind: "file",
+      payload: "Other user's files",
+      user: other_user
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    get edit_push_path(push)
+    assert_redirected_to root_path
+
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        payload: "Hacked message"
+      }
+    }
+    assert_redirected_to root_path
+
+    push.reload
+    assert_equal "Other user's files", push.payload
+  end
+
+  test "cannot edit expired file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Expired files",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    # Manually set expired without triggering validations
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    get edit_push_path(push)
+    assert_redirected_to push_path(push)
+
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        payload: "New message"
+      }
+    }
+    assert_redirected_to push_path(push)
+  end
+
+  test "edit page shows update button for file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Test message",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    get edit_push_path(push)
+    assert_response :success
+    assert_select "button[type=submit]", text: /Update Push/
+  end
+end
