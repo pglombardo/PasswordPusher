@@ -188,7 +188,11 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><%= _('Push It!') %></button>
+                <% if @push.persisted? %>
+                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Updating...') %>"><%= _('Update Push') %></button>
+                <% else %>
+                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><%= _('Push It!') %></button>
+                <% end %>
             </p>
         </div>
     </div>

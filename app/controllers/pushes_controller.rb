@@ -109,6 +109,32 @@ class PushesController < BaseController
     @push.passphrase = ""
   end
 
+  # GET /p/:url_token/edit
+  def edit
+    # Verify the push belongs to the current user
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't edit expired pushes
+    if @push.expired
+      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      return
+    end
+
+    # Set the appropriate tab based on push kind
+    if @push.kind == "text"
+      @text_tab = true
+    elsif @push.kind == "file"
+      @files_tab = true
+    elsif @push.kind == "url"
+      @url_tab = true
+    elsif @push.kind == "qr"
+      @qr_tab = true
+    end
+  end
+
   def create
     @push = Push.new(push_params)
 
@@ -134,6 +160,41 @@ class PushesController < BaseController
         @text_tab = true
       end
       render action: "new", status: :unprocessable_content
+    end
+  end
+
+  # PATCH/PUT /p/:url_token
+  def update
+    # Verify the push belongs to the current user
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't edit expired pushes
+    if @push.expired
+      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      return
+    end
+
+    create_detect_deletable_by_viewer(@push, push_params)
+    create_detect_retrieval_step(@push, push_params)
+
+    if @push.update(push_params)
+      redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
+    else
+      if @push.kind == "text"
+        @text_tab = true
+      elsif @push.kind == "file"
+        @files_tab = true
+      elsif @push.kind == "url"
+        @url_tab = true
+      elsif @push.kind == "qr"
+        @qr_tab = true
+      else
+        @text_tab = true
+      end
+      render action: "edit", status: :unprocessable_content
     end
   end
 
@@ -289,7 +350,7 @@ class PushesController < BaseController
       end
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit].include?(action_name)
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]
