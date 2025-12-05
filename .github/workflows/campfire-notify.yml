@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post commit info to Campfire
+        continue-on-error: true
         uses: shane-lamb/campfire-notify-action@v1.1.6
         with:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
