@@ -243,6 +243,16 @@ The Rails app can't connect to the Prometheus exporter. Check:
 2. `PROMETHEUS_EXPORTER_HOST` and `PROMETHEUS_EXPORTER_PORT` match between Rails and exporter
 3. Firewall rules aren't blocking localhost connections
 
+### Puma stats errors in development
+
+In development mode, you may see warnings about Puma stats being unavailable. This is expected and harmless:
+
+```text
+Puma metrics not available: undefined method 'stats' for nil
+```
+
+Puma metrics are automatically disabled in development because single-mode Puma doesn't support stats collection. In production with clustered Puma (multiple workers), Puma metrics will work correctly and provide valuable insights about thread pool usage and request backlog.
+
 ## Production Recommendations
 
 1. **Always run via Procfile** - Don't start processes manually in production
