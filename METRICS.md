@@ -11,9 +11,11 @@ Password Pusher exports both **standard Rails metrics** (HTTP requests, database
 ### Push Lifecycle Metrics
 
 #### `pwpush_pushes_created_total`
+
 Total number of pushes created.
 
 **Labels:**
+
 - `kind` - Type of push: `text`, `file`, `url`, or `qr`
 - `user_type` - Creator type: `authenticated` or `anonymous`
 - `has_passphrase` - Whether push is passphrase-protected: `yes` or `no`
@@ -23,6 +25,7 @@ Total number of pushes created.
 - `total_file_size` - Total size in bytes of all files (only for file pushes)
 
 **Example queries:**
+
 ```promql
 # Total pushes created
 sum(pwpush_pushes_created_total)
@@ -38,14 +41,17 @@ sum by (user_type) (pwpush_pushes_created_total)
 ```
 
 #### `pwpush_pushes_viewed_total`
+
 Total number of successful push views.
 
 **Labels:**
+
 - `push_kind` - Type of push: `text`, `file`, `url`, or `qr`
 - `user_type` - Viewer type: `authenticated` or `anonymous`
 - `had_passphrase` - Whether push was passphrase-protected: `yes` or `no`
 
 **Example queries:**
+
 ```promql
 # View rate per minute
 rate(pwpush_pushes_viewed_total[5m])
@@ -58,15 +64,18 @@ sum(pwpush_pushes_viewed_total{had_passphrase="yes"})
 ```
 
 #### `pwpush_pushes_expired_total`
+
 Total number of pushes that have expired.
 
 **Labels:**
+
 - `kind` - Type of push: `text`, `file`, `url`, or `qr`
 - `days_lived` - Number of days the push existed before expiration
 - `view_count` - Number of times the push was viewed before expiration
 - `had_passphrase` - Whether push was passphrase-protected: `yes` or `no`
 
 **Example queries:**
+
 ```promql
 # Expiration rate
 rate(pwpush_pushes_expired_total[1h])
@@ -81,14 +90,17 @@ sum(pwpush_pushes_expired_total{view_count="0"})
 ### Security Metrics
 
 #### `pwpush_pushes_failed_view_total`
+
 Total number of failed view attempts (trying to access expired/deleted pushes).
 
 **Labels:**
+
 - `push_kind` - Type of push: `text`, `file`, `url`, or `qr`
 - `user_type` - Viewer type: `authenticated` or `anonymous`
 - `reason` - Failure reason: `expired_or_deleted`
 
 **Example queries:**
+
 ```promql
 # Failed view rate (potential security probing)
 rate(pwpush_pushes_failed_view_total[5m])
@@ -98,6 +110,7 @@ sum by (push_kind) (pwpush_pushes_failed_view_total)
 ```
 
 **Alert example:**
+
 ```yaml
 - alert: HighFailedViewRate
   expr: rate(pwpush_pushes_failed_view_total[5m]) > 10
@@ -107,13 +120,16 @@ sum by (push_kind) (pwpush_pushes_failed_view_total)
 ```
 
 #### `pwpush_pushes_failed_passphrase_total`
+
 Total number of failed passphrase attempts.
 
 **Labels:**
+
 - `push_kind` - Type of push: `text`, `file`, `url`, or `qr`
 - `user_type` - Viewer type: `authenticated` or `anonymous`
 
 **Example queries:**
+
 ```promql
 # Failed passphrase rate (brute force detection)
 rate(pwpush_pushes_failed_passphrase_total[5m])
@@ -123,6 +139,7 @@ sum by (user_type) (pwpush_pushes_failed_passphrase_total)
 ```
 
 **Alert example:**
+
 ```yaml
 - alert: PassphraseBruteForce
   expr: rate(pwpush_pushes_failed_passphrase_total[1m]) > 5
@@ -134,13 +151,16 @@ sum by (user_type) (pwpush_pushes_failed_passphrase_total)
 ### File Upload Metrics
 
 #### `pwpush_file_uploads_total`
+
 Total number of files uploaded.
 
 **Labels:**
+
 - `kind` - Type of push: `file`
 - `user_type` - Creator type: `authenticated` or `anonymous`
 
 **Example queries:**
+
 ```promql
 # File upload rate
 rate(pwpush_file_uploads_total[5m])
@@ -150,13 +170,16 @@ increase(pwpush_file_uploads_total[24h])
 ```
 
 #### `pwpush_file_upload_bytes_total`
+
 Total bytes uploaded in files.
 
 **Labels:**
+
 - `kind` - Type of push: `file`
 - `user_type` - Creator type: `authenticated` or `anonymous`
 
 **Example queries:**
+
 ```promql
 # Upload bandwidth (bytes per second)
 rate(pwpush_file_upload_bytes_total[5m])
@@ -171,12 +194,15 @@ rate(pwpush_file_upload_bytes_total[5m]) / rate(pwpush_file_uploads_total[5m])
 ### User Authentication Metrics
 
 #### `pwpush_user_signup_total`
+
 Total number of user signups.
 
 **Labels:**
+
 - `locale` - User's preferred language or `default`
 
 **Example queries:**
+
 ```promql
 # Signup rate
 rate(pwpush_user_signup_total[1h])
@@ -186,12 +212,15 @@ sum by (locale) (pwpush_user_signup_total)
 ```
 
 #### `pwpush_user_login_success_total`
+
 Total number of successful logins.
 
 **Labels:**
+
 - `user_type` - User role: `admin` or `user`
 
 **Example queries:**
+
 ```promql
 # Login rate
 rate(pwpush_user_login_success_total[5m])
@@ -201,12 +230,15 @@ sum by (user_type) (pwpush_user_login_success_total)
 ```
 
 #### `pwpush_user_login_failed_total`
+
 Total number of failed login attempts.
 
 **Labels:**
+
 - `reason` - Failure reason: `invalid_credentials`, etc.
 
 **Example queries:**
+
 ```promql
 # Failed login rate (security monitoring)
 rate(pwpush_user_login_failed_total[5m])
@@ -220,6 +252,7 @@ rate(pwpush_user_login_success_total[5m]) /
 ```
 
 **Alert example:**
+
 ```yaml
 - alert: HighFailedLoginRate
   expr: rate(pwpush_user_login_failed_total[5m]) > 5
@@ -229,30 +262,37 @@ rate(pwpush_user_login_success_total[5m]) /
 ```
 
 #### `pwpush_user_logout_total`
+
 Total number of user logouts.
 
 **Labels:**
+
 - `user_type` - User role: `admin` or `user`
 
 **Example queries:**
+
 ```promql
 # Logout rate
 rate(pwpush_user_logout_total[5m])
 ```
 
 #### `pwpush_user_locked_total`
+
 Total number of users locked due to too many failed login attempts.
 
 **Labels:**
+
 - `reason` - Lock reason: `too_many_failed_attempts`
 
 **Example queries:**
+
 ```promql
 # Account lockouts (security incident indicator)
 increase(pwpush_user_locked_total[24h])
 ```
 
 **Alert example:**
+
 ```yaml
 - alert: AccountLockouts
   expr: increase(pwpush_user_locked_total[1h]) > 3
