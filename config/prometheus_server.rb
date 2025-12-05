@@ -12,9 +12,6 @@ require "prometheus_exporter"
 require "prometheus_exporter/server"
 require "prometheus_exporter/instrumentation"
 
-# Load the custom collector
-require_relative "../app/models/concerns/prometheus_metrics"
-
 # Custom collector for Password Pusher metrics
 class PasswordPusherMetricsCollector < PrometheusExporter::Server::TypeCollector
   def initialize
