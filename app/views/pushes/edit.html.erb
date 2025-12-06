@@ -1,0 +1,11 @@
+<%= content_for :title, _('Edit Push') %>
+
+<% if @text_tab %>
+  <%= render "form", push: @push %>
+<% elsif @files_tab %>
+  <%= render "files_form", push: @push %>
+<% elsif @url_tab %>
+  <%= render "url_form", push: @push %>
+<% elsif @qr_tab %>
+  <%= render "qr_form", push: @push %>
+<% end %>

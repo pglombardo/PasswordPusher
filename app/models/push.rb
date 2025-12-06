@@ -19,6 +19,13 @@ class Push < ApplicationRecord
     create.after_validation :check_payload_for_qr, if: :qr?
   end
 
+  with_options on: :update do |update|
+    update.after_validation :check_payload_for_text, if: :text?
+    update.after_validation :check_files_for_file, if: :file?
+    update.after_validation :check_payload_for_url, if: :url?
+    update.after_validation :check_payload_for_qr, if: :qr?
+  end
+
   belongs_to :user, optional: true
 
   has_encrypted :payload, :note, :passphrase
@@ -64,7 +71,7 @@ class Push < ApplicationRecord
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save
+    save(validate: false)
   end
 
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
@@ -179,7 +186,7 @@ class Push < ApplicationRecord
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save!
+    save!(validate: false)
   end
 
   def settings_for_kind
