@@ -166,7 +166,7 @@ class PushesController < BaseController
   # PATCH/PUT /p/:url_token
   def update
     # Verify the push belongs to the current user
-    if @push.user_id != current_user.id
+    if @push.user != current_user
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
       return
     end
