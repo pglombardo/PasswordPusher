@@ -57,3 +57,11 @@ jobs:
       uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: output.sarif.json
+
+    - name: Post job failure details to Campfire
+      if: failure() && github.ref == 'refs/heads/master'
+      continue-on-error: true
+      uses: shane-lamb/campfire-notify-action@v1.1.6
+      with:
+        messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+        template: job_failed

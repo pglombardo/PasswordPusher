@@ -73,6 +73,14 @@ jobs:
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
 
+      - name: Post job failure details to Campfire
+        if: failure() && github.ref == 'refs/heads/master'
+        continue-on-error: true
+        uses: shane-lamb/campfire-notify-action@v1.1.6
+        with:
+          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+          template: job_failed
+
 
   public-gateway-container:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
@@ -128,6 +136,14 @@ jobs:
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
 
+      - name: Post job failure details to Campfire
+        if: failure() && github.ref == 'refs/heads/master'
+        continue-on-error: true
+        uses: shane-lamb/campfire-notify-action@v1.1.6
+        with:
+          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+          template: job_failed
+
   worker-container:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container
@@ -181,3 +197,11 @@ jobs:
           cache-to: |
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
+
+      - name: Post job failure details to Campfire
+        if: failure() && github.ref == 'refs/heads/master'
+        continue-on-error: true
+        uses: shane-lamb/campfire-notify-action@v1.1.6
+        with:
+          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+          template: job_failed
