@@ -4,6 +4,7 @@ json.extract! push, :expire_after_views,
   :deletable_by_viewer,
   :retrieval_step,
   :expired_on,
+  :passphrase,
   :created_at,
   :updated_at,
   :expire_after_days,
@@ -11,11 +12,6 @@ json.extract! push, :expire_after_views,
   :views_remaining,
   :deleted
 
-if push.passphrase.nil?
-  json.passphrase ""
-else
-  json.passphrase push.passphrase
-end
 json.json_url secret_url(push) + ".json"
 json.html_url secret_url(push)
 

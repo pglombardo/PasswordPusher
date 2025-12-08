@@ -58,6 +58,7 @@ class Push < ApplicationRecord
   def expire
     # Delete content
     self.payload = nil
+    self.passphrase = nil
     files.purge
 
     # Mark as expired
@@ -99,7 +100,7 @@ class Push < ApplicationRecord
     attr_hash.delete("user_id")
     attr_hash.delete("id")
 
-    attr_hash["passphrase"] = "" if attr_hash["passphrase"].nil?
+    attr_hash.delete("passphrase")
     attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload
@@ -181,6 +182,7 @@ class Push < ApplicationRecord
   def expire!
     # Delete content
     self.payload = nil
+    self.passphrase = nil
     files.purge
 
     # Mark as expired

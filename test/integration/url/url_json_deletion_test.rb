@@ -54,7 +54,7 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 5,
       "expired" => true,
       "retrieval_step" => false,
-      "passphrase" => "",
+      "passphrase" => nil,
       "expire_after_days" => 7,
       "days_remaining" => 7,
       "views_remaining" => 5,
