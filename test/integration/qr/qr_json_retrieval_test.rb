@@ -110,7 +110,7 @@ class QrJsonRetrievalTest < ActionDispatch::IntegrationTest
       "expired" => true,
       "deletable_by_viewer" => true,
       "retrieval_step" => false,
-      "passphrase" => nil,
+      "passphrase" => "",
       "expire_after_days" => 7,
       "days_remaining" => 7,
       "views_remaining" => 0,

@@ -5,25 +5,18 @@ require "addressable/uri"
 class Push < ApplicationRecord
   enum :kind, [:text, :file, :url, :qr], validate: true
 
-  validate :check_enabled_push_kinds
+  validate :check_enabled_push_kinds, on: :create
   validates :url_token, presence: true, uniqueness: true
+
+  validate :check_payload_for_text, if: :text?, on: [:create, :update]
+  validate :check_files_for_file, if: :file?, on: [:create, :update]
+  validate :check_payload_for_url, if: :url?, on: [:create, :update]
+  validate :check_payload_for_qr, if: :qr?, on: [:create, :update]
 
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
     create.before_validation :set_default_attributes
-
-    create.after_validation :check_payload_for_text, if: :text?
-    create.after_validation :check_files_for_file, if: :file?
-    create.after_validation :check_payload_for_url, if: :url?
-    create.after_validation :check_payload_for_qr, if: :qr?
-  end
-
-  with_options on: :update do |update|
-    update.after_validation :check_payload_for_text, if: :text?
-    update.after_validation :check_files_for_file, if: :file?
-    update.after_validation :check_payload_for_url, if: :url?
-    update.after_validation :check_payload_for_qr, if: :qr?
   end
 
   belongs_to :user, optional: true
@@ -65,13 +58,12 @@ class Push < ApplicationRecord
   def expire
     # Delete content
     self.payload = nil
-    self.passphrase = nil
     files.purge
 
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save(validate: false)
+    save
   end
 
   # Override to_json so that we can add in <days_remaining>, <views_remaining>
@@ -107,7 +99,7 @@ class Push < ApplicationRecord
     attr_hash.delete("user_id")
     attr_hash.delete("id")
 
-    attr_hash.delete("passphrase")
+    attr_hash["passphrase"] = "" if attr_hash["passphrase"].nil?
     attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload
@@ -123,6 +115,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_text
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.blank?
       errors.add(:payload, I18n._("Payload is required."))
       return
@@ -134,6 +129,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_url
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.present?
       if !valid_url?(payload)
         errors.add(:payload, I18n._("must be a valid HTTP or HTTPS URL."))
@@ -144,6 +142,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_qr
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.present?
       # If the push is a QR code, max payload length is 1024 characters
       if payload.length > 1024
@@ -180,13 +181,12 @@ class Push < ApplicationRecord
   def expire!
     # Delete content
     self.payload = nil
-    self.passphrase = nil
     files.purge
 
     # Mark as expired
     self.expired = true
     self.expired_on = Time.current.utc
-    save!(validate: false)
+    save!
   end
 
   def settings_for_kind

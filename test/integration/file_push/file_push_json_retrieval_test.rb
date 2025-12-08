@@ -137,7 +137,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "json_url", "html_url"), {"expire_after_views" => 2,
     "expired" => true,
     "retrieval_step" => false,
-    "passphrase" => nil,
+    "passphrase" => "",
     "expire_after_days" => 7,
     "days_remaining" => 7,
     "views_remaining" => 0,
