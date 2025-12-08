@@ -177,11 +177,11 @@ class PushesController < BaseController
       return
     end
 
-    create_detect_deletable_by_viewer(@push, push_params)
-    create_detect_retrieval_step(@push, push_params)
+    create_detect_deletable_by_viewer(@push, update_params)
+    create_detect_retrieval_step(@push, update_params)
 
-    @push.assign_attributes(push_params)
-    if @push.valid?(:update) && @push.save(context: :update)
+    @push.assign_attributes(update_params)
+    if @push.save(context: :update)
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
@@ -310,6 +310,24 @@ class PushesController < BaseController
     end
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
+    raise e
+  end
+
+  def update_params
+    # Don't allow kind to be changed after creation for security
+    case @push.kind
+    when "url"
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views,
+        :retrieval_step, :payload, :note, :passphrase)
+    when "file"
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    else
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase)
+    end
+  rescue => e
+    Rails.logger.error("Error in update_params: #{e.message}")
     raise e
   end
 
