@@ -140,8 +140,8 @@ class PushesController < BaseController
 
     @push.user_id = current_user.id if user_signed_in?
 
-    create_detect_deletable_by_viewer(@push, push_params)
-    create_detect_retrieval_step(@push, push_params)
+    assign_deletable_by_viewer(@push, push_params)
+    assign_retrieval_step(@push, push_params)
 
     if @push.save
       log_creation(@push)
@@ -177,11 +177,11 @@ class PushesController < BaseController
       return
     end
 
-    create_detect_deletable_by_viewer(@push, update_params)
-    create_detect_retrieval_step(@push, update_params)
-
     @push.assign_attributes(update_params)
-    if @push.save(context: :update)
+    assign_deletable_by_viewer(@push, update_params)
+    assign_retrieval_step(@push, update_params)
+
+    if @push.save
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else

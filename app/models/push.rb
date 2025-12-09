@@ -8,10 +8,10 @@ class Push < ApplicationRecord
   validate :check_enabled_push_kinds, on: :create
   validates :url_token, presence: true, uniqueness: true
 
-  validate :check_payload_for_text, if: :text?, on: [:create, :update]
-  validate :check_files_for_file, if: :file?, on: [:create, :update]
-  validate :check_payload_for_url, if: :url?, on: [:create, :update]
-  validate :check_payload_for_qr, if: :qr?, on: [:create, :update]
+  validate :check_payload_for_text, if: :text?
+  validate :check_files_for_file, if: :file?
+  validate :check_payload_for_url, if: :url?
+  validate :check_payload_for_qr, if: :qr?
 
   with_options on: :create do |create|
     create.before_validation :set_expire_limits

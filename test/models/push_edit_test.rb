@@ -27,7 +27,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = ""
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "Payload is required."
   end
 
