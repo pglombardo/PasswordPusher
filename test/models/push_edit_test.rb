@@ -39,7 +39,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = "a" * (1.megabyte + 1)
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "The payload is too large.  You can only push up to 1048576 bytes."
   end
 
@@ -63,7 +63,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = "not-a-valid-url"
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "must be a valid HTTP or HTTPS URL."
   end
 
@@ -75,7 +75,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = ""
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "Payload is required."
   end
 
@@ -99,7 +99,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = "a" * 1025
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "The QR code payload is too large.  You can only push up to 1024 bytes."
   end
 
@@ -111,7 +111,7 @@ class PushEditTest < ActiveSupport::TestCase
     )
 
     push.payload = ""
-    assert_not push.valid?(:update)
+    assert_not push.valid?
     assert_includes push.errors[:payload], "Payload is required."
   end
 
