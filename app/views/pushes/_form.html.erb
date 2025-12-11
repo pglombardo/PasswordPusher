@@ -27,7 +27,7 @@
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <%= render partial: "pushes/error", locals: {push: @push} %>
 
-    <%= f.hidden_field :kind, value: :text %>
+    <%= f.hidden_field :kind, value: :text unless action_name == 'edit' %>
 
     <div class='row'>
         <div class='col'>

@@ -90,9 +90,14 @@
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
-          <em class='bi-card-list'></em> <%= _('View Audit Log') %>
-        <% end %>
+        <div class="d-flex gap-2">
+          <%= link_to audit_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
+            <em class='bi-card-list'></em> <%= _('View Audit Log') %>
+          <% end %>
+          <%= link_to edit_push_path(@push), class: 'btn btn-warning btn-sm', rel: 'nofollow' do %>
+            <em class='bi-pencil-square'></em> <%= _('Edit Push') %>
+          <% end %>
+        </div>
       <% end %>
 
       <p class='mt-5 small'> <%= _('Tip: Pushing to an international user?  Change the secret link language using the dropdown menu to the right of the URL.') %> </p>

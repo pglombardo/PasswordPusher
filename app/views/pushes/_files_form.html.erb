@@ -19,10 +19,32 @@
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <%= render partial: "pushes/error", locals: {push: @push} %>
 
-    <%= f.hidden_field :kind, value: :file %>
+    <%= f.hidden_field :kind, value: :file unless action_name == 'edit' %>
 
     <div class='row'>
         <div class='col-sm-8'>
+            <% if @push.persisted? && @push.files.any? %>
+                <div class='row mb-3'>
+                    <div class='col'>
+                        <div class="card">
+                            <h5 class="card-header"><%= _('Uploaded Files') %></h5>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <% @push.files.each do |file| %>
+                                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                <i class="bi bi-file-earmark"></i>
+                                                <%= file.filename %>
+                                                <small class="text-muted">(<%= number_to_human_size(file.byte_size) %>)</small>
+                                            </span>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
             <div class='row mb-3'>
                 <div class='col'>
                     <div class="card">
@@ -34,7 +56,7 @@
                                 <div class="file my-3">
                                     <%= f.file_field :files,
                                                      multiple: true,
-                                                     required: true,
+                                                     required: !@push.persisted?,
                                                      direct_upload: true,
                                                      class: "form-control",
                                                      "data-action": "multi-upload#addFile" %>

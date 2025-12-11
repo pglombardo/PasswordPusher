@@ -1,4 +1,4 @@
-<% if Settings.enable_logins %>
+<% if Settings.enable_logins && action_name != 'edit' %>
   <ul class="nav nav-tabs mb-3 overflow-x-auto flex-nowrap overflow-y-hidden">
     <li class="nav-item">
       <a class="nav-link <%= @text_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'text') %>"><%= _('Passwords') %></a>

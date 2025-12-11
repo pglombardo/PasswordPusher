@@ -177,7 +177,21 @@ class PushesController < BaseController
       return
     end
 
-    @push.assign_attributes(update_params)
+    update_attributes = update_params
+
+    # For file pushes, don't update files if no new files are provided
+    # This prevents clearing existing files when updating other attributes
+    if @push.file? && update_attributes[:files].present?
+      # Remove empty file entries
+      update_attributes[:files] = update_attributes[:files].reject { |f| f.blank? }
+      # If no valid files after filtering, remove the files key entirely
+      update_attributes.delete(:files) if update_attributes[:files].empty?
+    elsif @push.file?
+      # No files in params, so don't touch existing files
+      update_attributes.delete(:files)
+    end
+
+    @push.assign_attributes(update_attributes)
     assign_deletable_by_viewer(@push, update_params)
     assign_retrieval_step(@push, update_params)
 
