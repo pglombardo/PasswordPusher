@@ -95,7 +95,7 @@ gem "translation"
 
 # For File Uploads
 gem "aws-sdk-s3", require: false
-gem "azure-storage-blob", "~> 2.0", require: false
+gem "azure-blob", "~> 0.6.0", require: false
 gem "google-cloud-storage", "~> 1.57", require: false
 
 # Database backends
