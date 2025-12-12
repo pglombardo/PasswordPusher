@@ -88,9 +88,7 @@ class FilePushEditingTest < ApplicationSystemTestCase
       content_type: "text/plain"
     )
 
-    visit edit_push_path(push(io: File.open(Rails.root.join("test/fixtures/files/test-file-2.txt")),
-      filename: "test-file-2.txt",
-      content_type: "text/plain"))
+    visit edit_push_path(push)
 
     # Click the first delete button and accept the confirmation
     accept_confirm do
@@ -98,7 +96,7 @@ class FilePushEditingTest < ApplicationSystemTestCase
     end
 
     # Should stay on edit page
-    assert_selector "h2", text: "Editing Push"
+    assert_selector "h3", text: "Editing Push"
 
     # Should see success message
     assert_text "File was successfully deleted"
