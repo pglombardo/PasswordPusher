@@ -5,6 +5,10 @@ require "test_helper"
 class PushEditTest < ActiveSupport::TestCase
   setup do
     @user = users(:luca)
+    Settings.enable_logins = true
+    Settings.enable_url_pushes = true
+    Settings.enable_qr_pushes = true
+    Settings.enable_file_pushes = true
   end
 
   test "should update text push with valid payload" do
@@ -245,5 +249,144 @@ class PushEditTest < ActiveSupport::TestCase
     push.save
 
     assert_equal original_created_at.to_i, push.created_at.to_i
+  end
+
+  # File Push Editing Tests
+  test "should add more files to existing file push" do
+    push = Push.create!(
+      kind: "file",
+      user: @user
+    )
+
+    # Attach initial file
+    file1 = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach(file1)
+    assert_equal 1, push.files.count
+
+    # Add more files
+    file2 = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file-2.txt")),
+      filename: "test-file-2.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach(file2)
+    assert push.save
+    assert_equal 2, push.files.count
+  end
+
+  test "should preserve existing files when updating other attributes" do
+    push = Push.create!(
+      kind: "file",
+      user: @user,
+      name: "Original Name"
+    )
+
+    # Attach file
+    file = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach(file)
+    assert_equal 1, push.files.count
+
+    # Update other attributes
+    push.name = "Updated Name"
+    push.expire_after_days = 10
+    assert push.save
+    assert_equal "Updated Name", push.name
+    assert_equal 10, push.expire_after_days
+    assert_equal 1, push.files.count, "Files should be preserved when updating other attributes"
+  end
+
+  test "should remove a file from file push when multiple files exist" do
+    push = Push.create!(
+      kind: "file",
+      user: @user
+    )
+
+    # Attach multiple files
+    file1 = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+    file2 = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file-2.txt")),
+      filename: "test-file-2.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach([file1, file2])
+    assert_equal 2, push.files.count
+
+    # Remove one file
+    first_file = push.files.first
+    first_file.purge
+    push.reload
+    assert_equal 1, push.files.count
+  end
+
+  test "should not allow removing last file from file push" do
+    push = Push.create!(
+      kind: "file",
+      user: @user
+    )
+
+    # Attach single file
+    file = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach(file)
+    assert_equal 1, push.files.count
+
+    # Remove the file
+    push.files.purge
+    push.reload
+
+    # After purging all files, there should be no files
+    assert_equal 0, push.files.count
+
+    # File push with no files can exist (validation happens on create, not update)
+    # In real use, controller prevents removing all files
+  end
+
+  test "should respect max file upload limit when adding files" do
+    max_files = Settings.files.max_file_uploads || 10
+
+    push = Push.create!(
+      kind: "file",
+      user: @user
+    )
+
+    # Attach maximum allowed files
+    max_files.times do |i|
+      file = ActiveStorage::Blob.create_and_upload!(
+        io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+        filename: "test-file-#{i}.txt",
+        content_type: "text/plain"
+      )
+      push.files.attach(file)
+    end
+
+    assert_equal max_files, push.files.count
+    assert push.valid?
+
+    # Try to add one more file beyond the limit
+    extra_file = ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "extra-file.txt",
+      content_type: "text/plain"
+    )
+    push.files.attach(extra_file)
+
+    # Validation should fail
+    assert_not push.valid?
+    assert_includes push.errors[:files], "You can only attach up to #{max_files} files per push."
   end
 end

@@ -37,6 +37,17 @@
                                                 <%= file.filename %>
                                                 <small class="text-muted">(<%= number_to_human_size(file.byte_size) %>)</small>
                                             </span>
+                                            <% if @push.files.count > 1 %>
+                                                <%= link_to delete_file_push_path(@push, file_id: file.id),
+                                                    method: :delete,
+                                                    class: "btn btn-sm btn-outline-danger",
+                                                    data: {
+                                                      turbo_method: :delete,
+                                                      turbo_confirm: _('Are you sure you want to delete this file?')
+                                                    } do %>
+                                                    <i class="bi bi-trash"></i>
+                                                <% end %>
+                                            <% end %>
                                         </div>
                                     <% end %>
                                 </div>

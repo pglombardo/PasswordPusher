@@ -98,7 +98,7 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     original_filename = push.files.first.filename.to_s
     assert_equal "monkey.png", original_filename
 
-    # Updating with new files replaces the old ones (standard Rails behavior)
+    # Updating with new files appends them to existing ones
     patch push_path(push), params: {
       push: {
         kind: "file",
@@ -110,9 +110,11 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to preview_push_path(push)
 
     push.reload
-    # Files are replaced, not appended
-    assert_equal 1, push.files.count
-    assert_equal "test-file.txt", push.files.first.filename.to_s
+    # Files are appended, not replaced
+    assert_equal 2, push.files.count
+    filenames = push.files.map { |f| f.filename.to_s }
+    assert_includes filenames, "test-file.txt"
+    assert_includes filenames, "monkey.png"
     assert_equal "Updated message", push.payload
   end
 

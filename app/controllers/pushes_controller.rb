@@ -179,13 +179,13 @@ class PushesController < BaseController
 
     update_attributes = update_params
 
-    # For file pushes, don't update files if no new files are provided
-    # This prevents clearing existing files when updating other attributes
+    # For file pushes, extract new files but don't attach yet (wait until validation passes)
+    new_files = []
     if @push.file? && update_attributes[:files].present?
       # Remove empty file entries
-      update_attributes[:files] = update_attributes[:files].reject { |f| f.blank? }
-      # If no valid files after filtering, remove the files key entirely
-      update_attributes.delete(:files) if update_attributes[:files].empty?
+      new_files = update_attributes[:files].reject { |f| f.blank? }
+      # Remove files key from update_attributes
+      update_attributes.delete(:files)
     elsif @push.file?
       # No files in params, so don't touch existing files
       update_attributes.delete(:files)
@@ -195,7 +195,23 @@ class PushesController < BaseController
     assign_deletable_by_viewer(@push, update_params)
     assign_retrieval_step(@push, update_params)
 
-    if @push.save
+    # Validate file count before attaching
+    if new_files.any?
+      total_file_count = @push.files.count + new_files.count
+      if total_file_count > @push.settings_for_kind.max_file_uploads
+        @push.errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: @push.settings_for_kind.max_file_uploads})
+      end
+    end
+
+    # Only proceed if there are no errors
+    if @push.errors.empty? && @push.valid?
+      # Attach new files after validation passes
+      if new_files.any?
+        @push.files.attach(new_files)
+      end
+    end
+
+    if @push.errors.empty? && @push.save
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
@@ -272,6 +288,45 @@ class PushesController < BaseController
 
     respond_to do |format|
       format.html { redirect_to @push, notice: I18n._("The push content has been deleted and the secret URL expired.") }
+    end
+  end
+
+  def delete_file
+    Rails.logger.info "=== DELETE_FILE ACTION CALLED ==="
+    Rails.logger.info "Push: #{@push.id}, User: #{current_user&.id}, File ID: #{params[:file_id]}"
+
+    # Verify the push belongs to the current user
+    if @push.user != current_user
+      Rails.logger.info "Authorization failed - not owner"
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't delete files from expired pushes
+    if @push.expired
+      Rails.logger.info "Push is expired"
+      redirect_to @push, notice: I18n._("That push has already expired.")
+      return
+    end
+
+    # Prevent deletion of the last file
+    if @push.files.count <= 1
+      Rails.logger.info "Cannot delete last file"
+      redirect_to edit_push_path(@push), alert: I18n._("You cannot delete the last file from a file push.")
+      return
+    end
+
+    # Find the attachment by ID (when iterating @push.files, we get Attachment objects)
+    attachment = @push.files.attachments.find_by(id: params[:file_id])
+    Rails.logger.info "Attachment found: #{attachment.inspect}"
+
+    if attachment
+      attachment.purge
+      Rails.logger.info "File purged successfully"
+      redirect_to edit_push_path(@push), notice: I18n._("File was successfully deleted.")
+    else
+      Rails.logger.info "Attachment not found"
+      redirect_to edit_push_path(@push), alert: I18n._("File not found.")
     end
   end
 
@@ -384,7 +439,7 @@ class PushesController < BaseController
       end
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update].include?(action_name)
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]

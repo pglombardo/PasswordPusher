@@ -17,5 +17,6 @@ constraints(format: :html) do
     get "r", on: :member, as: "preliminary", action: "preliminary"
     delete "expire", on: :member
     get "audit", on: :member
+    delete "delete_file", on: :member
   end
 end
