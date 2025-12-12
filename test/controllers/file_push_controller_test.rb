@@ -330,4 +330,76 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match(/That push doesn&#39;t belong to you/, response.body)
   end
+
+  test "checkboxes are saved when creating a push" do
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    push = Push.create!(
+      kind: "file",
+      user: @luca,
+      retrieval_step: true,
+      deletable_by_viewer: true
+    )
+    file = fixture_file_upload("test-file.txt", "text/plain")
+    push.files.attach(file)
+
+    assert push.retrieval_step, "retrieval_step should be true"
+    assert push.deletable_by_viewer, "deletable_by_viewer should be true"
+  end
+
+  test "checkboxes are saved when editing a push" do
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    push = Push.create!(
+      kind: "file",
+      user: @luca,
+      retrieval_step: false,
+      deletable_by_viewer: false
+    )
+    file = fixture_file_upload("test-file.txt", "text/plain")
+    push.files.attach(file)
+
+    patch push_path(push), params: {
+      push: {
+        retrieval_step: "1",
+        deletable_by_viewer: "1"
+      }
+    }
+    assert_response :redirect
+
+    push.reload
+    assert push.retrieval_step, "retrieval_step should be true after update"
+    assert push.deletable_by_viewer, "deletable_by_viewer should be true after update"
+  end
+
+  test "unchecked checkboxes are saved as false when editing" do
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    push = Push.create!(
+      kind: "file",
+      user: @luca,
+      retrieval_step: true,
+      deletable_by_viewer: true
+    )
+    file = fixture_file_upload("test-file.txt", "text/plain")
+    push.files.attach(file)
+
+    # When unchecked, HTML forms don't send the parameter at all
+    patch push_path(push), params: {
+      push: {
+        payload: "updated"
+      }
+    }
+    assert_response :redirect
+
+    push.reload
+    assert_not push.retrieval_step, "retrieval_step should be false after unchecking"
+    assert_not push.deletable_by_viewer, "deletable_by_viewer should be false after unchecking"
+  end
 end

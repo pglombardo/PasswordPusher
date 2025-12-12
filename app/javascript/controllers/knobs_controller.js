@@ -56,21 +56,31 @@ export default class extends Controller {
         this.viewsRangeTarget.value = Cookies.get(`pwpush_${this.tabNameValue}_views`) || this.defaultViewsValue
         this.viewsRangeLabelTarget.innerText = this.viewsRangeTarget.value + " " + this.langViewsValue
 
+        // Only load checkbox values from cookies if creating a new push (not editing)
+        // Check if the checkbox has x_default attribute - if yes, we're creating, not editing
         if (this.hasRetrievalStepCheckboxTarget) {
-            let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_retrieval_step`)
-            if (typeof checkboxValue == 'string') {
-                this.retrievalStepCheckboxTarget.checked = this.toBoolean(checkboxValue)
-            } else {
-                this.retrievalStepCheckboxTarget.checked = this.defaultRetrievalStepValue
+            let hasDefaultAttr = this.retrievalStepCheckboxTarget.hasAttribute('x_default')
+            if (hasDefaultAttr) {
+                let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_retrieval_step`)
+                if (typeof checkboxValue == 'string') {
+                    this.retrievalStepCheckboxTarget.checked = this.toBoolean(checkboxValue)
+                } else {
+                    this.retrievalStepCheckboxTarget.checked = this.defaultRetrievalStepValue
+                }
             }
+            // else: when editing, keep the value from server (already set in checked attribute)
         }
         if (this.hasDeletableByViewerCheckboxTarget) {
-            let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_deletable_by_viewer`)
-            if (typeof checkboxValue == 'string') {
-                this.deletableByViewerCheckboxTarget.checked = this.toBoolean(checkboxValue)
-            } else {
-                this.deletableByViewerCheckboxTarget.checked = this.defaultDeletableByViewerValue
+            let hasDefaultAttr = this.deletableByViewerCheckboxTarget.hasAttribute('x_default')
+            if (hasDefaultAttr) {
+                let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_deletable_by_viewer`)
+                if (typeof checkboxValue == 'string') {
+                    this.deletableByViewerCheckboxTarget.checked = this.toBoolean(checkboxValue)
+                } else {
+                    this.deletableByViewerCheckboxTarget.checked = this.defaultDeletableByViewerValue
+                }
             }
+            // else: when editing, keep the value from server (already set in checked attribute)
         }
     }
 

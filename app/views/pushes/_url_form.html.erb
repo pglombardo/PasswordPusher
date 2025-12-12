@@ -86,7 +86,7 @@
                     <div class="list-group mx-0">
                         <% if @push.settings_for_kind.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "push[retrieval_step]", nil, @push.settings_for_kind.retrieval_step_default,
+                            <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
                                             { class: 'form-check-input flex-shrink-0',
                                               x_default: @push.settings_for_kind.retrieval_step_default,
                                               "data-knobs-target" => "retrievalStepCheckbox" } %>

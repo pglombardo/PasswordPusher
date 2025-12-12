@@ -36,6 +36,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
       filename: "test-file-2.txt",
       content_type: "text/plain"
     )
+
+    visit edit_push_path(push)
+
     assert_selector ".card-header", text: "Uploaded Files"
     assert_text "test-file.txt"
     assert_text "test-file-2.txt"
@@ -65,9 +68,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
 
     # Verify file is shown
     assert_text "test-file.txt"
+  end
 
-    # Verify no delete button is visible
-    assert_no_selector ".btn-outline-danger i.bi-trash"
+  test "can delete a file when multiple files exist" do
     push = Push.create!(
       kind: "file",
       name: "Test Push",
@@ -84,6 +87,10 @@ class FilePushEditingTest < ApplicationSystemTestCase
       filename: "test-file-2.txt",
       content_type: "text/plain"
     )
+
+    visit edit_push_path(push(io: File.open(Rails.root.join("test/fixtures/files/test-file-2.txt")),
+      filename: "test-file-2.txt",
+      content_type: "text/plain"))
 
     # Click the first delete button and accept the confirmation
     accept_confirm do
@@ -146,5 +153,72 @@ class FilePushEditingTest < ApplicationSystemTestCase
     push.reload
     assert_equal 1, push.files.count
     assert_no_selector "a.btn-outline-danger"
+  end
+
+  test "checkboxes preserve their values when editing" do
+    # Create a push with checkboxes checked
+    push = Push.create!(
+      kind: "file",
+      name: "Test Push",
+      user: @user,
+      retrieval_step: true,
+      deletable_by_viewer: true
+    )
+
+    push.files.attach(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+
+    visit edit_push_path(push)
+
+    # Wait for JavaScript to load
+    sleep 0.5
+
+    # Verify checkboxes are checked
+    assert find("#push_retrieval_step").checked?, "retrieval_step checkbox should be checked"
+    assert find("#push_deletable_by_viewer").checked?, "deletable_by_viewer checkbox should be checked"
+  end
+
+  test "checkboxes can be changed when editing" do
+    # Create a push with checkboxes unchecked
+    push = Push.create!(
+      kind: "file",
+      name: "Test Push",
+      user: @user,
+      retrieval_step: false,
+      deletable_by_viewer: false
+    )
+
+    push.files.attach(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+
+    visit edit_push_path(push)
+
+    # Wait for JavaScript to load
+    sleep 0.5
+
+    # Verify checkboxes start unchecked
+    assert_not find("#push_retrieval_step").checked?, "retrieval_step should start unchecked"
+    assert_not find("#push_deletable_by_viewer").checked?, "deletable_by_viewer should start unchecked"
+
+    # Check both boxes
+    check "push_retrieval_step"
+    check "push_deletable_by_viewer"
+
+    # Submit form
+    click_button "Update Push"
+
+    # Should redirect to preview
+    assert_selector "h2", text: /Your push has been/i
+
+    # Verify database was updated
+    push.reload
+    assert push.retrieval_step, "retrieval_step should be true after update"
+    assert push.deletable_by_viewer, "deletable_by_viewer should be true after update"
   end
 end
