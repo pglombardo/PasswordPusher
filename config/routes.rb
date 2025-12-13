@@ -33,5 +33,11 @@ Rails.application.routes.draw do
     [200, {"Content-Type" => "text/html"}, ["<html style='background:green;width:100%;height:100vh'></html>"]]
   }
 
+  # Prometheus metrics endpoint
+  unless Rails.env.test?
+    require "prometheus_exporter/server"
+    mount PrometheusExporter::Server::WebServer.new => "/metrics"
+  end
+
   post "/csp-violation-report", to: "csp_reports#create"
 end

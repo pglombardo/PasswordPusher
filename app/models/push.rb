@@ -3,7 +3,13 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
+  include PrometheusMetrics
+
   enum :kind, [:text, :file, :url, :qr], validate: true
+
+  # Track Prometheus metrics
+  track_push_created
+  track_push_expired
 
   validate :check_enabled_push_kinds
   validates :url_token, presence: true, uniqueness: true
