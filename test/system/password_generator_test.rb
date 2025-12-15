@@ -224,6 +224,6 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     # Should create push successfully
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Your push has been created", wait: 5
+    assert_text "Push Preview", wait: 5
   end
 end

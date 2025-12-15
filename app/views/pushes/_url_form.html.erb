@@ -87,9 +87,7 @@
                         <% if @push.settings_for_kind.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
                             <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
-                                            { class: 'form-check-input flex-shrink-0',
-                                              x_default: @push.settings_for_kind.retrieval_step_default,
-                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
+                                            checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up redirects.') %></small>

@@ -1,17 +1,9 @@
-<% if flash[:notice]&.include?('updated') %>
-  <% title(_('Your Push Has Been Updated')) %>
-<% else %>
-  <% title(_('Your Push Has Been Created')) %>
-<% end %>
+<%= title(_('Push Preview')) %>
 
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <% if flash[:notice]&.include?('updated') %>
-        <h2 class='mt-5'><%= _('Your push has been updated.') %></h2>
-      <% else %>
-        <h2 class='mt-5'><%= _('Your push has been created.') %></h2>
-      <% end %>
+      <h2 class='mt-5'><%= _('Push Preview') %></h2>
 
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
       <%= render partial: 'application/secret_url_bar' %>

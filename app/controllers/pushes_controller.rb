@@ -292,9 +292,6 @@ class PushesController < BaseController
   end
 
   def delete_file
-    Rails.logger.info "=== DELETE_FILE ACTION CALLED ==="
-    Rails.logger.info "Push: #{@push.id}, User: #{current_user&.id}, File ID: #{params[:file_id]}"
-
     # Verify the push belongs to the current user
     if @push.user != current_user
       Rails.logger.info "Authorization failed - not owner"

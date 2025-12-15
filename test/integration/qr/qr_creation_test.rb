@@ -52,7 +52,7 @@ class QrCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Password page
     get request.url.sub("/preview", "")

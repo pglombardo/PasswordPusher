@@ -109,50 +109,6 @@ class FilePushEditingTest < ApplicationSystemTestCase
     assert_no_selector "a.btn-outline-danger"
   end
 
-  test "can add more files and then delete one" do
-    # Create a file push with 1 file
-    push = Push.create!(
-      kind: "file",
-      name: "Test Push",
-      user: @user
-    )
-
-    push.files.attach(
-      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
-      filename: "test-file.txt",
-      content_type: "text/plain"
-    )
-    # Skip file upload test for now - too complex for system test
-    skip "File upload via form not working in system test"
-
-    attach_file "push_files", Rails.root.join("test/fixtures/files/test-file-2.txt")
-    click_button "Update Push"
-
-    # Should be on preview page
-    assert_current_path preview_push_path(push)
-
-    # Go back to edit
-    visit edit_push_path(push)
-
-    # Now should have 2 files and 2 delete buttons
-    assert_text "test-file.txt"
-    assert_text "test-file-2.txt"
-    assert_equal 2, all("a.btn-outline-danger").count
-
-    # Delete one file
-    accept_confirm do
-      first("a.btn-outline-danger").click
-    end
-
-    # Should see success message
-    assert_text "File was successfully deleted"
-
-    # Verify 1 file remaining and no delete button
-    push.reload
-    assert_equal 1, push.files.count
-    assert_no_selector "a.btn-outline-danger"
-  end
-
   test "checkboxes preserve their values when editing" do
     # Create a push with checkboxes checked
     push = Push.create!(

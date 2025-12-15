@@ -22,7 +22,7 @@ class QrRequestedLocaleTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Retrieve the push with a locale
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
@@ -68,7 +68,7 @@ class QrRequestedLocaleTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Retrieve the push with a locale
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
