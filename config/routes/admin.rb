@@ -3,7 +3,7 @@ if Settings.enable_logins
     get "/admin", to: "admin#index", as: :admin_root
 
     namespace :admin do
-      resources :users, only: [:index] do
+      resources :users, only: [:index, :destroy] do
         member do
           patch :promote
           patch :revoke

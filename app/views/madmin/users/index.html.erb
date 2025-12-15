@@ -72,9 +72,18 @@
                 <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
               <% end %>
               <td class="text-end">
-                <div class="btn-group btn-group-sm" role="group">
-                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary" %>
+                <div class="d-flex gap-2 justify-content-end">
                   <%# Edit button removed - users cannot be edited %>
+                  <% if record != current_user %>
+                    <%= render "delete_button", record: record, path: resource.show_path(record), button_text: _("Delete"), show_icon: false %>
+                  <% else %>
+                    <span class="text-muted small d-flex align-items-center justify-content-center gap-1" style="width: 100%;" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= _("Cannot delete your own account") %>">
+                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                      </svg>
+                    </span>
+                  <% end %>
+                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary btn-sm" %>
                 </div>
               </td>
             </tr>

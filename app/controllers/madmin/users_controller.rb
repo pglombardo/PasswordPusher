@@ -22,6 +22,25 @@ module Madmin
       end
     end
 
+    def destroy
+      @record = resource.model_find(params[:id])
+
+      # Prevent admin from deleting their own account
+      if @record == current_user
+        redirect_to resource.index_path, alert: "You cannot delete your own account."
+        return
+      end
+
+      user_email = @record.email
+      push_count = @record.pushes.count
+
+      if @record.destroy
+        redirect_to resource.index_path, notice: "User #{user_email} and their #{push_count} push(es) have been deleted."
+      else
+        redirect_to resource.show_path(@record), alert: "Failed to delete user #{user_email}"
+      end
+    end
+
     private
 
     def user_params
