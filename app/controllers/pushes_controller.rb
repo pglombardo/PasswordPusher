@@ -294,35 +294,29 @@ class PushesController < BaseController
   def delete_file
     # Verify the push belongs to the current user
     if @push.user != current_user
-      Rails.logger.info "Authorization failed - not owner"
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
       return
     end
 
     # Can't delete files from expired pushes
     if @push.expired
-      Rails.logger.info "Push is expired"
       redirect_to @push, notice: I18n._("That push has already expired.")
       return
     end
 
     # Prevent deletion of the last file
     if @push.files.count <= 1
-      Rails.logger.info "Cannot delete last file"
       redirect_to edit_push_path(@push), alert: I18n._("You cannot delete the last file from a file push.")
       return
     end
 
     # Find the attachment by ID (when iterating @push.files, we get Attachment objects)
     attachment = @push.files.attachments.find_by(id: params[:file_id])
-    Rails.logger.info "Attachment found: #{attachment.inspect}"
 
     if attachment
       attachment.purge
-      Rails.logger.info "File purged successfully"
       redirect_to edit_push_path(@push), notice: I18n._("File was successfully deleted.")
     else
-      Rails.logger.info "Attachment not found"
       redirect_to edit_push_path(@push), alert: I18n._("File not found.")
     end
   end

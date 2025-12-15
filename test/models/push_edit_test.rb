@@ -248,7 +248,7 @@ class PushEditTest < ActiveSupport::TestCase
     push.payload = "Updated password"
     push.save
 
-    assert_equal original_created_at.to_i, push.created_at.to_i
+    assert_equal original_created_at, push.created_at
   end
 
   # File Push Editing Tests

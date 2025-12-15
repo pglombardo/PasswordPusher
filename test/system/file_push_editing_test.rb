@@ -127,8 +127,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
 
     visit edit_push_path(push)
 
-    # Wait for JavaScript to load
-    sleep 0.5
+    # Wait for checkboxes to be rendered and loaded
+    assert_selector "#push_retrieval_step"
+    assert_selector "#push_deletable_by_viewer"
 
     # Verify checkboxes are checked
     assert find("#push_retrieval_step").checked?, "retrieval_step checkbox should be checked"
@@ -153,8 +154,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
 
     visit edit_push_path(push)
 
-    # Wait for JavaScript to load
-    sleep 0.5
+    # Wait for checkboxes to be rendered and loaded
+    assert_selector "#push_retrieval_step"
+    assert_selector "#push_deletable_by_viewer"
 
     # Verify checkboxes start unchecked
     assert_not find("#push_retrieval_step").checked?, "retrieval_step should start unchecked"
