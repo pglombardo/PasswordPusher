@@ -5,10 +5,10 @@
     data-knobs-tab-name-value="url"
     data-knobs-lang-day-value="<%= _('Day') %>"
     data-knobs-lang-days-value="<%= _('Days') %>"
-    data-knobs-default-days-value="<%= @push.persisted? ? @push.expire_after_days : @push.settings_for_kind.expire_after_days_default %>"
+    data-knobs-default-days-value="<%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %>"
     data-knobs-lang-view-value="<%= _('View') %>"
     data-knobs-lang-views-value="<%= _('Views') %>"
-    data-knobs-default-views-value="<%= @push.persisted? ? @push.expire_after_views : @push.settings_for_kind.expire_after_views_default %>"
+    data-knobs-default-views-value="<%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %>"
     data-knobs-lang-save-value="<%= _('Save') %>"
     data-knobs-lang-saved-value="<%= _('Saved!') %>"
     data-knobs-default-retrieval-step-value="<%= @push.settings_for_kind.retrieval_step_default %>"
@@ -42,7 +42,7 @@
             <div class='row'>
                 <div><%= _('Expire secret link and delete after:') %></div>
                 <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_days", @push.persisted? ? @push.expire_after_days : @push.settings_for_kind.expire_after_days_default,
+                    <%= range_field_tag("push_expire_after_days", @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default,
                                         { :name => "push[expire_after_days]",
                                           :class => "form-range",
                                           :min => @push.settings_for_kind.expire_after_days_min,
@@ -53,13 +53,13 @@
                                           }) %>
                 </div>
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.expire_after_days : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_views", @push.persisted? ? @push.expire_after_views : @push.settings_for_kind.expire_after_views_default,
+                    <%= range_field_tag("push_expire_after_views", @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default,
                                        { :name => "push[expire_after_views]",
                                          :class => "form-range",
                                          :min => @push.settings_for_kind.expire_after_views_min,
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.expire_after_views : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
