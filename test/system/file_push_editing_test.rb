@@ -168,7 +168,7 @@ class FilePushEditingTest < ApplicationSystemTestCase
     click_button "Update Push"
 
     # Should redirect to preview
-    assert_selector "h2", text: /Your push has been/i
+    assert_selector "h2", text: "Push Preview"
 
     # Verify database was updated
     push.reload
