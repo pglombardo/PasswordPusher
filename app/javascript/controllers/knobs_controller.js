@@ -57,9 +57,9 @@ export default class extends Controller {
         this.viewsRangeLabelTarget.innerText = this.viewsRangeTarget.value + " " + this.langViewsValue
 
         // Only load checkbox values from cookies if creating a new push (not editing)
-        // Check if the checkbox has x_default attribute - if yes, we're creating, not editing
+        // Check if the checkbox has x-default attribute - if yes, we're creating, not editing
         if (this.hasRetrievalStepCheckboxTarget) {
-            let hasDefaultAttr = this.retrievalStepCheckboxTarget.hasAttribute('x_default')
+            let hasDefaultAttr = this.retrievalStepCheckboxTarget.hasAttribute('x-default')
             if (hasDefaultAttr) {
                 let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_retrieval_step`)
                 if (typeof checkboxValue == 'string') {
@@ -71,7 +71,7 @@ export default class extends Controller {
             // else: when editing, keep the value from server (already set in checked attribute)
         }
         if (this.hasDeletableByViewerCheckboxTarget) {
-            let hasDefaultAttr = this.deletableByViewerCheckboxTarget.hasAttribute('x_default')
+            let hasDefaultAttr = this.deletableByViewerCheckboxTarget.hasAttribute('x-default')
             if (hasDefaultAttr) {
                 let checkboxValue = Cookies.get(`pwpush_${this.tabNameValue}_deletable_by_viewer`)
                 if (typeof checkboxValue == 'string') {
