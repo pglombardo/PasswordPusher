@@ -97,7 +97,7 @@
                           </svg>
                           <%= _("Revoke") %>
                         <% end %>
-                        <%= render "delete_button", user: user %>
+                        <%= render "delete_button", user: user, push_count: user.pushes.count %>
                       </div>
                     <% else %>
                       <span class="text-muted small"><%= _("Cannot modify your own account") %></span>
@@ -185,7 +185,7 @@
                         </svg>
                         <%= _("Promote") %>
                       <% end %>
-                      <%= render "delete_button", user: user %>
+                      <%= render "delete_button", user: user, push_count: user.pushes.count %>
                     </div>
                   </td>
                 </tr>

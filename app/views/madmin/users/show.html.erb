@@ -23,9 +23,6 @@
       <%= instance_exec(@record, &action) %>
     <% end %>
     <%# Edit button removed - users cannot be edited %>
-    <% if @record != current_user %>
-      <%= render "delete_button", record: @record, path: madmin_user_path(@record), button_text: _("Delete User"), show_icon: true %>
-    <% end %>
   </div>
 </div>
 

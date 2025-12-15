@@ -75,7 +75,7 @@
                 <div class="d-flex gap-2 justify-content-end">
                   <%# Edit button removed - users cannot be edited %>
                   <% if record != current_user %>
-                    <%= render "delete_button", record: record, path: resource.show_path(record), button_text: _("Delete"), show_icon: false %>
+                    <%= render "delete_button", record: record, path: madmin_user_path(record), button_text: _("Delete"), show_icon: false, push_count: record.pushes.count %>
                   <% else %>
                     <span class="text-muted small d-flex align-items-center justify-content-center gap-1" style="width: 100%;" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= _("Cannot delete your own account") %>">
                       <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
