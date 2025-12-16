@@ -32,8 +32,7 @@ module Madmin
 
       assert_redirected_to madmin_users_path
       follow_redirect!
-      assert_match(/#{@luca.email}/, flash[:notice])
-      assert_match(/deleted/, flash[:notice])
+      assert_equal "User #{@luca.email} has been deleted.", flash[:notice]
     end
 
     test "deleting user via madmin also deletes their pushes" do
@@ -64,24 +63,6 @@ module Madmin
       assert_redirected_to madmin_users_path
       follow_redirect!
       assert_match(/cannot delete your own account/i, flash[:alert])
-    end
-
-    test "madmin delete success message includes push count" do
-      2.times do
-        Push.create!(
-          kind: :text,
-          payload: "Test",
-          user: @luca,
-          expire_after_days: 7,
-          expire_after_views: 10
-        )
-      end
-      @luca.reload
-
-      delete madmin_user_path(@luca)
-
-      follow_redirect!
-      assert_match(/2 push/, flash[:notice])
     end
 
     test "non-admin cannot delete users via madmin" do

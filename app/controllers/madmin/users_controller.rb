@@ -32,11 +32,10 @@ module Madmin
       end
 
       user_email = @record.email
-      push_count = @record.pushes.count
 
       begin
         if @record.destroy
-          redirect_to resource.index_path, notice: "User #{user_email} and their #{push_count} push(es) have been deleted."
+          redirect_to resource.index_path, notice: "User #{user_email} has been deleted."
         else
           redirect_to resource.show_path(@record), alert: "Failed to delete user #{user_email}"
         end

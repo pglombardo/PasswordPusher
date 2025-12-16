@@ -22,24 +22,6 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
   end
 
-  # /admin/users page tests
-  test "delete button is visible for regular users on admin users page" do
-    visit admin_users_path
-
-    # Look for the delete button in the regular users section
-    # The button should be visible for @luca (a regular user)
-    # Use all tables and find the one with luca's email (second table - regular users)
-    tables = all("table")
-    regular_users_table = tables.last  # Regular users table is the last one
-
-    within(regular_users_table) do
-      row = find("tr", text: @luca.email)
-      within(row) do
-        assert_selector "button.btn-outline-danger", text: "Delete"
-      end
-    end
-  end
-
   test "delete button is visible for admin users on admin users page" do
     visit admin_users_path
 

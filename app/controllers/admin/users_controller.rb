@@ -51,10 +51,9 @@ module Admin
       end
 
       user_email = @user.email
-      push_count = @user.pushes.count
 
       if @user.destroy
-        redirect_to admin_users_path, notice: "User #{user_email} and their #{push_count} push(es) have been deleted."
+        redirect_to admin_users_path, notice: "User #{user_email} has been deleted."
       else
         error_message = @user.errors.full_messages.to_sentence.presence || "Unknown error"
         redirect_to admin_users_path, alert: "Failed to delete user #{user_email}: #{error_message}"
