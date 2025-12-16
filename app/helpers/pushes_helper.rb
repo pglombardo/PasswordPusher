@@ -22,6 +22,8 @@ module PushesHelper
       "data-knobs-target" => "#{target_name}Checkbox"
     }
 
+    base_options[:disabled] = true if push.expired?
+
     if push.persisted?
       base_options
     else

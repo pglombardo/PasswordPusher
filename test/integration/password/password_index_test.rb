@@ -74,11 +74,12 @@ class PasswordIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Verify the push controls buttons
-    # Since this is an expired push, only Audit button should be present
+    # Since this is an expired push, Edit and Audit buttons should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
-      assert_select controls.first, "a", 1 # Should have 1 buttons (Audit)
+      assert_select controls.first, "a", 2 # Should have 2 buttons (Edit, Audit)
 
       # Check the text content of the buttons
+      assert_select controls.first, "a", text: "Edit", count: 1
       assert_select controls.first, "a", text: "Audit", count: 1
     end
   end

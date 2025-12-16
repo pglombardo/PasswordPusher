@@ -143,10 +143,11 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     assert_equal "Other user's QR content", push.payload
   end
 
-  test "cannot edit expired qr push" do
+  test "can edit note on expired qr push" do
     push = Push.create!(
       kind: "qr",
       payload: "Expired QR content",
+      note: "Original note",
       user: @luca
     )
 
@@ -154,15 +155,38 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
 
     get edit_push_path(push)
-    assert_redirected_to push_path(push)
+    assert_response :success
 
     patch push_path(push), params: {
       push: {
-        kind: "qr",
+        note: "Updated note for expired QR push"
+      }
+    }
+    assert_redirected_to preview_push_path(push)
+
+    push.reload
+    assert_equal "Updated note for expired QR push", push.note
+  end
+
+  test "cannot edit payload on expired qr push" do
+    push = Push.create!(
+      kind: "qr",
+      payload: "Expired QR content",
+      note: "Original note",
+      user: @luca
+    )
+
+    # Manually set expired without triggering validations
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    patch push_path(push), params: {
+      push: {
         payload: "New QR content"
       }
     }
-    assert_redirected_to push_path(push)
+    assert_redirected_to edit_push_path(push)
+    follow_redirect!
+    assert_match(/can only have their note or name updated/i, response.body)
   end
 
   test "edit page shows update button for qr push" do
@@ -197,5 +221,75 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to preview_push_path(push)
     push.reload
     assert_equal 1024, push.payload.length
+  end
+
+  test "expired qr push edit page shows edit button and hides restricted inputs" do
+    push = Push.create!(
+      kind: "qr",
+      payload: "Expired QR content",
+      name: "Test QR Push",
+      note: "Test note",
+      user: @luca
+    )
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Edit button/form should be present
+    assert_select "button[type=submit]", text: /Update Push/
+
+    # Name and note fields should be present (editable)
+    assert_select "input#push_name"
+    assert_select "textarea#push_note"
+
+    # QR payload field should be disabled
+    assert_select "textarea#push_payload[disabled][readonly]"
+
+    # Expiration settings should be disabled
+    assert_select "input[name='push[expire_after_days]'][disabled]"
+    assert_select "input[name='push[expire_after_views]'][disabled]"
+
+    # Passphrase field should be disabled
+    assert_select "input#push_passphrase[disabled]"
+
+    # Password generator button should be disabled
+    assert_select "button#generate_password[disabled]"
+
+    # Checkboxes should be disabled
+    assert_select "input[name='push[retrieval_step]'][disabled]"
+    assert_select "input[name='push[deletable_by_viewer]'][disabled]"
+  end
+
+  test "attempting to update restricted fields on expired qr push shows error not success" do
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    push = Push.create!(
+      kind: :qr,
+      payload: "Original QR content",
+      note: "Original note",
+      user: @luca
+    )
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    # Simulate user removing disabled attributes and trying to update restricted fields
+    patch push_path(push), params: {
+      push: {
+        payload: "New QR content", # Restricted field
+        expire_after_days: 5, # Restricted field
+        expire_after_views: 10, # Restricted field
+        passphrase: "newpass" # Restricted field
+      }
+    }
+
+    # Should redirect with alert
+    assert_redirected_to edit_push_path(push)
+    follow_redirect!
+
+    # Should show alert message about restricted fields being logged
+    assert_match(/restricted fields has been logged/i, response.body)
+    assert_no_match(/successfully updated/i, response.body)
   end
 end

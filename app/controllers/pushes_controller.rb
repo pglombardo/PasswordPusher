@@ -117,12 +117,6 @@ class PushesController < BaseController
       return
     end
 
-    # Can't edit expired pushes
-    if @push.expired
-      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
-      return
-    end
-
     # Set the appropriate tab based on push kind
     if @push.kind == "text"
       @text_tab = true
@@ -171,9 +165,43 @@ class PushesController < BaseController
       return
     end
 
-    # Can't edit expired pushes
-    if @push.expired
-      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+    # For expired pushes, only allow updating the note and name
+    if @push.expired?
+      # Security check: log if user attempts to modify restricted fields
+      restricted_fields = update_params.keys.map(&:to_sym) - [:note, :name]
+      if restricted_fields.any?
+        Rails.logger.warn "Attempt to modify restricted fields on expired push #{@push.url_token}: #{restricted_fields.join(", ")}"
+        redirect_to edit_push_path(@push), alert: I18n._("Expired pushes can only have their note or name updated. Attempt to modify restricted fields has been logged.")
+        return
+      end
+
+      # Only allow note and name to be updated on expired pushes
+      update_attributes = update_params.slice(:note, :name)
+
+      if update_attributes.empty?
+        redirect_to edit_push_path(@push), notice: I18n._("Expired pushes can only have their note or name updated.")
+        return
+      end
+
+      @push.assign_attributes(update_attributes)
+
+      if @push.save(context: :update_note)
+        log_update(@push)
+        redirect_to preview_push_path(@push), notice: I18n._("Note was successfully updated.")
+      else
+        if @push.kind == "text"
+          @text_tab = true
+        elsif @push.kind == "file"
+          @files_tab = true
+        elsif @push.kind == "url"
+          @url_tab = true
+        elsif @push.kind == "qr"
+          @qr_tab = true
+        else
+          @text_tab = true
+        end
+        render action: "edit", status: :unprocessable_content
+      end
       return
     end
 

@@ -22,6 +22,7 @@
     data-pwgen-min-syllable-length-default-value="<%= Settings.gen.min_syllable_length %>"
     data-pwgen-max-syllable-length-default-value="<%= Settings.gen.max_syllable_length %>"
     data-pwgen-syllables-count-default-value="<%= Settings.gen.syllables_count %>"
+    data-pwgen-expired-value="<%= @push.expired? %>"
     data-knobs-ga-enabled-value="<%= ENV.key?('GA_ENABLE') %>">
 <%= render partial: "shared/topnav" %>
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
@@ -36,8 +37,10 @@
                                         placeholder: _('Enter the Password or Text to push...'),
                                         autocomplete: "off",
                                         spellcheck: "false",
-                                        autofocus: true,
-                                        required: true,
+                                        autofocus: !@push.expired?,
+                                        required: !@push.expired?,
+                                        disabled: @push.expired?,
+                                        readonly: @push.expired?,
                                         "data-pwgen-target" => "payloadInput",
                                         "data-passwords-target" => "payloadInput",
                                         "data-action" => "input->passwords#updateCharacterCount pwgen#setContentNotGenerated"
@@ -61,6 +64,7 @@
                                           :min => @push.settings_for_kind.expire_after_days_min,
                                           :max => @push.settings_for_kind.expire_after_days_max,
                                           :step => "1",
+                                          :disabled => @push.expired?,
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
                                         }) %>
@@ -77,6 +81,7 @@
                                             :min => @push.settings_for_kind.expire_after_views_min,
                                             :max => @push.settings_for_kind.expire_after_views_max,
                                             :step => "1",
+                                            :disabled => @push.expired?,
                                             "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                             "data-knobs-target" => "viewsRange"
                                         }) %>
@@ -122,6 +127,7 @@
                         <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
                         <%= f.text_field(:passphrase, { class: "form-control",
                                                         autocomplete: "off",
+                                                        disabled: @push.expired?,
                                                         placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                     </div>
                 </div>
@@ -142,9 +148,11 @@
                     <button class="btn btn-secondary w-75" type="button"
                         id='generate_password'
                         data-knobs-target="generatePasswordButton"
-                        data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
+                        <%= "disabled" if @push.expired? %>
+                        data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _("Generate Password") %></button>
                     <button class="btn btn-secondary" type="button" id='configure_generator'
                         data-action="pwgen#configureGenerator"
+                        <%= "disabled" if @push.expired? %>
                         data-bs-toggle="modal" data-bs-target="#configureModal">
                         <em class="bi bi-gear"></em>
                     </button>
@@ -157,7 +165,8 @@
                         <span class="input-group-text"><%= Push.human_attribute_name(:name) %></span>
                         <%= f.text_field(:name, { class: "form-control",
                                                 placeholder: _('Optional'),
-                                                autocomplete: "off" }) %>
+                                                autocomplete: "off",
+                                                autofocus: @push.expired? }) %>
                     </div>
                     <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
                 </div>

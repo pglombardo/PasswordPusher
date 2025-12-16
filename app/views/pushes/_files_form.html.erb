@@ -68,6 +68,7 @@
                                     <%= f.file_field :files,
                                                      multiple: true,
                                                      required: !@push.persisted?,
+                                                     disabled: @push.expired?,
                                                      direct_upload: true,
                                                      class: "form-control",
                                                      "data-action": "multi-upload#addFile" %>
@@ -87,6 +88,7 @@
                                           :min => @push.settings_for_kind.expire_after_days_min,
                                           :max => @push.settings_for_kind.expire_after_days_max,
                                           :step => "1",
+                                          :disabled => @push.expired?,
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
                                           "data-knobs-target" => "daysRange"
                                           }) %>
@@ -104,6 +106,7 @@
                                          :min => @push.settings_for_kind.expire_after_views_min,
                                          :max => @push.settings_for_kind.expire_after_views_max,
                                          :step => "1",
+                                         :disabled => @push.expired?,
                                          "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
                                          "data-knobs-target" => "viewsRange"
                                          }) %>
@@ -148,8 +151,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
                         <%= f.text_field(:passphrase, { class: "form-control",
-                                                        autocomplete: "off",
-                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                                                        autocomplete: "off",                                                        disabled: @push.expired?,                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                     </div>
                 </div>
             </div>
@@ -171,7 +173,8 @@
                         <span class="input-group-text"><%= Push.human_attribute_name(:name) %></span>
                         <%= f.text_field(:name, { class: "form-control",
                                                 placeholder: _('Optional'),
-                                                autocomplete: "off" }) %>
+                                                autocomplete: "off",
+                                                autofocus: @push.expired? }) %>
                     </div>
                     <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
                 </div>
@@ -183,7 +186,9 @@
                                             rows: 3,
                                             placeholder: _('Optional: A message to be included with the push'),
                                             spellcheck: false,
-                                            autocomplete: "off" }) %>
+                                            autocomplete: "off",
+                                            disabled: @push.expired?,
+                                            readonly: @push.expired? }) %>
                 </div>
                 <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible to the receiving party') %></div>
             </div>

@@ -12,3 +12,20 @@
     background-color: #1acaca;
 }
 */
+
+/* Disabled inputs cursor styling */
+textarea[disabled],
+select[disabled],
+button[disabled],
+.form-control[disabled],
+.form-control[readonly],
+.form-range[disabled] {
+    cursor: not-allowed;
+}
+
+/* Also apply to labels and divs containing disabled elements */
+label:has(input[disabled]),
+.col-10:has(input[disabled]),
+.btn-group:has(button[disabled]) {
+    cursor: not-allowed;
+}

@@ -198,15 +198,19 @@
 
     <div class='row w-100'>
         <div class='col'>
-            <% if @push.expired == false %>
-                <div class='text-center'>
-                    <%= link_to edit_push_path(@push), class: 'btn btn-warning mt-3', rel: 'nofollow' do %>
-                        <em class="bi bi-pencil"></em> <%= _('Edit') %>
-                    <% end %>
+            <div class='text-center'>
+                <%= link_to edit_push_path(@push), class: 'btn btn-warning mt-3', rel: 'nofollow' do %>
+                    <em class="bi bi-pencil"></em> <%= _('Edit') %>
+                <% end %>
+                <% if @push.expired? %>
+                    <p class="text-muted small mt-2"><em class="bi-info-circle"></em> <%= _("Expired pushes can only have their note or name edited.") %></p>
+                <% else %>
                     <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
                         <em class="bi bi-trash"></em> <%= _('Expire Now') %>
                     </button>
-                </div>
+                <% end %>
+            </div>
+            <% if @push.expired == false %>
 
                 <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true" data-controller="form">
                     <div class="modal-dialog modal-dialog-centered">

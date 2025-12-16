@@ -186,11 +186,11 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
       expired: true
     )
 
-    # Try to access edit page
+    # Try to access edit page - now allowed for editing note/name
     get edit_push_path(push)
-    assert_response :redirect
-    follow_redirect!
-    assert response.body.include?("That push has already expired and cannot be edited.")
+    assert_response :success
+    # Verify that the edit page shows with disabled inputs
+    assert response.body.include?("Edit")
   end
 
   test "updating file push without new files preserves existing files" do

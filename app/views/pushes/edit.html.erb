@@ -4,6 +4,15 @@
   <h3 class="mt-4 mb-4"><%= _('Editing Push') %> <%= @push.url_token %></h3>
 </div>
 
+<% if @push.expired? %>
+  <div class="container">
+    <div class="alert alert-warning" role="alert">
+      <em class="bi bi-exclamation-triangle"></em>
+      <%= _("This push has expired. You can only edit the note and name fields for record-keeping purposes.") %>
+    </div>
+  </div>
+<% end %>
+
 <% if @text_tab %>
   <%= render "form", push: @push %>
 <% elsif @files_tab %>

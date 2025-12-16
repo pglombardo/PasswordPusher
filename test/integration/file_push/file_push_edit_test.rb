@@ -143,10 +143,11 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     assert_equal "Other user's files", push.payload
   end
 
-  test "cannot edit expired file push" do
+  test "can edit note on expired file push" do
     push = Push.create!(
       kind: "file",
       payload: "Expired files",
+      note: "Original note",
       user: @luca
     )
     push.files.attach(fixture_file_upload("monkey.png", "image/png"))
@@ -155,15 +156,39 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
 
     get edit_push_path(push)
-    assert_redirected_to push_path(push)
+    assert_response :success
 
     patch push_path(push), params: {
       push: {
-        kind: "file",
+        note: "Updated note for expired file push"
+      }
+    }
+    assert_redirected_to preview_push_path(push)
+
+    push.reload
+    assert_equal "Updated note for expired file push", push.note
+  end
+
+  test "cannot edit payload on expired file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Expired files",
+      note: "Original note",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    # Manually set expired without triggering validations
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    patch push_path(push), params: {
+      push: {
         payload: "New message"
       }
     }
-    assert_redirected_to push_path(push)
+    assert_redirected_to edit_push_path(push)
+    follow_redirect!
+    assert_match(/can only have their note or name updated/i, response.body)
   end
 
   test "edit page shows update button for file push" do
@@ -177,5 +202,76 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     get edit_push_path(push)
     assert_response :success
     assert_select "button[type=submit]", text: /Update Push/
+  end
+
+  test "expired file push edit page shows edit button and disable restricted inputs" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Expired files",
+      name: "Test File Push",
+      note: "Test note",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Edit button/form should be present
+    assert_select "button[type=submit]", text: /Update Push/
+
+    # Name and note fields should be present (editable)
+    assert_select "input#push_name"
+    assert_select "textarea#push_note"
+
+    # Payload field should be disabled
+    assert_select "textarea#push_payload[disabled][readonly]"
+
+    # File upload should be disabled
+    assert_select "input[type=file][disabled]"
+
+    # Expiration settings should be disabled
+    assert_select "input[name='push[expire_after_days]'][disabled]"
+    assert_select "input[name='push[expire_after_views]'][disabled]"
+
+    # Passphrase field should be disabled
+    assert_select "input#push_passphrase[disabled]"
+
+    # Checkboxes should be disabled
+    assert_select "input[name='push[retrieval_step]'][disabled]"
+    assert_select "input[name='push[deletable_by_viewer]'][disabled]"
+  end
+
+  test "attempting to update restricted fields on expired file push shows error not success" do
+    @luca = users(:luca)
+    @luca.confirm
+    sign_in @luca
+
+    push = Push.create!(
+      kind: :file,
+      note: "Original note",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+    push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
+
+    # Simulate user removing disabled attributes and trying to update restricted fields
+    patch push_path(push), params: {
+      push: {
+        payload: "New message", # Restricted field
+        expire_after_days: 5, # Restricted field
+        expire_after_views: 10, # Restricted field
+        passphrase: "newpass" # Restricted field
+      }
+    }
+
+    # Should redirect with alert
+    assert_redirected_to edit_push_path(push)
+    follow_redirect!
+
+    # Should show alert message about restricted fields being logged
+    assert_match(/restricted fields has been logged/i, response.body)
+    assert_no_match(/successfully updated/i, response.body)
   end
 end
