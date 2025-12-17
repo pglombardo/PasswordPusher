@@ -37,10 +37,10 @@ module Madmin
         if @record.destroy
           redirect_to resource.index_path, notice: "User #{user_email} has been deleted."
         else
-          redirect_to resource.show_path(@record), alert: "Failed to delete user #{user_email}"
+          redirect_to resource.index_path, alert: "Failed to delete user #{user_email}"
         end
       rescue => e
-        redirect_to resource.show_path(@record), alert: "An error occurred while deleting user #{user_email}: #{e.message}"
+        redirect_to resource.index_path, alert: "An error occurred while deleting user #{user_email}: #{e.message}"
       end
     end
 

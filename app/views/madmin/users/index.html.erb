@@ -77,7 +77,7 @@
                   <% if record != current_user %>
                     <%= render "shared/delete_user_button", user: record, path: madmin_user_path(record), button_text: _("Delete"), push_count: record.pushes.count %>
                   <% else %>
-                    <span class="text-muted small d-flex align-items-center gap-1" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= _("Cannot delete your own account") %>">
+                    <span class="text-muted small d-flex align-items-center gap-1" data-bs-toggle="tooltip" data-bs-placement="top" title="<%= _("You cannot delete your own account.") %>">
                       <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
                       </svg>

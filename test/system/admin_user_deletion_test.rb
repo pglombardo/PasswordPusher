@@ -22,7 +22,7 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
   end
 
-  test "delete button is visible for admin users on admin users page" do
+  test "delete button is visible for non-current-user admin accounts" do
     visit admin_users_path
 
     # Promote @luca to admin first
@@ -89,17 +89,9 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
 
   # /admin/dbexplore/users page tests (madmin)
   test "delete button is visible on madmin user show page" do
-    # First update the show page to include delete button
     visit madmin_user_path(@luca)
 
-    # Check if delete button exists
-    # Note: Currently the madmin show page doesn't have a delete button
-    # This test will fail until we add it
-    if has_selector?("form[action='#{madmin_user_path(@luca)}'] button.btn-outline-danger")
-      assert_selector "form[action='#{madmin_user_path(@luca)}'] button.btn-outline-danger"
-    else
-      skip "Delete button not yet implemented on madmin show page"
-    end
+    assert_selector "form[action='#{madmin_user_path(@luca)}'] button.btn-outline-danger"
   end
 
   test "delete button is visible on madmin users index page" do
@@ -128,14 +120,10 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
   test "delete button has confirmation warning on madmin user show page" do
     visit madmin_user_path(@luca)
 
-    if has_selector?("form[action='#{madmin_user_path(@luca)}']")
-      delete_form = find("form[action='#{madmin_user_path(@luca)}']")
-      has_confirm = delete_form["data-turbo-confirm"].present? ||
-        (delete_form.has_selector?("button") && delete_form.find("button")["data-turbo-confirm"].present?)
-      assert has_confirm, "Delete form should have data-turbo-confirm attribute"
-    else
-      skip "Delete button not yet implemented on madmin show page"
-    end
+    delete_form = find("form[action='#{madmin_user_path(@luca)}']")
+    has_confirm = delete_form["data-turbo-confirm"].present? ||
+      (delete_form.has_selector?("button") && delete_form.find("button")["data-turbo-confirm"].present?)
+    assert has_confirm, "Delete form should have data-turbo-confirm attribute"
   end
 
   test "admin cannot see delete button for their own account on madmin" do
