@@ -177,4 +177,23 @@ class FilePushEditingTest < ApplicationSystemTestCase
     assert push.retrieval_step, "retrieval_step should be true after update"
     assert push.deletable_by_viewer, "deletable_by_viewer should be true after update"
   end
+
+  test "cookie-save element is not visible in edit view" do
+    push = Push.create!(
+      kind: "file",
+      name: "Test Push",
+      user: @user
+    )
+
+    push.files.attach(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+
+    visit edit_push_path(push)
+
+    # Verify cookie-save element is not present in edit view
+    assert_no_selector "#cookie-save"
+  end
 end

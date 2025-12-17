@@ -155,15 +155,17 @@
                     </div>
                 </div>
             </div>
-            <div class='row'>
-                <div class='col'>
-                    <p class='mb-3'>
-                        <div id='cookie-save'>
-                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
-                        </div>
-                    </p>
+            <% unless action_name == 'edit' %>
+                <div class='row'>
+                    <div class='col'>
+                        <p class='mb-3'>
+                            <div id='cookie-save'>
+                                <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                            </div>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            <% end %>
         </div>
         <div class='col'>
             <% if user_signed_in? %>
