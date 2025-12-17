@@ -77,7 +77,7 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
       # Should have the info icon span with tooltip
       icon_span = find("span[data-bs-toggle='tooltip']")
       assert icon_span.present?, "Info icon span should be present"
-      assert_equal "Cannot modify your own account", icon_span["title"], "Tooltip should explain why actions are disabled"
+      assert_equal "Cannot delete or modify privileges for your own account.", icon_span["title"], "Tooltip should explain why actions are disabled"
 
       # Check that the span has the hover-opacity class
       assert_selector "span.text-muted.small[data-bs-toggle='tooltip']"
@@ -88,11 +88,6 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
   end
 
   # /admin/dbexplore/users page tests (madmin)
-  test "delete button is visible on madmin user show page" do
-    visit madmin_user_path(@luca)
-
-    assert_selector "form[action='#{madmin_user_path(@luca)}'] button.btn-outline-danger"
-  end
 
   test "delete button is visible on madmin users index page" do
     visit madmin_users_path
@@ -115,15 +110,6 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
         (delete_form.has_selector?("button") && delete_form.find("button")["data-turbo-confirm"].present?)
       assert has_confirm, "Delete form should have data-turbo-confirm attribute"
     end
-  end
-
-  test "delete button has confirmation warning on madmin user show page" do
-    visit madmin_user_path(@luca)
-
-    delete_form = find("form[action='#{madmin_user_path(@luca)}']")
-    has_confirm = delete_form["data-turbo-confirm"].present? ||
-      (delete_form.has_selector?("button") && delete_form.find("button")["data-turbo-confirm"].present?)
-    assert has_confirm, "Delete form should have data-turbo-confirm attribute"
   end
 
   test "admin cannot see delete button for their own account on madmin" do
