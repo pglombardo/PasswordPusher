@@ -264,4 +264,126 @@ class PushEditRemainingValuesTest < ActionDispatch::IntegrationTest
     push.reload
     assert_equal 5, push.expire_after_days, "Should update to new value"
   end
+
+  test "unchanged expiration values are not updated" do
+    push = Push.create!(
+      kind: "text",
+      payload: "test password",
+      user: @user,
+      expire_after_days: 7,
+      expire_after_views: 10
+    )
+
+    # Simulate 3 days old and 4 views
+    push.update_column(:created_at, 3.days.ago)
+    4.times do
+      AuditLog.create!(push: push, kind: :view, ip: "1.2.3.4", user_agent: "Test")
+    end
+
+    # Store original updated_at timestamp
+    original_updated_at = push.updated_at
+    original_expire_after_days = push.expire_after_days
+    original_expire_after_views = push.expire_after_views
+
+    # Wait a bit to ensure updated_at would change if record was modified
+    travel 1.second
+
+    # Edit without changing expiration values (remaining: 4 days, 6 views)
+    # The form will submit these values, but they match the current remaining values
+    patch push_path(push), params: {
+      push: {
+        payload: "updated password only",
+        expire_after_days: 4, # same as days_remaining
+        expire_after_views: 6  # same as views_remaining
+      }
+    }
+
+    push.reload
+
+    # Payload should be updated
+    assert_equal "updated password only", push.payload
+
+    # Expiration values should remain unchanged
+    assert_equal original_expire_after_days, push.expire_after_days,
+      "expire_after_days should not change when unchanged value is submitted"
+    assert_equal original_expire_after_views, push.expire_after_views,
+      "expire_after_views should not change when unchanged value is submitted"
+
+    # Updated_at should change because payload was updated
+    assert_operator push.updated_at, :>, original_updated_at,
+      "updated_at should change because payload was modified"
+  end
+
+  test "only changed expiration values are updated" do
+    push = Push.create!(
+      kind: "text",
+      payload: "test password",
+      user: @user,
+      expire_after_days: 10,
+      expire_after_views: 20
+    )
+
+    # Simulate 5 days old and 10 views
+    push.update_column(:created_at, 5.days.ago)
+    10.times do
+      AuditLog.create!(push: push, kind: :view, ip: "1.2.3.4", user_agent: "Test")
+    end
+
+    original_expire_after_views = push.expire_after_views
+
+    # Edit and change only days, keep views the same
+    # Remaining: 5 days, 10 views
+    patch push_path(push), params: {
+      push: {
+        payload: "test password",
+        expire_after_days: 7,  # changed from 5 remaining
+        expire_after_views: 10  # same as views_remaining
+      }
+    }
+
+    push.reload
+
+    # Days should be updated
+    assert_equal 7, push.expire_after_days,
+      "expire_after_days should update when changed"
+
+    # Views should remain unchanged
+    assert_equal original_expire_after_views, push.expire_after_views,
+      "expire_after_views should not change when unchanged value is submitted"
+  end
+
+  test "file push unchanged expiration values are not updated" do
+    push = Push.create!(
+      kind: "file",
+      user: @user,
+      expire_after_days: 14,
+      expire_after_views: 25
+    )
+
+    push.files.attach(
+      io: File.open(Rails.root.join("test/fixtures/files/test-file.txt")),
+      filename: "test-file.txt",
+      content_type: "text/plain"
+    )
+
+    # Simulate 7 days old
+    push.update_column(:created_at, 7.days.ago)
+
+    original_expire_after_days = push.expire_after_days
+    original_expire_after_views = push.expire_after_views
+
+    # Edit without changing expiration values (remaining: 7 days, 25 views)
+    patch push_path(push), params: {
+      push: {
+        expire_after_days: 7,  # same as days_remaining
+        expire_after_views: 25  # same as views_remaining
+      }
+    }
+
+    push.reload
+
+    # Expiration values should remain unchanged
+    assert_equal original_expire_after_days, push.expire_after_days
+    assert_equal original_expire_after_views, push.expire_after_views
+  end
 end

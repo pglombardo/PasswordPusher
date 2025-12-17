@@ -207,6 +207,19 @@ class PushesController < BaseController
 
     update_attributes = update_params
 
+    # Filter out unchanged expiration values to avoid unnecessary updates
+    if update_attributes[:expire_after_days].present?
+      if update_attributes[:expire_after_days].to_i == @push.days_remaining
+        update_attributes.delete(:expire_after_days)
+      end
+    end
+
+    if update_attributes[:expire_after_views].present?
+      if update_attributes[:expire_after_views].to_i == @push.views_remaining
+        update_attributes.delete(:expire_after_views)
+      end
+    end
+
     # For file pushes, extract new files but don't attach yet (wait until validation passes)
     new_files = []
     if @push.file? && update_attributes[:files].present?
