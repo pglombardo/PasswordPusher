@@ -256,4 +256,136 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     push.reload
     assert push.deletable_by_viewer
   end
+
+  test "cannot change push kind during update" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Original password",
+      user: @luca
+    )
+
+    original_kind = push.kind
+
+    # Attempt to change kind to URL
+    patch push_path(push), params: {
+      push: {
+        kind: "url",  # This should be ignored
+        payload: "https://example.com"
+      }
+    }
+
+    push.reload
+    assert_equal original_kind, push.kind, "Push kind should not change"
+    # Should still be text kind, so URL validation shouldn't apply
+    assert_equal "https://example.com", push.payload
+  end
+
+  test "unauthenticated user cannot access edit page" do
+    sign_out @luca
+
+    push = Push.create!(
+      kind: "text",
+      payload: "Secret password",
+      user: @luca
+    )
+
+    get edit_push_path(push)
+    assert_redirected_to new_user_session_path
+  end
+
+  test "unauthenticated user cannot update push" do
+    sign_out @luca
+
+    push = Push.create!(
+      kind: "text",
+      payload: "Original password",
+      user: @luca
+    )
+
+    patch push_path(push), params: {
+      push: {payload: "Hacked password"}
+    }
+
+    assert_redirected_to new_user_session_path
+    push.reload
+    assert_equal "Original password", push.payload
+  end
+
+  test "cannot edit anonymous push even if logged in" do
+    anonymous_push = Push.create!(
+      kind: "text",
+      payload: "Anonymous password",
+      user: nil  # No owner
+    )
+
+    get edit_push_path(anonymous_push)
+    # Should fail ownership check since push.user_id (nil) != current_user.id
+    assert_redirected_to root_path
+  end
+
+  test "updating views remaining while push is being viewed" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      expire_after_views: 10,
+      user: @luca
+    )
+
+    # Simulate 8 views
+    8.times { AuditLog.create!(push: push, kind: :view, ip: "1.2.3.4") }
+
+    # User tries to reduce to 5 views (less than already consumed)
+    patch push_path(push), params: {
+      push: {expire_after_views: 5}
+    }
+
+    push.reload
+    assert_equal 5, push.expire_after_views
+    assert_equal 0, push.views_remaining  # Should be 0, not negative
+  end
+
+  test "can remove passphrase by setting empty string" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Secret password",
+      passphrase: "old_passphrase",
+      user: @luca
+    )
+
+    patch push_path(push), params: {
+      push: {
+        payload: "Secret password",
+        passphrase: ""  # Remove passphrase
+      }
+    }
+
+    push.reload
+    assert push.passphrase.blank?, "Expected passphrase to be blank but got: #{push.passphrase.inspect}"
+  end
+
+  test "unchanged expiration values are filtered out" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      expire_after_days: 7,
+      expire_after_views: 10,
+      user: @luca
+    )
+
+    # Simulate 3 days passing
+    push.update_column(:created_at, 3.days.ago)
+
+    # Submit with current remaining values (should be filtered)
+    patch push_path(push), params: {
+      push: {
+        payload: "Updated password",
+        expire_after_days: 4,  # Current remaining = 7-3 = 4
+        expire_after_views: 10  # Current remaining = 10
+      }
+    }
+
+    push.reload
+    assert_equal 7, push.expire_after_days  # Should remain unchanged
+    assert_equal 10, push.expire_after_views
+  end
 end

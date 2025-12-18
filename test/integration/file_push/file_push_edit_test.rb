@@ -178,4 +178,72 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "button[type=submit]", text: /Update Push/
   end
+
+  test "cannot exceed max file limit when updating" do
+    push = Push.create!(kind: "file", user: @luca)
+
+    # Attach files up to the limit (assume limit is 5)
+    max_files = Settings.files.max_file_uploads
+    max_files.times do |i|
+      push.files.attach(
+        io: StringIO.new("file #{i}"),
+        filename: "file#{i}.txt"
+      )
+    end
+
+    # Try to add one more
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        files: [fixture_file_upload("test-file.txt")]
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_select "div.alert-danger",
+      text: /You can only attach up to #{max_files} files/
+  end
+
+  test "can remove files when editing file push" do
+    push = Push.create!(kind: "file", user: @luca)
+    # Attach two files so we can delete one (last file cannot be deleted)
+    push.files.attach(fixture_file_upload("monkey.png"))
+    push.files.attach(fixture_file_upload("test-file.txt"))
+
+    assert_equal 2, push.files.count
+    file_to_delete = push.files.first
+
+    # Delete the file using the correct route
+    delete delete_file_push_path(push), params: {file_id: file_to_delete.id}
+
+    assert_redirected_to edit_push_path(push)
+    push.reload
+    assert_equal 1, push.files.count
+  end
+
+  test "cannot delete last file from file push" do
+    push = Push.create!(kind: "file", user: @luca)
+    push.files.attach(fixture_file_upload("monkey.png"))
+
+    file_to_delete = push.files.first
+
+    delete delete_file_push_path(push), params: {file_id: file_to_delete.id}
+
+    assert_redirected_to edit_push_path(push)
+    follow_redirect!
+    assert_select "div.alert-warning", text: /You cannot delete the last file/
+
+    push.reload
+    assert_equal 1, push.files.count
+  end
+
+  test "update creates audit log for file push" do
+    push = Push.create!(kind: "file", payload: "https://example.com", user: @luca)
+
+    patch push_path(push), params: {
+      push: {payload: "https://updated.com"}
+    }
+
+    assert_audit_log_created(push, :update_push)
+  end
 end

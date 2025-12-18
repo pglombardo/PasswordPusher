@@ -155,4 +155,14 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "button[type=submit]", text: /Update Push/
   end
+
+  test "update creates audit log for url push" do
+    push = Push.create!(kind: "url", payload: "https://example.com", user: @luca)
+
+    patch push_path(push), params: {
+      push: {payload: "https://updated.com"}
+    }
+
+    assert_audit_log_created(push, :update_push)
+  end
 end

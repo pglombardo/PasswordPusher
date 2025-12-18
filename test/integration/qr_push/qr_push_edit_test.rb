@@ -198,4 +198,14 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     push.reload
     assert_equal 1024, push.payload.length
   end
+
+  test "update creates audit log for qr push" do
+    push = Push.create!(kind: "qr", payload: "https://example.com", user: @luca)
+
+    patch push_path(push), params: {
+      push: {payload: "https://updated.com"}
+    }
+
+    assert_audit_log_created(push, :update_push)
+  end
 end
