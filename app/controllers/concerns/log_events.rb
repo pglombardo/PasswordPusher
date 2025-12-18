@@ -27,6 +27,10 @@ module LogEvents
     log_event(push, :update_push)
   end
 
+  def log_failed_update(push)
+    log_event(push, :failed_update)
+  end
+
   def log_failed_passphrase(push)
     log_event(push, :failed_passphrase)
   end

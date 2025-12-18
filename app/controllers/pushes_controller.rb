@@ -118,15 +118,7 @@ class PushesController < BaseController
     end
 
     # Set the appropriate tab based on push kind
-    if @push.kind == "text"
-      @text_tab = true
-    elsif @push.kind == "file"
-      @files_tab = true
-    elsif @push.kind == "url"
-      @url_tab = true
-    elsif @push.kind == "qr"
-      @qr_tab = true
-    end
+    set_tab_by_kind
   end
 
   def create
@@ -142,17 +134,7 @@ class PushesController < BaseController
 
       redirect_to preview_push_path(@push)
     else
-      if @push.kind == "text"
-        @text_tab = true
-      elsif @push.kind == "file"
-        @files_tab = true
-      elsif @push.kind == "url"
-        @url_tab = true
-      elsif @push.kind == "qr"
-        @qr_tab = true
-      else
-        @text_tab = true
-      end
+      set_tab_by_kind
       render action: "new", status: :unprocessable_content
     end
   end
@@ -168,9 +150,21 @@ class PushesController < BaseController
     # For expired pushes, only allow updating the note and name
     if @push.expired?
       # Security check: log if user attempts to modify restricted fields
-      restricted_fields = update_params.keys.map(&:to_sym) - [:note, :name]
+      # Check only the top-level parameter keys, excluding files (array) and other nested params
+      submitted_params = update_params.except(:files).keys.map(&:to_sym)
+      restricted_fields = submitted_params - [:note, :name]
+
+      # Check if files are being uploaded (DOM manipulation bypass attempt)
+      if update_params[:files].present? && update_params[:files].any? { |f| f.present? }
+        Rails.logger.warn "Attempt to upload files to expired push #{@push.url_token}"
+        log_failed_update(@push)
+        redirect_to edit_push_path(@push), alert: I18n._("Files cannot be uploaded to expired pushes. Attempt has been logged.")
+        return
+      end
+
       if restricted_fields.any?
         Rails.logger.warn "Attempt to modify restricted fields on expired push #{@push.url_token}: #{restricted_fields.join(", ")}"
+        log_failed_update(@push)
         redirect_to edit_push_path(@push), alert: I18n._("Expired pushes can only have their note or name updated. Attempt to modify restricted fields has been logged.")
         return
       end
@@ -189,17 +183,7 @@ class PushesController < BaseController
         log_update(@push)
         redirect_to preview_push_path(@push), notice: I18n._("Note was successfully updated.")
       else
-        if @push.kind == "text"
-          @text_tab = true
-        elsif @push.kind == "file"
-          @files_tab = true
-        elsif @push.kind == "url"
-          @url_tab = true
-        elsif @push.kind == "qr"
-          @qr_tab = true
-        else
-          @text_tab = true
-        end
+        set_tab_by_kind
         render action: "edit", status: :unprocessable_content
       end
       return
@@ -256,17 +240,7 @@ class PushesController < BaseController
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
-      if @push.kind == "text"
-        @text_tab = true
-      elsif @push.kind == "file"
-        @files_tab = true
-      elsif @push.kind == "url"
-        @url_tab = true
-      elsif @push.kind == "qr"
-        @qr_tab = true
-      else
-        @text_tab = true
-      end
+      set_tab_by_kind
       render action: "edit", status: :unprocessable_content
     end
   end
@@ -375,6 +349,21 @@ class PushesController < BaseController
         .where(user_id: current_user.id)
         .page(params[:page])
         .order(created_at: :desc)
+    end
+  end
+
+  def set_tab_by_kind
+    case @push.kind
+    when "text"
+      @text_tab = true
+    when "file"
+      @files_tab = true
+    when "url"
+      @url_tab = true
+    when "qr"
+      @qr_tab = true
+    else
+      @text_tab = true
     end
   end
 
