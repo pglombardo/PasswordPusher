@@ -87,8 +87,7 @@ class CspReportsControllerTest < ActionDispatch::IntegrationTest
         "Content-Type" => "application/json"
       }
 
-    # Note: :payload_too_large is deprecated, but controller uses it
-    assert_response :payload_too_large
+    assert_response :content_too_large
   end
 
   test "accepts request exactly 10KB" do
@@ -108,7 +107,7 @@ class CspReportsControllerTest < ActionDispatch::IntegrationTest
       }
 
     # Should process successfully (may be close to limit but should work)
-    assert_not_equal :payload_too_large, response.status
+    assert_not_equal :content_too_large, response.status
   end
 
   test "rejects request slightly over 10KB" do
@@ -126,7 +125,7 @@ class CspReportsControllerTest < ActionDispatch::IntegrationTest
         "Content-Type" => "application/json"
       }
 
-    assert_response :payload_too_large
+    assert_response :content_too_large
   end
 
   # Test field truncation (log injection prevention)

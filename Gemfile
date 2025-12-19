@@ -78,9 +78,11 @@ gem "json", "~> 2.18" # Legacy carry-over
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem "apipie-rails"
+# https://github.com/Apipie/apipie-rails/pull/964
+gem "apipie-rails", github: "Apipie/apipie-rails", branch: "copilot/fix-router-deprecation-warning"
+
 gem "config"
-gem "devise", ">= 4.9.0"
+gem "devise", github: "heartcombo/devise", branch: "main"
 gem "foreman"
 gem "lograge"
 gem "mail_form", ">= 1.9.0"
