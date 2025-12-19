@@ -118,21 +118,7 @@ class PushesController < BaseController
     end
 
     # Can't edit expired pushes
-    if @push.expired
-      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
-      return
-    end
-
-    # Set the appropriate tab based on push kind
-    if @push.kind == "text"
-      @text_tab = true
-    elsif @push.kind == "file"
-      @files_tab = true
-    elsif @push.kind == "url"
-      @url_tab = true
-    elsif @push.kind == "qr"
-      @qr_tab = true
-    end
+    redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
   end
 
   def create
@@ -228,17 +214,6 @@ class PushesController < BaseController
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
-      if @push.kind == "text"
-        @text_tab = true
-      elsif @push.kind == "file"
-        @files_tab = true
-      elsif @push.kind == "url"
-        @url_tab = true
-      elsif @push.kind == "qr"
-        @qr_tab = true
-      else
-        @text_tab = true
-      end
       render action: "edit", status: :unprocessable_content
     end
   end
