@@ -25,6 +25,7 @@ class Push < ApplicationRecord
 
   has_many :audit_logs, -> { order(created_at: :asc) }, dependent: :destroy
   has_many_attached :files, dependent: :destroy
+  encrypts_attached :files
 
   def to_param
     url_token.to_s
