@@ -4,12 +4,12 @@
   <h3 class="mt-4 mb-4"><%= _('Editing Push') %> <%= @push.url_token %></h3>
 </div>
 
-<% if @text_tab %>
+<% if @push.text? %>
   <%= render "form", push: @push %>
-<% elsif @files_tab %>
+<% elsif @push.file? %>
   <%= render "files_form", push: @push %>
-<% elsif @url_tab %>
+<% elsif @push.url? %>
   <%= render "url_form", push: @push %>
-<% elsif @qr_tab %>
+<% elsif @push.qr? %>
   <%= render "qr_form", push: @push %>
 <% end %>
