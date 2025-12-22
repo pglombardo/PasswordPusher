@@ -388,4 +388,26 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_equal 7, push.expire_after_days  # Should remain unchanged
     assert_equal 10, push.expire_after_views
   end
+
+  test "save block is hidden when editing password push" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      user: @luca
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify save block is not present when editing
+    assert_select "div#cookie-save", false, "Save block should not be visible when editing"
+  end
+
+  test "save block is visible when creating new password push" do
+    get new_push_path(tab: "text")
+    assert_response :success
+
+    # Verify save block is present when creating
+    assert_select "div#cookie-save", true, "Save block should be visible when creating"
+  end
 end

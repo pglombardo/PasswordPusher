@@ -165,4 +165,26 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
 
     assert_audit_log_created(push, :update_push)
   end
+
+  test "save block is hidden when editing url push" do
+    push = Push.create!(
+      kind: "url",
+      payload: "https://example.com",
+      user: @luca
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify save block is not present when editing
+    assert_select "div#cookie-save", false, "Save block should not be visible when editing"
+  end
+
+  test "save block is visible when creating new url push" do
+    get new_push_path(tab: "url")
+    assert_response :success
+
+    # Verify save block is present when creating
+    assert_select "div#cookie-save", true, "Save block should be visible when creating"
+  end
 end

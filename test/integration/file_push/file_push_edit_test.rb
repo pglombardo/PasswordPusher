@@ -246,4 +246,27 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
 
     assert_audit_log_created(push, :update_push)
   end
+
+  test "save block is hidden when editing file push" do
+    push = Push.create!(
+      kind: "file",
+      payload: "Test message",
+      user: @luca
+    )
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Verify save block is not present when editing
+    assert_select "div#cookie-save", false, "Save block should not be visible when editing"
+  end
+
+  test "save block is visible when creating new file push" do
+    get new_push_path(tab: "files")
+    assert_response :success
+
+    # Verify save block is present when creating
+    assert_select "div#cookie-save", true, "Save block should be visible when creating"
+  end
 end
