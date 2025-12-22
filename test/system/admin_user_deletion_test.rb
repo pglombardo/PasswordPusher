@@ -61,29 +61,9 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
     # Find the row with the current admin's email
     row = find("tr", text: @mr_admin.email)
     within(row) do
-      # Should show info icon with tooltip instead of delete button
-      assert_selector "span[data-bs-toggle='tooltip']"
-      assert_selector "span svg"
+      # Should show plain text instead of delete button
       assert_no_selector "button.btn-outline-danger", text: "Delete"
-    end
-  end
-
-  test "info icon with tooltip is visible for current admin's own account" do
-    visit admin_users_path
-
-    # Find the row with the current admin's email
-    row = find("tr", text: @mr_admin.email)
-    within(row) do
-      # Should have the info icon span with tooltip
-      icon_span = find("span[data-bs-toggle='tooltip']")
-      assert icon_span.present?, "Info icon span should be present"
-      assert_equal "Cannot delete or modify privileges for your own account.", icon_span["title"], "Tooltip should explain why actions are disabled"
-
-      # Check that the span has the hover-opacity class
-      assert_selector "span.text-muted.small[data-bs-toggle='tooltip']"
-
-      # Verify the SVG icon is present within the span
-      assert icon_span.has_selector?("svg"), "Icon span should contain SVG element"
+      assert_selector "span.text-muted.small", text: "Your Account"
     end
   end
 
@@ -118,10 +98,9 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
     # Find row with current admin's email
     row = find("tr", text: @mr_admin.email)
     within(row) do
-      # Should show a message or icon instead of delete button
+      # Should show plain text instead of delete button
       assert_no_selector "button", text: "Delete"
-      # Check for the info icon span (it has the tooltip)
-      assert_selector "span.text-muted"
+      assert_selector "span.text-muted.small", text: "Your Account"
     end
   end
 end
