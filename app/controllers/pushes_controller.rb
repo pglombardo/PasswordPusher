@@ -180,14 +180,13 @@ class PushesController < BaseController
 
     # For file pushes, extract new files but don't attach yet (wait until validation passes)
     new_files = []
-    if @push.file? && update_attributes[:files].present?
-      # Remove empty file entries
-      new_files = update_attributes[:files].reject { |f| f.blank? }
-      # Remove files key from update_attributes
-      update_attributes.delete(:files)
-    elsif @push.file?
-      # No files in params, so don't touch existing files
-      update_attributes.delete(:files)
+    if @push.file?
+      if update_attributes[:files].present?
+        # Remove empty file entries
+        new_files = update_attributes[:files].reject { |f| f.blank? }
+        # Remove files key from update_attributes
+        update_attributes.delete(:files)
+      end
     end
 
     @push.assign_attributes(update_attributes)
@@ -202,15 +201,14 @@ class PushesController < BaseController
       end
     end
 
-    # Only proceed if there are no errors
-    if @push.errors.empty? && @push.valid?
+    if @push.valid?
       # Attach new files after validation passes
       if new_files.any?
         @push.files.attach(new_files)
       end
     end
 
-    if @push.errors.empty? && @push.save
+    if @push.save
       log_update(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
