@@ -46,7 +46,7 @@ module Admin
 
       # Prevent admin from deleting their own account
       if @user == current_user
-        redirect_to admin_users_path, alert: "You cannot delete your own account."
+        redirect_to admin_users_path, alert: _("You cannot delete your own account.")
         return
       end
 
