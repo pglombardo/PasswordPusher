@@ -1,9 +1,9 @@
-<% title(_('Your Push Has Been Created')) %>
+<%= title(_('Push Preview')) %>
 
 <div class="container h-75">
     <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <h2 class='mt-5'><%= _('Your push has been created.') %></h2>
+      <h2 class='mt-5'><%= _('Push Preview') %></h2>
 
       <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
       <%= render partial: 'application/secret_url_bar' %>
@@ -90,9 +90,14 @@
       </p>
 
       <% if user_signed_in? %>
-        <%= link_to audit_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
-          <em class='bi-card-list'></em> <%= _('View Audit Log') %>
-        <% end %>
+        <div class="d-flex gap-2">
+          <%= link_to audit_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
+            <em class='bi-card-list'></em> <%= _('View Audit Log') %>
+          <% end %>
+          <%= link_to edit_push_path(@push), class: 'btn btn-warning btn-sm', rel: 'nofollow' do %>
+            <em class='bi-pencil-square'></em> <%= _('Edit Push') %>
+          <% end %>
+        </div>
       <% end %>
 
       <p class='mt-5 small'> <%= _('Tip: Pushing to an international user?  Change the secret link language using the dropdown menu to the right of the URL.') %> </p>

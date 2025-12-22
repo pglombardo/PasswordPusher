@@ -5,10 +5,10 @@
     data-knobs-tab-name-value="url"
     data-knobs-lang-day-value="<%= _('Day') %>"
     data-knobs-lang-days-value="<%= _('Days') %>"
-    data-knobs-default-days-value="<%= @push.settings_for_kind.expire_after_days_default %>"
+    data-knobs-default-days-value="<%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %>"
     data-knobs-lang-view-value="<%= _('View') %>"
     data-knobs-lang-views-value="<%= _('Views') %>"
-    data-knobs-default-views-value="<%= @push.settings_for_kind.expire_after_views_default %>"
+    data-knobs-default-views-value="<%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %>"
     data-knobs-lang-save-value="<%= _('Save') %>"
     data-knobs-lang-saved-value="<%= _('Saved!') %>"
     data-knobs-default-retrieval-step-value="<%= @push.settings_for_kind.retrieval_step_default %>"
@@ -18,7 +18,7 @@
 <%= form_for @push, data: { action: 'form#submit' } do |f| %>
     <%= render partial: "pushes/error", locals: {push: @push} %>
 
-    <%= f.hidden_field :kind, value: :url %>
+    <%= f.hidden_field :kind, value: :url unless action_name == 'edit' %>
 
     <div class='row'>
         <div class='col-sm-8'>
@@ -42,10 +42,10 @@
             <div class='row'>
                 <div><%= _('Expire secret link and delete after:') %></div>
                 <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_days", @push.settings_for_kind.expire_after_days_default,
+                    <%= range_field_tag("push_expire_after_days", @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default,
                                         { :name => "push[expire_after_days]",
                                           :class => "form-range",
-                                          :min => @push.settings_for_kind.expire_after_days_min,
+                                          :min => action_name == 'edit' ? @push.days_old + 1 : @push.settings_for_kind.expire_after_days_min,
                                           :max => @push.settings_for_kind.expire_after_days_max,
                                           :step => "1",
                                           "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
@@ -53,16 +53,16 @@
                                           }) %>
                 </div>
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
+                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_views", @push.settings_for_kind.expire_after_views_default,
+                    <%= range_field_tag("push_expire_after_views", @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default,
                                        { :name => "push[expire_after_views]",
                                          :class => "form-range",
-                                         :min => @push.settings_for_kind.expire_after_views_min,
+                                         :min => action_name == 'edit' ? @push.view_count + 1 : @push.settings_for_kind.expire_after_views_min,
                                          :max => @push.settings_for_kind.expire_after_views_max,
                                          :x_default => @push.settings_for_kind.expire_after_views_default,
                                          :step => "1",
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class='col-2'>
-                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
+                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
                 </div>
             </div>
             <div class='row'>
@@ -86,10 +86,8 @@
                     <div class="list-group mx-0">
                         <% if @push.settings_for_kind.enable_retrieval_step %>
                             <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "push[retrieval_step]", nil, @push.settings_for_kind.retrieval_step_default,
-                                            { class: 'form-check-input flex-shrink-0',
-                                              x_default: @push.settings_for_kind.retrieval_step_default,
-                                              "data-knobs-target" => "retrievalStepCheckbox" } %>
+                            <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
+                                            checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
                             <span>
                                 <%= _('Use a 1-click retrieval step') %>
                                 <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up redirects.') %></small>
@@ -109,15 +107,17 @@
                     </div>
                 </div>
             </div>
-            <div class='row'>
-                <div class='col'>
-                    <p class='mb-3'>
-                        <div id='cookie-save'>
-                            <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
-                        </div>
-                    </p>
+            <% unless action_name == 'edit' %>
+                <div class='row'>
+                    <div class='col'>
+                        <p class='mb-3'>
+                            <div id='cookie-save'>
+                                <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
+                            </div>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            <% end %>
         </div>
         <div class='col'>
             <% if user_signed_in? %>
@@ -158,7 +158,11 @@
     <div class='row'>
         <div class='col'>
             <p class='my-3'>
-                <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><%= _('Push It!') %></button>
+                <% if @push.persisted? %>
+                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Updating...') %>"><%= _('Update Push') %></button>
+                <% else %>
+                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><%= _('Push It!') %></button>
+                <% end %>
             </p>
         </div>
     </div>

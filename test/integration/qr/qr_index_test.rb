@@ -33,7 +33,7 @@ class QrIndexTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     get pushes_path(filter: "active")
     assert_response :success
@@ -52,12 +52,13 @@ class QrIndexTest < ActionDispatch::IntegrationTest
     assert_select "td", "Test Password"
 
     # Verify the push controls buttons
-    # Since this is an active push, both Preview and Audit buttons should be present
+    # Since this is an active push, Preview, Edit, and Audit buttons should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
-      assert_select controls.first, "a", 2 # Should have 2 buttons (Preview and Audit)
+      assert_select controls.first, "a", 3 # Should have 3 buttons (Preview, Edit, and Audit)
 
       # Check the text content of the buttons
       assert_select controls.first, "a", text: "Preview", count: 1
+      assert_select controls.first, "a", text: "Edit", count: 1
       assert_select controls.first, "a", text: "Audit", count: 1
     end
 

@@ -1,0 +1,15 @@
+<%= content_for :title, _('Edit Push') %>
+
+<div class="container d-flex justify-content-center align-items-center">
+  <h3 class="mt-4 mb-4"><%= _('Editing Push') %> <%= @push.url_token %></h3>
+</div>
+
+<% if @push.text? %>
+  <%= render "form", push: @push %>
+<% elsif @push.file? %>
+  <%= render "files_form", push: @push %>
+<% elsif @push.url? %>
+  <%= render "url_form", push: @push %>
+<% elsif @push.qr? %>
+  <%= render "qr_form", push: @push %>
+<% end %>

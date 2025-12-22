@@ -5,18 +5,18 @@ require "addressable/uri"
 class Push < ApplicationRecord
   enum :kind, [:text, :file, :url, :qr], validate: true
 
-  validate :check_enabled_push_kinds
+  validate :check_enabled_push_kinds, on: :create
   validates :url_token, presence: true, uniqueness: true
+
+  validate :check_payload_for_text, if: :text?
+  validate :check_files_for_file, if: :file?
+  validate :check_payload_for_url, if: :url?
+  validate :check_payload_for_qr, if: :qr?
 
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
     create.before_validation :set_default_attributes
-
-    create.after_validation :check_payload_for_text, if: :text?
-    create.after_validation :check_files_for_file, if: :file?
-    create.after_validation :check_payload_for_url, if: :url?
-    create.after_validation :check_payload_for_qr, if: :qr?
   end
 
   belongs_to :user, optional: true
@@ -116,6 +116,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_text
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.blank?
       errors.add(:payload, I18n._("Payload is required."))
       return
@@ -127,6 +130,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_url
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.present?
       if !valid_url?(payload)
         errors.add(:payload, I18n._("must be a valid HTTP or HTTPS URL."))
@@ -137,6 +143,9 @@ class Push < ApplicationRecord
   end
 
   def check_payload_for_qr
+    # Allow nil payload when expired
+    return if expired?
+
     if payload.present?
       # If the push is a QR code, max payload length is 1024 characters
       if payload.length > 1024
