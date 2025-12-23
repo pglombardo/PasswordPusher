@@ -85,19 +85,22 @@
                   </td>
                   <td class="text-end">
                     <% if user != current_user %>
-                      <%= button_to revoke_admin_user_path(user),
-                          method: :patch,
-                          class: "btn btn-outline-danger btn-sm d-flex align-items-center",
-                          data: {
-                            turbo_confirm: _("Are you sure you want to revoke administrator privileges from %{email}? They will lose access to the administration panel.") % { email: user.email }
-                          } do %>
-                        <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
-                        </svg>
-                        <%= _("Revoke") %>
-                      <% end %>
+                      <div class="d-flex gap-2 justify-content-end">
+                        <%= button_to revoke_admin_user_path(user),
+                            method: :patch,
+                            class: "btn btn-outline-warning btn-sm d-flex align-items-center",
+                            data: {
+                              turbo_confirm: _("Are you sure you want to revoke administrator privileges from %{email}? They will lose access to the administration panel.") % { email: user.email }
+                            } do %>
+                          <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
+                          </svg>
+                          <%= _("Revoke") %>
+                        <% end %>
+                        <%= render "shared/delete_user_button", user: user, path: admin_user_path(user), push_count: user.pushes.count %>
+                      </div>
                     <% else %>
-                      <span class="text-muted small"><%= _("Cannot revoke your own privileges") %></span>
+                      <span class="text-muted small"><%= _("Your Account") %></span>
                     <% end %>
                   </td>
                 </tr>
@@ -170,17 +173,20 @@
                     <% end %>
                   </td>
                   <td class="text-end">
-                    <%= button_to promote_admin_user_path(user),
-                        method: :patch,
-                        class: "btn btn-outline-success btn-sm d-flex align-items-center",
-                        data: {
-                          turbo_confirm: _("Are you sure you want to promote %{email} to administrator? This will give them full access to the administration panel.") % { email: user.email }
-                        } do %>
-                      <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      <%= _("Promote") %>
-                    <% end %>
+                    <div class="d-flex gap-2 justify-content-end">
+                      <%= button_to promote_admin_user_path(user),
+                          method: :patch,
+                          class: "btn btn-outline-success btn-sm d-flex align-items-center",
+                          data: {
+                            turbo_confirm: _("Are you sure you want to promote %{email} to administrator? This will give them full access to the administration panel.") % { email: user.email }
+                          } do %>
+                        <svg class="me-1" width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <%= _("Promote") %>
+                      <% end %>
+                      <%= render "shared/delete_user_button", user: user, path: admin_user_path(user), push_count: user.pushes.count %>
+                    </div>
                   </td>
                 </tr>
               <% end %>
