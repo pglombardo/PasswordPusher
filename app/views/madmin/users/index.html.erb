@@ -72,9 +72,14 @@
                 <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
               <% end %>
               <td class="text-end">
-                <div class="btn-group btn-group-sm" role="group">
-                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary" %>
+                <div class="d-flex gap-2 justify-content-end">
                   <%# Edit button removed - users cannot be edited %>
+                  <% if record != current_user %>
+                    <%= render "shared/delete_user_button", user: record, path: madmin_user_path(record), button_text: _("Delete"), push_count: record.pushes.count %>
+                  <% else %>
+                    <span class="text-muted small"><%= _("Your Account") %></span>
+                  <% end %>
+                  <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary btn-sm" %>
                 </div>
               </td>
             </tr>
