@@ -21,7 +21,8 @@ class UserAccountDeletionTest < ApplicationSystemTestCase
     visit edit_user_registration_path
 
     # Verify the delete account section is present
-    assert_text "Delete my account", wait: 5
+    # The text can be "Delete my account" or "Cancel my account" depending on locale
+    assert_text(/delete.*account|cancel.*account/i, wait: 5)
 
     # Verify the delete button is present with correct styling
     # Look for any submit button with the outline-danger class
@@ -61,15 +62,17 @@ class UserAccountDeletionTest < ApplicationSystemTestCase
     sections = all("p.lead")
     section_texts = sections.map(&:text)
 
-    # Verify delete account section exists
-    assert section_texts.any? { |text| text.match?(/delete.*account/i) }
+    # Verify delete account section exists (can be "Delete" or "Cancel" depending on locale)
+    assert section_texts.any? { |text| text.match?(/delete.*account|cancel.*account/i) }
 
     # Find the index of verification and delete sections
     verification_index = section_texts.find_index { |text| text.match?(/verification/i) }
-    delete_index = section_texts.find_index { |text| text.match?(/delete.*account/i) }
+    delete_index = section_texts.find_index { |text| text.match?(/delete.*account|cancel.*account/i) }
 
     # Delete section should come after verification
-    assert delete_index > verification_index if verification_index && delete_index
+    assert delete_index, "Delete account section not found"
+    assert verification_index, "Verification section not found"
+    assert delete_index > verification_index, "Delete account section should come after verification section"
   end
 
   test "anonymous user cannot see delete account button" do
