@@ -22,8 +22,31 @@
         601
       ],
       "note": "Other host redirection is the core feature of this code."
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "45a939621a772f695f2c34c948ce23819c4174f79b3aef09b10ec3ce8c0568e8",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/pushes_controller.rb",
+      "line": 51,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Push.includes(:audit_logs).find_by!(:url_token => params[:id]).payload, :allow_other_host => true, :status => :see_other)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PushesController",
+        "method": "show"
+      },
+      "user_input": "Push.includes(:audit_logs).find_by!(:url_token => params[:id]).payload",
+      "confidence": "Weak",
+      "cwe_id": [
+        601
+      ],
+      "note": "Other host redirection is the core feature of this code."
     }
   ],
-  "updated": "2024-11-01 17:35:04 +0100",
-  "brakeman_version": "6.2.2"
+  "updated": "2026-01-08 21:20:23 +0100",
+  "brakeman_version": "7.1.2"
 }
