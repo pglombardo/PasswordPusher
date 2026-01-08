@@ -41,6 +41,25 @@ module Admin
       end
     end
 
+    def destroy
+      @user = User.find(params[:id])
+
+      # Prevent admin from deleting their own account
+      if @user == current_user
+        redirect_to admin_users_path, alert: _("You cannot delete your own account.")
+        return
+      end
+
+      user_email = @user.email
+
+      if @user.destroy
+        redirect_to admin_users_path, notice: "User #{user_email} has been deleted."
+      else
+        error_message = @user.errors.full_messages.to_sentence.presence || "Unknown error"
+        redirect_to admin_users_path, alert: "Failed to delete user #{user_email}: #{error_message}"
+      end
+    end
+
     private
   end
 end
