@@ -28,6 +28,11 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
   # Add more helper methods to be used by all tests here...
+
+  def assert_audit_log_created(push, kind)
+    assert push.audit_logs.where(kind: kind).exists?,
+      "Expected audit log of kind #{kind} for push #{push.url_token}"
+  end
 end
 
 module ActionDispatch
