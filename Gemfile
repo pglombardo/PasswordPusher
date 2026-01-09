@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby ENV["CUSTOM_RUBY_VERSION"] || ">=3.4.3"
 
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.2"
 gem "propshaft"
 gem "importmap-rails"
 gem "turbo-rails"
