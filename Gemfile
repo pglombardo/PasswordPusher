@@ -112,7 +112,7 @@ end
 gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "madmin"
-gem "rqrcode", "~> 3.1"
+gem "rqrcode", "~> 3.2"
 gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.1.0"
 gem "overmind", "~> 2.5", group: :development
