@@ -84,7 +84,7 @@ jobs:
 
   pwpush-container-arm64:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    runs-on: ubuntu-latest-arm64
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -238,7 +238,7 @@ jobs:
   public-gateway-container-arm64:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container-arm64
-    runs-on: ubuntu-latest-arm64
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -392,7 +392,7 @@ jobs:
   worker-container-arm64:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     needs: pwpush-container-arm64
-    runs-on: ubuntu-latest-arm64
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v6
