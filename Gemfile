@@ -71,16 +71,18 @@ gem "lockbox"
 gem "terser", "~> 1.2"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap"
-gem "json", "~> 2.17" # Legacy carry-over
+gem "json", "~> 2.18" # Legacy carry-over
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem "apipie-rails"
+# https://github.com/Apipie/apipie-rails/pull/964
+gem "apipie-rails", github: "Apipie/apipie-rails", branch: "copilot/fix-router-deprecation-warning"
+
 gem "config"
-gem "devise", ">= 4.9.0"
+gem "devise", github: "heartcombo/devise", branch: "main"
 gem "foreman"
 gem "lograge"
 gem "mail_form", ">= 1.9.0"
@@ -95,8 +97,8 @@ gem "translation"
 
 # For File Uploads
 gem "aws-sdk-s3", require: false
-gem "azure-blob", "~> 0.6.0", require: false
-gem "google-cloud-storage", "~> 1.57", require: false
+gem "azure-blob", "~> 0.7.0", require: false
+gem "google-cloud-storage", "~> 1.58", require: false
 
 # Database backends
 gem "mysql2"
@@ -110,7 +112,7 @@ end
 gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "madmin"
-gem "rqrcode", "~> 3.1"
+gem "rqrcode", "~> 3.2"
 gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.1.0"
 gem "overmind", "~> 2.5", group: :development

@@ -83,7 +83,7 @@ class PushesController < BaseController
         expires: 3.minutes.from_now,
         secure: Settings.secure_cookies,
         httponly: true,                # Prevent JavaScript access to the cookie
-        same_site: :strict             # Restrict the cookie to same-site requests
+        same_site: :lax                # Allow cookie on top-level navigations (works behind reverse proxies)
       }
 
       # Redirect to the payload

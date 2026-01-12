@@ -57,7 +57,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     set_cookie_header = response.headers["set-cookie"]
     assert_includes set_cookie_header, "secure"
     assert_includes set_cookie_header, "httponly"
-    assert_includes set_cookie_header, "samesite=strict"
+    assert_includes set_cookie_header, "samesite=lax"
 
     assert_response :redirect
     integration_session.https!

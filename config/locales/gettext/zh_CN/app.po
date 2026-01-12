@@ -1,14 +1,14 @@
 # Chinese translations for pwpush package.
-# Copyright (C) 2025 pwpush
+# Copyright (C) 2026 pwpush
 # This file is distributed under the same license as the pwpush package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-16 00:30+0100\n"
-"PO-Revision-Date: 2025-11-15 23:30+0000\n"
+"POT-Creation-Date: 2026-01-11 11:57+0100\n"
+"PO-Revision-Date: 2026-01-11 10:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/admin/users_controller.rb:49
+msgid "You cannot delete your own account."
+msgstr "您无法删除自己的帐户。"
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
@@ -316,24 +320,24 @@ msgid "Current Administrators"
 msgstr "现任行政长官"
 
 #: ../../../app/views/admin/users/index.html.erb:50
-#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/admin/users/index.html.erb:142
 #: ../../../app/views/devise/sessions/new.html.erb:7
 msgid "Email"
 msgstr "电子邮件"
 
 #: ../../../app/views/admin/users/index.html.erb:51
-#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/admin/users/index.html.erb:143
 #: ../../../app/views/pushes/index.html.erb:39
 msgid "Created"
 msgstr "创建于"
 
 #: ../../../app/views/admin/users/index.html.erb:52
-#: ../../../app/views/admin/users/index.html.erb:141
+#: ../../../app/views/admin/users/index.html.erb:144
 msgid "Last Sign In"
 msgstr "最后登录"
 
 #: ../../../app/views/admin/users/index.html.erb:53
-#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/admin/users/index.html.erb:145
 #: ../../../app/views/madmin/application/index.html.erb:63
 #: ../../../app/views/madmin/users/index.html.erb:63
 msgid "Actions"
@@ -344,55 +348,56 @@ msgid "You"
 msgstr "你"
 
 #: ../../../app/views/admin/users/index.html.erb:83
-#: ../../../app/views/admin/users/index.html.erb:169
+#: ../../../app/views/admin/users/index.html.erb:172
 msgid "Never"
 msgstr "从不"
 
-#: ../../../app/views/admin/users/index.html.erb:92
+#: ../../../app/views/admin/users/index.html.erb:93
 msgid ""
 "Are you sure you want to revoke administrator privileges from %{email}? They w"
 "ill lose access to the administration panel."
 msgstr "您确定要撤销 %{email} 的管理员权限吗？他们将无法访问管理面板。"
 
-#: ../../../app/views/admin/users/index.html.erb:97
+#: ../../../app/views/admin/users/index.html.erb:98
 msgid "Revoke"
 msgstr "撤销"
 
-#: ../../../app/views/admin/users/index.html.erb:100
-msgid "Cannot revoke your own privileges"
-msgstr "不能撤销自己的权限"
+#: ../../../app/views/admin/users/index.html.erb:103
+#: ../../../app/views/madmin/users/index.html.erb:80
+msgid "Your Account"
+msgstr "您的帐户"
 
-#: ../../../app/views/admin/users/index.html.erb:113
+#: ../../../app/views/admin/users/index.html.erb:116
 msgid "No administrators found"
 msgstr "未找到管理员"
 
-#: ../../../app/views/admin/users/index.html.erb:114
+#: ../../../app/views/admin/users/index.html.erb:117
 msgid "There are currently no administrator accounts in the system."
 msgstr "目前系统中没有管理员账户。"
 
-#: ../../../app/views/admin/users/index.html.erb:126
+#: ../../../app/views/admin/users/index.html.erb:129
 msgid "Regular Users"
 msgstr "普通用户"
 
-#: ../../../app/views/admin/users/index.html.erb:130
+#: ../../../app/views/admin/users/index.html.erb:133
 msgid "%{count} Regular Users"
 msgstr "%{count} 普通用户"
 
-#: ../../../app/views/admin/users/index.html.erb:177
+#: ../../../app/views/admin/users/index.html.erb:181
 msgid ""
 "Are you sure you want to promote %{email} to administrator? This will give the"
 "m full access to the administration panel."
 msgstr "您确定要将 %{email} 提升为管理员吗？这样他们就可以完全访问管理面板。"
 
-#: ../../../app/views/admin/users/index.html.erb:182
+#: ../../../app/views/admin/users/index.html.erb:186
 msgid "Promote"
 msgstr "推广"
 
-#: ../../../app/views/admin/users/index.html.erb:200
+#: ../../../app/views/admin/users/index.html.erb:206
 msgid "No regular users found"
 msgstr "未找到固定用户"
 
-#: ../../../app/views/admin/users/index.html.erb:201
+#: ../../../app/views/admin/users/index.html.erb:207
 msgid "All users in the system are administrators."
 msgstr "系统中的所有用户都是管理员。"
 
@@ -426,26 +431,37 @@ msgstr "自动侦测"
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:3
-msgid "Created on %{date} by %{user}"
-msgstr "%{user} 在 %{date} 上创建的推送"
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:3
+msgid "Admin view on %{date} by %{user}"
+msgstr "管理员对 %{user} 的 %{date} 的查看"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:7
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:7
+msgid "Does not count towards view limit"
+msgstr "不计入浏览次数限制"
+
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "IP 地址："
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "用户代理："
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
@@ -454,6 +470,8 @@ msgstr "用户代理："
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -461,13 +479,19 @@ msgstr "用户代理："
 msgid "None"
 msgstr "无"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "引荐人："
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "%{user} 在 %{date} 上创建的推送"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -480,6 +504,10 @@ msgstr "%{user} 对 %{date} 的密码尝试失败"
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
 msgid "Failed view attempt on %{date} by %{user}"
 msgstr "%{user} 对 %{date} 的查看尝试失败"
+
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:3
+msgid "Owner view on %{date} by %{user}"
+msgstr "%{user} 对 %{date} 的所有权视图"
 
 #: ../../../app/views/audit_logs/_log_view.html.erb:3
 msgid "Successful view on %{date} by %{user}"
@@ -694,6 +722,7 @@ msgstr "你确定吗？"
 #: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
 msgstr "取消"
 
@@ -731,15 +760,15 @@ msgstr "返回应用"
 msgid "Password Pusher Logo"
 msgstr "Password Pusher 图标"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:11
+#: ../../../app/views/layouts/madmin/application.html.erb:12
 msgid "Data Explorer - Administration - Password Pusher"
 msgstr "数据浏览器 - 管理 - 密码推送器"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:19
+#: ../../../app/views/layouts/madmin/application.html.erb:20
 msgid "Staging Environment"
 msgstr "暂存环境"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:19
+#: ../../../app/views/layouts/madmin/application.html.erb:20
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
@@ -895,7 +924,7 @@ msgid "All"
 msgstr "全部"
 
 #: ../../../app/views/madmin/application/index.html.erb:76
-#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:82
 #: ../../../app/views/pushes/_files_form.html.erb:9
 #: ../../../app/views/pushes/_form.html.erb:9
 #: ../../../app/views/pushes/_qr_form.html.erb:9
@@ -915,8 +944,10 @@ msgid "View %{name} details"
 msgstr "查看 %{name} 详情"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:78
 #: ../../../app/views/pushes/audit.html.erb:222
 #: ../../../app/views/pushes/show.html.erb:119
+#: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
 msgstr "删除"
 
@@ -1661,6 +1692,7 @@ msgstr "字符"
 
 #: ../../../app/views/pushes/_form.html.erb:149
 #: ../../../app/views/pushes/_qr_form.html.erb:150
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "生成密码"
 
@@ -2235,6 +2267,13 @@ msgstr "仪表盘"
 msgid "New"
 msgstr "新建"
 
+#: ../../../app/views/shared/_delete_user_button.html.erb:6
+msgid ""
+"⚠️ WARNING: Deleting %{email} will also permanently delete ALL %{count} push(e"
+"s) created by this user. This action cannot be undone. Are you sure you want t"
+"o proceed?"
+msgstr "⚠️警告：删除%{email}也会永久删除该用户创建的所有%{count}推送。此操作无法撤销。您确定要继续吗？"
+
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
 msgstr "首页"
@@ -2286,6 +2325,18 @@ msgstr "登录"
 #: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "注册账号"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:5
+msgid "Confirm Password Generation"
+msgstr "确认密码生成"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:11
+msgid "This will replace the existing content in the text area."
+msgstr "这将替换文本区域中的现有内容。"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:12
+msgid "Are you sure you want to continue?"
+msgstr "你确定要继续吗？"
 
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:5
 msgid "Configure Password Generation"

@@ -5,7 +5,7 @@ class CspReportsController < ApplicationController
   def create
     # Limit request size to prevent DoS attacks
     if request.body.size > 10.kilobytes
-      head :payload_too_large
+      head :content_too_large
       return
     end
 

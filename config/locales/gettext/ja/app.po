@@ -1,14 +1,14 @@
 # Japanese translations for pwpush package.
-# Copyright (C) 2025 pwpush
+# Copyright (C) 2026 pwpush
 # This file is distributed under the same license as the pwpush package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2025-11-16 00:30+0100\n"
-"PO-Revision-Date: 2025-11-15 23:30+0000\n"
+"POT-Creation-Date: 2026-01-11 11:57+0100\n"
+"PO-Revision-Date: 2026-01-11 10:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/admin/users_controller.rb:49
+msgid "You cannot delete your own account."
+msgstr "自分のアカウントを削除することはできません。"
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:174
@@ -316,24 +320,24 @@ msgid "Current Administrators"
 msgstr "現在の管理者"
 
 #: ../../../app/views/admin/users/index.html.erb:50
-#: ../../../app/views/admin/users/index.html.erb:139
+#: ../../../app/views/admin/users/index.html.erb:142
 #: ../../../app/views/devise/sessions/new.html.erb:7
 msgid "Email"
 msgstr "Eメール"
 
 #: ../../../app/views/admin/users/index.html.erb:51
-#: ../../../app/views/admin/users/index.html.erb:140
+#: ../../../app/views/admin/users/index.html.erb:143
 #: ../../../app/views/pushes/index.html.erb:39
 msgid "Created"
 msgstr "作成した"
 
 #: ../../../app/views/admin/users/index.html.erb:52
-#: ../../../app/views/admin/users/index.html.erb:141
+#: ../../../app/views/admin/users/index.html.erb:144
 msgid "Last Sign In"
 msgstr "最終サインイン"
 
 #: ../../../app/views/admin/users/index.html.erb:53
-#: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/admin/users/index.html.erb:145
 #: ../../../app/views/madmin/application/index.html.erb:63
 #: ../../../app/views/madmin/users/index.html.erb:63
 msgid "Actions"
@@ -344,55 +348,56 @@ msgid "You"
 msgstr "あなた"
 
 #: ../../../app/views/admin/users/index.html.erb:83
-#: ../../../app/views/admin/users/index.html.erb:169
+#: ../../../app/views/admin/users/index.html.erb:172
 msgid "Never"
 msgstr "決して"
 
-#: ../../../app/views/admin/users/index.html.erb:92
+#: ../../../app/views/admin/users/index.html.erb:93
 msgid ""
 "Are you sure you want to revoke administrator privileges from %{email}? They w"
 "ill lose access to the administration panel."
 msgstr "本当に%{email}から管理者権限を剥奪したいですか？彼らは管理パネルへのアクセス権を失います。"
 
-#: ../../../app/views/admin/users/index.html.erb:97
+#: ../../../app/views/admin/users/index.html.erb:98
 msgid "Revoke"
 msgstr "取り消す"
 
-#: ../../../app/views/admin/users/index.html.erb:100
-msgid "Cannot revoke your own privileges"
-msgstr "自分の権限を取り消すことはできない"
+#: ../../../app/views/admin/users/index.html.erb:103
+#: ../../../app/views/madmin/users/index.html.erb:80
+msgid "Your Account"
+msgstr "あなたのアカウント"
 
-#: ../../../app/views/admin/users/index.html.erb:113
+#: ../../../app/views/admin/users/index.html.erb:116
 msgid "No administrators found"
 msgstr "管理者が見つかりません"
 
-#: ../../../app/views/admin/users/index.html.erb:114
+#: ../../../app/views/admin/users/index.html.erb:117
 msgid "There are currently no administrator accounts in the system."
 msgstr "現在、システムに管理者アカウントはありません。"
 
-#: ../../../app/views/admin/users/index.html.erb:126
+#: ../../../app/views/admin/users/index.html.erb:129
 msgid "Regular Users"
 msgstr "一般ユーザー"
 
-#: ../../../app/views/admin/users/index.html.erb:130
+#: ../../../app/views/admin/users/index.html.erb:133
 msgid "%{count} Regular Users"
 msgstr "%{count} 通常ユーザー"
 
-#: ../../../app/views/admin/users/index.html.erb:177
+#: ../../../app/views/admin/users/index.html.erb:181
 msgid ""
 "Are you sure you want to promote %{email} to administrator? This will give the"
 "m full access to the administration panel."
 msgstr "本当に%{email}を管理者に昇格させますか？これで管理パネルにフルアクセスできるようになります。"
 
-#: ../../../app/views/admin/users/index.html.erb:182
+#: ../../../app/views/admin/users/index.html.erb:186
 msgid "Promote"
 msgstr "プロモーション"
 
-#: ../../../app/views/admin/users/index.html.erb:200
+#: ../../../app/views/admin/users/index.html.erb:206
 msgid "No regular users found"
 msgstr "常連ユーザーなし"
 
-#: ../../../app/views/admin/users/index.html.erb:201
+#: ../../../app/views/admin/users/index.html.erb:207
 msgid "All users in the system are administrators."
 msgstr "システムのすべてのユーザーは管理者です。"
 
@@ -426,26 +431,37 @@ msgstr "自動検出"
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
-#: ../../../app/views/audit_logs/_log_creation.html.erb:3
-msgid "Created on %{date} by %{user}"
-msgstr "%{user} によって %{date} にプッシュが作成されました"
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:3
+msgid "Admin view on %{date} by %{user}"
+msgstr "%{date} の管理者ビュー (%{user} による)"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:7
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:7
+msgid "Does not count towards view limit"
+msgstr "視聴制限にはカウントされません"
+
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
 msgid "IP Address:"
 msgstr "IPアドレス:"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 msgid "User Agent:"
 msgstr "ユーザーエージェント:"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
@@ -454,6 +470,8 @@ msgstr "ユーザーエージェント:"
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 #: ../../../app/views/pushes/audit.html.erb:19
@@ -461,13 +479,19 @@ msgstr "ユーザーエージェント:"
 msgid "None"
 msgstr "なし"
 
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
 msgid "Referrer:"
 msgstr "参照元:"
+
+#: ../../../app/views/audit_logs/_log_creation.html.erb:3
+msgid "Created on %{date} by %{user}"
+msgstr "%{user} によって %{date} にプッシュが作成されました"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -480,6 +504,10 @@ msgstr "%{user} による %{date} へのパスフレーズ試行が失敗しま�
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
 msgid "Failed view attempt on %{date} by %{user}"
 msgstr "%{user}による%{date}の表示試行に失敗しました"
+
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:3
+msgid "Owner view on %{date} by %{user}"
+msgstr "%{date} のオーナービュー (%{user} より)"
 
 #: ../../../app/views/audit_logs/_log_view.html.erb:3
 msgid "Successful view on %{date} by %{user}"
@@ -695,6 +723,7 @@ msgstr "本気ですか？"
 #: ../../../app/views/madmin/users/_form.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:118
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -732,15 +761,15 @@ msgstr "アプリに戻る"
 msgid "Password Pusher Logo"
 msgstr "パスワードプッシャーのロゴ"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:11
+#: ../../../app/views/layouts/madmin/application.html.erb:12
 msgid "Data Explorer - Administration - Password Pusher"
 msgstr "データエクスプローラー - 管理 - パスワードプッシャー"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:19
+#: ../../../app/views/layouts/madmin/application.html.erb:20
 msgid "Staging Environment"
 msgstr "ステージング環境"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:19
+#: ../../../app/views/layouts/madmin/application.html.erb:20
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
@@ -900,7 +929,7 @@ msgid "All"
 msgstr "全て"
 
 #: ../../../app/views/madmin/application/index.html.erb:76
-#: ../../../app/views/madmin/users/index.html.erb:76
+#: ../../../app/views/madmin/users/index.html.erb:82
 #: ../../../app/views/pushes/_files_form.html.erb:9
 #: ../../../app/views/pushes/_form.html.erb:9
 #: ../../../app/views/pushes/_qr_form.html.erb:9
@@ -920,8 +949,10 @@ msgid "View %{name} details"
 msgstr "%{name}の詳細を表示"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
+#: ../../../app/views/madmin/users/index.html.erb:78
 #: ../../../app/views/pushes/audit.html.erb:222
 #: ../../../app/views/pushes/show.html.erb:119
+#: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
 msgstr "消去"
 
@@ -1684,6 +1715,7 @@ msgstr "文字"
 
 #: ../../../app/views/pushes/_form.html.erb:149
 #: ../../../app/views/pushes/_qr_form.html.erb:150
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "パスワードの生成"
 
@@ -2260,6 +2292,15 @@ msgstr "ダッシュボード"
 msgid "New"
 msgstr "新しい"
 
+#: ../../../app/views/shared/_delete_user_button.html.erb:6
+msgid ""
+"⚠️ WARNING: Deleting %{email} will also permanently delete ALL %{count} push(e"
+"s) created by this user. This action cannot be undone. Are you sure you want t"
+"o proceed?"
+msgstr ""
+"⚠️ 警告: %{email} を削除すると、このユーザーが作成したすべての %{count} 件のプッシュも完全に削除されます。この操作は元に戻せません。"
+"続行してもよろしいですか？"
+
 #: ../../../app/views/shared/_footer.html.erb:22
 msgid "Front Page"
 msgstr "表紙"
@@ -2311,6 +2352,18 @@ msgstr "ログイン"
 #: ../../../app/views/shared/_header.html.erb:82
 msgid "Sign Up"
 msgstr "サインアップ"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:5
+msgid "Confirm Password Generation"
+msgstr "パスワード生成の確認"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:11
+msgid "This will replace the existing content in the text area."
+msgstr "これにより、テキスト領域内の既存のコンテンツが置き換えられます。"
+
+#: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:12
+msgid "Are you sure you want to continue?"
+msgstr "本当に続行しますか?"
 
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:5
 msgid "Configure Password Generation"
