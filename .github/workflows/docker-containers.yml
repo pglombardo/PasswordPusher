@@ -24,9 +24,8 @@ on:
 
 env:
   DOCKER_PUSH: true
-
 jobs:
-  pwpush-container-amd64:
+  pwpush-container:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
     runs-on: ubuntu-latest
     steps:
@@ -45,13 +44,13 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/pwpush
           tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-amd64
-            type=match,pattern=stable,format=stable-amd64
-            type=schedule,pattern=nightly,format=nightly-amd64
-            type=semver,pattern={{version}},format={{version}}-amd64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-amd64
-            type=semver,pattern={{major}},format={{major}}-amd64
-            type=raw,value=latest-amd64,enable=${{ github.event_name == 'workflow_dispatch' }}
+            type=ref,event=pr,format=pr-{{ref}}-docker
+            type=match,pattern=stable
+            type=schedule,pattern=nightly
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
@@ -59,7 +58,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image (amd64)
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile
@@ -68,10 +67,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-amd64
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
             type=gha
           cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-amd64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
@@ -82,15 +81,22 @@ jobs:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: job_failed
 
-  pwpush-container-arm64:
+
+  public-gateway-container:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    runs-on: ubuntu-24.04-arm
+    needs: pwpush-container
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:master
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -99,55 +105,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-arm64
-            type=match,pattern=stable,format=stable-arm64
-            type=schedule,pattern=nightly,format=nightly-arm64
-            type=semver,pattern={{version}},format={{version}}-arm64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-arm64
-            type=semver,pattern={{major}},format={{major}}-arm64
-            type=raw,value=latest-arm64,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image (arm64)
-        uses: docker/build-push-action@v6
-        with:
-          file: ./containers/docker/Dockerfile
-          platforms: linux/arm64
-          push: true
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-arm64
-            type=gha
-          cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-arm64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
-
-      - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
-        continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@v1.1.6
-        with:
-          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
-          template: job_failed
-
-  pwpush-manifest:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: [pwpush-container-amd64, pwpush-container-arm64]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush
+          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
           tags: |
             type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
@@ -163,56 +121,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create and push manifest
-        run: |
-          # Create manifests for all tags (excluding architecture-specific ones)
-          echo "${{ steps.meta.outputs.tags }}" | grep -vE '-(amd64|arm64)$' | while IFS= read -r tag; do
-            if [ -n "$tag" ]; then
-              echo "Creating manifest for $tag"
-              # Remove existing manifest if it exists, then create new one
-              docker manifest rm "$tag" 2>/dev/null || true
-              docker manifest create "$tag" \
-                --amend "${tag}-amd64" \
-                --amend "${tag}-arm64"
-              docker manifest push "$tag"
-            fi
-          done
-
-  public-gateway-container-amd64:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: pwpush-container-amd64
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          fetch-depth: 1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-amd64
-            type=match,pattern=stable,format=stable-amd64
-            type=schedule,pattern=nightly,format=nightly-amd64
-            type=semver,pattern={{version}},format={{version}}-amd64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-amd64
-            type=semver,pattern={{major}},format={{major}}-amd64
-            type=raw,value=latest-amd64,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image (amd64)
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.public-gateway
@@ -221,10 +130,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache-amd64
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache
             type=gha
           cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache-amd64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
@@ -235,16 +144,21 @@ jobs:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: job_failed
 
-  public-gateway-container-arm64:
+  worker-container:
     if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: pwpush-manifest
-    runs-on: ubuntu-24.04-arm
+    needs: pwpush-container
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          image: tonistiigi/binfmt:master
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -253,55 +167,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-arm64
-            type=match,pattern=stable,format=stable-arm64
-            type=schedule,pattern=nightly,format=nightly-arm64
-            type=semver,pattern={{version}},format={{version}}-arm64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-arm64
-            type=semver,pattern={{major}},format={{major}}-arm64
-            type=raw,value=latest-arm64,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image (arm64)
-        uses: docker/build-push-action@v6
-        with:
-          file: ./containers/docker/Dockerfile.public-gateway
-          platforms: linux/arm64
-          push: true
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache-arm64
-            type=gha
-          cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache-arm64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
-
-      - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
-        continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@v1.1.6
-        with:
-          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
-          template: job_failed
-
-  public-gateway-manifest:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: [public-gateway-container-amd64, public-gateway-container-arm64]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
+          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
           tags: |
             type=ref,event=pr,format=pr-{{ref}}-docker
             type=match,pattern=stable
@@ -317,56 +183,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create and push manifest
-        run: |
-          # Create manifests for all tags (excluding architecture-specific ones)
-          echo "${{ steps.meta.outputs.tags }}" | grep -vE '-(amd64|arm64)$' | while IFS= read -r tag; do
-            if [ -n "$tag" ]; then
-              echo "Creating manifest for $tag"
-              # Remove existing manifest if it exists, then create new one
-              docker manifest rm "$tag" 2>/dev/null || true
-              docker manifest create "$tag" \
-                --amend "${tag}-amd64" \
-                --amend "${tag}-arm64"
-              docker manifest push "$tag"
-            fi
-          done
-
-  worker-container-amd64:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: pwpush-container-amd64
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          fetch-depth: 1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-amd64
-            type=match,pattern=stable,format=stable-amd64
-            type=schedule,pattern=nightly,format=nightly-amd64
-            type=semver,pattern={{version}},format={{version}}-amd64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-amd64
-            type=semver,pattern={{major}},format={{major}}-amd64
-            type=raw,value=latest-amd64,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image (amd64)
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           file: ./containers/docker/Dockerfile.worker
@@ -375,10 +192,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache-amd64
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache
             type=gha
           cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache-amd64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
@@ -388,100 +205,3 @@ jobs:
         with:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: job_failed
-
-  worker-container-arm64:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: pwpush-manifest
-    runs-on: ubuntu-24.04-arm
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          fetch-depth: 1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker-arm64
-            type=match,pattern=stable,format=stable-arm64
-            type=schedule,pattern=nightly,format=nightly-arm64
-            type=semver,pattern={{version}},format={{version}}-arm64
-            type=semver,pattern={{major}}.{{minor}},format={{major}}.{{minor}}-arm64
-            type=semver,pattern={{major}},format={{major}}-arm64
-            type=raw,value=latest-arm64,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image (arm64)
-        uses: docker/build-push-action@v6
-        with:
-          file: ./containers/docker/Dockerfile.worker
-          platforms: linux/arm64
-          push: true
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache-arm64
-            type=gha
-          cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache-arm64,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
-
-      - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
-        continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@v1.1.6
-        with:
-          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
-          template: job_failed
-
-  worker-manifest:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
-    needs: [worker-container-amd64, worker-container-arm64]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker
-            type=match,pattern=stable
-            type=schedule,pattern=nightly
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Create and push manifest
-        run: |
-          # Create manifests for all tags (excluding architecture-specific ones)
-          echo "${{ steps.meta.outputs.tags }}" | grep -vE '-(amd64|arm64)$' | while IFS= read -r tag; do
-            if [ -n "$tag" ]; then
-              echo "Creating manifest for $tag"
-              # Remove existing manifest if it exists, then create new one
-              docker manifest rm "$tag" 2>/dev/null || true
-              docker manifest create "$tag" \
-                --amend "${tag}-amd64" \
-                --amend "${tag}-arm64"
-              docker manifest push "$tag"
-            fi
-          done
