@@ -26,7 +26,7 @@ group :development do
 
   # Visual Studio Additions
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  # gem install debase -v '0.2.5.beta2' -- --with-cflags=-Wno-error=incompatible-function-pointer-types
+  # gem install debase -v '0.2.9' -- --with-cflags=-Wno-error=incompatible-function-pointer-types
   # https://blog.arkency.com/how-to-get-burned-by-16-years-old-hack-in-2024/
   gem "debase"
   gem "ruby-debug-ide"
