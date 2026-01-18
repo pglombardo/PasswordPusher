@@ -27,7 +27,8 @@ class PushesController < BaseController
 
       # The passphrase can be passed in the params or in the cookie (default)
       # JSON requests must pass the passphrase in the params
-      has_passphrase = params[:passphrase] == @push.passphrase || cookies[name] == @push.passphrase_ciphertext
+      has_passphrase = ActiveSupport::SecurityUtils.secure_compare(@push.passphrase.to_s, params[:passphrase].to_s) ||
+        ActiveSupport::SecurityUtils.secure_compare(@push.passphrase_ciphertext.to_s, cookies[name].to_s)
 
       unless has_passphrase
         # Passphrase hasn't been provided or is incorrect
@@ -75,7 +76,7 @@ class PushesController < BaseController
     name = "#{@push.url_token}-p"
 
     # Validate the passphrase
-    if @push.passphrase == params[:passphrase]
+    if ActiveSupport::SecurityUtils.secure_compare(@push.passphrase.to_s, params[:passphrase].to_s)
       # Passphrase is valid
       # Set the passphrase cookie
       cookies[name] = {

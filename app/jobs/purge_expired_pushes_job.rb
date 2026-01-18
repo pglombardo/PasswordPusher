@@ -30,8 +30,8 @@ class PurgeExpiredPushesJob < ApplicationJob
     Push.where(expired: true)
       .where("expired_on < ?", Time.current - to_duration(Settings.purge_after))
       .find_each do |push|
-      counter += 1
-      push.destroy
+        counter += 1
+        push.destroy
     end
 
     logger.info("  -> #{counter} expired pushes older than #{Settings.purge_after} ago have been purged.")
