@@ -54,8 +54,8 @@ task delete_expired_and_anonymous: :environment do
     .where(expired: true)
     .where(user_id: nil)
     .find_each do |push|
-    counter += 1
-    push.destroy
+      counter += 1
+      push.destroy
   end
 
   puts "  -> #{counter} total anonymous and expired pushes deleted."

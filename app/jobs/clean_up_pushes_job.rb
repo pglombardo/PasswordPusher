@@ -32,8 +32,8 @@ class CleanUpPushesJob < ApplicationJob
       .where(expired: true)
       .where(user_id: nil)
       .find_each do |push|
-      counter += 1
-      push.destroy
+        counter += 1
+        push.destroy
     end
 
     logger.info("  -> #{counter} total anonymous expired pushes deleted.")
