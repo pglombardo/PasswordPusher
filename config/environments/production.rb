@@ -67,6 +67,24 @@ Rails.application.configure do
     config.action_dispatch.trusted_proxies.concat(trusted_proxies)
   end
 
+  # Configure default URL options for redirects and URL generation
+  # This ensures redirects use the correct public hostname instead of internal hostname
+  if Settings.override_base_url.present?
+    uri = URI.parse(Settings.override_base_url)
+    url_options = {
+      host: uri.host,
+      protocol: uri.scheme
+    }
+    # Only include port if it's not a default port (80 for HTTP, 443 for HTTPS)
+    url_options[:port] = uri.port unless [80, 443].include?(uri.port)
+    config.action_controller.default_url_options = url_options
+  elsif Settings.host_domain.present?
+    config.action_controller.default_url_options = {
+      host: Settings.host_domain,
+      protocol: Settings.host_protocol || "https"
+    }
+  end
+
   # Logging
   config.logger = if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
     # Log to STDOUT by default
