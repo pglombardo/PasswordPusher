@@ -53,10 +53,10 @@ class FirstRunTest < ApplicationSystemTestCase
     assert_text "Boot Code Required"
     assert_selector "input[name='user[boot_code]']", wait: 5
 
+    assert File.exist?(FirstRunBootCode::BOOT_CODE_FILE), "Boot code file should exist after initiating first run flow"
     code = FirstRunBootCode.code
     assert_not_nil code, "Boot code should be generated"
     assert_not_empty code, "Boot code should not be empty"
-    assert File.exist?(FirstRunBootCode::BOOT_CODE_FILE), "Boot code file should exist"
 
     fill_in "Boot Code", with: code
     fill_in "Email", with: "admin@example.com"

@@ -3,8 +3,6 @@
 require "test_helper"
 
 class FirstRunControllerTest < ActionDispatch::IntegrationTest
-  self.use_transactional_tests = false
-
   setup do
     Settings.enable_logins = true
     Settings.disable_signups = false
@@ -60,6 +58,7 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     user = User.order(:created_at).last
     assert user.admin?
     assert user.confirmed?
+    assert_equal user.id, session["warden.user.user.key"]&.dig(0, 0)
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
   end
 

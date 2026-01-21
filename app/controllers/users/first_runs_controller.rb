@@ -28,17 +28,19 @@ class Users::FirstRunsController < Users::RegistrationsController
         # Ensure user is confirmed (reload to get fresh state)
         resource.reload
         resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
-        # Clear the boot code after successful setup
-        FirstRunBootCode.clear!
         # Sign up the user (which includes signing them in)
         sign_up(resource_name, resource)
         redirect_to after_sign_up_path_for(resource), notice: I18n._("Administrator account created successfully!")
+        # Clear the boot code after the entire success flow completes
+        FirstRunBootCode.clear!
       else
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource
       end
     end
+
+    nil if performed?
   end
 
   protected
@@ -78,7 +80,7 @@ class Users::FirstRunsController < Users::RegistrationsController
       flash.now[:alert] = I18n._("Invalid or missing boot code. Please check the application logs for the boot code.")
       build_resource(sign_up_params)
       render :new, status: :unprocessable_content
-      nil
+      false
     end
   end
 end

@@ -57,8 +57,12 @@ module FirstRunBootCode
     private
 
     def read_code_from_file
-      File.chmod(0o600, BOOT_CODE_FILE) if File.exist?(BOOT_CODE_FILE)
-      raw = File.read(BOOT_CODE_FILE).to_s.strip
+      begin
+        File.chmod(0o600, BOOT_CODE_FILE) if File.exist?(BOOT_CODE_FILE)
+        raw = File.read(BOOT_CODE_FILE).to_s.strip
+      rescue Errno::ENOENT, Errno::EACCES
+        return nil
+      end
       return nil if raw.blank?
 
       # Support both plain code and legacy "code|timestamp" format.
@@ -67,8 +71,6 @@ module FirstRunBootCode
       else
         raw
       end
-    rescue Errno::ENOENT, Errno::EACCES
-      nil
     end
   end
 end
