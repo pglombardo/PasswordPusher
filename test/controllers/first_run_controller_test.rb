@@ -42,7 +42,7 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "first run create rejects invalid boot code" do
-    post first_run_url, params: {user: {email: "test@example.com", password: "password123", boot_code: "bad-code"}, honeypotx: ""}
+    post first_run_url, params: {user: {email: "test@example.com", password: "password123", boot_code: "bad-code"}}
 
     assert_response :unprocessable_content
     assert_match(/Invalid or missing boot code/i, response.body)
@@ -53,7 +53,7 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     code = FirstRunBootCode.code
 
     assert_difference -> { User.where(email: "test@example.com").count }, 1 do
-      post first_run_url, params: {user: {email: "test@example.com", password: "password123", boot_code: code}, honeypotx: ""}
+      post first_run_url, params: {user: {email: "test@example.com", password: "password123", boot_code: code}}
     end
 
     assert_response :redirect

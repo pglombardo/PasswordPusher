@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::FirstRunsController < Users::RegistrationsController
+  invisible_captcha only: :create
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
 
@@ -17,21 +18,26 @@ class Users::FirstRunsController < Users::RegistrationsController
     resource.skip_confirmation_notification! if resource.respond_to?(:skip_confirmation_notification!)
     resource.skip_confirmation! if resource.respond_to?(:skip_confirmation!)
 
-    if resource.save
-      # Ensure user is confirmed (reload to get fresh state)
-      resource.reload
-      resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
-
-      # Clear the boot code after successful setup
-      FirstRunBootCode.clear!
-
-      # Sign up the user (which includes signing them in)
-      sign_up(resource_name, resource)
-      redirect_to after_sign_up_path_for(resource), notice: I18n._("Administrator account created successfully!")
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
+    User.transaction do
+      # Re-check within a transaction to avoid race conditions with prevent_repeats
+      if User.exists?
+        redirect_to root_url
+        raise ActiveRecord::Rollback
+      end
+      if resource.save
+        # Ensure user is confirmed (reload to get fresh state)
+        resource.reload
+        resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
+        # Clear the boot code after successful setup
+        FirstRunBootCode.clear!
+        # Sign up the user (which includes signing them in)
+        sign_up(resource_name, resource)
+        redirect_to after_sign_up_path_for(resource), notice: I18n._("Administrator account created successfully!")
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        respond_with resource
+      end
     end
   end
 
