@@ -4,6 +4,12 @@ class Users::FirstRunsController < Users::RegistrationsController
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
 
+  def new
+    build_resource
+    set_minimum_password_length
+    respond_with resource
+  end
+
   def create
     build_resource(sign_up_params)
 

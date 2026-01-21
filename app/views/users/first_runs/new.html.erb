@@ -17,7 +17,7 @@
         required: true,
         autocomplete: "off",
         autofocus: true %>
-      <%= f.label I18n._("Boot Code"), for: :user_boot_code %>
+    <%= f.label :boot_code, I18n._("Boot Code") %>
     </div>
   <% end %>
 
@@ -27,7 +27,7 @@
       autocomplete: "email",
       placeholder: I18n._("Email"),
       required: true %>
-    <%= f.label I18n._("Email"), for: :user_email %>
+    <%= f.label :email, I18n._("Email") %>
   </div>
 
   <div class="form-floating mb-2">
@@ -36,16 +36,17 @@
       autocomplete: "new-password",
       placeholder: I18n._("Password"),
       required: true %>
-    <%= f.label I18n._("Password"), for: :user_password %>
+    <%= f.label :password, I18n._("Password") %>
   </div>
 
   <div class="form-floating">
     <%= invisible_captcha %>
   </div>
 
-  <% if @minimum_password_length %>
+  <% minimum_password_length = @minimum_password_length || (resource_class.password_length.min if respond_to?(:resource_class) && resource_class.respond_to?(:password_length)) %>
+  <% if minimum_password_length %>
     <p class="text-muted">
-      * <%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
+      * <%= sprintf(I18n.t('devise.registrations.password_minimum'), minimum_password_length) %>
     </p>
   <% end %>
 

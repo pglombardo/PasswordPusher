@@ -7,16 +7,25 @@ module FirstRunBootCode
     # Generate a new boot code if no users exist
     def generate_if_needed
       return if User.any?
-      return if File.exist?(BOOT_CODE_FILE)
 
-      code = SecureRandom.hex(16) # 32 character hex string
-      save_code(code)
-      code
+      FileUtils.mkdir_p(File.dirname(BOOT_CODE_FILE))
+
+      begin
+        code = SecureRandom.hex(16) # 32 character hex string
+        File.open(BOOT_CODE_FILE, File::WRONLY | File::CREAT | File::EXCL, 0o600) do |file|
+          file.write("#{code}|#{Time.now.to_i}")
+        end
+        code
+      rescue Errno::EEXIST
+        stored_data = File.read(BOOT_CODE_FILE).strip.split("|")
+        stored_data[0]
+      end
     end
 
     # Get the current boot code
     def code
       generate_if_needed
+      return nil unless File.exist?(BOOT_CODE_FILE)
 
       stored_data = File.read(BOOT_CODE_FILE).strip.split("|")
       stored_data[0]
@@ -25,9 +34,16 @@ module FirstRunBootCode
     # Validate the provided code
     def valid?(provided_code)
       return false if provided_code.blank?
-      return false if code.blank?
 
-      ActiveSupport::SecurityUtils.secure_compare(code.to_s, provided_code.to_s)
+      begin
+        boot_code = code
+      rescue
+        return false
+      end
+
+      return false if boot_code.blank?
+
+      ActiveSupport::SecurityUtils.secure_compare(boot_code.to_s, provided_code.to_s)
     end
 
     # Clear the boot code (called after successful first run setup)

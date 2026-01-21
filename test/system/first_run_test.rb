@@ -19,6 +19,7 @@ class FirstRunTest < ApplicationSystemTestCase
 
   teardown do
     FirstRunBootCode.clear!
+    User.destroy_all
     Settings.enable_logins = false
     Settings.disable_signups = false
 

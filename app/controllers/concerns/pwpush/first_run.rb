@@ -14,20 +14,26 @@ module Pwpush
 
         if FirstRunBootCode.needed?
           unless Rails.env.test?
-            puts <<~MESSAGE
-              =======================================================================================
-              FIRST RUN SETUP REQUIRED
-              =======================================================================================
-              No users detected. To complete first-run setup, you will need the following boot code:
+            boot_code_exists = File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
+            boot_code = FirstRunBootCode.code
 
-                Boot Code: #{FirstRunBootCode.code}
+            unless boot_code_exists
+              Rails.logger.info <<~MESSAGE
+                =======================================================================================
+                FIRST RUN SETUP REQUIRED
+                =======================================================================================
+                No users detected. To complete first-run setup, you will need the following boot code:
 
-              This code is required to create the first administrator account.
-              The code will expire once the first user is created or the container is restarted.
-              =======================================================================================
-            MESSAGE
+                  Boot Code: #{boot_code}
+
+                This code is required to create the first administrator account.
+                The code will expire once the first user is created. It may also be cleared when
+                the container is restarted, depending on how temporary storage is configured.
+                =======================================================================================
+              MESSAGE
+            end
           end
-          return if request.path.include?("first_run")
+          return if request.path.start_with?(first_run_path)
 
           redirect_to first_run_url
         end
