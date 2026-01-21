@@ -8,6 +8,11 @@ class FirstRunTest < ApplicationSystemTestCase
     Settings.disable_signups = false
     Rails.application.reload_routes!
 
+    @original_timestamp_enabled = InvisibleCaptcha.timestamp_enabled
+    @original_spinner_enabled = InvisibleCaptcha.spinner_enabled
+    InvisibleCaptcha.timestamp_enabled = false
+    InvisibleCaptcha.spinner_enabled = false
+
     User.destroy_all
     FirstRunBootCode.clear!
   end
@@ -16,6 +21,9 @@ class FirstRunTest < ApplicationSystemTestCase
     FirstRunBootCode.clear!
     Settings.enable_logins = false
     Settings.disable_signups = false
+
+    InvisibleCaptcha.timestamp_enabled = @original_timestamp_enabled
+    InvisibleCaptcha.spinner_enabled = @original_spinner_enabled
   end
 
   test "redirects to first run when visiting other pages and no users exist" do
@@ -103,6 +111,8 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "invalid-email"
     fill_in "Password", with: "securepassword123"
 
+    # Disable native HTML5 validation so the server-side error is returned.
+    page.execute_script("document.querySelector('form').setAttribute('novalidate','novalidate')")
     click_button "Create Admin Account"
 
     assert_current_path first_run_path, wait: 5
@@ -113,6 +123,6 @@ class FirstRunTest < ApplicationSystemTestCase
 
   test "form includes invisible captcha for spam protection" do
     visit first_run_path
-    assert_selector "input[name='honeypotx']", visible: false
+    assert_selector "input[tabindex='-1'][autocomplete='off']", visible: false
   end
 end
