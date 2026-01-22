@@ -40,7 +40,7 @@ jobs:
 
       - name: Get yarn cache
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: Cache yarn
         uses: actions/cache@v5
@@ -64,6 +64,16 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
           yarn install --frozen-lockfile
+
+      # Pin Chrome to version 133 to avoid flaky system test failures.
+      # Chrome 134+ has a known bug causing intermittent Selenium/Capybara failures
+      # where session paths don't update correctly after visit() calls.
+      # See: https://github.com/teamcapybara/capybara/issues/2800
+      # Remove this pin once the upstream issue is resolved.
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: 133
 
       - name: Prepare tests
         run: |
