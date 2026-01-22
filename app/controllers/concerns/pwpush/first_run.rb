@@ -3,7 +3,6 @@
 module Pwpush
   module FirstRun
     extend ActiveSupport::Concern
-    mattr_accessor :boot_code_logged, default: false
 
     included do
       before_action :ensure_user_exists

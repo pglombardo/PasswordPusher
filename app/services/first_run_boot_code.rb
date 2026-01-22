@@ -13,7 +13,7 @@ module FirstRunBootCode
       begin
         code = SecureRandom.hex(16) # 32 character hex string
         File.open(BOOT_CODE_FILE, File::WRONLY | File::CREAT | File::EXCL, 0o600) do |file|
-          file.write(code.to_s)
+          file.write(code)
         end
         code
       rescue Errno::EEXIST
@@ -58,7 +58,6 @@ module FirstRunBootCode
 
     def read_code_from_file
       begin
-        File.chmod(0o600, BOOT_CODE_FILE) if File.exist?(BOOT_CODE_FILE)
         raw = File.read(BOOT_CODE_FILE).to_s.strip
       rescue Errno::ENOENT, Errno::EACCES
         return nil
@@ -67,7 +66,7 @@ module FirstRunBootCode
 
       # Support both plain code and legacy "code|timestamp" format.
       if raw.include?("|")
-        raw.split("|", 2).first.to_s.strip.presence
+        raw.split("|", 2).first.presence
       else
         raw
       end

@@ -20,11 +20,11 @@ class Users::FirstRunsController < Users::RegistrationsController
     resource.skip_confirmation_notification! if resource.respond_to?(:skip_confirmation_notification!)
     resource.skip_confirmation! if resource.respond_to?(:skip_confirmation!)
 
-    User.transaction do
+    result = User.transaction do
       # Re-check within a transaction to avoid race conditions with prevent_repeats
       if User.exists?
         redirect_to root_url
-        raise ActiveRecord::Rollback
+        :redirected
       end
       if resource.save
         # Ensure user is confirmed (reload to get fresh state)
@@ -39,10 +39,11 @@ class Users::FirstRunsController < Users::RegistrationsController
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource
+        :invalid
       end
     end
 
-    nil if performed?
+    nil if result == :redirected
   end
 
   protected
@@ -82,7 +83,6 @@ class Users::FirstRunsController < Users::RegistrationsController
       flash.now[:alert] = _("Invalid or missing boot code. Please check the application logs for the boot code.")
       build_resource(sign_up_params)
       render :new, status: :unprocessable_content
-      false
     end
   end
 end
