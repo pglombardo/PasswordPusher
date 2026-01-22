@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Users::FirstRunsController < Users::RegistrationsController
-  invisible_captcha only: :create
+  invisible_captcha only: :create,
+    timestamp_enabled: Rails.env.production?,
+    spinner_enabled: Rails.env.production?
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
 

@@ -15,10 +15,8 @@ module Pwpush
 
         if FirstRunBootCode.needed?
           unless Rails.env.test?
-            boot_code_exists = File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
-            boot_code = FirstRunBootCode.code
-
-            unless boot_code_exists || Pwpush::FirstRun.boot_code_logged
+            if request.path.start_with?(first_run_path)
+              boot_code = FirstRunBootCode.code
               Rails.logger.info <<~MESSAGE
                 =======================================================================================
                 FIRST RUN SETUP REQUIRED
@@ -32,7 +30,6 @@ module Pwpush
                 the container is restarted, depending on how temporary storage is configured.
                 =======================================================================================
               MESSAGE
-              Pwpush::FirstRun.boot_code_logged = true
             end
           end
           return if request.path.start_with?(first_run_path)
