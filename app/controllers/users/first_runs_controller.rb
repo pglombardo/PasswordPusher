@@ -30,7 +30,7 @@ class Users::FirstRunsController < Users::RegistrationsController
         resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
         # Sign up the user (which includes signing them in)
         sign_up(resource_name, resource)
-        redirect_to after_sign_up_path_for(resource), notice: I18n._("Administrator account created successfully!")
+        redirect_to after_sign_up_path_for(resource), notice: _("Administrator account created successfully!")
         # Clear the boot code after the entire success flow completes
         FirstRunBootCode.clear!
       else
@@ -77,7 +77,7 @@ class Users::FirstRunsController < Users::RegistrationsController
     boot_code = params.dig(:user, :boot_code) || params[:boot_code]
 
     unless FirstRunBootCode.valid?(boot_code)
-      flash.now[:alert] = I18n._("Invalid or missing boot code. Please check the application logs for the boot code.")
+      flash.now[:alert] = _("Invalid or missing boot code. Please check the application logs for the boot code.")
       build_resource(sign_up_params)
       render :new, status: :unprocessable_content
       false
