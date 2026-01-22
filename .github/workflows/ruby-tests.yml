@@ -71,11 +71,15 @@ jobs:
       # See: https://github.com/teamcapybara/capybara/issues/2800
       # Remove this pin once the upstream issue is resolved.
       - name: Setup Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: 133
+          install-chromedriver: true
 
       - name: Prepare tests
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
           bin/rails assets:precompile RAILS_ENV=test
           bin/rails db:migrate RAILS_ENV=test
@@ -85,6 +89,8 @@ jobs:
           bin/rails test
 
       - name: Run system tests
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
           bin/rails test:system
 
