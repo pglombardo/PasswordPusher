@@ -3,24 +3,13 @@
 require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  # Register a custom driver that respects CHROME_BIN environment variable.
-  # This allows CI to pin a specific Chrome version to avoid flaky tests.
-  Capybara.register_driver :headless_chrome_custom do |app|
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument("--headless=new")
-    options.add_argument("--window-size=1400,1400")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
-    # Use custom Chrome binary if specified (for CI pinning)
-    if ENV["CHROME_BIN"].present?
-      options.binary = ENV["CHROME_BIN"]
-    end
+  # If you prefer to use Headless Chrome directly without a remote URL
+  # driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
-    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-  end
-
-  driven_by :headless_chrome_custom
+  # For debugging, sometimes it's helpful to see the browser
+  # driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
 
   # Include Devise test helpers for system tests
   include Warden::Test::Helpers
