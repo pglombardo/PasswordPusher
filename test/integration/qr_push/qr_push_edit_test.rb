@@ -206,7 +206,7 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
       push: {payload: "https://updated.com"}
     }
 
-    assert_audit_log_created(push, :update_push)
+    assert_audit_log_created(push, :edit)
   end
 
   test "save block is hidden when editing qr push" do

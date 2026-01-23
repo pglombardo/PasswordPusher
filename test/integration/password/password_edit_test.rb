@@ -106,7 +106,7 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
 
     # Verify audit log entry was created
     assert_equal initial_audit_count + 1, push.audit_logs.count
-    assert push.audit_logs.last.update_push?
+    assert push.audit_logs.last.edit?
   end
 
   test "update shows validation errors for invalid data" do
