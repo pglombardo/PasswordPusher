@@ -101,12 +101,16 @@ class PassphraseProtectionTest < ApplicationSystemTestCase
     # First incorrect attempt
     fill_in "passphrase", with: "wrong1"
     click_button "Go"
-    assert_text "incorrect", wait: 5
+
+    # Wait for error message to appear and page to stabilize
+    assert_selector ".alert, .error, [role='alert']", text: /incorrect/i, wait: 5
 
     # Second incorrect attempt
     fill_in "passphrase", with: "wrong2"
     click_button "Go"
-    assert_text "incorrect"
+
+    # Wait for error message again
+    assert_selector ".alert, .error, [role='alert']", text: /incorrect/i, wait: 5
 
     # Correct passphrase should still work
     fill_in "passphrase", with: "correctpass"

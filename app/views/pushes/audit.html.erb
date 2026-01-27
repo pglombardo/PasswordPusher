@@ -200,6 +200,9 @@
         <div class='col'>
             <% if @push.expired == false %>
                 <div class='text-center'>
+                    <%= link_to edit_push_path(@push), class: 'btn btn-warning mt-3', rel: 'nofollow' do %>
+                        <em class="bi bi-pencil"></em> <%= _('Edit') %>
+                    <% end %>
                     <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
                         <em class="bi bi-trash"></em> <%= _('Expire Now') %>
                     </button>

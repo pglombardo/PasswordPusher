@@ -23,7 +23,7 @@ class QrDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # view the push
     get request.url.sub("/preview", "")
@@ -59,7 +59,7 @@ class QrDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     push_url = request.url.sub("/preview", "")
 
