@@ -82,7 +82,7 @@ gem "json", "~> 2.18" # Legacy carry-over
 gem "apipie-rails", github: "Apipie/apipie-rails", branch: "copilot/fix-router-deprecation-warning"
 
 gem "config"
-gem "devise", github: "heartcombo/devise", branch: "main"
+gem "devise", "~> 5.0"
 gem "foreman"
 gem "lograge"
 gem "mail_form", ">= 1.9.0"
