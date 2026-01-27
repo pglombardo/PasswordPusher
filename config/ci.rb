@@ -4,7 +4,7 @@ CI.run do
   step "Setup", "bin/setup"
 
   step "Style: Ruby", "bundle exec rubocop"
-  step "Style: ERB", "bundle exec erblint --lint-all"
+  step "Style: ERB", "bundle exec erb_lint --lint-all"
   step "Style: i18n", "bundle exec i18n-tasks health"
 
   step "Security: Brakeman code analysis", "bundle exec brakeman --skip-files containers/build/ --quiet --no-pager --exit-on-warn --exit-on-error"
