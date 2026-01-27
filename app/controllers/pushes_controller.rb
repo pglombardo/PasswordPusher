@@ -166,7 +166,8 @@ class PushesController < BaseController
 
     update_attributes = update_params
 
-    # Filter out unchanged expiration values to avoid unnecessary updates
+    # Filter out unchanged expiration values first (before validation)
+    # This handles the case where user submits current remaining value (no change intended)
     if update_attributes[:expire_after_days].present?
       if update_attributes[:expire_after_days].to_i == @push.days_remaining
         update_attributes.delete(:expire_after_days)
@@ -176,6 +177,26 @@ class PushesController < BaseController
     if update_attributes[:expire_after_views].present?
       if update_attributes[:expire_after_views].to_i == @push.views_remaining
         update_attributes.delete(:expire_after_views)
+      end
+    end
+
+    # Validate expiration values that are actually being changed
+    # This prevents bypassing client-side HTML min attributes
+    if update_attributes[:expire_after_days].present?
+      min_days = @push.days_old + 1
+      if update_attributes[:expire_after_days].to_i < min_days
+        @push.errors.add(:expire_after_days, I18n._("must be at least %{count} (days already elapsed + 1).") % {count: min_days})
+        render action: "edit", status: :unprocessable_content
+        return
+      end
+    end
+
+    if update_attributes[:expire_after_views].present?
+      min_views = @push.view_count + 1
+      if update_attributes[:expire_after_views].to_i < min_views
+        @push.errors.add(:expire_after_views, I18n._("must be at least %{count} (views already consumed + 1).") % {count: min_views})
+        render action: "edit", status: :unprocessable_content
+        return
       end
     end
 

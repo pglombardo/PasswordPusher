@@ -323,7 +323,7 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test "updating views remaining while push is being viewed" do
+  test "cannot reduce views below already consumed" do
     push = Push.create!(
       kind: "text",
       payload: "Password",
@@ -339,9 +339,80 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
       push: {expire_after_views: 5}
     }
 
+    # Server-side validation should reject this
+    assert_response :unprocessable_content
+    assert_select "div.alert-danger", text: /must be at least 9/
+
     push.reload
-    assert_equal 5, push.expire_after_views
-    assert_equal 0, push.views_remaining  # Should be 0, not negative
+    assert_equal 10, push.expire_after_views  # Should remain unchanged
+  end
+
+  test "can set views to exactly consumed + 1" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      expire_after_views: 10,
+      user: @luca
+    )
+
+    # Simulate 5 views
+    5.times { AuditLog.create!(push: push, kind: :view, ip: "1.2.3.4") }
+
+    # User sets to exactly consumed + 1 (minimum allowed)
+    patch push_path(push), params: {
+      push: {expire_after_views: 6}
+    }
+
+    assert_redirected_to preview_push_path(push)
+    push.reload
+    assert_equal 6, push.expire_after_views
+    assert_equal 1, push.views_remaining
+  end
+
+  test "cannot reduce days below already elapsed" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      expire_after_days: 10,
+      user: @luca
+    )
+
+    # Simulate 5 days passing
+    push.update_column(:created_at, 5.days.ago)
+
+    # User tries to reduce to 3 days (less than already elapsed)
+    patch push_path(push), params: {
+      push: {expire_after_days: 3}
+    }
+
+    # Server-side validation should reject this
+    assert_response :unprocessable_content
+    assert_select "div.alert-danger", text: /must be at least 6/
+
+    push.reload
+    assert_equal 10, push.expire_after_days  # Should remain unchanged
+  end
+
+  test "can set days to exactly elapsed + 1" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      expire_after_days: 10,
+      user: @luca
+    )
+
+    # Simulate 5 days passing
+    push.update_column(:created_at, 5.days.ago)
+
+    # User sets to exactly elapsed + 1 (minimum allowed)
+    patch push_path(push), params: {
+      push: {expire_after_days: 6}
+    }
+
+    assert_redirected_to preview_push_path(push)
+    push.reload
+    assert_equal 6, push.expire_after_days
+    assert_equal 1, push.days_remaining
   end
 
   test "can remove passphrase by setting empty string" do
