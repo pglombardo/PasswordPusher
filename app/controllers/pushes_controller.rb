@@ -166,6 +166,22 @@ class PushesController < BaseController
 
     update_attributes = update_params
 
+    # Validate expiration values are not below already-consumed thresholds
+    # This prevents bypassing client-side HTML min attributes
+    min_days = @push.days_old + 1
+    if update_attributes[:expire_after_days].present? && update_attributes[:expire_after_days].to_i < min_days
+      @push.errors.add(:expire_after_days, I18n._("must be at least %{count} (days already elapsed + 1).") % {count: min_days})
+      render action: "edit", status: :unprocessable_content
+      return
+    end
+
+    min_views = @push.view_count + 1
+    if update_attributes[:expire_after_views].present? && update_attributes[:expire_after_views].to_i < min_views
+      @push.errors.add(:expire_after_views, I18n._("must be at least %{count} (views already consumed + 1).") % {count: min_views})
+      render action: "edit", status: :unprocessable_content
+      return
+    end
+
     # Filter out unchanged expiration values to avoid unnecessary updates
     if update_attributes[:expire_after_days].present?
       if update_attributes[:expire_after_days].to_i == @push.days_remaining
