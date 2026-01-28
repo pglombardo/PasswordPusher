@@ -13,12 +13,12 @@ Rails.application.configure do
     policy.img_src :self, :https, :http, :data, :blob
     policy.media_src :self, :https, :http, :data, :blob
     policy.object_src :none
-    policy.script_src :self, :https, :http, :unsafe_inline
+    policy.script_src :self, :https, :http
     policy.style_src :self, :https, :http, :unsafe_inline
     policy.style_src_attr :unsafe_inline
     policy.connect_src :self, :https, :http, :ws, :wss
     policy.report_uri "/csp-violation-report"
-    policy.script_src_elem :self, :https, :http, :unsafe_inline
+    policy.script_src_elem :self, :https, :http
   end
 end
 
