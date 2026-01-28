@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:3.4.8-alpine AS build-env
+FROM ruby:4.0.1-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -77,7 +77,7 @@ RUN rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
-FROM ruby:3.4.8-alpine
+FROM ruby:4.0.1-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
