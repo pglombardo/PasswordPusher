@@ -1,7 +1,11 @@
 <%= content_for :title, _('Edit Push') %>
 
-<div class="container d-flex justify-content-center align-items-center">
-  <h3 class="mt-4 mb-4"><%= _('Editing Push') %> <%= @push.url_token %></h3>
+<div class="container mt-4 mb-3">
+  <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3 py-3 px-3 px-md-4 bg-light rounded-3 border">
+    <em class="bi bi-pencil-square text-primary" aria-hidden="true"></em>
+    <h4 class="mb-0 fw-semibold"><%= _('Editing Push') %></h4>
+    <code class="d-inline-block px-2 py-1 bg-white rounded border font-monospace small text-muted"><%= @push.url_token %></code>
+  </div>
 </div>
 
 <% if @push.text? %>
