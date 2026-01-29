@@ -40,7 +40,7 @@ export function spoilerAlert(selector, opts) {
 
   const processElement = function(index) {
     const el = elements[index];
-    el['data-spoiler-state'] = 'shrouded';
+    el.setAttribute('data-spoiler-state', 'shrouded');
 
     el.style.webkitTransition = '-webkit-filter 250ms';
     el.style.transition = 'filter 250ms';
@@ -55,24 +55,24 @@ export function spoilerAlert(selector, opts) {
     el.addEventListener('mouseover', function(e) {
       el.style.cursor = 'pointer';
       el.title = hintText;
-      if (el['data-spoiler-state'] === 'shrouded') applyBlur(partialBlur);
+      if (el.getAttribute('data-spoiler-state') === 'shrouded') applyBlur(partialBlur);
     })
 
     el.addEventListener('mouseout', function(e) {
       el.title = hintText;
-      if (el['data-spoiler-state'] === 'shrouded') applyBlur(maxBlur);
+      if (el.getAttribute('data-spoiler-state') === 'shrouded') applyBlur(maxBlur);
     })
 
     el.addEventListener('click', function(e) {
-      switch(el['data-spoiler-state']) {
+      switch (el.getAttribute('data-spoiler-state')) {
         case 'shrouded':
-          el['data-spoiler-state'] = 'revealed';
+          el.setAttribute('data-spoiler-state', 'revealed');
           el.title = '';
           el.style.cursor = 'auto';
           applyBlur(0);
           break;
         default:
-          el['data-spoiler-state'] = 'shrouded';
+          el.setAttribute('data-spoiler-state', 'shrouded');
           el.title = hintText;
           el.style.cursor = 'pointer';
           applyBlur(maxBlur);
