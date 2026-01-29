@@ -72,6 +72,33 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_select "input[name='push[expire_after_views]'][value='25']"
   end
 
+  test "edit page shows blur and reveal zone when enable_blur is true" do
+    Settings.pw.enable_blur = true
+
+    push = Push.create!(
+      kind: "text",
+      payload: "Secret content",
+      user: @luca,
+      expire_after_days: 7,
+      expire_after_views: 10
+    )
+
+    get edit_push_path(push)
+    assert_response :success
+
+    # Textarea has spoiler class (blurred by default)
+    assert_select "textarea#push_payload.spoiler", 1
+
+    # No autofocus when blurred
+    assert_select "textarea#push_payload[autofocus]", 0
+
+    # Reveal zone with instructions is present
+    assert_select ".payload-reveal-zone", 1
+    assert_match(/Content is hidden for privacy/, response.body)
+  ensure
+    Settings.pw.enable_blur = true
+  end
+
   test "can update push with valid data" do
     push = Push.create!(
       kind: "text",

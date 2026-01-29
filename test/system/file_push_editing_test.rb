@@ -96,7 +96,7 @@ class FilePushEditingTest < ApplicationSystemTestCase
     end
 
     # Should stay on edit page
-    assert_selector "h3", text: "Editing Push"
+    assert_selector "h4", text: "Editing Push"
 
     # Should see success message
     assert_text "File was successfully deleted"
