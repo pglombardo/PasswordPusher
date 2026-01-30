@@ -61,7 +61,6 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Boot Code", with: code
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
-    fill_in "Confirm Password", with: "securepassword123"
 
     click_button "Create Admin Account"
 
@@ -80,7 +79,6 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Boot Code", with: "invalid-boot-code-12345"
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
-    fill_in "Confirm Password", with: "securepassword123"
 
     click_button "Create Admin Account"
 
@@ -97,7 +95,6 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Boot Code", with: code
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "123"
-    fill_in "Confirm Password", with: "123"
 
     click_button "Create Admin Account"
 
@@ -114,7 +111,6 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Boot Code", with: code
     fill_in "Email", with: "invalid-email"
     fill_in "Password", with: "securepassword123"
-    fill_in "Confirm Password", with: "securepassword123"
 
     # Disable native HTML5 validation so the server-side error is returned.
     page.execute_script("document.querySelector('form').setAttribute('novalidate','novalidate')")
