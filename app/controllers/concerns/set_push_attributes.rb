@@ -3,16 +3,16 @@ module SetPushAttributes
 
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
-  def create_detect_deletable_by_viewer(push, push_params)
+  def assign_deletable_by_viewer(push, push_params)
     if push.url?
       # URLs cannot be preemptively deleted by end users ever
       push.deletable_by_viewer = nil
     elsif push.settings_for_kind.enable_deletable_pushes == true
       if push_params.key?(:deletable_by_viewer)
         # User form data or json API request: :deletable_by_viewer can
-        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
+        # be 'on', 'true', 'checked', 'yes', or '1' to indicate a positive
         user_dbv = push_params[:deletable_by_viewer].to_s.downcase
-        push.deletable_by_viewer = %w[on yes checked true].include?(user_dbv)
+        push.deletable_by_viewer = %w[on yes checked true 1].include?(user_dbv)
       else
         push.deletable_by_viewer = if request.format.html?
           # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted
@@ -32,13 +32,13 @@ module SetPushAttributes
 
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
-  def create_detect_retrieval_step(push, push_params)
+  def assign_retrieval_step(push, push_params)
     if push.settings_for_kind.enable_retrieval_step == true
       if push_params.key?(:retrieval_step)
-        # User form data or json API request: :deletable_by_viewer can
-        # be 'on', 'true', 'checked' or 'yes' to indicate a positive
+        # User form data or json API request: :retrieval_step can
+        # be 'on', 'true', 'checked', 'yes', or '1' to indicate a positive
         user_rs = push_params[:retrieval_step].to_s.downcase
-        push.retrieval_step = %w[on yes checked true].include?(user_rs)
+        push.retrieval_step = %w[on yes checked true 1].include?(user_rs)
       else
         push.retrieval_step = if request.format.html?
           # HTML Form Checkboxes: when NOT checked the form attribute isn't submitted

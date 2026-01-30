@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-11 11:57+0100\n"
-"PO-Revision-Date: 2026-01-11 10:57+0000\n"
+"POT-Creation-Date: 2026-01-29 01:43+0100\n"
+"PO-Revision-Date: 2026-01-29 00:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh\n"
 "Language: cy\n"
@@ -24,7 +24,10 @@ msgid "You cannot delete your own account."
 msgstr "Ni allwch ddileu eich cyfrif eich hun."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:174
+#: ../../../app/controllers/pushes_controller.rb:117
+#: ../../../app/controllers/pushes_controller.rb:157
+#: ../../../app/controllers/pushes_controller.rb:275
+#: ../../../app/controllers/pushes_controller.rb:305
 msgid "That push doesn't belong to you."
 msgstr "Nid yw'r gwthiad hwnnw'n perthyn i chi."
 
@@ -40,7 +43,7 @@ msgstr "Rhaid i chi fod wedi mewngofnodi i weld eich gwthiadau gweithredol."
 msgid "You must be logged in to view your expired pushes."
 msgstr "Rhaid i chi fod wedi mewngofnodi i weld eich gwthiadau sydd wedi dod i ben."
 
-#: ../../../app/controllers/pushes_controller.rb:96
+#: ../../../app/controllers/pushes_controller.rb:97
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -48,52 +51,83 @@ msgstr ""
 "Mae'r cyfrinair hwnnw'n anghywir. Rhowch gynnig arall arni neu cysylltwch â'r "
 "person neu'r sefydliad a anfonodd y ddolen hon atoch."
 
-#: ../../../app/controllers/pushes_controller.rb:184
-msgid "That push is not deletable by viewers and does not belong to you."
-msgstr "Ni ellir dileu'r gwthiad hwnnw gan wylwyr ac nid yw'n eiddo i chi."
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:163
+msgid "That push has already expired and cannot be edited."
+msgstr "Mae'r gwthiad hwnnw eisoes wedi dod i ben ac ni ellir ei olygu."
 
-#: ../../../app/controllers/pushes_controller.rb:189
-msgid "That push has already expired."
-msgstr "Mae'r gwthiad hwnnw eisoes wedi dod i ben."
+#: ../../../app/controllers/pushes_controller.rb:188
+msgid "must be at least %{count} (days already elapsed + 1)."
+msgstr "rhaid bod o leiaf %{count} (dyddiau sydd eisoes wedi mynd heibio + 1)."
 
 #: ../../../app/controllers/pushes_controller.rb:197
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Mae'r cynnwys gwthio wedi'i ddileu ac mae'r URL cyfrinachol wedi dod i ben."
+msgid "must be at least %{count} (views already consumed + 1)."
+msgstr "rhaid bod o leiaf %{count} (golygfeydd eisoes wedi'u defnyddio + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:318
-#: ../../../app/models/push.rb:199
-msgid "File pushes are disabled."
-msgstr "Mae gwthio ffeiliau wedi'u hanalluogi."
-
-#: ../../../app/controllers/pushes_controller.rb:328
-#: ../../../app/models/push.rb:203
-msgid "URL pushes are disabled."
-msgstr "Mae gwthio URL wedi'u hanalluogi."
-
-#: ../../../app/controllers/pushes_controller.rb:338
-#: ../../../app/models/push.rb:207
-msgid "QR code pushes are disabled."
-msgstr "Mae gwthio cod QR wedi'i analluogi."
-
+#: ../../../app/controllers/pushes_controller.rb:222
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Dim ond hyd at %{count} o ffeiliau y gallwch eu hatodi fesul gwthiad."
 
-#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
-#: ../../../app/models/push.rb:146
+#: ../../../app/controllers/pushes_controller.rb:235
+msgid "Push was successfully updated."
+msgstr "Diweddarwyd Push yn llwyddiannus."
+
+#: ../../../app/controllers/pushes_controller.rb:285
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Ni ellir dileu'r gwthiad hwnnw gan wylwyr ac nid yw'n eiddo i chi."
+
+#: ../../../app/controllers/pushes_controller.rb:290
+#: ../../../app/controllers/pushes_controller.rb:311
+msgid "That push has already expired."
+msgstr "Mae'r gwthiad hwnnw eisoes wedi dod i ben."
+
+#: ../../../app/controllers/pushes_controller.rb:298
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Mae'r cynnwys gwthio wedi'i ddileu ac mae'r URL cyfrinachol wedi dod i ben."
+
+#: ../../../app/controllers/pushes_controller.rb:317
+msgid "You cannot delete the last file from a file push."
+msgstr "Ni allwch ddileu'r ffeil olaf o gwthio ffeil."
+
+#: ../../../app/controllers/pushes_controller.rb:326
+msgid "File was successfully deleted."
+msgstr "Dilewyd y ffeil yn llwyddiannus."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+msgid "File not found."
+msgstr "Ni chanfuwyd y ffeil."
+
+#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/models/push.rb:208
+msgid "File pushes are disabled."
+msgstr "Mae gwthio ffeiliau wedi'u hanalluogi."
+
+#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/models/push.rb:212
+msgid "URL pushes are disabled."
+msgstr "Mae gwthio URL wedi'u hanalluogi."
+
+#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/models/push.rb:216
+msgid "QR code pushes are disabled."
+msgstr "Mae gwthio cod QR wedi'i analluogi."
+
+#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
+#: ../../../app/models/push.rb:155
 msgid "Payload is required."
 msgstr "Mae angen llwyth tâl."
 
-#: ../../../app/models/push.rb:125
+#: ../../../app/models/push.rb:128
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr "Mae'r llwyth tâl yn rhy fawr. Dim ond hyd at %{count} beit y gallwch ei wthio."
 
-#: ../../../app/models/push.rb:132
+#: ../../../app/models/push.rb:138
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "rhaid iddo fod yn URL HTTP neu HTTPS dilys."
 
-#: ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:152
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr ""
 "Mae llwyth y cod QR yn rhy fawr. Dim ond hyd at %{count} beit y gallwch ei wth"
@@ -463,6 +497,7 @@ msgstr "Nid yw'n cyfrif tuag at y terfyn gwylio"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
@@ -473,6 +508,7 @@ msgstr "Cyfeiriad IP:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
@@ -485,6 +521,8 @@ msgstr "Asiant Defnyddiwr:"
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
@@ -502,6 +540,7 @@ msgstr "Dim"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
@@ -513,6 +552,10 @@ msgstr "Cyfeiriwr:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Crëwyd ar %{date} gan %{user}"
+
+#: ../../../app/views/audit_logs/_log_edit.html.erb:3
+msgid "Edited on %{date} by %{user}"
+msgstr "Golygwyd ar %{date} gan %{user}"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -755,7 +798,7 @@ msgid "A new token will be generated in its place."
 msgstr "Bydd tocyn newydd yn cael ei gynhyrchu yn ei le."
 
 #: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:218
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:115
 msgid "Are you sure?"
 msgstr "Wyt ti'n siŵr?"
@@ -763,7 +806,7 @@ msgstr "Wyt ti'n siŵr?"
 #: ../../../app/views/devise/registrations/token.html.erb:52
 #: ../../../app/views/madmin/application/_form.html.erb:212
 #: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:221
+#: ../../../app/views/pushes/audit.html.erb:224
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
@@ -774,7 +817,7 @@ msgid "Delete & Regenerate"
 msgstr "Dileu ac Ailgynhyrchu"
 
 #: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Prosesu..."
@@ -938,6 +981,8 @@ msgstr "Golygu %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
+#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/index.html.erb:86
 msgid "Edit"
 msgstr "Golygu"
 
@@ -998,7 +1043,7 @@ msgstr "Gweld manylion %{name}"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1602,7 +1647,7 @@ msgstr[4] "Dyddiau"
 msgstr[5] "Dyddiau"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:95
 #: ../../../app/views/pushes/_form.html.erb:7
 #: ../../../app/views/pushes/_form.html.erb:69
 #: ../../../app/views/pushes/_qr_form.html.erb:7
@@ -1613,7 +1658,7 @@ msgid "Days"
 msgstr "Dyddiau"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:80
+#: ../../../app/views/pushes/_files_form.html.erb:113
 #: ../../../app/views/pushes/_form.html.erb:10
 #: ../../../app/views/pushes/_form.html.erb:86
 #: ../../../app/views/pushes/_qr_form.html.erb:10
@@ -1624,13 +1669,13 @@ msgid "Views"
 msgstr "Golygfeydd"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:161
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:134
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:138
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_url_form.html.erb:115
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:72
 msgid "Save"
 msgstr "Cadw"
@@ -1642,22 +1687,30 @@ msgstr "Cadw"
 msgid "Saved!"
 msgstr "Wedi'i gadw!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:29
+#: ../../../app/views/pushes/_files_form.html.erb:30
+msgid "Uploaded Files"
+msgstr "Ffeiliau wedi'u Llwythi i Fyny"
+
+#: ../../../app/views/pushes/_files_form.html.erb:46
+msgid "Are you sure you want to delete this file?"
+msgstr "Ydych chi'n siŵr eich bod chi eisiau dileu'r ffeil hon?"
+
+#: ../../../app/views/pushes/_files_form.html.erb:62
 msgid "Add Files..."
 msgstr "Ychwanegu Ffeiliau..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:77
 msgid "You can upload up to %{count} files per push."
 msgstr "Gallwch uwchlwytho hyd at %{count} o ffeiliau fesul gwthiad."
 
-#: ../../../app/views/pushes/_files_form.html.erb:49
+#: ../../../app/views/pushes/_files_form.html.erb:82
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
 #: ../../../app/views/pushes/_url_form.html.erb:43
 msgid "Expire secret link and delete after:"
 msgstr "Dod i ben y ddolen gyfrinachol a'i dileu ar ôl:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:85
+#: ../../../app/views/pushes/_files_form.html.erb:118
 #: ../../../app/views/pushes/_form.html.erb:91
 #: ../../../app/views/pushes/_qr_form.html.erb:92
 #: ../../../app/views/pushes/_url_form.html.erb:80
@@ -1667,58 +1720,58 @@ msgstr "Dod i ben y ddolen gyfrinachol a'i dileu ar ôl:"
 msgid "(whichever comes first)"
 msgstr "(pa un bynnag ddaw gyntaf)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:99
-#: ../../../app/views/pushes/_form.html.erb:104
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:102
+#: ../../../app/views/pushes/_qr_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Defnyddiwch gam adfer 1 clic"
 
-#: ../../../app/views/pushes/_files_form.html.erb:100
-#: ../../../app/views/pushes/_form.html.erb:105
-#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:103
+#: ../../../app/views/pushes/_qr_form.html.erb:105
 #: ../../../app/views/pushes/audit.html.erb:73
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "Yn helpu i atal systemau sgwrsio a sganwyr URL rhag bwyta golygfeydd."
 
-#: ../../../app/views/pushes/_files_form.html.erb:111
-#: ../../../app/views/pushes/_form.html.erb:115
-#: ../../../app/views/pushes/_qr_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:111
+#: ../../../app/views/pushes/_qr_form.html.erb:114
 msgid "Allow immediate deletion"
 msgstr "Caniatáu dileu ar unwaith"
 
-#: ../../../app/views/pushes/_files_form.html.erb:112
-#: ../../../app/views/pushes/_form.html.erb:116
-#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:112
+#: ../../../app/views/pushes/_qr_form.html.erb:115
 msgid "Allow users to delete this push once retrieved."
 msgstr "Caniatáu i ddefnyddwyr ddileu'r gwthiad hwn ar ôl ei adfer."
 
-#: ../../../app/views/pushes/_files_form.html.erb:122
-#: ../../../app/views/pushes/_form.html.erb:126
-#: ../../../app/views/pushes/_qr_form.html.erb:127
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_files_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:122
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:103
 #: ../../../app/views/pushes/audit.html.erb:78
 msgid "Passphrase Lockdown"
 msgstr "Cloi Cyfrinair"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:129
-#: ../../../app/views/pushes/_qr_form.html.erb:130
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:152
+#: ../../../app/views/pushes/_form.html.erb:125
+#: ../../../app/views/pushes/_qr_form.html.erb:128
+#: ../../../app/views/pushes/_url_form.html.erb:106
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr "Dewisol: Gofyn i dderbynwyr nodi cyfrinair i weld y gwthiad hwn"
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:137
-#: ../../../app/views/pushes/_qr_form.html.erb:138
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "the above settings as the page default."
 msgstr "y gosodiadau uchod fel y gosodiad diofyn ar gyfer y dudalen."
 
-#: ../../../app/views/pushes/_files_form.html.erb:146
-#: ../../../app/views/pushes/_files_form.html.erb:169
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_files_form.html.erb:175
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:171
 #: ../../../app/views/pushes/_qr_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:174
 #: ../../../app/views/pushes/_url_form.html.erb:128
@@ -1726,41 +1779,41 @@ msgstr "y gosodiadau uchod fel y gosodiad diofyn ar gyfer y dudalen."
 msgid "Optional"
 msgstr "Dewisol"
 
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:167
 #: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Enw a ddangosir yn y dangosfwrdd, hysbysiadau ac e-byst."
 
-#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_files_form.html.erb:183
 msgid "Message"
 msgstr "Neges"
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:186
 msgid "Optional: A message to be included with the push"
 msgstr "Dewisol: Neges i'w chynnwys gyda'r gwthiad"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:190
 msgid "Encrypted and visible to the receiving party"
 msgstr "Wedi'i amgryptio ac yn weladwy i'r parti sy'n derbyn"
 
-#: ../../../app/views/pushes/_files_form.html.erb:166
-#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_files_form.html.erb:195
+#: ../../../app/views/pushes/_form.html.erb:168
 #: ../../../app/views/pushes/_qr_form.html.erb:171
 #: ../../../app/views/pushes/_url_form.html.erb:135
 #: ../../../app/views/pushes/audit.html.erb:15
 msgid "Reference Note"
 msgstr "Nodyn Cyfeirio"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
-#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:174
 #: ../../../app/views/pushes/_qr_form.html.erb:177
 #: ../../../app/views/pushes/_url_form.html.erb:141
 msgid "Encrypted and visible only to you"
 msgstr "Wedi'i amgryptio a dim ond chi sy'n gallu gweld y rhain"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_files_form.html.erb:207
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1768,22 +1821,36 @@ msgstr ""
 "Unwaith y bydd wedi dod i ben, bydd holl ffeiliau a chynnwys y gwthiad yn cael"
 " eu dileu ar unwaith ac yn llwyr."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:212
 #: ../../../app/views/pushes/_url_form.html.erb:153
 msgid "An audit log of activity will be available."
 msgstr "Bydd log archwilio o weithgarwch ar gael."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Updating..."
+msgstr "Yn diweddaru..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Update Push"
+msgstr "Gwthio Diweddariad"
+
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Pushing..."
 msgstr "Yn gwthio..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Push It!"
 msgstr "Gwthiwch Fe!"
 
@@ -1800,18 +1867,18 @@ msgstr "Rhowch y Cyfrinair neu'r Testun i wthio..."
 msgid "Characters"
 msgstr "Cymeriadau"
 
-#: ../../../app/views/pushes/_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:147
 #: ../../../app/views/pushes/_qr_form.html.erb:150
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Cynhyrchu Cyfrinair"
 
-#: ../../../app/views/pushes/_form.html.erb:156
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Use the button above to generate a random password."
 msgstr "Defnyddiwch y botwm uchod i gynhyrchu cyfrinair ar hap."
 
-#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:179
 #: ../../../app/views/pushes/_qr_form.html.erb:182
 msgid ""
 "Tip: Only enter a password into the box.  Other identifying information can co"
@@ -1820,7 +1887,7 @@ msgstr ""
 "Awgrym: Dim ond cyfrinair y dylech ei roi yn y blwch. Gall gwybodaeth adnabod "
 "arall beryglu diogelwch."
 
-#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_form.html.erb:180
 #: ../../../app/views/pushes/_qr_form.html.erb:183
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
@@ -1864,7 +1931,7 @@ msgstr "Ailgyfeirio URL"
 msgid "Enter the URL to redirect to..."
 msgstr "Rhowch yr URL i ailgyfeirio iddo..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr "Yn helpu i osgoi systemau sgwrsio a sganwyr URL rhag bwyta ailgyfeiriadau."
 
@@ -2054,23 +2121,23 @@ msgstr "Maint: "
 msgid "All attached files have been deleted."
 msgstr "Mae'r holl ffeiliau ynghlwm wedi'u dileu."
 
-#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/audit.html.erb:207
 msgid "Expire Now"
 msgstr "Dod i Ben Nawr"
 
-#: ../../../app/views/pushes/audit.html.erb:212
+#: ../../../app/views/pushes/audit.html.erb:215
 msgid "Delete This Push?"
 msgstr "Dileu'r Gwthiad Hwn?"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "This will expire this secret link and"
 msgstr "Bydd hyn yn dod i ben y ddolen gyfrinachol hon a"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "remove all content from the database forever"
 msgstr "dileu'r holl gynnwys o'r gronfa ddata am byth"
 
-#: ../../../app/views/pushes/audit.html.erb:217
+#: ../../../app/views/pushes/audit.html.erb:220
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -2078,11 +2145,11 @@ msgstr ""
 "Bydd y log archwilio (gan gynnwys ceisiadau i weld y rhain yn y dyfodol) yn da"
 "l i gael ei gynnal o hyn ymlaen."
 
-#: ../../../app/views/pushes/audit.html.erb:234
+#: ../../../app/views/pushes/audit.html.erb:237
 msgid "Start of Audit Log"
 msgstr "Dechrau'r Log Archwilio"
 
-#: ../../../app/views/pushes/audit.html.erb:240
+#: ../../../app/views/pushes/audit.html.erb:243
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2090,9 +2157,18 @@ msgstr ""
 "Wrth i'r gwthiad dderbyn gweithgaredd, bydd log o bob un gyda gwybodaeth adnab"
 "od yn ymddangos yma."
 
-#: ../../../app/views/pushes/audit.html.erb:244
+#: ../../../app/views/pushes/audit.html.erb:247
 msgid "End of Audit Log"
 msgstr "Diwedd y Log Archwilio"
+
+#: ../../../app/views/pushes/edit.html.erb:1
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid "Edit Push"
+msgstr "Golygu Gwthio"
+
+#: ../../../app/views/pushes/edit.html.erb:4
+msgid "Editing Push"
+msgstr "Golygu Gwthio"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -2162,7 +2238,7 @@ msgstr "Rheolyddion Gwthio"
 msgid "Preview"
 msgstr "Rhagolwg"
 
-#: ../../../app/views/pushes/index.html.erb:87
+#: ../../../app/views/pushes/index.html.erb:90
 msgid "Audit"
 msgstr "Archwiliad"
 
@@ -2191,12 +2267,9 @@ msgid "Click Here to Proceed"
 msgstr "Cliciwch Yma i Fwrw Ymlaen"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-msgid "Your Push Has Been Created"
-msgstr "Mae Eich Gwthiad Wedi'i Greu"
-
 #: ../../../app/views/pushes/preview.html.erb:6
-msgid "Your push has been created."
-msgstr "Mae eich gwthiad wedi'i greu."
+msgid "Push Preview"
+msgstr "Gwthio Rhagolwg"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2292,11 +2365,11 @@ msgstr "(bydd yn llosgi golygfa) neu"
 msgid "Push Another"
 msgstr "Gwthiwch Arall"
 
-#: ../../../app/views/pushes/preview.html.erb:94
+#: ../../../app/views/pushes/preview.html.erb:95
 msgid "View Audit Log"
 msgstr "Gweld y Log Archwilio"
 
-#: ../../../app/views/pushes/preview.html.erb:98
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -2304,7 +2377,7 @@ msgstr ""
 "Awgrym: Anfon at ddefnyddiwr rhyngwladol? Newidiwch iaith y ddolen gyfrinachol"
 " gan ddefnyddio'r ddewislen i'r dde o'r URL."
 
-#: ../../../app/views/pushes/preview.html.erb:99
+#: ../../../app/views/pushes/preview.html.erb:104
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."

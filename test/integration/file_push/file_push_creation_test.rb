@@ -56,7 +56,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # File Push page
     get request.url.sub("/preview", "")
@@ -92,7 +92,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Upload 2 files should fail
     post pushes_path, params: {
@@ -127,7 +127,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # File Push page
     get request.url.sub("/preview", "")

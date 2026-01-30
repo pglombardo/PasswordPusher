@@ -29,7 +29,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Attempt to retrieve the url without the passphrase
     get request.url.sub("/preview", "")
@@ -65,7 +65,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Attempt to retrieve the url without the passphrase
     get request.url.sub("/preview", "")
@@ -110,7 +110,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     @push_url = request.url.sub("/preview", "")
     sign_out :user
@@ -149,7 +149,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     push = Push.where(kind: "url").last
     view_count = push.views_remaining
@@ -193,7 +193,7 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     push = Push.where(kind: "url").last
     view_count = push.views_remaining

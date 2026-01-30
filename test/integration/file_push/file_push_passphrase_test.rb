@@ -37,7 +37,7 @@ class FilePushPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Attempt to access the file push page
     get request.url.sub("/preview", "")
@@ -86,7 +86,7 @@ class FilePushPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Attempt to access the file push page
     get request.url.sub("/preview", "")
@@ -140,7 +140,7 @@ class FilePushPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Attempt to access the file push page
     @push_url = request.url.sub("/preview", "")

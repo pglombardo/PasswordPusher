@@ -1,0 +1,19 @@
+<%= content_for :title, _('Edit Push') %>
+
+<div class="container mt-4 mb-3">
+  <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3 py-3 px-3 px-md-4 bg-light rounded-3 border">
+    <em class="bi bi-pencil-square text-primary" aria-hidden="true"></em>
+    <h4 class="mb-0 fw-semibold"><%= _('Editing Push') %></h4>
+    <code class="d-inline-block px-2 py-1 bg-white rounded border font-monospace small text-muted"><%= @push.url_token %></code>
+  </div>
+</div>
+
+<% if @push.text? %>
+  <%= render "form", push: @push %>
+<% elsif @push.file? %>
+  <%= render "files_form", push: @push %>
+<% elsif @push.url? %>
+  <%= render "url_form", push: @push %>
+<% elsif @push.qr? %>
+  <%= render "qr_form", push: @push %>
+<% end %>

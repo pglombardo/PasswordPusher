@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-11 11:57+0100\n"
-"PO-Revision-Date: 2026-01-11 10:57+0000\n"
+"POT-Creation-Date: 2026-01-29 01:43+0100\n"
+"PO-Revision-Date: 2026-01-29 00:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish\n"
 "Language: da\n"
@@ -23,7 +23,10 @@ msgid "You cannot delete your own account."
 msgstr "Du kan ikke slette din egen konto."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:174
+#: ../../../app/controllers/pushes_controller.rb:117
+#: ../../../app/controllers/pushes_controller.rb:157
+#: ../../../app/controllers/pushes_controller.rb:275
+#: ../../../app/controllers/pushes_controller.rb:305
 msgid "That push doesn't belong to you."
 msgstr "Dette \"push\" tilhører ikke dig."
 
@@ -39,7 +42,7 @@ msgstr "Du skal være logget ind for at se dine aktive push."
 msgid "You must be logged in to view your expired pushes."
 msgstr "Du skal være logget ind for at se dine udløbne push."
 
-#: ../../../app/controllers/pushes_controller.rb:96
+#: ../../../app/controllers/pushes_controller.rb:97
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -47,52 +50,83 @@ msgstr ""
 "Den adgangssætning er forkert. Prøv igen, eller kontakt den person eller organ"
 "isation, der sendte dig dette link."
 
-#: ../../../app/controllers/pushes_controller.rb:184
-msgid "That push is not deletable by viewers and does not belong to you."
-msgstr "Det push kan ikke slettes af seerne og tilhører ikke dig."
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:163
+msgid "That push has already expired and cannot be edited."
+msgstr "Det push er allerede udløbet og kan ikke redigeres."
 
-#: ../../../app/controllers/pushes_controller.rb:189
-msgid "That push has already expired."
-msgstr "Det push er allerede udløbet."
+#: ../../../app/controllers/pushes_controller.rb:188
+msgid "must be at least %{count} (days already elapsed + 1)."
+msgstr "skal være mindst %{count} (antal dage der allerede er gået + 1)."
 
 #: ../../../app/controllers/pushes_controller.rb:197
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Push-indholdet er blevet slettet, og den hemmelige URL er udløbet."
+msgid "must be at least %{count} (views already consumed + 1)."
+msgstr "skal være mindst %{count} (allerede forbrugte visninger + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:318
-#: ../../../app/models/push.rb:199
-msgid "File pushes are disabled."
-msgstr "Filoverførsler er deaktiveret."
-
-#: ../../../app/controllers/pushes_controller.rb:328
-#: ../../../app/models/push.rb:203
-msgid "URL pushes are disabled."
-msgstr "URL-push er deaktiveret."
-
-#: ../../../app/controllers/pushes_controller.rb:338
-#: ../../../app/models/push.rb:207
-msgid "QR code pushes are disabled."
-msgstr "QR-kode-push er deaktiveret."
-
+#: ../../../app/controllers/pushes_controller.rb:222
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Du kan kun vedhæfte op til %{count} filer pr. tryk."
 
-#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
-#: ../../../app/models/push.rb:146
+#: ../../../app/controllers/pushes_controller.rb:235
+msgid "Push was successfully updated."
+msgstr "Push blev opdateret."
+
+#: ../../../app/controllers/pushes_controller.rb:285
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Det push kan ikke slettes af seerne og tilhører ikke dig."
+
+#: ../../../app/controllers/pushes_controller.rb:290
+#: ../../../app/controllers/pushes_controller.rb:311
+msgid "That push has already expired."
+msgstr "Det push er allerede udløbet."
+
+#: ../../../app/controllers/pushes_controller.rb:298
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Push-indholdet er blevet slettet, og den hemmelige URL er udløbet."
+
+#: ../../../app/controllers/pushes_controller.rb:317
+msgid "You cannot delete the last file from a file push."
+msgstr "Du kan ikke slette den sidste fil fra en filoverførsel."
+
+#: ../../../app/controllers/pushes_controller.rb:326
+msgid "File was successfully deleted."
+msgstr "Filen blev slettet."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+msgid "File not found."
+msgstr "Filen blev ikke fundet."
+
+#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/models/push.rb:208
+msgid "File pushes are disabled."
+msgstr "Filoverførsler er deaktiveret."
+
+#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/models/push.rb:212
+msgid "URL pushes are disabled."
+msgstr "URL-push er deaktiveret."
+
+#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/models/push.rb:216
+msgid "QR code pushes are disabled."
+msgstr "QR-kode-push er deaktiveret."
+
+#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
+#: ../../../app/models/push.rb:155
 msgid "Payload is required."
 msgstr "Nyttelast er påkrævet."
 
-#: ../../../app/models/push.rb:125
+#: ../../../app/models/push.rb:128
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr "Nyttelasten er for stor. Du kan kun skubbe op til %{count} bytes."
 
-#: ../../../app/models/push.rb:132
+#: ../../../app/models/push.rb:138
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "skal være en gyldig HTTP- eller HTTPS-URL."
 
-#: ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:152
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr "QR-kodens nyttelast er for stor. Du kan kun skubbe op til %{count} bytes."
 
@@ -456,6 +490,7 @@ msgstr "Tæller ikke med i visningsgrænsen"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
@@ -466,6 +501,7 @@ msgstr "IP-adresse:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
@@ -478,6 +514,8 @@ msgstr "Brugeragent:"
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
@@ -495,6 +533,7 @@ msgstr "Ingen"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
@@ -506,6 +545,10 @@ msgstr "Henviser:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Push oprettet på %{date} af %{user}"
+
+#: ../../../app/views/audit_logs/_log_edit.html.erb:3
+msgid "Edited on %{date} by %{user}"
+msgstr "Redigeret den %{date} af %{user}"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -743,7 +786,7 @@ msgid "A new token will be generated in its place."
 msgstr "Et nyt token vil blive genereret i stedet for."
 
 #: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:218
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:115
 msgid "Are you sure?"
 msgstr "Er du sikker?"
@@ -751,7 +794,7 @@ msgstr "Er du sikker?"
 #: ../../../app/views/devise/registrations/token.html.erb:52
 #: ../../../app/views/madmin/application/_form.html.erb:212
 #: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:221
+#: ../../../app/views/pushes/audit.html.erb:224
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
@@ -762,7 +805,7 @@ msgid "Delete & Regenerate"
 msgstr "Slet og genskab"
 
 #: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Arbejder..."
@@ -926,6 +969,8 @@ msgstr "Rediger %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
+#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/index.html.erb:86
 msgid "Edit"
 msgstr "Redigere"
 
@@ -982,7 +1027,7 @@ msgstr "Se %{name} detaljer"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1577,7 +1622,7 @@ msgstr[0] ""
 msgstr[1] "Dage"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:95
 #: ../../../app/views/pushes/_form.html.erb:7
 #: ../../../app/views/pushes/_form.html.erb:69
 #: ../../../app/views/pushes/_qr_form.html.erb:7
@@ -1588,7 +1633,7 @@ msgid "Days"
 msgstr "Dage"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:80
+#: ../../../app/views/pushes/_files_form.html.erb:113
 #: ../../../app/views/pushes/_form.html.erb:10
 #: ../../../app/views/pushes/_form.html.erb:86
 #: ../../../app/views/pushes/_qr_form.html.erb:10
@@ -1599,13 +1644,13 @@ msgid "Views"
 msgstr "Visninger"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:161
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:134
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:138
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_url_form.html.erb:115
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:72
 msgid "Save"
 msgstr "Gem"
@@ -1617,22 +1662,30 @@ msgstr "Gem"
 msgid "Saved!"
 msgstr "Gemt!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:29
+#: ../../../app/views/pushes/_files_form.html.erb:30
+msgid "Uploaded Files"
+msgstr "Uploadede filer"
+
+#: ../../../app/views/pushes/_files_form.html.erb:46
+msgid "Are you sure you want to delete this file?"
+msgstr "Er du sikker på, at du vil slette denne fil?"
+
+#: ../../../app/views/pushes/_files_form.html.erb:62
 msgid "Add Files..."
 msgstr "Tilføj filer..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:77
 msgid "You can upload up to %{count} files per push."
 msgstr "Du kan uploade op til %{count} filer pr. push."
 
-#: ../../../app/views/pushes/_files_form.html.erb:49
+#: ../../../app/views/pushes/_files_form.html.erb:82
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
 #: ../../../app/views/pushes/_url_form.html.erb:43
 msgid "Expire secret link and delete after:"
 msgstr "Det hemmelige link udløber og slettes efter:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:85
+#: ../../../app/views/pushes/_files_form.html.erb:118
 #: ../../../app/views/pushes/_form.html.erb:91
 #: ../../../app/views/pushes/_qr_form.html.erb:92
 #: ../../../app/views/pushes/_url_form.html.erb:80
@@ -1642,60 +1695,60 @@ msgstr "Det hemmelige link udløber og slettes efter:"
 msgid "(whichever comes first)"
 msgstr "(alt efter hvad der kommer først)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:99
-#: ../../../app/views/pushes/_form.html.erb:104
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:102
+#: ../../../app/views/pushes/_qr_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Brug et 1-kliks hentning"
 
-#: ../../../app/views/pushes/_files_form.html.erb:100
-#: ../../../app/views/pushes/_form.html.erb:105
-#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:103
+#: ../../../app/views/pushes/_qr_form.html.erb:105
 #: ../../../app/views/pushes/audit.html.erb:73
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Hjælper med at undgå, at chatsystemer og URL-scannere bruger af det valgte ant"
 "al visninger."
 
-#: ../../../app/views/pushes/_files_form.html.erb:111
-#: ../../../app/views/pushes/_form.html.erb:115
-#: ../../../app/views/pushes/_qr_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:111
+#: ../../../app/views/pushes/_qr_form.html.erb:114
 msgid "Allow immediate deletion"
 msgstr "Tillad øjeblikkelig sletning"
 
-#: ../../../app/views/pushes/_files_form.html.erb:112
-#: ../../../app/views/pushes/_form.html.erb:116
-#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:112
+#: ../../../app/views/pushes/_qr_form.html.erb:115
 msgid "Allow users to delete this push once retrieved."
 msgstr "Tillad brugere at slette dette push, når det er hentet."
 
-#: ../../../app/views/pushes/_files_form.html.erb:122
-#: ../../../app/views/pushes/_form.html.erb:126
-#: ../../../app/views/pushes/_qr_form.html.erb:127
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_files_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:122
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:103
 #: ../../../app/views/pushes/audit.html.erb:78
 msgid "Passphrase Lockdown"
 msgstr "Passphrase Lockdown"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:129
-#: ../../../app/views/pushes/_qr_form.html.erb:130
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:152
+#: ../../../app/views/pushes/_form.html.erb:125
+#: ../../../app/views/pushes/_qr_form.html.erb:128
+#: ../../../app/views/pushes/_url_form.html.erb:106
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr "Valgfrit: Kræv, at modtagere indtaster en adgangssætning for at se denne push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:137
-#: ../../../app/views/pushes/_qr_form.html.erb:138
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "the above settings as the page default."
 msgstr "ovenstående indstillinger som sidestandard."
 
-#: ../../../app/views/pushes/_files_form.html.erb:146
-#: ../../../app/views/pushes/_files_form.html.erb:169
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_files_form.html.erb:175
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:171
 #: ../../../app/views/pushes/_qr_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:174
 #: ../../../app/views/pushes/_url_form.html.erb:128
@@ -1703,41 +1756,41 @@ msgstr "ovenstående indstillinger som sidestandard."
 msgid "Optional"
 msgstr "Valgfri"
 
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:167
 #: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Et navn, der vises i dashboardet, i notifikationer og e-mails."
 
-#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_files_form.html.erb:183
 msgid "Message"
 msgstr "Besked"
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:186
 msgid "Optional: A message to be included with the push"
 msgstr "Valgfrit: En besked, der skal inkluderes i push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:190
 msgid "Encrypted and visible to the receiving party"
 msgstr "Krypteret og synlig for den modtagende part"
 
-#: ../../../app/views/pushes/_files_form.html.erb:166
-#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_files_form.html.erb:195
+#: ../../../app/views/pushes/_form.html.erb:168
 #: ../../../app/views/pushes/_qr_form.html.erb:171
 #: ../../../app/views/pushes/_url_form.html.erb:135
 #: ../../../app/views/pushes/audit.html.erb:15
 msgid "Reference Note"
 msgstr "Referencenote"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
-#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:174
 #: ../../../app/views/pushes/_qr_form.html.erb:177
 #: ../../../app/views/pushes/_url_form.html.erb:141
 msgid "Encrypted and visible only to you"
 msgstr "Krypteret og kun synlig for dig"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_files_form.html.erb:207
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1745,22 +1798,36 @@ msgstr ""
 "Når den er udløbet, slettes alle filer og indhold af pushet med det samme og f"
 "uldstændigt."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:212
 #: ../../../app/views/pushes/_url_form.html.erb:153
 msgid "An audit log of activity will be available."
 msgstr "En revisionslog over aktivitet vil være tilgængelig."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Updating..."
+msgstr "Opdaterer..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Update Push"
+msgstr "Opdater Push"
+
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Pushing..."
 msgstr "Skubber..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Push It!"
 msgstr "Push nu!"
 
@@ -1777,18 +1844,18 @@ msgstr "Indtast adgangskoden eller teksten for at trykke..."
 msgid "Characters"
 msgstr "Karakterer"
 
-#: ../../../app/views/pushes/_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:147
 #: ../../../app/views/pushes/_qr_form.html.erb:150
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Generer kodeord"
 
-#: ../../../app/views/pushes/_form.html.erb:156
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Use the button above to generate a random password."
 msgstr "Brug knappen ovenfor til at generere en tilfældig adgangskode."
 
-#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:179
 #: ../../../app/views/pushes/_qr_form.html.erb:182
 msgid ""
 "Tip: Only enter a password into the box.  Other identifying information can co"
@@ -1797,7 +1864,7 @@ msgstr ""
 "Tip: Indtast kun en adgangskode i boksen. Andre identificerende oplysninger ka"
 "n kompromittere sikkerheden."
 
-#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_form.html.erb:180
 #: ../../../app/views/pushes/_qr_form.html.erb:183
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
@@ -1841,7 +1908,7 @@ msgstr "URL-omdirigering"
 msgid "Enter the URL to redirect to..."
 msgstr "Indtast URL'en for at omdirigere til..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr "Hjælper med at undgå, at chatsystemer og URL-scannere æder omdirigeringer."
 
@@ -2027,23 +2094,23 @@ msgstr "Størrelse:"
 msgid "All attached files have been deleted."
 msgstr "Alle vedhæftede filer er blevet slettet."
 
-#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/audit.html.erb:207
 msgid "Expire Now"
 msgstr "Udløb nu"
 
-#: ../../../app/views/pushes/audit.html.erb:212
+#: ../../../app/views/pushes/audit.html.erb:215
 msgid "Delete This Push?"
 msgstr "Slet dette push?"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "This will expire this secret link and"
 msgstr "Dette vil registrere dette hemmelige link som udløbet"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "remove all content from the database forever"
 msgstr "fjern alt indhold fra databasen for altid"
 
-#: ../../../app/views/pushes/audit.html.erb:217
+#: ../../../app/views/pushes/audit.html.erb:220
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -2051,11 +2118,11 @@ msgstr ""
 "Revisionsloggen (inklusive fremtidige forsøg på visninger) vil fremover stadig"
 " blive vedligeholdt."
 
-#: ../../../app/views/pushes/audit.html.erb:234
+#: ../../../app/views/pushes/audit.html.erb:237
 msgid "Start of Audit Log"
 msgstr "Start på revisionslog"
 
-#: ../../../app/views/pushes/audit.html.erb:240
+#: ../../../app/views/pushes/audit.html.erb:243
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2063,9 +2130,18 @@ msgstr ""
 "Efterhånden som pushet modtager aktivitet, vises en log over hver med identifi"
 "cerende oplysninger her."
 
-#: ../../../app/views/pushes/audit.html.erb:244
+#: ../../../app/views/pushes/audit.html.erb:247
 msgid "End of Audit Log"
 msgstr "Slut på revisionslog"
+
+#: ../../../app/views/pushes/edit.html.erb:1
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid "Edit Push"
+msgstr "Rediger push"
+
+#: ../../../app/views/pushes/edit.html.erb:4
+msgid "Editing Push"
+msgstr "Redigeringspush"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -2135,7 +2211,7 @@ msgstr "\"Push\" instillinger"
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
-#: ../../../app/views/pushes/index.html.erb:87
+#: ../../../app/views/pushes/index.html.erb:90
 msgid "Audit"
 msgstr "Revidere"
 
@@ -2164,12 +2240,9 @@ msgid "Click Here to Proceed"
 msgstr "Klik her for at fortsætte"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-msgid "Your Push Has Been Created"
-msgstr "Dit push er blevet oprettet"
-
 #: ../../../app/views/pushes/preview.html.erb:6
-msgid "Your push has been created."
-msgstr "Dit push er blevet oprettet."
+msgid "Push Preview"
+msgstr "Push-forhåndsvisning"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2257,11 +2330,11 @@ msgstr "(vil bruge én visning) eller"
 msgid "Push Another"
 msgstr "Skub en anden"
 
-#: ../../../app/views/pushes/preview.html.erb:94
+#: ../../../app/views/pushes/preview.html.erb:95
 msgid "View Audit Log"
 msgstr "Se revisionslog"
 
-#: ../../../app/views/pushes/preview.html.erb:98
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -2269,7 +2342,7 @@ msgstr ""
 "Tip: \"Pusher\" du til en international bruger? Skift det hemmelige linksprog ve"
 "d hjælp af rullemenuen til højre for URL'en."
 
-#: ../../../app/views/pushes/preview.html.erb:99
+#: ../../../app/views/pushes/preview.html.erb:104
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."

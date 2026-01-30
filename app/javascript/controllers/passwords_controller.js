@@ -13,6 +13,9 @@ export default class extends Controller {
 
     connect() {
         spoilerAlert('spoiler, .spoiler', {max: 10, partial: 4});
+        if (this.hasPayloadInputTarget && this.hasCurrentCharsTarget) {
+            this.updateCharacterCount();
+        }
     }
 
     updateCharacterCount(event) {
