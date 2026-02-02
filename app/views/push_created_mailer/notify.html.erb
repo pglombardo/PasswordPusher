@@ -1,0 +1,16 @@
+<h1><%= Settings.brand.title %> <%= _('has sent you a push') %></h1>
+
+<p>
+  <%= _('Use the link below to view the shared content. The link will expire after a certain number of views or time.') %>
+</p>
+
+<p>
+  <%= link_to _('View the secret'), @secret_url %>
+</p>
+
+<p class="text-muted small">
+  <%= _('Or copy and paste this URL into your browser') %>
+</p>
+<pre><%= @secret_url %></pre>
+
+<%= render 'shared/email_footer' %>

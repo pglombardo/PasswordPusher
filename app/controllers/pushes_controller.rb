@@ -132,6 +132,7 @@ class PushesController < BaseController
 
     if @push.save
       log_creation(@push)
+      @push.send_creation_emails
 
       redirect_to preview_push_path(@push)
     else
@@ -365,16 +366,14 @@ class PushesController < BaseController
   end
 
   def push_params
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_emails_to notify_emails_to_locale]
     case params.dig(:push, :kind)
     when "url"
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*base - [:deletable_by_viewer])
     when "file"
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
+      params.require(:push).permit(*(base + [:deletable_by_viewer, {files: []}]))
     else
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*(base + [:deletable_by_viewer]))
     end
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")

@@ -1,0 +1,14 @@
+<% unless action_name == 'edit' %>
+  <div class='row mb-3'>
+    <div class='col'>
+      <div class="input-group">
+        <span class="input-group-text"><%= _('Email notification language') %></span>
+        <%= f.select(:notify_emails_to_locale,
+                     options_for_select([["", ""]] + language_options_for_select, f.object.notify_emails_to_locale),
+                     {},
+                     { class: "form-select" }) %>
+      </div>
+      <div class="form-text"><%= _('Select the language of the email notification') %></div>
+    </div>
+  </div>
+<% end %>

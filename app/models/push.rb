@@ -3,6 +3,8 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
+  include Pwpush::NotifyEmailsTo
+
   enum :kind, [:text, :file, :url, :qr], validate: true
 
   validate :check_enabled_push_kinds, on: :create
