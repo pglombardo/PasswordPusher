@@ -6,6 +6,14 @@ module Pwpush
 
     included do
       validates :notify_emails_to, multiple_emails: true, allow_blank: true
+      validates :notify_emails_to_locale,
+        inclusion: {in: I18n.available_locales.map(&:to_s)},
+        allow_blank: true
+    end
+
+    # Parses a comma-separated email string into an array of stripped, non-blank strings.
+    def self.parse_emails(raw)
+      raw.to_s.split(",").map(&:strip).reject(&:blank?)
     end
 
     # Enqueue job to send creation email if notify_emails_to is present.

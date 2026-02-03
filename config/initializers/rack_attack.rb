@@ -1,5 +1,8 @@
 if defined? Rack::Attack
   class Rack::Attack
+    # Paths that create a push (POST to collection). Used for pushes/day/ip throttle.
+    PUSH_CREATION_PATHS = %w[/p /p.json /f /f.json /r /r.json].freeze
+
     # rack-attack helps you protect your Rails application from bad clients.
     # You can use it to allow, block, and throttle requests.
     # See https://github.com/rack/rack-attack for more details
@@ -30,22 +33,29 @@ if defined? Rack::Attack
     Rack::Attack.throttled_response_retry_after_header = true
 
     ### Throttle Spammy Clients
-
-    # If any single client IP is making tons of requests, then they're
-    # probably malicious or a poorly-configured scraper. Either way, they
-    # don't deserve to hog all of the app server's CPU. Cut them off!
+    #
+    # PRO-style layout: pushes/day/ip (push creation + emails), req/minute/ip, req/second/ip.
+    # API v2–specific throttles (e.g. api/v2/writes/minute/ip, api/v2/writes/burst/ip) are added separately.
 
     unless Rails.env.test?
-      # Throttle all requests by IP
-      #
+      # Push creation: at most N per IP per 24 h (web + JSON API). Covers creation emails too.
+      # Applies to POST /p, /p.json, /f, /f.json, /r, /r.json
+      if Settings.throttling&.pushes_per_day.present? && Settings.throttling.pushes_per_day.positive?
+        throttle("pushes/day/ip", limit: Settings.throttling.pushes_per_day, period: 24.hours) do |req|
+          if req.post? && PUSH_CREATION_PATHS.include?(req.path)
+            req.ip
+          end
+        end
+      end
+
+      # Throttle all requests by IP (e.g. 120/minute)
       if Settings.throttling&.minute.present?
         throttle("req/minute/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
           req.ip unless req.path.start_with?("/assets") || req.path == "/up"
         end
       end
 
-      # Throttle API requests by IP address
-      #
+      # Throttle requests per second by IP (e.g. 30/second for API-heavy traffic)
       if Settings.throttling&.second.present?
         throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
           req.ip unless req.path == "/up"

@@ -69,9 +69,9 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert r.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
-  test "duplicate check is case-sensitive" do
-    # Different case is treated as different email by current implementation
+  test "rejects case-insensitive duplicate emails" do
     r = DummyRecord.new(notify_emails_to: "user@Example.com, user@example.com")
-    assert r.valid?, r.errors.full_messages.join(", ")
+    assert_not r.valid?
+    assert r.errors[:notify_emails_to].any? { |m| m.include?("Duplicate") }
   end
 end
