@@ -61,4 +61,17 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     r = DummyRecord.new(notify_emails_to: "  a@x.com  ,  b@y.com  ")
     assert r.valid?, r.errors.full_messages.join(", ")
   end
+
+  test "rejects exactly 6 emails" do
+    emails = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
+    r = DummyRecord.new(notify_emails_to: emails)
+    assert_not r.valid?
+    assert r.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
+  end
+
+  test "duplicate check is case-sensitive" do
+    # Different case is treated as different email by current implementation
+    r = DummyRecord.new(notify_emails_to: "user@Example.com, user@example.com")
+    assert r.valid?, r.errors.full_messages.join(", ")
+  end
 end

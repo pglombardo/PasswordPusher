@@ -55,4 +55,20 @@ class PushCreatedMailerTest < ActionMailer::TestCase
       PushCreatedMailer.with(record: @push).notify.deliver_now
     end
   end
+
+  test "notify includes locale in secret URL when notify_emails_to_locale is set" do
+    @push.update!(notify_emails_to_locale: "fr")
+    mail = PushCreatedMailer.with(record: @push).notify
+
+    assert_includes mail.body.encoded, "locale=fr"
+  end
+
+  test "notify URL has no locale param when notify_emails_to_locale is blank" do
+    @push.update!(notify_emails_to_locale: nil)
+    mail = PushCreatedMailer.with(record: @push).notify
+
+    assert_includes mail.body.encoded, "/p/#{@push.url_token}"
+    # Secret URL is built without ?locale= when locale is blank
+    assert_no_match(/\?locale=/, mail.body.encoded)
+  end
 end

@@ -35,6 +35,14 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal ["job@example.com"], mail.to
   end
 
+  test "perform delivers to multiple addresses when notify_emails_to has several" do
+    @push.update!(notify_emails_to: "a@example.com, b@example.com")
+    SendPushCreatedEmailJob.perform_now(@push)
+
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["a@example.com", "b@example.com"], mail.to
+  end
+
   test "job is enqueued with push" do
     assert_enqueued_with(job: SendPushCreatedEmailJob, args: [@push]) do
       SendPushCreatedEmailJob.perform_later(@push)

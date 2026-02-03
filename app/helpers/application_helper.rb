@@ -44,6 +44,21 @@ module ApplicationHelper
     raw_url
   end
 
+  # True when the application can send email (SMTP or equivalent), so the
+  # "notify emails" push option should be shown. In production this requires
+  # Settings.mail with smtp_address; in development mailbin counts as configured.
+  #
+  # @return [Boolean]
+  def smtp_configured?
+    if Rails.env.test?
+      false
+    elsif Rails.env.development?
+      true
+    else
+      Settings.mail.present? && Settings.mail.smtp_address.to_s.present?
+    end
+  end
+
   # qr_code
   #
   # Generates a QR code for the given URL

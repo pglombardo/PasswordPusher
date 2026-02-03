@@ -66,4 +66,32 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_content
   end
+
+  test "push creation form does not show notify emails field when SMTP not configured" do
+    get new_push_path(tab: "text")
+    assert_response :success
+    # In test env smtp_configured? is false, so the form must not expose the field
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
+    assert_no_match(/Email notification recipients/i, response.body)
+  end
+
+  test "creating push with multiple notify_emails_to and locale sends to all and uses locale" do
+    assert_emails 1 do
+      perform_enqueued_jobs do
+        post pushes_path, params: {
+          push: {
+            kind: "text",
+            payload: "secret",
+            notify_emails_to: "first@example.com, second@example.com",
+            notify_emails_to_locale: "en"
+          }
+        }
+      end
+    end
+    mail = ActionMailer::Base.deliveries.last
+    assert_equal ["first@example.com", "second@example.com"], mail.to
+    push = Push.last
+    assert_includes mail.body.encoded, push.url_token
+    assert_includes mail.body.encoded, "locale=en"
+  end
 end
