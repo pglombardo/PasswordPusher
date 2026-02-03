@@ -11,16 +11,16 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
     emails = value.to_s.split(",").map(&:strip).reject(&:blank?)
 
     if emails.size > MAX_EMAILS
-      record.errors.add(attribute, _("%{count} email addresses are allowed", count: MAX_EMAILS))
+      record.errors.add(attribute, "You can enter at most %{count} email addresses", count: MAX_EMAILS)
     end
 
     if emails.size != emails.uniq.size
-      record.errors.add(attribute, _("Duplicate email addresses are not allowed"))
+      record.errors.add(attribute, "Duplicate email addresses are not allowed")
     end
 
     invalid = emails.reject { |e| e.match?(EMAIL_REGEX) }
-    if invalid.empty?
-      record.errors.add(attribute, _("%{list} are invalid email addresses", list: invalid.join(", ")))
+    unless invalid.empty?
+      record.errors.add(attribute, "%{list} are invalid email addresses", list: invalid.join(", "))
     end
   end
 end
