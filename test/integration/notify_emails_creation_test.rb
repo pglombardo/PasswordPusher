@@ -75,6 +75,7 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
       }
     end
     assert_response :unprocessable_content
+    assert_match(/invalid|at most|Duplicate/, response.body, "validation error should appear in response")
   end
 
   test "anonymous user creating push with notify_emails_to in params does not enqueue job" do
@@ -127,6 +128,37 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
     push.reload
     assert_equal "original@example.com", push.notify_emails_to, "notify_emails_to must not be changeable on update"
     assert_equal "en", push.notify_emails_to_locale, "notify_emails_to_locale must not be changeable on update"
+  end
+
+  test "creating push with invalid notify_emails_to_locale does not create push when logged in" do
+    sign_in @user
+    assert_no_difference("Push.count") do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_emails_to: "a@example.com",
+          notify_emails_to_locale: "zz"
+        }
+      }
+    end
+    assert_response :unprocessable_content
+  end
+
+  test "creating push with 6 notify_emails_to returns 422 and shows at most 5 message" do
+    sign_in @user
+    emails_6 = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
+    assert_no_difference("Push.count") do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_emails_to: emails_6
+        }
+      }
+    end
+    assert_response :unprocessable_content
+    assert_match(/5|at most/, response.body, "at most 5 email addresses message should appear in response")
   end
 
   test "creating push with multiple notify_emails_to and locale sends to all and uses locale when logged in" do

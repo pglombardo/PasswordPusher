@@ -69,6 +69,37 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
     end
   end
 
+  test "push rejects duplicate emails in notify_emails_to" do
+    push = Push.new(
+      kind: "text",
+      payload: "secret",
+      notify_emails_to: "a@example.com, a@example.com"
+    )
+    assert_not push.valid?
+    assert push.errors[:base].any? { |m| m.include?("Duplicate") }
+  end
+
+  test "push accepts valid notify_emails_to_locale" do
+    push = Push.new(
+      kind: "text",
+      payload: "secret",
+      notify_emails_to: "a@example.com",
+      notify_emails_to_locale: "en"
+    )
+    assert push.valid?, push.errors.full_messages.join(", ")
+  end
+
+  test "push rejects invalid notify_emails_to_locale" do
+    push = Push.new(
+      kind: "text",
+      payload: "secret",
+      notify_emails_to: "a@example.com",
+      notify_emails_to_locale: "zz"
+    )
+    assert_not push.valid?
+    assert push.errors[:notify_emails_to_locale].present?
+  end
+
   test "send_creation_emails in development uses perform_now" do
     push = Push.create!(
       kind: "text",

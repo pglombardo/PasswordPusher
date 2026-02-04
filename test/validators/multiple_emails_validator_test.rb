@@ -57,6 +57,13 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert r.errors[:base].present?
   end
 
+  test "invalid email addresses error message includes the invalid value" do
+    r = DummyRecord.new(notify_emails_to: "good@example.com, bad")
+    r.valid?
+    error_message = r.errors[:base].join(" ")
+    assert_includes error_message, "bad", "error message should list the invalid email(s)"
+  end
+
   test "strips whitespace around emails" do
     r = DummyRecord.new(notify_emails_to: "  a@x.com  ,  b@y.com  ")
     assert r.valid?, r.errors.full_messages.join(", ")

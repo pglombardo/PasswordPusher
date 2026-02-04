@@ -48,4 +48,29 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
       SendPushCreatedEmailJob.perform_later(@push)
     end
   end
+
+  test "perform sends mail with subject containing has sent you a Push" do
+    SendPushCreatedEmailJob.perform_now(@push)
+    mail = ActionMailer::Base.deliveries.last
+    assert mail.subject.present?
+    assert_includes mail.subject, "has sent you a Push"
+  end
+
+  test "perform sends mail body containing push secret URL" do
+    SendPushCreatedEmailJob.perform_now(@push)
+    mail = ActionMailer::Base.deliveries.last
+    assert_includes mail.body.encoded, @push.url_token
+  end
+
+  test "perform uses default queue" do
+    assert_equal "default", SendPushCreatedEmailJob.new.queue_name
+  end
+
+  test "perform does not send when push has blank string notify_emails_to" do
+    @push.update_column(:notify_emails_to, "")
+
+    assert_emails 0 do
+      SendPushCreatedEmailJob.perform_now(@push)
+    end
+  end
 end

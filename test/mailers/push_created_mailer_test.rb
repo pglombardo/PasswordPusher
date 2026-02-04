@@ -71,4 +71,24 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     # Secret URL is built without ?locale= when locale is blank
     assert_no_match(/\?locale=/, mail.body.encoded)
   end
+
+  test "notify subject includes user email when push has user" do
+    user = users(:luca)
+    @push.update_columns(user_id: user.id)
+    mail = PushCreatedMailer.with(record: @push).notify
+    assert_includes mail.subject, user.email
+  end
+
+  test "notify subject includes Someone when push has no user" do
+    @push.update_columns(user_id: nil)
+    mail = PushCreatedMailer.with(record: @push).notify
+    assert_includes mail.subject, "Someone"
+  end
+
+  test "notify body includes expiration days and views" do
+    @push.update!(expire_after_days: 3, expire_after_views: 10)
+    mail = PushCreatedMailer.with(record: @push).notify
+    assert_includes mail.body.encoded, "3"
+    assert_includes mail.body.encoded, "10"
+  end
 end
