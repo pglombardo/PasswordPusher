@@ -107,7 +107,7 @@
                     </div>
                 </div>
             </div>
-            <% if smtp_configured? %>
+            <% if smtp_configured? && user_signed_in? %>
                 <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
                 <%= render partial: "shared/notify_emails_to_locale", locals: { f: f } %>
             <% end %>

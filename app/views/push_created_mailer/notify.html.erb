@@ -1,16 +1,19 @@
-<h1><%= Settings.brand&.title || "Password Pusher" %> <%= _('has sent you a push') %></h1>
+<h1 style="font-weight:400;line-height: 1.25; text-align: center;">
+  <%= _('You have received a Push from %{user_email}') % { user_email: @push.user&.email.presence} %>
+</h1>
 
 <p>
-  <%= _('Use the link below to view the shared content. The link will expire after a certain number of views or time.') %>
+  <%= _('Please find the secret link below to access the sensitive information.') %>
 </p>
 
-<p>
-  <%= link_to _('View the secret'), @secret_url %>
-</p>
+<p><%= _('Secret link:') %> <%= @secret_url %></p>
 
-<p class="text-muted small">
-  <%= _('Or copy and paste this URL into your browser') %>
-</p>
-<pre><%= @secret_url %></pre>
+<h4 style="font-weight: bold; margin-top: 40px;"><%= _('Important Notes:') %></h4>
+<ul style="padding: 0px; list-style-position: inside">
+  <li><%= _('This link is valid for %{remaining} days, or until %{views} views, whichever occurs first.') % { remaining: @push.expire_after_days, views: @push.expire_after_views } %></li>
+  <li><%= _('For added security, you may be prompted to enter a passphrase (provided separately) to access the content.') %></li>
+  <li><%= _('Once retrieved, the link and content will be deleted upon expiration.') %></li>
+</ul>
 
-<%= render 'shared/email_footer' %>
+<p><%= _('This email may contain confidential information intended only for the recipient.') %></p>
+<p><%= _('If you received this in error, please delete it and notify us immediately.') %></p>
