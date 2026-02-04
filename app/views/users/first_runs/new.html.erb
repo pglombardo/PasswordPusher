@@ -1,7 +1,7 @@
 <% title(_('First Run Setup')) %>
 <h2 class='my-3'><%= _('First Run Setup') %></h2>
 
-<%= form_for(resource, as: resource_name, url: first_run_path) do |f| %>
+<%= form_with(model: resource, as: resource_name, url: first_run_path) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <% if FirstRunBootCode.needed? %>

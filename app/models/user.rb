@@ -3,8 +3,6 @@
 class User < ApplicationRecord
   include Pwpush::TokenAuthentication
 
-  attr_accessor :boot_code
-
   # Include default devise modules. Others available are:
   # :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

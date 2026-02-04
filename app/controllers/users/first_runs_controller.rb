@@ -20,47 +20,23 @@ class Users::FirstRunsController < Users::RegistrationsController
     resource.skip_confirmation_notification! if resource.respond_to?(:skip_confirmation_notification!)
     resource.skip_confirmation! if resource.respond_to?(:skip_confirmation!)
 
-    result = User.transaction do
-      # Re-check within a transaction to avoid race conditions with prevent_repeats
-      if User.exists?
-        redirect_to root_url
-        :redirected
-      end
-      if resource.save
-        # Ensure user is confirmed (reload to get fresh state)
-        resource.reload
-        resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
-        # Sign up the user (which includes signing them in)
-        sign_up(resource_name, resource)
-        redirect_to after_sign_up_path_for(resource), notice: _("Administrator account created successfully!")
-        # Clear the boot code after the entire success flow completes
-        FirstRunBootCode.clear!
-      else
-        clean_up_passwords resource
-        set_minimum_password_length
-        respond_with resource
-        :invalid
-      end
+    if resource.save
+      # Ensure user is confirmed (reload to get fresh state)
+      resource.reload
+      resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
+      # Sign up the user (which includes signing them in)
+      sign_up(resource_name, resource)
+      redirect_to after_sign_up_path_for(resource), notice: _("Administrator account created successfully!")
+      # Clear the boot code after the entire success flow completes
+      FirstRunBootCode.clear!
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
     end
-
-    nil if result == :redirected
   end
 
   protected
-
-  # Override to permit boot_code parameter
-  def configure_permitted_parameters
-    super
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:boot_code])
-  end
-
-  # Override to exclude boot_code from params passed to User model
-  def sign_up_params
-    params = super
-    return params unless params
-
-    params.except(:boot_code)
-  end
 
   def build_resource(hash = {})
     super
