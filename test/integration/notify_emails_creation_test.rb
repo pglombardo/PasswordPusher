@@ -107,6 +107,28 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
+  test "update cannot change notify_emails_to or notify_emails_to_locale" do
+    sign_in @user
+    push = Push.create!(
+      kind: "text",
+      payload: "secret",
+      user: @user,
+      notify_emails_to: "original@example.com",
+      notify_emails_to_locale: "en"
+    )
+    patch push_path(push), params: {
+      push: {
+        payload: "updated secret",
+        notify_emails_to: "hacker@example.com",
+        notify_emails_to_locale: "fr"
+      }
+    }
+    assert_redirected_to preview_push_path(push)
+    push.reload
+    assert_equal "original@example.com", push.notify_emails_to, "notify_emails_to must not be changeable on update"
+    assert_equal "en", push.notify_emails_to_locale, "notify_emails_to_locale must not be changeable on update"
+  end
+
   test "creating push with multiple notify_emails_to and locale sends to all and uses locale when logged in" do
     sign_in @user
     assert_emails 1 do

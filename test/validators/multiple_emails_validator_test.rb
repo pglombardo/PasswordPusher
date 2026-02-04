@@ -74,4 +74,9 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_not r.valid?
     assert r.errors[:notify_emails_to].any? { |m| m.include?("Duplicate") }
   end
+
+  test "allows input with consecutive commas (normalized to valid list)" do
+    r = DummyRecord.new(notify_emails_to: "a@x.com,,  ,  b@y.com")
+    assert r.valid?, r.errors.full_messages.join(", ")
+  end
 end
