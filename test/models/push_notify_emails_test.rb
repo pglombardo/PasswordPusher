@@ -21,7 +21,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: "a@example.com, b@example.com"
     )
     push.valid?
-    assert_empty push.errors[:notify_emails_to], push.errors.full_messages.join(", ")
+    assert push.valid?, push.errors.full_messages.join(", ")
   end
 
   test "push rejects invalid notify_emails_to format" do
@@ -31,7 +31,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: "not-an-email"
     )
     assert_not push.valid?
-    assert push.errors[:notify_emails_to].present?
+    assert push.errors[:base].any? { |m| m.include?("invalid") }
   end
 
   test "push rejects more than 5 emails in notify_emails_to" do
@@ -42,7 +42,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: emails
     )
     assert_not push.valid?
-    assert push.errors[:notify_emails_to].present?
+    assert push.errors[:base].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
   test "send_creation_emails does nothing when notify_emails_to blank" do

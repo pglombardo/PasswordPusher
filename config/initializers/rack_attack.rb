@@ -1,8 +1,5 @@
 if defined? Rack::Attack
   class Rack::Attack
-    # Paths that create a push (POST to collection). Used for pushes/day/ip throttle.
-    PUSH_CREATION_PATHS = %w[/p /p.json /f /f.json /r /r.json].freeze
-
     # rack-attack helps you protect your Rails application from bad clients.
     # You can use it to allow, block, and throttle requests.
     # See https://github.com/rack/rack-attack for more details
@@ -42,7 +39,7 @@ if defined? Rack::Attack
       # Applies to POST /p, /p.json, /f, /f.json, /r, /r.json
       if Settings.throttling&.pushes_per_day.present? && Settings.throttling.pushes_per_day.positive?
         throttle("pushes/day/ip", limit: Settings.throttling.pushes_per_day, period: 24.hours) do |req|
-          if req.post? && PUSH_CREATION_PATHS.include?(req.path)
+          if req.post? && (req.path == "/p" || req.path == "/p.json" || req.path == "/f.json" || req.path == "/r.json")
             req.ip
           end
         end
@@ -55,7 +52,8 @@ if defined? Rack::Attack
         end
       end
 
-      # Throttle requests per second by IP (e.g. 30/second for API-heavy traffic)
+      # Throttle API requests by IP address
+      #
       if Settings.throttling&.second.present?
         throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
           req.ip unless req.path == "/up"

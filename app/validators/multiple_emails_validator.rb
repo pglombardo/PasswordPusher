@@ -11,16 +11,16 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
     emails = Pwpush::NotifyEmailsTo.parse_emails(value)
 
     if emails.size > MAX_EMAILS
-      record.errors.add(attribute, "You can enter at most %{count} email addresses", count: MAX_EMAILS)
+      record.errors.add(:base, I18n._("You can enter at most %{count} email addresses") % {count: MAX_EMAILS})
     end
 
     if emails.size != emails.map(&:downcase).uniq.size
-      record.errors.add(attribute, "Duplicate email addresses are not allowed")
+      record.errors.add(:base, I18n._("Duplicate email addresses are not allowed"))
     end
 
     invalid = emails.reject { |e| e.match?(EMAIL_REGEX) }
     unless invalid.empty?
-      record.errors.add(attribute, "%{list} are invalid email addresses", list: invalid.join(", "))
+      record.errors.add(:base, I18n._("%{list} are invalid email addresses") % {list: invalid.join(", ")})
     end
   end
 end

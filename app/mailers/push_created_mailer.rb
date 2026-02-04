@@ -6,7 +6,7 @@ class PushCreatedMailer < ApplicationMailer
     locale = @push.notify_emails_to_locale.presence
     I18n.with_locale(locale || I18n.default_locale) do
       @secret_url = secret_url_for_push(@push, locale: locale)
-      @subject = "#{Settings.brand&.title || "Password Pusher"} #{_("has sent you a push")}"
+      @subject = "#{@push.user&.email.presence || "Someone"} #{_("has sent you a Push")}"
       mail(
         to: Pwpush::NotifyEmailsTo.parse_emails(@push.notify_emails_to),
         subject: @subject

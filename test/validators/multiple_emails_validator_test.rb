@@ -36,25 +36,25 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
   test "rejects more than 5 emails" do
     r = DummyRecord.new(notify_emails_to: "a@x.com, b@x.com, c@x.com, d@x.com, e@x.com, f@x.com")
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
+    assert r.errors[:base].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
   test "rejects duplicate emails" do
     r = DummyRecord.new(notify_emails_to: "a@x.com, a@x.com")
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("Duplicate") }
+    assert r.errors[:base].any? { |m| m.include?("Duplicate") }
   end
 
   test "rejects invalid email format" do
     r = DummyRecord.new(notify_emails_to: "not-an-email")
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
+    assert r.errors[:base].present?
   end
 
   test "rejects mixed valid and invalid emails" do
     r = DummyRecord.new(notify_emails_to: "good@example.com, bad")
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
+    assert r.errors[:base].present?
   end
 
   test "strips whitespace around emails" do
@@ -66,13 +66,13 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     emails = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
     r = DummyRecord.new(notify_emails_to: emails)
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
+    assert r.errors[:base].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
   test "rejects case-insensitive duplicate emails" do
     r = DummyRecord.new(notify_emails_to: "user@Example.com, user@example.com")
     assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("Duplicate") }
+    assert r.errors[:base].any? { |m| m.include?("Duplicate") }
   end
 
   test "allows input with consecutive commas (normalized to valid list)" do
