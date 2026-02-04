@@ -25,7 +25,7 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     mail = PushCreatedMailer.with(record: @push).notify
 
     assert mail.subject.present?
-    assert_includes mail.subject, Settings.brand&.title || "Password Pusher"
+    assert_includes mail.subject, "has sent you a Push"
   end
 
   test "notify body includes secret URL" do
