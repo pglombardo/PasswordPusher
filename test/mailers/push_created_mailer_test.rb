@@ -176,4 +176,22 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_match(/Secret link/i, text, "text part should mention secret link")
     assert_match(/Important Notes/i, text, "text part should have Important Notes")
   end
+
+  test "notify HTML part has exactly three list items in Important Notes" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    html = mail.html_part&.body&.decoded || mail.body.decoded
+    list_items = html.scan(/<li\b/i)
+    assert_equal 3, list_items.size, "Important Notes section should have exactly 3 list items"
+  end
+
+  test "notify HTML part secret link has full clickable URL in href" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    html = mail.html_part&.body&.decoded || mail.body.decoded
+    # Link must be a full URL (scheme + host) so it is clickable in email clients
+    assert_match(
+      %r{<a\s+[^>]*href="https?://[^"]*/p/#{Regexp.escape(@push.url_token)}(?:\?[^"]*)?"},
+      html,
+      "HTML should have anchor with full URL in href (scheme + host + path)"
+    )
+  end
 end
