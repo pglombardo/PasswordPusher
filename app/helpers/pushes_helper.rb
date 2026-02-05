@@ -33,7 +33,7 @@ module PushesHelper
   #
   # Example: "2 days, 23 hours and 59 minutes"
   #
-  # @param [Push] push - The push (or pull) to format the time remaining for
+  # @param [Push] push - The push to format the time remaining for
   # @return [String] - The formatted time remaining
   #
   def format_time_remaining(push)

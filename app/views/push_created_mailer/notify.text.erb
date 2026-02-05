@@ -1,11 +1,11 @@
-<%= _('You have received a Push from %{user_email}') % { user_email: @push.user&.email.presence} %>
+<%= _('You have received a Push from %{user_email}') % { user_email: @push.user&.email.presence || _("Someone")} %>
 
 <%= _('Please find the secret link below to access the sensitive information.') %>
 
 <%= _('Secret link:') %> <%= @secret_url %>
 <%= _('Important Notes:') %>
 
-<%= _('This link is valid for %{remaining}, or until %{views} views, whichever occurs first.') % { remaining: @duration_text, views: @push.expire_after_views } %>
+<%= _('This link is valid for %{remaining}, or until %{views} views, whichever occurs first.') % { remaining: format_time_remaining(@push), views: @push.expire_after_views } %>
 <%= _('For added security, you may be prompted to enter a passphrase (provided separately) to access the content.') %>
 <%= _('Once retrieved, the link and content will be deleted upon expiration.') %>
 
