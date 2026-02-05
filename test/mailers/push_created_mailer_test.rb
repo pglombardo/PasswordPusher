@@ -194,4 +194,12 @@ class PushCreatedMailerTest < ActionMailer::TestCase
       "HTML should have anchor with full URL in href (scheme + host + path)"
     )
   end
+
+  test "notify HTML part secret link text equals href URL" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    html = mail.html_part&.body&.decoded || mail.body.decoded
+    m = html.match(%r{<a\s+[^>]*href="(https?://[^"]+)"[^>]*>([^<]+)</a>})
+    assert m, "HTML should have secret link anchor with href and text"
+    assert_equal m[1], m[2].strip, "link text should equal href URL (template: <a href=\"@secret_url\">@secret_url</a>)"
+  end
 end
