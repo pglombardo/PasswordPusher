@@ -5,7 +5,7 @@
 <%= _('Secret link:') %> <%= @secret_url %>
 <%= _('Important Notes:') %>
 
-<%= _('This link is valid for %{remaining} days, or until %{views} views, whichever occurs first.') % { remaining: @push.expire_after_days, views: @push.expire_after_views } %>
+<%= _('This link is valid for %{remaining}, or until %{views} views, whichever occurs first.') % { remaining: @duration_text, views: @push.expire_after_views } %>
 <%= _('For added security, you may be prompted to enter a passphrase (provided separately) to access the content.') %>
 <%= _('Once retrieved, the link and content will be deleted upon expiration.') %>
 

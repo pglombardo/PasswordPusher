@@ -92,4 +92,40 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_includes mail.body.encoded, "3"
     assert_includes mail.body.encoded, "10"
   end
+
+  test "notify body includes valid for sentence with duration and views" do
+    @push.update!(expire_after_days: 7, expire_after_views: 5)
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.body.encoded
+    assert_match(/valid for .* or until .* views/i, body, "body should explain link validity with duration and view limit")
+    assert_includes body, "7", "full duration for 7 days should include 7"
+    assert_includes body, "5", "view limit should appear"
+  end
+
+  test "notify body displays full duration for 1 day expiry" do
+    @push.update!(expire_after_days: 1, expire_after_views: 3)
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.body.encoded
+    # Full duration format: "1 day(s), 0 hour(s) and 0 minute(s)" or similar
+    assert_includes body, "1", "1 day expiry should show 1"
+    assert body.include?("day") || body.include?("hour"), "duration should include day or hour unit"
+  end
+
+  test "notify body displays full duration for 7 days expiry" do
+    @push.update!(expire_after_days: 7, expire_after_views: 10)
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.body.encoded
+    assert_includes body, "7", "7 day expiry should show 7"
+    assert_includes body, "10", "view limit should show 10"
+    assert body.include?("day"), "duration should include day unit"
+  end
+
+  test "notify text part includes duration and views" do
+    @push.update!(expire_after_days: 2, expire_after_views: 4)
+    mail = PushCreatedMailer.with(record: @push).notify
+    text_part = mail.text_part || mail
+    text_body = text_part.body.encoded
+    assert_includes text_body, "2", "text part should include days in duration"
+    assert_includes text_body, "4", "text part should include view limit"
+  end
 end

@@ -44,6 +44,11 @@ class Push < ApplicationRecord
     [(expire_after_views - view_count), 0].max
   end
 
+  # Minutes until the day-based expiry (days_remaining × 24 × 60). Used by format_time_remaining.
+  def minutes_remaining
+    days_remaining * 24 * 60
+  end
+
   def view_count
     audit_logs.where(kind: %i[view failed_view]).size
   end
