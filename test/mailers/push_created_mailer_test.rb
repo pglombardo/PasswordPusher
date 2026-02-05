@@ -158,4 +158,22 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     body = mail.body.encoded
     assert body.include?("Secret link") || body.include?("secret"), "body should mention secret link"
   end
+
+  test "notify HTML part has expected structure" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    html = mail.html_part&.body&.decoded || mail.body.decoded
+    assert_match(/<h1[^>]*>/, html, "HTML should have h1 heading")
+    assert_match(/<a\s+href=.*#{Regexp.escape(@push.url_token)}/, html, "HTML should have secret link anchor with url_token")
+    assert_match(/Important Notes/i, html, "HTML should have Important Notes section")
+    assert_match(/<ul/i, html, "HTML should have list")
+    assert_match(/<li/i, html, "HTML should have list items")
+  end
+
+  test "notify text part has expected structure" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    text = mail.text_part&.body&.decoded || mail.body.decoded
+    assert_includes text, @push.url_token, "text part should include secret URL"
+    assert_match(/Secret link/i, text, "text part should mention secret link")
+    assert_match(/Important Notes/i, text, "text part should have Important Notes")
+  end
 end
