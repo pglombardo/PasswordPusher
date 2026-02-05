@@ -100,6 +100,27 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
     assert push.errors[:notify_emails_to_locale].present?
   end
 
+  test "minutes_remaining returns 0 when push is past expiry" do
+    push = Push.create!(
+      kind: "text",
+      payload: "secret",
+      user: @user,
+      expire_after_days: 1,
+      created_at: 2.days.ago
+    )
+    assert_equal 0, push.minutes_remaining
+  end
+
+  test "minutes_remaining is positive for newly created push with expire_after_days" do
+    push = Push.create!(
+      kind: "text",
+      payload: "secret",
+      user: @user,
+      expire_after_days: 7
+    )
+    assert push.minutes_remaining >= 7 * 24 * 60 - 60, "minutes_remaining should be close to 7 days in minutes"
+  end
+
   test "send_creation_emails in development uses perform_now" do
     push = Push.create!(
       kind: "text",

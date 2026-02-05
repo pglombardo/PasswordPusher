@@ -128,4 +128,34 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_includes text_body, "2", "text part should include days in duration"
     assert_includes text_body, "4", "text part should include view limit"
   end
+
+  test "notify with single email sends to one recipient" do
+    @push.update!(notify_emails_to: "only@example.com")
+    mail = PushCreatedMailer.with(record: @push).notify
+    assert_equal ["only@example.com"], mail.to
+  end
+
+  test "notify body includes time unit words in duration" do
+    @push.update!(expire_after_days: 1, expire_after_views: 1)
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.body.encoded
+    # Full duration format includes day(s), hour(s), and/or minute(s)
+    assert body.include?("day") || body.include?("hour") || body.include?("minute"),
+      "body should include at least one time unit (day, hour, minute)"
+  end
+
+  test "notify multipart mail has both html and text parts with duration" do
+    @push.update!(expire_after_days: 5, expire_after_views: 2)
+    mail = PushCreatedMailer.with(record: @push).notify
+    assert mail.multipart?, "notify should be multipart when both templates exist"
+    assert_includes mail.html_part.body.encoded, "5", "HTML part should include duration"
+    assert_includes mail.text_part.body.encoded, "5", "text part should include duration"
+    assert_includes mail.text_part.body.encoded, "2", "text part should include view limit"
+  end
+
+  test "notify body includes secret link phrase" do
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.body.encoded
+    assert body.include?("Secret link") || body.include?("secret"), "body should mention secret link"
+  end
 end

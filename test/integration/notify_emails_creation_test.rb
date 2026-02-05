@@ -161,6 +161,58 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
     assert_match(/5|at most/, response.body, "at most 5 email addresses message should appear in response")
   end
 
+  test "creating push with duplicate notify_emails_to returns 422 when logged in" do
+    sign_in @user
+    assert_no_difference("Push.count") do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_emails_to: "same@example.com, same@example.com"
+        }
+      }
+    end
+    assert_response :unprocessable_content
+    assert_match(/Duplicate|duplicate/i, response.body, "duplicate email error should appear")
+  end
+
+  test "creating push with blank string notify_emails_to does not enqueue job" do
+    sign_in @user
+    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_emails_to: "   "
+        }
+      }
+    end
+    assert_response :redirect
+    push = Push.last
+    assert push.notify_emails_to.blank?, "blank notify_emails_to should be stored as blank"
+  end
+
+  test "created push with notify_emails_to has correct expire and view count in email" do
+    sign_in @user
+    perform_enqueued_jobs do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          expire_after_days: 14,
+          expire_after_views: 7,
+          notify_emails_to: "check@example.com"
+        }
+      }
+    end
+    assert_response :redirect
+    mail = ActionMailer::Base.deliveries.last
+    assert mail.present?
+    body = mail.body.encoded
+    assert_includes body, "14", "email should show 14 days in duration"
+    assert_includes body, "7", "email should show 7 views limit"
+  end
+
   test "creating push with multiple notify_emails_to and locale sends to all and uses locale when logged in" do
     sign_in @user
     assert_emails 1 do
