@@ -100,12 +100,12 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.include?("locale=es")
   end
 
-  test "secret_url prioritizes params locale over method locale" do
+  test "secret_url prioritizes method locale over params (e.g. when called from mailer)" do
     @controller.params = ActionController::Parameters.new("push_locale" => "fr")
     Settings.enabled_language_codes = ["en", "es", "fr"]
     url = secret_url(@push, locale: "es")
-    assert url.include?("locale=fr")
-    assert_not url.include?("locale=es")
+    assert url.include?("locale=es")
+    assert_not url.include?("locale=fr")
   end
 
   test "secret_url ignores invalid locale from params" do
