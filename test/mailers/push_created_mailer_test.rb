@@ -24,7 +24,8 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   test "notify includes subject" do
     mail = PushCreatedMailer.with(record: @push).notify
 
-    assert mail.subject.present?
+    assert mail.subject.present?, "subject should be present"
+    # Subject is brandless: "Someone has sent you a Push" or "email@example.com has sent you a Push"
     assert_includes mail.subject, "has sent you a Push"
   end
 
