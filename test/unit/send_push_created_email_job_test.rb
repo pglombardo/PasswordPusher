@@ -20,6 +20,13 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     end
   end
 
+  test "perform creates audit log with kind notify_email_sent after sending" do
+    assert_difference "@push.audit_logs.count", 1 do
+      SendPushCreatedEmailJob.perform_now(@push.id)
+    end
+    assert_audit_log_created(@push, :notify_email_sent)
+  end
+
   test "perform does not send mail when notify_emails_to blank" do
     @push.update_column(:notify_emails_to, nil)
 
