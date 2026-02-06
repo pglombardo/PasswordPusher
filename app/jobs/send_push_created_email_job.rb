@@ -3,8 +3,9 @@
 class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(push)
-    return if push.notify_emails_to.blank?
+  def perform(push_id)
+    push = Push.find_by(id: push_id)
+    return if push.blank? || push.notify_emails_to.blank?
 
     PushCreatedMailer.with(record: push).notify.deliver_now
   end

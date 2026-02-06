@@ -16,7 +16,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
 
   test "perform sends mail when notify_emails_to present" do
     assert_emails 1 do
-      SendPushCreatedEmailJob.perform_now(@push)
+      SendPushCreatedEmailJob.perform_now(@push.id)
     end
   end
 
@@ -24,12 +24,18 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     @push.update_column(:notify_emails_to, nil)
 
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@push)
+      SendPushCreatedEmailJob.perform_now(@push.id)
+    end
+  end
+
+  test "perform does not send mail when push is missing" do
+    assert_emails 0 do
+      SendPushCreatedEmailJob.perform_now(-1)
     end
   end
 
   test "perform delivers to correct addresses" do
-    SendPushCreatedEmailJob.perform_now(@push)
+    SendPushCreatedEmailJob.perform_now(@push.id)
 
     mail = ActionMailer::Base.deliveries.last
     assert_equal ["job@example.com"], mail.to
@@ -37,27 +43,27 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
 
   test "perform delivers to multiple addresses when notify_emails_to has several" do
     @push.update!(notify_emails_to: "a@example.com, b@example.com")
-    SendPushCreatedEmailJob.perform_now(@push)
+    SendPushCreatedEmailJob.perform_now(@push.id)
 
     mail = ActionMailer::Base.deliveries.last
     assert_equal ["a@example.com", "b@example.com"], mail.to
   end
 
-  test "job is enqueued with push" do
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [@push]) do
-      SendPushCreatedEmailJob.perform_later(@push)
+  test "job is enqueued with push id" do
+    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [@push.id]) do
+      SendPushCreatedEmailJob.perform_later(@push.id)
     end
   end
 
   test "perform sends mail with subject containing has sent you a Push" do
-    SendPushCreatedEmailJob.perform_now(@push)
+    SendPushCreatedEmailJob.perform_now(@push.id)
     mail = ActionMailer::Base.deliveries.last
     assert mail.subject.present?
     assert_includes mail.subject, "has sent you a Push"
   end
 
   test "perform sends mail body containing push secret URL" do
-    SendPushCreatedEmailJob.perform_now(@push)
+    SendPushCreatedEmailJob.perform_now(@push.id)
     mail = ActionMailer::Base.deliveries.last
     assert_includes mail.body.encoded, @push.url_token
   end
@@ -70,7 +76,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     @push.update_column(:notify_emails_to, "")
 
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@push)
+      SendPushCreatedEmailJob.perform_now(@push.id)
     end
   end
 end

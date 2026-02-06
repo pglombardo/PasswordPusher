@@ -64,7 +64,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       user: @user,
       notify_emails_to: "recipient@example.com"
     )
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [push]) do
+    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [push.id]) do
       push.send_creation_emails
     end
   end

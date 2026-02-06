@@ -7,6 +7,8 @@ class PushCreatedMailer < ApplicationMailer
   include PushesHelper
 
   def notify
+    return unless params[:record].present?
+
     @push = params[:record]
     locale = @push.notify_emails_to_locale.presence
     I18n.with_locale(locale || I18n.default_locale) do

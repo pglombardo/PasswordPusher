@@ -24,9 +24,9 @@ module Pwpush
         # In development we run the job inline (perform_now) so emails are sent immediately
         # without requiring a background worker. This makes it easy to test with Mailbin or
         # similar and avoids needing to run a job queue locally.
-        SendPushCreatedEmailJob.perform_now(self)
+        SendPushCreatedEmailJob.perform_now(id)
       else
-        SendPushCreatedEmailJob.perform_later(self)
+        SendPushCreatedEmailJob.perform_later(id)
       end
     end
   end

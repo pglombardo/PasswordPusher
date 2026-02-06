@@ -54,6 +54,8 @@ module PushesHelper
   # @return [String] - The formatted time remaining
   #
   def format_minutes_duration(minutes)
+    return I18n._("Zero minutes") if minutes.to_i <= 0
+
     duration = minutes * 60
 
     days = (duration / (24 * 3600)).to_i
