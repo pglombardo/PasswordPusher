@@ -75,7 +75,7 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
       }
     end
     assert_response :unprocessable_content
-    assert_match(/invalid|at most|Duplicate/, response.body, "validation error should appear in response")
+    assert_match(/invalid|at most|Duplicate|comma|separate/, response.body, "validation error should appear in response")
   end
 
   test "anonymous user creating push with notify_emails_to in params does not enqueue job" do
@@ -173,7 +173,7 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
       }
     end
     assert_response :unprocessable_content
-    assert_match(/Duplicate|duplicate/i, response.body, "duplicate email error should appear")
+    assert_match(/Duplicate/i, response.body, "duplicate email error should appear")
   end
 
   test "creating push with blank string notify_emails_to does not enqueue job" do

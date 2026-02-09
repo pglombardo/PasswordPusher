@@ -31,7 +31,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: "not-an-email"
     )
     assert_not push.valid?
-    assert push.errors[:base].any? { |m| m.include?("invalid") }
+    assert push.errors[:notify_emails_to].any? { |m| m.include?("invalid") }
   end
 
   test "push rejects more than 5 emails in notify_emails_to" do
@@ -42,7 +42,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: emails
     )
     assert_not push.valid?
-    assert push.errors[:base].any? { |m| m.include?("5") || m.include?("at most") }
+    assert push.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
   test "send_creation_emails does nothing when notify_emails_to blank" do
@@ -76,7 +76,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to: "a@example.com, a@example.com"
     )
     assert_not push.valid?
-    assert push.errors[:base].any? { |m| m.include?("Duplicate") }
+    assert push.errors[:notify_emails_to].any? { |m| m =~ /duplicate/i }
   end
 
   test "push accepts valid notify_emails_to_locale" do
