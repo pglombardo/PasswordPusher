@@ -4,9 +4,11 @@ require "test_helper"
 
 class ApplicationHelperTest < ActionView::TestCase
   include ApplicationHelper
+  include TusUploadTestSettings
 
   setup do
     @push = pushes(:test_push)
+    store_tus_related_settings
     # Ensure Settings are available
     @original_title = Settings.brand.title
     @original_enabled_language_codes = Settings.enabled_language_codes.dup
@@ -18,6 +20,7 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.brand.title = @original_title
     Settings.enabled_language_codes = @original_enabled_language_codes
     Settings.override_base_url = @original_override_base_url
+    restore_tus_related_settings
     ENV.delete("FORCE_SSL")
   end
 
@@ -180,5 +183,41 @@ class ApplicationHelperTest < ActionView::TestCase
     qr = qr_code("https://example.com")
     assert qr.html_safe?
     assert qr.is_a?(ActiveSupport::SafeBuffer)
+  end
+
+  # Test tus_uploads_enabled? and tus_uploads_url
+  test "tus_uploads_enabled? returns false when logins disabled" do
+    Settings.enable_logins = false
+    Settings.enable_file_pushes = true
+    Settings.files.use_tus_uploads = true
+    assert_not tus_uploads_enabled?
+  end
+
+  test "tus_uploads_enabled? returns false when file pushes disabled" do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = false
+    Settings.files.use_tus_uploads = true
+    assert_not tus_uploads_enabled?
+  end
+
+  test "tus_uploads_enabled? returns false when use_tus_uploads is false" do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = true
+    Settings.files.use_tus_uploads = false
+    assert_not tus_uploads_enabled?
+  end
+
+  test "tus_uploads_enabled? returns true when all enabled" do
+    Settings.enable_logins = true
+    Settings.enable_file_pushes = true
+    Settings.files.use_tus_uploads = true
+    assert tus_uploads_enabled?
+  end
+
+  test "tus_uploads_url returns uploads_path" do
+    Rails.application.reload_routes!
+    url = tus_uploads_url
+    assert url.present?
+    assert_equal Rails.application.routes.url_helpers.uploads_path, url
   end
 end

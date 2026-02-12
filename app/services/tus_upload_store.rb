@@ -92,11 +92,13 @@ class TusUploadStore
     raise ArgumentError, "upload not complete" unless complete?
 
     m = meta
-    blob = ActiveStorage::Blob.create_and_upload!(
-      io: File.open(data_path, "rb"),
-      filename: m["filename"].presence || "upload",
-      content_type: m["content_type"].presence || "application/octet-stream"
-    )
+    blob = File.open(data_path, "rb") do |io|
+      ActiveStorage::Blob.create_and_upload!(
+        io: io,
+        filename: m["filename"].presence || "upload",
+        content_type: m["content_type"].presence || "application/octet-stream"
+      )
+    end
     destroy!
     blob
   end

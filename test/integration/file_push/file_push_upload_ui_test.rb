@@ -4,8 +4,10 @@ require "test_helper"
 
 class FilePushUploadUiTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include TusUploadTestSettings
 
   setup do
+    store_tus_related_settings
     Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -16,6 +18,7 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
 
   teardown do
     sign_out :user
+    restore_tus_related_settings
   end
 
   def test_file_form_shows_progress_bar_container
@@ -50,6 +53,19 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
     assert_not footer.first.text.include?("per file"), "TUS enabled: footer should not show max size per file"
   end
 
+  def test_file_form_when_tus_enabled_file_input_has_no_direct_upload
+    Settings.files.use_tus_uploads = true
+    get new_push_path(tab: "files")
+    assert_response :success
+
+    file_inputs = css_select "input[type=file][name='push[files][]']"
+    assert file_inputs.any?, "File input should be present"
+    file_inputs.each do |el|
+      assert el["data-direct-upload-url"].blank?,
+        "With TUS enabled, file input must not have data-direct-upload-url (direct_upload: false)"
+    end
+  end
+
   def test_file_form_when_tus_disabled_shows_direct_upload_and_max_size_footer
     Settings.files.use_tus_uploads = false
     get new_push_path(tab: "files")
@@ -67,5 +83,28 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
 
     assert_select "#file-count-footer"
     assert response.body.include?("files per push"), "Footer should show upload limit message"
+  end
+
+  def test_tus_create_and_patch_then_file_form_loads
+    Settings.files.use_tus_uploads = true
+    # Minimal TUS flow: create upload, complete with one PATCH
+    post uploads_path, headers: {"Upload-Length" => "3"}
+    assert_response :created
+    location = response.headers["Location"]
+    assert location.present?
+    upload_id = File.basename(URI.parse(location).path)
+
+    patch upload_path(upload_id),
+      params: "abc",
+      headers: {"Content-Type" => "application/offset+octet-stream", "Upload-Offset" => "0"}
+    assert_response :no_content
+    assert response.headers["X-Signed-Id"].present?, "TUS flow should return signed id"
+
+    # Same session: load file form; ties TUS endpoint and file push UI
+    get new_push_path(tab: "files")
+    assert_response :success
+    assert_select "div[data-controller='multi-upload']"
+    assert_select "ul#progress-bars"
+    assert_select "ul#selected-files"
   end
 end

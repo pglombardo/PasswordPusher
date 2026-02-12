@@ -105,7 +105,7 @@ class TusUploadsController < ApplicationController
       next if value.blank?
       decoded = begin
         Base64.strict_decode64(value)
-      rescue
+      rescue ArgumentError
         nil
       end
       next unless decoded
