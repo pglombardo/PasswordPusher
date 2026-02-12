@@ -44,6 +44,17 @@ module ApplicationHelper
     raw_url
   end
 
+  # TUS resumable uploads: when on, used for all storage backends (local and cloud)
+  # to avoid CORS — uploads go through the app instead of direct-to-bucket.
+  def tus_uploads_enabled?
+    return false unless Settings.enable_logins && Settings.enable_file_pushes
+    Settings.files.use_tus_uploads.to_s == "true"
+  end
+
+  def tus_uploads_url
+    uploads_path
+  end
+
   # qr_code
   #
   # Generates a QR code for the given URL

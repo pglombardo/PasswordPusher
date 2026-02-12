@@ -1,0 +1,16 @@
+<%# Template for one TUS (resumable) upload row. JS clones this and sets data-row-id, .tus-row-name, .tus-row-progress-bar id, then wires upload. %>
+<template id="tus-upload-row-template">
+  <li class="list-group-item list-group-item-primary small tus-upload-row d-flex flex-wrap align-items-center gap-2">
+    <span class="badge bg-info text-nowrap"><%= _('Resumable') %></span>
+    <span class="tus-row-name text-truncate small" style="min-width: 6em"></span>
+    <div class="progress flex-grow-1 tus-row-progress-wrap" style="height: 1.5rem; min-width: 80px">
+      <div class="progress-bar progress-bar-striped progress-bar-animated tus-row-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary tus-row-pause" aria-label="<%= _('Pause upload') %>" title="<%= _('Pause') %>">
+      <span class="bi bi-pause-fill"></span>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-success d-none tus-row-resume" aria-label="<%= _('Resume upload') %>" title="<%= _('Resume') %>">
+      <span class="bi bi-play-fill"></span>
+    </button>
+  </li>
+</template>

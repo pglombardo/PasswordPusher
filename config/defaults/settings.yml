@@ -493,6 +493,41 @@ files:
   #
   max_file_uploads: 10
 
+  # TUS chunked uploads (B2 – minimal TUS-inspired)
+  #
+  # When true, file uploads use TUS (resumable, large files). When false, standard
+  # direct upload is used (max size per file is max_direct_upload_size, e.g. 100 MB).
+  #
+  # Environment variable override:
+  # PWP__FILES__USE_TUS_UPLOADS='true'
+  #
+  use_tus_uploads: true
+
+  # Maximum size per file when TUS is disabled (bytes). Default 100 MB.
+  # When use_tus_uploads is false, uploads use Rails direct upload; the whole file
+  # is sent in one request, so keep this within what your web server allows
+  # (e.g. nginx client_max_body_size). TUS ignores this and uses max_tus_upload_size.
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_DIRECT_UPLOAD_SIZE=104857600
+  #
+  max_direct_upload_size: 104857600
+
+  # Maximum size per file for TUS uploads (bytes). Default 100 GB.
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_TUS_UPLOAD_SIZE=107374182400
+  #
+  max_tus_upload_size: 107374182400
+
+  # TTL for incomplete TUS uploads (seconds). Uploads not finalized within this
+  # window are deleted by cleanup job. Default 24 hours.
+  #
+  # Environment variable override:
+  # PWP__FILES__TUS_UPLOAD_TTL=86400
+  #
+  tus_upload_ttl: 86400
+
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
