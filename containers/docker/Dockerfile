@@ -77,7 +77,7 @@ RUN rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
-FROM ruby:3.4.8-alpine
+FROM ruby:4.0.1-alpine
 
 # include global args
 ARG BUNDLE_WITHOUT
