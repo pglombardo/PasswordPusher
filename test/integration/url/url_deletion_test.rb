@@ -33,7 +33,7 @@ class UrlDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Delete the file_push
     delete request.url.sub("/preview", "/expire")
@@ -59,7 +59,7 @@ class UrlDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Your push has been created."
+    assert_select "h2", "Push Preview"
 
     # Sign out user to test anonymous end user deletion
     sign_out :user

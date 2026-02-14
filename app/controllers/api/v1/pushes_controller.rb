@@ -171,8 +171,8 @@ class Api::V1::PushesController < Api::BaseController
 
     @push.user = current_user if user_signed_in?
 
-    create_detect_deletable_by_viewer(@push, push_params)
-    create_detect_retrieval_step(@push, push_params)
+    assign_deletable_by_viewer(@push, push_params)
+    assign_retrieval_step(@push, push_params)
 
     if @push.save
       log_creation(@push)

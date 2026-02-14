@@ -98,4 +98,55 @@ class PushesHelperTest < ActionView::TestCase
     assert_equal "100.0 MiB", filesize(100 * 1024 * 1024) # 100 MB
     assert_equal "1.0 GiB", filesize(1024 * 1024 * 1024) # 1 GB
   end
+
+  # Tests for checkbox_options_for_push helper
+  test "checkbox_options_for_push includes x-default for new push" do
+    push = Push.new(kind: "text")
+    result = checkbox_options_for_push(push, "retrievalStep", true)
+
+    assert_equal "form-check-input flex-shrink-0", result[:class]
+    assert_equal "retrievalStepCheckbox", result["data-knobs-target"]
+    assert_equal true, result["x-default"]
+  end
+
+  test "checkbox_options_for_push includes x-default with false value for new push" do
+    push = Push.new(kind: "url")
+    result = checkbox_options_for_push(push, "deletableByViewer", false)
+
+    assert_equal "form-check-input flex-shrink-0", result[:class]
+    assert_equal "deletableByViewerCheckbox", result["data-knobs-target"]
+    assert_equal false, result["x-default"]
+  end
+
+  test "checkbox_options_for_push does not include x-default for persisted push" do
+    push = Push.create!(kind: "text", payload: "test")
+    result = checkbox_options_for_push(push, "retrievalStep", true)
+
+    assert_equal "form-check-input flex-shrink-0", result[:class]
+    assert_equal "retrievalStepCheckbox", result["data-knobs-target"]
+    assert_nil result["x-default"], "x-default should not be present for persisted push"
+  end
+
+  test "checkbox_options_for_push uses string key for x-default not symbol" do
+    push = Push.new(kind: "file")
+    result = checkbox_options_for_push(push, "deletableByViewer", true)
+
+    # Verify it's using string key "x-default" (with dash) not symbol :x_default
+    assert result.key?("x-default"), "Should use string key 'x-default'"
+    assert_not result.key?(:x_default), "Should not use symbol key :x_default"
+    assert_not result.key?("x_default"), "Should not use string key 'x_default' with underscore"
+  end
+
+  test "checkbox_options_for_push sets correct data-knobs-target" do
+    push = Push.new(kind: "qr")
+
+    result1 = checkbox_options_for_push(push, "retrievalStep", false)
+    assert_equal "retrievalStepCheckbox", result1["data-knobs-target"]
+
+    result2 = checkbox_options_for_push(push, "deletableByViewer", true)
+    assert_equal "deletableByViewerCheckbox", result2["data-knobs-target"]
+
+    result3 = checkbox_options_for_push(push, "customTarget", false)
+    assert_equal "customTargetCheckbox", result3["data-knobs-target"]
+  end
 end

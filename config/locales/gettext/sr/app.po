@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-11 11:57+0100\n"
-"PO-Revision-Date: 2026-01-11 10:57+0000\n"
+"POT-Creation-Date: 2026-01-29 01:43+0100\n"
+"PO-Revision-Date: 2026-01-29 00:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Serbian\n"
 "Language: sr\n"
@@ -24,7 +24,10 @@ msgid "You cannot delete your own account."
 msgstr "Не можете сами да обришете свој налог."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:174
+#: ../../../app/controllers/pushes_controller.rb:117
+#: ../../../app/controllers/pushes_controller.rb:157
+#: ../../../app/controllers/pushes_controller.rb:275
+#: ../../../app/controllers/pushes_controller.rb:305
 msgid "That push doesn't belong to you."
 msgstr "То гурање не припада теби."
 
@@ -40,7 +43,7 @@ msgstr "Морате бити пријављени да бисте видели 
 msgid "You must be logged in to view your expired pushes."
 msgstr "Морате бити пријављени да бисте видели своје истекле пусх-ове."
 
-#: ../../../app/controllers/pushes_controller.rb:96
+#: ../../../app/controllers/pushes_controller.rb:97
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -48,52 +51,83 @@ msgstr ""
 "Та приступна фраза је нетачна. Покушајте поново или контактирајте особу или ор"
 "ганизацију која вам је послала ову везу."
 
-#: ../../../app/controllers/pushes_controller.rb:184
-msgid "That push is not deletable by viewers and does not belong to you."
-msgstr "Тај порука није доступна гледаоцима и не припада вама."
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:163
+msgid "That push has already expired and cannot be edited."
+msgstr "Тај поруџбина је већ истекла и не може се изменити."
 
-#: ../../../app/controllers/pushes_controller.rb:189
-msgid "That push has already expired."
-msgstr "Тај притисак је већ истекао."
+#: ../../../app/controllers/pushes_controller.rb:188
+msgid "must be at least %{count} (days already elapsed + 1)."
+msgstr "мора бити најмање %{count} (број већ протеклих дана + 1)."
 
 #: ../../../app/controllers/pushes_controller.rb:197
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Пусх садржај је избрисан, а тајни УРЛ је истекао."
+msgid "must be at least %{count} (views already consumed + 1)."
+msgstr "мора бити најмање %{count} (већ искоришћени прегледи + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:318
-#: ../../../app/models/push.rb:199
-msgid "File pushes are disabled."
-msgstr "Слање датотека је онемогућено."
-
-#: ../../../app/controllers/pushes_controller.rb:328
-#: ../../../app/models/push.rb:203
-msgid "URL pushes are disabled."
-msgstr "Слање URL адреса је онемогућено."
-
-#: ../../../app/controllers/pushes_controller.rb:338
-#: ../../../app/models/push.rb:207
-msgid "QR code pushes are disabled."
-msgstr "Слање QR кодова је онемогућено."
-
+#: ../../../app/controllers/pushes_controller.rb:222
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Можете да приложите највише %{count} датотека по притиску."
 
-#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
-#: ../../../app/models/push.rb:146
+#: ../../../app/controllers/pushes_controller.rb:235
+msgid "Push was successfully updated."
+msgstr "Пусх је успешно ажуриран."
+
+#: ../../../app/controllers/pushes_controller.rb:285
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Тај порука није доступна гледаоцима и не припада вама."
+
+#: ../../../app/controllers/pushes_controller.rb:290
+#: ../../../app/controllers/pushes_controller.rb:311
+msgid "That push has already expired."
+msgstr "Тај притисак је већ истекао."
+
+#: ../../../app/controllers/pushes_controller.rb:298
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Пусх садржај је избрисан, а тајни УРЛ је истекао."
+
+#: ../../../app/controllers/pushes_controller.rb:317
+msgid "You cannot delete the last file from a file push."
+msgstr "Не можете обрисати последњу датотеку из прослеђивања датотеке."
+
+#: ../../../app/controllers/pushes_controller.rb:326
+msgid "File was successfully deleted."
+msgstr "Датотека је успешно обрисана."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+msgid "File not found."
+msgstr "Датотека није пронађена."
+
+#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/models/push.rb:208
+msgid "File pushes are disabled."
+msgstr "Слање датотека је онемогућено."
+
+#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/models/push.rb:212
+msgid "URL pushes are disabled."
+msgstr "Слање URL адреса је онемогућено."
+
+#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/models/push.rb:216
+msgid "QR code pushes are disabled."
+msgstr "Слање QR кодова је онемогућено."
+
+#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
+#: ../../../app/models/push.rb:155
 msgid "Payload is required."
 msgstr "Потребан је корисни терет."
 
-#: ../../../app/models/push.rb:125
+#: ../../../app/models/push.rb:128
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr "Носивост је превелика. Можете погурати само до %{count} бајтова."
 
-#: ../../../app/models/push.rb:132
+#: ../../../app/models/push.rb:138
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "мора бити важећи HTTP или HTTPS URL."
 
-#: ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:152
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr ""
 "Корисно оптерећење КР кода је превелико. Можете погурати само до %{count} бајт"
@@ -465,6 +499,7 @@ msgstr "Не рачуна се у ограничење прегледа"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
@@ -475,6 +510,7 @@ msgstr "ИП адреса:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
@@ -487,6 +523,8 @@ msgstr "Кориснички агент:"
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
@@ -504,6 +542,7 @@ msgstr "Ниједан"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
@@ -515,6 +554,10 @@ msgstr "Реферер:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Пусх креирао %{user} на %{date}"
+
+#: ../../../app/views/audit_logs/_log_edit.html.erb:3
+msgid "Edited on %{date} by %{user}"
+msgstr "Izmenjeno %{date} od %{user}"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -748,7 +791,7 @@ msgid "A new token will be generated in its place."
 msgstr "На његовом месту ће се генерисати нови токен."
 
 #: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:218
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:115
 msgid "Are you sure?"
 msgstr "Да ли сте сигурни?"
@@ -756,7 +799,7 @@ msgstr "Да ли сте сигурни?"
 #: ../../../app/views/devise/registrations/token.html.erb:52
 #: ../../../app/views/madmin/application/_form.html.erb:212
 #: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:221
+#: ../../../app/views/pushes/audit.html.erb:224
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
@@ -767,7 +810,7 @@ msgid "Delete & Regenerate"
 msgstr "Делете & Регенерате"
 
 #: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Обрада..."
@@ -931,6 +974,8 @@ msgstr "Измени %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
+#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/index.html.erb:86
 msgid "Edit"
 msgstr "Уредити"
 
@@ -988,7 +1033,7 @@ msgstr "Погледајте детаље %{name}"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1584,7 +1629,7 @@ msgstr[1] "Дани"
 msgstr[2] "Дани"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:95
 #: ../../../app/views/pushes/_form.html.erb:7
 #: ../../../app/views/pushes/_form.html.erb:69
 #: ../../../app/views/pushes/_qr_form.html.erb:7
@@ -1595,7 +1640,7 @@ msgid "Days"
 msgstr "Дани"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:80
+#: ../../../app/views/pushes/_files_form.html.erb:113
 #: ../../../app/views/pushes/_form.html.erb:10
 #: ../../../app/views/pushes/_form.html.erb:86
 #: ../../../app/views/pushes/_qr_form.html.erb:10
@@ -1606,13 +1651,13 @@ msgid "Views"
 msgstr "Погледи"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:161
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:134
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:138
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_url_form.html.erb:115
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:72
 msgid "Save"
 msgstr "сачувати"
@@ -1624,22 +1669,30 @@ msgstr "сачувати"
 msgid "Saved!"
 msgstr "Сачувано!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:29
+#: ../../../app/views/pushes/_files_form.html.erb:30
+msgid "Uploaded Files"
+msgstr "Отпремљене датотеке"
+
+#: ../../../app/views/pushes/_files_form.html.erb:46
+msgid "Are you sure you want to delete this file?"
+msgstr "Да ли сте сигурни да желите да обришете ову датотеку?"
+
+#: ../../../app/views/pushes/_files_form.html.erb:62
 msgid "Add Files..."
 msgstr "Додај датотеке..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:77
 msgid "You can upload up to %{count} files per push."
 msgstr "Možete otpremiti do %{count} datoteka po push-u."
 
-#: ../../../app/views/pushes/_files_form.html.erb:49
+#: ../../../app/views/pushes/_files_form.html.erb:82
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
 #: ../../../app/views/pushes/_url_form.html.erb:43
 msgid "Expire secret link and delete after:"
 msgstr "Истек тајне везе и брисање након:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:85
+#: ../../../app/views/pushes/_files_form.html.erb:118
 #: ../../../app/views/pushes/_form.html.erb:91
 #: ../../../app/views/pushes/_qr_form.html.erb:92
 #: ../../../app/views/pushes/_url_form.html.erb:80
@@ -1649,60 +1702,60 @@ msgstr "Истек тајне везе и брисање након:"
 msgid "(whichever comes first)"
 msgstr "(шта год дође прво)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:99
-#: ../../../app/views/pushes/_form.html.erb:104
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:102
+#: ../../../app/views/pushes/_qr_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Користите корак преузимања једним кликом"
 
-#: ../../../app/views/pushes/_files_form.html.erb:100
-#: ../../../app/views/pushes/_form.html.erb:105
-#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:103
+#: ../../../app/views/pushes/_qr_form.html.erb:105
 #: ../../../app/views/pushes/audit.html.erb:73
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "Помаже да се избегне да системи ћаскања и скенери УРЛ-ова не поједу прегледе."
 
-#: ../../../app/views/pushes/_files_form.html.erb:111
-#: ../../../app/views/pushes/_form.html.erb:115
-#: ../../../app/views/pushes/_qr_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:111
+#: ../../../app/views/pushes/_qr_form.html.erb:114
 msgid "Allow immediate deletion"
 msgstr "Дозволите тренутно брисање"
 
-#: ../../../app/views/pushes/_files_form.html.erb:112
-#: ../../../app/views/pushes/_form.html.erb:116
-#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:112
+#: ../../../app/views/pushes/_qr_form.html.erb:115
 msgid "Allow users to delete this push once retrieved."
 msgstr "Дозволите корисницима да избришу овај пусх када се преузме."
 
-#: ../../../app/views/pushes/_files_form.html.erb:122
-#: ../../../app/views/pushes/_form.html.erb:126
-#: ../../../app/views/pushes/_qr_form.html.erb:127
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_files_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:122
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:103
 #: ../../../app/views/pushes/audit.html.erb:78
 msgid "Passphrase Lockdown"
 msgstr "Закључавање шифре"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:129
-#: ../../../app/views/pushes/_qr_form.html.erb:130
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:152
+#: ../../../app/views/pushes/_form.html.erb:125
+#: ../../../app/views/pushes/_qr_form.html.erb:128
+#: ../../../app/views/pushes/_url_form.html.erb:106
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr ""
 "Опционо: Захтевајте од прималаца да унесу приступну фразу да би видели овај пу"
 "сх"
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:137
-#: ../../../app/views/pushes/_qr_form.html.erb:138
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "the above settings as the page default."
 msgstr "горња подешавања као подразумевана страница."
 
-#: ../../../app/views/pushes/_files_form.html.erb:146
-#: ../../../app/views/pushes/_files_form.html.erb:169
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_files_form.html.erb:175
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:171
 #: ../../../app/views/pushes/_qr_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:174
 #: ../../../app/views/pushes/_url_form.html.erb:128
@@ -1710,41 +1763,41 @@ msgstr "горња подешавања као подразумевана стр
 msgid "Optional"
 msgstr "Опционо"
 
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:167
 #: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Име које се приказује на контролној табли, у обавештењима и имејловима."
 
-#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_files_form.html.erb:183
 msgid "Message"
 msgstr "Порука"
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:186
 msgid "Optional: A message to be included with the push"
 msgstr "Опционо: Порука која ће бити укључена уз пусх"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:190
 msgid "Encrypted and visible to the receiving party"
 msgstr "Шифровано и видљиво страни која прима"
 
-#: ../../../app/views/pushes/_files_form.html.erb:166
-#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_files_form.html.erb:195
+#: ../../../app/views/pushes/_form.html.erb:168
 #: ../../../app/views/pushes/_qr_form.html.erb:171
 #: ../../../app/views/pushes/_url_form.html.erb:135
 #: ../../../app/views/pushes/audit.html.erb:15
 msgid "Reference Note"
 msgstr "Референтна напомена"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
-#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:174
 #: ../../../app/views/pushes/_qr_form.html.erb:177
 #: ../../../app/views/pushes/_url_form.html.erb:141
 msgid "Encrypted and visible only to you"
 msgstr "Шифровано и видљиво само вама"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_files_form.html.erb:207
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1752,22 +1805,36 @@ msgstr ""
 "Када истекне, све датотеке и садржај пусх ће бити избрисани одмах и у потпунос"
 "ти."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:212
 #: ../../../app/views/pushes/_url_form.html.erb:153
 msgid "An audit log of activity will be available."
 msgstr "Ревизорски дневник активности ће бити доступан."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Updating..."
+msgstr "Ажурирање..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Update Push"
+msgstr "Ažuriraj obaveštenje"
+
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Pushing..."
 msgstr "Guranje..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Push It!"
 msgstr "Гурни га!"
 
@@ -1784,18 +1851,18 @@ msgstr "Унесите лозинку или текст да притиснет�
 msgid "Characters"
 msgstr "ликови"
 
-#: ../../../app/views/pushes/_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:147
 #: ../../../app/views/pushes/_qr_form.html.erb:150
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Генеришите лозинку"
 
-#: ../../../app/views/pushes/_form.html.erb:156
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Use the button above to generate a random password."
 msgstr "Користите горње дугме да бисте генерисали случајну лозинку."
 
-#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:179
 #: ../../../app/views/pushes/_qr_form.html.erb:182
 msgid ""
 "Tip: Only enter a password into the box.  Other identifying information can co"
@@ -1804,7 +1871,7 @@ msgstr ""
 "Савет: Унесите само лозинку у поље. Друге идентификационе информације могу угр"
 "озити безбедност."
 
-#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_form.html.erb:180
 #: ../../../app/views/pushes/_qr_form.html.erb:183
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
@@ -1847,7 +1914,7 @@ msgstr "УРЛ преусмеравање"
 msgid "Enter the URL to redirect to..."
 msgstr "Унесите УРЛ адресу за преусмеравање на..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Помаже да се избегне да системи за ћаскање и скенери УРЛ-а не поједу преусмера"
@@ -2031,33 +2098,33 @@ msgstr "Величина:"
 msgid "All attached files have been deleted."
 msgstr "Све приложене датотеке су избрисане."
 
-#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/audit.html.erb:207
 msgid "Expire Now"
 msgstr "Истек одмах"
 
-#: ../../../app/views/pushes/audit.html.erb:212
+#: ../../../app/views/pushes/audit.html.erb:215
 msgid "Delete This Push?"
 msgstr "Да ли желите да обришете ову поруку?"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "This will expire this secret link and"
 msgstr "Ово ће истећи ову тајну везу и"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "remove all content from the database forever"
 msgstr "заувек уклоните сав садржај из базе података"
 
-#: ../../../app/views/pushes/audit.html.erb:217
+#: ../../../app/views/pushes/audit.html.erb:220
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
 msgstr "Дневник ревизије (укључујући будуће покушаје прегледа) ће се и даље одржавати."
 
-#: ../../../app/views/pushes/audit.html.erb:234
+#: ../../../app/views/pushes/audit.html.erb:237
 msgid "Start of Audit Log"
 msgstr "Почетак дневника ревизије"
 
-#: ../../../app/views/pushes/audit.html.erb:240
+#: ../../../app/views/pushes/audit.html.erb:243
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2065,9 +2132,18 @@ msgstr ""
 "Како пусх прима активност, овде ће се приказати евиденција сваког са идентифик"
 "ационим информацијама."
 
-#: ../../../app/views/pushes/audit.html.erb:244
+#: ../../../app/views/pushes/audit.html.erb:247
 msgid "End of Audit Log"
 msgstr "Крај дневника ревизије"
+
+#: ../../../app/views/pushes/edit.html.erb:1
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid "Edit Push"
+msgstr "Измени пусх"
+
+#: ../../../app/views/pushes/edit.html.erb:4
+msgid "Editing Push"
+msgstr "Уређивање поруке"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -2137,7 +2213,7 @@ msgstr "Гурните контроле"
 msgid "Preview"
 msgstr "Преглед"
 
-#: ../../../app/views/pushes/index.html.erb:87
+#: ../../../app/views/pushes/index.html.erb:90
 msgid "Audit"
 msgstr "Ревизија"
 
@@ -2166,12 +2242,9 @@ msgid "Click Here to Proceed"
 msgstr "Кликните овде да бисте наставили"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-msgid "Your Push Has Been Created"
-msgstr "Ваш Пусх је креиран"
-
 #: ../../../app/views/pushes/preview.html.erb:6
-msgid "Your push has been created."
-msgstr "Ваш притисак је створен."
+msgid "Push Preview"
+msgstr "Преглед слања"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2261,11 +2334,11 @@ msgstr "(сагореће поглед) или"
 msgid "Push Another"
 msgstr "Гурни другог"
 
-#: ../../../app/views/pushes/preview.html.erb:94
+#: ../../../app/views/pushes/preview.html.erb:95
 msgid "View Audit Log"
 msgstr "Погледајте дневник ревизије"
 
-#: ../../../app/views/pushes/preview.html.erb:98
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -2273,7 +2346,7 @@ msgstr ""
 "Савет: Пребацивање међународном кориснику? Промените језик тајне везе помоћу п"
 "адајућег менија десно од УРЛ адресе."
 
-#: ../../../app/views/pushes/preview.html.erb:99
+#: ../../../app/views/pushes/preview.html.erb:104
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."

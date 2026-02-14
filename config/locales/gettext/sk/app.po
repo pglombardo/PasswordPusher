@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-11 11:57+0100\n"
-"PO-Revision-Date: 2026-01-11 10:57+0000\n"
+"POT-Creation-Date: 2026-01-29 01:43+0100\n"
+"PO-Revision-Date: 2026-01-29 00:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -23,7 +23,10 @@ msgid "You cannot delete your own account."
 msgstr "Vlastné konto nemôžete vymazať."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:174
+#: ../../../app/controllers/pushes_controller.rb:117
+#: ../../../app/controllers/pushes_controller.rb:157
+#: ../../../app/controllers/pushes_controller.rb:275
+#: ../../../app/controllers/pushes_controller.rb:305
 msgid "That push doesn't belong to you."
 msgstr "Toto tlačenie vám nepatrí."
 
@@ -39,7 +42,7 @@ msgstr "Musíte byť prihlásený, aby ste si mohli prezerať svoje aktívne tla
 msgid "You must be logged in to view your expired pushes."
 msgstr "Musíte byť prihlásení, aby ste si mohli prezerať svoje vypršané tlače."
 
-#: ../../../app/controllers/pushes_controller.rb:96
+#: ../../../app/controllers/pushes_controller.rb:97
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -47,52 +50,83 @@ msgstr ""
 "Táto prístupová fráza je nesprávna.  Skúste to znova alebo sa obráťte na osobu"
 " alebo organizáciu, ktorá vám toto prepojenie poslala."
 
-#: ../../../app/controllers/pushes_controller.rb:184
-msgid "That push is not deletable by viewers and does not belong to you."
-msgstr "Tento push nie je odstrániteľný divákmi a nepatrí vám."
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:163
+msgid "That push has already expired and cannot be edited."
+msgstr "Platnosť tohto tlačidla už vypršala a nie je možné ho upravovať."
 
-#: ../../../app/controllers/pushes_controller.rb:189
-msgid "That push has already expired."
-msgstr "Tento tlak už vypršal."
+#: ../../../app/controllers/pushes_controller.rb:188
+msgid "must be at least %{count} (days already elapsed + 1)."
+msgstr "musí byť aspoň %{count} (už uplynuté dni + 1)."
 
 #: ../../../app/controllers/pushes_controller.rb:197
-#: ../../../app/views/pushes/audit.html.erb:99
-msgid "The push content has been deleted and the secret URL expired."
-msgstr "Obsah push bol odstránený a platnosť tajnej adresy URL vypršala."
+msgid "must be at least %{count} (views already consumed + 1)."
+msgstr "musí byť aspoň %{count} (už spotrebované zobrazenia + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:318
-#: ../../../app/models/push.rb:199
-msgid "File pushes are disabled."
-msgstr "Posúvanie súborov je zakázané."
-
-#: ../../../app/controllers/pushes_controller.rb:328
-#: ../../../app/models/push.rb:203
-msgid "URL pushes are disabled."
-msgstr "Posunutie adresy URL je zakázané."
-
-#: ../../../app/controllers/pushes_controller.rb:338
-#: ../../../app/models/push.rb:207
-msgid "QR code pushes are disabled."
-msgstr "Tlačenie QR kódov je vypnuté."
-
+#: ../../../app/controllers/pushes_controller.rb:222
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Na jedno odoslanie môžete pripojiť len %{count} súborov."
 
-#: ../../../app/models/push.rb:120 ../../../app/models/push.rb:135
-#: ../../../app/models/push.rb:146
+#: ../../../app/controllers/pushes_controller.rb:235
+msgid "Push was successfully updated."
+msgstr "Push bol úspešne aktualizovaný."
+
+#: ../../../app/controllers/pushes_controller.rb:285
+msgid "That push is not deletable by viewers and does not belong to you."
+msgstr "Tento push nie je odstrániteľný divákmi a nepatrí vám."
+
+#: ../../../app/controllers/pushes_controller.rb:290
+#: ../../../app/controllers/pushes_controller.rb:311
+msgid "That push has already expired."
+msgstr "Tento tlak už vypršal."
+
+#: ../../../app/controllers/pushes_controller.rb:298
+#: ../../../app/views/pushes/audit.html.erb:99
+msgid "The push content has been deleted and the secret URL expired."
+msgstr "Obsah push bol odstránený a platnosť tajnej adresy URL vypršala."
+
+#: ../../../app/controllers/pushes_controller.rb:317
+msgid "You cannot delete the last file from a file push."
+msgstr "Posledný súbor zo súboru push nemôžete odstrániť."
+
+#: ../../../app/controllers/pushes_controller.rb:326
+msgid "File was successfully deleted."
+msgstr "Súbor bol úspešne odstránený."
+
+#: ../../../app/controllers/pushes_controller.rb:328
+msgid "File not found."
+msgstr "Súbor nebol nájdený."
+
+#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/models/push.rb:208
+msgid "File pushes are disabled."
+msgstr "Posúvanie súborov je zakázané."
+
+#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/models/push.rb:212
+msgid "URL pushes are disabled."
+msgstr "Posunutie adresy URL je zakázané."
+
+#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/models/push.rb:216
+msgid "QR code pushes are disabled."
+msgstr "Tlačenie QR kódov je vypnuté."
+
+#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
+#: ../../../app/models/push.rb:155
 msgid "Payload is required."
 msgstr "Vyžaduje sa užitočné zaťaženie."
 
-#: ../../../app/models/push.rb:125
+#: ../../../app/models/push.rb:128
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr "Užitočné zaťaženie je príliš veľké.  Môžete odoslať len do %{count} bajtov."
 
-#: ../../../app/models/push.rb:132
+#: ../../../app/models/push.rb:138
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "musí byť platná adresa URL HTTP alebo HTTPS."
 
-#: ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:152
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr "Náklad QR kódu je príliš veľký.  Môžete odoslať len do %{count} bajtov."
 
@@ -462,6 +496,7 @@ msgstr "Nezapočítava sa do limitu zobrazenia"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
+#: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
@@ -472,6 +507,7 @@ msgstr "IP adresa:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
@@ -484,6 +520,8 @@ msgstr "Používateľský agent:"
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
@@ -501,6 +539,7 @@ msgstr "Žiadne"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
+#: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
@@ -512,6 +551,10 @@ msgstr "Odosielateľ:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Push vytvorený na %{date} podľa %{user}"
+
+#: ../../../app/views/audit_logs/_log_edit.html.erb:3
+msgid "Edited on %{date} by %{user}"
+msgstr "Upravené dňa %{date} podľa %{user}"
 
 #: ../../../app/views/audit_logs/_log_expire.html.erb:3
 msgid "Manually expired on %{date} by %{user}"
@@ -743,7 +786,7 @@ msgid "A new token will be generated in its place."
 msgstr "Namiesto neho sa vygeneruje nový token."
 
 #: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:218
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:115
 msgid "Are you sure?"
 msgstr "Ste si istý?"
@@ -751,7 +794,7 @@ msgstr "Ste si istý?"
 #: ../../../app/views/devise/registrations/token.html.erb:52
 #: ../../../app/views/madmin/application/_form.html.erb:212
 #: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:221
+#: ../../../app/views/pushes/audit.html.erb:224
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
@@ -762,7 +805,7 @@ msgid "Delete & Regenerate"
 msgstr "Odstrániť a regenerovať"
 
 #: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Spracovanie..."
@@ -926,6 +969,8 @@ msgstr "Upraviť %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
+#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/index.html.erb:86
 msgid "Edit"
 msgstr "Upraviť politiku"
 
@@ -983,7 +1028,7 @@ msgstr "Zobraziť %{name} podrobnosti"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:222
+#: ../../../app/views/pushes/audit.html.erb:225
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1579,7 +1624,7 @@ msgstr[1] "Dni"
 msgstr[2] "Dni"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:95
 #: ../../../app/views/pushes/_form.html.erb:7
 #: ../../../app/views/pushes/_form.html.erb:69
 #: ../../../app/views/pushes/_qr_form.html.erb:7
@@ -1590,7 +1635,7 @@ msgid "Days"
 msgstr "Dni"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:80
+#: ../../../app/views/pushes/_files_form.html.erb:113
 #: ../../../app/views/pushes/_form.html.erb:10
 #: ../../../app/views/pushes/_form.html.erb:86
 #: ../../../app/views/pushes/_qr_form.html.erb:10
@@ -1601,13 +1646,13 @@ msgid "Views"
 msgstr "Zobrazenia"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:161
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:134
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:138
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_url_form.html.erb:115
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:72
 msgid "Save"
 msgstr "Uložiť"
@@ -1619,22 +1664,30 @@ msgstr "Uložiť"
 msgid "Saved!"
 msgstr "Zachránené!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:29
+#: ../../../app/views/pushes/_files_form.html.erb:30
+msgid "Uploaded Files"
+msgstr "Nahrané súbory"
+
+#: ../../../app/views/pushes/_files_form.html.erb:46
+msgid "Are you sure you want to delete this file?"
+msgstr "Určite chcete tento súbor odstrániť?"
+
+#: ../../../app/views/pushes/_files_form.html.erb:62
 msgid "Add Files..."
 msgstr "Pridať súbory..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:77
 msgid "You can upload up to %{count} files per push."
 msgstr "Na jedno odoslanie môžete nahrať až %{count} súborov."
 
-#: ../../../app/views/pushes/_files_form.html.erb:49
+#: ../../../app/views/pushes/_files_form.html.erb:82
 #: ../../../app/views/pushes/_form.html.erb:56
 #: ../../../app/views/pushes/_qr_form.html.erb:57
 #: ../../../app/views/pushes/_url_form.html.erb:43
 msgid "Expire secret link and delete after:"
 msgstr "Ukončite platnosť tajného odkazu a potom ho vymažte:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:85
+#: ../../../app/views/pushes/_files_form.html.erb:118
 #: ../../../app/views/pushes/_form.html.erb:91
 #: ../../../app/views/pushes/_qr_form.html.erb:92
 #: ../../../app/views/pushes/_url_form.html.erb:80
@@ -1644,62 +1697,62 @@ msgstr "Ukončite platnosť tajného odkazu a potom ho vymažte:"
 msgid "(whichever comes first)"
 msgstr "(podľa toho, čo nastane skôr)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:99
-#: ../../../app/views/pushes/_form.html.erb:104
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:102
+#: ../../../app/views/pushes/_qr_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Použite krok načítania na 1 kliknutie"
 
-#: ../../../app/views/pushes/_files_form.html.erb:100
-#: ../../../app/views/pushes/_form.html.erb:105
-#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:103
+#: ../../../app/views/pushes/_qr_form.html.erb:105
 #: ../../../app/views/pushes/audit.html.erb:73
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Pomáha predchádzať tomu, aby chatovacie systémy a skenery URL spotrebovali zob"
 "razenia."
 
-#: ../../../app/views/pushes/_files_form.html.erb:111
-#: ../../../app/views/pushes/_form.html.erb:115
-#: ../../../app/views/pushes/_qr_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:111
+#: ../../../app/views/pushes/_qr_form.html.erb:114
 msgid "Allow immediate deletion"
 msgstr "Umožniť okamžité vymazanie"
 
-#: ../../../app/views/pushes/_files_form.html.erb:112
-#: ../../../app/views/pushes/_form.html.erb:116
-#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:112
+#: ../../../app/views/pushes/_qr_form.html.erb:115
 msgid "Allow users to delete this push once retrieved."
 msgstr "Umožniť používateľom vymazať tento push po načítaní."
 
-#: ../../../app/views/pushes/_files_form.html.erb:122
-#: ../../../app/views/pushes/_form.html.erb:126
-#: ../../../app/views/pushes/_qr_form.html.erb:127
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_files_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:122
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:103
 #: ../../../app/views/pushes/audit.html.erb:78
 msgid "Passphrase Lockdown"
 msgstr "Uzamknutie prístupovej frázy"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:129
-#: ../../../app/views/pushes/_qr_form.html.erb:130
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:152
+#: ../../../app/views/pushes/_form.html.erb:125
+#: ../../../app/views/pushes/_qr_form.html.erb:128
+#: ../../../app/views/pushes/_url_form.html.erb:106
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr ""
 "Voliteľné: Vyžadovať od príjemcov zadanie prístupovej frázy pre zobrazenie toh"
 "to tlačidla"
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:137
-#: ../../../app/views/pushes/_qr_form.html.erb:138
-#: ../../../app/views/pushes/_url_form.html.erb:116
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "the above settings as the page default."
 msgstr "vyššie uvedené nastavenia ako predvolené nastavenia stránky."
 
-#: ../../../app/views/pushes/_files_form.html.erb:146
-#: ../../../app/views/pushes/_files_form.html.erb:169
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_files_form.html.erb:175
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:171
 #: ../../../app/views/pushes/_qr_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:174
 #: ../../../app/views/pushes/_url_form.html.erb:128
@@ -1707,41 +1760,41 @@ msgstr "vyššie uvedené nastavenia ako predvolené nastavenia stránky."
 msgid "Optional"
 msgstr "Voliteľné"
 
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:164
 #: ../../../app/views/pushes/_qr_form.html.erb:167
 #: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Meno zobrazené na prístrojovej doske, v oznámeniach a e-mailových správach."
 
-#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_files_form.html.erb:183
 msgid "Message"
 msgstr "Správa"
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:186
 msgid "Optional: A message to be included with the push"
 msgstr "Voliteľné: Správa, ktorá sa má pripojiť k tlačidlu"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:190
 msgid "Encrypted and visible to the receiving party"
 msgstr "Šifrované a viditeľné pre prijímajúcu stranu"
 
-#: ../../../app/views/pushes/_files_form.html.erb:166
-#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_files_form.html.erb:195
+#: ../../../app/views/pushes/_form.html.erb:168
 #: ../../../app/views/pushes/_qr_form.html.erb:171
 #: ../../../app/views/pushes/_url_form.html.erb:135
 #: ../../../app/views/pushes/audit.html.erb:15
 msgid "Reference Note"
 msgstr "Referenčná poznámka"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
-#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:174
 #: ../../../app/views/pushes/_qr_form.html.erb:177
 #: ../../../app/views/pushes/_url_form.html.erb:141
 msgid "Encrypted and visible only to you"
 msgstr "Šifrované a viditeľné len pre vás"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_files_form.html.erb:207
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1749,22 +1802,36 @@ msgstr ""
 "Po vypršaní platnosti sa všetky súbory a obsah tlačidla push okamžite a úplne "
 "odstránia."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:212
 #: ../../../app/views/pushes/_url_form.html.erb:153
 msgid "An audit log of activity will be available."
 msgstr "K dispozícii bude auditný denník aktivít."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Updating..."
+msgstr "Aktualizácia..."
+
+#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_form.html.erb:188
+#: ../../../app/views/pushes/_qr_form.html.erb:191
+#: ../../../app/views/pushes/_url_form.html.erb:162
+msgid "Update Push"
+msgstr "Aktualizácia Push"
+
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Pushing..."
 msgstr "Tlačenie..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:191
-#: ../../../app/views/pushes/_form.html.erb:189
-#: ../../../app/views/pushes/_qr_form.html.erb:190
-#: ../../../app/views/pushes/_url_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_form.html.erb:190
+#: ../../../app/views/pushes/_qr_form.html.erb:193
+#: ../../../app/views/pushes/_url_form.html.erb:164
 msgid "Push It!"
 msgstr "Push It!"
 
@@ -1781,18 +1848,18 @@ msgstr "Zadajte Heslo alebo Text na odoslanie..."
 msgid "Characters"
 msgstr "Postavy"
 
-#: ../../../app/views/pushes/_form.html.erb:149
+#: ../../../app/views/pushes/_form.html.erb:147
 #: ../../../app/views/pushes/_qr_form.html.erb:150
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Generovanie hesla"
 
-#: ../../../app/views/pushes/_form.html.erb:156
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Use the button above to generate a random password."
 msgstr "Pomocou vyššie uvedeného tlačidla vygenerujte náhodné heslo."
 
-#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:179
 #: ../../../app/views/pushes/_qr_form.html.erb:182
 msgid ""
 "Tip: Only enter a password into the box.  Other identifying information can co"
@@ -1801,7 +1868,7 @@ msgstr ""
 "Tip: Do poľa zadajte iba heslo.  Iné identifikačné údaje môžu ohroziť bezpečno"
 "sť."
 
-#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_form.html.erb:180
 #: ../../../app/views/pushes/_qr_form.html.erb:183
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
@@ -1845,7 +1912,7 @@ msgstr "Presmerovanie adresy URL"
 msgid "Enter the URL to redirect to..."
 msgstr "Zadajte adresu URL, na ktorú chcete presmerovať..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Pomáha predchádzať tomu, aby chatovacie systémy a skenery URL spotrebovali pre"
@@ -2033,23 +2100,23 @@ msgstr "Veľkosť: "
 msgid "All attached files have been deleted."
 msgstr "Všetky priložené súbory boli odstránené."
 
-#: ../../../app/views/pushes/audit.html.erb:204
+#: ../../../app/views/pushes/audit.html.erb:207
 msgid "Expire Now"
 msgstr "Vyprší teraz"
 
-#: ../../../app/views/pushes/audit.html.erb:212
+#: ../../../app/views/pushes/audit.html.erb:215
 msgid "Delete This Push?"
 msgstr "Odstrániť tento push?"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "This will expire this secret link and"
 msgstr "Tým sa ukončí platnosť tohto tajného prepojenia a"
 
-#: ../../../app/views/pushes/audit.html.erb:216
+#: ../../../app/views/pushes/audit.html.erb:219
 msgid "remove all content from the database forever"
 msgstr "navždy odstrániť všetok obsah z databázy"
 
-#: ../../../app/views/pushes/audit.html.erb:217
+#: ../../../app/views/pushes/audit.html.erb:220
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -2057,11 +2124,11 @@ msgstr ""
 "Protokol o audite (vrátane budúcich pokusov o zobrazenie) sa bude uchovávať aj"
 " v budúcnosti."
 
-#: ../../../app/views/pushes/audit.html.erb:234
+#: ../../../app/views/pushes/audit.html.erb:237
 msgid "Start of Audit Log"
 msgstr "Začiatok denníka auditov"
 
-#: ../../../app/views/pushes/audit.html.erb:240
+#: ../../../app/views/pushes/audit.html.erb:243
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2069,9 +2136,18 @@ msgstr ""
 "Keď sa do tlačidla dostane aktivita, zobrazí sa tu záznam o každej aktivite s "
 "identifikačnými informáciami."
 
-#: ../../../app/views/pushes/audit.html.erb:244
+#: ../../../app/views/pushes/audit.html.erb:247
 msgid "End of Audit Log"
 msgstr "Koniec denníka auditu"
+
+#: ../../../app/views/pushes/edit.html.erb:1
+#: ../../../app/views/pushes/preview.html.erb:98
+msgid "Edit Push"
+msgstr "Upraviť Push"
+
+#: ../../../app/views/pushes/edit.html.erb:4
+msgid "Editing Push"
+msgstr "Úprava tlačidla Push"
 
 #: ../../../app/views/pushes/index.html.erb:9
 msgid "You currently have no active pushes."
@@ -2141,7 +2217,7 @@ msgstr "Ovládacie prvky Push"
 msgid "Preview"
 msgstr "Náhľad"
 
-#: ../../../app/views/pushes/index.html.erb:87
+#: ../../../app/views/pushes/index.html.erb:90
 msgid "Audit"
 msgstr "Audit"
 
@@ -2170,12 +2246,9 @@ msgid "Click Here to Proceed"
 msgstr "Kliknutím sem pokračujte"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-msgid "Your Push Has Been Created"
-msgstr "Váš Push bol vytvorený"
-
 #: ../../../app/views/pushes/preview.html.erb:6
-msgid "Your push has been created."
-msgstr "Váš push bol vytvorený."
+msgid "Push Preview"
+msgstr "Náhľad na aplikáciu Push"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2265,11 +2338,11 @@ msgstr "(vypáli zobrazenie) alebo"
 msgid "Push Another"
 msgstr "Stlačte ďalší"
 
-#: ../../../app/views/pushes/preview.html.erb:94
+#: ../../../app/views/pushes/preview.html.erb:95
 msgid "View Audit Log"
 msgstr "Zobraziť protokol auditu"
 
-#: ../../../app/views/pushes/preview.html.erb:98
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid ""
 "Tip: Pushing to an international user?  Change the secret link language using "
 "the dropdown menu to the right of the URL."
@@ -2277,7 +2350,7 @@ msgstr ""
 "Tip: Tlačíte na medzinárodného používateľa?  Zmeňte jazyk tajného odkazu pomoc"
 "ou rozbaľovacieho menu napravo od adresy URL."
 
-#: ../../../app/views/pushes/preview.html.erb:99
+#: ../../../app/views/pushes/preview.html.erb:104
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."

@@ -1,25 +1,8 @@
 <% if push.files.attached? && Rails.application.config.active_storage.try(:service).to_s != "local" %>
-  <div class="text-muted fs-6">
-    <%= _('The file download links above will expire in:') %> <span id="countdown-timer">4:59</span>
+  <div class="text-muted fs-6" data-controller="countdown" data-countdown-expired-label-value="<%= _('Expired') %>">
+    <%= _('The file download links above will expire in:') %> <span id="countdown-timer" data-countdown-target="output">4:59</span>
     <div class="mt-2 mb-4">
       <%= _('You can refresh the page to regenerate new download links if views remain.') %>
     </div>
   </div>
-  <script>
-    var endTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes in milliseconds
-    var countdown = setInterval(function() {
-      var now = new Date().getTime();
-      var timeRemaining = endTime - now;
-
-      if (timeRemaining < 0) {
-        clearInterval(countdown);
-        document.getElementById("countdown-timer").innerHTML = "<%= _('Expired') %>";
-      } else {
-        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-        seconds = seconds.toString().padStart(2, '0');
-        document.getElementById("countdown-timer").innerHTML = minutes + ":" + seconds;
-      }
-    }, 1000);
-  </script>
 <% end %>

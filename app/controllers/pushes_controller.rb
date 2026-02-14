@@ -110,13 +110,25 @@ class PushesController < BaseController
     @push.passphrase = ""
   end
 
+  # GET /p/:url_token/edit
+  def edit
+    # Verify the push belongs to the current user
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't edit expired pushes
+    redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
+  end
+
   def create
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
 
-    create_detect_deletable_by_viewer(@push, push_params)
-    create_detect_retrieval_step(@push, push_params)
+    assign_deletable_by_viewer(@push, push_params)
+    assign_retrieval_step(@push, push_params)
 
     if @push.save
       log_creation(@push)
@@ -135,6 +147,94 @@ class PushesController < BaseController
         @text_tab = true
       end
       render action: "new", status: :unprocessable_content
+    end
+  end
+
+  # PATCH/PUT /p/:url_token
+  def update
+    # Verify the push belongs to the current user
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't edit expired pushes
+    if @push.expired
+      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      return
+    end
+
+    update_attributes = update_params
+
+    # Filter out unchanged expiration values first (before validation)
+    # This handles the case where user submits current remaining value (no change intended)
+    if update_attributes[:expire_after_days].present?
+      if update_attributes[:expire_after_days].to_i == @push.days_remaining
+        update_attributes.delete(:expire_after_days)
+      end
+    end
+
+    if update_attributes[:expire_after_views].present?
+      if update_attributes[:expire_after_views].to_i == @push.views_remaining
+        update_attributes.delete(:expire_after_views)
+      end
+    end
+
+    # Validate expiration values that are actually being changed
+    # This prevents bypassing client-side HTML min attributes
+    if update_attributes[:expire_after_days].present?
+      min_days = @push.days_old + 1
+      if update_attributes[:expire_after_days].to_i < min_days
+        @push.errors.add(:expire_after_days, I18n._("must be at least %{count} (days already elapsed + 1).") % {count: min_days})
+        render action: "edit", status: :unprocessable_content
+        return
+      end
+    end
+
+    if update_attributes[:expire_after_views].present?
+      min_views = @push.view_count + 1
+      if update_attributes[:expire_after_views].to_i < min_views
+        @push.errors.add(:expire_after_views, I18n._("must be at least %{count} (views already consumed + 1).") % {count: min_views})
+        render action: "edit", status: :unprocessable_content
+        return
+      end
+    end
+
+    # For file pushes, extract new files but don't attach yet (wait until validation passes)
+    new_files = []
+    if @push.file?
+      if update_attributes[:files].present?
+        # Remove empty file entries
+        new_files = update_attributes[:files].reject { |f| f.blank? }
+        # Remove files key from update_attributes
+        update_attributes.delete(:files)
+      end
+    end
+
+    @push.assign_attributes(update_attributes)
+    assign_deletable_by_viewer(@push, update_params)
+    assign_retrieval_step(@push, update_params)
+
+    # Validate file count before attaching
+    if new_files.any?
+      total_file_count = @push.files.count + new_files.count
+      if total_file_count > @push.settings_for_kind.max_file_uploads
+        @push.errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: @push.settings_for_kind.max_file_uploads})
+      end
+    end
+
+    if @push.valid?
+      # Attach new files after validation passes
+      if new_files.any?
+        @push.files.attach(new_files)
+      end
+    end
+
+    if @push.save
+      log_update(@push)
+      redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
+    else
+      render action: "edit", status: :unprocessable_content
     end
   end
 
@@ -199,6 +299,36 @@ class PushesController < BaseController
     end
   end
 
+  def delete_file
+    # Verify the push belongs to the current user
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
+    # Can't delete files from expired pushes
+    if @push.expired
+      redirect_to @push, notice: I18n._("That push has already expired.")
+      return
+    end
+
+    # Prevent deletion of the last file
+    if @push.files.count <= 1
+      redirect_to edit_push_path(@push), alert: I18n._("You cannot delete the last file from a file push.")
+      return
+    end
+
+    # Find the attachment by ID (when iterating @push.files, we get Attachment objects)
+    attachment = @push.files.attachments.find_by(id: params[:file_id])
+
+    if attachment
+      attachment.purge
+      redirect_to edit_push_path(@push), notice: I18n._("File was successfully deleted.")
+    else
+      redirect_to edit_push_path(@push), alert: I18n._("File not found.")
+    end
+  end
+
   def index
     @filter = params[:filter]
 
@@ -251,6 +381,24 @@ class PushesController < BaseController
     raise e
   end
 
+  def update_params
+    # Don't allow kind to be changed after creation for security
+    case @push.kind
+    when "url"
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views,
+        :retrieval_step, :payload, :note, :passphrase)
+    when "file"
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase, files: [])
+    else
+      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
+        :retrieval_step, :payload, :note, :passphrase)
+    end
+  rescue => e
+    Rails.logger.error("Error in update_params: #{e.message}")
+    raise e
+  end
+
   def print_preview_params
     params.permit(:id, :locale, :message, :show_expiration, :show_id)
   end
@@ -290,7 +438,7 @@ class PushesController < BaseController
       end
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit].include?(action_name)
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]
