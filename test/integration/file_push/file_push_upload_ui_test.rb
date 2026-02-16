@@ -41,7 +41,6 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_form_when_tus_enabled_shows_tus_ui
-    Settings.files.use_tus_uploads = true
     get new_push_path(tab: "files")
     assert_response :success
 
@@ -54,7 +53,6 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_form_when_tus_enabled_file_input_has_no_direct_upload
-    Settings.files.use_tus_uploads = true
     get new_push_path(tab: "files")
     assert_response :success
 
@@ -66,17 +64,6 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_file_form_when_tus_disabled_shows_direct_upload_and_max_size_footer
-    Settings.files.use_tus_uploads = false
-    get new_push_path(tab: "files")
-    assert_response :success
-
-    assert_select "div[data-controller='multi-upload'][data-multi-upload-tus-enabled-value='false']"
-    # Footer shows max size per file when resumable is disabled
-    assert response.body.include?("You can upload up to")
-    assert response.body.include?("Max "), "TUS disabled should show max size per file in footer"
-  end
-
   def test_file_form_footer_shows_file_count_message
     get new_push_path(tab: "files")
     assert_response :success
@@ -86,7 +73,6 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
   end
 
   def test_tus_create_and_patch_then_file_form_loads
-    Settings.files.use_tus_uploads = true
     # Minimal TUS flow: create upload, complete with one PATCH
     post uploads_path, headers: {"Upload-Length" => "3"}
     assert_response :created

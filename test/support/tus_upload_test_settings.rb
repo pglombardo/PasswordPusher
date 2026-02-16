@@ -9,7 +9,6 @@ module TusUploadTestSettings
       enable_logins: Settings.enable_logins,
       enable_file_pushes: Settings.enable_file_pushes,
       files_storage: Settings.files.storage,
-      files_use_tus_uploads: Settings.files.use_tus_uploads,
       files_max_tus_upload_size: Settings.files.max_tus_upload_size,
       files_tus_upload_ttl: Settings.files.tus_upload_ttl,
       files_max_direct_upload_size: Settings.files.max_direct_upload_size,
@@ -23,7 +22,6 @@ module TusUploadTestSettings
     Settings.enable_logins = @_tus_test_settings[:enable_logins]
     Settings.enable_file_pushes = @_tus_test_settings[:enable_file_pushes]
     Settings.files.storage = @_tus_test_settings[:files_storage]
-    Settings.files.use_tus_uploads = @_tus_test_settings[:files_use_tus_uploads]
     Settings.files.max_tus_upload_size = @_tus_test_settings[:files_max_tus_upload_size]
     Settings.files.tus_upload_ttl = @_tus_test_settings[:files_tus_upload_ttl]
     Settings.files.max_direct_upload_size = @_tus_test_settings[:files_max_direct_upload_size]

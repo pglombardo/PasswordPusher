@@ -44,11 +44,9 @@ module ApplicationHelper
     raw_url
   end
 
-  # TUS resumable uploads: when on, used for all storage backends (local and cloud)
-  # to avoid CORS — uploads go through the app instead of direct-to-bucket.
+  # TUS resumable uploads: used for file pushes when logins and file pushes are enabled.
   def tus_uploads_enabled?
-    return false unless Settings.enable_logins && Settings.enable_file_pushes
-    Settings.files.use_tus_uploads.to_s == "true"
+    Settings.enable_logins && Settings.enable_file_pushes
   end
 
   def tus_uploads_url

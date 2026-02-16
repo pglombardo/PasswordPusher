@@ -29,30 +29,6 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     assert_selector "ul#progress-bars[aria-label='Upload progress']", visible: :all
   end
 
-  test "when TUS disabled file too large does not add file to list" do
-    Settings.files.use_tus_uploads = false
-    Settings.files.max_direct_upload_size = 1
-
-    visit new_push_path(tab: "files")
-    assert_selector "a.nav-link.active", text: /file/i, wait: 5
-
-    selected_files = find("#selected-files", visible: :all)
-    count_before = selected_files.all("li", visible: :all).size
-
-    msg = nil
-    begin
-      msg = accept_alert(wait: 5) do
-        attach_file "push_files", Rails.root.join("test", "fixtures", "files", "test-file.txt"), make_visible: true
-      end
-    rescue Capybara::ModalNotFound
-      # Driver may not support alert modal; we still assert no file was added
-    end
-
-    count_after = find("#selected-files", visible: :all).all("li", visible: :all).size
-    assert_equal count_before, count_after, "File too large should not add any file to the list"
-    assert_match(/too large|max size/i, msg, "Alert should mention file too large") if msg.present?
-  end
-
   test "when too many files selected no extra file is added to list" do
     Settings.files.max_file_uploads = 1
 
@@ -78,31 +54,17 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     assert_match(/only upload|at a time|files/i, msg, "Alert should mention file count limit") if msg.present?
   end
 
-  test "when TUS disabled footer shows max size per file" do
-    Settings.files.use_tus_uploads = false
-
-    visit new_push_path(tab: "files")
-    assert_selector "a.nav-link.active", text: /file/i, wait: 5
-    assert_selector "#file-count-footer"
-    assert_text "Max ", wait: 2
-    assert_text "per file", wait: 2
-  end
-
-  test "when TUS enabled footer does not show max size per file" do
-    Settings.files.use_tus_uploads = true
-
+  test "when file pushes enabled footer does not show max size per file" do
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
     assert_selector "#file-count-footer"
     # Footer should have "per push" but when TUS on we don't show "Max X per file"
     footer = find("#file-count-footer")
     assert footer.text.include?("per push")
-    assert_not footer.text.include?("per file"), "TUS enabled: footer should not show max per file"
+    assert_not footer.text.include?("per file"), "Footer should not show max per file when using TUS"
   end
 
-  test "file push with TUS enabled creates push and lists file" do
-    Settings.files.use_tus_uploads = true
-
+  test "file push creates push and lists file" do
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 

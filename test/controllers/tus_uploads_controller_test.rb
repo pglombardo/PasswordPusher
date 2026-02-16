@@ -11,7 +11,6 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Settings.files.storage = "local"
-    Settings.files.use_tus_uploads = true
     @user = users(:luca)
     @user.confirm
     sign_in @user
@@ -62,12 +61,6 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     Settings.files.max_tus_upload_size = 4
     post uploads_path, headers: {"Upload-Length" => "4"}
     assert_response :created
-  end
-
-  test "POST create when TUS disabled returns 404" do
-    Settings.files.use_tus_uploads = false
-    post uploads_path, headers: {"Upload-Length" => "7"}
-    assert_response :not_found
   end
 
   test "POST create when file pushes disabled returns 404" do
