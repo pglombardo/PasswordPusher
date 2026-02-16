@@ -211,6 +211,18 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "PATCH with invalid upload id (path traversal) returns 404" do
+    patch upload_path("../../../etc/passwd"),
+      params: "x",
+      headers: {"Content-Type" => "application/offset+octet-stream", "Upload-Offset" => "0"}
+    assert_response :not_found
+  end
+
+  test "HEAD with invalid upload id returns 404" do
+    head upload_path("..")
+    assert_response :not_found
+  end
+
   test "PATCH on already completed upload returns 410" do
     upload_id = create_tus_upload(upload_length: 1)
     patch_tus_chunk(upload_id, "x")

@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 # Manages temporary TUS upload state and chunk storage under tmp/uploads/<id>/.
-# No user-defined paths; id is server-generated only.
+# No user-defined paths; id is server-generated only. Client-supplied ids (PATCH/HEAD)
+# must pass valid_id? to prevent path traversal.
 class TusUploadStore
   class NotFound < StandardError; end
+
+  class InvalidId < StandardError; end
 
   class OffsetMismatch < StandardError
     attr_reader :current_offset
@@ -14,6 +17,8 @@ class TusUploadStore
   end
 
   TMP_ROOT = "tmp/uploads"
+  # Allow only chars produced by SecureRandom.urlsafe_base64; prevents path traversal
+  ID_PATTERN = /\A[A-Za-z0-9_-]{1,64}\z/
 
   def self.root
     Rails.root.join(TMP_ROOT)
@@ -23,7 +28,12 @@ class TusUploadStore
     SecureRandom.urlsafe_base64(24)
   end
 
+  def self.valid_id?(id)
+    id.is_a?(String) && id.match?(ID_PATTERN)
+  end
+
   def initialize(id)
+    raise InvalidId, "invalid upload id" unless self.class.valid_id?(id)
     @id = id
     @base = self.class.root.join(@id)
   end
@@ -73,14 +83,20 @@ class TusUploadStore
   end
 
   def append_chunk!(offset:, io:)
-    current = upload_offset
-    raise OffsetMismatch, current if offset != current
+    raise NotFound unless exist?
 
-    mode = current.zero? ? "wb" : "ab"
-    File.open(data_path, mode) { |f| IO.copy_stream(io, f) }
-    new_offset = File.size(data_path)
-    update_offset!(new_offset)
-    new_offset
+    lock_path = @base.join("lock")
+    File.open(lock_path, File::CREAT | File::RDWR) do |lock|
+      lock.flock(File::LOCK_EX)
+      current = upload_offset
+      raise OffsetMismatch, current if offset != current
+
+      mode = current.zero? ? "wb" : "ab"
+      File.open(data_path, mode) { |f| IO.copy_stream(io, f) }
+      new_offset = File.size(data_path)
+      update_offset!(new_offset)
+      new_offset
+    end
   end
 
   def complete?
@@ -113,6 +129,7 @@ class TusUploadStore
 
     cutoff = Time.current - ttl_seconds
     Dir.each_child(root) do |id|
+      next unless TusUploadStore.valid_id?(id)
       dir = root.join(id)
       next unless dir.directory?
       meta_file = dir.join("meta.json")

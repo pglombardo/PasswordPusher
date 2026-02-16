@@ -35,6 +35,9 @@ class TusUploadsController < ApplicationController
   # HEAD /uploads/:id   — status
   def update
     id = params[:id]
+    unless TusUploadStore.valid_id?(id)
+      return head :not_found
+    end
     store = TusUploadStore.new(id)
 
     if request.head?

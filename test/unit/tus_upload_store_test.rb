@@ -25,6 +25,31 @@ class TusUploadStoreTest < ActiveSupport::TestCase
     assert_equal ids.uniq.size, ids.size
   end
 
+  # ---- valid_id? ----
+  test "valid_id? accepts url-safe alphanumeric ids" do
+    assert TusUploadStore.valid_id?(@id)
+    assert TusUploadStore.valid_id?("a")
+    assert TusUploadStore.valid_id?("A-Z_a-z0-9")
+    assert TusUploadStore.valid_id?("x" * 64)
+  end
+
+  test "valid_id? rejects path traversal and invalid chars" do
+    assert_not TusUploadStore.valid_id?("..")
+    assert_not TusUploadStore.valid_id?("../etc/passwd")
+    assert_not TusUploadStore.valid_id?("a/b")
+    assert_not TusUploadStore.valid_id?("")
+    assert_not TusUploadStore.valid_id?(nil)
+    assert_not TusUploadStore.valid_id?("x" * 65)
+    assert_not TusUploadStore.valid_id?("space in id")
+    assert_not TusUploadStore.valid_id?("dot.inside")
+  end
+
+  test "initialize raises InvalidId for invalid id" do
+    assert_raises(TusUploadStore::InvalidId) { TusUploadStore.new("..") }
+    assert_raises(TusUploadStore::InvalidId) { TusUploadStore.new("a/b") }
+    assert_raises(TusUploadStore::InvalidId) { TusUploadStore.new("") }
+  end
+
   # ---- root ----
   test "root returns path under Rails root" do
     assert_equal Rails.root.join("tmp/uploads"), TusUploadStore.root
