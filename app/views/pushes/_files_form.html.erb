@@ -72,8 +72,8 @@
                             <ul id="progress-bars" class="list-group mb-2" aria-label="Upload progress"></ul>
                             <div data-controller="multi-upload"
                                  data-multi-upload-max-files-value="<%= @push.settings_for_kind.max_file_uploads %>"
-                                 data-multi-upload-max-direct-size-value="<%= Settings.files.max_direct_upload_size.to_i %>"
-                                 data-multi-upload-file-too-large-message-value="<%= _('"%{filename}" is too large. Max size per file is %{size} when resumable upload is disabled.') %>"
+                                 data-multi-upload-max-tus-size-value="<%= Settings.files.max_tus_upload_size.to_i %>"
+                                 data-multi-upload-file-too-large-message-value="<%= _('"%{filename}" is too large. Max size per file is %{size}.') %>"
                                  data-multi-upload-max-files-message-value="<%= _('You can only upload %{count} files at a time.') %>"
                                  data-multi-upload-tus-enabled-value="<%= tus_uploads_enabled? %>"
                                  data-multi-upload-tus-endpoint-value="<%= tus_uploads_url %>"
@@ -91,9 +91,7 @@
                         </div>
                         <div id="file-count-footer" class="card-footer text-muted">
                           <%= _('You can upload up to %{count} files per push.') % { count: @push.settings_for_kind.max_file_uploads } %>
-                          <% unless tus_uploads_enabled? %>
-                            <%= _('Max %{size} per file.') % { size: number_to_human_size(Settings.files.max_direct_upload_size.to_i) } %>
-                          <% end %>
+                          <%= _('Max %{size} per file.') % { size: number_to_human_size(Settings.files.max_tus_upload_size.to_i) } %>
                         </div>
                     </div>
                 </div>

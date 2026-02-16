@@ -46,10 +46,10 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
 
     assert_select "div[data-controller='multi-upload'][data-multi-upload-tus-enabled-value='true']"
     assert response.body.include?("You can upload up to")
-    # Footer when TUS is on does not include "Max ... per file" (only when TUS disabled)
+    # Footer shows max size per file (single limit from max_tus_upload_size)
     footer = css_select "#file-count-footer"
     assert footer.any?
-    assert_not footer.first.text.include?("per file"), "TUS enabled: footer should not show max size per file"
+    assert footer.first.text.include?("per file"), "Footer should show max size per file"
   end
 
   def test_file_form_when_tus_enabled_file_input_has_no_direct_upload

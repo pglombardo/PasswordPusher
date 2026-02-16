@@ -23,7 +23,20 @@ function setProgressBarProgress(el, percent) {
 function setProgressBarError(el, message) {
   if (!el) return
   el.classList.add('bg-danger')
-  el.setAttribute('aria-label', message || 'Upload failed')
+  const msg = message || 'Upload failed'
+  el.setAttribute('aria-label', msg)
+  // Show error text visibly (aria-label is for screen readers only)
+  const row = el.closest('li')
+  if (row) {
+    let errEl = row.querySelector('.upload-error-text')
+    if (!errEl) {
+      errEl = document.createElement('span')
+      errEl.className = 'upload-error-text text-danger small d-block mt-1'
+      row.appendChild(errEl)
+    }
+    errEl.textContent = msg
+    errEl.setAttribute('role', 'alert')
+  }
 }
 
 function setProgressBarComplete(el) {
@@ -37,7 +50,7 @@ export default class extends Controller {
 
   static values = {
     maxFiles: Number,
-    maxDirectSize: Number,
+    maxTusSize: Number,
     fileTooLargeMessage: String,
     maxFilesMessage: String,
     tusEnabled: Boolean,
@@ -123,22 +136,22 @@ export default class extends Controller {
       return
     }
 
-    if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
-      this.addFileViaTus(originalInput, originalParent, arrayLength, maxFiles)
-      return
-    }
-
-    const maxDirectSize = this.hasMaxDirectSizeValue ? this.maxDirectSizeValue : 0
+    const maxSize = this.hasMaxTusSizeValue ? this.maxTusSizeValue : 0
     for (let i = 0; i < arrayLength; i++) {
       const file = originalInput.files[i]
-      if (maxDirectSize > 0 && file.size > maxDirectSize) {
+      if (maxSize > 0 && file.size > maxSize) {
         const msg = this.hasFileTooLargeMessageValue
-          ? this.fileTooLargeMessageValue.replace('%{filename}', file.name).replace('%{size}', formatBytes(maxDirectSize))
-          : `"${file.name}" is too large. Max size per file is ${formatBytes(maxDirectSize)} when resumable upload is disabled.`
+          ? this.fileTooLargeMessageValue.replace('%{filename}', file.name).replace('%{size}', formatBytes(maxSize))
+          : `"${file.name}" is too large. Max size per file is ${formatBytes(maxSize)}.`
         alert(msg)
         originalInput.value = ''
         return
       }
+    }
+
+    if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
+      this.addFileViaTus(originalInput, originalParent, arrayLength, maxFiles)
+      return
     }
 
     for (let i = 0; i < arrayLength; i++) {
@@ -240,7 +253,8 @@ export default class extends Controller {
           setProgressBarProgress(progressBar, pct)
         },
         onSuccess: (payload) => {
-          const signedId = payload?.lastResponse?.getHeader?.('X-Signed-Id')
+          const res = payload?.lastResponse
+          const signedId = res?.getHeader?.('X-Signed-Id') ?? res?.getHeader?.('x-signed-id')
           if (!signedId) {
             setProgressBarError(progressBar, "Missing signed ID")
             return
