@@ -70,6 +70,12 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "POST create when file pushes disabled returns 404" do
+    Settings.enable_file_pushes = false
+    post uploads_path, headers: {"Upload-Length" => "7"}
+    assert_response :not_found
+  end
+
   test "POST create requires auth" do
     sign_out @user
     post uploads_path, headers: {"Upload-Length" => "7"}
