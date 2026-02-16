@@ -83,18 +83,18 @@ class TusUploadsController < ApplicationController
   private
 
   def require_tus_enabled
-    return if tus_enabled?
+    return if helpers.tus_uploads_enabled?
     head :not_found
-  end
-
-  def tus_enabled?
-    Settings.files.use_tus_uploads.to_s == "true"
   end
 
   def upload_url_for(id)
     url_helpers = Rails.application.routes.url_helpers
-    base = "#{request.scheme}://#{request.host}"
-    base += ":#{request.port}" if request.port != 80 && request.port != 443
+    raw_host = request.host.to_s
+    # Strip trailing :port from host to avoid "localhost:3000:9090"; prefer port from Host when present
+    host = raw_host.gsub(/(:[\d]+)+\z/, "")
+    port = raw_host.include?(":") ? raw_host.split(":").last.to_i : request.port
+    base = "#{request.scheme}://#{host}"
+    base += ":#{port}" if port.to_i.nonzero? && port != 80 && port != 443
     "#{base}#{url_helpers.upload_path(id)}"
   end
 

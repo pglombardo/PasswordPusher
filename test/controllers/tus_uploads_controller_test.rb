@@ -110,8 +110,9 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "POST create includes port in Location when port is not 80 or 443" do
-    post "http://#{host}:#{non_standard_port}/uploads",
-      headers: {"Upload-Length" => "1"}
+    # Use Host header so request.host/port are unambiguous (avoids "localhost:3000:9090" in integration tests)
+    post "http://localhost:#{non_standard_port}/uploads",
+      headers: {"Upload-Length" => "1", "Host" => "localhost:#{non_standard_port}"}
     assert_response :created
     location = response.headers["Location"]
     assert location.present?
