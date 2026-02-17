@@ -137,6 +137,28 @@ class TusUploadStoreTest < ActiveSupport::TestCase
     end
   end
 
+  test "append_chunk! with concurrent call one succeeds one gets OffsetMismatch" do
+    @store.create!(upload_length: 10)
+    results = []
+    run = lambda do |payload|
+      @store.append_chunk!(offset: 0, io: StringIO.new(payload))
+      results << :ok
+    rescue TusUploadStore::OffsetMismatch => e
+      results << e
+    end
+    t1 = Thread.new { run.call("ab") }
+    t2 = Thread.new { run.call("xy") }
+    t1.join
+    t2.join
+    assert_equal 2, results.size
+    assert results.one? { |r| r == :ok }, "Exactly one append should succeed"
+    mismatch = results.find { |r| r.is_a?(TusUploadStore::OffsetMismatch) }
+    assert mismatch, "One thread should get OffsetMismatch"
+    assert_equal 2, mismatch.current_offset
+    assert_equal 2, @store.upload_offset
+    assert_equal 2, File.size(@store.data_path), "Winner wrote 2 bytes"
+  end
+
   # ---- complete? ----
   test "complete? is false when offset less than length" do
     @store.create!(upload_length: 5)

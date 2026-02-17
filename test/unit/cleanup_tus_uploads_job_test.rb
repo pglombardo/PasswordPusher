@@ -82,4 +82,17 @@ class CleanupTusUploadsJobTest < ActiveSupport::TestCase
       CleanupTusUploadsJob.perform_now
     end
   end
+
+  test "cleanup_tus_uploads is scheduled in recurring config" do
+    recurring_path = Rails.root.join("config/recurring.yml")
+    skip "config/recurring.yml not found" unless recurring_path.exist?
+    config = YAML.load_file(recurring_path)
+    %w[production development].each do |env|
+      next unless config[env]
+      task = config[env]["cleanup_tus_uploads"]
+      assert task, "cleanup_tus_uploads should be defined in config/recurring.yml for #{env}"
+      assert_equal "CleanupTusUploadsJob", task["class"], "cleanup_tus_uploads should use CleanupTusUploadsJob in #{env}"
+      assert task["schedule"].present?, "cleanup_tus_uploads should have a schedule in #{env}"
+    end
+  end
 end

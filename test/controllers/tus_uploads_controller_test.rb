@@ -259,6 +259,32 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_nil response.headers["X-Signed-Id"]
   end
 
+  test "PATCH when finalize_to_blob! raises NotFound returns 404" do
+    upload_id = create_tus_upload(upload_length: 3)
+    store = TusUploadStore.new(upload_id)
+    store.stub :finalize_to_blob!, -> { raise TusUploadStore::NotFound } do
+      TusUploadStore.stub :new, store do
+        patch_tus_chunk(upload_id, "abc")
+        assert_response :not_found
+      end
+    end
+  ensure
+    store&.destroy! if defined?(store) && store.respond_to?(:exist?) && store.exist?
+  end
+
+  test "PATCH when finalize_to_blob! raises ArgumentError upload not complete returns 410" do
+    upload_id = create_tus_upload(upload_length: 3)
+    store = TusUploadStore.new(upload_id)
+    store.stub :finalize_to_blob!, -> { raise ArgumentError, "upload not complete" } do
+      TusUploadStore.stub :new, store do
+        patch_tus_chunk(upload_id, "abc")
+        assert_response :gone
+      end
+    end
+  ensure
+    store&.destroy! if defined?(store) && store.respond_to?(:exist?) && store.exist?
+  end
+
   private
 
   # Creates a TUS upload via POST; returns the upload id from Location.
