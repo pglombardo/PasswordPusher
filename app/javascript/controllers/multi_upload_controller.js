@@ -93,6 +93,7 @@ export default class extends Controller {
   static values = {
     maxFiles: Number,
     maxTusSize: Number,
+    maxDirectSize: Number,
     fileTooLargeMessage: String,
     maxFilesMessage: String,
     finalizingLabel: String,
@@ -179,7 +180,9 @@ export default class extends Controller {
       return
     }
 
-    const maxSize = this.hasMaxTusSizeValue ? this.maxTusSizeValue : 0
+    const maxSize = this.tusEnabledValue
+      ? (this.hasMaxTusSizeValue ? this.maxTusSizeValue : 0)
+      : (this.hasMaxDirectSizeValue ? this.maxDirectSizeValue : 0)
     for (let i = 0; i < arrayLength; i++) {
       const file = originalInput.files[i]
       if (maxSize > 0 && file.size > maxSize) {

@@ -85,6 +85,8 @@ class TusUploadStore
   def append_chunk!(offset:, io:)
     raise NotFound unless exist?
 
+    # Lock file is not unlinked here; it is removed with the whole upload dir in destroy! (on finalize)
+    # or in cleanup_stale! (TTL). No explicit cleanup needed.
     lock_path = @base.join("lock")
     File.open(lock_path, File::CREAT | File::RDWR) do |lock|
       lock.flock(File::LOCK_EX)

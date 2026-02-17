@@ -65,15 +65,24 @@ class TusUploadsController < ApplicationController
     rescue TusUploadStore::OffsetMismatch => e
       response.headers["Upload-Offset"] = e.current_offset.to_s
       return head :conflict
+    rescue TusUploadStore::NotFound
+      return head :not_found
     end
 
     if store.complete?
-      upload_length = store.upload_length
-      blob = store.finalize_to_blob!
-      response.headers["Upload-Offset"] = new_offset.to_s
-      response.headers["Upload-Length"] = upload_length.to_s
-      response.headers["X-Signed-Id"] = blob.signed_id
-      return head :no_content
+      begin
+        upload_length = store.upload_length
+        blob = store.finalize_to_blob!
+        response.headers["Upload-Offset"] = new_offset.to_s
+        response.headers["Upload-Length"] = upload_length.to_s
+        response.headers["X-Signed-Id"] = blob.signed_id
+        return head :no_content
+      rescue TusUploadStore::NotFound
+        return head :not_found
+      rescue ArgumentError => e
+        return head :gone if e.message&.include?("upload not complete")
+        raise
+      end
     end
 
     response.headers["Upload-Offset"] = new_offset.to_s
@@ -113,10 +122,21 @@ class TusUploadsController < ApplicationController
       end
       next unless decoded
       case key&.downcase
-      when "filename" then filename = decoded
+      when "filename" then filename = sanitize_upload_filename(decoded)
       when "filetype" then content_type = decoded
       end
     end
     [filename.presence, content_type.presence]
+  end
+
+  def sanitize_upload_filename(name)
+    return if name.blank?
+    # Strip surrounding whitespace
+    sanitized = name.strip
+    # Remove any path components (handles both Unix and Windows-style paths)
+    sanitized = File.basename(sanitized)
+    # Replace any characters that are not alphanumeric, dot, dash, plus, or underscore
+    sanitized = sanitized.gsub(/[^a-zA-Z0-9.\-+_]/, "_")
+    sanitized.presence
   end
 end

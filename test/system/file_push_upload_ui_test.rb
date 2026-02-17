@@ -35,8 +35,7 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 
-    selected_files = find("#selected-files", visible: :all)
-    selected_files.all("li", visible: :all).size
+    find("#selected-files", visible: :all)
 
     file_path1 = Rails.root.join("test", "fixtures", "files", "test-file.txt")
     file_path2 = Rails.root.join("test", "fixtures", "files", "monkey.png")
