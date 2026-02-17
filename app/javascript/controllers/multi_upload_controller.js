@@ -13,11 +13,53 @@ function formatBytes(bytes, decimals = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
+function formatDuration(ms) {
+  if (!Number.isFinite(ms) || ms < 0) return ''
+  const sec = Math.floor(ms / 1000)
+  if (sec < 60) return `${sec}s`
+  const min = Math.floor(sec / 60)
+  const s = sec % 60
+  if (min < 60) return s > 0 ? `${min}m ${s}s` : `${min}m`
+  const h = Math.floor(min / 60)
+  const m = min % 60
+  return [h + 'h', m > 0 ? m + 'm' : '', s > 0 ? s + 's' : ''].filter(Boolean).join(' ')
+}
+
 // Shared progress bar API for both direct and TUS uploads
 function setProgressBarProgress(el, percent) {
   if (!el) return
   el.setAttribute('aria-valuenow', String(percent))
   el.style.width = percent + '%'
+}
+
+function setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel) {
+  if (!progressBar) return
+  const pct = bytesTotal > 0 ? Math.round((bytesUploaded / bytesTotal) * 100) : 0
+  setProgressBarProgress(progressBar, pct)
+  const row = progressBar.closest('li')
+  const sizeEl = row?.querySelector('.tus-row-size')
+  if (!sizeEl) return
+  if (bytesTotal > 0 && bytesUploaded >= bytesTotal) {
+    setTusFinalizing(row, sizeEl, finalizingLabel)
+  } else {
+    sizeEl.textContent = `${formatBytes(bytesUploaded)} of ${formatBytes(bytesTotal)}`
+  }
+}
+
+function setTusFinalizing(row, sizeEl, finalizingLabel) {
+  if (row?.dataset.tusFinalizing === 'true') return
+  row.dataset.tusFinalizing = 'true'
+  const label = finalizingLabel || 'Finalizing…'
+  sizeEl.textContent = ''
+  sizeEl.classList.add('d-flex', 'align-items-center', 'gap-1')
+  sizeEl.appendChild(document.createTextNode(label))
+  const spinner = document.createElement('span')
+  spinner.className = 'spinner-border spinner-border-sm'
+  spinner.setAttribute('role', 'status')
+  spinner.setAttribute('aria-hidden', 'true')
+  sizeEl.appendChild(spinner)
+  const bar = row.querySelector('.tus-row-progress-bar, [role="progressbar"]')
+  if (bar) bar.setAttribute('aria-label', label)
 }
 
 function setProgressBarError(el, message) {
@@ -53,6 +95,7 @@ export default class extends Controller {
     maxTusSize: Number,
     fileTooLargeMessage: String,
     maxFilesMessage: String,
+    finalizingLabel: String,
     tusEnabled: Boolean,
     tusEndpoint: String,
     filesInputName: String,
@@ -205,6 +248,7 @@ export default class extends Controller {
         progressBar.setAttribute("aria-label", file.name)
         pauseBtn = row.querySelector(".tus-row-pause")
         resumeBtn = row.querySelector(".tus-row-resume")
+        setTusProgressDetails(progressBar, 0, file.size)
         bars.append(row)
       } else {
         li = document.createElement("li")
@@ -227,6 +271,10 @@ export default class extends Controller {
         progressBar.id = `tus-upload-${id}`
         progressWrap.appendChild(progressBar)
         li.appendChild(progressWrap)
+        const sizeSpan = document.createElement("span")
+        sizeSpan.className = "tus-row-size text-muted small text-nowrap"
+        sizeSpan.setAttribute("aria-hidden", "true")
+        li.appendChild(sizeSpan)
         pauseBtn = document.createElement("button")
         pauseBtn.type = "button"
         pauseBtn.className = "btn btn-sm btn-outline-secondary"
@@ -237,8 +285,11 @@ export default class extends Controller {
         resumeBtn.innerHTML = "<span class=\"bi bi-play-fill\"></span>"
         li.appendChild(pauseBtn)
         li.appendChild(resumeBtn)
+        setTusProgressDetails(progressBar, 0, file.size)
         bars.append(li)
       }
+
+      const uploadStartTime = Date.now()
 
       const opts = {
         endpoint: endpoint,
@@ -249,8 +300,8 @@ export default class extends Controller {
         },
         retryDelays: [1000, 3000],
         onProgress: (bytesUploaded, bytesTotal) => {
-          const pct = bytesTotal > 0 ? Math.round((bytesUploaded / bytesTotal) * 100) : 0
-          setProgressBarProgress(progressBar, pct)
+          const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
+          setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
         },
         onSuccess: (payload) => {
           const res = payload?.lastResponse
@@ -260,12 +311,17 @@ export default class extends Controller {
             return
           }
           li.remove()
+          const elapsedMs = Date.now() - uploadStartTime
+          const durationStr = formatDuration(elapsedMs)
+          const uploadTimeLabel = durationStr ? `Uploaded in ${durationStr}` : ''
           if (selectedTpl) {
             const row = selectedTpl.content.cloneNode(true)
             const input = row.querySelector(".selected-file-input")
             input.name = inputName
             input.value = signedId
             row.querySelector(".selected-file-name").textContent = fileName
+            const timeEl = row.querySelector(".selected-file-upload-time")
+            if (timeEl) timeEl.textContent = uploadTimeLabel
             controller.filesTarget.append(row)
           } else {
             const selectedFile = document.createElement("li")
@@ -280,7 +336,7 @@ export default class extends Controller {
             trashLink.setAttribute("href", "#")
             trashLink.innerHTML = "<em class=\"bi bi-trash me-2\"></em>"
             selectedFile.appendChild(trashLink)
-            selectedFile.appendChild(document.createTextNode(fileName))
+            selectedFile.appendChild(document.createTextNode(fileName + (uploadTimeLabel ? ` · ${uploadTimeLabel}` : '')))
             controller.filesTarget.append(selectedFile)
           }
           controller.updateFilesFooter()
@@ -307,9 +363,24 @@ export default class extends Controller {
         resumeBtn.classList.add('d-none')
         pauseBtn.classList.remove('d-none')
         progressBar.classList.add('progress-bar-animated')
-        opts.uploadUrl = uploadUrl
-        upload = new window.tus.Upload(file, opts)
-        upload.start()
+        const startResume = (offset) => {
+          setTusProgressDetails(progressBar, offset, file.size)
+          opts.uploadUrl = uploadUrl
+          upload = new window.tus.Upload(file, opts)
+          upload.start()
+        }
+        const offsetFromUpload = (upload.offset != null && typeof upload.offset === 'number') ? upload.offset : null
+        if (offsetFromUpload != null) {
+          startResume(offsetFromUpload)
+        } else {
+          fetch(uploadUrl, { method: 'HEAD', credentials: 'same-origin' })
+            .then((res) => {
+              const h = res.headers.get('Upload-Offset') || res.headers.get('upload-offset')
+              return h ? parseInt(h, 10) : 0
+            })
+            .then((offset) => startResume(Number.isFinite(offset) ? offset : 0))
+            .catch(() => startResume(0))
+        }
       })
 
       upload.start()
