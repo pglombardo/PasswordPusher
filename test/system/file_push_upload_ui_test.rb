@@ -54,14 +54,13 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     assert_match(/only upload|at a time|files/i, msg, "Alert should mention file count limit") if msg.present?
   end
 
-  test "when file pushes enabled footer does not show max size per file" do
+  test "when file pushes enabled footer shows max size per file" do
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
     assert_selector "#file-count-footer"
-    # Footer should have "per push" but when TUS on we don't show "Max X per file"
     footer = find("#file-count-footer")
-    assert footer.text.include?("per push")
-    assert_not footer.text.include?("per file"), "Footer should not show max per file when using TUS"
+    assert footer.text.include?("per push"), "Footer should show upload limit per push"
+    assert footer.text.include?("per file"), "Footer should show max size per file when using TUS"
   end
 
   test "file push creates push and lists file" do
