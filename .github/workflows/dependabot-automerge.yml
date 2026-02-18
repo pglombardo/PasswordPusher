@@ -1,7 +1,10 @@
 name: Dependabot auto-merge
 
 on:
-  pull_request:
+  workflow_run:
+    workflows: ["Ruby Test Runs"]
+    types:
+      - completed
     branches: [master]
 
 permissions:
@@ -11,9 +14,25 @@ permissions:
 jobs:
   enable-automerge:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    # Only when the test workflow succeeded and was for a PR
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
     steps:
+      - name: Get PR number for this run
+        id: pr
+        run: |
+          PR_NUM=$(gh pr list --head "${{ github.event.workflow_run.head_branch }}" --repo "${{ github.repository }}" --json number -q '.[0].number')
+          echo "number=$PR_NUM" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Enable auto-merge for Dependabot PR (squash)
-        run: gh pr merge --auto --squash
+        if: steps.pr.outputs.number != ''
+        run: |
+          AUTHOR=$(gh pr view ${{ steps.pr.outputs.number }} --json author -q '.author.login')
+          if [ "$AUTHOR" = "dependabot[bot]" ]; then
+            gh pr merge ${{ steps.pr.outputs.number }} --auto --squash
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
