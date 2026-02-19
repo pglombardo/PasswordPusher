@@ -17,6 +17,8 @@ CI.run do
   # Optional: set a green GitHub commit status to unblock PR merge.
   # Requires the `gh` CLI and `gh extension install basecamp/gh-signoff`.
   if success?
+    # Restore theme symlink so signoff sees a clean tree (asset build may have pointed it at another theme).
+    step "Restore theme symlink (CI artifact)", "git restore app/assets/stylesheets/themes/selected.css"
     step "Signoff: All systems go. Ready for merge and deploy.", "gh signoff"
   else
     failure "Signoff: CI failed. Do not merge or deploy.", "Fix the issues and try again."
