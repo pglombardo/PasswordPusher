@@ -1,0 +1,56 @@
+<% title(_('First Run Setup')) %>
+<h2 class='my-3'><%= _('First Run Setup') %></h2>
+
+<%= form_with(model: resource, as: resource_name, url: first_run_path) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <% if FirstRunBootCode.needed? %>
+    <div class="alert alert-warning text-start" role="alert">
+      <strong><%= _('Boot Code Required') %></strong>
+      <div><%= _('Enter the boot code shown in the application logs during startup.') %></div>
+    </div>
+
+    <div class="form-floating mb-2">
+      <%= f.text_field :boot_code,
+        class: "form-control",
+        placeholder: _('Boot Code'),
+        required: true,
+        autocomplete: "off",
+        autofocus: true %>
+    <%= f.label :boot_code, _('Boot Code') %>
+    </div>
+  <% end %>
+
+  <div class="form-floating mb-2">
+    <%= f.email_field :email,
+      class: "form-control",
+      autocomplete: "email",
+      placeholder: _('Email'),
+      required: true %>
+    <%= f.label :email, _('Email') %>
+  </div>
+
+  <div class="form-floating mb-2">
+    <%= f.password_field :password,
+      class: "form-control",
+      autocomplete: "new-password",
+      placeholder: _('Password'),
+      required: true %>
+    <%= f.label :password, _('Password') %>
+  </div>
+
+  <div class="form-floating">
+    <%= invisible_captcha %>
+  </div>
+
+  <% minimum_password_length = @minimum_password_length || (resource_class.password_length.min if respond_to?(:resource_class) && resource_class.respond_to?(:password_length)) %>
+  <% if minimum_password_length %>
+    <p class="text-muted">
+      * <%= sprintf(t('devise.registrations.password_minimum'), minimum_password_length) %>
+    </p>
+  <% end %>
+
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">
+    <%= _('Create Admin Account') %>
+  </button>
+<% end %>
