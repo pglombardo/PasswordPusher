@@ -107,6 +107,10 @@
                     </div>
                 </div>
             </div>
+            <% if smtp_configured? && user_signed_in? %>
+                <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
+                <%= render partial: "shared/notify_emails_to_locale", locals: { f: f } %>
+            <% end %>
             <% unless action_name == 'edit' %>
                 <div class='row'>
                     <div class='col'>

@@ -1,0 +1,19 @@
+<h1 style="font-weight:400;line-height: 1.25; text-align: center;">
+  <%= _('You have received a Push from %{user_email}') % { user_email: @push.user&.email.presence || _("Someone")} %>
+</h1>
+
+<p>
+  <%= _('Please find the secret link below to access the sensitive information.') %>
+</p>
+
+<p><%= _('Secret link:') %> <a href="<%= @secret_url %>"><%= @secret_url %></a></p>
+
+<h4 style="font-weight: bold; margin-top: 40px;"><%= _('Important Notes:') %></h4>
+<ul style="padding: 0px; list-style-position: inside">
+  <li><%= _('This link is valid for %{remaining} days, or until %{views} views, whichever occurs first.') % { remaining: format_time_remaining(@push), views: @push.expire_after_views } %></li>
+  <li><%= _('For added security, you may be prompted to enter a passphrase (provided separately) to access the content.') %></li>
+  <li><%= _('Once retrieved, the link and content will be deleted upon expiration.') %></li>
+</ul>
+
+<div style="margin-top: 20px;"><%= _('This email may contain confidential information intended only for the recipient.') %></div>
+<div><%= _('If you received this in error, please delete it and notify us immediately.') %></div>

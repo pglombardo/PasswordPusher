@@ -1,0 +1,11 @@
+<div class="list-group-item list-group-item-action list-group-item-info">
+    <em class="bi bi-envelope-check"></em>
+    <%= _('Creation notification email sent on %{date}') % {
+        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
+    } %>
+    <% if audit_log.user.present? %>
+        <%= _('by %{user}') % { user: audit_log.subject_name } %>
+    <% end %>
+    <br>
+    <%= _('Recipients:') %> <code><%= audit_log.push.notify_emails_to.presence || _('None') %></code>
+</div>

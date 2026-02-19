@@ -28,4 +28,50 @@ module PushesHelper
       base_options.merge("x-default" => default_value)
     end
   end
+
+  # Formats the time remaining for a push.
+  #
+  # Example: "2 days, 23 hours and 59 minutes"
+  #
+  # @param [Push] push - The push to format the time remaining for
+  # @return [String] - The formatted time remaining
+  #
+  def format_time_remaining(push)
+    if push.minutes_remaining.zero?
+      I18n._("Zero minutes")
+    else
+      format_minutes_duration(push.minutes_remaining)
+    end
+  end
+
+  # Formats the minutes duration for a push.
+  #
+  # Takes an arbitrary number of minutes and formats it as a duration.
+  #
+  # Example: "2 days, 23 hours and 59 minutes"
+  #
+  # @param [Integer] minutes - The number of minutes to format as a duration
+  # @return [String] - The formatted time remaining
+  #
+  def format_minutes_duration(minutes)
+    return I18n._("Zero minutes") if minutes.to_i <= 0
+
+    duration = minutes * 60
+
+    days = (duration / (24 * 3600)).to_i
+    hours = ((duration % (24 * 3600)) / 3600).to_i
+    calculated_minutes = ((duration % 3600) / 60).to_i
+
+    if days.positive?
+      I18n._("%{days} day(s), %{hours} hour(s) and %{minutes} minute(s)") % {days:, hours:, minutes: calculated_minutes}
+    elsif hours.positive?
+      if calculated_minutes.positive?
+        I18n._("%{hours} hour(s) and %{minutes} minute(s)") % {hours:, minutes: calculated_minutes}
+      else
+        I18n._("%{count} hour(s)") % {count: hours}
+      end
+    else
+      I18n._("%{count} minute(s)") % {count: calculated_minutes}
+    end
+  end
 end

@@ -3,6 +3,8 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
+  include Pwpush::NotifyEmailsTo
+
   enum :kind, [:text, :file, :url, :qr], validate: true
 
   validate :check_enabled_push_kinds, on: :create
@@ -40,6 +42,11 @@ class Push < ApplicationRecord
 
   def views_remaining
     [(expire_after_views - view_count), 0].max
+  end
+
+  # Minutes until the day-based expiry (days_remaining × 24 × 60). Used by format_time_remaining.
+  def minutes_remaining
+    days_remaining * 24 * 60
   end
 
   def view_count

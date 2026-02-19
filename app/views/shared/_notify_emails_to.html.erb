@@ -1,0 +1,13 @@
+<% unless action_name == 'edit' %>
+  <div class='row mb-3'>
+    <div class='col'>
+      <div class="input-group">
+        <span class="input-group-text"><%= _('Email notification recipients') %></span>
+        <%= f.text_field(:notify_emails_to, { class: "form-control",
+                                              placeholder: _('Enter email addresses separated by commas'),
+                                              autocomplete: "off" }) %>
+      </div>
+      <div class="form-text"><%= _('Enter email addresses separated by commas') %></div>
+    </div>
+  </div>
+<% end %>

@@ -100,12 +100,12 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.include?("locale=es")
   end
 
-  test "secret_url prioritizes params locale over method locale" do
+  test "secret_url prioritizes method locale over params (e.g. when called from mailer)" do
     @controller.params = ActionController::Parameters.new("push_locale" => "fr")
     Settings.enabled_language_codes = ["en", "es", "fr"]
     url = secret_url(@push, locale: "es")
-    assert url.include?("locale=fr")
-    assert_not url.include?("locale=es")
+    assert url.include?("locale=es")
+    assert_not url.include?("locale=fr")
   end
 
   test "secret_url ignores invalid locale from params" do
@@ -180,5 +180,60 @@ class ApplicationHelperTest < ActionView::TestCase
     qr = qr_code("https://example.com")
     assert qr.html_safe?
     assert qr.is_a?(ActiveSupport::SafeBuffer)
+  end
+
+  # Test smtp_configured? method
+  test "smtp_configured? is false in test environment" do
+    assert_equal "test", Rails.env
+    assert_not smtp_configured?
+  end
+
+  test "smtp_configured? is true in development environment" do
+    env = env_inquirer("development")
+    Rails.stub(:env, env) do
+      assert smtp_configured?
+    end
+  end
+
+  test "smtp_configured? in production is true when Settings.mail has smtp_address" do
+    env = env_inquirer("production")
+    Rails.stub(:env, env) do
+      Settings.stub(:mail, OpenStruct.new(smtp_address: "smtp.example.com")) do
+        assert smtp_configured?
+      end
+    end
+  end
+
+  test "smtp_configured? in production is false when Settings.mail has no smtp_address" do
+    env = env_inquirer("production")
+    Rails.stub(:env, env) do
+      Settings.stub(:mail, OpenStruct.new(smtp_address: nil)) do
+        assert_not smtp_configured?
+      end
+    end
+  end
+
+  test "smtp_configured? in production is false when Settings.mail is nil" do
+    env = env_inquirer("production")
+    Rails.stub(:env, env) do
+      Settings.stub(:mail, nil) do
+        assert_not smtp_configured?
+      end
+    end
+  end
+
+  test "smtp_configured? in production is false when smtp_address is empty string" do
+    env = env_inquirer("production")
+    Rails.stub(:env, env) do
+      Settings.stub(:mail, OpenStruct.new(smtp_address: "")) do
+        assert_not smtp_configured?
+      end
+    end
+  end
+
+  private
+
+  def env_inquirer(name)
+    ActiveSupport::StringInquirer.new(name)
   end
 end

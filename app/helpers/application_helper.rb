@@ -32,16 +32,32 @@ module ApplicationHelper
     # Delete any existing ?locale= query parameter
     raw_url = raw_url.split("?").first
 
-    # Append the locale query parameter
-    if params["push_locale"].present? && Settings.enabled_language_codes.include?(params["push_locale"])
-      raw_url += "?locale=#{params["push_locale"]}"
-    elsif locale.present? && Settings.enabled_language_codes.include?(locale)
+    # Append the locale query parameter (explicit locale takes precedence over params, e.g. when called from mailer)
+    codes = Array(Settings.enabled_language_codes).map(&:to_s)
+    if locale.present? && codes.include?(locale.to_s)
       raw_url += "?locale=#{locale}"
+    elsif params["push_locale"].present? && codes.include?(params["push_locale"].to_s)
+      raw_url += "?locale=#{params["push_locale"]}"
     end
 
-    # Support forced https links with FORCE_SSL env var
-    raw_url.gsub!(/http/i, "https") if ENV.key?("FORCE_SSL") && !request.ssl?
+    # Support forced https links with FORCE_SSL env var (request may be nil in mailer context)
+    raw_url.gsub!(/http/i, "https") if ENV.key?("FORCE_SSL") && !request&.ssl?
     raw_url
+  end
+
+  # True when the application can send email (SMTP or equivalent), so the
+  # "notify emails" push option should be shown. In production this requires
+  # Settings.mail with smtp_address; in development mailbin counts as configured.
+  #
+  # @return [Boolean]
+  def smtp_configured?
+    if Rails.env.test?
+      false
+    elsif Rails.env.development?
+      true
+    else
+      Settings.mail.present? && Settings.mail.smtp_address.to_s.present?
+    end
   end
 
   # qr_code
