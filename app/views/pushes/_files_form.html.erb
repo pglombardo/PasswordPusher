@@ -1,4 +1,9 @@
 <% title(_('Securely Send Files')) %>
+<% if tus_uploads_enabled? %>
+  <% content_for :head do %>
+    <%= javascript_include_tag "tus", "data-turbo-track": "reload", type: "module" %>
+  <% end %>
+<% end %>
 
 <div class='container'
     data-controller="knobs form"
@@ -61,20 +66,39 @@
                     <div class="card">
                         <h5 class="card-header"><%= _('Add Files...') %></h5>
                         <div class="card-body">
-                            <div id="progress-bars" class="list-group"></div>
-                            <div data-controller="multi-upload" data-multi-upload-max-files-value="<%= @push.settings_for_kind.max_file_uploads %>">
-                                <div id="selected-files" data-multi-upload-target="files" class="list-group"></div>
+                            <%= render "pushes/tus_upload_row_template" %>
+                            <%= render "pushes/direct_upload_row_template" %>
+                            <%= render "pushes/selected_file_row_template" %>
+                            <ul id="progress-bars" class="list-group mb-2" aria-label="Upload progress"></ul>
+                            <div data-controller="multi-upload"
+                                 data-multi-upload-max-files-value="<%= @push.settings_for_kind.max_file_uploads %>"
+                                 data-multi-upload-max-tus-size-value="<%= Settings.files.max_tus_upload_size.to_i %>"
+                                 data-multi-upload-max-direct-size-value="<%= Settings.files.max_direct_upload_size.to_i %>"
+                                 data-multi-upload-file-too-large-message-value="<%= _('"%{filename}" is too large. Max size per file is %{size}.') %>"
+                                 data-multi-upload-max-files-message-value="<%= _('You can only upload %{count} files at a time.') %>"
+                                 data-multi-upload-finalizing-label-value="<%= _('Finalizing…') %>"
+                                 data-multi-upload-tus-enabled-value="<%= tus_uploads_enabled? %>"
+                                 data-multi-upload-tus-endpoint-value="<%= tus_uploads_url %>"
+                                 data-multi-upload-files-input-name-value="push[files][]">
+                                <ul id="selected-files" data-multi-upload-target="files" class="list-group" aria-label="Selected files"></ul>
                                 <div class="file my-3">
                                     <%= f.file_field :files,
                                                      multiple: true,
                                                      required: !@push.persisted?,
-                                                     direct_upload: true,
+                                                     direct_upload: !tus_uploads_enabled?,
                                                      class: "form-control",
                                                      "data-action": "multi-upload#addFile" %>
                                 </div>
                             </div>
                         </div>
-                        <div id="file-count-footer" class="card-footer text-muted"> <%= _('You can upload up to %{count} files per push.') % { count: @push.settings_for_kind.max_file_uploads } %> </div>
+                        <div id="file-count-footer" class="card-footer text-muted">
+                          <%= _('You can upload up to %{count} files per push.') % { count: @push.settings_for_kind.max_file_uploads } %>
+                          <% if tus_uploads_enabled? %>
+                            <%= _('Max %{size} per file.') % { size: number_to_human_size(Settings.files.max_tus_upload_size.to_i) } %>
+                          <% else %>
+                            <%= _('Max %{size} per file.') % { size: number_to_human_size(Settings.files.max_direct_upload_size.to_i) } %>
+                          <% end %>
+                        </div>
                     </div>
                 </div>
             </div>
