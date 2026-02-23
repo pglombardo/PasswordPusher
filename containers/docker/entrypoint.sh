@@ -55,10 +55,14 @@ else
 fi
 echo ""
 
-# Persist DATABASE_URL and RAILS_ENV for shell access
-echo "export DATABASE_URL=\"${DATABASE_URL}\"" >> /opt/PasswordPusher/.env.production
-echo "export RAILS_ENV=\"${RAILS_ENV}\"" >> /opt/PasswordPusher/.env.production
-echo "export SECRET_KEY_BASE=\"${SECRET_KEY_BASE}\"" >> /opt/PasswordPusher/.env.production
+# Persist DATABASE_URL and RAILS_ENV for shell access (skip when running as arbitrary user, e.g. OpenShift)
+# Create .env.production if missing (no-op if we lack permission; avoids exit due to set -e)
+touch /opt/PasswordPusher/.env.production 2>/dev/null || true
+if [ -w /opt/PasswordPusher/.env.production ]; then
+  echo "export DATABASE_URL=\"${DATABASE_URL}\"" >> /opt/PasswordPusher/.env.production
+  echo "export RAILS_ENV=\"${RAILS_ENV}\"" >> /opt/PasswordPusher/.env.production
+  echo "export SECRET_KEY_BASE=\"${SECRET_KEY_BASE}\"" >> /opt/PasswordPusher/.env.production
+fi
 
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
