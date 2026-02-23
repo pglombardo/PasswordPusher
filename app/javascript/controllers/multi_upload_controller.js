@@ -116,48 +116,75 @@ export default class extends Controller {
       return
     }
 
-    addEventListener("direct-upload:initialize", event => {
-      const { detail } = event
-      const { id, file } = detail
+    this._boundDirectUploadInitialize = this._onDirectUploadInitialize.bind(this)
+    this._boundDirectUploadStart = this._onDirectUploadStart.bind(this)
+    this._boundDirectUploadProgress = this._onDirectUploadProgress.bind(this)
+    this._boundDirectUploadError = this._onDirectUploadError.bind(this)
+    this._boundDirectUploadEnd = this._onDirectUploadEnd.bind(this)
 
-      const preExistingBar = document.getElementById(`progress-${id}`)
-      if (preExistingBar) preExistingBar.remove()
+    window.addEventListener("direct-upload:initialize", this._boundDirectUploadInitialize)
+    window.addEventListener("direct-upload:start", this._boundDirectUploadStart)
+    window.addEventListener("direct-upload:progress", this._boundDirectUploadProgress)
+    window.addEventListener("direct-upload:error", this._boundDirectUploadError)
+    window.addEventListener("direct-upload:end", this._boundDirectUploadEnd)
+  }
 
-      const files = document.getElementById("selected-files")
-      if (files) files.style.display = "none"
+  disconnect() {
+    if (this._boundDirectUploadInitialize) {
+      window.removeEventListener("direct-upload:initialize", this._boundDirectUploadInitialize)
+      window.removeEventListener("direct-upload:start", this._boundDirectUploadStart)
+      window.removeEventListener("direct-upload:progress", this._boundDirectUploadProgress)
+      window.removeEventListener("direct-upload:error", this._boundDirectUploadError)
+      window.removeEventListener("direct-upload:end", this._boundDirectUploadEnd)
+      this._boundDirectUploadInitialize = null
+      this._boundDirectUploadStart = null
+      this._boundDirectUploadProgress = null
+      this._boundDirectUploadError = null
+      this._boundDirectUploadEnd = null
+    }
+  }
 
-      const tpl = document.getElementById("direct-upload-row-template")
-      const bars = document.getElementById("progress-bars")
-      if (!tpl || !bars) return
+  _onDirectUploadInitialize(event) {
+    const { detail } = event
+    const { id, file } = detail
 
-      const li = tpl.content.cloneNode(true)
-      const liEl = li.querySelector("li")
-      const progressBar = li.querySelector(".direct-row-progress-bar")
-      liEl.id = `progress-${id}`
-      progressBar.id = `direct-upload-${id}`
-      progressBar.setAttribute("aria-label", file.name)
-      progressBar.append(file.name)
-      bars.append(li)
-    })
+    const preExistingBar = document.getElementById(`progress-${id}`)
+    if (preExistingBar) preExistingBar.remove()
 
-    addEventListener("direct-upload:start", event => {
-      setProgressBarProgress(document.getElementById(`direct-upload-${event.detail.id}`), 0)
-    })
+    const files = document.getElementById("selected-files")
+    if (files) files.style.display = "none"
 
-    addEventListener("direct-upload:progress", event => {
-      const { id, progress } = event.detail
-      setProgressBarProgress(document.getElementById(`direct-upload-${id}`), progress)
-    })
+    const tpl = document.getElementById("direct-upload-row-template")
+    const bars = document.getElementById("progress-bars")
+    if (!tpl || !bars) return
 
-    addEventListener("direct-upload:error", event => {
-      event.preventDefault()
-      const { id, error } = event.detail
-      setProgressBarError(document.getElementById(`direct-upload-${id}`), error)
-    })
+    const li = tpl.content.cloneNode(true)
+    const liEl = li.querySelector("li")
+    const progressBar = li.querySelector(".direct-row-progress-bar")
+    liEl.id = `progress-${id}`
+    progressBar.id = `direct-upload-${id}`
+    progressBar.setAttribute("aria-label", file.name)
+    progressBar.append(file.name)
+    bars.append(li)
+  }
 
-    addEventListener("direct-upload:end", event => {
-      setProgressBarComplete(document.getElementById(`direct-upload-${event.detail.id}`))
-    })
+  _onDirectUploadStart(event) {
+    setProgressBarProgress(document.getElementById(`direct-upload-${event.detail.id}`), 0)
+  }
+
+  _onDirectUploadProgress(event) {
+    const { id, progress } = event.detail
+    setProgressBarProgress(document.getElementById(`direct-upload-${id}`), progress)
+  }
+
+  _onDirectUploadError(event) {
+    event.preventDefault()
+    const { id, error } = event.detail
+    setProgressBarError(document.getElementById(`direct-upload-${id}`), error)
+  }
+
+  _onDirectUploadEnd(event) {
+    setProgressBarComplete(document.getElementById(`direct-upload-${event.detail.id}`))
   }
 
   addFile(event) {

@@ -184,17 +184,24 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "PATCH retry after finalize returns 204 with X-Signed-Id from cache" do
-    upload_id = create_tus_upload(upload_length: 3)
-    patch_tus_chunk(upload_id, "abc")
-    assert_response :no_content
-    first_signed_id = response.headers["X-Signed-Id"]
-    assert first_signed_id.present?, "First PATCH must return X-Signed-Id"
-    # Retry final chunk (upload dir already removed by finalize)
-    patch_tus_chunk(upload_id, "abc", offset: 0)
-    assert_response :no_content, "Retry of final PATCH should succeed"
-    assert_equal first_signed_id, response.headers["X-Signed-Id"], "Retry should return same X-Signed-Id"
-    assert_equal "3", response.headers["Upload-Offset"]
-    assert_equal "3", response.headers["Upload-Length"]
+    # Test uses a real cache so finalized_upload_cache_write is persisted (test env uses :null_store by default)
+    original_cache = Rails.cache
+    Rails.cache = ActiveSupport::Cache::MemoryStore.new
+    begin
+      upload_id = create_tus_upload(upload_length: 3)
+      patch_tus_chunk(upload_id, "abc")
+      assert_response :no_content
+      first_signed_id = response.headers["X-Signed-Id"]
+      assert first_signed_id.present?, "First PATCH must return X-Signed-Id"
+      # Retry final chunk (upload dir already removed by finalize)
+      patch_tus_chunk(upload_id, "abc", offset: 0)
+      assert_response :no_content, "Retry of final PATCH should succeed"
+      assert_equal first_signed_id, response.headers["X-Signed-Id"], "Retry should return same X-Signed-Id"
+      assert_equal "3", response.headers["Upload-Offset"]
+      assert_equal "3", response.headers["Upload-Length"]
+    ensure
+      Rails.cache = original_cache
+    end
   end
 
   test "PATCH with wrong offset returns 409 and current offset" do
@@ -207,6 +214,14 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   test "PATCH without Upload-Offset returns 400" do
     upload_id = create_tus_upload(upload_length: 2)
     patch_tus_chunk(upload_id, "ab", offset: nil)
+    assert_response :bad_request
+  end
+
+  test "PATCH with empty Upload-Offset header returns 400" do
+    upload_id = create_tus_upload(upload_length: 2)
+    patch upload_path(upload_id),
+      params: "ab",
+      headers: {"Content-Type" => "application/offset+octet-stream", "Upload-Offset" => ""}
     assert_response :bad_request
   end
 
