@@ -25,7 +25,9 @@ class TusUploadsController < ApplicationController
     store = TusUploadStore.new(id)
     store.create!(upload_length: upload_length, filename: filename, content_type: content_type)
 
-    response.headers["Location"] = upload_url_for(id)
+    # Use relative URL so the client (browser) sends PATCH to the same origin
+    # (e.g. the reverse proxy on 80/443), avoiding unreachable internal URLs like localhost:5100.
+    response.headers["Location"] = upload_path(id)
     response.headers["Upload-Offset"] = "0"
     response.headers["Upload-Length"] = upload_length.to_s
     head :created
@@ -52,7 +54,25 @@ class TusUploadsController < ApplicationController
       return head :method_not_allowed
     end
 
-    return head :not_found unless store.exist?
+    content_length = request.content_length
+    if content_length.present?
+      max_chunk = helpers.tus_chunk_size_bytes
+      if max_chunk.positive? && content_length > max_chunk
+        return head :payload_too_large
+      end
+    end
+
+    unless store.exist?
+      # Retry of final PATCH after we already finalized: return success so client gets X-Signed-Id
+      finalized = finalized_upload_cache_read(id)
+      if finalized
+        response.headers["Upload-Offset"] = finalized["upload_offset"].to_s
+        response.headers["Upload-Length"] = finalized["upload_length"].to_s
+        response.headers["X-Signed-Id"] = finalized["signed_id"]
+        return head :no_content
+      end
+      return head :not_found
+    end
     return head :gone if store.complete?
 
     expected_offset = request.headers["Upload-Offset"]&.to_i
@@ -73,6 +93,7 @@ class TusUploadsController < ApplicationController
       begin
         upload_length = store.upload_length
         blob = store.finalize_to_blob!
+        finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset)
         response.headers["Upload-Offset"] = new_offset.to_s
         response.headers["Upload-Length"] = upload_length.to_s
         response.headers["X-Signed-Id"] = blob.signed_id
@@ -96,15 +117,19 @@ class TusUploadsController < ApplicationController
     head :not_found
   end
 
-  def upload_url_for(id)
-    url_helpers = Rails.application.routes.url_helpers
-    raw_host = request.host.to_s
-    # Strip trailing :port from host to avoid "localhost:3000:9090"; prefer port from Host when present
-    host = raw_host.gsub(/(:[\d]+)+\z/, "")
-    port = raw_host.include?(":") ? raw_host.split(":").last.to_i : request.port
-    base = "#{request.scheme}://#{host}"
-    base += ":#{port}" if port.to_i.nonzero? && port != 80 && port != 443
-    "#{base}#{url_helpers.upload_path(id)}"
+  TUS_FINALIZED_CACHE_PREFIX = "tus_finalized/"
+  TUS_FINALIZED_CACHE_TTL = 2.minutes
+
+  def finalized_upload_cache_read(upload_id)
+    Rails.cache.read("#{TUS_FINALIZED_CACHE_PREFIX}#{upload_id}")
+  end
+
+  def finalized_upload_cache_write(upload_id, signed_id:, upload_length:, upload_offset:)
+    Rails.cache.write(
+      "#{TUS_FINALIZED_CACHE_PREFIX}#{upload_id}",
+      { "signed_id" => signed_id, "upload_length" => upload_length, "upload_offset" => upload_offset },
+      expires_in: TUS_FINALIZED_CACHE_TTL
+    )
   end
 
   # TUS Upload-Metadata: comma-separated "key base64value" pairs

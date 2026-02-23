@@ -91,27 +91,12 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
   end
 
-  test "POST create sets Location with scheme, host and path" do
+  test "POST create sets Location as relative path so client uses same origin for PATCH" do
     create_tus_upload(upload_length: 1)
     location = response.headers["Location"]
     assert location.present?, "Location header must be set"
-    uri = URI.parse(location)
-    assert_includes %w[http https], uri.scheme, "Location must use http or https"
-    assert uri.host.present?, "Location must include host"
-    assert_match(/\A\/uploads\/[^\s\/]+\z/, uri.path, "Location path must be /uploads/:id")
+    assert_match(/\A\/uploads\/[^\s\/]+\z/, location, "Location must be relative path /uploads/:id (same-origin for proxy/Docker)")
     assert upload_id_from_location(location).present?, "Location must contain upload id"
-  end
-
-  test "POST create includes port in Location when port is not 80 or 443" do
-    # Use Host header so request.host/port are unambiguous (avoids "localhost:3000:9090" in integration tests)
-    post "http://localhost:#{non_standard_port}/uploads",
-      headers: {"Upload-Length" => "1", "Host" => "localhost:#{non_standard_port}"}
-    assert_response :created
-    location = response.headers["Location"]
-    assert location.present?
-    assert_includes location, ":#{non_standard_port}", "Location must include non-standard port"
-    uri = URI.parse(location)
-    assert_equal non_standard_port.to_s, uri.port.to_s
   end
 
   test "Upload-Metadata filename and filetype are parsed and applied to blob" do
@@ -189,6 +174,27 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
     assert_equal 6, blob.byte_size
     assert_equal "two.txt", blob.filename.to_s
+  end
+
+  test "PATCH with chunk larger than tus_chunk_size returns 413" do
+    Settings.files.tus_chunk_size = 5 # 5 bytes limit
+    upload_id = create_tus_upload(upload_length: 10)
+    patch_tus_chunk(upload_id, "abcdef")
+    assert_response :payload_too_large
+  end
+
+  test "PATCH retry after finalize returns 204 with X-Signed-Id from cache" do
+    upload_id = create_tus_upload(upload_length: 3)
+    patch_tus_chunk(upload_id, "abc")
+    assert_response :no_content
+    first_signed_id = response.headers["X-Signed-Id"]
+    assert first_signed_id.present?, "First PATCH must return X-Signed-Id"
+    # Retry final chunk (upload dir already removed by finalize)
+    patch_tus_chunk(upload_id, "abc", offset: 0)
+    assert_response :no_content, "Retry of final PATCH should succeed"
+    assert_equal first_signed_id, response.headers["X-Signed-Id"], "Retry should return same X-Signed-Id"
+    assert_equal "3", response.headers["Upload-Offset"]
+    assert_equal "3", response.headers["Upload-Length"]
   end
 
   test "PATCH with wrong offset returns 409 and current offset" do

@@ -509,6 +509,15 @@ files:
   #
   max_tus_upload_size: 107374182400
 
+  # TUS chunk size: size of each PATCH request when uploading (server limit and client chunk size).
+  # Use a human-friendly value: "2 MB", "50 MB", "100 MB", "1 GB", etc. (KB, MB, GB; space optional.)
+  # Larger chunks = fewer requests but may hit proxy timeouts (e.g. thruster 30s).
+  #
+  # Environment variable override:
+  # PWP__FILES__TUS_CHUNK_SIZE='50 MB'
+  #
+  tus_chunk_size: "2 MB"
+
   # TTL for incomplete TUS uploads (seconds). Uploads not finalized within this
   # window are deleted by cleanup job. Default 24 hours.
   #

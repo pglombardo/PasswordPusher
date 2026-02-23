@@ -99,6 +99,7 @@ export default class extends Controller {
     finalizingLabel: String,
     tusEnabled: Boolean,
     tusEndpoint: String,
+    tusChunkSize: Number,
     filesInputName: String,
   }
 
@@ -294,9 +295,13 @@ export default class extends Controller {
 
       const uploadStartTime = Date.now()
 
+      const chunkSize = this.hasTusChunkSizeValue && this.tusChunkSizeValue > 0
+        ? this.tusChunkSizeValue
+        : 2 * 1024 * 1024 // 2 MB fallback
       const opts = {
         endpoint: endpoint,
         uploadLength: file.size,
+        chunkSize,
         metadata: {
           filename: file.name,
           filetype: file.type || 'application/octet-stream'

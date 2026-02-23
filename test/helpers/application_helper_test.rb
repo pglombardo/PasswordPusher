@@ -210,4 +210,20 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.present?
     assert_equal Rails.application.routes.url_helpers.uploads_path, url
   end
+
+  test "parse_human_size parses human-friendly sizes to bytes" do
+    assert_equal 50 * 1024 * 1024, parse_human_size("50 MB")
+    assert_equal 2 * 1024 * 1024, parse_human_size("2 MB")
+    assert_equal 1024**3, parse_human_size("1 GB")
+    assert_equal 100 * 1024, parse_human_size("100 KB")
+    assert_equal 5, parse_human_size(5)
+    assert_equal 5, parse_human_size("5")
+    assert_equal 2 * 1024 * 1024, parse_human_size("")
+    assert_equal 2 * 1024 * 1024, parse_human_size(nil)
+  end
+
+  test "tus_chunk_size_bytes returns bytes from Settings.files.tus_chunk_size" do
+    Settings.files.tus_chunk_size = "50 MB"
+    assert_equal 50 * 1024 * 1024, tus_chunk_size_bytes
+  end
 end

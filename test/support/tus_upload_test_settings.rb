@@ -10,6 +10,7 @@ module TusUploadTestSettings
       enable_file_pushes: Settings.enable_file_pushes,
       files_storage: Settings.files.storage,
       files_max_tus_upload_size: Settings.files.max_tus_upload_size,
+      files_tus_chunk_size: Settings.files.tus_chunk_size,
       files_tus_upload_ttl: Settings.files.tus_upload_ttl,
       files_max_direct_upload_size: Settings.files.max_direct_upload_size,
       files_max_file_uploads: Settings.files.max_file_uploads
@@ -23,6 +24,7 @@ module TusUploadTestSettings
     Settings.enable_file_pushes = @_tus_test_settings[:enable_file_pushes]
     Settings.files.storage = @_tus_test_settings[:files_storage]
     Settings.files.max_tus_upload_size = @_tus_test_settings[:files_max_tus_upload_size]
+    Settings.files.tus_chunk_size = @_tus_test_settings[:files_tus_chunk_size]
     Settings.files.tus_upload_ttl = @_tus_test_settings[:files_tus_upload_ttl]
     Settings.files.max_direct_upload_size = @_tus_test_settings[:files_max_direct_upload_size]
     Settings.files.max_file_uploads = @_tus_test_settings[:files_max_file_uploads]
