@@ -69,6 +69,13 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "POST create when logins disabled returns 404" do
+    Settings.enable_logins = false
+    Settings.enable_file_pushes = true
+    post uploads_path, headers: {"Upload-Length" => "7"}
+    assert_response :not_found
+  end
+
   test "POST create requires auth" do
     sign_out @user
     post uploads_path, headers: {"Upload-Length" => "7"}
@@ -112,6 +119,65 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "report.pdf", blob.filename.to_s, "Filename from Upload-Metadata must be applied"
     assert_equal "application/pdf", blob.content_type, "Filetype from Upload-Metadata must be applied"
     assert_equal 4, blob.byte_size
+  end
+
+  # ---- Upload-Metadata filename sanitization ----
+
+  test "Upload-Metadata filename path traversal is sanitized to basename" do
+    # "../../../etc/passwd" -> File.basename -> "passwd"
+    upload_id = create_tus_upload(
+      upload_length: 3,
+      upload_metadata: "filename #{Base64.strict_encode64('../../../etc/passwd')}"
+    )
+    patch_tus_chunk(upload_id, "xyz")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "passwd", blob.filename.to_s
+  end
+
+  test "Upload-Metadata filename with subdir path uses basename only" do
+    upload_id = create_tus_upload(
+      upload_length: 2,
+      upload_metadata: "filename #{Base64.strict_encode64('foo/bar.txt')}"
+    )
+    patch_tus_chunk(upload_id, "ab")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "bar.txt", blob.filename.to_s
+  end
+
+  test "Upload-Metadata filename special characters replaced with underscore" do
+    # "a<b>c.txt" -> "a_b_c.txt"
+    upload_id = create_tus_upload(
+      upload_length: 1,
+      upload_metadata: "filename #{Base64.strict_encode64('a<b>c.txt')}"
+    )
+    patch_tus_chunk(upload_id, "x")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "a_b_c.txt", blob.filename.to_s
+  end
+
+  test "Upload-Metadata filename spaces replaced with underscore" do
+    upload_id = create_tus_upload(
+      upload_length: 2,
+      upload_metadata: "filename #{Base64.strict_encode64('file name.txt')}"
+    )
+    patch_tus_chunk(upload_id, "ab")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "file_name.txt", blob.filename.to_s
+  end
+
+  test "Upload-Metadata filename blank or whitespace only yields default blob filename" do
+    upload_id = create_tus_upload(
+      upload_length: 2,
+      upload_metadata: "filename #{Base64.strict_encode64('   ')}"
+    )
+    patch_tus_chunk(upload_id, "ab")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "upload", blob.filename.to_s
   end
 
   # ---- HEAD update ----
