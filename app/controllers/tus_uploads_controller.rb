@@ -75,10 +75,11 @@ class TusUploadsController < ApplicationController
     end
     return head :gone if store.complete?
 
-    expected_offset = request.headers["Upload-Offset"]&.to_i
-    if expected_offset.nil?
+    raw_offset = request.headers["Upload-Offset"]
+    if raw_offset.blank? || !raw_offset.to_s.strip.match?(/\A\d+\z/)
       return head :bad_request
     end
+    expected_offset = raw_offset.to_s.strip.to_i
 
     begin
       new_offset = store.append_chunk!(offset: expected_offset, io: request.body)
