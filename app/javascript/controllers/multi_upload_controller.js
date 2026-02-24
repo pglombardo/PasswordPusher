@@ -197,7 +197,7 @@ export default class extends Controller {
     if (!fileList || fileList.length === 0) return
 
     const arrayLength = fileList.length
-    if (arrayLength > maxFiles || fileCount + arrayLength > maxFiles) {
+    if (arrayLength > maxFiles || this.fileCount + arrayLength > maxFiles) {
       const maxFilesMsg = this.hasMaxFilesMessageValue
       ? this.maxFilesMessageValue.replace('%{count}', String(maxFiles))
       : `You can only upload ${maxFiles} files at a time.`
@@ -227,7 +227,7 @@ export default class extends Controller {
     }
 
     for (let i = 0; i < arrayLength; i++) {
-      fileCount += 1
+      this.fileCount += 1
       const file = originalInput.files[i]
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
 
@@ -261,7 +261,7 @@ export default class extends Controller {
     const bars = document.getElementById("progress-bars")
 
     for (let i = 0; i < arrayLength; i++) {
-      fileCount += 1
+      this.fileCount += 1
       const file = files[i]
       const id = ++this.tusUploadId
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
@@ -376,7 +376,7 @@ export default class extends Controller {
         },
         onError: (err) => {
           setProgressBarError(progressBar, err.message)
-          fileCount -= 1
+          controller.fileCount -= 1
           controller.updateFilesFooter()
         }
       }
@@ -428,7 +428,7 @@ export default class extends Controller {
   updateFilesFooter() {
     const footer = document.getElementById("file-count-footer")
     const maxFiles = this.maxFilesValue
-    footer.innerHTML = fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
+    footer.innerHTML = this.fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
   }
 
   removeFile(event) {
@@ -437,7 +437,7 @@ export default class extends Controller {
     if (!listItem || !listItem.parentNode) return
 
     listItem.remove()
-    fileCount -= 1
+    this.fileCount -= 1
     this.updateFilesFooter()
   }
 }
