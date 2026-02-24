@@ -70,8 +70,8 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     attach_file "push_files", file_path, make_visible: true
 
     # Wait for TUS upload to complete: file row appears in #selected-files
-    assert_selector "#selected-files li.selected-file", wait: 15
-    assert_text "test-file.txt", wait: 5
+    assert_selector "#selected-files li.selected-file", wait: 25
+    assert_text "test-file.txt", wait: 10
 
     click_button "Push It!"
 

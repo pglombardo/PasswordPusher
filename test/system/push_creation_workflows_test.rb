@@ -3,7 +3,10 @@
 require "application_system_test_case"
 
 class PushCreationWorkflowsTest < ApplicationSystemTestCase
+  include TusUploadTestSettings
+
   setup do
+    store_tus_related_settings
     Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Settings.enable_url_pushes = true
@@ -18,6 +21,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
   teardown do
     logout(:user)
+    restore_tus_related_settings
   end
 
   # Password Push Creation
@@ -149,11 +153,12 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # Verify we're on the file form
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 
-    # Upload a file
+    # Upload a file (TUS upload runs in browser; wait for selected-file row)
     file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
     attach_file "push_files", file_path, make_visible: true
 
-    # Wait for file to be attached (check for file name in page)
+    # Wait for TUS upload to complete and file name to appear
+    assert_selector "#selected-files li.selected-file", wait: 25
     assert_text "test-file.txt", wait: 10
 
     # Submit the form
@@ -172,7 +177,8 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
     attach_file "push_files", [file_path1, file_path2], make_visible: true
 
-    # Wait for files to be attached
+    # Wait for TUS uploads to complete (two selected-file rows)
+    assert_selector "#selected-files li.selected-file", count: 2, wait: 35
     assert_text "test-file.txt", wait: 10
     assert_text "monkey.png", wait: 10
 
