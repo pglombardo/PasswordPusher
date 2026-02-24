@@ -68,6 +68,7 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
 
     file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
     attach_file "push_files", file_path, make_visible: true
+    trigger_file_input_change!
 
     # Wait for TUS upload to complete: file row appears in #selected-files
     assert_selector "#selected-files li.selected-file", wait: 25
@@ -83,5 +84,13 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     visit "/p/#{token}"
 
     assert_text "test-file.txt", wait: 5
+  end
+
+  # Capybara attach_file may not fire the change event; Stimulus addFile only runs on change.
+  def trigger_file_input_change!
+    page.execute_script(<<~JS)
+      var input = document.querySelector('input[name="push[files][]"]');
+      if (input) input.dispatchEvent(new Event('change', { bubbles: true }));
+    JS
   end
 end
