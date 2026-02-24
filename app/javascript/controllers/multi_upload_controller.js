@@ -2,8 +2,6 @@ import * as ActiveStorage from "@rails/activestorage"
 
 import { Controller } from "@hotwired/stimulus"
 
-let fileCount = 0
-
 function formatBytes(bytes, decimals = 2) {
   if (bytes === 0) return '0 Bytes'
   const k = 1024
@@ -105,7 +103,7 @@ export default class extends Controller {
 
   connect() {
     // Reset the file count
-    fileCount = 0
+    this.fileCount = 0
     // Per-instance counter for TUS progress row ids (avoids collisions with multiple controllers)
     this.tusUploadId = 0
 
