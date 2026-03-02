@@ -42,11 +42,16 @@ jobs:
         if: steps.pr.outputs.number != ''
         run: |
           PR_NUM="${{ steps.pr.outputs.number }}"
-          AUTHOR=$(gh pr view "$PR_NUM" --json author,baseRefName,headRefOid -q '.author.login + " " + .baseRefName + " " + .headRefOid')
-          read -r AUTHOR BASE_REF HEAD_SHA <<< "$AUTHOR"
+          # GitHub REST API uses .user for PR creator; gh may expose .author - try both
+          RAW=$(gh pr view "$PR_NUM" --json user,author,baseRefName,headRefOid -q '((.user // .author).login | tostring) + " " + .baseRefName + " " + .headRefOid')
+          read -r AUTHOR_LOGIN BASE_REF HEAD_SHA <<< "$RAW"
 
-          if [ "$AUTHOR" != "dependabot[bot]" ] || [ "$BASE_REF" != "master" ]; then
-            echo "Skipping: not a Dependabot PR targeting master"
+          case "$AUTHOR_LOGIN" in
+            "dependabot[bot]"|dependabot) ;;
+            *) echo "Skipping: not a Dependabot PR (author=$AUTHOR_LOGIN)"; exit 0 ;;
+          esac
+          if [ "$BASE_REF" != "master" ]; then
+            echo "Skipping: PR targets $BASE_REF, not master"
             exit 0
           fi
 
