@@ -1,11 +1,12 @@
 name: Dependabot auto-merge
 
+# Runs after "Ruby Test Runs" completes. No branches filter: for PR-triggered
+# runs the "branch" is the PR head (e.g. dependabot/bundler/...), not master.
 on:
   workflow_run:
     workflows: ["Ruby Test Runs"]
     types:
       - completed
-    branches: [master]
 
 permissions:
   contents: write
@@ -30,8 +31,9 @@ jobs:
       - name: Enable auto-merge for Dependabot PR (squash)
         if: steps.pr.outputs.number != ''
         run: |
-          AUTHOR=$(gh pr view ${{ steps.pr.outputs.number }} --json author -q '.author.login')
-          if [ "$AUTHOR" = "dependabot[bot]" ]; then
+          AUTHOR=$(gh pr view ${{ steps.pr.outputs.number }} --json author,baseRefName -q '.author.login + " " + .baseRefName')
+          read -r AUTHOR BASE_REF <<< "$AUTHOR"
+          if [ "$AUTHOR" = "dependabot[bot]" ] && [ "$BASE_REF" = "master" ]; then
             gh pr merge ${{ steps.pr.outputs.number }} --auto --squash
           fi
         env:
