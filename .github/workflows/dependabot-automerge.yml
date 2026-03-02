@@ -42,8 +42,8 @@ jobs:
         if: steps.pr.outputs.number != ''
         run: |
           PR_NUM="${{ steps.pr.outputs.number }}"
-          # GitHub REST API uses .user for PR creator; gh may expose .author - try both
-          RAW=$(gh pr view "$PR_NUM" --json user,author,baseRefName,headRefOid -q '((.user // .author).login | tostring) + " " + .baseRefName + " " + .headRefOid')
+          # gh pr view exposes PR creator as .author (not .user)
+          RAW=$(gh pr view "$PR_NUM" --json author,baseRefName,headRefOid -q '((.author.login // "null") | tostring) + " " + .baseRefName + " " + .headRefOid')
           read -r AUTHOR_LOGIN BASE_REF HEAD_SHA <<< "$RAW"
 
           case "$AUTHOR_LOGIN" in
