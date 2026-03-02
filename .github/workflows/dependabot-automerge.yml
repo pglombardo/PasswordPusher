@@ -47,7 +47,7 @@ jobs:
           read -r AUTHOR_LOGIN BASE_REF HEAD_SHA <<< "$RAW"
 
           case "$AUTHOR_LOGIN" in
-            "dependabot[bot]"|dependabot) ;;
+            "dependabot[bot]"|dependabot|app/dependabot) ;;
             *) echo "Skipping: not a Dependabot PR (author=$AUTHOR_LOGIN)"; exit 0 ;;
           esac
           if [ "$BASE_REF" != "master" ]; then
