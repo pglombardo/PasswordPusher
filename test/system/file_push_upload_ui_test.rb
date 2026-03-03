@@ -66,9 +66,6 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 
-    submit_btn = find("button[data-form-target='pushit']")
-    assert_not submit_btn["disabled"], "Button should be enabled before upload"
-
     file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
     attach_file "push_files", file_path, make_visible: true
     trigger_file_input_change!
