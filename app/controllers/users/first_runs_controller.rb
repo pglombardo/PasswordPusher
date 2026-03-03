@@ -7,6 +7,8 @@ class Users::FirstRunsController < Users::RegistrationsController
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
 
+  layout "naked"
+
   def new
     build_resource
     set_minimum_password_length
@@ -26,7 +28,7 @@ class Users::FirstRunsController < Users::RegistrationsController
       resource.confirm if resource.respond_to?(:confirm) && !resource.confirmed?
       # Sign up the user (which includes signing them in)
       sign_up(resource_name, resource)
-      redirect_to after_sign_up_path_for(resource), notice: _("Administrator account created successfully!")
+      redirect_to admin_root_path, notice: _("Administrator account created successfully!")
       # Clear the boot code after the entire success flow completes
       FirstRunBootCode.clear!
     else
