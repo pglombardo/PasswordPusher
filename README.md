@@ -90,10 +90,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 ### Self-Hosted Password Pusher Pro (beta)
 
-Self-hosted **Pro** (with licensing) is in early beta. Pro features not yet in OSS will be available for self-hosted deployments.
-
-- [Join the waitlist](https://waitlister.me/p/self-hosted-pro?utm_source=github&utm_medium=social&utm_campaign=self_hosted_pro_waitlist) for availability and beta access.
-- **Waitlist subscribers get 20% off** their first year’s Self-Hosted Pro license at launch.
+Self-hosted **Pro** (with licensing) is in late beta. Pro features not yet in OSS will be available for self-hosted deployments.
 
 ---
 

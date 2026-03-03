@@ -1,24 +1,35 @@
 name: Dependabot auto-merge
 
+# Runs after any PR check workflow completes. We then verify *all* check runs
+# for the PR's commit are successful before merging (not just the one that fired).
 on:
   workflow_run:
-    workflows: ["Ruby Test Runs"]
+    workflows:
+      - "Ruby Test Runs"
+      - "Lint and Test Charts"
+      - "Brakeman Scan"
+      - "Code scanning results"
+      - "Greetings"
     types:
       - completed
-    branches: [master]
 
 permissions:
   contents: write
   pull-requests: write
+  checks: read
 
 jobs:
   enable-automerge:
     runs-on: ubuntu-latest
-    # Only when the test workflow succeeded and was for a PR
     if: >
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'pull_request'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: master
+
       - name: Get PR number for this run
         id: pr
         run: |
@@ -27,12 +38,39 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge for Dependabot PR (squash)
+      - name: Wait for all checks and merge Dependabot PR
         if: steps.pr.outputs.number != ''
         run: |
-          AUTHOR=$(gh pr view ${{ steps.pr.outputs.number }} --json author -q '.author.login')
-          if [ "$AUTHOR" = "dependabot[bot]" ]; then
-            gh pr merge ${{ steps.pr.outputs.number }} --auto --squash
+          PR_NUM="${{ steps.pr.outputs.number }}"
+          # gh pr view exposes PR creator as .author (not .user)
+          RAW=$(gh pr view "$PR_NUM" --json author,baseRefName,headRefOid -q '((.author.login // "null") | tostring) + " " + .baseRefName + " " + .headRefOid')
+          read -r AUTHOR_LOGIN BASE_REF HEAD_SHA <<< "$RAW"
+
+          case "$AUTHOR_LOGIN" in
+            "dependabot[bot]"|dependabot|app/dependabot) ;;
+            *) echo "Skipping: not a Dependabot PR (author=$AUTHOR_LOGIN)"; exit 0 ;;
+          esac
+          if [ "$BASE_REF" != "master" ]; then
+            echo "Skipping: PR targets $BASE_REF, not master"
+            exit 0
           fi
+
+          # Require all check runs on this commit to be completed and successful (or skipped/neutral)
+          CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/${HEAD_SHA}/check-runs" --jq '.check_runs')
+          TOTAL=$(echo "$CHECK_RUNS" | jq 'length')
+          if [ "$TOTAL" -eq 0 ]; then
+            echo "No check runs yet for commit ${HEAD_SHA}; skipping merge"
+            exit 0
+          fi
+
+          PENDING_OR_FAILED=$(echo "$CHECK_RUNS" | jq '[.[] | select(.status != "completed" or (.conclusion != "success" and .conclusion != "skipped" and .conclusion != "neutral"))] | length')
+          if [ "$PENDING_OR_FAILED" -ne 0 ]; then
+            echo "Not all checks passed (pending or failed: $PENDING_OR_FAILED); skipping merge"
+            echo "$CHECK_RUNS" | jq -r '.[] | "  \(.name): status=\(.status) conclusion=\(.conclusion)"'
+            exit 0
+          fi
+
+          echo "All $TOTAL check(s) passed; merging PR #${PR_NUM}"
+          gh pr merge "$PR_NUM" --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
