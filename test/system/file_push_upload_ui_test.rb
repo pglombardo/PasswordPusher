@@ -77,8 +77,8 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     assert_selector "#selected-files li.selected-file", wait: 25
     assert_text "test-file.txt", wait: 10
 
-    submit_btn = find("button[data-form-target='pushit']")
-    assert_not submit_btn["disabled"], "Button should be enabled after upload completes"
+    # Wait for form controller to re-enable the button (multi-upload:idle may be async)
+    assert_no_selector "button[data-form-target='pushit'][disabled]", wait: 10
   end
 
   test "file push creates push and lists file" do
