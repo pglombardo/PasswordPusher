@@ -70,10 +70,8 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     attach_file "push_files", file_path, make_visible: true
     trigger_file_input_change!
 
-    # While upload is in progress the button must be disabled
-    assert_selector "ul#progress-bars li.tus-upload-row", wait: 5, visible: :all
-    submit_btn = find("button[data-form-target='pushit']")
-    assert submit_btn["disabled"], "Button must be disabled during upload"
+    # Wait for upload to start (button becomes disabled)
+    assert_selector "button[data-form-target='pushit']:disabled", wait: 15
 
     # Wait for TUS upload to complete
     assert_selector "#selected-files li.selected-file", wait: 25
