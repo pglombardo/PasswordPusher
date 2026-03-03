@@ -357,4 +357,30 @@ class LogEventsTest < ActionController::TestCase
       assert_equal kind.to_s, AuditLog.last.kind, "Expected kind #{kind} but got #{AuditLog.last.kind}"
     end
   end
+
+  test "log_event does not create audit log when push has max audit logs" do
+    @request.env["REMOTE_ADDR"] = "203.0.113.195"
+    @request.env["HTTP_USER_AGENT"] = "Test Agent"
+
+    needed = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - @push.audit_logs.count
+    needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
+    assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, @push.audit_logs.count, "push should have exactly max audit logs"
+
+    assert_no_difference("@push.audit_logs.count") do
+      @controller.log_event(@push, :view)
+    end
+  end
+
+  test "log_event still creates audit log when push has one fewer than max" do
+    @request.env["REMOTE_ADDR"] = "203.0.113.195"
+    @request.env["HTTP_USER_AGENT"] = "Test Agent"
+
+    needed = (AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1) - @push.audit_logs.count
+    needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
+    assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1, @push.audit_logs.count
+
+    assert_difference("@push.audit_logs.count", 1) do
+      @controller.log_event(@push, :view)
+    end
+  end
 end
