@@ -390,6 +390,35 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     store&.destroy! if defined?(store) && store.respond_to?(:exist?) && store.exist?
   end
 
+  # ---- session tus_upload_count (block push while uploads in progress) ----
+
+  test "POST create increments session tus_upload_count so push create is blocked" do
+    create_tus_upload(upload_length: 3)
+    # Without finalizing, try to create a file push
+    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    assert_response :conflict
+    assert_match(/wait.*upload|upload.*finish/i, response.body, "Response must tell user to wait for uploads")
+  end
+
+  test "finalizing upload decrements session tus_upload_count so push create succeeds" do
+    upload_id = create_tus_upload(upload_length: 3)
+    patch_tus_chunk(upload_id, "xyz")
+    assert_response :no_content
+    signed_id = response.headers["X-Signed-Id"]
+    assert signed_id.present?, "Finalize must return X-Signed-Id"
+    post pushes_path, params: { push: { kind: "file", payload: "msg", files: [signed_id] } }
+    assert_response :redirect, "Push create must succeed after upload finalized"
+  end
+
+  test "push update (file) returns 409 when TUS upload in progress" do
+    push = Push.create!(kind: "file", user: @user)
+    push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
+    create_tus_upload(upload_length: 1)
+    patch push_path(push), params: { push: { name: "Updated" } }
+    assert_response :conflict
+    assert_match(/wait.*upload|upload.*finish/i, response.body)
+  end
+
   private
 
   # Creates a TUS upload via POST; returns the upload id from Location.

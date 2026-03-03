@@ -106,6 +106,8 @@ export default class extends Controller {
     this.fileCount = 0
     // Per-instance counter for TUS progress row ids (avoids collisions with multiple controllers)
     this.tusUploadId = 0
+    // Number of uploads in progress (TUS or direct); used to disable submit button
+    this.activeUploadCount = 0
 
     ActiveStorage.start()
 
@@ -142,7 +144,18 @@ export default class extends Controller {
     }
   }
 
+  _dispatchUploadingState() {
+    if (this.activeUploadCount > 0) {
+      this.element.dispatchEvent(new CustomEvent("multi-upload:uploading", { bubbles: true }))
+    } else {
+      this.element.dispatchEvent(new CustomEvent("multi-upload:idle", { bubbles: true }))
+    }
+  }
+
   _onDirectUploadInitialize(event) {
+    this.activeUploadCount += 1
+    this._dispatchUploadingState()
+
     const { detail } = event
     const { id, file } = detail
 
@@ -183,6 +196,8 @@ export default class extends Controller {
 
   _onDirectUploadEnd(event) {
     setProgressBarComplete(document.getElementById(`direct-upload-${event.detail.id}`))
+    this.activeUploadCount = Math.max(0, this.activeUploadCount - 1)
+    this._dispatchUploadingState()
   }
 
   addFile(event) {
@@ -320,6 +335,9 @@ export default class extends Controller {
 
       const uploadStartTime = Date.now()
 
+      controller.activeUploadCount += 1
+      controller._dispatchUploadingState()
+
       const chunkSize = this.hasTusChunkSizeValue && this.tusChunkSizeValue > 0
         ? this.tusChunkSizeValue
         : 2 * 1024 * 1024 // 2 MB fallback
@@ -337,6 +355,8 @@ export default class extends Controller {
           setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
         },
         onSuccess: (payload) => {
+          controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
+          controller._dispatchUploadingState()
           const res = payload?.lastResponse
           const signedId = res?.getHeader?.('X-Signed-Id') ?? res?.getHeader?.('x-signed-id')
           if (!signedId) {
@@ -375,6 +395,8 @@ export default class extends Controller {
           controller.updateFilesFooter()
         },
         onError: (err) => {
+          controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
+          controller._dispatchUploadingState()
           setProgressBarError(progressBar, err.message)
           controller.fileCount -= 1
           controller.updateFilesFooter()

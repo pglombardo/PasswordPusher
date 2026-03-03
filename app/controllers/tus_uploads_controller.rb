@@ -25,6 +25,8 @@ class TusUploadsController < ApplicationController
     store = TusUploadStore.new(id)
     store.create!(upload_length: upload_length, filename: filename, content_type: content_type)
 
+    session[:tus_upload_count] = (session[:tus_upload_count] || 0) + 1
+
     # Use relative URL so the client (browser) sends PATCH to the same origin
     # (e.g. the reverse proxy on 80/443), avoiding unreachable internal URLs like localhost:5100.
     response.headers["Location"] = upload_path(id)
@@ -101,6 +103,7 @@ class TusUploadsController < ApplicationController
         upload_length = store.upload_length
         blob = store.finalize_to_blob!
         finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset)
+        session[:tus_upload_count] = [0, (session[:tus_upload_count] || 0) - 1].max
         response.headers["Upload-Offset"] = new_offset.to_s
         response.headers["Upload-Length"] = upload_length.to_s
         response.headers["X-Signed-Id"] = blob.signed_id

@@ -62,6 +62,30 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     assert footer.text.include?("per file"), "Footer should show max size per file when using TUS"
   end
 
+  test "submit button is disabled during upload and enabled after" do
+    visit new_push_path(tab: "files")
+    assert_selector "a.nav-link.active", text: /file/i, wait: 5
+
+    submit_btn = find("button[data-form-target='pushit']")
+    assert_not submit_btn["disabled"], "Button should be enabled before upload"
+
+    file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
+    attach_file "push_files", file_path, make_visible: true
+    trigger_file_input_change!
+
+    # While upload is in progress the button must be disabled
+    assert_selector "ul#progress-bars li.tus-upload-row", wait: 5, visible: :all
+    submit_btn = find("button[data-form-target='pushit']")
+    assert submit_btn["disabled"], "Button must be disabled during upload"
+
+    # Wait for TUS upload to complete
+    assert_selector "#selected-files li.selected-file", wait: 25
+    assert_text "test-file.txt", wait: 10
+
+    submit_btn = find("button[data-form-target='pushit']")
+    assert_not submit_btn["disabled"], "Button should be enabled after upload completes"
+  end
+
   test "file push creates push and lists file" do
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
