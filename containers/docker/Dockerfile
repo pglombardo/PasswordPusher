@@ -24,7 +24,8 @@ RUN apk update && apk add --no-cache \
     yaml-dev \
     yarn \
     pkgconf \
-    openssl-dev
+    openssl-dev \
+    libffi-dev
 
 ENV APP_ROOT=/opt/PasswordPusher
 ENV RACK_ENV=production RAILS_ENV=production
