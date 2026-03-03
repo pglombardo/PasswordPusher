@@ -55,12 +55,14 @@ class TusUploadsController < ApplicationController
     end
 
     content_length = request.content_length
+    max_chunk = helpers.tus_chunk_size_bytes
     if content_length.present?
-      max_chunk = helpers.tus_chunk_size_bytes
       if max_chunk.positive? && content_length > max_chunk
         return head :payload_too_large
       end
     end
+    # When Content-Length is absent (e.g. chunked encoding), we still enforce max_chunk
+    # in the store by limiting how many bytes we read from the body.
 
     unless store.exist?
       # Retry of final PATCH after we already finalized: return success so client gets X-Signed-Id
@@ -82,7 +84,11 @@ class TusUploadsController < ApplicationController
     expected_offset = raw_offset.to_s.strip.to_i
 
     begin
-      new_offset = store.append_chunk!(offset: expected_offset, io: request.body)
+      new_offset = store.append_chunk!(
+        offset: expected_offset,
+        io: request.body,
+        max_bytes: max_chunk.positive? ? max_chunk : nil
+      )
     rescue TusUploadStore::OffsetMismatch => e
       response.headers["Upload-Offset"] = e.current_offset.to_s
       return head :conflict

@@ -249,6 +249,24 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :payload_too_large
   end
 
+  # When Content-Length is absent (e.g. chunked transfer encoding), the controller cannot
+  # reject oversized payloads by header; the store caps bytes read per PATCH via max_bytes.
+  # This test verifies that path: only max_chunk bytes are written even when body is larger.
+  test "PATCH without Content-Length (chunked) writes at most tus_chunk_size bytes" do
+    Settings.files.tus_chunk_size = 3 # 3 bytes per chunk
+    upload_id = create_tus_upload(upload_length: 10)
+    body = "abcdefghij"
+    patch upload_path(upload_id),
+      params: body,
+      headers: {"Content-Type" => "application/offset+octet-stream", "Upload-Offset" => "0"},
+      env: { "CONTENT_LENGTH" => nil }
+    assert_response :no_content, "PATCH without Content-Length should succeed and cap at max_chunk"
+    assert_equal "3", response.headers["Upload-Offset"], "Only 3 bytes (tus_chunk_size) must be accepted"
+    store = TusUploadStore.new(upload_id)
+    assert store.exist?
+    assert_equal 3, File.size(store.data_path), "Store must not write more than max_chunk when Content-Length absent"
+  end
+
   test "PATCH retry after finalize returns 204 with X-Signed-Id from cache" do
     # Test uses a real cache so finalized_upload_cache_write is persisted (test env uses :null_store by default)
     original_cache = Rails.cache

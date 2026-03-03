@@ -82,7 +82,10 @@ class TusUploadStore
     meta["upload_offset"].to_i
   end
 
-  def append_chunk!(offset:, io:)
+  # Append at most the remaining bytes (upload_length - current offset), and optionally
+  # cap at max_bytes per request (e.g. tus_chunk_size) so chunked transfers are bounded
+  # when Content-Length is absent.
+  def append_chunk!(offset:, io:, max_bytes: nil)
     raise NotFound unless exist?
 
     # Lock file is not unlinked here; it is removed with the whole upload dir in destroy! (on finalize)
@@ -93,9 +96,15 @@ class TusUploadStore
       current = upload_offset
       raise OffsetMismatch, current if offset != current
 
+      remaining = upload_length - current
+      return current if remaining <= 0
+
+      limit = remaining
+      limit = [remaining, max_bytes].min if max_bytes.present? && max_bytes.positive?
+
       mode = current.zero? ? "wb" : "ab"
-      File.open(data_path, mode) { |f| IO.copy_stream(io, f) }
-      new_offset = File.size(data_path)
+      copied = File.open(data_path, mode) { |f| IO.copy_stream(io, f, limit) }
+      new_offset = current + copied
       update_offset!(new_offset)
       new_offset
     end
