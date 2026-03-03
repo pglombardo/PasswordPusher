@@ -64,7 +64,8 @@ class FirstRunTest < ApplicationSystemTestCase
 
     click_button "Create Admin Account"
 
-    assert_text "Administrator account created successfully!", wait: 10
+    assert_current_path admin_root_path, wait: 10
+    assert_text "Welcome to the Password Pusher administration panel", wait: 5
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE), "Boot code file should be cleared"
     assert_equal 1, User.count
     user = User.last
