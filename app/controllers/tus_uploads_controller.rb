@@ -190,6 +190,19 @@ class TusUploadsController < ApplicationController
     [filename.presence, content_type.presence]
   end
 
+  TUS_CONTENT_TYPE_BLOCKLIST = %w[
+    text/html text/javascript application/javascript application/x-javascript
+    application/ecmascript text/vbscript
+  ].freeze
+
+  def sanitize_upload_content_type(value)
+    return nil if value.blank?
+    type = value.to_s.strip.downcase.split(/\s*;\s*/).first
+    return nil if type.blank?
+    return nil if TUS_CONTENT_TYPE_BLOCKLIST.include?(type)
+    type.presence
+  end
+
   def sanitize_upload_filename(name)
     return if name.blank?
     # Strip surrounding whitespace
