@@ -66,7 +66,8 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     visit new_push_path(tab: "files")
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 
-    file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
+    # Use a larger file so upload takes long enough to observe the disabled state
+    file_path = Rails.root.join("test", "fixtures", "files", "monkey.png")
     attach_file "push_files", file_path, make_visible: true
     trigger_file_input_change!
 
@@ -75,7 +76,7 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
 
     # Wait for TUS upload to complete
     assert_selector "#selected-files li.selected-file", wait: 25
-    assert_text "test-file.txt", wait: 10
+    assert_text "monkey.png", wait: 10
 
     # Wait for form controller to re-enable the button (multi-upload:idle may be async)
     assert_no_selector "button[data-form-target='pushit'][disabled]", wait: 10
