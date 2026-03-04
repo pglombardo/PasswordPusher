@@ -62,6 +62,18 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
   end
 
+  test "first run workflow is skipped when enable_logins is false" do
+    Settings.enable_logins = false
+    User.destroy_all
+    assert FirstRunBootCode.needed?, "precondition: first run should be needed"
+
+    get root_url
+    assert_response :success
+
+    get first_run_url
+    assert_redirected_to root_url
+  end
+
   test "first run page is not accessible when users exist" do
     User.create!(
       email: "existing@example.com",
