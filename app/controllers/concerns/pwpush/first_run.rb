@@ -11,6 +11,7 @@ module Pwpush
 
       def ensure_user_exists
         return if ENV.key?("PWP_PUBLIC_GATEWAY")
+        return unless Settings.enable_logins
 
         if FirstRunBootCode.needed?
           unless Rails.env.test?

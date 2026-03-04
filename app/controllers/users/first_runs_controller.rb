@@ -4,6 +4,7 @@ class Users::FirstRunsController < Users::RegistrationsController
   invisible_captcha only: :create,
     timestamp_enabled: Rails.env.production?,
     spinner_enabled: Rails.env.production?
+  before_action :require_logins_enabled
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
 
@@ -47,6 +48,12 @@ class Users::FirstRunsController < Users::RegistrationsController
   end
 
   private
+
+  def require_logins_enabled
+    return if Settings.enable_logins
+
+    redirect_to root_url
+  end
 
   def prevent_repeats
     return unless User.any?
