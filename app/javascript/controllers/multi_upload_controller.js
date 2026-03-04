@@ -449,6 +449,7 @@ export default class extends Controller {
 
   updateFilesFooter() {
     const footer = document.getElementById("file-count-footer")
+    if (!footer) return
     const maxFiles = this.maxFilesValue
     footer.innerHTML = this.fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
   }

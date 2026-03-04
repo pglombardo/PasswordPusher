@@ -2,10 +2,13 @@
 
 # Minimal TUS-inspired resumable upload endpoint.
 # POST create, PATCH append, HEAD status. Finalize creates ActiveStorage::Blob and returns signed_id.
+# CSRF is skipped for the TUS flow; we mitigate session-poisoning (cross-site POST incrementing
+# tus_upload_count) by requiring Origin/Referer to match the request host when present.
 class TusUploadsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[create update]
   before_action :require_tus_enabled
   before_action :authenticate_user!
+  before_action :reject_cross_origin_tus_requests
 
   # POST /uploads
   def create
@@ -99,11 +102,12 @@ class TusUploadsController < ApplicationController
     end
 
     if store.complete?
+      # Decrement before finalize so the count is correct even if finalize_to_blob! raises
+      session[:tus_upload_count] = [0, (session[:tus_upload_count] || 0) - 1].max
       begin
         upload_length = store.upload_length
         blob = store.finalize_to_blob!
         finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset)
-        session[:tus_upload_count] = [0, (session[:tus_upload_count] || 0) - 1].max
         response.headers["Upload-Offset"] = new_offset.to_s
         response.headers["Upload-Length"] = upload_length.to_s
         response.headers["X-Signed-Id"] = blob.signed_id
@@ -121,6 +125,28 @@ class TusUploadsController < ApplicationController
   end
 
   private
+
+  def reject_cross_origin_tus_requests
+    origin = request.headers["Origin"].presence
+    referer = request.headers["Referer"].presence
+    return if origin.blank? && referer.blank? # Allow when neither sent (e.g. same-origin no Origin)
+
+    allowed_host = request.host
+
+    if origin.present?
+      return head :forbidden unless header_origin_host_allowed?(origin, allowed_host)
+    end
+    if referer.present?
+      return head :forbidden unless header_origin_host_allowed?(referer, allowed_host)
+    end
+  end
+
+  def header_origin_host_allowed?(header_value, allowed_host)
+    uri = URI.parse(header_value)
+    uri.host&.downcase == allowed_host.downcase
+  rescue URI::InvalidURIError
+    false
+  end
 
   def require_tus_enabled
     return if helpers.tus_uploads_enabled?

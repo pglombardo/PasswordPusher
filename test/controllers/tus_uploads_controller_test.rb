@@ -82,6 +82,35 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
+  test "POST create with cross-origin Origin returns 403" do
+    post uploads_path,
+      headers: {"Upload-Length" => "7", "Origin" => "https://evil.example.com"}
+    assert_response :forbidden
+  end
+
+  test "POST create with cross-origin Referer returns 403" do
+    post uploads_path,
+      headers: {"Upload-Length" => "7", "Referer" => "https://evil.example.com/malicious"}
+    assert_response :forbidden
+  end
+
+  test "POST create without Origin or Referer succeeds (same-origin)" do
+    post uploads_path, headers: {"Upload-Length" => "7"}
+    assert_response :created
+  end
+
+  test "PATCH with cross-origin Origin returns 403" do
+    upload_id = create_tus_upload(upload_length: 3)
+    patch upload_path(upload_id),
+      params: "xyz",
+      headers: {
+        "Content-Type" => "application/offset+octet-stream",
+        "Upload-Offset" => "0",
+        "Origin" => "https://evil.example.com"
+      }
+    assert_response :forbidden
+  end
+
   test "POST create without Upload-Metadata creates upload" do
     upload_id = create_tus_upload(upload_length: 3)
     patch_tus_chunk(upload_id, "xyz")
