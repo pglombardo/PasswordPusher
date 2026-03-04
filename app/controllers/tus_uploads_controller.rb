@@ -184,7 +184,7 @@ class TusUploadsController < ApplicationController
       next unless decoded
       case key&.downcase
       when "filename" then filename = sanitize_upload_filename(decoded)
-      when "filetype" then content_type = decoded
+      when "filetype" then content_type = sanitize_upload_content_type(decoded)
       end
     end
     [filename.presence, content_type.presence]

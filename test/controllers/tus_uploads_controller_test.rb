@@ -150,6 +150,30 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 4, blob.byte_size
   end
 
+  test "Upload-Metadata filetype text/html is rejected and blob gets application/octet-stream" do
+    # filetype "text/html" base64 = dGV4dC9odG1s
+    upload_id = create_tus_upload(
+      upload_length: 2,
+      upload_metadata: "filename Zm9v.html,filetype dGV4dC9odG1s"
+    )
+    patch_tus_chunk(upload_id, "ab")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "application/octet-stream", blob.content_type, "Blocked filetype must not be stored"
+  end
+
+  test "Upload-Metadata filetype text/javascript is rejected" do
+    # filetype "text/javascript" base64 = dGV4dC9qYXZhc2NyaXB0
+    upload_id = create_tus_upload(
+      upload_length: 1,
+      upload_metadata: "filetype dGV4dC9qYXZhc2NyaXB0"
+    )
+    patch_tus_chunk(upload_id, "x")
+    assert_response :no_content
+    blob = ActiveStorage::Blob.find_signed(response.headers["X-Signed-Id"])
+    assert_equal "application/octet-stream", blob.content_type
+  end
+
   # ---- Upload-Metadata filename sanitization ----
 
   test "Upload-Metadata filename path traversal is sanitized to basename" do

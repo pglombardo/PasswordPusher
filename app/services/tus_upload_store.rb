@@ -123,7 +123,8 @@ class TusUploadStore
       ActiveStorage::Blob.create_and_upload!(
         io: io,
         filename: m["filename"].presence || "upload",
-        content_type: m["content_type"].presence || "application/octet-stream"
+        content_type: m["content_type"].presence || "application/octet-stream",
+        identify: false
       )
     end
     destroy!
