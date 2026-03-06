@@ -30,14 +30,23 @@ if defined? Rack::Attack
     Rack::Attack.throttled_response_retry_after_header = true
 
     ### Throttle Spammy Clients
+    #
+    # PRO-style layout: pushes/day/ip (push creation + emails), req/minute/ip, req/second/ip.
+    # API v2–specific throttles (e.g. api/v2/writes/minute/ip, api/v2/writes/burst/ip) are added separately.
 
-    # If any single client IP is making tons of requests, then they're
-    # probably malicious or a poorly-configured scraper. Either way, they
-    # don't deserve to hog all of the app server's CPU. Cut them off!
+    # Paths that create a push (web and JSON API). Used by pushes/day/ip throttle.
+    PUSH_CREATION_PATHS = %w[/p /p.json /f /f.json /r /r.json].freeze
+
+    push_creation_throttle = lambda do |req|
+      req.ip if req.post? && PUSH_CREATION_PATHS.include?(req.path)
+    end
+
+    if Settings.throttling&.pushes_per_day.present? && Settings.throttling.pushes_per_day.positive?
+      throttle("pushes/day/ip", limit: Settings.throttling.pushes_per_day, period: 24.hours, &push_creation_throttle)
+    end
 
     unless Rails.env.test?
-      # Throttle all requests by IP
-      #
+      # Throttle all requests by IP (e.g. 120/minute)
       if Settings.throttling&.minute.present?
         throttle("req/minute/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
           req.ip unless req.path.start_with?("/assets") || req.path == "/up"
@@ -45,7 +54,6 @@ if defined? Rack::Attack
       end
 
       # Throttle API requests by IP address
-      #
       if Settings.throttling&.second.present?
         throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
           req.ip unless req.path == "/up"
