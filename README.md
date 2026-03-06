@@ -88,9 +88,9 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 **Feature comparison:** [pwpush.com/features#matrix](https://pwpush.com/features#matrix)
 
-### Self-Hosted Password Pusher Pro (beta)
+### Self-Hosted Password Pusher Pro
 
-Self-hosted **Pro** (with licensing) is in late beta. Pro features not yet in OSS will be available for self-hosted deployments.
+Self-hosted **Pro** (with licensing) is now available. Pro features not yet in OSS will be available for self-hosted deployments.
 
 ---
 
