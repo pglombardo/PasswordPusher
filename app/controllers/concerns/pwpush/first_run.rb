@@ -17,7 +17,7 @@ module Pwpush
           unless Rails.env.test?
             if request.path.start_with?(first_run_path)
               boot_code = FirstRunBootCode.code
-              Rails.logger.info <<~MESSAGE
+              puts <<~MESSAGE
                 =======================================================================================
                 FIRST RUN SETUP REQUIRED
                 =======================================================================================
