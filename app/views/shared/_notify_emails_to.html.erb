@@ -1,13 +1,16 @@
 <% unless action_name == 'edit' %>
-  <div class='row mb-3'>
-    <div class='col'>
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label"><%= _('Auto Dispatch: Send This Secret Link To...') %></label>
       <div class="input-group">
-        <span class="input-group-text"><%= _('Email notification recipients') %></span>
+        <span class="input-group-text">
+          <i class="bi bi-envelope" aria-hidden="true"></i>
+        </span>
         <%= f.text_field(:notify_emails_to, { class: "form-control",
-                                              placeholder: _('Enter email addresses separated by commas'),
+                                              placeholder: _('Enter email(s) separated by commas.'),
                                               autocomplete: "off" }) %>
+        <%= render "shared/notify_emails_to_locale", form: f %>
       </div>
-      <div class="form-text"><%= _('Enter email addresses separated by commas') %></div>
     </div>
   </div>
 <% end %>

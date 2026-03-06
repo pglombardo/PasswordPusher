@@ -19,7 +19,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 1
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 1
   end
 
   test "form partial hides notify_emails fields when user not signed in" do
@@ -30,7 +30,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 0
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 
   test "form partial hides notify_emails fields when smtp not configured" do
@@ -41,7 +41,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 0
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 
   test "url_form partial shows notify_emails fields when smtp configured and user signed in" do
@@ -52,7 +52,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 1
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 1
   end
 
   test "url_form partial hides notify_emails fields when user not signed in" do
@@ -63,7 +63,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 0
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 
   test "files_form partial shows notify_emails fields when smtp configured and user signed in" do
@@ -74,7 +74,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 1
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 1
   end
 
   test "files_form partial hides notify_emails fields when user not signed in" do
@@ -85,7 +85,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 0
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 
   test "qr_form partial shows notify_emails fields when smtp configured and user signed in" do
@@ -96,7 +96,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 1
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 1
   end
 
   test "qr_form partial hides notify_emails fields when user not signed in" do
@@ -107,6 +107,6 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
       end
     end
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
-    assert_select "select[name=?]", "push[notify_emails_to_locale]", count: 0
+    assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 end
