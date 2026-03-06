@@ -17,6 +17,9 @@ Minitest::Test.include(ActiveSupport::Testing::Assertions)
 # Uncomment for awesome colorful output
 # require "minitest/pride"
 
+# Load test support (e.g. shared concerns for TUS tests)
+Dir[Rails.root.join("test/support/**/*.rb")].sort.each { |f| require f }
+
 # Unset all PWP__ environment variables before tests
 # This is to ensure that the test environment is not affected by the PWP__ environment variables
 # that may be set in .env files, local development, or other environments.

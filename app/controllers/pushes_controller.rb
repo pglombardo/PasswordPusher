@@ -123,6 +123,17 @@ class PushesController < BaseController
   end
 
   def create
+    if params.dig(:push, :kind) == "file" && (session[:tus_upload_count] || 0).positive?
+      @push = Push.new(push_params)
+      @push.user_id = current_user.id if user_signed_in?
+      assign_deletable_by_viewer(@push, push_params)
+      assign_retrieval_step(@push, push_params)
+      @files_tab = true
+      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before creating the push."))
+      render action: "new", status: :conflict
+      return
+    end
+
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
@@ -152,6 +163,13 @@ class PushesController < BaseController
 
   # PATCH/PUT /p/:url_token
   def update
+    if @push.file? && (session[:tus_upload_count] || 0).positive?
+      @files_tab = true
+      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
+      render action: "edit", status: :conflict
+      return
+    end
+
     # Verify the push belongs to the current user
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")

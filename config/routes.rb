@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     draw :madmin
     draw :users
     draw :pushes
+    draw :uploads
     draw :pwp_api
 
     apipie
