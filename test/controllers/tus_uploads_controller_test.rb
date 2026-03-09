@@ -472,6 +472,31 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/wait.*upload|upload.*finish/i, response.body)
   end
 
+  test "visiting new push form resets session tus_upload_count" do
+    create_tus_upload(upload_length: 3)
+    
+    # Normally this would be blocked, but visiting new page resets it
+    get new_push_path(tab: "files")
+    assert_response :success
+    
+    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    assert_response :redirect
+  end
+
+  test "visiting edit push form resets session tus_upload_count" do
+    push = Push.create!(kind: "file", user: @user)
+    push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
+
+    create_tus_upload(upload_length: 3)
+    
+    # Normally this would be blocked, but visiting edit page resets it
+    get edit_push_path(push)
+    assert_response :success
+
+    patch push_path(push), params: { push: { name: "Updated" } }
+    assert_response :redirect
+  end
+
   private
 
   # Creates a TUS upload via POST; returns the upload id from Location.

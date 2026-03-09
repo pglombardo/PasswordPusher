@@ -237,7 +237,7 @@ export default class extends Controller {
     }
 
     if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
-      this.addFileViaTus(originalInput, originalParent, arrayLength, maxFiles)
+      this.addFileViaTus(originalInput, arrayLength)
       return
     }
 
@@ -266,7 +266,7 @@ export default class extends Controller {
     originalParent.append(newInput)
   }
 
-  addFileViaTus(originalInput, _originalParent, arrayLength, _maxFiles) {
+  addFileViaTus(originalInput, arrayLength) {
     const controller = this
     const endpoint = this.tusEndpointValue || '/uploads'
     const inputName = this.filesInputNameValue || 'push[files][]'
@@ -281,57 +281,43 @@ export default class extends Controller {
       const id = ++this.tusUploadId
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
 
+      if (!bars) continue
+
       let li, progressBar, pauseBtn, resumeBtn
-      if (tusTpl && bars) {
-        const row = tusTpl.content.cloneNode(true)
-        li = row.querySelector("li")
-        li.id = `progress-${id}`
-        row.querySelector(".tus-row-name").textContent = file.name
-        progressBar = row.querySelector(".tus-row-progress-bar")
-        progressBar.id = `tus-upload-${id}`
-        progressBar.setAttribute("aria-label", file.name)
-        pauseBtn = row.querySelector(".tus-row-pause")
-        resumeBtn = row.querySelector(".tus-row-resume")
-        setTusProgressDetails(progressBar, 0, file.size)
-        bars.append(row)
+      let rowNode
+
+      if (tusTpl) {
+        rowNode = tusTpl.content.cloneNode(true)
       } else {
-        li = document.createElement("li")
-        li.id = `progress-${id}`
-        li.className = "list-group-item list-group-item-primary small tus-upload-row d-flex flex-wrap align-items-center gap-2"
-        const nameSpan = document.createElement("span")
-        nameSpan.className = "text-truncate small"
-        nameSpan.style.minWidth = "6em"
-        nameSpan.textContent = file.name
-        li.appendChild(document.createElement("span")).className = "badge bg-info text-nowrap"
-        li.lastElementChild.textContent = "Resumable"
-        li.appendChild(nameSpan)
-        const progressWrap = document.createElement("div")
-        progressWrap.className = "progress flex-grow-1"
-        progressWrap.style = "height: 1.5rem; min-width: 80px"
-        progressBar = document.createElement("div")
-        progressBar.className = "progress-bar progress-bar-striped progress-bar-animated"
-        progressBar.setAttribute("role", "progressbar")
-        progressBar.setAttribute("aria-label", file.name)
-        progressBar.id = `tus-upload-${id}`
-        progressWrap.appendChild(progressBar)
-        li.appendChild(progressWrap)
-        const sizeSpan = document.createElement("span")
-        sizeSpan.className = "tus-row-size text-muted small text-nowrap"
-        sizeSpan.setAttribute("aria-hidden", "true")
-        li.appendChild(sizeSpan)
-        pauseBtn = document.createElement("button")
-        pauseBtn.type = "button"
-        pauseBtn.className = "btn btn-sm btn-outline-secondary"
-        pauseBtn.innerHTML = "<span class=\"bi bi-pause-fill\"></span>"
-        resumeBtn = document.createElement("button")
-        resumeBtn.type = "button"
-        resumeBtn.className = "btn btn-sm btn-outline-success d-none"
-        resumeBtn.innerHTML = "<span class=\"bi bi-play-fill\"></span>"
-        li.appendChild(pauseBtn)
-        li.appendChild(resumeBtn)
-        setTusProgressDetails(progressBar, 0, file.size)
-        bars.append(li)
+        const temp = document.createElement("template")
+        temp.innerHTML = `
+          <li class="list-group-item list-group-item-primary small tus-upload-row d-flex flex-wrap align-items-center gap-2">
+            <span class="badge bg-info text-nowrap">Resumable</span>
+            <span class="tus-row-name text-truncate small" style="min-width: 6em"></span>
+            <div class="progress flex-grow-1 tus-row-progress-wrap" style="height: 1.5rem; min-width: 80px">
+              <div class="progress-bar progress-bar-striped progress-bar-animated tus-row-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+            <span class="tus-row-size text-muted small text-nowrap" aria-hidden="true"></span>
+            <button type="button" class="btn btn-sm btn-outline-secondary d-none tus-row-pause" aria-label="Pause upload" title="Pause"><span class="bi bi-pause-fill"></span></button>
+            <button type="button" class="btn btn-sm btn-outline-success d-none tus-row-resume" aria-label="Resume upload" title="Resume"><span class="bi bi-play-fill"></span></button>
+          </li>
+        `
+        rowNode = temp.content.cloneNode(true)
       }
+
+      li = rowNode.querySelector("li")
+      li.id = `progress-${id}`
+      rowNode.querySelector(".tus-row-name").textContent = file.name
+      
+      progressBar = rowNode.querySelector(".tus-row-progress-bar") || rowNode.querySelector('[role="progressbar"]')
+      progressBar.id = `tus-upload-${id}`
+      progressBar.setAttribute("aria-label", file.name)
+      
+      pauseBtn = rowNode.querySelector(".tus-row-pause")
+      resumeBtn = rowNode.querySelector(".tus-row-resume")
+      
+      setTusProgressDetails(progressBar, 0, file.size)
+      bars.append(rowNode)
 
       const uploadStartTime = Date.now()
 
@@ -353,6 +339,13 @@ export default class extends Controller {
         onProgress: (bytesUploaded, bytesTotal) => {
           const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
           setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
+        },
+        onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
+          if (bytesAccepted < bytesTotal) {
+            if (pauseBtn && pauseBtn.classList.contains('d-none') && resumeBtn && resumeBtn.classList.contains('d-none')) {
+              pauseBtn.classList.remove('d-none')
+            }
+          }
         },
         onSuccess: (payload) => {
           controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)

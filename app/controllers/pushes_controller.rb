@@ -101,6 +101,7 @@ class PushesController < BaseController
 
   # GET /passwords/new
   def new
+    session[:tus_upload_count] = 0
     @push = Push.new
 
     set_kind_by_tab
@@ -112,6 +113,8 @@ class PushesController < BaseController
 
   # GET /p/:url_token/edit
   def edit
+    session[:tus_upload_count] = 0
+
     # Verify the push belongs to the current user
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
