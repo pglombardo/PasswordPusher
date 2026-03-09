@@ -96,10 +96,15 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   test "notify body includes valid for sentence with duration and views" do
     @push.update!(expire_after_days: 7, expire_after_views: 5)
     mail = PushCreatedMailer.with(record: @push).notify
-    body = mail.body.encoded
-    assert_match(/valid for .* or until .* views/i, body, "body should explain link validity with duration and view limit")
-    assert_includes body, "7", "full duration for 7 days should include 7"
-    assert_includes body, "5", "view limit should appear"
+    html = mail.html_part.body.decoded
+    text = mail.text_part.body.decoded
+    
+    # Verify exact wording so we catch errors like 'minute(s) days'
+    assert_no_match(/minute\(s\) days/, html, "HTML body should not have redundant 'days' wording")
+    assert_no_match(/minute\(s\) days/, text, "Text body should not have redundant 'days' wording")
+    
+    assert_match(/valid for 7 day\(s\).*?, or until 5 views/i, html, "HTML body should explain link validity with duration and view limit accurately")
+    assert_match(/valid for 7 day\(s\).*?, or until 5 views/i, text, "Text body should explain link validity with duration and view limit accurately")
   end
 
   test "notify body displays full duration for 1 day expiry" do
