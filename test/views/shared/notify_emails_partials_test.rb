@@ -17,8 +17,8 @@ class NotifyEmailsPartialsViewTest < ActionView::TestCase
   test "_notify_emails_to renders email recipients field and helper text" do
     render partial: "shared/notify_emails_to", locals: {f: @builder}
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
-    assert_match(/Email notification recipients/i, rendered)
-    assert_match(/Enter email addresses separated by commas/i, rendered)
+    assert_match(/Auto Dispatch: Send This Secret Link To/i, rendered)
+    assert_match(/Enter email\(s\) separated by commas/i, rendered)
   end
 
   test "_notify_emails_to_locale renders locale hidden field and dropdown with flags" do
