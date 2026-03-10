@@ -7,9 +7,6 @@ module Madmin
     include Devise::Test::IntegrationHelpers
 
     def setup
-      Settings.enable_logins = true
-      Rails.application.reload_routes!
-
       @mr_admin = users(:mr_admin)
       @luca = users(:luca)
       @giuliana = users(:giuliana)
@@ -19,8 +16,6 @@ module Madmin
 
     def teardown
       sign_out @mr_admin
-      Settings.enable_logins = false
-      Rails.application.reload_routes!
     end
 
     test "admin can delete another user via madmin" do

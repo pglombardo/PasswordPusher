@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class PushCreationWorkflowsTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Settings.enable_url_pushes = true
     Settings.enable_file_pushes = true

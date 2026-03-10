@@ -6,7 +6,6 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
   end
@@ -81,5 +80,59 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     get expired_urls_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
+  end
+
+  # When URL pushes are disabled (Settings.enable_url_pushes = false)
+  test "when URL pushes disabled, new push form with tab url redirects to root with notice" do
+    Settings.enable_url_pushes = false
+    Rails.application.reload_routes!
+
+    get new_push_path(tab: "url")
+
+    assert_response :redirect
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match(/URL pushes are disabled\./i, flash[:notice])
+  ensure
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
+  end
+
+  test "when URL pushes disabled, creating a URL push returns 422 with validation error" do
+    Settings.enable_url_pushes = false
+    Rails.application.reload_routes!
+
+    post pushes_path, params: {
+      push: {
+        kind: "url",
+        payload: "https://example.com"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_match(/URL pushes are disabled\./i, response.body)
+  ensure
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
+  end
+
+  test "when URL pushes disabled, logged-in user creating URL push returns 422 with validation error" do
+    Settings.enable_url_pushes = false
+    Rails.application.reload_routes!
+    @luca = users(:luca)
+    sign_in @luca
+
+    post pushes_path, params: {
+      push: {
+        kind: "url",
+        payload: "https://example.com"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_match(/URL pushes are disabled\./i, response.body)
+  ensure
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
   end
 end

@@ -434,12 +434,7 @@ class PushesController < BaseController
 
   def check_allowed
     if action_name == "index"
-      if Settings.enable_logins
-        authenticate_user!
-      else
-        redirect_to :root
-        return
-      end
+      authenticate_user!
     end
 
     @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
@@ -461,9 +456,7 @@ class PushesController < BaseController
 
     case @push_kind
     when "file"
-      # File pushes only enabled when logins are enabled.
-
-      if Settings.enable_logins && Settings.enable_file_pushes
+      if Settings.enable_file_pushes
         unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
@@ -500,9 +493,7 @@ class PushesController < BaseController
         authenticate_user!
       end
 
-      if %w[new create].include?(action_name) && Settings.enable_logins && !Settings.allow_anonymous
-        # Require authentication if allow_anonymous is false
-        # See config/settings.yml
+      if %w[new create].include?(action_name) && !Settings.allow_anonymous
         authenticate_user!
       end
     end

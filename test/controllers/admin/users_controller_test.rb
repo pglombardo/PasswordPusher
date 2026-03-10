@@ -7,9 +7,6 @@ module Admin
     include Devise::Test::IntegrationHelpers
 
     setup do
-      Settings.enable_logins = true
-      Rails.application.reload_routes!
-
       @mr_admin = users(:mr_admin)
       @luca = users(:luca)
       @giuliana = users(:giuliana)
@@ -19,8 +16,6 @@ module Admin
 
     teardown do
       sign_out @mr_admin
-      Settings.enable_logins = false
-      Rails.application.reload_routes!
     end
 
     # Destroy action tests

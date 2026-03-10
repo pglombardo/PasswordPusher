@@ -111,25 +111,12 @@ cloudflare_proxy: false
 # =============================================================================
 # Feature toggles
 # =============================================================================
-# Enable or disable major features. Logins are required for URL, file, and QR pushes.
-
-### Logins (User accounts)
-#
-# For instructions on how to enable logins, see this page:
-# https://docs.pwpush.com/docs/self-hosted-configuration/#logins
-#
-# Environment variable override:
-# PWP__ENABLE_LOGINS='false'
-#
-enable_logins: true
+# Enable or disable major features. Logins are always enabled in v2.
 
 ### URL Pushes
 #
 # Enable or disable URL based pushes.  These allow you to share URLs securely.
 # Like regular pushes, they expire after a set time or amount of views.
-#
-# Note that `enable_logins` is required for URL based pushes to work.  It is a
-# feature for logged in users only.
 #
 # Environment variable override:
 # PWP__ENABLE_URL_PUSHES='false'
@@ -140,8 +127,6 @@ enable_url_pushes: true
 #
 # If enabling file uploads, make sure to fill out the 'files' section below.
 #
-# Note that `enable_logins` is required for file uploads to work.  It is a
-# feature for logged in users only.
 #
 # Environment variable override:
 # PWP__ENABLE_FILE_PUSHES='false'
@@ -153,8 +138,6 @@ enable_file_pushes: true
 # Enable or disable QR code based pushes.  These allow you to share QR codes securely.
 # Like regular pushes, they expire after a set time or amount of views.
 #
-# Note that `enable_logins` is required for QR code based pushes to work.  It is a
-# feature for logged in users only.
 #
 # Environment variable override:
 # PWP__ENABLE_QR_PUSHES='false'
@@ -176,7 +159,7 @@ enable_qr_pushes: true
 allow_anonymous: true
 
 # =============================================================================
-# Authentication (when logins are enabled)
+# Authentication
 # =============================================================================
 
 ## Login Session Timeout
@@ -263,8 +246,8 @@ enable_user_account_emails: false
 #
 # When logins are enabled, an SMTP server is required to send emails to users
 # for things such as forgot password, unlock account, confirm account etc.
-# If `enable_logins` is set to true above, the following _are required_ to be
-# filled out with valid values.
+# The following _are required_ to be filled out with valid values when using
+# user account emails (confirmation, password reset, unlock).
 #
 # These values are passed through to ActionMailer configuration.  The documentation
 # for ActionMailer is at:

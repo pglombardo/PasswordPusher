@@ -4,7 +4,6 @@ require "test_helper"
 
 class QrRequestedLocaleTest < ActionDispatch::IntegrationTest
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
 
     @luca = users(:luca)

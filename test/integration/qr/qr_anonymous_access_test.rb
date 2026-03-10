@@ -6,7 +6,6 @@ class QrAnonymousAccessTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
 
     Rails.application.reload_routes!

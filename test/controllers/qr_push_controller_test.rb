@@ -6,7 +6,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
   end
 
@@ -102,5 +101,53 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert response.body.include?("https://example.com:12345")
+  end
+
+  # When QR pushes are disabled (Settings.enable_qr_pushes = false)
+  test "when QR pushes disabled, new push form with tab qr redirects to root with notice" do
+    Settings.enable_qr_pushes = false
+
+    get new_push_path(tab: "qr")
+
+    assert_response :redirect
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match(/QR code pushes are disabled\./i, flash[:notice])
+  ensure
+    Settings.enable_qr_pushes = true
+  end
+
+  test "when QR pushes disabled, creating a QR push returns 422 with validation error" do
+    Settings.enable_qr_pushes = false
+
+    post pushes_path, params: {
+      push: {
+        kind: "qr",
+        payload: "testqr"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_match(/QR code pushes are disabled\./i, response.body)
+  ensure
+    Settings.enable_qr_pushes = true
+  end
+
+  test "when QR pushes disabled, logged-in user creating QR push returns 422 with validation error" do
+    Settings.enable_qr_pushes = false
+    @luca = users(:luca)
+    sign_in @luca
+
+    post pushes_path, params: {
+      push: {
+        kind: "qr",
+        payload: "testqr"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_match(/QR code pushes are disabled\./i, response.body)
+  ensure
+    Settings.enable_qr_pushes = true
   end
 end
