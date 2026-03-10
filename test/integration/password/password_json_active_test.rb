@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
+class PasswordJsonActiveTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -10,10 +10,9 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
   end
 
-  def test_basic_json_expired
+  def test_basic_json_active
     post passwords_path(format: :json),
       params: {password: {payload: "testpw", name: "Test Password", note: "This is a test password"}},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}

@@ -10,7 +10,6 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
   end
 
   teardown do

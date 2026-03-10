@@ -70,7 +70,7 @@ class FirstRunTest < ApplicationSystemTestCase
     assert_equal 1, User.count
     user = User.last
     assert_equal "admin@example.com", user.email
-    assert user.confirmed?
+    assert_user_confirmed(user)
     assert user.admin?
   end
 

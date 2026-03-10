@@ -30,7 +30,6 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get pushes_path
@@ -48,7 +47,6 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users with pushes can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     no_push_text = "You currently have no pushes."
@@ -75,16 +73,12 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
   test "get active dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get active_urls_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get expired_urls_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end

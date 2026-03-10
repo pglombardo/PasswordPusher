@@ -10,7 +10,6 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

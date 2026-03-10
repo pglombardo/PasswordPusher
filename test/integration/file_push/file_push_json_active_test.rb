@@ -11,7 +11,6 @@ class FilePushJsonActiveTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_basic_json_expired

@@ -13,8 +13,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
   def test_audit_response_for_authenticated
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
@@ -69,8 +67,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", passphrase: "asdf", expire_after_views: 3}},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
@@ -124,8 +120,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}

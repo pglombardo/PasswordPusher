@@ -10,7 +10,6 @@ class FilePushRequestedLocaleTest < ActionDispatch::IntegrationTest
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

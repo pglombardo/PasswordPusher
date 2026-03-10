@@ -10,7 +10,6 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     Settings.files.enable_blur = true

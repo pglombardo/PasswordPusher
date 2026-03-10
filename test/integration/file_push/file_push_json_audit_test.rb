@@ -10,7 +10,6 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_audit_response_for_authenticated

@@ -51,7 +51,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
   # Test that admin routes are not available to non-admin users
   def test_admin_routes_not_available_to_non_admin_users
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get admin_root_path
@@ -97,7 +96,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
   def test_admin_user_management_functionality
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
-    @luca.confirm
     sign_in @mr_admin
 
     # Test promote user to admin
@@ -124,7 +122,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
   # Test that non-admin users cannot access user management
   def test_user_management_not_available_to_non_admin_users
     @luca = users(:luca)
-    @luca.confirm
     @giuliana = users(:giuliana)
     sign_in @luca
 
@@ -177,7 +174,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
   # Test that Data Explorer is not available to non-admin users
   def test_data_explorer_not_available_to_non_admin_users
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get madmin_root_path
@@ -210,7 +206,6 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
   # Test that Background Jobs is not available to non-admin users
   def test_background_jobs_not_available_to_non_admin_users
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get "/admin/jobs"

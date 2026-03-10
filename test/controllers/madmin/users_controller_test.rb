@@ -12,9 +12,7 @@ module Madmin
 
       @mr_admin = users(:mr_admin)
       @luca = users(:luca)
-      @luca.confirm
       @giuliana = users(:giuliana)
-      @giuliana.confirm
 
       sign_in @mr_admin
     end

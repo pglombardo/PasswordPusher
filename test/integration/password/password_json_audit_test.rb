@@ -9,8 +9,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
@@ -51,8 +49,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", passphrase: "asdf", expire_after_views: 3}},
       headers: {"X-User-Email": @luca.email,
@@ -106,8 +102,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
@@ -133,8 +127,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create an anonymous push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}}, as: :json
     assert_response :success
@@ -158,8 +150,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 100}},
       headers: {"X-User-Email": @luca.email,
@@ -221,8 +211,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,

@@ -30,7 +30,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get pushes_path
@@ -48,7 +47,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users with pushes can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     no_push_text = "You currently have no pushes."
@@ -75,16 +73,12 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "get active dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get active_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get expired_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
   end
@@ -93,7 +87,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     Settings.override_base_url = "https://example.com:12345"
 
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     post pushes_path params: {
@@ -112,7 +105,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in user can edit their file push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a file push
@@ -153,7 +145,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in user cannot edit another user's file push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a push for a different user
@@ -176,7 +167,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot edit expired file push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create an expired push
@@ -195,7 +185,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "updating file push without new files preserves existing files" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a file push with files
@@ -226,7 +215,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "adding new files appends to existing files" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a file push with one file
@@ -256,7 +244,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "can delete individual file when multiple files exist" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a file push with multiple files
@@ -282,7 +269,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot delete last file from file push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a file push with one file
@@ -307,7 +293,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot delete file from another user's push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     # Create a push for a different user
@@ -333,7 +318,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "checkboxes are saved when creating a push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     push = Push.create!(
@@ -351,7 +335,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "checkboxes are saved when editing a push" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     push = Push.create!(
@@ -378,7 +361,6 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "unchecked checkboxes are saved as false when editing" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     push = Push.create!(

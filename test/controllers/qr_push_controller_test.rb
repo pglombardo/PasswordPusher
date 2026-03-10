@@ -29,7 +29,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     get pushes_path
@@ -47,7 +46,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
   test "logged in users with pushes can access their dashboard" do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     no_push_text = "You currently have no pushes."
@@ -74,8 +72,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
   test "get active dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get active_json_pushes_path(format: :json),
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
@@ -83,8 +79,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
   test "get expired dashboard with token" do
     @luca = users(:luca)
-    @luca.confirm
-
     get expired_json_pushes_path(format: :json),
       headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success
@@ -94,7 +88,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
     Settings.override_base_url = "https://example.com:12345"
 
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     post pushes_path params: {

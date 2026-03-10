@@ -11,7 +11,6 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_view_with_passphrase

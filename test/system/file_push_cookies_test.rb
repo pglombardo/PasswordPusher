@@ -8,7 +8,6 @@ class FilePushCookiesTest < ApplicationSystemTestCase
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 

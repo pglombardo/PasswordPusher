@@ -9,9 +9,7 @@ class AdminUserDeletionTest < ApplicationSystemTestCase
 
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
-    @luca.confirm
     @giuliana = users(:giuliana)
-    @giuliana.confirm
 
     login_as(@mr_admin, scope: :user)
   end

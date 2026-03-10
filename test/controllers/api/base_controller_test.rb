@@ -7,10 +7,8 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = users(:luca)
-    @user.confirm
     @user.update(authentication_token: "valid_token_123")
     @other_user = users(:one)
-    @other_user.confirm
     @other_user.update(authentication_token: "other_token_456")
   end
 

@@ -12,7 +12,6 @@ class SecretUrlBarTest < ApplicationSystemTestCase
 
     # Create and sign in a user
     @user = users(:giuliana)
-    @user.confirm
     sign_in @user
 
     # Create a test push

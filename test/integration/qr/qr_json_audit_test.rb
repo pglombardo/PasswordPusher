@@ -14,8 +14,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
@@ -56,8 +54,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", passphrase: "asdf", expire_after_views: 3}},
       headers: {"X-User-Email": @luca.email,
@@ -111,8 +107,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
@@ -138,8 +132,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_logins = true
 
     @luca = users(:luca)
-    @luca.confirm
-
     # Create an anonymous push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}}, as: :json
     assert_response :success

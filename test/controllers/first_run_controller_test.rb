@@ -57,7 +57,7 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     user = User.order(:created_at).last
     assert user.admin?
-    assert user.confirmed?
+    assert_user_confirmed(user)
     assert_equal user.id, session["warden.user.user.key"]&.dig(0, 0)
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
   end

@@ -12,7 +12,6 @@ class LocaleStringsTest < ApplicationSystemTestCase
 
     # Create a user
     @user = users(:giuliana)
-    @user.confirm
     sign_in @user
 
     # Get the test push from fixtures

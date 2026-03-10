@@ -9,7 +9,6 @@ class FilePushEditingTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 

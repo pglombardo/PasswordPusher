@@ -9,7 +9,6 @@ class CopyClipboardTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
 
     @user = users(:giuliana)
-    @user.confirm
     login_as(@user, scope: :user)
 
     @push = pushes(:test_push)

@@ -8,7 +8,6 @@ class QrPassphraseTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
 
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

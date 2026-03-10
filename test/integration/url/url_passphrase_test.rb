@@ -11,7 +11,6 @@ class UrlPassphraseTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 
