@@ -120,32 +120,183 @@
       text-decoration: none;
     }
     .help a:hover { text-decoration: underline; }
+    .lang-selector {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .lang-flag {
+      background: none;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 0.35rem;
+      line-height: 1;
+      transition: border-color 0.15s;
+    }
+    .lang-flag:hover {
+      border-color: #e5e7eb;
+    }
+    .lang-flag.active {
+      border-color: #667eea;
+    }
   </style>
 </head>
 <body>
   <main class="page">
     <div class="brand">
       <h1 class="brand-name">Password Pusher</h1>
-      <p class="brand-tagline">Go Ahead. Email Another Password.</p>
+      <p class="brand-tagline" data-i18n="brand_tagline">Go Ahead. Email Another Password.</p>
     </div>
 
+    <nav class="lang-selector" aria-label="Select language">
+      <button type="button" class="lang-flag" data-lang="en" title="English" aria-pressed="false">&#127482;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="fr" title="Français" aria-pressed="false">&#127467;&#127479;</button>
+      <button type="button" class="lang-flag" data-lang="de" title="Deutsch" aria-pressed="false">&#127465;&#127466;</button>
+      <button type="button" class="lang-flag" data-lang="nl" title="Nederlands" aria-pressed="false">&#127475;&#127473;</button>
+      <button type="button" class="lang-flag" data-lang="es" title="Español" aria-pressed="false">&#127466;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="it" title="Italiano" aria-pressed="false">&#127470;&#127481;</button>
+    </nav>
+
     <p class="code" aria-hidden="true">500</p>
-    <h2 class="heading">Something went wrong</h2>
-    <p class="intro">We hit an error on our side. Your request wasn’t completed, but nothing was lost.</p>
+    <h2 class="heading" data-i18n="heading">Something went wrong</h2>
+    <p class="intro" data-i18n="intro">We hit an error on our side. Your request wasn’t completed, but nothing was lost.</p>
 
     <div class="actions">
-      <a href="/" class="btn btn-primary">Go to home page</a>
-      <a href="javascript:location.reload()" class="btn btn-secondary">Try again</a>
+      <a href="/" class="btn btn-primary" data-i18n="btn_home">Go to home page</a>
+      <a href="javascript:location.reload()" class="btn btn-secondary" data-i18n="btn_try_again">Try again</a>
     </div>
 
     <section class="help" aria-label="What you can do">
-      <strong>What you can do</strong>
+      <strong data-i18n="help_title">What you can do</strong>
       <ol>
-        <li>Wait a moment and <strong>try again</strong> — many errors are temporary.</li>
-        <li>Use the <strong>home page</strong> link above to start a new push.</li>
-        <li>If this keeps happening, check <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for status and support.</li>
+        <li data-i18n-html="help_1">Wait a moment and <strong>try again</strong> — many errors are temporary.</li>
+        <li data-i18n-html="help_2">Use the <strong>home page</strong> link above to start a new push.</li>
+        <li data-i18n-html="help_3">If this keeps happening, check <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for status and support.</li>
       </ol>
     </section>
   </main>
+  <script>
+    (function() {
+      var STORAGE_KEY = 'pwp_error_lang';
+      var SUPPORTED = ['en','fr','de','nl','es','it'];
+      function getLocaleFromNavigator() {
+        if (!navigator.languages) return 'en';
+        for (var i = 0; i < navigator.languages.length; i++) {
+          var code = navigator.languages[i].split('-')[0].toLowerCase();
+          if (SUPPORTED.indexOf(code) !== -1) return code;
+        }
+        return 'en';
+      }
+      function getLocale() {
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY);
+          if (saved && SUPPORTED.indexOf(saved) !== -1) return saved;
+        } catch (e) {}
+        return getLocaleFromNavigator();
+      }
+      function setLocale(locale) {
+        try { localStorage.setItem(STORAGE_KEY, locale); } catch (e) {}
+      }
+      function applyTranslations(locale) {
+        var t = T[locale] || T.en;
+        document.documentElement.lang = locale;
+        document.title = (locale === 'en' ? 'Something went wrong' : t.heading) + ' — Password Pusher';
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (t[key]) el.textContent = t[key];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-html');
+          if (t[key]) el.innerHTML = t[key];
+        });
+        document.querySelectorAll('.lang-flag').forEach(function(btn) {
+          var isActive = btn.getAttribute('data-lang') === locale;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+      var T = {
+        en: {
+          brand_tagline: 'Go Ahead. Email Another Password.',
+          heading: 'Something went wrong',
+          intro: "We hit an error on our side. Your request wasn't completed, but nothing was lost.",
+          btn_home: 'Go to home page',
+          btn_try_again: 'Try again',
+          help_title: 'What you can do',
+          help_1: 'Wait a moment and <strong>try again</strong> — many errors are temporary.',
+          help_2: 'Use the <strong>home page</strong> link above to start a new push.',
+          help_3: 'If this keeps happening, check <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for status and support.'
+        },
+        fr: {
+          brand_tagline: 'Allez-y. Envoyez un autre mot de passe par e-mail.',
+          heading: 'Une erreur s\'est produite',
+          intro: 'Une erreur s\'est produite de notre côté. Votre requête n\'a pas abouti, mais rien n\'a été perdu.',
+          btn_home: 'Aller à l\'accueil',
+          btn_try_again: 'Réessayer',
+          help_title: 'Que faire',
+          help_1: 'Attendez un instant et <strong>réessayez</strong> — beaucoup d\'erreurs sont temporaires.',
+          help_2: 'Utilisez le lien <strong>accueil</strong> ci-dessus pour créer un nouveau push.',
+          help_3: 'Si le problème persiste, consultez <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> pour le statut et l\'assistance.'
+        },
+        de: {
+          brand_tagline: 'Einfach. Noch ein Passwort per E-Mail versenden.',
+          heading: 'Etwas ist schiefgelaufen',
+          intro: 'Auf unserer Seite ist ein Fehler aufgetreten. Ihre Anfrage konnte nicht abgeschlossen werden, aber es ist nichts verloren gegangen.',
+          btn_home: 'Zur Startseite',
+          btn_try_again: 'Erneut versuchen',
+          help_title: 'Was Sie tun können',
+          help_1: 'Warten Sie einen Moment und <strong>versuchen Sie es erneut</strong> — viele Fehler sind vorübergehend.',
+          help_2: 'Nutzen Sie den Link zur <strong>Startseite</strong> oben, um einen neuen Push zu erstellen.',
+          help_3: 'Wenn das weiter passiert, sehen Sie auf <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> nach Status und Support.'
+        },
+        nl: {
+          brand_tagline: 'Ga je gang. Stuur nog een wachtwoord per e-mail.',
+          heading: 'Er is iets misgegaan',
+          intro: 'Er is een fout aan onze kant opgetreden. Uw verzoek is niet voltooid, maar er is niets verloren gegaan.',
+          btn_home: 'Naar startpagina',
+          btn_try_again: 'Opnieuw proberen',
+          help_title: 'Wat u kunt doen',
+          help_1: 'Wacht even en <strong>probeer opnieuw</strong> — veel fouten zijn tijdelijk.',
+          help_2: 'Gebruik de link naar de <strong>startpagina</strong> hierboven om een nieuwe push te maken.',
+          help_3: 'Als dit blijft gebeuren, kijk op <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> voor status en ondersteuning.'
+        },
+        es: {
+          brand_tagline: 'Adelante. Envíe otra contraseña por correo.',
+          heading: 'Algo salió mal',
+          intro: 'Ocurrió un error por nuestra parte. Su solicitud no se completó, pero no se perdió nada.',
+          btn_home: 'Ir al inicio',
+          btn_try_again: 'Intentar de nuevo',
+          help_title: 'Qué puede hacer',
+          help_1: 'Espere un momento y <strong>vuelva a intentar</strong> — muchos errores son temporales.',
+          help_2: 'Use el enlace de <strong>inicio</strong> de arriba para crear un nuevo push.',
+          help_3: 'Si sigue ocurriendo, consulte <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> para estado y soporte.'
+        },
+        it: {
+          brand_tagline: 'Avanti. Invia un\'altra password via email.',
+          heading: 'Qualcosa è andato storto',
+          intro: 'Si è verificato un errore da parte nostra. La richiesta non è stata completata, ma non si è perso nulla.',
+          btn_home: 'Vai alla home',
+          btn_try_again: 'Riprova',
+          help_title: 'Cosa puoi fare',
+          help_1: 'Attendi un momento e <strong>riprova</strong> — molti errori sono temporanei.',
+          help_2: 'Usa il link alla <strong>home</strong> sopra per creare un nuovo push.',
+          help_3: 'Se continua ad accadere, consulta <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> per stato e supporto.'
+        }
+      };
+      var locale = getLocale();
+      applyTranslations(locale);
+      document.querySelectorAll('.lang-flag').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var lang = this.getAttribute('data-lang');
+          setLocale(lang);
+          applyTranslations(lang);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

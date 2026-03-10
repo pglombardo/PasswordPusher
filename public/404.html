@@ -43,29 +43,144 @@
       border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 0;
     }
     .help strong { color: #374151; }
+    .help .help-text { margin: 0.5rem 0 0; }
     .help a { color: #667eea; text-decoration: none; }
     .help a:hover { text-decoration: underline; }
+    .lang-selector { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .lang-flag { background: none; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font-size: 1.5rem; padding: 0.35rem; line-height: 1; transition: border-color 0.15s; }
+    .lang-flag:hover { border-color: #e5e7eb; }
+    .lang-flag.active { border-color: #667eea; }
   </style>
 </head>
 <body>
   <main class="page">
     <div class="brand">
       <h1 class="brand-name">Password Pusher</h1>
-      <p class="brand-tagline">Go Ahead. Email Another Password.</p>
+      <p class="brand-tagline" data-i18n="brand_tagline">Go Ahead. Email Another Password.</p>
     </div>
 
+    <nav class="lang-selector" aria-label="Select language">
+      <button type="button" class="lang-flag" data-lang="en" title="English" aria-pressed="false">&#127482;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="fr" title="Français" aria-pressed="false">&#127467;&#127479;</button>
+      <button type="button" class="lang-flag" data-lang="de" title="Deutsch" aria-pressed="false">&#127465;&#127466;</button>
+      <button type="button" class="lang-flag" data-lang="nl" title="Nederlands" aria-pressed="false">&#127475;&#127473;</button>
+      <button type="button" class="lang-flag" data-lang="es" title="Español" aria-pressed="false">&#127466;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="it" title="Italiano" aria-pressed="false">&#127470;&#127481;</button>
+    </nav>
+
     <p class="code" aria-hidden="true">404</p>
-    <h2 class="heading">Page not found</h2>
-    <p class="intro">The page you’re looking for doesn’t exist or may have been moved.</p>
+    <h2 class="heading" data-i18n="heading">Page not found</h2>
+    <p class="intro" data-i18n="intro">The page you're looking for doesn't exist or may have been moved.</p>
 
     <div class="actions">
-      <a href="/" class="btn btn-primary">Go to home page</a>
+      <a href="/" class="btn btn-primary" data-i18n="btn_home">Go to home page</a>
     </div>
 
     <section class="help" aria-label="What you can do">
-      <strong>What you can do</strong>
-      <p style="margin: 0.5rem 0 0;">Use the link above to return to the home page and create a new push, or check the URL and try again. For help, see <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.</p>
+      <strong data-i18n="help_title">What you can do</strong>
+      <p class="help-text" data-i18n-html="help_body">Use the link above to return to the home page and create a new push, or check the URL and try again. For help, see <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.</p>
     </section>
   </main>
+  <script>
+    (function() {
+      var STORAGE_KEY = 'pwp_error_lang';
+      var SUPPORTED = ['en','fr','de','nl','es','it'];
+      function getLocaleFromNavigator() {
+        if (!navigator.languages) return 'en';
+        for (var i = 0; i < navigator.languages.length; i++) {
+          var code = navigator.languages[i].split('-')[0].toLowerCase();
+          if (SUPPORTED.indexOf(code) !== -1) return code;
+        }
+        return 'en';
+      }
+      function getLocale() {
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY);
+          if (saved && SUPPORTED.indexOf(saved) !== -1) return saved;
+        } catch (e) {}
+        return getLocaleFromNavigator();
+      }
+      function setLocale(locale) {
+        try { localStorage.setItem(STORAGE_KEY, locale); } catch (e) {}
+      }
+      function applyTranslations(locale) {
+        var t = T[locale] || T.en;
+        document.documentElement.lang = locale;
+        document.title = (locale === 'en' ? 'Page not found' : t.heading) + ' — Password Pusher';
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (t[key]) el.textContent = t[key];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-html');
+          if (t[key]) el.innerHTML = t[key];
+        });
+        document.querySelectorAll('.lang-flag').forEach(function(btn) {
+          var isActive = btn.getAttribute('data-lang') === locale;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+      var T = {
+        en: {
+          brand_tagline: 'Go Ahead. Email Another Password.',
+          heading: 'Page not found',
+          intro: "The page you're looking for doesn't exist or may have been moved.",
+          btn_home: 'Go to home page',
+          help_title: 'What you can do',
+          help_body: 'Use the link above to return to the home page and create a new push, or check the URL and try again. For help, see <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        fr: {
+          brand_tagline: 'Allez-y. Envoyez un autre mot de passe par e-mail.',
+          heading: 'Page introuvable',
+          intro: 'La page que vous recherchez n\'existe pas ou a peut-être été déplacée.',
+          btn_home: 'Aller à l\'accueil',
+          help_title: 'Que faire',
+          help_body: 'Utilisez le lien ci-dessus pour revenir à l\'accueil et créer un nouveau push, ou vérifiez l\'URL et réessayez. Pour de l\'aide, consultez <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        de: {
+          brand_tagline: 'Einfach. Noch ein Passwort per E-Mail versenden.',
+          heading: 'Seite nicht gefunden',
+          intro: 'Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.',
+          btn_home: 'Zur Startseite',
+          help_title: 'Was Sie tun können',
+          help_body: 'Nutzen Sie den obigen Link, um zur Startseite zurückzukehren und einen neuen Push zu erstellen, oder prüfen Sie die URL und versuchen Sie es erneut. Hilfe unter <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        nl: {
+          brand_tagline: 'Ga je gang. Stuur nog een wachtwoord per e-mail.',
+          heading: 'Pagina niet gevonden',
+          intro: 'De pagina die u zoekt bestaat niet of is mogelijk verplaatst.',
+          btn_home: 'Naar startpagina',
+          help_title: 'Wat u kunt doen',
+          help_body: 'Gebruik de link hierboven om terug te gaan naar de startpagina en een nieuwe push te maken, of controleer de URL en probeer het opnieuw. Voor hulp, zie <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        es: {
+          brand_tagline: 'Adelante. Envíe otra contraseña por correo.',
+          heading: 'Página no encontrada',
+          intro: 'La página que busca no existe o puede haber sido movida.',
+          btn_home: 'Ir al inicio',
+          help_title: 'Qué puede hacer',
+          help_body: 'Use el enlace de arriba para volver al inicio y crear un nuevo push, o compruebe la URL e intente de nuevo. Para ayuda, consulte <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        it: {
+          brand_tagline: 'Avanti. Invia un\'altra password via email.',
+          heading: 'Pagina non trovata',
+          intro: 'La pagina che cerchi non esiste o potrebbe essere stata spostata.',
+          btn_home: 'Vai alla home',
+          help_title: 'Cosa puoi fare',
+          help_body: 'Usa il link sopra per tornare alla home e creare un nuovo push, o controlla l\'URL e riprova. Per assistenza, consulta <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        }
+      };
+      var locale = getLocale();
+      applyTranslations(locale);
+      document.querySelectorAll('.lang-flag').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var lang = this.getAttribute('data-lang');
+          setLocale(lang);
+          applyTranslations(lang);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
