@@ -1,142 +1,151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Error Page</title>
-	<style>
-*,
-*::after,
-*::before {
-	box-sizing: border-box;
-}
-
-html,
-body {
-	align-items: center;
-	background: linear-gradient(#003eff, #0028a9);
-	color: white;
-	display: flex;
-	font: 2rem "Poiret One";
-	height: 100vh;
-	justify-content: center;
-	margin: 0;
-	padding: 0;
-}
-
-.box {
-	height: 100px;
-	margin: 0 10px;
-	overflow: hidden;
-	position: relative;
-	transform: rotateZ(270deg) scale(1.05);
-	width: 100px;
-}
-
-.box:nth-of-type(2) {
-	left: -28px;
-	transform: rotateX(-180deg) rotateY(180deg) rotateZ(270deg) scale(1.05);
-}
-
-.box span {
-	animation: loader 4.8s infinite both;
-	display: block;
-	height: 100%;
-	position: absolute;
-	width: 100%;
-}
-
-.box span:nth-child(1) {
-	animation-delay: 0.2s;
-}
-
-.box span:nth-child(2) {
-	animation-delay: 0.4s;
-}
-
-.box span:nth-child(3) {
-	animation-delay: 0.6s;
-}
-
-.box span:nth-child(4) {
-	animation-delay: 0.8s;
-}
-
-.box span:nth-child(5) {
-	animation-delay: 1s;
-}
-
-.box span:nth-child(6) {
-	animation-delay: 1.2s;
-}
-
-.box span::after {
-	background: #fff;
-	border-radius: 50%;
-	content: "";
-	left: 50%;
-	padding: 6px;
-	position: absolute;
-	top: 0;
-	transform: translateX(-50%);
-}
-
-h1 {
-	text-shadow: 0 0 10px #fff;
-	animation: blink 4.8s infinite both;
-}
-
-h1:nth-of-type(2) {
-	animation: none;
-	letter-spacing: -14px;
-	margin: 0 auto;
-	opacity: 0.1;
-	padding-left: 41px;
-	position: absolute;
-	top: 50%;
-	transform: translatey(-50%);
-}
-
-@keyframes blink {
-	0%,
-	50%,
-	100% {
-		opacity: 0.2;
-	}
-	25%,
-	75% {
-		opacity: 1;
-	}
-}
-
-h5,
-p {
-	position: absolute;
-	font-family: monospace;
-  text-align: center;
-}
-
-h5 {
-	top: 15%;
-	font-size: 0.4em;
-
-}
-
-p {
-	font-size: 0.3em;
-	bottom: 10%;
-	width: 50%;
-	text-align: center;
-}
-
-p a {
-	color: cyan;
-}
-
-	</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Something went wrong — Password Pusher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::after, *::before { box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #374151;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .page {
+      max-width: 28rem;
+      width: 100%;
+      text-align: center;
+    }
+    .brand {
+      margin-bottom: 2rem;
+    }
+    .brand-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .brand-tagline {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0.25rem 0 0;
+      font-weight: 400;
+    }
+    .code {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #667eea;
+      letter-spacing: -0.05em;
+      margin: 0 0 0.5rem;
+      line-height: 1;
+    }
+    .heading {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0 0 0.5rem;
+    }
+    .intro {
+      color: #6b7280;
+      margin: 0 0 1.5rem;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      opacity: 0.95;
+      color: #fff;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #4b5563;
+      border: 1px solid #e5e7eb;
+    }
+    .btn-secondary:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+      color: #1f2937;
+    }
+    .help {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      margin: 0;
+    }
+    .help strong { color: #374151; }
+    .help ol {
+      margin: 0.5rem 0 0 1.25rem;
+      padding: 0;
+    }
+    .help li { margin: 0.25rem 0; }
+    .help a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    .help a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-	<h5>Apologies, it looks like something went wrong.</h5>
-  <h1></h1>
-  <h1>5 0 0</h1>
-  <p>We've been notified.  Please wait a moment and try again.
+  <main class="page">
+    <div class="brand">
+      <h1 class="brand-name">Password Pusher</h1>
+      <p class="brand-tagline">Go Ahead. Email Another Password.</p>
+    </div>
+
+    <p class="code" aria-hidden="true">500</p>
+    <h2 class="heading">Something went wrong</h2>
+    <p class="intro">We hit an error on our side. Your request wasn’t completed, but nothing was lost.</p>
+
+    <div class="actions">
+      <a href="/" class="btn btn-primary">Go to home page</a>
+      <a href="javascript:location.reload()" class="btn btn-secondary">Try again</a>
+    </div>
+
+    <section class="help" aria-label="What you can do">
+      <strong>What you can do</strong>
+      <ol>
+        <li>Wait a moment and <strong>try again</strong> — many errors are temporary.</li>
+        <li>Use the <strong>home page</strong> link above to start a new push.</li>
+        <li>If this keeps happening, check <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for status and support.</li>
+      </ol>
+    </section>
+  </main>
 </body>
 </html>

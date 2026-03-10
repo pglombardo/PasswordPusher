@@ -1,37 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>That page doesn't exist (404)</title>
-  <style type="text/css">
-
-html { height: 100%; }
-
-body {
-  text-align: center;
-  background: #fff;
-  font-family: 'Open Sans', Tahoma, Georgia, Verdana, serif;
-  color: #6D6E70;
-  width: 95%;
-  font-size: 16px;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 100%;
-}
-
-h1 { font-size: 1.8em; color: #1F1D30;}
-.horizontal-logo {
-  width:100%;
-  height:auto;
-  max-width: 500px;
-  margin: 25px 0px 50px 0px;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Password Pusher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::after, *::before { box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #374151;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .page { max-width: 28rem; width: 100%; text-align: center; }
+    .brand { margin-bottom: 2rem; }
+    .brand-name { font-size: 1.5rem; font-weight: 700; color: #1f2937; letter-spacing: -0.02em; margin: 0; }
+    .brand-tagline { font-size: 0.875rem; color: #6b7280; margin: 0.25rem 0 0; font-weight: 400; }
+    .code { font-size: 4rem; font-weight: 700; color: #667eea; letter-spacing: -0.05em; margin: 0 0 0.5rem; line-height: 1; }
+    .heading { font-size: 1.25rem; font-weight: 600; color: #1f2937; margin: 0 0 0.5rem; }
+    .intro { color: #6b7280; margin: 0 0 1.5rem; }
+    .actions { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.5rem; font-family: inherit; font-size: 0.9375rem; font-weight: 500;
+      text-decoration: none; border-radius: 0.5rem; cursor: pointer; transition: background 0.15s, color 0.15s; border: none;
+    }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+    .btn-primary:hover { opacity: 0.95; color: #fff; }
+    .help {
+      font-size: 0.875rem; color: #6b7280; text-align: left; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 0;
+    }
+    .help strong { color: #374151; }
+    .help a { color: #667eea; text-decoration: none; }
+    .help a:hover { text-decoration: underline; }
   </style>
 </head>
-
 <body>
-  <p>
-    <h1>404 Error</h1>
-    <p> The page you are looking for cannot be found. </p>
-  </p>
+  <main class="page">
+    <div class="brand">
+      <h1 class="brand-name">Password Pusher</h1>
+      <p class="brand-tagline">Go Ahead. Email Another Password.</p>
+    </div>
+
+    <p class="code" aria-hidden="true">404</p>
+    <h2 class="heading">Page not found</h2>
+    <p class="intro">The page you’re looking for doesn’t exist or may have been moved.</p>
+
+    <div class="actions">
+      <a href="/" class="btn btn-primary">Go to home page</a>
+    </div>
+
+    <section class="help" aria-label="What you can do">
+      <strong>What you can do</strong>
+      <p style="margin: 0.5rem 0 0;">Use the link above to return to the home page and create a new push, or check the URL and try again. For help, see <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.</p>
+    </section>
+  </main>
 </body>
 </html>
