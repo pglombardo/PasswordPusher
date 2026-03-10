@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::FirstRunsController < Users::RegistrationsController
-  invisible_captcha only: :create,
-    timestamp_enabled: Rails.env.production?,
-    spinner_enabled: Rails.env.production?
+  # Skip invisible_captcha for first run - it's protected by boot_code validation
+  skip_before_action :detect_spam, only: [:create], raise: false
+
   before_action :require_logins_enabled
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
