@@ -1,39 +1,49 @@
-    <div class='text-center m-3'>
-        <h2><%= _('API Token') %></h1>
-        <p class="lead mt-5">
+<% title(_('API Token')) %>
+
+<main class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+      <h2 class="fw-semibold mb-3"><em class="bi bi-key me-2"></em><%= _('API Token') %></h2>
+
+      <p class="text-muted mb-4">
         <%= _('This token is specific to your account.  It can be used with command line applications, the JSON API, 3rd party integrations and more.') %>
-        </p>
-        <p>
-        <em><%= _('Make sure to keep this token secure.  It provides full access to your account.') %></em>
-        </p>
-        <p>
-        <%= _('If needed, you can regenerate a new token below which will invalidate this existing token.') %>
-        </p>
-    </div>
+      </p>
 
-    <div class='text-center mt-5 mb-5' data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
-        <p class="text-muted"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
-        <div
-        class='payload spoiler notranslate px-5 border-top border-bottom border-5 w-100 bg-white fs-2'
-        id='authentication_token' data-copy-target="payloadDiv"
-        translate='no'><pre class='w-100 text-break text-wrap mb-5 mt-5 text-center'><%= current_user.authentication_token %></div>
-        <div class='text-center m-3 mb-5'>
-          <%= render partial: 'shared/copy_button', cached: true %>
+      <p class="alert alert-warning small mb-4">
+        <em class="bi bi-shield-lock me-2"></em><%= _('Make sure to keep this token secure.  It provides full access to your account.') %>
+      </p>
+
+      <div class="mb-4" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
+        <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
+        <p class="text-muted small mb-3"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
+
+        <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
+          <div
+            class="payload spoiler notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
+            id="authentication_token"
+            data-copy-target="payloadDiv"
+            translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center"><%= current_user.authentication_token %></pre></div>
+
+          <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
+            <%= render partial: 'shared/copy_button', cached: true %>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class='text-center m-3'>
-        <p>
-        <%= _('To delete this token and regenerate a new one, use the button below.') %>
-        </p>
-        <p>
-        <%= _('Note that this will invalidate any tools that may be using the existing key and will have to be updated with the new token.') %>
-        </p>
-    <div class="text-center mt-5">
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#regenerateModal">
-            <em class="bi bi-trash"></em> <%= _('Regenerate Token') %>
+      <div class="mb-4">
+        <h5 class="fw-semibold text-danger border-bottom border-danger-subtle pb-2 mb-3">
+          <em class="bi bi-exclamation-triangle me-2"></em><%= _('Regenerate Token') %>
+        </h5>
+        <p class="text-muted small mb-2"><%= _('To delete this token and regenerate a new one, use the button below.') %></p>
+        <p class="text-muted small mb-3"><%= _('Note that this will invalidate any tools that may be using the existing key and will have to be updated with the new token.') %></p>
+
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#regenerateModal">
+          <em class="bi bi-arrow-repeat me-1"></em><%= _('Regenerate Token') %>
         </button>
+      </div>
     </div>
+  </div>
+</main>
 
 <div class="modal fade" id="regenerateModal" tabindex="-1" aria-labelledby="regenModalLabel" aria-hidden="true" data-controller="form">
   <div class="modal-dialog modal-dialog-centered">
