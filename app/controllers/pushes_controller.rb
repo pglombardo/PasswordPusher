@@ -271,6 +271,10 @@ class PushesController < BaseController
   end
 
   def audit
+    unless current_user
+      redirect_to new_user_session_path, notice: I18n._("You must be signed in to view the audit log.")
+      return
+    end
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
       return
@@ -468,24 +472,29 @@ class PushesController < BaseController
       end
 
     when "url"
-      # URL pushes only enabled when logins are enabled.
-      if Settings.enable_logins && Settings.enable_url_pushes
-        unless %w[preliminary passphrase access show expire].include?(action_name)
+      if !Settings.enable_url_pushes
+        redirect_to root_path, notice: I18n._("URL pushes are disabled.")
+        return
+      end
+
+      if !Settings.allow_anonymous
+        unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
-      else
-        redirect_to root_path, notice: I18n._("URL pushes are disabled.")
       end
 
     when "qr"
-      # QR code pushes only enabled when logins are enabled.
-      if Settings.enable_logins && Settings.enable_qr_pushes
-        unless %w[preliminary passphrase access show expire].include?(action_name)
+      if !Settings.enable_qr_pushes
+        redirect_to root_path, notice: I18n._("QR code pushes are disabled.")
+        return
+      end
+
+      if !Settings.allow_anonymous
+        unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
-      else
-        redirect_to root_path, notice: I18n._("QR code pushes are disabled.")
       end
+
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
         authenticate_user!

@@ -16,9 +16,9 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     sign_out @luca
   end
 
-  test "New push form is NOT available anonymous" do
+  test "New push form is available when anonymous" do
     get new_push_path(tab: "url")
-    assert_redirected_to new_user_session_path
+    assert_response :success
   end
 
   test '"index" should redirect anonymous to user sign in' do
