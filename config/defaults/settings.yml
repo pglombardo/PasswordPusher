@@ -238,22 +238,22 @@ disable_signups: false
 #
 signup_email_regexp: '\A[^@\s]+@[^@\s]+\z'
 
-## Enable email-based Devise modules (confirmable, lockable, recoverable)
+## Enable user account emails (confirmation, password reset, unlock)
 #
-# When true, enables Devise modules that send email:
-#   :confirmable  - email confirmation for new signups
-#   :lockable     - account lockout after failed attempts (unlock via email)
-#   :recoverable  - "forgot password" reset via email
+# When true, the application sends email for:
+#   - email confirmation for new signups
+#   - account lockout after failed attempts (unlock via email)
+#   - "forgot password" reset via email
 #
 # IMPORTANT: Do not set this to true until an SMTP server is configured in the
 # Mail section below and you have confirmed that emails are being delivered.
-# These modules require a working mail server; enabling them without one will
-# break signup, password reset, and account unlock flows.
+# Enabling this without a working mail server will break signup, password reset,
+# and account unlock flows.
 #
 # Environment variable override:
-# PWP__ENABLE_EMAIL_DEVISE_MODULES='true'
+# PWP__ENABLE_USER_ACCOUNT_EMAILS='true'
 #
-enable_email_devise_modules: false
+enable_user_account_emails: false
 
 # =============================================================================
 # Mail (required when logins are enabled)
