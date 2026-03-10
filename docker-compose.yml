@@ -1,12 +1,24 @@
 # Password Pusher - Docker Compose
-# Full option reference: https://docs.pwpush.com/docs/config-strategies/
-# Use a .env file for secrets (PWPUSH_MASTER_KEY, SMTP, etc.) and add: env_file: - .env
 
 x-env: &x-env
   environment:
-    # --- Required (set in .env for production) ---
-    # PWPUSH_MASTER_KEY: ""  # Generate: https://us.pwpush.com/generate_key
-    # TLS_DOMAIN: ""         # Optional: Let's Encrypt TLS (e.g. pwpush.example.com)
+    # --- Overview ---
+    # Sensible defaults are set below; the app runs out of the box. Uncomment and set
+    # any option to customize your deployment.
+    #
+    # All configuration options below are described in more detail in the Password Pusher Configuration documentation:
+    # https://docs.pwpush.com/docs/self-hosted-configuration/
+
+    # --- Security & TLS ---
+    # PWPUSH_MASTER_KEY: This sets the encryption key for the database. If omitted, a default encryption key is used.
+    # For production, generate your own key and set it here so encrypted pushes use your key.
+    # Generate a new key here: https://us.pwpush.com/generate_key
+    # PWPUSH_MASTER_KEY: ""
+    #
+    # TLS_DOMAIN: For automatic TLS/SSL (e.g. HTTPS via Let's Encrypt), create a DNS record that
+    #   points to this host, then set this env var to that domain (e.g. pwpush.example.com).
+    #   The container will provision and renew certificates automatically.
+    # TLS_DOMAIN: ""
 
     # --- Deployment & URL ---
     # PWP__HOST_DOMAIN: ""
@@ -62,7 +74,7 @@ x-env: &x-env
     # PWP__URL__RETRIEVAL_STEP_DEFAULT: "false"
 
     # --- Push: files ---
-    PWP__FILES__STORAGE: "local"
+    PWP__FILES__STORAGE: "local" # See: https://docs.pwpush.com/docs/self-hosted-configuration/#file-storage-backends
     # PWP__FILES__EXPIRE_AFTER_DAYS_DEFAULT: "7"
     # PWP__FILES__EXPIRE_AFTER_VIEWS_DEFAULT: "5"
     # PWP__FILES__ENABLE_RETRIEVAL_STEP: "true"
@@ -101,7 +113,7 @@ x-env: &x-env
     # PWP__BRAND__SHOW_FOOTER_MENU: "true"
     # PWP__SHOW_VERSION: "true"
     # PWP__SHOW_GDPR_CONSENT_BANNER: "true"
-    # PWP__THEME: "default"
+    # PWP__THEME: "default" # See: https://docs.pwpush.com/docs/rebranding/#themes
 
     # --- Locale ---
     # PWP__TIMEZONE: "America/New_York"
