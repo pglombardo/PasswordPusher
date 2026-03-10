@@ -44,6 +44,32 @@ module ApplicationHelper
     raw_url
   end
 
+  # TUS resumable uploads: used for file pushes when logins and file pushes are enabled.
+  def tus_uploads_enabled?
+    Settings.enable_logins && Settings.enable_file_pushes
+  end
+
+  def tus_uploads_url
+    uploads_path
+  end
+
+  # Parses human-friendly size (e.g. "50 MB", "2 MB", "1 GB") or a numeric byte count to bytes.
+  # Used for tus_chunk_size so config can use "50 MB" instead of raw bytes.
+  def parse_human_size(value)
+    return 2 * 1024 * 1024 if value.blank? # 2 MB fallback
+    return value.to_i if value.is_a?(Numeric) || value.to_s.strip.match?(/\A\d+\z/)
+    m = value.to_s.strip.match(/\A(\d+(?:\.\d+)?)\s*([KMGTP]?B?)\z/i)
+    return 2 * 1024 * 1024 unless m
+    n = m[1].to_f
+    unit = m[2].to_s.upcase.delete("B").presence || "B"
+    mult = { "" => 1, "K" => 1024, "M" => 1024**2, "G" => 1024**3, "T" => 1024**4, "P" => 1024**5 }.fetch(unit, 1)
+    (n * mult).to_i
+  end
+
+  def tus_chunk_size_bytes
+    parse_human_size(Settings.files.tus_chunk_size)
+  end
+
   # qr_code
   #
   # Generates a QR code for the given URL

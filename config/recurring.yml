@@ -30,6 +30,11 @@ production:
     queue: recurring
     schedule: every 3 days
 
+  cleanup_tus_uploads:
+    class: CleanupTusUploadsJob
+    queue: recurring
+    schedule: every 6 hours
+
   cleanup_cache:
     class: CleanupCacheJob
     queue: recurring
@@ -60,6 +65,11 @@ development:
     class: PurgeUnattachedBlobsJob
     queue: recurring
     schedule: every 3 days
+
+  cleanup_tus_uploads:
+    class: CleanupTusUploadsJob
+    queue: recurring
+    schedule: every 6 hours
 
   cleanup_cache:
     class: CleanupCacheJob

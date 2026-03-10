@@ -40,15 +40,15 @@ if defined? Rack::Attack
       #
       if Settings.throttling&.minute.present?
         throttle("req/minute/ip", limit: Settings.throttling.minute, period: 1.minute) do |req|
-          req.ip unless req.path.start_with?("/assets") || req.path == "/up"
+          req.ip unless req.path.start_with?("/assets") || req.path == "/up" || req.path.start_with?("/uploads")
         end
       end
 
       # Throttle API requests by IP address
-      #
+      # Exclude /uploads so TUS chunked PATCH requests (many per second) are not rate-limited
       if Settings.throttling&.second.present?
         throttle("req/second/ip", limit: Settings.throttling.second, period: 1.second) do |req|
-          req.ip unless req.path == "/up"
+          req.ip unless req.path == "/up" || req.path.start_with?("/uploads")
         end
       end
     end

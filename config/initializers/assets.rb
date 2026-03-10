@@ -14,5 +14,5 @@ Rails.application.config.assets.paths << Rails.root.join("app/javascript")
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w[application.js stimulus.js bootstrap.min.js popper.js spoiler_alert.js]
+Rails.application.config.assets.precompile += %w[application.js tus.js stimulus.js bootstrap.min.js popper.js spoiler_alert.js]
 Rails.application.config.assets.precompile += %w[fonts/bootstrap-icons.woff fonts/bootstrap-icons.woff2]
