@@ -115,6 +115,8 @@ docker compose up -d
 
 Open `https://pwpush.example.com`. The Compose file includes persistent storage, health checks, and is suitable for production.
 
+_Note: If you didn't set `TLS_DOMAIN` visit the application on http://your-ip:5100_
+
 ### Use the API, CLI, or integrations
 
 See [3rd party tools & integrations](https://docs.pwpush.com/docs/3rd-party-tools/) for API usage, CLIs, and integrations.
