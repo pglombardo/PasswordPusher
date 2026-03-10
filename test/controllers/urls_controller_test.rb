@@ -33,22 +33,22 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
     get pushes_path
     assert_response :success
-    assert response.body.include?("You currently have no pushes.")
+    assert response.body.include?("No pushes yet")
 
     get pushes_path(filter: "active")
     assert_response :success
-    assert response.body.include?("You currently have no active pushes.")
+    assert response.body.include?("No active pushes")
 
     get pushes_path(filter: "expired")
     assert_response :success
-    assert response.body.include?("You currently have no expired pushes.")
+    assert response.body.include?("No expired pushes")
   end
 
   test "logged in users with pushes can access their dashboard" do
     @luca = users(:luca)
     sign_in @luca
 
-    no_push_text = "You currently have no pushes."
+    no_push_text = "No pushes yet"
     get pushes_path
     assert_response :success
     assert response.body.include?(no_push_text)

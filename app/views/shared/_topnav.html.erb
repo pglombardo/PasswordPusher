@@ -1,21 +1,29 @@
 <% if action_name != 'edit' %>
-  <ul class="nav nav-tabs mb-3 overflow-x-auto flex-nowrap overflow-y-hidden">
+  <ul class="nav nav-underline mb-4 flex-nowrap overflow-x-auto">
     <li class="nav-item">
-      <a class="nav-link <%= @text_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'text') %>"><%= _('Passwords') %></a>
+      <a class="nav-link <%= @text_tab ? 'active' : 'text-muted' %>" href="<%= new_push_path(tab: 'text') %>">
+        <%= _('Passwords') %>
+      </a>
     </li>
     <% if Settings.enable_file_pushes %>
       <li class="nav-item">
-        <a class="nav-link <%= @files_tab ? 'active' : '' %>" href="<%= new_push_path(tab: 'files') %>"><%= _('Files') %></a>
+        <a class="nav-link <%= @files_tab ? 'active' : 'text-muted' %>" href="<%= new_push_path(tab: 'files') %>">
+          <%= _('Files') %>
+        </a>
       </li>
     <% end %>
     <% if Settings.enable_url_pushes %>
       <li class="nav-item">
-        <a class="nav-link <%= @url_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'url') %>"><%= _('URLs') %></a>
+        <a class="nav-link <%= @url_tab ? 'active' : 'text-muted' %>" href="<%= new_push_path(tab: 'url') %>">
+          <%= _('URLs') %>
+        </a>
       </li>
     <% end %>
     <% if Settings.enable_qr_pushes %>
-      <li class="nav-item text-nowrap">
-        <a class="nav-link <%= @qr_tab ? 'active' : '' %>" aria-current="page" href="<%= new_push_path(tab: 'qr') %>"><%= _('QR Codes') %></a>
+      <li class="nav-item">
+        <a class="nav-link <%= @qr_tab ? 'active' : 'text-muted' %>" href="<%= new_push_path(tab: 'qr') %>">
+          <%= _('QR Codes') %>
+        </a>
       </li>
     <% end %>
   </ul>

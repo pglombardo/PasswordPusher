@@ -345,7 +345,7 @@ class PushesController < BaseController
       Push.includes(:audit_logs)
         .where(user_id: current_user.id)
         .page(params[:page])
-        .order(created_at: :desc)
+        .order(expired: :asc, created_at: :desc)
     end
   end
 

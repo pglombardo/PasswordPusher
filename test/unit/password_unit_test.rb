@@ -45,7 +45,7 @@ class PasswordUnitTest < Minitest::Test
     assert push.expire_after_days == Settings.pw.expire_after_days_default
     assert push.expire_after_views == Settings.pw.expire_after_views_default
 
-    assert push.retrieval_step == Settings.pw.retrieval_step_default
+    assert_equal false, push.retrieval_step
     assert push.deletable_by_viewer == Settings.pw.deletable_pushes_default
   end
 

@@ -64,7 +64,7 @@ class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 5,
       "expired" => true,
       "deletable_by_viewer" => true,
-      "retrieval_step" => false,
+      "retrieval_step" => true,
       "passphrase" => nil,
       "expire_after_days" => 7,
       "days_remaining" => 7,

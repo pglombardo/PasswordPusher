@@ -30,8 +30,8 @@ class SecretUrlBarTest < ApplicationSystemTestCase
 
     visit preview_push_path(@push)
 
-    # Click the language dropdown button
-    find("button.dropdown-toggle").click
+    # Click the language dropdown button (inside .input-group to distinguish from account dropdown)
+    find(".input-group button.dropdown-toggle").click
 
     # Check that language options are present for each available locale
     I18n.available_locales.each do |locale|
@@ -45,8 +45,8 @@ class SecretUrlBarTest < ApplicationSystemTestCase
   test "clicking language option updates URL with locale parameter" do
     visit preview_push_path(@push)
 
-    # Click the language dropdown button
-    find("button.dropdown-toggle").click
+    # Click the language dropdown button (inside .input-group to distinguish from account dropdown)
+    find(".input-group button.dropdown-toggle").click
 
     click_link "Deutsch"
 
@@ -61,11 +61,11 @@ class SecretUrlBarTest < ApplicationSystemTestCase
   test "language dropdown button shows selected language flag and name" do
     visit preview_push_path(@push, push_locale: "es")
 
-    # Check that the dropdown button shows the flag and language name
-    dropdown_button = find("button.dropdown-toggle")
+    # Check that the dropdown button shows the flag and language name (inside .input-group)
+    dropdown_button = find(".input-group button.dropdown-toggle")
 
     # Check for flag (country code class)
-    assert_selector "button.dropdown-toggle em.fi-#{Settings.country_codes["es"]}"
+    assert_selector ".input-group button.dropdown-toggle em.fi-#{Settings.country_codes["es"]}"
 
     # Check for language name
     assert_includes dropdown_button.text, "Español"
@@ -77,8 +77,8 @@ class SecretUrlBarTest < ApplicationSystemTestCase
 
     visit preview_push_path(@push)
 
-    # Without a push_locale parameter, should show globe icon
-    dropdown_button = find("button.dropdown-toggle")
+    # Without a push_locale parameter, should show globe icon (inside .input-group)
+    dropdown_button = find(".input-group button.dropdown-toggle")
     assert_includes dropdown_button.text, "🌎"
   end
 end

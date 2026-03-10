@@ -34,7 +34,7 @@ class FilePushRetrievalTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     #################################################
     # Sign out to test anonymous retrieval

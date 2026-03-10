@@ -47,7 +47,7 @@ class UrlCreationTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # url page
     get request.url.sub("/preview", "")

@@ -36,7 +36,7 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # view the password
     get request.url.sub("/preview", "")
@@ -72,7 +72,7 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # view the password
     get request.url.sub("/preview", "")

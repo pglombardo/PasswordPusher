@@ -1,106 +1,120 @@
 <%= title(_('Push Preview')) %>
 
 <div class="container h-75">
-    <div class="d-flex flex-column justify-content-center align-items-center">
+  <div class="d-flex flex-column justify-content-center align-items-center">
 
-      <h2 class='mt-5'><%= _('Push Preview') %></h2>
+    <h2 class="mt-5 fw-semibold"><em class="bi bi-check-circle text-success me-2"></em><%= _('Push Created') %></h2>
 
-      <p class='mt-5'><%= _('Use this secret link to share it:') %></p>
-      <%= render partial: 'application/secret_url_bar' %>
-      <%= @qr_code %>
+    <p class="mt-4 text-muted"><%= _('Use this secret link to share it:') %></p>
+    <%= render partial: 'application/secret_url_bar' %>
+    <%= @qr_code %>
 
-      <p class="d-inline-flex gap-1 mt-5 mb-2">
-        <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          <%= _('Print & Share') %>
-        </button>
-      </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card">
-          <div class="card-header"><%= _('Generate a Printable Page for End Users') %></div>
-          <div class="card-body">
-            <%= form_tag(print_preview_push_path(@push), method: :get, target: '_blank') do %>
-              <div class="row row-cols-lg-auto g-3 align-items-center">
-                <div class="col w-100 mb-2">
-                  <label class="visually-hidden" for="inlineFormInputGroupUsername"><%= _('Optional Custom Message') %></label>
-                  <div class="input-group">
-                    <%= text_field_tag(:message, nil, class: 'form-control mr-2 w-100', placeholder: _("Optional Custom Message"), autocomplete: "on") %>
-                  </div>
+    <p class="d-inline-flex gap-1 mt-4 mb-2">
+      <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <em class="bi bi-printer me-1"></em><%= _('Print & Share') %>
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-transparent"><em class="bi bi-file-earmark-text me-1"></em><%= _('Generate a Printable Page for End Users') %></div>
+        <div class="card-body">
+          <%= form_tag(print_preview_push_path(@push), method: :get, target: '_blank') do %>
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+              <div class="col w-100 mb-2">
+                <label class="visually-hidden" for="inlineFormInputGroupUsername"><%= _('Optional Custom Message') %></label>
+                <div class="input-group">
+                  <%= text_field_tag(:message, nil, class: 'form-control w-100', placeholder: _("Optional Custom Message"), autocomplete: "on") %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-cols-lg-auto g-3 align-items-center">
+              <div class="col-12">
+                <div class="form-check">
+                  <%= check_box_tag(:show_expiration, true, true, class: 'form-check-input') %>
+                  <%= label_tag(:show_expiration, _('Show Expiration Details'), class: 'form-check-label') %>
                 </div>
               </div>
 
-              <div class="row row-cols-lg-auto g-3 align-items-center">
-                <div class="col-12">
-                  <div class="form-check">
-                    <%= check_box_tag(:show_expiration, true, true, class: 'form-check-input') %>
-                    <%= label_tag(:show_expiration, _('Show Expiration Details'), class: 'form-check-label') %>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="form-check">
-                    <%= check_box_tag(:show_id, true, true, class: 'form-check-input') %>
-                    <%= label_tag(:show_id, _('Include ID'), class: 'form-check-label') %>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <button type="submit" class="btn btn-success"><%= _('Generate') %></button>
+              <div class="col-12">
+                <div class="form-check">
+                  <%= check_box_tag(:show_id, true, true, class: 'form-check-input') %>
+                  <%= label_tag(:show_id, _('Include ID'), class: 'form-check-label') %>
                 </div>
               </div>
-            <% end %>
-          </div>
+
+              <div class="col-12">
+                <button type="submit" class="btn btn-success"><em class="bi bi-file-earmark-pdf me-1"></em><%= _('Generate') %></button>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
+    </div>
 
-      <p class='my-5 text-center'>
-        <%= _("This secret link and all content will be deleted in") %>
-        <strong><%= @push.days_remaining %> <%= n_('day', 'days', @push.days_remaining) %></strong>
-        <%= _('or') %>
-        <strong><%= @push.views_remaining %> <%= n_('view', 'views', @push.views_remaining) %></strong>
-        <% if @push.url? %>
-          <%= _('(whichever comes first)') %>.
-        <% else %>
-          <%= _('(whichever comes first)') %>
+    <div class="my-4 p-3 bg-body-tertiary rounded-3 text-center">
+      <p class="mb-2">
+        <em class="bi bi-clock me-1"></em><%= _("This secret link and all content will be deleted in") %>
+      </p>
+      <p class="mb-0">
+        <span class="badge bg-secondary fs-6"><%= @push.days_remaining %> <%= n_('day', 'days', @push.days_remaining) %></span>
+        <span class="mx-1"><%= _('or') %></span>
+        <span class="badge bg-secondary fs-6"><%= @push.views_remaining %> <%= n_('view', 'views', @push.views_remaining) %></span>
+        <span class="text-muted small"><%= _('(whichever comes first)') %></span>
+      </p>
+      <% unless @push.url? %>
+        <p class="mt-2 mb-0 small text-muted">
           <% if @push.deletable_by_viewer %>
-            <%= _('and') %> <strong><%= _('can be') %></strong> <%= _('deleted by viewers.') %>
+            <em class="bi bi-trash me-1"></em><%= _('Viewers can delete this push.') %>
           <% else %>
-            <%= _('and') %> <strong><%= _('can NOT be') %></strong> <%= _('deleted by viewers.') %>
+            <em class="bi bi-lock me-1"></em><%= _('Viewers cannot delete this push.') %>
           <% end %>
-        <% end %>
-      </p>
-
-      <% if @push.retrieval_step == true %>
-        <p class='mb-5'><%= _('It also includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.  </p>
+        </p>
       <% end %>
+    </div>
 
-      <p class='mb-5'>
-        <%= link_to _('View This Push Now'), @secret_url,
-          "data-turbo-prefetch": false,
-          "data-turbolinks": false,
-          "data-turbo": false,
-          rel: "no-prefetch" %>
-        <%= _('(will burn a view) or') %>
-        <% if @push.url? %>
-          <%= link_to _('Push Another'), new_push_path(tab: "url") %>
-        <% elsif @push.file? %>
-          <%= link_to _('Push Another'), new_push_path(tab: "files") %>
-        <% else %>
-          <%= link_to _('Push Another'), new_push_path(tab: "text") %>
-        <% end %>
-      </p>
+    <% if @push.retrieval_step == true %>
+      <p class="mb-4 text-muted"><em class="bi bi-shield-check me-1"></em><%= _('Includes a') %> <strong><%= _('1-click preliminary retrieval step') %></strong>.</p>
+    <% end %>
 
-      <% if user_signed_in? %>
-        <div class="d-flex gap-2">
-          <%= link_to audit_push_path(@push), class: 'btn btn-secondary btn-sm', rel: 'nofollow' do %>
-            <em class='bi-card-list'></em> <%= _('View Audit Log') %>
-          <% end %>
-          <%= link_to edit_push_path(@push), class: 'btn btn-warning btn-sm', rel: 'nofollow' do %>
-            <em class='bi-pencil-square'></em> <%= _('Edit Push') %>
-          <% end %>
-        </div>
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+      <%= link_to @secret_url,
+        class: "btn btn-outline-primary",
+        "data-turbo-prefetch": false,
+        "data-turbolinks": false,
+        "data-turbo": false,
+        rel: "no-prefetch" do %>
+        <em class="bi bi-eye me-1"></em><%= _('View This Push') %>
       <% end %>
+      <% if @push.url? %>
+        <%= link_to new_push_path(tab: "url"), class: "btn btn-primary" do %>
+          <em class="bi bi-plus-lg me-1"></em><%= _('Push Another') %>
+        <% end %>
+      <% elsif @push.file? %>
+        <%= link_to new_push_path(tab: "files"), class: "btn btn-primary" do %>
+          <em class="bi bi-plus-lg me-1"></em><%= _('Push Another') %>
+        <% end %>
+      <% else %>
+        <%= link_to new_push_path(tab: "text"), class: "btn btn-primary" do %>
+          <em class="bi bi-plus-lg me-1"></em><%= _('Push Another') %>
+        <% end %>
+      <% end %>
+    </div>
 
-      <p class='mt-5 small'> <%= _('Tip: Pushing to an international user?  Change the secret link language using the dropdown menu to the right of the URL.') %> </p>
-      <p class='small'> <%= _('Alternatively auto-detection will select a language based on end-user browser settings.') %> </p>
+    <% if user_signed_in? %>
+      <div class="d-flex gap-2 mb-4">
+        <%= link_to audit_push_path(@push), class: 'btn btn-outline-secondary btn-sm', rel: 'nofollow' do %>
+          <em class="bi bi-list-check me-1"></em><%= _('Audit Log') %>
+        <% end %>
+        <%= link_to edit_push_path(@push), class: 'btn btn-outline-secondary btn-sm', rel: 'nofollow' do %>
+          <em class="bi bi-pencil me-1"></em><%= _('Edit') %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="text-muted small text-center">
+      <p class="mb-1"><em class="bi bi-lightbulb me-1"></em><%= _('Tip: Pushing to an international user? Change the secret link language using the dropdown menu to the right of the URL.') %></p>
+      <p class="mb-0"><%= _('Alternatively auto-detection will select a language based on end-user browser settings.') %></p>
+    </div>
   </div>
 </div>

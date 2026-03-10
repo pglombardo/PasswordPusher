@@ -36,7 +36,7 @@ class FilePushRequestedLocaleTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # Retrieve the push with a locale
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"
@@ -91,7 +91,7 @@ class FilePushRequestedLocaleTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # Retrieve the push with a locale
     push_with_locale = request.url.sub("/preview", "") + "/r?locale=es"

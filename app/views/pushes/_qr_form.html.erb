@@ -31,8 +31,8 @@
 
     <div class='row'>
         <div class='col'>
-            <%= f.text_area(:payload, { class: "form-control",
-                                        rows: 4,
+            <%= f.text_area(:payload, { class: "form-control rounded-3",
+                                        rows: 8,
                                         placeholder: _('Enter up to 1024 characters...'),
                                         autocomplete: "off",
                                         spellcheck: "false",
@@ -51,148 +51,137 @@
             </div>
         </div>
     </div>
-    <div class='row'>
-        <div class='col-12 col-sm-8 p-3'>
-            <div class='row'>
-                <div><%= _('Expire secret link and delete after:') %></div>
-                <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_days", @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default,
-                                        { :name => "push[expire_after_days]",
-                                          :class => "form-range",
-                                          :min => action_name == 'edit' ? @push.days_old + 1 : @push.settings_for_kind.expire_after_days_min,
-                                          :max => @push.settings_for_kind.expire_after_days_max,
-                                          :step => "1",
-                                          "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
-                                          "data-knobs-target" => "daysRange"
-                                        }) %>
-                </div>
-                <div class='col-2'>
-                    <div class="form-text" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></div>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-10'>
-                    <%= range_field_tag("push_expire_after_views", @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default,
-                                        { :name => "push[expire_after_views]",
-                                            :class => "form-range",
-                                            :min => action_name == 'edit' ? @push.view_count + 1 : @push.settings_for_kind.expire_after_views_min,
-                                            :max => @push.settings_for_kind.expire_after_views_max,
-                                            :step => "1",
-                                            "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
-                                            "data-knobs-target" => "viewsRange"
-                                        }) %>
-                </div>
 
-                <div class='col-2'>
-                    <div class="form-text" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></div>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col'>
-                    <p class='text-center form-text'><%= _('(whichever comes first)') %></p>
-                </div>
-            </div>
+    <div class="d-flex justify-content-end align-items-center mt-2 mb-4">
+        <div class="btn-group" role="group" aria-label="<%= _('Password Generator') %>">
+            <button class="btn btn-primary" type="button"
+                id='generate_password'
+                data-knobs-target="generatePasswordButton"
+                data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-shuffle me-1"></em><%= _('Generate Password') %></button>
+            <button class="btn btn-outline-primary" type="button" id='configure_generator'
+                data-action="pwgen#configureGenerator"
+                data-bs-toggle="modal" data-bs-target="#configureModal"
+                title="<%= _('Configure Generator') %>">
+                <em class="bi bi-sliders"></em>
+            </button>
+        </div>
+    </div>
 
-            <div class='row mb-3'>
-                <div class='col'>
-                    <div class="list-group mx-0">
-                        <% if @push.settings_for_kind.enable_retrieval_step %>
-                            <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
-                                            checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
-                            <span>
-                                <%= _('Use a 1-click retrieval step') %>
-                                <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
-                            </span>
-                            </label>
-                        <% end %>
-                        <% if @push.settings_for_kind.enable_deletable_pushes %>
-                            <label class="list-group-item d-flex gap-2">
-                            <%= check_box_tag "push[deletable_by_viewer]", '1', @push.persisted? ? @push.deletable_by_viewer : @push.settings_for_kind.deletable_pushes_default,
-                                            checkbox_options_for_push(@push, "deletableByViewer", @push.settings_for_kind.deletable_pushes_default) %>
-                            <span>
-                                <%= _('Allow immediate deletion') %>
-                                <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
-                            </span>
-                            </label>
-                        <% end %>
+    <div class='row g-4'>
+        <div class='col-12 col-md-8'>
+            <div class="border rounded-3 p-3 p-md-4">
+                <div class="fw-medium mb-3"><em class="bi bi-clock me-1"></em><%= _('Expire secret link and delete after:') %></div>
+                <div class='row align-items-center mb-2'>
+                    <div class='col'>
+                        <%= range_field_tag("push_expire_after_days", @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default,
+                                            { :name => "push[expire_after_days]",
+                                              :class => "form-range",
+                                              :min => action_name == 'edit' ? @push.days_old + 1 : @push.settings_for_kind.expire_after_days_min,
+                                              :max => @push.settings_for_kind.expire_after_days_max,
+                                              :step => "1",
+                                              "data-action" => "change->knobs#updateDaysSlider input->knobs#updateDaysSlider",
+                                              "data-knobs-target" => "daysRange"
+                                            }) %>
+                    </div>
+                    <div class='col-auto'>
+                        <span class="badge rounded-pill bg-primary" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></span>
                     </div>
                 </div>
-            </div>
-            <div class='row mb-3'>
-                <div class='col'>
-                    <div class="input-group">
-                        <span class="input-group-text"><%= _('Passphrase Lockdown') %></span>
-                        <%= f.text_field(:passphrase, { class: "form-control",
-                                                        autocomplete: "off",
-                                                        placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                <div class='row align-items-center mb-2'>
+                    <div class='col'>
+                        <%= range_field_tag("push_expire_after_views", @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default,
+                                            { :name => "push[expire_after_views]",
+                                                :class => "form-range",
+                                                :min => action_name == 'edit' ? @push.view_count + 1 : @push.settings_for_kind.expire_after_views_min,
+                                                :max => @push.settings_for_kind.expire_after_views_max,
+                                                :step => "1",
+                                                "data-action" => "change->knobs#updateViewsSlider input->knobs#updateViewsSlider",
+                                                "data-knobs-target" => "viewsRange"
+                                            }) %>
                     </div>
+                    <div class='col-auto'>
+                        <span class="badge rounded-pill bg-primary" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></span>
+                    </div>
+                </div>
+                <p class='text-center text-muted small mb-0'><%= _('(whichever comes first)') %></p>
+
+                <hr class="my-3">
+
+                <div class="list-group list-group-flush mx-0 mb-3">
+                    <% if @push.settings_for_kind.enable_retrieval_step %>
+                        <label class="list-group-item d-flex gap-2 px-0">
+                        <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
+                                        checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
+                        <span>
+                            <%= _('Use a 1-click retrieval step') %>
+                            <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
+                        </span>
+                        </label>
+                    <% end %>
+                    <% if @push.settings_for_kind.enable_deletable_pushes %>
+                        <label class="list-group-item d-flex gap-2 px-0">
+                        <%= check_box_tag "push[deletable_by_viewer]", '1', @push.persisted? ? @push.deletable_by_viewer : @push.settings_for_kind.deletable_pushes_default,
+                                        checkbox_options_for_push(@push, "deletableByViewer", @push.settings_for_kind.deletable_pushes_default) %>
+                        <span>
+                            <%= _('Allow immediate deletion') %>
+                            <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
+                        </span>
+                        </label>
+                    <% end %>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
+                    <%= f.text_field(:passphrase, { class: "form-control",
+                                                    autocomplete: "off",
+                                                    placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
             </div>
             <% unless action_name == 'edit' %>
-                <div class='row'>
-                    <div class='col'>
-                        <p class='mb-3'>
-                            <div id='cookie-save'>
-                                <a data-action="click->knobs#saveSettings" href="#"><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
-                            </div>
-                        </p>
-                    </div>
+                <div id='cookie-save' class='text-muted small mt-3'>
+                    <a data-action="click->knobs#saveSettings" href="#" class="text-decoration-none"><em class="bi bi-bookmark me-1"></em><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
                 </div>
             <% end %>
         </div>
-        <div class='col-12 col-sm-4 p-3 mt-3'>
-            <div class="row mb-3">
-                <div class="btn-group mb-3" role="group" aria-label="Password Generator button group with nested dropdown">
-                    <button class="btn btn-secondary w-75" type="button"
-                        id='generate_password'
-                        data-knobs-target="generatePasswordButton"
-                        data-action="pwgen#producePassword passwords#updateCharacterCount"><em class="bi bi-cpu"></em> <%= _('Generate Password') %></button>
-                    <button class="btn btn-secondary" type="button" id='configure_generator'
-                        data-action="pwgen#configureGenerator"
-                        data-bs-toggle="modal" data-bs-target="#configureModal">
-                        <em class="bi bi-gear"></em>
-                    </button>
-                </div>
-                <p class='fst-italic fw-light'><%= _('Use the button above to generate a random password.') %></p>
-            </div>
+        <div class='col-12 col-md-4'>
             <% if user_signed_in? %>
-                <div class='row mb-3'>
+                <div class='mb-3'>
                     <div class="input-group">
-                        <span class="input-group-text"><%= Push.human_attribute_name(:name) %></span>
+                        <span class="input-group-text"><em class="bi bi-tag me-1"></em><%= Push.human_attribute_name(:name) %></span>
                         <%= f.text_field(:name, { class: "form-control",
                                                 placeholder: _('Optional'),
                                                 autocomplete: "off" }) %>
                     </div>
-                    <div class="form-text" id="basic-addon4"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
+                    <div class="form-text"><%= _('A name shown in the dashboard, notifications and emails.') %></div>
                 </div>
-                <div class='row mb-3'>
+                <div class='mb-3'>
                     <div class="input-group">
-                        <span class="input-group-text"><%= _('Reference Note') %></span>
+                        <span class="input-group-text"><em class="bi bi-sticky me-1"></em><%= _('Note') %></span>
                         <%= f.text_area(:note, { class: "form-control",
                                                 rows: 1,
                                                 placeholder: _('Optional'),
                                                 autocomplete: "off" }) %>
                     </div>
-                    <div class="form-text" id="basic-addon4"><%= _('Encrypted and visible only to you') %></div>
+                    <div class="form-text"><%= _('Encrypted and visible only to you') %></div>
                 </div>
             <% end %>
-            <div class='row my-3 px-5'> <hr> </div>
-            <div class='row mb-3'>
-                <p class='fst-italic'><%= _('Tip: Only enter a password into the box.  Other identifying information can compromise security.') %></p>
-                <p class='fst-italic fw-light'><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link.  Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
+            <div class="border rounded-3 p-3">
+                <div class='small text-muted'>
+                    <p class="mb-2"><em class="bi bi-shield-check me-1"></em><%= _('Tip: Only enter a password into the box. Other identifying information can compromise security.') %></p>
+                    <p class="mb-0"><%= _('All passwords are encrypted prior to storage and are available to only those with the secret link. Once expired, encrypted passwords are unequivocally deleted from the database.') %></p>
+                </div>
             </div>
         </div>
     </div>
     <div class='row'>
         <div class='col'>
-            <p class='my-3'>
+            <div class="d-grid my-4">
                 <% if @push.persisted? %>
-                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Updating...') %>"><%= _('Update Push') %></button>
+                    <button class="btn btn-primary btn-lg" type="submit" data-form-target="pushit" data-disable-with="<%= _('Updating...') %>"><em class="bi bi-check-lg me-2"></em><%= _('Update Push') %></button>
                 <% else %>
-                    <button class="form-control btn btn-primary" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><%= _('Push It!') %></button>
+                    <button class="btn btn-primary btn-lg" type="submit" data-form-target="pushit" data-disable-with="<%= _('Pushing...') %>"><em class="bi bi-send me-2"></em><%= _('Push It!') %></button>
                 <% end %>
-            </p>
+            </div>
         </div>
     </div>
 <% end %>

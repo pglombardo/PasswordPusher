@@ -31,7 +31,7 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     get pushes_path(filter: "active")
     assert_response :success
@@ -40,11 +40,11 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
     assert_select "th", 6 # 6 columns in the table
 
     # Verify that the table headers exist with the expected content
-    assert_select "th", /Name or ID/ # First column should contain 'Name' or 'ID'
-    assert_select "th", /Kind/ # Second column
-    assert_select "th", /Created/ # Third column
-    assert_select "th", /Note/ # Fourth column
-    assert_select "th", /Remaining/ # Fifth column
+    assert_select "th", /Name \/ ID/
+    assert_select "th", /Type/
+    assert_select "th", /Created/
+    assert_select "th", /Note/
+    assert_select "th", /Status/
 
     # Verify that our created URL push appears in the list
     assert_select "td", "Test URL"
@@ -52,12 +52,10 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
     # Verify the push controls buttons
     # Since this is an active push, Preview, Edit, and Audit buttons should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
-      assert_select controls.first, "a", 3 # Should have 3 buttons (Preview, Edit, and Audit)
-
-      # Check the text content of the buttons
-      assert_select controls.first, "a", text: "Preview", count: 1
-      assert_select controls.first, "a", text: "Edit", count: 1
-      assert_select controls.first, "a", text: "Audit", count: 1
+      assert_select controls.first, "a", 3
+      assert_select controls.first, "a[title='Preview']", count: 1
+      assert_select controls.first, "a[title='Edit']", count: 1
+      assert_select controls.first, "a[title='Audit Log']", count: 1
     end
 
     # Expire the push
@@ -75,10 +73,8 @@ class UrlIndexTest < ActionDispatch::IntegrationTest
     # Verify the push controls buttons
     # Since this is an expired push, only Audit button should be present
     assert_select "div[aria-label='Push Controls']", 1 do |controls|
-      assert_select controls.first, "a", 1 # Should have 1 buttons (Audit)
-
-      # Check the text content of the buttons
-      assert_select controls.first, "a", text: "Audit", count: 1
+      assert_select controls.first, "a", 1
+      assert_select controls.first, "a[title='Audit Log']", count: 1
     end
   end
 end
