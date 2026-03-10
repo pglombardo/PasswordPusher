@@ -925,26 +925,36 @@ show_version: true
 # PWP__SHOW_GDPR_CONSENT_BANNER=true
 #
 # Default: true
-show_gdpr_consent_banner: true
+show_gdpr_consent_banner: false
 
 ### Themes
 #
-# Password Pusher uses Bootswatch themes.  See https://bootswatch.com/
+# Password Pusher uses Bootswatch themes from https://bootswatch.com/
 #
-# The following are the available themes.  The default theme is 'default'.
-#
-#   'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal', 'litera', 'lumen',
-#   'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex',
-#   'sketchy', 'slate', 'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'
+# For a gallery of themes, see: https://docs.pwpush.com/docs/rebranding/#themes
 #
 # To change the theme, set the `theme` value to the name of the theme you
 # want to use.
 #
 # Environment Variable Override: PWP__THEME='default'
 #
-# Important Note: This setting can only be controlled by environment variable. (PWP__THEME)
-#                 It cannot be set in this config file.
+# IMPORTANT NOTES:
+#   1. This setting can only be controlled by environment variable. (PWP__THEME) It cannot be set in this config file.
+#   2. If you set a custom theme, you must also set PWP_PRECOMPILE='true' to pre-compile the assets.  See next setting.
+#
 theme: 'default'
+
+### Pre-compilation
+#
+# This is useful if you modified the assets (e.g. CSS, JS, images) to customize
+# the theme etc...  Assets are precompiled before serving.
+#
+# If you set a custom theme, you will need to precompile the assets on container boot.
+#
+# Pre-compilation isn't supported in this yaml file.  It is only supported
+# through the environment variable PWP_PRECOMPILE='true'.
+#
+# Environment Variable: PWP_PRECOMPILE='false'
 
 # =============================================================================
 # Locale & internationalization
@@ -1182,19 +1192,3 @@ log_level: :warn
 # instead of using log files (e.g. log/production.log).
 #
 log_to_stdout: true
-
-# =============================================================================
-# Build / Docker
-# =============================================================================
-
-### Docker Pre-compilation
-#
-# This is useful if you modified the assets (e.g. CSS, JS, images) to customize
-# the theme etc...  Assets are precompiled before serving.
-#
-# If you set a custom theme, you will need to precompile the assets on container boot.
-#
-# Pre-compilation isn't supported in this yaml file.  It is only supported
-# through the environment variable PWP_PRECOMPILE='true'.
-#
-# Environment Variable: PWP_PRECOMPILE='false'
