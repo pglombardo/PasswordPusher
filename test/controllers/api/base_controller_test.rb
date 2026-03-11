@@ -217,6 +217,52 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal :unauthorized, response.status
   end
 
+  # When allow_anonymous is false, Api::V1::PushesController#create calls
+  # authenticate_user! — anonymous JSON create must be rejected.
+  test "/p/create requires authentication when allow_anonymous is false" do
+    Settings.allow_anonymous = false
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_anon_blocked"
+        }
+      },
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    # Devise may respond with 401 (JSON) or redirect to sign-in depending on config
+    assert_includes [401, 302], response.status,
+      "unauthenticated create should be rejected when allow_anonymous is false"
+    if response.redirect?
+      assert_match(%r{/users/sign_in}, response.location)
+    end
+  ensure
+    Settings.allow_anonymous = true
+  end
+
+  test "/p/create with valid token succeeds when allow_anonymous is false" do
+    Settings.allow_anonymous = false
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_with_token"
+        }
+      },
+      headers: {
+        "Authorization" => "Bearer valid_token_123",
+        "Accept" => "application/json"
+      }
+
+    assert_response :created, "authenticated create should succeed when allow_anonymous is false"
+    json = JSON.parse(response.body)
+    assert json["url_token"].present?
+  ensure
+    Settings.allow_anonymous = true
+  end
+
   # Test path-based authentication requirements for /f paths
   test "/f/create requires authentication" do
     Settings.enable_file_pushes = true

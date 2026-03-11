@@ -28,7 +28,7 @@ That’s the minimum. If nothing broke and behavior is acceptable, you’re done
 ## Optional (only if you need it)
 
 - **Anonymous vs logged-in only:** Use `PWP__ALLOW_ANONYMOUS` and `PWP__DISABLE_SIGNUPS` to match policy (replaces the old “logins off” mental model).
-- **Disable logins (`disable_logins`):** When `true`, the Log In button is hidden and **GET/POST `/users/sign_in` return 404**—no new web sessions. Existing sessions can still sign out. Use for anonymous-only instances where accounts exist but nobody should sign in via the UI (e.g. API-only access). Env: `PWP__DISABLE_LOGINS=true`.
+- **Disable logins (`disable_logins`):** When `true`, the Log In button is hidden and **GET/POST `/users/sign_in` return 404**—no new **web** sessions via the sign-in page. Existing browser sessions can still sign out. **The API is not affected:** Bearer/token authentication is unchanged, so anyone with a **previously created API token** can still authenticate intentionally—useful when you want to block the web login UI but keep programmatic access. Env: `PWP__DISABLE_LOGINS=true`.
 - **GDPR banner:** Off by default in 2.0. Set `PWP__SHOW_GDPR_CONSENT_BANNER=true` if you still need it.
 - **Custom `settings.yml`:** Still works. Prefer **environment variables** for new changes—see docker-compose. Long term, file-based config may move toward an in-app UI; env-based config is the forward-compatible path. 
 - **Fork with view overrides:** UI was restyled; re-test any customized templates.
@@ -59,7 +59,7 @@ Use this only if you need context or to diff behavior.
 | --------------------------------------------------------------- | ------------- | -------------------------------------------- |
 | `enable_user_account_emails`                                    | `false`       | `true` + working SMTP if you need mail flows |
 | `allow_anonymous`                                               | `true`        | `false` to require login to create pushes    |
-| `disable_logins`                                                | `false`       | `true` to hide Log In and block POST/GET sign-in (404) |
+| `disable_logins`                                                | `false`       | `true` to hide Log In and block POST/GET **web** sign-in (404); **API token auth still works** |
 | `enable_url_pushes` / `enable_file_pushes` / `enable_qr_pushes` | `true` each   | `false` to disable                           |
 | `pw` / `url` / `files` → `retrieval_step_default`               | `true`        | `false` for no extra step by default         |
 | `show_gdpr_consent_banner`                                      | `false`       | `true` to show banner                        |
@@ -86,7 +86,7 @@ If you want a **fully anonymous** instance with **no login system exposed at all
 
 Together they:
 
-- **Hide Log In** and **block GET/POST `/users/sign_in`** (404), so the app does not offer a web login flow.
+- **Hide Log In** and **block GET/POST `/users/sign_in`** (404), so the app does not offer a web login flow. **API authentication is unchanged:** clients can still use a **previously issued API token** (Bearer) to act as that user—`disable_logins` does not revoke or block token auth. Revoke tokens in admin or stop issuing them if you need no API access either.
 - **Hide Sign Up** and prevent new registrations through the UI.
 - **Hide the Files tab** when `disable_logins` is true (file pushes require a signed-in user), so anonymous installs only expose password, URL, and QR flows as configured.
 
