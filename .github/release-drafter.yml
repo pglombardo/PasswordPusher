@@ -34,17 +34,17 @@ template: |
 
   ## :running_man: Run This Version
 
-  → Setup a DNS record to point to your server (e.g. `pwpush.example.com`) and run:
+  1. Point DNS to your server (e.g. `pwpush.example.com`).
+  2. Download [docker-compose.yml](https://raw.githubusercontent.com/pglombardo/PasswordPusher/refs/heads/master/docker-compose.yml) or clone the repo.
+  3. In `docker-compose.yml`, uncomment and set:
+     - `TLS_DOMAIN: 'pwpush.example.com'` for automatic Let’s Encrypt TLS.
+  4. Run:
 
-  ```sh
-  docker run -d -p "80:80" -p "443:443" --env TLS_DOMAIN=pwpush.example.com pglombardo/pwpush:latest`
+  ```bash
+  docker compose up -d
   ```
 
-  and browse to `https://pwpush.example.com`.
-
-  _or alternatively_
-
-  → Use one of our [production ready Docker Compose files](https://docs.pwpush.com/docs/installation/#docker-compose) with persistent databases.
+  Open `https://pwpush.example.com` or alternatively `http://your-ip:5100`.
 
   ## :link: Useful Links
 
