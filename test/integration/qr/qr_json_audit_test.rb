@@ -6,13 +6,10 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
   end
 
   def test_audit_response_for_authenticated
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
@@ -51,8 +48,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", passphrase: "asdf", expire_after_views: 3}},
@@ -104,8 +99,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_no_token_no_audit_log
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
@@ -129,8 +122,6 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_no_audit_log_for_anonymous_pushes
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create an anonymous push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}}, as: :json

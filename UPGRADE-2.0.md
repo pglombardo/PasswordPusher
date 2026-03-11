@@ -92,3 +92,5 @@ Together they:
 
 Keep **`allow_anonymous: true`** (default) if visitors should create pushes without an account. Tighten with **`allow_anonymous: false`** only if you intend to lock creation down via another mechanism (e.g. API tokens only). See [docker-compose.yml](https://github.com/pglombardo/PasswordPusher/blob/master/docker-compose.yml) for commented `PWP__...` entries.
 
+**Not supported:** **`allow_anonymous: false`** together with **`disable_logins: true`** and **`disable_signups: true`**. That combination is unsupported—creation would require a signed-in user, but sign-in and sign-up are disabled, leaving no supported way to obtain a session. Do not deploy with all three set that way.
+

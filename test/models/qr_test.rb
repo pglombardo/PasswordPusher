@@ -5,15 +5,11 @@ require "test_helper"
 class QrTest < ActiveSupport::TestCase
   setup do
     @default_enable_qr_pushes = Settings.enable_qr_pushes
-    @default_enable_logins = Settings.enable_logins
-
     Settings.enable_qr_pushes = true
-    Settings.enable_logins = true
   end
 
   teardown do
     Settings.enable_qr_pushes = @default_enable_qr_pushes
-    Settings.enable_logins = @default_enable_logins
   end
 
   test "should create QR code push with name" do

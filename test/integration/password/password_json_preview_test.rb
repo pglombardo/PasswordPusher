@@ -19,8 +19,6 @@ class PasswordJsonPreviewTest < ActionDispatch::IntegrationTest
   end
 
   def test_authenticated_preview_response
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,

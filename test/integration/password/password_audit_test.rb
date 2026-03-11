@@ -6,8 +6,6 @@ class PasswordAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
-
     Rails.application.reload_routes!
 
     # Create a user

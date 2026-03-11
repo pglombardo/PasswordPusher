@@ -7,7 +7,6 @@ class SecretUrlBarTest < ApplicationSystemTestCase
 
   setup do
     # Enable logins for these tests
-    Settings.enable_logins = true
     Rails.application.reload_routes!
 
     # Create and sign in a user

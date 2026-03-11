@@ -6,7 +6,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
   end
@@ -117,8 +116,6 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_no_token_no_audit_log
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},

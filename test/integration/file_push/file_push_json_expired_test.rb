@@ -6,7 +6,6 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 

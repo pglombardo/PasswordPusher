@@ -272,7 +272,12 @@ class PushesController < BaseController
 
   def audit
     unless current_user
-      redirect_to new_user_session_path, notice: I18n._("You must be signed in to view the audit log.")
+      # When disable_logins is true, new_user_session_path returns 404—send users to root instead
+      if Settings.disable_logins
+        redirect_to root_path, notice: I18n._("The audit log is only available when signed in.")
+      else
+        redirect_to new_user_session_path, notice: I18n._("You must be signed in to view the audit log.")
+      end
       return
     end
     if @push.user_id != current_user.id
@@ -434,7 +439,18 @@ class PushesController < BaseController
 
   def check_allowed
     if action_name == "index"
+      # Dashboard requires login; when logins are disabled, sign_in URL is 404—redirect to root instead
+      if Settings.disable_logins && !user_signed_in?
+        redirect_to root_path, notice: I18n._("The push dashboard is not available while logins are disabled.")
+        return
+      end
       authenticate_user!
+    end
+
+    # Audit requires sign-in; when logins are disabled, sign_in URL is 404—redirect to root instead
+    if action_name == "audit" && Settings.disable_logins && !user_signed_in?
+      redirect_to root_path, notice: I18n._("The audit log is only available when signed in.")
+      return
     end
 
     @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
@@ -458,7 +474,7 @@ class PushesController < BaseController
     case @push_kind
     when "file"
       if Settings.disable_logins
-        redirect_to new_push_path(tab: "text"), notice: I18n._("File pushes require sign in.")
+        redirect_to new_push_path(tab: "text"), notice: I18n._("File pushes are unavailable while logins are disabled.")
         return
       end
       if Settings.enable_file_pushes

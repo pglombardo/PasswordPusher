@@ -6,8 +6,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def test_audit_response_for_authenticated
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
@@ -46,8 +44,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_audit_response_for_created_expired_successful_and_unsuccessful_views
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", passphrase: "asdf", expire_after_views: 3}},
@@ -99,8 +95,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_no_token_no_audit_log
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
@@ -124,8 +118,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_no_audit_log_for_anonymous_pushes
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create an anonymous push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}}, as: :json
@@ -147,8 +139,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_audit_pagination
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 100}},
@@ -208,8 +198,6 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
   end
 
   def test_audit_pagination_invalid_page
-    Settings.enable_logins = true
-
     @luca = users(:luca)
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},

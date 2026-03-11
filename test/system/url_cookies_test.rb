@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class UrlCookiesTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)

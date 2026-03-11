@@ -6,7 +6,6 @@ class QrAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
 
     # Create a user

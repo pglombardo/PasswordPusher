@@ -37,6 +37,25 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "GET audit when not signed in redirects to root when disable_logins is true" do
+    # Avoid redirect to sign_in which returns 404 when logins are disabled
+    Settings.disable_logins = false
+    sign_in @user
+    post pushes_path, params: {
+      push: {kind: "text", payload: "audit_redirect_test", expire_after_days: 1, expire_after_views: 1}
+    }
+    assert_response :redirect
+    follow_redirect!
+    push = Push.order(:created_at).last
+
+    sign_out @user
+    Settings.disable_logins = true
+
+    get audit_push_path(push)
+    assert_redirected_to root_path
+    assert_equal I18n._("The audit log is only available when signed in."), flash[:notice]
+  end
+
   test "GET new push with files tab redirects to text when disable_logins is true" do
     Settings.disable_logins = true
     Settings.enable_file_pushes = true
@@ -124,9 +143,18 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
       }
     }
     assert_redirected_to new_push_path(tab: "text")
-    assert_equal I18n._("File pushes require sign in."), flash[:notice]
+    assert_equal I18n._("File pushes are unavailable while logins are disabled."), flash[:notice]
   ensure
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
+  end
+
+  test "GET pushes index redirects to root when disable_logins and not signed in" do
+    Settings.disable_logins = true
+    sign_out :user
+
+    get pushes_path
+    assert_redirected_to root_path
+    assert_equal I18n._("The push dashboard is not available while logins are disabled."), flash[:notice]
   end
 end

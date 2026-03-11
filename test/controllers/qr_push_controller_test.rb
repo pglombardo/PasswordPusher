@@ -117,7 +117,7 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
-  test "when QR pushes disabled, creating a QR push returns 422 with validation error" do
+  test "when QR pushes disabled, creating a QR push redirects to root with notice" do
     Settings.enable_qr_pushes = false
 
     post pushes_path, params: {
@@ -127,13 +127,13 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :unprocessable_content
-    assert_match(/QR code pushes are disabled\./i, response.body)
+    assert_redirected_to root_path
+    assert_equal I18n._("QR code pushes are disabled."), flash[:notice]
   ensure
     Settings.enable_qr_pushes = true
   end
 
-  test "when QR pushes disabled, logged-in user creating QR push returns 422 with validation error" do
+  test "when QR pushes disabled, logged-in user creating QR push redirects to root with notice" do
     Settings.enable_qr_pushes = false
     @luca = users(:luca)
     sign_in @luca
@@ -145,8 +145,8 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :unprocessable_content
-    assert_match(/QR code pushes are disabled\./i, response.body)
+    assert_redirected_to root_path
+    assert_equal I18n._("QR code pushes are disabled."), flash[:notice]
   ensure
     Settings.enable_qr_pushes = true
   end

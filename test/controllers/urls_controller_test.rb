@@ -98,7 +98,7 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
-  test "when URL pushes disabled, creating a URL push returns 422 with validation error" do
+  test "when URL pushes disabled, creating a URL push redirects to root with notice" do
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
 
@@ -109,14 +109,14 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :unprocessable_content
-    assert_match(/URL pushes are disabled\./i, response.body)
+    assert_redirected_to root_path
+    assert_equal I18n._("URL pushes are disabled."), flash[:notice]
   ensure
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
   end
 
-  test "when URL pushes disabled, logged-in user creating URL push returns 422 with validation error" do
+  test "when URL pushes disabled, logged-in user creating URL push redirects to root with notice" do
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
     @luca = users(:luca)
@@ -129,8 +129,8 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :unprocessable_content
-    assert_match(/URL pushes are disabled\./i, response.body)
+    assert_redirected_to root_path
+    assert_equal I18n._("URL pushes are disabled."), flash[:notice]
   ensure
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
