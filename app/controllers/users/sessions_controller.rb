@@ -3,6 +3,8 @@
 class Users::SessionsController < Devise::SessionsController
   layout "login"
 
+  before_action :reject_when_logins_disabled, only: [:new, :create]
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -25,6 +27,12 @@ class Users::SessionsController < Devise::SessionsController
   # This method is called after the user has signed out.
   # Ensure the session data is cleared and the session cookie is deleted.
   #
+  def reject_when_logins_disabled
+    return unless Settings.disable_logins
+
+    head :not_found
+  end
+
   def after_sign_out_path_for(resource_or_scope)
     reset_session  # Explicitly clear the session data
     cookies.delete("_PasswordPusher_session") # Delete the session cookie

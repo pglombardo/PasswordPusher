@@ -13,7 +13,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # Attempt to retrieve the password without the passphrase
     get request.url.sub("/preview", "")
@@ -83,7 +83,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # Attempt to retrieve the password without the passphrase
     get request.url.sub("/preview", "")
@@ -129,7 +129,7 @@ class PasswordPassphraseTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # Attempt to access the file push page
     @push_url = request.url.sub("/preview", "")

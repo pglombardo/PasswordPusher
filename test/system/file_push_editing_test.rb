@@ -4,12 +4,10 @@ require "application_system_test_case"
 
 class FilePushEditingTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
@@ -170,7 +168,7 @@ class FilePushEditingTest < ApplicationSystemTestCase
     click_button "Update Push"
 
     # Should redirect to preview
-    assert_selector "h2", text: "Push Preview"
+    assert_selector "h2", text: "Push Created"
 
     # Verify database was updated
     push.reload

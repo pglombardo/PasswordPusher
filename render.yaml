@@ -1,0 +1,60 @@
+# Render Blueprint – Password Pusher (pwpush)
+# https://render.com/docs/blueprint-spec
+#
+# Deploy: Connect repo → New Blueprint → select render.yaml, or `render blueprint apply`.
+# Set SECRET_KEY_BASE and PWPUSH_MASTER_KEY in the dashboard (Generate/Secret).
+# Optional: add a worker service with startCommand: bundle exec rake solid_queue:start
+
+databases:
+  - name: pwpush-db
+    plan: free
+    databaseName: pwpush
+    user: pwpush
+
+services:
+  - type: web
+    name: pwpush-web
+    runtime: ruby
+    plan: starter
+    region: oregon
+    buildCommand: bundle install && bundle exec rails assets:precompile
+    preDeployCommand: bundle exec rails db:prepare
+    startCommand: bundle exec bin/thrust bin/rails server
+    healthCheckPath: /up
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: RAILS_LOG_LEVEL
+        value: info
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pwpush-db
+          property: connectionString
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: PWPUSH_MASTER_KEY
+        generateValue: true
+      - key: PWP__ALLOW_ANONYMOUS
+        value: "true"
+      - key: PWP__DISABLE_SIGNUPS
+        value: "false"
+      - key: PWP__DISABLE_LOGINS
+        value: "false"
+      - key: PWP__ENABLE_FILE_PUSHES
+        value: "true"
+      - key: PWP__ENABLE_URL_PUSHES
+        value: "true"
+      - key: PWP__ENABLE_QR_PUSHES
+        value: "true"
+      - key: PWP__ENABLE_USER_ACCOUNT_EMAILS
+        value: "false"
+    # Uncomment for Solid Queue worker (separate dyno):
+    # - type: worker
+    #   name: pwpush-worker
+    #   runtime: ruby
+    #   plan: starter
+    #   buildCommand: bundle install
+    #   startCommand: bundle exec rake solid_queue:start
+    #   envVars: (same as web, link DATABASE_URL etc.)

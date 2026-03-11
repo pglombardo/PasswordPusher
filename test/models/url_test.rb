@@ -5,15 +5,11 @@ require "test_helper"
 class UrlTest < ActiveSupport::TestCase
   setup do
     @default_enable_url_pushes = Settings.enable_url_pushes
-    @default_enable_logins = Settings.enable_logins
-
     Settings.enable_url_pushes = true
-    Settings.enable_logins = true
   end
 
   teardown do
     Settings.enable_url_pushes = @default_enable_url_pushes
-    Settings.enable_logins = @default_enable_logins
   end
 
   test "should create url with name" do

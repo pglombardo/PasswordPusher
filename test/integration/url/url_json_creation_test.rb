@@ -6,12 +6,10 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_basic_json_creation
@@ -33,7 +31,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "html_url", "json_url", "name", "note", "passphrase", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "html_url", "json_url"), {"expire_after_views" => 5,
       "expired" => false,
-      "retrieval_step" => false,
+      "retrieval_step" => true,
       "expired_on" => nil,
       "passphrase" => "",
       "expire_after_days" => 7,

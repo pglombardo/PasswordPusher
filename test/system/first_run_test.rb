@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class FirstRunTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.disable_signups = false
     Rails.application.reload_routes!
 
@@ -20,7 +19,7 @@ class FirstRunTest < ApplicationSystemTestCase
   teardown do
     FirstRunBootCode.clear!
     User.destroy_all
-    Settings.enable_logins = false
+    Settings.disable_logins = false
     Settings.disable_signups = false
 
     InvisibleCaptcha.timestamp_enabled = @original_timestamp_enabled
@@ -70,7 +69,7 @@ class FirstRunTest < ApplicationSystemTestCase
     assert_equal 1, User.count
     user = User.last
     assert_equal "admin@example.com", user.email
-    assert user.confirmed?
+    assert_user_confirmed(user)
     assert user.admin?
   end
 

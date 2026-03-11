@@ -4,17 +4,14 @@ require "application_system_test_case"
 
 class UserAccountDeletionTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
   teardown do
     logout(:user)
-    Settings.enable_logins = false
   end
 
   test "delete account button is visible on edit account page" do
@@ -58,8 +55,8 @@ class UserAccountDeletionTest < ApplicationSystemTestCase
   test "delete account section appears after verification section" do
     visit edit_user_registration_path
 
-    # Get all section headers
-    sections = all("p.lead")
+    # Get all section headers (now using h5.fw-semibold instead of p.lead)
+    sections = all("h5.fw-semibold")
     section_texts = sections.map(&:text)
 
     # Verify delete account section exists (can be "Delete" or "Cancel" depending on locale)

@@ -16,6 +16,10 @@
 
 ---
 
+**v2.0 is released.** If you already self-host, see the **[upgrade guide](UPGRADE-2.0.md)** for migration notes and configuration changes.
+
+---
+
 ## What is Password Pusher?
 
 **Password Pusher** is an open source web app for sharing sensitive information safely. You push a password, note, file, or URL; the recipient gets a one-time link that expires after a set number of views and/or time. No more sending secrets over chat or email—everything is encrypted, auditable, and can self-destruct.
@@ -114,6 +118,23 @@ docker compose up -d
 ```
 
 Open `https://pwpush.example.com`. The Compose file includes persistent storage, health checks, and is suitable for production.
+
+_Note: If you didn't set `TLS_DOMAIN` visit the application on http://your-ip:5100_
+
+### Cloud deploy & contributor setup
+
+The repo includes ready-to-adapt configs for common platforms and local dev:
+
+| File / path | Use |
+|-------------|-----|
+| [app.json](app.json) | Heroku-style deploy (env vars, `postdeploy` / `db:prepare`, process types). |
+| [.do/deploy.template.yaml](.do/deploy.template.yaml) | [DigitalOcean App Platform](https://docs.digitalocean.com/products/app-platform/) spec (web + job, secrets placeholders). |
+| [render.yaml](render.yaml) | [Render](https://render.com/) Blueprint (web + Postgres, health `/up`; optional worker commented). |
+| [fly.toml](fly.toml) | [Fly.io](https://fly.io/) (`fly launch` — set `app` name; Dockerfile `containers/docker/Dockerfile`). |
+| [railway.toml](railway.toml) | [Railway](https://railway.com/) config-as-code (Dockerfile path; set secrets in dashboard). |
+| [.devcontainer/](.devcontainer/) | VS Code / GitHub Codespaces: Ruby + Postgres, repo mounted at `/workspace`, `bin/setup`. |
+
+Production image build: [containers/docker/Dockerfile](containers/docker/Dockerfile). Root [docker-compose.yml](docker-compose.yml) uses the published image; [.devcontainer/docker-compose.yml](.devcontainer/docker-compose.yml) is for development with a mounted working tree.
 
 ### Use the API, CLI, or integrations
 

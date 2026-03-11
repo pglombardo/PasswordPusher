@@ -4,12 +4,10 @@ require "application_system_test_case"
 
 class CopyClipboardTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Rails.application.reload_routes!
 
     @user = users(:giuliana)
-    @user.confirm
     login_as(@user, scope: :user)
 
     @push = pushes(:test_push)

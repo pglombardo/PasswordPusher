@@ -4,12 +4,10 @@ require "application_system_test_case"
 
 class PasswordGeneratorTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
@@ -224,6 +222,6 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     # Should create push successfully
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 end

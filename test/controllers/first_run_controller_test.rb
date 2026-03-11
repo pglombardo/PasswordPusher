@@ -4,7 +4,6 @@ require "test_helper"
 
 class FirstRunControllerTest < ActionDispatch::IntegrationTest
   setup do
-    Settings.enable_logins = true
     Settings.disable_signups = false
     Rails.application.reload_routes!
 
@@ -22,7 +21,6 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     FirstRunBootCode.clear!
     InvisibleCaptcha.timestamp_enabled = @original_timestamp_enabled
     InvisibleCaptcha.spinner_enabled = @original_spinner_enabled
-    Settings.enable_logins = false
     Settings.disable_signups = false
   end
 
@@ -57,21 +55,9 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     user = User.order(:created_at).last
     assert user.admin?
-    assert user.confirmed?
+    assert_user_confirmed(user)
     assert_equal user.id, session["warden.user.user.key"]&.dig(0, 0)
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
-  end
-
-  test "first run workflow is skipped when enable_logins is false" do
-    Settings.enable_logins = false
-    User.destroy_all
-    assert FirstRunBootCode.needed?, "precondition: first run should be needed"
-
-    get root_url
-    assert_response :success
-
-    get first_run_url
-    assert_redirected_to root_url
   end
 
   test "first run page is not accessible when users exist" do

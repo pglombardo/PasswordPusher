@@ -4,11 +4,9 @@ require "application_system_test_case"
 
 class PushCookiesTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 

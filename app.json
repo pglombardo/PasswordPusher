@@ -1,99 +1,130 @@
 {
   "name": "PasswordPusher",
-  "description": "An application to communicate sensitive information over the web. Secret links expire after a certain number of views and/or time has passed. Supports passwords, files, URLs, and QR codes with full audit logging.",
+  "description": "Share passwords, text, files, URLs, and QR payloads via secret links that expire by views and/or time. Encrypted storage, optional passphrase, audit logging, and JSON API.",
+  "website": "https://pwpush.com",
   "repository": "https://github.com/pglombardo/PasswordPusher",
   "logo": "https://pwpush.fra1.cdn.digitaloceanspaces.com/branding/logos/horizontal-logo-small.png",
-  "keywords": ["password", "security", "expire", "file-sharing", "url-sharing", "qr-code"],
+  "keywords": [
+    "password",
+    "security",
+    "expire",
+    "file-sharing",
+    "url-sharing",
+    "qr-code",
+    "rails"
+  ],
+  "success_url": "/",
+  "stack": "heroku-24",
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
   "addons": [
-    "heroku-postgresql"
+    {
+      "plan": "heroku-postgresql",
+      "as": "DATABASE"
+    }
   ],
   "scripts": {
-    "postdeploy": "bundle exec rails db:migrate"
+    "postdeploy": "bundle exec rails db:prepare"
   },
   "env": {
     "BUNDLE_WITHOUT": {
-      "description": "Bundler groups to exclude",
+      "description": "Bundler groups to exclude from production bundle.",
       "value": "development:test"
     },
-    "PWPUSH_MASTER_KEY": {
-      "description": "Application Encryption Key - Required for encrypting sensitive data. Generate with: rails runner 'puts Lockbox.generate_key'",
-      "generator": "secret"
+    "RAILS_LOG_TO_STDOUT": {
+      "description": "Log to stdout for Heroku log drain.",
+      "value": "true"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "Serve static assets from Rails when no CDN is in front.",
+      "value": "true"
     },
     "SECRET_KEY_BASE": {
-      "description": "Rails secret key base for session encryption. Generate with: rails secret",
+      "description": "Rails secret key base. Generate: rails secret",
+      "generator": "secret"
+    },
+    "PWPUSH_MASTER_KEY": {
+      "description": "Lockbox encryption key for payloads. Generate: rails runner 'puts Lockbox.generate_key'",
       "generator": "secret"
     },
     "WEB_CONCURRENCY": {
-      "description": "The number of Puma processes to run",
-      "value": "3"
-    },
-    "PWP__PW__EXPIRE_AFTER_DAYS_DEFAULT": {
-      "description": "Default value for password push expiration (days)",
-      "value": "7"
-    },
-    "PWP__PW__EXPIRE_AFTER_DAYS_MIN": {
-      "description": "Minimum value for password push expiration (days)",
-      "value": "1"
-    },
-    "PWP__PW__EXPIRE_AFTER_DAYS_MAX": {
-      "description": "Maximum value for password push expiration (days)",
-      "value": "90"
-    },
-    "PWP__PW__EXPIRE_AFTER_VIEWS_DEFAULT": {
-      "description": "Default value for password push expiration (views)",
-      "value": "5"
-    },
-    "PWP__PW__EXPIRE_AFTER_VIEWS_MIN": {
-      "description": "Minimum value for password push expiration (views)",
-      "value": "1"
-    },
-    "PWP__PW__EXPIRE_AFTER_VIEWS_MAX": {
-      "description": "Maximum value for password push expiration (views)",
-      "value": "100"
-    },
-    "PWP__PW__ENABLE_DELETABLE_PUSHES": {
-      "description": "Enable the ability for viewers to delete password pushes before expiration",
-      "value": "true"
-    },
-    "PWP__PW__DELETABLE_PUSHES_DEFAULT": {
-      "description": "Default value for deletable pushes checkbox and JSON API",
-      "value": "true"
-    },
-    "PWP__PW__ENABLE_RETRIEVAL_STEP": {
-      "description": "Enable the 1-click retrieval step feature for password pushes",
-      "value": "true"
-    },
-    "PWP__PW__RETRIEVAL_STEP_DEFAULT": {
-      "description": "Default value for the 1-click retrieval step option",
-      "value": "false"
-    },
-    "PWP__ENABLE_LOGINS": {
-      "description": "Enable user account logins (requires SMTP configuration)",
-      "value": "false"
-    },
-    "PWP__ENABLE_FILE_PUSHES": {
-      "description": "Enable file upload pushes (requires logins and storage configuration)",
-      "value": "false"
-    },
-    "PWP__ENABLE_URL_PUSHES": {
-      "description": "Enable URL-based pushes (requires logins)",
-      "value": "false"
-    },
-    "PWP__ENABLE_QR_PUSHES": {
-      "description": "Enable QR code pushes (requires logins)",
-      "value": "false"
+      "description": "Puma worker processes (memory vs throughput tradeoff).",
+      "value": "2"
     },
     "PWP__HOST_DOMAIN": {
-      "description": "The domain where this instance is hosted (without protocol)",
+      "description": "Public hostname without scheme (e.g. myapp.herokuapp.com). Required for correct secret URLs.",
       "required": false
     },
     "PWP__HOST_PROTOCOL": {
-      "description": "The protocol to reach the domain (http or https)",
+      "description": "https recommended in production.",
       "value": "https"
     },
+    "PWP__OVERRIDE_BASE_URL": {
+      "description": "Full base URL if app is behind a proxy or custom domain (e.g. https://secrets.example.com).",
+      "required": false
+    },
+    "PWP__ALLOWED_HOSTS": {
+      "description": "Space-separated hostnames Rails should accept (Host header). Set to your Heroku hostname and custom domains.",
+      "required": false
+    },
+    "PWP__FILES__STORAGE": {
+      "description": "File push backend: local (ephemeral on Heroku) or s3. Use s3 for durable file pushes; see docs for PWP__FILES__S3__* vars.",
+      "value": "local"
+    },
+    "PWP__ALLOW_ANONYMOUS": {
+      "description": "Allow creating pushes without signing in.",
+      "value": "true"
+    },
+    "PWP__DISABLE_SIGNUPS": {
+      "description": "Hide Sign Up and block new registrations via UI.",
+      "value": "false"
+    },
+    "PWP__DISABLE_LOGINS": {
+      "description": "Hide Log In; sign_in returns 404. Use with allow_anonymous true for anonymous-only. Do not combine with allow_anonymous false.",
+      "value": "false"
+    },
+    "PWP__ENABLE_USER_ACCOUNT_EMAILS": {
+      "description": "Devise mail (confirm/reset). Requires SMTP; set PWP__MAIL__SMTP_* when true.",
+      "value": "false"
+    },
+    "PWP__MAIL__SMTP_ADDRESS": {
+      "description": "SMTP host when account emails are enabled.",
+      "required": false
+    },
+    "PWP__ENABLE_FILE_PUSHES": {
+      "description": "File pushes require a signed-in user unless disable_logins hides the feature.",
+      "value": "true"
+    },
+    "PWP__ENABLE_URL_PUSHES": {
+      "description": "URL push kind.",
+      "value": "true"
+    },
+    "PWP__ENABLE_QR_PUSHES": {
+      "description": "QR push kind.",
+      "value": "true"
+    },
     "PWP__THEME": {
-      "description": "Bootswatch theme name (e.g., default, darkly, flatly, cosmo). See https://docs.pwpush.com/docs/themes/",
+      "description": "Bootswatch theme name. See https://docs.pwpush.com/docs/themes/",
       "value": "default"
+    }
+  },
+  "environments": {
+    "review": {
+      "formation": {
+        "web": {
+          "quantity": 1,
+          "size": "basic"
+        }
+      }
     }
   }
 }
