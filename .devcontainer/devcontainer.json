@@ -1,0 +1,21 @@
+{
+  "name": "Password Pusher",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Shopify.ruby-lsp"
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "forwardPorts": [3000, 5432],
+  "postCreateCommand": "apt-get update && apt-get install -y --no-install-recommends build-essential libpq-dev libyaml-dev nodejs npm && bin/setup",
+  "remoteEnv": {
+    "DATABASE_URL": "postgres://postgres:postgres@db:5432/pwpush_development"
+  }
+}

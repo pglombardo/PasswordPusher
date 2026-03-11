@@ -1,0 +1,52 @@
+# Fly.io – Password Pusher
+# https://fly.io/docs/reference/configuration/
+#
+# First deploy:
+#   fly launch --no-deploy --dockerfile containers/docker/Dockerfile
+#   fly secrets set SECRET_KEY_BASE="$(bundle exec rails secret)" PWPUSH_MASTER_KEY="$(openssl rand -hex 32)"
+#   fly postgres create  # or set DATABASE_URL
+#   fly deploy
+#
+# Web + worker in one machine: omit PWP__NO_WORKER (entrypoint runs foreman web+worker).
+# Web only: fly secrets set PWP__NO_WORKER=1
+
+app = "pwpush-replace-me"
+primary_region = "iad"
+
+[build]
+  dockerfile = "containers/docker/Dockerfile"
+
+[env]
+  RAILS_ENV = "production"
+  RACK_ENV = "production"
+  RAILS_LOG_LEVEL = "info"
+  PWP__ALLOW_ANONYMOUS = "true"
+  PWP__DISABLE_SIGNUPS = "false"
+  PWP__DISABLE_LOGINS = "false"
+  PWP__ENABLE_FILE_PUSHES = "true"
+  PWP__ENABLE_URL_PUSHES = "true"
+  PWP__ENABLE_QR_PUSHES = "true"
+  PWP__ENABLE_USER_ACCOUNT_EMAILS = "false"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[checks]
+  [checks.http]
+    port = 8080
+    type = "http"
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "30s"
+    method = "GET"
+    path = "/up"
