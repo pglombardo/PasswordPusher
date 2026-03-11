@@ -57,6 +57,17 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     end
   end
 
+  test "notify builds secret_url with FORCE_SSL set (no request in mailer context)" do
+    ENV["FORCE_SSL"] = "1"
+    mail = PushCreatedMailer.with(record: @push).notify
+    body = mail.html_part&.body&.decoded || mail.body.decoded
+    assert_includes body, @push.url_token, "body should include secret URL"
+    assert_match(%r{https?://[^"]*/p/#{Regexp.escape(@push.url_token)}}, body, "secret URL should be full URL")
+    assert body.include?("https://"), "FORCE_SSL should produce https link in email"
+  ensure
+    ENV.delete("FORCE_SSL")
+  end
+
   test "notify includes locale in secret URL when notify_emails_to_locale is set" do
     @push.update!(notify_emails_to_locale: "fr")
     mail = PushCreatedMailer.with(record: @push).notify
@@ -111,7 +122,7 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     @push.update!(expire_after_days: 1, expire_after_views: 3)
     mail = PushCreatedMailer.with(record: @push).notify
     body = mail.body.encoded
-    # Full duration format: "1 day(s), 0 hour(s) and 0 minute(s)" or similar
+    # Whole-day expiry shows as "1 day(s)"; mixed duration shows days, hours, minutes
     assert_includes body, "1", "1 day expiry should show 1"
     assert body.include?("day") || body.include?("hour"), "duration should include day or hour unit"
   end

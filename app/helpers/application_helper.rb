@@ -40,8 +40,12 @@ module ApplicationHelper
       raw_url += "?locale=#{params["push_locale"]}"
     end
 
-    # Support forced https links with FORCE_SSL env var (request may be nil in mailer context)
-    raw_url.gsub!(/http/i, "https") if ENV.key?("FORCE_SSL") && !request&.ssl?
+    # Support forced https links with FORCE_SSL env var. In mailer context request is not
+    # available (NameError); only call request when it exists (e.g. in controller/view).
+    if ENV.key?("FORCE_SSL")
+      already_ssl = respond_to?(:request, true) && request&.ssl?
+      raw_url.gsub!(/http/i, "https") unless already_ssl
+    end
     raw_url
   end
 

@@ -62,7 +62,9 @@ module PushesHelper
     hours = ((duration % (24 * 3600)) / 3600).to_i
     calculated_minutes = ((duration % 3600) / 60).to_i
 
-    if days.positive?
+    if days.positive? && hours.zero? && calculated_minutes.zero?
+      I18n._("%{count} day(s)") % {count: days}
+    elsif days.positive?
       I18n._("%{days} day(s), %{hours} hour(s) and %{minutes} minute(s)") % {days:, hours:, minutes: calculated_minutes}
     elsif hours.positive?
       if calculated_minutes.positive?
