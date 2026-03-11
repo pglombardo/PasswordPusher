@@ -451,11 +451,16 @@ class PushesController < BaseController
         "text"
       end
     elsif action_name == "create"
-      push_params.dig(:push, :kind) || "text"
+      # Use params, not push_params: permit returns the push slice flat; dig(:push, :kind) is always nil
+      params.dig(:push, :kind).presence || "text"
     end
 
     case @push_kind
     when "file"
+      if Settings.disable_logins
+        redirect_to new_push_path(tab: "text"), notice: I18n._("File pushes require sign in.")
+        return
+      end
       if Settings.enable_file_pushes
         unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!

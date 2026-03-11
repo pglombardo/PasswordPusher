@@ -91,7 +91,7 @@
           <em class="bi bi-plus-lg me-1"></em><%= _('Push Another') %>
         <% end %>
       <% elsif @push.file? %>
-        <%= link_to new_push_path(tab: "files"), class: "btn btn-primary" do %>
+        <%= link_to new_push_path(tab: (Settings.disable_logins ? "text" : "files")), class: "btn btn-primary" do %>
           <em class="bi bi-plus-lg me-1"></em><%= _('Push Another') %>
         <% end %>
       <% else %>

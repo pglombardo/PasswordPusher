@@ -28,6 +28,7 @@ That’s the minimum. If nothing broke and behavior is acceptable, you’re done
 ## Optional (only if you need it)
 
 - **Anonymous vs logged-in only:** Use `PWP__ALLOW_ANONYMOUS` and `PWP__DISABLE_SIGNUPS` to match policy (replaces the old “logins off” mental model).
+- **Disable logins (`disable_logins`):** When `true`, the Log In button is hidden and **GET/POST `/users/sign_in` return 404**—no new web sessions. Existing sessions can still sign out. Use for anonymous-only instances where accounts exist but nobody should sign in via the UI (e.g. API-only access). Env: `PWP__DISABLE_LOGINS=true`.
 - **GDPR banner:** Off by default in 2.0. Set `PWP__SHOW_GDPR_CONSENT_BANNER=true` if you still need it.
 - **Custom `settings.yml`:** Still works. Prefer **environment variables** for new changes—see docker-compose. Long term, file-based config may move toward an in-app UI; env-based config is the forward-compatible path. 
 - **Fork with view overrides:** UI was restyled; re-test any customized templates.
@@ -41,7 +42,7 @@ Use this only if you need context or to diff behavior.
 
 | Topic                      | 1.x                                     | 2.0                                                        |
 | -------------------------- | --------------------------------------- | ---------------------------------------------------------- |
-| **Logins**                 | `enable_logins` could turn accounts off | Always on; use `allow_anonymous` / `disable_signups`       |
+| **Logins**                 | `enable_logins` could turn accounts off | Always on; use `allow_anonymous` / `disable_signups`; optional **`disable_logins`** hides login UI and blocks new session creation |
 | **Devise email**           | Often assumed when logins were on       | **Opt-in** via `enable_user_account_emails` + SMTP         |
 | **URL / file / QR pushes** | Default off, tied to logins in docs     | Default **on**; turn off explicitly if unwanted            |
 | **Retrieval step default** | Default off for pw/url/files            | Default **on** for pw/url/files (QR stays off in defaults) |
@@ -58,6 +59,7 @@ Use this only if you need context or to diff behavior.
 | --------------------------------------------------------------- | ------------- | -------------------------------------------- |
 | `enable_user_account_emails`                                    | `false`       | `true` + working SMTP if you need mail flows |
 | `allow_anonymous`                                               | `true`        | `false` to require login to create pushes    |
+| `disable_logins`                                                | `false`       | `true` to hide Log In and block POST/GET sign-in (404) |
 | `enable_url_pushes` / `enable_file_pushes` / `enable_qr_pushes` | `true` each   | `false` to disable                           |
 | `pw` / `url` / `files` → `retrieval_step_default`               | `true`        | `false` for no extra step by default         |
 | `show_gdpr_consent_banner`                                      | `false`       | `true` to show banner                        |
@@ -70,4 +72,23 @@ All of the above have `PWP__...` equivalents—see [docker-compose.yml](https://
 ## Further reading
 
 - [Self-hosted configuration](https://docs.pwpush.com/docs/self-hosted-configuration/)
+
+---
+
+## Example: Fully anonymous installation (no login system)
+
+If you want a **fully anonymous** instance with **no login system exposed at all**—no sign-in page, no new accounts via the UI—set both:
+
+| Setting            | Value   | Env                          |
+| ------------------ | ------- | ---------------------------- |
+| `disable_logins`   | `true`  | `PWP__DISABLE_LOGINS=true`   |
+| `disable_signups`  | `true`  | `PWP__DISABLE_SIGNUPS=true` |
+
+Together they:
+
+- **Hide Log In** and **block GET/POST `/users/sign_in`** (404), so the app does not offer a web login flow.
+- **Hide Sign Up** and prevent new registrations through the UI.
+- **Hide the Files tab** when `disable_logins` is true (file pushes require a signed-in user), so anonymous installs only expose password, URL, and QR flows as configured.
+
+Keep **`allow_anonymous: true`** (default) if visitors should create pushes without an account. Tighten with **`allow_anonymous: false`** only if you intend to lock creation down via another mechanism (e.g. API tokens only). See [docker-compose.yml](https://github.com/pglombardo/PasswordPusher/blob/master/docker-compose.yml) for commented `PWP__...` entries.
 

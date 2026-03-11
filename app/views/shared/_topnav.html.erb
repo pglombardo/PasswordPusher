@@ -5,7 +5,7 @@
         <%= _('Passwords') %>
       </a>
     </li>
-    <% if Settings.enable_file_pushes %>
+    <% if Settings.enable_file_pushes && !Settings.disable_logins %>
       <li class="nav-item">
         <a class="nav-link <%= @files_tab ? 'active' : 'text-muted' %>" href="<%= new_push_path(tab: 'files') %>">
           <%= _('Files') %>

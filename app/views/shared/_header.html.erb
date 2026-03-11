@@ -64,7 +64,9 @@
           </ul>
         </div>
       <% else %>
-        <%= link_to _('Log In'), new_user_session_path, class: "btn btn-outline-secondary" %>
+        <% unless Settings.disable_logins %>
+          <%= link_to _('Log In'), new_user_session_path, class: "btn btn-outline-secondary" %>
+        <% end %>
         <% unless Settings.disable_signups %>
           <%= link_to _('Sign Up'), new_user_registration_path, class: "btn btn-primary" %>
         <% end %>
