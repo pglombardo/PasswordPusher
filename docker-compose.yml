@@ -135,7 +135,8 @@ x-env: &x-env
 
 services:
   pwpush:
-    image: docker.io/pglombardo/pwpush:2.0.0-a
+    # "latest" is mostly reliable; use "stable" for well tested releases.
+    image: docker.io/pglombardo/pwpush:latest
     restart: unless-stopped
     ports:
       - "80:80"
