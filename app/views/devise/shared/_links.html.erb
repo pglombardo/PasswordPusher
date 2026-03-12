@@ -1,7 +1,7 @@
 
 <footer class="footer mt-auto py-3">
 <ul class="list-group">
-  <%- if controller_name != 'sessions' %>
+  <%- if controller_name != 'sessions' && !Settings.disable_logins %>
     <li class="list-group-item list-group-item-action">
       <%= link_to I18n.t('devise.general.login'), new_session_path(resource_name), class: 'nav-link px-2 text-muted' %>
     </li>

@@ -6,11 +6,9 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_basic_json_creation
@@ -40,7 +38,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
     assert_equal res.except("url_token", "created_at", "updated_at", "html_url", "json_url"), {"expire_after_views" => 5,
     "expired" => false,
     "deletable_by_viewer" => true,
-    "retrieval_step" => false,
+    "retrieval_step" => true,
     "expired_on" => nil,
     "passphrase" => "",
     "expire_after_days" => 7,

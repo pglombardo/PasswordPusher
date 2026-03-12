@@ -39,7 +39,6 @@ class PasswordGenerationConfirmationTest < ApplicationSystemTestCase
 
   test "shows confirmation modal when existing content is present for QR Code pushes" do
     user = users(:luca)
-    user.confirm
     login_as(user, scope: :user)
 
     visit new_push_path(tab: "qr")

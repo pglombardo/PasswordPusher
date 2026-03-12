@@ -14,7 +14,6 @@ class LogEventsTest < ActionController::TestCase
   setup do
     @push = pushes(:test_push)
     @user = users(:luca)
-    @user.confirm
     AuditLog.delete_all
   end
 

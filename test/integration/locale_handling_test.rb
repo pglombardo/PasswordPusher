@@ -6,15 +6,13 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
   end
 
   teardown do
-    Settings.enable_logins = false
+    Settings.disable_logins = false
     Rails.application.reload_routes!
   end
 

@@ -1,89 +1,76 @@
 <div class="container">
   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-body-emphasis text-decoration-none', hreflang: locale.to_s do %>
-      <div class='me-2'>
-      <picture>
-        <% if Settings.brand.nil? || Settings.brand.light_logo.nil? %>
-          <source srcset="<%= asset_path('logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= asset_path('logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= asset_path('logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;'>
-        <% else %>
-          <source srcset="<%= Settings.brand.light_logo %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
-          <source srcset="<%= Settings.brand.dark_logo %>" media="(prefers-color-scheme: dark)">
-          <img src="<%= Settings.brand.light_logo %>" alt="<%= _('Password Pusher Logo') %>" style='height: 50px;'>
-        <% end %>
-      </picture>
+      <div class="me-3">
+        <picture>
+          <% if Settings.brand.nil? || Settings.brand.light_logo.nil? %>
+            <source srcset="<%= asset_path('logo-transparent-sm-bare.png') %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+            <source srcset="<%= asset_path('logo-transparent-sm-dark-bare.png') %>" media="(prefers-color-scheme: dark)">
+            <img src="<%= asset_path('logo-transparent-sm-bare.png') %>" alt="<%= _('Password Pusher Logo') %>" height="50" class="d-block">
+          <% else %>
+            <source srcset="<%= Settings.brand.light_logo %>" media="(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)">
+            <source srcset="<%= Settings.brand.dark_logo %>" media="(prefers-color-scheme: dark)">
+            <img src="<%= Settings.brand.light_logo %>" alt="<%= _('Password Pusher Logo') %>" height="50" class="d-block">
+          <% end %>
+        </picture>
       </div>
-      <div>
-        <span class="fs-4 display-1"><%= Settings.brand.title %></span>
-        <br>
-        <span class="fs-6 text-muted"><%= Settings.brand.tagline %></span>
+      <div class="d-none d-sm-block">
+        <span class="fs-4 fw-semibold d-block lh-sm"><%= Settings.brand.title %></span>
+        <span class="small text-muted"><%= Settings.brand.tagline %></span>
       </div>
     <% end %>
 
-    <ul class="nav nav-pills align-items-center">
-      <% if Settings.enable_logins %>
-        <% if current_user %>
-          <li class="nav-item lead">
-            <%= link_to pushes_path, class: "btn btn-primary" do %>
-              <em class='bi bi-clipboard-data'></em>
-              <%= _('Dashboard') %>
-            <% end %>
+    <nav class="d-flex align-items-center gap-2">
+      <% if current_user %>
+        <%= link_to pushes_path, class: "btn btn-primary d-flex align-items-center gap-2" do %>
+          <em class="bi bi-grid-3x3-gap-fill"></em>
+          <span class="d-none d-sm-inline"><%= _('Dashboard') %></span>
+        <% end %>
 
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="accountDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <em class='bi-file-person'></em>
-              <%= _('Account') %>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="accountDropdownMenuLink">
-              <% if current_user.admin? %>
-                <li>
-                  <%= link_to admin_root_path, class: "dropdown-item d-flex align-items-center" do %>
-                    <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                    </svg>
-                    <%= _('Administration Center') %>
-                  <% end %>
-                </li>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2" type="button" id="accountDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <em class="bi bi-person-circle"></em>
+            <span class="d-none d-md-inline"><%= _('Account') %></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="accountDropdownMenuLink">
+            <% if current_user.admin? %>
+              <li>
+                <%= link_to admin_root_path, class: "dropdown-item d-flex align-items-center gap-2 py-2" do %>
+                  <em class="bi bi-shield-check text-primary"></em>
+                  <%= _('Administration Center') %>
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+            <% end %>
+            <li>
+              <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center gap-2 py-2" do %>
+                <em class="bi bi-pencil-square text-secondary"></em>
+                <%= _('Edit Login Details') %>
               <% end %>
-              <li>
-                <%= link_to edit_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
-                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                  <%= _('Edit Login Details') %>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to token_user_registration_path, class: "dropdown-item d-flex align-items-center" do %>
-                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
-                  </svg>
-                  <%= _('API Token') %>
-                <% end %>
-              </li>
-              <li>
-                <%= button_to destroy_user_session_path, method: :delete, class: "dropdown-item d-flex align-items-center w-100", form_class: "d-inline w-100" do %>
-                  <svg class="me-2" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                  </svg>
-                  <%= _('Log Out') %>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to _('Log In'), new_user_session_path, class: "nav-link lead" %>
-          </li>
-          <% if !Settings.disable_signups %>
-            <li class="nav-item">
-              <%= link_to _('Sign Up'), new_user_registration_path, class: "nav-link lead" %>
             </li>
-          <% end %>
+            <li>
+              <%= link_to token_user_registration_path, class: "dropdown-item d-flex align-items-center gap-2 py-2" do %>
+                <em class="bi bi-key text-secondary"></em>
+                <%= _('API Token') %>
+              <% end %>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <%= button_to destroy_user_session_path, method: :delete, class: "dropdown-item d-flex align-items-center gap-2 py-2 text-danger", form_class: "d-block" do %>
+                <em class="bi bi-box-arrow-right"></em>
+                <%= _('Log Out') %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <% unless Settings.disable_logins %>
+          <%= link_to _('Log In'), new_user_session_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+        <% unless Settings.disable_signups %>
+          <%= link_to _('Sign Up'), new_user_registration_path, class: "btn btn-primary" %>
         <% end %>
       <% end %>
-    </ul>
+    </nav>
   </header>
 </div>

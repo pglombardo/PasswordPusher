@@ -211,15 +211,15 @@ class Push < ApplicationRecord
   end
 
   def check_enabled_push_kinds
-    if kind == "file" && !(Settings.enable_logins && Settings.enable_file_pushes)
+    if kind == "file" && !Settings.enable_file_pushes
       errors.add(:kind, I18n._("File pushes are disabled."))
     end
 
-    if kind == "url" && !(Settings.enable_logins && Settings.enable_url_pushes)
+    if kind == "url" && !Settings.enable_url_pushes
       errors.add(:kind, I18n._("URL pushes are disabled."))
     end
 
-    if kind == "qr" && !(Settings.enable_logins && Settings.enable_qr_pushes)
+    if kind == "qr" && !Settings.enable_qr_pushes
       errors.add(:kind, I18n._("QR code pushes are disabled."))
     end
   end

@@ -6,11 +6,9 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_view_with_passphrase
@@ -136,7 +134,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal 2, res["expire_after_views"]
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "json_url", "html_url"), {"expire_after_views" => 2,
     "expired" => true,
-    "retrieval_step" => false,
+    "retrieval_step" => true,
     "passphrase" => nil,
     "expire_after_days" => 7,
     "days_remaining" => 7,

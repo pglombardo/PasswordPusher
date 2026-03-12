@@ -4,21 +4,17 @@ require "application_system_test_case"
 
 class AdminUserDeletionTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Rails.application.reload_routes!
 
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
-    @luca.confirm
     @giuliana = users(:giuliana)
-    @giuliana.confirm
 
     login_as(@mr_admin, scope: :user)
   end
 
   teardown do
     logout(:user)
-    Settings.enable_logins = false
     Rails.application.reload_routes!
   end
 

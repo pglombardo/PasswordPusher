@@ -1,250 +1,246 @@
 <% title(_('Audit Log for %{push_id}') % { push_id: @push.url_token }) %>
 
 <div class="d-flex flex-column justify-content-center align-items-center">
-    <h4 class=''> <%= _('Audit Log for Push ID: %{push_id}') % { push_id: @push.url_token } %></h4>
-    <p class='text-muted mb-5'>
-        <%= _('Pushed on %{date}') % { date: I18n.l(@push.created_at.in_time_zone(Settings.timezone), format: :long) } %>
+    <h4 class="fw-semibold"><em class="bi bi-list-check me-2"></em><%= _('Audit Log') %></h4>
+    <p class="text-muted mb-4">
+        <code class="me-2"><%= @push.url_token %></code>
+        <span class="text-muted small"><%= _('Pushed on %{date}') % { date: I18n.l(@push.created_at.in_time_zone(Settings.timezone), format: :long) } %></span>
     </p>
 
-    <p><%= _('Secret URL for this push') %>:</p>
+    <p class="text-muted small mb-2"><%= _('Secret URL for this push') %>:</p>
     <%= render partial: 'application/secret_url_bar' %>
 
-    <div class='row w-100'>
-        <div class='col mb-3'>
-            <p class='h4 border-bottom py-3'>
-                <%= _('Reference Note') %>
-            <span class='h6 text-muted float-end'><%= _('Visible Only To You') %></span>
-            </p>
+    <div class="row w-100 mt-4">
+        <div class="col mb-3">
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2 mb-3">
+                <h5 class="mb-0 fw-semibold"><em class="bi bi-sticky me-2"></em><%= _('Reference Note') %></h5>
+                <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('Visible Only To You') %></span>
+            </div>
             <% if @push.note.blank? %>
-                <span class='text-muted'><%= _('None') %></span>
+                <span class="text-muted"><%= _('None') %></span>
             <% else %>
-                <pre><code><%= @push.note %></code></pre>
+                <pre class="bg-body-tertiary p-3 rounded-3 mb-0"><code><%= @push.note %></code></pre>
             <% end %>
         </div>
     </div>
 
-    <div class='row w-100'>
-        <div class='col'>
-            <h4 class="border-bottom py-3"><%= _('Settings') %></h4>
+    <div class="row w-100">
+        <div class="col">
+            <h5 class="border-bottom py-2 fw-semibold"><em class="bi bi-gear me-2"></em><%= _('Settings') %></h5>
             <div class="list-group mx-0 my-3">
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Expire after') %>:
-                    <strong>
-                        <%= sprintf("%s %s", @push.expire_after_views, n_('View', 'Views', @push.expire_after_views)) %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('The push expires after this number of views.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Expire after') %>:
-                    <strong>
-                        <%= sprintf("%s %s", @push.expire_after_days, n_('Day', 'Days', @push.expire_after_days)) %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('The push expires after this number of days.') %></small>
-                </span>
-                </label>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-eye text-muted mt-1"></em>
+                    <span>
+                        <%= _('Expire after') %>:
+                        <strong><%= sprintf("%s %s", @push.expire_after_views, n_('View', 'Views', @push.expire_after_views)) %></strong>
+                        <small class="d-block text-muted"><%= _('The push expires after this number of views.') %></small>
+                    </span>
+                </div>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-calendar text-muted mt-1"></em>
+                    <span>
+                        <%= _('Expire after') %>:
+                        <strong><%= sprintf("%s %s", @push.expire_after_days, n_('Day', 'Days', @push.expire_after_days)) %></strong>
+                        <small class="d-block text-muted"><%= _('The push expires after this number of days.') %></small>
+                    </span>
+                </div>
                 <% unless @push.url? %>
-                    <label class="list-group-item d-flex gap-2">
+                    <div class="list-group-item d-flex gap-2">
+                        <em class="bi bi-trash text-muted mt-1"></em>
                         <span>
                             <%= _('Deletable by Viewers') %>:
-                            <strong>
-                                <% if @push.deletable_by_viewer %>
-                                    <%= _('True') %>
-                                <% else %>
-                                    <%= _('False') %>
-                                <% end %>
-                            </strong>
+                            <% if @push.deletable_by_viewer %>
+                                <span class="badge bg-success-subtle text-success-emphasis"><%= _('Yes') %></span>
+                            <% else %>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('No') %></span>
+                            <% end %>
                             <small class="d-block text-muted"><%= _('This allows end users to delete content once retrieved.') %></small>
                         </span>
-                    </label>
+                    </div>
                 <% end %>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('1-click Retrieval Step') %>:
-                    <strong>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-shield-check text-muted mt-1"></em>
+                    <span>
+                        <%= _('1-click Retrieval Step') %>:
                         <% if @push.retrieval_step %>
-                            <%= _('True') %>
+                            <span class="badge bg-success-subtle text-success-emphasis"><%= _('Yes') %></span>
                         <% else %>
-                            <%= _('False') %>
+                            <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('No') %></span>
                         <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Passphrase Lockdown') %>:
-                    <strong>
+                        <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
+                    </span>
+                </div>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-lock text-muted mt-1"></em>
+                    <span>
+                        <%= _('Passphrase') %>:
                         <% if @push.passphrase.blank? %>
-                            <%= _('No') %>
+                            <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('No') %></span>
                         <% else %>
-                            <%= _('Yes') %>
+                            <span class="badge bg-success-subtle text-success-emphasis"><%= _('Yes') %></span>
                         <% end %>
-                    </strong>
-                    <small class="d-block text-muted"><%= _('Require recipients to enter a passphrase to view this push.') %></small>
-                </span>
-                </label>
+                        <small class="d-block text-muted"><%= _('Require recipients to enter a passphrase to view this push.') %></small>
+                    </span>
+                </div>
             </div>
         </div>
-        <div class='col'>
-            <h4 class="border-bottom py-3"><%= _('Current Status') %></h4>
+        <div class="col">
+            <h5 class="border-bottom py-2 fw-semibold"><em class="bi bi-activity me-2"></em><%= _('Current Status') %></h5>
             <div class="list-group mx-0 my-3">
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('State:') %>
-                    <% if @push.expired %>
-                        <strong class='text-danger'><%= _('Expired') %></strong>
-                        <small class="d-block text-muted"><%= _('The push content has been deleted and the secret URL expired.') %></small>
-                    <% else %>
-                        <strong class='text-success'><%= _('Active') %></strong>
-                        <small class="d-block text-muted"><%= _('Active and still available for viewing.') %></small>
-                    <% end %>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Successful Views') %>: <strong class='text-success'><%= @push.successful_views.count %></strong>
-                    <small class="d-block text-muted"><%= _('The number of times this push has been viewed before expiration.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Failed View Attempts') %>: <strong class='text-warning'><%= @push.failed_views.count %></strong>
-                    <small class="d-block text-muted"><%= _('The number of times this push has been viewed after expiration.') %></small>
-                </span>
-                </label>
-                <label class="list-group-item d-flex gap-2">
-                <span>
-                    <%= _('Days Remaining') %>: <strong><%= @push.days_remaining %></strong>
-                    <small class="d-block text-muted"><%= _('Number of days until this push expires if the maximum view count isn\'t reached.') %></small>
-                </span>
-                </label>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-circle-fill <%= @push.expired ? 'text-danger' : 'text-success' %> mt-1" style="font-size: 0.6rem;"></em>
+                    <span>
+                        <%= _('State:') %>
+                        <% if @push.expired %>
+                            <span class="badge bg-danger-subtle text-danger-emphasis"><%= _('Expired') %></span>
+                            <small class="d-block text-muted"><%= _('The push content has been deleted and the secret URL expired.') %></small>
+                        <% else %>
+                            <span class="badge bg-success-subtle text-success-emphasis"><%= _('Active') %></span>
+                            <small class="d-block text-muted"><%= _('Active and still available for viewing.') %></small>
+                        <% end %>
+                    </span>
+                </div>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-check-circle text-success mt-1"></em>
+                    <span>
+                        <%= _('Successful Views') %>: <strong class="text-success"><%= @push.successful_views.count %></strong>
+                        <small class="d-block text-muted"><%= _('The number of times this push has been viewed before expiration.') %></small>
+                    </span>
+                </div>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-x-circle text-warning mt-1"></em>
+                    <span>
+                        <%= _('Failed View Attempts') %>: <strong class="text-warning"><%= @push.failed_views.count %></strong>
+                        <small class="d-block text-muted"><%= _('The number of times this push has been viewed after expiration.') %></small>
+                    </span>
+                </div>
+                <div class="list-group-item d-flex gap-2">
+                    <em class="bi bi-hourglass-split text-muted mt-1"></em>
+                    <span>
+                        <%= _('Days Remaining') %>: <strong><%= @push.days_remaining %></strong>
+                        <small class="d-block text-muted"><%= _('Number of days until this push expires if the maximum view count isn\'t reached.') %></small>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 
     <% if @push.file? %>
-        <div class='row w-100'>
-            <div class='col'>
-                <h4 class="border-bottom py-3"><%= _('Payload') %></h4>
+        <div class="row w-100">
+            <div class="col">
+                <h5 class="border-bottom py-2 fw-semibold"><em class="bi bi-file-text me-2"></em><%= _('Payload') %></h5>
                 <div class="list-group mx-0 my-3">
-                    <label class="list-group-item d-flex gap-2">
-                    <span>
-                        <%= _('Contains Message for Receiver') %>:
-                        <strong>
+                    <div class="list-group-item d-flex gap-2">
+                        <em class="bi bi-chat-left-text text-muted mt-1"></em>
+                        <span>
+                            <%= _('Contains Message for Receiver') %>:
                             <% if @push.expired %>
-                                <strong class=''><%= _('Deleted') %></strong>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('Deleted') %></span>
                             <% elsif @push.payload.nil? or @push.payload.empty? %>
-                                <strong class=''><%= _('No') %></strong>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('No') %></span>
                             <% else %>
-                                <strong class='text-success'><%= _('Yes') %></strong>
+                                <span class="badge bg-success-subtle text-success-emphasis"><%= _('Yes') %></span>
                             <% end %>
-                        </strong>
-                        <small class="d-block text-muted"><%= _('Has a text payload been added to this push?') %></small>
-                    </span>
-                    </label>
-                    <label class="list-group-item d-flex gap-2">
-                    <span>
-                        <%= _('Message Length') %>:
-                        <strong>
+                            <small class="d-block text-muted"><%= _('Has a text payload been added to this push?') %></small>
+                        </span>
+                    </div>
+                    <div class="list-group-item d-flex gap-2">
+                        <em class="bi bi-text-paragraph text-muted mt-1"></em>
+                        <span>
+                            <%= _('Message Length') %>:
                             <% if @push.expired %>
-                                <strong class=''><%= _('Deleted') %></strong>
+                                <span class="badge bg-secondary-subtle text-secondary-emphasis"><%= _('Deleted') %></span>
                             <% elsif @push.payload.nil? or @push.payload.empty? %>
-                                <%= _('Not Applicable') %>
+                                <span class="text-muted"><%= _('Not Applicable') %></span>
                             <% else %>
-                                <%= @push.payload.length %>
+                                <strong><%= @push.payload.length %></strong>
                             <% end %>
-                        </strong>
-                        <small class="d-block text-muted"><%= _('The length of the attached text payload.') %></small>
-                    </span>
-                    </label>
-                    <label class="list-group-item d-flex gap-2">
-                    <span>
-                        <%= _('Number of Files Attached') %>:
-                        <strong>
+                            <small class="d-block text-muted"><%= _('The length of the attached text payload.') %></small>
+                        </span>
+                    </div>
+                    <div class="list-group-item d-flex gap-2">
+                        <em class="bi bi-files text-muted mt-1"></em>
+                        <span>
+                            <%= _('Number of Files Attached') %>:
                             <% if @push.files.count.positive? %>
-                                <strong class='text-success'><%= @push.files.count %></strong>
+                                <strong class="text-success"><%= @push.files.count %></strong>
                             <% else %>
-                                <strong class=''><%= @push.files.count %></strong>
+                                <strong><%= @push.files.count %></strong>
                             <% end %>
-                        </strong>
-                        <small class="d-block text-muted"><%= _('The number of files attached to this push. This value will be 0 when expired.') %></small>
-                    </span>
-                    </label>
+                            <small class="d-block text-muted"><%= _('The number of files attached to this push. This value will be 0 when expired.') %></small>
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class='col'>
-                <h4 class="border-bottom py-3"><%= _('Attached Files') %></h4>
+            <div class="col">
+                <h5 class="border-bottom py-2 fw-semibold"><em class="bi bi-paperclip me-2"></em><%= _('Attached Files') %></h5>
                 <div class="list-group mx-0 my-3">
                     <% if @push.files.count.positive? %>
                         <% @push.files.each do |file| %>
-                            <label class="list-group-item d-flex gap-2">
-                            <span>
-                                <%= _('Filename:') %>
-                                <strong class=''><%= file.filename %></strong>
-                                <small class="d-block text-muted"><%= _('Size: ') + filesize(file.blob.byte_size) %></small>
-                            </span>
-                            </label>
+                            <div class="list-group-item d-flex gap-2">
+                                <em class="bi bi-file-earmark text-muted mt-1"></em>
+                                <span>
+                                    <strong><%= file.filename %></strong>
+                                    <small class="d-block text-muted"><%= _('Size:') %> <%= filesize(file.blob.byte_size) %></small>
+                                </span>
+                            </div>
                         <% end %>
                     <% else %>
-                        <small class="d-block text-muted"><%= _('All attached files have been deleted.') %></small>
+                        <div class="text-muted small"><%= _('All attached files have been deleted.') %></div>
                     <% end %>
                 </div>
             </div>
         </div>
     <% end %>
 
-    <div class='row w-100'>
-        <div class='col'>
-            <% if @push.expired == false %>
-                <div class='text-center'>
-                    <%= link_to edit_push_path(@push), class: 'btn btn-warning mt-3', rel: 'nofollow' do %>
-                        <em class="bi bi-pencil"></em> <%= _('Edit') %>
+    <% if @push.expired == false %>
+        <div class="row w-100">
+            <div class="col">
+                <div class="d-flex justify-content-center gap-2 my-4">
+                    <%= link_to edit_push_path(@push), class: 'btn btn-outline-secondary', rel: 'nofollow' do %>
+                        <em class="bi bi-pencil me-1"></em><%= _('Edit Push') %>
                     <% end %>
-                    <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#expireModal">
-                        <em class="bi bi-trash"></em> <%= _('Expire Now') %>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#expireModal">
+                        <em class="bi bi-x-circle me-1"></em><%= _('Expire Now') %>
                     </button>
                 </div>
 
                 <div class="modal fade" id="expireModal" tabindex="-1" aria-labelledby="expireModalLabel" aria-hidden="true" data-controller="form">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="expireModalLabel"><%= _('Delete This Push?') %></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
-                            <p><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
-                            <p><%= _('Are you sure?') %></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-                            <%= link_to _('Delete'), expire_push_path(@push), data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' %>
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title" id="expireModalLabel"><em class="bi bi-exclamation-triangle text-danger me-2"></em><%= _('Delete This Push?') %></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><%= _('This will expire this secret link and') %> <strong><%= _('remove all content from the database forever') %></strong>.</p>
+                                <p class="text-muted small"><%= _('The audit log (including future attempted views) will still be maintained going forward.') %></p>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
+                                <%= link_to expire_push_path(@push), data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, id: @push.url_token, class: 'btn btn-danger', rel: 'nofollow' do %>
+                                    <em class="bi bi-trash me-1"></em><%= _('Delete') %>
+                                <% end %>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
-            <% end %>
+            </div>
         </div>
-    </div>
+    <% end %>
 
-    <div class='row w-100 mt-3'>
-        <div class='col'>
-            <div class="list-group w-100">
-                <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('Start of Audit Log') %></div>
-                <% for audit_log in @push.audit_logs %>
+    <div class="row w-100 mt-3">
+        <div class="col">
+            <h5 class="border-bottom py-2 fw-semibold"><em class="bi bi-journal-text me-2"></em><%= _('Activity Log') %></h5>
+            <div class="list-group w-100 mt-3">
+                <% @push.audit_logs.each do |audit_log| %>
                     <%= render "audit_logs/log_#{audit_log.kind}", audit_log: %>
                 <% end %>
                 <% if @push.audit_logs.count == 1 && !@push.expired %>
-                    <div class="list-group-item list-group-item-action list-group-item text-center text-muted">
-                        <%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
+                    <div class="list-group-item text-center text-muted small py-4">
+                        <em class="bi bi-clock-history me-1"></em><%= _('As the push receives activity, a log of each with identifying information will show up here.') %>
                     </div>
                 <% end %>
-
-                <div class="list-group-item list-group-item-action list-group-item-secondary"><%= _('End of Audit Log') %></div>
             </div>
         </div>
     </div>

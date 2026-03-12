@@ -6,20 +6,17 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Rails.application.reload_routes!
     # Set default URL options for test environment to avoid missing host errors
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
 
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
-    @luca.confirm
     @giuliana = users(:giuliana)
-    @giuliana.confirm
   end
 
   teardown do
-    Settings.enable_logins = false
+    Settings.disable_logins = false
     Rails.application.reload_routes!
   end
 
@@ -224,7 +221,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
   # Test that admin actions require authentication
   test "promote action requires admin authentication" do
-    @luca.confirm
     sign_in @luca
 
     patch promote_admin_user_path(@giuliana)
@@ -234,7 +230,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
   end
 
   test "revoke action requires admin authentication" do
-    @luca.confirm
     sign_in @luca
 
     patch revoke_admin_user_path(@giuliana)

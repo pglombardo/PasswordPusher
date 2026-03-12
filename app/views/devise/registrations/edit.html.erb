@@ -1,62 +1,77 @@
 <% title(I18n.t('devise.registrations.edit_account')) %>
 
-<main class=''>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+<main class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
 
-    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.update_email') %></p>
-    <div class="form-floating">
-      <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.org" %>
-      <%= f.label _('Change Email'), for: :user_email %>
-    </div>
+      <h2 class="fw-semibold mb-4"><em class="bi bi-person-gear me-2"></em><%= I18n.t('devise.registrations.edit_account') %></h2>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div><%= I18n.t('devise.registrations.currently_waiting') %>: <%= resource.unconfirmed_email %></div>
-    <% end %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-    <% if I18n.available_locales.length > 1 %>
-      <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.preferred_language') %></p>
-      <div class="form-group">
-        <%= f.select :preferred_language,  options_for_select(language_options_for_select, resource.preferred_language || I18n.locale), { selected: resource.preferred_language || I18n.locale }, { class: "form-control" } %>
+        <div class="mb-4">
+          <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-envelope me-2"></em><%= I18n.t('devise.registrations.update_email') %></h5>
+          <div class="form-floating">
+            <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.org" %>
+            <%= f.label _('Email'), for: :user_email %>
+          </div>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div class="alert alert-info mt-2 small"><em class="bi bi-hourglass-split me-1"></em><%= I18n.t('devise.registrations.currently_waiting') %>: <%= resource.unconfirmed_email %></div>
+          <% end %>
+        </div>
+
+        <% if I18n.available_locales.length > 1 %>
+          <div class="mb-4">
+            <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-globe me-2"></em><%= I18n.t('devise.registrations.preferred_language') %></h5>
+            <%= f.select :preferred_language, options_for_select(language_options_for_select, resource.preferred_language || I18n.locale), { selected: resource.preferred_language || I18n.locale }, { class: "form-select" } %>
+          </div>
+        <% end %>
+
+        <div class="mb-4">
+          <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-key me-2"></em><%= I18n.t('devise.registrations.change_password') %></h5>
+          <p class="text-muted small"><%= I18n.t('devise.registrations.change_password_hint') %></p>
+          <div class="form-floating mb-2">
+            <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.new_password') %>
+            <%= f.label I18n.t('devise.registrations.new_password'), for: :user_password %>
+          </div>
+          <div class="form-floating">
+            <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.password') %>
+            <%= f.label I18n.t('devise.registrations.new_password_confirmation'), for: :user_password_confirmation %>
+          </div>
+          <% if @minimum_password_length %>
+            <p class="text-muted small mt-2 mb-0">
+              <em class="bi bi-info-circle me-1"></em><%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
+            </p>
+          <% end %>
+        </div>
+
+        <div class="mb-4">
+          <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-shield-check me-2"></em><%= I18n.t('devise.registrations.verification') %></h5>
+          <p class="text-muted small"><%= I18n.t('devise.registrations.verification_text') %></p>
+          <div class="form-floating">
+            <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: I18n.t('devise.registrations.password') %>
+            <%= f.label _("Current Password"), for: :user_current_password %>
+          </div>
+        </div>
+
+        <div class="d-grid mb-4">
+          <button class="btn btn-primary btn-lg" type="submit"><em class="bi bi-check-lg me-2"></em><%= I18n.t('devise.registrations.update_account') %></button>
+        </div>
+      <% end %>
+
+      <hr class="my-4">
+
+      <div class="mb-4">
+        <h5 class="fw-semibold text-danger mb-3"><em class="bi bi-exclamation-triangle me-2"></em><%= I18n.t('devise.registrations.edit.cancel_my_account') %></h5>
+        <p class="text-muted small"><%= I18n.t('devise.registrations.edit.cancel_my_account_description') %></p>
+        <%= button_to registration_path(resource_name),
+                      data: { turbo_confirm: I18n.t('devise.registrations.edit.are_you_sure') },
+                      method: :delete,
+                      class: "btn btn-outline-danger" do %>
+          <em class="bi bi-trash me-1"></em><%= I18n.t('devise.registrations.edit.cancel_my_account') %>
+        <% end %>
       </div>
-    <% end %>
 
-    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.change_password') %></p>
-    <p class=''><%= I18n.t('devise.registrations.change_password_hint') %></p>
-    <div class="form-floating">
-      <%= f.password_field :password, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.new_password') %>
-      <%= f.label I18n.t('devise.registrations.new_password'), for: :user_password %>
     </div>
-    <div class="form-floating">
-      <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password", placeholder: I18n.t('devise.registrations.password') %>
-      <%= f.label I18n.t('devise.registrations.new_password_confirmation'), for: :user_password_confirmation %>
-    </div>
-
-    <% if @minimum_password_length %>
-      <p class='text-muted mt-3 fs-7'>
-      * <%= sprintf(I18n.t('devise.registrations.password_minimum'), @minimum_password_length) %>
-      </p>
-    <% end %>
-
-    <p class='my-3 py-3 lead border-bottom'><%= I18n.t('devise.registrations.verification') %></p>
-    <p class='text-muted'><%= I18n.t('devise.registrations.verification_text') %></p>
-
-    <div class="form-floating">
-      <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password", placeholder: I18n.t('devise.registrations.password') %>
-      <%= f.label _("Current Password"), for: :user_current_password %>
-    </div>
-
-    <div class="form-floating my-3">
-      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= I18n.t('devise.registrations.update_account') %></button>
-    </div>
-  <% end %>
-
-  <p class='my-3 py-3 lead border-top'><%= I18n.t('devise.registrations.edit.cancel_my_account') %></p>
-  <p class='text-muted'><%= I18n.t('devise.registrations.edit.cancel_my_account_description') %></p>
-
-  <%= button_to I18n.t('devise.registrations.edit.cancel_my_account'),
-                registration_path(resource_name),
-                data: { turbo_confirm: I18n.t('devise.registrations.edit.are_you_sure') },
-                method: :delete,
-                class: "btn btn-outline-danger" %>
+  </div>
 </main>

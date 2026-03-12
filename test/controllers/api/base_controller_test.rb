@@ -7,11 +7,16 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = users(:luca)
-    @user.confirm
     @user.update(authentication_token: "valid_token_123")
     @other_user = users(:one)
-    @other_user.confirm
     @other_user.update(authentication_token: "other_token_456")
+  end
+
+  teardown do
+    # Restore feature flags so later tests (e.g. file_push, url push) don't see them false
+    Settings.enable_file_pushes = true
+    Settings.enable_url_pushes = true
+    Rails.application.reload_routes!
   end
 
   # Test Bearer token authentication
@@ -165,9 +170,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "/p/active works with valid token" do
-    Settings.enable_logins = true
-    Rails.application.reload_routes!
-
     get "/p/active.json",
       headers: {
         "Authorization" => "Bearer valid_token_123",
@@ -175,9 +177,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :success
-  ensure
-    Settings.enable_logins = false
-    Rails.application.reload_routes!
   end
 
   test "/p/expired requires authentication" do
@@ -186,9 +185,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "/p/expired works with valid token" do
-    Settings.enable_logins = true
-    Rails.application.reload_routes!
-
     get "/p/expired.json",
       headers: {
         "Authorization" => "Bearer valid_token_123",
@@ -196,9 +192,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :success
-  ensure
-    Settings.enable_logins = false
-    Rails.application.reload_routes!
   end
 
   test "/p/show does not require authentication" do
@@ -224,9 +217,54 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal :unauthorized, response.status
   end
 
+  # When allow_anonymous is false, Api::V1::PushesController#create calls
+  # authenticate_user! — anonymous JSON create must be rejected.
+  test "/p/create requires authentication when allow_anonymous is false" do
+    Settings.allow_anonymous = false
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_anon_blocked"
+        }
+      },
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    # Devise may respond with 401 (JSON) or redirect to sign-in depending on config
+    assert_includes [401, 302], response.status,
+      "unauthenticated create should be rejected when allow_anonymous is false"
+    if response.redirect?
+      assert_match(%r{/users/sign_in}, response.location)
+    end
+  ensure
+    Settings.allow_anonymous = true
+  end
+
+  test "/p/create with valid token succeeds when allow_anonymous is false" do
+    Settings.allow_anonymous = false
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_with_token"
+        }
+      },
+      headers: {
+        "Authorization" => "Bearer valid_token_123",
+        "Accept" => "application/json"
+      }
+
+    assert_response :created, "authenticated create should succeed when allow_anonymous is false"
+    json = JSON.parse(response.body)
+    assert json["url_token"].present?
+  ensure
+    Settings.allow_anonymous = true
+  end
+
   # Test path-based authentication requirements for /f paths
   test "/f/create requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
@@ -242,13 +280,11 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/f/create works with valid token" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
@@ -266,13 +302,11 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     # Should not be unauthorized (may be other validation errors)
     assert_not_equal :unauthorized, response.status
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/f/audit requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
@@ -282,40 +316,34 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     get "/f/#{push.url_token}/audit.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/f/active requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
     get "/f/active.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/f/expired requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
     get "/f/expired.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end
 
   # Test path-based authentication requirements for /r paths
   test "/r/create requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
@@ -331,13 +359,11 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/r/create works with valid token" do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
@@ -355,13 +381,11 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     # Should not be unauthorized (may be other validation errors)
     assert_not_equal :unauthorized, response.status
   ensure
-    Settings.enable_logins = false
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/r/audit requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
@@ -371,42 +395,34 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     get "/r/#{push.url_token}/audit.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/r/active requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
     get "/r/active.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
   end
 
   test "/r/expired requires authentication" do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
     get "/r/expired.json"
     assert_response :unauthorized
   ensure
-    Settings.enable_logins = false
     Settings.enable_url_pushes = false
     Rails.application.reload_routes!
   end
 
   # Test user already signed in (session-based auth)
   test "skips token check when user is already signed in" do
-    Settings.enable_logins = true
-    Rails.application.reload_routes!
-
     sign_in @user
 
     get "/p/active.json",
@@ -416,15 +432,9 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal @user.id, @controller.current_user.id
-  ensure
-    Settings.enable_logins = false
-    Rails.application.reload_routes!
   end
 
   test "signed in user can access protected endpoints without token" do
-    Settings.enable_logins = true
-    Rails.application.reload_routes!
-
     sign_in @user
 
     push = pushes(:test_push)
@@ -437,9 +447,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     # Should not be unauthorized when signed in
     assert_not_equal :unauthorized, response.status
-  ensure
-    Settings.enable_logins = false
-    Rails.application.reload_routes!
   end
 
   # Test token extraction edge cases
@@ -494,7 +501,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "ParameterMissing returns proper error message" do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
 
@@ -509,7 +515,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     json_response = JSON.parse(@response.body)
     assert json_response.key?("error")
   ensure
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Rails.application.reload_routes!
   end

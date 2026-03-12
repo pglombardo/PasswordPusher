@@ -2,18 +2,16 @@
 
 require "test_helper"
 
-class PasswordControllerTest < ActionDispatch::IntegrationTest
+class TextPushControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = false
     Settings.enable_url_pushes = false
     @luca = users(:luca)
   end
 
   teardown do
-    Settings.enable_logins = false
     Settings.enable_file_pushes = false
     Settings.enable_url_pushes = false
   end
@@ -36,21 +34,21 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
 
     get pushes_path
     assert_response :success
-    assert response.body.include?("You currently have no pushes.")
+    assert response.body.include?("No pushes yet")
 
     get pushes_path(filter: "active")
     assert_response :success
-    assert response.body.include?("You currently have no active pushes.")
+    assert response.body.include?("No active pushes")
 
     get pushes_path(filter: "expired")
     assert_response :success
-    assert response.body.include?("You currently have no expired pushes.")
+    assert response.body.include?("No expired pushes")
   end
 
   test "logged in users with pushes can access their dashboard" do
     sign_in @luca
 
-    no_push_text = "You currently have no pushes."
+    no_push_text = "No pushes yet"
     get pushes_path
     assert_response :success
     assert response.body.include?(no_push_text)
@@ -208,5 +206,54 @@ class PasswordControllerTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res["error"].include?("Invalid page parameter"), "Should return invalid page parameter error"
+  end
+
+  # When anonymous pushes are disabled (Settings.allow_anonymous = false)
+  test "when allow_anonymous disabled, anonymous user cannot access new password form" do
+    Settings.allow_anonymous = false
+
+    get new_push_path(tab: "text")
+
+    assert_response :redirect
+    follow_redirect!
+    assert response.body.include?("You need to sign in or sign up before continuing.")
+  ensure
+    Settings.allow_anonymous = true
+  end
+
+  test "when allow_anonymous disabled, anonymous user cannot create password push" do
+    Settings.allow_anonymous = false
+
+    post pushes_path, params: {
+      push: {
+        kind: "text",
+        payload: "secret"
+      }
+    }
+
+    assert_response :redirect
+    follow_redirect!
+    assert response.body.include?("You need to sign in or sign up before continuing.")
+  ensure
+    Settings.allow_anonymous = true
+  end
+
+  test "when allow_anonymous disabled, logged-in user can access new and create password push" do
+    Settings.allow_anonymous = false
+    sign_in @luca
+
+    get new_push_path(tab: "text")
+    assert_response :success
+    assert response.body.include?("Tip: Only enter a password into the box")
+
+    post pushes_path, params: {
+      push: {
+        kind: "text",
+        payload: "secret"
+      }
+    }
+    assert_response :redirect
+  ensure
+    Settings.allow_anonymous = true
   end
 end

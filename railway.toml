@@ -1,0 +1,17 @@
+# Railway – Password Pusher
+# https://docs.railway.com/reference/config-as-code
+#
+# New project: railway init → add Postgres plugin → in dashboard set:
+#   SECRET_KEY_BASE  (bundle exec rails secret)
+#   PWPUSH_MASTER_KEY  (openssl rand -hex 32)
+#   DATABASE_URL       (from Postgres if not injected automatically)
+#
+# Build uses Dockerfile; entrypoint runs db:migrate then foreman (web+worker).
+# Web only: set PWP__NO_WORKER=1 in Railway variables.
+# Health: add deploy.healthcheckPath = "/up" in dashboard or extend this file per Railway JSON schema.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "containers/docker/Dockerfile"
+
+# startCommand omitted → uses image ENTRYPOINT (entrypoint.sh)

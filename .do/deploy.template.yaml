@@ -1,95 +1,196 @@
+# DigitalOcean App Platform deploy template (Deploy to DO button).
+# App spec reference: https://docs.digitalocean.com/products/app-platform/reference/app-spec/
+# Full PWP__ options: docker-compose.yml and https://docs.pwpush.com/docs/self-hosted-configuration/
+#
+# Security: Replace SECRET placeholders in the DO UI after deploy—never commit real keys.
+
 spec:
   name: passwordpusher
-  services:
-  - name: pwpush
-    environment_slug: ruby-on-rails
-    git:
-      branch: master
-      repo_clone_url: https://github.com/pglombardo/PasswordPusher.git
-    envs:
-    # Private
-    - key: RAILS_ENV
-      scope: RUN_AND_BUILD_TIME
-      type: GENERAL
-      value: 'production'
-    - key: RACK_ENV
-      scope: RUN_AND_BUILD_TIME
-      type: GENERAL
-      value: 'production'
-    - key: BUNDLE_WITHOUT
-      scope: RUN_AND_BUILD_TIME
-      type: GENERAL
-      value: 'development:test'
-    # Application Encryption Key
-    - key: PWPUSH_MASTER_KEY
-      scope: RUN_TIME
-      type: SECRET
-      value: '569679f4d3f5739e473bbd42eadca98a0a1b219a32e7bd4b0832a862b88414c8'
-    # The number of processes to run.
-    - key: WEB_CONCURRENCY
-      scope: RUN_TIME
-      type: GENERAL
-      value: '3'
-    # Default value for expire after days
-    - key: PWP__EXPIRE_AFTER_DAYS_DEFAULT
-      scope: RUN_TIME
-      type: GENERAL
-      value: '7'
-    # Expire after days minimum value
-    - key: PWP__EXPIRE_AFTER_DAYS_MIN
-      scope: RUN_TIME
-      type: GENERAL
-      value: '1'
-    # Expire after days maximum value
-    - key: PWP__EXPIRE_AFTER_DAYS_MAX
-      scope: RUN_TIME
-      type: GENERAL
-      value: '90'
-    # Expire after views default value
-    - key: PWP__EXPIRE_AFTER_VIEWS_DEFAULT
-      scope: RUN_TIME
-      type: GENERAL
-      value: '5'
-    # Expire after views minimum value
-    - key: PWP__EXPIRE_AFTER_VIEWS_MIN
-      scope: RUN_TIME
-      type: GENERAL
-      value: '1'
-      # Expire after views maximum value
-    - key: PWP__EXPIRE_AFTER_VIEWS_MAX
-      scope: RUN_TIME
-      type: GENERAL
-      value: '100'
-    # When true, passwords will have a link to optionally delete the password being viewed. When pushing a new password, this option will also add a checkbox to conditionally enable/disable this feature on a per-password basis.
-    - key: PWP__ENABLE_DELETABLE_PUSHES
-      scope: RUN_TIME
-      type: GENERAL
-      value: 'true'
-    # When the option DELETABLE_PASSWORDS_ENABLED is set to true, this option does two things: 1. Sets the default check state for the \'Allow viewers to optionally delete password before expiration\' checkbox. 2. Sets the default value for newly pushed passwords if unspecified (such as with a json request)
-    - key: PWP__DELETABLE_PUSHES_DEFAULT
-      scope: RUN_TIME
-      type: GENERAL
-      value: 'true'
-    instance_count: 1
-    instance_size_slug: basic-xxs
+  region: nyc
+
+  features:
+    - buildpack-stack=ubuntu-22
+
+  alerts:
+    - rule: DEPLOYMENT_FAILED
+    - rule: DOMAIN_FAILED
+
   databases:
-  - name: 'pwpush-db'
-    engine: PG
+    - name: pwpush-db
+      engine: PG
+      version: "16"
+      production: true
+
+  services:
+    - name: pwpush
+      environment_slug: ruby-on-rails
+      github:
+        branch: master
+        deploy_on_push: true
+        repo: pglombardo/PasswordPusher
+      # Match Procfile web process; thrust runs Puma bound to PORT.
+      run_command: bundle exec bin/thrust bin/rails server
+      instance_count: 1
+      instance_size_slug: apps-s-1vcpu-1gb
+      http_port: 8080
+      envs:
+        # --- Build / runtime ---
+        - key: RAILS_ENV
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: production
+        - key: RACK_ENV
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: production
+        - key: BUNDLE_WITHOUT
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: "development:test"
+        - key: RAILS_LOG_TO_STDOUT
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: RAILS_SERVE_STATIC_FILES
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+
+        # --- Secrets (set in App Platform UI; placeholders avoid committing real values) ---
+        - key: SECRET_KEY_BASE
+          scope: RUN_TIME
+          type: SECRET
+          value: "REPLACE_ME_run_rails_secret"
+        - key: PWPUSH_MASTER_KEY
+          scope: RUN_TIME
+          type: SECRET
+          value: "REPLACE_ME_run_rails_runner_puts_Lockbox_generate_key"
+
+        # --- Concurrency ---
+        - key: WEB_CONCURRENCY
+          scope: RUN_TIME
+          type: GENERAL
+          value: "2"
+
+        # --- URL / host (set to your app hostname after first deploy) ---
+        - key: PWP__HOST_PROTOCOL
+          scope: RUN_TIME
+          type: GENERAL
+          value: https
+        # - key: PWP__HOST_DOMAIN
+        #   scope: RUN_TIME
+        #   type: GENERAL
+        #   value: your-app.ondigitalocean.app
+        # - key: PWP__ALLOWED_HOSTS
+        #   scope: RUN_TIME
+        #   type: GENERAL
+        #   value: your-app.ondigitalocean.app
+
+        # --- Feature toggles (2.0 defaults) ---
+        - key: PWP__ALLOW_ANONYMOUS
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__DISABLE_SIGNUPS
+          scope: RUN_TIME
+          type: GENERAL
+          value: "false"
+        - key: PWP__DISABLE_LOGINS
+          scope: RUN_TIME
+          type: GENERAL
+          value: "false"
+        - key: PWP__ENABLE_USER_ACCOUNT_EMAILS
+          scope: RUN_TIME
+          type: GENERAL
+          value: "false"
+        - key: PWP__ENABLE_FILE_PUSHES
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__ENABLE_URL_PUSHES
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__ENABLE_QR_PUSHES
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+
+        # --- File storage: local is ephemeral on App Platform; use s3 for durable file pushes ---
+        - key: PWP__FILES__STORAGE
+          scope: RUN_TIME
+          type: GENERAL
+          value: local
+
+        # --- Password push (pw) limits & defaults ---
+        - key: PWP__PW__EXPIRE_AFTER_DAYS_DEFAULT
+          scope: RUN_TIME
+          type: GENERAL
+          value: "7"
+        - key: PWP__PW__EXPIRE_AFTER_DAYS_MIN
+          scope: RUN_TIME
+          type: GENERAL
+          value: "1"
+        - key: PWP__PW__EXPIRE_AFTER_DAYS_MAX
+          scope: RUN_TIME
+          type: GENERAL
+          value: "90"
+        - key: PWP__PW__EXPIRE_AFTER_VIEWS_DEFAULT
+          scope: RUN_TIME
+          type: GENERAL
+          value: "5"
+        - key: PWP__PW__EXPIRE_AFTER_VIEWS_MIN
+          scope: RUN_TIME
+          type: GENERAL
+          value: "1"
+        - key: PWP__PW__EXPIRE_AFTER_VIEWS_MAX
+          scope: RUN_TIME
+          type: GENERAL
+          value: "100"
+        - key: PWP__PW__ENABLE_DELETABLE_PUSHES
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__PW__DELETABLE_PUSHES_DEFAULT
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__PW__ENABLE_RETRIEVAL_STEP
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+        - key: PWP__PW__RETRIEVAL_STEP_DEFAULT
+          scope: RUN_TIME
+          type: GENERAL
+          value: "true"
+
+        - key: PWP__THEME
+          scope: RUN_TIME
+          type: GENERAL
+          value: default
+
   jobs:
-  - environment_slug: ruby-on-rails
-    envs:
-    - key: RACK_ENV
-      scope: RUN_AND_BUILD_TIME
-      value: production
-    - key: RAILS_ENV
-      scope: RUN_AND_BUILD_TIME
-      value: production
-    github:
-      branch: master
-      deploy_on_push: true
-      repo: pglombardo/PasswordPusher
-    instance_count: 1
-    instance_size_slug: basic-xxs
-    kind: POST_DEPLOY
-    name: run-migrations-after-deploys
-    run_command: bundle exec rails db:migrate
+    # Runs after each deploy: creates DB if needed and migrates.
+    - name: db-prepare-after-deploy
+      kind: POST_DEPLOY
+      environment_slug: ruby-on-rails
+      github:
+        branch: master
+        deploy_on_push: true
+        repo: pglombardo/PasswordPusher
+      run_command: bundle exec rails db:prepare
+      instance_count: 1
+      instance_size_slug: apps-s-1vcpu-0.5gb
+      envs:
+        - key: RAILS_ENV
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: production
+        - key: RACK_ENV
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: production
+        - key: BUNDLE_WITHOUT
+          scope: RUN_AND_BUILD_TIME
+          type: GENERAL
+          value: "development:test"

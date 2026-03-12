@@ -55,6 +55,10 @@ else
 fi
 echo ""
 
+# v2 release notice (upgrading from 1.x)
+echo "Password Pusher v2 — upgrading from 1.x? See: https://github.com/pglombardo/PasswordPusher/blob/master/UPGRADE-2.0.md"
+echo ""
+
 # Persist DATABASE_URL and RAILS_ENV for shell access (skip when running as arbitrary user, e.g. OpenShift)
 # Create .env.production if missing (no-op if we lack permission; avoids exit due to set -e)
 touch /opt/PasswordPusher/.env.production 2>/dev/null || true

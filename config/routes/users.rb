@@ -13,6 +13,9 @@ devise_for :users, skip: :registrations, controllers: {
 }
 
 devise_scope :user do
+  get "first_run", to: "users/first_runs#new", as: :first_run
+  post "first_run", to: "users/first_runs#create"
+
   resource :registration,
     only: allowed_reg_routes,
     path: "users",

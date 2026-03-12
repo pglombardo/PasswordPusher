@@ -33,6 +33,19 @@ class ActiveSupport::TestCase
     assert push.audit_logs.where(kind: kind).exists?,
       "Expected audit log of kind #{kind} for push #{push.url_token}"
   end
+
+  # User confirmable is optional (see Settings.enable_user_account_emails). The users fixture
+  # (luca, one, giuliana, mr_admin) already has confirmed_at set, so sign_in works without
+  # calling confirm_user. Use confirm_user only when you create a user in a test and need them
+  # confirmed. For an unconfirmed user, set confirmed_at (and confirmation_token if needed) to nil.
+  def confirm_user(user)
+    user.confirm if user.respond_to?(:confirm)
+  end
+
+  # Assert user is "confirmed": either confirmable is disabled or the user is confirmed.
+  def assert_user_confirmed(user)
+    assert !user.respond_to?(:confirmed?) || user.confirmed?, "Expected user to be confirmed"
+  end
 end
 
 module ActionDispatch

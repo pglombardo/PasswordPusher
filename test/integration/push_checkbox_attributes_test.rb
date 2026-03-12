@@ -17,7 +17,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_url_push_form_has_x_default_attribute_on_checkboxes
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
 
     user = users(:luca)
@@ -32,7 +31,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_push_form_has_x_default_attribute_on_checkboxes
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
 
     user = users(:luca)
@@ -51,7 +49,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_qr_push_form_has_x_default_attribute_on_checkboxes
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
 
     user = users(:luca)
@@ -70,8 +67,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_text_push_edit_form_does_not_have_x_default_attribute
-    Settings.enable_logins = true
-
     user = users(:luca)
     sign_in user
 
@@ -94,7 +89,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_url_push_edit_form_does_not_have_x_default_attribute
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
 
     user = users(:luca)
@@ -114,7 +108,6 @@ class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_push_edit_form_does_not_have_x_default_attribute
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
 
     user = users(:luca)
