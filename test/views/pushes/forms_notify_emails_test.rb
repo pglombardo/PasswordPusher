@@ -7,7 +7,9 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
 
   setup do
     @default_enable_logins = Settings.enable_logins
+    @default_enable_user_account_emails = Settings.enable_user_account_emails
     Settings.enable_logins = true
+    Settings.enable_user_account_emails = true
     def controller.action_name
       "new"
     end
@@ -15,6 +17,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
 
   teardown do
     Settings.enable_logins = @default_enable_logins
+    Settings.enable_user_account_emails = @default_enable_user_account_emails
   end
 
   test "form partial shows notify_emails fields when smtp configured and user signed in" do
@@ -50,8 +53,8 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
     assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 0
   end
 
-  test "form partial hides notify_emails fields when enable_logins is false" do
-    Settings.enable_logins = false
+  test "form partial hides notify_emails fields when enable_user_account_emails is false" do
+    Settings.enable_user_account_emails = false
     view.instance_variable_set(:@push, Push.new(kind: "text"))
     view.stub(:smtp_configured?, true) do
       view.stub(:user_signed_in?, true) do
