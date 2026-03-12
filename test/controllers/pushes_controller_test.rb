@@ -8,14 +8,19 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
+    @default_enable_logins = Settings.enable_logins
+    @default_enable_url_pushes = Settings.enable_url_pushes
+    @default_enable_user_account_emails = Settings.enable_user_account_emails
     Settings.enable_logins = true
     Settings.enable_url_pushes = true
+    Settings.enable_user_account_emails = true
     @user = users(:luca)
   end
 
   teardown do
-    Settings.enable_logins = false
-    Settings.enable_url_pushes = false
+    Settings.enable_logins = @default_enable_logins
+    Settings.enable_url_pushes = @default_enable_url_pushes
+    Settings.enable_user_account_emails = @default_enable_user_account_emails
   end
 
   # create action: anonymous users must not get notify fields set

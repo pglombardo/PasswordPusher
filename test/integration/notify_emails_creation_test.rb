@@ -8,12 +8,16 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
 
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
+    @default_enable_logins = Settings.enable_logins
+    @default_enable_user_account_emails = Settings.enable_user_account_emails
     Settings.enable_logins = true
+    Settings.enable_user_account_emails = true
     @user = users(:luca)
   end
 
   teardown do
-    Settings.enable_logins = false
+    Settings.enable_logins = @default_enable_logins
+    Settings.enable_user_account_emails = @default_enable_user_account_emails
   end
 
   test "creating push with notify_emails_to enqueues SendPushCreatedEmailJob when logged in" do
