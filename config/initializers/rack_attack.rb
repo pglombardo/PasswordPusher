@@ -31,19 +31,7 @@ if defined? Rack::Attack
 
     ### Throttle Spammy Clients
     #
-    # PRO-style layout: pushes/day/ip (push creation + emails), req/minute/ip, req/second/ip.
-    # API v2–specific throttles (e.g. api/v2/writes/minute/ip, api/v2/writes/burst/ip) are added separately.
-
-    # Paths that create a push (web and JSON API). Used by pushes/day/ip throttle.
-    PUSH_CREATION_PATHS = %w[/p /p.json /f /f.json /r /r.json].freeze
-
-    push_creation_throttle = lambda do |req|
-      req.ip if req.post? && PUSH_CREATION_PATHS.include?(req.path)
-    end
-
-    if Settings.throttling&.pushes_per_day.present? && Settings.throttling.pushes_per_day.positive?
-      throttle("pushes/day/ip", limit: Settings.throttling.pushes_per_day, period: 24.hours, &push_creation_throttle)
-    end
+    # req/minute/ip, req/second/ip. API v2–specific throttles (e.g. api/v2/writes/minute/ip) are added separately.
 
     unless Rails.env.test?
       # Throttle all requests by IP (e.g. 120/minute)
