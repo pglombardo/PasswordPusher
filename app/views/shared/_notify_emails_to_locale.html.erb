@@ -3,56 +3,61 @@
   <% current_locale = form_builder.object.notify_emails_to_locale.presence %>
   <% current_label = current_locale ? Settings.language_codes[current_locale] : "" %>
   <% current_flag = current_locale && Settings.country_codes[current_locale] ? Settings.country_codes[current_locale].to_s : "" %>
-  <% show_globe = current_flag.blank? %>
 
-  <div class="dropdown position-relative" data-controller="language-dropdown">
-    <%= form_builder.hidden_field :notify_emails_to_locale, value: current_locale, data: { language_dropdown_target: "hiddenInput" } %>
+  <div class="dropdown position-relative"
+    data-controller="pwpush--select-dropdown"
+    data-action="click@window->pwpush--select-dropdown#hide touchstart@window->pwpush--select-dropdown#hide keydown.esc->pwpush--select-dropdown#hide">
+    <%= form_builder.hidden_field :notify_emails_to_locale, value: current_locale, data: {"pwpush--select-dropdown-target": "field"} %>
     <button type="button"
             class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2 w-100"
             style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-height: 38px;"
-            data-bs-toggle="dropdown"
-            data-language-dropdown-target="trigger"
+            data-action="pwpush--select-dropdown#toggle:stop"
             aria-expanded="false"
             aria-haspopup="menu">
-      <span data-language-dropdown-target="triggerGlobe"
-            aria-hidden="true"
-            style="<%= 'display: none;' unless show_globe %>">🌎</span>
-      <em class="fi <%= current_flag.present? ? "fi-#{current_flag}" : "" %>"
-          data-language-dropdown-target="triggerFlag"
-          style="<%= 'display: none;' if current_flag.blank? %>"></em>
-      <span data-language-dropdown-target="triggerLabel"><%= current_label %></span>
+      <div data-pwpush--select-dropdown-target="menuButtonInner">
+        <% if current_flag.present? %>
+          <em class="fi fi-<%= current_flag %> me-2"></em><%= current_label %>
+        <% else %>
+          <span>🌎</span>
+        <% end %>
+      </div>
     </button>
 
-    <menu class="dropdown-menu dropdown-menu-end p-0 shadow-lg border"
-          style="width: min(37rem, 95vw); max-height: 90vh;"
-          role="menu"
-          aria-orientation="vertical"
-          tabindex="-1">
+    <menu
+      data-pwpush--select-dropdown-target="menu"
+      class="dropdown-menu dropdown-menu-end p-0 shadow-lg border position-absolute end-0"
+      style="width: min(37rem, 95vw); max-height: 90vh; top: 100%;"
+      role="menu"
+      aria-orientation="vertical"
+      tabindex="-1">
       <div class="py-2" role="none">
         <span class="d-block px-4 py-2 text-body"><%= _('Send emails in the following language:') %></span>
         <hr class="dropdown-divider my-0">
         <li class="list-unstyled m-0 p-0" role="menuitem" tabindex="-1">
-          <button type="button"
-                  class="dropdown-item d-block mx-2 px-2 py-1 text-start border-0 text-nowrap cursor-pointer"
-                  data-action="click->language-dropdown#choose"
-                  data-locale-value=""
-                  data-locale-label=""
-                  data-locale-flag-class="">
+          <div
+            class="dropdown-item d-block mx-2 px-2 py-1 text-start border-0 text-nowrap cursor-pointer"
+            data-action="click->pwpush--select-dropdown#select"
+            data-lang="">
+            <template>
+              <span>🌎</span>
+            </template>
             <%= _('Autodetect the recipient\'s language') %>
-          </button>
+          </div>
         </li>
         <div class="overflow-y-auto row g-0 p-0 m-0" style="max-height: 450px;">
           <% I18n.available_locales.each do |lang| %>
             <li class="col-12 col-md-6 col-lg-4 list-unstyled m-0 p-0" role="menuitem" tabindex="-1">
-              <button type="button"
-                      class="dropdown-item d-block mx-2 px-2 py-1 text-start border-0 w-100 text-nowrap cursor-pointer"
-                      data-action="click->language-dropdown#choose"
-                      data-locale-value="<%= lang %>"
-                      data-locale-label="<%= Settings.language_codes[lang] %>"
-                      data-locale-flag-class="<%= Settings.country_codes[lang].to_s %>">
+              <div
+                class="dropdown-item d-block mx-2 px-2 py-1 text-start border-0 w-100 text-nowrap cursor-pointer"
+                data-action="click->pwpush--select-dropdown#select"
+                data-lang="<%= lang %>">
+                <template>
+                  <em class="fi fi-<%= Settings.country_codes[lang] %> me-2"></em>
+                  <%= Settings.language_codes[lang] %>
+                </template>
                 <em class="fi fi-<%= Settings.country_codes[lang] %> me-2"></em>
                 <%= Settings.language_codes[lang] %>
-              </button>
+              </div>
             </li>
           <% end %>
         </div>
