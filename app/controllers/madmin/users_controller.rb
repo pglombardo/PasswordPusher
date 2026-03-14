@@ -8,8 +8,8 @@ module Madmin
       @record.password = password
       @record.password_confirmation = password
 
-      # Handle auto-confirmation if checkbox is checked
-      if params[:user][:auto_confirm] == "1"
+      # Handle auto-confirmation if checkbox is checked (only when confirmable is enabled)
+      if params[:user][:auto_confirm] == "1" && Settings.enable_user_account_emails
         @record.skip_confirmation_notification!
         @record.skip_confirmation!
         @record.confirm
