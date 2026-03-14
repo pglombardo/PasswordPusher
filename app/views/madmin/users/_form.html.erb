@@ -43,17 +43,19 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="mb-3">
-              <div class="form-check">
-                <%= form.check_box :auto_confirm, { class: "form-check-input" }, "1", "0" %>
-                <%= form.label :auto_confirm, _("Auto-confirm account"), class: "form-check-label fw-semibold" %>
-              </div>
-              <div class="form-text text-muted small mt-1">
-                <%= _("If checked, the user account will be automatically confirmed and ready to use. Otherwise, the user will need to confirm their email address.") %>
+          <% if Settings.enable_user_account_emails %>
+            <div class="col-md-12">
+              <div class="mb-3">
+                <div class="form-check">
+                  <%= form.check_box :auto_confirm, { class: "form-check-input" }, "1", "0" %>
+                  <%= form.label :auto_confirm, _("Auto-confirm account"), class: "form-check-label fw-semibold" %>
+                </div>
+                <div class="form-text text-muted small mt-1">
+                  <%= _("If checked, the user account will be automatically confirmed and ready to use. Otherwise, the user will need to confirm their email address.") %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
