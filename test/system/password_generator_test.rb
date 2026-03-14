@@ -120,10 +120,9 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     sleep 0.5
 
-    # Settings should be persisted
-    find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
-    # Note: Cookie persistence may require page reload, so we check if value was saved
-    # The exact behavior depends on implementation
+    # Settings should be persisted (syllables value we set before navigating away)
+    syllables_after = find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
+    assert_equal new_value, syllables_after.value, "Generator syllables setting should persist after save and revisit"
   end
 
   test "password generator is available on password form" do
