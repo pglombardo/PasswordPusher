@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_06_06_094103) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_02_120000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -72,6 +72,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_06_06_094103) do
     t.integer "kind", null: false
     t.string "name"
     t.text "note_ciphertext"
+    t.text "notify_emails_to"
+    t.string "notify_emails_to_locale"
     t.text "passphrase_ciphertext", limit: 2048
     t.text "payload_ciphertext", limit: 16777215
     t.boolean "retrieval_step", default: false

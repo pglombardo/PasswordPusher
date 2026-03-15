@@ -99,6 +99,9 @@
                                                     autocomplete: "off",
                                                     placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
+                <% if Settings.enable_user_account_emails && smtp_configured? && user_signed_in? %>
+                    <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
+                <% end %>
             </div>
             <% unless action_name == 'edit' %>
                 <div id='cookie-save' class='text-muted small mt-3'>
