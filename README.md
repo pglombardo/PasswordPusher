@@ -22,7 +22,7 @@
 
 ## What is Password Pusher?
 
-**Password Pusher** is an open source web app for sharing sensitive information safely. You push a password, note, file, or URL; the recipient gets a one-time link that expires after a set number of views and/or time. No more sending secrets over chat or email—everything is encrypted, auditable, and can self-destruct.
+**Password Pusher** is an open source web app for sharing sensitive information safely. You push a password, note, file, or URL; the recipient gets a one-time link that expires after a set number of views and/or time. No more sending secrets over chat or email—encrypted, auditable, and auto-self-destruct.
 
 Use the [hosted service](https://pwpush.com) or run your own instance with Docker in minutes.
 
