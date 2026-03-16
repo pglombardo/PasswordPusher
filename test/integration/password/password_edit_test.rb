@@ -7,7 +7,6 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
 
   setup do
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

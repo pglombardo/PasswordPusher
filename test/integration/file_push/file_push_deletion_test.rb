@@ -6,11 +6,9 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 
@@ -38,7 +36,7 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # view the password
     get request.url.sub("/preview", "")
@@ -74,7 +72,7 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
     # preview
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # view the password
     get request.url.sub("/preview", "")

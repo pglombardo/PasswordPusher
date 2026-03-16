@@ -149,7 +149,7 @@ class Api::V1::PushesController < Api::BaseController
   def create
     # Require authentication if allow_anonymous is false
     # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    authenticate_user! unless Settings.allow_anonymous
 
     @push = Push.new(push_params)
 
@@ -350,11 +350,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def active
-    unless Settings.enable_logins
-      render json: {error: I18n._("You must be logged in to view your active pushes.")}, status: :unauthorized
-      return
-    end
-
+    authenticate_user!
     page = validate_page_parameter
     return if page.nil?
 
@@ -406,11 +402,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def expired
-    unless Settings.enable_logins
-      render json: {error: I18n._("You must be logged in to view your expired pushes.")}, status: :unauthorized
-      return
-    end
-
+    authenticate_user!
     page = validate_page_parameter
     return if page.nil?
 

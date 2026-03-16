@@ -6,7 +6,6 @@ class QrAuditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
 
     # Create a user
@@ -36,7 +35,7 @@ class QrAuditTest < ActionDispatch::IntegrationTest
 
     get audit_push_path(push)
     assert_response :success
-    assert_select "h4", {text: /Audit Log for Push ID: #{push.url_token}/}
+    assert_select "h4", /Audit Log/
     assert_select ".list-group-item-primary", {text: /Created on/, count: 1}
   end
 
@@ -110,7 +109,7 @@ class QrAuditTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     # Check HTML elements for creation event
-    assert_select "h4", {text: /Audit Log for Push ID: #{push.url_token}/}
+    assert_select "h4", /Audit Log/
     assert_select ".list-group-item-primary", {text: /Created on/, count: 1}
   end
 

@@ -292,6 +292,15 @@ class PushesController < BaseController
   end
 
   def audit
+    unless current_user
+      # When disable_logins is true, new_user_session_path returns 404—send users to root instead
+      if Settings.disable_logins
+        redirect_to root_path, notice: I18n._("The audit log is only available when signed in.")
+      else
+        redirect_to new_user_session_path, notice: I18n._("You must be signed in to view the audit log.")
+      end
+      return
+    end
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
       return
@@ -362,7 +371,7 @@ class PushesController < BaseController
       Push.includes(:audit_logs)
         .where(user_id: current_user.id)
         .page(params[:page])
-        .order(created_at: :desc)
+        .order(expired: :asc, created_at: :desc)
     end
   end
 
@@ -451,12 +460,18 @@ class PushesController < BaseController
 
   def check_allowed
     if action_name == "index"
-      if Settings.enable_logins
-        authenticate_user!
-      else
-        redirect_to :root
+      # Dashboard requires login; when logins are disabled, sign_in URL is 404—redirect to root instead
+      if Settings.disable_logins && !user_signed_in?
+        redirect_to root_path, notice: I18n._("The push dashboard is not available while logins are disabled.")
         return
       end
+      authenticate_user!
+    end
+
+    # Audit requires sign-in; when logins are disabled, sign_in URL is 404—redirect to root instead
+    if action_name == "audit" && Settings.disable_logins && !user_signed_in?
+      redirect_to root_path, notice: I18n._("The audit log is only available when signed in.")
+      return
     end
 
     @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
@@ -473,14 +488,17 @@ class PushesController < BaseController
         "text"
       end
     elsif action_name == "create"
-      push_params.dig(:push, :kind) || "text"
+      # Use params, not push_params: permit returns the push slice flat; dig(:push, :kind) is always nil
+      params.dig(:push, :kind).presence || "text"
     end
 
     case @push_kind
     when "file"
-      # File pushes only enabled when logins are enabled.
-
-      if Settings.enable_logins && Settings.enable_file_pushes
+      if Settings.disable_logins
+        redirect_to new_push_path(tab: "text"), notice: I18n._("File pushes are unavailable while logins are disabled.")
+        return
+      end
+      if Settings.enable_file_pushes
         unless %w[preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
@@ -489,32 +507,35 @@ class PushesController < BaseController
       end
 
     when "url"
-      # URL pushes only enabled when logins are enabled.
-      if Settings.enable_logins && Settings.enable_url_pushes
-        unless %w[preliminary passphrase access show expire].include?(action_name)
+      if !Settings.enable_url_pushes
+        redirect_to root_path, notice: I18n._("URL pushes are disabled.")
+        return
+      end
+
+      if !Settings.allow_anonymous
+        unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
-      else
-        redirect_to root_path, notice: I18n._("URL pushes are disabled.")
       end
 
     when "qr"
-      # QR code pushes only enabled when logins are enabled.
-      if Settings.enable_logins && Settings.enable_qr_pushes
-        unless %w[preliminary passphrase access show expire].include?(action_name)
+      if !Settings.enable_qr_pushes
+        redirect_to root_path, notice: I18n._("QR code pushes are disabled.")
+        return
+      end
+
+      if !Settings.allow_anonymous
+        unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
           authenticate_user!
         end
-      else
-        redirect_to root_path, notice: I18n._("QR code pushes are disabled.")
       end
+
     when "text"
       unless %w[new create preview print_preview preliminary passphrase access show expire].include?(action_name)
         authenticate_user!
       end
 
-      if %w[new create].include?(action_name) && Settings.enable_logins && !Settings.allow_anonymous
-        # Require authentication if allow_anonymous is false
-        # See config/settings.yml
+      if %w[new create].include?(action_name) && !Settings.allow_anonymous
         authenticate_user!
       end
     end

@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: docker.io/pglombardo/pwpush
   pullPolicy: Always
-  tag: "release"
+  tag: "stable"
 
 labels:
   app: "pwpush"
@@ -14,9 +14,20 @@ podLabels:
   app: "pwpush"
 
 env: {}
-  # PWP__ENABLE_LOGINS: true
-  # PWP__ENABLE_FILE_PUSHES: true
-  # PWP__FILES__STORAGE: local
+# Optional env map for the pod (2.0). See repo docker-compose.yml and:
+# https://docs.pwpush.com/docs/self-hosted-configuration/
+# Common examples:
+#   PWPUSH_MASTER_KEY: ""                      # production: set via Secret; generate at /pages/generate_key
+#   SECRET_KEY_BASE: ""                        # persist sessions across restarts
+#   PWP__ALLOW_ANONYMOUS: "true"
+#   PWP__DISABLE_SIGNUPS: "false"
+#   PWP__DISABLE_LOGINS: "false"
+#   PWP__ENABLE_USER_ACCOUNT_EMAILS: "false"   # true + SMTP for signup/reset/unlock mail
+#   PWP__ENABLE_URL_PUSHES: "true"
+#   PWP__ENABLE_FILE_PUSHES: "true"
+#   PWP__ENABLE_QR_PUSHES: "true"
+#   PWP__FILES__STORAGE: "local"                # or s3 / gcs / azure per docs
+#   PWP__LOG_TO_STDOUT: "true"
 
 livenessProbe:
   httpGet:

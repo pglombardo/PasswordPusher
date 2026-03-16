@@ -4,7 +4,6 @@ require "test_helper"
 
 class QrNotfoundTest < ActionDispatch::IntegrationTest
   setup do
-    Settings.enable_logins = true
     Settings.enable_qr_pushes = true
   end
 

@@ -6,11 +6,9 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
 
     Settings.files.enable_blur = true
@@ -36,7 +34,7 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # File Push page
     get request.url.sub("/preview", "")
@@ -64,7 +62,7 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
     # Preview page
     follow_redirect!
     assert_response :success
-    assert_select "h2", "Push Preview"
+    assert_select "h2", "Push Created"
 
     # File Push page
     get request.url.sub("/preview", "")

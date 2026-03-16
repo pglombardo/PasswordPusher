@@ -6,12 +6,10 @@ class UrlNotfoundTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

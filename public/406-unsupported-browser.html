@@ -1,66 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Your browser is not supported (406)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browser not supported — Password Pusher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    *, *::after, *::before { box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #374151;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .page { max-width: 28rem; width: 100%; text-align: center; }
+    .brand { margin-bottom: 2rem; }
+    .brand-name { font-size: 1.5rem; font-weight: 700; color: #1f2937; letter-spacing: -0.02em; margin: 0; }
+    .brand-tagline { font-size: 0.875rem; color: #6b7280; margin: 0.25rem 0 0; font-weight: 400; }
+    .code { font-size: 4rem; font-weight: 700; color: #667eea; letter-spacing: -0.05em; margin: 0 0 0.5rem; line-height: 1; }
+    .heading { font-size: 1.25rem; font-weight: 600; color: #1f2937; margin: 0 0 0.5rem; }
+    .intro { color: #6b7280; margin: 0 0 1.5rem; }
+    .actions { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .btn {
+      display: inline-block; padding: 0.75rem 1.5rem; font-family: inherit; font-size: 0.9375rem; font-weight: 500;
+      text-decoration: none; border-radius: 0.5rem; cursor: pointer; transition: background 0.15s, color 0.15s; border: none;
+    }
+    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+    .btn-primary:hover { opacity: 0.95; color: #fff; }
+    .help {
+      font-size: 0.875rem; color: #6b7280; text-align: left; background: #fff; border: 1px solid #e5e7eb;
+      border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 0;
+    }
+    .help strong { color: #374151; }
+    .help ul { margin: 0.5rem 0 0 1.25rem; padding: 0; }
+    .help li { margin: 0.25rem 0; }
+    .help a { color: #667eea; text-decoration: none; }
+    .help a:hover { text-decoration: underline; }
+    .lang-selector { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .lang-flag { background: none; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font-size: 1.5rem; padding: 0.35rem; line-height: 1; transition: border-color 0.15s; }
+    .lang-flag:hover { border-color: #e5e7eb; }
+    .lang-flag.active { border-color: #667eea; }
   </style>
 </head>
-
-<body class="rails-default-error-page">
-  <!-- This file lives in public/406-unsupported-browser.html -->
-  <div class="dialog">
-    <div>
-      <h1>Your browser is not supported.</h1>
-      <p>Please upgrade your browser to continue.</p>
+<body>
+  <main class="page">
+    <div class="brand">
+      <h1 class="brand-name">Password Pusher</h1>
+      <p class="brand-tagline" data-i18n="brand_tagline">Go Ahead. Email Another Password.</p>
     </div>
-  </div>
+
+    <nav class="lang-selector" aria-label="Select language">
+      <button type="button" class="lang-flag" data-lang="en" title="English" aria-pressed="false">&#127482;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="fr" title="Français" aria-pressed="false">&#127467;&#127479;</button>
+      <button type="button" class="lang-flag" data-lang="de" title="Deutsch" aria-pressed="false">&#127465;&#127466;</button>
+      <button type="button" class="lang-flag" data-lang="nl" title="Nederlands" aria-pressed="false">&#127475;&#127473;</button>
+      <button type="button" class="lang-flag" data-lang="es" title="Español" aria-pressed="false">&#127466;&#127480;</button>
+      <button type="button" class="lang-flag" data-lang="it" title="Italiano" aria-pressed="false">&#127470;&#127481;</button>
+    </nav>
+
+    <p class="code" aria-hidden="true">406</p>
+    <h2 class="heading" data-i18n="heading">Browser not supported</h2>
+    <p class="intro" data-i18n="intro">Password Pusher needs a modern browser to work properly. Please upgrade or switch to a supported browser.</p>
+
+    <div class="actions">
+      <a href="https://docs.pwpush.com" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="btn_docs">View documentation</a>
+    </div>
+
+    <section class="help" aria-label="What you can do">
+      <strong data-i18n="help_title">What you can do</strong>
+      <ul>
+        <li data-i18n="help_1">Update your browser to the latest version (Chrome, Firefox, Safari, or Edge).</li>
+        <li data-i18n="help_2">If you can't update, try a different device or browser.</li>
+        <li data-i18n-html="help_3">See <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for more help.</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    (function() {
+      var STORAGE_KEY = 'pwp_error_lang';
+      var SUPPORTED = ['en','fr','de','nl','es','it'];
+      function getLocaleFromNavigator() {
+        if (!navigator.languages) return 'en';
+        for (var i = 0; i < navigator.languages.length; i++) {
+          var code = navigator.languages[i].split('-')[0].toLowerCase();
+          if (SUPPORTED.indexOf(code) !== -1) return code;
+        }
+        return 'en';
+      }
+      function getLocale() {
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY);
+          if (saved && SUPPORTED.indexOf(saved) !== -1) return saved;
+        } catch (e) {}
+        return getLocaleFromNavigator();
+      }
+      function setLocale(locale) {
+        try { localStorage.setItem(STORAGE_KEY, locale); } catch (e) {}
+      }
+      function applyTranslations(locale) {
+        var t = T[locale] || T.en;
+        document.documentElement.lang = locale;
+        document.title = (locale === 'en' ? 'Browser not supported' : t.heading) + ' — Password Pusher';
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (t[key]) el.textContent = t[key];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n-html');
+          if (t[key]) el.innerHTML = t[key];
+        });
+        document.querySelectorAll('.lang-flag').forEach(function(btn) {
+          var isActive = btn.getAttribute('data-lang') === locale;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+      var T = {
+        en: {
+          brand_tagline: 'Go Ahead. Email Another Password.',
+          heading: 'Browser not supported',
+          intro: 'Password Pusher needs a modern browser to work properly. Please upgrade or switch to a supported browser.',
+          btn_docs: 'View documentation',
+          help_title: 'What you can do',
+          help_1: 'Update your browser to the latest version (Chrome, Firefox, Safari, or Edge).',
+          help_2: "If you can't update, try a different device or browser.",
+          help_3: 'See <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> for more help.'
+        },
+        fr: {
+          brand_tagline: 'Allez-y. Envoyez un autre mot de passe par e-mail.',
+          heading: 'Navigateur non pris en charge',
+          intro: 'Password Pusher nécessite un navigateur moderne pour fonctionner. Veuillez mettre à jour ou utiliser un navigateur pris en charge.',
+          btn_docs: 'Voir la documentation',
+          help_title: 'Que faire',
+          help_1: 'Mettez à jour votre navigateur vers la dernière version (Chrome, Firefox, Safari ou Edge).',
+          help_2: 'Si vous ne pouvez pas mettre à jour, essayez un autre appareil ou navigateur.',
+          help_3: 'Consultez <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> pour plus d\'aide.'
+        },
+        de: {
+          brand_tagline: 'Einfach. Noch ein Passwort per E-Mail versenden.',
+          heading: 'Browser wird nicht unterstützt',
+          intro: 'Password Pusher benötigt einen modernen Browser. Bitte aktualisieren Sie Ihren Browser oder wechseln Sie zu einem unterstützten Browser.',
+          btn_docs: 'Dokumentation anzeigen',
+          help_title: 'Was Sie tun können',
+          help_1: 'Aktualisieren Sie Ihren Browser auf die neueste Version (Chrome, Firefox, Safari oder Edge).',
+          help_2: 'Wenn Sie nicht aktualisieren können, versuchen Sie ein anderes Gerät oder einen anderen Browser.',
+          help_3: 'Weitere Hilfe unter <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a>.'
+        },
+        nl: {
+          brand_tagline: 'Ga je gang. Stuur nog een wachtwoord per e-mail.',
+          heading: 'Browser niet ondersteund',
+          intro: 'Password Pusher heeft een moderne browser nodig. Werk bij naar de nieuwste versie of gebruik een ondersteunde browser.',
+          btn_docs: 'Documentatie bekijken',
+          help_title: 'Wat u kunt doen',
+          help_1: 'Werk uw browser bij naar de nieuwste versie (Chrome, Firefox, Safari of Edge).',
+          help_2: 'Als u niet kunt bijwerken, probeer een ander apparaat of een andere browser.',
+          help_3: 'Zie <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> voor meer hulp.'
+        },
+        es: {
+          brand_tagline: 'Adelante. Envíe otra contraseña por correo.',
+          heading: 'Navegador no compatible',
+          intro: 'Password Pusher necesita un navegador moderno. Actualice o cambie a un navegador compatible.',
+          btn_docs: 'Ver documentación',
+          help_title: 'Qué puede hacer',
+          help_1: 'Actualice su navegador a la última versión (Chrome, Firefox, Safari o Edge).',
+          help_2: 'Si no puede actualizar, pruebe otro dispositivo o navegador.',
+          help_3: 'Consulte <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> para más ayuda.'
+        },
+        it: {
+          brand_tagline: 'Avanti. Invia un\'altra password via email.',
+          heading: 'Browser non supportato',
+          intro: 'Password Pusher richiede un browser moderno. Aggiorna o passa a un browser supportato.',
+          btn_docs: 'Visualizza documentazione',
+          help_title: 'Cosa puoi fare',
+          help_1: 'Aggiorna il browser all\'ultima versione (Chrome, Firefox, Safari o Edge).',
+          help_2: 'Se non puoi aggiornare, prova un altro dispositivo o browser.',
+          help_3: 'Consulta <a href="https://docs.pwpush.com" target="_blank" rel="noopener">docs.pwpush.com</a> per ulteriore assistenza.'
+        }
+      };
+      var locale = getLocale();
+      applyTranslations(locale);
+      document.querySelectorAll('.lang-flag').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var lang = this.getAttribute('data-lang');
+          setLocale(lang);
+          applyTranslations(lang);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

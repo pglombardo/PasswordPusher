@@ -7,11 +7,9 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
   include ActionDispatch::TestProcess
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 

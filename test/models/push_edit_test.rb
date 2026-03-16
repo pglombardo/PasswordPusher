@@ -5,7 +5,6 @@ require "test_helper"
 class PushEditTest < ActiveSupport::TestCase
   setup do
     @user = users(:luca)
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Settings.enable_qr_pushes = true
     Settings.enable_file_pushes = true
