@@ -12,7 +12,7 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)
-    @user.confirm
+    confirm_user(@user)
     sign_in @user
   end
 

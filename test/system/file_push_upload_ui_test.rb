@@ -12,7 +12,7 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
+    confirm_user(@user)
     login_as(@user, scope: :user)
   end
 

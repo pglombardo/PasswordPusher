@@ -12,7 +12,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     Settings.enable_file_pushes = true
     Settings.files.storage = "local"
     @user = users(:luca)
-    @user.confirm
+    confirm_user(@user)
     sign_in @user
   end
 
