@@ -94,7 +94,7 @@ class FilePushUploadUiTest < ApplicationSystemTestCase
     click_button "Push It!"
 
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 10
-    assert_text "Push Preview", wait: 5, visible: :all
+    assert_text "Push Created", wait: 5
 
     # View the push to see the file listed
     token = page.current_path.split("/")[2]
