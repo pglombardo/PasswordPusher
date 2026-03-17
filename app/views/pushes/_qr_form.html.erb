@@ -136,10 +136,10 @@
                                                     autocomplete: "off",
                                                     placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
+                <% if show_notify_emails_field? %>
+                    <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
+                <% end %>
             </div>
-            <% if show_notify_emails_field? %>
-                <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
-            <% end %>
             <% unless action_name == 'edit' %>
                 <div id='cookie-save' class='text-muted small mt-3'>
                     <a data-action="click->knobs#saveSettings" href="#" class="text-decoration-none"><em class="bi bi-bookmark me-1"></em><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
