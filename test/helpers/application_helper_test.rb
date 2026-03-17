@@ -11,6 +11,7 @@ class ApplicationHelperTest < ActionView::TestCase
     @original_title = Settings.brand.title
     @original_enabled_language_codes = Settings.enabled_language_codes.dup
     @original_override_base_url = Settings.override_base_url
+    @original_enable_user_account_emails = Settings.enable_user_account_emails
   end
 
   teardown do
@@ -18,6 +19,7 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.brand.title = @original_title
     Settings.enabled_language_codes = @original_enabled_language_codes
     Settings.override_base_url = @original_override_base_url
+    Settings.enable_user_account_emails = @original_enable_user_account_emails
     ENV.delete("FORCE_SSL")
   end
 
@@ -65,6 +67,25 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_not current_controller?(["pushes", "admin"])
   end
 
+  # Test show_notify_emails_field? method (user_signed_in? provided by Devise in real views)
+  test "show_notify_emails_field? returns true when user account emails enabled and signed in" do
+    Settings.enable_user_account_emails = true
+    define_user_signed_in(true)
+    assert show_notify_emails_field?
+  end
+
+  test "show_notify_emails_field? returns false when user account emails disabled" do
+    Settings.enable_user_account_emails = false
+    define_user_signed_in(true)
+    assert_not show_notify_emails_field?
+  end
+
+  test "show_notify_emails_field? returns false when user not signed in" do
+    Settings.enable_user_account_emails = true
+    define_user_signed_in(false)
+    assert_not show_notify_emails_field?
+  end
+
   # Test secret_url method
   test "secret_url generates standard push URL" do
     @push.retrieval_step = false
@@ -100,12 +121,12 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.include?("locale=es")
   end
 
-  test "secret_url prioritizes method locale over params (e.g. when called from mailer)" do
+  test "secret_url prioritizes params over method locale when both present" do
     @controller.params = ActionController::Parameters.new("push_locale" => "fr")
     Settings.enabled_language_codes = ["en", "es", "fr"]
     url = secret_url(@push, locale: "es")
-    assert url.include?("locale=es")
-    assert_not url.include?("locale=fr")
+    assert url.include?("locale=fr")
+    assert_not url.include?("locale=es")
   end
 
   test "secret_url ignores invalid locale from params" do
@@ -182,58 +203,9 @@ class ApplicationHelperTest < ActionView::TestCase
     assert qr.is_a?(ActiveSupport::SafeBuffer)
   end
 
-  # Test smtp_configured? method
-  test "smtp_configured? is false in test environment" do
-    assert_equal "test", Rails.env
-    assert_not smtp_configured?
-  end
-
-  test "smtp_configured? is true in development environment" do
-    env = env_inquirer("development")
-    Rails.stub(:env, env) do
-      assert smtp_configured?
-    end
-  end
-
-  test "smtp_configured? in production is true when Settings.mail has smtp_address" do
-    env = env_inquirer("production")
-    Rails.stub(:env, env) do
-      Settings.stub(:mail, OpenStruct.new(smtp_address: "smtp.example.com")) do
-        assert smtp_configured?
-      end
-    end
-  end
-
-  test "smtp_configured? in production is false when Settings.mail has no smtp_address" do
-    env = env_inquirer("production")
-    Rails.stub(:env, env) do
-      Settings.stub(:mail, OpenStruct.new(smtp_address: nil)) do
-        assert_not smtp_configured?
-      end
-    end
-  end
-
-  test "smtp_configured? in production is false when Settings.mail is nil" do
-    env = env_inquirer("production")
-    Rails.stub(:env, env) do
-      Settings.stub(:mail, nil) do
-        assert_not smtp_configured?
-      end
-    end
-  end
-
-  test "smtp_configured? in production is false when smtp_address is empty string" do
-    env = env_inquirer("production")
-    Rails.stub(:env, env) do
-      Settings.stub(:mail, OpenStruct.new(smtp_address: "")) do
-        assert_not smtp_configured?
-      end
-    end
-  end
-
   private
 
-  def env_inquirer(name)
-    ActiveSupport::StringInquirer.new(name)
+  def define_user_signed_in(signed_in)
+    (class << self; self; end).define_method(:user_signed_in?) { signed_in }
   end
 end

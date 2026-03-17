@@ -17,6 +17,12 @@ module ApplicationHelper
     names.include?(params[:controller])
   end
 
+  # Whether to show the notify-emails (auto-dispatch) field on push forms.
+  # Shown only when user account emails are enabled and the user is signed in.
+  def show_notify_emails_field?
+    Settings.enable_user_account_emails && user_signed_in?
+  end
+
   # Constructs a fully qualified secret URL for a push.
   #
   # @param [Push] push - The push to generate a URL for
@@ -32,12 +38,11 @@ module ApplicationHelper
     # Delete any existing ?locale= query parameter
     raw_url = raw_url.split("?").first
 
-    # Append the locale query parameter (explicit locale takes precedence over params, e.g. when called from mailer)
-    codes = Array(Settings.enabled_language_codes).map(&:to_s)
-    if locale.present? && codes.include?(locale.to_s)
-      raw_url += "?locale=#{locale}"
-    elsif params["push_locale"].present? && codes.include?(params["push_locale"].to_s)
+    # Append the locale query parameter
+    if params["push_locale"].present? && Settings.enabled_language_codes.include?(params["push_locale"])
       raw_url += "?locale=#{params["push_locale"]}"
+    elsif locale.present? && Settings.enabled_language_codes.include?(locale)
+      raw_url += "?locale=#{locale}"
     end
 
     # Support forced https links with FORCE_SSL env var. In mailer context request is not
@@ -48,21 +53,6 @@ module ApplicationHelper
       raw_url.sub!(/\Ahttp:\/\//i, "https://") unless already_ssl
     end
     raw_url
-  end
-
-  # True when the application can send email (SMTP or equivalent), so the
-  # "notify emails" push option should be shown. In production this requires
-  # Settings.mail with smtp_address; in development mailbin counts as configured.
-  #
-  # @return [Boolean]
-  def smtp_configured?
-    if Rails.env.test?
-      false
-    elsif Rails.env.development?
-      true
-    else
-      Settings.mail.present? && Settings.mail.smtp_address.to_s.present?
-    end
   end
 
   # qr_code

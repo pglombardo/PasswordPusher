@@ -99,23 +99,23 @@ class PushesHelperTest < ActionView::TestCase
     assert_equal "1.0 GiB", filesize(1024 * 1024 * 1024) # 1 GB
   end
 
-  # Tests for format_time_remaining and format_minutes_duration
-  test "format_time_remaining returns zero message when minutes_remaining is 0, else formatted duration" do
-    push_zero = Push.new(kind: "text")
-    push_zero.define_singleton_method(:minutes_remaining) { 0 }
-    assert_includes format_time_remaining(push_zero), "minute"
-
-    push_positive = Push.new(kind: "text")
-    push_positive.define_singleton_method(:minutes_remaining) { 60 * 24 + 30 } # 1 day 30 min
-    result = format_time_remaining(push_positive)
-    assert result.is_a?(String) && result.length > 5 && result.match?(/\d/)
+  # Tests for format_days_remaining helper
+  test "format_days_remaining returns plural days string" do
+    push = Push.new(kind: "text")
+    push.define_singleton_method(:days_remaining) { 5 }
+    assert_equal "5 days", format_days_remaining(push)
   end
 
-  test "format_minutes_duration returns string with appropriate time units" do
-    assert_includes format_minutes_duration(45), "45"
-    assert format_minutes_duration(45).include?("minute")
-    result = format_minutes_duration(2 * 24 * 60 + 3 * 60 + 15) # 2d 3h 15m
-    assert result.include?("day") && result.include?("hour") && result.include?("minute")
+  test "format_days_remaining returns singular day when 1" do
+    push = Push.new(kind: "text")
+    push.define_singleton_method(:days_remaining) { 1 }
+    assert_equal "1 day", format_days_remaining(push)
+  end
+
+  test "format_days_remaining returns 0 days when expired" do
+    push = Push.new(kind: "text")
+    push.define_singleton_method(:days_remaining) { 0 }
+    assert_equal "0 days", format_days_remaining(push)
   end
 
   # Tests for checkbox_options_for_push helper

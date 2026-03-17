@@ -104,12 +104,14 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
     assert_no_match(/Email notification recipients/i, response.body)
   end
 
-  test "push creation form does not show notify emails field when SMTP not configured" do
+  test "push creation form does not show notify emails field when user account emails are disabled" do
+    Settings.enable_user_account_emails = false
     sign_in @user
     get new_push_path(tab: "text")
     assert_response :success
-    # In test env smtp_configured? is false, so the form must not expose the field
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
+  ensure
+    Settings.enable_user_account_emails = @default_enable_user_account_emails
   end
 
   test "update cannot change notify_emails_to or notify_emails_to_locale" do

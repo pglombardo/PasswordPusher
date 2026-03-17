@@ -104,36 +104,31 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_includes mail.body.encoded, "10"
   end
 
-  test "notify body includes valid for sentence with duration and views" do
+  test "notify body includes valid for sentence with days and views" do
     @push.update!(expire_after_days: 7, expire_after_views: 5)
     mail = PushCreatedMailer.with(record: @push).notify
     html = mail.html_part.body.decoded
     text = mail.text_part.body.decoded
-    
-    # Verify exact wording so we catch errors like 'minute(s) days'
-    assert_no_match(/minute\(s\) days/, html, "HTML body should not have redundant 'days' wording")
-    assert_no_match(/minute\(s\) days/, text, "Text body should not have redundant 'days' wording")
-    
-    assert_match(/valid for 7 day\(s\).*?, or until 5 views/i, html, "HTML body should explain link validity with duration and view limit accurately")
-    assert_match(/valid for 7 day\(s\).*?, or until 5 views/i, text, "Text body should explain link validity with duration and view limit accurately")
+
+    assert_match(/valid for 7 days.*?, or until 5 views/i, html, "HTML body should explain link validity with days and view limit")
+    assert_match(/valid for 7 days.*?, or until 5 views/i, text, "Text body should explain link validity with days and view limit")
   end
 
-  test "notify body displays full duration for 1 day expiry" do
+  test "notify body displays days remaining for 1 day expiry" do
     @push.update!(expire_after_days: 1, expire_after_views: 3)
     mail = PushCreatedMailer.with(record: @push).notify
     body = mail.body.encoded
-    # Whole-day expiry shows as "1 day(s)"; mixed duration shows days, hours, minutes
     assert_includes body, "1", "1 day expiry should show 1"
-    assert body.include?("day") || body.include?("hour"), "duration should include day or hour unit"
+    assert_includes body, "day", "duration should include day unit"
   end
 
-  test "notify body displays full duration for 7 days expiry" do
+  test "notify body displays days remaining for 7 days expiry" do
     @push.update!(expire_after_days: 7, expire_after_views: 10)
     mail = PushCreatedMailer.with(record: @push).notify
     body = mail.body.encoded
     assert_includes body, "7", "7 day expiry should show 7"
     assert_includes body, "10", "view limit should show 10"
-    assert body.include?("day"), "duration should include day unit"
+    assert_includes body, "day", "duration should include day unit"
   end
 
   test "notify text part includes duration and views" do
@@ -151,13 +146,11 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_equal ["only@example.com"], mail.to
   end
 
-  test "notify body includes time unit words in duration" do
+  test "notify body includes days in duration" do
     @push.update!(expire_after_days: 1, expire_after_views: 1)
     mail = PushCreatedMailer.with(record: @push).notify
     body = mail.body.encoded
-    # Full duration format includes day(s), hour(s), and/or minute(s)
-    assert body.include?("day") || body.include?("hour") || body.include?("minute"),
-      "body should include at least one time unit (day, hour, minute)"
+    assert_includes body, "day", "body should include day unit for expiration"
   end
 
   test "notify multipart mail has both html and text parts with duration" do
