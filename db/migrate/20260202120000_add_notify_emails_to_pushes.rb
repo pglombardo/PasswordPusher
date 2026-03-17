@@ -2,7 +2,6 @@
 
 class AddNotifyEmailsToPushes < ActiveRecord::Migration[8.1]
   def change
-    add_column :pushes, :notify_emails_to, :text
-    add_column :pushes, :notify_emails_to_locale, :string
+    add_column :pushes, :notify_emails_to_ciphertext, :text
   end
 end

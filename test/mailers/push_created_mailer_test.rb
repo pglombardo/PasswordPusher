@@ -69,17 +69,31 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   end
 
   test "notify includes locale in secret URL when notify_emails_to_locale is set" do
-    @push.update!(notify_emails_to_locale: "fr")
-    mail = PushCreatedMailer.with(record: @push).notify
+    push_fr = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "locale_fr_token",
+      retrieval_step: false,
+      notify_emails_to: "one@example.com",
+      notify_emails_to_locale: "fr"
+    )
+    mail = PushCreatedMailer.with(record: push_fr).notify
 
     assert_includes mail.body.encoded, "locale=fr"
   end
 
   test "notify URL has no locale param when notify_emails_to_locale is blank" do
-    @push.update!(notify_emails_to_locale: nil)
-    mail = PushCreatedMailer.with(record: @push).notify
+    push_no_locale = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "no_locale_token",
+      retrieval_step: false,
+      notify_emails_to: "one@example.com",
+      notify_emails_to_locale: nil
+    )
+    mail = PushCreatedMailer.with(record: push_no_locale).notify
 
-    assert_includes mail.body.encoded, "/p/#{@push.url_token}"
+    assert_includes mail.body.encoded, "/p/#{push_no_locale.url_token}"
     # Secret URL is built without ?locale= when locale is blank
     assert_no_match(/\?locale=/, mail.body.encoded)
   end
@@ -141,8 +155,14 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   end
 
   test "notify with single email sends to one recipient" do
-    @push.update!(notify_emails_to: "only@example.com")
-    mail = PushCreatedMailer.with(record: @push).notify
+    push_single = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "single_email_token",
+      retrieval_step: false,
+      notify_emails_to: "only@example.com"
+    )
+    mail = PushCreatedMailer.with(record: push_single).notify
     assert_equal ["only@example.com"], mail.to
   end
 

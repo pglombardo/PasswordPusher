@@ -6,6 +6,9 @@
     <h2 class="mt-5 fw-semibold"><em class="bi bi-check-circle text-success me-2"></em><%= _('Push Created') %></h2>
 
     <p class="mt-4 text-muted"><%= _('Use this secret link to share it:') %></p>
+    <% if @push.notify_emails_to.present? %>
+      <p class="text-muted small"><%= _('A copy has been sent to:') %> <%= @push.notify_emails_to %></p>
+    <% end %>
     <%= render partial: 'application/secret_url_bar' %>
     <%= @qr_code %>
 

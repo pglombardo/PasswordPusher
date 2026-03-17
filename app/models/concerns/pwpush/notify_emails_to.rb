@@ -5,10 +5,12 @@ module Pwpush
     extend ActiveSupport::Concern
 
     included do
+      has_encrypted :notify_emails_to, :notify_emails_to_locale
       validates :notify_emails_to, multiple_emails: true, allow_blank: true
       validates :notify_emails_to_locale,
-        inclusion: {in: I18n.available_locales.map(&:to_s)},
+        inclusion: { in: I18n.available_locales.map(&:to_s) },
         allow_blank: true
+      validate :notify_emails_to_attributes_unchanged_on_update, on: :update
     end
 
     # Parses a comma-separated email string into an array of stripped, non-blank strings.
@@ -17,17 +19,26 @@ module Pwpush
     end
 
     # Enqueue job to send creation email if notify_emails_to is present.
+    # (OSS: always allow; Pro gates with account_is_premium?)
     def send_creation_emails
-      return if notify_emails_to.blank?
+      return nil if notify_emails_to.blank?
 
       if Rails.env.development?
-        # In development we run the job inline (perform_now) so emails are sent immediately
-        # without requiring a background worker. This makes it easy to test with Mailbin or
-        # similar and avoids needing to run a job queue locally.
         SendPushCreatedEmailJob.perform_now(id)
       else
         SendPushCreatedEmailJob.perform_later(id)
       end
+      nil
+    end
+
+    private
+
+    def notify_emails_to_attributes_unchanged_on_update
+      return unless notify_emails_to_changed? || notify_emails_to_locale_changed?
+
+      message = I18n._("cannot be updated after creation")
+      errors.add(:notify_emails_to, message) if notify_emails_to_changed?
+      errors.add(:notify_emails_to_locale, message) if notify_emails_to_locale_changed?
     end
   end
 end

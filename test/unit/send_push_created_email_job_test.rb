@@ -28,10 +28,14 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform does not send mail when notify_emails_to blank" do
-    @push.update_column(:notify_emails_to, nil)
-
+    push_without_emails = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "jobtest456",
+      notify_emails_to: nil
+    )
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@push.id)
+      SendPushCreatedEmailJob.perform_now(push_without_emails.id)
     end
   end
 
@@ -49,8 +53,13 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform delivers to multiple addresses when notify_emails_to has several" do
-    @push.update!(notify_emails_to: "a@example.com, b@example.com")
-    SendPushCreatedEmailJob.perform_now(@push.id)
+    push_multi = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "jobtest789",
+      notify_emails_to: "a@example.com, b@example.com"
+    )
+    SendPushCreatedEmailJob.perform_now(push_multi.id)
 
     mail = ActionMailer::Base.deliveries.last
     assert_equal ["a@example.com", "b@example.com"], mail.to
@@ -80,10 +89,14 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform does not send when push has blank string notify_emails_to" do
-    @push.update_column(:notify_emails_to, "")
-
+    push_blank = Push.create!(
+      kind: "text",
+      payload: "secret",
+      url_token: "jobtest000",
+      notify_emails_to: ""
+    )
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@push.id)
+      SendPushCreatedEmailJob.perform_now(push_blank.id)
     end
   end
 end
