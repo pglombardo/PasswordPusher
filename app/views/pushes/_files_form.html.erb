@@ -138,7 +138,7 @@
                                                     autocomplete: "off",
                                                     placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
-                <% if Settings.enable_user_account_emails && user_signed_in? %>
+                <% if show_notify_emails_field?  %>
                     <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
                 <% end %>
             </div>

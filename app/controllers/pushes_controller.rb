@@ -382,7 +382,7 @@ class PushesController < BaseController
     base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_emails_to notify_emails_to_locale]
     case params.dig(:push, :kind)
     when "url"
-      params.require(:push).permit(*base - [:deletable_by_viewer])
+      params.require(:push).permit(*base)
     when "file"
       params.require(:push).permit(*(base + [:deletable_by_viewer, {files: []}]))
     else

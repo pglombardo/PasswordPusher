@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2025 Apnotic, LLC. All rights reserved.
-# This software is proprietary and confidential.
-# Unauthorized copying, distribution, or use is strictly prohibited.
-
 class MultipleEmailsValidator < ActiveModel::EachValidator
   # Email regex pattern matching the one used in app/models/feedback.rb:8
   EMAIL_REGEX = /\A([\w.%+-]+)@([\w-]+\.)+(\w{2,})\z/i
