@@ -3,6 +3,7 @@
   <% current_locale = form_builder.object.notify_emails_to_locale.presence %>
   <% current_label = current_locale ? Settings.language_codes[current_locale] : "" %>
   <% current_flag = current_locale && Settings.country_codes[current_locale] ? Settings.country_codes[current_locale].to_s : "" %>
+  <% aria_label = current_label.present? ? (_('Current email language: %{lang}. Opens language menu.') % { lang: current_label }) : _('Autodetect email language. Opens language menu.') %>
 
   <div class="dropdown position-relative"
     data-controller="pwpush--select-dropdown"
@@ -14,9 +15,7 @@
             data-action="pwpush--select-dropdown#toggle:stop"
             aria-expanded="false"
             aria-haspopup="menu"
-            aria-label="<%= current_label.present? 
-              ? _('Current email language: %{lang}. Opens language menu.') % { lang: current_label } 
-              : _('Autodetect email language. Opens language menu.') %>">
+            aria-label="<%= aria_label %>">
       <div data-pwpush--select-dropdown-target="menuButtonInner">
         <% if current_flag.present? %>
           <em class="fi fi-<%= current_flag %> me-2"></em><%= current_label %>
