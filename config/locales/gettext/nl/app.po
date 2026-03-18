@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-29 01:43+0100\n"
-"PO-Revision-Date: 2026-01-29 00:43+0000\n"
+"POT-Creation-Date: 2026-03-18 23:13+0100\n"
+"PO-Revision-Date: 2026-03-18 22:14+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -25,22 +25,14 @@ msgstr "Je kunt je eigen account niet verwijderen."
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
 #: ../../../app/controllers/pushes_controller.rb:117
 #: ../../../app/controllers/pushes_controller.rb:157
-#: ../../../app/controllers/pushes_controller.rb:275
-#: ../../../app/controllers/pushes_controller.rb:305
+#: ../../../app/controllers/pushes_controller.rb:284
+#: ../../../app/controllers/pushes_controller.rb:314
 msgid "That push doesn't belong to you."
 msgstr "Die push is niet van jou."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:309
 msgid "That push is not deletable by viewers."
 msgstr "Die push is niet te verwijderen door kijkers."
-
-#: ../../../app/controllers/api/v1/pushes_controller.rb:354
-msgid "You must be logged in to view your active pushes."
-msgstr "U moet zijn ingelogd om uw actieve pushes te bekijken."
-
-#: ../../../app/controllers/api/v1/pushes_controller.rb:410
-msgid "You must be logged in to view your expired pushes."
-msgstr "U moet zijn ingelogd om uw verlopen pushes te bekijken."
 
 #: ../../../app/controllers/pushes_controller.rb:97
 msgid ""
@@ -72,48 +64,84 @@ msgstr "U kunt maximaal %{count}-bestanden per push bijvoegen."
 msgid "Push was successfully updated."
 msgstr "Push is succesvol bijgewerkt."
 
-#: ../../../app/controllers/pushes_controller.rb:285
+#: ../../../app/controllers/pushes_controller.rb:277
+#: ../../../app/controllers/pushes_controller.rb:452
+#: ../../../test/integration/disable_logins_test.rb:56
+msgid "The audit log is only available when signed in."
+msgstr "Het auditlogboek is alleen beschikbaar wanneer u bent aangemeld."
+
+#: ../../../app/controllers/pushes_controller.rb:279
+msgid "You must be signed in to view the audit log."
+msgstr "Je moet ingelogd zijn om het auditlogboek te kunnen bekijken."
+
+#: ../../../app/controllers/pushes_controller.rb:294
 msgid "That push is not deletable by viewers and does not belong to you."
 msgstr "Deze push kan niet door kijkers worden verwijderd en is niet jouw eigendom."
 
-#: ../../../app/controllers/pushes_controller.rb:290
-#: ../../../app/controllers/pushes_controller.rb:311
+#: ../../../app/controllers/pushes_controller.rb:299
+#: ../../../app/controllers/pushes_controller.rb:320
 msgid "That push has already expired."
 msgstr "Die push is al verlopen."
 
-#: ../../../app/controllers/pushes_controller.rb:298
-#: ../../../app/views/pushes/audit.html.erb:99
+#: ../../../app/controllers/pushes_controller.rb:307
+#: ../../../app/views/pushes/audit.html.erb:96
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "De push-inhoud is verwijderd en de geheime URL is verlopen."
 
-#: ../../../app/controllers/pushes_controller.rb:317
+#: ../../../app/controllers/pushes_controller.rb:326
 msgid "You cannot delete the last file from a file push."
 msgstr ""
 "Je kunt het laatst opgeslagen bestand niet verwijderen uit een bestandsoverdra"
 "cht."
 
-#: ../../../app/controllers/pushes_controller.rb:326
+#: ../../../app/controllers/pushes_controller.rb:335
 msgid "File was successfully deleted."
 msgstr "Het bestand is succesvol verwijderd."
 
-#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:337
 msgid "File not found."
 msgstr "Bestand niet gevonden."
 
-#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/controllers/pushes_controller.rb:444
+#: ../../../test/integration/disable_logins_test.rb:158
+msgid "The push dashboard is not available while logins are disabled."
+msgstr "Het push-dashboard is niet beschikbaar wanneer inloggen is uitgeschakeld."
+
+#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../test/integration/disable_logins_test.rb:146
+msgid "File pushes are unavailable while logins are disabled."
+msgstr "Het uploaden van bestanden is niet mogelijk zolang inloggen is uitgeschakeld."
+
+#: ../../../app/controllers/pushes_controller.rb:485
 #: ../../../app/models/push.rb:208
 msgid "File pushes are disabled."
 msgstr "Bestandspushes zijn uitgeschakeld."
 
-#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/controllers/pushes_controller.rb:490
 #: ../../../app/models/push.rb:212
+#: ../../../test/controllers/urls_controller_test.rb:113
+#: ../../../test/controllers/urls_controller_test.rb:133
 msgid "URL pushes are disabled."
 msgstr "URL-pushes zijn uitgeschakeld."
 
-#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/controllers/pushes_controller.rb:502
 #: ../../../app/models/push.rb:216
+#: ../../../test/controllers/qr_push_controller_test.rb:131
+#: ../../../test/controllers/qr_push_controller_test.rb:149
 msgid "QR code pushes are disabled."
 msgstr "QR-code pushes zijn uitgeschakeld."
+
+#: ../../../app/controllers/users/first_runs_controller.rb:31
+msgid "Administrator account created successfully!"
+msgstr "Beheerdersaccount succesvol aangemaakt!"
+
+#: ../../../app/controllers/users/first_runs_controller.rb:61
+msgid ""
+"Invalid or missing boot code. Please check the application logs for the boot c"
+"ode."
+msgstr ""
+"Ongeldige of ontbrekende opstartcode. Controleer de toepassingslogboeken voor "
+"de opstartcode."
 
 #: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
 #: ../../../app/models/push.rb:155
@@ -138,7 +166,7 @@ msgstr "Wachtwoord-pusher"
 
 #: ../../../app/views/admin/_navigation.html.erb:12
 #: ../../../app/views/admin/index.html.erb:11
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:40
 msgid "Administration Center"
 msgstr "Administratie"
 
@@ -201,9 +229,6 @@ msgid "Total Pushes"
 msgstr "Totaal aantal duwtjes"
 
 #: ../../../app/views/admin/index.html.erb:80
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
 msgid "Active Pushes"
 msgstr "Actieve Pushes"
 
@@ -285,7 +310,8 @@ msgid "View changelog and download updates"
 msgstr "Bekijk het wijzigingslogboek en download updates"
 
 #: ../../../app/views/admin/index.html.erb:262
-#: ../../../app/views/shared/_footer.html.erb:52
+#: ../../../app/views/pages/about.html.erb:102
+#: ../../../app/views/users/first_runs/new.html.erb:194
 msgid "Documentation"
 msgstr "Documentatie"
 
@@ -369,13 +395,16 @@ msgstr "Huidige beheerders"
 
 #: ../../../app/views/admin/users/index.html.erb:50
 #: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/devise/registrations/edit.html.erb:16
 #: ../../../app/views/devise/sessions/new.html.erb:7
+#: ../../../app/views/users/first_runs/new.html.erb:69
+#: ../../../app/views/users/first_runs/new.html.erb:72
 msgid "Email"
 msgstr "E-mail"
 
 #: ../../../app/views/admin/users/index.html.erb:51
 #: ../../../app/views/admin/users/index.html.erb:143
-#: ../../../app/views/pushes/index.html.erb:39
+#: ../../../app/views/pushes/index.html.erb:34
 msgid "Created"
 msgstr "Gemaakt"
 
@@ -388,6 +417,7 @@ msgstr "Laatste aanmelding"
 #: ../../../app/views/admin/users/index.html.erb:145
 #: ../../../app/views/madmin/application/index.html.erb:63
 #: ../../../app/views/madmin/users/index.html.erb:63
+#: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
 msgstr "Acties"
 
@@ -453,6 +483,13 @@ msgstr "Geen vaste gebruikers gevonden"
 msgid "All users in the system are administrators."
 msgstr "Alle gebruikers in het systeem zijn beheerders."
 
+#: ../../../app/views/application/_push_expiration.html.erb:2
+#: ../../../app/views/pushes/audit.html.erb:95
+#: ../../../app/views/pushes/index.html.erb:88
+#: ../../../app/views/shared/_dashboard_header.html.erb:17
+msgid "Expired"
+msgstr "Verlopen"
+
 #: ../../../app/views/application/_push_expiration.html.erb:3
 msgid "The file download links above will expire in:"
 msgstr "De bovenstaande links voor het downloaden van bestanden verlopen over:"
@@ -463,13 +500,6 @@ msgstr ""
 "U kunt de pagina vernieuwen om nieuwe downloadlinks te genereren als de pagina"
 " nog steeds bekeken wordt."
 
-#: ../../../app/views/application/_push_expiration.html.erb:16
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Verlopen"
-
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Taal van geheime link"
@@ -479,8 +509,8 @@ msgid "Autodetect the recipient's language"
 msgstr "Automatische detectie"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
-#: ../../../app/views/pages/generate_key.html.erb:26
-#: ../../../app/views/pages/generate_key.html.erb:39
+#: ../../../app/views/pages/generate_key.html.erb:36
+#: ../../../app/views/pages/generate_key.html.erb:46
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopiëren naar het klembord"
@@ -532,8 +562,7 @@ msgstr "Gebruikersagent:"
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
+#: ../../../app/views/pushes/audit.html.erb:20
 msgid "None"
 msgstr "Geen"
 
@@ -722,20 +751,17 @@ msgstr "Bevestig nieuw wachtwoord"
 msgid "A minimum of %d characters is required but the more the better."
 msgstr "Er zijn minimaal %d tekens vereist, maar hoe meer hoe beter."
 
-#: ../../../app/views/devise/registrations/edit.html.erb:10
-msgid "Change Email"
-msgstr "E-mail Wijzigen"
-
-#: ../../../app/views/devise/registrations/edit.html.erb:46
+#: ../../../app/views/devise/registrations/edit.html.erb:53
 msgid "Current Password"
 msgstr "Huidige Wachtwoord"
 
-#: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:63
+#: ../../../app/views/devise/registrations/token.html.erb:1
+#: ../../../app/views/devise/registrations/token.html.erb:6
+#: ../../../app/views/shared/_header.html.erb:54
 msgid "API Token"
 msgstr "API-token"
 
-#: ../../../app/views/devise/registrations/token.html.erb:4
+#: ../../../app/views/devise/registrations/token.html.erb:9
 msgid ""
 "This token is specific to your account.  It can be used with command line appl"
 "ications, the JSON API, 3rd party integrations and more."
@@ -743,35 +769,36 @@ msgstr ""
 "Dit token is specifiek voor uw account. Het kan worden gebruikt met opdrachtre"
 "geltoepassingen, de JSON API, integraties van derden en meer."
 
-#: ../../../app/views/devise/registrations/token.html.erb:7
+#: ../../../app/views/devise/registrations/token.html.erb:13
 msgid "Make sure to keep this token secure.  It provides full access to your account."
 msgstr "Bewaar dit token goed. Het biedt volledige toegang tot uw account."
 
-#: ../../../app/views/devise/registrations/token.html.erb:10
-msgid ""
-"If needed, you can regenerate a new token below which will invalidate this exi"
-"sting token."
-msgstr ""
-"Indien nodig kunt u hieronder een nieuw token opnieuw genereren, waardoor de b"
-"estaande token ongeldig wordt."
-
-#: ../../../app/views/devise/registrations/token.html.erb:14
+#: ../../../app/views/devise/registrations/token.html.erb:16
 #: ../../../app/views/pushes/show.html.erb:4
 #: ../../../app/views/pushes/show.html.erb:64
 msgid "Copied!"
 msgstr "Gekopieerd!"
 
-#: ../../../app/views/devise/registrations/token.html.erb:15
+#: ../../../app/views/devise/registrations/token.html.erb:17
+msgid "Current Token"
+msgstr "Huidig token"
+
+#: ../../../app/views/devise/registrations/token.html.erb:18
 msgid "Your API token is blurred out.  Click below to reveal it."
 msgstr "Uw API-token is vervaagd. Klik hieronder om het te onthullen."
 
-#: ../../../app/views/devise/registrations/token.html.erb:27
+#: ../../../app/views/devise/registrations/token.html.erb:35
+#: ../../../app/views/devise/registrations/token.html.erb:41
+msgid "Regenerate Token"
+msgstr "Token opnieuw genereren"
+
+#: ../../../app/views/devise/registrations/token.html.erb:37
 msgid "To delete this token and regenerate a new one, use the button below."
 msgstr ""
 "Gebruik de onderstaande knop om deze token te verwijderen en een nieuwe te gen"
 "ereren."
 
-#: ../../../app/views/devise/registrations/token.html.erb:30
+#: ../../../app/views/devise/registrations/token.html.erb:38
 msgid ""
 "Note that this will invalidate any tools that may be using the existing key an"
 "d will have to be updated with the new token."
@@ -780,52 +807,49 @@ msgstr ""
 " gebruiken, ongeldig worden en dat ze moeten worden bijgewerkt met het nieuwe "
 "token."
 
-#: ../../../app/views/devise/registrations/token.html.erb:34
-msgid "Regenerate Token"
-msgstr "Token opnieuw genereren"
-
-#: ../../../app/views/devise/registrations/token.html.erb:42
+#: ../../../app/views/devise/registrations/token.html.erb:52
 msgid "Delete and generate a new API token?"
 msgstr "Verwijderen en een nieuw API-token genereren?"
 
-#: ../../../app/views/devise/registrations/token.html.erb:46
+#: ../../../app/views/devise/registrations/token.html.erb:56
 msgid "This will delete this token and "
 msgstr "Hiermee wordt dit token verwijderd en"
 
-#: ../../../app/views/devise/registrations/token.html.erb:47
+#: ../../../app/views/devise/registrations/token.html.erb:57
 msgid "invalidate any tools that may be using it"
 msgstr "alle tools die het mogelijk gebruiken, ongeldig maken"
 
-#: ../../../app/views/devise/registrations/token.html.erb:48
+#: ../../../app/views/devise/registrations/token.html.erb:58
 msgid "A new token will be generated in its place."
 msgstr "Een nieuwe token zal worden gegenereerd."
 
-#: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:221
+#: ../../../app/views/devise/registrations/token.html.erb:59
 #: ../../../app/views/pushes/show.html.erb:115
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
-#: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/devise/registrations/token.html.erb:62
 #: ../../../app/views/madmin/application/_form.html.erb:212
-#: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:224
+#: ../../../app/views/madmin/users/_form.html.erb:82
+#: ../../../app/views/pushes/audit.html.erb:220
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../../../app/views/devise/registrations/token.html.erb:53
+#: ../../../app/views/devise/registrations/token.html.erb:63
 msgid "Delete & Regenerate"
 msgstr "Verwijderen en opnieuw genereren"
 
-#: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:225
+#: ../../../app/views/devise/registrations/token.html.erb:63
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Verwerken..."
 
 #: ../../../app/views/devise/sessions/new.html.erb:12
+#: ../../../app/views/users/first_runs/new.html.erb:79
+#: ../../../app/views/users/first_runs/new.html.erb:81
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -842,10 +866,11 @@ msgid "Back to App"
 msgstr "Terug naar app"
 
 #: ../../../app/views/layouts/login.html.erb:33
-#: ../../../app/views/shared/_footer.html.erb:11
-#: ../../../app/views/shared/_footer.html.erb:15
+#: ../../../app/views/shared/_footer.html.erb:10
+#: ../../../app/views/shared/_footer.html.erb:14
 #: ../../../app/views/shared/_header.html.erb:9
 #: ../../../app/views/shared/_header.html.erb:13
+#: ../../../app/views/users/first_runs/new.html.erb:11
 msgid "Password Pusher Logo"
 msgstr "Password Pusher Logo"
 
@@ -984,8 +1009,8 @@ msgstr "Bewerken %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
-#: ../../../app/views/pushes/audit.html.erb:204
-#: ../../../app/views/pushes/index.html.erb:86
+#: ../../../app/views/pushes/index.html.erb:103
+#: ../../../app/views/pushes/preview.html.erb:110
 msgid "Edit"
 msgstr "Bewerking"
 
@@ -1016,7 +1041,7 @@ msgstr "Zoekopdracht"
 
 #: ../../../app/views/madmin/application/index.html.erb:40
 #: ../../../app/views/madmin/users/index.html.erb:40
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "Alle"
 
@@ -1026,7 +1051,7 @@ msgstr "Alle"
 #: ../../../app/views/pushes/_form.html.erb:9
 #: ../../../app/views/pushes/_qr_form.html.erb:9
 #: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
+#: ../../../app/views/pushes/audit.html.erb:35
 msgid "View"
 msgid_plural "Views"
 msgstr[0] "Weergave"
@@ -1042,7 +1067,7 @@ msgstr "Bekijk %{name} details"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:225
+#: ../../../app/views/pushes/audit.html.erb:222
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1202,6 +1227,7 @@ msgid "Manage user accounts and permissions"
 msgstr "Gebruikersaccounts en machtigingen beheren"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:124
+#: ../../../app/views/pushes/index.html.erb:29
 msgid "Pushes"
 msgstr "Duwt"
 
@@ -1265,11 +1291,11 @@ msgstr "Gebruikersinformatie"
 msgid "The email address for the new user account."
 msgstr "Het e-mailadres voor het nieuwe gebruikersaccount."
 
-#: ../../../app/views/madmin/users/_form.html.erb:50
+#: ../../../app/views/madmin/users/_form.html.erb:51
 msgid "Auto-confirm account"
 msgstr "Account automatisch bevestigen"
 
-#: ../../../app/views/madmin/users/_form.html.erb:53
+#: ../../../app/views/madmin/users/_form.html.erb:54
 msgid ""
 "If checked, the user account will be automatically confirmed and ready to use."
 " Otherwise, the user will need to confirm their email address."
@@ -1277,11 +1303,11 @@ msgstr ""
 "Indien aangevinkt, wordt het gebruikersaccount automatisch bevestigd en is het"
 " klaar voor gebruik. Anders moet de gebruiker zijn e-mailadres bevestigen."
 
-#: ../../../app/views/madmin/users/_form.html.erb:68
+#: ../../../app/views/madmin/users/_form.html.erb:70
 msgid "Password Information"
 msgstr "Wachtwoordinformatie"
 
-#: ../../../app/views/madmin/users/_form.html.erb:70
+#: ../../../app/views/madmin/users/_form.html.erb:72
 msgid ""
 "A secure password will be automatically generated for this user. The user can "
 "reset their password using the \"Forgot Password\" link on the login page."
@@ -1290,87 +1316,228 @@ msgstr ""
 " gebruiker kan zijn wachtwoord opnieuw instellen via de link 'Wachtwoord verge"
 "ten' op de inlogpagina."
 
-#: ../../../app/views/madmin/users/_form.html.erb:85
+#: ../../../app/views/madmin/users/_form.html.erb:87
 msgid "Create User"
 msgstr "Gebruiker aanmaken"
 
 #: ../../../app/views/pages/about.html.erb:1
+#: ../../../app/views/pages/about.html.erb:6
 msgid "About Password Pusher"
 msgstr "Over Password Pusher"
 
-#: ../../../app/views/pages/about.html.erb:2
-#: ../../../app/views/shared/_footer.html.erb:48
-msgid "About"
-msgstr "Over"
-
-#: ../../../app/views/pages/about.html.erb:7
+#: ../../../app/views/pages/about.html.erb:8
 msgid ""
-"Password Pusher is a tool used for sharing passwords and other sensitive infor"
-"mation with other people securely."
+"Open source software for securely sharing passwords, text, URLs, and files. Tr"
+"usted by thousands of organizations worldwide."
 msgstr ""
-"Password Pusher is een tool die wordt gebruikt om wachtwoorden en andere gevoe"
-"lige informatie veilig met andere mensen te delen."
+"Open source software voor het veilig delen van wachtwoorden, tekst, URL's en b"
+"estanden. Vertrouwd door duizenden organisaties wereldwijd."
 
-#: ../../../app/views/pages/about.html.erb:10
+#: ../../../app/views/pages/about.html.erb:13
+msgid "What It Is"
+msgstr "Wat het is"
+
+#: ../../../app/views/pages/about.html.erb:15
 msgid ""
-"With Password Pusher, you can create a unique, one-time URL that will expire a"
-"fter a certain amount of time or after it has been accessed a certain number o"
-"f times, ensuring that your information remains private and secure."
+"Password Pusher is a tool for sharing sensitive information securely. You crea"
+"te a unique, one-time link that expires after a set number of views or a set t"
+"ime. Recipients open the link, see the content once, and the data is no longer"
+" available—reducing the risk of credentials living in email or chat."
 msgstr ""
-"Met Password Pusher kunt u een unieke, eenmalige URL maken die na een bepaalde"
-" tijd verloopt of nadat deze een bepaald aantal keren is geopend, zodat uw inf"
-"ormatie privé en veilig blijft."
+"Password Pusher is een tool voor het veilig delen van gevoelige informatie. Je"
+" maakt een unieke, eenmalige link aan die na een bepaald aantal weergaven of e"
+"en bepaalde tijd verloopt. Ontvangers openen de link, zien de inhoud één keer "
+"en de gegevens zijn niet langer beschikbaar. Dit verkleint het risico dat inlo"
+"ggegevens in e-mails of chats blijven staan."
 
-#: ../../../app/views/pages/about.html.erb:11
+#: ../../../app/views/pages/about.html.erb:18
 msgid ""
-"It is often used by individuals and organizations to share login credentials o"
-"r other sensitive data with colleagues, clients, or partners."
+"It is open source, free to use and modify, and designed to be self-hosted so y"
+"our data never leaves your infrastructure."
 msgstr ""
-"Het wordt vaak gebruikt door individuen en organisaties om inloggegevens of an"
-"dere gevoelige gegevens te delen met collega's, klanten of partners."
-
-#: ../../../app/views/pages/about.html.erb:14
-msgid ""
-"Password Pusher is a simple and convenient solution for securely sharing passw"
-"ords without the need for email or other less secure communication methods."
-msgstr ""
-"Password Pusher is een eenvoudige en handige oplossing voor het veilig delen v"
-"an wachtwoorden zonder e-mail of andere minder veilige communicatiemethoden."
-
-#: ../../../app/views/pages/about.html.erb:17
-msgid "Hosted at"
-msgstr "Gehost bij"
-
-#: ../../../app/views/pages/about.html.erb:19
-msgid "or you can run your own private instance wherever you like."
-msgstr "of u kunt uw eigen privé-instantie uitvoeren waar u maar wilt."
+"Het is open source, gratis te gebruiken en aan te passen, en ontworpen om zelf"
+" gehost te worden, zodat uw gegevens uw eigen infrastructuur nooit verlaten."
 
 #: ../../../app/views/pages/about.html.erb:23
-msgid "The source code is"
-msgstr "De broncode is"
-
-#: ../../../app/views/pages/about.html.erb:24
-#: ../../../app/views/pages/about.html.erb:41
-msgid "on Github"
-msgstr "op GitHub"
+msgid "The Story"
+msgstr "Het verhaal"
 
 #: ../../../app/views/pages/about.html.erb:25
-msgid "It’s opensource and free for anyone to use, review or modify."
+msgid ""
+"Password Pusher began in December 2011 with a simple goal: stop sending passwo"
+"rds over email. The first commit was on"
 msgstr ""
-"Het is opensource en voor iedereen gratis te gebruiken, te herzien of aan te p"
-"assen."
+"Password Pusher is in december 2011 gestart met een simpel doel: een einde mak"
+"en aan het versturen van wachtwoorden via e-mail. De eerste commit was op"
 
-#: ../../../app/views/pages/about.html.erb:28
+#: ../../../app/views/pages/about.html.erb:27
+msgid "The public service at pwpush.com went live shortly after."
+msgstr "De publieke dienst op pwpush.com ging kort daarna live."
+
+#: ../../../app/views/pages/about.html.erb:30
+msgid ""
+"Over the years it grew into a full-featured application—passwords, URLs, file "
+"uploads, QR codes, a JSON API, dozens of languages, and a large self-hosted co"
+"mmunity. Today it is used by companies, teams, and individuals who want a simp"
+"le, auditable way to share secrets without leaving them in inboxes or messagin"
+"g apps."
+msgstr ""
+"In de loop der jaren is het uitgegroeid tot een volwaardige applicatie met fun"
+"cties zoals wachtwoorden, URL's, bestandsuploads, QR-codes, een JSON API, tien"
+"tallen talen en een grote, zelfgehoste community. Tegenwoordig wordt het gebru"
+"ikt door bedrijven, teams en individuen die op een eenvoudige en traceerbare m"
+"anier geheimen willen delen zonder ze in e-mailinboxen of berichtenapps achter"
+" te laten."
+
+#: ../../../app/views/pages/about.html.erb:33
+msgid "In 2024,"
+msgstr "In 2024,"
+
+#: ../../../app/views/pages/about.html.erb:35
+msgid ""
+"was formed to further the open source Password Pusher project: maintaining the"
+" codebase, hosting the public service at pwpush.com, publishing documentation,"
+" and offering a Pro edition for teams that want additional features and suppor"
+"t. The open source version remains free and self-hostable."
+msgstr ""
+"is opgericht om het open-sourceproject Password Pusher verder te ontwikkelen: "
+"het onderhouden van de codebase, het hosten van de publieke dienst op pwpush.c"
+"om, het publiceren van documentatie en het aanbieden van een Pro-editie voor t"
+"eams die extra functies en ondersteuning willen. De open-sourceversie blijft g"
+"ratis en kan zelf gehost worden."
+
+#: ../../../app/views/pages/about.html.erb:40
+msgid "What You Can Do"
+msgstr "Wat u kunt doen"
+
+#: ../../../app/views/pages/about.html.erb:46
+msgid "Passwords & text"
+msgstr "Wachtwoorden en tekst"
+
+#: ../../../app/views/pages/about.html.erb:47
+msgid "Share one-time secrets with expiration by views or time."
+msgstr ""
+"Deel eenmalige geheimen die na verloop van tijd of na een bepaalde weergave ve"
+"rlopen."
+
+#: ../../../app/views/pages/about.html.erb:55
+#: ../../../app/views/shared/_topnav.html.erb:18
+msgid "URLs"
+msgstr "URLs"
+
+#: ../../../app/views/pages/about.html.erb:56
+msgid "Send links that redirect only after the recipient opens the push."
+msgstr ""
+"Verstuur links die pas doorverwijzen nadat de ontvanger de pushmelding heeft g"
+"eopend."
+
+#: ../../../app/views/pages/about.html.erb:64
+#: ../../../app/views/shared/_topnav.html.erb:11
+msgid "Files"
+msgstr "Bestanden"
+
+#: ../../../app/views/pages/about.html.erb:65
+msgid "Upload files that expire after retrieval or time."
+msgstr "Upload bestanden die na het ophalen of na een bepaalde tijd verlopen."
+
+#: ../../../app/views/pages/about.html.erb:73
+msgid "QR codes"
+msgstr "QR-codes"
+
+#: ../../../app/views/pages/about.html.erb:74
+msgid "Generate expiring QR codes for credentials or links."
+msgstr "Genereer QR-codes met een vervaldatum voor inloggegevens of links."
+
+#: ../../../app/views/pages/about.html.erb:80
+msgid ""
+"Optional passphrase protection, view/expiration limits, optional deletion by v"
+"iewer, JSON API, and more. See the"
+msgstr ""
+"Optionele wachtwoordbeveiliging, weergave-/vervallimieten, optionele verwijder"
+"ing door de gebruiker, JSON API en meer. Zie de"
+
+#: ../../../app/views/pages/about.html.erb:81
+msgid "documentation"
+msgstr "documentatie"
+
+#: ../../../app/views/pages/about.html.erb:82
+msgid "for details."
+msgstr "voor meer informatie."
+
+#: ../../../app/views/pages/about.html.erb:87
+msgid "Security & Self-Hosting"
+msgstr "Beveiliging en zelfhosting"
+
+#: ../../../app/views/pages/about.html.erb:89
+msgid ""
+"Payloads are encrypted at rest. You control where data lives: run Password Pus"
+"her on your own servers, in your cloud, or in Docker. Thousands of companies a"
+"nd teams self-host it so sensitive data never touches third-party SaaS."
+msgstr ""
+"Gegevens worden versleuteld opgeslagen. U bepaalt zelf waar de gegevens zich b"
+"evinden: draai Password Pusher op uw eigen servers, in uw cloud of in Docker. "
+"Duizenden bedrijven en teams hosten het zelf, waardoor gevoelige gegevens nooi"
+"t in handen komen van SaaS-leveranciers van derden."
+
+#: ../../../app/views/pages/about.html.erb:92
+msgid ""
+"No account is required for basic use; optional user accounts and sign-in let t"
+"eams track their own pushes. The source code is open so you can review and ada"
+"pt it."
+msgstr ""
+"Voor basisgebruik is geen account vereist; optionele gebruikersaccounts en aan"
+"meldingsmogelijkheden stellen teams in staat hun eigen pushes te volgen. De br"
+"oncode is openbaar, zodat u deze kunt bekijken en aanpassen."
+
+#: ../../../app/views/pages/about.html.erb:97
+msgid "Get Started"
+msgstr "Aan de slag"
+
+#: ../../../app/views/pages/about.html.erb:103
+msgid "Installation, configuration, API, and FAQ."
+msgstr "Installatie, configuratie, API en veelgestelde vragen."
+
+#: ../../../app/views/pages/about.html.erb:104
+msgid "docs.pwpush.com"
+msgstr "docs.pwpush.com"
+
+#: ../../../app/views/pages/about.html.erb:111
+#: ../../../app/views/users/first_runs/new.html.erb:218
+msgid "Source code"
+msgstr "Broncode"
+
+#: ../../../app/views/pages/about.html.erb:112
+msgid "Open source on GitHub. Use, review, or contribute."
+msgstr "Open source op GitHub. Gebruik, beoordeel of draag bij."
+
+#: ../../../app/views/pages/about.html.erb:113
+#: ../../../app/views/shared/_footer.html.erb:29
+msgid "GitHub"
+msgstr "GitHub"
+
+#: ../../../app/views/pages/about.html.erb:120
+msgid "Hosted option"
+msgstr "Gehoste optie"
+
+#: ../../../app/views/pages/about.html.erb:121
+msgid "Use the public service or run your own instance."
+msgstr "Maak gebruik van de openbare dienst of start uw eigen instantie."
+
+#: ../../../app/views/pages/about.html.erb:130
 msgid "The Author"
 msgstr "De Auteur"
 
-#: ../../../app/views/pages/about.html.erb:31
-msgid "My name is Peter Giacomo Lombardo. You can find me on"
-msgstr "Mijn naam is Peter Giacomo Lombardo. Je kunt me vinden op"
+#: ../../../app/views/pages/about.html.erb:132
+msgid ""
+"Password Pusher is created and maintained by Peter Giacomo Lombardo. You can f"
+"ind him on"
+msgstr ""
+"Password Pusher is gemaakt en wordt onderhouden door Peter Giacomo Lombardo. J"
+"e kunt hem vinden op"
 
-#: ../../../app/views/pages/about.html.erb:34
-#: ../../../app/views/pages/about.html.erb:40
-#: ../../../app/views/pushes/preview.html.erb:58
+#: ../../../app/views/pages/about.html.erb:135
+#: ../../../app/views/pages/about.html.erb:141
+#: ../../../app/views/pushes/preview.html.erb:61
 #: ../../../app/views/pushes/print_preview.html.erb:14
 #: ../../../app/views/pushes/show.html.erb:46
 #: ../../../app/views/pushes/show.html.erb:49
@@ -1379,252 +1546,220 @@ msgstr "Mijn naam is Peter Giacomo Lombardo. Je kunt me vinden op"
 msgid "or"
 msgstr "of"
 
-#: ../../../app/views/pages/about.html.erb:38
-msgid "For updates, you can"
-msgstr "Voor updates kunt u"
+#: ../../../app/views/pages/about.html.erb:139
+msgid "For news and updates,"
+msgstr "Voor nieuws en updates,"
 
-#: ../../../app/views/pages/about.html.erb:39
-msgid "follow me on Twitter"
-msgstr "Volg me op Twitter"
+#: ../../../app/views/pages/about.html.erb:140
+msgid "follow on X"
+msgstr "volg X"
 
-#: ../../../app/views/pages/about.html.erb:44
-msgid "Want to Help Out?"
+#: ../../../app/views/pages/about.html.erb:142
+msgid "subscribe to the newsletter"
+msgstr "Abonneer je op de nieuwsbrief"
+
+#: ../../../app/views/pages/about.html.erb:147
+msgid "Want to Help?"
 msgstr "Wil je helpen?"
 
-#: ../../../app/views/pages/about.html.erb:48
-msgid "By far the biggest help is to spread the word"
-msgstr "De beste reclame is mond tot mond reclame"
+#: ../../../app/views/pages/about.html.erb:149
+msgid "The biggest help is to spread the word."
+msgstr "De grootste hulp is om het woord te verspreiden."
 
-#: ../../../app/views/pages/about.html.erb:50
-msgid "Share and suggest Password Pusher to colleagues and friends."
-msgstr "Deel en stel Password Pusher voor aan collega's en vrienden."
+#: ../../../app/views/pages/about.html.erb:150
+msgid "Share Password Pusher with colleagues and friends."
+msgstr "Deel Password Pusher met collega's en vrienden."
 
-#: ../../../app/views/pages/about.html.erb:53
-msgid "You can also"
-msgstr "Je kan ook"
+#: ../../../app/views/pages/about.html.erb:154
+msgid "Star the project on GitHub"
+msgstr "Geef het project een ster op GitHub."
 
-#: ../../../app/views/pages/about.html.erb:56
-msgid "Star the Github project"
-msgstr "Geef het Github-project een ster"
+#: ../../../app/views/pages/about.html.erb:155
+msgid "it helps others discover the project."
+msgstr "Het helpt anderen het project te ontdekken."
 
-#: ../../../app/views/pages/about.html.erb:57
-msgid "It's gasoline for the algos that trend Password Pusher."
-msgstr "Het is benzine voor de algo's die trend Password Pusher zijn."
+#: ../../../app/views/pages/about.html.erb:158
+msgid "Subscribe to the newsletter"
+msgstr "Abonneer u op de nieuwsbrief"
 
-#: ../../../app/views/pages/about.html.erb:60
-msgid "Sign up for the"
-msgstr "Schrijf je in voor de"
+#: ../../../app/views/pages/about.html.erb:159
+msgid "releases, security notes, and tips."
+msgstr "Releases, beveiligingsnotities en tips."
 
-#: ../../../app/views/pages/about.html.erb:61
-msgid "newsletter"
-msgstr "nieuwsbrief"
+#: ../../../app/views/pages/about.html.erb:162
+msgid "Fix a bug, add a feature, or improve the docs."
+msgstr "Los een bug op, voeg een functie toe of verbeter de documentatie."
 
-#: ../../../app/views/pages/about.html.erb:62
-msgid "to get updates on important releases, security issues, tips and more."
-msgstr ""
-"om updates te krijgen over belangrijke releases, beveiligingsproblemen, tips e"
-"n meer."
+#: ../../../app/views/pages/about.html.erb:163
+msgid "See the GitHub project"
+msgstr "Bekijk het GitHub-project"
 
-#: ../../../app/views/pages/about.html.erb:65
-msgid "Follow Password Pusher on"
-msgstr "Volg Password Pusher op"
-
-#: ../../../app/views/pages/about.html.erb:68
-#: ../../../app/views/pages/about.html.erb:91
-#: ../../../app/views/pushes/preview.html.erb:65
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "and"
-msgstr "en"
-
-#: ../../../app/views/pages/about.html.erb:72
-msgid "Fix an issue, add a feature or write some documentation."
-msgstr "Los een probleem op, voeg een functie toe of schrijf documentatie."
-
-#: ../../../app/views/pages/about.html.erb:72
-msgid "See the Github project."
-msgstr "Bekijk het GitHub project."
-
-#: ../../../app/views/pages/about.html.erb:75
-msgid "Sign up to Digital Ocean"
-msgstr "Meld u aan bij Digital Ocean"
-
-#: ../../../app/views/pages/about.html.erb:76
-msgid "with this link"
-msgstr "met deze link"
-
-#: ../../../app/views/pages/about.html.erb:77
-msgid "to get Password Pusher a hosting credit."
-msgstr "om Password Pusher een hosting credit te geven."
-
-#: ../../../app/views/pages/about.html.erb:81
-msgid "Thank you for supporting Password Pusher!"
-msgstr "Bedankt voor het steunen van Password Pusher!"
-
-#: ../../../app/views/pages/about.html.erb:83
-#: ../../../app/views/shared/_footer.html.erb:25
+#: ../../../app/views/pages/about.html.erb:169
 msgid "Resources"
 msgstr "Middelen"
 
-#: ../../../app/views/pages/about.html.erb:86
+#: ../../../app/views/pages/about.html.erb:171
 msgid ""
-"If you are giving a presentation, authoring a blog post or video about Passwor"
-"d Pusher, feel free to contact me for any questions."
+"Presenting or writing about Password Pusher? Media kits and slide decks are av"
+"ailable in"
 msgstr ""
-"Als je een presentatie geeft, een blog post of video schrijft over Password Pu"
-"sher, neem dan gerust contact met me op voor al je vragen."
+"Geeft u een presentatie of schrijft u over Password Pusher? Mediakits en prese"
+"ntaties zijn beschikbaar in"
 
-#: ../../../app/views/pages/about.html.erb:89
-msgid "We have media resources and a full explanation of features available in"
-msgstr "We hebben mediabronnen en een volledige uitleg van functies beschikbaar in"
+#: ../../../app/views/pages/about.html.erb:172
+msgid "PowerPoint"
+msgstr "PowerPoint"
 
-#: ../../../app/views/pages/about.html.erb:90
-msgid "Windows Powerpoint"
-msgstr "Windows Power Point"
+#: ../../../app/views/pages/about.html.erb:173
+msgid "and"
+msgstr "en"
 
-#: ../../../app/views/pages/about.html.erb:92
-msgid "Mac Keynote"
-msgstr "Mac-keynote"
+#: ../../../app/views/pages/about.html.erb:174
+msgid "Keynote"
+msgstr "Hoofdlezing"
 
-#: ../../../app/views/pages/about.html.erb:93
-msgid "formats."
-msgstr "formaten."
-
-#: ../../../app/views/pages/about.html.erb:99
-msgid "Birthday"
-msgstr "Verjaardag"
-
-#: ../../../app/views/pages/about.html.erb:101
-msgid "More Than 11 Years Old"
-msgstr "Meer dan 11 jaar oud"
-
-#: ../../../app/views/pages/about.html.erb:103
-msgid "The first git commit to Password Pusher was on"
-msgstr "De eerste git commit voor Password Pusher was op"
-
-#: ../../../app/views/pages/about.html.erb:107
-msgid "pwpush.com went live shortly thereafter."
-msgstr "pwpush.com ging kort daarna live."
-
-#: ../../../app/views/pages/about.html.erb:113
-msgid "The Original Theme"
-msgstr "Het Originele Thema"
-
-#: ../../../app/views/pages/about.html.erb:114
-msgid ""
-"The original site design consisted of a dark background with a bold yellow fon"
-"t."
+#: ../../../app/views/pages/about.html.erb:175
+msgid "formats. For questions or assets, reach out via the links above."
 msgstr ""
-"Het oorspronkelijke ontwerp van de site bestond uit een donkere achtergrond me"
-"t een vet geel lettertype."
+"formaten. Voor vragen of materiaal kunt u contact opnemen via de bovenstaande "
+"links."
 
-#: ../../../app/views/pages/about.html.erb:117
-msgid "Follow for news, changes & updates."
-msgstr "Volg voor nieuws, wijzigingen en updates."
+#: ../../../app/views/pages/about.html.erb:180
+msgid "Thank you for using and supporting Password Pusher."
+msgstr "Bedankt voor het gebruik en de steun aan Password Pusher."
 
 #: ../../../app/views/pages/generate_key.html.erb:1
 msgid "Generate Key"
 msgstr "Genereer sleutel"
 
-#: ../../../app/views/pages/generate_key.html.erb:3
-msgid "Generate an Encryption Key"
-msgstr "Genereer een encryptiesleutel"
+#: ../../../app/views/pages/generate_key.html.erb:9
+msgid "Encryption Key Generator"
+msgstr "Key Generator"
 
-#: ../../../app/views/pages/generate_key.html.erb:6
+#: ../../../app/views/pages/generate_key.html.erb:12
 msgid ""
-"This page is used as a helper tool to generate a random encryption key for pri"
-"vately hosted instances of Password Pusher."
+"Generate a secure encryption key for your self-hosted Password Pusher instance"
+"."
 msgstr ""
-"Deze pagina wordt gebruikt als hulpmiddel om een willekeurige encryptiesleutel"
-" te genereren voor zelf-gehoste instanties van Password Pusher."
+"Genereer een veilige encryptiesleutel voor uw zelfgehoste Password Pusher-inst"
+"antie."
 
-#: ../../../app/views/pages/generate_key.html.erb:10
+#: ../../../app/views/pages/generate_key.html.erb:20
+msgid "Why Use a Custom Key?"
+msgstr "Waarom een aangepaste sleutel gebruiken?"
+
+#: ../../../app/views/pages/generate_key.html.erb:23
 msgid ""
-"Password Pusher encrypts sensitive data in the database.  This requires a rand"
-"omly generated encryption key for each application instance."
+"Password Pusher encrypts all sensitive data in the database using a master enc"
+"ryption key. While a default key is provided for convenience, using your own u"
+"nique key provides the highest level of security for your private instance."
 msgstr ""
-"Password Pusher versleutelt de gevoelige dat in de database. Daartoe is een wi"
-"llekeurig gegenereerde sleutel voor elke instance nodig."
+"Password Pusher versleutelt alle gevoelige gegevens in de database met behulp "
+"van een hoofdsleutel. Hoewel er voor uw gemak een standaardsleutel wordt meege"
+"leverd, biedt het gebruik van uw eigen unieke sleutel de hoogste mate van beve"
+"iliging voor uw privé-instantie."
 
-#: ../../../app/views/pages/generate_key.html.erb:14
-msgid ""
-"You can use the randomly generated code below to configure your Password Pushe"
-"r instance."
-msgstr ""
-"U kunt de willekeurig gegenereerde code hieronder gebruiken om uw Password Pus"
-"her-instantie te configureren."
+#: ../../../app/views/pages/generate_key.html.erb:29
+msgid "Your Generated Key"
+msgstr "Uw gegenereerde sleutel"
 
-#: ../../../app/views/pages/generate_key.html.erb:22
-msgid "Generated Encryption Key"
-msgstr "Gegenereerde encryptiesleutel"
+#: ../../../app/views/pages/generate_key.html.erb:33
+msgid "Raw Encryption Key"
+msgstr "Ruwe encryptiesleutel"
 
-#: ../../../app/views/pages/generate_key.html.erb:32
-msgid "You can apply this key to your application by setting the environment variable"
-msgstr ""
-"U kunt deze sleutel toepassen op uw toepassing door de omgevingsvariabele in t"
-"e stellen"
+#: ../../../app/views/pages/generate_key.html.erb:43
+msgid "Environment Variable Format"
+msgstr "Formaat van omgevingsvariabelen"
 
-#: ../../../app/views/pages/generate_key.html.erb:45
-msgid "Reload this page to re-generate a new key."
-msgstr "Ververs deze pagina om een nieuwe sleutel te genereren."
+#: ../../../app/views/pages/generate_key.html.erb:51
+msgid "Set this environment variable in your deployment configuration."
+msgstr "Stel deze omgevingsvariabele in uw implementatieconfiguratie in."
 
-#: ../../../app/views/pages/generate_key.html.erb:49
-msgid "Notes:"
-msgstr "Opmerkingen:"
-
-#: ../../../app/views/pages/generate_key.html.erb:52
-msgid "If an encryption key isn't provided, a default key will be used."
-msgstr ""
-"Als er geen encryptiesleutel ingegeven is, wordt een standaard sleutel gebruik"
-"t."
-
-#: ../../../app/views/pages/generate_key.html.erb:55
-msgid ""
-"The best security for private instances of Password Pusher is to use your own "
-"custom encryption key although it is not required."
-msgstr ""
-"De beste beveiliging voor uw eigen ingerichte Password Pusher is door gebruik "
-"te maken van een eigen gemaakte sleutel. Dat is voor de werking van Password P"
-"usher overigens niet verplicht."
-
-#: ../../../app/views/pages/generate_key.html.erb:58
-msgid ""
-"The risk in using the default key is lessened if you keep your instance secure"
-" and your push expirations short.  e.g.  1 day/1 view versus 100 days/100 view"
-"s."
-msgstr ""
-"Het risico bij het gebruik van de standaardsleutel wordt verminderd als u uw o"
-"mgeving veilig houdt en uw push-verloop kort houdt. Bijv. 1 dag/1 weergave ver"
-"sus 100 dagen/100 weergaven."
-
-#: ../../../app/views/pages/generate_key.html.erb:61
-msgid "Once a push expires, all encrypted data is deleted."
-msgstr "Als een push verlopen is wordt alle versleutelde data verwijderd."
+#: ../../../app/views/pages/generate_key.html.erb:57
+msgid "Generate New Key"
+msgstr "Nieuwe sleutel genereren"
 
 #: ../../../app/views/pages/generate_key.html.erb:64
+msgid "Important Notes"
+msgstr "Belangrijke opmerkingen"
+
+#: ../../../app/views/pages/generate_key.html.erb:72
+msgid "Default Key Available"
+msgstr "Standaardsleutel beschikbaar"
+
+#: ../../../app/views/pages/generate_key.html.erb:75
 msgid ""
-"Changing an encryption key where old pushes already exist will make those olde"
-"r pushes unreadable.  In other words, the payloads will be garbled.  New pushe"
-"s going forward will work fine."
+"A default key is used if none is provided. This works but is less secure than "
+"a custom key."
 msgstr ""
-"Als de sleutel voor versleuteling wijzigt, dan worden alle nog openstaande ver"
-"zendingen onleesbaar. Kort gezegd: als je de link volgt is het resultaat onlee"
-"sbaar. Nieuwe verzendingen gaan uiteraard wel goed."
+"Als er geen sleutel is opgegeven, wordt een standaardsleutel gebruikt. Dit wer"
+"kt, maar is minder veilig dan een aangepaste sleutel."
 
-#: ../../../app/views/pages/generate_key.html.erb:67
+#: ../../../app/views/pages/generate_key.html.erb:85
+msgid "Reduce Risk"
+msgstr "Verminder het risico"
+
+#: ../../../app/views/pages/generate_key.html.erb:88
 msgid ""
-"Key generation can also be done from the command line in the application sourc"
-"e by executing: "
+"Using short push expirations (e.g., 1 day/1 view) reduces risk even with the d"
+"efault key."
 msgstr ""
-"Een sleutel kan ook vanaf de opdrachtprompt in de applicatie broncode worden g"
-"egenereerd door het volgende uit te voeren:"
+"Door korte pushmeldingen te gebruiken (bijvoorbeeld 1 dag/1 weergave) wordt he"
+"t risico verlaagd, zelfs met de standaardsleutel."
 
-#: ../../../app/views/pages/generate_key.html.erb:79
-msgid "See also the Password Pusher"
-msgstr "Zie ook de Password Pusher"
+#: ../../../app/views/pages/generate_key.html.erb:98
+msgid "Data Deletion"
+msgstr "Gegevens verwijderen"
 
-#: ../../../app/views/pages/generate_key.html.erb:80
-msgid "Configuration documentation"
+#: ../../../app/views/pages/generate_key.html.erb:101
+msgid ""
+"Once a push expires, all encrypted data is permanently deleted from the databa"
+"se."
+msgstr ""
+"Zodra een pushmelding verloopt, worden alle versleutelde gegevens permanent ui"
+"t de database verwijderd."
+
+#: ../../../app/views/pages/generate_key.html.erb:111
+msgid "Key Changes"
+msgstr "Belangrijkste wijzigingen"
+
+#: ../../../app/views/pages/generate_key.html.erb:114
+msgid "Changing keys makes existing pushes unreadable. New pushes will work normally."
+msgstr ""
+"Door de toetsen te wijzigen, worden bestaande toetsen onleesbaar. Nieuwe toets"
+"en werken wel normaal."
+
+#: ../../../app/views/pages/generate_key.html.erb:124
+msgid "Command Line Alternative"
+msgstr "Alternatief voor de opdrachtregel"
+
+#: ../../../app/views/pages/generate_key.html.erb:127
+msgid "You can also generate keys from the command line in the application source:"
+msgstr ""
+"Je kunt ook sleutels genereren via de opdrachtregel in de broncode van de appl"
+"icatie:"
+
+#: ../../../app/views/pages/generate_key.html.erb:130
+msgid "In your Password Pusher directory"
+msgstr "In uw Password Pusher-directory"
+
+#: ../../../app/views/pages/generate_key.html.erb:140
+msgid "Learn More"
+msgstr "Meer leren"
+
+#: ../../../app/views/pages/generate_key.html.erb:143
+msgid "For detailed configuration options and deployment strategies, see the"
+msgstr "Voor gedetailleerde configuratieopties en implementatiestrategieën, zie de"
+
+#: ../../../app/views/pages/generate_key.html.erb:145
+msgid "Configuration Documentation"
 msgstr "Configuratiedocumentatie"
+
+#: ../../../app/views/pages/generate_key.html.erb:153
+msgid "Keys are generated server-side using cryptographically secure random bytes."
+msgstr ""
+"Sleutels worden aan de serverzijde gegenereerd met behulp van cryptografisch v"
+"eilige willekeurige bytes."
 
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
@@ -1641,36 +1776,36 @@ msgstr[0] "Dag"
 msgstr[1] "Dagen"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:95
+#: ../../../app/views/pushes/_files_form.html.erb:90
 #: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:69
+#: ../../../app/views/pushes/_form.html.erb:97
 #: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:70
+#: ../../../app/views/pushes/_qr_form.html.erb:87
 #: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:56
+#: ../../../app/views/pushes/_url_form.html.erb:58
 msgid "Days"
 msgstr "Dagen"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:113
+#: ../../../app/views/pushes/_files_form.html.erb:107
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:86
+#: ../../../app/views/pushes/_form.html.erb:113
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_qr_form.html.erb:103
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:75
+#: ../../../app/views/pushes/_url_form.html.erb:76
 msgid "Views"
 msgstr "Weergaven"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:144
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_form.html.erb:150
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_qr_form.html.erb:142
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:115
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:72
+#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:82
 msgid "Save"
 msgstr "Bewaar"
 
@@ -1681,135 +1816,134 @@ msgstr "Bewaar"
 msgid "Saved!"
 msgstr "Opgeslagen!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:30
+#: ../../../app/views/pushes/_files_form.html.erb:28
 msgid "Uploaded Files"
 msgstr "Geüploade bestanden"
 
-#: ../../../app/views/pushes/_files_form.html.erb:46
+#: ../../../app/views/pushes/_files_form.html.erb:44
 msgid "Are you sure you want to delete this file?"
 msgstr "Weet u zeker dat u dit bestand wilt verwijderen?"
 
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:57
 msgid "Add Files..."
 msgstr "Bestanden toevoegen..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:77
+#: ../../../app/views/pushes/_files_form.html.erb:72
 msgid "You can upload up to %{count} files per push."
 msgstr "Je kunt tot %{count} bestanden per push uploaden."
 
-#: ../../../app/views/pushes/_files_form.html.erb:82
-#: ../../../app/views/pushes/_form.html.erb:56
-#: ../../../app/views/pushes/_qr_form.html.erb:57
-#: ../../../app/views/pushes/_url_form.html.erb:43
+#: ../../../app/views/pushes/_files_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:83
+#: ../../../app/views/pushes/_qr_form.html.erb:73
+#: ../../../app/views/pushes/_url_form.html.erb:44
 msgid "Expire secret link and delete after:"
 msgstr "Laat de geheime link verlopen en verwijderen na:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:118
-#: ../../../app/views/pushes/_form.html.erb:91
-#: ../../../app/views/pushes/_qr_form.html.erb:92
-#: ../../../app/views/pushes/_url_form.html.erb:80
-#: ../../../app/views/pushes/preview.html.erb:61
+#: ../../../app/views/pushes/_files_form.html.erb:110
+#: ../../../app/views/pushes/_form.html.erb:116
+#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_url_form.html.erb:79
 #: ../../../app/views/pushes/preview.html.erb:63
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(wat het eerst komt)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:129
-#: ../../../app/views/pushes/_form.html.erb:102
-#: ../../../app/views/pushes/_qr_form.html.erb:104
-#: ../../../app/views/pushes/_url_form.html.erb:92
+#: ../../../app/views/pushes/_files_form.html.erb:119
+#: ../../../app/views/pushes/_form.html.erb:125
+#: ../../../app/views/pushes/_qr_form.html.erb:116
+#: ../../../app/views/pushes/_url_form.html.erb:89
 msgid "Use a 1-click retrieval step"
 msgstr "Een ophaalstap met één klik gebruiken"
 
-#: ../../../app/views/pushes/_files_form.html.erb:130
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/audit.html.erb:73
+#: ../../../app/views/pushes/_files_form.html.erb:120
+#: ../../../app/views/pushes/_form.html.erb:126
+#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Helpt met het voorkomen van onnodige weergaven die door URL-scanners en chat s"
 "ystemen veroorzaakt kunnen worden"
 
-#: ../../../app/views/pushes/_files_form.html.erb:138
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:114
+#: ../../../app/views/pushes/_files_form.html.erb:128
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:126
 msgid "Allow immediate deletion"
 msgstr "Onmiddellijke verwijdering toestaan"
 
-#: ../../../app/views/pushes/_files_form.html.erb:139
-#: ../../../app/views/pushes/_form.html.erb:112
-#: ../../../app/views/pushes/_qr_form.html.erb:115
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:135
+#: ../../../app/views/pushes/_qr_form.html.erb:127
 msgid "Allow users to delete this push once retrieved."
 msgstr "Gebruikers toestaan deze push te verwijderen zodra deze is opgehaald."
 
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:122
-#: ../../../app/views/pushes/_qr_form.html.erb:125
-#: ../../../app/views/pushes/_url_form.html.erb:103
-#: ../../../app/views/pushes/audit.html.erb:78
-msgid "Passphrase Lockdown"
-msgstr "Wachtwoord beveiliging"
+#: ../../../app/views/pushes/_files_form.html.erb:136
+#: ../../../app/views/pushes/_form.html.erb:142
+#: ../../../app/views/pushes/_qr_form.html.erb:134
+#: ../../../app/views/pushes/_url_form.html.erb:97
+#: ../../../app/views/pushes/audit.html.erb:76
+msgid "Passphrase"
+msgstr "Wachtwoordzin vergrendelen"
 
-#: ../../../app/views/pushes/_files_form.html.erb:152
-#: ../../../app/views/pushes/_form.html.erb:125
-#: ../../../app/views/pushes/_qr_form.html.erb:128
-#: ../../../app/views/pushes/_url_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:145
+#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:100
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr "Optioneel: Vul een wachtwoord in voor ontvangers om de push te bekijken."
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:137
-#: ../../../app/views/pushes/_url_form.html.erb:115
+#: ../../../app/views/pushes/_files_form.html.erb:144
+#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_qr_form.html.erb:142
+#: ../../../app/views/pushes/_url_form.html.erb:105
 msgid "the above settings as the page default."
 msgstr "de bovenstaande instellingen als de paginastandaard."
 
-#: ../../../app/views/pushes/_files_form.html.erb:175
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:161
-#: ../../../app/views/pushes/_form.html.erb:171
-#: ../../../app/views/pushes/_qr_form.html.erb:164
-#: ../../../app/views/pushes/_qr_form.html.erb:174
-#: ../../../app/views/pushes/_url_form.html.erb:128
-#: ../../../app/views/pushes/_url_form.html.erb:138
+#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:160
+#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_qr_form.html.erb:152
+#: ../../../app/views/pushes/_qr_form.html.erb:162
+#: ../../../app/views/pushes/_url_form.html.erb:115
+#: ../../../app/views/pushes/_url_form.html.erb:125
 msgid "Optional"
 msgstr "Optioneel"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
-#: ../../../app/views/pushes/_form.html.erb:164
-#: ../../../app/views/pushes/_qr_form.html.erb:167
-#: ../../../app/views/pushes/_url_form.html.erb:131
+#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_form.html.erb:163
+#: ../../../app/views/pushes/_qr_form.html.erb:155
+#: ../../../app/views/pushes/_url_form.html.erb:118
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Een naam die wordt weergegeven op het dashboard, in meldingen en in e-mails."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:162
 msgid "Message"
 msgstr "Bericht"
 
-#: ../../../app/views/pushes/_files_form.html.erb:186
+#: ../../../app/views/pushes/_files_form.html.erb:165
 msgid "Optional: A message to be included with the push"
 msgstr "Optioneel: een bericht dat bij de push moet worden gevoegd"
 
-#: ../../../app/views/pushes/_files_form.html.erb:190
+#: ../../../app/views/pushes/_files_form.html.erb:169
 msgid "Encrypted and visible to the receiving party"
 msgstr "Versleuteld en zichtbaar voor de ontvangende partij"
 
-#: ../../../app/views/pushes/_files_form.html.erb:195
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:171
-#: ../../../app/views/pushes/_url_form.html.erb:135
-#: ../../../app/views/pushes/audit.html.erb:15
-msgid "Reference Note"
-msgstr "Referentie Opmerking:"
+#: ../../../app/views/pushes/_files_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:167
+#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_url_form.html.erb:122
+#: ../../../app/views/pushes/index.html.erb:35
+msgid "Note"
+msgstr "Opmerking"
 
-#: ../../../app/views/pushes/_files_form.html.erb:201
-#: ../../../app/views/pushes/_form.html.erb:174
-#: ../../../app/views/pushes/_qr_form.html.erb:177
-#: ../../../app/views/pushes/_url_form.html.erb:141
+#: ../../../app/views/pushes/_files_form.html.erb:180
+#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_qr_form.html.erb:165
+#: ../../../app/views/pushes/_url_form.html.erb:128
 msgid "Encrypted and visible only to you"
 msgstr "Versleuteld en alleen zichtbaar voor jou"
 
-#: ../../../app/views/pushes/_files_form.html.erb:207
+#: ../../../app/views/pushes/_files_form.html.erb:185
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1817,36 +1951,36 @@ msgstr ""
 "Eenmaal verlopen, worden alle bestanden en inhoud van de push onmiddellijk en "
 "volledig verwijderd."
 
-#: ../../../app/views/pushes/_files_form.html.erb:212
-#: ../../../app/views/pushes/_url_form.html.erb:153
+#: ../../../app/views/pushes/_files_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:134
 msgid "An audit log of activity will be available."
 msgstr "Er zal een auditlogboek met activiteit beschikbaar zijn."
 
-#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_files_form.html.erb:195
 #: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:162
+#: ../../../app/views/pushes/_qr_form.html.erb:180
+#: ../../../app/views/pushes/_url_form.html.erb:143
 msgid "Updating..."
 msgstr "Bijwerken..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:221
+#: ../../../app/views/pushes/_files_form.html.erb:195
 #: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:162
+#: ../../../app/views/pushes/_qr_form.html.erb:180
+#: ../../../app/views/pushes/_url_form.html.erb:143
 msgid "Update Push"
 msgstr "Update-push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_files_form.html.erb:197
 #: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:193
-#: ../../../app/views/pushes/_url_form.html.erb:164
+#: ../../../app/views/pushes/_qr_form.html.erb:182
+#: ../../../app/views/pushes/_url_form.html.erb:145
 msgid "Pushing..."
 msgstr "Duwen..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:223
+#: ../../../app/views/pushes/_files_form.html.erb:197
 #: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:193
-#: ../../../app/views/pushes/_url_form.html.erb:164
+#: ../../../app/views/pushes/_qr_form.html.erb:182
+#: ../../../app/views/pushes/_url_form.html.erb:145
 msgid "Push It!"
 msgstr "Genereer link (Push)!"
 
@@ -1854,45 +1988,57 @@ msgstr "Genereer link (Push)!"
 msgid "Securely Send a Password"
 msgstr "Veilig een Wachtwoord Verzenden"
 
-#: ../../../app/views/pushes/_form.html.erb:36
+#: ../../../app/views/pushes/_form.html.erb:39
+msgid "Content is hidden for privacy. Click the field below to reveal and edit."
+msgstr ""
+"De inhoud is om privacyredenen verborgen. Klik op het onderstaande veld om de "
+"inhoud weer te geven en te bewerken."
+
+#: ../../../app/views/pushes/_form.html.erb:44
 msgid "Enter the Password or Text to push..."
 msgstr "Voer het wachtwoord of de tekst in om te drukken..."
 
-#: ../../../app/views/pushes/_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:59
 #: ../../../app/views/pushes/_qr_form.html.erb:49
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:55
 msgid "Characters"
 msgstr "Tekens"
 
-#: ../../../app/views/pushes/_form.html.erb:147
-#: ../../../app/views/pushes/_qr_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:56
+msgid "Password Generator"
+msgstr "Wachtwoord generator"
+
+#: ../../../app/views/pushes/_form.html.erb:70
+#: ../../../app/views/pushes/_qr_form.html.erb:60
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Genereer wachtwoord"
 
-#: ../../../app/views/pushes/_form.html.erb:154
-#: ../../../app/views/pushes/_qr_form.html.erb:157
-msgid "Use the button above to generate a random password."
-msgstr "Gebruik de bovenstaande knop om een willekeurig wachtwoord te genereren."
+#: ../../../app/views/pushes/_form.html.erb:74
+#: ../../../app/views/pushes/_qr_form.html.erb:64
+msgid "Configure Generator"
+msgstr "Generator configureren"
+
+#: ../../../app/views/pushes/_form.html.erb:178
+#: ../../../app/views/pushes/_qr_form.html.erb:170
+msgid ""
+"Tip: Only enter a password into the box. Other identifying information can com"
+"promise security."
+msgstr ""
+"Tip: Voer alleen een wachtwoord in het daarvoor bestemde vak in. Andere identi"
+"ficerende gegevens kunnen de beveiliging in gevaar brengen."
 
 #: ../../../app/views/pushes/_form.html.erb:179
-#: ../../../app/views/pushes/_qr_form.html.erb:182
-msgid ""
-"Tip: Only enter a password into the box.  Other identifying information can co"
-"mpromise security."
-msgstr ""
-"Tip: voer alleen een wachtwoord in. Andere identificerende informatie kan de v"
-"eiligheid in gevaar brengen."
-
-#: ../../../app/views/pushes/_form.html.erb:180
-#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_qr_form.html.erb:171
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
-"ith the secret link.  Once expired, encrypted passwords are unequivocally dele"
-"ted from the database."
+"ith the secret link. Once expired, encrypted passwords are unequivocally delet"
+"ed from the database."
 msgstr ""
-"Alle wachtwoorden worden, voordat ze opgeslagen worden, versleuteld en zijn al"
-"leen beschikbaar voor degenen met de geheime link. Eenmaal verlopen, worden ve"
-"rsleutelde wachtwoorden ondubbelzinnig uit de database verwijderd."
+"Alle wachtwoorden worden versleuteld voordat ze worden opgeslagen en zijn alle"
+"en toegankelijk voor degenen met de geheime link. Zodra de versleutelde wachtw"
+"oorden verlopen zijn, worden ze definitief uit de database verwijderd."
 
 #: ../../../app/views/pushes/_qr_form.html.erb:1
 msgid "Securely Send a QR Code"
@@ -1919,25 +2065,25 @@ msgstr "Uw wachtwoord is vervaagd. Klik hieronder om het te onthullen."
 msgid "Securely Send URLs"
 msgstr "Veilig URLs Versturen"
 
-#: ../../../app/views/pushes/_url_form.html.erb:28
+#: ../../../app/views/pushes/_url_form.html.erb:26
 msgid "URL Redirection"
 msgstr "URL-omleiding"
 
-#: ../../../app/views/pushes/_url_form.html.erb:32
+#: ../../../app/views/pushes/_url_form.html.erb:30
 msgid "Enter the URL to redirect to..."
 msgstr "Voer de URL in waarnaar moet worden omgeleid..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:93
+#: ../../../app/views/pushes/_url_form.html.erb:90
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Helpt met het voorkomen van onnodige omleidingen die door URL-scanners en chat"
 " systemen veroorzaakt kunnen worden."
 
-#: ../../../app/views/pushes/_url_form.html.erb:147
+#: ../../../app/views/pushes/_url_form.html.erb:133
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Er wordt een geheime URL gegenereerd die doorverwijst naar de opgegeven URL."
 
-#: ../../../app/views/pushes/_url_form.html.erb:152
+#: ../../../app/views/pushes/_url_form.html.erb:134
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Na afloop wordt de push-URL volledig verwijderd."
 
@@ -1946,27 +2092,33 @@ msgid "Audit Log for %{push_id}"
 msgstr "Auditlogboek voor %{push_id}"
 
 #: ../../../app/views/pushes/audit.html.erb:4
-msgid "Audit Log for Push ID: %{push_id}"
-msgstr "Auditlog voor Push-ID: %{push_id}"
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:107
+msgid "Audit Log"
+msgstr "Audit logboek"
 
-#: ../../../app/views/pushes/audit.html.erb:6
+#: ../../../app/views/pushes/audit.html.erb:7
 msgid "Pushed on %{date}"
 msgstr "Op %{date} geduwd"
 
-#: ../../../app/views/pushes/audit.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:10
 msgid "Secret URL for this push"
 msgstr "Geheime URL voor deze push"
 
 #: ../../../app/views/pushes/audit.html.erb:16
+msgid "Reference Note"
+msgstr "Referentie Opmerking:"
+
+#: ../../../app/views/pushes/audit.html.erb:17
 msgid "Visible Only To You"
 msgstr "Alleen Zichtbaar Voor Jou"
 
-#: ../../../app/views/pushes/audit.html.erb:28
+#: ../../../app/views/pushes/audit.html.erb:29
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../../../app/views/pushes/audit.html.erb:32
-#: ../../../app/views/pushes/audit.html.erb:41
+#: ../../../app/views/pushes/audit.html.erb:34
+#: ../../../app/views/pushes/audit.html.erb:42
 msgid "Expire after"
 msgstr "Verloopt na"
 
@@ -1974,7 +2126,7 @@ msgstr "Verloopt na"
 msgid "The push expires after this number of views."
 msgstr "De push vervalt na dit aantal views."
 
-#: ../../../app/views/pushes/audit.html.erb:45
+#: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."
 msgstr "De push verloopt na dit aantal dagen."
 
@@ -1982,68 +2134,62 @@ msgstr "De push verloopt na dit aantal dagen."
 msgid "Deletable by Viewers"
 msgstr "Verwijderbaar door kijkers"
 
-#: ../../../app/views/pushes/audit.html.erb:54
-#: ../../../app/views/pushes/audit.html.erb:68
-msgid "True"
-msgstr "Waar"
-
-#: ../../../app/views/pushes/audit.html.erb:56
-#: ../../../app/views/pushes/audit.html.erb:70
-msgid "False"
-msgstr "Fout"
-
-#: ../../../app/views/pushes/audit.html.erb:59
-msgid "This allows end users to delete content once retrieved."
-msgstr "Hierdoor kunnen eindgebruikers inhoud verwijderen zodra deze is opgehaald."
-
-#: ../../../app/views/pushes/audit.html.erb:65
-msgid "1-click Retrieval Step"
-msgstr "Opvragen met 1 klik"
-
-#: ../../../app/views/pushes/audit.html.erb:81
-#: ../../../app/views/pushes/audit.html.erb:140
-msgid "No"
-msgstr "Nee"
-
-#: ../../../app/views/pushes/audit.html.erb:83
+#: ../../../app/views/pushes/audit.html.erb:53
+#: ../../../app/views/pushes/audit.html.erb:66
+#: ../../../app/views/pushes/audit.html.erb:80
 #: ../../../app/views/pushes/audit.html.erb:142
 msgid "Yes"
 msgstr "Ja"
 
-#: ../../../app/views/pushes/audit.html.erb:86
+#: ../../../app/views/pushes/audit.html.erb:55
+#: ../../../app/views/pushes/audit.html.erb:68
+#: ../../../app/views/pushes/audit.html.erb:78
+#: ../../../app/views/pushes/audit.html.erb:140
+msgid "No"
+msgstr "Nee"
+
+#: ../../../app/views/pushes/audit.html.erb:57
+msgid "This allows end users to delete content once retrieved."
+msgstr "Hierdoor kunnen eindgebruikers inhoud verwijderen zodra deze is opgehaald."
+
+#: ../../../app/views/pushes/audit.html.erb:64
+msgid "1-click Retrieval Step"
+msgstr "Opvragen met 1 klik"
+
+#: ../../../app/views/pushes/audit.html.erb:82
 msgid "Require recipients to enter a passphrase to view this push."
 msgstr "Vereisen dat ontvangers een wachtwoordzin invoeren om deze push te bekijken."
 
-#: ../../../app/views/pushes/audit.html.erb:92
+#: ../../../app/views/pushes/audit.html.erb:88
 msgid "Current Status"
 msgstr "Huidige Status"
 
-#: ../../../app/views/pushes/audit.html.erb:96
+#: ../../../app/views/pushes/audit.html.erb:93
 msgid "State:"
 msgstr "Staat:"
 
-#: ../../../app/views/pushes/audit.html.erb:101
-#: ../../../app/views/shared/_dashboard_header.html.erb:10
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/shared/_dashboard_header.html.erb:14
 msgid "Active"
 msgstr "Actief"
 
-#: ../../../app/views/pushes/audit.html.erb:102
+#: ../../../app/views/pushes/audit.html.erb:99
 msgid "Active and still available for viewing."
 msgstr "Actief en nog steeds te bezichtigen."
 
-#: ../../../app/views/pushes/audit.html.erb:108
+#: ../../../app/views/pushes/audit.html.erb:106
 msgid "Successful Views"
 msgstr "Succesvolle Weergaven"
 
-#: ../../../app/views/pushes/audit.html.erb:109
+#: ../../../app/views/pushes/audit.html.erb:107
 msgid "The number of times this push has been viewed before expiration."
 msgstr "Het aantal keren dat deze push is bekeken vóór de vervaldatum."
 
-#: ../../../app/views/pushes/audit.html.erb:114
+#: ../../../app/views/pushes/audit.html.erb:113
 msgid "Failed View Attempts"
 msgstr "Mislukte Weergavepogingen"
 
-#: ../../../app/views/pushes/audit.html.erb:115
+#: ../../../app/views/pushes/audit.html.erb:114
 msgid "The number of times this push has been viewed after expiration."
 msgstr "Het aantal keren dat deze push is bekeken na de vervaldatum."
 
@@ -2063,16 +2209,16 @@ msgstr ""
 msgid "Payload"
 msgstr "Payload"
 
-#: ../../../app/views/pushes/audit.html.erb:135
+#: ../../../app/views/pushes/audit.html.erb:136
 msgid "Contains Message for Receiver"
 msgstr "Bevat bericht voor ontvanger"
 
 #: ../../../app/views/pushes/audit.html.erb:138
-#: ../../../app/views/pushes/audit.html.erb:153
+#: ../../../app/views/pushes/audit.html.erb:152
 msgid "Deleted"
 msgstr "Verwijderd"
 
-#: ../../../app/views/pushes/audit.html.erb:145
+#: ../../../app/views/pushes/audit.html.erb:144
 msgid "Has a text payload been added to this push?"
 msgstr "Is er een tekstpayload aan deze push toegevoegd?"
 
@@ -2080,58 +2226,59 @@ msgstr "Is er een tekstpayload aan deze push toegevoegd?"
 msgid "Message Length"
 msgstr "Berichtlengte"
 
-#: ../../../app/views/pushes/audit.html.erb:155
+#: ../../../app/views/pushes/audit.html.erb:154
 msgid "Not Applicable"
 msgstr "Niet toepasbaar"
 
-#: ../../../app/views/pushes/audit.html.erb:160
+#: ../../../app/views/pushes/audit.html.erb:158
 msgid "The length of the attached text payload."
 msgstr "De lengte van de bijgevoegde tekstpayload."
 
-#: ../../../app/views/pushes/audit.html.erb:165
+#: ../../../app/views/pushes/audit.html.erb:164
 msgid "Number of Files Attached"
 msgstr "Aantal bijgevoegde bestanden"
 
-#: ../../../app/views/pushes/audit.html.erb:173
+#: ../../../app/views/pushes/audit.html.erb:170
 msgid "The number of files attached to this push. This value will be 0 when expired."
 msgstr ""
 "Het aantal bestanden dat aan deze push is gekoppeld. Deze waarde is 0 wanneer "
 "deze is verlopen."
 
-#: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/audit.html.erb:176
 #: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Bijgevoegde bestanden"
 
-#: ../../../app/views/pushes/audit.html.erb:185
-msgid "Filename:"
-msgstr "Bestandsnaam:"
+#: ../../../app/views/pushes/audit.html.erb:184
+msgid "Size:"
+msgstr "Maat:"
 
-#: ../../../app/views/pushes/audit.html.erb:187
-msgid "Size: "
-msgstr "Bestandsgrootte:"
-
-#: ../../../app/views/pushes/audit.html.erb:192
+#: ../../../app/views/pushes/audit.html.erb:189
 msgid "All attached files have been deleted."
 msgstr "Alle bijlagen zijn verwijderd."
 
-#: ../../../app/views/pushes/audit.html.erb:207
+#: ../../../app/views/pushes/audit.html.erb:201
+#: ../../../app/views/pushes/edit.html.erb:1
+msgid "Edit Push"
+msgstr "Bewerken Push"
+
+#: ../../../app/views/pushes/audit.html.erb:204
 msgid "Expire Now"
 msgstr "Nu laten verlopen"
 
-#: ../../../app/views/pushes/audit.html.erb:215
+#: ../../../app/views/pushes/audit.html.erb:212
 msgid "Delete This Push?"
 msgstr "Deze push verwijderen?"
 
-#: ../../../app/views/pushes/audit.html.erb:219
+#: ../../../app/views/pushes/audit.html.erb:216
 msgid "This will expire this secret link and"
 msgstr "Hierdoor verloopt deze geheime link en"
 
-#: ../../../app/views/pushes/audit.html.erb:219
+#: ../../../app/views/pushes/audit.html.erb:216
 msgid "remove all content from the database forever"
 msgstr "verwijder alle inhoud voor altijd uit de database"
 
-#: ../../../app/views/pushes/audit.html.erb:220
+#: ../../../app/views/pushes/audit.html.erb:217
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -2139,11 +2286,11 @@ msgstr ""
 "Het controlelogboek (inclusief toekomstige weergavepogingen) wordt in de toeko"
 "mst nog steeds bijgehouden."
 
-#: ../../../app/views/pushes/audit.html.erb:237
-msgid "Start of Audit Log"
-msgstr "Begin van Auditlogboek"
+#: ../../../app/views/pushes/audit.html.erb:234
+msgid "Activity Log"
+msgstr "Activiteitenlogboek"
 
-#: ../../../app/views/pushes/audit.html.erb:243
+#: ../../../app/views/pushes/audit.html.erb:241
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2151,90 +2298,78 @@ msgstr ""
 "Naarmate de push activiteit ontvangt, wordt hier een logboek met identificeren"
 "de informatie weergegeven."
 
-#: ../../../app/views/pushes/audit.html.erb:247
-msgid "End of Audit Log"
-msgstr "Einde van Auditlogboek"
-
-#: ../../../app/views/pushes/edit.html.erb:1
-#: ../../../app/views/pushes/preview.html.erb:98
-msgid "Edit Push"
-msgstr "Bewerken Push"
-
-#: ../../../app/views/pushes/edit.html.erb:4
+#: ../../../app/views/pushes/edit.html.erb:6
 msgid "Editing Push"
 msgstr "Bewerkingsduw"
 
-#: ../../../app/views/pushes/index.html.erb:9
-msgid "You currently have no active pushes."
-msgstr "Momenteel heb je geen actieve pushes."
-
-#: ../../../app/views/pushes/index.html.erb:11
-msgid "You currently have no expired pushes."
-msgstr "Er zijn momenteel geen verlopen pushes."
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/shared/_dashboard_header.html.erb:5
+#: ../../../app/views/shared/_header.html.erb:27
+msgid "Dashboard"
+msgstr "Dashboard"
 
 #: ../../../app/views/pushes/index.html.erb:13
-msgid "You currently have no pushes."
-msgstr "Momenteel heb je geen pushes."
+msgid "No active pushes"
+msgstr "Geen actieve pushes"
 
-#: ../../../app/views/pushes/index.html.erb:19
-msgid "Push a Password Now"
-msgstr "Push nu een wachtwoord"
+#: ../../../app/views/pushes/index.html.erb:15
+msgid "No expired pushes"
+msgstr "Geen verlopen pushmeldingen"
 
-#: ../../../app/views/pushes/index.html.erb:28
-msgid "Expired Pushes"
-msgstr "Verlopen pushes"
+#: ../../../app/views/pushes/index.html.erb:17
+msgid "No pushes yet"
+msgstr "Nog geen pushes."
 
-#: ../../../app/views/pushes/index.html.erb:30
-msgid "All Pushes"
-msgstr "Alle pushes"
+#: ../../../app/views/pushes/index.html.erb:21
+msgid "Create your first secure push to share passwords, files, or URLs."
+msgstr ""
+"Maak je eerste beveiligde pushmelding aan om wachtwoorden, bestanden of URL's "
+"te delen."
 
-#: ../../../app/views/pushes/index.html.erb:37
-msgid "Name or ID"
-msgstr "Naam of ID"
+#: ../../../app/views/pushes/index.html.erb:24
+msgid "Create Your First Push"
+msgstr "Maak je eerste stap"
 
-#: ../../../app/views/pushes/index.html.erb:38
-msgid "Kind"
-msgstr "Soort"
+#: ../../../app/views/pushes/index.html.erb:32
+msgid "Name / ID"
+msgstr "Naam / ID"
 
-#: ../../../app/views/pushes/index.html.erb:40
-msgid "Note"
-msgstr "Opmerking"
+#: ../../../app/views/pushes/index.html.erb:33
+msgid "Type"
+msgstr "Type"
 
-#: ../../../app/views/pushes/index.html.erb:41
-msgid "Remaining"
-msgstr "Overig"
+#: ../../../app/views/pushes/index.html.erb:36
+msgid "Status"
+msgstr "Toestand"
 
 #: ../../../app/views/pushes/index.html.erb:55
-msgid "File(s)"
-msgstr "Bestand(en)"
+msgid "File"
+msgstr "Bestand"
 
-#: ../../../app/views/pushes/index.html.erb:57
+#: ../../../app/views/pushes/index.html.erb:59
 msgid "URL"
 msgstr "URL"
 
-#: ../../../app/views/pushes/index.html.erb:59
-msgid "QR Code"
-msgstr "QR-code"
+#: ../../../app/views/pushes/index.html.erb:63
+msgid "QR"
+msgstr "QR"
 
-#: ../../../app/views/pushes/index.html.erb:61
+#: ../../../app/views/pushes/index.html.erb:67
 msgid "Text"
 msgstr "Tekst"
 
-#: ../../../app/views/pushes/index.html.erb:77
-msgid "%{views} views or %{days} days"
-msgstr "%{views} weergaven of %{days} dagen"
+#: ../../../app/views/pushes/index.html.erb:93
+msgid "%{views}v / %{days}d"
+msgstr "%{views}v / %{days}d"
 
-#: ../../../app/views/pushes/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:98
 msgid "Push Controls"
 msgstr "Push Controle"
 
-#: ../../../app/views/pushes/index.html.erb:83
+#: ../../../app/views/pushes/index.html.erb:100
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:10
 msgid "Preview"
 msgstr "Voorbeeld"
-
-#: ../../../app/views/pushes/index.html.erb:90
-msgid "Audit"
-msgstr "Audit"
 
 #: ../../../app/views/pushes/new.html.erb:1
 msgid "Securely Send a Password, Text or File"
@@ -2261,9 +2396,12 @@ msgid "Click Here to Proceed"
 msgstr "Klik hier om verder te gaan"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-#: ../../../app/views/pushes/preview.html.erb:6
 msgid "Push Preview"
 msgstr "Push-voorbeeld"
+
+#: ../../../app/views/pushes/preview.html.erb:6
+msgid "Push Created"
+msgstr "Push aangemaakt"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2294,13 +2432,13 @@ msgstr "Inclusief identiteitsbewijs"
 msgid "Generate"
 msgstr "Genereer"
 
-#: ../../../app/views/pushes/preview.html.erb:56
+#: ../../../app/views/pushes/preview.html.erb:57
 #: ../../../app/views/pushes/show.html.erb:41
 #: ../../../app/views/pushes/show.html.erb:75
 msgid "This secret link and all content will be deleted in"
 msgstr "Deze geheime link en alle inhoud wordt verwijderd in"
 
-#: ../../../app/views/pushes/preview.html.erb:57
+#: ../../../app/views/pushes/preview.html.erb:60
 #: ../../../app/views/pushes/print_preview.html.erb:13
 #: ../../../app/views/pushes/show.html.erb:43
 #: ../../../app/views/pushes/show.html.erb:77
@@ -2309,61 +2447,48 @@ msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dagen"
 
-#: ../../../app/views/pushes/preview.html.erb:59
+#: ../../../app/views/pushes/preview.html.erb:62
 #: ../../../app/views/pushes/print_preview.html.erb:15
 msgid "view"
 msgid_plural "views"
 msgstr[0] "weergave"
 msgstr[1] "weergaven"
 
-#: ../../../app/views/pushes/preview.html.erb:65
-msgid "can be"
-msgstr "kan worden"
+#: ../../../app/views/pushes/preview.html.erb:68
+msgid "Viewers can delete this push."
+msgstr "Kijkers kunnen deze pushmelding verwijderen."
 
-#: ../../../app/views/pushes/preview.html.erb:65
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "deleted by viewers."
-msgstr "verwijderd door kijkers."
+#: ../../../app/views/pushes/preview.html.erb:70
+msgid "Viewers cannot delete this push."
+msgstr "Kijkers kunnen deze pushmelding niet verwijderen."
 
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "can NOT be"
-msgstr "kan NIET worden"
+#: ../../../app/views/pushes/preview.html.erb:77
+msgid "Includes a"
+msgstr "Inclusief een"
 
-#: ../../../app/views/pushes/preview.html.erb:73
-msgid "It also includes a"
-msgstr "Het bevat ook een"
-
-#: ../../../app/views/pushes/preview.html.erb:73
+#: ../../../app/views/pushes/preview.html.erb:77
 msgid "1-click preliminary retrieval step"
 msgstr "Voorafgaande ophaalstap met 1 klik"
 
-#: ../../../app/views/pushes/preview.html.erb:77
-msgid "View This Push Now"
-msgstr "Bekijk Deze Push Nu"
+#: ../../../app/views/pushes/preview.html.erb:87
+msgid "View This Push"
+msgstr "Bekijk deze push"
 
-#: ../../../app/views/pushes/preview.html.erb:82
-msgid "(will burn a view) or"
-msgstr "(zal een weergave verbruiken) of"
-
-#: ../../../app/views/pushes/preview.html.erb:84
-#: ../../../app/views/pushes/preview.html.erb:86
-#: ../../../app/views/pushes/preview.html.erb:88
+#: ../../../app/views/pushes/preview.html.erb:91
+#: ../../../app/views/pushes/preview.html.erb:95
+#: ../../../app/views/pushes/preview.html.erb:99
 msgid "Push Another"
 msgstr "Push er nog één"
 
-#: ../../../app/views/pushes/preview.html.erb:95
-msgid "View Audit Log"
-msgstr "Auditlogboek bekijken"
-
-#: ../../../app/views/pushes/preview.html.erb:103
+#: ../../../app/views/pushes/preview.html.erb:116
 msgid ""
-"Tip: Pushing to an international user?  Change the secret link language using "
-"the dropdown menu to the right of the URL."
+"Tip: Pushing to an international user? Change the secret link language using t"
+"he dropdown menu to the right of the URL."
 msgstr ""
-"Tip: Pushen naar een internationale gebruiker? Wijzig de taal van de geheime l"
-"ink met behulp van het vervolgkeuzemenu rechts van de URL."
+"Tip: Verstuur je de content naar een internationale gebruiker? Wijzig dan de t"
+"aal van de geheime link via het keuzemenu rechts van de URL."
 
-#: ../../../app/views/pushes/preview.html.erb:104
+#: ../../../app/views/pushes/preview.html.erb:117
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."
@@ -2462,14 +2587,13 @@ msgstr ""
 "Browsercookies zorgen ervoor dat deze tool werkt. Door het te gebruiken, gaat "
 "u akkoord met het gebruik van deze cookies."
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:3
-#: ../../../app/views/shared/_header.html.erb:30
-msgid "Dashboard"
-msgstr "Dashboard"
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "Filter pushes"
+msgstr "Filter pushes"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:13
-msgid "New"
-msgstr "Nieuw"
+#: ../../../app/views/shared/_dashboard_header.html.erb:22
+msgid "New Push"
+msgstr "Nieuwe druk"
 
 #: ../../../app/views/shared/_delete_user_button.html.erb:6
 msgid ""
@@ -2481,55 +2605,31 @@ msgstr ""
 "ie door deze gebruiker zijn aangemaakt, permanent verwijderen. Deze actie kan "
 "niet ongedaan worden gemaakt. Weet u zeker dat u wilt doorgaan?"
 
-#: ../../../app/views/shared/_footer.html.erb:22
-msgid "Front Page"
-msgstr "Voorpagina"
+#: ../../../app/views/shared/_footer.html.erb:27
+msgid "About"
+msgstr "Over"
 
-#: ../../../app/views/shared/_footer.html.erb:30
-msgid "Docker Containers"
-msgstr "Docker Containers"
+#: ../../../app/views/shared/_footer.html.erb:28
+msgid "Docs"
+msgstr "Dokters"
 
-#: ../../../app/views/shared/_footer.html.erb:34
-msgid "FAQ"
-msgstr "FAQ"
-
-#: ../../../app/views/shared/_footer.html.erb:35
-msgid "JSON API"
-msgstr "JSON-API"
-
-#: ../../../app/views/shared/_footer.html.erb:36
-msgid "Key Generator"
-msgstr "Key Generator"
-
-#: ../../../app/views/shared/_footer.html.erb:39
-msgid "Source Code"
-msgstr "Broncode"
-
-#: ../../../app/views/shared/_footer.html.erb:43
-msgid "Tools"
-msgstr "Gereedschap"
-
-#: ../../../app/views/shared/_footer.html.erb:51
-msgid "Overview"
-msgstr "Overzicht"
-
-#: ../../../app/views/shared/_header.html.erb:37
+#: ../../../app/views/shared/_header.html.erb:33
 msgid "Account"
 msgstr "Account"
 
-#: ../../../app/views/shared/_header.html.erb:55
+#: ../../../app/views/shared/_header.html.erb:48
 msgid "Edit Login Details"
 msgstr "Inloggegevens aanpassen"
 
-#: ../../../app/views/shared/_header.html.erb:71
+#: ../../../app/views/shared/_header.html.erb:61
 msgid "Log Out"
 msgstr "Uitloggen"
 
-#: ../../../app/views/shared/_header.html.erb:78
+#: ../../../app/views/shared/_header.html.erb:68
 msgid "Log In"
 msgstr "Log in"
 
-#: ../../../app/views/shared/_header.html.erb:82
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Sign Up"
 msgstr "Registreren"
 
@@ -2549,66 +2649,206 @@ msgstr "Weet je zeker dat je wilt doorgaan?"
 msgid "Configure Password Generation"
 msgstr "Wachtwoordgeneratie configureren"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:11
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:12
 msgid "Test Area"
 msgstr "Testgebied"
 
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:16
-msgid "Number of Syllables"
-msgstr "Aantal Lettergrepen"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:20
-msgid "Minimum Syllable Length"
-msgstr "Minimale Lettergreeplengte"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:24
-msgid "Maximum Syllable Length"
-msgstr "Maximale Lettergreeplengte"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:31
-msgid "Include numbers"
-msgstr "Cijfers gebruiken"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:35
-msgid "Use Titlecase"
-msgstr "Titelkast Gebruiken"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:39
-msgid "Use Separators"
-msgstr "Gebruik Scheidingstekens"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:43
 msgid "Test"
 msgstr "Proef"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:50
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:22
+msgid "Structure"
+msgstr "Structuur"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:24
+msgid "Number of Syllables"
+msgstr "Aantal Lettergrepen"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:28
+msgid "Minimum Syllable Length"
+msgstr "Minimale Lettergreeplengte"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:32
+msgid "Maximum Syllable Length"
+msgstr "Maximale Lettergreeplengte"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:37
+msgid "Options"
+msgstr "Opties"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:40
+msgid "Include numbers"
+msgstr "Cijfers gebruiken"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:44
+msgid "Use Titlecase"
+msgstr "Titelkast Gebruiken"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:48
+msgid "Use Separators"
+msgstr "Gebruik Scheidingstekens"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:59
 msgid "Separators"
 msgstr "Scheidingstekens"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:56
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:65
 msgid "Vowels"
 msgstr "Klinkers"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:62
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:71
 msgid "Consonants"
 msgstr "Medeklinkers"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:71
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:79
 msgid "Reset to Defaults"
 msgstr "Herstellen naar Standaardinstellingen"
 
-#: ../../../app/views/shared/_topnav.html.erb:4
+#: ../../../app/views/shared/_topnav.html.erb:5
 msgid "Passwords"
 msgstr "Wachtwoorden"
 
-#: ../../../app/views/shared/_topnav.html.erb:8
-msgid "Files"
-msgstr "Bestanden"
-
-#: ../../../app/views/shared/_topnav.html.erb:13
-msgid "URLs"
-msgstr "URLs"
-
-#: ../../../app/views/shared/_topnav.html.erb:18
+#: ../../../app/views/shared/_topnav.html.erb:25
 msgid "QR Codes"
 msgstr "QR-codes ᴮᴱᵀᴬ"
+
+#: ../../../app/views/users/first_runs/new.html.erb:1
+msgid "Password Pusher — First Run Setup"
+msgstr "Wachtwoordpusher — Eerste installatie"
+
+#: ../../../app/views/users/first_runs/new.html.erb:22
+msgid "Open Source Edition"
+msgstr "Open Source-editie"
+
+#: ../../../app/views/users/first_runs/new.html.erb:27
+msgid "First Run Setup"
+msgstr "Eerste run instellen"
+
+#: ../../../app/views/users/first_runs/new.html.erb:29
+msgid ""
+"Securely share sensitive information with automatic expiration & deletion. Tra"
+"ck access with full audit logs."
+msgstr ""
+"Deel gevoelige informatie veilig met automatische vervaldatum en verwijdering."
+" Volg de toegang met volledige auditlogboeken."
+
+#: ../../../app/views/users/first_runs/new.html.erb:38
+#: ../../../app/views/users/first_runs/new.html.erb:102
+msgid "Create Admin Account"
+msgstr "Account Aanmaken"
+
+#: ../../../app/views/users/first_runs/new.html.erb:39
+msgid "This account will have full access to manage your Password Pusher instance."
+msgstr ""
+"Dit account krijgt volledige toegang tot het beheer van uw Password Pusher-ins"
+"tantie."
+
+#: ../../../app/views/users/first_runs/new.html.erb:49
+msgid "Boot Code Required"
+msgstr "Bootcode vereist"
+
+#: ../../../app/views/users/first_runs/new.html.erb:50
+msgid "Enter the boot code shown in the application logs during startup."
+msgstr ""
+"Voer de opstartcode in die tijdens het opstarten in de toepassingslogboeken wo"
+"rdt weergegeven."
+
+#: ../../../app/views/users/first_runs/new.html.erb:57
+#: ../../../app/views/users/first_runs/new.html.erb:61
+msgid "Boot Code"
+msgstr "Boot Code"
+
+#: ../../../app/views/users/first_runs/new.html.erb:97
+msgid "Your account will be created and you'll be signed in automatically."
+msgstr "Je account wordt aangemaakt en je wordt automatisch ingelogd."
+
+#: ../../../app/views/users/first_runs/new.html.erb:115
+msgid "How to retrieve the boot code"
+msgstr "Hoe de opstartcode te achterhalen"
+
+#: ../../../app/views/users/first_runs/new.html.erb:116
+msgid ""
+"The boot code is printed to the application logs when the server starts. Use o"
+"ne of the following:"
+msgstr ""
+"De opstartcode wordt in de toepassingslogboeken afgedrukt wanneer de server st"
+"art. Gebruik een van de volgende opties:"
+
+#: ../../../app/views/users/first_runs/new.html.erb:119
+msgid "Docker"
+msgstr "Docker"
+
+#: ../../../app/views/users/first_runs/new.html.erb:123
+msgid "Docker Compose"
+msgstr "Docker Compose"
+
+#: ../../../app/views/users/first_runs/new.html.erb:127
+msgid "Look for a line containing the boot code in the output."
+msgstr "Zoek in de uitvoer naar een regel met de opstartcode."
+
+#: ../../../app/views/users/first_runs/new.html.erb:136
+msgid "What you can do with Password Pusher"
+msgstr "Wat je kunt doen met Password Pusher"
+
+#: ../../../app/views/users/first_runs/new.html.erb:147
+msgid "Encrypted & ephemeral"
+msgstr "Versleuteld en vluchtig"
+
+#: ../../../app/views/users/first_runs/new.html.erb:148
+msgid ""
+"Secrets are stored encrypted and removed automatically after they expire or ar"
+"e viewed."
+msgstr ""
+"Geheimen worden versleuteld opgeslagen en automatisch verwijderd nadat ze verl"
+"open of zijn ingezien."
+
+#: ../../../app/views/users/first_runs/new.html.erb:156
+msgid "Passwords, text & files"
+msgstr "Wachtwoorden, tekst en bestanden"
+
+#: ../../../app/views/users/first_runs/new.html.erb:157
+msgid ""
+"Share passwords, notes, URLs, and files with configurable expiration and view "
+"limits."
+msgstr ""
+"Deel wachtwoorden, notities, URL's en bestanden met instelbare vervaldatum en "
+"weergavelimieten."
+
+#: ../../../app/views/users/first_runs/new.html.erb:165
+msgid "100% open source"
+msgstr "100% open source"
+
+#: ../../../app/views/users/first_runs/new.html.erb:166
+msgid "Self-host with Docker or your own stack. No vendor lock-in, full transparency."
+msgstr ""
+"Host het zelf met Docker of je eigen stack. Geen vendor lock-in, volledige tra"
+"nsparantie."
+
+#: ../../../app/views/users/first_runs/new.html.erb:176
+msgid "Helpful links"
+msgstr "Handige links"
+
+#: ../../../app/views/users/first_runs/new.html.erb:182
+msgid "Configuration"
+msgstr "Configuratie"
+
+#: ../../../app/views/users/first_runs/new.html.erb:188
+msgid "Installation"
+msgstr "Installatie"
+
+#: ../../../app/views/users/first_runs/new.html.erb:200
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../../../app/views/users/first_runs/new.html.erb:206
+msgid "Docker images"
+msgstr "Docker-images"
+
+#: ../../../app/views/users/first_runs/new.html.erb:212
+msgid "JSON API"
+msgstr "JSON-API"
+
+#: ../../../app/views/users/first_runs/new.html.erb:228
+msgid "Thanks for choosing Password Pusher!"
+msgstr "Bedankt dat je voor Password Pusher hebt gekozen!"
