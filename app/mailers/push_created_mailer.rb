@@ -4,7 +4,6 @@ class PushCreatedMailer < ApplicationMailer
   helper PushesHelper
   include Rails.application.routes.url_helpers
   include ApplicationHelper
-  include PushesHelper
 
   def notify
     return unless params[:record].present?

@@ -20,6 +20,12 @@ module Pwpush
 
     # Enqueue job to send creation email if notify_emails_to is present.
     # (OSS: always allow; Pro gates with account_is_premium?)
+    #
+    # In development we use perform_now so emails are sent immediately without running a
+    # background job processor (e.g. Solid Queue), which makes it easy to try the feature
+    # with Mailbin or similar. Tradeoff: job exceptions surface inline in the request rather
+    # than asynchronously. To get async behavior in development, use perform_later here and
+    # run your job backend; tests use perform_later and rely on ActiveJob test helpers.
     def send_creation_emails
       return nil if notify_emails_to.blank?
 
