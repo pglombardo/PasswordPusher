@@ -94,15 +94,19 @@ class Push < ApplicationRecord
       attr_hash["files"] = file_list.to_json
     end
 
-    # Remove unnecessary fields
+    # Remove unnecessary and sensitive fields (encrypted columns and virtual attributes must not leak)
     attr_hash.delete("kind")
     attr_hash.delete("payload_ciphertext")
     attr_hash.delete("note_ciphertext")
     attr_hash.delete("passphrase_ciphertext")
+    attr_hash.delete("notify_emails_to_ciphertext")
+    attr_hash.delete("notify_emails_to_locale_ciphertext")
     attr_hash.delete("user_id")
     attr_hash.delete("id")
 
     attr_hash.delete("passphrase")
+    attr_hash.delete("notify_emails_to")
+    attr_hash.delete("notify_emails_to_locale")
     attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload
