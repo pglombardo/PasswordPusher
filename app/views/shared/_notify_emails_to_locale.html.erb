@@ -13,7 +13,10 @@
             style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-height: 38px;"
             data-action="pwpush--select-dropdown#toggle:stop"
             aria-expanded="false"
-            aria-haspopup="menu">
+            aria-haspopup="menu"
+            aria-label="<%= current_label.present? 
+              ? _('Current email language: %{lang}. Opens language menu.') % { lang: current_label } 
+              : _('Autodetect email language. Opens language menu.') %>">
       <div data-pwpush--select-dropdown-target="menuButtonInner">
         <% if current_flag.present? %>
           <em class="fi fi-<%= current_flag %> me-2"></em><%= current_label %>

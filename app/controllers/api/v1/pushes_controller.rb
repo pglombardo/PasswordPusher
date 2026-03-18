@@ -176,7 +176,6 @@ class Api::V1::PushesController < Api::BaseController
 
     if @push.save
       log_creation(@push)
-      @push.send_creation_emails
 
       render template: "pushes/show", status: :created
     else
@@ -461,10 +460,10 @@ class Api::V1::PushesController < Api::BaseController
   def push_params
     if request.path.start_with?("/f")
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, :notify_emails_to, :notify_emails_to_locale, files: [])
+        :retrieval_step, :payload, :note, :passphrase, files: [])
     elsif request.path.start_with?("/r")
       params.require(:url).permit(:name, :expire_after_days, :expire_after_views,
-        :retrieval_step, :payload, :note, :passphrase, :notify_emails_to, :notify_emails_to_locale)
+        :retrieval_step, :payload, :note, :passphrase)
     else
       # https://docs.pwpush.com/docs/json-api/#curl
       # curl -X POST -H "X-User-Email: <email>" -H "X-User-Token: MyAPIToken"
@@ -479,7 +478,7 @@ class Api::V1::PushesController < Api::BaseController
       #
       # More, kind can be used to create different kind pushes.
       params.require(:password).permit(:name, :kind, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, :notify_emails_to, :notify_emails_to_locale, files: [])
+        :retrieval_step, :payload, :note, :passphrase, files: [])
     end
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")

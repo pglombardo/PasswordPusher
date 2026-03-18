@@ -8,7 +8,7 @@ class SendPushCreatedEmailJob < ApplicationJob
     return if push.blank? || push.notify_emails_to.blank?
 
     mail = PushCreatedMailer.with(record: push).notify
-    mail.message.raise_delivery_errors = true
+    mail.message.raise_delivery_errors = Settings.mail.raise_delivery_errors
     Rails.logger.info "[SendPushCreatedEmailJob] Sending push created email for push #{push.url_token} to #{mail.message.to.size} recipient(s)"
     result = mail.deliver_now
     Rails.logger.info "[SendPushCreatedEmailJob] Successfully sent push created email for push #{push.url_token} (Message-ID: #{result.message_id})"
