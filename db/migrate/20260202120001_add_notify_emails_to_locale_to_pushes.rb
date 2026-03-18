@@ -1,7 +1,0 @@
-# frozen_string_literal: true
-
-class AddNotifyEmailsToLocaleToPushes < ActiveRecord::Migration[8.1]
-  def change
-    add_column :pushes, :notify_emails_to_locale_ciphertext, :string
-  end
-end
