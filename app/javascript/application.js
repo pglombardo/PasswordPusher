@@ -18,7 +18,10 @@ if (!turboDriveEnabled) {
 setLocalTimeLocaleFromDocument()
 LocalTime.start()
 
-document.addEventListener("turbo:load", () => LocalTime.run())
+document.addEventListener("turbo:load", () => {
+  setLocalTimeLocaleFromDocument()
+  LocalTime.run()
+})
 document.addEventListener("turbo:morph", () => {
   setLocalTimeLocaleFromDocument()
   LocalTime.run()
