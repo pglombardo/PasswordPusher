@@ -8,7 +8,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     store_tus_related_settings
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_file_pushes = true
     Settings.files.storage = "local"
     @user = users(:luca)
@@ -70,7 +70,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "POST create when logins disabled returns 404" do
-    Settings.enable_logins = false
+    Settings.disable_logins = true
     Settings.enable_file_pushes = true
     post uploads_path, headers: {"Upload-Length" => "7"}
     assert_response :not_found

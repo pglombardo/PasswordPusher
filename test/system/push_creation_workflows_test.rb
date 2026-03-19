@@ -7,7 +7,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
   setup do
     store_tus_related_settings
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_password_pushes = true
     Settings.enable_url_pushes = true
     Settings.enable_file_pushes = true

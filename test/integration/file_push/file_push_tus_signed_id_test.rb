@@ -8,7 +8,7 @@ class FilePushTusSignedIdTest < ActionDispatch::IntegrationTest
 
   setup do
     store_tus_related_settings
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_file_pushes = true
     Settings.files.storage = "local"
     Rails.application.reload_routes!

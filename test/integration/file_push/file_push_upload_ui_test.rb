@@ -8,7 +8,7 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
 
   setup do
     store_tus_related_settings
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)

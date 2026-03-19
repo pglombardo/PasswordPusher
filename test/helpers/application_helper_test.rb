@@ -187,19 +187,19 @@ class ApplicationHelperTest < ActionView::TestCase
 
   # Test tus_uploads_enabled? and tus_uploads_url
   test "tus_uploads_enabled? returns false when logins disabled" do
-    Settings.enable_logins = false
+    Settings.disable_logins = true
     Settings.enable_file_pushes = true
     assert_not tus_uploads_enabled?
   end
 
   test "tus_uploads_enabled? returns false when file pushes disabled" do
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_file_pushes = false
     assert_not tus_uploads_enabled?
   end
 
   test "tus_uploads_enabled? returns true when logins and file pushes enabled" do
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_file_pushes = true
     assert tus_uploads_enabled?
   end
