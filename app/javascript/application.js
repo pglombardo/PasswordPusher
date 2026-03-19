@@ -14,3 +14,6 @@ if (!turboDriveEnabled) {
 }
 
 LocalTime.start()
+
+document.addEventListener("turbo:load", () => LocalTime.run())
+document.addEventListener("turbo:morph", () => LocalTime.run())
