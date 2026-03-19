@@ -100,16 +100,16 @@ class PassphraseProtectionTest < ApplicationSystemTestCase
     # First incorrect attempt
     fill_in "passphrase", with: "wrong1"
     click_button "Go"
+    assert_current_path passphrase_push_path(@push), wait: 5
+    assert_text "incorrect", wait: 5
+    assert_text "try again", wait: 5
 
-    # Wait for error message to appear and page to stabilize
-    assert_selector ".alert, .error, [role='alert']", text: /incorrect/i, wait: 5
-
-    # Second incorrect attempt
+    # Second incorrect attempt (full page redirect replaces DOM; use assert_text to avoid stale element)
     fill_in "passphrase", with: "wrong2"
     click_button "Go"
-
-    # Wait for error message again
-    assert_selector ".alert, .error, [role='alert']", text: /incorrect/i, wait: 5
+    assert_current_path passphrase_push_path(@push), wait: 5
+    assert_text "incorrect", wait: 5
+    assert_text "try again", wait: 5
 
     # Correct passphrase should still work
     fill_in "passphrase", with: "correctpass"

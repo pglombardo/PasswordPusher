@@ -13,11 +13,14 @@ labels:
 podLabels:
   app: "pwpush"
 
+encKeys:
+  existingSecret: "pwpush-keys"                # Secret containing PWPUSH_MASTER_KEY and SECRET_KEY_BASE (optional)
+
 env: {}
 # Optional env map for the pod (2.0). See repo docker-compose.yml and:
 # https://docs.pwpush.com/docs/self-hosted-configuration/
 # Common examples:
-#   PWPUSH_MASTER_KEY: ""                      # production: set via Secret; generate at /pages/generate_key
+#   PWPUSH_MASTER_KEY: ""                      # production: use Secret above; generate at /pages/generate_key
 #   SECRET_KEY_BASE: ""                        # persist sessions across restarts
 #   PWP__ALLOW_ANONYMOUS: "true"
 #   PWP__DISABLE_SIGNUPS: "false"
@@ -26,7 +29,7 @@ env: {}
 #   PWP__ENABLE_URL_PUSHES: "true"
 #   PWP__ENABLE_FILE_PUSHES: "true"
 #   PWP__ENABLE_QR_PUSHES: "true"
-#   PWP__FILES__STORAGE: "local"                # or s3 / gcs / azure per docs
+#   PWP__FILES__STORAGE: "local"               # or s3 / gcs / azure per docs
 #   PWP__LOG_TO_STDOUT: "true"
 
 livenessProbe:
@@ -66,3 +69,10 @@ ingress:
   #  - secretName: pwpush-tls
   #    hosts:
   #      - pwpush.example.com
+volumeMounts: []
+  # - name: pwpush-storage
+  #   mountPath: /opt/PasswordPusher/storage
+volumes: []
+  # - name: pwpush-storage
+  #   persistentVolumeClaim:
+  #     claimName: pwpush-storage
