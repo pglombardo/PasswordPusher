@@ -21,7 +21,7 @@ module ApplicationHelper
   # Shown only when user account emails are enabled and the user is signed in.
   # Also shown only when logins are enabled.
   def show_notify_emails_field?
-    Settings.enable_user_account_emails && Settings.enable_logins && user_signed_in?
+    Settings.enable_user_account_emails && !Settings.disable_logins && user_signed_in?
   end
 
   # Constructs a fully qualified secret URL for a push.

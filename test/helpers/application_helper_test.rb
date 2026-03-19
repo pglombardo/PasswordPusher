@@ -12,6 +12,7 @@ class ApplicationHelperTest < ActionView::TestCase
     @original_enabled_language_codes = Settings.enabled_language_codes.dup
     @original_override_base_url = Settings.override_base_url
     @original_enable_user_account_emails = Settings.enable_user_account_emails
+    @original_disable_logins = Settings.disable_logins
   end
 
   teardown do
@@ -20,6 +21,7 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.enabled_language_codes = @original_enabled_language_codes
     Settings.override_base_url = @original_override_base_url
     Settings.enable_user_account_emails = @original_enable_user_account_emails
+    Settings.disable_logins = @original_disable_logins
     ENV.delete("FORCE_SSL")
   end
 
@@ -68,21 +70,31 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   # Test show_notify_emails_field? method (user_signed_in? provided by Devise in real views)
-  test "show_notify_emails_field? returns true when user account emails enabled and signed in" do
+  test "show_notify_emails_field? returns true when user account emails enabled, logins enabled, and signed in" do
     Settings.enable_user_account_emails = true
+    Settings.disable_logins = false
     define_user_signed_in(true)
     assert show_notify_emails_field?
   end
 
   test "show_notify_emails_field? returns false when user account emails disabled" do
     Settings.enable_user_account_emails = false
+    Settings.disable_logins = false
     define_user_signed_in(true)
     assert_not show_notify_emails_field?
   end
 
   test "show_notify_emails_field? returns false when user not signed in" do
     Settings.enable_user_account_emails = true
+    Settings.disable_logins = false
     define_user_signed_in(false)
+    assert_not show_notify_emails_field?
+  end
+
+  test "show_notify_emails_field? returns false when logins are disabled" do
+    Settings.enable_user_account_emails = true
+    Settings.disable_logins = true
+    define_user_signed_in(true)
     assert_not show_notify_emails_field?
   end
 

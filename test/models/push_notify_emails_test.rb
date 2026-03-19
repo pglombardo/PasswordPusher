@@ -6,12 +6,13 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
   setup do
     @user = users(:luca)
-    Settings.enable_logins = true
+    @default_disable_logins = Settings.disable_logins
+    Settings.disable_logins = false
     Rails.application.routes.default_url_options[:host] = "test.host"
   end
 
   teardown do
-    Settings.enable_logins = false
+    Settings.disable_logins = @default_disable_logins
   end
 
   test "push accepts valid notify_emails_to" do

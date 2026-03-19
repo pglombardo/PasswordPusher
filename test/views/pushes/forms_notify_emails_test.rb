@@ -6,9 +6,9 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
   include LanguageHelper
 
   setup do
-    @default_enable_logins = Settings.enable_logins
+    @default_disable_logins = Settings.disable_logins
     @default_enable_user_account_emails = Settings.enable_user_account_emails
-    Settings.enable_logins = true
+    Settings.disable_logins = false
     Settings.enable_user_account_emails = true
     def controller.action_name
       "new"
@@ -16,7 +16,7 @@ class PushesFormsNotifyEmailsViewTest < ActionView::TestCase
   end
 
   teardown do
-    Settings.enable_logins = @default_enable_logins
+    Settings.disable_logins = @default_disable_logins
     Settings.enable_user_account_emails = @default_enable_user_account_emails
   end
 
