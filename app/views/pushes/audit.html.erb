@@ -4,7 +4,7 @@
     <h4 class="fw-semibold"><em class="bi bi-list-check me-2"></em><%= _('Audit Log') %></h4>
     <p class="text-muted mb-4">
         <code class="me-2"><%= @push.url_token %></code>
-        <span class="text-muted small"><%= _('Pushed on ') %><%= local_time(@push.created_at, :long) %></span>
+        <span class="text-muted small"><%= _('Pushed on %{date}') % { date: local_time(@push.created_at, :long) } %></span>
     </p>
 
     <p class="text-muted small mb-2"><%= _('Secret URL for this push') %>:</p>

@@ -2,7 +2,7 @@
     <em class="bi bi-shield-check"></em>
     <%= (_('Admin view on %{date} by %{user}') % {
         date: local_time(audit_log.created_at, :long),
-        user: audit_log.subject_name
+        user: h(audit_log.subject_name)
     }).html_safe %>
     <span class="badge bg-info"><%= _('Does not count towards view limit') %></span>
     <br>
