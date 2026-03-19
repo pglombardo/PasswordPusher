@@ -46,7 +46,7 @@ module ApplicationHelper
 
   # TUS resumable uploads: used for file pushes when logins and file pushes are enabled.
   def tus_uploads_enabled?
-    Settings.enable_logins && Settings.enable_file_pushes
+    !Settings.disable_logins && Settings.enable_file_pushes
   end
 
   def tus_uploads_url
