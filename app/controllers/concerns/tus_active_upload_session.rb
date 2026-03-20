@@ -6,8 +6,6 @@
 module TusActiveUploadSession
   extend ActiveSupport::Concern
 
-  MAX_ACTIVE_TUS_SESSION_IDS = 64
-
   private
 
   def tus_upload_id_list
@@ -19,7 +17,7 @@ module TusActiveUploadSession
   def register_tus_upload_in_session!(id)
     list = tus_upload_id_list
     return if list.include?(id)
-    return if list.size >= MAX_ACTIVE_TUS_SESSION_IDS
+    return if list.size >= 5
 
     list << id
     session[:tus_active_upload_ids] = list
