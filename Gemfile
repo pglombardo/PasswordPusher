@@ -94,6 +94,7 @@ gem "invisible_captcha", "~> 2.3"
 gem "devise-i18n"
 gem "rails-i18n", "~> 8.1.0"
 gem "translation"
+gem "local_time"
 
 # For File Uploads
 gem "aws-sdk-s3", require: false

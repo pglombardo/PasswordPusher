@@ -74,11 +74,11 @@
                     </div>
                   </td>
                   <td class="text-muted small">
-                    <%= user.created_at.strftime("%B %d, %Y") %>
+                    <%= local_date(user.created_at, '%B %e, %Y') %>
                   </td>
                   <td class="text-muted small">
                     <% if user.last_sign_in_at %>
-                      <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
+                      <%= local_time(user.last_sign_in_at, '%B %e, %Y at %l:%M%P') %>
                     <% else %>
                       <span class="text-muted"><%= _("Never") %></span>
                     <% end %>
@@ -163,11 +163,11 @@
                     </div>
                   </td>
                   <td class="text-muted small">
-                    <%= user.created_at.strftime("%B %d, %Y") %>
+                    <%= local_date(user.created_at, '%B %e, %Y') %>
                   </td>
                   <td class="text-muted small">
                     <% if user.last_sign_in_at %>
-                      <%= user.last_sign_in_at.strftime("%B %d, %Y at %I:%M %p") %>
+                      <%= local_time(user.last_sign_in_at, '%B %e, %Y at %l:%M%P') %>
                     <% else %>
                       <span class="text-muted"><%= _("Never") %></span>
                     <% end %>
