@@ -19,7 +19,7 @@ class TusUploadsController < ApplicationController
       return head :bad_request
     end
 
-    max_size = Settings.files.max_tus_upload_size.to_i
+    max_size = helpers.max_tus_upload_size_bytes
     if max_size.positive? && upload_length > max_size
       return head :payload_too_large
     end

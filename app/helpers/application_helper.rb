@@ -55,7 +55,7 @@ module ApplicationHelper
 
   # Parses human-friendly size (e.g. "50 MB", "2 MB", "1 GB", "100 KB", "64 B") or a plain integer
   # byte count (e.g. "1048576") to bytes. Malformed strings return the 2 MB fallback.
-  # Used for tus_chunk_size so config can use "50 MB" instead of raw bytes.
+  # Used for tus_chunk_size and max_tus_upload_size so config can use "50 MB" / "100 GB" instead of raw bytes.
   def parse_human_size(value)
     fallback = 2 * 1024 * 1024
     return fallback if value.blank?
@@ -82,6 +82,10 @@ module ApplicationHelper
 
   def tus_chunk_size_bytes
     parse_human_size(Settings.files.tus_chunk_size)
+  end
+
+  def max_tus_upload_size_bytes
+    parse_human_size(Settings.files.max_tus_upload_size)
   end
 
   # qr_code

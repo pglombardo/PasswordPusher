@@ -66,10 +66,10 @@ export default class extends Controller {
         let disableText = submitButton.getAttribute("data-disable-with")
 
         if (disableText === null) {
-            disableText = "Processing..."
+            disableText = 'Processing...'
         }
 
-        if (submitButton.tagName === "INPUT") {
+        if (submitButton.tagName == 'INPUT') {
             submitButton.value = disableText
         } else {
             submitButton.innerText = disableText

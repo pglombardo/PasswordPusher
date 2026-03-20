@@ -237,4 +237,11 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.files.tus_chunk_size = "50 MB"
     assert_equal 50 * 1024 * 1024, tus_chunk_size_bytes
   end
+
+  test "max_tus_upload_size_bytes returns bytes from Settings.files.max_tus_upload_size" do
+    Settings.files.max_tus_upload_size = "100 GB"
+    assert_equal 100 * 1024 * 1024 * 1024, max_tus_upload_size_bytes
+    Settings.files.max_tus_upload_size = 107374182400
+    assert_equal 107374182400, max_tus_upload_size_bytes
+  end
 end
