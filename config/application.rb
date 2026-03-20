@@ -10,6 +10,12 @@ require "version"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# cssbundling-rails attaches `css:build` to `test:prepare` (full themed CSS, ~minutes). Skip that for
+# `rails test` / `test:*` so the suite starts quickly; `rails assets:precompile` still runs CSS builds.
+if ENV["RAILS_ENV"] == "test" && Array(ARGV).any? { |a| a == "test" || a.to_s.start_with?("test:") }
+  ENV["SKIP_CSS_BUILD"] ||= "1"
+end
+
 module PasswordPusher
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

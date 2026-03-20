@@ -53,8 +53,7 @@ RUN yarn install --frozen-lockfile
 # Copy source code - this should be done as late as possible
 COPY ./ ${APP_ROOT}/
 
-# Build assets - this layer will be rebuilt when source code changes
-RUN yarn build
+# CSS theme bundles are produced by `yarn build:css` during assets:precompile (cssbundling-rails).
 
 # SECRET_KEY_BASE must be set at runtime via environment variable
 # Do NOT hardcode secrets in Docker images for security reasons.

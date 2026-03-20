@@ -953,16 +953,14 @@ show_gdpr_consent_banner: false
 #
 # IMPORTANT NOTES:
 #   1. This setting can only be controlled by environment variable. (PWP__THEME) It cannot be set in this config file.
-#   2. If you set a custom theme, you must also set PWP_PRECOMPILE='true' to pre-compile the assets.  See next setting.
+#   2. Shipped Bootswatch themes are pre-built into the container image. PWP__THEME only selects which CSS bundle to serve; no extra compile at boot for standard themes.
 #
 theme: 'default'
 
 ### Pre-compilation
 #
-# This is useful if you modified the assets (e.g. CSS, JS, images) to customize
-# the theme etc...  Assets are precompiled before serving.
-#
-# If you set a custom theme, you will need to precompile the assets on container boot.
+# Optional: force `rails assets:precompile` on container boot (e.g. after overlaying custom assets).
+# Not required solely to switch among built-in themes.
 #
 # Pre-compilation isn't supported in this yaml file.  It is only supported
 # through the environment variable PWP_PRECOMPILE='true'.
