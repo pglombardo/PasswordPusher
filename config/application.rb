@@ -43,6 +43,8 @@ module PasswordPusher
     config.mission_control.jobs.base_controller_class = "ApplicationController"
     config.mission_control.jobs.http_basic_auth_enabled = false
 
+    config.active_storage.variant_processor = :disabled
+
     # We already authenticate /admin routes
     ::MissionControl::Jobs.http_basic_auth_enabled = false if defined?(::MissionControl::Jobs)
 
