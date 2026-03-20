@@ -244,4 +244,11 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.files.max_tus_upload_size = 107374182400
     assert_equal 107374182400, max_tus_upload_size_bytes
   end
+
+  test "max_direct_upload_size_bytes returns bytes from Settings.files.max_direct_upload_size" do
+    Settings.files.max_direct_upload_size = "100 MB"
+    assert_equal 100 * 1024 * 1024, max_direct_upload_size_bytes
+    Settings.files.max_direct_upload_size = 104857600
+    assert_equal 104857600, max_direct_upload_size_bytes
+  end
 end

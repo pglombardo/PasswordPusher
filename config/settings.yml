@@ -603,14 +603,14 @@ files:
   #
   max_file_uploads: 10
 
-  # Maximum size per file for direct upload fallback (bytes). Default 100 MB.
+  # Maximum size per file for direct upload fallback. Human-friendly value: "100 MB", "50 MB", etc.
   # Used when file pushes are disabled or for non-TUS paths; keep within web server limits
-  # (e.g. nginx client_max_body_size).
+  # (e.g. nginx client_max_body_size). Plain byte integer also supported for backward compatibility.
   #
   # Environment variable override:
-  # PWP__FILES__MAX_DIRECT_UPLOAD_SIZE=104857600
+  # PWP__FILES__MAX_DIRECT_UPLOAD_SIZE='100 MB'
   #
-  max_direct_upload_size: 104857600
+  max_direct_upload_size: "100 MB"
 
   # Maximum size per file for TUS uploads. Human-friendly value: "100 GB", "50 MB", etc.
   # (KB, MB, GB; plain byte integer also supported for backward compatibility.)

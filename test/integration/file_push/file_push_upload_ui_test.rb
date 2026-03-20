@@ -76,7 +76,7 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "files")
     assert_response :success
 
-    expected = Settings.files.max_direct_upload_size.to_i
+    expected = ApplicationController.helpers.max_direct_upload_size_bytes
     assert expected.positive?, "max_direct_upload_size should be configured and positive"
     assert_select "div[data-controller='multi-upload'][data-multi-upload-max-direct-size-value='#{expected}']",
                   1,
@@ -85,8 +85,8 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
 
   def test_max_direct_upload_size_is_configured
     assert Settings.files.max_direct_upload_size.present?
-    assert Settings.files.max_direct_upload_size.to_i.positive?,
-           "max_direct_upload_size should be a positive number (e.g. 104857600 for 100 MB)"
+    assert ApplicationController.helpers.max_direct_upload_size_bytes.positive?,
+           "max_direct_upload_size should resolve to a positive byte size (e.g. \"100 MB\" or 104857600)"
   end
 
   def test_tus_create_and_patch_then_file_form_loads
