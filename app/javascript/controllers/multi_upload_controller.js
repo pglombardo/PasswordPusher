@@ -235,7 +235,7 @@ export default class extends Controller {
     this._dispatchUploadingState()
   }
 
-  addFile(event) {
+  async addFile(event) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -271,7 +271,7 @@ export default class extends Controller {
     }
 
     if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
-      this.addFileViaTus(originalInput, arrayLength)
+      await this.addFileViaTus(originalInput, arrayLength)
       return
     }
 
@@ -300,7 +300,9 @@ export default class extends Controller {
     this.updateFilesFooter()
   }
 
-  addFileViaTus(originalInput, arrayLength) {
+  // One TUS upload at a time per batch so session[:tus_active_upload_ids] updates never race
+  // (concurrent POST/PATCH last-write-wins can strand an id and block push create).
+  async addFileViaTus(originalInput, arrayLength) {
     const controller = this
     const endpoint = this.tusEndpointValue || '/uploads'
     const inputName = this.filesInputNameValue || 'push[files][]'
@@ -309,13 +311,15 @@ export default class extends Controller {
     const selectedTpl = document.getElementById("selected-file-row-template")
     const bars = document.getElementById("progress-bars")
 
+    if (!bars) return
+
+    this.fileCount += arrayLength
+    this.updateFilesFooter()
+
     for (let i = 0; i < arrayLength; i++) {
-      this.fileCount += 1
       const file = files[i]
       const id = ++this.tusUploadId
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
-
-      if (!bars) continue
 
       let li, progressBar, pauseBtn, resumeBtn
       let rowNode
@@ -342,137 +346,144 @@ export default class extends Controller {
       li = rowNode.querySelector("li")
       li.id = `progress-${id}`
       rowNode.querySelector(".tus-row-name").textContent = file.name
-      
+
       progressBar = rowNode.querySelector(".tus-row-progress-bar") || rowNode.querySelector('[role="progressbar"]')
       progressBar.id = `tus-upload-${id}`
       progressBar.setAttribute("aria-label", file.name)
-      
+
       pauseBtn = rowNode.querySelector(".tus-row-pause")
       resumeBtn = rowNode.querySelector(".tus-row-resume")
-      
+
       setTusProgressDetails(progressBar, 0, file.size)
       bars.append(rowNode)
 
       const uploadStartTime = Date.now()
 
-      controller.activeUploadCount += 1
-      controller._dispatchUploadingState()
+      await new Promise((resolve) => {
+        controller.activeUploadCount += 1
+        controller._dispatchUploadingState()
 
-      const chunkSize = this.hasTusChunkSizeValue && this.tusChunkSizeValue > 0
-        ? this.tusChunkSizeValue
-        : 2 * 1024 * 1024 // 2 MB fallback
-      const opts = {
-        endpoint: endpoint,
-        uploadLength: file.size,
-        chunkSize,
-        metadata: {
-          filename: file.name,
-          filetype: file.type || 'application/octet-stream'
-        },
-        retryDelays: [1000, 3000],
-        onAfterResponse: (req, res) => {
-          if (req.getMethod() === 'POST' && res.getStatus() === 201) {
-            const id = parseTusUploadIdFromLocationHeader(res.getHeader('Location'))
-            if (id) li.dataset.tusServerUploadId = id
-          }
-        },
-        onProgress: (bytesUploaded, bytesTotal) => {
-          const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
-          setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
-        },
-        onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
-          if (bytesAccepted < bytesTotal) {
-            if (pauseBtn && pauseBtn.classList.contains('d-none') && resumeBtn && resumeBtn.classList.contains('d-none')) {
-              pauseBtn.classList.remove('d-none')
+        const chunkSize = this.hasTusChunkSizeValue && this.tusChunkSizeValue > 0
+          ? this.tusChunkSizeValue
+          : 2 * 1024 * 1024 // 2 MB fallback
+        const opts = {
+          endpoint: endpoint,
+          uploadLength: file.size,
+          chunkSize,
+          metadata: {
+            filename: file.name,
+            filetype: file.type || 'application/octet-stream'
+          },
+          retryDelays: [1000, 3000],
+          onAfterResponse: (req, res) => {
+            if (req.getMethod() === 'POST' && res.getStatus() === 201) {
+              const sid = parseTusUploadIdFromLocationHeader(res.getHeader('Location'))
+              if (sid) li.dataset.tusServerUploadId = sid
             }
+          },
+          onProgress: (bytesUploaded, bytesTotal) => {
+            const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
+            setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
+          },
+          onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
+            if (bytesAccepted < bytesTotal) {
+              if (pauseBtn && pauseBtn.classList.contains('d-none') && resumeBtn && resumeBtn.classList.contains('d-none')) {
+                pauseBtn.classList.remove('d-none')
+              }
+            }
+          },
+          onSuccess: (payload) => {
+            controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
+            controller._dispatchUploadingState()
+            const res = payload?.lastResponse
+            const signedId = res?.getHeader?.('X-Signed-Id') ?? res?.getHeader?.('x-signed-id')
+            if (!signedId) {
+              setProgressBarError(progressBar, "Missing signed ID")
+              controller.fileCount -= 1
+              controller.updateFilesFooter()
+              resolve()
+              return
+            }
+            li.remove()
+            const elapsedMs = Date.now() - uploadStartTime
+            const durationStr = formatDuration(elapsedMs)
+            const uploadTimeLabel = durationStr ? `Uploaded in ${durationStr}` : ''
+            if (selectedTpl) {
+              const row = selectedTpl.content.cloneNode(true)
+              const input = row.querySelector(".selected-file-input")
+              input.name = inputName
+              input.value = signedId
+              row.querySelector(".selected-file-name").textContent = fileName
+              const timeEl = row.querySelector(".selected-file-upload-time")
+              if (timeEl) timeEl.textContent = uploadTimeLabel
+              controller.filesTarget.append(row)
+            } else {
+              const selectedFile = document.createElement("li")
+              selectedFile.classList.add("list-group-item", "selected-file", "list-group-item-primary", "small")
+              const hiddenInput = document.createElement("input")
+              hiddenInput.type = "hidden"
+              hiddenInput.name = inputName
+              hiddenInput.value = signedId
+              selectedFile.appendChild(hiddenInput)
+              const trashLink = document.createElement("a")
+              trashLink.setAttribute("data-action", "multi-upload#removeFile")
+              trashLink.setAttribute("href", "#")
+              trashLink.innerHTML = "<em class=\"bi bi-trash me-2\"></em>"
+              selectedFile.appendChild(trashLink)
+              selectedFile.appendChild(document.createTextNode(fileName + (uploadTimeLabel ? ` · ${uploadTimeLabel}` : '')))
+              controller.filesTarget.append(selectedFile)
+            }
+            controller.updateFilesFooter()
+            resolve()
+          },
+          onError: (err) => {
+            cancelTusUploadOnServer(upload.url)
+            controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
+            controller._dispatchUploadingState()
+            setProgressBarError(progressBar, err.message)
+            controller.fileCount -= 1
+            controller.updateFilesFooter()
+            resolve()
           }
-        },
-        onSuccess: (payload) => {
-          controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
-          controller._dispatchUploadingState()
-          const res = payload?.lastResponse
-          const signedId = res?.getHeader?.('X-Signed-Id') ?? res?.getHeader?.('x-signed-id')
-          if (!signedId) {
-            setProgressBarError(progressBar, "Missing signed ID")
-            return
+        }
+
+        let upload = new window.tus.Upload(file, opts)
+
+        pauseBtn.addEventListener('click', () => {
+          upload.abort()
+          pauseBtn.classList.add('d-none')
+          resumeBtn.classList.remove('d-none')
+          progressBar.classList.remove('progress-bar-animated')
+        })
+
+        resumeBtn.addEventListener('click', () => {
+          const uploadUrl = upload.url
+          if (!uploadUrl) return
+          resumeBtn.classList.add('d-none')
+          pauseBtn.classList.remove('d-none')
+          progressBar.classList.add('progress-bar-animated')
+          const startResume = (offset) => {
+            setTusProgressDetails(progressBar, offset, file.size)
+            opts.uploadUrl = uploadUrl
+            upload = new window.tus.Upload(file, opts)
+            upload.start()
           }
-          li.remove()
-          const elapsedMs = Date.now() - uploadStartTime
-          const durationStr = formatDuration(elapsedMs)
-          const uploadTimeLabel = durationStr ? `Uploaded in ${durationStr}` : ''
-          if (selectedTpl) {
-            const row = selectedTpl.content.cloneNode(true)
-            const input = row.querySelector(".selected-file-input")
-            input.name = inputName
-            input.value = signedId
-            row.querySelector(".selected-file-name").textContent = fileName
-            const timeEl = row.querySelector(".selected-file-upload-time")
-            if (timeEl) timeEl.textContent = uploadTimeLabel
-            controller.filesTarget.append(row)
+          const offsetFromUpload = (upload.offset != null && typeof upload.offset === 'number') ? upload.offset : null
+          if (offsetFromUpload != null) {
+            startResume(offsetFromUpload)
           } else {
-            const selectedFile = document.createElement("li")
-            selectedFile.classList.add("list-group-item", "selected-file", "list-group-item-primary", "small")
-            const hiddenInput = document.createElement("input")
-            hiddenInput.type = "hidden"
-            hiddenInput.name = inputName
-            hiddenInput.value = signedId
-            selectedFile.appendChild(hiddenInput)
-            const trashLink = document.createElement("a")
-            trashLink.setAttribute("data-action", "multi-upload#removeFile")
-            trashLink.setAttribute("href", "#")
-            trashLink.innerHTML = "<em class=\"bi bi-trash me-2\"></em>"
-            selectedFile.appendChild(trashLink)
-            selectedFile.appendChild(document.createTextNode(fileName + (uploadTimeLabel ? ` · ${uploadTimeLabel}` : '')))
-            controller.filesTarget.append(selectedFile)
+            fetch(uploadUrl, { method: 'HEAD', credentials: 'same-origin' })
+              .then((res) => {
+                const h = res.headers.get('Upload-Offset') || res.headers.get('upload-offset')
+                return h ? parseInt(h, 10) : 0
+              })
+              .then((offset) => startResume(Number.isFinite(offset) ? offset : 0))
+              .catch(() => startResume(0))
           }
-          controller.updateFilesFooter()
-        },
-        onError: (err) => {
-          cancelTusUploadOnServer(upload.url)
-          controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
-          controller._dispatchUploadingState()
-          setProgressBarError(progressBar, err.message)
-          controller.fileCount -= 1
-          controller.updateFilesFooter()
-        }
-      }
+        })
 
-      let upload = new window.tus.Upload(file, opts)
-
-      pauseBtn.addEventListener('click', () => {
-        upload.abort()
-        pauseBtn.classList.add('d-none')
-        resumeBtn.classList.remove('d-none')
-        progressBar.classList.remove('progress-bar-animated')
+        upload.start()
       })
-
-      resumeBtn.addEventListener('click', () => {
-        const uploadUrl = upload.url
-        if (!uploadUrl) return
-        resumeBtn.classList.add('d-none')
-        pauseBtn.classList.remove('d-none')
-        progressBar.classList.add('progress-bar-animated')
-        const startResume = (offset) => {
-          setTusProgressDetails(progressBar, offset, file.size)
-          opts.uploadUrl = uploadUrl
-          upload = new window.tus.Upload(file, opts)
-          upload.start()
-        }
-        const offsetFromUpload = (upload.offset != null && typeof upload.offset === 'number') ? upload.offset : null
-        if (offsetFromUpload != null) {
-          startResume(offsetFromUpload)
-        } else {
-          fetch(uploadUrl, { method: 'HEAD', credentials: 'same-origin' })
-            .then((res) => {
-              const h = res.headers.get('Upload-Offset') || res.headers.get('upload-offset')
-              return h ? parseInt(h, 10) : 0
-            })
-            .then((offset) => startResume(Number.isFinite(offset) ? offset : 0))
-            .catch(() => startResume(0))
-        }
-      })
-
-      upload.start()
     }
 
     originalInput.removeAttribute('required')
