@@ -23,6 +23,20 @@ function formatDuration(ms) {
   return [h + 'h', m > 0 ? m + 'm' : '', s > 0 ? s + 's' : ''].filter(Boolean).join(' ')
 }
 
+/** One file input per row for direct (non-TUS) uploads; cloning + DataTransfer avoids sharing one DOM node across rows. */
+function buildDirectUploadRowInput(templateInput, file) {
+  const input = templateInput.cloneNode()
+  input.removeAttribute('id')
+  input.removeAttribute('multiple')
+  input.removeAttribute('required')
+  input.removeAttribute('data-action')
+  input.classList.add('d-none')
+  const dt = new DataTransfer()
+  dt.items.add(file)
+  input.files = dt.files
+  return input
+}
+
 // Shared progress bar API for both direct and TUS uploads
 function setProgressBarProgress(el, percent) {
   if (!el) return
@@ -60,6 +74,25 @@ function setTusFinalizing(row, sizeEl, finalizingLabel) {
   if (bar) bar.setAttribute('aria-label', label)
 }
 
+function parseTusUploadIdFromLocationHeader(location) {
+  if (!location) return null
+  try {
+    const pathname = new URL(location, window.location.origin).pathname
+    const parts = pathname.split('/').filter(Boolean)
+    const idx = parts.lastIndexOf('uploads')
+    if (idx >= 0 && parts[idx + 1]) return parts[idx + 1]
+  } catch (_) {
+    /* ignore */
+  }
+  return null
+}
+
+function cancelTusUploadOnServer(uploadUrl) {
+  if (!uploadUrl) return
+  const url = uploadUrl.startsWith('http') ? uploadUrl : new URL(uploadUrl, window.location.origin).href
+  fetch(url, { method: 'DELETE', credentials: 'same-origin' }).catch(() => {})
+}
+
 function setProgressBarError(el, message) {
   if (!el) return
   el.classList.add('bg-danger')
@@ -85,8 +118,8 @@ function setProgressBarComplete(el) {
 }
 
 export default class extends Controller {
-  // Target contains the selected file list
-  static targets = ["files"]
+  // Target contains the selected file list; footerCount is the dynamic selection summary only.
+  static targets = ["files", "footerCount"]
 
   static values = {
     maxFiles: Number,
@@ -95,6 +128,7 @@ export default class extends Controller {
     fileTooLargeMessage: String,
     maxFilesMessage: String,
     finalizingLabel: String,
+    footerSelectedTemplate: String,
     tusEnabled: Boolean,
     tusEndpoint: String,
     tusChunkSize: Number,
@@ -110,6 +144,7 @@ export default class extends Controller {
     this.activeUploadCount = 0
 
     ActiveStorage.start()
+    this.updateFilesFooter()
 
     // Only show Rails direct-upload UI when TUS is not used (avoids old animation when TUS is enabled)
     if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
@@ -205,7 +240,6 @@ export default class extends Controller {
     event.stopPropagation()
 
     const originalInput = event.target
-    const originalParent = originalInput.parentNode
     const maxFiles = this.maxFilesValue
 
     const fileList = originalInput.files
@@ -246,9 +280,11 @@ export default class extends Controller {
       const file = originalInput.files[i]
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
 
+      const rowInput = buildDirectUploadRowInput(originalInput, file)
+
       const li = document.createElement("li")
       li.classList.add("list-group-item", "selected-file", "list-group-item-primary", "small")
-      li.append(originalInput)
+      li.appendChild(rowInput)
       const trashLink = document.createElement("a")
       trashLink.setAttribute("data-action", "multi-upload#removeFile")
       trashLink.setAttribute("href", "#")
@@ -256,14 +292,12 @@ export default class extends Controller {
       li.appendChild(trashLink)
       li.appendChild(document.createTextNode(fileName))
       this.filesTarget.append(li)
+      rowInput.dispatchEvent(new Event("change", { bubbles: true }))
     }
 
     originalInput.removeAttribute('required')
+    originalInput.value = ''
     this.updateFilesFooter()
-
-    const newInput = originalInput.cloneNode()
-    newInput.value = ""
-    originalParent.append(newInput)
   }
 
   addFileViaTus(originalInput, arrayLength) {
@@ -336,6 +370,12 @@ export default class extends Controller {
           filetype: file.type || 'application/octet-stream'
         },
         retryDelays: [1000, 3000],
+        onAfterResponse: (req, res) => {
+          if (req.getMethod() === 'POST' && res.getStatus() === 201) {
+            const id = parseTusUploadIdFromLocationHeader(res.getHeader('Location'))
+            if (id) li.dataset.tusServerUploadId = id
+          }
+        },
         onProgress: (bytesUploaded, bytesTotal) => {
           const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
           setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
@@ -388,6 +428,7 @@ export default class extends Controller {
           controller.updateFilesFooter()
         },
         onError: (err) => {
+          cancelTusUploadOnServer(upload.url)
           controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
           controller._dispatchUploadingState()
           setProgressBarError(progressBar, err.message)
@@ -441,16 +482,28 @@ export default class extends Controller {
   }
 
   updateFilesFooter() {
-    const footer = document.getElementById("file-count-footer")
-    if (!footer) return
-    const maxFiles = this.maxFilesValue
-    footer.innerHTML = this.fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
+    if (!this.hasFooterCountTarget) return
+    const n = this.fileCount
+    if (n <= 0) {
+      this.footerCountTarget.textContent = ''
+      return
+    }
+    const template = this.footerSelectedTemplateValue?.trim()
+      ? this.footerSelectedTemplateValue
+      : '%{count} file(s) selected.'
+    this.footerCountTarget.textContent = template.replace(/%\{count\}/g, String(n))
   }
 
   removeFile(event) {
     event.preventDefault()
     const listItem = event.target.closest('li')
     if (!listItem || !listItem.parentNode) return
+
+    const tusId = listItem.dataset.tusServerUploadId
+    if (tusId) {
+      const base = (this.tusEndpointValue || '/uploads').replace(/\/$/, '')
+      cancelTusUploadOnServer(`${base}/${encodeURIComponent(tusId)}`)
+    }
 
     listItem.remove()
     this.fileCount -= 1

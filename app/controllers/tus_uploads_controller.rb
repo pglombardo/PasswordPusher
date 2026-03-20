@@ -2,10 +2,12 @@
 
 # Minimal TUS-inspired resumable upload endpoint.
 # POST create, PATCH append, HEAD status. Finalize creates ActiveStorage::Blob and returns signed_id.
-# CSRF is skipped for the TUS flow; we mitigate session-poisoning (cross-site POST incrementing
-# tus_upload_count) by requiring Origin/Referer to match the request host when present.
+# CSRF is skipped for the TUS flow; we mitigate session-poisoning (cross-site POST registering
+# bogus upload IDs) by requiring Origin/Referer to match the request host when present.
 class TusUploadsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[create update]
+  include TusActiveUploadSession
+
+  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   before_action :require_tus_enabled
   before_action :authenticate_user!
   before_action :reject_cross_origin_tus_requests
@@ -28,7 +30,7 @@ class TusUploadsController < ApplicationController
     store = TusUploadStore.new(id)
     store.create!(upload_length: upload_length, filename: filename, content_type: content_type)
 
-    session[:tus_upload_count] = (session[:tus_upload_count] || 0) + 1
+    register_tus_upload_in_session!(id)
 
     # Use relative URL so the client (browser) sends PATCH to the same origin
     # (e.g. the reverse proxy on 80/443), avoiding unreachable internal URLs like localhost:5100.
@@ -102,11 +104,10 @@ class TusUploadsController < ApplicationController
     end
 
     if store.complete?
-      # Decrement before finalize so the count is correct even if finalize_to_blob! raises
-      session[:tus_upload_count] = [0, (session[:tus_upload_count] || 0) - 1].max
       begin
         upload_length = store.upload_length
         blob = store.finalize_to_blob!
+        release_tus_upload_from_session!(id)
         finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset)
         response.headers["Upload-Offset"] = new_offset.to_s
         response.headers["Upload-Length"] = upload_length.to_s
@@ -121,6 +122,22 @@ class TusUploadsController < ApplicationController
     end
 
     response.headers["Upload-Offset"] = new_offset.to_s
+    head :no_content
+  end
+
+  # DELETE /uploads/:id — abandon in-progress upload; drops temp files and clears session tracking.
+  def destroy
+    id = params[:id].to_s
+    unless TusUploadStore.valid_id?(id)
+      return head :not_found
+    end
+    unless tus_upload_session_tracked?(id)
+      return head :not_found
+    end
+
+    store = TusUploadStore.new(id)
+    store.destroy! if store.exist?
+    release_tus_upload_from_session!(id)
     head :no_content
   end
 

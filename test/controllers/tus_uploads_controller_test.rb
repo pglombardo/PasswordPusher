@@ -443,9 +443,9 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     store&.destroy! if defined?(store) && store.respond_to?(:exist?) && store.exist?
   end
 
-  # ---- session tus_upload_count (block push while uploads in progress) ----
+  # ---- session tus_active_upload_ids (block push while uploads in progress) ----
 
-  test "POST create increments session tus_upload_count so push create is blocked" do
+  test "POST create registers upload id in session so push create is blocked" do
     create_tus_upload(upload_length: 3)
     # Without finalizing, try to create a file push
     post pushes_path, params: { push: { kind: "file", payload: "x" } }
@@ -453,7 +453,28 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/wait.*upload|upload.*finish/i, response.body, "Response must tell user to wait for uploads")
   end
 
-  test "finalizing upload decrements session tus_upload_count so push create succeeds" do
+  test "DELETE upload releases session so push create succeeds after abandon" do
+    upload_id = create_tus_upload(upload_length: 10)
+    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    assert_response :conflict
+
+    delete upload_path(upload_id)
+    assert_response :no_content
+
+    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    assert_response :redirect
+  end
+
+  test "DELETE upload returns 404 when id is not tracked in session" do
+    upload_id = create_tus_upload(upload_length: 3)
+    delete upload_path(upload_id)
+    assert_response :no_content
+
+    delete upload_path(upload_id)
+    assert_response :not_found
+  end
+
+  test "finalizing upload clears session tracking so push create succeeds" do
     upload_id = create_tus_upload(upload_length: 3)
     patch_tus_chunk(upload_id, "xyz")
     assert_response :no_content
@@ -472,7 +493,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/wait.*upload|upload.*finish/i, response.body)
   end
 
-  test "visiting new push form resets session tus_upload_count" do
+  test "visiting new push form resets session tus upload tracking" do
     create_tus_upload(upload_length: 3)
     
     # Normally this would be blocked, but visiting new page resets it
@@ -483,7 +504,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  test "visiting edit push form resets session tus_upload_count" do
+  test "visiting edit push form resets session tus upload tracking" do
     push = Push.create!(kind: "file", user: @user)
     push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
 

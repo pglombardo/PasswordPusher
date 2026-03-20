@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class FilePushUploadUiTest < ApplicationSystemTestCase
+class FilePushUploadUiSystemTest < ApplicationSystemTestCase
   include TusUploadTestSettings
 
   setup do
