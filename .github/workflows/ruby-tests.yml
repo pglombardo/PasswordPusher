@@ -65,17 +65,17 @@ jobs:
           bundle install --jobs 4 --retry 3
           yarn install --frozen-lockfile
 
-      # Pin Chrome to version 133 to avoid flaky system test failures.
-      # Chrome 134+ has a known bug causing intermittent Selenium/Capybara failures
-      # where session paths don't update correctly after visit() calls.
-      # See: https://github.com/teamcapybara/capybara/issues/2800
-      # Remove this pin once the upstream issue is resolved.
-      - name: Setup Chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: 133
-          install-chromedriver: true
+      # # Pin Chrome to version 133 to avoid flaky system test failures.
+      # # Chrome 134+ has a known bug causing intermittent Selenium/Capybara failures
+      # # where session paths don't update correctly after visit() calls.
+      # # See: https://github.com/teamcapybara/capybara/issues/2800
+      # # Remove this pin once the upstream issue is resolved.
+      # - name: Setup Chrome
+      #   id: setup-chrome
+      #   uses: browser-actions/setup-chrome@latest
+      #   with:
+      #     chrome-version: 133
+      #     install-chromedriver: true
 
       - name: Prepare tests
         env:
