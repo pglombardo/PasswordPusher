@@ -53,16 +53,30 @@ module ApplicationHelper
     uploads_path
   end
 
-  # Parses human-friendly size (e.g. "50 MB", "2 MB", "1 GB") or a numeric byte count to bytes.
+  # Parses human-friendly size (e.g. "50 MB", "2 MB", "1 GB", "100 KB", "64 B") or a plain integer
+  # byte count (e.g. "1048576") to bytes. Malformed strings return the 2 MB fallback.
   # Used for tus_chunk_size so config can use "50 MB" instead of raw bytes.
   def parse_human_size(value)
-    return 2 * 1024 * 1024 if value.blank? # 2 MB fallback
-    return value.to_i if value.is_a?(Numeric) || value.to_s.strip.match?(/\A\d+\z/)
-    m = value.to_s.strip.match(/\A(\d+(?:\.\d+)?)\s*([KMGTP]?B?)\z/i)
-    return 2 * 1024 * 1024 unless m
+    fallback = 2 * 1024 * 1024
+    return fallback if value.blank?
+    return value.to_i if value.is_a?(Numeric)
+    s = value.to_s.strip
+    return s.to_i if s.match?(/\A\d+\z/)
+
+    m = s.match(/\A(\d+(?:\.\d+)?)\s*([KMGTP]B?|B)\z/i)
+    return fallback unless m
+
     n = m[1].to_f
-    unit = m[2].to_s.upcase.delete("B").presence || "B"
-    mult = { "" => 1, "K" => 1024, "M" => 1024**2, "G" => 1024**3, "T" => 1024**4, "P" => 1024**5 }.fetch(unit, 1)
+    u = m[2].to_s.upcase
+    mult = case u
+    when "B" then 1
+    when "K", "KB" then 1024
+    when "M", "MB" then 1024**2
+    when "G", "GB" then 1024**3
+    when "T", "TB" then 1024**4
+    when "P", "PB" then 1024**5
+    else return fallback
+    end
     (n * mult).to_i
   end
 

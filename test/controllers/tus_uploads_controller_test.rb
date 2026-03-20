@@ -82,6 +82,13 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
+  test "DELETE upload requires auth" do
+    upload_id = create_tus_upload(upload_length: 3)
+    sign_out @user
+    delete upload_path(upload_id)
+    assert_response :redirect
+  end
+
   test "POST create with cross-origin Origin returns 403" do
     post uploads_path,
       headers: {"Upload-Length" => "7", "Origin" => "https://evil.example.com"}
@@ -108,6 +115,18 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
         "Upload-Offset" => "0",
         "Origin" => "https://evil.example.com"
       }
+    assert_response :forbidden
+  end
+
+  test "DELETE with cross-origin Origin returns 403" do
+    upload_id = create_tus_upload(upload_length: 3)
+    delete upload_path(upload_id), headers: {"Origin" => "https://evil.example.com"}
+    assert_response :forbidden
+  end
+
+  test "DELETE with cross-origin Referer returns 403" do
+    upload_id = create_tus_upload(upload_length: 3)
+    delete upload_path(upload_id), headers: {"Referer" => "https://evil.example.com/malicious"}
     assert_response :forbidden
   end
 
