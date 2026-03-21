@@ -231,7 +231,9 @@ Devise.setup do |config|
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
-  config.sign_in_after_reset_password = ->(user) { !user.otp_required_for_login? }
+  # Per-user behavior (e.g. skip auto sign-in when 2FA is required) lives in
+  # Users::PasswordsController#sign_in_after_reset_password? — Devise only supports a boolean here.
+  config.sign_in_after_reset_password = true
 
   # ==> Configuration for :encryptable
   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
