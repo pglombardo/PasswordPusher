@@ -53,7 +53,8 @@ RUN yarn install --frozen-lockfile
 # Copy source code - this should be done as late as possible
 COPY ./ ${APP_ROOT}/
 
-# CSS theme bundles are produced by `yarn build:css` during assets:precompile (cssbundling-rails).
+# Full multi-theme CSS (build_themes.js) runs during assets:precompile only when
+# PWP_DOCKER_ASSET_BUILD=1 (see config/application.rb SKIP_CSS_BUILD policy).
 
 # SECRET_KEY_BASE must be set at runtime via environment variable
 # Do NOT hardcode secrets in Docker images for security reasons.
@@ -71,7 +72,7 @@ RUN if [ "$TARGETARCH" = "amd64" ]; then \
     fi
 
 # Precompile Rails assets - this layer will be rebuilt when assets change
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+RUN PWP_DOCKER_ASSET_BUILD=1 SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 RUN rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
