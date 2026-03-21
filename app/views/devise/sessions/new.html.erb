@@ -1,7 +1,7 @@
 <% title(I18n.t('devise.general.login')) %>
 <h2 class='my-3'><%= I18n.t('devise.general.login') %></h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
   <div class="form-floating">
     <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", placeholder: "name@example.com", required: true %>
     <%= f.label :email, _('Email'), for: 'user_email' %>

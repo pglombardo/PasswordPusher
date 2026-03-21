@@ -14,7 +14,7 @@ module Pwpush
 
         if FirstRunBootCode.needed?
           unless Rails.env.test?
-            if request.path.start_with?(first_run_path)
+            if controller_path == "users/first_runs"
               boot_code = FirstRunBootCode.code
               puts <<~MESSAGE
                 =======================================================================================
@@ -31,7 +31,9 @@ module Pwpush
               MESSAGE
             end
           end
-          return if request.path.start_with?(first_run_path)
+          # Use controller_path, not request.path vs first_run_path: SetLocale default_url_options
+          # (e.g. ?locale=en) can change generated paths and break start_with?, causing a redirect loop.
+          return if controller_path == "users/first_runs"
 
           redirect_to first_run_url
         end

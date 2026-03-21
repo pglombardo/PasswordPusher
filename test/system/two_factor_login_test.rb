@@ -37,7 +37,8 @@ class TwoFactorLoginTest < ApplicationSystemTestCase
     fill_in "user_email", with: @user.email
     fill_in "user_password", with: "password12345"
     click_button I18n.t("devise.general.login")
-    assert_selector "h2", text: "Two-factor authentication"
+    assert_field "otp_attempt", wait: 10
+    assert_selector "h2", text: "Two-factor authentication", wait: 10
   end
 
   test "login succeeds with valid totp" do
