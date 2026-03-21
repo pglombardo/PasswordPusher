@@ -23,6 +23,7 @@ class UserResource < Madmin::Resource
   # attribute :unconfirmed_email, index: false
   attribute :authentication_token, index: false, form: false
   attribute :preferred_language, index: false
+  attribute :otp_required_for_login, index: true, form: false
 
   # Associations
   attribute :pushes

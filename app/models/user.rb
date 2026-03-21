@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include Pwpush::TokenAuthentication
+  include User::TotpAuthentication
 
   # Include default devise modules. Others available are:
   # :timeoutable and :omniauthable

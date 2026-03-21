@@ -16,6 +16,13 @@ devise_scope :user do
   get "first_run", to: "users/first_runs#new", as: :first_run
   post "first_run", to: "users/first_runs#create"
 
+  namespace :user, module: :users do
+    resource :two_factor, only: %i[show create destroy], controller: :two_factor do
+      get :backup_codes
+      get :verify
+    end
+  end
+
   resource :registration,
     only: allowed_reg_routes,
     path: "users",

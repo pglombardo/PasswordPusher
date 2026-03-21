@@ -11,6 +11,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     options.add_argument("--window-size=1400,1400")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    # Pin browser language so Accept-Language is English. SetLocale resolves locale from
+    # params, user preference, then this header—without this, CI or local OS locale can
+    # change UI copy and make assertions flaky.
+    options.add_argument("--lang=en")
 
     # Use custom Chrome binary if specified (for CI pinning)
     if ENV["CHROME_BIN"].present?
