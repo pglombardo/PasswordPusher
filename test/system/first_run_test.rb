@@ -61,7 +61,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path admin_root_path, wait: 10
     assert_text "Welcome to the Password Pusher administration panel", wait: 5
@@ -80,7 +80,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path first_run_path, wait: 5
     assert_selector ".alert-warning, .alert-danger", wait: 5
@@ -96,7 +96,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path first_run_path, wait: 5
     assert_selector ".alert-danger", wait: 5
