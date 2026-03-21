@@ -1,17 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
-# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
-
 name: Ruby Test Runs
 
 on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, v2-development ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -65,6 +58,16 @@ jobs:
           bundle install --jobs 4 --retry 3
           yarn install --frozen-lockfile
 
+      # Pin Chrome for system tests: newer Chrome + headless has caused Capybara to treat
+      # Bootstrap modals and other UI as non-visible while still in the DOM, and flaky
+      # visit()/path behavior. See https://github.com/teamcapybara/capybara/issues/2800
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: "133"
+          install-chromedriver: true
+
       - name: Prepare tests
         run: |
           yarn build:css:single
@@ -76,6 +79,10 @@ jobs:
           bin/rails test
 
       - name: Run system tests
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          # Selenium 4 reads this for ChromeDriver (see selenium-webdriver Chrome::Service)
+          SE_CHROMEDRIVER: ${{ steps.setup-chrome.outputs.chromedriver-path }}
         run: |
           bin/rails test:system
 
