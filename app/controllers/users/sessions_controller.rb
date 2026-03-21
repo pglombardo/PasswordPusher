@@ -30,7 +30,9 @@ class Users::SessionsController < Devise::SessionsController
 
   def authenticate_with_two_factor
     if sign_in_params[:email].present?
-      self.resource = resource_class.find_by(email: sign_in_params[:email])
+      self.resource = resource_class.find_for_database_authentication(
+        email: sign_in_params[:email]
+      )
       clear_otp_user_from_session
       start_two_factor_if_required if resource&.otp_required_for_login?
     elsif session[:otp_user_id].present?
@@ -55,8 +57,9 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if resource.verify_and_consume_otp!(params[:otp_attempt])
+      want_remember_me = session.delete(:remember_me)
       clear_otp_user_from_session
-      remember_me(resource) if session.delete(:remember_me)
+      remember_me(resource) if want_remember_me
       set_flash_message!(:notice, :signed_in)
       sign_in(resource, event: :authentication)
       respond_with resource, location: after_sign_in_path_for(resource)
@@ -68,6 +71,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def clear_otp_user_from_session
     session.delete(:otp_user_id)
+    session.delete(:remember_me)
   end
 
   # after_sign_out_path_for

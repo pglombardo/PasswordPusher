@@ -5,7 +5,7 @@
 
 <%= form_with url: session_path(resource_name), method: :post, data: { turbo: false } do %>
   <div class="form-floating">
-    <%= text_field_tag :otp_attempt, nil, id: "otp_attempt", class: "form-control", autocomplete: "one-time-code", inputmode: "numeric", placeholder: _("Code"), autofocus: true, required: true %>
+    <%= text_field_tag :otp_attempt, nil, id: "otp_attempt", class: "form-control", autocomplete: "one-time-code", placeholder: _("Code"), autofocus: true, required: true %>
     <%= label_tag :otp_attempt, _("Verification code"), for: "otp_attempt" %>
   </div>
   <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= _("Verify") %></button>

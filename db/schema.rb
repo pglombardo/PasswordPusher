@@ -219,9 +219,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
     t.datetime "last_sign_in_at", precision: nil
     t.string "last_sign_in_ip"
     t.datetime "locked_at", precision: nil
-    t.text "otp_backup_codes"
+    t.text "otp_backup_code_digests"
     t.boolean "otp_required_for_login"
-    t.string "otp_secret"
+    t.text "otp_secret_ciphertext"
     t.string "preferred_language"
     t.datetime "remember_created_at", precision: nil
     t.datetime "reset_password_sent_at", precision: nil

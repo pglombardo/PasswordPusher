@@ -29,7 +29,7 @@ module DisableTwoFactorCli
   def twofactor_data?(user)
     user.otp_required_for_login? ||
       user.otp_secret.present? ||
-      Array(user.otp_backup_codes).any?
+      Array(user.otp_backup_code_digests).any?
   end
 
   def parse_argv(argv)
