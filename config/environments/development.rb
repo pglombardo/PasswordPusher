@@ -84,11 +84,15 @@ Rails.application.configure do
   config.hosts << "lvh.me"
 
   # The list of trusted proxies from which we will accept proxy related headers.
+  # Covers common private / non-routable IPv4 ranges (RFC 1918, loopback, link-local, RFC 6598).
   config.action_dispatch.trusted_proxies = [
-    "127.0.0.1",         # Localhost
-    /^::1$/,             # IPv6 localhost
-    /192\.168\.\d{1,3}\.\d{1,3}/, # Local network
-    /10\.\d{1,3}\.\d{1,3}\.\d{1,3}/ # Private networks
+    /^::1$/, # IPv6 localhost
+    /127\.\d{1,3}\.\d{1,3}\.\d{1,3}/, # IPv4 loopback (127.0.0.0/8)
+    /10\.\d{1,3}\.\d{1,3}\.\d{1,3}/, # RFC 1918: 10.0.0.0/8
+    /172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}/, # RFC 1918: 172.16.0.0/12 (e.g. Docker bridge)
+    /192\.168\.\d{1,3}\.\d{1,3}/, # RFC 1918: 192.168.0.0/16
+    /169\.254\.\d{1,3}\.\d{1,3}/, # IPv4 link-local (169.254.0.0/16)
+    /100\.(6[4-9]|[7-9][0-9]|1[0-1][0-9]|12[0-7])\.\d{1,3}\.\d{1,3}/ # RFC 6598: 100.64.0.0/10
   ]
 
   if Settings.trusted_proxies.present?
