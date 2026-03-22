@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-03-18 23:13+0100\n"
-"PO-Revision-Date: 2026-03-18 22:14+0000\n"
+"POT-Creation-Date: 2026-03-22 01:00+0100\n"
+"PO-Revision-Date: 2026-03-22 00:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Danish\n"
 "Language: da\n"
@@ -140,6 +140,23 @@ msgid ""
 msgstr ""
 "Ugyldig eller manglende opstartskode. Tjek venligst programloggene for opstart"
 "skoden."
+
+#: ../../../app/controllers/users/sessions_controller.rb:55
+msgid "Session expired. Please sign in again."
+msgstr "Sessionen er udløbet. Log venligst ind igen."
+
+#: ../../../app/controllers/users/sessions_controller.rb:67
+#: ../../../app/controllers/users/two_factor_controller.rb:25
+msgid "Incorrect verification code."
+msgstr "Forkert bekræftelseskode."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:23
+msgid "Two-factor authentication is now enabled."
+msgstr "Tofaktorgodkendelse er nu aktiveret."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:33
+msgid "Two-factor authentication has been disabled."
+msgstr "Tofaktorgodkendelse er blevet deaktiveret."
 
 #: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
 #: ../../../app/models/push.rb:155
@@ -743,6 +760,30 @@ msgstr "Der kræves et minimum på %d tegn, men jo flere tegn jo bedre."
 msgid "Current Password"
 msgstr "Nuværende kodeord"
 
+#: ../../../app/views/devise/registrations/edit.html.erb:65
+#: ../../../app/views/users/sessions/otp.html.erb:1
+#: ../../../app/views/users/sessions/otp.html.erb:3
+msgid "Two-factor authentication"
+msgstr "To-faktor autentificering"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:66
+msgid "Add a second step to your sign-in using an authenticator app (TOTP)."
+msgstr "Tilføj et andet trin til dit login ved hjælp af en godkendelsesapp (TOTP)."
+
+#: ../../../app/views/devise/registrations/edit.html.erb:68
+msgid "Disable two-factor authentication"
+msgstr "Deaktiver to-faktor-godkendelse"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:71
+#: ../../../app/views/devise/registrations/token.html.erb:59
+#: ../../../app/views/pushes/show.html.erb:115
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:73
+msgid "Set up two-factor authentication"
+msgstr "Opsæt tofaktorgodkendelse"
+
 #: ../../../app/views/devise/registrations/token.html.erb:1
 #: ../../../app/views/devise/registrations/token.html.erb:6
 #: ../../../app/views/shared/_header.html.erb:54
@@ -807,11 +848,6 @@ msgstr "ugyldiggøre eventuelle værktøjer, der kan bruge det"
 #: ../../../app/views/devise/registrations/token.html.erb:58
 msgid "A new token will be generated in its place."
 msgstr "Et nyt token vil blive genereret i stedet for."
-
-#: ../../../app/views/devise/registrations/token.html.erb:59
-#: ../../../app/views/pushes/show.html.erb:115
-msgid "Are you sure?"
-msgstr "Er du sikker?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:62
 #: ../../../app/views/madmin/application/_form.html.erb:212
@@ -2071,8 +2107,8 @@ msgid "Audit Log"
 msgstr "Revisionslog"
 
 #: ../../../app/views/pushes/audit.html.erb:7
-msgid "Pushed on %{date}"
-msgstr "Skubbet på %{date}"
+msgid "Pushed on"
+msgstr "Skubbet på"
 
 #: ../../../app/views/pushes/audit.html.erb:10
 msgid "Secret URL for this push"
@@ -2821,3 +2857,97 @@ msgstr "JSON API"
 #: ../../../app/views/users/first_runs/new.html.erb:228
 msgid "Thanks for choosing Password Pusher!"
 msgstr "Tak fordi du valgte Password Pusher!"
+
+#: ../../../app/views/users/sessions/otp.html.erb:4
+msgid "Enter the 6-digit code from your authenticator app or a backup code."
+msgstr "Indtast den 6-cifrede kode fra din autentificeringsapp eller en backupkode."
+
+#: ../../../app/views/users/sessions/otp.html.erb:8
+#: ../../../app/views/users/two_factor/verify.html.erb:16
+msgid "Code"
+msgstr "Kode"
+
+#: ../../../app/views/users/sessions/otp.html.erb:9
+#: ../../../app/views/users/two_factor/verify.html.erb:17
+msgid "Verification code"
+msgstr "Bekræftelseskode"
+
+#: ../../../app/views/users/sessions/otp.html.erb:11
+msgid "Verify"
+msgstr "Verificere"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:1
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:6
+msgid "Save your backup codes"
+msgstr "Gem dine backupkoder"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+msgid ""
+"Store these codes in a safe place. Each can be used once if you lose your auth"
+"enticator device."
+msgstr ""
+"Opbevar disse koder et sikkert sted. Hver kode kan bruges én gang, hvis du mis"
+"ter din godkendelsesenhed."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+msgid "Save or copy these codes now"
+msgstr "Gem eller kopier disse koder nu"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+msgid ""
+"You will not be able to see this list again after you continue. If you lose yo"
+"ur device and your backup codes, you may need an administrator to reset your a"
+"ccount."
+msgstr ""
+"Du vil ikke kunne se denne liste igen, når du fortsætter. Hvis du mister din e"
+"nhed og dine backupkoder, skal du muligvis have en administrator til at nulsti"
+"lle din konto."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+msgid "Recovery codes"
+msgstr "Gendannelseskoder"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+msgid "total"
+msgstr "total"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+msgid "Copy all codes"
+msgstr "Kopiér alle koder"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+msgid ""
+"Backup codes are saved but can only be shown once. If you did not save them, d"
+"isable two-factor authentication and set it up again."
+msgstr ""
+"Backupkoder gemmes, men kan kun vises én gang. Hvis du ikke gemte dem, skal du"
+" deaktivere tofaktorgodkendelse og konfigurere den igen."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+msgid "Continue to verify"
+msgstr "Fortsæt med at bekræfte"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:1
+msgid "Verify authenticator"
+msgstr "Bekræft godkendelse"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:6
+msgid "Scan this QR code"
+msgstr "Scan denne QR-kode"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:7
+msgid ""
+"Add this account to your authenticator app, then enter the 6-digit code to con"
+"firm."
+msgstr ""
+"Tilføj denne konto til din autentificeringsapp, og indtast derefter den 6-cifr"
+"ede kode for at bekræfte."
+
+#: ../../../app/views/users/two_factor/verify.html.erb:11
+msgid "If you cannot scan the code, enter this secret manually:"
+msgstr "Hvis du ikke kan scanne koden, skal du indtaste denne hemmelige kode manuelt:"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:20
+msgid "Enable two-factor authentication"
+msgstr "Aktiver to-faktor-godkendelse"

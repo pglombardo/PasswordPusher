@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-03-18 23:13+0100\n"
-"PO-Revision-Date: 2026-03-18 22:14+0000\n"
+"POT-Creation-Date: 2026-03-22 01:00+0100\n"
+"PO-Revision-Date: 2026-03-22 00:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -146,6 +146,23 @@ msgid ""
 msgstr ""
 "Código de inicialização inválido ou ausente. Verifique os registros do aplicat"
 "ivo para obter o código de inicialização."
+
+#: ../../../app/controllers/users/sessions_controller.rb:55
+msgid "Session expired. Please sign in again."
+msgstr "Sessão expirada. Por favor, faça login novamente."
+
+#: ../../../app/controllers/users/sessions_controller.rb:67
+#: ../../../app/controllers/users/two_factor_controller.rb:25
+msgid "Incorrect verification code."
+msgstr "Código de verificação incorreto."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:23
+msgid "Two-factor authentication is now enabled."
+msgstr "A autenticação de dois fatores agora está ativada."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:33
+msgid "Two-factor authentication has been disabled."
+msgstr "A autenticação de dois fatores foi desativada."
 
 #: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
 #: ../../../app/models/push.rb:155
@@ -762,6 +779,32 @@ msgstr "É necessário um mínimo de %d caracteres, mas quanto mais, melhor."
 msgid "Current Password"
 msgstr "Palavra-passe atual"
 
+#: ../../../app/views/devise/registrations/edit.html.erb:65
+#: ../../../app/views/users/sessions/otp.html.erb:1
+#: ../../../app/views/users/sessions/otp.html.erb:3
+msgid "Two-factor authentication"
+msgstr "Autenticação de dois fatores"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:66
+msgid "Add a second step to your sign-in using an authenticator app (TOTP)."
+msgstr ""
+"Adicione uma segunda etapa ao seu login usando um aplicativo autenticador (TOT"
+"P)."
+
+#: ../../../app/views/devise/registrations/edit.html.erb:68
+msgid "Disable two-factor authentication"
+msgstr "Desativar autenticação de dois fatores"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:71
+#: ../../../app/views/devise/registrations/token.html.erb:59
+#: ../../../app/views/pushes/show.html.erb:115
+msgid "Are you sure?"
+msgstr "Tem certeza?"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:73
+msgid "Set up two-factor authentication"
+msgstr "Configure a autenticação de dois fatores."
+
 #: ../../../app/views/devise/registrations/token.html.erb:1
 #: ../../../app/views/devise/registrations/token.html.erb:6
 #: ../../../app/views/shared/_header.html.erb:54
@@ -828,11 +871,6 @@ msgstr "invalidar quaisquer ferramentas que o possam estar a usar"
 #: ../../../app/views/devise/registrations/token.html.erb:58
 msgid "A new token will be generated in its place."
 msgstr "Um novo token será gerado no seu lugar."
-
-#: ../../../app/views/devise/registrations/token.html.erb:59
-#: ../../../app/views/pushes/show.html.erb:115
-msgid "Are you sure?"
-msgstr "Tem certeza?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:62
 #: ../../../app/views/madmin/application/_form.html.erb:212
@@ -2116,8 +2154,8 @@ msgid "Audit Log"
 msgstr "Registo de Auditoria"
 
 #: ../../../app/views/pushes/audit.html.erb:7
-msgid "Pushed on %{date}"
-msgstr "Empurrado em %{date}"
+msgid "Pushed on"
+msgstr "Empurrado"
 
 #: ../../../app/views/pushes/audit.html.erb:10
 msgid "Secret URL for this push"
@@ -2868,3 +2906,99 @@ msgstr "API JSON "
 #: ../../../app/views/users/first_runs/new.html.erb:228
 msgid "Thanks for choosing Password Pusher!"
 msgstr "Obrigado por escolher o Password Pusher!"
+
+#: ../../../app/views/users/sessions/otp.html.erb:4
+msgid "Enter the 6-digit code from your authenticator app or a backup code."
+msgstr ""
+"Insira o código de 6 dígitos do seu aplicativo autenticador ou um código de ba"
+"ckup."
+
+#: ../../../app/views/users/sessions/otp.html.erb:8
+#: ../../../app/views/users/two_factor/verify.html.erb:16
+msgid "Code"
+msgstr "Código"
+
+#: ../../../app/views/users/sessions/otp.html.erb:9
+#: ../../../app/views/users/two_factor/verify.html.erb:17
+msgid "Verification code"
+msgstr "Código de verificação"
+
+#: ../../../app/views/users/sessions/otp.html.erb:11
+msgid "Verify"
+msgstr "Verificar"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:1
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:6
+msgid "Save your backup codes"
+msgstr "Guarde seus códigos de backup."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+msgid ""
+"Store these codes in a safe place. Each can be used once if you lose your auth"
+"enticator device."
+msgstr ""
+"Guarde esses códigos em um local seguro. Cada um pode ser usado uma única vez "
+"caso você perca seu dispositivo autenticador."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+msgid "Save or copy these codes now"
+msgstr "Salve ou copie esses códigos agora"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+msgid ""
+"You will not be able to see this list again after you continue. If you lose yo"
+"ur device and your backup codes, you may need an administrator to reset your a"
+"ccount."
+msgstr ""
+"Você não poderá ver esta lista novamente depois de prosseguir. Se você perder "
+"seu dispositivo e seus códigos de backup, talvez precise da ajuda de um admini"
+"strador para redefinir sua conta."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+msgid "Recovery codes"
+msgstr "Códigos de recuperação"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+msgid "total"
+msgstr "total"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+msgid "Copy all codes"
+msgstr "Copie todos os códigos"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+msgid ""
+"Backup codes are saved but can only be shown once. If you did not save them, d"
+"isable two-factor authentication and set it up again."
+msgstr ""
+"Os códigos de backup são salvos, mas só podem ser exibidos uma vez. Se você nã"
+"o os salvou, desative a autenticação de dois fatores e configure-a novamente."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+msgid "Continue to verify"
+msgstr "Continue a verificar"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:1
+msgid "Verify authenticator"
+msgstr "Verificar autenticador"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:6
+msgid "Scan this QR code"
+msgstr "Escaneie este código QR"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:7
+msgid ""
+"Add this account to your authenticator app, then enter the 6-digit code to con"
+"firm."
+msgstr ""
+"Adicione esta conta ao seu aplicativo autenticador e, em seguida, insira o cód"
+"igo de 6 dígitos para confirmar."
+
+#: ../../../app/views/users/two_factor/verify.html.erb:11
+msgid "If you cannot scan the code, enter this secret manually:"
+msgstr "Se não conseguir digitalizar o código, insira esta chave secreta manualmente:"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:20
+msgid "Enable two-factor authentication"
+msgstr "Habilitar autenticação de dois fatores"

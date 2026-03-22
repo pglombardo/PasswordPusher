@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-03-18 23:13+0100\n"
-"PO-Revision-Date: 2026-03-18 22:14+0000\n"
+"POT-Creation-Date: 2026-03-22 01:00+0100\n"
+"PO-Revision-Date: 2026-03-22 00:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -141,6 +141,23 @@ msgid ""
 msgstr ""
 "Невірний або відсутній завантажувальний код. Будь ласка, перевірте журнали про"
 "грами на наявність завантажувального коду."
+
+#: ../../../app/controllers/users/sessions_controller.rb:55
+msgid "Session expired. Please sign in again."
+msgstr "Сесія закінчилася. Будь ласка, увійдіть знову."
+
+#: ../../../app/controllers/users/sessions_controller.rb:67
+#: ../../../app/controllers/users/two_factor_controller.rb:25
+msgid "Incorrect verification code."
+msgstr "Неправильний код підтвердження."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:23
+msgid "Two-factor authentication is now enabled."
+msgstr "Двофакторна автентифікація увімкнена."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:33
+msgid "Two-factor authentication has been disabled."
+msgstr "Двофакторну автентифікацію вимкнено."
 
 #: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
 #: ../../../app/models/push.rb:155
@@ -759,6 +776,30 @@ msgstr "Потрібно ввести мінімум %d символів, але
 msgid "Current Password"
 msgstr "Поточний пароль"
 
+#: ../../../app/views/devise/registrations/edit.html.erb:65
+#: ../../../app/views/users/sessions/otp.html.erb:1
+#: ../../../app/views/users/sessions/otp.html.erb:3
+msgid "Two-factor authentication"
+msgstr "Двофакторна автентифікація"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:66
+msgid "Add a second step to your sign-in using an authenticator app (TOTP)."
+msgstr "Додайте другий крок до входу за допомогою програми-автентифікатора (TOTP)."
+
+#: ../../../app/views/devise/registrations/edit.html.erb:68
+msgid "Disable two-factor authentication"
+msgstr "Вимкнути двофакторну автентифікацію"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:71
+#: ../../../app/views/devise/registrations/token.html.erb:59
+#: ../../../app/views/pushes/show.html.erb:115
+msgid "Are you sure?"
+msgstr "Ви впевнені?"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:73
+msgid "Set up two-factor authentication"
+msgstr "Налаштування двофакторної автентифікації"
+
 #: ../../../app/views/devise/registrations/token.html.erb:1
 #: ../../../app/views/devise/registrations/token.html.erb:6
 #: ../../../app/views/shared/_header.html.erb:54
@@ -825,11 +866,6 @@ msgstr "зробити недійсними будь-які інструмент
 #: ../../../app/views/devise/registrations/token.html.erb:58
 msgid "A new token will be generated in its place."
 msgstr "На його місці буде згенеровано новий токен."
-
-#: ../../../app/views/devise/registrations/token.html.erb:59
-#: ../../../app/views/pushes/show.html.erb:115
-msgid "Are you sure?"
-msgstr "Ви впевнені?"
 
 #: ../../../app/views/devise/registrations/token.html.erb:62
 #: ../../../app/views/madmin/application/_form.html.erb:212
@@ -2110,8 +2146,8 @@ msgid "Audit Log"
 msgstr "Журнал аудиту"
 
 #: ../../../app/views/pushes/audit.html.erb:7
-msgid "Pushed on %{date}"
-msgstr "Відправлено %{date}"
+msgid "Pushed on"
+msgstr "Штовхали далі"
 
 #: ../../../app/views/pushes/audit.html.erb:10
 msgid "Secret URL for this push"
@@ -2865,3 +2901,97 @@ msgstr "JSON API"
 #: ../../../app/views/users/first_runs/new.html.erb:228
 msgid "Thanks for choosing Password Pusher!"
 msgstr "Дякуємо, що обрали Password Pusher!"
+
+#: ../../../app/views/users/sessions/otp.html.erb:4
+msgid "Enter the 6-digit code from your authenticator app or a backup code."
+msgstr "Введіть 6-значний код з програми-автентифікатора або резервний код."
+
+#: ../../../app/views/users/sessions/otp.html.erb:8
+#: ../../../app/views/users/two_factor/verify.html.erb:16
+msgid "Code"
+msgstr "Код"
+
+#: ../../../app/views/users/sessions/otp.html.erb:9
+#: ../../../app/views/users/two_factor/verify.html.erb:17
+msgid "Verification code"
+msgstr "Код підтвердження"
+
+#: ../../../app/views/users/sessions/otp.html.erb:11
+msgid "Verify"
+msgstr "Підтвердити"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:1
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:6
+msgid "Save your backup codes"
+msgstr "Збережіть свої резервні коди"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+msgid ""
+"Store these codes in a safe place. Each can be used once if you lose your auth"
+"enticator device."
+msgstr ""
+"Зберігайте ці коди в безпечному місці. Кожен з них можна використати лише один"
+" раз, якщо ви загубите свій пристрій-автентифікатор."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+msgid "Save or copy these codes now"
+msgstr "Збережіть або скопіюйте ці коди зараз"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+msgid ""
+"You will not be able to see this list again after you continue. If you lose yo"
+"ur device and your backup codes, you may need an administrator to reset your a"
+"ccount."
+msgstr ""
+"Після продовження ви не зможете побачити цей список знову. Якщо ви втратили пр"
+"истрій і резервні коди, вам може знадобитися адміністратор, щоб відновити ваш "
+"обліковий запис."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+msgid "Recovery codes"
+msgstr "Коди відновлення"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+msgid "total"
+msgstr "всього"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+msgid "Copy all codes"
+msgstr "Скопіювати всі коди"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+msgid ""
+"Backup codes are saved but can only be shown once. If you did not save them, d"
+"isable two-factor authentication and set it up again."
+msgstr ""
+"Резервні коди зберігаються, але можуть бути показані лише один раз. Якщо ви не"
+" зберегли їх, вимкніть двофакторну автентифікацію та налаштуйте її знову."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+msgid "Continue to verify"
+msgstr "Продовжити перевірку"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:1
+msgid "Verify authenticator"
+msgstr "Перевірте автентифікатор"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:6
+msgid "Scan this QR code"
+msgstr "Відскануйте цей QR-код"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:7
+msgid ""
+"Add this account to your authenticator app, then enter the 6-digit code to con"
+"firm."
+msgstr ""
+"Додайте цей обліковий запис до програми-автентифікатора, а потім введіть 6-зна"
+"чний код для підтвердження."
+
+#: ../../../app/views/users/two_factor/verify.html.erb:11
+msgid "If you cannot scan the code, enter this secret manually:"
+msgstr "Якщо ви не можете відсканувати код, введіть цей секрет вручну:"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:20
+msgid "Enable two-factor authentication"
+msgstr "Увімкнути двофакторну автентифікацію"
