@@ -94,6 +94,7 @@ gem "invisible_captcha", "~> 2.3"
 gem "devise-i18n"
 gem "rails-i18n", "~> 8.1.0"
 gem "translation"
+gem "local_time"
 
 # For File Uploads
 gem "aws-sdk-s3", require: false
@@ -112,6 +113,7 @@ end
 gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "madmin"
+gem "rotp", "~> 6.2"
 gem "rqrcode", "~> 3.2"
 gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.1.0"
