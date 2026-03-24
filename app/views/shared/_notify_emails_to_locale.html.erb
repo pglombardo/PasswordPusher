@@ -1,70 +1,10 @@
 <% form_builder = local_assigns[:form] || local_assigns[:f] %>
 <% if form_builder && action_name != 'edit' && Settings.language_codes %>
-  <% current_locale = form_builder.object.notify_emails_to_locale.presence %>
-  <% current_label = current_locale ? Settings.language_codes[current_locale] : "" %>
-  <% current_flag = current_locale && Settings.country_codes[current_locale] ? Settings.country_codes[current_locale].to_s : "" %>
-  <% aria_label = current_label.present? ? (_('Current email language: %{lang}. Opens language menu.') % { lang: current_label }) : _('Autodetect email language. Opens language menu.') %>
-
-  <div class="dropdown position-relative"
-    data-controller="pwpush--select-dropdown"
-    data-action="click@window->pwpush--select-dropdown#hide touchstart@window->pwpush--select-dropdown#hide keydown.esc->pwpush--select-dropdown#hide">
-    <%= form_builder.hidden_field :notify_emails_to_locale, value: current_locale, data: {"pwpush--select-dropdown-target": "field"} %>
-    <button type="button"
-            class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2 w-100"
-            style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-height: 38px;"
-            data-action="pwpush--select-dropdown#toggle:stop"
-            aria-expanded="false"
-            aria-haspopup="menu"
-            aria-label="<%= aria_label %>">
-      <div data-pwpush--select-dropdown-target="menuButtonInner">
-        <% if current_flag.present? %>
-          <em class="fi fi-<%= current_flag %> me-2"></em><%= current_label %>
-        <% else %>
-          <span>🌎</span>
-        <% end %>
-      </div>
-    </button>
-
-    <menu
-      data-pwpush--select-dropdown-target="menu"
-      class="dropdown-menu dropdown-menu-end p-0 shadow-lg border position-absolute end-0 notify-emails-locale-menu"
-      role="menu"
-      aria-orientation="vertical"
-      tabindex="-1">
-      <div class="py-2" role="none">
-        <span class="d-block px-4 py-2 text-body"><%= _('Send emails in the following language:') %></span>
-        <hr class="dropdown-divider my-0">
-        <div class="m-0 p-0" role="menuitem" tabindex="-1">
-          <div
-            class="dropdown-item d-block px-3 py-1 text-start border-0 text-wrap w-100"
-            style="cursor: pointer;"
-            data-action="click->pwpush--select-dropdown#select"
-            data-lang="">
-            <template>
-              <span>🌎</span>
-            </template>
-            <%= _('Autodetect the recipient\'s language') %>
-          </div>
-        </div>
-        <ul class="overflow-y-auto list-unstyled m-0 px-2 d-flex flex-wrap">
-          <% I18n.available_locales.each do |lang| %>
-            <li class="col-12 col-sm-6 col-lg-4 m-0 p-0" role="menuitem" tabindex="-1">
-              <div
-                class="dropdown-item d-block px-2 py-1 text-start border-0 w-100 text-nowrap"
-                style="cursor: pointer;"
-                data-action="click->pwpush--select-dropdown#select"
-                data-lang="<%= lang %>">
-                <template>
-                  <em class="fi fi-<%= Settings.country_codes[lang] %> me-2"></em>
-                  <%= Settings.language_codes[lang] %>
-                </template>
-                <em class="fi fi-<%= Settings.country_codes[lang] %> me-2"></em>
-                <%= Settings.language_codes[lang] %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </menu>
-  </div>
+  <%= render "shared/push_locale_dropdown",
+      form: form_builder,
+      current_locale: form_builder.object.notify_emails_to_locale.presence,
+      heading: _('Send emails in the following language:'),
+      menu_extra_class: "notify-emails-locale-menu",
+      button_class: "btn btn-primary dropdown-toggle d-flex align-items-center gap-2 w-100",
+      button_style: "border-top-left-radius: 0; border-bottom-left-radius: 0; min-height: 38px;" %>
 <% end %>
