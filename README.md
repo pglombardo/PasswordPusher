@@ -45,7 +45,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 - **Encrypted at rest** — Sensitive data is stored encrypted and deleted when expired.
 - **Expiry controls** — Limit by number of views and/or time; links can require a passphrase.
-- **Two-factor authentication** — TOTP (authenticator apps) for user accounts, with optional backup codes when logins are enabled.
+- **Two-factor authentication** — TOTP (authenticator apps) for user accounts, with optional backup codes.
 - **Audit logging** — Track what was shared and who viewed it (with optional logins).
 - **Unbranded delivery page** — No logos, superfluous text or unrelated links to confuse push recipients.
 
