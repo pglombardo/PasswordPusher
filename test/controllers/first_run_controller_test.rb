@@ -9,18 +9,11 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
 
     User.destroy_all
     FirstRunBootCode.clear!
-
-    @original_timestamp_enabled = InvisibleCaptcha.timestamp_enabled
-    @original_spinner_enabled = InvisibleCaptcha.spinner_enabled
-    InvisibleCaptcha.timestamp_enabled = false
-    InvisibleCaptcha.spinner_enabled = false
   end
 
   teardown do
     User.destroy_all
     FirstRunBootCode.clear!
-    InvisibleCaptcha.timestamp_enabled = @original_timestamp_enabled
-    InvisibleCaptcha.spinner_enabled = @original_spinner_enabled
     Settings.disable_signups = false
   end
 

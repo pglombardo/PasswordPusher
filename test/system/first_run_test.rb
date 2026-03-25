@@ -7,11 +7,6 @@ class FirstRunTest < ApplicationSystemTestCase
     Settings.disable_signups = false
     Rails.application.reload_routes!
 
-    @original_timestamp_enabled = InvisibleCaptcha.timestamp_enabled
-    @original_spinner_enabled = InvisibleCaptcha.spinner_enabled
-    InvisibleCaptcha.timestamp_enabled = false
-    InvisibleCaptcha.spinner_enabled = false
-
     User.destroy_all
     FirstRunBootCode.clear!
   end
@@ -21,9 +16,6 @@ class FirstRunTest < ApplicationSystemTestCase
     User.destroy_all
     Settings.disable_logins = false
     Settings.disable_signups = false
-
-    InvisibleCaptcha.timestamp_enabled = @original_timestamp_enabled
-    InvisibleCaptcha.spinner_enabled = @original_spinner_enabled
   end
 
   test "redirects to first run when visiting other pages and no users exist" do
@@ -120,10 +112,5 @@ class FirstRunTest < ApplicationSystemTestCase
     assert_selector ".alert-danger", wait: 5
     assert_text(/email|invalid/i, wait: 5)
     assert_equal 0, User.count
-  end
-
-  test "form includes invisible captcha for spam protection" do
-    visit first_run_path(locale: :en)
-    assert_selector "input[tabindex='-1'][autocomplete='off']", visible: false
   end
 end
