@@ -1,0 +1,114 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# ANSI styling: bold + standard colors reads well on light and dark terminal backgrounds.
+# Set NO_COLOR=1 to disable. See https://no-color.org/
+module DisableTwoFactorCli
+  module_function
+
+  def no_color?
+    # Use ENV.key? — no ActiveSupport here: usage/help run before Rails loads.
+    ENV.key?("NO_COLOR")
+  end
+
+  def style(text, *codes)
+    return text if no_color?
+
+    "\e[#{codes.join(";")}m#{text}\e[0m"
+  end
+
+  def usage(io = $stdout)
+    io.puts style("Usage: #{$PROGRAM_NAME} [--yes] <email>", 1, 36)
+    io.puts ""
+    io.puts "Disables two-factor authentication (TOTP and backup codes) for the given user."
+    io.puts "You must confirm interactively unless #{style("--yes", 1)} is passed."
+    io.puts ""
+    io.puts "#{style("NO_COLOR=1", 1)} disables color output."
+  end
+
+  def twofactor_data?(user)
+    user.otp_required_for_login? ||
+      user.otp_secret.present? ||
+      Array(user.otp_backup_code_digests).any?
+  end
+
+  def parse_argv(argv)
+    skip_confirm = false
+    rest = []
+    argv.each do |arg|
+      case arg
+      when "--yes", "-y"
+        skip_confirm = true
+      when "--help", "-h"
+        usage
+        exit 0
+      else
+        rest << arg
+      end
+    end
+    [rest, skip_confirm]
+  end
+
+  def read_confirmation(email)
+    warn ""
+    warn style("You are about to disable two-factor authentication for:", 1, 33)
+    warn "  #{style(email, 1, 36)}"
+    warn ""
+    warn style("This removes TOTP secrets and backup codes. The user must set up 2FA again.", 1, 33)
+    warn ""
+    unless $stdin.tty?
+      warn style("Confirmation is not interactive; send #{style("yes", 1, 32)} on stdin, or use #{style("--yes", 1)}.", 1, 33)
+    end
+    print style("Type #{style("yes", 1, 32)} to confirm, or anything else to cancel: ", 1) if $stdin.tty?
+    answer = $stdin.gets
+    answer && answer.strip.casecmp("yes").zero?
+  end
+
+  # Before Rails boots: use log/<env>.log instead of stdout (Settings.log_to_stdout / RAILS_LOG_TO_STDOUT).
+  def prepare_rails_logging_env!
+    ENV["PWP__LOG_TO_STDOUT"] ||= "false"
+    ENV.delete("RAILS_LOG_TO_STDOUT")
+  end
+end
+
+args, skip_confirm = DisableTwoFactorCli.parse_argv(ARGV)
+
+if args.empty? || args.size > 1
+  DisableTwoFactorCli.usage($stderr)
+  exit 1
+end
+
+DisableTwoFactorCli.prepare_rails_logging_env!
+
+require File.expand_path("../../config/environment", __FILE__)
+
+email = args[0].strip
+
+begin
+  user = User.find_by!(email: email)
+rescue ActiveRecord::RecordNotFound
+  warn DisableTwoFactorCli.style("No user found with that email address.", 1, 31)
+  exit 1
+end
+
+unless DisableTwoFactorCli.twofactor_data?(user)
+  puts DisableTwoFactorCli.style("Nothing to do: this account has no two-factor data to remove.", 1, 36)
+  exit 0
+end
+
+unless skip_confirm
+  exit 0 unless DisableTwoFactorCli.read_confirmation(email)
+end
+
+begin
+  user.disable_totp!
+  user.reload
+
+  puts ""
+  puts DisableTwoFactorCli.style("Two-factor authentication has been disabled.", 1, 32)
+  puts "  #{DisableTwoFactorCli.style(user.email, 1, 36)}"
+  puts ""
+rescue => e
+  warn DisableTwoFactorCli.style("Error: #{e.message}", 1, 31)
+  exit 1
+end

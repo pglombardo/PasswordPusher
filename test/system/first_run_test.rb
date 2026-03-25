@@ -27,11 +27,11 @@ class FirstRunTest < ApplicationSystemTestCase
   end
 
   test "redirects to first run when visiting other pages and no users exist" do
-    visit root_path
-    assert_current_path first_run_path
+    visit root_path(locale: :en)
+    assert_current_path first_run_path(locale: :en)
 
-    visit new_push_path
-    assert_current_path first_run_path
+    visit new_push_path(locale: :en)
+    assert_current_path first_run_path(locale: :en)
   end
 
   test "redirects to root when accessing first run page and users exist" do
@@ -42,12 +42,12 @@ class FirstRunTest < ApplicationSystemTestCase
       admin: true
     )
 
-    visit first_run_path
-    assert_current_path root_path
+    visit first_run_path(locale: :en)
+    assert_current_path root_path(locale: :en)
   end
 
   test "successfully creates first admin user through first run" do
-    visit first_run_path
+    visit first_run_path(locale: :en)
 
     assert_text "Boot Code Required"
     assert_selector "input[name='user[boot_code]']", wait: 5
@@ -63,7 +63,7 @@ class FirstRunTest < ApplicationSystemTestCase
 
     click_button "Create Admin Account"
 
-    assert_current_path admin_root_path, wait: 10
+    assert_current_path admin_root_path(locale: :en), wait: 10
     assert_text "Welcome to the Password Pusher administration panel", wait: 5
     assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE), "Boot code file should be cleared"
     assert_equal 1, User.count
@@ -74,7 +74,7 @@ class FirstRunTest < ApplicationSystemTestCase
   end
 
   test "requires boot code to create first user" do
-    visit first_run_path
+    visit first_run_path(locale: :en)
 
     fill_in "Boot Code", with: "invalid-boot-code-12345"
     fill_in "Email", with: "admin@example.com"
@@ -82,14 +82,14 @@ class FirstRunTest < ApplicationSystemTestCase
 
     click_button "Create Admin Account"
 
-    assert_current_path first_run_path, wait: 5
+    assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-warning, .alert-danger", wait: 5
     assert_text(/Invalid.*boot code|boot code/i, wait: 5)
     assert_equal 0, User.count
   end
 
   test "shows validation error for short password" do
-    visit first_run_path
+    visit first_run_path(locale: :en)
 
     code = FirstRunBootCode.code
     fill_in "Boot Code", with: code
@@ -98,14 +98,14 @@ class FirstRunTest < ApplicationSystemTestCase
 
     click_button "Create Admin Account"
 
-    assert_current_path first_run_path, wait: 5
+    assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-danger", wait: 5
     assert_text(/too short|minimum|password/i, wait: 5)
     assert_equal 0, User.count
   end
 
   test "shows validation error for invalid email" do
-    visit first_run_path
+    visit first_run_path(locale: :en)
 
     code = FirstRunBootCode.code
     fill_in "Boot Code", with: code
@@ -116,14 +116,14 @@ class FirstRunTest < ApplicationSystemTestCase
     page.execute_script("document.querySelector('form').setAttribute('novalidate','novalidate')")
     click_button "Create Admin Account"
 
-    assert_current_path first_run_path, wait: 5
+    assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-danger", wait: 5
     assert_text(/email|invalid/i, wait: 5)
     assert_equal 0, User.count
   end
 
   test "form includes invisible captcha for spam protection" do
-    visit first_run_path
+    visit first_run_path(locale: :en)
     assert_selector "input[tabindex='-1'][autocomplete='off']", visible: false
   end
 end

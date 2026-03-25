@@ -1,0 +1,52 @@
+<% title(_("Save your backup codes")) %>
+
+<main class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-7">
+      <h2 class="fw-semibold mb-3"><em class="bi bi-key-fill me-2"></em><%= _("Save your backup codes") %></h2>
+
+      <p class="text-muted mb-4"><%= _("Store these codes in a safe place. Each can be used once if you lose your authenticator device.") %></p>
+
+      <div class="alert alert-warning d-flex align-items-start text-start mb-4" role="alert">
+        <span class="bi bi-exclamation-triangle-fill me-2 mt-1 flex-shrink-0" aria-hidden="true"></span>
+        <div>
+          <strong><%= _("Save or copy these codes now") %></strong>
+          <p class="mb-0 mt-1 small"><%= _("You will not be able to see this list again after you continue. If you lose your device and your backup codes, you may need an administrator to reset your account.") %></p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-body-secondary border-bottom py-3 px-3 px-md-4">
+          <span class="small text-uppercase text-muted fw-semibold"><%= _("Recovery codes") %></span>
+          <span class="text-muted small ms-2">— <%= current_user.otp_backup_code_digests.size %> <%= _("total") %></span>
+        </div>
+        <div class="card-body p-3 p-md-4">
+          <% if @otp_backup_codes_display.present? %>
+            <div class="row g-2 row-cols-1 row-cols-sm-2">
+              <% @otp_backup_codes_display.each do |code| %>
+                <div class="col">
+                  <div class="rounded-3 border bg-body-tertiary px-3 py-2 h-100 text-center">
+                    <code class="mb-0 small user-select-all text-break"><%= code %></code>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="pt-3 mt-3 border-top border-secondary-subtle d-flex justify-content-center" data-controller="copy">
+              <textarea class="visually-hidden" readonly tabindex="-1" aria-hidden="true" data-copy-target="payloadDiv"><%= @otp_backup_codes_display.join("\n") %></textarea>
+              <button type="button" class="btn btn-outline-secondary" data-action="click->copy#miniCopyToClipboard" title="<%= _('Copy all codes') %>" aria-label="<%= _('Copy all codes') %>">
+                <em class="bi bi-clipboard-check me-2"></em><%= _("Copy all codes") %>
+              </button>
+            </div>
+          <% else %>
+            <p class="text-muted mb-0"><%= _("Backup codes are saved but can only be shown once. If you did not save them, disable two-factor authentication and set it up again.") %></p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="d-grid d-sm-flex justify-content-sm-end gap-2">
+        <%= link_to _("Continue to verify"), verify_user_two_factor_path, class: "btn btn-primary btn-lg" %>
+      </div>
+    </div>
+  </div>
+</main>

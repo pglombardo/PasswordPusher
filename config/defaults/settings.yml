@@ -76,12 +76,16 @@ host_protocol: 'https'
 
 ### Trusted Proxies
 #
-# By default, Password Pusher will only proxy related headers from proxies on
-# the local network.  If you are using a proxy that is not on the local network,
-# you will need to add the IP address of the proxy to the list below.
+# The application only honors X-Forwarded-* (and related) headers from clients it considers
+# trusted.  By default, Password Pusher trusts common private and non-routable
+# IPv4 ranges: loopback (127.0.0.0/8), RFC 1918 (10.0.0.0/8, 172.16.0.0/12,
+# 192.168.0.0/16), IPv4 link-local (169.254.0.0/16), and RFC 6598 shared space
+# (100.64.0.0/10), plus IPv6 localhost (::1).  Typical Docker and LAN reverse
+# proxies fall in these ranges, so no extra configuration is needed.
 #
-# This is useful if you are using a remote reverse proxy such as Cloudflare to
-# serve the application.  If local, you can leave this setting as is.
+# If your reverse proxy uses a public IP or another range (for example a hosted
+# load balancer outside those networks), add its address below—or use Cloudflare
+# Proxy below when fronting with Cloudflare.
 #
 # Multiple IP addresses can be added by separating them with a comma.
 #

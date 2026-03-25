@@ -1,0 +1,12 @@
+<% title(_("Two-factor authentication")) %>
+
+<h2 class="my-3"><%= _("Two-factor authentication") %></h2>
+<p class="text-muted small mb-4"><%= _("Enter the 6-digit code from your authenticator app or a backup code.") %></p>
+
+<%= form_with url: session_path(resource_name), method: :post, data: { turbo: false } do %>
+  <div class="form-floating">
+    <%= text_field_tag :otp_attempt, nil, id: "otp_attempt", class: "form-control", autocomplete: "one-time-code", placeholder: _("Code"), autofocus: true, required: true %>
+    <%= label_tag :otp_attempt, _("Verification code"), for: "otp_attempt" %>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"><%= _("Verify") %></button>
+<% end %>
