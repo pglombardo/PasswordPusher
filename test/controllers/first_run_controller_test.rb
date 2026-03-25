@@ -14,6 +14,7 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
   teardown do
     User.destroy_all
     FirstRunBootCode.clear!
+    Settings.disable_logins = false
     Settings.disable_signups = false
   end
 
@@ -23,6 +24,33 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
 
     get root_url
     assert_redirected_to first_run_url
+  end
+
+  test "does not redirect to first run when logins and signups disabled and no users" do
+    Settings.disable_logins = true
+    Settings.disable_signups = true
+
+    get root_url
+    refute response.redirect? && response.redirect_url == first_run_url
+
+    get new_push_url
+    refute response.redirect? && response.redirect_url == first_run_url
+  end
+
+  test "boot code file is not created when logins and signups disabled and no users" do
+    Settings.disable_logins = true
+    Settings.disable_signups = true
+
+    get root_url
+    assert_not File.exist?(FirstRunBootCode::BOOT_CODE_FILE)
+  end
+
+  test "first run page redirects to root when logins and signups disabled and no users" do
+    Settings.disable_logins = true
+    Settings.disable_signups = true
+
+    get first_run_url
+    assert_redirected_to root_url
   end
 
   test "first run page is accessible when no users exist" do
