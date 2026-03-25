@@ -52,7 +52,7 @@ class Users::FirstRunsController < Users::RegistrationsController
   private
 
   def prevent_repeats
-    return unless User.any?
+    return if FirstRunBootCode.needed?
 
     redirect_to root_url
   end
