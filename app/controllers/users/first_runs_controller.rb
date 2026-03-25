@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::FirstRunsController < Users::RegistrationsController
-  # Skip invisible_captcha for first run — protected by boot_code validation.
-  # The gem adds a block callback (not :detect_spam), so we override detect_spam to no-op here.
+  # First run is gated by boot_code only (no invisible captcha in the view). The parent still
+  # registers invisible_captcha on :create; override detect_spam so that before_action is a no-op.
   def detect_spam(options = {})
     nil
   end

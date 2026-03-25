@@ -113,9 +113,4 @@ class FirstRunTest < ApplicationSystemTestCase
     assert_text(/email|invalid/i, wait: 5)
     assert_equal 0, User.count
   end
-
-  test "form includes invisible captcha markup (validation skipped in controller)" do
-    visit first_run_path(locale: :en)
-    assert_selector "input[tabindex='-1'][autocomplete='off']", visible: false
-  end
 end
