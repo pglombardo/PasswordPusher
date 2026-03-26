@@ -167,13 +167,6 @@ class PushesController < BaseController
 
   # PATCH/PUT /p/:url_token
   def update
-    if @push.file? && tus_uploads_in_progress?
-      @files_tab = true
-      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
-      render action: "edit", status: :conflict
-      return
-    end
-
     # Verify the push belongs to the current user
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
@@ -183,6 +176,13 @@ class PushesController < BaseController
     # Can't edit expired pushes
     if @push.expired
       redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      return
+    end
+
+    if @push.file? && tus_uploads_in_progress?
+      @files_tab = true
+      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
+      render action: "edit", status: :conflict
       return
     end
 

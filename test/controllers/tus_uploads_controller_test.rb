@@ -512,6 +512,21 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/wait.*upload|upload.*finish/i, response.body)
   end
 
+  test "push update (file) redirects for other user's push even when TUS upload in progress" do
+    victim = users(:one)
+    distinctive = "VICTIM_SECRET_NOTE_XYZ789"
+    push = Push.create!(kind: "file", user: victim, note: distinctive, name: "VictimFilePushName")
+    push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
+    create_tus_upload(upload_length: 1)
+    patch push_path(push), params: {push: {name: "AttackerAttempt"}}
+    assert_response :redirect
+    assert_not_equal 409, response.status
+    assert_no_match(/#{Regexp.escape(distinctive)}/, response.body)
+    assert_no_match(/VictimFilePushName/, response.body)
+    follow_redirect!
+    assert_match(/That push doesn&#39;t belong to you/, response.body)
+  end
+
   test "visiting new push form resets session tus upload tracking" do
     create_tus_upload(upload_length: 3)
 
