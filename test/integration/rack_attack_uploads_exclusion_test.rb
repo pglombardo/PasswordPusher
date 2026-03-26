@@ -43,7 +43,7 @@ class RackAttackUploadsExclusionTest < ActionDispatch::IntegrationTest
   private
 
   def rack_attack_request(path, ip: "127.0.0.1")
-    env = Rack::MockRequest.env_for("http://#{ip}/#{path.delete_prefix('/')}", "REQUEST_METHOD" => "GET")
+    env = Rack::MockRequest.env_for("http://#{ip}/#{path.delete_prefix("/")}", "REQUEST_METHOD" => "GET")
     env["REMOTE_ADDR"] = ip
     Rack::Attack::Request.new(env)
   end

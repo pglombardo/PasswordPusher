@@ -81,8 +81,8 @@ function parseTusUploadIdFromLocationHeader(location) {
     const parts = pathname.split('/').filter(Boolean)
     const idx = parts.lastIndexOf('uploads')
     if (idx >= 0 && parts[idx + 1]) return parts[idx + 1]
-  } catch (_) {
-    /* ignore */
+  } catch (error) {
+    console.error('Error parsing TUS upload ID from location header:', error)
   }
   return null
 }
@@ -98,7 +98,6 @@ function setProgressBarError(el, message) {
   el.classList.add('bg-danger')
   const msg = message || 'Upload failed'
   el.setAttribute('aria-label', msg)
-  // Show error text visibly (aria-label is for screen readers only)
   const row = el.closest('li')
   if (row) {
     let errEl = row.querySelector('.upload-error-text')

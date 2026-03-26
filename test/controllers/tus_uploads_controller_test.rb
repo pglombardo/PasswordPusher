@@ -199,7 +199,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     # "../../../etc/passwd" -> File.basename -> "passwd"
     upload_id = create_tus_upload(
       upload_length: 3,
-      upload_metadata: "filename #{Base64.strict_encode64('../../../etc/passwd')}"
+      upload_metadata: "filename #{Base64.strict_encode64("../../../etc/passwd")}"
     )
     patch_tus_chunk(upload_id, "xyz")
     assert_response :no_content
@@ -210,7 +210,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   test "Upload-Metadata filename with subdir path uses basename only" do
     upload_id = create_tus_upload(
       upload_length: 2,
-      upload_metadata: "filename #{Base64.strict_encode64('foo/bar.txt')}"
+      upload_metadata: "filename #{Base64.strict_encode64("foo/bar.txt")}"
     )
     patch_tus_chunk(upload_id, "ab")
     assert_response :no_content
@@ -222,7 +222,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     # "a<b>c.txt" -> "a_b_c.txt"
     upload_id = create_tus_upload(
       upload_length: 1,
-      upload_metadata: "filename #{Base64.strict_encode64('a<b>c.txt')}"
+      upload_metadata: "filename #{Base64.strict_encode64("a<b>c.txt")}"
     )
     patch_tus_chunk(upload_id, "x")
     assert_response :no_content
@@ -233,7 +233,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   test "Upload-Metadata filename spaces replaced with underscore" do
     upload_id = create_tus_upload(
       upload_length: 2,
-      upload_metadata: "filename #{Base64.strict_encode64('file name.txt')}"
+      upload_metadata: "filename #{Base64.strict_encode64("file name.txt")}"
     )
     patch_tus_chunk(upload_id, "ab")
     assert_response :no_content
@@ -244,7 +244,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   test "Upload-Metadata filename blank or whitespace only yields default blob filename" do
     upload_id = create_tus_upload(
       upload_length: 2,
-      upload_metadata: "filename #{Base64.strict_encode64('   ')}"
+      upload_metadata: "filename #{Base64.strict_encode64("   ")}"
     )
     patch_tus_chunk(upload_id, "ab")
     assert_response :no_content
@@ -331,7 +331,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     patch upload_path(upload_id),
       params: body,
       headers: {"Content-Type" => "application/offset+octet-stream", "Upload-Offset" => "0"},
-      env: { "CONTENT_LENGTH" => nil }
+      env: {"CONTENT_LENGTH" => nil}
     assert_response :no_content, "PATCH without Content-Length should succeed and cap at max_chunk"
     assert_equal "3", response.headers["Upload-Offset"], "Only 3 bytes (tus_chunk_size) must be accepted"
     store = TusUploadStore.new(upload_id)
@@ -467,20 +467,20 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   test "POST create registers upload id in session so push create is blocked" do
     create_tus_upload(upload_length: 3)
     # Without finalizing, try to create a file push
-    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    post pushes_path, params: {push: {kind: "file", payload: "x"}}
     assert_response :conflict
     assert_match(/wait.*upload|upload.*finish/i, response.body, "Response must tell user to wait for uploads")
   end
 
   test "DELETE upload releases session so push create succeeds after abandon" do
     upload_id = create_tus_upload(upload_length: 10)
-    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    post pushes_path, params: {push: {kind: "file", payload: "x"}}
     assert_response :conflict
 
     delete upload_path(upload_id)
     assert_response :no_content
 
-    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+    post pushes_path, params: {push: {kind: "file", payload: "x"}}
     assert_response :redirect
   end
 
@@ -499,7 +499,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
     signed_id = response.headers["X-Signed-Id"]
     assert signed_id.present?, "Finalize must return X-Signed-Id"
-    post pushes_path, params: { push: { kind: "file", payload: "msg", files: [signed_id] } }
+    post pushes_path, params: {push: {kind: "file", payload: "msg", files: [signed_id]}}
     assert_response :redirect, "Push create must succeed after upload finalized"
   end
 
@@ -507,19 +507,19 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     push = Push.create!(kind: "file", user: @user)
     push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
     create_tus_upload(upload_length: 1)
-    patch push_path(push), params: { push: { name: "Updated" } }
+    patch push_path(push), params: {push: {name: "Updated"}}
     assert_response :conflict
     assert_match(/wait.*upload|upload.*finish/i, response.body)
   end
 
   test "visiting new push form resets session tus upload tracking" do
     create_tus_upload(upload_length: 3)
-    
+
     # Normally this would be blocked, but visiting new page resets it
     get new_push_path(tab: "files")
     assert_response :success
-    
-    post pushes_path, params: { push: { kind: "file", payload: "x" } }
+
+    post pushes_path, params: {push: {kind: "file", payload: "x"}}
     assert_response :redirect
   end
 
@@ -528,12 +528,12 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     push.files.attach(io: StringIO.new("a"), filename: "a.txt", content_type: "text/plain")
 
     create_tus_upload(upload_length: 3)
-    
+
     # Normally this would be blocked, but visiting edit page resets it
     get edit_push_path(push)
     assert_response :success
 
-    patch push_path(push), params: { push: { name: "Updated" } }
+    patch push_path(push), params: {push: {name: "Updated"}}
     assert_response :redirect
   end
 

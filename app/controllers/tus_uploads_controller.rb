@@ -154,7 +154,7 @@ class TusUploadsController < ApplicationController
       return head :forbidden unless header_origin_host_allowed?(origin, allowed_host)
     end
     if referer.present?
-      return head :forbidden unless header_origin_host_allowed?(referer, allowed_host)
+      head :forbidden unless header_origin_host_allowed?(referer, allowed_host)
     end
   end
 
@@ -180,7 +180,7 @@ class TusUploadsController < ApplicationController
   def finalized_upload_cache_write(upload_id, signed_id:, upload_length:, upload_offset:)
     Rails.cache.write(
       "#{TUS_FINALIZED_CACHE_PREFIX}#{upload_id}",
-      { "signed_id" => signed_id, "upload_length" => upload_length, "upload_offset" => upload_offset },
+      {"signed_id" => signed_id, "upload_length" => upload_length, "upload_offset" => upload_offset},
       expires_in: TUS_FINALIZED_CACHE_TTL
     )
   end
