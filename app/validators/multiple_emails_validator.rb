@@ -29,7 +29,7 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
     end
 
     if emails.count > max_emails
-      (max_emails == 1) ? record.errors.add(attribute, I18n._("contains more than 1 email")) : record.errors.add(attribute, I18n._("contains more than %{count} emails") % { count: max_emails })
+      (max_emails == 1) ? record.errors.add(attribute, I18n._("contains more than 1 email")) : record.errors.add(attribute, I18n._("contains more than %{count} emails") % {count: max_emails})
     end
 
     unless emails.reject(&:blank?).all? { |email| email.match?(EMAIL_REGEX) }

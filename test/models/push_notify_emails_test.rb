@@ -126,7 +126,7 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
       notify_emails_to
       notify_emails_to_locale
     ]
-    [{}, { owner: true }, { payload: true }, { owner: true, payload: true }].each do |opts|
+    [{}, {owner: true}, {payload: true}, {owner: true, payload: true}].each do |opts|
       json = JSON.parse(push.to_json(opts))
       sensitive_keys.each do |key|
         assert_not json.key?(key), "to_json(#{opts.inspect}) must not include #{key}"

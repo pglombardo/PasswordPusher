@@ -8,7 +8,7 @@ module Pwpush
       has_encrypted :notify_emails_to, :notify_emails_to_locale
       validates :notify_emails_to, multiple_emails: true, allow_blank: true
       validates :notify_emails_to_locale,
-        inclusion: { in: I18n.available_locales.map(&:to_s) },
+        inclusion: {in: I18n.available_locales.map(&:to_s)},
         allow_blank: true
       validate :notify_emails_to_attributes_unchanged_on_update, on: :update
     end
