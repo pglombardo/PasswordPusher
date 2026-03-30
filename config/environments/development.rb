@@ -69,6 +69,13 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Propshaft uses Propshaft::Resolver::Static when public/assets/.manifest.json exists
+  # (for example after running assets:precompile locally). That manifest only lists
+  # precompiled app assets, so dev-only gems that ship CSS (e.g. mailbin) are missing
+  # and stylesheet_link_tag raises MissingAssetError. Point at a path that does not
+  # exist so the dynamic resolver serves engine assets in development.
+  config.assets.manifest_path = Rails.root.join("tmp/.propshaft-development-manifest-placeholder")
+
   # Raises error for missing translations.
   config.i18n.raise_on_missing_translations = true
 
