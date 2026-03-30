@@ -8,6 +8,8 @@
 <% autodetect_label = _('Autodetect the recipient\'s language') %>
 <% locales = I18n.available_locales %>
 <% nav_item_class = "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" %>
+<% locale_col_class = "col-12 col-sm-6 col-lg-4 m-0 p-0" %>
+<% form_item_class = "#{nav_item_class} d-block text-start border-0 w-100" %>
 
 <div class="dropdown position-relative"
   data-controller="pwpush--select-dropdown"
@@ -24,10 +26,10 @@
           aria-label="<%= aria_label %>">
     <div data-pwpush--select-dropdown-target="menuButtonInner">
       <% if current_locale.blank? %>
-        <span><%= navigate ? " 🌎 " : "🌎" %></span>
+        <span>🌎</span>
       <% else %>
         <% if current_flag.present? %>
-          <em class="<%= navigate ? "me-2 fi fi-#{current_flag}" : "fi fi-#{current_flag} me-2" %>"></em>
+          <em class="fi fi-<%= current_flag %> me-2"></em>
         <% end %>
         <%= current_label %>
       <% end %>
@@ -40,67 +42,52 @@
     role="menu"
     aria-orientation="vertical"
     tabindex="-1">
-    <% if navigate %>
-      <div role="none">
-        <span class="dropdown-item-text"><%= heading %></span>
-      </div>
-      <hr class="dropdown-divider">
-      <li class="m-0 p-0" role="presentation">
-        <%= link_to url_for, class: nav_item_class do %>
-          🌎 <%= autodetect_label %>
-        <% end %>
-      </li>
-      <div class="container p-0 m-0" role="none">
-        <div class="row overflow-y-auto p-0 m-0" style="max-height: 450px;">
-          <% locales.each do |lang| %>
-            <% flag = Settings.country_codes[lang] %>
-            <% name = Settings.language_codes[lang] %>
-            <li class="col-12 col-md-6 col-lg-4 m-0 p-0" role="menuitem" tabindex="-1">
-              <%= link_to url_for(push_locale: lang), class: nav_item_class do %>
-                <em class="fi fi-<%= flag %>"></em>
-                <%= name %>
-              <% end %>
-            </li>
+    <div class="py-2" role="none">
+      <span class="d-block px-4 py-2 text-body"><%= heading %></span>
+      <hr class="dropdown-divider my-0">
+
+      <div class="m-0 p-0" role="menuitem" tabindex="-1">
+        <% if navigate %>
+          <%= link_to url_for, class: nav_item_class do %>
+            <span>🌎</span> <%= autodetect_label %>
           <% end %>
-        </div>
-      </div>
-    <% else %>
-      <div class="py-2" role="none">
-        <span class="d-block px-4 py-2 text-body"><%= heading %></span>
-        <hr class="dropdown-divider my-0">
-        <div class="m-0 p-0" role="menuitem" tabindex="-1">
+        <% else %>
           <div
-            class="dropdown-item d-block px-3 py-1 text-start border-0 text-wrap w-100"
+            class="<%= form_item_class %>"
             style="cursor: pointer;"
             data-action="click->pwpush--select-dropdown#select"
             data-lang="">
-            <template>
-              <span>🌎</span>
-            </template>
+            <span data-pwpush--select-dropdown-label class="d-inline"><span>🌎</span></span>
             <%= autodetect_label %>
           </div>
-        </div>
-        <ul class="overflow-y-auto list-unstyled m-0 d-flex flex-wrap">
-          <% locales.each do |lang| %>
-            <% flag = Settings.country_codes[lang] %>
-            <% name = Settings.language_codes[lang] %>
-            <li class="col-12 col-sm-6 col-lg-4 m-0 p-0" role="menuitem" tabindex="-1">
+        <% end %>
+      </div>
+
+      <ul class="overflow-y-auto list-unstyled m-0 d-flex flex-wrap" style="max-height: 450px;">
+        <% locales.each do |lang| %>
+          <% flag = Settings.country_codes[lang] %>
+          <% name = Settings.language_codes[lang] %>
+          <li class="<%= locale_col_class %>" role="menuitem" tabindex="-1">
+            <% if navigate %>
+              <%= link_to url_for(push_locale: lang), class: nav_item_class do %>
+                <em class="fi fi-<%= flag %> me-2"></em>
+                <%= name %>
+              <% end %>
+            <% else %>
               <div
-                class="dropdown-item d-block px-3 py-1 text-start border-0 w-100 text-nowrap"
+                class="<%= form_item_class %> text-nowrap"
                 style="cursor: pointer;"
                 data-action="click->pwpush--select-dropdown#select"
                 data-lang="<%= lang %>">
-                <template>
+                <span data-pwpush--select-dropdown-label>
                   <em class="fi fi-<%= flag %> me-2"></em>
                   <%= name %>
-                </template>
-                <em class="fi fi-<%= flag %> me-2"></em>
-                <%= name %>
+                </span>
               </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </menu>
 </div>

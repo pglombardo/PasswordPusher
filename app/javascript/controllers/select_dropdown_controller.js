@@ -44,9 +44,13 @@ export default class extends Controller {
   }
 
   select(event) {
-    this.fieldTarget.value = event.currentTarget.dataset.lang
-    const template = event.currentTarget.querySelector("template")
-    this.menuButtonInnerTarget.innerHTML = template.innerHTML
+    if (this.hasFieldTarget) {
+      this.fieldTarget.value = event.currentTarget.dataset.lang
+    }
+    const label = event.currentTarget.querySelector("[data-pwpush--select-dropdown-label]")
+    if (label) {
+      this.menuButtonInnerTarget.innerHTML = label.innerHTML
+    }
     this.hide()
   }
 }
