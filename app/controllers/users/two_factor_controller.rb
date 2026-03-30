@@ -28,6 +28,12 @@ class Users::TwoFactorController < ApplicationController
   end
 
   def destroy
+    if Settings.require_mfa
+      redirect_to edit_user_registration_path,
+        alert: _("Two-factor authentication cannot be disabled because it is required by the administrator.")
+      return
+    end
+
     current_user.disable_totp!
     session.delete(:otp_backup_codes_plaintext)
     redirect_to edit_user_registration_path, status: :see_other, notice: _("Two-factor authentication has been disabled.")
