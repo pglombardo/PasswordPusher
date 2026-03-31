@@ -21,8 +21,8 @@ class NotifyEmailsPartialsViewTest < ActionView::TestCase
     assert_match(/Enter email\(s\) separated by commas/i, rendered)
   end
 
-  test "_notify_emails_to_locale renders locale hidden field and dropdown with flags" do
-    render partial: "shared/notify_emails_to_locale", locals: {f: @builder}
+  test "_notify_emails_to includes locale dropdown and hidden notify_emails_to_locale" do
+    render partial: "shared/notify_emails_to", locals: {f: @builder}
     assert_select "input[name=?][type=hidden]", "push[notify_emails_to_locale]", count: 1
     assert_match(/Send emails in the following language/i, rendered)
     assert_match(/Autodetect the recipient/i, rendered)
