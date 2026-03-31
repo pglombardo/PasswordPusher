@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class Users::FirstRunsController < Users::RegistrationsController
-  # Skip invisible_captcha for first run - it's protected by boot_code validation
-  skip_before_action :detect_spam, only: [:create], raise: false
+  # First run is gated by boot_code only (no invisible captcha in the view). The parent still
+  # registers invisible_captcha on :create; override detect_spam so that before_action is a no-op.
+  def detect_spam(options = {})
+    nil
+  end
 
   before_action :prevent_repeats
   before_action :validate_boot_code, only: [:create]
@@ -49,7 +52,7 @@ class Users::FirstRunsController < Users::RegistrationsController
   private
 
   def prevent_repeats
-    return unless User.any?
+    return if FirstRunBootCode.needed?
 
     redirect_to root_url
   end

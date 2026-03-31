@@ -81,10 +81,6 @@
             <%= f.label :password, _('Password') %>
           </div>
 
-          <div class="visually-hidden" aria-hidden="true">
-            <%= invisible_captcha %>
-          </div>
-
           <% minimum_password_length = @minimum_password_length || (resource_class.password_length.min if respond_to?(:resource_class) && resource_class.respond_to?(:password_length)) %>
           <% if minimum_password_length %>
             <p class="text-muted small mt-2 mb-0">
