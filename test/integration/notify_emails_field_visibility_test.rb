@@ -2,7 +2,6 @@
 
 require "test_helper"
 
-# show_notify_emails_field? (ApplicationHelper) — exercised via real requests so user_signed_in? comes from Devise.
 class NotifyEmailsFieldVisibilityTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
@@ -48,7 +47,6 @@ class NotifyEmailsFieldVisibilityTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
-  # Content from shared/_notify_emails_to + _push_locale_dropdown (needs full request for url_for/link_to).
   test "new text push form includes notify emails copy and secret-link locale dropdown" do
     sign_in @user
     get new_push_path(tab: "text")
