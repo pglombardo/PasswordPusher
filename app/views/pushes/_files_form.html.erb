@@ -1,7 +1,8 @@
 <% title(_('Securely Send Files')) %>
 <% if tus_uploads_enabled? %>
   <% content_for :head do %>
-    <%= javascript_include_tag "tus", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_inline_importmap_tag %>
+    <%= javascript_import_module_tag "tus" %>
   <% end %>
 <% end %>
 
