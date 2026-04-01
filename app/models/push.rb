@@ -3,8 +3,6 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
-  include Pwpush::NotifyEmailsTo
-
   enum :kind, [:text, :file, :url, :qr], validate: true
 
   validate :check_enabled_push_kinds, on: :create
@@ -15,6 +13,11 @@ class Push < ApplicationRecord
   validate :check_payload_for_url, if: :url?
   validate :check_payload_for_qr, if: :qr?
 
+  validates :notify_emails_to, multiple_emails: true, allow_blank: true
+  validates :notify_emails_to_locale,
+    inclusion: {in: I18n.available_locales.map(&:to_s)},
+    allow_blank: true
+
   with_options on: :create do |create|
     create.before_validation :set_expire_limits
     create.before_validation :set_url_token
@@ -23,7 +26,7 @@ class Push < ApplicationRecord
 
   belongs_to :user, optional: true
 
-  has_encrypted :payload, :note, :passphrase
+  has_encrypted :payload, :note, :passphrase, :notify_emails_to, :notify_emails_to_locale
 
   has_many :audit_logs, -> { order(created_at: :asc) }, dependent: :destroy
   has_many_attached :files, dependent: :destroy
@@ -206,6 +209,23 @@ class Push < ApplicationRecord
       Settings.files
     elsif qr?
       Settings.qr
+    end
+  end
+
+  # Comma-separated notify string → stripped non-blank addresses (used by mailer + jobs).
+  def self.parse_emails(raw)
+    raw.to_s.split(",").map(&:strip).reject(&:blank?)
+  end
+
+  # Send creation email when notify_emails_to is present (developer feedback: run inline).
+  # (OSS: always allow; Pro gates with account_is_premium?)
+  def send_creation_emails
+    return nil if notify_emails_to.blank?
+
+    if Rails.env.development?
+      SendPushCreatedEmailJob.perform_now(id)
+    else
+      SendPushCreatedEmailJob.perform_later(id)
     end
   end
 
