@@ -20,5 +20,5 @@ pin "omgopass/random.js", to: "omgopass--random.js.js" # @3.2.1
 pin "local-time" # @3.0.3
 pin "local_time_locales", to: "local_time_locales.js"
 pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-pin "tus-js-client", to: "https://esm.sh/tus-js-client@4.3.1/lib.esm/browser/index.js", integrity: false
+pin "tus-js-client", to: "https://esm.sh/tus-js-client@4.3.1/lib.esm/browser/index.js", integrity: false # "load this module from the URL as usual, without the extra ‘must match this hash’ rule.”
 pin "tus", to: "tus.js"
