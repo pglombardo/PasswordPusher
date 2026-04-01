@@ -1,93 +1,36 @@
-<%# locals: (form: nil, current_locale: nil, heading:, menu_extra_class: nil, button_class:, button_style: nil, button_aria_label: nil) %>
-<% navigate = form.blank? %>
-<% current_locale = current_locale.to_s.presence %>
-<% current_label = current_locale.present? ? (Settings.language_codes[current_locale] || Settings.language_codes[current_locale.to_sym]).to_s : "" %>
-<% current_flag = current_locale.present? ? (Settings.country_codes[current_locale] || Settings.country_codes[current_locale.to_sym]).to_s : "" %>
-<% aria_label = local_assigns[:button_aria_label].presence || (current_label.present? ? (_('Current email language: %{lang}. Opens language menu.') % { lang: current_label }) : _('Autodetect email language. Opens language menu.')) %>
-<% menu_classes = ["dropdown-menu", "dropdown-menu-end", "p-0", "shadow-lg", "border", "position-absolute", "end-0", menu_extra_class].compact_blank.join(" ") %>
-<% autodetect_label = _('Autodetect the recipient\'s language') %>
-<% locales = I18n.available_locales %>
-<% nav_item_class = "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" %>
-<% locale_col_class = "col-12 col-sm-6 col-lg-4 m-0 p-0" %>
-<% form_item_class = "#{nav_item_class} d-block text-start border-0 w-100" %>
-
-<div class="dropdown position-relative"
-  data-controller="pwpush--select-dropdown"
-  data-action="click@window->pwpush--select-dropdown#hide touchstart@window->pwpush--select-dropdown#hide keydown.esc->pwpush--select-dropdown#hide">
-  <% unless navigate %>
-    <%= form.hidden_field :notify_emails_to_locale, value: current_locale, data: {"pwpush--select-dropdown-target": "field"} %>
+<%# Secret link language: toggle + dropdown (shared by secret URL bar and notify-emails field). %>
+<% if Settings.language_codes %>
+  <% if params.key?(:push_locale) %>
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <em class="me-2 fi fi-<%= Settings.country_codes[params["push_locale"] || I18n.locale] %>"></em>
+      <%= Settings.language_codes[params["push_locale"] || I18n.locale] %>
+    </button>
+  <% else %>
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">🌎</button>
   <% end %>
-  <button type="button"
-          class="<%= button_class %>"
-          <% if button_style.present? %> style="<%= button_style %>"<% end %>
-          data-action="pwpush--select-dropdown#toggle:stop"
-          aria-expanded="false"
-          aria-haspopup="menu"
-          aria-label="<%= aria_label %>">
-    <div data-pwpush--select-dropdown-target="menuButtonInner">
-      <% if current_locale.blank? %>
-        <span>🌎</span>
-      <% else %>
-        <% if current_flag.present? %>
-          <em class="fi fi-<%= current_flag %> me-2"></em>
-        <% end %>
-        <%= current_label %>
+<% end %>
+<ul class="dropdown-menu dropdown-menu-end w-75">
+  <li><span class="dropdown-item-text"><%= _('Secret Link Language') %></span></li>
+  <li><hr class="dropdown-divider"></li>
+  <% if Settings.language_codes %>
+    <li class="m-0 p-0">
+      <%= link_to url_for, class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
+        🌎 <%= _('Autodetect the recipient\'s language') %>
       <% end %>
-    </div>
-  </button>
-
-  <menu
-    data-pwpush--select-dropdown-target="menu"
-    class="<%= menu_classes %>"
-    role="menu"
-    aria-orientation="vertical"
-    tabindex="-1">
-    <div class="py-2" role="none">
-      <span class="d-block px-4 py-2 text-body"><%= heading %></span>
-      <hr class="dropdown-divider my-0">
-
-      <div class="m-0 p-0" role="menuitem" tabindex="-1">
-        <% if navigate %>
-          <%= link_to url_for, class: nav_item_class do %>
-            <span>🌎</span> <%= autodetect_label %>
-          <% end %>
-        <% else %>
-          <div
-            class="<%= form_item_class %>"
-            style="cursor: pointer;"
-            data-action="click->pwpush--select-dropdown#select"
-            data-lang="">
-            <span data-pwpush--select-dropdown-label class="d-inline"><span>🌎</span></span>
-            <%= autodetect_label %>
-          </div>
-        <% end %>
-      </div>
-
-      <ul class="overflow-y-auto list-unstyled m-0 d-flex flex-wrap" style="max-height: 450px;">
-        <% locales.each do |lang| %>
-          <% flag = Settings.country_codes[lang] %>
-          <% name = Settings.language_codes[lang] %>
-          <li class="<%= locale_col_class %>" role="menuitem" tabindex="-1">
-            <% if navigate %>
-              <%= link_to url_for(push_locale: lang), class: nav_item_class do %>
-                <em class="fi fi-<%= flag %> me-2"></em>
-                <%= name %>
+    </li>
+    <li class="p-0">
+      <div class="container p-0 m-0">
+        <div class="row overflow-y-auto p-0 m-0" style="max-height: 450px;">
+          <% I18n.available_locales.each do |lang| %>
+            <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
+              <%= link_to url_for(push_locale: lang), class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
+                <em class="fi fi-<%= Settings.country_codes[lang] %>"></em>
+                <%= Settings.language_codes[lang] %>
               <% end %>
-            <% else %>
-              <div
-                class="<%= form_item_class %> text-nowrap"
-                style="cursor: pointer;"
-                data-action="click->pwpush--select-dropdown#select"
-                data-lang="<%= lang %>">
-                <span data-pwpush--select-dropdown-label>
-                  <em class="fi fi-<%= flag %> me-2"></em>
-                  <%= name %>
-                </span>
-              </div>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </menu>
-</div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

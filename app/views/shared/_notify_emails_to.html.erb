@@ -7,17 +7,14 @@
         <span class="input-group-text">
           <i class="bi bi-envelope" aria-hidden="true"></i>
         </span>
-        <%= form_builder.text_field(:notify_emails_to, { class: "form-control",
-                                              placeholder: _('Enter email(s) separated by commas.'),
-                                              autocomplete: "off" }) %>
+        <%= form_builder.text_field(
+          :notify_emails_to,
+          class: "form-control",
+          placeholder: _('Enter email(s) separated by commas.'),
+          autocomplete: "off"
+        ) %>
         <% if form_builder && Settings.language_codes %>
-          <%= render "shared/push_locale_dropdown",
-              form: form_builder,
-              current_locale: form_builder.object.notify_emails_to_locale.presence,
-              heading: _('Send emails in the following language:'),
-              menu_extra_class: "notify-emails-locale-menu",
-              button_class: "btn btn-primary dropdown-toggle d-flex align-items-center gap-2 w-100",
-              button_style: "border-top-left-radius: 0; border-bottom-left-radius: 0;" %>
+          <%= render "shared/push_locale_dropdown" %>
         <% end %>
       </div>
     </div>
