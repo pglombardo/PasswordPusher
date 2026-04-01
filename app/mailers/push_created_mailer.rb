@@ -15,7 +15,7 @@ class PushCreatedMailer < ApplicationMailer
       @subject = "#{@push.user&.email.presence} #{_("has sent you a push")}"
       mail(
         from: Settings.brand.title || _("Password Pusher"),
-        to: Push.parse_emails(@push.notify_emails_to),
+        to: Pwpush::NotifyEmailsTo.parse_emails(@push.notify_emails_to),
         subject: @subject
       )
     end
