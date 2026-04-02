@@ -4,9 +4,9 @@ module FirstRunBootCode
   BOOT_CODE_FILE = Rails.root.join("storage", "first_run_boot_code.txt")
 
   class << self
-    # Generate a new boot code if no users exist
+    # Generate a new boot code when first run is required (see +needed?+)
     def generate_if_needed
-      return if User.any?
+      return unless needed?
 
       FileUtils.mkdir_p(File.dirname(BOOT_CODE_FILE))
 
@@ -51,7 +51,11 @@ module FirstRunBootCode
 
     # Check if first run is needed
     def needed?
-      User.none?
+      return false if User.any?
+
+      # Anonymous-only / no-account deployments (e.g. ephemeral containers): no admin user can be
+      # created via first run when logins and signups are both disabled, so skip the flow.
+      !(Settings.disable_logins && Settings.disable_signups)
     end
 
     private
