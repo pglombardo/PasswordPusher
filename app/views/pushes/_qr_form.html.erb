@@ -107,31 +107,6 @@
 
                 <hr class="my-3">
 
-                <%= render 'shared/additional_options' do %>
-                    <div class="list-group list-group-flush mx-0">
-                        <% if @push.settings_for_kind.enable_retrieval_step %>
-                            <label class="list-group-item d-flex gap-2 px-0 border-start-0 border-end-0">
-                            <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
-                                            checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
-                            <span>
-                                <%= _('Use a 1-click retrieval step') %>
-                                <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
-                            </span>
-                            </label>
-                        <% end %>
-                        <% if @push.settings_for_kind.enable_deletable_pushes %>
-                            <label class="list-group-item d-flex gap-2 px-0 border-start-0 border-end-0">
-                            <%= check_box_tag "push[deletable_by_viewer]", '1', @push.persisted? ? @push.deletable_by_viewer : @push.settings_for_kind.deletable_pushes_default,
-                                            checkbox_options_for_push(@push, "deletableByViewer", @push.settings_for_kind.deletable_pushes_default) %>
-                            <span>
-                                <%= _('Allow immediate deletion') %>
-                                <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
-                            </span>
-                            </label>
-                        <% end %>
-                    </div>
-                <% end %>
-
                 <div class="input-group mt-3">
                     <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
                     <%= f.text_field(:passphrase, { class: "form-control",
@@ -139,6 +114,32 @@
                                                     placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
             </div>
+
+            <%= render 'shared/additional_options' do %>
+                <div class="list-group list-group-flush mx-0">
+                    <% if @push.settings_for_kind.enable_retrieval_step %>
+                        <label class="list-group-item d-flex gap-2 px-0 border-start-0 border-end-0">
+                        <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default,
+                                        checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
+                        <span>
+                            <%= _('Use a 1-click retrieval step') %>
+                            <small class="d-block text-muted"><%= _('Helps to avoid chat systems and URL scanners from eating up views.') %></small>
+                        </span>
+                        </label>
+                    <% end %>
+                    <% if @push.settings_for_kind.enable_deletable_pushes %>
+                        <label class="list-group-item d-flex gap-2 px-0 border-start-0 border-end-0">
+                        <%= check_box_tag "push[deletable_by_viewer]", '1', @push.persisted? ? @push.deletable_by_viewer : @push.settings_for_kind.deletable_pushes_default,
+                                        checkbox_options_for_push(@push, "deletableByViewer", @push.settings_for_kind.deletable_pushes_default) %>
+                        <span>
+                            <%= _('Allow immediate deletion') %>
+                            <small class="d-block text-muted"><%= _('Allow users to delete this push once retrieved.') %></small>
+                        </span>
+                        </label>
+                    <% end %>
+                </div>
+            <% end %>
+
             <% unless action_name == 'edit' %>
                 <div id='cookie-save' class='text-muted small mt-3'>
                     <a data-action="click->knobs#saveSettings" href="#" class="text-decoration-none"><em class="bi bi-bookmark me-1"></em><%= _('Save') %></a> <%= _('the above settings as the page default.') %>
