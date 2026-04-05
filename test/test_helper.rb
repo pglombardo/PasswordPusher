@@ -58,6 +58,6 @@ module ActionDispatch
 end
 
 ActiveSupport::Testing::Parallelization.after_fork_hooks << lambda { |worker_number|
-  system_test_port = 45678 + worker_number.to_i
-  ENV["SYSTEM_TEST_PORT"] = system_test_port.to_s
+  test_port = 45678 + worker_number.to_i
+  ENV["TEST_PORT"] = test_port.to_s
 }

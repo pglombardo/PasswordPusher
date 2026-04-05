@@ -2,7 +2,7 @@
 
 module FirstRunBootCode
   BOOT_CODE_FILE = if Rails.env.test?
-    Rails.root.join("storage", "first_run_boot_code_#{ENV["SYSTEM_TEST_PORT"]}.txt")
+    Rails.root.join("storage", "first_run_boot_code_#{ENV["TEST_PORT"]}.txt")
   else
     Rails.root.join("storage", "first_run_boot_code.txt")
   end.freeze
