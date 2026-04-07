@@ -2,26 +2,9 @@ import * as ActiveStorage from "@rails/activestorage"
 
 import { Controller } from "@hotwired/stimulus"
 
-function formatBytes(bytes, decimals = 2) {
-  if (bytes === 0) return '0 Bytes'
-  const k = 1024
-  const dm = decimals < 0 ? 0 : decimals
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
-}
-
-function formatDuration(ms) {
-  if (!Number.isFinite(ms) || ms < 0) return ''
-  const sec = Math.floor(ms / 1000)
-  if (sec < 60) return `${sec}s`
-  const min = Math.floor(sec / 60)
-  const s = sec % 60
-  if (min < 60) return s > 0 ? `${min}m ${s}s` : `${min}m`
-  const h = Math.floor(min / 60)
-  const m = min % 60
-  return [h + 'h', m > 0 ? m + 'm' : '', s > 0 ? s + 's' : ''].filter(Boolean).join(' ')
-}
+import { formatBytes, formatDuration } from "../helpers/format_helpers"
+import { setProgressBarComplete, setProgressBarError, setProgressBarProgress } from "../helpers/progress_bar_helpers"
+import { cancelTusUploadOnServer, cloneTusUploadRow, parseTusUploadIdFromLocationHeader, setTusProgressDetails, signedIdFromTusSuccessPayload } from "../helpers/tus_upload_helpers"
 
 /** One file input per row for direct (non-TUS) uploads; cloning + DataTransfer avoids sharing one DOM node across rows. */
 function buildDirectUploadRowInput(templateInput, file) {
@@ -35,85 +18,6 @@ function buildDirectUploadRowInput(templateInput, file) {
   dt.items.add(file)
   input.files = dt.files
   return input
-}
-
-// Shared progress bar API for both direct and TUS uploads
-function setProgressBarProgress(el, percent) {
-  if (!el) return
-  el.setAttribute('aria-valuenow', String(percent))
-  el.style.width = percent + '%'
-}
-
-function setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel) {
-  if (!progressBar) return
-  const pct = bytesTotal > 0 ? Math.round((bytesUploaded / bytesTotal) * 100) : 0
-  setProgressBarProgress(progressBar, pct)
-  const row = progressBar.closest('li')
-  const sizeEl = row?.querySelector('.tus-row-size')
-  if (!sizeEl) return
-  if (bytesTotal > 0 && bytesUploaded >= bytesTotal) {
-    setTusFinalizing(row, sizeEl, finalizingLabel)
-  } else {
-    sizeEl.textContent = `${formatBytes(bytesUploaded)} of ${formatBytes(bytesTotal)}`
-  }
-}
-
-function setTusFinalizing(row, sizeEl, finalizingLabel) {
-  if (row?.dataset.tusFinalizing === 'true') return
-  row.dataset.tusFinalizing = 'true'
-  const label = finalizingLabel || 'Finalizing…'
-  sizeEl.textContent = ''
-  sizeEl.classList.add('d-flex', 'align-items-center', 'gap-1')
-  sizeEl.appendChild(document.createTextNode(label))
-  const spinner = document.createElement('span')
-  spinner.className = 'spinner-border spinner-border-sm'
-  spinner.setAttribute('role', 'status')
-  spinner.setAttribute('aria-hidden', 'true')
-  sizeEl.appendChild(spinner)
-  const bar = row.querySelector('.tus-row-progress-bar, [role="progressbar"]')
-  if (bar) bar.setAttribute('aria-label', label)
-}
-
-function parseTusUploadIdFromLocationHeader(location) {
-  if (!location) return null
-  try {
-    const pathname = new URL(location, window.location.origin).pathname
-    const parts = pathname.split('/').filter(Boolean)
-    const idx = parts.lastIndexOf('uploads')
-    if (idx >= 0 && parts[idx + 1]) return parts[idx + 1]
-  } catch (error) {
-    console.error('Error parsing TUS upload ID from location header:', error)
-  }
-  return null
-}
-
-function cancelTusUploadOnServer(uploadUrl) {
-  if (!uploadUrl) return
-  const url = uploadUrl.startsWith('http') ? uploadUrl : new URL(uploadUrl, window.location.origin).href
-  fetch(url, { method: 'DELETE', credentials: 'same-origin' }).catch(() => {})
-}
-
-function setProgressBarError(el, message) {
-  if (!el) return
-  el.classList.add('bg-danger')
-  const msg = message || 'Upload failed'
-  el.setAttribute('aria-label', msg)
-  const row = el.closest('li')
-  if (row) {
-    let errEl = row.querySelector('.upload-error-text')
-    if (!errEl) {
-      errEl = document.createElement('span')
-      errEl.className = 'upload-error-text text-danger small d-block mt-1'
-      row.appendChild(errEl)
-    }
-    errEl.textContent = msg
-    errEl.setAttribute('role', 'alert')
-  }
-}
-
-function setProgressBarComplete(el) {
-  if (!el) return
-  el.setAttribute('aria-label', 'Complete')
 }
 
 export default class extends Controller {
@@ -320,38 +224,7 @@ export default class extends Controller {
       const id = ++this.tusUploadId
       const fileName = file.name + ' (' + formatBytes(file.size) + ')'
 
-      let li, progressBar, pauseBtn, resumeBtn
-      let rowNode
-
-      if (tusTpl) {
-        rowNode = tusTpl.content.cloneNode(true)
-      } else {
-        const temp = document.createElement("template")
-        temp.innerHTML = `
-          <li class="list-group-item list-group-item-primary small tus-upload-row d-flex flex-wrap align-items-center gap-2">
-            <span class="badge bg-info text-nowrap">Resumable</span>
-            <span class="tus-row-name text-truncate small" style="min-width: 6em"></span>
-            <div class="progress flex-grow-1 tus-row-progress-wrap" style="height: 1.5rem; min-width: 80px">
-              <div class="progress-bar progress-bar-striped progress-bar-animated tus-row-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-            </div>
-            <span class="tus-row-size text-muted small text-nowrap" aria-hidden="true"></span>
-            <button type="button" class="btn btn-sm btn-outline-secondary d-none tus-row-pause" aria-label="Pause upload" title="Pause"><span class="bi bi-pause-fill"></span></button>
-            <button type="button" class="btn btn-sm btn-outline-success d-none tus-row-resume" aria-label="Resume upload" title="Resume"><span class="bi bi-play-fill"></span></button>
-          </li>
-        `
-        rowNode = temp.content.cloneNode(true)
-      }
-
-      li = rowNode.querySelector("li")
-      li.id = `progress-${id}`
-      rowNode.querySelector(".tus-row-name").textContent = file.name
-
-      progressBar = rowNode.querySelector(".tus-row-progress-bar") || rowNode.querySelector('[role="progressbar"]')
-      progressBar.id = `tus-upload-${id}`
-      progressBar.setAttribute("aria-label", file.name)
-
-      pauseBtn = rowNode.querySelector(".tus-row-pause")
-      resumeBtn = rowNode.querySelector(".tus-row-resume")
+      const { li, progressBar, pauseBtn, resumeBtn, rowNode } = cloneTusUploadRow(tusTpl, id, file)
 
       setTusProgressDetails(progressBar, 0, file.size)
       bars.append(rowNode)
@@ -384,7 +257,7 @@ export default class extends Controller {
             const finalizingLabel = this.hasFinalizingLabelValue ? this.finalizingLabelValue : null
             setTusProgressDetails(progressBar, bytesUploaded, bytesTotal, finalizingLabel)
           },
-          onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
+          onChunkComplete: (bytesAccepted, bytesTotal) => {
             if (bytesAccepted < bytesTotal) {
               if (pauseBtn && pauseBtn.classList.contains('d-none') && resumeBtn && resumeBtn.classList.contains('d-none')) {
                 pauseBtn.classList.remove('d-none')
@@ -394,8 +267,7 @@ export default class extends Controller {
           onSuccess: (payload) => {
             controller.activeUploadCount = Math.max(0, controller.activeUploadCount - 1)
             controller._dispatchUploadingState()
-            const res = payload?.lastResponse
-            const signedId = res?.getHeader?.('X-Signed-Id') ?? res?.getHeader?.('x-signed-id')
+            const signedId = signedIdFromTusSuccessPayload(payload)
             if (!signedId) {
               setProgressBarError(progressBar, "Missing signed ID")
               controller.fileCount -= 1

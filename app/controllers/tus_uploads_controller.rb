@@ -33,7 +33,6 @@ class TusUploadsController < ApplicationController
     register_tus_upload_in_session!(id)
 
     # Use relative URL so the client (browser) sends PATCH to the same origin
-    # (e.g. the reverse proxy on 80/443), avoiding unreachable internal URLs like localhost:5100.
     response.headers["Location"] = upload_path(id)
     response.headers["Upload-Offset"] = "0"
     response.headers["Upload-Length"] = upload_length.to_s
@@ -170,18 +169,15 @@ class TusUploadsController < ApplicationController
     head :not_found
   end
 
-  TUS_FINALIZED_CACHE_PREFIX = "tus_finalized/"
-  TUS_FINALIZED_CACHE_TTL = 2.minutes
-
   def finalized_upload_cache_read(upload_id)
-    Rails.cache.read("#{TUS_FINALIZED_CACHE_PREFIX}#{upload_id}")
+    Rails.cache.read("tus_finalized/#{upload_id}")
   end
 
   def finalized_upload_cache_write(upload_id, signed_id:, upload_length:, upload_offset:)
     Rails.cache.write(
-      "#{TUS_FINALIZED_CACHE_PREFIX}#{upload_id}",
+      "tus_finalized/#{upload_id}",
       {"signed_id" => signed_id, "upload_length" => upload_length, "upload_offset" => upload_offset},
-      expires_in: TUS_FINALIZED_CACHE_TTL
+      expires_in: 2.minutes
     )
   end
 
