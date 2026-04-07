@@ -25,6 +25,9 @@ ENV.keys.each do |key|
 end
 
 class ActiveSupport::TestCase
+  # Run tests in parallel with half of available processors
+  parallelize(workers: [Etc.nprocessors / 2, 1].max)
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
   # Add more helper methods to be used by all tests here...
@@ -53,3 +56,7 @@ module ActionDispatch
     include Devise::Test::IntegrationHelpers
   end
 end
+
+ActiveSupport::Testing::Parallelization.after_fork_hooks << lambda { |worker_number|
+  ENV["TEST_WORKER_NUMBER"] = worker_number.to_s
+}

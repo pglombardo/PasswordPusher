@@ -3,6 +3,22 @@
 require "application_system_test_case"
 
 class FirstRunTest < ApplicationSystemTestCase
+  def run
+    stub_boot_code_file do
+      super
+    end
+  end
+
+  # Stub the boot code file to ensure that all parallelization tests are run independently
+  def stub_boot_code_file
+    boot_code_file = FirstRunBootCode::BOOT_CODE_FILE.dup
+    boot_code_file = boot_code_file.sub(".txt", "_#{ENV.fetch("TEST_WORKER_NUMBER", "")}.txt")
+
+    stub_const(FirstRunBootCode, :BOOT_CODE_FILE, boot_code_file) do
+      yield
+    end
+  end
+
   setup do
     Settings.disable_signups = false
     Rails.application.reload_routes!
