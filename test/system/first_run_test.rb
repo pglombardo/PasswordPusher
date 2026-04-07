@@ -3,13 +3,6 @@
 require "application_system_test_case"
 
 class FirstRunTest < ApplicationSystemTestCase
-  # This method is used to ensure that all parallelization tests are run independently
-  # setup and teardown are run as a part of super;
-  # So, the order of execution is:
-  # 1. stub_boot_code_file
-  # 2. setup
-  # 3. inside of test
-  # 4. teardown
   def run
     stub_boot_code_file do
       super
