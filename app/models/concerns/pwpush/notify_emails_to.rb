@@ -17,8 +17,7 @@ module Pwpush
       raw.to_s.split(",").map(&:strip).reject(&:blank?)
     end
 
-    # Send creation email when notify_emails_to is present (developer feedback: run inline).
-    # (OSS: always allow; Pro gates with account_is_premium?)
+    # Send creation email when notify_emails_to is present
     def send_creation_emails
       return nil if notify_emails_to.blank?
 
