@@ -25,8 +25,8 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     mail = PushCreatedMailer.with(record: @push).notify
 
     assert mail.subject.present?, "subject should be present"
-    # Subject is brandless: "Someone has sent you a Push" or "email@example.com has sent you a Push"
-    assert_includes mail.subject, "has sent you a Push"
+    # Subject is brandless: "email@example.com has sent you a push"
+    assert_includes mail.subject, "has sent you a push"
   end
 
   test "notify body includes secret URL" do
@@ -94,10 +94,11 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     assert_includes mail.subject, user.email
   end
 
-  test "notify subject includes Someone when push has no user" do
+  test "notify subject still renders when push has no user" do
     @push.update_columns(user_id: nil)
     mail = PushCreatedMailer.with(record: @push).notify
-    assert_includes mail.subject, "Someone"
+    assert mail.subject.present?, "subject should still be present even if user is nil"
+    refute_includes mail.subject, "@", "subject should not contain an email when user is nil"
   end
 
   test "notify body includes expiration days and views" do

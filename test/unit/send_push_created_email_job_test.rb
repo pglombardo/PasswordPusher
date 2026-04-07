@@ -71,11 +71,11 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     end
   end
 
-  test "perform sends mail with subject containing has sent you a Push" do
+  test "perform sends mail with subject containing has sent you a push" do
     SendPushCreatedEmailJob.perform_now(@push.id)
     mail = ActionMailer::Base.deliveries.last
     assert mail.subject.present?
-    assert_includes mail.subject, "has sent you a Push"
+      assert_includes mail.subject, "has sent you a push"
   end
 
   test "perform sends mail body containing push secret URL" do

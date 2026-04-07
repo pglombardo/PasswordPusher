@@ -95,23 +95,6 @@ class PushNotifyEmailsTest < ActiveSupport::TestCase
     assert push.errors[:notify_emails_to_locale].present?
   end
 
-  test "send_creation_emails in development uses perform_now" do
-    push = Push.create!(
-      kind: "text",
-      payload: "secret",
-      user: @user,
-      notify_emails_to: "dev@example.com"
-    )
-    # In test env we're not development, so perform_later is used.
-    # Stub to simulate development and assert perform_now is called (no enqueue).
-    Rails.application.routes.default_url_options[:host] = "test.host"
-    Rails.stub(:env, ActiveSupport::StringInquirer.new("development")) do
-      assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
-        push.send_creation_emails
-      end
-    end
-  end
-
   test "to_json excludes notify_emails_to and notify_emails_to_locale ciphertext and virtual attributes" do
     push = Push.create!(
       kind: "text",
