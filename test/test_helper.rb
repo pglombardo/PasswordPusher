@@ -26,7 +26,7 @@ end
 
 class ActiveSupport::TestCase
   # Run tests in parallel with half of available processors
-  parallelize(workers: [Etc.nprocessors / 2, 1].max)
+  parallelize(workers: [Etc.nprocessors / 2, 1].max, threshold: 0)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -58,6 +58,5 @@ module ActionDispatch
 end
 
 ActiveSupport::Testing::Parallelization.after_fork_hooks << lambda { |worker_number|
-  test_port = 45678 + worker_number.to_i
-  ENV["TEST_PORT"] = test_port.to_s
+  ENV["TEST_WORKER_NUMBER"] = worker_number.to_s
 }
