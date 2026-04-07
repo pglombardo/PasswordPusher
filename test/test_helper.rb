@@ -26,7 +26,7 @@ end
 
 class ActiveSupport::TestCase
   # Run tests in parallel with half of available processors
-  parallelize(workers: [Etc.nprocessors / 2, 1].max, threshold: 0)
+  parallelize(workers: [Etc.nprocessors / 2, 1].max)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
