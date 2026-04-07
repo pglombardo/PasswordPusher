@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 module FirstRunBootCode
-  BOOT_CODE_FILE = if Rails.env.test?
-    Rails.root.join("storage", "first_run_boot_code_#{ENV["TEST_PORT"]}.txt")
-  else
-    Rails.root.join("storage", "first_run_boot_code.txt")
-  end.freeze
+  BOOT_CODE_FILE = Rails.root.join("storage", "first_run_boot_code.txt")
 
   class << self
     # Generate a new boot code when first run is required (see +needed?+)
