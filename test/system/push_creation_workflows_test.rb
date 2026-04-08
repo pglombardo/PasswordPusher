@@ -72,6 +72,9 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
   test "password push creation with retrieval step enabled" do
     visit new_push_path(tab: "text")
 
+    click_button "Show / Hide"
+    assert_selector "#additionalOptionsCollapse.show"
+
     fill_in "push_payload", with: "TestPassword"
     check "push_retrieval_step"
 
