@@ -18,6 +18,7 @@ class ApplicationHelperTest < ActionView::TestCase
     Settings.brand.title = @original_title
     Settings.enabled_language_codes = @original_enabled_language_codes
     Settings.override_base_url = @original_override_base_url
+    ENV.delete("FORCE_SSL")
   end
 
   # Test title method
