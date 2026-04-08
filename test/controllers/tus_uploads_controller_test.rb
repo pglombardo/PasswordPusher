@@ -489,7 +489,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     if defined?(upload_id) && TusUploadStore.valid_id?(upload_id.to_s)
       begin
         TusUploadStore.new(upload_id).destroy!
-      rescue StandardError
+      rescue
         nil
       end
     end
