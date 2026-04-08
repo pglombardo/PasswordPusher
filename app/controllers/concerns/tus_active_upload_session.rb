@@ -19,6 +19,7 @@ module TusActiveUploadSession
   def register_tus_upload_in_session!(id)
     list = tus_upload_id_list
     return if list.include?(id)
+    # Defense in depth: create also rejects when the session is full (409 before register).
     return if list.size >= MAX_TRACKED_SESSION_UPLOADS
 
     list << id

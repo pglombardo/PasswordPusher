@@ -52,92 +52,34 @@ class TusUploadsController < ApplicationController
   # HEAD /uploads/:id   — status
   def update
     id = params[:id]
-    unless TusUploadStore.valid_id?(id)
-      return head :not_found
-    end
+    return head :not_found unless TusUploadStore.valid_id?(id)
+
     store = TusUploadStore.new(id)
+    return handle_tus_head(store) if request.head?
+    return head :method_not_allowed unless request.patch?
 
-    if request.head?
-      return head :not_found unless store.exist?
-      return head :not_found unless tus_upload_owned_by_current_user?(store)
-      response.headers["Upload-Offset"] = store.upload_offset.to_s
-      response.headers["Upload-Length"] = store.upload_length.to_s
-      return head :no_content
-    end
-
-    # PATCH
-    unless request.patch?
-      return head :method_not_allowed
-    end
-
-    content_length = request.content_length
     max_chunk = helpers.tus_chunk_size_bytes
-    if content_length.present?
-      if max_chunk.positive? && content_length > max_chunk
-        return head :payload_too_large
-      end
-    end
+    return head :payload_too_large if tus_patch_content_length_exceeds_chunk_limit?(max_chunk)
     # When Content-Length is absent (e.g. chunked encoding), we still enforce max_chunk
     # in the store by limiting how many bytes we read from the body.
 
-    unless store.exist?
-      # Retry of final PATCH after we already finalized: return success so client gets X-Signed-Id
-      finalized = finalized_upload_cache_read(id)
-      if finalized && finalized_upload_cache_owned_by_current_user?(finalized)
-        response.headers["Upload-Offset"] = finalized["upload_offset"].to_s
-        response.headers["Upload-Length"] = finalized["upload_length"].to_s
-        response.headers["X-Signed-Id"] = finalized["signed_id"]
-        return head :no_content
-      end
-      return head :not_found
-    end
+    return respond_tus_patch_nonexistent_store(id) unless store.exist?
+
     return head :not_found unless tus_upload_owned_by_current_user?(store)
     return head :gone if store.complete?
 
-    raw_offset = request.headers["Upload-Offset"]
-    if raw_offset.blank? || !raw_offset.to_s.strip.match?(/\A\d+\z/)
-      return head :bad_request
-    end
-    expected_offset = raw_offset.to_s.strip.to_i
+    expected_offset = parse_upload_offset_header
+    return head :bad_request if expected_offset.nil?
 
-    begin
-      new_offset = store.append_chunk!(
-        offset: expected_offset,
-        io: request.body,
-        max_bytes: max_chunk.positive? ? max_chunk : nil
-      )
-    rescue TusUploadStore::OffsetMismatch => e
-      response.headers["Upload-Offset"] = e.current_offset.to_s
-      return head :conflict
-    rescue TusUploadStore::NotFound
-      return head :not_found
-    end
+    new_offset = append_tus_chunk_or_abort!(store, expected_offset, max_chunk)
+    return if performed?
 
     if store.complete?
-      begin
-        upload_length = store.upload_length
-        blob = store.finalize_to_blob!
-        release_tus_upload_from_session!(id)
-        finalized_upload_cache_write(
-          id,
-          signed_id: blob.signed_id,
-          upload_length: upload_length,
-          upload_offset: new_offset,
-          user_id: current_user.id
-        )
-        response.headers["Upload-Offset"] = new_offset.to_s
-        response.headers["Upload-Length"] = upload_length.to_s
-        response.headers["X-Signed-Id"] = blob.signed_id
-        return head :no_content
-      rescue TusUploadStore::NotFound
-        return head :not_found
-      rescue ArgumentError => e
-        return head :gone if e.message&.include?("upload not complete")
-        raise
-      end
+      finalize_and_cache_tus_upload!(store, id, new_offset)
+      return
     end
 
-    response.headers["Upload-Offset"] = new_offset.to_s
+    assign_tus_progress_headers!(offset: new_offset)
     head :no_content
   end
 
@@ -158,6 +100,86 @@ class TusUploadsController < ApplicationController
   end
 
   private
+
+  def handle_tus_head(store)
+    return head :not_found unless store.exist?
+    return head :not_found unless tus_upload_owned_by_current_user?(store)
+
+    assign_tus_progress_headers!(offset: store.upload_offset, length: store.upload_length)
+    head :no_content
+  end
+
+  def tus_patch_content_length_exceeds_chunk_limit?(max_chunk)
+    content_length = request.content_length
+    return false unless content_length.present? && max_chunk.positive?
+
+    content_length > max_chunk
+  end
+
+  def respond_tus_patch_nonexistent_store(id)
+    # Retry of final PATCH after we already finalized: return success so client gets X-Signed-Id
+    finalized = finalized_upload_cache_read(id)
+    if finalized && finalized_upload_cache_owned_by_current_user?(finalized)
+      assign_tus_progress_headers!(
+        offset: finalized["upload_offset"],
+        length: finalized["upload_length"],
+        signed_id: finalized["signed_id"]
+      )
+      head :no_content
+    else
+      head :not_found
+    end
+  end
+
+  def parse_upload_offset_header
+    raw = request.headers["Upload-Offset"]
+    return nil if raw.blank? || !raw.to_s.strip.match?(/\A\d+\z/)
+
+    raw.to_s.strip.to_i
+  end
+
+  def append_tus_chunk_or_abort!(store, expected_offset, max_chunk)
+    store.append_chunk!(
+      offset: expected_offset,
+      io: request.body,
+      max_bytes: max_chunk.positive? ? max_chunk : nil
+    )
+  rescue TusUploadStore::OffsetMismatch => e
+    response.headers["Upload-Offset"] = e.current_offset.to_s
+    head :conflict
+    nil
+  rescue TusUploadStore::NotFound
+    head :not_found
+    nil
+  end
+
+  def finalize_and_cache_tus_upload!(store, id, new_offset)
+    upload_length = store.upload_length
+    blob = store.finalize_to_blob!
+    release_tus_upload_from_session!(id)
+    finalized_upload_cache_write(
+      id,
+      signed_id: blob.signed_id,
+      upload_length: upload_length,
+      upload_offset: new_offset,
+      user_id: current_user.id
+    )
+    assign_tus_progress_headers!(offset: new_offset, length: upload_length, signed_id: blob.signed_id)
+    head :no_content
+  rescue TusUploadStore::NotFound
+    head :not_found
+  rescue ArgumentError => e
+    return head :gone if e.message&.include?("upload not complete")
+
+    raise
+  end
+
+  # Sets Upload-Offset always; Upload-Length and X-Signed-Id only when provided (partial PATCH omits length).
+  def assign_tus_progress_headers!(offset:, length: nil, signed_id: nil)
+    response.headers["Upload-Offset"] = offset.to_s
+    response.headers["Upload-Length"] = length.to_s unless length.nil?
+    response.headers["X-Signed-Id"] = signed_id if signed_id
+  end
 
   def reject_cross_origin_tus_requests
     origin = request.headers["Origin"].presence
@@ -208,6 +230,7 @@ class TusUploadsController < ApplicationController
     owner_id.present? && owner_id == current_user.id
   end
 
+  # Used when tmp data is gone but the client retries the final PATCH; cache must match + current user.
   def finalized_upload_cache_owned_by_current_user?(finalized)
     finalized["user_id"].to_i == current_user.id
   end

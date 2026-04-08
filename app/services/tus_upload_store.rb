@@ -3,6 +3,8 @@
 # Manages temporary TUS upload state and chunk storage under tmp/uploads/<id>/.
 # No user-defined paths; id is server-generated only. Client-supplied ids (PATCH/HEAD)
 # must pass valid_id? to prevent path traversal.
+#
+# meta.json fields: upload_length, upload_offset, user_id, filename, content_type, created_at
 class TusUploadStore
   class NotFound < StandardError; end
 
