@@ -87,8 +87,7 @@ class TusUploadStore
   # User that created this upload (for authorization). Nil if key missing (legacy tmp dirs).
   def meta_upload_user_id
     return nil unless exist?
-    uid = meta["user_id"]
-    uid.nil? ? nil : uid.to_i
+    meta["user_id"]&.to_i
   end
 
   # Append at most the remaining bytes (upload_length - current offset), and optionally

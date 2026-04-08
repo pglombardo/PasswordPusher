@@ -487,7 +487,11 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
   ensure
     sign_in @user
     if defined?(upload_id) && TusUploadStore.valid_id?(upload_id.to_s)
-      TusUploadStore.new(upload_id).destroy! rescue nil
+      begin
+        TusUploadStore.new(upload_id).destroy!
+      rescue StandardError
+        nil
+      end
     end
   end
 
@@ -521,7 +525,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     head upload_path(upload_id)
     assert_response :not_found
   ensure
-    FileUtils.rm_rf(base) if base && base.exist?
+    FileUtils.rm_rf(base) if base&.exist?
   end
 
   # ---- session tus_active_upload_ids (block push while uploads in progress) ----
