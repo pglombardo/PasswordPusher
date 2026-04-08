@@ -26,9 +26,18 @@ class TusUploadsController < ApplicationController
 
     filename, content_type = parse_upload_metadata(request.headers["Upload-Metadata"])
 
+    if tus_upload_id_list.size >= TusActiveUploadSession::MAX_TRACKED_SESSION_UPLOADS
+      return head :conflict
+    end
+
     id = TusUploadStore.generate_id
     store = TusUploadStore.new(id)
-    store.create!(upload_length: upload_length, filename: filename, content_type: content_type)
+    store.create!(
+      upload_length: upload_length,
+      user_id: current_user.id,
+      filename: filename,
+      content_type: content_type
+    )
 
     register_tus_upload_in_session!(id)
 
@@ -50,6 +59,7 @@ class TusUploadsController < ApplicationController
 
     if request.head?
       return head :not_found unless store.exist?
+      return head :not_found unless tus_upload_owned_by_current_user?(store)
       response.headers["Upload-Offset"] = store.upload_offset.to_s
       response.headers["Upload-Length"] = store.upload_length.to_s
       return head :no_content
@@ -73,7 +83,7 @@ class TusUploadsController < ApplicationController
     unless store.exist?
       # Retry of final PATCH after we already finalized: return success so client gets X-Signed-Id
       finalized = finalized_upload_cache_read(id)
-      if finalized
+      if finalized && finalized_upload_cache_owned_by_current_user?(finalized)
         response.headers["Upload-Offset"] = finalized["upload_offset"].to_s
         response.headers["Upload-Length"] = finalized["upload_length"].to_s
         response.headers["X-Signed-Id"] = finalized["signed_id"]
@@ -81,6 +91,7 @@ class TusUploadsController < ApplicationController
       end
       return head :not_found
     end
+    return head :not_found unless tus_upload_owned_by_current_user?(store)
     return head :gone if store.complete?
 
     raw_offset = request.headers["Upload-Offset"]
@@ -107,7 +118,13 @@ class TusUploadsController < ApplicationController
         upload_length = store.upload_length
         blob = store.finalize_to_blob!
         release_tus_upload_from_session!(id)
-        finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset)
+        finalized_upload_cache_write(
+          id,
+          signed_id: blob.signed_id,
+          upload_length: upload_length,
+          upload_offset: new_offset,
+          user_id: current_user.id
+        )
         response.headers["Upload-Offset"] = new_offset.to_s
         response.headers["Upload-Length"] = upload_length.to_s
         response.headers["X-Signed-Id"] = blob.signed_id
@@ -130,12 +147,12 @@ class TusUploadsController < ApplicationController
     unless TusUploadStore.valid_id?(id)
       return head :not_found
     end
-    unless tus_upload_session_tracked?(id)
-      return head :not_found
-    end
 
     store = TusUploadStore.new(id)
-    store.destroy! if store.exist?
+    return head :not_found unless store.exist?
+    return head :not_found unless tus_upload_owned_by_current_user?(store)
+
+    store.destroy!
     release_tus_upload_from_session!(id)
     head :no_content
   end
@@ -173,12 +190,26 @@ class TusUploadsController < ApplicationController
     Rails.cache.read("tus_finalized/#{upload_id}")
   end
 
-  def finalized_upload_cache_write(upload_id, signed_id:, upload_length:, upload_offset:)
+  def finalized_upload_cache_write(upload_id, signed_id:, upload_length:, upload_offset:, user_id:)
     Rails.cache.write(
       "tus_finalized/#{upload_id}",
-      {"signed_id" => signed_id, "upload_length" => upload_length, "upload_offset" => upload_offset},
+      {
+        "signed_id" => signed_id,
+        "upload_length" => upload_length,
+        "upload_offset" => upload_offset,
+        "user_id" => user_id
+      },
       expires_in: 2.minutes
     )
+  end
+
+  def tus_upload_owned_by_current_user?(store)
+    owner_id = store.meta_upload_user_id
+    owner_id.present? && owner_id == current_user.id
+  end
+
+  def finalized_upload_cache_owned_by_current_user?(finalized)
+    finalized["user_id"].to_i == current_user.id
   end
 
   # TUS Upload-Metadata: comma-separated "key base64value" pairs

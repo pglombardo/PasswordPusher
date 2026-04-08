@@ -57,28 +57,35 @@ class TusUploadStoreTest < ActiveSupport::TestCase
 
   # ---- create! ----
   test "create! persists meta and returns self" do
-    result = @store.create!(upload_length: 100, filename: "a.txt", content_type: "text/plain")
+    result = @store.create!(user_id: 999, upload_length: 100, filename: "a.txt", content_type: "text/plain")
     assert_equal @store, result
     assert @store.exist?
     assert_equal 100, @store.upload_length
     assert_equal 0, @store.upload_offset
     m = @store.send(:meta)
+    assert_equal 999, m["user_id"]
     assert_equal "a.txt", m["filename"]
     assert_equal "text/plain", m["content_type"]
     assert m["created_at"].present?
   end
 
+  test "create! raises when user_id is nil" do
+    assert_raises(ArgumentError, "user_id required") do
+      @store.create!(upload_length: 5, user_id: nil)
+    end
+  end
+
   test "create! raises when upload_length is blank" do
     assert_raises(ArgumentError, "upload_length required") do
-      @store.create!(upload_length: nil)
+      @store.create!(user_id: 999, upload_length: nil)
     end
     assert_raises(ArgumentError, "upload_length required") do
-      @store.create!(upload_length: "")
+      @store.create!(user_id: 999, upload_length: "")
     end
   end
 
   test "create! accepts optional filename and content_type as nil" do
-    @store.create!(upload_length: 5)
+    @store.create!(user_id: 999, upload_length: 5)
     assert @store.exist?
     m = @store.send(:meta)
     assert_nil m["filename"]
@@ -91,7 +98,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "exist? is true after create" do
-    @store.create!(upload_length: 1)
+    @store.create!(user_id: 999, upload_length: 1)
     assert @store.exist?
   end
 
@@ -105,9 +112,18 @@ class TusUploadStoreTest < ActiveSupport::TestCase
     assert_raises(TusUploadStore::NotFound) { @store.upload_offset }
   end
 
+  test "meta_upload_user_id returns nil when no meta file" do
+    assert_nil @store.meta_upload_user_id
+  end
+
+  test "meta_upload_user_id returns stored user id" do
+    @store.create!(user_id: 42, upload_length: 1)
+    assert_equal 42, @store.meta_upload_user_id
+  end
+
   # ---- append_chunk! ----
   test "append_chunk! appends data and returns new offset" do
-    @store.create!(upload_length: 10)
+    @store.create!(user_id: 999, upload_length: 10)
     new_offset = @store.append_chunk!(offset: 0, io: StringIO.new("hello"))
     assert_equal 5, new_offset
     assert_equal 5, @store.upload_offset
@@ -115,7 +131,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "append_chunk! appends second chunk when offset matches" do
-    @store.create!(upload_length: 10)
+    @store.create!(user_id: 999, upload_length: 10)
     @store.append_chunk!(offset: 0, io: StringIO.new("he"))
     new_offset = @store.append_chunk!(offset: 2, io: StringIO.new("llo"))
     assert_equal 5, new_offset
@@ -123,7 +139,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "append_chunk! raises OffsetMismatch when offset does not match" do
-    @store.create!(upload_length: 10)
+    @store.create!(user_id: 999, upload_length: 10)
     @store.append_chunk!(offset: 0, io: StringIO.new("ab"))
     err = assert_raises(TusUploadStore::OffsetMismatch) do
       @store.append_chunk!(offset: 0, io: StringIO.new("x"))
@@ -138,7 +154,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "append_chunk! with concurrent call one succeeds one gets OffsetMismatch" do
-    @store.create!(upload_length: 10)
+    @store.create!(user_id: 999, upload_length: 10)
     results = []
     run = lambda do |payload|
       @store.append_chunk!(offset: 0, io: StringIO.new(payload))
@@ -161,13 +177,13 @@ class TusUploadStoreTest < ActiveSupport::TestCase
 
   # ---- complete? ----
   test "complete? is false when offset less than length" do
-    @store.create!(upload_length: 5)
+    @store.create!(user_id: 999, upload_length: 5)
     @store.append_chunk!(offset: 0, io: StringIO.new("ab"))
     assert_not @store.complete?
   end
 
   test "complete? is true when offset equals length" do
-    @store.create!(upload_length: 5)
+    @store.create!(user_id: 999, upload_length: 5)
     @store.append_chunk!(offset: 0, io: StringIO.new("hello"))
     assert @store.complete?
   end
@@ -178,7 +194,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
 
   # ---- finalize_to_blob! ----
   test "finalize_to_blob! creates blob and destroys store" do
-    @store.create!(upload_length: 4, filename: "f.bin", content_type: "application/octet-stream")
+    @store.create!(user_id: 999, upload_length: 4, filename: "f.bin", content_type: "application/octet-stream")
     @store.append_chunk!(offset: 0, io: StringIO.new("data"))
     blob = @store.finalize_to_blob!
     assert blob.present?
@@ -189,7 +205,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "finalize_to_blob! uses default filename and content_type when missing" do
-    @store.create!(upload_length: 2)
+    @store.create!(user_id: 999, upload_length: 2)
     @store.append_chunk!(offset: 0, io: StringIO.new("xy"))
     blob = @store.finalize_to_blob!
     assert_equal "upload", blob.filename.to_s
@@ -197,7 +213,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "finalize_to_blob! raises ArgumentError when upload not complete" do
-    @store.create!(upload_length: 10)
+    @store.create!(user_id: 999, upload_length: 10)
     @store.append_chunk!(offset: 0, io: StringIO.new("ab"))
     assert_raises(ArgumentError, "upload not complete") do
       @store.finalize_to_blob!
@@ -211,7 +227,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
 
   # ---- destroy! ----
   test "destroy! removes directory" do
-    @store.create!(upload_length: 1)
+    @store.create!(user_id: 999, upload_length: 1)
     assert @store.exist?
     @store.destroy!
     assert_not @store.exist?
@@ -225,18 +241,19 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   # ---- cleanup_stale! ----
   test "cleanup_stale! removes uploads older than ttl" do
     store_old = TusUploadStore.new(TusUploadStore.generate_id)
-    store_old.create!(upload_length: 1)
+    store_old.create!(user_id: 1, upload_length: 1)
     meta_path = store_old.meta_path
     File.write(meta_path, {
       "upload_length" => 1,
       "upload_offset" => 0,
+      "user_id" => 1,
       "filename" => nil,
       "content_type" => nil,
       "created_at" => (Time.current - 86400 * 2).utc.iso8601
     }.to_json)
 
     store_new = TusUploadStore.new(TusUploadStore.generate_id)
-    store_new.create!(upload_length: 1)
+    store_new.create!(user_id: 1, upload_length: 1)
 
     TusUploadStore.cleanup_stale!(ttl_seconds: 86400)
 
@@ -248,7 +265,7 @@ class TusUploadStoreTest < ActiveSupport::TestCase
   end
 
   test "cleanup_stale! keeps uploads within ttl" do
-    @store.create!(upload_length: 1)
+    @store.create!(user_id: 999, upload_length: 1)
     TusUploadStore.cleanup_stale!(ttl_seconds: 86400)
     assert @store.exist?
   end

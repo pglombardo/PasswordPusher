@@ -407,7 +407,7 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     # Upload was finalized and destroyed. Create a new upload with same id that is complete
     # but not finalized (simulates race or duplicate final chunk).
     store = TusUploadStore.new(upload_id)
-    store.create!(upload_length: 1, filename: "x.txt")
+    store.create!(user_id: @user.id, upload_length: 1, filename: "x.txt")
     store.append_chunk!(offset: 0, io: StringIO.new("x"))
     patch_tus_chunk(upload_id, "y", offset: 1)
     assert_response :gone
@@ -460,6 +460,68 @@ class TusUploadsControllerTest < ActionDispatch::IntegrationTest
     end
   ensure
     store&.destroy! if defined?(store) && store.respond_to?(:exist?) && store.exist?
+  end
+
+  # ---- upload owner binding ----
+
+  test "POST create returns 409 when five uploads already tracked in session" do
+    5.times { create_tus_upload(upload_length: 1) }
+    post uploads_path, headers: {"Upload-Length" => "1"}
+    assert_response :conflict
+  end
+
+  test "HEAD PATCH DELETE return 404 when upload belongs to another user" do
+    upload_id = create_tus_upload(upload_length: 2)
+    other = users(:one)
+    assert_not_equal @user.id, other.id
+    sign_in other
+
+    head upload_path(upload_id)
+    assert_response :not_found
+
+    patch_tus_chunk(upload_id, "ab")
+    assert_response :not_found
+
+    delete upload_path(upload_id)
+    assert_response :not_found
+  ensure
+    sign_in @user
+    if defined?(upload_id) && TusUploadStore.valid_id?(upload_id.to_s)
+      TusUploadStore.new(upload_id).destroy! rescue nil
+    end
+  end
+
+  test "PATCH finalized cache replay returns 404 for non-owner" do
+    upload_id = create_tus_upload(upload_length: 3)
+    patch_tus_chunk(upload_id, "abc")
+    assert_response :no_content
+    assert response.headers["X-Signed-Id"].present?
+
+    other = users(:one)
+    sign_in other
+    patch_tus_chunk(upload_id, "", offset: 3)
+    assert_response :not_found
+    assert_nil response.headers["X-Signed-Id"]
+  ensure
+    sign_in @user
+  end
+
+  test "HEAD returns 404 for upload with legacy meta missing user_id" do
+    upload_id = TusUploadStore.generate_id
+    base = TusUploadStore.root.join(upload_id)
+    FileUtils.mkdir_p(base)
+    File.write(base.join("meta.json"), {
+      "upload_length" => 1,
+      "upload_offset" => 0,
+      "filename" => nil,
+      "content_type" => nil,
+      "created_at" => Time.current.utc.iso8601
+    }.to_json)
+
+    head upload_path(upload_id)
+    assert_response :not_found
+  ensure
+    FileUtils.rm_rf(base) if base && base.exist?
   end
 
   # ---- session tus_active_upload_ids (block push while uploads in progress) ----

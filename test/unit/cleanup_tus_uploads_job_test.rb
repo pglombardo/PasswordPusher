@@ -17,11 +17,12 @@ class CleanupTusUploadsJobTest < ActiveSupport::TestCase
     Settings.enable_file_pushes = false
     # Create a stale upload; if job ran cleanup it would be removed
     store = TusUploadStore.new(TusUploadStore.generate_id)
-    store.create!(upload_length: 1)
+    store.create!(user_id: 1, upload_length: 1)
     meta_path = store.meta_path
     File.write(meta_path, {
       "upload_length" => 1,
       "upload_offset" => 0,
+      "user_id" => 1,
       "filename" => nil,
       "content_type" => nil,
       "created_at" => (Time.current - 86400 * 2).utc.iso8601
@@ -39,11 +40,12 @@ class CleanupTusUploadsJobTest < ActiveSupport::TestCase
     Settings.enable_file_pushes = true
     Settings.files.tus_upload_ttl = 86400
     store = TusUploadStore.new(TusUploadStore.generate_id)
-    store.create!(upload_length: 1)
+    store.create!(user_id: 1, upload_length: 1)
     meta_path = store.meta_path
     File.write(meta_path, {
       "upload_length" => 1,
       "upload_offset" => 0,
+      "user_id" => 1,
       "filename" => nil,
       "content_type" => nil,
       "created_at" => (Time.current - 86400 * 2).utc.iso8601
@@ -59,11 +61,12 @@ class CleanupTusUploadsJobTest < ActiveSupport::TestCase
     Settings.enable_file_pushes = true
     Settings.files.tus_upload_ttl = nil
     store = TusUploadStore.new(TusUploadStore.generate_id)
-    store.create!(upload_length: 1)
+    store.create!(user_id: 1, upload_length: 1)
     meta_path = store.meta_path
     File.write(meta_path, {
       "upload_length" => 1,
       "upload_offset" => 0,
+      "user_id" => 1,
       "filename" => nil,
       "content_type" => nil,
       "created_at" => (Time.current - 86400 * 2).utc.iso8601

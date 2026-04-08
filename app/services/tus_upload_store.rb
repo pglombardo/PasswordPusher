@@ -50,13 +50,15 @@ class TusUploadStore
     @base.join("meta.json")
   end
 
-  def create!(upload_length:, filename: nil, content_type: nil)
+  def create!(upload_length:, user_id:, filename: nil, content_type: nil)
     raise ArgumentError, "upload_length required" if upload_length.blank?
+    raise ArgumentError, "user_id required" if user_id.nil?
 
     FileUtils.mkdir_p(@base)
     meta = {
       "upload_length" => upload_length.to_i,
       "upload_offset" => 0,
+      "user_id" => user_id.to_i,
       "filename" => filename.presence,
       "content_type" => content_type.presence,
       "created_at" => Time.current.utc.iso8601
@@ -80,6 +82,13 @@ class TusUploadStore
 
   def upload_offset
     meta["upload_offset"].to_i
+  end
+
+  # User that created this upload (for authorization). Nil if key missing (legacy tmp dirs).
+  def meta_upload_user_id
+    return nil unless exist?
+    uid = meta["user_id"]
+    uid.nil? ? nil : uid.to_i
   end
 
   # Append at most the remaining bytes (upload_length - current offset), and optionally

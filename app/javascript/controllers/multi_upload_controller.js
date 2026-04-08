@@ -36,6 +36,7 @@ export default class extends Controller {
     tusEndpoint: String,
     tusChunkSize: Number,
     filesInputName: String,
+    tusSessionFullMessage: { type: String, default: "Too many uploads in progress. Finish or remove an upload before adding another." },
   }
 
   connect() {
@@ -251,6 +252,9 @@ export default class extends Controller {
             if (req.getMethod() === 'POST' && res.getStatus() === 201) {
               const sid = parseTusUploadIdFromLocationHeader(res.getHeader('Location'))
               if (sid) li.dataset.tusServerUploadId = sid
+            }
+            if (req.getMethod() === 'POST' && res.getStatus() === 409) {
+              throw new Error(controller.tusSessionFullMessageValue)
             }
           },
           onProgress: (bytesUploaded, bytesTotal) => {
