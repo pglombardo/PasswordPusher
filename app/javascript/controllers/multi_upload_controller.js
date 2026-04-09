@@ -200,6 +200,8 @@ export default class extends Controller {
       const trashLink = document.createElement("a")
       trashLink.setAttribute("data-action", "multi-upload#removeFile")
       trashLink.setAttribute("href", "#")
+      trashLink.setAttribute("aria-label", "Remove file")
+      trashLink.setAttribute("role", "button")
       trashLink.innerHTML = "<em class=\"bi bi-trash me-2\"></em>"
       li.appendChild(trashLink)
       li.appendChild(document.createTextNode(fileName))

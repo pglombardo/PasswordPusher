@@ -8,12 +8,16 @@ require "rack/attack"
 # (config/initializers/rack_attack.rb: unless Rails.env.test?), so we assert
 # the discriminator logic that would be used.
 class RackAttackUploadsExclusionTest < ActionDispatch::IntegrationTest
-  # Discriminators must match config/initializers/rack_attack.rb
+  # Discriminators must match config/initializers/rack_attack.rb (exact path or /uploads/:id — not /uploads-foo).
+  UPLOADS_EXCLUDED = lambda { |req|
+    req.path == "/uploads" || req.path.start_with?("/uploads/")
+  }
+
   MINUTE_DISCRIMINATOR = lambda { |req|
-    req.ip unless req.path.start_with?("/assets") || req.path == "/up" || req.path.start_with?("/uploads")
+    req.ip unless req.path.start_with?("/assets") || req.path == "/up" || UPLOADS_EXCLUDED.call(req)
   }
   SECOND_DISCRIMINATOR = lambda { |req|
-    req.ip unless req.path == "/up" || req.path.start_with?("/uploads")
+    req.ip unless req.path == "/up" || UPLOADS_EXCLUDED.call(req)
   }
 
   test "uploads path is excluded from req/minute/ip throttle" do
@@ -36,6 +40,13 @@ class RackAttackUploadsExclusionTest < ActionDispatch::IntegrationTest
 
   test "non-uploads path is subject to throttling" do
     req = rack_attack_request("/some/path")
+    assert_equal "127.0.0.1", MINUTE_DISCRIMINATOR.call(req)
+    assert_equal "127.0.0.1", SECOND_DISCRIMINATOR.call(req)
+  end
+
+  test "path that starts with uploads but is not TUS route is still throttled" do
+    # Must not use start_with?("/uploads") alone — that would wrongly bypass /uploads-foo
+    req = rack_attack_request("/uploads-foo")
     assert_equal "127.0.0.1", MINUTE_DISCRIMINATOR.call(req)
     assert_equal "127.0.0.1", SECOND_DISCRIMINATOR.call(req)
   end
