@@ -111,7 +111,16 @@
 
                 <hr class="my-3">
 
-                <div class="list-group list-group-flush mx-0 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
+                    <%= f.text_field(:passphrase, { class: "form-control",
+                                                    autocomplete: "off",
+                                                    placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
+                </div>
+            </div>
+
+            <%= render 'shared/additional_options' do %>
+                <div class="list-group list-group-flush mx-0">
                     <% if @push.settings_for_kind.enable_retrieval_step %>
                         <label class="list-group-item d-flex gap-2 px-0">
                         <%= check_box_tag "push[retrieval_step]", '1', @push.persisted? ? @push.retrieval_step : @push.settings_for_kind.retrieval_step_default, checkbox_options_for_push(@push, "retrievalStep", @push.settings_for_kind.retrieval_step_default) %>
