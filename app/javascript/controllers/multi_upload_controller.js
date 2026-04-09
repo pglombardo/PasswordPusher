@@ -289,7 +289,6 @@ export default class extends Controller {
               resolve()
               return
             }
-            const tusServerUploadId = li.dataset.tusServerUploadId
             li.remove()
             const elapsedMs = Date.now() - uploadStartTime
             const durationStr = formatDuration(elapsedMs)
@@ -297,7 +296,6 @@ export default class extends Controller {
             if (selectedTpl) {
               const row = selectedTpl.content.cloneNode(true)
               const selectedLi = row.querySelector("li")
-              if (tusServerUploadId) selectedLi.dataset.tusServerUploadId = tusServerUploadId
               const input = row.querySelector(".selected-file-input")
               input.name = inputName
               input.value = signedId
@@ -308,7 +306,6 @@ export default class extends Controller {
             } else {
               const selectedFile = document.createElement("li")
               selectedFile.classList.add("list-group-item", "selected-file", "list-group-item-primary", "small")
-              if (tusServerUploadId) selectedFile.dataset.tusServerUploadId = tusServerUploadId
               const hiddenInput = document.createElement("input")
               hiddenInput.type = "hidden"
               hiddenInput.name = inputName
