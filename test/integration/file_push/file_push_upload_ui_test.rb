@@ -89,6 +89,19 @@ class FilePushUploadUiTest < ActionDispatch::IntegrationTest
       "max_direct_upload_size should resolve to a positive byte size (e.g. \"100 MB\" or 104857600)"
   end
 
+  def test_file_form_exposes_tus_error_messages_in_multi_upload_data_attributes
+    get new_push_path(tab: "files")
+    assert_response :success
+
+    root = css_select("div[data-controller='multi-upload']").first
+    assert root, "multi-upload controller root should be present"
+
+    assert_includes root["data-multi-upload-tus-session-full-message-value"],
+      "Too many uploads in progress. Finish or remove an upload before adding another."
+    assert_includes root["data-multi-upload-uploads-temporarily-disabled-message-value"],
+      "Uploads are temporarily disabled. Please try again later."
+  end
+
   def test_tus_create_and_patch_then_file_form_loads
     # Minimal TUS flow: create upload, complete with one PATCH
     post uploads_path, headers: {"Upload-Length" => "3"}

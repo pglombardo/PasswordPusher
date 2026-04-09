@@ -36,7 +36,8 @@ export default class extends Controller {
     tusEndpoint: String,
     tusChunkSize: Number,
     filesInputName: String,
-    tusSessionFullMessage: { type: String, default: "Too many uploads in progress. Finish or remove an upload before adding another." },
+    tusSessionFullMessage: String,
+    uploadsTemporarilyDisabledMessage: String,
   }
 
   connect() {
@@ -176,6 +177,13 @@ export default class extends Controller {
 
     if (this.tusEnabledValue && typeof window.tus !== 'undefined') {
       await this.addFileViaTus(originalInput, arrayLength)
+      return
+    }
+
+    if (this.tusEnabledValue) {
+      alert(this.uploadsTemporarilyDisabledMessageValue)
+      originalInput.value = ''
+      originalInput.disabled = true
       return
     }
 
