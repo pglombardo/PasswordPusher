@@ -14,7 +14,7 @@
   <li><hr class="dropdown-divider"></li>
   <% if Settings.language_codes %>
     <li class="m-0 p-0">
-      <%= link_to url_for, class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
+      <%= link_to push_locale_dropdown_url(nil), class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
         🌎 <%= _('Autodetect the recipient\'s language') %>
       <% end %>
     </li>
@@ -23,7 +23,7 @@
         <div class="row overflow-y-auto p-0 m-0" style="max-height: 450px;">
           <% I18n.available_locales.each do |lang| %>
             <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-              <%= link_to url_for(push_locale: lang), class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
+              <%= link_to push_locale_dropdown_url(lang), class: "dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" do %>
                 <em class="fi fi-<%= Settings.country_codes[lang] %>"></em>
                 <%= Settings.language_codes[lang] %>
               <% end %>

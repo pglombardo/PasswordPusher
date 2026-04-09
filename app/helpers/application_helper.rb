@@ -24,6 +24,20 @@ module ApplicationHelper
     Settings.enable_user_account_emails && !Settings.disable_logins && user_signed_in?
   end
 
+  # Same path as the current request with query params merged for secret-link language.
+  # Preserves e.g. tab= so the new-push tab does not reset when changing push_locale.
+  def push_locale_dropdown_url(push_locale)
+    qp = request.query_parameters
+    q = (qp.respond_to?(:to_unsafe_h) ? qp.to_unsafe_h : qp.to_h).stringify_keys
+    if push_locale.nil?
+      q = q.except("push_locale")
+    else
+      q["push_locale"] = push_locale.to_s
+    end
+    q = q.compact_blank
+    q.any? ? "#{request.path}?#{q.to_query}" : request.path
+  end
+
   # Constructs a fully qualified secret URL for a push.
   #
   # @param [Push] push - The push to generate a URL for

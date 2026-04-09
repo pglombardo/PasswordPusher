@@ -86,6 +86,9 @@
                                                     autocomplete: "off",
                                                     placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
                 </div>
+                <% if show_notify_emails_field? %>
+                    <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
+                <% end %>
             </div>
 
             <%= render 'shared/additional_options' do %>
@@ -101,16 +104,6 @@
                         </label>
                     <% end %>
                 </div>
-
-                <div class="input-group">
-                    <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
-                    <%= f.text_field(:passphrase, { class: "form-control",
-                                                    autocomplete: "off",
-                                                    placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
-                </div>
-                <% if show_notify_emails_field? %>
-                    <%= render partial: "shared/notify_emails_to", locals: { f: f } %>
-                <% end %>
             <% end %>
             <% unless action_name == 'edit' %>
                 <div id='cookie-save' class='text-muted small mt-3'>

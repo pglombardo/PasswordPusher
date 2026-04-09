@@ -65,6 +65,26 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_not current_controller?(["pushes", "admin"])
   end
 
+  test "push_locale_dropdown_url merges push_locale and preserves tab" do
+    controller.request = ActionDispatch::Request.new(
+      Rack::MockRequest.env_for("http://test.host/p/new?tab=url")
+    )
+    self.request = controller.request
+    href = push_locale_dropdown_url(:de)
+    assert_includes href, "tab=url"
+    assert_includes href, "push_locale=de"
+  end
+
+  test "push_locale_dropdown_url with nil removes push_locale" do
+    controller.request = ActionDispatch::Request.new(
+      Rack::MockRequest.env_for("http://test.host/p/new?tab=url&push_locale=de")
+    )
+    self.request = controller.request
+    href = push_locale_dropdown_url(nil)
+    assert_includes href, "tab=url"
+    assert_not href.include?("push_locale")
+  end
+
   # Test secret_url method
   test "secret_url generates standard push URL" do
     @push.retrieval_step = false
