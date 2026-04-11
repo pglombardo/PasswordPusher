@@ -357,8 +357,6 @@ class PushesController < BaseController
 
   private
 
-  # Stale passphrase failure uses flash[:alert]; do not clear :notice — redirects to this
-  # push (e.g. edit when expired) rely on notice still being shown on #show.
   def clear_flash_for_delivery_pages
     flash.clear
   end
