@@ -120,7 +120,7 @@ class PushesController < BaseController
     end
 
     # Can't edit expired pushes
-    redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
+    redirect_to pushes_path, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
   end
 
   def create
@@ -161,7 +161,7 @@ class PushesController < BaseController
 
     # Can't edit expired pushes
     if @push.expired
-      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      redirect_to pushes_path, notice: I18n._("That push has already expired and cannot be edited.")
       return
     end
 
@@ -357,6 +357,8 @@ class PushesController < BaseController
 
   private
 
+  # Stale passphrase failure uses flash[:alert]; do not clear :notice — redirects to this
+  # push (e.g. edit when expired) rely on notice still being shown on #show.
   def clear_flash_for_delivery_pages
     flash.clear
   end
