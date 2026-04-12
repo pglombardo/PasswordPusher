@@ -40,7 +40,7 @@ module Pwpush
     def notify_emails_to_for_creation
       return nil unless notify_emails_to.present?
 
-      unless Setting.enable_user_account_emails
+      unless Settings.enable_user_account_emails
         errors.add(:notify_emails_to, _("is using emails, but sending emails feature is not enabled."))
       end
 
@@ -66,7 +66,7 @@ module Pwpush
     def notify_emails_to_locale_for_creation
       return unless notify_emails_to_locale.present?
 
-      unless Setting.enable_user_account_emails
+      unless Settings.enable_user_account_emails
         errors.add(:notify_emails_to_locale, _("is using emails, but sending emails feature is not enabled."))
       end
     end
