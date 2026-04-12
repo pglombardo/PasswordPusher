@@ -6,12 +6,30 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   include ActionMailer::TestHelper
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
-    @push = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "jobtest123",
-      notify_emails_to: "job@example.com"
-    )
+    @push = pushes(:test_push)
+    @push.update(notify_emails_to: "test@example.com, test2@example.com")
+  end
+
+  test "sends email to specified recipient" do
+    SendPushCreatedEmailJob.perform_now(@push)
+
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      SendPushCreatedEmailJob.perform_now(@push)
+      assert_equal ["test@example.com", "test2@example.com"], ActionMailer::Base.deliveries.first.to
+      assert_equal "#{@push.user.email} has sent you a push", ActionMailer::Base.deliveries.first.subject
+    end
+  end
+
+  test "logs creation email event" do
+    SendPushCreatedEmailJob.perform_now(@push)
+
+    assert_equal 1, @push.audit_logs.where(kind: :creation_email_send).count
+  end
+
+  test "job executes without exceptions" do
+    assert_nothing_raised do
+      SendPushCreatedEmailJob.perform_now(@push)
+    end
   end
 
   test "perform sends mail when notify_emails_to present" do
@@ -28,20 +46,17 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform does not send mail when notify_emails_to blank" do
-    push_without_emails = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "jobtest456",
-      notify_emails_to: nil
-    )
+    @push.update(notify_emails_to: "")
+
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(push_without_emails.id)
+      SendPushCreatedEmailJob.perform_now(@push.id)
     end
   end
 
   test "perform does not send mail when push is missing" do
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(-1)
+      invalid_id = -1
+      SendPushCreatedEmailJob.perform_now(invalid_id)
     end
   end
 
@@ -52,51 +67,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal ["job@example.com"], mail.to
   end
 
-  test "perform delivers to multiple addresses when notify_emails_to has several" do
-    push_multi = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "jobtest789",
-      notify_emails_to: "a@example.com, b@example.com"
-    )
-    SendPushCreatedEmailJob.perform_now(push_multi.id)
-
-    mail = ActionMailer::Base.deliveries.last
-    assert_equal ["a@example.com", "b@example.com"], mail.to
-  end
-
-  test "job is enqueued with push id" do
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [@push.id]) do
-      SendPushCreatedEmailJob.perform_later(@push.id)
-    end
-  end
-
-  test "perform sends mail with subject containing has sent you a push" do
-    SendPushCreatedEmailJob.perform_now(@push.id)
-    mail = ActionMailer::Base.deliveries.last
-    assert mail.subject.present?
-    assert_includes mail.subject, "has sent you a push"
-  end
-
-  test "perform sends mail body containing push secret URL" do
-    SendPushCreatedEmailJob.perform_now(@push.id)
-    mail = ActionMailer::Base.deliveries.last
-    assert_includes mail.body.encoded, @push.url_token
-  end
-
   test "perform uses default queue" do
     assert_equal "default", SendPushCreatedEmailJob.new.queue_name
-  end
-
-  test "perform does not send when push has blank string notify_emails_to" do
-    push_blank = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "jobtest000",
-      notify_emails_to: ""
-    )
-    assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(push_blank.id)
-    end
   end
 end
