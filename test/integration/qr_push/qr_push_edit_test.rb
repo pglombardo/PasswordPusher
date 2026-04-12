@@ -152,7 +152,7 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
     push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
 
     get edit_push_path(push)
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
 
     patch push_path(push), params: {
       push: {
@@ -160,7 +160,7 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
         payload: "New QR content"
       }
     }
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
   end
 
   test "edit page shows update button for qr push" do
