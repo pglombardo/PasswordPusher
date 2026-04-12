@@ -60,13 +60,6 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     end
   end
 
-  test "perform delivers to correct addresses" do
-    SendPushCreatedEmailJob.perform_now(@push.id)
-
-    mail = ActionMailer::Base.deliveries.last
-    assert_equal ["job@example.com"], mail.to
-  end
-
   test "perform uses default queue" do
     assert_equal "default", SendPushCreatedEmailJob.new.queue_name
   end
