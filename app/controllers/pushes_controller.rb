@@ -127,10 +127,6 @@ class PushesController < BaseController
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
-    unless Settings.enable_user_account_emails && user_signed_in?
-      @push.notify_emails_to = nil
-      @push.notify_emails_to_locale = nil
-    end
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
