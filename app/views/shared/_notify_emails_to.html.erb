@@ -1,5 +1,4 @@
 <% unless action_name == 'edit' %>
-  <% form_builder = local_assigns[:form] || local_assigns[:f] %>
   <div class="row">
     <div class="col">
       <label class="form-label fw-medium mt-3"><%= _('Auto Dispatch: Send This Secret Link To...') %></label>
@@ -7,15 +6,8 @@
         <span class="input-group-text">
           <i class="bi bi-envelope" aria-hidden="true"></i>
         </span>
-        <%= form_builder.text_field(
-          :notify_emails_to,
-          class: "form-control",
-          placeholder: _('Enter email(s) separated by commas.'),
-          autocomplete: "off"
-        ) %>
-        <% if form_builder && Settings.language_codes %>
-          <%= render "shared/push_locale_dropdown" %>
-        <% end %>
+        <%= f.text_field :notify_emails_to, class: "form-control", placeholder: _('Enter email(s) separated by commas.'), autocomplete: "off" %>
+        <%= render "shared/notify_emails_to_locale", f: f %>
       </div>
     </div>
   </div>

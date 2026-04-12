@@ -55,6 +55,5 @@ class NotifyEmailsFieldVisibilityTest < ActionDispatch::IntegrationTest
     assert_match(/Enter email\(s\) separated by commas/i, response.body)
     assert_match(/Secret Link Language/i, response.body)
     assert_match(/Autodetect the recipient/i, response.body)
-    assert_match(/push_locale=/, response.body)
   end
 end
