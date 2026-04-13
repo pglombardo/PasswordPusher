@@ -5,10 +5,7 @@
     <div class="col-lg-8 col-xl-6 text-center">
       <h2 class="fw-semibold mb-3"><%= _("Scan this QR code") %></h2>
       <% if Settings.require_mfa %>
-        <div class="alert alert-info d-flex align-items-start text-start mb-3" role="alert">
-          <span class="bi bi-shield-lock-fill me-2 mt-1 flex-shrink-0" aria-hidden="true"></span>
-          <div><%= _("Two-factor authentication is required by the administrator. You must complete setup to access the application.") %></div>
-        </div>
+        <%= render "mfa_required_banner", margin_class: "mb-3" %>
       <% end %>
       <p class="text-muted small mb-3"><%= _("Add this account to your authenticator app, then enter the 6-digit code to confirm.") %></p>
       <div class="d-inline-block p-3 bg-white rounded shadow-sm mb-4">
