@@ -1,9 +1,9 @@
 <div class="container py-4">
   <div class="row">
-    <div class="col-lg-10 col-xl-9 mx-auto">
+    <div class="col-lg-11 col-xl-10 mx-auto">
       <h1 class="mb-3">Password Pusher <%= _("API v2") %></h1>
       <p class="lead text-muted">
-        <%= _("JSON API documentation for push workflows in the open-source edition.") %>
+        <%= _("Complete JSON API documentation for creating, retrieving and managing pushes in the open-source edition.") %>
       </p>
 
       <div class="card mb-4">
@@ -12,7 +12,26 @@
           <p class="mb-2">
             <%= _("Authenticate requests with a Bearer token in the Authorization header.") %>
           </p>
-          <pre class="bg-light border rounded p-3 mb-0"><code>Authorization: Bearer YOUR_API_TOKEN</code></pre>
+          <% unless Settings.disable_logins %>
+            <p class="mb-2">
+              <%= _("Create an API token in your account settings at") %>
+              <%= link_to "/users/token", "/users/token" %>.
+            </p>
+          <% end %>
+          <pre class="bg-light border rounded p-3 mb-3"><code>Authorization: Bearer YOUR_API_TOKEN</code></pre>
+          <ul class="mb-0">
+            <li><%= _("Public endpoints:") %> <code>GET /api/v2/version</code>, <code>GET /api/v2/pushes/:url_token</code>, <code>GET /api/v2/pushes/:url_token/preview</code></li>
+            <li><%= _("Authenticated endpoints:") %> <code>GET /api/v2/pushes/:url_token/audit</code>, <code>GET /api/v2/pushes/active</code>, <code>GET /api/v2/pushes/expired</code></li>
+            <li><%= _("Create behavior:") %> <code>POST /api/v2/pushes</code> <%= _("is available anonymously only when anonymous pushes are enabled. If anonymous pushes are disabled, authentication is required.") %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5"><%= _("Base URL") %></h2>
+          <p class="mb-2"><%= _("All endpoints are relative to your installation host:") %></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>https://<%= request.host %>/api/v2</code></pre>
         </div>
       </div>
 
@@ -20,6 +39,9 @@
         <div class="card-body">
           <h2 class="h5"><%= _("Version Endpoint") %></h2>
           <p class="mb-2"><code>GET /api/v2/version</code></p>
+          <p class="mb-2"><%= _("Returns API and application version details.") %></p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-3"><code>curl -X GET https://<%= request.host %>/api/v2/version</code></pre>
           <pre class="bg-light border rounded p-3 mb-0"><code>{
   "application_version": "<%= Version.current %>",
   "api_version": "2.0",
@@ -28,17 +50,134 @@
         </div>
       </div>
 
+      <h2 class="h4 mt-4 mb-3"><%= _("Push Endpoints") %></h2>
+
       <div class="card mb-4">
         <div class="card-body">
-          <h2 class="h5"><%= _("Push Endpoints") %></h2>
+          <h3 class="h5 mb-2"><code>POST /api/v2/pushes</code></h3>
+          <p class="mb-2"><%= _("Create a new push.") %></p>
+          <p class="mb-2"><strong><%= _("Body format:") %></strong> <code>{ "push": { ... } }</code></p>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th><%= _("Parameter") %></th>
+                  <th><%= _("Type") %></th>
+                  <th><%= _("Required") %></th>
+                  <th><%= _("Description") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>payload</code></td><td>string</td><td><%= _("Yes") %></td><td><%= _("Secret text payload for text, URL or QR pushes.") %></td></tr>
+                <tr><td><code>files</code></td><td>array</td><td><%= _("No") %></td><td><%= _("Files to attach. When present, the push type becomes file unless kind is explicitly provided.") %></td></tr>
+                <tr><td><code>kind</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Push type: text, file, url, or qr. Defaults to text when not provided.") %></td></tr>
+                <tr><td><code>expire_after_days</code></td><td>integer</td><td><%= _("No") %></td><td><%= _("Expiration window in days. If omitted, instance defaults are used.") %></td></tr>
+                <tr><td><code>expire_after_views</code></td><td>integer</td><td><%= _("No") %></td><td><%= _("Maximum allowed retrieval count. If omitted, instance defaults are used.") %></td></tr>
+                <tr><td><code>deletable_by_viewer</code></td><td>boolean</td><td><%= _("No") %></td><td><%= _("Allows the recipient to expire the push.") %></td></tr>
+                <tr><td><code>retrieval_step</code></td><td>boolean</td><td><%= _("No") %></td><td><%= _("Adds an extra retrieval confirmation step.") %></td></tr>
+                <tr><td><code>passphrase</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Requires this passphrase to retrieve the payload.") %></td></tr>
+                <tr><td><code>name</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional label shown to the owner.") %></td></tr>
+                <tr><td><code>note</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional owner-only note.") %></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <pre class="bg-light border rounded p-3 mb-0"><code>{
+  "push": {
+    "payload": "my-secret",
+    "expire_after_days": 1,
+    "expire_after_views": 5,
+    "passphrase": "optional-passphrase",
+    "deletable_by_viewer": true,
+    "retrieval_step": true
+  }
+}</code></pre>
+          <p class="mb-2 mt-3"><strong><%= _("cURL example (JSON body):") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X POST https://<%= request.host %>/api/v2/pushes \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "push": {
+      "payload": "my-secret",
+      "expire_after_days": 1,
+      "expire_after_views": 5
+    }
+  }'</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>GET /api/v2/pushes/:url_token</code></h3>
+          <p class="mb-2"><%= _("Retrieve a push payload by token. This counts as a view and may expire the push when limits are reached.") %></p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>passphrase</code> (<%= _("optional, required when the push is passphrase-protected") %>)</p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>GET /api/v2/pushes/:url_token/preview</code></h3>
+          <p class="mb-2"><%= _("Returns the fully-qualified secret URL for a push without retrieving its payload.") %></p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/preview</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>GET /api/v2/pushes/:url_token/audit</code></h3>
+          <p class="mb-2"><%= _("Return audit log entries for a push. Authentication and ownership are required.") %></p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/audit?page=1" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>DELETE /api/v2/pushes/:url_token</code></h3>
+          <p class="mb-2"><%= _("Expire a push immediately. Allowed for owners (when authenticated) or for recipients when the push was created with deletable_by_viewer enabled.") %></p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X DELETE https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN \
+  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>GET /api/v2/pushes/active</code></h3>
+          <p class="mb-2"><%= _("List active pushes for the authenticated user.") %></p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/active?page=1" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>GET /api/v2/pushes/expired</code></h3>
+          <p class="mb-2"><%= _("List expired pushes for the authenticated user.") %></p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/expired?page=1" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5"><%= _("HTTP Status Codes") %></h2>
           <ul class="mb-0">
-            <li><code>POST /api/v2/pushes</code></li>
-            <li><code>GET /api/v2/pushes/:url_token</code></li>
-            <li><code>GET /api/v2/pushes/:url_token/preview</code></li>
-            <li><code>GET /api/v2/pushes/:url_token/audit</code></li>
-            <li><code>DELETE /api/v2/pushes/:url_token</code></li>
-            <li><code>GET /api/v2/pushes/active</code></li>
-            <li><code>GET /api/v2/pushes/expired</code></li>
+            <li><code>200</code> - <%= _("Successful request") %></li>
+            <li><code>201</code> - <%= _("Push created") %></li>
+            <li><code>400</code> - <%= _("Invalid request parameters") %></li>
+            <li><code>401</code> - <%= _("Authentication required or invalid token") %></li>
+            <li><code>403</code> - <%= _("Forbidden for current user") %></li>
+            <li><code>404</code> - <%= _("Resource not found") %></li>
+            <li><code>422</code> - <%= _("Validation error") %></li>
           </ul>
         </div>
       </div>
