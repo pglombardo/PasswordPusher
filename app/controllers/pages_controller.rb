@@ -3,6 +3,9 @@
 class PagesController < ApplicationController
   include HighVoltage::StaticPage
 
+  def api
+  end
+
   # def layout_for_page
   #   case params[:id]
   #   when 'home'
