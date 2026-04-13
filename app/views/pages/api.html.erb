@@ -1,0 +1,51 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-lg-10 col-xl-9 mx-auto">
+      <h1 class="mb-3">Password Pusher <%= _("API v2") %></h1>
+      <p class="lead text-muted">
+        <%= _("JSON API documentation for push workflows in the open-source edition.") %>
+      </p>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5"><%= _("Authentication") %></h2>
+          <p class="mb-2">
+            <%= _("Authenticate requests with a Bearer token in the Authorization header.") %>
+          </p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>Authorization: Bearer YOUR_API_TOKEN</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5"><%= _("Version Endpoint") %></h2>
+          <p class="mb-2"><code>GET /api/v2/version</code></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>{
+  "application_version": "<%= Version.current %>",
+  "api_version": "2.0",
+  "edition": "oss"
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5"><%= _("Push Endpoints") %></h2>
+          <ul class="mb-0">
+            <li><code>POST /api/v2/pushes</code></li>
+            <li><code>GET /api/v2/pushes/:url_token</code></li>
+            <li><code>GET /api/v2/pushes/:url_token/preview</code></li>
+            <li><code>GET /api/v2/pushes/:url_token/audit</code></li>
+            <li><code>DELETE /api/v2/pushes/:url_token</code></li>
+            <li><code>GET /api/v2/pushes/active</code></li>
+            <li><code>GET /api/v2/pushes/expired</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-muted">
+        <%= _("For legacy API v1 documentation, see") %> <a href="/api">/api</a>.
+      </p>
+    </div>
+  </div>
+</div>

@@ -143,6 +143,44 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "v2 version endpoint is accessible without authentication" do
+    get "/api/v2/version",
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :success
+  end
+
+  test "v2 version endpoint works with invalid token (public endpoint)" do
+    get "/api/v2/version",
+      headers: {
+        "Authorization" => "Bearer invalid_token",
+        "Accept" => "application/json"
+      }
+
+    assert_response :success
+  end
+
+  test "v2 active endpoint requires authentication" do
+    get "/api/v2/pushes/active",
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  end
+
+  test "v2 active endpoint rejects invalid tokens" do
+    get "/api/v2/pushes/active",
+      headers: {
+        "Authorization" => "Bearer invalid_token",
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  end
+
   # Test path-based authentication requirements for /p paths
   test "/p/audit requires authentication" do
     push = pushes(:test_push)
