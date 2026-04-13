@@ -19,7 +19,7 @@ module EnforceRequiredMfa
     message = _("Two-factor authentication is required. Please set it up to continue.")
 
     if request.format.json?
-      render json: { error: message }, status: :forbidden
+      render json: {error: message}, status: :forbidden
       return
     end
 
