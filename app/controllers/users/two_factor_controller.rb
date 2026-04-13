@@ -30,6 +30,7 @@ class Users::TwoFactorController < ApplicationController
   def destroy
     if Settings.require_mfa
       redirect_to edit_user_registration_path,
+        status: :see_other,
         alert: _("Two-factor authentication cannot be disabled because it is required by the administrator.")
       return
     end
