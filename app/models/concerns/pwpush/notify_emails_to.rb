@@ -18,11 +18,6 @@ module Pwpush
       validate :notify_emails_to_locale_for_update, on: :update
     end
 
-    # Parses a comma-separated email string into an array of stripped, non-blank strings.
-    def self.parse_emails(raw)
-      raw.to_s.split(",").map(&:strip).reject(&:blank?)
-    end
-
     # Send creation email when notify_emails_to is present
     def send_creation_emails
       return nil if notify_emails_to.blank?

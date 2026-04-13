@@ -14,8 +14,7 @@ class PushCreatedMailer < ApplicationMailer
       @secret_url = secret_url(@push, with_retrieval_step: @push.retrieval_step, locale: locale)
       @subject = "#{@push.user&.email.presence} #{_("has sent you a push")}"
       mail(
-        from: Settings.brand.title || _("Password Pusher"),
-        to: Pwpush::NotifyEmailsTo.parse_emails(@push.notify_emails_to),
+        to: @push.notify_emails_to,
         subject: @subject
       )
     end
