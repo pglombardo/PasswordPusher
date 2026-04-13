@@ -16,7 +16,13 @@ module EnforceRequiredMfa
     return if controller_path == "users/two_factor"
     return if controller_path == "users/sessions"
 
-    redirect_to backup_codes_user_two_factor_path,
-      alert: _("Two-factor authentication is required. Please set it up to continue.")
+    message = _("Two-factor authentication is required. Please set it up to continue.")
+
+    if request.format.json?
+      render json: { error: message }, status: :forbidden
+      return
+    end
+
+    redirect_to backup_codes_user_two_factor_path, alert: message
   end
 end
