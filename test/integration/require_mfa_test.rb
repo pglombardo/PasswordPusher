@@ -44,6 +44,38 @@ class RequireMfaTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "account edit is blocked until two-factor setup when require_mfa is true" do
+    Settings.require_mfa = true
+    @user.update!(
+      otp_required_for_login: false,
+      otp_secret: nil,
+      otp_backup_code_digests: [],
+      last_otp_timestep: nil
+    )
+    sign_in @user
+
+    get edit_user_registration_path
+
+    assert_redirected_to backup_codes_user_two_factor_path
+    assert_equal I18n._("Two-factor authentication is required. Please set it up to continue."), flash[:alert]
+  end
+
+  test "api token page is blocked until two-factor setup when require_mfa is true" do
+    Settings.require_mfa = true
+    @user.update!(
+      otp_required_for_login: false,
+      otp_secret: nil,
+      otp_backup_code_digests: [],
+      last_otp_timestep: nil
+    )
+    sign_in @user
+
+    get token_user_registration_path
+
+    assert_redirected_to backup_codes_user_two_factor_path
+    assert_equal I18n._("Two-factor authentication is required. Please set it up to continue."), flash[:alert]
+  end
+
   test "signed in users with two-factor enabled are not redirected when require_mfa is true" do
     Settings.require_mfa = true
     @user.update!(
