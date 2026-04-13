@@ -44,6 +44,10 @@ module Pwpush
         errors.add(:notify_emails_to, _("is using emails, but sending emails feature is not enabled."))
       end
 
+      unless user.present?
+        errors.add(:notify_emails_to, _("cannot be set if owner is not known."))
+      end
+
       nil
     end
 
@@ -68,6 +72,10 @@ module Pwpush
 
       unless Settings.enable_user_account_emails
         errors.add(:notify_emails_to_locale, _("is using emails, but sending emails feature is not enabled."))
+      end
+
+      unless user.present?
+        errors.add(:notify_emails_to_locale, _("cannot be set if owner is not known."))
       end
     end
 

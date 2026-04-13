@@ -24,7 +24,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # create action: anonymous users must not get notify fields set
-  test "create clears notify_emails_to and notify_emails_to_locale when user is not signed in" do
+  test "create fails to set notify_emails_to and notify_emails_to_locale when user is not signed in" do
     post pushes_path, params: {
       push: {
         kind: "text",
@@ -33,11 +33,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         notify_emails_to_locale: "fr"
       }
     }
-    assert_response :redirect
-    push = Push.last
-    assert push.present?, "push should be created"
-    assert push.notify_emails_to.blank?, "controller must clear notify_emails_to for anonymous"
-    assert push.notify_emails_to_locale.blank?, "controller must clear notify_emails_to_locale for anonymous"
+    assert_response :unprocessable_content
+
+    assert_includes(response.body, "Notify emails to cannot be set if owner is not known")
+    assert_includes(response.body, "Notify emails to locale cannot be set if owner is not known")
   end
 
   # create action: signed-in users get notify fields from params
@@ -51,9 +50,12 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         notify_emails_to_locale: "en"
       }
     }
+
     assert_response :redirect
-    push = Push.last
-    assert push.present?
+
+    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
+    push = Push.find_by(url_token: push_url_token)
+
     assert_equal "recipient@example.com", push.notify_emails_to
     assert_equal "en", push.notify_emails_to_locale
   end
@@ -85,7 +87,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :redirect
-    push = Push.last
+
+    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
+    push = Push.find_by(url_token: push_url_token)
+
     assert_equal "text@example.com", push.notify_emails_to
     assert_equal "de", push.notify_emails_to_locale
   end
@@ -100,8 +105,12 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         notify_emails_to_locale: "es"
       }
     }
+
     assert_response :redirect
-    push = Push.last
+
+    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
+    push = Push.find_by(url_token: push_url_token)
+
     assert_equal "url@example.com", push.notify_emails_to
     assert_equal "es", push.notify_emails_to_locale
   end

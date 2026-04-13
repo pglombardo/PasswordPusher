@@ -49,4 +49,25 @@ class PasswordTest < ActiveSupport::TestCase
     json = JSON.parse(password.to_json({}))
     assert_not json.key?("name")
   end
+
+  test "should save password if notify_emails_to is set and user is not defined" do
+    password = Push.new(
+      kind: "text",
+      payload: "test_payload",
+      notify_emails_to: "test@example.com"
+    )
+
+    refute password.valid?
+  end
+
+  test "should save password if notify_emails_to_locale is set and user is not defined" do
+    password = Push.new(
+      kind: "text",
+      payload: "test_payload",
+      notify_emails_to: "test@example.com",
+      notify_emails_to_locale: "en"
+    )
+
+    refute password.valid?
+  end
 end
