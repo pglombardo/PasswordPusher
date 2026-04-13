@@ -124,6 +124,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
     )
 
     visit edit_push_path(push)
+    click_button "Show / Hide"
+
+    assert_selector "#additionalOptionsCollapse.show"
 
     # Wait for checkboxes to be rendered and loaded
     assert_selector "#push_retrieval_step"
@@ -151,6 +154,9 @@ class FilePushEditingTest < ApplicationSystemTestCase
     )
 
     visit edit_push_path(push)
+    click_button "Show / Hide"
+
+    assert_selector "#additionalOptionsCollapse.show"
 
     # Wait for checkboxes to be rendered and loaded
     assert_selector "#push_retrieval_step"

@@ -4,6 +4,7 @@ class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
 
+  before_action :clear_flash_for_delivery_pages, only: %i[show preliminary], prepend: true
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
 
@@ -119,7 +120,7 @@ class PushesController < BaseController
     end
 
     # Can't edit expired pushes
-    redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
+    redirect_to pushes_path, notice: I18n._("That push has already expired and cannot be edited.") if @push.expired
   end
 
   def create
@@ -160,7 +161,7 @@ class PushesController < BaseController
 
     # Can't edit expired pushes
     if @push.expired
-      redirect_to @push, notice: I18n._("That push has already expired and cannot be edited.")
+      redirect_to pushes_path, notice: I18n._("That push has already expired and cannot be edited.")
       return
     end
 
@@ -355,6 +356,10 @@ class PushesController < BaseController
   end
 
   private
+
+  def clear_flash_for_delivery_pages
+    flash.clear
+  end
 
   def set_push
     @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
