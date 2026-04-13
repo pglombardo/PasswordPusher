@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   include Pwpush::FirstRun
   include SetLocale
+  include EnforceRequiredMfa
 
   private
 

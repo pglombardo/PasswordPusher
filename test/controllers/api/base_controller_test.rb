@@ -14,6 +14,7 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
   teardown do
     # Restore feature flags so later tests (e.g. file_push, url push) don't see them false
+    Settings.require_mfa = false
     Settings.enable_file_pushes = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
@@ -29,6 +30,27 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal @user.id, @controller.current_user.id
+  end
+
+  test "require_mfa returns forbidden json for token authenticated user without two-factor" do
+    Settings.require_mfa = true
+    @user.update!(
+      otp_required_for_login: false,
+      otp_secret: nil,
+      otp_backup_code_digests: [],
+      last_otp_timestep: nil
+    )
+
+    get "/p/active.json",
+      headers: {
+        "Authorization" => "Bearer valid_token_123",
+        "Accept" => "application/json"
+      }
+
+    assert_response :forbidden
+    assert_not response.redirect?
+    json_response = JSON.parse(@response.body)
+    assert_equal I18n._("Two-factor authentication is required. Please set it up to continue."), json_response["error"]
   end
 
   test "version endpoint allows invalid Bearer token (public endpoint)" do
