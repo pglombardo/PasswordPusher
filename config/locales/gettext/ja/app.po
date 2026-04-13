@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-14 00:34+0200\n"
-"PO-Revision-Date: 2026-04-13 22:34+0000\n"
+"POT-Creation-Date: 2026-04-14 01:43+0200\n"
+"PO-Revision-Date: 2026-04-13 23:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -33,6 +33,14 @@ msgstr "そのプッシュはあなたのものではありません。"
 #: ../../../app/controllers/api/v1/pushes_controller.rb:309
 msgid "That push is not deletable by viewers."
 msgstr "そのプッシュは、閲覧者が削除することはできません。"
+
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr "二段階認証が必要です。設定を完了してから続行してください。"
 
 #: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
@@ -150,7 +158,15 @@ msgstr "認証コードが間違っています。"
 msgid "Two-factor authentication is now enabled."
 msgstr "二段階認証が有効になりました。"
 
-#: ../../../app/controllers/users/two_factor_controller.rb:33
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr "二段階認証は管理者によって必須とされているため、無効にすることはできません。"
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
 msgid "Two-factor authentication has been disabled."
 msgstr "二段階認証は無効になっています。"
 
@@ -3044,12 +3060,12 @@ msgid "Enter the 6-digit code from your authenticator app or a backup code."
 msgstr "認証アプリに表示される6桁のコード、またはバックアップコードを入力してください。"
 
 #: ../../../app/views/users/sessions/otp.html.erb:8
-#: ../../../app/views/users/two_factor/verify.html.erb:16
+#: ../../../app/views/users/two_factor/verify.html.erb:19
 msgid "Code"
 msgstr "コード"
 
 #: ../../../app/views/users/sessions/otp.html.erb:9
-#: ../../../app/views/users/two_factor/verify.html.erb:17
+#: ../../../app/views/users/two_factor/verify.html.erb:20
 msgid "Verification code"
 msgstr "検証コード"
 
@@ -3057,22 +3073,28 @@ msgstr "検証コード"
 msgid "Verify"
 msgstr "確認する"
 
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr "管理者による二段階認証が必要です。アプリケーションにアクセスするには、設定を完了する必要があります。"
+
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:1
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:6
 msgid "Save your backup codes"
 msgstr "バックアップコードを保存してください"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
 msgid ""
 "Store these codes in a safe place. Each can be used once if you lose your auth"
 "enticator device."
 msgstr "これらのコードは安全な場所に保管してください。認証デバイスを紛失した場合に、それぞれ1回ずつ使用できます。"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
 msgid "Save or copy these codes now"
 msgstr "これらのコードを今すぐ保存またはコピーしてください"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
 msgid ""
 "You will not be able to see this list again after you continue. If you lose yo"
 "ur device and your backup codes, you may need an administrator to reset your a"
@@ -3081,26 +3103,26 @@ msgstr ""
 "続行すると、このリストは二度と表示されなくなります。デバイスとバックアップコードを紛失した場合は、アカウントのリセットに管理者の協力が必要になる場合がありま"
 "す。"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
 msgid "Recovery codes"
 msgstr "復旧コード"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
 msgid "total"
 msgstr "合計"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
 msgid "Copy all codes"
 msgstr "すべてのコードをコピーする"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
 msgid ""
 "Backup codes are saved but can only be shown once. If you did not save them, d"
 "isable two-factor authentication and set it up again."
 msgstr "バックアップコードは保存されますが、一度しか表示できません。保存していない場合は、二段階認証を無効にして再度設定してください。"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
 msgid "Continue to verify"
 msgstr "引き続き検証します"
 
@@ -3112,16 +3134,16 @@ msgstr "認証システムを確認"
 msgid "Scan this QR code"
 msgstr "このQRコードをスキャンしてください"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:7
+#: ../../../app/views/users/two_factor/verify.html.erb:10
 msgid ""
 "Add this account to your authenticator app, then enter the 6-digit code to con"
 "firm."
 msgstr "このアカウントを認証アプリに追加し、6桁のコードを入力して確認してください。"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:11
+#: ../../../app/views/users/two_factor/verify.html.erb:14
 msgid "If you cannot scan the code, enter this secret manually:"
 msgstr "コードをスキャンできない場合は、この秘密情報を手動で入力してください。"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:20
+#: ../../../app/views/users/two_factor/verify.html.erb:23
 msgid "Enable two-factor authentication"
 msgstr "2要素認証を有効にする"

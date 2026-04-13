@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-14 00:34+0200\n"
-"PO-Revision-Date: 2026-04-13 22:34+0000\n"
+"POT-Creation-Date: 2026-04-14 01:43+0200\n"
+"PO-Revision-Date: 2026-04-13 23:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -33,6 +33,14 @@ msgstr "Den pushen tillhör inte dig."
 #: ../../../app/controllers/api/v1/pushes_controller.rb:309
 msgid "That push is not deletable by viewers."
 msgstr "Det här värdet kan inte raderas av personer med läsbehörighet."
+
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr "Tvåfaktorsautentisering krävs. Vänligen konfigurera det för att fortsätta."
 
 #: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
@@ -152,7 +160,17 @@ msgstr "Felaktig verifieringskod."
 msgid "Two-factor authentication is now enabled."
 msgstr "Tvåfaktorsautentisering är nu aktiverad."
 
-#: ../../../app/controllers/users/two_factor_controller.rb:33
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr ""
+"Tvåfaktorsautentisering kan inte inaktiveras eftersom det krävs av administrat"
+"ören."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
 msgid "Two-factor authentication has been disabled."
 msgstr "Tvåfaktorsautentisering har inaktiverats."
 
@@ -3187,12 +3205,12 @@ msgid "Enter the 6-digit code from your authenticator app or a backup code."
 msgstr "Ange den 6-siffriga koden från din autentiseringsapp eller en reservkod."
 
 #: ../../../app/views/users/sessions/otp.html.erb:8
-#: ../../../app/views/users/two_factor/verify.html.erb:16
+#: ../../../app/views/users/two_factor/verify.html.erb:19
 msgid "Code"
 msgstr "Koda"
 
 #: ../../../app/views/users/sessions/otp.html.erb:9
-#: ../../../app/views/users/two_factor/verify.html.erb:17
+#: ../../../app/views/users/two_factor/verify.html.erb:20
 msgid "Verification code"
 msgstr "Verifieringskod"
 
@@ -3200,12 +3218,20 @@ msgstr "Verifieringskod"
 msgid "Verify"
 msgstr "Kontrollera"
 
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr ""
+"Tvåfaktorsautentisering krävs av administratören. Du måste slutföra installati"
+"onen för att komma åt appen."
+
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:1
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:6
 msgid "Save your backup codes"
 msgstr "Spara dina reservkoder"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
 msgid ""
 "Store these codes in a safe place. Each can be used once if you lose your auth"
 "enticator device."
@@ -3213,11 +3239,11 @@ msgstr ""
 "Förvara dessa koder på ett säkert ställe. Var och en kan användas en gång om d"
 "u förlorar din autentiseringsenhet."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
 msgid "Save or copy these codes now"
 msgstr "Spara eller kopiera dessa koder nu"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
 msgid ""
 "You will not be able to see this list again after you continue. If you lose yo"
 "ur device and your backup codes, you may need an administrator to reset your a"
@@ -3227,20 +3253,20 @@ msgstr ""
 "rar din enhet och dina reservkoder kan du behöva en administratör för att åter"
 "ställa ditt konto."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
 msgid "Recovery codes"
 msgstr "Återställningskoder"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
 msgid "total"
 msgstr "total"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
 msgid "Copy all codes"
 msgstr "Kopiera alla koder"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
 msgid ""
 "Backup codes are saved but can only be shown once. If you did not save them, d"
 "isable two-factor authentication and set it up again."
@@ -3248,7 +3274,7 @@ msgstr ""
 "Reservkoder sparas men kan bara visas en gång. Om du inte sparade dem, inaktiv"
 "era tvåfaktorsautentisering och konfigurera den igen."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
 msgid "Continue to verify"
 msgstr "Fortsätt att verifiera"
 
@@ -3260,7 +3286,7 @@ msgstr "Verifiera autentiseraren"
 msgid "Scan this QR code"
 msgstr "Skanna den här QR-koden"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:7
+#: ../../../app/views/users/two_factor/verify.html.erb:10
 msgid ""
 "Add this account to your authenticator app, then enter the 6-digit code to con"
 "firm."
@@ -3268,10 +3294,10 @@ msgstr ""
 "Lägg till det här kontot i din autentiseringsapp och ange sedan den 6-siffriga"
 " koden för att bekräfta."
 
-#: ../../../app/views/users/two_factor/verify.html.erb:11
+#: ../../../app/views/users/two_factor/verify.html.erb:14
 msgid "If you cannot scan the code, enter this secret manually:"
 msgstr "Om du inte kan skanna koden, ange den här hemligheten manuellt:"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:20
+#: ../../../app/views/users/two_factor/verify.html.erb:23
 msgid "Enable two-factor authentication"
 msgstr "Aktivera tvåfaktorsautentisering"
