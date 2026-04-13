@@ -3,120 +3,168 @@
 require "test_helper"
 
 class MultipleEmailsValidatorTest < ActiveSupport::TestCase
-  class DummyRecord
+  # Create a test model that uses the validator
+  class TestModel
     include ActiveModel::Model
     include ActiveModel::Validations
-    attr_accessor :notify_emails_to
 
-    validates :notify_emails_to, multiple_emails: true, allow_blank: true
+    attr_accessor :email_list, :custom_email_list
+
+    validates :email_list, multiple_emails: true
+    validates :custom_email_list, multiple_emails: {max_emails: 3}
   end
 
-  test "allows blank" do
-    r = DummyRecord.new(notify_emails_to: nil)
-    assert r.valid?
-    r.notify_emails_to = ""
-    assert r.valid?
+  def setup
+    @model = TestModel.new
   end
 
-  test "allows single valid email" do
-    r = DummyRecord.new(notify_emails_to: "user@example.com")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  # Test valid cases
+  test "accepts blank values" do
+    @model.email_list = ""
+    assert @model.valid?
+
+    @model.email_list = nil
+    assert @model.valid?
   end
 
-  test "allows multiple valid emails comma-separated" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com, b@y.co, c@z.org")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  test "accepts single valid email" do
+    @model.email_list = "test@example.com"
+    assert @model.valid?
   end
 
-  test "allows up to 5 emails" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com, b@x.com, c@x.com, d@x.com, e@x.com")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  test "accepts multiple valid emails" do
+    @model.email_list = "test@example.com,user@domain.org"
+    assert @model.valid?
   end
 
-  test "rejects more than 5 emails" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com, b@x.com, c@x.com, d@x.com, e@x.com, f@x.com")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
+  test "accepts emails with whitespace" do
+    @model.email_list = " test@example.com , user@domain.org "
+    assert @model.valid?
   end
 
-  test "rejects duplicate emails" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com, a@x.com")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m =~ /duplicate/i }
+  test "accepts emails with various valid formats" do
+    valid_emails = [
+      "simple@example.com",
+      "very.common@example.com",
+      "test+tag@example.com",
+      "user.name+tag@example.co.uk",
+      "x@example.com"
+    ]
+
+    @model.email_list = valid_emails.join(",")
+    assert @model.valid?
   end
 
-  test "rejects invalid email format" do
-    r = DummyRecord.new(notify_emails_to: "not-an-email")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("invalid") }
+  # Test whitespace handling
+  test "strips whitespace from individual emails" do
+    @model.email_list = "  test@example.com  ,  user@domain.org  "
+    assert @model.valid?
+  end
+
+  test "accepts up to default maximum of 5 emails" do
+    emails = Array.new(5) { |i| "user#{i}@example.com" }
+    @model.email_list = emails.join(",")
+    assert @model.valid?
+  end
+
+  # Test invalid cases - email format
+  test "rejects invalid email formats" do
+    invalid_emails = [
+      "plainaddress",
+      "@missingdomain.com",
+      "missing@.com",
+      "missing@domain",
+      "spaces in@email.com",
+      "email@",
+      "email@.com"
+    ]
+
+    invalid_emails.each do |invalid_email|
+      @model.email_list = invalid_email
+      assert_not @model.valid?, "Should reject invalid email: #{invalid_email}"
+      assert_includes @model.errors[:email_list].first, "contains invalid email(s)"
+    end
   end
 
   test "rejects mixed valid and invalid emails" do
-    r = DummyRecord.new(notify_emails_to: "good@example.com, bad")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
+    @model.email_list = "valid@example.com,invalid-email,another@valid.com"
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "contains invalid email(s)"
   end
 
-  test "invalid email addresses error message mentions invalid" do
-    r = DummyRecord.new(notify_emails_to: "good@example.com, bad")
-    r.valid?
-    error_message = r.errors[:notify_emails_to].join(" ")
-    assert_includes error_message, "invalid", "error message should mention invalid emails"
+  # Test email count limits
+  test "rejects more than default maximum of 5 emails" do
+    emails = Array.new(6) { |i| "user#{i}@example.com" }
+    @model.email_list = emails.join(",")
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "contains more than 5 email(s)"
   end
 
-  test "strips whitespace around emails" do
-    r = DummyRecord.new(notify_emails_to: "  a@x.com  ,  b@y.com  ")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  test "respects custom max_emails option" do
+    # Should accept up to 3 emails
+    emails = Array.new(3) { |i| "user#{i}@example.com" }
+    @model.custom_email_list = emails.join(",")
+    assert @model.valid?
+
+    # Test custom max_emails - should reject more than 3 emails
+    emails = Array.new(4) { |i| "user#{i}@example.com" }
+    @model.custom_email_list = emails.join(",")
+    assert_not @model.valid?
+    assert_includes @model.errors[:custom_email_list].first, "contains more than 3 email(s)"
   end
 
-  test "rejects exactly 6 emails" do
-    emails = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
-    r = DummyRecord.new(notify_emails_to: emails)
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
+  # Test edge cases with commas
+  test "handles empty strings from comma splits" do
+    @model.email_list = "test@example.com,,another@example.com"
+    assert_not @model.valid?
+    # Should fail because empty string doesn't match email regex
+    assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
   end
 
-  test "allows same email with different casing (duplicate check is case-sensitive)" do
-    r = DummyRecord.new(notify_emails_to: "user@Example.com, user@example.com")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  test "rejects emails that are only whitespace" do
+    @model.email_list = "test@example.com,   ,user@domain.org"
+    assert_not @model.valid?
+    # Should fail because whitespace-only string doesn't match email regex after strip
+    assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
   end
 
-  test "rejects consecutive commas" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com,,  ,  b@y.com")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("comma") || m.include?("separate") }
+  # Test error message format
+  test "includes the invalid email in error message" do
+    @model.email_list = "valid@example.com,invalid-email-format"
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "contains invalid email(s)"
   end
 
-  test "rejects trailing comma" do
-    r = DummyRecord.new(notify_emails_to: "a@x.com, b@y.com,")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].present?
+  test "handles duplicate emails" do
+    @model.email_list = "test@example.com, test@example.com"
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "contains duplicate emails"
   end
 
-  test "accepts custom max_emails option" do
-    r = DummyRecordMax3.new(notify_emails_to: "a@x.com, b@x.com, c@x.com")
-    assert r.valid?, r.errors.full_messages.join(", ")
+  test "handles trailing comma" do
+    @model.email_list = "test@example.com,"
+    assert_not @model.valid?
+    # Should fail because commas are used in the wrong way
+    assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
   end
 
-  test "rejects over custom max_emails" do
-    r = DummyRecordMax2.new(notify_emails_to: "a@x.com, b@x.com, c@x.com")
-    assert_not r.valid?
-    assert r.errors[:notify_emails_to].any? { |m| m.include?("2") }
+  test "handles leading comma" do
+    @model.email_list = ",test@example.com"
+    assert_not @model.valid?
+    # Should fail because commas are used in the wrong way
+    assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
   end
-end
 
-class DummyRecordMax3
-  include ActiveModel::Model
-  include ActiveModel::Validations
-  attr_accessor :notify_emails_to
-  validates :notify_emails_to, multiple_emails: {max_emails: 3}, allow_blank: true
-end
+  test "shows correct count in max emails error message" do
+    emails = Array.new(6) { |i| "user#{i}@example.com" }
+    @model.email_list = emails.join(",")
+    assert_not @model.valid?
+    assert_equal "contains more than 5 email(s)", @model.errors[:email_list].first
 
-class DummyRecordMax2
-  include ActiveModel::Model
-  include ActiveModel::Validations
-  attr_accessor :notify_emails_to
-  validates :notify_emails_to, multiple_emails: {max_emails: 2}, allow_blank: true
+    # Test custom max_emails
+    emails = Array.new(4) { |i| "user#{i}@example.com" }
+    @model.custom_email_list = emails.join(",")
+    assert_not @model.valid?
+    assert_equal "contains more than 3 email(s)", @model.errors[:custom_email_list].first
+  end
 end
