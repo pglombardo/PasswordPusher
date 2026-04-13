@@ -301,6 +301,20 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     Settings.allow_anonymous = true
   end
 
+  test "v2 show requires authentication when allow_anonymous is false" do
+    Settings.allow_anonymous = false
+    push = pushes(:test_push)
+
+    get "/api/v2/pushes/#{push.url_token}",
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = true
+  end
+
   # Test path-based authentication requirements for /f paths
   test "/f/create requires authentication" do
     Settings.enable_file_pushes = true

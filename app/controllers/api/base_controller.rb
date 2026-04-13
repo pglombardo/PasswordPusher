@@ -19,6 +19,10 @@ class Api::BaseController < ApplicationController
       # The user is trying to authenticate with a bad token
       head :unauthorized
 
+    elsif !Settings.allow_anonymous
+      # When anonymous access is disabled, API endpoints require authentication.
+      head :unauthorized
+
     elsif params["controller"] == "api/v2/pushes"
       if %w[audit active expired].include?(params["action"])
         # These v2 endpoints require a valid token
