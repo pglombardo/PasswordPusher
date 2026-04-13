@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-14 00:34+0200\n"
-"PO-Revision-Date: 2026-04-13 22:34+0000\n"
+"POT-Creation-Date: 2026-04-14 01:43+0200\n"
+"PO-Revision-Date: 2026-04-13 23:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Indonesian\n"
 "Language: id\n"
@@ -33,6 +33,14 @@ msgstr "Dorongan itu bukan milik Anda."
 #: ../../../app/controllers/api/v1/pushes_controller.rb:309
 msgid "That push is not deletable by viewers."
 msgstr "Dorongan itu tidak dapat dihapus oleh pemirsa."
+
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr "Diperlukan autentikasi dua faktor. Silakan atur untuk melanjutkan."
 
 #: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
@@ -154,7 +162,17 @@ msgstr "Kode verifikasi salah."
 msgid "Two-factor authentication is now enabled."
 msgstr "Autentikasi dua faktor sekarang diaktifkan."
 
-#: ../../../app/controllers/users/two_factor_controller.rb:33
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr ""
+"Autentikasi dua faktor tidak dapat dinonaktifkan karena diperlukan oleh admini"
+"strator."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
 msgid "Two-factor authentication has been disabled."
 msgstr "Autentikasi dua faktor telah dinonaktifkan."
 
@@ -3188,12 +3206,12 @@ msgid "Enter the 6-digit code from your authenticator app or a backup code."
 msgstr "Masukkan kode 6 digit dari aplikasi autentikator Anda atau kode cadangan."
 
 #: ../../../app/views/users/sessions/otp.html.erb:8
-#: ../../../app/views/users/two_factor/verify.html.erb:16
+#: ../../../app/views/users/two_factor/verify.html.erb:19
 msgid "Code"
 msgstr "Kode"
 
 #: ../../../app/views/users/sessions/otp.html.erb:9
-#: ../../../app/views/users/two_factor/verify.html.erb:17
+#: ../../../app/views/users/two_factor/verify.html.erb:20
 msgid "Verification code"
 msgstr "Kode verifikasi"
 
@@ -3201,12 +3219,20 @@ msgstr "Kode verifikasi"
 msgid "Verify"
 msgstr "Verifikasi"
 
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr ""
+"Otentikasi dua faktor diperlukan oleh administrator. Anda harus menyelesaikan "
+"penyiapan untuk mengakses aplikasi."
+
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:1
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:6
 msgid "Save your backup codes"
 msgstr "Menyimpan kode cadangan Anda"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
 msgid ""
 "Store these codes in a safe place. Each can be used once if you lose your auth"
 "enticator device."
@@ -3214,11 +3240,11 @@ msgstr ""
 "Simpan kode-kode ini di tempat yang aman. Masing-masing kode dapat digunakan s"
 "atu kali jika Anda kehilangan perangkat autentikator."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
 msgid "Save or copy these codes now"
 msgstr "Simpan atau salin kode-kode ini sekarang"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
 msgid ""
 "You will not be able to see this list again after you continue. If you lose yo"
 "ur device and your backup codes, you may need an administrator to reset your a"
@@ -3228,20 +3254,20 @@ msgstr ""
 "nda kehilangan perangkat dan kode cadangan, Anda mungkin memerlukan administra"
 "tor untuk mengatur ulang akun Anda."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
 msgid "Recovery codes"
 msgstr "Kode pemulihan"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
 msgid "total"
 msgstr "total"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
 msgid "Copy all codes"
 msgstr "Salin semua kode"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
 msgid ""
 "Backup codes are saved but can only be shown once. If you did not save them, d"
 "isable two-factor authentication and set it up again."
@@ -3249,7 +3275,7 @@ msgstr ""
 "Kode cadangan disimpan tetapi hanya dapat ditampilkan sekali. Jika Anda tidak "
 "menyimpannya, nonaktifkan autentikasi dua faktor dan atur lagi."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
 msgid "Continue to verify"
 msgstr "Lanjutkan untuk memverifikasi"
 
@@ -3261,7 +3287,7 @@ msgstr "Verifikasi pengesahan"
 msgid "Scan this QR code"
 msgstr "Pindai kode QR ini"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:7
+#: ../../../app/views/users/two_factor/verify.html.erb:10
 msgid ""
 "Add this account to your authenticator app, then enter the 6-digit code to con"
 "firm."
@@ -3269,10 +3295,10 @@ msgstr ""
 "Tambahkan akun ini ke aplikasi autentikator Anda, lalu masukkan kode 6 digit u"
 "ntuk mengonfirmasi."
 
-#: ../../../app/views/users/two_factor/verify.html.erb:11
+#: ../../../app/views/users/two_factor/verify.html.erb:14
 msgid "If you cannot scan the code, enter this secret manually:"
 msgstr "Jika Anda tidak dapat memindai kode, masukkan rahasia ini secara manual:"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:20
+#: ../../../app/views/users/two_factor/verify.html.erb:23
 msgid "Enable two-factor authentication"
 msgstr "Mengaktifkan autentikasi dua faktor"

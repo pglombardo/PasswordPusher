@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-14 00:34+0200\n"
-"PO-Revision-Date: 2026-04-13 22:34+0000\n"
+"POT-Creation-Date: 2026-04-14 01:43+0200\n"
+"PO-Revision-Date: 2026-04-13 23:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak\n"
 "Language: sk\n"
@@ -33,6 +33,14 @@ msgstr "Toto tlačenie vám nepatrí."
 #: ../../../app/controllers/api/v1/pushes_controller.rb:309
 msgid "That push is not deletable by viewers."
 msgstr "Tento push nie je možné vymazať zo strany divákov."
+
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr "Vyžaduje sa dvojfaktorové overenie. Ak chcete pokračovať, nastavte ho."
 
 #: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
@@ -154,7 +162,15 @@ msgstr "Nesprávny overovací kód."
 msgid "Two-factor authentication is now enabled."
 msgstr "Dvojfaktorové overovanie je teraz povolené."
 
-#: ../../../app/controllers/users/two_factor_controller.rb:33
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr "Dvojfaktorové overovanie nemožno vypnúť, pretože ho vyžaduje správca."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
 msgid "Two-factor authentication has been disabled."
 msgstr "Dvojfaktorové overovanie bolo vypnuté."
 
@@ -3199,12 +3215,12 @@ msgid "Enter the 6-digit code from your authenticator app or a backup code."
 msgstr "Zadajte 6-miestny kód z aplikácie autentifikátora alebo záložný kód."
 
 #: ../../../app/views/users/sessions/otp.html.erb:8
-#: ../../../app/views/users/two_factor/verify.html.erb:16
+#: ../../../app/views/users/two_factor/verify.html.erb:19
 msgid "Code"
 msgstr "Kód"
 
 #: ../../../app/views/users/sessions/otp.html.erb:9
-#: ../../../app/views/users/two_factor/verify.html.erb:17
+#: ../../../app/views/users/two_factor/verify.html.erb:20
 msgid "Verification code"
 msgstr "Overovací kód"
 
@@ -3212,12 +3228,20 @@ msgstr "Overovací kód"
 msgid "Verify"
 msgstr "Overiť"
 
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr ""
+"Správca vyžaduje dvojfaktorové overenie. Ak chcete získať prístup k aplikácii,"
+" musíte dokončiť nastavenie."
+
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:1
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:6
 msgid "Save your backup codes"
 msgstr "Uloženie záložných kódov"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
 msgid ""
 "Store these codes in a safe place. Each can be used once if you lose your auth"
 "enticator device."
@@ -3225,11 +3249,11 @@ msgstr ""
 "Tieto kódy uložte na bezpečné miesto. V prípade straty autentifikačného zariad"
 "enia môžete každý z nich použiť len raz."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
 msgid "Save or copy these codes now"
 msgstr "Uložte alebo skopírujte tieto kódy"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
 msgid ""
 "You will not be able to see this list again after you continue. If you lose yo"
 "ur device and your backup codes, you may need an administrator to reset your a"
@@ -3238,20 +3262,20 @@ msgstr ""
 "Po pokračovaní už nebudete môcť tento zoznam zobraziť. Ak stratíte svoje zaria"
 "denie a záložné kódy, môže byť potrebné, aby správca obnovil vaše konto."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
 msgid "Recovery codes"
 msgstr "Kódy obnovy"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
 msgid "total"
 msgstr "celkom"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
 msgid "Copy all codes"
 msgstr "Skopírujte všetky kódy"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
 msgid ""
 "Backup codes are saved but can only be shown once. If you did not save them, d"
 "isable two-factor authentication and set it up again."
@@ -3259,7 +3283,7 @@ msgstr ""
 "Záložné kódy sa uložia, ale môžu sa zobraziť len raz. Ak ste ich neuložili, vy"
 "pnite dvojfaktorové overovanie a nastavte ho znova."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
 msgid "Continue to verify"
 msgstr "Pokračujte v overovaní"
 
@@ -3271,7 +3295,7 @@ msgstr "Overenie autentifikátora"
 msgid "Scan this QR code"
 msgstr "Naskenujte tento kód QR"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:7
+#: ../../../app/views/users/two_factor/verify.html.erb:10
 msgid ""
 "Add this account to your authenticator app, then enter the 6-digit code to con"
 "firm."
@@ -3279,10 +3303,10 @@ msgstr ""
 "Pridajte toto konto do aplikácie autentifikátora a potom zadajte 6-miestny kód"
 " na potvrdenie."
 
-#: ../../../app/views/users/two_factor/verify.html.erb:11
+#: ../../../app/views/users/two_factor/verify.html.erb:14
 msgid "If you cannot scan the code, enter this secret manually:"
 msgstr "Ak sa vám nepodarí naskenovať kód, zadajte toto tajomstvo ručne:"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:20
+#: ../../../app/views/users/two_factor/verify.html.erb:23
 msgid "Enable two-factor authentication"
 msgstr "Povolenie dvojfaktorového overovania"
