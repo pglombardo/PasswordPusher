@@ -423,9 +423,11 @@ class Api::V1::PushesController < Api::BaseController
     return true unless Settings.allow_anonymous
     return true if request.path.start_with?("/f")
 
-    # Keep this in sync with kind inference in `create`: for /p.json, the
-    # mere presence of the files key implies a file push (even if empty).
-    (request.path.include?("/p.json") && permitted_params.key?(:files)) ||
+    # Keep auth semantics aligned with API surface:
+    # - v1 /p.json treats files key presence as file intent
+    # - v2 /api/v2/pushes should do the same for auth gating
+    ((request.path.include?("/p.json") || params["controller"] == "api/v2/pushes") &&
+      permitted_params.key?(:files)) ||
       permitted_params[:kind] == "file"
   end
 

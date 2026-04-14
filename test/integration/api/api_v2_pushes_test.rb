@@ -281,7 +281,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
           payload: "v2-file-key-empty-without-auth",
           files: []
         }
-      }
+      },
+      as: :json
 
     assert_response :unauthorized
   ensure
