@@ -423,8 +423,10 @@ class Api::V1::PushesController < Api::BaseController
     return true unless Settings.allow_anonymous
     return true if request.path.start_with?("/f")
 
-    files = Array(permitted_params[:files]).reject(&:blank?)
-    files.present? || permitted_params[:kind] == "file"
+    # Keep this in sync with kind inference in `create`: for /p.json, the
+    # mere presence of the files key implies a file push (even if empty).
+    (request.path.include?("/p.json") && permitted_params.key?(:files)) ||
+      permitted_params[:kind] == "file"
   end
 
   # validate_page_parameter

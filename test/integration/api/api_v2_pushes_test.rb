@@ -268,6 +268,28 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  def test_create_with_empty_files_key_requires_authentication_even_when_allow_anonymous_enabled
+    original_allow_anonymous = Settings.allow_anonymous
+    original_enable_file_pushes = Settings.enable_file_pushes
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "v2-file-key-empty-without-auth",
+          files: []
+        }
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = original_allow_anonymous
+    Settings.enable_file_pushes = original_enable_file_pushes
+    Rails.application.reload_routes!
+  end
+
   def test_create_with_valid_payload_returns_json_created_without_accept_header
     assert_difference("Push.count", 1) do
       post "/api/v2/pushes",

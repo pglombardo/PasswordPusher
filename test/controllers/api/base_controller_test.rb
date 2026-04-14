@@ -326,6 +326,29 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  test "/p/create with empty files key requires authentication when allow_anonymous is true" do
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_file_key_present_empty",
+          files: []
+        }
+      },
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = false
+    Rails.application.reload_routes!
+  end
+
   # When allow_anonymous is false, Api::V1::PushesController#create calls
   # authenticate_user! — anonymous JSON create must be rejected.
   test "/p/create requires authentication when allow_anonymous is false" do
