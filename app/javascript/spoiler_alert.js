@@ -41,6 +41,7 @@ export function spoilerAlert(selector, opts) {
   const processElement = function(index) {
     const el = elements[index];
     el.setAttribute('data-spoiler-state', 'shrouded');
+    let reblurTimeoutId = null;
 
     el.style.webkitTransition = '-webkit-filter 250ms';
     el.style.transition = 'filter 250ms';
@@ -48,6 +49,38 @@ export function spoilerAlert(selector, opts) {
     const applyBlur = function(radius) {
       el.style.filter = 'blur('+radius+'px)';
       el.style.webkitFilter = 'blur('+radius+'px)';
+    }
+
+    const clearReblurTimer = function() {
+      if (reblurTimeoutId !== null) {
+        window.clearTimeout(reblurTimeoutId);
+        reblurTimeoutId = null;
+      }
+    }
+
+    const shroudElement = function() {
+      el.setAttribute('data-spoiler-state', 'shrouded');
+      el.title = hintText;
+      el.style.cursor = 'pointer';
+      applyBlur(maxBlur);
+      clearReblurTimer();
+    }
+
+    const parseSeconds = function(value) {
+      if (value === undefined || value === null || value === '') return null;
+      const seconds = Number(value);
+      if (!Number.isFinite(seconds) || seconds <= 0) return null;
+      return Math.round(seconds * 1000);
+    }
+
+    const resolveAutoReblurMs = function() {
+      const dataAttrMs = parseSeconds(el.getAttribute('data-spoiler-auto-reblur-seconds'));
+      if (dataAttrMs !== null) return dataAttrMs;
+
+      if (opts.autoReblurMs === undefined || opts.autoReblurMs === null) return null;
+      const optionMs = Number(opts.autoReblurMs);
+      if (!Number.isFinite(optionMs) || optionMs <= 0) return null;
+      return Math.round(optionMs);
     }
 
     applyBlur(maxBlur);
@@ -70,12 +103,18 @@ export function spoilerAlert(selector, opts) {
           el.title = '';
           el.style.cursor = 'auto';
           applyBlur(0);
+          clearReblurTimer();
+          const autoReblurMs = resolveAutoReblurMs();
+          if (autoReblurMs !== null) {
+            reblurTimeoutId = window.setTimeout(function() {
+              if (el.getAttribute('data-spoiler-state') === 'revealed') {
+                shroudElement();
+              }
+            }, autoReblurMs);
+          }
           break;
         default:
-          el.setAttribute('data-spoiler-state', 'shrouded');
-          el.title = hintText;
-          el.style.cursor = 'pointer';
-          applyBlur(maxBlur);
+          shroudElement();
       }
     })
   }
