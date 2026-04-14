@@ -17,13 +17,6 @@ Minitest::Test.include(ActiveSupport::Testing::Assertions)
 # Uncomment for awesome colorful output
 # require "minitest/pride"
 
-# Unset all PWP__ environment variables before tests
-# This is to ensure that the test environment is not affected by the PWP__ environment variables
-# that may be set in .env files, local development, or other environments.
-ENV.keys.each do |key|
-  ENV.delete(key) if key.start_with?("PWP__")
-end
-
 class ActiveSupport::TestCase
   # Run tests in parallel with half of available processors
   parallelize(workers: [Etc.nprocessors / 2, 1].max)
