@@ -243,6 +243,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_file_upload_allows_authenticated_user_when_allow_anonymous_enabled
+    original_allow_anonymous = Settings.allow_anonymous
+    original_enable_file_pushes = Settings.enable_file_pushes
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -261,8 +263,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert body["url_token"].present?
   ensure
-    Settings.allow_anonymous = true
-    Settings.enable_file_pushes = false
+    Settings.allow_anonymous = original_allow_anonymous
+    Settings.enable_file_pushes = original_enable_file_pushes
     Rails.application.reload_routes!
   end
 
