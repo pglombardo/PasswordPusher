@@ -202,4 +202,48 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   ensure
     Settings.allow_anonymous = true
   end
+
+  def test_create_with_missing_payload_returns_json_validation_error_without_accept_header
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          expire_after_days: 1,
+          expire_after_views: 5
+        }
+      }.to_json,
+      headers: {"Content-Type" => "application/json"}
+
+    assert_response :unprocessable_content
+    assert_equal "application/json; charset=utf-8", response.content_type
+    body = JSON.parse(response.body)
+    assert body.key?("payload")
+  end
+
+  def test_create_with_null_payload_returns_json_validation_error_without_accept_header
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: nil,
+          expire_after_days: 1,
+          expire_after_views: 5
+        }
+      }.to_json,
+      headers: {"Content-Type" => "application/json"}
+
+    assert_response :unprocessable_content
+    assert_equal "application/json; charset=utf-8", response.content_type
+    body = JSON.parse(response.body)
+    assert body.key?("payload")
+  end
+
+  def test_create_with_missing_push_param_returns_json_bad_request_without_accept_header
+    post "/api/v2/pushes",
+      params: {}.to_json,
+      headers: {"Content-Type" => "application/json"}
+
+    assert_response :bad_request
+    assert_equal "application/json; charset=utf-8", response.content_type
+    body = JSON.parse(response.body)
+    assert body["error"].present?
+  end
 end
