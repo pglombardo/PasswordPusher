@@ -50,7 +50,7 @@ class PasswordTest < ActiveSupport::TestCase
     assert_not json.key?("name")
   end
 
-  test "should save password if notify_emails_to is set and user is not defined" do
+  test "should not save password if notify_emails_to is set and user is not defined" do
     password = Push.new(
       kind: "text",
       payload: "test_payload",
@@ -60,7 +60,7 @@ class PasswordTest < ActiveSupport::TestCase
     refute password.valid?
   end
 
-  test "should save password if notify_emails_to_locale is set and user is not defined" do
+  test "should not save password if notify_emails_to_locale is set and user is not defined" do
     password = Push.new(
       kind: "text",
       payload: "test_payload",
