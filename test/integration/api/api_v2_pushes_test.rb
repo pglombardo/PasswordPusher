@@ -220,6 +220,9 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_file_upload_requires_authentication_even_when_allow_anonymous_enabled
+    previous_allow_anonymous = Settings.allow_anonymous
+    previous_enable_file_pushes = Settings.enable_file_pushes
+
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -234,8 +237,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   ensure
-    Settings.allow_anonymous = true
-    Settings.enable_file_pushes = false
+    Settings.allow_anonymous = previous_allow_anonymous
+    Settings.enable_file_pushes = previous_enable_file_pushes
     Rails.application.reload_routes!
   end
 
