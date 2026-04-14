@@ -278,6 +278,8 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "/p/create with files requires authentication even when allow_anonymous is true" do
+    previous_allow_anonymous = Settings.allow_anonymous
+    previous_enable_file_pushes = Settings.enable_file_pushes
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -295,8 +297,8 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   ensure
-    Settings.allow_anonymous = true
-    Settings.enable_file_pushes = false
+    Settings.allow_anonymous = previous_allow_anonymous
+    Settings.enable_file_pushes = previous_enable_file_pushes
     Rails.application.reload_routes!
   end
 
