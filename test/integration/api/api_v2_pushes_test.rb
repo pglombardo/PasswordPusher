@@ -219,6 +219,78 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert body.key?("payload")
   end
 
+  def test_create_file_upload_requires_authentication_even_when_allow_anonymous_enabled
+    previous_allow_anonymous = Settings.allow_anonymous
+    previous_enable_file_pushes = Settings.enable_file_pushes
+
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "v2-file-push-without-auth",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
+        }
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = previous_allow_anonymous
+    Settings.enable_file_pushes = previous_enable_file_pushes
+    Rails.application.reload_routes!
+  end
+
+  def test_create_file_upload_allows_authenticated_user_when_allow_anonymous_enabled
+    original_allow_anonymous = Settings.allow_anonymous
+    original_enable_file_pushes = Settings.enable_file_pushes
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+    user = users(:luca)
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "v2-file-push-with-auth",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
+        }
+      },
+      headers: bearer_headers(user)
+
+    assert_response :created
+    body = JSON.parse(response.body)
+    assert body["url_token"].present?
+  ensure
+    Settings.allow_anonymous = original_allow_anonymous
+    Settings.enable_file_pushes = original_enable_file_pushes
+    Rails.application.reload_routes!
+  end
+
+  def test_create_with_empty_files_key_requires_authentication_even_when_allow_anonymous_enabled
+    original_allow_anonymous = Settings.allow_anonymous
+    original_enable_file_pushes = Settings.enable_file_pushes
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "v2-file-key-empty-without-auth",
+          files: []
+        }
+      },
+      as: :json
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = original_allow_anonymous
+    Settings.enable_file_pushes = original_enable_file_pushes
+    Rails.application.reload_routes!
+  end
+
   def test_create_with_valid_payload_returns_json_created_without_accept_header
     assert_difference("Push.count", 1) do
       post "/api/v2/pushes",

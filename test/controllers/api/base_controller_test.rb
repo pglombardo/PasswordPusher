@@ -277,6 +277,80 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal :unauthorized, response.status
   end
 
+  test "/p/create with files requires authentication even when allow_anonymous is true" do
+    previous_allow_anonymous = Settings.allow_anonymous
+    previous_enable_file_pushes = Settings.enable_file_pushes
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_file_upload_requires_auth",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
+        }
+      },
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = previous_allow_anonymous
+    Settings.enable_file_pushes = previous_enable_file_pushes
+    Rails.application.reload_routes!
+  end
+
+  test "/p/create with files works with valid token when allow_anonymous is true" do
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_file_upload_authenticated",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
+        }
+      },
+      headers: {
+        "Authorization" => "Bearer valid_token_123",
+        "Accept" => "application/json"
+      }
+
+    assert_response :created
+    json = JSON.parse(response.body)
+    assert json["url_token"].present?
+  ensure
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = false
+    Rails.application.reload_routes!
+  end
+
+  test "/p/create with empty files key requires authentication when allow_anonymous is true" do
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = true
+    Rails.application.reload_routes!
+
+    post "/p.json",
+      params: {
+        password: {
+          payload: "test_secret_file_key_present_empty",
+          files: []
+        }
+      },
+      headers: {
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  ensure
+    Settings.allow_anonymous = true
+    Settings.enable_file_pushes = false
+    Rails.application.reload_routes!
+  end
+
   # When allow_anonymous is false, Api::V1::PushesController#create calls
   # authenticate_user! — anonymous JSON create must be rejected.
   test "/p/create requires authentication when allow_anonymous is false" do
@@ -345,7 +419,8 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     post "/f.json",
       params: {
         file_push: {
-          payload: "test"
+          payload: "test",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
         }
       },
       headers: {
@@ -365,7 +440,8 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     post "/f.json",
       params: {
         file_push: {
-          payload: "test"
+          payload: "test",
+          files: [fixture_file_upload("monkey.png", "image/jpeg")]
         }
       },
       headers: {
