@@ -91,8 +91,7 @@ class TusUploadsController < ApplicationController
     end
 
     store = TusUploadStore.new(id)
-    return head :not_found unless store.exist?
-    return head :not_found unless tus_upload_owned_by_current_user?(store)
+    return head :not_found unless store.exist? || tus_upload_owned_by_current_user?(store)
 
     store.destroy!
     release_tus_upload_from_session!(id)
@@ -102,8 +101,7 @@ class TusUploadsController < ApplicationController
   private
 
   def handle_tus_head(store)
-    return head :not_found unless store.exist?
-    return head :not_found unless tus_upload_owned_by_current_user?(store)
+    return head :not_found unless store.exist? || tus_upload_owned_by_current_user?(store)
 
     assign_tus_progress_headers!(offset: store.upload_offset, length: store.upload_length)
     head :no_content
@@ -157,13 +155,7 @@ class TusUploadsController < ApplicationController
     upload_length = store.upload_length
     blob = store.finalize_to_blob!
     release_tus_upload_from_session!(id)
-    finalized_upload_cache_write(
-      id,
-      signed_id: blob.signed_id,
-      upload_length: upload_length,
-      upload_offset: new_offset,
-      user_id: current_user.id
-    )
+    finalized_upload_cache_write(id, signed_id: blob.signed_id, upload_length: upload_length, upload_offset: new_offset, user_id: current_user.id)
     assign_tus_progress_headers!(offset: new_offset, length: upload_length, signed_id: blob.signed_id)
     head :no_content
   rescue TusUploadStore::NotFound
@@ -257,10 +249,7 @@ class TusUploadsController < ApplicationController
     [filename.presence, content_type.presence]
   end
 
-  TUS_CONTENT_TYPE_BLOCKLIST = %w[
-    text/html text/javascript application/javascript application/x-javascript
-    application/ecmascript text/vbscript
-  ].freeze
+  TUS_CONTENT_TYPE_BLOCKLIST = %w[text/html text/javascript application/javascript application/x-javascript application/ecmascript text/vbscript].freeze
 
   def sanitize_upload_content_type(value)
     return nil if value.blank?
@@ -272,7 +261,6 @@ class TusUploadsController < ApplicationController
 
   def sanitize_upload_filename(name)
     return if name.blank?
-    # Strip surrounding whitespace
     sanitized = name.strip
     # Remove any path components (handles both Unix and Windows-style paths)
     sanitized = File.basename(sanitized)
