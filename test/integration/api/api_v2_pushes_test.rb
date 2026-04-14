@@ -219,6 +219,25 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert body.key?("payload")
   end
 
+  def test_create_with_valid_payload_returns_json_created_without_accept_header
+    assert_difference("Push.count", 1) do
+      post "/api/v2/pushes",
+        params: {
+          push: {
+            payload: "valid-secret-without-accept",
+            expire_after_days: 1,
+            expire_after_views: 5
+          }
+        }.to_json,
+        headers: {"Content-Type" => "application/json"}
+    end
+
+    assert_response :created
+    assert_equal "application/json; charset=utf-8", response.content_type
+    body = JSON.parse(response.body)
+    assert body["url_token"].present?
+  end
+
   def test_create_with_null_payload_returns_json_validation_error_without_accept_header
     post "/api/v2/pushes",
       params: {
