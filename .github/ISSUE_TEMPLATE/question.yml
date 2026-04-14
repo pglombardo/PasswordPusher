@@ -1,0 +1,48 @@
+name: "❓ Question"
+description: "Ask a question about this project 🎓"
+title: "[Q]: "
+labels:
+  - question
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ❓ Question
+        Thanks for reaching out!
+        If something isn't clearly documented or easy to understand, please tell us — that's valuable feedback.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: "✅ Checklist"
+      description: "Please tick anything you've already tried:"
+      options:
+        - label: "I've searched the project's issues."
+          required: false
+        - label: "I've searched the project's discussions."
+          required: false
+        - label: "I've checked the documentation / README."
+          required: false
+
+  - type: textarea
+    id: question
+    attributes:
+      label: "Your question"
+      description: "What would you like to know?"
+      placeholder: |
+        Examples:
+        - How can I [...]?
+        - Is it possible to [...]?
+        - Why does [...] happen when I [...]?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "📎 Additional context"
+      description: "Add any context, screenshots, error messages, logs, or links that help explain the question."
+      placeholder: "Include screenshots, command output, configuration snippets, and what you've already tried."
+    validations:
+      required: false
