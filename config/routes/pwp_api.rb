@@ -1,5 +1,18 @@
 constraints(format: :json) do
   namespace :api do
+    namespace :v2 do
+      get :version, to: "version#show"
+
+      resources :pushes, except: %i[new index edit update] do
+        get "preview", on: :member
+        get "audit", on: :member
+        get "active", on: :collection
+        get "expired", on: :collection
+      end
+    end
+  end
+
+  namespace :api do
     namespace :v1 do
       get :version, to: "version#show"
     end

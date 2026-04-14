@@ -10,11 +10,15 @@ Apipie.configure do |config|
   config.validate = false
   config.default_version = "1.5"
   config.app_info = <<-APPINFO
-    The Password Pusher JSON API.
+    The Password Pusher JSON API v1.5.
 
     This API allows for both anonymous and authenticated access.
 
     For more information including language-specific examples to copy, see: https://docs.pwpush.com/docs/json-api/
+
+    == API v1 Deprecation Notice
+
+    API v1 is deprecated, will no longer receive updates, and remains available for legacy integrations. Please use API v2 instead: {API v2 documentation}[/help/api].
 
     == Authentication
 

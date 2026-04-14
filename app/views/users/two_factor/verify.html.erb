@@ -4,6 +4,9 @@
   <div class="row justify-content-center">
     <div class="col-lg-8 col-xl-6 text-center">
       <h2 class="fw-semibold mb-3"><%= _("Scan this QR code") %></h2>
+      <% if Settings.require_mfa %>
+        <%= render "mfa_required_banner", margin_class: "mb-3" %>
+      <% end %>
       <p class="text-muted small mb-3"><%= _("Add this account to your authenticator app, then enter the 6-digit code to confirm.") %></p>
       <div class="d-inline-block p-3 bg-white rounded shadow-sm mb-4">
         <%= qr_code(current_user.totp_provisioning_uri) %>
