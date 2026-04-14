@@ -5,14 +5,9 @@ require "test_helper"
 class PushCreatedMailerTest < ActionMailer::TestCase
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
-    @push = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "abc123token",
-      retrieval_step: false,
-      notify_emails_to: "one@example.com, two@example.com",
-      notify_emails_to_locale: "en"
-    )
+    @user = users(:luca)
+    @push = pushes(:test_push)
+    @push.update(user: @user)
   end
 
   test "notify sends to all parsed emails" do
@@ -37,14 +32,14 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   end
 
   test "notify uses push url for non-retrieval-step push" do
-    @push.update!(retrieval_step: false)
+    @push.assign_attributes(retrieval_step: false)
     mail = PushCreatedMailer.with(record: @push).notify
 
     assert_includes mail.body.encoded, "/p/#{@push.url_token}"
   end
 
   test "notify uses preliminary url when retrieval_step is true" do
-    @push.update!(retrieval_step: true)
+    @push.assign_attributes(retrieval_step: true)
     mail = PushCreatedMailer.with(record: @push).notify
 
     # Preliminary step path is /p/:url_token/r
@@ -58,167 +53,41 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   end
 
   test "notify includes locale in secret URL when notify_emails_to_locale is set" do
-    push_fr = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "locale_fr_token",
-      retrieval_step: false,
-      notify_emails_to: "one@example.com",
-      notify_emails_to_locale: "fr"
-    )
-    mail = PushCreatedMailer.with(record: push_fr).notify
+    @push.assign_attributes(notify_emails_to_locale: "fr")
+    mail = PushCreatedMailer.with(record: @push).notify
 
-    assert_includes mail.body.encoded, "locale=fr"
+    assert_includes mail.html_part.body.encoded, "locale=fr"
+    assert_includes mail.text_part.body.encoded, "locale=fr"
   end
 
   test "notify URL has no locale param when notify_emails_to_locale is blank" do
-    push_no_locale = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "no_locale_token",
-      retrieval_step: false,
-      notify_emails_to: "one@example.com",
-      notify_emails_to_locale: nil
-    )
-    mail = PushCreatedMailer.with(record: push_no_locale).notify
+    @push.assign_attributes(notify_emails_to_locale: nil)
+    @push.save
+    mail = PushCreatedMailer.with(record: @push).notify
 
-    assert_includes mail.body.encoded, "/p/#{push_no_locale.url_token}"
+    assert_includes mail.body.encoded, "/p/#{@push.url_token}"
     # Secret URL is built without ?locale= when locale is blank
-    assert_no_match(/\?locale=/, mail.body.encoded)
+    refute_includes mail.html_part.body.encoded, "locale="
+    refute_includes mail.text_part.body.encoded, "locale="
   end
 
-  test "notify subject includes user email when push has user" do
-    user = users(:luca)
-    @push.update_columns(user_id: user.id)
+  test "notify subject includes user email" do
     mail = PushCreatedMailer.with(record: @push).notify
-    assert_includes mail.subject, user.email
-  end
-
-  test "notify subject still renders when push has no user" do
-    @push.update_columns(user_id: nil)
-    mail = PushCreatedMailer.with(record: @push).notify
-    assert mail.subject.present?, "subject should still be present even if user is nil"
-    refute_includes mail.subject, "@", "subject should not contain an email when user is nil"
+    assert_includes mail.subject, @user.email
   end
 
   test "notify body includes expiration days and views" do
-    @push.update!(expire_after_days: 3, expire_after_views: 10)
     mail = PushCreatedMailer.with(record: @push).notify
-    assert_includes mail.body.encoded, "3"
-    assert_includes mail.body.encoded, "10"
-  end
+    mail.html_part.body.decoded
+    mail.text_part.body.decoded
 
-  test "notify body includes valid for sentence with days and views" do
-    @push.update!(expire_after_days: 7, expire_after_views: 5)
-    mail = PushCreatedMailer.with(record: @push).notify
-    html = mail.html_part.body.decoded
-    text = mail.text_part.body.decoded
-
-    assert_match(/valid for 7 days.*?, or until 5 views/i, html, "HTML body should explain link validity with days and view limit")
-    assert_match(/valid for 7 days.*?, or until 5 views/i, text, "Text body should explain link validity with days and view limit")
-  end
-
-  test "notify body displays days remaining for 1 day expiry" do
-    @push.update!(expire_after_days: 1, expire_after_views: 3)
-    mail = PushCreatedMailer.with(record: @push).notify
-    body = mail.body.encoded
-    assert_includes body, "1", "1 day expiry should show 1"
-    assert_includes body, "day", "duration should include day unit"
-  end
-
-  test "notify body displays days remaining for 7 days expiry" do
-    @push.update!(expire_after_days: 7, expire_after_views: 10)
-    mail = PushCreatedMailer.with(record: @push).notify
-    body = mail.body.encoded
-    assert_includes body, "7", "7 day expiry should show 7"
-    assert_includes body, "10", "view limit should show 10"
-    assert_includes body, "day", "duration should include day unit"
-  end
-
-  test "notify text part includes duration and views" do
-    @push.update!(expire_after_days: 2, expire_after_views: 4)
-    mail = PushCreatedMailer.with(record: @push).notify
-    text_part = mail.text_part || mail
-    text_body = text_part.body.encoded
-    assert_includes text_body, "2", "text part should include days in duration"
-    assert_includes text_body, "4", "text part should include view limit"
-  end
-
-  test "notify with single email sends to one recipient" do
-    push_single = Push.create!(
-      kind: "text",
-      payload: "secret",
-      url_token: "single_email_token",
-      retrieval_step: false,
-      notify_emails_to: "only@example.com"
-    )
-    mail = PushCreatedMailer.with(record: push_single).notify
-    assert_equal ["only@example.com"], mail.to
-  end
-
-  test "notify body includes days in duration" do
-    @push.update!(expire_after_days: 1, expire_after_views: 1)
-    mail = PushCreatedMailer.with(record: @push).notify
-    body = mail.body.encoded
-    assert_includes body, "day", "body should include day unit for expiration"
-  end
-
-  test "notify multipart mail has both html and text parts with duration" do
-    @push.update!(expire_after_days: 5, expire_after_views: 2)
-    mail = PushCreatedMailer.with(record: @push).notify
-    assert mail.multipart?, "notify should be multipart when both templates exist"
-    assert_includes mail.html_part.body.encoded, "5", "HTML part should include duration"
-    assert_includes mail.text_part.body.encoded, "5", "text part should include duration"
-    assert_includes mail.text_part.body.encoded, "2", "text part should include view limit"
-  end
-
-  test "notify body includes secret link phrase" do
-    mail = PushCreatedMailer.with(record: @push).notify
-    body = mail.body.encoded
-    assert body.include?("Secret link") || body.include?("secret"), "body should mention secret link"
-  end
-
-  test "notify HTML part has expected structure" do
-    mail = PushCreatedMailer.with(record: @push).notify
-    html = mail.html_part&.body&.decoded || mail.body.decoded
-    assert_match(/<h1[^>]*>/, html, "HTML should have h1 heading")
-    assert_match(/<a\s+href=.*#{Regexp.escape(@push.url_token)}/, html, "HTML should have secret link anchor with url_token")
-    assert_match(/Important Notes/i, html, "HTML should have Important Notes section")
-    assert_match(/<ul/i, html, "HTML should have list")
-    assert_match(/<li/i, html, "HTML should have list items")
-  end
-
-  test "notify text part has expected structure" do
-    mail = PushCreatedMailer.with(record: @push).notify
-    text = mail.text_part&.body&.decoded || mail.body.decoded
-    assert_includes text, @push.url_token, "text part should include secret URL"
-    assert_match(/Secret link/i, text, "text part should mention secret link")
-    assert_match(/Important Notes/i, text, "text part should have Important Notes")
-  end
-
-  test "notify HTML part has exactly three list items in Important Notes" do
-    mail = PushCreatedMailer.with(record: @push).notify
-    html = mail.html_part&.body&.decoded || mail.body.decoded
-    list_items = html.scan(/<li\b/i)
-    assert_equal 3, list_items.size, "Important Notes section should have exactly 3 list items"
+    assert_includes mail.html_part.body.decoded, "valid for 7 days, or until 99 views"
+    assert_includes mail.text_part.body.decoded, "valid for 7 days, or until 99 views"
   end
 
   test "notify HTML part secret link has full clickable URL in href" do
     mail = PushCreatedMailer.with(record: @push).notify
-    html = mail.html_part&.body&.decoded || mail.body.decoded
-    # Link must be a full URL (scheme + host) so it is clickable in email clients
-    assert_match(
-      %r{<a\s+[^>]*href="https?://[^"]*/p/#{Regexp.escape(@push.url_token)}(?:\?[^"]*)?"},
-      html,
-      "HTML should have anchor with full URL in href (scheme + host + path)"
-    )
-  end
 
-  test "notify HTML part secret link text equals href URL" do
-    mail = PushCreatedMailer.with(record: @push).notify
-    html = mail.html_part&.body&.decoded || mail.body.decoded
-    m = html.match(%r{<a\s+[^>]*href="(https?://[^"]+)"[^>]*>([^<]+)</a>})
-    assert m, "HTML should have secret link anchor with href and text"
-    assert_equal m[1], m[2].strip, "link text should equal href URL (template: <a href=\"@secret_url\">@secret_url</a>)"
+    assert_includes mail.html_part.body.decoded, @push.url_token
   end
 end

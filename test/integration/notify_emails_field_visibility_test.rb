@@ -6,27 +6,26 @@ class NotifyEmailsFieldVisibilityTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @default_disable_logins = Settings.disable_logins
-    @default_enable_user_account_emails = Settings.enable_user_account_emails
+    Settings.mail.smtp_address = "smtp.example.com"
     Settings.disable_logins = false
-    Settings.enable_user_account_emails = true
+
     @user = users(:luca)
   end
 
   teardown do
-    Settings.disable_logins = @default_disable_logins
-    Settings.enable_user_account_emails = @default_enable_user_account_emails
+    Settings.reload!
   end
 
   test "notify emails field visible when user account emails enabled, logins enabled, and signed in" do
     sign_in @user
     get new_push_path(tab: "text")
+
     assert_response :success
     assert_select "input[name=?]", "push[notify_emails_to]", count: 1
   end
 
-  test "notify emails field hidden when user account emails disabled" do
-    Settings.enable_user_account_emails = false
+  test "notify emails field hidden when mail service is not configured" do
+    Settings.mail.smtp_address = nil
     sign_in @user
     get new_push_path(tab: "text")
     assert_response :success
@@ -51,6 +50,7 @@ class NotifyEmailsFieldVisibilityTest < ActionDispatch::IntegrationTest
     sign_in @user
     get new_push_path(tab: "text")
     assert_response :success
+
     assert_match(/Auto Dispatch: Send This Secret Link To/i, response.body)
     assert_match(/Enter email\(s\) separated by commas/i, response.body)
     assert_match(/Secret Link Language/i, response.body)

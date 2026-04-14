@@ -7,3 +7,5 @@ test_push:
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %> 
   payload_ciphertext: <%= Push.generate_payload_ciphertext("MyText").inspect %>
+  notify_emails_to_ciphertext: <%= Push.generate_notify_emails_to_ciphertext("one@example.com, two@example.com").inspect %>
+  notify_emails_to_locale_ciphertext: <%= Push.generate_notify_emails_to_locale_ciphertext("").inspect %>

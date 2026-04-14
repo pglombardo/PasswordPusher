@@ -8,16 +8,14 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
 
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
-    @default_disable_logins = Settings.disable_logins
-    @default_enable_user_account_emails = Settings.enable_user_account_emails
     Settings.disable_logins = false
-    Settings.enable_user_account_emails = true
+    Settings.mail.smtp_address = "smtp.example.com"
+
     @user = users(:luca)
   end
 
   teardown do
-    Settings.disable_logins = @default_disable_logins
-    Settings.enable_user_account_emails = @default_enable_user_account_emails
+    Settings.reload!
   end
 
   test "creating push with notify_emails_to enqueues SendPushCreatedEmailJob when logged in" do
@@ -92,9 +90,8 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_response :redirect
-    push = Push.last
-    assert push.notify_emails_to.blank?, "notify_emails_to should be cleared for anonymous"
+
+    assert_response :unprocessable_content
   end
 
   test "push creation form does not show notify emails field when not logged in" do
@@ -105,7 +102,7 @@ class NotifyEmailsCreationTest < ActionDispatch::IntegrationTest
   end
 
   test "push creation form does not show notify emails field when user account emails are disabled" do
-    Settings.enable_user_account_emails = false
+    Settings.mail.smtp_address = nil
     sign_in @user
     get new_push_path(tab: "text")
     assert_response :success
