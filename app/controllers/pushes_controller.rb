@@ -127,12 +127,11 @@ class PushesController < BaseController
   end
 
   def create
-    if params.dig(:push, :kind) == "file" && tus_uploads_in_progress?
+    if tus_uploads_in_progress?
       @push = Push.new(push_params)
       @push.user_id = current_user.id if user_signed_in?
       assign_deletable_by_viewer(@push, push_params)
       assign_retrieval_step(@push, push_params)
-      @files_tab = true
       @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before creating the push."))
       render action: "new", status: :conflict
       return
@@ -179,8 +178,7 @@ class PushesController < BaseController
       return
     end
 
-    if @push.file? && tus_uploads_in_progress?
-      @files_tab = true
+    if tus_uploads_in_progress?
       @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
       render action: "edit", status: :conflict
       return
