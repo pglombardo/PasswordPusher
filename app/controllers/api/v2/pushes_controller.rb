@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 class Api::V2::PushesController < Api::V1::PushesController
+  before_action :force_json_format
+
   private
+
+  def force_json_format
+    request.format = :json
+  end
 
   def push_params
     permitted = params.require(:push).permit(:name, :kind, :expire_after_days, :expire_after_views,
