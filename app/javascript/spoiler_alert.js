@@ -66,7 +66,7 @@ export function spoilerAlert(selector, opts) {
       clearReblurTimer();
     }
 
-    const parseSeconds = function(value) {
+    const parseSecondsToMs = function(value) {
       if (value === undefined || value === null || value === '') return null;
       const seconds = Number(value);
       if (!Number.isFinite(seconds) || seconds <= 0) return null;
@@ -74,9 +74,13 @@ export function spoilerAlert(selector, opts) {
     }
 
     const resolveAutoReblurMs = function() {
-      const dataAttrMs = parseSeconds(el.getAttribute('data-spoiler-auto-reblur-seconds'));
+      const dataAttrMs = parseSecondsToMs(el.getAttribute('data-spoiler-auto-reblur-seconds'));
       if (dataAttrMs !== null) return dataAttrMs;
 
+      const optionSecondsMs = parseSecondsToMs(opts.autoReblurSeconds);
+      if (optionSecondsMs !== null) return optionSecondsMs;
+
+      // Backward compatibility for existing callers using milliseconds.
       if (opts.autoReblurMs === undefined || opts.autoReblurMs === null) return null;
       const optionMs = Number(opts.autoReblurMs);
       if (!Number.isFinite(optionMs) || optionMs <= 0) return null;

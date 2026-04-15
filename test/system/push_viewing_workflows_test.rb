@@ -149,8 +149,7 @@ class PushViewingWorkflowsTest < ApplicationSystemTestCase
 
     find("#push_payload").click
     assert_selector "#push_payload[data-spoiler-state='revealed']", wait: 2
-    sleep 1
-    assert_equal "shrouded", page.evaluate_script("document.querySelector('#push_payload').getAttribute('data-spoiler-state')")
+    assert_selector "#push_payload[data-spoiler-state='shrouded']", wait: 3
   ensure
     Settings.pw.enable_blur = original_blur_setting
   end
