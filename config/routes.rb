@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     draw :pwp_api
 
     apipie
+    get "/help/api", to: "pages#api", as: :help_api
 
     get "/pages/*id" => "pages#show", :as => :page, :format => false
 

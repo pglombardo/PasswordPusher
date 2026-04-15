@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-02 15:33+0200\n"
-"PO-Revision-Date: 2026-04-02 13:33+0000\n"
+"POT-Creation-Date: 2026-04-14 01:43+0200\n"
+"PO-Revision-Date: 2026-04-13 23:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian\n"
 "Language: ro\n"
@@ -23,10 +23,10 @@ msgid "You cannot delete your own account."
 msgstr "Nu vă puteți șterge propriul cont."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:117
-#: ../../../app/controllers/pushes_controller.rb:157
-#: ../../../app/controllers/pushes_controller.rb:284
-#: ../../../app/controllers/pushes_controller.rb:314
+#: ../../../app/controllers/pushes_controller.rb:118
+#: ../../../app/controllers/pushes_controller.rb:158
+#: ../../../app/controllers/pushes_controller.rb:285
+#: ../../../app/controllers/pushes_controller.rb:315
 msgid "That push doesn't belong to you."
 msgstr "Acel imbold nu-ți aparține."
 
@@ -34,7 +34,17 @@ msgstr "Acel imbold nu-ți aparține."
 msgid "That push is not deletable by viewers."
 msgstr "Acest push nu poate fi șters de către telespectatori."
 
-#: ../../../app/controllers/pushes_controller.rb:97
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr ""
+"Este necesară autentificarea cu doi factori. Vă rugăm să o configurați pentru "
+"a continua."
+
+#: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -42,91 +52,91 @@ msgstr ""
 "Această frază de acces este incorectă.  Vă rugăm să încercați din nou sau să c"
 "ontactați persoana sau organizația care v-a trimis acest link."
 
-#: ../../../app/controllers/pushes_controller.rb:122
-#: ../../../app/controllers/pushes_controller.rb:163
+#: ../../../app/controllers/pushes_controller.rb:123
+#: ../../../app/controllers/pushes_controller.rb:164
 msgid "That push has already expired and cannot be edited."
 msgstr "Acel push a expirat deja și nu poate fi editat."
 
-#: ../../../app/controllers/pushes_controller.rb:188
+#: ../../../app/controllers/pushes_controller.rb:189
 msgid "must be at least %{count} (days already elapsed + 1)."
 msgstr "trebuie să fie cel puțin %{count} (zile deja scurse + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/controllers/pushes_controller.rb:198
 msgid "must be at least %{count} (views already consumed + 1)."
 msgstr "trebuie să fie cel puțin %{count} (vizualizări deja consumate + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:222
+#: ../../../app/controllers/pushes_controller.rb:223
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Puteți atașa numai până la %{count} fișiere per push."
 
-#: ../../../app/controllers/pushes_controller.rb:235
+#: ../../../app/controllers/pushes_controller.rb:236
 msgid "Push was successfully updated."
 msgstr "Push a fost actualizat cu succes."
 
-#: ../../../app/controllers/pushes_controller.rb:277
-#: ../../../app/controllers/pushes_controller.rb:452
+#: ../../../app/controllers/pushes_controller.rb:278
+#: ../../../app/controllers/pushes_controller.rb:457
 #: ../../../test/integration/disable_logins_test.rb:56
 msgid "The audit log is only available when signed in."
 msgstr "Jurnalul de audit este disponibil numai atunci când sunteți conectat."
 
-#: ../../../app/controllers/pushes_controller.rb:279
+#: ../../../app/controllers/pushes_controller.rb:280
 msgid "You must be signed in to view the audit log."
 msgstr "Trebuie să fiți conectat pentru a vizualiza jurnalul de audit."
 
-#: ../../../app/controllers/pushes_controller.rb:294
+#: ../../../app/controllers/pushes_controller.rb:295
 msgid "That push is not deletable by viewers and does not belong to you."
 msgstr "Acel push nu poate fi șters de spectatori și nu vă aparține."
 
-#: ../../../app/controllers/pushes_controller.rb:299
-#: ../../../app/controllers/pushes_controller.rb:320
+#: ../../../app/controllers/pushes_controller.rb:300
+#: ../../../app/controllers/pushes_controller.rb:321
 msgid "That push has already expired."
 msgstr "Acel impuls a expirat deja."
 
-#: ../../../app/controllers/pushes_controller.rb:307
+#: ../../../app/controllers/pushes_controller.rb:308
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Conținutul push a fost șters, iar URL-ul secret a expirat."
 
-#: ../../../app/controllers/pushes_controller.rb:326
+#: ../../../app/controllers/pushes_controller.rb:327
 msgid "You cannot delete the last file from a file push."
 msgstr "Nu puteți șterge ultimul fișier dintr-un push de fișiere."
 
-#: ../../../app/controllers/pushes_controller.rb:335
+#: ../../../app/controllers/pushes_controller.rb:336
 msgid "File was successfully deleted."
 msgstr "Fișierul a fost șters cu succes."
 
-#: ../../../app/controllers/pushes_controller.rb:337
+#: ../../../app/controllers/pushes_controller.rb:338
 msgid "File not found."
 msgstr "Fișierul nu a fost găsit."
 
-#: ../../../app/controllers/pushes_controller.rb:444
+#: ../../../app/controllers/pushes_controller.rb:449
 #: ../../../test/integration/disable_logins_test.rb:158
 msgid "The push dashboard is not available while logins are disabled."
 msgstr ""
 "Tabloul de bord push nu este disponibil în timp ce autentificările sunt dezact"
 "ivate."
 
-#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/controllers/pushes_controller.rb:482
 #: ../../../test/integration/disable_logins_test.rb:146
 msgid "File pushes are unavailable while logins are disabled."
 msgstr ""
 "Fluxurile de fișiere nu sunt disponibile în timp ce autentificările sunt dezac"
 "tivate."
 
-#: ../../../app/controllers/pushes_controller.rb:485
+#: ../../../app/controllers/pushes_controller.rb:490
 #: ../../../app/models/push.rb:208
 msgid "File pushes are disabled."
 msgstr "Împingerea fișierelor este dezactivată."
 
-#: ../../../app/controllers/pushes_controller.rb:490
+#: ../../../app/controllers/pushes_controller.rb:495
 #: ../../../app/models/push.rb:212
 #: ../../../test/controllers/urls_controller_test.rb:113
 #: ../../../test/controllers/urls_controller_test.rb:133
 msgid "URL pushes are disabled."
 msgstr "URL împingeri sunt dezactivate."
 
-#: ../../../app/controllers/pushes_controller.rb:502
+#: ../../../app/controllers/pushes_controller.rb:507
 #: ../../../app/models/push.rb:216
 #: ../../../test/controllers/qr_push_controller_test.rb:131
 #: ../../../test/controllers/qr_push_controller_test.rb:149
@@ -158,7 +168,17 @@ msgstr "Cod de verificare incorect."
 msgid "Two-factor authentication is now enabled."
 msgstr "Autentificarea cu doi factori este acum activată."
 
-#: ../../../app/controllers/users/two_factor_controller.rb:33
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr ""
+"Autentificarea cu doi factori nu poate fi dezactivată deoarece este cerută de "
+"administrator."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
 msgid "Two-factor authentication has been disabled."
 msgstr "Autentificarea cu doi factori a fost dezactivată."
 
@@ -1574,7 +1594,7 @@ msgid "Open source on GitHub. Use, review, or contribute."
 msgstr "Sursă deschisă pe GitHub. Utilizați, revizuiți sau contribuiți."
 
 #: ../../../app/views/pages/about.html.erb:113
-#: ../../../app/views/shared/_footer.html.erb:29
+#: ../../../app/views/shared/_footer.html.erb:30
 msgid "GitHub"
 msgstr "GitHub"
 
@@ -1740,6 +1760,275 @@ msgstr ""
 #: ../../../app/views/pages/about.html.erb:200
 msgid "Thank you for using and supporting Password Pusher."
 msgstr "Vă mulțumim pentru utilizarea și susținerea Password Pusher."
+
+#: ../../../app/views/pages/api.html.erb:4
+msgid "API v2"
+msgstr "API v2"
+
+#: ../../../app/views/pages/api.html.erb:6
+msgid ""
+"Complete JSON API documentation for creating, retrieving and managing pushes i"
+"n the open-source edition."
+msgstr ""
+"Documentație API JSON completă pentru crearea, recuperarea și gestionarea impu"
+"lsurilor în ediția open-source."
+
+#: ../../../app/views/pages/api.html.erb:11
+msgid "Authentication"
+msgstr "Autentificare"
+
+#: ../../../app/views/pages/api.html.erb:13
+msgid "Authenticate requests with a Bearer token in the Authorization header."
+msgstr "Autentificați cererile cu un token Bearer în antetul Authorization."
+
+#: ../../../app/views/pages/api.html.erb:17
+msgid "Create an API token in your account settings at"
+msgstr "Creați un token API în setările contului dvs. la"
+
+#: ../../../app/views/pages/api.html.erb:23
+msgid "Public endpoints:"
+msgstr "Puncte finale publice:"
+
+#: ../../../app/views/pages/api.html.erb:24
+msgid "Authenticated endpoints:"
+msgstr "Puncte finale autentificate:"
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "Anonymous access setting:"
+msgstr "Setare acces anonim:"
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "When anonymous pushes are disabled, API endpoints require authentication."
+msgstr ""
+"Atunci când accesările anonime sunt dezactivate, punctele finale API necesită "
+"autentificare."
+
+#: ../../../app/views/pages/api.html.erb:32
+msgid "Base URL"
+msgstr "URL de bază"
+
+#: ../../../app/views/pages/api.html.erb:33
+msgid "All endpoints are relative to your installation host:"
+msgstr "Toate punctele finale sunt relative la gazda dvs. de instalare:"
+
+#: ../../../app/views/pages/api.html.erb:40
+msgid "Version Endpoint"
+msgstr "Versiune Punct final"
+
+#: ../../../app/views/pages/api.html.erb:42
+msgid "Returns API and application version details."
+msgstr "Returnează detalii privind versiunea API și a aplicației."
+
+#: ../../../app/views/pages/api.html.erb:43
+#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:122
+#: ../../../app/views/pages/api.html.erb:132
+#: ../../../app/views/pages/api.html.erb:142
+#: ../../../app/views/pages/api.html.erb:153
+#: ../../../app/views/pages/api.html.erb:164
+msgid "cURL example:"
+msgstr "exemplu cURL:"
+
+#: ../../../app/views/pages/api.html.erb:53
+msgid "Push Endpoints"
+msgstr "Puncte finale Push"
+
+#: ../../../app/views/pages/api.html.erb:58
+msgid "Create a new push."
+msgstr "Creați un nou push."
+
+#: ../../../app/views/pages/api.html.erb:59
+msgid "Body format:"
+msgstr "Formatul corpului:"
+
+#: ../../../app/views/pages/api.html.erb:64
+msgid "Parameter"
+msgstr "Parametru"
+
+#: ../../../app/views/pages/api.html.erb:65
+#: ../../../app/views/pushes/index.html.erb:33
+msgid "Type"
+msgstr "Tip"
+
+#: ../../../app/views/pages/api.html.erb:66
+msgid "Required"
+msgstr "Necesar"
+
+#: ../../../app/views/pages/api.html.erb:67
+msgid "Description"
+msgstr "Descriere"
+
+#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pushes/audit.html.erb:53
+#: ../../../app/views/pushes/audit.html.erb:66
+#: ../../../app/views/pushes/audit.html.erb:80
+#: ../../../app/views/pushes/audit.html.erb:142
+msgid "Yes"
+msgstr "Da"
+
+#: ../../../app/views/pages/api.html.erb:71
+msgid "Secret text payload for text, URL or QR pushes."
+msgstr "Sarcină utilă de text secret pentru împingeri de text, URL sau QR."
+
+#: ../../../app/views/pages/api.html.erb:72
+#: ../../../app/views/pages/api.html.erb:73
+#: ../../../app/views/pages/api.html.erb:74
+#: ../../../app/views/pages/api.html.erb:75
+#: ../../../app/views/pages/api.html.erb:76
+#: ../../../app/views/pages/api.html.erb:77
+#: ../../../app/views/pages/api.html.erb:78
+#: ../../../app/views/pages/api.html.erb:79
+#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pushes/audit.html.erb:55
+#: ../../../app/views/pushes/audit.html.erb:68
+#: ../../../app/views/pushes/audit.html.erb:78
+#: ../../../app/views/pushes/audit.html.erb:140
+msgid "No"
+msgstr "Nu"
+
+#: ../../../app/views/pages/api.html.erb:72
+msgid ""
+"Files to attach. When present, the push type becomes file unless kind is expli"
+"citly provided."
+msgstr ""
+"Fișiere de atașat. Atunci când este prezent, tipul de push devine fișier, cu e"
+"xcepția cazului în care tipul este furnizat în mod explicit."
+
+#: ../../../app/views/pages/api.html.erb:73
+msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
+msgstr ""
+"Tip push: text, fișier, url sau qr. În cazul în care nu este furnizat, valoare"
+"a implicită este text."
+
+#: ../../../app/views/pages/api.html.erb:74
+msgid "Expiration window in days. If omitted, instance defaults are used."
+msgstr ""
+"Fereastra de expirare în zile. Dacă este omisă, sunt utilizate valorile implic"
+"ite ale instanței."
+
+#: ../../../app/views/pages/api.html.erb:75
+msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
+msgstr ""
+"Numărul maxim de recuperări permise. Dacă este omisă, sunt utilizate valorile "
+"implicite ale instanței."
+
+#: ../../../app/views/pages/api.html.erb:76
+msgid "Allows the recipient to expire the push."
+msgstr "Permite destinatarului să expire push-ul."
+
+#: ../../../app/views/pages/api.html.erb:77
+msgid "Adds an extra retrieval confirmation step."
+msgstr "Adaugă o etapă suplimentară de confirmare a recuperării."
+
+#: ../../../app/views/pages/api.html.erb:78
+msgid "Requires this passphrase to retrieve the payload."
+msgstr "Necesită această frază de acces pentru a prelua sarcina utilă."
+
+#: ../../../app/views/pages/api.html.erb:79
+msgid "Optional label shown to the owner."
+msgstr "Etichetă opțională prezentată proprietarului."
+
+#: ../../../app/views/pages/api.html.erb:80
+msgid "Optional owner-only note."
+msgstr "Notă opțională rezervată proprietarului."
+
+#: ../../../app/views/pages/api.html.erb:94
+msgid "cURL example (JSON body):"
+msgstr "exemplu cURL (corp JSON):"
+
+#: ../../../app/views/pages/api.html.erb:111
+msgid ""
+"Retrieve a push payload by token. This counts as a view and may expire the pus"
+"h when limits are reached."
+msgstr ""
+"Recuperează o sarcină utilă push prin simbol. Acest lucru contează ca o vizual"
+"izare și poate expira push-ul atunci când sunt atinse limitele."
+
+#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:152
+#: ../../../app/views/pages/api.html.erb:163
+msgid "Query parameters:"
+msgstr "Parametrii de interogare:"
+
+#: ../../../app/views/pages/api.html.erb:112
+msgid "optional, required when the push is passphrase-protected"
+msgstr "opțional, necesar atunci când push-ul este protejat prin frază de acces"
+
+#: ../../../app/views/pages/api.html.erb:121
+msgid ""
+"Returns the fully-qualified secret URL for a push without retrieving its paylo"
+"ad."
+msgstr ""
+"Returnează URL-ul secret complet calificat pentru un push fără a prelua sarcin"
+"a utilă a acestuia."
+
+#: ../../../app/views/pages/api.html.erb:130
+msgid ""
+"Return audit log entries for a push. Authentication and ownership are required"
+"."
+msgstr ""
+"Returnează intrările din jurnalul de audit pentru un push. Sunt necesare auten"
+"tificarea și proprietatea."
+
+#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:152
+#: ../../../app/views/pages/api.html.erb:163
+msgid "optional, integer, default 1, valid range 1 to 200"
+msgstr "opțional, număr întreg, implicit 1, interval valabil de la 1 la 200"
+
+#: ../../../app/views/pages/api.html.erb:141
+msgid ""
+"Expire a push immediately. Allowed for owners (when authenticated) or for reci"
+"pients when the push was created with deletable_by_viewer enabled."
+msgstr ""
+"Expiră un push imediat. Permis pentru proprietari (atunci când sunt autentific"
+"ați) sau pentru destinatari atunci când push-ul a fost creat cu opțiunea delet"
+"able_by_viewer activată."
+
+#: ../../../app/views/pages/api.html.erb:151
+msgid "List active pushes for the authenticated user."
+msgstr "Listează push-urile active pentru utilizatorul autentificat."
+
+#: ../../../app/views/pages/api.html.erb:162
+msgid "List expired pushes for the authenticated user."
+msgstr "Enumeră impulsurile expirate pentru utilizatorul autentificat."
+
+#: ../../../app/views/pages/api.html.erb:172
+msgid "HTTP Status Codes"
+msgstr "Coduri de stare HTTP"
+
+#: ../../../app/views/pages/api.html.erb:174
+msgid "Successful request"
+msgstr "Cerere reușită"
+
+#: ../../../app/views/pages/api.html.erb:175
+msgid "Push created"
+msgstr "Push creat"
+
+#: ../../../app/views/pages/api.html.erb:176
+msgid "Invalid request parameters"
+msgstr "Parametri de solicitare nevalabili"
+
+#: ../../../app/views/pages/api.html.erb:177
+msgid "Authentication required or invalid token"
+msgstr "Autentificare necesară sau token invalid"
+
+#: ../../../app/views/pages/api.html.erb:178
+msgid "Forbidden for current user"
+msgstr "Interzis pentru utilizatorul curent"
+
+#: ../../../app/views/pages/api.html.erb:179
+msgid "Resource not found"
+msgstr "Resursa nu a fost găsită"
+
+#: ../../../app/views/pages/api.html.erb:180
+msgid "Validation error"
+msgstr "Eroare de validare"
+
+#: ../../../app/views/pages/api.html.erb:186
+msgid "For legacy API v1 documentation, see"
+msgstr "Pentru documentația veche API v1, consultați"
 
 #: ../../../app/views/pages/generate_key.html.erb:1
 msgid "Generate Key"
@@ -1912,13 +2201,13 @@ msgid "Views"
 msgstr "Vizualizări"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:144
+#: ../../../app/views/pushes/_files_form.html.erb:147
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:153
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:142
+#: ../../../app/views/pushes/_qr_form.html.erb:145
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_url_form.html.erb:108
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:82
 msgid "Save"
 msgstr "Salvați"
@@ -1962,104 +2251,104 @@ msgstr "Expirați legătura secretă și ștergeți-o după aceea:"
 msgid "(whichever comes first)"
 msgstr "(oricare dintre acestea este prima)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:119
-#: ../../../app/views/pushes/_form.html.erb:125
-#: ../../../app/views/pushes/_qr_form.html.erb:116
-#: ../../../app/views/pushes/_url_form.html.erb:89
+#: ../../../app/views/pushes/_files_form.html.erb:115
+#: ../../../app/views/pushes/_form.html.erb:121
+#: ../../../app/views/pushes/_qr_form.html.erb:111
+#: ../../../app/views/pushes/_url_form.html.erb:84
+#: ../../../app/views/pushes/audit.html.erb:76
+msgid "Passphrase"
+msgstr "Blocare prin frază de siguranță"
+
+#: ../../../app/views/pushes/_files_form.html.erb:118
+#: ../../../app/views/pushes/_form.html.erb:124
+#: ../../../app/views/pushes/_qr_form.html.erb:114
+#: ../../../app/views/pushes/_url_form.html.erb:87
+msgid "Optional: Require recipients to enter a passphrase to view this push"
+msgstr ""
+"Opțional: Cereți destinatarilor să introducă o frază de acces pentru a vizuali"
+"za acest mesaj push"
+
+#: ../../../app/views/pushes/_files_form.html.erb:128
+#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:98
 msgid "Use a 1-click retrieval step"
 msgstr "Utilizați o etapă de recuperare cu 1 clic"
 
-#: ../../../app/views/pushes/_files_form.html.erb:120
-#: ../../../app/views/pushes/_form.html.erb:126
-#: ../../../app/views/pushes/_qr_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:135
+#: ../../../app/views/pushes/_qr_form.html.erb:126
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Ajută la evitarea sistemelor de chat și a scanerelor de adrese URL de la consu"
 "mul de vizualizări."
 
-#: ../../../app/views/pushes/_files_form.html.erb:128
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:126
+#: ../../../app/views/pushes/_files_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:143
+#: ../../../app/views/pushes/_qr_form.html.erb:135
 msgid "Allow immediate deletion"
 msgstr "Permite ștergerea imediată"
 
-#: ../../../app/views/pushes/_files_form.html.erb:129
-#: ../../../app/views/pushes/_form.html.erb:135
-#: ../../../app/views/pushes/_qr_form.html.erb:127
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:144
+#: ../../../app/views/pushes/_qr_form.html.erb:136
 msgid "Allow users to delete this push once retrieved."
 msgstr "Permiteți utilizatorilor să șteargă acest push după ce a fost recuperat."
 
-#: ../../../app/views/pushes/_files_form.html.erb:136
-#: ../../../app/views/pushes/_form.html.erb:142
-#: ../../../app/views/pushes/_qr_form.html.erb:134
-#: ../../../app/views/pushes/_url_form.html.erb:97
-#: ../../../app/views/pushes/audit.html.erb:76
-msgid "Passphrase"
-msgstr "Blocare prin frază de siguranță"
-
-#: ../../../app/views/pushes/_files_form.html.erb:139
-#: ../../../app/views/pushes/_form.html.erb:145
-#: ../../../app/views/pushes/_qr_form.html.erb:137
-#: ../../../app/views/pushes/_url_form.html.erb:100
-msgid "Optional: Require recipients to enter a passphrase to view this push"
-msgstr ""
-"Opțional: Cereți destinatarilor să introducă o frază de acces pentru a vizuali"
-"za acest mesaj push"
-
-#: ../../../app/views/pushes/_files_form.html.erb:144
-#: ../../../app/views/pushes/_form.html.erb:150
-#: ../../../app/views/pushes/_qr_form.html.erb:142
-#: ../../../app/views/pushes/_url_form.html.erb:105
+#: ../../../app/views/pushes/_files_form.html.erb:147
+#: ../../../app/views/pushes/_form.html.erb:153
+#: ../../../app/views/pushes/_qr_form.html.erb:145
+#: ../../../app/views/pushes/_url_form.html.erb:108
 msgid "the above settings as the page default."
 msgstr "setările de mai sus ca fiind setările implicite ale paginii."
 
-#: ../../../app/views/pushes/_files_form.html.erb:154
-#: ../../../app/views/pushes/_files_form.html.erb:177
-#: ../../../app/views/pushes/_form.html.erb:160
-#: ../../../app/views/pushes/_form.html.erb:170
-#: ../../../app/views/pushes/_qr_form.html.erb:152
-#: ../../../app/views/pushes/_qr_form.html.erb:162
-#: ../../../app/views/pushes/_url_form.html.erb:115
-#: ../../../app/views/pushes/_url_form.html.erb:125
+#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:180
+#: ../../../app/views/pushes/_form.html.erb:163
+#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_qr_form.html.erb:155
+#: ../../../app/views/pushes/_qr_form.html.erb:165
+#: ../../../app/views/pushes/_url_form.html.erb:118
+#: ../../../app/views/pushes/_url_form.html.erb:128
 msgid "Optional"
 msgstr "Opțional"
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_qr_form.html.erb:155
-#: ../../../app/views/pushes/_url_form.html.erb:118
+#: ../../../app/views/pushes/_files_form.html.erb:160
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_url_form.html.erb:121
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Un nume afișat în tabloul de bord, notificări și e-mailuri."
 
-#: ../../../app/views/pushes/_files_form.html.erb:162
+#: ../../../app/views/pushes/_files_form.html.erb:165
 msgid "Message"
 msgstr "Mesaj"
 
-#: ../../../app/views/pushes/_files_form.html.erb:165
+#: ../../../app/views/pushes/_files_form.html.erb:168
 msgid "Optional: A message to be included with the push"
 msgstr "Opțional: Un mesaj care să fie inclus cu push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:169
+#: ../../../app/views/pushes/_files_form.html.erb:172
 msgid "Encrypted and visible to the receiving party"
 msgstr "Criptat și vizibil pentru partea destinatară"
 
-#: ../../../app/views/pushes/_files_form.html.erb:174
-#: ../../../app/views/pushes/_form.html.erb:167
-#: ../../../app/views/pushes/_qr_form.html.erb:159
-#: ../../../app/views/pushes/_url_form.html.erb:122
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_qr_form.html.erb:162
+#: ../../../app/views/pushes/_url_form.html.erb:125
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "Notă"
 
-#: ../../../app/views/pushes/_files_form.html.erb:180
-#: ../../../app/views/pushes/_form.html.erb:173
-#: ../../../app/views/pushes/_qr_form.html.erb:165
-#: ../../../app/views/pushes/_url_form.html.erb:128
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:168
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Encrypted and visible only to you"
 msgstr "Criptat și vizibil doar pentru dvs"
 
-#: ../../../app/views/pushes/_files_form.html.erb:185
+#: ../../../app/views/pushes/_files_form.html.erb:188
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2067,36 +2356,36 @@ msgstr ""
 "Odată expirate, toate fișierele și conținutul push vor fi șterse imediat și în"
 " întregime."
 
-#: ../../../app/views/pushes/_files_form.html.erb:186
-#: ../../../app/views/pushes/_url_form.html.erb:134
+#: ../../../app/views/pushes/_files_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "An audit log of activity will be available."
 msgstr "Va fi disponibil un jurnal de audit al activității."
 
-#: ../../../app/views/pushes/_files_form.html.erb:195
-#: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:180
-#: ../../../app/views/pushes/_url_form.html.erb:143
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:191
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:146
 msgid "Updating..."
 msgstr "Actualizarea..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:195
-#: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:180
-#: ../../../app/views/pushes/_url_form.html.erb:143
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:191
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:146
 msgid "Update Push"
 msgstr "Actualizați Push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:197
-#: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:182
-#: ../../../app/views/pushes/_url_form.html.erb:145
+#: ../../../app/views/pushes/_files_form.html.erb:200
+#: ../../../app/views/pushes/_form.html.erb:193
+#: ../../../app/views/pushes/_qr_form.html.erb:185
+#: ../../../app/views/pushes/_url_form.html.erb:148
 msgid "Pushing..."
 msgstr "Se trimite..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:197
-#: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:182
-#: ../../../app/views/pushes/_url_form.html.erb:145
+#: ../../../app/views/pushes/_files_form.html.erb:200
+#: ../../../app/views/pushes/_form.html.erb:193
+#: ../../../app/views/pushes/_qr_form.html.erb:185
+#: ../../../app/views/pushes/_url_form.html.erb:148
 msgid "Push It!"
 msgstr "Împingeți-l!"
 
@@ -2136,8 +2425,8 @@ msgstr "Generarea parolei"
 msgid "Configure Generator"
 msgstr "Configurați generatorul"
 
-#: ../../../app/views/pushes/_form.html.erb:178
-#: ../../../app/views/pushes/_qr_form.html.erb:170
+#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_qr_form.html.erb:173
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -2145,8 +2434,8 @@ msgstr ""
 "Sfat: Introduceți doar o parolă în căsuță. Alte informații de identificare pot"
 " compromite securitatea."
 
-#: ../../../app/views/pushes/_form.html.erb:179
-#: ../../../app/views/pushes/_qr_form.html.erb:171
+#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_qr_form.html.erb:174
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -2189,17 +2478,17 @@ msgstr "Redirecționare URL"
 msgid "Enter the URL to redirect to..."
 msgstr "Introduceți URL-ul către care doriți să redirecționați..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:90
+#: ../../../app/views/pushes/_url_form.html.erb:99
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Ajută la evitarea sistemelor de chat și a scanerelor de URL-uri de a consuma r"
 "edirecționările."
 
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_url_form.html.erb:136
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Se va genera un URL secret care va redirecționa către URL-ul specificat."
 
-#: ../../../app/views/pushes/_url_form.html.erb:134
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "La expirare, URL-ul push va fi șters în întregime."
 
@@ -2249,20 +2538,6 @@ msgstr "Push expiră după acest număr de zile."
 #: ../../../app/views/pushes/audit.html.erb:51
 msgid "Deletable by Viewers"
 msgstr "Șterse de către telespectatori"
-
-#: ../../../app/views/pushes/audit.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:66
-#: ../../../app/views/pushes/audit.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:142
-msgid "Yes"
-msgstr "Da"
-
-#: ../../../app/views/pushes/audit.html.erb:55
-#: ../../../app/views/pushes/audit.html.erb:68
-#: ../../../app/views/pushes/audit.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:140
-msgid "No"
-msgstr "Nu"
 
 #: ../../../app/views/pushes/audit.html.erb:57
 msgid "This allows end users to delete content once retrieved."
@@ -2453,10 +2728,6 @@ msgstr "Creați primul dvs. push"
 #: ../../../app/views/pushes/index.html.erb:32
 msgid "Name / ID"
 msgstr "Nume / ID"
-
-#: ../../../app/views/pushes/index.html.erb:33
-msgid "Type"
-msgstr "Tip"
 
 #: ../../../app/views/pushes/index.html.erb:36
 msgid "Status"
@@ -2702,6 +2973,14 @@ msgstr ""
 "Dacă este necesar, vă rugăm să contactați persoana sau organizația care v-a fu"
 "rnizat acest URL secret."
 
+#: ../../../app/views/shared/_additional_options.html.erb:3
+msgid "Additional Options"
+msgstr "Opțiuni suplimentare"
+
+#: ../../../app/views/shared/_additional_options.html.erb:13
+msgid "Show / Hide"
+msgstr "Arată / Ascunde"
+
 #: ../../../app/views/shared/_cookie_consent.html.erb:6
 msgid ""
 "Browser cookies help make this tool work. By using it, you agree the use of th"
@@ -2733,6 +3012,10 @@ msgid "About"
 msgstr "Despre"
 
 #: ../../../app/views/shared/_footer.html.erb:28
+msgid "API"
+msgstr "API"
+
+#: ../../../app/views/shared/_footer.html.erb:29
 msgid "Docs"
 msgstr "Docuri"
 
@@ -2981,12 +3264,12 @@ msgstr ""
 " rezervă."
 
 #: ../../../app/views/users/sessions/otp.html.erb:8
-#: ../../../app/views/users/two_factor/verify.html.erb:16
+#: ../../../app/views/users/two_factor/verify.html.erb:19
 msgid "Code"
 msgstr "Cod"
 
 #: ../../../app/views/users/sessions/otp.html.erb:9
-#: ../../../app/views/users/two_factor/verify.html.erb:17
+#: ../../../app/views/users/two_factor/verify.html.erb:20
 msgid "Verification code"
 msgstr "Codul de verificare"
 
@@ -2994,12 +3277,20 @@ msgstr "Codul de verificare"
 msgid "Verify"
 msgstr "Verificare"
 
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr ""
+"Administratorul are nevoie de autentificare cu doi factori. Trebuie să finaliz"
+"ați configurarea pentru a accesa aplicația."
+
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:1
 #: ../../../app/views/users/two_factor/backup_codes.html.erb:6
 msgid "Save your backup codes"
 msgstr "Salvați codurile de rezervă"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:8
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
 msgid ""
 "Store these codes in a safe place. Each can be used once if you lose your auth"
 "enticator device."
@@ -3007,11 +3298,11 @@ msgstr ""
 "Păstrați aceste coduri într-un loc sigur. Fiecare poate fi utilizat o singură "
 "dată dacă pierdeți dispozitivul de autentificare."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:13
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
 msgid "Save or copy these codes now"
 msgstr "Salvați sau copiați aceste coduri acum"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:14
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
 msgid ""
 "You will not be able to see this list again after you continue. If you lose yo"
 "ur device and your backup codes, you may need an administrator to reset your a"
@@ -3021,20 +3312,20 @@ msgstr ""
 "pozitivul și codurile de rezervă, este posibil să aveți nevoie de un administr"
 "ator pentru a vă reseta contul."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:20
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
 msgid "Recovery codes"
 msgstr "Coduri de recuperare"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:21
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
 msgid "total"
 msgstr "total"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:37
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:38
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
 msgid "Copy all codes"
 msgstr "Copiați toate codurile"
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
 msgid ""
 "Backup codes are saved but can only be shown once. If you did not save them, d"
 "isable two-factor authentication and set it up again."
@@ -3043,7 +3334,7 @@ msgstr ""
 "e-ați salvat, dezactivați autentificarea cu doi factori și configurați-o din n"
 "ou."
 
-#: ../../../app/views/users/two_factor/backup_codes.html.erb:48
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
 msgid "Continue to verify"
 msgstr "Continuați să verificați"
 
@@ -3055,7 +3346,7 @@ msgstr "Verificarea autentificatorului"
 msgid "Scan this QR code"
 msgstr "Scanați acest cod QR"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:7
+#: ../../../app/views/users/two_factor/verify.html.erb:10
 msgid ""
 "Add this account to your authenticator app, then enter the 6-digit code to con"
 "firm."
@@ -3063,10 +3354,10 @@ msgstr ""
 "Adăugați acest cont la aplicația dvs. de autentificare, apoi introduceți codul"
 " de 6 cifre pentru confirmare."
 
-#: ../../../app/views/users/two_factor/verify.html.erb:11
+#: ../../../app/views/users/two_factor/verify.html.erb:14
 msgid "If you cannot scan the code, enter this secret manually:"
 msgstr "Dacă nu puteți scana codul, introduceți manual acest secret:"
 
-#: ../../../app/views/users/two_factor/verify.html.erb:20
+#: ../../../app/views/users/two_factor/verify.html.erb:23
 msgid "Enable two-factor authentication"
 msgstr "Activați autentificarea cu doi factori"

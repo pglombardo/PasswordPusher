@@ -209,6 +209,18 @@ disable_signups: false
 #
 disable_logins: false
 
+## Require Multi-Factor Authentication
+#
+# When true, all users must have two-factor authentication (TOTP) enabled.
+# Any signed-in user without TOTP set up will be redirected to the MFA setup
+# flow and cannot access the application until setup is complete.
+# Users will also be prevented from disabling MFA while this is enabled.
+#
+# Environment variable override:
+# PWP__REQUIRE_MFA='true'
+#
+require_mfa: false
+
 ## Limit Signups to Specific Email Domains
 #
 # By default, anyone can sign up for an account.  The following default regular
