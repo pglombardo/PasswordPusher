@@ -78,8 +78,6 @@ class PushCreatedMailerTest < ActionMailer::TestCase
 
   test "notify body includes expiration days and views" do
     mail = PushCreatedMailer.with(record: @push).notify
-    mail.html_part.body.decoded
-    mail.text_part.body.decoded
 
     assert_includes mail.html_part.body.decoded, "valid for 7 days, or until 99 views"
     assert_includes mail.text_part.body.decoded, "valid for 7 days, or until 99 views"
