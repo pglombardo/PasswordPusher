@@ -91,7 +91,8 @@ class TusUploadsController < ApplicationController
     end
 
     store = TusUploadStore.new(id)
-    return head :not_found unless store.exist? || tus_upload_owned_by_current_user?(store)
+    return head :not_found unless store.exist?
+    return head :not_found unless tus_upload_owned_by_current_user?(store)
 
     store.destroy!
     release_tus_upload_from_session!(id)
@@ -101,7 +102,8 @@ class TusUploadsController < ApplicationController
   private
 
   def handle_tus_head(store)
-    return head :not_found unless store.exist? || tus_upload_owned_by_current_user?(store)
+    return head :not_found unless store.exist?
+    return head :not_found unless tus_upload_owned_by_current_user?(store)
 
     assign_tus_progress_headers!(offset: store.upload_offset, length: store.upload_length)
     head :no_content

@@ -133,6 +133,7 @@ class PushesController < BaseController
       assign_deletable_by_viewer(@push, push_params)
       assign_retrieval_step(@push, push_params)
       @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before creating the push."))
+      @files_tab = true
       render action: "new", status: :conflict
       return
     end
@@ -179,6 +180,7 @@ class PushesController < BaseController
     end
 
     if tus_uploads_in_progress?
+      @files_tab = true
       @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
       render action: "edit", status: :conflict
       return
