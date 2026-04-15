@@ -16,6 +16,9 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
   teardown do
     logout(:user)
+
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   # Password Push Creation
@@ -80,6 +83,19 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     click_button "Push It!"
 
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
+    assert_text "Push Created", wait: 5
+  end
+
+  test "password push creation with auto-dispatch emails" do
+    Settings.mail.smtp_address = "smtp.example.com"
+
+    visit new_push_path(tab: "text")
+
+    fill_in "push_payload", with: "TestPassword"
+    fill_in "push_notify_emails_to", with: "test@example.com"
+
+    click_button "Push It!"
+
     assert_text "Push Created", wait: 5
   end
 
