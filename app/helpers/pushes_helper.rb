@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module PushesHelper
+  PUSH_PAYLOAD_AUTO_REBLUR_SECONDS = 20
+
+  def push_payload_auto_reblur_seconds
+    PUSH_PAYLOAD_AUTO_REBLUR_SECONDS
+  end
+
   # Returns a human-readable string for push expiration (days only), e.g. "5 days" or "1 day".
   def format_days_remaining(push)
     days = push.days_remaining
