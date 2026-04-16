@@ -44,6 +44,50 @@ module ApplicationHelper
     raw_url
   end
 
+  # TUS resumable uploads: used for file pushes when logins and file pushes are enabled.
+  def tus_uploads_enabled?
+    !Settings.disable_logins && Settings.enable_file_pushes
+  end
+
+  def tus_uploads_url
+    uploads_path
+  end
+
+  # "50 MB" / "100 GB" instead of raw bytes.
+  def parse_human_size(value)
+    fallback = 2 * 1024 * 1024
+    return fallback if value.blank?
+    return value.to_i if value.is_a?(Numeric)
+    s = value.to_s.strip
+    return s.to_i if s.match?(/\A\d+\z/)
+
+    m = s.match(/\A(\d+(?:\.\d+)?)\s*([KMGTP]B?|B)\z/i)
+    return fallback unless m
+
+    n = m[1].to_f
+    u = m[2].to_s.upcase
+    mult = case u
+    when "B" then 1
+    when "K", "KB" then 1024
+    when "M", "MB" then 1024**2
+    when "G", "GB" then 1024**3
+    else return fallback
+    end
+    (n * mult).to_i
+  end
+
+  def tus_chunk_size_bytes
+    parse_human_size(Settings.files.tus_chunk_size)
+  end
+
+  def max_tus_upload_size_bytes
+    parse_human_size(Settings.files.max_tus_upload_size)
+  end
+
+  def max_direct_upload_size_bytes
+    parse_human_size(Settings.files.max_direct_upload_size)
+  end
+
   # qr_code
   #
   # Generates a QR code for the given URL

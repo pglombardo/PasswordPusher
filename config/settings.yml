@@ -619,6 +619,40 @@ files:
   #
   max_file_uploads: 10
 
+  # Maximum size per file for direct upload fallback. Human-friendly value: "100 MB", "50 MB", etc.
+  # Used when file pushes are disabled or for non-TUS paths; keep within web server limits
+  # (e.g. nginx client_max_body_size). Plain byte integer also supported for backward compatibility.
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_DIRECT_UPLOAD_SIZE='100 MB'
+  #
+  max_direct_upload_size: "100 MB"
+
+  # Maximum size per file for TUS uploads. Human-friendly value: "100 GB", "50 MB", etc.
+  # (KB, MB, GB; plain byte integer also supported for backward compatibility.)
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_TUS_UPLOAD_SIZE='100 GB'
+  #
+  max_tus_upload_size: "100 GB"
+
+  # TUS chunk size: size of each PATCH request when uploading (server limit and client chunk size).
+  # Use a human-friendly value: "2 MB", "50 MB", "100 MB", "1 GB", etc. (KB, MB, GB; space optional.)
+  # Larger chunks = fewer requests but may hit proxy timeouts (e.g. thruster 30s).
+  #
+  # Environment variable override:
+  # PWP__FILES__TUS_CHUNK_SIZE='50 MB'
+  #
+  tus_chunk_size: "2 MB"
+
+  # TTL for incomplete TUS uploads (seconds). Uploads not finalized within this
+  # window are deleted by cleanup job. Default 24 hours.
+  #
+  # Environment variable override:
+  # PWP__FILES__TUS_UPLOAD_TTL=86400
+  #
+  tus_upload_ttl: 86400
+
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services

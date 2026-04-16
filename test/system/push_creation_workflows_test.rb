@@ -3,7 +3,11 @@
 require "application_system_test_case"
 
 class PushCreationWorkflowsTest < ApplicationSystemTestCase
+  include TusUploadTestSettings
+
   setup do
+    store_tus_related_settings
+    Settings.disable_logins = false
     Settings.enable_password_pushes = true
     Settings.enable_url_pushes = true
     Settings.enable_file_pushes = true
@@ -16,6 +20,15 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
   teardown do
     logout(:user)
+    restore_tus_related_settings
+  end
+
+  # Capybara attach_file may not fire the change event; Stimulus addFile only runs on change.
+  def trigger_file_input_change!
+    page.execute_script(<<~JS)
+      var input = document.querySelector('input[name="push[files][]"]');
+      if (input) input.dispatchEvent(new Event('change', { bubbles: true }));
+    JS
   end
 
   # Password Push Creation
@@ -150,11 +163,13 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # Verify we're on the file form
     assert_selector "a.nav-link.active", text: /file/i, wait: 5
 
-    # Upload a file
+    # Upload a file (TUS upload runs in browser; wait for selected-file row)
     file_path = Rails.root.join("test", "fixtures", "files", "test-file.txt")
     attach_file "push_files", file_path, make_visible: true
+    trigger_file_input_change!
 
-    # Wait for file to be attached (check for file name in page)
+    # Wait for TUS upload to complete and file name to appear
+    assert_selector "#selected-files li.selected-file", wait: 25
     assert_text "test-file.txt", wait: 10
 
     # Submit the form
@@ -172,8 +187,10 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     file_path2 = Rails.root.join("test", "fixtures", "files", "monkey.png")
 
     attach_file "push_files", [file_path1, file_path2], make_visible: true
+    trigger_file_input_change!
 
-    # Wait for files to be attached
+    # Wait for TUS uploads to complete (two selected-file rows)
+    assert_selector "#selected-files li.selected-file", count: 2, wait: 35
     assert_text "test-file.txt", wait: 10
     assert_text "monkey.png", wait: 10
 

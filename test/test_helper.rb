@@ -17,6 +17,9 @@ Minitest::Test.include(ActiveSupport::Testing::Assertions)
 # Uncomment for awesome colorful output
 # require "minitest/pride"
 
+# Load test support (e.g. shared concerns for TUS tests)
+Dir[Rails.root.join("test/support/**/*.rb")].sort.each { |f| require f }
+
 class ActiveSupport::TestCase
   # Run tests in parallel with half of available processors
   parallelize(workers: [Etc.nprocessors / 2, 1].max)

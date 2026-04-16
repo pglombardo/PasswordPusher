@@ -3,6 +3,7 @@
 class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
+  include TusActiveUploadSession
 
   before_action :clear_flash_for_delivery_pages, only: %i[show preliminary], prepend: true
   before_action :set_push, except: %i[new create index]
@@ -102,6 +103,7 @@ class PushesController < BaseController
 
   # GET /passwords/new
   def new
+    reset_tus_upload_session!
     @push = Push.new
 
     set_kind_by_tab
@@ -113,6 +115,8 @@ class PushesController < BaseController
 
   # GET /p/:url_token/edit
   def edit
+    reset_tus_upload_session!
+
     # Verify the push belongs to the current user
     if @push.user_id != current_user.id
       redirect_to :root, notice: I18n._("That push doesn't belong to you.")
@@ -124,6 +128,17 @@ class PushesController < BaseController
   end
 
   def create
+    if tus_uploads_in_progress?
+      @push = Push.new(push_params)
+      @push.user_id = current_user.id if user_signed_in?
+      assign_deletable_by_viewer(@push, push_params)
+      assign_retrieval_step(@push, push_params)
+      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before creating the push."))
+      @files_tab = true
+      render action: "new", status: :conflict
+      return
+    end
+
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
@@ -162,6 +177,13 @@ class PushesController < BaseController
     # Can't edit expired pushes
     if @push.expired
       redirect_to pushes_path, notice: I18n._("That push has already expired and cannot be edited.")
+      return
+    end
+
+    if tus_uploads_in_progress?
+      @files_tab = true
+      @push.errors.add(:base, I18n._("Please wait for all file uploads to finish before updating the push."))
+      render action: "edit", status: :conflict
       return
     end
 
