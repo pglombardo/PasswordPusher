@@ -139,9 +139,9 @@ services:
     image: docker.io/pglombardo/pwpush:latest
     restart: unless-stopped
     ports:
-      - "80:80"
       - "443:443"
-      - "5100:5100" # This can be removed if you set TLS_DOMAIN
+      # - "80:80" # To support older browsers that don't automatically upgrade to HTTPS
+      # - "5100:5100" # High port if you host pwpush behind a proxy (HTTP)
     volumes:
       - pwpush-storage:/opt/PasswordPusher/storage
     healthcheck:
