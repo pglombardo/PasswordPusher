@@ -186,4 +186,21 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     # at all so we set false - NOT deletable by viewers
     assert(delete_button.empty?)
   end
+
+  def test_password_creation_with_auto_dispatch_emails
+    Settings.mail.smtp_address = "smtp.example.com"
+    @user = users(:luca)
+    sign_in @user
+
+    get new_push_path(tab: "text")
+    assert_response :success
+
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", notify_emails_to: "test@example.com", notify_emails_to_locale: "fr"}}
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [Push.last.id])
+  end
 end

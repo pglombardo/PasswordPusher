@@ -507,4 +507,29 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     # Verify save block is present when creating
     assert_select "div#cookie-save", true, "Save block should be visible when creating"
   end
+
+  test "cannot update notify_emails_to and notify_emails_to_locale, this fields are skipped during update" do
+    push = Push.create!(
+      kind: "text",
+      payload: "Password",
+      user: @luca
+    )
+
+    patch push_path(push), params: {
+      push: {
+        notify_emails_to: "test@example.com",
+        notify_emails_to_locale: "fr"
+      }
+    }
+
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    push.reload
+    assert_equal "Password", push.payload
+    assert_nil push.notify_emails_to
+    assert_nil push.notify_emails_to_locale
+  end
 end
