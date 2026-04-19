@@ -10,6 +10,8 @@ class ShareByEmail < ApplicationRecord
 
   has_one :push, through: :audit_log
 
+  has_encrypted :locale, :recipients, :successful_sends
+
   validates :recipients, presence: true, multiple_emails: true
   validates :locale, inclusion: {in: I18n.available_locales.map(&:to_s)}, allow_blank: true, allow_nil: true
 end
