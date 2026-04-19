@@ -1,6 +1,18 @@
 <%= title(_('Push Preview')) %>
 
 <div class="container h-75">
+  <% if @push.errors.any? %>
+    <div class="alert alert-danger">
+        <div><%= pluralize(@push.errors.count, "error") %> prohibited this push from being shared:</div>
+
+        <ul>
+        <% @push.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+        <% end %>
+        </ul>
+    </div>
+  <% end %>
+
   <div class="d-flex flex-column justify-content-center align-items-center">
 
     <h2 class="mt-5 fw-semibold"><em class="bi bi-check-circle text-success me-2"></em><%= _('Push Created') %></h2>

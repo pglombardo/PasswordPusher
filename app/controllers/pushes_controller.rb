@@ -241,21 +241,24 @@ class PushesController < BaseController
     end
   end
 
+  def preview
+    @secret_url = helpers.secret_url(@push)
+    @qr_code = helpers.qr_code(@secret_url)
+  end
+
   def share
     @push.assign_attributes(share_params)
 
     if @push.valid?
       log_creation_email_send(@push)
 
-      redirect_to preview_push_path(@push), notice: I18n._("Emails were successfully sent.")
+      redirect_to preview_push_path(@push), notice: I18n._("Recipients are added to the queue to be sent.")
     else
-      redirect_to preview_push_path(@push), alert: I18n._("Failed to send emails. #{@push.errors.full_messages.join(". ")}")
-    end
-  end
+      @secret_url = helpers.secret_url(@push)
+      @qr_code = helpers.qr_code(@secret_url)
 
-  def preview
-    @secret_url = helpers.secret_url(@push)
-    @qr_code = helpers.qr_code(@secret_url)
+      render action: "preview", status: :unprocessable_content
+    end
   end
 
   def print_preview
