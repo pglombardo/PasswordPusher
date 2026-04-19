@@ -27,55 +27,55 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # new
-  test "notify_emails_to field is shown when mail service is configured and user is signed in" do
+  test "share_recipients field is shown when mail service is configured and user is signed in" do
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_emails_to]", count: 1
+    assert_select "input[name=?]", "push[share_recipients]", count: 1
   end
 
-  test "notify_emails_to field is not shown when mail service is not configured" do
+  test "share_recipients field is not shown when mail service is not configured" do
     Settings.mail.smtp_address = nil
 
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
+    assert_select "input[name=?]", "push[share_recipients]", count: 0
   end
 
-  test "notify_emails_to fields are not shown when user is not signed in" do
+  test "share_recipients fields are not shown when user is not signed in" do
     sign_out @user
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
+    assert_select "input[name=?]", "push[share_recipients]", count: 0
   end
 
   # create
-  test "create fails to set notify_emails_to and notify_emails_to_locale when user is not signed in" do
+  test "create fails to set share_recipients and share_locale when user is not signed in" do
     sign_out @user
     post pushes_path, params: {
       push: {
         kind: "text",
         payload: "secret",
-        notify_emails_to: "someone@example.com",
-        notify_emails_to_locale: "fr"
+        share_recipients: "someone@example.com",
+        share_locale: "fr"
       }
     }
     assert_response :unprocessable_content
 
-    assert_includes(response.body, "Notify emails to cannot be set if owner is not known")
-    assert_includes(response.body, "Notify emails to locale cannot be set if owner is not known")
+    assert_includes(response.body, "Share recipients cannot be set if owner is not known")
+    assert_includes(response.body, "Share locale cannot be set if owner is not known")
   end
 
-  # create action: signed-in users get notify fields from params
-  test "create assigns notify_emails_to and notify_emails_to_locale when signed in and params present" do
+  # create action: signed-in users get share fields from params
+  test "create assigns share_recipients and share_locale when signed in and params present" do
     post pushes_path, params: {
       push: {
         kind: "text",
         payload: "secret",
-        notify_emails_to: "recipient@example.com",
-        notify_emails_to_locale: "en"
+        share_recipients: "recipient@example.com",
+        share_locale: "en"
       }
     }
 
@@ -84,32 +84,32 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
     push = Push.find_by(url_token: push_url_token)
 
-    assert_equal "recipient@example.com", push.notify_emails_to
-    assert_equal "en", push.notify_emails_to_locale
+    assert_equal "recipient@example.com", push.share_recipients
+    assert_equal "en", push.share_locale
   end
 
   # create action: send_creation_emails is triggered on successful save
-  test "create enqueues SendPushCreatedEmailJob on success when signed in and notify_emails_to present" do
+  test "create enqueues SendPushCreatedEmailJob on success when signed in and share_recipients present" do
     assert_enqueued_with(job: SendPushCreatedEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
           payload: "secret",
-          notify_emails_to: "a@example.com"
+          share_recipients: "a@example.com"
         }
       }
     end
     assert_response :redirect
   end
 
-  # push_params: notify fields are permitted for text and url kinds
-  test "push_params permits notify_emails_to and notify_emails_to_locale for text push" do
+  # push_params: share fields are permitted for text and url kinds
+  test "push_params permits share_recipients and share_locale for text push" do
     post pushes_path, params: {
       push: {
         kind: "text",
         payload: "secret",
-        notify_emails_to: "text@example.com",
-        notify_emails_to_locale: "de"
+        share_recipients: "text@example.com",
+        share_locale: "de"
       }
     }
     assert_response :redirect
@@ -117,17 +117,17 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
     push = Push.find_by(url_token: push_url_token)
 
-    assert_equal "text@example.com", push.notify_emails_to
-    assert_equal "de", push.notify_emails_to_locale
+    assert_equal "text@example.com", push.share_recipients
+    assert_equal "de", push.share_locale
   end
 
-  test "push_params permits notify_emails_to and notify_emails_to_locale for url push" do
+  test "push_params permits share_recipients and share_locale for url push" do
     post pushes_path, params: {
       push: {
         kind: "url",
         payload: "https://example.com",
-        notify_emails_to: "url@example.com",
-        notify_emails_to_locale: "es"
+        share_recipients: "url@example.com",
+        share_locale: "es"
       }
     }
 
@@ -136,30 +136,30 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
     push = Push.find_by(url_token: push_url_token)
 
-    assert_equal "url@example.com", push.notify_emails_to
-    assert_equal "es", push.notify_emails_to_locale
+    assert_equal "url@example.com", push.share_recipients
+    assert_equal "es", push.share_locale
   end
 
   # edit
-  test "edit does not show notify_emails_to field when push is edited" do
+  test "edit does not show share_recipients field when push is edited" do
     get edit_push_path(@user.pushes.first)
 
-    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
+    assert_select "input[name=?]", "push[share_recipients]", count: 0
   end
 
   # update
-  test "update ignores `notify_emails_to` and `notify_emails_to_locale` when they are updated" do
+  test "update ignores `share_recipients` and `share_locale` when they are updated" do
     push = pushes(:test_push)
     push.update(user: @user)
     patch push_path(push), params: {
       push: {
-        notify_emails_to: "someone@example.com",
-        notify_emails_to_locale: "fr"
+        share_recipients: "someone@example.com",
+        share_locale: "fr"
       }
     }
 
     assert_response :found
-    assert_equal push.notify_emails_to, "one@example.com, two@example.com"
-    assert_equal push.notify_emails_to_locale, ""
+    assert_equal push.share_recipients, "one@example.com, two@example.com"
+    assert_equal push.share_locale, ""
   end
 end

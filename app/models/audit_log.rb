@@ -6,6 +6,8 @@ class AuditLog < ApplicationRecord
   belongs_to :push
   belongs_to :user, optional: true
 
+  has_one :share_by_email, dependent: :destroy
+
   def subject_name
     user&.email || "❓"
   end

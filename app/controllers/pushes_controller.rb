@@ -130,11 +130,10 @@ class PushesController < BaseController
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
-    assign_notify_emails_to(@push, push_params)
 
     if @push.save
       log_creation(@push)
-      @push.send_creation_emails
+      log_creation_email_send(@push)
 
       redirect_to preview_push_path(@push)
     else
@@ -244,10 +243,10 @@ class PushesController < BaseController
 
   def share
     @push.assign_attributes(share_params)
-    assign_notify_emails_to(@push, share_params)
 
-    if @push.save
-      @push.send_creation_emails
+    if @push.valid?
+      log_creation_email_send(@push)
+
       redirect_to preview_push_path(@push), notice: I18n._("Emails were successfully sent.")
     else
       redirect_to preview_push_path(@push), alert: I18n._("Failed to send emails. #{@push.errors.full_messages.join(". ")}")
@@ -394,7 +393,7 @@ class PushesController < BaseController
   end
 
   def push_params
-    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_emails_to_recipients]
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase share_recipients share_locale]
     case params.dig(:push, :kind)
     when "url"
       params.require(:push).permit(*base)
@@ -409,7 +408,7 @@ class PushesController < BaseController
   end
 
   def update_params
-    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase notify_emails_to_recipients]
+    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase share_recipients]
     # Don't allow kind to be changed after creation for security
     case @push.kind
     when "url"
@@ -425,7 +424,7 @@ class PushesController < BaseController
   end
 
   def share_params
-    params.require(:push).permit(:notify_emails_to_recipients, :notify_emails_to_locale)
+    params.require(:push).permit(:share_recipients, :share_locale)
   end
 
   def print_preview_params

@@ -508,7 +508,7 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     assert_select "div#cookie-save", true, "Save block should be visible when creating"
   end
 
-  test "cannot update notify_emails_to and notify_emails_to_locale, this fields are skipped during update" do
+  test "cannot update share_recipients and share_locale, this fields are skipped during update" do
     push = Push.create!(
       kind: "text",
       payload: "Password",
@@ -517,8 +517,8 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
 
     patch push_path(push), params: {
       push: {
-        notify_emails_to: "test@example.com",
-        notify_emails_to_locale: "fr"
+        share_recipients: "test@example.com",
+        share_locale: "fr"
       }
     }
 
@@ -529,7 +529,7 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
 
     push.reload
     assert_equal "Password", push.payload
-    assert_nil push.notify_emails_to
-    assert_nil push.notify_emails_to_locale
+    assert_nil push.share_recipients
+    assert_nil push.share_locale
   end
 end

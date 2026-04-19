@@ -1,8 +1,44 @@
-<div class="list-group-item list-group-item-action list-group-item-info">
-    <em class="bi bi-envelope-check"></em>
+<% share_by_email = audit_log.share_by_email %>
+<% status_class = case share_by_email.status
+  when "completed" then "list-group-item-success"
+  when "processing", "pending" then "list-group-item-info"
+  when "partially_failed" then "list-group-item-warning"
+  when "fully_failed" then "list-group-item-danger"
+  else "list-group-item-info"
+end %>
+
+<% status_icon = case share_by_email.status
+  when "completed" then "bi-envelope-check"
+  when "processing" then "bi-hourglass-split"
+  when "pending" then "bi-envelope"
+  when "partially_failed" then "bi-envelope-exclamation"
+  when "fully_failed" then "bi-envelope-x"
+  else "bi-envelope"
+end %>
+
+<div class="list-group-item list-group-item-action <%= status_class %>">
+  <em class="bi <%= status_icon %>"></em>
+  <% if share_by_email.completed? %>
     <%= _('Email notification(s) sent on %{date}') % {
         date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
     } %>
+  <% elsif share_by_email.pending? %>
+    <%= _('Email notification(s) pending') %>
+  <% elsif share_by_email.processing? %>
+    <%= _('Email notification(s) being sent...') %>
+  <% elsif share_by_email.partially_failed? %>
+    <%= _('Some email notification(s) failed on %{date}') % {
+        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
+    } %>
+  <% elsif share_by_email.fully_failed? %>
+    <%= _('Email notification(s) failed on %{date}') % {
+        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
+    } %>
+  <% end %>
+  <br>
+  <strong><%= _('To:') %></strong> <code><%= share_by_email.recipients %></code>
+  <% if share_by_email.partially_failed? %>
     <br>
-    <strong><%= _('To:') %></strong> <code><%= audit_log.push.notify_emails_to %></code>
+    <strong><%= _('Sent:') %></strong> <code><%= share_by_email.successful_sends %></code>
+  <% end %>
 </div>

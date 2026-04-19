@@ -195,7 +195,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "text")
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text", payload: "testpw", notify_emails_to: "test@example.com", notify_emails_to_locale: "fr"}}
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", share_recipients: "test@example.com", share_locale: "fr"}}
     assert_response :redirect
 
     follow_redirect!

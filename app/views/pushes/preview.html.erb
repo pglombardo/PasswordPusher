@@ -6,9 +6,6 @@
     <h2 class="mt-5 fw-semibold"><em class="bi bi-check-circle text-success me-2"></em><%= _('Push Created') %></h2>
 
     <p class="mt-4 text-muted"><%= _('Use this secret link to share it:') %></p>
-    <% if @push.notify_emails_to.present? %>
-      <p class="text-muted small"><%= _('A copy has been sent to:') %> <%= @push.notify_emails_to %></p>
-    <% end %>
     <%= render partial: 'application/secret_url_bar' %>
     <%= @qr_code %>
 
@@ -68,16 +65,16 @@
             <%= form_for @push, url: share_push_path(@push), method: :post, local: true do |form| %>
               <div class="row row-cols-lg-auto g-3 align-items-center">
                 <div class="col w-100 mb-2">
-                  <%= form.label :notify_emails_to_recipients, _('Email Recipients'), class: "visually-hidden" %>
+                  <%= form.label :share_recipients, _('Email Recipients'), class: "visually-hidden" %>
                   <div class="input-group">
                     <span class="input-group-text">
                       <i class="bi bi-envelope" aria-hidden="true"></i>
                     </span>
-                    <%= form.text_field :notify_emails_to_recipients,
+                    <%= form.text_field :share_recipients,
                         class: "form-control",
                         placeholder: _('email1@example.com, email2@example.com'),
                         required: true %>
-                    <%= render "shared/notify_emails_to_locale", f: form %>
+                    <%= render "shared/share_locale", f: form %>
                   </div>
                   <div class="form-text">
                     <%= _('Enter email addresses separated by commas (maximum 5 emails).') %>

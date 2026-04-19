@@ -25,7 +25,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal 1, @push.audit_logs.where(kind: :creation_email_send).count
   end
 
-  test "perform sends mail when notify_emails_to present" do
+  test "perform sends mail when share_recipients present" do
     assert_emails 1 do
       SendPushCreatedEmailJob.perform_now(@push.id)
     end
@@ -38,10 +38,10 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_audit_log_created(@push, :creation_email_send)
   end
 
-  test "perform does not send mail when notify_emails_to blank" do
-    # `notify_emails_to` attribute of Push is not allowed.
+  test "perform does not send mail when share_recipients blank" do
+    # `share_recipients` attribute of Push is not allowed.
     # But, `update_columns` is used to skip validations for tests.
-    @push.update_columns(notify_emails_to: "")
+    @push.update_columns(share: "")
 
     assert_emails 0 do
       SendPushCreatedEmailJob.perform_now(@push.id)

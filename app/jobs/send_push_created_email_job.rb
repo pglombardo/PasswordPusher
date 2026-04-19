@@ -3,18 +3,33 @@
 class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(push_id, recipients, locale)
-    push = Push.find_by(id: push_id)
-    return if push.blank? || push.notify_emails_to.blank?
+  def perform(share_by_email_id)
+    share_by_email = ShareByEmail.find_by(id: share_by_email_id)
+    return unless share_by_email
 
-    successful_recipients = []
-    recipients.split(",").map(&:strip).each do |recipient|
+    share_by_email.processing!
+
+    push = share_by_email.push
+    locale = share_by_email.locale
+    recipients = share_by_email.recipients.split(",").map(&:strip)
+
+    successful_sends = []
+    recipients.each do |recipient|
       mail = PushCreatedMailer.with(record: push, recipient: recipient, locale: locale).notify
       mail.deliver_now
-      successful_recipients << recipient
+      successful_sends << recipient
     rescue => e
       Rails.logger.error "[SendPushCreatedEmailJob] Error sending email to #{recipient}: #{e.message}"
     end
-    push.audit_logs.create!(kind: :creation_email_send, user: push.user, recipients: successful_recipients.join(","))
+
+    status = if successful_sends.size == recipients.size
+      :completed
+    elsif successful_sends.empty?
+      :fully_failed
+    else
+      :partially_failed
+    end
+
+    share_by_email.update!(successful_sends: successful_sends.join(","), status: status)
   end
 end

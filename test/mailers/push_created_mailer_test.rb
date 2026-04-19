@@ -52,16 +52,16 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     end
   end
 
-  test "notify includes locale in secret URL when notify_emails_to_locale is set" do
-    @push.assign_attributes(notify_emails_to_locale: "fr")
+  test "notify includes locale in secret URL when share_locale is set" do
+    @push.assign_attributes(share_locale: "fr")
     mail = PushCreatedMailer.with(record: @push).notify
 
     assert_includes mail.html_part.body.encoded, "locale=fr"
     assert_includes mail.text_part.body.encoded, "locale=fr"
   end
 
-  test "notify URL has no locale param when notify_emails_to_locale is blank" do
-    @push.assign_attributes(notify_emails_to_locale: nil)
+  test "notify URL has no locale param when share_locale is blank" do
+    @push.assign_attributes(share_locale: nil)
     @push.save
     mail = PushCreatedMailer.with(record: @push).notify
 

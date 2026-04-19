@@ -3,7 +3,7 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
-  include Pwpush::NotifyEmailsTo
+  include Pwpush::Share
 
   enum :kind, [:text, :file, :url, :qr], validate: true
 
@@ -99,14 +99,14 @@ class Push < ApplicationRecord
     attr_hash.delete("payload_ciphertext")
     attr_hash.delete("note_ciphertext")
     attr_hash.delete("passphrase_ciphertext")
-    attr_hash.delete("notify_emails_to_ciphertext")
-    attr_hash.delete("notify_emails_to_locale_ciphertext")
+    attr_hash.delete("share_ciphertext")
+    attr_hash.delete("share_locale_ciphertext")
     attr_hash.delete("user_id")
     attr_hash.delete("id")
 
     attr_hash.delete("passphrase")
-    attr_hash.delete("notify_emails_to")
-    attr_hash.delete("notify_emails_to_locale")
+    attr_hash.delete("share")
+    attr_hash.delete("share_locale")
     attr_hash.delete("name") unless owner
     attr_hash.delete("note") unless owner
     attr_hash.delete("payload") unless payload

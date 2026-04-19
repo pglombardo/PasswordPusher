@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_014253) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_100500) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -72,7 +72,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_014253) do
     t.integer "kind", null: false
     t.string "name"
     t.text "note_ciphertext"
-    t.text "notify_emails_to_ciphertext"
     t.text "passphrase_ciphertext", limit: 2048
     t.text "payload_ciphertext", limit: 16777215
     t.boolean "retrieval_step", default: false
@@ -81,6 +80,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_014253) do
     t.integer "user_id"
     t.index ["url_token"], name: "index_pushes_on_url_token", unique: true
     t.index ["user_id"], name: "index_pushes_on_user_id"
+  end
+
+  create_table "share_by_emails", force: :cascade do |t|
+    t.integer "audit_log_id", null: false
+    t.datetime "created_at", null: false
+    t.string "locale"
+    t.text "recipients", null: false
+    t.integer "status", default: 0, null: false
+    t.text "successful_sends"
+    t.datetime "updated_at", null: false
+    t.index ["audit_log_id"], name: "index_share_by_emails_on_audit_log_id"
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -261,6 +271,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_014253) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audit_logs", "pushes"
   add_foreign_key "pushes", "users"
+  add_foreign_key "share_by_emails", "audit_logs"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
