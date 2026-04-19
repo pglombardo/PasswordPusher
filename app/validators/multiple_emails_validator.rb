@@ -24,7 +24,7 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
       record.errors.add(attribute, I18n._("has commas used in the wrong way"))
     end
 
-    if emails.count != emails.uniq.count
+    if emails.count != emails.uniq.count && !options[:accept_duplicates]
       record.errors.add(attribute, I18n._("contains duplicate emails"))
     end
 

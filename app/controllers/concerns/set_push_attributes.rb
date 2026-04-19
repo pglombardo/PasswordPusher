@@ -55,4 +55,13 @@ module SetPushAttributes
       push.retrieval_step = false
     end
   end
+
+  def assign_notify_emails_to(push, push_params)
+    if push.notify_emails_to.present?
+      push.notify_emails_to += ", " + push.notify_emails_to_recipients
+
+    else
+      push.notify_emails_to = push.notify_emails_to_recipients
+    end
+  end
 end

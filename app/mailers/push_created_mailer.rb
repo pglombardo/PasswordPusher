@@ -9,12 +9,12 @@ class PushCreatedMailer < ApplicationMailer
     return unless params[:record].present?
 
     @push = params[:record]
-    locale = @push.notify_emails_to_locale.presence
+    locale = params[:locale]
     I18n.with_locale(locale || I18n.default_locale) do
       @secret_url = secret_url(@push, with_retrieval_step: @push.retrieval_step, locale: locale)
       @subject = "#{@push.user&.email.presence} #{_("has sent you a push")}"
       mail(
-        to: @push.notify_emails_to,
+        to: params[:recipient],
         subject: @subject
       )
     end

@@ -3,15 +3,18 @@
 class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(push_id)
+  def perform(push_id, recipients, locale)
     push = Push.find_by(id: push_id)
     return if push.blank? || push.notify_emails_to.blank?
 
-    mail = PushCreatedMailer.with(record: push).notify
-    mail.message.raise_delivery_errors = Settings.mail.raise_delivery_errors
-    Rails.logger.info "[SendPushCreatedEmailJob] Sending push created email for push #{push.url_token} to #{mail.to.size} recipient(s)"
-    result = mail.deliver_now
-    Rails.logger.info "[SendPushCreatedEmailJob] Successfully sent push created email for push #{push.url_token} (Message-ID: #{result.message_id})"
-    push.audit_logs.create!(kind: :creation_email_send, user: push.user)
+    successful_recipients = []
+    recipients.split(",").map(&:strip).each do |recipient|
+      mail = PushCreatedMailer.with(record: push, recipient: recipient, locale: locale).notify
+      mail.deliver_now
+      successful_recipients << recipient
+    rescue => e
+      Rails.logger.error "[SendPushCreatedEmailJob] Error sending email to #{recipient}: #{e.message}"
+    end
+    push.audit_logs.create!(kind: :creation_email_send, user: push.user, recipients: successful_recipients.join(","))
   end
 end

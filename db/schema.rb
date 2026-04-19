@@ -73,7 +73,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_014253) do
     t.string "name"
     t.text "note_ciphertext"
     t.text "notify_emails_to_ciphertext"
-    t.string "notify_emails_to_locale_ciphertext"
     t.text "passphrase_ciphertext", limit: 2048
     t.text "payload_ciphertext", limit: 16777215
     t.boolean "retrieval_step", default: false
