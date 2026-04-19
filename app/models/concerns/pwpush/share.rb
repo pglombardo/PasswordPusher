@@ -26,6 +26,8 @@ module Pwpush
     end
 
     def share_limit
+      return if share_recipients.blank?
+
       if total_share_by_emails_count + share_recipients.split(",").count > MAX_SHARE_BY_EMAILS
         errors.add(:base, _("You can share this push with up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_SHARE_BY_EMAILS, total_count: total_share_by_emails_count})
       end
