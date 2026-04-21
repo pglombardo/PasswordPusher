@@ -188,6 +188,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_password_creation_with_auto_dispatch_emails
+    Rails.application.routes.default_url_options[:host] = "test.host"
     Settings.mail.smtp_address = "smtp.example.com"
     @user = users(:luca)
     sign_in @user
@@ -195,12 +196,23 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "text")
     assert_response :success
 
-    post pushes_path, params: {push: {kind: "text", payload: "testpw", share_recipients: "test@example.com", share_locale: "fr"}}
-    assert_response :redirect
+    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "testpw",
+          share_recipients: "test@example.com",
+          share_locale: "fr"
+        }
+      }
+      assert_response :redirect
 
-    follow_redirect!
-    assert_response :success
+      follow_redirect!
+      assert_response :success
+    end
 
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [Push.last.id])
+    assert_emails 1 do
+      job.perform_now
+    end
   end
 end

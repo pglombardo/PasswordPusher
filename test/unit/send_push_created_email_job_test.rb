@@ -7,48 +7,58 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
     @push = pushes(:test_push)
+    @share_by_email = share_by_emails(:one)
   end
 
   test "sends email to specified recipient" do
-    SendPushCreatedEmailJob.perform_now(@push)
-
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
-      SendPushCreatedEmailJob.perform_now(@push)
-      assert_equal ["one@example.com", "two@example.com"], ActionMailer::Base.deliveries.first.to
-      assert_equal "#{@push.user.email} has sent you a push", ActionMailer::Base.deliveries.first.subject
+    mails = capture_emails do
+      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
     end
+
+    mail = mails.first
+    assert_equal ["one@example.com"], mail.to
+    assert_equal "#{@push.user.email} has sent you a push", mail.subject
   end
 
-  test "logs creation email event" do
-    SendPushCreatedEmailJob.perform_now(@push)
+  test "perform update share_by_email status to completed after sending" do
+    SendPushCreatedEmailJob.perform_now(@share_by_email.id)
 
-    assert_equal 1, @push.audit_logs.where(kind: :creation_email_send).count
+    @share_by_email.reload
+    assert_equal "completed", @share_by_email.status
+    assert_equal "one@example.com", @share_by_email.successful_sends
   end
 
-  test "perform sends mail when share_recipients present" do
-    assert_emails 1 do
-      SendPushCreatedEmailJob.perform_now(@push.id)
+  test "perform update share_by_email status to fully_failed after sending" do
+    failing_mail = Minitest::Mock.new
+    failing_mail.expect(:deliver_now, -> { raise StandardError, "test error" })
+
+    PushCreatedMailer.stub(:with, failing_mail) do
+      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
     end
+
+    @share_by_email.reload
+    assert_equal "fully_failed", @share_by_email.status
+    assert_equal "", @share_by_email.successful_sends
   end
 
-  test "perform creates audit log with kind creation_email_send after sending" do
-    assert_difference "@push.audit_logs.count", 1 do
-      SendPushCreatedEmailJob.perform_now(@push.id)
-    end
-    assert_audit_log_created(@push, :creation_email_send)
-  end
-
-  test "perform does not send mail when share_recipients blank" do
-    # `share_recipients` attribute of Push is not allowed.
-    # But, `update_columns` is used to skip validations for tests.
-    @push.update_columns(share: "")
-
+  test "perform does not send mail when share_by_email is not pending" do
+    @share_by_email.update(status: "processing")
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@push.id)
+      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
     end
   end
 
-  test "perform does not send mail when push is missing" do
+  test "perform does not send mail when recipients are blank" do
+    # Bypass readonly attribute
+    @share_by_email.update_columns(recipients_ciphertext: "")
+    SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+
+    @share_by_email.reload
+    assert_equal "pending", @share_by_email.status
+    assert_nil @share_by_email.successful_sends
+  end
+
+  test "perform does not send mail when share_by_email is not found" do
     assert_emails 0 do
       invalid_id = -1
       SendPushCreatedEmailJob.perform_now(invalid_id)

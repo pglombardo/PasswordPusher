@@ -20,7 +20,7 @@ module ApplicationHelper
   # Whether to show the notify-emails (auto-dispatch) field on push forms.
   # Shown only when mail service is configured and the user is signed in.
   # Also shown only when logins are enabled.
-  def show_notify_emails_field?
+  def allow_share_by_email?
     mail_service_configured? && !Settings.disable_logins && user_signed_in?
   end
 

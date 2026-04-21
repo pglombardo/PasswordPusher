@@ -14,7 +14,7 @@ class LogEventsTest < ActionController::TestCase
   setup do
     @push = pushes(:test_push)
     @user = users(:luca)
-    AuditLog.delete_all
+    AuditLog.destroy_all
   end
 
   # Test log_view method
@@ -314,7 +314,7 @@ class LogEventsTest < ActionController::TestCase
     kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase, :owner_view, :admin_view]
 
     kinds.each do |kind|
-      AuditLog.delete_all
+      AuditLog.destroy_all
       push = Push.create!(
         kind: "text",
         payload: "test",

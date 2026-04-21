@@ -6,7 +6,7 @@ class CreateShareByEmails < ActiveRecord::Migration[8.1]
       t.references :audit_log, null: false, foreign_key: true
       t.text :recipients_ciphertext, null: false
       t.text :successful_sends_ciphertext
-      t.text :locale_ciphertext
+      t.string :locale_ciphertext
       t.integer :status, default: 0, null: false
 
       t.timestamps

@@ -63,26 +63,10 @@ class PasswordTest < ActiveSupport::TestCase
       kind: "text",
       payload: "test_payload",
       share_recipients: "test@example.com",
-      share_locale: "fr",
-      user: users(:luca)
+      share_locale: "fr"
     )
 
     assert password.valid?
-  end
-
-  test "send_creation_emails enqueues job when share_recipients present" do
-    password = Push.new(
-      kind: "text",
-      payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "fr",
-      user: users(:luca)
-    )
-    password.save
-
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [password.id]) do
-      password.send_creation_emails
-    end
   end
 
   test "should reject more than 5 emails in share_recipients for pushes" do
@@ -107,33 +91,6 @@ class PasswordTest < ActiveSupport::TestCase
 
     assert_not password.valid?
     assert password.errors[:share_locale].present?
-  end
-
-  test "should not save password if email service is not configured" do
-    password = Push.new(
-      kind: "text",
-      payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "en",
-      user: users(:luca)
-    )
-
-    refute password.valid?
-    assert_includes password.errors[:share_recipients], "is using emails, but sending emails feature is not enabled."
-    assert_includes password.errors[:share_locale], "is using emails, but sending emails feature is not enabled."
-  end
-
-  test "should not save password if share_recipients and share_locale are set and user is not defined" do
-    password = Push.new(
-      kind: "text",
-      payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "en"
-    )
-
-    refute password.valid?
-    assert_includes password.errors[:share_recipients], "cannot be set if owner is not known."
-    assert_includes password.errors[:share_locale], "cannot be set if owner is not known."
   end
 
   test "to_json excludes share and share_locale ciphertext and virtual attributes" do

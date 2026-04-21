@@ -25,7 +25,7 @@
       <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         <em class="bi bi-printer me-1"></em><%= _('Print & Share') %>
       </button>
-      <% if show_notify_emails_field? && @push.user_id == current_user.id %>
+      <% if allow_share_by_email? && @push.user_id == current_user.id %>
         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#shareByEmailCollapse" aria-expanded="false" aria-controls="shareByEmailCollapse">
           <em class="bi bi-envelope me-1"></em><%= _('Share via Email') %>
         </button>
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <% if show_notify_emails_field? && @push.user_id == current_user.id %>
+    <% if allow_share_by_email? && @push.user_id == current_user.id %>
       <div class="collapse" id="shareByEmailCollapse">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-transparent"><em class="bi bi-envelope me-1"></em><%= _('Share This Push via Email') %></div>

@@ -8,9 +8,6 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
-    @default_disable_logins = Settings.disable_logins
-    @default_enable_url_pushes = Settings.enable_url_pushes
-    @default_mail_service_configured = Settings.mail.smtp_address.present?
 
     Settings.disable_logins = false
     Settings.enable_url_pushes = true
@@ -21,9 +18,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    Settings.disable_logins = @default_disable_logins
-    Settings.enable_url_pushes = @default_enable_url_pushes
-    Settings.mail.smtp_address = @default_mail_service_configured
+    Settings.reload!
   end
 
   # new
@@ -52,92 +47,62 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # create
-  test "create fails to set share_recipients and share_locale when user is not signed in" do
-    sign_out @user
-    post pushes_path, params: {
-      push: {
-        kind: "text",
-        payload: "secret",
-        share_recipients: "someone@example.com",
-        share_locale: "fr"
-      }
-    }
-    assert_response :unprocessable_content
-
-    assert_includes(response.body, "Share recipients cannot be set if owner is not known")
-    assert_includes(response.body, "Share locale cannot be set if owner is not known")
-  end
-
-  # create action: signed-in users get share fields from params
-  test "create assigns share_recipients and share_locale when signed in and params present" do
-    post pushes_path, params: {
-      push: {
-        kind: "text",
-        payload: "secret",
-        share_recipients: "recipient@example.com",
-        share_locale: "en"
-      }
-    }
-
-    assert_response :redirect
-
-    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
-    push = Push.find_by(url_token: push_url_token)
-
-    assert_equal "recipient@example.com", push.share_recipients
-    assert_equal "en", push.share_locale
-  end
-
-  # create action: send_creation_emails is triggered on successful save
-  test "create enqueues SendPushCreatedEmailJob on success when signed in and share_recipients present" do
-    assert_enqueued_with(job: SendPushCreatedEmailJob) do
+  test "create enqueues SendPushCreatedEmailJob when user is  signed in and params present" do
+    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
           payload: "secret",
-          share_recipients: "a@example.com"
+          share_recipients: "recipient@example.com",
+          share_locale: "en"
         }
       }
+
+      assert_response :redirect
     end
-    assert_response :redirect
-  end
-
-  # push_params: share fields are permitted for text and url kinds
-  test "push_params permits share_recipients and share_locale for text push" do
-    post pushes_path, params: {
-      push: {
-        kind: "text",
-        payload: "secret",
-        share_recipients: "text@example.com",
-        share_locale: "de"
-      }
-    }
-    assert_response :redirect
 
     push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
     push = Push.find_by(url_token: push_url_token)
 
-    assert_equal "text@example.com", push.share_recipients
-    assert_equal "de", push.share_locale
+    share_by_email = ShareByEmail.find(job.arguments.first)
+
+    assert_equal "recipient@example.com", share_by_email.recipients
+    assert_equal "en", share_by_email.locale
+    assert_equal push, share_by_email.push
   end
 
-  test "push_params permits share_recipients and share_locale for url push" do
-    post pushes_path, params: {
-      push: {
-        kind: "url",
-        payload: "https://example.com",
-        share_recipients: "url@example.com",
-        share_locale: "es"
+  test "create doesn't enqueue SendPushCreatedEmailJob when user is not signed in" do
+    sign_out @user
+
+    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          share_recipients: "someone@example.com",
+          share_locale: "fr"
+        }
       }
-    }
 
-    assert_response :redirect
+      assert_response :redirect
+    end
+  end
 
-    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
-    push = Push.find_by(url_token: push_url_token)
+  test "create doesn't enqueue SendPushCreatedEmailJob when email service is not configured" do
+    Settings.mail.smtp_address = nil
 
-    assert_equal "url@example.com", push.share_recipients
-    assert_equal "es", push.share_locale
+    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          share_recipients: "someone@example.com",
+          share_locale: "fr"
+        }
+      }
+
+      assert_response :redirect
+    end
   end
 
   # edit
@@ -147,19 +112,22 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?]", "push[share_recipients]", count: 0
   end
 
-  # update
-  test "update ignores `share_recipients` and `share_locale` when they are updated" do
-    push = pushes(:test_push)
-    push.update(user: @user)
-    patch push_path(push), params: {
-      push: {
-        share_recipients: "someone@example.com",
-        share_locale: "fr"
-      }
-    }
+  # preview
+  test "preview shows share_recipients field when user is signed in and email service is configured" do
+    get preview_push_path(@user.pushes.first)
 
-    assert_response :found
-    assert_equal push.share_recipients, "one@example.com, two@example.com"
-    assert_equal push.share_locale, ""
+    assert_select "input[name=?]", "push[share_recipients]", count: 1
+  end
+
+  # share
+  test "share enqueues SendPushCreatedEmailJob when user is signed in and params present" do
+    assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post share_push_path(@user.pushes.first), params: {
+        push: {
+          share_recipients: "recipient@example.com",
+          share_locale: "en"
+        }
+      }
+    end
   end
 end

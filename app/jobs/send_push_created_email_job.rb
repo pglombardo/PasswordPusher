@@ -5,7 +5,10 @@ class SendPushCreatedEmailJob < ApplicationJob
 
   def perform(share_by_email_id)
     share_by_email = ShareByEmail.find_by(id: share_by_email_id)
+
     return unless share_by_email
+    return unless share_by_email.pending?
+    return unless share_by_email.recipients.present?
 
     share_by_email.processing!
 
@@ -19,7 +22,7 @@ class SendPushCreatedEmailJob < ApplicationJob
       mail.deliver_now
       successful_sends << recipient
     rescue => e
-      Rails.logger.error "[SendPushCreatedEmailJob] Error sending email to #{recipient}: #{e.message}"
+      Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
     end
 
     status = if successful_sends.size == recipients.size

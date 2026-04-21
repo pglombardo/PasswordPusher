@@ -85,7 +85,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_100500) do
   create_table "share_by_emails", force: :cascade do |t|
     t.integer "audit_log_id", null: false
     t.datetime "created_at", null: false
-    t.text "locale_ciphertext"
+    t.string "locale_ciphertext"
     t.text "recipients_ciphertext", null: false
     t.integer "status", default: 0, null: false
     t.text "successful_sends_ciphertext"
