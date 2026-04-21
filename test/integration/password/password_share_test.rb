@@ -8,8 +8,8 @@ class PasswordShareTest < ActionDispatch::IntegrationTest
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
     Settings.mail.smtp_address = "smtp.example.com"
-    @user = users(:one)
     @push = pushes(:test_push)
+    @user = @push.user
     sign_in @user
   end
 
@@ -25,14 +25,16 @@ class PasswordShareTest < ActionDispatch::IntegrationTest
     assert_select "input[name='push[share_recipients]']", count: 1
     assert_select "input[name='push[share_locale]']", count: 1
 
-    post share_push_path(@push), params: {push: {share_recipients: "test@example.com", share_locale: "fr"}}
-    assert_response :redirect
+    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post share_push_path(@push), params: {push: {share_recipients: "test@example.com", share_locale: "fr"}}
+      assert_response :redirect
 
-    follow_redirect!
-    assert_response :success
+      follow_redirect!
+      assert_response :success
+    end
 
-    assert_equal 1, @push.share_by_emails.count
-    assert_equal "test@example.com", @push.share_by_emails.first.recipients
-    assert_equal "fr", @push.share_by_emails.first.locale
+    share_by_email = ShareByEmail.find(job.arguments.first)
+    assert_equal "test@example.com", share_by_email.recipients
+    assert_equal "fr", share_by_email.locale
   end
 end

@@ -24,8 +24,8 @@ module LogEvents
   end
 
   def log_creation_email_send(push)
-    return unless push.share_recipients.present?
     return unless helpers.allow_share_by_email?
+    return unless push.share_recipients.present?
     return unless push.user.present? && (current_user == push.user)
 
     ip, user_agent, referrer = log_info
