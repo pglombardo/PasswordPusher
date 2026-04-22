@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:4.0.2-alpine AS build-env
+FROM ruby:4.0.3-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
