@@ -21,10 +21,10 @@ x-env: &x-env
     # TLS_DOMAIN: ""
 
     # --- Features ---
-    PWP__ENABLE_URL_PUSHES: "true"
-    PWP__ENABLE_FILE_PUSHES: "true"
-    PWP__ENABLE_QR_PUSHES: "true"
-    PWP__ALLOW_ANONYMOUS: "true"
+    # PWP__ENABLE_URL_PUSHES: "true"
+    # PWP__ENABLE_FILE_PUSHES: "true"
+    # PWP__ENABLE_QR_PUSHES: "true"
+    # PWP__ALLOW_ANONYMOUS: "true"
 
     # --- Deployment & URL ---
     # PWP__HOST_DOMAIN: ""
@@ -39,9 +39,10 @@ x-env: &x-env
     # PWP__DISABLE_SIGNUPS: "false"
     # PWP__DISABLE_LOGINS: "false"
     # PWP__SIGNUP_EMAIL_REGEXP: ""
-    # PWP__ENABLE_USER_ACCOUNT_EMAILS: "false"
+    # PWP__ENABLE_USER_ACCOUNT_EMAILS: "false"  # Make sure to set SMTP settings below first or error 500s shall be granted to you!
 
     # --- Mail (required for logins / account emails) ---
+    # See the documentation: https://docs.pwpush.com/docs/self-hosted-configuration/#smtp-when-you-need-mail
     # PWP__MAIL__RAISE_DELIVERY_ERRORS: "false"
     # PWP__MAIL__SMTP_ADDRESS: ""
     # PWP__MAIL__SMTP_DOMAIN: ""
@@ -114,7 +115,7 @@ x-env: &x-env
     # PWP__SHOW_VERSION: "true"
     # PWP__SHOW_GDPR_CONSENT_BANNER: "false"
     # PWP__THEME: "default" # See: https://docs.pwpush.com/docs/rebranding/#themes
-    # PWP_PRECOMPILE: "false"  # Set "true" if using custom theme/assets!  May add 30-90 seconds to boot time.
+    # PWP_PRECOMPILE: "false"  # Set "true" to force assets:precompile on boot (e.g. custom overlays). Not needed for built-in themes.
 
     # --- Locale ---
     # PWP__TIMEZONE: "America/New_York"
