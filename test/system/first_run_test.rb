@@ -69,7 +69,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path admin_root_path(locale: :en), wait: 10
     assert_text "Welcome to the Password Pusher administration panel", wait: 5
@@ -88,7 +88,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "securepassword123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-warning, .alert-danger", wait: 5
@@ -104,7 +104,7 @@ class FirstRunTest < ApplicationSystemTestCase
     fill_in "Email", with: "admin@example.com"
     fill_in "Password", with: "123"
 
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-danger", wait: 5
@@ -122,7 +122,7 @@ class FirstRunTest < ApplicationSystemTestCase
 
     # Disable native HTML5 validation so the server-side error is returned.
     page.execute_script("document.querySelector('form').setAttribute('novalidate','novalidate')")
-    click_button "Create Account"
+    click_button "Create Admin Account"
 
     assert_current_path first_run_path(locale: :en), wait: 5
     assert_selector ".alert-danger", wait: 5
