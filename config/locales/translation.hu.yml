@@ -88,13 +88,13 @@ hu:
       blank: nem lehet üres
       present: üresnek kell lennie
       too_long:
-        one: túl hosszú (maximum 1 karakter)
+        one: túl hosszú (maximum %{count} karakter)
         other: túl hosszú (maximum %{count} karakter)
       too_short:
-        one: túl rövid (legalább 1 karakter)
+        one: 'túl rövid (minimum karakter: %{count})'
         other: túl rövid (minimum %{count} karakter)
       wrong_length:
-        one: rossz hosszúságú (1 karakterből kell állnia)
+        one: rossz hosszúságú (%{count} karakternek kell lennie)
         other: rossz hosszúságú (%{count} karakterből kell állnia)
       not_a_number: nem szám
       not_an_integer: egész számnak kell lennie
@@ -130,7 +130,7 @@ hu:
     template:
       body: 'Problémás mezők:'
       header:
-        one: '1 hiba miatt nem menthető a következő: %{model}'
+        one: Az %{count} hiba megakadályozta a(z) %{model} mentését.
         other: "%{count} hiba miatt nem menthető a következő: %{model}"
   activerecord:
     errors:
@@ -172,40 +172,40 @@ hu:
     distance_in_words:
       half_a_minute: fél perce
       less_than_x_seconds:
-        one: kevesebb, mint 1 másodperce
+        one: kevesebb, mint %{count} másodperc
         other: kevesebb, mint %{count} másodperce
       x_seconds:
-        one: 1 másodperce
+        one: "%{count} másodperc"
         other: "%{count} másodperce"
       less_than_x_minutes:
         one: kevesebb, mint 1 perce
         other: kevesebb, mint %{count} perce
       x_minutes:
-        one: 1 perce
+        one: "%{count} perc"
         other: "%{count} perce"
       about_x_hours:
-        one: kb. 1 órája
+        one: körülbelül %{count} óra
         other: kb. %{count} órája
       x_days:
-        one: 1 napja
+        one: "%{count} nap"
         other: "%{count} napja"
       about_x_months:
-        one: kb. 1 hónapja
+        one: körülbelül %{count} hónap
         other: kb. %{count} hónapja
       x_months:
-        one: 1 hónapja
+        one: "%{count} hónap"
         other: "%{count} hónapja"
       about_x_years:
-        one: kb. 1 éve
+        one: körülbelül %{count} év
         other: kb. %{count} éve
       over_x_years:
-        one: több, mint 1 éve
+        one: több mint %{count} év
         other: több, mint %{count} éve
       almost_x_years:
-        one: majdnem 1 éve
+        one: majdnem %{count} év
         other: majdnem %{count} éve
       x_years:
-        one: 1 év
+        one: "%{count} év"
         other: "%{count} év"
     prompts:
       year: év
@@ -366,7 +366,7 @@ hu:
         currently_waiting_confirmation_for_email: 'Még várjuk a következő e-mail cím
           megerősítését: %{email}'
         leave_blank_if_you_don_t_want_to_change_it: csak változás esetén kitöltendő
-        title: "%{resource} módosítása"
+        title: Profil szerkesztése
         unhappy: Szomorú
         update: Módosítás
         we_need_your_current_password_to_confirm_your_changes: a változtatás végrehajtásához
