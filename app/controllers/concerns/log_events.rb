@@ -36,6 +36,8 @@ module LogEvents
   end
 
   def log_event(push, kind)
+    return if audit_log_limit_reached?(push.audit_logs)
+
     ip = request.env["HTTP_X_FORWARDED_FOR"].blank? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
     # Limit retrieved values to 256 characters
@@ -43,5 +45,11 @@ module LogEvents
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
     push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+  end
+
+  private
+
+  def audit_log_limit_reached?(audit_logs_association)
+    audit_logs_association.limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
   end
 end
