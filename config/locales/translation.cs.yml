@@ -88,13 +88,13 @@ cs:
       blank: povinná položka
       present: musí být prázdné
       too_long:
-        one: je příliš dlouhé (maximum je jeden znak)
+        one: je příliš dlouhý (maximálně je %{count} znaků)
         other: 'je příliš dlouhé (maximum znaků je: %{count})'
       too_short:
-        one: je příliš krátké (minimum je jeden znak)
+        one: je příliš krátké (minimálně je %{count} znaků)
         other: 'je příliš krátké (minimum znaků je: %{count})'
       wrong_length:
-        one: je špatné délky (musí být jeden znak)
+        one: má nesprávnou délku (měl by být znak %{count})
         other: nemá správnou délku (mělo by být %{count} znaků)
       not_a_number: není číslo
       not_an_integer: musí být celé číslo
@@ -129,7 +129,7 @@ cs:
     template:
       body: 'Následující pole obsahují chybně vyplněné údaje: '
       header:
-        one: Při ukládání objektu %{model} došlo k chybám a nebylo jej možné uložit
+        one: Chyba %{count} zabránila uložení tohoto %{model}
         other: Při ukládání objektu %{model} došlo ke %{count} chybám a nebylo možné
           jej uložit
   activerecord:
@@ -172,40 +172,40 @@ cs:
     distance_in_words:
       half_a_minute: půl minuty
       less_than_x_seconds:
-        one: necelou sekundu
+        one: méně než %{count} sekunda
         other: méně než %{count} sekund
       x_seconds:
-        one: sekundu
+        one: "%{count} sekunda"
         other: "%{count} sekundy"
       less_than_x_minutes:
         one: měně než minuta
         other: ani ne %{count} minuty
       x_minutes:
-        one: minutu
+        one: "%{count} minuta"
         other: "%{count} minuty"
       about_x_hours:
-        one: asi hodinu
+        one: přibližně %{count} hodinu
         other: asi %{count} hodiny
       x_days:
-        one: jeden den
+        one: "%{count} den"
         other: "%{count} dny"
       about_x_months:
-        one: asi měsíc
+        one: přibližně %{count} měsíc
         other: asi %{count} měsíců
       x_months:
-        one: měsíc
+        one: měsíc %{count}
         other: "%{count} měsíců"
       about_x_years:
-        one: asi rok
+        one: přibližně %{count} rok
         other: asi %{count} roky
       over_x_years:
-        one: více než rok
+        one: za více než %{count} rok
         other: více než %{count} roky
       almost_x_years:
-        one: téměř rok
+        one: téměř %{count} rok
         other: téměř %{count} roky
       x_years:
-        one: 1 rok
+        one: "%{count} rok"
         other: "%{count} let"
     prompts:
       year: Rok
@@ -328,8 +328,7 @@ cs:
         send_me_reset_password_instructions: Poslat instrukce pro obnovení hesla
     registrations:
       destroyed: Mějte se! Váš účet byl úspěšně zrušen. Doufáme, že se brzy opět uvidíme.
-      signed_up: Vítejte! Úspěšně jste se zaregistrovali. Zkontrolujte prosím svůj
-        e-mail s potvrzovacím odkazem.
+      signed_up: Vítejte! Úspěšně jste se zaregistrovali.
       signed_up_but_inactive: Úspěšně jste se zaregistroval(a). Bohužel se nemůžete
         přihlásit, protože Váš účet ještě není aktivován.
       signed_up_but_locked: Úspěšně jste se zaregistroval(a). Bohužel se nemůžete
@@ -364,7 +363,7 @@ cs:
           %{email}'
         leave_blank_if_you_don_t_want_to_change_it: nevyplňujte, pokud ho nechcete
           měnit
-        title: Upravit %{resource}
+        title: Upravit profil
         unhappy: Nejste zde šťastni?
         update: Aktualizovat
         we_need_your_current_password_to_confirm_your_changes: Vaše současné heslo

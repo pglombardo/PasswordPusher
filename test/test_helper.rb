@@ -5,6 +5,7 @@ require File.expand_path("../config/environment", __dir__)
 require "rails/test_help"
 require "minitest/rails"
 require "i18n/tasks"
+require_relative "selenium_error_patch"
 
 # Rubocop forces assert_not to be used instead of refute
 # This adds assert_not to Minitest::Test
