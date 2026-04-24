@@ -121,7 +121,7 @@ docker compose up -d
 
 Open `https://pwpush.example.com`. The Compose file includes persistent storage, health checks, and is suitable for production.
 
-_Note: If you didn't set `TLS_DOMAIN` visit the application on http://your-ip:5100_
+_Note: If you didn't set `TLS_DOMAIN`, uncomment port 5100 and visit the application on http://your-ip:5100_
 
 ### Cloud deploy & contributor setup
 
