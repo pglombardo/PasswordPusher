@@ -3,11 +3,49 @@ set -e
 
 export RAILS_ENV=production
 
+# Read app version for startup banner.
+if [ -r "/opt/PasswordPusher/VERSION" ]; then
+    APP_VERSION=$(tr -d '[:space:]' < /opt/PasswordPusher/VERSION)
+else
+    APP_VERSION="unknown"
+fi
+
 # If arguments are passed, execute them directly (e.g., "bundle exec rails secret")
 # This allows running utility commands without starting the full application
 if [ $# -gt 0 ]; then
     exec "$@"
 fi
+
+echo "
+██████╗  █████╗ ███████╗███████╗██╗    ██╗ ██████╗ ██████╗ ██████╗
+██╔══██╗██╔══██╗██╔════╝██╔════╝██║    ██║██╔═══██╗██╔══██╗██╔══██╗
+██████╔╝███████║███████╗███████╗██║ █╗ ██║██║   ██║██████╔╝██║  ██║
+██╔═══╝ ██╔══██║╚════██║╚════██║██║███╗██║██║   ██║██╔══██╗██║  ██║
+██║     ██║  ██║███████║███████║╚███╔███╔╝╚██████╔╝██║  ██║██████╔╝
+╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
+
+██████╗ ██╗   ██╗███████╗██╗  ██╗███████╗██████╗
+██╔══██╗██║   ██║██╔════╝██║  ██║██╔════╝██╔══██╗
+██████╔╝██║   ██║███████╗███████║█████╗  ██████╔╝
+██╔═══╝ ██║   ██║╚════██║██╔══██║██╔══╝  ██╔══██╗
+██║     ╚██████╔╝███████║██║  ██║███████╗██║  ██║
+╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+ ██████╗ ███████╗███████╗
+██╔═══██╗██╔════╝██╔════╝
+██║   ██║███████╗███████╗
+██║   ██║╚════██║╚════██║
+╚██████╔╝███████║███████║
+ ╚═════╝ ╚══════╝╚══════╝
+
+Version: ${APP_VERSION}
+
+By Apnotic, LLC
+
+Github: https://github.com/pglombardo/PasswordPusher
+Documentation: https://docs.pwpush.com
+Support: https://docs.pwpush.com/docs/support/
+"
 
 # Validate or generate SECRET_KEY_BASE
 if [ -z "$SECRET_KEY_BASE" ]; then
