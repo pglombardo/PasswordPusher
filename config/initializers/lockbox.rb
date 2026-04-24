@@ -8,6 +8,7 @@
 #   export PWPUSH_MASTER_KEY=749b1022e1cb83fb04f3022eacaf3bfef60c6d47f83e6fb41f534a05fc69929f
 #
 # If this environment variable is not set, a default encryption key will be used.
+# For key rotation, put old encryption key(s) in PWPUSH_MASTER_KEY_PREVIOUS (comma-separated).
 #
 # Changing an encryption key where old pushes already exist will make those older pushes
 # unreadable.  In other words, the payloads will be garbled.  New pushes going forward
