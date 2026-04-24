@@ -19,4 +19,5 @@ pin "omgopass" # @3.2.1
 pin "omgopass/random.js", to: "omgopass--random.js.js" # @3.2.1
 pin "local-time" # @3.0.3
 pin "local_time_locales", to: "local_time_locales.js"
-pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+pin "spoiler_alert", to: "spoiler_alert.js"
+pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/esm/popper.js"
