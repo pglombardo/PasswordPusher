@@ -1,6 +1,6 @@
 import "@hotwired/turbo-rails"
 import "@rails/activestorage"
-import "./controllers"
+import "controllers"
 import "bootstrap"
 
 import LocalTime from "local-time"
