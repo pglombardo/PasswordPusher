@@ -141,8 +141,9 @@ services:
     restart: unless-stopped
     ports:
       - "443:443"
-      # - "80:80" # To support older browsers that don't automatically upgrade to HTTPS
+      # - "80:80" # To support older browsers
       # - "5100:5100" # High port if you host pwpush behind a proxy (HTTP)
+    platform: linux/amd64
     volumes:
       - pwpush-storage:/opt/PasswordPusher/storage
     healthcheck:
