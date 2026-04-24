@@ -12,9 +12,6 @@
 #      https://pwpush.example.com
 # 5) Stop:
 #      docker compose down
-#
-# Local-only testing is also supported: run as-is and open https://localhost.
-# Configuration standard: set env values directly in this file under `x-env`.
 
 x-env: &x-env
   environment:
@@ -34,6 +31,7 @@ x-env: &x-env
     # --- Security & TLS ---
     # PWPUSH_MASTER_KEY: This sets the encryption key for the database. If omitted, a default encryption key is used.
     # For production, generate your own key and set it here so encrypted pushes use your key.
+    # For key rotation, put old encryption key(s) in PWPUSH_MASTER_KEY_PREVIOUS (comma-separated).
     # Generate a new key here: https://us.pwpush.com/generate_key
     # PWPUSH_MASTER_KEY: ""
     #
