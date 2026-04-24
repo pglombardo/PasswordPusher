@@ -24,15 +24,15 @@ module LogEvents
   end
 
   def log_creation_email_send(push)
-    return unless helpers.allow_share_by_email?
-    return unless push.share_recipients.present?
+    return unless helpers.allow_notify_by_email?
+    return unless push.notify_by_email_recipients.present?
     return unless push.user.present? && (current_user == push.user)
 
     ip, user_agent, referrer = log_info
     audit_log = push.audit_logs.create!(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
-    share_by_email = audit_log.create_share_by_email!(recipients: push.share_recipients, locale: push.share_locale)
+    notify_by_email = audit_log.create_notify_by_email!(recipients: push.notify_by_email_recipients, locale: push.notify_by_email_locale)
 
-    SendPushCreatedEmailJob.perform_later(share_by_email.id)
+    SendPushCreatedEmailJob.perform_later(notify_by_email.id)
   end
 
   def log_update(push)

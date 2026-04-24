@@ -3,18 +3,18 @@
 class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
-  def perform(share_by_email_id)
-    share_by_email = ShareByEmail.find_by(id: share_by_email_id)
+  def perform(notify_by_email_id)
+    notify_by_email = NotifyByEmail.find_by(id: notify_by_email_id)
 
-    return unless share_by_email
-    return unless share_by_email.pending?
-    return unless share_by_email.recipients.present?
+    return unless notify_by_email
+    return unless notify_by_email.pending?
+    return unless notify_by_email.recipients.present?
 
-    share_by_email.processing!
+    notify_by_email.processing!
 
-    push = share_by_email.push
-    locale = share_by_email.locale
-    recipients = share_by_email.recipients.split(",").map(&:strip)
+    push = notify_by_email.push
+    locale = notify_by_email.locale
+    recipients = notify_by_email.recipients.split(",").map(&:strip)
 
     successful_sends = []
     recipients.each do |recipient|
@@ -33,6 +33,6 @@ class SendPushCreatedEmailJob < ApplicationJob
       :partially_failed
     end
 
-    share_by_email.update!(successful_sends: successful_sends.join(","), status: status)
+    notify_by_email.update!(successful_sends: successful_sends.join(","), status: status)
   end
 end

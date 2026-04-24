@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ShareByEmail < ApplicationRecord
+class NotifyByEmail < ApplicationRecord
   attr_readonly :recipients, :locale
 
   enum :status, {pending: 0, processing: 1, completed: 2, partially_failed: 3, fully_failed: 4}

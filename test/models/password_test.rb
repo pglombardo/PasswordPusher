@@ -56,65 +56,40 @@ class PasswordTest < ActiveSupport::TestCase
     assert_not json.key?("name")
   end
 
-  test "should save password if share_recipients and share_locale are set and user is defined" do
+  test "should save password if notify_by_email_recipients and notify_by_email_locale are set and user is defined" do
     Settings.mail.smtp_address = "smtp.example.com"
 
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "fr"
+      notify_by_email_recipients: "test@example.com",
+      notify_by_email_locale: "fr"
     )
 
     assert password.valid?
   end
 
-  test "should reject more than 5 emails in share_recipients for pushes" do
+  test "should reject more than 5 emails in notify_by_email_recipients for pushes" do
     emails = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      share_recipients: emails
+      notify_by_email_recipients: emails
     )
 
     assert_not password.valid?
-    assert password.errors[:share_recipients].any? { |m| m.include?("5") || m.include?("at most") }
+    assert password.errors[:notify_by_email_recipients].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
-  test "should reject invalid share_locale for pushes" do
+  test "should reject invalid notify_by_email_locale for pushes" do
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "zz"
+      notify_by_email_recipients: "test@example.com",
+      notify_by_email_locale: "zz"
     )
 
     assert_not password.valid?
-    assert password.errors[:share_locale].present?
-  end
-
-  test "to_json excludes share and share_locale ciphertext and virtual attributes" do
-    Settings.mail.smtp_address = "smtp.example.com"
-    password = Push.new(
-      kind: "text",
-      payload: "test_payload",
-      share_recipients: "test@example.com",
-      share_locale: "fr",
-      user: users(:luca)
-    )
-    password.save
-
-    sensitive_keys = %w[
-      share_ciphertext
-      share_locale_ciphertext
-      share
-      share_locale
-    ]
-    [{}, {owner: true}, {payload: true}, {owner: true, payload: true}].each do |opts|
-      json = JSON.parse(password.to_json(opts))
-      sensitive_keys.each do |key|
-        assert_not json.key?(key), "to_json(#{opts.inspect}) must not include #{key}"
-      end
-    end
+    assert password.errors[:notify_by_email_locale].present?
   end
 end

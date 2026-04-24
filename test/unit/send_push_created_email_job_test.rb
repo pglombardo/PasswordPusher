@@ -7,12 +7,12 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   setup do
     Rails.application.routes.default_url_options[:host] = "test.host"
     @push = pushes(:test_push)
-    @share_by_email = share_by_emails(:one)
+    @notify_by_email = notify_by_emails(:one)
   end
 
   test "sends email to specified recipient" do
     mails = capture_emails do
-      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
     end
 
     mail = mails.first
@@ -20,45 +20,45 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal "#{@push.user.email} has sent you a push", mail.subject
   end
 
-  test "perform update share_by_email status to completed after sending" do
-    SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+  test "perform update notify_by_email status to completed after sending" do
+    SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
 
-    @share_by_email.reload
-    assert_equal "completed", @share_by_email.status
-    assert_equal "one@example.com", @share_by_email.successful_sends
+    @notify_by_email.reload
+    assert_equal "completed", @notify_by_email.status
+    assert_equal "one@example.com", @notify_by_email.successful_sends
   end
 
-  test "perform update share_by_email status to fully_failed after sending" do
+  test "perform update notify_by_email status to fully_failed after sending" do
     failing_mail = Minitest::Mock.new
     failing_mail.expect(:deliver_now, -> { raise StandardError, "test error" })
 
     PushCreatedMailer.stub(:with, failing_mail) do
-      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
     end
 
-    @share_by_email.reload
-    assert_equal "fully_failed", @share_by_email.status
-    assert_equal "", @share_by_email.successful_sends
+    @notify_by_email.reload
+    assert_equal "fully_failed", @notify_by_email.status
+    assert_equal "", @notify_by_email.successful_sends
   end
 
-  test "perform does not send mail when share_by_email is not pending" do
-    @share_by_email.update(status: "processing")
+  test "perform does not send mail when notify_by_email is not pending" do
+    @notify_by_email.update(status: "processing")
     assert_emails 0 do
-      SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
     end
   end
 
   test "perform does not send mail when recipients are blank" do
     # Bypass readonly attribute
-    @share_by_email.update_columns(recipients_ciphertext: "")
-    SendPushCreatedEmailJob.perform_now(@share_by_email.id)
+    @notify_by_email.update_columns(recipients_ciphertext: "")
+    SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
 
-    @share_by_email.reload
-    assert_equal "pending", @share_by_email.status
-    assert_nil @share_by_email.successful_sends
+    @notify_by_email.reload
+    assert_equal "pending", @notify_by_email.status
+    assert_nil @notify_by_email.successful_sends
   end
 
-  test "perform does not send mail when share_by_email is not found" do
+  test "perform does not send mail when notify_by_email is not found" do
     assert_emails 0 do
       invalid_id = -1
       SendPushCreatedEmailJob.perform_now(invalid_id)

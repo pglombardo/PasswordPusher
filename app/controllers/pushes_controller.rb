@@ -246,8 +246,8 @@ class PushesController < BaseController
     @qr_code = helpers.qr_code(@secret_url)
   end
 
-  def share
-    @push.assign_attributes(share_params)
+  def notify_by_email
+    @push.assign_attributes(notify_by_email_params)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -396,7 +396,7 @@ class PushesController < BaseController
   end
 
   def push_params
-    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase share_recipients share_locale]
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_by_email_recipients notify_by_email_locale]
     case params.dig(:push, :kind)
     when "url"
       params.require(:push).permit(*base)
@@ -411,7 +411,7 @@ class PushesController < BaseController
   end
 
   def update_params
-    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase share_recipients]
+    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase notify_by_email_recipients]
     # Don't allow kind to be changed after creation for security
     case @push.kind
     when "url"
@@ -426,8 +426,8 @@ class PushesController < BaseController
     raise e
   end
 
-  def share_params
-    params.require(:push).permit(:share_recipients, :share_locale)
+  def notify_by_email_params
+    params.require(:push, :notify_by_email).permit(:recipients, :locale)
   end
 
   def print_preview_params

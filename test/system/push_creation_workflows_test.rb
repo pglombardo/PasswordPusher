@@ -92,7 +92,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     visit new_push_path(tab: "text")
 
     fill_in "push_payload", with: "TestPassword"
-    fill_in "push_share_recipients", with: "test@example.com"
+    fill_in "push_notify_by_email_recipients", with: "test@example.com"
 
     click_button "Push It!"
 

@@ -1,5 +1,5 @@
-<% share_by_email = audit_log.share_by_email %>
-<% status_class = case share_by_email.status
+<% notify_by_email = audit_log.notify_by_email %>
+<% status_class = case notify_by_email.status
   when "completed" then "list-group-item-success"
   when "processing", "pending" then "list-group-item-info"
   when "partially_failed" then "list-group-item-warning"
@@ -7,7 +7,7 @@
   else "list-group-item-info"
 end %>
 
-<% status_icon = case share_by_email.status
+<% status_icon = case notify_by_email.status
   when "completed" then "bi-envelope-check"
   when "processing" then "bi-hourglass-split"
   when "pending" then "bi-envelope"
@@ -18,27 +18,27 @@ end %>
 
 <div class="list-group-item list-group-item-action <%= status_class %>">
   <em class="bi <%= status_icon %>"></em>
-  <% if share_by_email.completed? %>
+  <% if notify_by_email.completed? %>
     <%= _('Email notification(s) sent on %{date}') % {
         date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
     } %>
-  <% elsif share_by_email.pending? %>
+  <% elsif notify_by_email.pending? %>
     <%= _('Email notification(s) pending') %>
-  <% elsif share_by_email.processing? %>
+  <% elsif notify_by_email.processing? %>
     <%= _('Email notification(s) being sent...') %>
-  <% elsif share_by_email.partially_failed? %>
+  <% elsif notify_by_email.partially_failed? %>
     <%= _('Some email notification(s) failed on %{date}') % {
         date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
     } %>
-  <% elsif share_by_email.fully_failed? %>
+  <% elsif notify_by_email.fully_failed? %>
     <%= _('Email notification(s) failed on %{date}') % {
         date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
     } %>
   <% end %>
   <br>
-  <strong><%= _('To:') %></strong> <code><%= share_by_email.recipients %></code>
-  <% if share_by_email.partially_failed? %>
+  <strong><%= _('To:') %></strong> <code><%= notify_by_email.recipients %></code>
+  <% if notify_by_email.partially_failed? %>
     <br>
-    <strong><%= _('Sent:') %></strong> <code><%= share_by_email.successful_sends %></code>
+    <strong><%= _('Sent:') %></strong> <code><%= notify_by_email.successful_sends %></code>
   <% end %>
 </div>

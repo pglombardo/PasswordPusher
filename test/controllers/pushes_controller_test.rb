@@ -22,28 +22,28 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # new
-  test "share_recipients field is shown when mail service is configured and user is signed in" do
+  test "notify_by_email_recipients field is shown when mail service is configured and user is signed in" do
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[share_recipients]", count: 1
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
   end
 
-  test "share_recipients field is not shown when mail service is not configured" do
+  test "notify_by_email_recipients field is not shown when mail service is not configured" do
     Settings.mail.smtp_address = nil
 
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[share_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
   end
 
-  test "share_recipients fields are not shown when user is not signed in" do
+  test "notify_by_email_recipients fields are not shown when user is not signed in" do
     sign_out @user
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[share_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
   end
 
   # create
@@ -53,8 +53,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          share_recipients: "recipient@example.com",
-          share_locale: "en"
+          notify_by_email_recipients: "recipient@example.com",
+          notify_by_email_locale: "en"
         }
       }
 
@@ -64,11 +64,11 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
     push = Push.find_by(url_token: push_url_token)
 
-    share_by_email = ShareByEmail.find(job.arguments.first)
+    notify_by_email = NotifyByEmail.find(job.arguments.first)
 
-    assert_equal "recipient@example.com", share_by_email.recipients
-    assert_equal "en", share_by_email.locale
-    assert_equal push, share_by_email.push
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+    assert_equal push, notify_by_email.push
   end
 
   test "create doesn't enqueue SendPushCreatedEmailJob when user is not signed in" do
@@ -79,8 +79,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          share_recipients: "someone@example.com",
-          share_locale: "fr"
+          notify_by_email_recipients: "someone@example.com",
+          notify_by_email_locale: "fr"
         }
       }
 
@@ -96,8 +96,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          share_recipients: "someone@example.com",
-          share_locale: "fr"
+          notify_by_email_recipients: "someone@example.com",
+          notify_by_email_locale: "fr"
         }
       }
 
@@ -106,26 +106,26 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # edit
-  test "edit does not show share_recipients field when push is edited" do
+  test "edit does not show notify_by_email_recipients field when push is edited" do
     get edit_push_path(@user.pushes.first)
 
-    assert_select "input[name=?]", "push[share_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
   end
 
   # preview
-  test "preview shows share_recipients field when user is signed in and email service is configured" do
+  test "preview shows notify_by_email_recipients field when user is signed in and email service is configured" do
     get preview_push_path(@user.pushes.first)
 
-    assert_select "input[name=?]", "push[share_recipients]", count: 1
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
   end
 
   # share
-  test "share enqueues SendPushCreatedEmailJob when user is signed in and params present" do
+  test "notify_by_email enqueues SendPushCreatedEmailJob when user is signed in and params present" do
     assert_enqueued_with(job: SendPushCreatedEmailJob) do
-      post share_push_path(@user.pushes.first), params: {
+      post notify_by_email_push_path(@user.pushes.first), params: {
         push: {
-          share_recipients: "recipient@example.com",
-          share_locale: "en"
+          notify_by_email_recipients: "recipient@example.com",
+          notify_by_email_locale: "en"
         }
       }
     end
