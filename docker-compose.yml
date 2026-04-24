@@ -1,13 +1,35 @@
 # Password Pusher - Docker Compose
+#
+# --- Quick start (recommended) ---
+# The most important setup step is setting `TLS_DOMAIN` so Password Pusher
+# automatically provisions and renews HTTPS/TLS certificates (Let's Encrypt).
+#
+# 1) Point your domain DNS to this host.
+# 2) Set `TLS_DOMAIN` below (example: `TLS_DOMAIN: "pwpush.example.com"`).
+# 3) Start:
+#      docker compose up -d
+# 4) Open:
+#      https://pwpush.example.com
+# 5) Stop:
+#      docker compose down
+#
+# Local-only testing is also supported: run as-is and open https://localhost.
+# Configuration standard: set env values directly in this file under `x-env`.
 
 x-env: &x-env
   environment:
     # --- Overview ---
-    # Sensible defaults are set below; the app runs out of the box. Uncomment and set
-    # any option to customize your deployment.
+    # Sensible defaults are set below; the app runs out of the box.
+    # Standard approach: configure by setting values directly in this `environment` block.
+    # Optional approach: keep values in an external `.env` file (enable `env_file` below).
     #
     # All configuration options below are described in more detail in the Password Pusher Configuration documentation:
     # https://docs.pwpush.com/docs/self-hosted-configuration/
+    #
+    # --- Most common settings ---
+    # TLS_DOMAIN: ""            # Strongly recommended: enables automatic HTTPS/TLS via Let's Encrypt
+    # PWPUSH_MASTER_KEY: ""     # Set your own encryption key (recommended)
+    # SMTP settings below       # Required for account emails/logins
 
     # --- Security & TLS ---
     # PWPUSH_MASTER_KEY: This sets the encryption key for the database. If omitted, a default encryption key is used.
@@ -18,6 +40,7 @@ x-env: &x-env
     # TLS_DOMAIN: For automatic TLS/SSL (e.g. HTTPS via Let's Encrypt), create a DNS record that
     #   points to this host, then set this env var to that domain (e.g. pwpush.example.com).
     #   The container will provision and renew certificates automatically.
+    #   This is the key setting for a production-like HTTPS setup.
     # TLS_DOMAIN: ""
 
     # --- Features ---
@@ -146,14 +169,20 @@ services:
     platform: linux/amd64
     volumes:
       - pwpush-storage:/opt/PasswordPusher/storage
+      # Example host bind mount instead of named volume:
+      # - ./pwpush-storage:/opt/PasswordPusher/storage
     healthcheck:
+      # Inside the container, the app listens on port 5100.
+      # Port 443 above is the externally exposed HTTPS endpoint.
       test: ["CMD", "curl", "-f", "http://localhost:5100/up"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     <<: *x-env
-    # env_file: - .env
+    # Optional external env file support (alternative to setting values above directly).
+    # env_file:
+    #   - .env
 
 # Persists SQLite DB and file uploads. To use a host path instead, replace the
 # pwpush-storage service volume with: - /path/on/host:/opt/PasswordPusher/storage
