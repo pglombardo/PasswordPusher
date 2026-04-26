@@ -178,6 +178,7 @@ class Api::V1::PushesController < Api::BaseController
 
     if @push.save
       log_creation(@push)
+      log_creation_email_send(@push)
 
       render template: "pushes/show", status: :created
     else

@@ -338,10 +338,107 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert body["error"].present?
   end
 
-  def test_notify_by_email_with_valid_params_returns_json_created
+  def test_create_with_notify_by_email_params_adds_a_job_to_the_queue
+    Settings.mail.smtp_address = "smtp.example.com"
+    user = users(:one)
+
+    send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post "/api/v2/pushes",
+        params: {
+          push: {
+            payload: "some-secret",
+            notify_by_email_recipients: "recipient@example.com",
+            notify_by_email_locale: "en"
+          }
+        },
+        headers: bearer_headers(user),
+        as: :json
+
+      assert_response :success
+    end
+
+    notify_by_email_id = send_email_job.arguments.first
+    notify_by_email = NotifyByEmail.find(notify_by_email_id)
+
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+  ensure
+    Settings.reload!
+  end
+
+  def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
+    Settings.mail.smtp_address = nil
+    user = users(:one)
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "some-secret",
+          notify_by_email_recipients: "recipient@example.com",
+          notify_by_email_locale: "en"
+        }
+      },
+      headers: bearer_headers(user),
+      as: :json
+
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+    assert_equal "Notifying by email is not available.", body["error"]
+  ensure
+    Settings.reload!
+  end
+
+  def test_create_with_notify_by_email_params_fails_when_user_is_not_signed_in
+    Settings.mail.smtp_address = "smtp.example.com"
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "some-secret",
+          notify_by_email_recipients: "recipient@example.com",
+          notify_by_email_locale: "en"
+        }
+      },
+      as: :json
+
+    assert_response :unauthorized
+    body = JSON.parse(response.body)
+    assert_equal "Notifying by email is only available when signed in.", body["error"]
+  ensure
+    Settings.reload!
+  end
+
+  def test_notify_by_email_with_valid_params_adds_a_job_to_the_queue
     Settings.mail.smtp_address = "smtp.example.com"
     push = pushes(:test_push)
     owner = users(:giuliana)
+
+    send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+        params: {
+          recipients: "recipient@example.com",
+          locale: "en"
+        },
+        headers: bearer_headers(owner),
+        as: :json
+
+      assert_response :success
+    end
+
+    notify_by_email_id = send_email_job.arguments.first
+    notify_by_email = NotifyByEmail.find(notify_by_email_id)
+
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+    assert_equal push, notify_by_email.push
+  ensure
+    Settings.reload!
+  end
+
+  def test_notify_by_email_with_valid_params_returns_json_created
+    Settings.mail.smtp_address = "smtp.example.com"
+    push = pushes(:test_push)
+    owner = push.user
 
     send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
       post "/api/v2/pushes/#{push.url_token}/notify_by_email",

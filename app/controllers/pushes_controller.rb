@@ -125,11 +125,11 @@ class PushesController < BaseController
 
   def create
     if params.dig(:push, :notify_by_email_recipients).present?
-      if !user_signed_in?
-        redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is only available when signed in.")
-        return
-      elsif Settings.disable_logins || Settings.mail.smtp_address.blank?
+      if Settings.disable_logins || Settings.mail.smtp_address.blank?
         redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is not available.")
+        return
+      elsif !user_signed_in?
+        redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is only available when signed in.")
         return
       end
     end
