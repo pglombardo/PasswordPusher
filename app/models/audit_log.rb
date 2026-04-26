@@ -8,7 +8,19 @@ class AuditLog < ApplicationRecord
 
   has_one :notify_by_email, dependent: :destroy
 
+  validate :user_matches_push_owner, if: -> { kind == "creation_email_send" }
+
   def subject_name
     user&.email || "❓"
+  end
+
+  private
+
+  def user_matches_push_owner
+    if user.blank?
+      errors.add(:user, "must be present for creation email sends")
+    end
+
+    errors.add(:user, "must be the push owner for creation email sends") if user != push.user
   end
 end

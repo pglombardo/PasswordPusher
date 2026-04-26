@@ -124,6 +124,16 @@ class PushesController < BaseController
   end
 
   def create
+    if params.dig(:push, :notify_by_email_recipients).present?
+      if !user_signed_in?
+        redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is only available when signed in.")
+        return
+      elsif Settings.disable_logins || Settings.mail.smtp_address.blank?
+        redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is not available.")
+        return
+      end
+    end
+
     @push = Push.new(push_params)
 
     @push.user_id = current_user.id if user_signed_in?
@@ -247,16 +257,27 @@ class PushesController < BaseController
   end
 
   def notify_by_email
+    unless current_user
+      if Settings.disable_logins
+        redirect_to preview_push_path(@push), notice: I18n._("Notifying by email is only available when signed in.")
+      else
+        redirect_to preview_push_path(@push), notice: I18n._("You must be signed in to notify by email.")
+      end
+      return
+    end
+
+    if @push.user_id != current_user.id
+      redirect_to preview_push_path(@push), notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
     @push.assign_attributes(notify_by_email_params)
+    @push.notify_by_email_required = true
 
-    if @push.valid?
+    if @push.save
       log_creation_email_send(@push)
-
       redirect_to preview_push_path(@push), notice: I18n._("Recipients are added to the queue to be sent.")
     else
-      @secret_url = helpers.secret_url(@push)
-      @qr_code = helpers.qr_code(@secret_url)
-
       render action: "preview", status: :unprocessable_content
     end
   end
@@ -411,7 +432,7 @@ class PushesController < BaseController
   end
 
   def update_params
-    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase notify_by_email_recipients]
+    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase]
     # Don't allow kind to be changed after creation for security
     case @push.kind
     when "url"
@@ -427,7 +448,7 @@ class PushesController < BaseController
   end
 
   def notify_by_email_params
-    params.require(:push, :notify_by_email).permit(:recipients, :locale)
+    params.require(:push).permit(:notify_by_email_recipients, :notify_by_email_locale)
   end
 
   def print_preview_params
@@ -475,7 +496,12 @@ class PushesController < BaseController
       return
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
+    if action_name == "notify_by_email" && Settings.disable_logins && !user_signed_in?
+      redirect_to preview_push_path(@push), notice: I18n._("Notifying by email is only available when signed in.")
+      return
+    end
+
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file notify_by_email].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]

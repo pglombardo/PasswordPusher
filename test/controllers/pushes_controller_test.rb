@@ -14,6 +14,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     Settings.mail.smtp_address = "smtp.example.com"
 
     @user = users(:giuliana)
+    @push = pushes(:test_push)
     sign_in @user
   end
 
@@ -47,14 +48,14 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # create
-  test "create enqueues SendPushCreatedEmailJob when user is  signed in and params present" do
+  test "create enqueues SendPushCreatedEmailJob when user is signed in and params present" do
     job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
           payload: "secret",
           notify_by_email_recipients: "recipient@example.com",
-          notify_by_email_locale: "en"
+          notify_by_email_locale: "fr"
         }
       }
 
@@ -67,7 +68,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     notify_by_email = NotifyByEmail.find(job.arguments.first)
 
     assert_equal "recipient@example.com", notify_by_email.recipients
-    assert_equal "en", notify_by_email.locale
+    assert_equal "fr", notify_by_email.locale
     assert_equal push, notify_by_email.push
   end
 
@@ -85,6 +86,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :redirect
+      assert_equal "Notifying by email is only available when signed in.", flash[:notice]
     end
   end
 
@@ -102,32 +104,91 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :redirect
+      assert_equal "Notifying by email is not available.", flash[:notice]
     end
   end
 
   # edit
   test "edit does not show notify_by_email_recipients field when push is edited" do
-    get edit_push_path(@user.pushes.first)
+    get edit_push_path(@push)
 
     assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
   end
 
   # preview
   test "preview shows notify_by_email_recipients field when user is signed in and email service is configured" do
-    get preview_push_path(@user.pushes.first)
+    get preview_push_path(@push)
 
     assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
   end
 
-  # share
+  # notify_by_email
   test "notify_by_email enqueues SendPushCreatedEmailJob when user is signed in and params present" do
     assert_enqueued_with(job: SendPushCreatedEmailJob) do
-      post notify_by_email_push_path(@user.pushes.first), params: {
+      post notify_by_email_push_path(@push), params: {
         push: {
           notify_by_email_recipients: "recipient@example.com",
           notify_by_email_locale: "en"
         }
       }
     end
+  end
+
+  test "notify_by_email retains form values when validation fails" do
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "invalid-email, another-invalid",
+        notify_by_email_locale: "fr"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_select "input[name=?][value=?]", "push[notify_by_email_recipients]", "invalid-email, another-invalid"
+    assert_select "input[name=?][value=?]", "push[notify_by_email_locale]", "fr"
+  end
+
+  test "notify_by_email redirects to preview when user is not signed in and disable_logins is true" do
+    Settings.disable_logins = true
+    sign_out @user
+
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "recipient@example.com"
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to preview_push_path(@push)
+    assert_equal "Notifying by email is only available when signed in.", flash[:notice]
+  end
+
+  test "notify_by_email redirects to preview when push does not belong to user and disable_logins is true" do
+    Settings.disable_logins = true
+    sign_in users(:luca)
+
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "recipient@example.com"
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to preview_push_path(@push)
+    assert_equal "That push doesn't belong to you.", flash[:notice]
+  end
+
+  test "notify_by_email redirects to preview when push does not belong to user and disable_logins is false" do
+    Settings.disable_logins = false
+    sign_out @user
+
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "recipient@example.com"
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+    assert_nil flash[:notice]
   end
 end

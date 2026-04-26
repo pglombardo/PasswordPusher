@@ -337,4 +337,31 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert body["error"].present?
   end
+
+  def test_notify_by_email_with_valid_params_returns_json_created
+    Settings.mail.smtp_address = "smtp.example.com"
+    push = pushes(:test_push)
+    owner = users(:giuliana)
+
+    send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+        params: {
+          recipients: "recipient@example.com",
+          locale: "en"
+        },
+        headers: bearer_headers(owner),
+        as: :json
+
+      assert_response :success
+    end
+
+    notify_by_email_id = send_email_job.arguments.first
+    notify_by_email = NotifyByEmail.find(notify_by_email_id)
+
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+    assert_equal push, notify_by_email.push
+  ensure
+    Settings.reload!
+  end
 end

@@ -11,6 +11,5 @@ class NotifyByEmail < ApplicationRecord
 
   has_encrypted :recipients, :locale, :successful_sends
 
-  validates :recipients, presence: true, multiple_emails: true
-  validates :locale, inclusion: {in: I18n.available_locales.map(&:to_s)}, allow_blank: true, allow_nil: true
+  validates_associated :push
 end
