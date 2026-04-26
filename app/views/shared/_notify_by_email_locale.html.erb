@@ -1,4 +1,3 @@
-<%# Secret link language: toggle + dropdown (shared by secret URL bar and notify-emails field). %>
 <% if Settings.language_codes %>
   <div data-controller="select-dropdown">
     <%= f.hidden_field :notify_by_email_locale, data: {"select-dropdown-target": "field"} %>
@@ -17,7 +16,10 @@
       <li><hr class="dropdown-divider"></li>
       <% if Settings.language_codes %>
         <li class="m-0 p-0">
-          <div class="dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" data-action="click->select-dropdown#select">
+          <div class="dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" data-action="click->select-dropdown#select" data-lang="">
+            <template>
+              🌎
+            </template>
             🌎 <%= _('Autodetect the recipient\'s language') %>
           </div>
         </li>
