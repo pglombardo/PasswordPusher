@@ -278,6 +278,9 @@ class PushesController < BaseController
       log_creation_email_send(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Recipients are added to the queue to be sent.")
     else
+      @secret_url = helpers.secret_url(@push)
+      @qr_code = helpers.qr_code(@secret_url)
+
       render action: "preview", status: :unprocessable_content
     end
   end
