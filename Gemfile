@@ -17,7 +17,6 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
-gem "sass-embedded"
 gem "cssbundling-rails"
 
 group :development do
