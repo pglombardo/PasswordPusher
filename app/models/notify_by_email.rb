@@ -10,6 +10,4 @@ class NotifyByEmail < ApplicationRecord
   has_one :push, through: :audit_log
 
   has_encrypted :recipients, :locale, :successful_sends
-
-  validates_associated :push
 end
