@@ -271,7 +271,7 @@ class PushesController < BaseController
     @push.assign_attributes(notify_by_email_params)
     @push.notify_by_email_required = true
 
-    if @push.save
+    if @push.valid?
       log_creation_email_send(@push)
       redirect_to preview_push_path(@push), notice: I18n._("Recipient(s) are added to the queue to be sent.")
     else
