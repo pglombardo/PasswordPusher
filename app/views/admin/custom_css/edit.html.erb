@@ -26,7 +26,8 @@
     <div>
       <div class="fw-medium text-info-emphasis"><%= _("Looking for Themes?") %></div>
       <div class="small text-info-emphasis">
-        <%= _("Password Pusher includes 26 built-in themes that can be set via the %{code_start}PWP__THEME%{code_end} environment variable. No custom CSS needed for most branding changes.") % {code_start: "<code>".html_safe, code_end: "</code>".html_safe} %>
+        <% themes_text = _("Password Pusher includes 26 built-in themes that can be set via the %{code_start}PWP__THEME%{code_end} environment variable. No custom CSS needed for most branding changes.") % {code_start: "<code>", code_end: "</code>"} %>
+        <%= themes_text.html_safe %>
         <%= link_to _("View the Theme Gallery"), "https://docs.pwpush.com/docs/rebranding/#theme-gallery", target: "_blank", rel: "noopener noreferrer" %>.
       </div>
     </div>
