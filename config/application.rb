@@ -11,14 +11,16 @@ require "version"
 Bundler.require(*Rails.groups)
 
 # cssbundling-rails attaches `css:build` to `test:prepare`, `assets:precompile`, etc. That runs
-# `yarn build:css` → build_themes.js (all Bootswatch themes) unless SKIP_CSS_BUILD is set.
+# `yarn build:css` → build_themes.js unless SKIP_CSS_BUILD is set.
 #
 # Policy: skip the rake CSS build in test/development so tests stay fast and dev uses the watcher.
-# In production (Docker, Hatchbox, etc.), always build CSS during assets:precompile.
-# CI/test jobs should run `yarn build:css:single` where digested CSS is required.
-# Local full rebuild of every theme: `yarn build:css` / `yarn build:css:all` manually.
+# In production (Docker, Hatchbox, etc.), build only the active theme (PWP__THEME) during assets:precompile.
+# CI/test jobs can run `yarn build:css:single` where digested CSS is required.
+# Local full rebuild of every theme: `yarn build:css:all` manually.
 if ENV["RAILS_ENV"] != "production"
   ENV["SKIP_CSS_BUILD"] ||= "1"
+else
+  ENV["BUILD_CSS_SINGLE"] ||= "1"
 end
 
 module PasswordPusher
