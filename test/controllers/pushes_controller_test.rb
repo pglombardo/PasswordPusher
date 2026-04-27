@@ -103,8 +103,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         }
       }
 
-      assert_response :redirect
-      assert_equal "Notifying by email is not available.", flash[:notice]
+      assert_response :unprocessable_content
+      assert_includes response.body, "Notifying by email is not available."
     end
   end
 

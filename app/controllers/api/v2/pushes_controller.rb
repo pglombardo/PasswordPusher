@@ -42,10 +42,8 @@ class Api::V2::PushesController < Api::V1::PushesController
 
   def check_notify_by_email
     if params.dig(:push, :notify_by_email_recipients).present?
-      if Settings.disable_logins || Settings.mail.smtp_address.blank?
-        render json: {error: "Notifying by email is not available."}, status: :unprocessable_entity
-        nil
-      elsif !user_signed_in?
+
+      if !user_signed_in?
         render json: {error: I18n._("Notifying by email is only available when signed in.")}, status: :unauthorized
         nil
       end

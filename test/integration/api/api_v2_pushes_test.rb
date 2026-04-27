@@ -383,7 +383,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "Notifying by email is not available.", body["error"]
+    assert_equal "Notifying by email is not available.", body["base"][0]
   ensure
     Settings.reload!
   end

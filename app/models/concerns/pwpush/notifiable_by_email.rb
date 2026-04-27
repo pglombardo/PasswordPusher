@@ -13,8 +13,9 @@ module Pwpush
 
       validates :notify_by_email_recipients, multiple_emails: {max_emails: MAX_NOTIFY_BY_EMAILS}
       validates :notify_by_email_recipients, presence: true, if: :notify_by_email_required
-      validates :notify_by_email_locale, allow_blank: true, inclusion: {in: I18n.available_locales.map(&:to_s)}
+      validates :notify_by_email_locale, allow_blank: true, allow_nil: true, inclusion: {in: I18n.available_locales.map(&:to_s)}
       validate :notify_by_email_limit
+      validate :notify_by_email_available
     end
 
     private
@@ -38,6 +39,14 @@ module Pwpush
       return 0 if notify_by_emails.none?
 
       notify_by_emails.sum { |notify_by_email| notify_by_email.recipients.split(",").count }
+    end
+
+    def notify_by_email_available
+      return if notify_by_email_recipients.blank?
+
+      if Settings.disable_logins || Settings.mail.smtp_address.blank?
+        errors.add(:base, _("Notifying by email is not available."))
+      end
     end
   end
 end
