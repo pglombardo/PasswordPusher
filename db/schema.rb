@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_123959) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -62,6 +62,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
     t.index ["name"], name: "index_data_migration_statuses_on_name", unique: true
   end
 
+  create_table "notify_by_emails", force: :cascade do |t|
+    t.integer "audit_log_id", null: false
+    t.datetime "created_at", null: false
+    t.string "locale_ciphertext"
+    t.text "recipients_ciphertext", null: false
+    t.integer "status", default: 0, null: false
+    t.text "successful_sends_ciphertext"
+    t.datetime "updated_at", null: false
+    t.index ["audit_log_id"], name: "index_notify_by_emails_on_audit_log_id"
+  end
+
   create_table "pushes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "deletable_by_viewer", default: true
@@ -80,6 +91,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
     t.integer "user_id"
     t.index ["url_token"], name: "index_pushes_on_url_token", unique: true
     t.index ["user_id"], name: "index_pushes_on_user_id"
+  end
+
+  create_table "site_settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.text "value"
+    t.index ["key"], name: "index_site_settings_on_key", unique: true
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -259,6 +278,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "audit_logs", "pushes"
+  add_foreign_key "notify_by_emails", "audit_logs"
   add_foreign_key "pushes", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

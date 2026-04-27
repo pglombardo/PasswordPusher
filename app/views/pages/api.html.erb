@@ -39,14 +39,51 @@
         <div class="card-body">
           <h2 class="h5"><%= _("Version Endpoint") %></h2>
           <p class="mb-2"><code>GET /api/v2/version</code></p>
-          <p class="mb-2"><%= _("Returns API and application version details.") %></p>
+          <p class="mb-2"><%= _("Returns API version, application details, and a features hash describing which capabilities are enabled on this instance.") %></p>
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
           <pre class="bg-light border rounded p-3 mb-3"><code>curl -X GET https://<%= request.host %>/api/v2/version</code></pre>
-          <pre class="bg-light border rounded p-3 mb-0"><code>{
+          <pre class="bg-light border rounded p-3 mb-3"><code>{
   "application_version": "<%= Version.current %>",
-  "api_version": "2.0",
-  "edition": "oss"
+  "api_version": "2.1",
+  "edition": "oss",
+  "features": {
+    "anonymous_access": <%= Settings.allow_anonymous %>,
+    "api_token_authentication": true,
+    "accounts": {
+      "enabled": false
+    },
+    "pushes": {
+      "enabled": true,
+      "email_auto_dispatch": false,
+      "file_attachments": {
+        "enabled": <%= Settings.enable_file_pushes %>,
+        "requires_authentication": true
+      },
+      "url_pushes": {
+        "enabled": <%= Settings.enable_url_pushes %>
+      },
+      "qr_code_pushes": {
+        "enabled": <%= Settings.enable_qr_pushes %>
+      }
+    },
+    "requests": {
+      "enabled": false
+    }
+  }
 }</code></pre>
+          <div class="alert alert-info mb-0">
+            <h4 class="alert-heading h6"><%= _("Features Hash") %></h4>
+            <ul class="mb-0 small">
+              <li><strong>anonymous_access</strong> - <%= _("Whether anonymous API usage is allowed (Settings.allow_anonymous)") %></li>
+              <li><strong>api_token_authentication</strong> - <%= _("Bearer token authentication support") %></li>
+              <li><strong>accounts.enabled</strong> - <%= _("Accounts API availability (not available in OSS)") %></li>
+              <li><strong>pushes.enabled</strong> - <%= _("Push creation and management via API") %></li>
+              <li><strong>pushes.file_attachments.enabled</strong> - <%= _("File attachments on pushes (Settings.enable_file_pushes)") %></li>
+              <li><strong>pushes.url_pushes.enabled</strong> - <%= _("URL push type (Settings.enable_url_pushes)") %></li>
+              <li><strong>pushes.qr_code_pushes.enabled</strong> - <%= _("QR code push type (Settings.enable_qr_pushes)") %></li>
+              <li><strong>requests.enabled</strong> - <%= _("Requests API availability (not available in OSS)") %></li>
+            </ul>
+          </div>
         </div>
       </div>
 

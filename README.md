@@ -61,7 +61,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 - **JSON API v2** — Modern `/api/v2` endpoints for create/retrieve/audit/active/expired workflows.
 - **Legacy API compatibility** — Existing `/p`, `/f`, `/r` API routes (v1 style) remain available for backwards compatibility.
-- **CLI** — Automate distribution with [CLI tools](https://docs.pwpush.com/docs/3rd-party-tools/) and scripts.
+- **CLI** — Official [pwpush CLI](https://github.com/pglombardo/pwpush-cli) plus [3rd-party tools](https://docs.pwpush.com/docs/3rd-party-tools/) and scripts.
 - **31 languages** — UI and secret-URL pages in 31 languages (courtesy of [Translation.io](https://translation.io/?utm_source=pwpush)).
 
 ### Trust & community
@@ -121,7 +121,7 @@ docker compose up -d
 
 Open `https://pwpush.example.com`. The Compose file includes persistent storage, health checks, and is suitable for production.
 
-_Note: If you didn't set `TLS_DOMAIN` visit the application on http://your-ip:5100_
+_Note: If you didn't set `TLS_DOMAIN`, uncomment port 5100 and visit the application on http://your-ip:5100_
 
 ### Cloud deploy & contributor setup
 
@@ -142,9 +142,10 @@ Production image build: [containers/docker/Dockerfile](containers/docker/Dockerf
 
 For API usage, CLI tools, and integrations:
 
+- **pwpush CLI**: [github.com/pglombardo/pwpush-cli](https://github.com/pglombardo/pwpush-cli) — Official command-line tool for pushing secrets from the terminal
 - API v2 docs: [docs.pwpush.com/docs/api-v2](https://docs.pwpush.com/docs/api-v2/)
 - OSS API endpoint reference in-app: `/api/v2/version` and `/api/v2/pushes`
-- 3rd-party tools and CLI integrations: [docs.pwpush.com/docs/3rd-party-tools](https://docs.pwpush.com/docs/3rd-party-tools/)
+- 3rd-party tools: [docs.pwpush.com/docs/3rd-party-tools](https://docs.pwpush.com/docs/3rd-party-tools/)
 
 Quick API v2 smoke test:
 

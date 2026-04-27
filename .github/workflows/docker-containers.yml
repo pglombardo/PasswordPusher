@@ -18,7 +18,7 @@ on:
     # Run every day at 5:24 UTC - build 'nightly' docker containers
     - cron: "24 17 * * *"
 
-  pull_request_target:
+  pull_request:
     types:
       - labeled
 
@@ -26,13 +26,14 @@ env:
   DOCKER_PUSH: true
 jobs:
   pwpush-container:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
 
       - name: Set up Docker Buildx
@@ -53,6 +54,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
+        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -61,9 +63,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
+          context: .
           file: ./containers/docker/Dockerfile
           platforms: linux/amd64
-          push: true
+          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
@@ -83,14 +86,15 @@ jobs:
 
 
   public-gateway-container:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
 
       - name: Set up QEMU
@@ -116,6 +120,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
+        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -124,9 +129,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
+          context: .
           file: ./containers/docker/Dockerfile.public-gateway
           platforms: linux/amd64
-          push: true
+          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
@@ -145,14 +151,15 @@ jobs:
           template: job_failed
 
   worker-container:
-    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request_target'
+    if: github.event.label && github.event.label.name == 'docker' || github.event_name != 'pull_request'
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'pull_request_target' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
 
       - name: Set up QEMU
@@ -178,6 +185,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
+        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -186,9 +194,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
+          context: .
           file: ./containers/docker/Dockerfile.worker
           platforms: linux/amd64
-          push: true
+          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: |

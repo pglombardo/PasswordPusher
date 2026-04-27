@@ -2,7 +2,7 @@
 ARG BUNDLE_WITHOUT=development:test
 ARG BUNDLE_DEPLOYMENT=true
 
-FROM ruby:4.0.2-alpine AS build-env
+FROM ruby:4.0.3-alpine AS build-env
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -53,8 +53,8 @@ RUN yarn install --frozen-lockfile
 # Copy source code - this should be done as late as possible
 COPY ./ ${APP_ROOT}/
 
-# Build assets - this layer will be rebuilt when source code changes
-RUN yarn build
+# Full multi-theme CSS (build_themes.js) runs during assets:precompile.
+# See config/application.rb for the CSS build policy.
 
 # SECRET_KEY_BASE must be set at runtime via environment variable
 # Do NOT hardcode secrets in Docker images for security reasons.

@@ -10,6 +10,19 @@ require "version"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# cssbundling-rails attaches `css:build` to `test:prepare`, `assets:precompile`, etc. That runs
+# `yarn build:css` → build_themes.js unless SKIP_CSS_BUILD is set.
+#
+# Policy: skip the rake CSS build in test/development so tests stay fast and dev uses the watcher.
+# In production (Docker, Hatchbox, etc.), build only the active theme (PWP__THEME) during assets:precompile.
+# CI/test jobs can run `yarn build:css:single` where digested CSS is required.
+# Local full rebuild of every theme: `yarn build:css:all` manually.
+if ENV["RAILS_ENV"] != "production"
+  ENV["SKIP_CSS_BUILD"] ||= "1"
+else
+  ENV["BUILD_CSS_SINGLE"] ||= "1"
+end
+
 module PasswordPusher
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -36,6 +49,8 @@ module PasswordPusher
     # Use the ApplicationController for authentication
     config.mission_control.jobs.base_controller_class = "ApplicationController"
     config.mission_control.jobs.http_basic_auth_enabled = false
+
+    config.active_storage.variant_processor = :disabled
 
     # We already authenticate /admin routes
     ::MissionControl::Jobs.http_basic_auth_enabled = false if defined?(::MissionControl::Jobs)
