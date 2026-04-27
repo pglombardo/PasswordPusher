@@ -13,14 +13,11 @@ Bundler.require(*Rails.groups)
 # cssbundling-rails attaches `css:build` to `test:prepare`, `assets:precompile`, etc. That runs
 # `yarn build:css` → build_themes.js (all Bootswatch themes) unless SKIP_CSS_BUILD is set.
 #
-# Policy: skip the rake CSS build by default so tests and local dev stay fast. Opt in to the full
-# multi-theme build only when PWP_DOCKER_ASSET_BUILD=1 (e.g. Dockerfile RUN assets:precompile).
+# Policy: skip the rake CSS build in test/development so tests stay fast and dev uses the watcher.
+# In production (Docker, Hatchbox, etc.), always build CSS during assets:precompile.
 # CI/test jobs should run `yarn build:css:single` where digested CSS is required.
-# Non-Docker production releases: run `PWP_DOCKER_ASSET_BUILD=1 bundle exec rails assets:precompile`.
 # Local full rebuild of every theme: `yarn build:css` / `yarn build:css:all` manually.
-if ENV["RAILS_ENV"] == "test"
-  ENV["SKIP_CSS_BUILD"] ||= "1"
-elsif ENV["PWP_DOCKER_ASSET_BUILD"] != "1"
+if ENV["RAILS_ENV"] != "production"
   ENV["SKIP_CSS_BUILD"] ||= "1"
 end
 
