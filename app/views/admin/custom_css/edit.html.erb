@@ -1,0 +1,91 @@
+<% content_for :title, _("Custom CSS") %>
+
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="mb-4">
+    <h1 class="h3 fw-semibold text-dark mb-2"><%= _("Custom CSS") %></h1>
+    <p class="text-muted"><%= _("Add custom CSS styles to override the default appearance of your Password Pusher instance.") %></p>
+  </div>
+
+  <!-- Warning Alert -->
+  <div class="alert alert-warning d-flex align-items-start mb-4" role="alert">
+    <svg class="text-warning me-3 flex-shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+    </svg>
+    <div>
+      <div class="fw-medium text-warning-emphasis"><%= _("Use Caution") %></div>
+      <div class="small text-warning-emphasis"><%= _("Custom CSS can break the application layout or make it unusable. Test your changes carefully. Invalid CSS will be ignored by browsers.") %></div>
+    </div>
+  </div>
+
+  <!-- CSS Form -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= form_with url: admin_custom_css_path, method: :patch, data: { turbo: false } do |f| %>
+        <div class="mb-3">
+          <%= label_tag :custom_css, _("Custom Stylesheet"), class: "form-label fw-medium" %>
+          <%= text_area_tag :custom_css, @custom_css,
+                class: "form-control font-monospace",
+                style: "min-height: 400px; font-size: 14px;",
+                placeholder: _("/* Add your custom CSS here */\n\nbody {\n  background-color: #f5f5f5;\n}"),
+                autocomplete: "off",
+                spellcheck: "false",
+                autocorrect: "off",
+                autocapitalize: "off" %>
+          <div class="form-text text-muted">
+            <%= _("CSS entered here will be injected into every page. Changes take effect immediately after saving.") %>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="form-text text-muted small">
+            <%= _("Tip: Use Ctrl+Enter (or Cmd+Enter on Mac) to save quickly") %>
+          </div>
+          <%= f.submit _("Save Custom CSS"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Example Section -->
+  <div class="card bg-light border-0 mt-4">
+    <div class="card-body">
+      <h5 class="h6 fw-semibold text-dark mb-3"><%= _("Common Customization Examples") %></h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Change the navbar color") %> */</code>
+            <pre class="mb-0 small"><code>.navbar {
+  background-color: #2c3e50 !important;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Custom logo size") %> */</code>
+            <pre class="mb-0 small"><code>.navbar-brand img {
+  height: 40px;
+  width: auto;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Custom font") %> */</code>
+            <pre class="mb-0 small"><code>body {
+  font-family: 'Segoe UI', sans-serif;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Hide elements") %> */</code>
+            <pre class="mb-0 small"><code>.footer-links {
+  display: none;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

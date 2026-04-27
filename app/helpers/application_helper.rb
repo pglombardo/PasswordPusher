@@ -61,4 +61,13 @@ module ApplicationHelper
     # Strip XML declaration so the SVG is valid when embedded in HTML.
     svg.sub(/\A<\?xml[^>]*\?>\s*/, "").html_safe
   end
+
+  # Renders custom CSS from database as a style tag
+  # Returns nil if no custom CSS is set
+  def custom_css_style_tag
+    css = SiteSetting.custom_css
+    return if css.blank?
+
+    tag.style(css.html_safe, data: {turbo_track: "reload"})
+  end
 end

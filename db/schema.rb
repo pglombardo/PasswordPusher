@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_27_123959) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -72,6 +72,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
     t.integer "kind", null: false
     t.string "name"
     t.text "note_ciphertext"
+    t.text "notify_emails_to_ciphertext"
+    t.string "notify_emails_to_locale_ciphertext"
     t.text "passphrase_ciphertext", limit: 2048
     t.text "payload_ciphertext", limit: 16777215
     t.boolean "retrieval_step", default: false
@@ -80,6 +82,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_120000) do
     t.integer "user_id"
     t.index ["url_token"], name: "index_pushes_on_url_token", unique: true
     t.index ["user_id"], name: "index_pushes_on_user_id"
+  end
+
+  create_table "site_settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.datetime "updated_at", null: false
+    t.text "value"
+    t.index ["key"], name: "index_site_settings_on_key", unique: true
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
