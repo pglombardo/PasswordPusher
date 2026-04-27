@@ -273,7 +273,7 @@ class PushesController < BaseController
 
     if @push.save
       log_creation_email_send(@push)
-      redirect_to preview_push_path(@push), notice: I18n._("Recipients are added to the queue to be sent.")
+      redirect_to preview_push_path(@push), notice: I18n._("Recipient(s) are added to the queue to be sent.")
     else
       @secret_url = helpers.secret_url(@push)
       @qr_code = helpers.qr_code(@secret_url)

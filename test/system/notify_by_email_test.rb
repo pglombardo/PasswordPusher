@@ -39,6 +39,6 @@ class NotifyByEmailTest < ApplicationSystemTestCase
     fill_in "push[notify_by_email_recipients]", with: "test@example.com, invalid-email"
     click_on "Send Emails"
 
-    assert_text "Notify by email recipients contains invalid email(s)."
+    assert_text "Notify by email recipients contains invalid email(s)"
   end
 end
