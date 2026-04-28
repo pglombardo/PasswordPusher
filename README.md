@@ -164,10 +164,6 @@ Enhance Password Pusher with these official companion tools:
 | [![pwpush CLI](https://img.shields.io/badge/CLI-pwpush--cli-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/pglombardo/pwpush-cli) | [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/djdnbhbnimfpfmnocchfhjahinieaacg) |
 | Command-line tool for pushing secrets from the terminal | Create pushes directly from your browser with self-hosted & APIv2 support |
 
-<a href="https://chromewebstore.google.com/detail/djdnbhbnimfpfmnocchfhjahinieaacg">
-  <img src="https://raw.githubusercontent.com/pglombardo/pwpush-chrome-extension/main/chrome-web-store-screenshots/screenshot-3-main.png" alt="Password Pusher Chrome Extension" width="600">
-</a>
-
 ---
 
 ## Documentation
