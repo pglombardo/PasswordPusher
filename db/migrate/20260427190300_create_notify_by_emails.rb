@@ -10,6 +10,7 @@ class CreateNotifyByEmails < ActiveRecord::Migration[8.1]
       t.string :locale_ciphertext
       t.integer :status, default: 0, null: false
 
+      t.datetime :proceed_at
       t.timestamps
     end
   end

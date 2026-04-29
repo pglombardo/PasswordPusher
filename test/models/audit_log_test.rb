@@ -15,7 +15,6 @@ class AuditLogTest < ActiveSupport::TestCase
       expire_after_views: 5
     )
 
-    # Create a user without using fixtures
     @luca = users(:luca)
   end
 
@@ -47,6 +46,16 @@ class AuditLogTest < ActiveSupport::TestCase
 
   test "can belong to a user" do
     audit_log = AuditLog.new(kind: :view, push: @push, user: @luca)
+    assert audit_log.valid?
+    assert_equal @luca, audit_log.user
+  end
+
+  test "must belong to a user if creating a notify_by_email" do
+    audit_log = AuditLog.new(kind: :creation_email_send, push: @push)
+    assert_not audit_log.valid?
+    assert_includes audit_log.errors.full_messages, "User can't be blank"
+
+    audit_log = AuditLog.new(kind: :creation_email_send, push: @push, user: @luca)
     assert audit_log.valid?
     assert_equal @luca, audit_log.user
   end

@@ -5,7 +5,7 @@ class NotifyByEmail < ApplicationRecord
 
   enum :status, {pending: 0, processing: 1, completed: 2, partially_failed: 3, fully_failed: 4}
 
-  before_save :set_recipients_count
+  before_create :set_recipients_count
 
   belongs_to :audit_log, dependent: :destroy
 

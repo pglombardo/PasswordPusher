@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_190300) do
     t.integer "audit_log_id", null: false
     t.datetime "created_at", null: false
     t.string "locale_ciphertext"
+    t.datetime "proceed_at"
     t.text "recipients_ciphertext", null: false
     t.integer "recipients_count", default: 0, null: false
     t.integer "status", default: 0, null: false

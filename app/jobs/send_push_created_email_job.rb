@@ -33,6 +33,6 @@ class SendPushCreatedEmailJob < ApplicationJob
       :partially_failed
     end
 
-    notify_by_email.update!(successful_sends: successful_sends.join(","), status: status)
+    notify_by_email.update!(successful_sends: successful_sends.join(","), status: status, proceed_at: Time.current)
   end
 end

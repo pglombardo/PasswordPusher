@@ -18,27 +18,27 @@ end %>
 
 <div class="list-group-item list-group-item-action <%= status_class %>">
   <em class="bi <%= status_icon %>"></em>
-  <% if notify_by_email.completed? %>
-    <%= _('Email notification(s) sent on %{date}') % {
-        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
-    } %>
-  <% elsif notify_by_email.pending? %>
-    <%= _('Email notification(s) pending') %>
-  <% elsif notify_by_email.processing? %>
-    <%= _('Email notification(s) being sent...') %>
-  <% elsif notify_by_email.partially_failed? %>
-    <%= _('Some email notification(s) failed on %{date}') % {
-        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
-    } %>
-  <% elsif notify_by_email.fully_failed? %>
-    <%= _('Email notification(s) failed on %{date}') % {
-        date: I18n.l(audit_log.created_at.in_time_zone(Settings.timezone))
-    } %>
-  <% end %>
+  <%= (_('Email notification(s) queued on %{date}') % {
+      date: local_time(notify_by_email.created_at, :long)
+  }).html_safe %>
+
   <br>
-  <strong><%= _('To:') %></strong> <code><%= notify_by_email.recipients %></code>
+
+  <div>
+    <strong><%= _('Status:') %></strong> <code><%= notify_by_email.status.humanize %></code>
+  </div>
+
+  <div>
+    <strong><%= _('To:') %></strong> <code><%= notify_by_email.recipients %></code>
+  </div>
+
   <% if notify_by_email.partially_failed? %>
-    <br>
-    <strong><%= _('Sent:') %></strong> <code><%= notify_by_email.successful_sends %></code>
+    <div>
+      <strong><%= _('Sent:') %></strong> <code><%= notify_by_email.successful_sends %></code>
+    </div>
   <% end %>
+
+  <div>
+    <strong><%= _('Proceed At:') %></strong> <span><%= notify_by_email.proceed_at.blank? ? _('Not yet') : local_time(notify_by_email.proceed_at, :long) %></span>
+  </div>
 </div>

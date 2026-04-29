@@ -27,13 +27,18 @@ module LogEvents
     return unless push.notify_by_email_recipients.present?
 
     ip, user_agent, referrer = log_info
-    audit_log = push.audit_logs.create!(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
+    ActiveRecord::Base.transaction do
+      audit_log = push.audit_logs.create!(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
 
-    recipients = push.notify_by_email_recipients
-    locale = push.notify_by_email_locale
-    notify_by_email = audit_log.create_notify_by_email!(recipients: recipients, locale: locale)
+      recipients = push.notify_by_email_recipients
+      locale = push.notify_by_email_locale
+      notify_by_email = audit_log.create_notify_by_email!(recipients: recipients, locale: locale)
 
-    SendPushCreatedEmailJob.perform_later(notify_by_email.id)
+      SendPushCreatedEmailJob.perform_later(notify_by_email.id)
+    rescue => e
+      Rails.logger.error "[LogEvents] Error logging creation email send: #{e.message}"
+      raise e
+    end
   end
 
   def log_update(push)

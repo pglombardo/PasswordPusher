@@ -8,6 +8,8 @@ class AuditLog < ApplicationRecord
 
   has_one :notify_by_email, dependent: :destroy
 
+  validates :user, presence: true, if: :creation_email_send?
+
   def subject_name
     user&.email || "❓"
   end
