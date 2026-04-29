@@ -108,6 +108,31 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "create doesn't enqueue SendPushCreatedEmailJob if any mail is not provided" do
+    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_by_email_recipients: "",
+          notify_by_email_locale: "fr"
+        }
+      }
+    end
+
+    assert_response :redirect
+
+    push_url_token = response.redirect_url.match(/\/p\/(.*)\/preview/)[1]
+    push = Push.find_by(url_token: push_url_token)
+
+    creation_logs = push.audit_logs.where(kind: :creation)
+    assert_equal 1, creation_logs.count
+
+    # creation_email_send log is inside the transaction and should rollback.
+    creation_email_send_logs = push.audit_logs.where(kind: :creation_email_send)
+    assert_equal 0, creation_email_send_logs.count
+  end
+
   # edit
   test "edit does not show notify_by_email_recipients field when push is edited" do
     get edit_push_path(@push)
