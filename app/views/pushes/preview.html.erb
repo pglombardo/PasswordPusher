@@ -1,6 +1,18 @@
 <%= title(_('Push Preview')) %>
 
 <div class="container h-75">
+  <% if @push.errors.any? %>
+    <div class="alert alert-danger">
+        <div><%= pluralize(@push.errors.count, "error") %> prohibited this push from being shared:</div>
+
+        <ul>
+        <% @push.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+        <% end %>
+        </ul>
+    </div>
+  <% end %>
+
   <div class="d-flex flex-column justify-content-center align-items-center">
 
     <h2 class="mt-5 fw-semibold"><em class="bi bi-check-circle text-success me-2"></em><%= _('Push Created') %></h2>
@@ -13,6 +25,11 @@
       <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         <em class="bi bi-printer me-1"></em><%= _('Print & Share') %>
       </button>
+      <% if @push.notify_by_email_available?(current_user) %>
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#notifyByEmailCollapse" aria-expanded="false" aria-controls="notifyByEmailCollapse">
+          <em class="bi bi-envelope me-1"></em><%= _('Notify via Email') %>
+        </button>
+      <% end %>
     </p>
     <div class="collapse" id="collapseExample">
       <div class="card border-0 shadow-sm">
@@ -51,6 +68,45 @@
         </div>
       </div>
     </div>
+
+    <% if @push.notify_by_email_available?(current_user) %>
+
+      <div class="collapse row w-100 justify-content-center" id="notifyByEmailCollapse">
+        <div class=" py-6 mt-4 col-12 col-lg-9 col-xl-6 ">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent"><em class="bi bi-envelope me-1"></em><%= _('Notify by Email') %></div>
+            <div class="card-body">
+              <%= form_for @push, url: notify_by_email_push_path(@push), method: :post, local: true do |f| %>
+                <div class="row row-cols-lg-auto g-3 align-items-center">
+                  <div class="col w-100 mb-2">
+                    <%= f.label :notify_by_email_recipients, _('Email Recipients') %>
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="bi bi-envelope" aria-hidden="true"></i>
+                      </span>
+
+                      <%= f.text_field :notify_by_email_recipients,
+                          class: "form-control",
+                          placeholder: _('email1@example.com, email2@example.com'),
+                          required: true %>
+                      <%= render "shared/notify_by_email_locale", f: f %>
+                    </div>
+                    <div class="form-text">
+                      <%= _('Enter email addresses separated by commas (maximum 5 emails).') %>
+                    </div>
+                  </div>
+                </div>
+                <div class=" g-3 mt-1 justify-content-end">
+                  <div class="text-end">
+                    <%= f.submit _('Send Emails'), class: "btn btn-success " %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <div class="my-4 p-3 bg-body-tertiary rounded-3 text-center">
       <p class="mb-2">

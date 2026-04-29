@@ -115,6 +115,8 @@
                 <tr><td><code>passphrase</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Requires this passphrase to retrieve the payload.") %></td></tr>
                 <tr><td><code>name</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional label shown to the owner.") %></td></tr>
                 <tr><td><code>note</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional owner-only note.") %></td></tr>
+                <tr><td><code>notify_by_email_recipients</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
+                <tr><td><code>notify_by_email_locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
               </tbody>
             </table>
           </div>
@@ -201,6 +203,37 @@
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
           <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/expired?page=1" \
   -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>POST /api/v2/pushes/:url_token/notify_by_email</code></h3>
+          <p class="mb-2"><%= _("Send an email to notify the push creation to the specified recipients.") %></p>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th><%= _("Parameter") %></th>
+                  <th><%= _("Type") %></th>
+                  <th><%= _("Required") %></th>
+                  <th><%= _("Description") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>recipients</code></td><td>string</td><td><%= _("Yes") %></td><td><%= _("Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
+                <tr><td><code>locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Locale for the email notification. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X POST "https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/notify_by_email" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "recipients": "recipient1@example.com,recipient2@example.com",
+    "locale": "en"
+  }'</code></pre>
         </div>
       </div>
 

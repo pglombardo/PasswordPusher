@@ -5,7 +5,7 @@ require "test_helper"
 class CleanUpPushesJobTest < ActiveSupport::TestCase
   setup do
     # Clear all pushes before running tests
-    AuditLog.delete_all
+    AuditLog.destroy_all
     Push.delete_all
     User.delete_all
 

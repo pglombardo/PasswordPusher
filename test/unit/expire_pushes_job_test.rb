@@ -5,8 +5,7 @@ require "test_helper"
 class ExpirePushesJobTest < ActiveSupport::TestCase
   setup do
     # Clear all pushes before running tests
-    AuditLog.delete_all
-    Push.delete_all
+    Push.destroy_all
     User.delete_all
 
     # Set default URL options for test environment to avoid missing host errors

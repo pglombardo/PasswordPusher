@@ -1,0 +1,47 @@
+<% if Settings.language_codes %>
+  <div data-controller="select-dropdown">
+    <%= f.hidden_field :notify_by_email_locale, data: {"select-dropdown-target": "field"} %>
+
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle rounded-start-0"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      aria-haspopup="true">
+      <span class="me-2" data-select-dropdown-target="menuButtonInner">🌎</span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end ">
+      <li><span class="dropdown-item-text"><%= _('Secret Link Language') %></span></li>
+      <li><hr class="dropdown-divider"></li>
+      <% if Settings.language_codes %>
+        <li class="m-0 p-0">
+          <div class="dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden" data-action="click->select-dropdown#select" data-lang="">
+            <template>
+              🌎
+            </template>
+            🌎 <%= _('Autodetect the recipient\'s language') %>
+          </div>
+        </li>
+        <li class="p-0">
+          <div class="container p-0 m-0">
+            <div class="row overflow-y-auto p-0 m-0" style="max-height: 450px;">
+              <% I18n.available_locales.each do |lang| %>
+                <div class="col-12 col-md-6 col-lg-4 m-0 p-0" data-action="click->select-dropdown#select" data-lang="<%= lang %>">
+                  <div class="dropdown-item m-0 py-1 px-3 text-muted text-wrap overflow-hidden">
+                    <template>
+                      <em class="fi fi-<%= Settings.country_codes[lang] %>"></em>
+                      <%= Settings.language_codes[lang] %>
+                    </template>
+                    <em class="fi fi-<%= Settings.country_codes[lang] %>"></em>
+                    <%= Settings.language_codes[lang] %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

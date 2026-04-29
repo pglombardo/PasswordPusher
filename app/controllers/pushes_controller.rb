@@ -126,13 +126,17 @@ class PushesController < BaseController
   def create
     @push = Push.new(push_params)
 
-    @push.user_id = current_user.id if user_signed_in?
+    if user_signed_in?
+      @push.user_id = current_user.id
+      @push.notify_by_email_creator = current_user if @push.notify_by_email_recipients.present?
+    end
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
 
     if @push.save
       log_creation(@push)
+      log_creation_email_send(@push)
 
       redirect_to preview_push_path(@push)
     else
@@ -242,6 +246,23 @@ class PushesController < BaseController
   def preview
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
+  end
+
+  def notify_by_email
+    @push.notify_by_email_recipients = params.dig(:push, :notify_by_email_recipients)
+    @push.notify_by_email_locale = params.dig(:push, :notify_by_email_locale)
+    @push.notify_by_email_creator = current_user if user_signed_in?
+    @push.notify_by_email_required = true
+
+    if @push.valid?
+      log_creation_email_send(@push)
+      redirect_to preview_push_path(@push), notice: I18n._("Recipient(s) are added to the queue to be sent.")
+    else
+      @secret_url = helpers.secret_url(@push)
+      @qr_code = helpers.qr_code(@secret_url)
+
+      render action: "preview", status: :unprocessable_content
+    end
   end
 
   def print_preview
@@ -379,16 +400,14 @@ class PushesController < BaseController
   end
 
   def push_params
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_by_email_recipients notify_by_email_locale]
     case params.dig(:push, :kind)
     when "url"
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*base)
     when "file"
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
+      params.require(:push).permit(*(base + [:deletable_by_viewer, {files: []}]))
     else
-      params.require(:push).permit(:kind, :name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*(base + [:deletable_by_viewer]))
     end
   rescue => e
     Rails.logger.error("Error in push_params: #{e.message}")
@@ -396,17 +415,15 @@ class PushesController < BaseController
   end
 
   def update_params
+    base = %i[name expire_after_days expire_after_views retrieval_step payload note passphrase]
     # Don't allow kind to be changed after creation for security
     case @push.kind
     when "url"
-      params.require(:push).permit(:name, :expire_after_days, :expire_after_views,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*base)
     when "file"
-      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase, files: [])
+      params.require(:push).permit(*(base + [:deletable_by_viewer, {files: []}]))
     else
-      params.require(:push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
-        :retrieval_step, :payload, :note, :passphrase)
+      params.require(:push).permit(*(base + [:deletable_by_viewer]))
     end
   rescue => e
     Rails.logger.error("Error in update_params: #{e.message}")
@@ -458,7 +475,7 @@ class PushesController < BaseController
       return
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file].include?(action_name)
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file notify_by_email].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]
