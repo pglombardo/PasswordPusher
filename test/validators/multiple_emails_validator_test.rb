@@ -111,6 +111,7 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     @model.custom_email_list = emails.join(",")
     assert_not @model.valid?
     assert_includes @model.errors[:custom_email_list].first, "contains more than 3 email(s)"
+    assert_equal 1, @model.errors[:custom_email_list].count
   end
 
   # Test edge cases with commas
@@ -119,6 +120,7 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_not @model.valid?
     # Should fail because empty string doesn't match email regex
     assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   test "rejects emails that are only whitespace" do
@@ -126,6 +128,7 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_not @model.valid?
     # Should fail because whitespace-only string doesn't match email regex after strip
     assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   # Test error message format
@@ -133,12 +136,14 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     @model.email_list = "valid@example.com,invalid-email-format"
     assert_not @model.valid?
     assert_includes @model.errors[:email_list].first, "contains invalid email(s)"
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   test "handles duplicate emails" do
     @model.email_list = "test@example.com, test@example.com"
     assert_not @model.valid?
     assert_includes @model.errors[:email_list].first, "contains duplicate emails"
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   test "handles trailing comma" do
@@ -146,6 +151,7 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_not @model.valid?
     # Should fail because commas are used in the wrong way
     assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   test "handles leading comma" do
@@ -153,6 +159,7 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_not @model.valid?
     # Should fail because commas are used in the wrong way
     assert_match(/has commas used in the wrong way/, @model.errors[:email_list].first)
+    assert_equal 1, @model.errors[:email_list].count
   end
 
   test "shows correct count in max emails error message" do
@@ -160,11 +167,13 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     @model.email_list = emails.join(",")
     assert_not @model.valid?
     assert_equal "contains more than 5 email(s)", @model.errors[:email_list].first
+    assert_equal 1, @model.errors[:email_list].count
 
     # Test custom max_emails
     emails = Array.new(4) { |i| "user#{i}@example.com" }
     @model.custom_email_list = emails.join(",")
     assert_not @model.valid?
     assert_equal "contains more than 3 email(s)", @model.errors[:custom_email_list].first
+    assert_equal 1, @model.errors[:custom_email_list].count
   end
 end
