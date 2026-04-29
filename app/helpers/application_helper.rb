@@ -17,17 +17,6 @@ module ApplicationHelper
     names.include?(params[:controller])
   end
 
-  # Whether to show the notify-emails (auto-dispatch) field on push forms.
-  # Shown only when mail service is configured and the user is signed in.
-  # Also shown only when logins are enabled.
-  def allow_notify_by_email?
-    mail_service_configured? && !Settings.disable_logins && user_signed_in?
-  end
-
-  def mail_service_configured?
-    Settings.mail.smtp_address.present?
-  end
-
   # Constructs a fully qualified secret URL for a push.
   #
   # @param [Push] push - The push to generate a URL for

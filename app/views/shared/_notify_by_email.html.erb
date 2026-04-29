@@ -1,4 +1,4 @@
-<% unless action_name == 'edit' %>
+<% if (action_name != 'edit') && f.object.notify_by_email_available?(current_user) %>
   <div class="row">
     <div class="col">
       <label class="form-label fw-medium mt-3"><%= _('Auto Dispatch: Send This Secret Link To...') %></label>
