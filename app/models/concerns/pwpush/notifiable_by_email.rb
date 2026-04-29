@@ -42,7 +42,7 @@ module Pwpush
     def total_notify_by_emails_count
       return 0 if notify_by_emails.none?
 
-      notify_by_emails.sum { |notify_by_email| notify_by_email.recipients.split(",").count }
+      notify_by_emails.sum(&:recipients_count)
     end
 
     def notify_by_email_availability

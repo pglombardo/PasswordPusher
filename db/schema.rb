@@ -67,6 +67,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_190300) do
     t.datetime "created_at", null: false
     t.string "locale_ciphertext"
     t.text "recipients_ciphertext", null: false
+    t.integer "recipients_count", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.text "successful_sends_ciphertext"
     t.datetime "updated_at", null: false
