@@ -6,16 +6,16 @@ module Pwpush
     MAX_NOTIFY_BY_EMAILS = 5
 
     included do
-      attr_accessor :notify_by_email_recipients, :notify_by_email_locale, :notify_by_email_required
+      attr_accessor :notify_by_email_recipients, :notify_by_email_locale, :notify_by_email_required, :notify_by_email_creator
 
       has_many :notify_by_emails_audit_logs, -> { where(kind: :creation_email_send) }, class_name: "AuditLog", dependent: :destroy
       has_many :notify_by_emails, through: :notify_by_emails_audit_logs
 
+      validate :notify_by_email_availability, if: -> { notify_by_email_recipients.present? }
       validates :notify_by_email_recipients, multiple_emails: {max_emails: MAX_NOTIFY_BY_EMAILS}
       validates :notify_by_email_recipients, presence: true, if: :notify_by_email_required
       validates :notify_by_email_locale, allow_blank: true, allow_nil: true, inclusion: {in: I18n.available_locales.map(&:to_s)}
       validate :notify_by_email_limit
-      validate :notify_by_email_available
     end
 
     private
@@ -41,11 +41,17 @@ module Pwpush
       notify_by_emails.sum { |notify_by_email| notify_by_email.recipients.split(",").count }
     end
 
-    def notify_by_email_available
-      return if notify_by_email_recipients.blank?
-
+    def notify_by_email_availability
       if Settings.disable_logins || Settings.mail.smtp_address.blank?
         errors.add(:base, _("Notifying by email is not available."))
+      end
+
+      if notify_by_email_creator.present?
+        unless notify_by_email_creator == user
+          errors.add(:base, _("You are not authorized to notify by email for a push."))
+        end
+      else
+        errors.add(:base, _("You need to be signed in to notify by email for a push."))
       end
     end
   end

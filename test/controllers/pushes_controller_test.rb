@@ -13,8 +13,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     Settings.enable_url_pushes = true
     Settings.mail.smtp_address = "smtp.example.com"
 
-    @user = users(:giuliana)
     @push = pushes(:test_push)
+    @user = @push.user
     sign_in @user
   end
 
@@ -85,8 +85,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         }
       }
 
-      assert_response :redirect
-      assert_equal "Notifying by email is only available when signed in.", flash[:notice]
+      assert_response :unprocessable_content
+      assert_includes response.body, "You need to be signed in to notify by email for a push."
     end
   end
 
@@ -158,12 +158,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :redirect
-    assert_redirected_to preview_push_path(@push)
-    assert_equal "Notifying by email is only available when signed in.", flash[:notice]
+    assert_redirected_to new_user_session_path
   end
 
-  test "notify_by_email redirects to preview when push does not belong to user and disable_logins is true" do
-    Settings.disable_logins = true
+  test "notify_by_email fails with error when push does not belong to user" do
     sign_in users(:luca)
 
     post notify_by_email_push_path(@push), params: {
@@ -172,9 +170,21 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :redirect
-    assert_redirected_to preview_push_path(@push)
-    assert_equal "That push doesn't belong to you.", flash[:notice]
+    assert_response :unprocessable_content
+    assert_includes response.body, "You are not authorized to notify by email for a push."
+  end
+
+  test "notify_by_email fails with error when user login is disabled" do
+    Settings.disable_logins = true
+
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "recipient@example.com"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_includes response.body, "Notifying by email is not available."
   end
 
   test "notify_by_email redirects to preview when push does not belong to user and disable_logins is false" do

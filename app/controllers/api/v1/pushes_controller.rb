@@ -171,14 +171,17 @@ class Api::V1::PushesController < Api::BaseController
       end
     end
 
-    @push.user = current_user if user_signed_in?
+    if user_signed_in?
+      @push.user = current_user
+      @push.notify_by_email_creator = current_user if permitted_params[:notify_by_email_recipients].present?
+    end
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
 
     if @push.save
       log_creation(@push)
-      log_creation_email_send(@push)
+      log_creation_email_send(@push) if permitted_params[:notify_by_email_recipients].present?
 
       render template: "pushes/show", status: :created
     else

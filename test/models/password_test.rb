@@ -58,13 +58,16 @@ class PasswordTest < ActiveSupport::TestCase
 
   test "should save password if notify_by_email_recipients and notify_by_email_locale are set and user is defined" do
     Settings.mail.smtp_address = "smtp.example.com"
+    user = users(:giuliana)
 
     password = Push.new(
       kind: "text",
       payload: "test_payload",
       notify_by_email_recipients: "test@example.com",
-      notify_by_email_locale: "fr"
+      notify_by_email_locale: "fr",
+      user: user
     )
+    password.notify_by_email_creator = user
 
     assert password.valid?
   end

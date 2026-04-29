@@ -124,16 +124,12 @@ class PushesController < BaseController
   end
 
   def create
-    if params.dig(:push, :notify_by_email_recipients).present?
-      if !user_signed_in?
-        redirect_to new_push_path(params[:tab]), notice: I18n._("Notifying by email is only available when signed in.")
-        return
-      end
-    end
-
     @push = Push.new(push_params)
 
-    @push.user_id = current_user.id if user_signed_in?
+    if user_signed_in?
+      @push.user_id = current_user.id
+      @push.notify_by_email_creator = current_user if @push.notify_by_email_recipients.present?
+    end
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
@@ -241,7 +237,6 @@ class PushesController < BaseController
 
     if @push.save
       log_update(@push)
-
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
       render action: "edit", status: :unprocessable_content
@@ -254,21 +249,9 @@ class PushesController < BaseController
   end
 
   def notify_by_email
-    unless current_user
-      if Settings.disable_logins
-        redirect_to preview_push_path(@push), notice: I18n._("Notifying by email is only available when signed in.")
-      else
-        redirect_to preview_push_path(@push), notice: I18n._("You must be signed in to notify by email.")
-      end
-      return
-    end
-
-    if @push.user_id != current_user.id
-      redirect_to preview_push_path(@push), notice: I18n._("That push doesn't belong to you.")
-      return
-    end
-
-    @push.assign_attributes(notify_by_email_params)
+    @push.notify_by_email_recipients = params.dig(:push, :notify_by_email_recipients)
+    @push.notify_by_email_locale = params.dig(:push, :notify_by_email_locale)
+    @push.notify_by_email_creator = current_user if user_signed_in?
     @push.notify_by_email_required = true
 
     if @push.valid?
@@ -447,10 +430,6 @@ class PushesController < BaseController
     raise e
   end
 
-  def notify_by_email_params
-    params.require(:push).permit(:notify_by_email_recipients, :notify_by_email_locale)
-  end
-
   def print_preview_params
     params.permit(:id, :locale, :message, :show_expiration, :show_id)
   end
@@ -493,11 +472,6 @@ class PushesController < BaseController
     # Audit requires sign-in; when logins are disabled, sign_in URL is 404—redirect to root instead
     if action_name == "audit" && Settings.disable_logins && !user_signed_in?
       redirect_to root_path, notice: I18n._("The audit log is only available when signed in.")
-      return
-    end
-
-    if action_name == "notify_by_email" && Settings.disable_logins && !user_signed_in?
-      redirect_to preview_push_path(@push), notice: I18n._("Notifying by email is only available when signed in.")
       return
     end
 
