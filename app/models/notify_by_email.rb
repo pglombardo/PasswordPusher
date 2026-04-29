@@ -7,7 +7,7 @@ class NotifyByEmail < ApplicationRecord
 
   before_create :set_recipients_count
 
-  belongs_to :audit_log, dependent: :destroy
+  belongs_to :audit_log
 
   has_one :push, through: :audit_log
   has_encrypted :recipients, :locale, :successful_sends
