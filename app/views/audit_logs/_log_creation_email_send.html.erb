@@ -1,44 +1,50 @@
 <% notify_by_email = audit_log.notify_by_email %>
-<% status_class = case notify_by_email.status
-  when "completed" then "list-group-item-success"
-  when "processing", "pending" then "list-group-item-info"
-  when "partially_failed" then "list-group-item-warning"
-  when "fully_failed" then "list-group-item-danger"
-  else "list-group-item-info"
-end %>
+<% if notify_by_email.present? %>
+  <% status_class = case notify_by_email.status
+    when "completed" then "list-group-item-success"
+    when "processing", "pending" then "list-group-item-info"
+    when "partially_failed" then "list-group-item-warning"
+    when "fully_failed" then "list-group-item-danger"
+    else "list-group-item-info"
+  end %>
 
-<% status_icon = case notify_by_email.status
-  when "completed" then "bi-envelope-check"
-  when "processing" then "bi-hourglass-split"
-  when "pending" then "bi-envelope"
-  when "partially_failed" then "bi-envelope-exclamation"
-  when "fully_failed" then "bi-envelope-x"
-  else "bi-envelope"
-end %>
+  <% status_icon = case notify_by_email.status
+    when "completed" then "bi-envelope-check"
+    when "processing" then "bi-hourglass-split"
+    when "pending" then "bi-envelope"
+    when "partially_failed" then "bi-envelope-exclamation"
+    when "fully_failed" then "bi-envelope-x"
+    else "bi-envelope"
+  end %>
 
-<div class="list-group-item list-group-item-action <%= status_class %>">
-  <em class="bi <%= status_icon %>"></em>
-  <%= (_('Email notification(s) queued on %{date}') % {
-      date: local_time(notify_by_email.created_at, :long)
-  }).html_safe %>
+  <div class="list-group-item list-group-item-action <%= status_class %>">
+    <em class="bi <%= status_icon %>"></em>
+    <%= (_('Email notification(s) queued on %{date}') % {
+        date: local_time(notify_by_email.created_at, :long)
+    }).html_safe %>
 
-  <br>
+    <br>
 
-  <div>
-    <strong><%= _('Status:') %></strong> <code><%= notify_by_email.status.humanize %></code>
-  </div>
-
-  <div>
-    <strong><%= _('To:') %></strong> <code><%= notify_by_email.recipients %></code>
-  </div>
-
-  <% if notify_by_email.partially_failed? %>
     <div>
-      <strong><%= _('Sent:') %></strong> <code><%= notify_by_email.successful_sends %></code>
+      <strong><%= _('Status:') %></strong> <code><%= notify_by_email.status.humanize %></code>
     </div>
-  <% end %>
 
-  <div>
-    <strong><%= _('Proceed At:') %></strong> <span><%= notify_by_email.proceed_at.blank? ? _('Not yet') : local_time(notify_by_email.proceed_at, :long) %></span>
+    <div>
+      <strong><%= _('To:') %></strong> <code><%= notify_by_email.recipients %></code>
+    </div>
+
+    <% if notify_by_email.partially_failed? %>
+      <div>
+        <strong><%= _('Sent:') %></strong> <code><%= notify_by_email.successful_sends %></code>
+      </div>
+    <% end %>
+
+    <div>
+      <strong><%= _('Proceed At:') %></strong> <span><%= notify_by_email.proceed_at.blank? ? _('Not yet') : local_time(notify_by_email.proceed_at, :long) %></span>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="list-group-item list-group-item-action">
+    If you see this message, it means that the email notification(s) were not sent. Please inform the administrator.
+  </div>
+<% end %>

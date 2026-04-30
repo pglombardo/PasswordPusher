@@ -271,7 +271,11 @@ class Api::V1::PushesController < Api::BaseController
       .per(50)
 
     @secret_url = helpers.secret_url(@push)
-    render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
+    if params["controller"] == "api/v2/pushes"
+      render template: "pushes/audit", status: :ok
+    else
+      render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
+    end
   end
 
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
@@ -459,7 +463,12 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    @push = if action_name == "audit"
+      # If notify_by_email is included unnecessarily, it will cause memory usage unnecessarily.
+      Push.includes(audit_logs: :notify_by_email).find_by!(url_token: params[:id])
+    else
+      Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    end
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)

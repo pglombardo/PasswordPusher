@@ -383,7 +383,12 @@ class PushesController < BaseController
   end
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    @push = if action_name == "audit"
+      # If notify_by_email is included unnecessarily, it will cause memory usage unnecessarily.
+      Push.includes(audit_logs: :notify_by_email).find_by!(url_token: params[:id])
+    else
+      Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    end
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)

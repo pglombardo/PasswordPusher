@@ -4,7 +4,7 @@ require "test_helper"
 
 class PushCreatedMailerTest < ActionMailer::TestCase
   setup do
-    Rails.application.routes.default_url_options[:host] = "test.host"
+    Rails.application.routes.default_url_options[:host] = "localhost:3000"
     @user = users(:luca)
     @push = pushes(:test_push)
     @push.update(user: @user)

@@ -5,7 +5,7 @@ require "test_helper"
 class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   include ActionMailer::TestHelper
   setup do
-    Rails.application.routes.default_url_options[:host] = "test.host"
+    Rails.application.routes.default_url_options[:host] = "localhost:3000"
     @push = pushes(:test_push)
     @notify_by_email = notify_by_emails(:one)
   end
