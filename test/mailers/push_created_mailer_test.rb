@@ -10,6 +10,10 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     @push.update(user: @user)
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   test "notify sends to emails" do
     mail = PushCreatedMailer.with(record: @push, recipient: "one@example.com").notify
 
@@ -87,5 +91,18 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     mail = PushCreatedMailer.with(record: @push, recipient: "one@example.com").notify
 
     assert_includes mail.html_part.body.decoded, @push.url_token
+  end
+
+  test "notify secret URL uses https if FORCE_SSL is set" do
+    ENV.stub(:key?, true) do
+      mail = PushCreatedMailer.with(record: @push, recipient: "one@example.com").notify
+      assert_includes mail.body.encoded, "https://"
+    end
+  end
+
+  test "notify secret URL uses override_base_url if set" do
+    Settings.override_base_url = "https://custom.example.com"
+    mail = PushCreatedMailer.with(record: @push, recipient: "one@example.com").notify
+    assert_includes mail.body.encoded, "https://custom.example.com"
   end
 end
