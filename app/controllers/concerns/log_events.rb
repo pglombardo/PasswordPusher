@@ -49,6 +49,8 @@ module LogEvents
   end
 
   def log_event(push, kind)
+    return if audit_log_limit_reached?(push.audit_logs)
+
     ip, user_agent, referrer = log_info
 
     push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
@@ -61,6 +63,12 @@ module LogEvents
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    [ip, user_agent, referrer]
+    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+  end
+
+  private
+
+  def audit_log_limit_reached?(audit_logs_association)
+    audit_logs_association.reorder(nil).limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
   end
 end
