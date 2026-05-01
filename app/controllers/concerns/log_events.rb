@@ -50,6 +50,6 @@ module LogEvents
   private
 
   def audit_log_limit_reached?(audit_logs_association)
-    audit_logs_association.limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
+    audit_logs_association.reorder(nil).limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
   end
 end
