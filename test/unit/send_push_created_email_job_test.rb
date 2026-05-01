@@ -54,12 +54,12 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
 
     @notify_by_email.reload
-    assert_equal "pending", @notify_by_email.status
-    assert_nil @notify_by_email.successful_sends
+    assert_equal "completed", @notify_by_email.status
+    assert @notify_by_email.successful_sends.blank?
   end
 
-  test "perform does not send mail when notify_by_email is not found" do
-    assert_emails 0 do
+  test "perform raises an error if notify_by_email is not found" do
+    assert_raise ActiveRecord::RecordNotFound do
       invalid_id = -1
       SendPushCreatedEmailJob.perform_now(invalid_id)
     end

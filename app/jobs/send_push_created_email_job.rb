@@ -4,11 +4,9 @@ class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
   def perform(notify_by_email_id)
-    notify_by_email = NotifyByEmail.find_by(id: notify_by_email_id)
+    notify_by_email = NotifyByEmail.find_by!(id: notify_by_email_id)
 
-    return unless notify_by_email
     return unless notify_by_email.pending?
-    return unless notify_by_email.recipients.present?
 
     notify_by_email.processing!
 

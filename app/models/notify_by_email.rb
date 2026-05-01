@@ -3,7 +3,7 @@
 class NotifyByEmail < ApplicationRecord
   attr_readonly :recipients, :recipients_count, :locale
 
-  enum :status, {pending: 0, processing: 1, completed: 2, partially_failed: 3, fully_failed: 4}
+  enum :status, [:pending, :processing, :completed, :partially_failed, :fully_failed], validate: true
 
   before_create :set_recipients_count
 
