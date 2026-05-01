@@ -21,7 +21,7 @@ class NotifyByEmailTest < ApplicationSystemTestCase
 
   test "notify by email with valid recipients" do
     visit preview_push_path(@push)
-    click_on "Notify via Email"
+    click_on "Notify by Email"
 
     assert_selector "input[name='push[notify_by_email_recipients]']", count: 1
     assert_selector "input[name='push[notify_by_email_locale]']", count: 1, visible: :hidden
@@ -34,7 +34,7 @@ class NotifyByEmailTest < ApplicationSystemTestCase
 
   test "notify by email with invalid recipients" do
     visit preview_push_path(@push)
-    click_on "Notify via Email"
+    click_on "Notify by Email"
 
     fill_in "push[notify_by_email_recipients]", with: "test@example.com, invalid-email"
     click_on "Send Emails"
