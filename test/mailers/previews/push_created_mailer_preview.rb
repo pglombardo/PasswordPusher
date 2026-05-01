@@ -7,7 +7,7 @@ class PushCreatedMailerPreview < ActionMailer::Preview
   def notify
     push = sample_push
     PushCreatedMailer.with(
-      record: push,
+      push: push,
       recipient: "recipient@example.com"
     ).notify
   end
@@ -17,7 +17,7 @@ class PushCreatedMailerPreview < ActionMailer::Preview
   def notify_with_locale
     push = sample_push
     PushCreatedMailer.with(
-      record: push,
+      push: push,
       recipient: "recipient@example.com",
       locale: "es"
     ).notify
@@ -28,7 +28,7 @@ class PushCreatedMailerPreview < ActionMailer::Preview
   def notify_with_retrieval_step
     push = sample_push(retrieval_step: true)
     PushCreatedMailer.with(
-      record: push,
+      push: push,
       recipient: "recipient@example.com"
     ).notify
   end

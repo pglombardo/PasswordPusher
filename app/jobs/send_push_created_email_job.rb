@@ -18,7 +18,7 @@ class SendPushCreatedEmailJob < ApplicationJob
 
     successful_sends = []
     recipients.each do |recipient|
-      mail = PushCreatedMailer.with(record: push, recipient: recipient, locale: locale).notify
+      mail = PushCreatedMailer.with(push: push, recipient: recipient, locale: locale).notify
       mail.deliver_now
       successful_sends << recipient
     rescue => e

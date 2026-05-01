@@ -6,7 +6,7 @@ class PushCreatedMailer < ApplicationMailer
   include ApplicationHelper
 
   def notify
-    @push = params[:record]
+    @push = params[:push]
     locale = permitted_locale?(params[:locale]) ? params[:locale] : I18n.default_locale
 
     I18n.with_locale(locale || I18n.default_locale) do
