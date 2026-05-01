@@ -63,7 +63,7 @@ module LogEvents
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
+    [ip, user_agent, referrer]
   end
 
   private
