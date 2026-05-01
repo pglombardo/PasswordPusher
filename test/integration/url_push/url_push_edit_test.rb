@@ -6,11 +6,9 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 
@@ -133,7 +131,7 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
     push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
 
     get edit_push_path(push)
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
 
     patch push_path(push), params: {
       push: {
@@ -141,7 +139,7 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
         payload: "https://new-url.com"
       }
     }
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
   end
 
   test "edit page shows update button for url push" do

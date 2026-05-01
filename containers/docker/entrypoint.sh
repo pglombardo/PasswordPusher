@@ -3,26 +3,56 @@ set -e
 
 export RAILS_ENV=production
 
+# Read app version for startup banner.
+if [ -r "/opt/PasswordPusher/VERSION" ]; then
+    APP_VERSION=$(tr -d '[:space:]' < /opt/PasswordPusher/VERSION)
+else
+    APP_VERSION="unknown"
+fi
+
 # If arguments are passed, execute them directly (e.g., "bundle exec rails secret")
 # This allows running utility commands without starting the full application
 if [ $# -gt 0 ]; then
     exec "$@"
 fi
 
+echo "
+██████╗  █████╗ ███████╗███████╗██╗    ██╗ ██████╗ ██████╗ ██████╗
+██╔══██╗██╔══██╗██╔════╝██╔════╝██║    ██║██╔═══██╗██╔══██╗██╔══██╗
+██████╔╝███████║███████╗███████╗██║ █╗ ██║██║   ██║██████╔╝██║  ██║
+██╔═══╝ ██╔══██║╚════██║╚════██║██║███╗██║██║   ██║██╔══██╗██║  ██║
+██║     ██║  ██║███████║███████║╚███╔███╔╝╚██████╔╝██║  ██║██████╔╝
+╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝
+
+██████╗ ██╗   ██╗███████╗██╗  ██╗███████╗██████╗
+██╔══██╗██║   ██║██╔════╝██║  ██║██╔════╝██╔══██╗
+██████╔╝██║   ██║███████╗███████║█████╗  ██████╔╝
+██╔═══╝ ██║   ██║╚════██║██╔══██║██╔══╝  ██╔══██╗
+██║     ╚██████╔╝███████║██║  ██║███████╗██║  ██║
+╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+ ██████╗ ███████╗███████╗
+██╔═══██╗██╔════╝██╔════╝
+██║   ██║███████╗███████╗
+██║   ██║╚════██║╚════██║
+╚██████╔╝███████║███████║
+ ╚═════╝ ╚══════╝╚══════╝
+
+Version: ${APP_VERSION}
+
+By Apnotic, LLC
+
+Github: https://github.com/pglombardo/PasswordPusher
+Documentation: https://docs.pwpush.com
+Support: https://docs.pwpush.com/docs/support/
+"
+
 # Validate or generate SECRET_KEY_BASE
 if [ -z "$SECRET_KEY_BASE" ]; then
-    echo "⚠️  WARNING: SECRET_KEY_BASE not set!"
-    echo "   SECRET_KEY_BASE is used to encrypt and sign session cookies."
-    echo "   Generating a random secret_key_base for this session."
-    echo "   ⚠️  This will break sessions after container restart.  Users will need to login again."
-    echo "   If you want to avoid this:"
-    echo ""
-    echo "   Generate a secret_key_base with:"
-    echo "     docker run --rm pglombardo/pwpush bundle exec rails secret"
-    echo ""
-    echo "   Set it when running the container to persist it:"
-    echo "     docker run -e SECRET_KEY_BASE=<your-secret> pglombardo/pwpush"
-    echo ""
+    echo "⚠️  SECRET_KEY_BASE not set; generating a random key for this boot."
+    echo " → Effect: Users will need to login again after container restart."
+    echo " → Set SECRET_KEY_BASE for persistent sessions (required for multi-node deployments)."
+    echo " → Generator: docker run --rm pglombardo/pwpush bundle exec rails secret"
     export SECRET_KEY_BASE=$(ruby -e "require 'securerandom'; puts SecureRandom.hex(64)")
 else
     echo "✓ SECRET_KEY_BASE is set"
@@ -55,6 +85,10 @@ else
 fi
 echo ""
 
+# Upgrade guidance for users migrating from 1.x.
+echo "Running Password Pusher ${APP_VERSION}. Migrating from 1.x? Read: https://github.com/pglombardo/PasswordPusher/blob/master/UPGRADE-2.0.md"
+echo ""
+
 # Persist DATABASE_URL and RAILS_ENV for shell access (skip when running as arbitrary user, e.g. OpenShift)
 # Create .env.production if missing (no-op if we lack permission; avoids exit due to set -e)
 touch /opt/PasswordPusher/.env.production 2>/dev/null || true
@@ -67,8 +101,10 @@ fi
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
-if [ -n "$PWP__THEME" ] || [ -n "$PWP_PRECOMPILE" ]; then
-    echo "Password Pusher: precompiling assets for THEME=${PWP__THEME} customization..."
+if [ -n "$PWP_PRECOMPILE" ] || [ -n "$PWP__THEME" ]; then
+    echo "Password Pusher: rebuilding CSS for selected theme (custom overlays)..."
+    BUILD_CSS_SINGLE=1 yarn build:css:single
+    echo "Password Pusher: precompiling assets..."
     bundle exec rails assets:precompile
 fi
 

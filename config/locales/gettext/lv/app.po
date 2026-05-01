@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-01-29 01:43+0100\n"
-"PO-Revision-Date: 2026-01-29 00:43+0000\n"
+"POT-Creation-Date: 2026-04-22 13:19+0200\n"
+"PO-Revision-Date: 2026-04-22 11:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Latvian\n"
 "Language: lv\n"
@@ -23,29 +23,27 @@ msgstr ""
 msgid "You cannot delete your own account."
 msgstr "Jūs nevarat izdzēst savu kontu."
 
-#: ../../../app/controllers/api/v1/pushes_controller.rb:255
-#: ../../../app/controllers/pushes_controller.rb:117
-#: ../../../app/controllers/pushes_controller.rb:157
-#: ../../../app/controllers/pushes_controller.rb:275
-#: ../../../app/controllers/pushes_controller.rb:305
+#: ../../../app/controllers/api/v1/pushes_controller.rb:257
+#: ../../../app/controllers/pushes_controller.rb:118
+#: ../../../app/controllers/pushes_controller.rb:158
+#: ../../../app/controllers/pushes_controller.rb:285
+#: ../../../app/controllers/pushes_controller.rb:315
 msgid "That push doesn't belong to you."
 msgstr "Šī nosūtītā paroles saite nepieder Jums"
 
-#: ../../../app/controllers/api/v1/pushes_controller.rb:309
+#: ../../../app/controllers/api/v1/pushes_controller.rb:311
 msgid "That push is not deletable by viewers."
 msgstr "Šo nosūtīto paroli skatītāji nevar dzēst."
 
-#: ../../../app/controllers/api/v1/pushes_controller.rb:354
-msgid "You must be logged in to view your active pushes."
-msgstr "Lai skatītu savus aktīvos grūdienus, jums ir jāpiesakās."
+#: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
+#: ../../../test/controllers/api/base_controller_test.rb:53
+#: ../../../test/integration/require_mfa_test.rb:29
+#: ../../../test/integration/require_mfa_test.rb:60
+#: ../../../test/integration/require_mfa_test.rb:76
+msgid "Two-factor authentication is required. Please set it up to continue."
+msgstr "Nepieciešama divfaktoru autentifikācija. Lūdzu, iestatiet to, lai turpinātu."
 
-#: ../../../app/controllers/api/v1/pushes_controller.rb:410
-msgid "You must be logged in to view your expired pushes."
-msgstr ""
-"Jums ir jāpiesakās, lai skatītu savus paziņojumus, kuriem beidzies derīguma te"
-"rmiņš."
-
-#: ../../../app/controllers/pushes_controller.rb:97
+#: ../../../app/controllers/pushes_controller.rb:98
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -53,68 +51,129 @@ msgstr ""
 "Šī ieejas frāze ir nepareiza. Lūdzu, mēģiniet vēlreiz vai sazinieties ar perso"
 "nu vai organizāciju, kas jums nosūtīja šo saiti."
 
-#: ../../../app/controllers/pushes_controller.rb:122
-#: ../../../app/controllers/pushes_controller.rb:163
+#: ../../../app/controllers/pushes_controller.rb:123
+#: ../../../app/controllers/pushes_controller.rb:164
 msgid "That push has already expired and cannot be edited."
 msgstr "Šī pieprasījuma derīguma termiņš jau ir beidzies, un to nevar rediģēt."
 
-#: ../../../app/controllers/pushes_controller.rb:188
+#: ../../../app/controllers/pushes_controller.rb:189
 msgid "must be at least %{count} (days already elapsed + 1)."
 msgstr "jābūt vismaz %{count} (pagājušās dienas + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:197
+#: ../../../app/controllers/pushes_controller.rb:198
 msgid "must be at least %{count} (views already consumed + 1)."
 msgstr "jābūt vismaz %{count} (jau izmantoto skatījumu skaits + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:222
+#: ../../../app/controllers/pushes_controller.rb:223
 #: ../../../app/models/push.rb:114
 msgid "You can only attach up to %{count} files per push."
 msgstr "Vienā nosūtījumā varat pievienot ne vairāk kā %{count} failus."
 
-#: ../../../app/controllers/pushes_controller.rb:235
+#: ../../../app/controllers/pushes_controller.rb:236
 msgid "Push was successfully updated."
 msgstr "Push tika veiksmīgi atjaunināts."
 
-#: ../../../app/controllers/pushes_controller.rb:285
+#: ../../../app/controllers/pushes_controller.rb:278
+#: ../../../app/controllers/pushes_controller.rb:457
+#: ../../../test/integration/disable_logins_test.rb:56
+msgid "The audit log is only available when signed in."
+msgstr "Audita žurnāls ir pieejams tikai tad, kad esat pieteicies."
+
+#: ../../../app/controllers/pushes_controller.rb:280
+msgid "You must be signed in to view the audit log."
+msgstr "Lai skatītu audita žurnālu, jums jāpiesakās."
+
+#: ../../../app/controllers/pushes_controller.rb:295
 msgid "That push is not deletable by viewers and does not belong to you."
 msgstr "Skatītāji nevar izdzēst šo grūdienu, un tas nepieder jums."
 
-#: ../../../app/controllers/pushes_controller.rb:290
-#: ../../../app/controllers/pushes_controller.rb:311
+#: ../../../app/controllers/pushes_controller.rb:300
+#: ../../../app/controllers/pushes_controller.rb:321
 msgid "That push has already expired."
 msgstr "Šis grūdiens jau ir beidzies."
 
-#: ../../../app/controllers/pushes_controller.rb:298
-#: ../../../app/views/pushes/audit.html.erb:99
+#: ../../../app/controllers/pushes_controller.rb:308
+#: ../../../app/views/pushes/audit.html.erb:96
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Nosūtītās paroles informācija ir dzēsta un URL derīguma termiņš ir beidzies."
 
-#: ../../../app/controllers/pushes_controller.rb:317
+#: ../../../app/controllers/pushes_controller.rb:327
 msgid "You cannot delete the last file from a file push."
 msgstr "Pēdējo failu no faila nosūtīšanas nevar izdzēst."
 
-#: ../../../app/controllers/pushes_controller.rb:326
+#: ../../../app/controllers/pushes_controller.rb:336
 msgid "File was successfully deleted."
 msgstr "Fails tika veiksmīgi izdzēsts."
 
-#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:338
 msgid "File not found."
 msgstr "Fails nav atrasts."
 
-#: ../../../app/controllers/pushes_controller.rb:467
+#: ../../../app/controllers/pushes_controller.rb:449
+#: ../../../test/integration/disable_logins_test.rb:158
+msgid "The push dashboard is not available while logins are disabled."
+msgstr "Push informācijas panelis nav pieejams, kamēr pieteikšanās ir atspējota."
+
+#: ../../../app/controllers/pushes_controller.rb:482
+#: ../../../test/integration/disable_logins_test.rb:146
+msgid "File pushes are unavailable while logins are disabled."
+msgstr "Failu nosūtīšana nav pieejama, kamēr pieteikšanās ir atspējota."
+
+#: ../../../app/controllers/pushes_controller.rb:490
 #: ../../../app/models/push.rb:208
 msgid "File pushes are disabled."
 msgstr "Failu nosūtīšana ir atspējota."
 
-#: ../../../app/controllers/pushes_controller.rb:477
+#: ../../../app/controllers/pushes_controller.rb:495
 #: ../../../app/models/push.rb:212
+#: ../../../test/controllers/urls_controller_test.rb:113
+#: ../../../test/controllers/urls_controller_test.rb:133
 msgid "URL pushes are disabled."
 msgstr "URL nosūtīšana ir atspējota."
 
-#: ../../../app/controllers/pushes_controller.rb:487
+#: ../../../app/controllers/pushes_controller.rb:507
 #: ../../../app/models/push.rb:216
+#: ../../../test/controllers/qr_push_controller_test.rb:131
+#: ../../../test/controllers/qr_push_controller_test.rb:149
 msgid "QR code pushes are disabled."
 msgstr "QR koda nosūtīšana ir atspējota."
+
+#: ../../../app/controllers/users/first_runs_controller.rb:34
+msgid "Administrator account created successfully!"
+msgstr "Administratora konts veiksmīgi izveidots!"
+
+#: ../../../app/controllers/users/first_runs_controller.rb:64
+msgid ""
+"Invalid or missing boot code. Please check the application logs for the boot c"
+"ode."
+msgstr ""
+"Nederīgs vai trūkstošs sāknēšanas kods. Lūdzu, pārbaudiet sāknēšanas kodu liet"
+"ojumprogrammu žurnālos."
+
+#: ../../../app/controllers/users/sessions_controller.rb:55
+msgid "Session expired. Please sign in again."
+msgstr "Sesija ir beigusies. Lūdzu, pierakstieties vēlreiz."
+
+#: ../../../app/controllers/users/sessions_controller.rb:67
+#: ../../../app/controllers/users/two_factor_controller.rb:25
+msgid "Incorrect verification code."
+msgstr "Nepareizs verifikācijas kods."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:23
+msgid "Two-factor authentication is now enabled."
+msgstr "Divfaktoru autentifikācija tagad ir iespējota."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:34
+#: ../../../test/integration/require_mfa_test.rb:107
+msgid ""
+"Two-factor authentication cannot be disabled because it is required by the adm"
+"inistrator."
+msgstr "Divfaktoru autentifikāciju nevar atspējot, jo to pieprasa administrators."
+
+#: ../../../app/controllers/users/two_factor_controller.rb:40
+#: ../../../test/integration/require_mfa_test.rb:124
+msgid "Two-factor authentication has been disabled."
+msgstr "Divfaktoru autentifikācija ir atspējota."
 
 #: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
 #: ../../../app/models/push.rb:155
@@ -139,7 +198,7 @@ msgstr "Paroles stūmējs"
 
 #: ../../../app/views/admin/_navigation.html.erb:12
 #: ../../../app/views/admin/index.html.erb:11
-#: ../../../app/views/shared/_header.html.erb:46
+#: ../../../app/views/shared/_header.html.erb:40
 msgid "Administration Center"
 msgstr "Administrācija"
 
@@ -202,9 +261,6 @@ msgid "Total Pushes"
 msgstr "Kopējais spiešanas reižu skaits"
 
 #: ../../../app/views/admin/index.html.erb:80
-#: ../../../app/views/pushes/index.html.erb:1
-#: ../../../app/views/pushes/index.html.erb:26
-#: ../../../app/views/pushes/index.html.erb:34
 msgid "Active Pushes"
 msgstr "Aktīvie sūtījumi "
 
@@ -286,7 +342,9 @@ msgid "View changelog and download updates"
 msgstr "Skatīt izmaiņu žurnālu un lejupielādēt atjauninājumus"
 
 #: ../../../app/views/admin/index.html.erb:262
-#: ../../../app/views/shared/_footer.html.erb:52
+#: ../../../app/views/pages/about.html.erb:102
+#: ../../../app/views/shared/_footer.html.erb:29
+#: ../../../app/views/users/first_runs/new.html.erb:190
 msgid "Documentation"
 msgstr "Dokumentācija"
 
@@ -374,13 +432,16 @@ msgstr "Pašreizējie administratori"
 
 #: ../../../app/views/admin/users/index.html.erb:50
 #: ../../../app/views/admin/users/index.html.erb:142
+#: ../../../app/views/devise/registrations/edit.html.erb:16
 #: ../../../app/views/devise/sessions/new.html.erb:7
+#: ../../../app/views/users/first_runs/new.html.erb:69
+#: ../../../app/views/users/first_runs/new.html.erb:72
 msgid "Email"
 msgstr "E-pasts"
 
 #: ../../../app/views/admin/users/index.html.erb:51
 #: ../../../app/views/admin/users/index.html.erb:143
-#: ../../../app/views/pushes/index.html.erb:39
+#: ../../../app/views/pushes/index.html.erb:34
 msgid "Created"
 msgstr "Izveidots"
 
@@ -393,6 +454,7 @@ msgstr "Pēdējā pierakstīšanās"
 #: ../../../app/views/admin/users/index.html.erb:145
 #: ../../../app/views/madmin/application/index.html.erb:63
 #: ../../../app/views/madmin/users/index.html.erb:63
+#: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
 msgstr "Darbības"
 
@@ -458,6 +520,13 @@ msgstr "Nav atrasti regulāri lietotāji"
 msgid "All users in the system are administrators."
 msgstr "Visi sistēmas lietotāji ir administratori."
 
+#: ../../../app/views/application/_push_expiration.html.erb:2
+#: ../../../app/views/pushes/audit.html.erb:95
+#: ../../../app/views/pushes/index.html.erb:88
+#: ../../../app/views/shared/_dashboard_header.html.erb:17
+msgid "Expired"
+msgstr "Beidzies derīguma termiņš"
+
 #: ../../../app/views/application/_push_expiration.html.erb:3
 msgid "The file download links above will expire in:"
 msgstr "Iepriekš norādīto failu lejupielādes saišu derīguma termiņš beigsies:"
@@ -468,13 +537,6 @@ msgstr ""
 "Varat atsvaidzināt lapu, lai atjaunotu jaunas lejupielādes saites, ja skati pa"
 "liek."
 
-#: ../../../app/views/application/_push_expiration.html.erb:16
-#: ../../../app/views/pushes/audit.html.erb:98
-#: ../../../app/views/pushes/index.html.erb:75
-#: ../../../app/views/shared/_dashboard_header.html.erb:11
-msgid "Expired"
-msgstr "Beidzies derīguma termiņš"
-
 #: ../../../app/views/application/_secret_url_bar.html.erb:14
 msgid "Secret Link Language"
 msgstr "Slepenās saites valoda"
@@ -484,8 +546,8 @@ msgid "Autodetect the recipient's language"
 msgstr "Automātiska noteikšana"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:38
-#: ../../../app/views/pages/generate_key.html.erb:26
-#: ../../../app/views/pages/generate_key.html.erb:39
+#: ../../../app/views/pages/generate_key.html.erb:36
+#: ../../../app/views/pages/generate_key.html.erb:46
 #: ../../../app/views/shared/_copy_button.html.erb:2
 msgid "Copy to Clipboard"
 msgstr "Kopēt starpliktuvē"
@@ -503,7 +565,7 @@ msgstr "Netiek ieskaitīts skatījumu ierobežojumā"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
 #: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:5
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
@@ -514,7 +576,7 @@ msgstr "IP adrese:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
@@ -529,16 +591,15 @@ msgstr "Lietotāja aģents:"
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
-#: ../../../app/views/pushes/audit.html.erb:19
-#: ../../../app/views/pushes/index.html.erb:67
+#: ../../../app/views/pushes/audit.html.erb:20
 msgid "None"
 msgstr "Nav"
 
@@ -546,7 +607,7 @@ msgstr "Nav"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
@@ -566,8 +627,12 @@ msgid "Manually expired on %{date} by %{user}"
 msgstr "Push manuāli beidzās %{date}, %{user}"
 
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
-msgid "Failed passphrase attempt on %{date} by %{user}"
-msgstr "Neveiksmīgs ieejas frāzes mēģinājums %{date} no %{user}"
+msgid "Failed passphrase attempt on"
+msgstr "Neveiksmīgs piekļuves frāzes mēģinājums"
+
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
+msgid "by %{user}"
+msgstr "līdz %{user}"
 
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
 msgid "Failed view attempt on %{date} by %{user}"
@@ -721,20 +786,43 @@ msgstr "Apstiprināt jauno paroli"
 msgid "A minimum of %d characters is required but the more the better."
 msgstr "Nepieciešamas vismaz %d rakstzīmes. Jo vairāk rakstzīmes, jo labāk."
 
-#: ../../../app/views/devise/registrations/edit.html.erb:10
-msgid "Change Email"
-msgstr "Mainīt e-pastu"
-
-#: ../../../app/views/devise/registrations/edit.html.erb:46
+#: ../../../app/views/devise/registrations/edit.html.erb:53
 msgid "Current Password"
 msgstr "Pašreizējā parole"
 
-#: ../../../app/views/devise/registrations/token.html.erb:2
-#: ../../../app/views/shared/_header.html.erb:63
+#: ../../../app/views/devise/registrations/edit.html.erb:65
+#: ../../../app/views/users/sessions/otp.html.erb:1
+#: ../../../app/views/users/sessions/otp.html.erb:3
+msgid "Two-factor authentication"
+msgstr "Divu faktoru autentifikācija"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:66
+msgid "Add a second step to your sign-in using an authenticator app (TOTP)."
+msgstr ""
+"Pievienojiet otro darbību pierakstīšanās procesā, izmantojot autentifikācijas "
+"lietotni (TOTP)."
+
+#: ../../../app/views/devise/registrations/edit.html.erb:68
+msgid "Disable two-factor authentication"
+msgstr "Atspējot divu faktoru autentifikāciju"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:71
+#: ../../../app/views/devise/registrations/token.html.erb:59
+#: ../../../app/views/pushes/show.html.erb:115
+msgid "Are you sure?"
+msgstr "Vai esat pārliecināts?"
+
+#: ../../../app/views/devise/registrations/edit.html.erb:73
+msgid "Set up two-factor authentication"
+msgstr "Iestatiet divfaktoru autentifikāciju"
+
+#: ../../../app/views/devise/registrations/token.html.erb:1
+#: ../../../app/views/devise/registrations/token.html.erb:6
+#: ../../../app/views/shared/_header.html.erb:54
 msgid "API Token"
 msgstr "API marķieris"
 
-#: ../../../app/views/devise/registrations/token.html.erb:4
+#: ../../../app/views/devise/registrations/token.html.erb:9
 msgid ""
 "This token is specific to your account.  It can be used with command line appl"
 "ications, the JSON API, 3rd party integrations and more."
@@ -742,35 +830,36 @@ msgstr ""
 "Šis marķieris attiecas tikai uz jūsu kontu. To var izmantot ar komandrindas li"
 "etojumprogrammām, JSON API, trešo pušu integrācijām un citām programmām."
 
-#: ../../../app/views/devise/registrations/token.html.erb:7
+#: ../../../app/views/devise/registrations/token.html.erb:13
 msgid "Make sure to keep this token secure.  It provides full access to your account."
 msgstr ""
 "Pārliecinieties, ka šis marķieris tiek droši uzglabāts. Tas nodrošina pilnīgu "
 "piekļuvi Jūsu kontam.\n"
 
-#: ../../../app/views/devise/registrations/token.html.erb:10
-msgid ""
-"If needed, you can regenerate a new token below which will invalidate this exi"
-"sting token."
-msgstr ""
-"Ja nepieciešams, tālāk varat atkārtoti izveidot jaunu marķieri, kas padarīs šo"
-" marķieri nederīgu."
-
-#: ../../../app/views/devise/registrations/token.html.erb:14
+#: ../../../app/views/devise/registrations/token.html.erb:16
 #: ../../../app/views/pushes/show.html.erb:4
 #: ../../../app/views/pushes/show.html.erb:64
 msgid "Copied!"
 msgstr "Kopēts!"
 
-#: ../../../app/views/devise/registrations/token.html.erb:15
+#: ../../../app/views/devise/registrations/token.html.erb:17
+msgid "Current Token"
+msgstr "Pašreizējais marķieris"
+
+#: ../../../app/views/devise/registrations/token.html.erb:18
 msgid "Your API token is blurred out.  Click below to reveal it."
 msgstr "Jūsu API marķieris ir aizmiglots. Noklikšķiniet zemāk, lai to atklātu."
 
-#: ../../../app/views/devise/registrations/token.html.erb:27
+#: ../../../app/views/devise/registrations/token.html.erb:35
+#: ../../../app/views/devise/registrations/token.html.erb:41
+msgid "Regenerate Token"
+msgstr "Atjaunot marķieri"
+
+#: ../../../app/views/devise/registrations/token.html.erb:37
 msgid "To delete this token and regenerate a new one, use the button below."
 msgstr "Lai dzēstu šo marķieri un izveidotu jaunu, izmantojiet zemāk esošo pogu."
 
-#: ../../../app/views/devise/registrations/token.html.erb:30
+#: ../../../app/views/devise/registrations/token.html.erb:38
 msgid ""
 "Note that this will invalidate any tools that may be using the existing key an"
 "d will have to be updated with the new token."
@@ -778,53 +867,45 @@ msgstr ""
 "Ņemiet vērā, ka tas anulēs visus rīkus, kas, iespējams, izmanto esošo atslēgu,"
 " un tie būs jāatjaunina ar jauno pilnvaru."
 
-#: ../../../app/views/devise/registrations/token.html.erb:34
-msgid "Regenerate Token"
-msgstr "Atjaunot marķieri"
-
-#: ../../../app/views/devise/registrations/token.html.erb:42
+#: ../../../app/views/devise/registrations/token.html.erb:52
 msgid "Delete and generate a new API token?"
 msgstr "Dzēst un atjaunot jaunu API marķieri?"
 
-#: ../../../app/views/devise/registrations/token.html.erb:46
+#: ../../../app/views/devise/registrations/token.html.erb:56
 msgid "This will delete this token and "
 msgstr "Tas izdzēsīs šo marķieri un"
 
-#: ../../../app/views/devise/registrations/token.html.erb:47
+#: ../../../app/views/devise/registrations/token.html.erb:57
 msgid "invalidate any tools that may be using it"
 msgstr ""
 "atzīt par nederīgiem visus rīkus, kas, iespējams, to izmanto\n"
 
-#: ../../../app/views/devise/registrations/token.html.erb:48
+#: ../../../app/views/devise/registrations/token.html.erb:58
 msgid "A new token will be generated in its place."
 msgstr "Tā vietā tiks ģenerēts jauns marķieris."
 
-#: ../../../app/views/devise/registrations/token.html.erb:49
-#: ../../../app/views/pushes/audit.html.erb:221
-#: ../../../app/views/pushes/show.html.erb:115
-msgid "Are you sure?"
-msgstr "Vai esat pārliecināts?"
-
-#: ../../../app/views/devise/registrations/token.html.erb:52
+#: ../../../app/views/devise/registrations/token.html.erb:62
 #: ../../../app/views/madmin/application/_form.html.erb:212
-#: ../../../app/views/madmin/users/_form.html.erb:80
-#: ../../../app/views/pushes/audit.html.erb:224
+#: ../../../app/views/madmin/users/_form.html.erb:82
+#: ../../../app/views/pushes/audit.html.erb:220
 #: ../../../app/views/pushes/show.html.erb:118
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:17
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: ../../../app/views/devise/registrations/token.html.erb:53
+#: ../../../app/views/devise/registrations/token.html.erb:63
 msgid "Delete & Regenerate"
 msgstr "Dzēst un atjaunot"
 
-#: ../../../app/views/devise/registrations/token.html.erb:53
-#: ../../../app/views/pushes/audit.html.erb:225
+#: ../../../app/views/devise/registrations/token.html.erb:63
+#: ../../../app/views/pushes/audit.html.erb:221
 #: ../../../app/views/pushes/show.html.erb:119
 msgid "Processing..."
 msgstr "Notiek apstrāde..."
 
 #: ../../../app/views/devise/sessions/new.html.erb:12
+#: ../../../app/views/users/first_runs/new.html.erb:79
+#: ../../../app/views/users/first_runs/new.html.erb:81
 msgid "Password"
 msgstr "Parole"
 
@@ -841,10 +922,11 @@ msgid "Back to App"
 msgstr "Atpakaļ uz lietotni"
 
 #: ../../../app/views/layouts/login.html.erb:33
-#: ../../../app/views/shared/_footer.html.erb:11
-#: ../../../app/views/shared/_footer.html.erb:15
+#: ../../../app/views/shared/_footer.html.erb:10
+#: ../../../app/views/shared/_footer.html.erb:14
 #: ../../../app/views/shared/_header.html.erb:9
 #: ../../../app/views/shared/_header.html.erb:13
+#: ../../../app/views/users/first_runs/new.html.erb:11
 msgid "Password Pusher Logo"
 msgstr ""
 "Password Pusher logotips\n"
@@ -984,8 +1066,8 @@ msgstr "Rediģēt %{name}"
 #: ../../../app/views/madmin/application/edit.html.erb:13
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
-#: ../../../app/views/pushes/audit.html.erb:204
-#: ../../../app/views/pushes/index.html.erb:86
+#: ../../../app/views/pushes/index.html.erb:103
+#: ../../../app/views/pushes/preview.html.erb:110
 msgid "Edit"
 msgstr "Rediģēt"
 
@@ -1016,7 +1098,7 @@ msgstr "Meklēt"
 
 #: ../../../app/views/madmin/application/index.html.erb:40
 #: ../../../app/views/madmin/users/index.html.erb:40
-#: ../../../app/views/shared/_dashboard_header.html.erb:9
+#: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "Visi"
 
@@ -1026,7 +1108,7 @@ msgstr "Visi"
 #: ../../../app/views/pushes/_form.html.erb:9
 #: ../../../app/views/pushes/_qr_form.html.erb:9
 #: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:34
+#: ../../../app/views/pushes/audit.html.erb:35
 msgid "View"
 msgid_plural "Views"
 msgstr[0] "Skati"
@@ -1043,7 +1125,7 @@ msgstr "Skatīt %{name} informāciju"
 
 #: ../../../app/views/madmin/application/show.html.erb:26
 #: ../../../app/views/madmin/users/index.html.erb:78
-#: ../../../app/views/pushes/audit.html.erb:225
+#: ../../../app/views/pushes/audit.html.erb:222
 #: ../../../app/views/pushes/show.html.erb:119
 #: ../../../app/views/shared/_delete_user_button.html.erb:12
 msgid "Delete"
@@ -1205,6 +1287,7 @@ msgid "Manage user accounts and permissions"
 msgstr "Pārvaldīt lietotāju kontus un atļaujas"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:124
+#: ../../../app/views/pushes/index.html.erb:29
 msgid "Pushes"
 msgstr "Spiež"
 
@@ -1268,11 +1351,11 @@ msgstr "Lietotāja informācija"
 msgid "The email address for the new user account."
 msgstr "Jaunā lietotāja konta e-pasta adrese."
 
-#: ../../../app/views/madmin/users/_form.html.erb:50
+#: ../../../app/views/madmin/users/_form.html.erb:51
 msgid "Auto-confirm account"
 msgstr "Automātiski apstiprināt kontu"
 
-#: ../../../app/views/madmin/users/_form.html.erb:53
+#: ../../../app/views/madmin/users/_form.html.erb:54
 msgid ""
 "If checked, the user account will be automatically confirmed and ready to use."
 " Otherwise, the user will need to confirm their email address."
@@ -1280,11 +1363,11 @@ msgstr ""
 "Ja atzīmēts, lietotāja konts tiks automātiski apstiprināts un gatavs lietošana"
 "i. Pretējā gadījumā lietotājam būs jāapstiprina sava e-pasta adrese."
 
-#: ../../../app/views/madmin/users/_form.html.erb:68
+#: ../../../app/views/madmin/users/_form.html.erb:70
 msgid "Password Information"
 msgstr "Paroles informācija"
 
-#: ../../../app/views/madmin/users/_form.html.erb:70
+#: ../../../app/views/madmin/users/_form.html.erb:72
 msgid ""
 "A secure password will be automatically generated for this user. The user can "
 "reset their password using the \"Forgot Password\" link on the login page."
@@ -1292,91 +1375,229 @@ msgstr ""
 "Šim lietotājam tiks automātiski ģenerēta droša parole. Lietotājs var atiestatī"
 "t savu paroli, izmantojot saiti \"Aizmirsu paroli\" pieteikšanās lapā."
 
-#: ../../../app/views/madmin/users/_form.html.erb:85
+#: ../../../app/views/madmin/users/_form.html.erb:87
 msgid "Create User"
 msgstr "Izveidot lietotāju"
 
 #: ../../../app/views/pages/about.html.erb:1
+#: ../../../app/views/pages/about.html.erb:6
 msgid "About Password Pusher"
 msgstr "Par Password Pusher"
 
-#: ../../../app/views/pages/about.html.erb:2
-#: ../../../app/views/shared/_footer.html.erb:48
-msgid "About"
-msgstr "Par Password Pusher"
-
-#: ../../../app/views/pages/about.html.erb:7
+#: ../../../app/views/pages/about.html.erb:8
 msgid ""
-"Password Pusher is a tool used for sharing passwords and other sensitive infor"
-"mation with other people securely."
+"Open source software for securely sharing passwords, text, URLs, and files. Tr"
+"usted by thousands of organizations worldwide."
 msgstr ""
-"Password Pusher ir rīks, ko izmanto, lai droši koplietotu paroles un citu sens"
-"itīvu informāciju ar citiem cilvēkiem."
+"Atvērtā pirmkoda programmatūra paroļu, teksta, URL un failu drošai koplietošan"
+"ai. Tai uzticas tūkstošiem organizāciju visā pasaulē."
 
-#: ../../../app/views/pages/about.html.erb:10
+#: ../../../app/views/pages/about.html.erb:13
+msgid "What It Is"
+msgstr "Kas tas ir"
+
+#: ../../../app/views/pages/about.html.erb:15
 msgid ""
-"With Password Pusher, you can create a unique, one-time URL that will expire a"
-"fter a certain amount of time or after it has been accessed a certain number o"
-"f times, ensuring that your information remains private and secure."
+"Password Pusher is a tool for sharing sensitive information securely. You crea"
+"te a unique, one-time link that expires after a set number of views or a set t"
+"ime. Recipients open the link, see the content once, and the data is no longer"
+" available—reducing the risk of credentials living in email or chat."
 msgstr ""
-"Izmantojot Password Pusher, varat izveidot unikālu, vienreizēju URL, kura derī"
-"guma termiņš beigsies pēc noteikta laika vai pēc tam, kad tam būs piekļūts not"
-"eikts skaits reižu, nodrošinot, ka jūsu informācija paliek privāta un droša."
+"Password Pusher ir rīks sensitīvas informācijas drošai kopīgošanai. Jūs izveid"
+"ojat unikālu, vienreizēju saiti, kas beidzas pēc noteikta skatījumu skaita vai"
+" noteikta laika. Saņēmēji atver saiti, vienreiz redz saturu, un dati vairs nav"
+" pieejami, tādējādi samazinot risku, ka akreditācijas dati glabājas e-pastā va"
+"i tērzēšanā."
 
-#: ../../../app/views/pages/about.html.erb:11
+#: ../../../app/views/pages/about.html.erb:18
 msgid ""
-"It is often used by individuals and organizations to share login credentials o"
-"r other sensitive data with colleagues, clients, or partners."
+"It is open source, free to use and modify, and designed to be self-hosted so y"
+"our data never leaves your infrastructure."
 msgstr ""
-"To bieži izmanto privātpersonas un organizācijas, lai koplietotu pieteikšanās "
-"akreditācijas datus vai citus sensitīvus datus ar kolēģiem, klientiem vai part"
-"neriem."
-
-#: ../../../app/views/pages/about.html.erb:14
-msgid ""
-"Password Pusher is a simple and convenient solution for securely sharing passw"
-"ords without the need for email or other less secure communication methods."
-msgstr ""
-"Password Pusher ir vienkāršs un ērts risinājums drošai paroļu koplietošanai, n"
-"eizmantojot e-pastu vai citas mazāk drošas saziņas metodes."
-
-#: ../../../app/views/pages/about.html.erb:17
-msgid "Hosted at"
-msgstr "Izmantojiet "
-
-#: ../../../app/views/pages/about.html.erb:19
-msgid "or you can run your own private instance wherever you like."
-msgstr ""
-"vai arī izveidojiet un palaidiet savu privāto instanci, kur vien vēlaties.\n"
+"Tas ir atvērtā koda, bez maksas lietojams un modificējams, un paredzēts patstā"
+"vīgai mitināšanai, lai jūsu dati nekad nepamestu jūsu infrastruktūru."
 
 #: ../../../app/views/pages/about.html.erb:23
-msgid "The source code is"
-msgstr "Pirmkods pieejams "
-
-#: ../../../app/views/pages/about.html.erb:24
-#: ../../../app/views/pages/about.html.erb:41
-msgid "on Github"
-msgstr "vietnē Github"
+msgid "The Story"
+msgstr "Stāsts"
 
 #: ../../../app/views/pages/about.html.erb:25
-msgid "It’s opensource and free for anyone to use, review or modify."
+msgid ""
+"Password Pusher began in December 2011 with a simple goal: stop sending passwo"
+"rds over email. The first commit was on"
 msgstr ""
-"Tā ir atvērtā pirmkoda programmatūra, kuru var izmantot, pārskatīt un pārveido"
-"t ikviens."
+"Password Pusher tika izveidots 2011. gada decembrī ar vienkāršu mērķi: pārtrau"
+"kt paroļu sūtīšanu pa e-pastu. Pirmais commit tika veikts"
 
-#: ../../../app/views/pages/about.html.erb:28
+#: ../../../app/views/pages/about.html.erb:27
+msgid "The public service at pwpush.com went live shortly after."
+msgstr "Neilgi pēc tam pwpush.com sabiedriskais pakalpojums sāka darboties."
+
+#: ../../../app/views/pages/about.html.erb:30
+msgid ""
+"Over the years it grew into a full-featured application—passwords, URLs, file "
+"uploads, QR codes, a JSON API, dozens of languages, and a large self-hosted co"
+"mmunity. Today it is used by companies, teams, and individuals who want a simp"
+"le, auditable way to share secrets without leaving them in inboxes or messagin"
+"g apps."
+msgstr ""
+"Gadu gaitā tā ir kļuvusi par pilnvērtīgu lietojumprogrammu — paroles, URL, fai"
+"lu augšupielādes, QR kodus, JSON API, desmitiem valodu un lielu pašmitinātu ko"
+"pienu. Mūsdienās to izmanto uzņēmumi, komandas un privātpersonas, kas vēlas vi"
+"enkāršu, auditējamu veidu, kā kopīgot noslēpumus, neatstājot tos iesūtnēs vai "
+"ziņojumapmaiņas lietotnēs."
+
+#: ../../../app/views/pages/about.html.erb:33
+msgid "In 2024,"
+msgstr "2024. gadā"
+
+#: ../../../app/views/pages/about.html.erb:35
+msgid ""
+"was formed to further the open source Password Pusher project: maintaining the"
+" codebase, hosting the public service at pwpush.com, publishing documentation,"
+" and offering a Pro edition for teams that want additional features and suppor"
+"t. The open source version remains free and self-hostable."
+msgstr ""
+"tika izveidots, lai veicinātu atvērtā pirmkoda Password Pusher projektu: uztur"
+"ētu koda bāzi, mitinātu publisko pakalpojumu vietnē pwpush.com, publicētu doku"
+"mentāciju un piedāvātu Pro versiju komandām, kuras vēlas papildu funkcijas un "
+"atbalstu. Atvērtā pirmkoda versija joprojām ir bezmaksas un pašapkalpošanās."
+
+#: ../../../app/views/pages/about.html.erb:40
+msgid "What You Can Do"
+msgstr "Ko jūs varat darīt"
+
+#: ../../../app/views/pages/about.html.erb:46
+msgid "Passwords & text"
+msgstr "Paroles un īsziņas"
+
+#: ../../../app/views/pages/about.html.erb:47
+msgid "Share one-time secrets with expiration by views or time."
+msgstr ""
+"Kopīgojiet vienreizējus noslēpumus ar derīguma termiņu atkarībā no skatījumiem"
+" vai laika."
+
+#: ../../../app/views/pages/about.html.erb:55
+#: ../../../app/views/shared/_topnav.html.erb:18
+msgid "URLs"
+msgstr "URL"
+
+#: ../../../app/views/pages/about.html.erb:56
+msgid "Send links that redirect only after the recipient opens the push."
+msgstr "Sūtiet saites, kas novirza tikai pēc tam, kad saņēmējs atver push ziņojumu."
+
+#: ../../../app/views/pages/about.html.erb:64
+#: ../../../app/views/shared/_topnav.html.erb:11
+msgid "Files"
+msgstr "Faili"
+
+#: ../../../app/views/pages/about.html.erb:65
+msgid "Upload files that expire after retrieval or time."
+msgstr ""
+"Augšupielādējiet failus, kuru derīguma termiņš beidzas pēc izgūšanas vai laika"
+"."
+
+#: ../../../app/views/pages/about.html.erb:73
+msgid "QR codes"
+msgstr "QR kodi"
+
+#: ../../../app/views/pages/about.html.erb:74
+msgid "Generate expiring QR codes for credentials or links."
+msgstr ""
+"Ģenerējiet derīguma termiņu zaudējušus QR kodus akreditācijas datiem vai saitē"
+"m."
+
+#: ../../../app/views/pages/about.html.erb:80
+msgid ""
+"Optional passphrase protection, view/expiration limits, optional deletion by v"
+"iewer, JSON API, and more. See the"
+msgstr ""
+"Papildus paroles aizsardzība, skatīšanas/derīguma termiņa ierobežojumi, papild"
+"u dzēšana pēc skatītāja izvēles, JSON API un citas funkcijas. Skatiet"
+
+#: ../../../app/views/pages/about.html.erb:81
+msgid "documentation"
+msgstr "dokumentāciju"
+
+#: ../../../app/views/pages/about.html.erb:82
+msgid "for details."
+msgstr "sīkāku informāciju."
+
+#: ../../../app/views/pages/about.html.erb:87
+msgid "Security & Self-Hosting"
+msgstr "Drošība un pašapkalpošanās mitināšana"
+
+#: ../../../app/views/pages/about.html.erb:89
+msgid ""
+"Payloads are encrypted at rest. You control where data lives: run Password Pus"
+"her on your own servers, in your cloud, or in Docker. Thousands of companies a"
+"nd teams self-host it so sensitive data never touches third-party SaaS."
+msgstr ""
+"Datu krātuve tiek šifrēta miera stāvoklī. Jūs kontrolējat, kur dati atrodas: p"
+"alaidiet Password Pusher savos serveros, mākonī vai Docker platformā. Tūkstoši"
+"em uzņēmumu un komandu to paši mitina, tāpēc sensitīvi dati nekad nesaskaras a"
+"r trešo pušu SaaS."
+
+#: ../../../app/views/pages/about.html.erb:92
+msgid ""
+"No account is required for basic use; optional user accounts and sign-in let t"
+"eams track their own pushes. The source code is open so you can review and ada"
+"pt it."
+msgstr ""
+"Pamata lietošanai konts nav nepieciešams; papildu lietotāju konti un pierakstī"
+"šanās ļauj komandām pašām izsekot saviem jaunumiem. Pirmkods ir atvērts, tāpēc"
+" varat to pārskatīt un pielāgot."
+
+#: ../../../app/views/pages/about.html.erb:97
+msgid "Get Started"
+msgstr "Sākt"
+
+#: ../../../app/views/pages/about.html.erb:103
+msgid "Installation, configuration, API, and FAQ."
+msgstr "Instalēšana, konfigurēšana, API un bieži uzdotie jautājumi."
+
+#: ../../../app/views/pages/about.html.erb:104
+msgid "docs.pwpush.com"
+msgstr "docs.pwpush.com"
+
+#: ../../../app/views/pages/about.html.erb:111
+#: ../../../app/views/users/first_runs/new.html.erb:214
+msgid "Source code"
+msgstr "Avota kods"
+
+#: ../../../app/views/pages/about.html.erb:112
+msgid "Open source on GitHub. Use, review, or contribute."
+msgstr ""
+"Atvērtā pirmkoda programmatūra vietnē GitHub. Izmantojiet, pārskatiet vai pied"
+"alieties."
+
+#: ../../../app/views/pages/about.html.erb:113
+msgid "GitHub"
+msgstr "GitHub"
+
+#: ../../../app/views/pages/about.html.erb:120
+msgid "Hosted option"
+msgstr "Hostēta opcija"
+
+#: ../../../app/views/pages/about.html.erb:121
+msgid "Use the public service or run your own instance."
+msgstr "Izmantojiet publisko pakalpojumu vai palaidiet savu instanci."
+
+#: ../../../app/views/pages/about.html.erb:130
 msgid "The Author"
 msgstr "Autors"
 
-#: ../../../app/views/pages/about.html.erb:31
-msgid "My name is Peter Giacomo Lombardo. You can find me on"
+#: ../../../app/views/pages/about.html.erb:132
+msgid ""
+"Password Pusher is created and maintained by Peter Giacomo Lombardo. You can f"
+"ind him on"
 msgstr ""
-"Mani sauc Pīters Džakomo Lombardo (Peter Giacomo Lombardo). Jūs varat mani atr"
-"ast"
+"Password Pusher ir izveidojis un uztur Pīters Džakomo Lombardo. Viņu var atras"
+"t vietnē"
 
-#: ../../../app/views/pages/about.html.erb:34
-#: ../../../app/views/pages/about.html.erb:40
-#: ../../../app/views/pushes/preview.html.erb:58
+#: ../../../app/views/pages/about.html.erb:135
+#: ../../../app/views/pages/about.html.erb:141
+#: ../../../app/views/pushes/preview.html.erb:61
 #: ../../../app/views/pushes/print_preview.html.erb:14
 #: ../../../app/views/pushes/show.html.erb:46
 #: ../../../app/views/pushes/show.html.erb:49
@@ -1385,249 +1606,537 @@ msgstr ""
 msgid "or"
 msgstr "vai"
 
-#: ../../../app/views/pages/about.html.erb:38
-msgid "For updates, you can"
-msgstr "Lai saņemtu atjauninājumus, Jūs varat"
+#: ../../../app/views/pages/about.html.erb:139
+msgid "For news and updates,"
+msgstr "Lai saņemtu jaunumus un atjauninājumus,"
 
-#: ../../../app/views/pages/about.html.erb:39
-msgid "follow me on Twitter"
-msgstr "seko man Twitter"
+#: ../../../app/views/pages/about.html.erb:140
+msgid "follow on X"
+msgstr "sekojiet līdzi X"
 
-#: ../../../app/views/pages/about.html.erb:44
-msgid "Want to Help Out?"
-msgstr "Vai vēlies palīdzēt?"
+#: ../../../app/views/pages/about.html.erb:142
+msgid "subscribe to the newsletter"
+msgstr "abonēt jaunumus"
 
-#: ../../../app/views/pages/about.html.erb:48
-msgid "By far the biggest help is to spread the word"
-msgstr "Līdz šim lielākā palīdzība ir informācijas izplatīšana"
-
-#: ../../../app/views/pages/about.html.erb:50
-msgid "Share and suggest Password Pusher to colleagues and friends."
-msgstr "Dalieties un iesakiet Password Pusher kolēģiem un draugiem."
-
-#: ../../../app/views/pages/about.html.erb:53
-msgid "You can also"
-msgstr "Jūs varat arī:"
-
-#: ../../../app/views/pages/about.html.erb:56
-msgid "Star the Github project"
-msgstr "Novērtējiet Github projektu"
-
-#: ../../../app/views/pages/about.html.erb:57
-msgid "It's gasoline for the algos that trend Password Pusher."
-msgstr "Tas ir benzīns algoritmiem, kas ir populāri Password Pusher."
-
-#: ../../../app/views/pages/about.html.erb:60
-msgid "Sign up for the"
-msgstr "Reģistrējieties uz"
-
-#: ../../../app/views/pages/about.html.erb:61
-msgid "newsletter"
-msgstr "informatīvais izdevums"
-
-#: ../../../app/views/pages/about.html.erb:62
-msgid "to get updates on important releases, security issues, tips and more."
+#: ../../../app/views/pages/about.html.erb:149
+msgid ""
+"Apnotic was created to manage and build out the Password Pusher project—mainta"
+"ining the open source codebase, the public service, documentation, and related"
+" products."
 msgstr ""
-"lai saņemtu atjauninājumus par svarīgiem laidieniem, drošības problēmām, padom"
-"iem un daudz ko citu."
+"Apnotic tika izveidots, lai pārvaldītu un attīstītu Password Pusher projektu -"
+" uzturētu atvērtā koda datubāzi, publisko pakalpojumu, dokumentāciju un saistī"
+"tos produktus."
 
-#: ../../../app/views/pages/about.html.erb:65
-msgid "Follow Password Pusher on"
-msgstr "Sekojiet Password Pusher platformās "
+#: ../../../app/views/pages/about.html.erb:150
+msgid "Learn more at apnotic.com"
+msgstr "Uzziniet vairāk apnotic.com"
 
-#: ../../../app/views/pages/about.html.erb:68
-#: ../../../app/views/pages/about.html.erb:91
-#: ../../../app/views/pushes/preview.html.erb:65
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "and"
-msgstr "un"
+#: ../../../app/views/pages/about.html.erb:152
+msgid "Why choose Apnotic?"
+msgstr "Kāpēc izvēlēties Apnotic?"
 
-#: ../../../app/views/pages/about.html.erb:72
-msgid "Fix an issue, add a feature or write some documentation."
-msgstr "Novērsiet problēmu, pievienojiet raksturpazīmi vai uzrakstiet dokumentāciju."
+#: ../../../app/views/pages/about.html.erb:154
+msgid "Apnotic is built on principles of trust, reliability, and exceptional service."
+msgstr "Apnotic balstās uz uzticības, uzticamības un izcila servisa principiem."
 
-#: ../../../app/views/pages/about.html.erb:72
-msgid "See the Github project."
-msgstr "Skatiet Github projektu."
+#: ../../../app/views/pages/about.html.erb:157
+msgid "Privately held, zero debt, and financially responsible"
+msgstr "Privāts uzņēmums, bez parādsaistībām un finansiāli atbildīgs"
 
-#: ../../../app/views/pages/about.html.erb:75
-msgid "Sign up to Digital Ocean"
-msgstr "Reģistrējieties Digital Ocean"
+#: ../../../app/views/pages/about.html.erb:158
+msgid "Fanatical customer service and support"
+msgstr "Fanātiska klientu apkalpošana un atbalsts"
 
-#: ../../../app/views/pages/about.html.erb:76
-msgid "with this link"
-msgstr "ar šo saiti"
+#: ../../../app/views/pages/about.html.erb:159
+msgid "No venture capital pressure—we build for customers, not investors"
+msgstr "Nav riska kapitāla spiediena - mēs būvējam klientiem, nevis investoriem"
 
-#: ../../../app/views/pages/about.html.erb:77
-msgid "to get Password Pusher a hosting credit."
-msgstr "lai saņemtu Password Pusher uzturēšanas samaksu."
+#: ../../../app/views/pages/about.html.erb:160
+msgid "Run by industry veterans with decades of experience"
+msgstr "Vada nozares veterāni ar gadu desmitiem ilgu pieredzi"
 
-#: ../../../app/views/pages/about.html.erb:81
-msgid "Thank you for supporting Password Pusher!"
-msgstr "Paldies, ka atbalstāt Password Pusher!"
+#: ../../../app/views/pages/about.html.erb:161
+msgid "Talk directly with the founder and team"
+msgstr "Tiešā saruna ar uzņēmuma dibinātāju un komandu"
 
-#: ../../../app/views/pages/about.html.erb:83
-#: ../../../app/views/shared/_footer.html.erb:25
+#: ../../../app/views/pages/about.html.erb:162
+msgid "14+ years of proven track record with Password Pusher"
+msgstr "vairāk nekā 14 gadu ilga pieredze ar Password Pusher"
+
+#: ../../../app/views/pages/about.html.erb:167
+msgid "Want to Help?"
+msgstr "Vēlaties palīdzēt?"
+
+#: ../../../app/views/pages/about.html.erb:169
+msgid "The biggest help is to spread the word."
+msgstr "Vislielākais atbalsts ir informācijas izplatīšana."
+
+#: ../../../app/views/pages/about.html.erb:170
+msgid "Share Password Pusher with colleagues and friends."
+msgstr "Kopīgojiet paroles sūtītāju ar kolēģiem un draugiem."
+
+#: ../../../app/views/pages/about.html.erb:174
+msgid "Star the project on GitHub"
+msgstr "Atzīmēt projektu ar zvaigznīti vietnē GitHub"
+
+#: ../../../app/views/pages/about.html.erb:175
+msgid "it helps others discover the project."
+msgstr "tas palīdz citiem atklāt projektu."
+
+#: ../../../app/views/pages/about.html.erb:178
+msgid "Subscribe to the newsletter"
+msgstr "Abonēt jaunumus"
+
+#: ../../../app/views/pages/about.html.erb:179
+msgid "releases, security notes, and tips."
+msgstr "laidieni, drošības piezīmes un padomi."
+
+#: ../../../app/views/pages/about.html.erb:182
+msgid "Fix a bug, add a feature, or improve the docs."
+msgstr "Izlabojiet kļūdu, pievienojiet funkciju vai uzlabojiet dokumentāciju."
+
+#: ../../../app/views/pages/about.html.erb:183
+msgid "See the GitHub project"
+msgstr "Skatīt GitHub projektu"
+
+#: ../../../app/views/pages/about.html.erb:189
 msgid "Resources"
 msgstr "Resursi"
 
-#: ../../../app/views/pages/about.html.erb:86
+#: ../../../app/views/pages/about.html.erb:191
 msgid ""
-"If you are giving a presentation, authoring a blog post or video about Passwor"
-"d Pusher, feel free to contact me for any questions."
+"Presenting or writing about Password Pusher? Media kits and slide decks are av"
+"ailable in"
 msgstr ""
-"Ja sniedzat prezentāciju, veidojat emuāra ierakstu vai video par Password Push"
-"er, jautājumu gadījumā droši sazinieties ar mani."
+"Vai prezentējat vai rakstāt par Password Pusher? Multivides komplekti un slaid"
+"u komplekti ir pieejami šeit:"
 
-#: ../../../app/views/pages/about.html.erb:89
-msgid "We have media resources and a full explanation of features available in"
-msgstr "Mums ir plašsaziņas līdzekļu resursi un pilns funkciju skaidrojums"
+#: ../../../app/views/pages/about.html.erb:192
+msgid "PowerPoint"
+msgstr "PowerPoint"
 
-#: ../../../app/views/pages/about.html.erb:90
-msgid "Windows Powerpoint"
-msgstr "Windows Powerpoint"
+#: ../../../app/views/pages/about.html.erb:193
+msgid "and"
+msgstr "un"
 
-#: ../../../app/views/pages/about.html.erb:92
-msgid "Mac Keynote"
-msgstr "Mac Keynote"
+#: ../../../app/views/pages/about.html.erb:194
+msgid "Keynote"
+msgstr "Galvenais uzstāšanās"
 
-#: ../../../app/views/pages/about.html.erb:93
-msgid "formats."
-msgstr "formātos."
+#: ../../../app/views/pages/about.html.erb:195
+msgid "formats. For questions or assets, reach out via the links above."
+msgstr ""
+"formāti. Jautājumu vai resursu gadījumā sazinieties, izmantojot iepriekš norād"
+"ītās saites."
 
-#: ../../../app/views/pages/about.html.erb:99
-msgid "Birthday"
-msgstr "Dzimšanas diena"
+#: ../../../app/views/pages/about.html.erb:200
+msgid "Thank you for using and supporting Password Pusher."
+msgstr "Paldies, ka izmantojat un atbalstāt Password Pusher."
 
-#: ../../../app/views/pages/about.html.erb:101
-msgid "More Than 11 Years Old"
-msgstr "Vairāk nekā 11 gadus vecs"
+#: ../../../app/views/pages/api.html.erb:4
+msgid "API v2"
+msgstr "API v2"
 
-#: ../../../app/views/pages/about.html.erb:103
-msgid "The first git commit to Password Pusher was on"
-msgstr "Pirmais Password Pusher git tika palaists "
-
-#: ../../../app/views/pages/about.html.erb:107
-msgid "pwpush.com went live shortly thereafter."
-msgstr "drīz pēc tam vietne pwpush.com tika palaista."
-
-#: ../../../app/views/pages/about.html.erb:113
-msgid "The Original Theme"
-msgstr "Sākotnējā tēma"
-
-#: ../../../app/views/pages/about.html.erb:114
+#: ../../../app/views/pages/api.html.erb:6
 msgid ""
-"The original site design consisted of a dark background with a bold yellow fon"
-"t."
-msgstr "Sākotnējais vietnes dizains bija tumšs fons ar treknu, dzeltenu fontu."
+"Complete JSON API documentation for creating, retrieving and managing pushes i"
+"n the open-source edition."
+msgstr ""
+"Pilnīga JSON API dokumentācija par push pieprasījumu izveidi, izgūšanu un pārv"
+"aldību atvērtā pirmkoda versijā."
 
-#: ../../../app/views/pages/about.html.erb:117
-msgid "Follow for news, changes & updates."
-msgstr "Sekojiet jaunumiem, izmaiņām un atjauninājumiem."
+#: ../../../app/views/pages/api.html.erb:11
+msgid "Authentication"
+msgstr "Autentifikācija"
+
+#: ../../../app/views/pages/api.html.erb:13
+msgid "Authenticate requests with a Bearer token in the Authorization header."
+msgstr ""
+"Autentificējiet pieprasījumus ar nesēja pilnvaru (Bearer token) autorizācijas "
+"galvenē."
+
+#: ../../../app/views/pages/api.html.erb:17
+msgid "Create an API token in your account settings at"
+msgstr "Izveidojiet API žetonu sava konta iestatījumos vietnē"
+
+#: ../../../app/views/pages/api.html.erb:23
+msgid "Public endpoints:"
+msgstr "Publiskie galapunkti:"
+
+#: ../../../app/views/pages/api.html.erb:24
+msgid "Authenticated endpoints:"
+msgstr "Autentificēti galapunkti:"
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "Anonymous access setting:"
+msgstr "Anonīmas piekļuves iestatījums:"
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "When anonymous pushes are disabled, API endpoints require authentication."
+msgstr ""
+"Ja anonīmi push ziņojumi ir atspējoti, API galapunktiem ir nepieciešama autent"
+"ifikācija."
+
+#: ../../../app/views/pages/api.html.erb:32
+msgid "Base URL"
+msgstr "Bāzes URL"
+
+#: ../../../app/views/pages/api.html.erb:33
+msgid "All endpoints are relative to your installation host:"
+msgstr "Visi galapunkti ir relatīvi attiecībā pret jūsu instalācijas resursdatoru:"
+
+#: ../../../app/views/pages/api.html.erb:40
+msgid "Version Endpoint"
+msgstr "Versijas galapunkts"
+
+#: ../../../app/views/pages/api.html.erb:42
+msgid "Returns API and application version details."
+msgstr "Atgriež API un lietojumprogrammas versijas informāciju."
+
+#: ../../../app/views/pages/api.html.erb:43
+#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:122
+#: ../../../app/views/pages/api.html.erb:132
+#: ../../../app/views/pages/api.html.erb:142
+#: ../../../app/views/pages/api.html.erb:153
+#: ../../../app/views/pages/api.html.erb:164
+msgid "cURL example:"
+msgstr "cURL piemērs:"
+
+#: ../../../app/views/pages/api.html.erb:53
+msgid "Push Endpoints"
+msgstr "Stumšanas galapunkti"
+
+#: ../../../app/views/pages/api.html.erb:58
+msgid "Create a new push."
+msgstr "Izveidojiet jaunu grūdienu."
+
+#: ../../../app/views/pages/api.html.erb:59
+msgid "Body format:"
+msgstr "Ķermeņa formāts:"
+
+#: ../../../app/views/pages/api.html.erb:64
+msgid "Parameter"
+msgstr "Parametrs"
+
+#: ../../../app/views/pages/api.html.erb:65
+#: ../../../app/views/pushes/index.html.erb:33
+msgid "Type"
+msgstr "Tips"
+
+#: ../../../app/views/pages/api.html.erb:66
+msgid "Required"
+msgstr "Obligāti"
+
+#: ../../../app/views/pages/api.html.erb:67
+msgid "Description"
+msgstr "Apraksts"
+
+#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pushes/audit.html.erb:53
+#: ../../../app/views/pushes/audit.html.erb:66
+#: ../../../app/views/pushes/audit.html.erb:80
+#: ../../../app/views/pushes/audit.html.erb:142
+msgid "Yes"
+msgstr "Jā"
+
+#: ../../../app/views/pages/api.html.erb:71
+msgid "Secret text payload for text, URL or QR pushes."
+msgstr "Slepens teksta lietderīgais kods teksta, URL vai QR kodu nosūtījumiem."
+
+#: ../../../app/views/pages/api.html.erb:72
+#: ../../../app/views/pages/api.html.erb:73
+#: ../../../app/views/pages/api.html.erb:74
+#: ../../../app/views/pages/api.html.erb:75
+#: ../../../app/views/pages/api.html.erb:76
+#: ../../../app/views/pages/api.html.erb:77
+#: ../../../app/views/pages/api.html.erb:78
+#: ../../../app/views/pages/api.html.erb:79
+#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pushes/audit.html.erb:55
+#: ../../../app/views/pushes/audit.html.erb:68
+#: ../../../app/views/pushes/audit.html.erb:78
+#: ../../../app/views/pushes/audit.html.erb:140
+msgid "No"
+msgstr "Nē"
+
+#: ../../../app/views/pages/api.html.erb:72
+msgid ""
+"Files to attach. When present, the push type becomes file unless kind is expli"
+"citly provided."
+msgstr ""
+"Pievienojamie faili. Ja tāds ir, push tips kļūst par failu, ja vien tips nav s"
+"kaidri norādīts."
+
+#: ../../../app/views/pages/api.html.erb:73
+msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
+msgstr ""
+"Informācijas veids: teksts, fails, URL vai QR kods. Noklusējuma vērtība ir tek"
+"sts, ja tas nav norādīts."
+
+#: ../../../app/views/pages/api.html.erb:74
+msgid "Expiration window in days. If omitted, instance defaults are used."
+msgstr ""
+"Derīguma termiņš dienās. Ja netiek norādīts, tiek izmantoti instances noklusēj"
+"uma iestatījumi."
+
+#: ../../../app/views/pages/api.html.erb:75
+msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
+msgstr ""
+"Maksimāli atļautais izgūšanas reižu skaits. Ja netiek norādīts, tiek izmantoti"
+" instances noklusējuma iestatījumi."
+
+#: ../../../app/views/pages/api.html.erb:76
+msgid "Allows the recipient to expire the push."
+msgstr "Ļauj saņēmējam pārtraukt pasta ziņojuma derīguma termiņu."
+
+#: ../../../app/views/pages/api.html.erb:77
+msgid "Adds an extra retrieval confirmation step."
+msgstr "Pievieno papildu izguves apstiprināšanas soli."
+
+#: ../../../app/views/pages/api.html.erb:78
+msgid "Requires this passphrase to retrieve the payload."
+msgstr "Nepieciešama šī parole, lai izgūtu vērtumu."
+
+#: ../../../app/views/pages/api.html.erb:79
+msgid "Optional label shown to the owner."
+msgstr "Īpašniekam tiek parādīta papildu etiķete."
+
+#: ../../../app/views/pages/api.html.erb:80
+msgid "Optional owner-only note."
+msgstr "Neobligāta piezīme, kas paredzēta tikai īpašniekam."
+
+#: ../../../app/views/pages/api.html.erb:94
+msgid "cURL example (JSON body):"
+msgstr "cURL piemērs (JSON pamatteksts):"
+
+#: ../../../app/views/pages/api.html.erb:111
+msgid ""
+"Retrieve a push payload by token. This counts as a view and may expire the pus"
+"h when limits are reached."
+msgstr ""
+"Izgūt push datu plūsmu, izmantojot tokenu. Tas tiek uzskatīts par skatījumu un"
+" var anulēt push datu plūsmu, kad tiek sasniegti ierobežojumi."
+
+#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:152
+#: ../../../app/views/pages/api.html.erb:163
+msgid "Query parameters:"
+msgstr "Vaicājuma parametri:"
+
+#: ../../../app/views/pages/api.html.erb:112
+msgid "optional, required when the push is passphrase-protected"
+msgstr "neobligāts, nepieciešams, ja push ir aizsargāts ar paroli"
+
+#: ../../../app/views/pages/api.html.erb:121
+msgid ""
+"Returns the fully-qualified secret URL for a push without retrieving its paylo"
+"ad."
+msgstr ""
+"Atgriež pilnībā kvalificētu slepeno URL nosūtīšanai, neizgūstot tā lietderīgo "
+"slodzi."
+
+#: ../../../app/views/pages/api.html.erb:130
+msgid ""
+"Return audit log entries for a push. Authentication and ownership are required"
+"."
+msgstr ""
+"Atgriezt audita žurnāla ierakstus nosūtīšanai. Nepieciešama autentifikācija un"
+" īpašumtiesības."
+
+#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:152
+#: ../../../app/views/pages/api.html.erb:163
+msgid "optional, integer, default 1, valid range 1 to 200"
+msgstr ""
+"neobligāts, vesels skaitlis, noklusējuma vērtība 1, derīgs diapazons no 1 līdz"
+" 200"
+
+#: ../../../app/views/pages/api.html.erb:141
+msgid ""
+"Expire a push immediately. Allowed for owners (when authenticated) or for reci"
+"pients when the push was created with deletable_by_viewer enabled."
+msgstr ""
+"Nekavējoties anulēt push paziņojumu. Atļauts īpašniekiem (pēc autentifikācijas"
+") vai saņēmējiem, ja push paziņojums tika izveidots ar iespējošu deletable_by_"
+"viewer."
+
+#: ../../../app/views/pages/api.html.erb:151
+msgid "List active pushes for the authenticated user."
+msgstr "Uzskaitīt autentificētā lietotāja aktīvās push darbības."
+
+#: ../../../app/views/pages/api.html.erb:162
+msgid "List expired pushes for the authenticated user."
+msgstr "Uzskaitīt autentificētā lietotāja derīguma termiņu beigušās push pārbaudes."
+
+#: ../../../app/views/pages/api.html.erb:172
+msgid "HTTP Status Codes"
+msgstr "HTTP statusa kodi"
+
+#: ../../../app/views/pages/api.html.erb:174
+msgid "Successful request"
+msgstr "Veiksmīgs pieprasījums"
+
+#: ../../../app/views/pages/api.html.erb:175
+msgid "Push created"
+msgstr "Izveidots sūtījums"
+
+#: ../../../app/views/pages/api.html.erb:176
+msgid "Invalid request parameters"
+msgstr "Nederīgi pieprasījuma parametri"
+
+#: ../../../app/views/pages/api.html.erb:177
+msgid "Authentication required or invalid token"
+msgstr "Nepieciešama autentifikācija vai nederīga pilnvara"
+
+#: ../../../app/views/pages/api.html.erb:178
+msgid "Forbidden for current user"
+msgstr "Pašreizējam lietotājam aizliegts"
+
+#: ../../../app/views/pages/api.html.erb:179
+msgid "Resource not found"
+msgstr "Resurss nav atrasts"
+
+#: ../../../app/views/pages/api.html.erb:180
+msgid "Validation error"
+msgstr "Validācijas kļūda"
+
+#: ../../../app/views/pages/api.html.erb:186
+msgid "For legacy API v1 documentation, see"
+msgstr "Lai skatītu mantotās API v1 dokumentāciju, skatiet"
 
 #: ../../../app/views/pages/generate_key.html.erb:1
 msgid "Generate Key"
 msgstr "Ģenerēt atslēgu"
 
-#: ../../../app/views/pages/generate_key.html.erb:3
-msgid "Generate an Encryption Key"
-msgstr "Ģenerēt šifrēšanas atslēgu"
+#: ../../../app/views/pages/generate_key.html.erb:9
+msgid "Encryption Key Generator"
+msgstr "Atslēgu ģenerators"
 
-#: ../../../app/views/pages/generate_key.html.erb:6
+#: ../../../app/views/pages/generate_key.html.erb:12
 msgid ""
-"This page is used as a helper tool to generate a random encryption key for pri"
-"vately hosted instances of Password Pusher."
-msgstr ""
-"Šī lapa tiek izmantota kā palīgrīks, lai ģenerētu nejaušu šifrēšanas atslēgu p"
-"rivātām instancēm, kas izmanto tīmekļa vietni Password Pusher. "
-
-#: ../../../app/views/pages/generate_key.html.erb:10
-msgid ""
-"Password Pusher encrypts sensitive data in the database.  This requires a rand"
-"omly generated encryption key for each application instance."
-msgstr ""
-"Password Pusher šifrē sensitīvos datus datu bāzē. Šim nolūkam katrai lietojump"
-"rogrammas instancei ir nepieciešama nejauši ģenerēta šifrēšanas atslēga."
-
-#: ../../../app/views/pages/generate_key.html.erb:14
-msgid ""
-"You can use the randomly generated code below to configure your Password Pushe"
-"r instance."
-msgstr ""
-"Izmantojiet zemāk norādīto nejauši ģenerēto kodu, lai konfigurētu Jūsu Passwor"
-"d Pusher paroles nosūtīšanas instanci.\n"
-
-#: ../../../app/views/pages/generate_key.html.erb:22
-msgid "Generated Encryption Key"
-msgstr "Ģenerēt šifrēšanas atslēgu"
-
-#: ../../../app/views/pages/generate_key.html.erb:32
-msgid "You can apply this key to your application by setting the environment variable"
-msgstr ""
-"Izmantojiet šo šifrēšanas atslēgu savai lietojumprogrammai, iestatot vides mai"
-"nīgo"
-
-#: ../../../app/views/pages/generate_key.html.erb:45
-msgid "Reload this page to re-generate a new key."
-msgstr "Lai ģenerētu jaunu atslēgu, atkārtoti ielādējiet šo lapu."
-
-#: ../../../app/views/pages/generate_key.html.erb:49
-msgid "Notes:"
-msgstr "Piezīmes:"
-
-#: ../../../app/views/pages/generate_key.html.erb:52
-msgid "If an encryption key isn't provided, a default key will be used."
-msgstr "Ja šifrēšanas atslēga netiek nodrošināta, tiks izmantota noklusējuma atslēga."
-
-#: ../../../app/views/pages/generate_key.html.erb:55
-msgid ""
-"The best security for private instances of Password Pusher is to use your own "
-"custom encryption key although it is not required."
-msgstr ""
-"Lai gan tas nav nepieciešams, izmantojot savu īpašo šifrēšanas atslēgu, Passwo"
-"rd Pusher lietotājiem tiek nodrošināts vislabākais drošības līmenis.\n"
-
-#: ../../../app/views/pages/generate_key.html.erb:58
-msgid ""
-"The risk in using the default key is lessened if you keep your instance secure"
-" and your push expirations short.  e.g.  1 day/1 view versus 100 days/100 view"
-"s."
-msgstr ""
-"Noklusējuma atslēgas lietošanas risks samazinās, ja saglabājat savu instanci d"
-"rošībā un Jūsu koplietoto paroļu derīguma termiņš ir īss. Piemēram, 1 diena/1 "
-"skatījums pret 100 dienas/100 skatījumi.\n"
-
-#: ../../../app/views/pages/generate_key.html.erb:61
-msgid "Once a push expires, all encrypted data is deleted."
-msgstr ""
-"Kad nosūtītās paroles derīguma termiņš beidzas, visi šifrētie dati tiek dzēsti"
+"Generate a secure encryption key for your self-hosted Password Pusher instance"
 "."
+msgstr ""
+"Ģenerējiet drošu šifrēšanas atslēgu savai pašmitinātajai Password Pusher insta"
+"ncei."
+
+#: ../../../app/views/pages/generate_key.html.erb:20
+msgid "Why Use a Custom Key?"
+msgstr "Kāpēc izmantot pielāgotu atslēgu?"
+
+#: ../../../app/views/pages/generate_key.html.erb:23
+msgid ""
+"Password Pusher encrypts all sensitive data in the database using a master enc"
+"ryption key. While a default key is provided for convenience, using your own u"
+"nique key provides the highest level of security for your private instance."
+msgstr ""
+"Password Pusher šifrē visus sensitīvos datus datubāzē, izmantojot galveno šifr"
+"ēšanas atslēgu. Lai gan ērtības labad tiek nodrošināta noklusējuma atslēga, sa"
+"vas unikālās atslēgas izmantošana nodrošina visaugstāko drošības līmeni jūsu p"
+"rivātajai instancei."
+
+#: ../../../app/views/pages/generate_key.html.erb:29
+msgid "Your Generated Key"
+msgstr "Jūsu ģenerētā atslēga"
+
+#: ../../../app/views/pages/generate_key.html.erb:33
+msgid "Raw Encryption Key"
+msgstr "Neapstrādāta šifrēšanas atslēga"
+
+#: ../../../app/views/pages/generate_key.html.erb:43
+msgid "Environment Variable Format"
+msgstr "Vides mainīgā formāts"
+
+#: ../../../app/views/pages/generate_key.html.erb:51
+msgid "Set this environment variable in your deployment configuration."
+msgstr "Iestatiet šo vides mainīgo savā izvietošanas konfigurācijā."
+
+#: ../../../app/views/pages/generate_key.html.erb:57
+msgid "Generate New Key"
+msgstr "Ģenerēt jaunu atslēgu"
 
 #: ../../../app/views/pages/generate_key.html.erb:64
+msgid "Important Notes"
+msgstr "Svarīgas piezīmes"
+
+#: ../../../app/views/pages/generate_key.html.erb:72
+msgid "Default Key Available"
+msgstr "Noklusējuma atslēga ir pieejama"
+
+#: ../../../app/views/pages/generate_key.html.erb:75
 msgid ""
-"Changing an encryption key where old pushes already exist will make those olde"
-"r pushes unreadable.  In other words, the payloads will be garbled.  New pushe"
-"s going forward will work fine."
+"A default key is used if none is provided. This works but is less secure than "
+"a custom key."
 msgstr ""
-"Mainot šifrēšanas atslēgu, kurā jau pastāv vecās paroles saites, šīs vecās par"
-"oles saites kļūs nelasāmas. Citiem vārdiem sakot, tās tiks sabojāts. Jaunās pa"
-"roles saites turpināsies darboties kā ierasts.\n"
+"Ja tāda nav norādīta, tiek izmantota noklusējuma atslēga. Šī funkcija darbojas"
+", taču ir mazāk droša nekā pielāgota atslēga."
 
-#: ../../../app/views/pages/generate_key.html.erb:67
+#: ../../../app/views/pages/generate_key.html.erb:85
+msgid "Reduce Risk"
+msgstr "Samazināt risku"
+
+#: ../../../app/views/pages/generate_key.html.erb:88
 msgid ""
-"Key generation can also be done from the command line in the application sourc"
-"e by executing: "
+"Using short push expirations (e.g., 1 day/1 view) reduces risk even with the d"
+"efault key."
 msgstr ""
-"Atslēgas ģenerēšanu var veikt arī no lietojumprogrammas avota komandrindas, iz"
-"pildot:\n"
+"Īsu push derīguma termiņu izmantošana (piemēram, 1 diena/1 skatījums) samazina"
+" risku pat ar noklusējuma atslēgu."
 
-#: ../../../app/views/pages/generate_key.html.erb:79
-msgid "See also the Password Pusher"
-msgstr "Skatiet arī paroles spiedēju"
+#: ../../../app/views/pages/generate_key.html.erb:98
+msgid "Data Deletion"
+msgstr "Datu dzēšana"
 
-#: ../../../app/views/pages/generate_key.html.erb:80
-msgid "Configuration documentation"
+#: ../../../app/views/pages/generate_key.html.erb:101
+msgid ""
+"Once a push expires, all encrypted data is permanently deleted from the databa"
+"se."
+msgstr ""
+"Kad pieprasījuma termiņš beidzas, visi šifrētie dati tiek neatgriezeniski dzēs"
+"ti no datubāzes."
+
+#: ../../../app/views/pages/generate_key.html.erb:111
+msgid "Key Changes"
+msgstr "Galvenās izmaiņas"
+
+#: ../../../app/views/pages/generate_key.html.erb:114
+msgid "Changing keys makes existing pushes unreadable. New pushes will work normally."
+msgstr ""
+"Mainot taustiņus, esošie taustiņi kļūst nelasāmi. Jaunie taustiņi darbosies no"
+"rmāli."
+
+#: ../../../app/views/pages/generate_key.html.erb:124
+msgid "Command Line Alternative"
+msgstr "Komandrindas alternatīva"
+
+#: ../../../app/views/pages/generate_key.html.erb:127
+msgid "You can also generate keys from the command line in the application source:"
+msgstr "Atslēgas var ģenerēt arī no komandrindas lietojumprogrammas pirmkodā:"
+
+#: ../../../app/views/pages/generate_key.html.erb:130
+msgid "In your Password Pusher directory"
+msgstr "Jūsu paroles virzītāja direktorijā"
+
+#: ../../../app/views/pages/generate_key.html.erb:140
+msgid "Learn More"
+msgstr "Uzzināt vairāk"
+
+#: ../../../app/views/pages/generate_key.html.erb:143
+msgid "For detailed configuration options and deployment strategies, see the"
+msgstr "Detalizētas konfigurācijas opcijas un izvietošanas stratēģijas skatiet sadaļā"
+
+#: ../../../app/views/pages/generate_key.html.erb:145
+msgid "Configuration Documentation"
 msgstr "Konfigurācijas dokumentācija"
+
+#: ../../../app/views/pages/generate_key.html.erb:153
+msgid "Keys are generated server-side using cryptographically secure random bytes."
+msgstr ""
+"Atslēgas tiek ģenerētas servera pusē, izmantojot kriptogrāfiski drošus nejaušu"
+"s baitus."
 
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
@@ -1645,36 +2154,36 @@ msgstr[1] "diena"
 msgstr[2] "Dienas"
 
 #: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:95
+#: ../../../app/views/pushes/_files_form.html.erb:90
 #: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:69
+#: ../../../app/views/pushes/_form.html.erb:97
 #: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:70
+#: ../../../app/views/pushes/_qr_form.html.erb:87
 #: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:56
+#: ../../../app/views/pushes/_url_form.html.erb:58
 msgid "Days"
 msgstr "Dienas"
 
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:113
+#: ../../../app/views/pushes/_files_form.html.erb:107
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:86
+#: ../../../app/views/pushes/_form.html.erb:113
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_qr_form.html.erb:103
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:75
+#: ../../../app/views/pushes/_url_form.html.erb:76
 msgid "Views"
 msgstr "Skatījumi"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:147
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:134
+#: ../../../app/views/pushes/_form.html.erb:153
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:137
+#: ../../../app/views/pushes/_qr_form.html.erb:145
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:115
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:72
+#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:82
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -1685,137 +2194,136 @@ msgstr "Saglabāt"
 msgid "Saved!"
 msgstr "Saglabāts!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:30
+#: ../../../app/views/pushes/_files_form.html.erb:28
 msgid "Uploaded Files"
 msgstr "Augšupielādētie faili"
 
-#: ../../../app/views/pushes/_files_form.html.erb:46
+#: ../../../app/views/pushes/_files_form.html.erb:44
 msgid "Are you sure you want to delete this file?"
 msgstr "Vai tiešām vēlaties dzēst šo failu?"
 
-#: ../../../app/views/pushes/_files_form.html.erb:62
+#: ../../../app/views/pushes/_files_form.html.erb:57
 msgid "Add Files..."
 msgstr "Pievieno failus..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:77
+#: ../../../app/views/pushes/_files_form.html.erb:72
 msgid "You can upload up to %{count} files per push."
 msgstr "Jūs varat augšupielādēt līdz %{count} failiem uz katru push."
 
-#: ../../../app/views/pushes/_files_form.html.erb:82
-#: ../../../app/views/pushes/_form.html.erb:56
-#: ../../../app/views/pushes/_qr_form.html.erb:57
-#: ../../../app/views/pushes/_url_form.html.erb:43
+#: ../../../app/views/pushes/_files_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:83
+#: ../../../app/views/pushes/_qr_form.html.erb:73
+#: ../../../app/views/pushes/_url_form.html.erb:44
 msgid "Expire secret link and delete after:"
 msgstr "Beigt slepenās saites derīguma termiņu un dzēst pēc:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:118
-#: ../../../app/views/pushes/_form.html.erb:91
-#: ../../../app/views/pushes/_qr_form.html.erb:92
-#: ../../../app/views/pushes/_url_form.html.erb:80
-#: ../../../app/views/pushes/preview.html.erb:61
+#: ../../../app/views/pushes/_files_form.html.erb:110
+#: ../../../app/views/pushes/_form.html.erb:116
+#: ../../../app/views/pushes/_qr_form.html.erb:106
+#: ../../../app/views/pushes/_url_form.html.erb:79
 #: ../../../app/views/pushes/preview.html.erb:63
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(atkarībā no tā, kurš ir pirmais)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:129
-#: ../../../app/views/pushes/_form.html.erb:102
-#: ../../../app/views/pushes/_qr_form.html.erb:104
-#: ../../../app/views/pushes/_url_form.html.erb:92
-msgid "Use a 1-click retrieval step"
-msgstr "Izmantojiet viena klikšķa izguves darbību"
-
-#: ../../../app/views/pushes/_files_form.html.erb:130
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:105
-#: ../../../app/views/pushes/audit.html.erb:73
-msgid "Helps to avoid chat systems and URL scanners from eating up views."
-msgstr ""
-"Palīdz izvairīties no tā, ka tērzēšanas programmas un URL skeneri patērē skatī"
-"jumus."
-
-#: ../../../app/views/pushes/_files_form.html.erb:138
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:114
-msgid "Allow immediate deletion"
-msgstr "Atļaut tūlītēju dzēšanu"
-
-#: ../../../app/views/pushes/_files_form.html.erb:139
-#: ../../../app/views/pushes/_form.html.erb:112
-#: ../../../app/views/pushes/_qr_form.html.erb:115
-msgid "Allow users to delete this push once retrieved."
-msgstr "Ļaujiet lietotājiem dzēst šo push pēc izgūšanas."
-
-#: ../../../app/views/pushes/_files_form.html.erb:149
-#: ../../../app/views/pushes/_form.html.erb:122
-#: ../../../app/views/pushes/_qr_form.html.erb:125
-#: ../../../app/views/pushes/_url_form.html.erb:103
-#: ../../../app/views/pushes/audit.html.erb:78
-msgid "Passphrase Lockdown"
+#: ../../../app/views/pushes/_files_form.html.erb:115
+#: ../../../app/views/pushes/_form.html.erb:121
+#: ../../../app/views/pushes/_qr_form.html.erb:111
+#: ../../../app/views/pushes/_url_form.html.erb:84
+#: ../../../app/views/pushes/audit.html.erb:76
+msgid "Passphrase"
 msgstr "Ieejas frāzes bloķēšana"
 
-#: ../../../app/views/pushes/_files_form.html.erb:152
-#: ../../../app/views/pushes/_form.html.erb:125
-#: ../../../app/views/pushes/_qr_form.html.erb:128
-#: ../../../app/views/pushes/_url_form.html.erb:106
+#: ../../../app/views/pushes/_files_form.html.erb:118
+#: ../../../app/views/pushes/_form.html.erb:124
+#: ../../../app/views/pushes/_qr_form.html.erb:114
+#: ../../../app/views/pushes/_url_form.html.erb:87
 msgid "Optional: Require recipients to enter a passphrase to view this push"
 msgstr ""
 "Neobligāti: lai skatītu šo pašpiegādes informāciju, adresātiem ir jāievada iee"
 "jas frāze"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:128
 #: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:137
-#: ../../../app/views/pushes/_url_form.html.erb:115
+#: ../../../app/views/pushes/_qr_form.html.erb:125
+#: ../../../app/views/pushes/_url_form.html.erb:98
+msgid "Use a 1-click retrieval step"
+msgstr "Izmantojiet viena klikšķa izguves darbību"
+
+#: ../../../app/views/pushes/_files_form.html.erb:129
+#: ../../../app/views/pushes/_form.html.erb:135
+#: ../../../app/views/pushes/_qr_form.html.erb:126
+#: ../../../app/views/pushes/audit.html.erb:70
+msgid "Helps to avoid chat systems and URL scanners from eating up views."
+msgstr ""
+"Palīdz izvairīties no tā, ka tērzēšanas programmas un URL skeneri patērē skatī"
+"jumus."
+
+#: ../../../app/views/pushes/_files_form.html.erb:137
+#: ../../../app/views/pushes/_form.html.erb:143
+#: ../../../app/views/pushes/_qr_form.html.erb:135
+msgid "Allow immediate deletion"
+msgstr "Atļaut tūlītēju dzēšanu"
+
+#: ../../../app/views/pushes/_files_form.html.erb:138
+#: ../../../app/views/pushes/_form.html.erb:144
+#: ../../../app/views/pushes/_qr_form.html.erb:136
+msgid "Allow users to delete this push once retrieved."
+msgstr "Ļaujiet lietotājiem dzēst šo push pēc izgūšanas."
+
+#: ../../../app/views/pushes/_files_form.html.erb:147
+#: ../../../app/views/pushes/_form.html.erb:153
+#: ../../../app/views/pushes/_qr_form.html.erb:145
+#: ../../../app/views/pushes/_url_form.html.erb:108
 msgid "the above settings as the page default."
 msgstr "iepriekš minētos iestatījumus kā lapas noklusējuma iestatījumus."
 
-#: ../../../app/views/pushes/_files_form.html.erb:175
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:161
-#: ../../../app/views/pushes/_form.html.erb:171
-#: ../../../app/views/pushes/_qr_form.html.erb:164
-#: ../../../app/views/pushes/_qr_form.html.erb:174
+#: ../../../app/views/pushes/_files_form.html.erb:157
+#: ../../../app/views/pushes/_files_form.html.erb:180
+#: ../../../app/views/pushes/_form.html.erb:163
+#: ../../../app/views/pushes/_form.html.erb:173
+#: ../../../app/views/pushes/_qr_form.html.erb:155
+#: ../../../app/views/pushes/_qr_form.html.erb:165
+#: ../../../app/views/pushes/_url_form.html.erb:118
 #: ../../../app/views/pushes/_url_form.html.erb:128
-#: ../../../app/views/pushes/_url_form.html.erb:138
 msgid "Optional"
 msgstr "Neobligāti"
 
-#: ../../../app/views/pushes/_files_form.html.erb:178
-#: ../../../app/views/pushes/_form.html.erb:164
-#: ../../../app/views/pushes/_qr_form.html.erb:167
-#: ../../../app/views/pushes/_url_form.html.erb:131
+#: ../../../app/views/pushes/_files_form.html.erb:160
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_url_form.html.erb:121
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Vārds, kas tiek rādīts informācijas panelī, paziņojumos un e-pastos."
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_files_form.html.erb:165
 msgid "Message"
 msgstr "Ziņojums"
 
-#: ../../../app/views/pushes/_files_form.html.erb:186
+#: ../../../app/views/pushes/_files_form.html.erb:168
 msgid "Optional: A message to be included with the push"
 msgstr "Neobligāti: ziņojums, kas jāiekļauj push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:190
+#: ../../../app/views/pushes/_files_form.html.erb:172
 msgid "Encrypted and visible to the receiving party"
 msgstr "Šifrēts un redzams saņēmējai pusei"
 
-#: ../../../app/views/pushes/_files_form.html.erb:195
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:171
-#: ../../../app/views/pushes/_url_form.html.erb:135
-#: ../../../app/views/pushes/audit.html.erb:15
-msgid "Reference Note"
-msgstr "Atsauces piezīme"
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:170
+#: ../../../app/views/pushes/_qr_form.html.erb:162
+#: ../../../app/views/pushes/_url_form.html.erb:125
+#: ../../../app/views/pushes/index.html.erb:35
+msgid "Note"
+msgstr "Piezīme"
 
-#: ../../../app/views/pushes/_files_form.html.erb:201
-#: ../../../app/views/pushes/_form.html.erb:174
-#: ../../../app/views/pushes/_qr_form.html.erb:177
-#: ../../../app/views/pushes/_url_form.html.erb:141
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:168
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Encrypted and visible only to you"
 msgstr "Šifrēts un redzams tikai jums"
 
-#: ../../../app/views/pushes/_files_form.html.erb:207
+#: ../../../app/views/pushes/_files_form.html.erb:188
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -1823,36 +2331,36 @@ msgstr ""
 "Kad beidzas derīguma termiņš, visi push faili un saturs tiks nekavējoties un p"
 "ilnībā izdzēsti."
 
-#: ../../../app/views/pushes/_files_form.html.erb:212
-#: ../../../app/views/pushes/_url_form.html.erb:153
+#: ../../../app/views/pushes/_files_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "An audit log of activity will be available."
 msgstr "Būs pieejams audita darbību žurnāls."
 
-#: ../../../app/views/pushes/_files_form.html.erb:221
-#: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:162
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:191
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:146
 msgid "Updating..."
 msgstr "Notiek atjaunināšana..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:221
-#: ../../../app/views/pushes/_form.html.erb:188
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:162
+#: ../../../app/views/pushes/_files_form.html.erb:198
+#: ../../../app/views/pushes/_form.html.erb:191
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:146
 msgid "Update Push"
 msgstr "Atjaunināt piespiešanu"
 
-#: ../../../app/views/pushes/_files_form.html.erb:223
-#: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:193
-#: ../../../app/views/pushes/_url_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:200
+#: ../../../app/views/pushes/_form.html.erb:193
+#: ../../../app/views/pushes/_qr_form.html.erb:185
+#: ../../../app/views/pushes/_url_form.html.erb:148
 msgid "Pushing..."
 msgstr "Pārsūta..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:223
-#: ../../../app/views/pushes/_form.html.erb:190
-#: ../../../app/views/pushes/_qr_form.html.erb:193
-#: ../../../app/views/pushes/_url_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:200
+#: ../../../app/views/pushes/_form.html.erb:193
+#: ../../../app/views/pushes/_qr_form.html.erb:185
+#: ../../../app/views/pushes/_url_form.html.erb:148
 msgid "Push It!"
 msgstr "Sūtīt!"
 
@@ -1860,45 +2368,57 @@ msgstr "Sūtīt!"
 msgid "Securely Send a Password"
 msgstr "Droši nosūtiet paroli"
 
-#: ../../../app/views/pushes/_form.html.erb:36
+#: ../../../app/views/pushes/_form.html.erb:39
+msgid "Content is hidden for privacy. Click the field below to reveal and edit."
+msgstr ""
+"Saturs ir paslēpts privātuma nolūkos. Noklikšķiniet uz tālāk redzamā lauka, la"
+"i to atklātu un rediģētu."
+
+#: ../../../app/views/pushes/_form.html.erb:44
 msgid "Enter the Password or Text to push..."
 msgstr "Ievadiet paroli vai tekstu, lai nosūtītu..."
 
-#: ../../../app/views/pushes/_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:59
 #: ../../../app/views/pushes/_qr_form.html.erb:49
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:55
 msgid "Characters"
 msgstr "Rakstzīmes"
 
-#: ../../../app/views/pushes/_form.html.erb:147
-#: ../../../app/views/pushes/_qr_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:56
+msgid "Password Generator"
+msgstr "Paroļu ģenerators"
+
+#: ../../../app/views/pushes/_form.html.erb:70
+#: ../../../app/views/pushes/_qr_form.html.erb:60
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Ģenerēt paroli"
 
-#: ../../../app/views/pushes/_form.html.erb:154
-#: ../../../app/views/pushes/_qr_form.html.erb:157
-msgid "Use the button above to generate a random password."
-msgstr "Izmantojiet augstāk norādīto pogu, lai ģenerētu nejaušu paroli."
+#: ../../../app/views/pushes/_form.html.erb:74
+#: ../../../app/views/pushes/_qr_form.html.erb:64
+msgid "Configure Generator"
+msgstr "Konfigurēt ģeneratoru"
 
-#: ../../../app/views/pushes/_form.html.erb:179
-#: ../../../app/views/pushes/_qr_form.html.erb:182
+#: ../../../app/views/pushes/_form.html.erb:181
+#: ../../../app/views/pushes/_qr_form.html.erb:173
 msgid ""
-"Tip: Only enter a password into the box.  Other identifying information can co"
-"mpromise security."
+"Tip: Only enter a password into the box. Other identifying information can com"
+"promise security."
 msgstr ""
-"Padoms: lodziņā ievadiet tikai paroli. Cita identificējoša informācija var apd"
+"Padoms. Ievadiet lodziņā tikai paroli. Cita identificējoša informācija var apd"
 "raudēt drošību."
 
-#: ../../../app/views/pushes/_form.html.erb:180
-#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_qr_form.html.erb:174
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
-"ith the secret link.  Once expired, encrypted passwords are unequivocally dele"
-"ted from the database."
+"ith the secret link. Once expired, encrypted passwords are unequivocally delet"
+"ed from the database."
 msgstr ""
-"Visas paroles pirms uzglabāšanas tiek šifrētas, un tās ir pieejamas tikai tiem"
-", kam ir slepenā saite. Pēc derīguma termiņa beigām šifrētās paroles tiek izdz"
-"ēstas no datu bāzes."
+"Visas paroles pirms saglabāšanas tiek šifrētas un ir pieejamas tikai tiem, kam"
+" ir slepenā saite. Pēc derīguma termiņa beigām šifrētās paroles tiek nepārprot"
+"ami dzēstas no datubāzes."
 
 #: ../../../app/views/pushes/_qr_form.html.erb:1
 msgid "Securely Send a QR Code"
@@ -1925,25 +2445,25 @@ msgstr "Jūsu parole ir aizmiglota. Noklikšķiniet zemāk, lai to atklātu."
 msgid "Securely Send URLs"
 msgstr "Droši sūtiet URL"
 
-#: ../../../app/views/pushes/_url_form.html.erb:28
+#: ../../../app/views/pushes/_url_form.html.erb:26
 msgid "URL Redirection"
 msgstr "URL novirzīšana"
 
-#: ../../../app/views/pushes/_url_form.html.erb:32
+#: ../../../app/views/pushes/_url_form.html.erb:30
 msgid "Enter the URL to redirect to..."
 msgstr "Ievadiet URL, uz kuru novirzīt..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:93
+#: ../../../app/views/pushes/_url_form.html.erb:99
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Palīdz izvairīties no tā, ka tērzēšanas sistēmas un URL skeneri apēd novirzīša"
 "nu."
 
-#: ../../../app/views/pushes/_url_form.html.erb:147
+#: ../../../app/views/pushes/_url_form.html.erb:136
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Tiks ģenerēts slepens URL, kas novirzīs uz norādīto URL."
 
-#: ../../../app/views/pushes/_url_form.html.erb:152
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Pēc derīguma termiņa beigām pašpiegādes URL tiks pilnībā izdzēsts."
 
@@ -1952,27 +2472,33 @@ msgid "Audit Log for %{push_id}"
 msgstr "Audita žurnāls %{push_id}"
 
 #: ../../../app/views/pushes/audit.html.erb:4
-msgid "Audit Log for Push ID: %{push_id}"
-msgstr "Audita žurnāls Push ID: %{push_id}"
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:107
+msgid "Audit Log"
+msgstr "Audita žurnāls"
 
-#: ../../../app/views/pushes/audit.html.erb:6
-msgid "Pushed on %{date}"
-msgstr "Uzspiests %{date}"
+#: ../../../app/views/pushes/audit.html.erb:7
+msgid "Pushed on"
+msgstr "Uzspiests"
 
-#: ../../../app/views/pushes/audit.html.erb:9
+#: ../../../app/views/pushes/audit.html.erb:10
 msgid "Secret URL for this push"
 msgstr "Slepenais URL šai paroles saitei"
 
 #: ../../../app/views/pushes/audit.html.erb:16
+msgid "Reference Note"
+msgstr "Atsauces piezīme"
+
+#: ../../../app/views/pushes/audit.html.erb:17
 msgid "Visible Only To You"
 msgstr "Redzams tikai jums"
 
-#: ../../../app/views/pushes/audit.html.erb:28
+#: ../../../app/views/pushes/audit.html.erb:29
 msgid "Settings"
 msgstr "Iestatījumi"
 
-#: ../../../app/views/pushes/audit.html.erb:32
-#: ../../../app/views/pushes/audit.html.erb:41
+#: ../../../app/views/pushes/audit.html.erb:34
+#: ../../../app/views/pushes/audit.html.erb:42
 msgid "Expire after"
 msgstr "Derīguma termiņš beigsies pēc "
 
@@ -1980,7 +2506,7 @@ msgstr "Derīguma termiņš beigsies pēc "
 msgid "The push expires after this number of views."
 msgstr "Piegādes termiņš beidzas pēc šī skatījumu skaita."
 
-#: ../../../app/views/pushes/audit.html.erb:45
+#: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."
 msgstr "Piegādes termiņš beidzas pēc šī dienu skaita."
 
@@ -1988,68 +2514,48 @@ msgstr "Piegādes termiņš beidzas pēc šī dienu skaita."
 msgid "Deletable by Viewers"
 msgstr "Dzēšams skatītājiem"
 
-#: ../../../app/views/pushes/audit.html.erb:54
-#: ../../../app/views/pushes/audit.html.erb:68
-msgid "True"
-msgstr "Taisnība"
-
-#: ../../../app/views/pushes/audit.html.erb:56
-#: ../../../app/views/pushes/audit.html.erb:70
-msgid "False"
-msgstr "Nepatiesi"
-
-#: ../../../app/views/pushes/audit.html.erb:59
+#: ../../../app/views/pushes/audit.html.erb:57
 msgid "This allows end users to delete content once retrieved."
 msgstr "Tas ļauj galalietotājiem dzēst saturu pēc izgūšanas."
 
-#: ../../../app/views/pushes/audit.html.erb:65
+#: ../../../app/views/pushes/audit.html.erb:64
 msgid "1-click Retrieval Step"
 msgstr "Viena klikšķa izguves darbība"
 
-#: ../../../app/views/pushes/audit.html.erb:81
-#: ../../../app/views/pushes/audit.html.erb:140
-msgid "No"
-msgstr "Nē"
-
-#: ../../../app/views/pushes/audit.html.erb:83
-#: ../../../app/views/pushes/audit.html.erb:142
-msgid "Yes"
-msgstr "Jā"
-
-#: ../../../app/views/pushes/audit.html.erb:86
+#: ../../../app/views/pushes/audit.html.erb:82
 msgid "Require recipients to enter a passphrase to view this push."
 msgstr "Lai skatītu šo informatīvo ziņojumu, adresātiem ir jāievada ieejas frāze."
 
-#: ../../../app/views/pushes/audit.html.erb:92
+#: ../../../app/views/pushes/audit.html.erb:88
 msgid "Current Status"
 msgstr "Pašreizējais statuss"
 
-#: ../../../app/views/pushes/audit.html.erb:96
+#: ../../../app/views/pushes/audit.html.erb:93
 msgid "State:"
 msgstr "Valsts:"
 
-#: ../../../app/views/pushes/audit.html.erb:101
-#: ../../../app/views/shared/_dashboard_header.html.erb:10
+#: ../../../app/views/pushes/audit.html.erb:98
+#: ../../../app/views/shared/_dashboard_header.html.erb:14
 msgid "Active"
 msgstr "Aktīvs"
 
-#: ../../../app/views/pushes/audit.html.erb:102
+#: ../../../app/views/pushes/audit.html.erb:99
 msgid "Active and still available for viewing."
 msgstr "Aktīvs un joprojām apskatāms."
 
-#: ../../../app/views/pushes/audit.html.erb:108
+#: ../../../app/views/pushes/audit.html.erb:106
 msgid "Successful Views"
 msgstr "Veiksmīgi skatījumi"
 
-#: ../../../app/views/pushes/audit.html.erb:109
+#: ../../../app/views/pushes/audit.html.erb:107
 msgid "The number of times this push has been viewed before expiration."
 msgstr "Reižu skaits, kad šis push ir skatīts pirms derīguma termiņa beigām."
 
-#: ../../../app/views/pushes/audit.html.erb:114
+#: ../../../app/views/pushes/audit.html.erb:113
 msgid "Failed View Attempts"
 msgstr "Neveiksmīgi skatīšanas mēģinājumi"
 
-#: ../../../app/views/pushes/audit.html.erb:115
+#: ../../../app/views/pushes/audit.html.erb:114
 msgid "The number of times this push has been viewed after expiration."
 msgstr "Reižu skaits, kad šis push ir skatīts pēc derīguma termiņa beigām."
 
@@ -2069,16 +2575,16 @@ msgstr ""
 msgid "Payload"
 msgstr "Lietderīgā slodze"
 
-#: ../../../app/views/pushes/audit.html.erb:135
+#: ../../../app/views/pushes/audit.html.erb:136
 msgid "Contains Message for Receiver"
 msgstr "Satur ziņojumu saņēmējam"
 
 #: ../../../app/views/pushes/audit.html.erb:138
-#: ../../../app/views/pushes/audit.html.erb:153
+#: ../../../app/views/pushes/audit.html.erb:152
 msgid "Deleted"
 msgstr "Izdzēsts"
 
-#: ../../../app/views/pushes/audit.html.erb:145
+#: ../../../app/views/pushes/audit.html.erb:144
 msgid "Has a text payload been added to this push?"
 msgstr "Vai šim push ir pievienota teksta slodze?"
 
@@ -2086,58 +2592,59 @@ msgstr "Vai šim push ir pievienota teksta slodze?"
 msgid "Message Length"
 msgstr "Ziņojuma garums"
 
-#: ../../../app/views/pushes/audit.html.erb:155
+#: ../../../app/views/pushes/audit.html.erb:154
 msgid "Not Applicable"
 msgstr "Nav piemērojams"
 
-#: ../../../app/views/pushes/audit.html.erb:160
+#: ../../../app/views/pushes/audit.html.erb:158
 msgid "The length of the attached text payload."
 msgstr "Pievienotā teksta derīgās slodzes garums."
 
-#: ../../../app/views/pushes/audit.html.erb:165
+#: ../../../app/views/pushes/audit.html.erb:164
 msgid "Number of Files Attached"
 msgstr "Pievienoto failu skaits"
 
-#: ../../../app/views/pushes/audit.html.erb:173
+#: ../../../app/views/pushes/audit.html.erb:170
 msgid "The number of files attached to this push. This value will be 0 when expired."
 msgstr ""
 "Šim pusham pievienoto failu skaits. Kad beigsies derīguma termiņš, šī vērtība "
 "būs 0."
 
-#: ../../../app/views/pushes/audit.html.erb:179
+#: ../../../app/views/pushes/audit.html.erb:176
 #: ../../../app/views/pushes/show.html.erb:28
 msgid "Attached Files"
 msgstr "Pievienotie faili"
 
-#: ../../../app/views/pushes/audit.html.erb:185
-msgid "Filename:"
-msgstr "Faila nosaukums:"
-
-#: ../../../app/views/pushes/audit.html.erb:187
-msgid "Size: "
+#: ../../../app/views/pushes/audit.html.erb:184
+msgid "Size:"
 msgstr "Izmērs:"
 
-#: ../../../app/views/pushes/audit.html.erb:192
+#: ../../../app/views/pushes/audit.html.erb:189
 msgid "All attached files have been deleted."
 msgstr "Visi pievienotie faili ir izdzēsti."
 
-#: ../../../app/views/pushes/audit.html.erb:207
+#: ../../../app/views/pushes/audit.html.erb:201
+#: ../../../app/views/pushes/edit.html.erb:1
+msgid "Edit Push"
+msgstr "Rediģēt sūtīšanu"
+
+#: ../../../app/views/pushes/audit.html.erb:204
 msgid "Expire Now"
 msgstr "Derīguma termiņš beigsies tagad"
 
-#: ../../../app/views/pushes/audit.html.erb:215
+#: ../../../app/views/pushes/audit.html.erb:212
 msgid "Delete This Push?"
 msgstr "Vai dzēst šo paziņojumu?"
 
-#: ../../../app/views/pushes/audit.html.erb:219
+#: ../../../app/views/pushes/audit.html.erb:216
 msgid "This will expire this secret link and"
 msgstr "Tas izbeigs šīs slepenās saites derīguma termiņu un"
 
-#: ../../../app/views/pushes/audit.html.erb:219
+#: ../../../app/views/pushes/audit.html.erb:216
 msgid "remove all content from the database forever"
 msgstr "uz visiem laikiem noņemiet visu saturu no datu bāzes"
 
-#: ../../../app/views/pushes/audit.html.erb:220
+#: ../../../app/views/pushes/audit.html.erb:217
 msgid ""
 "The audit log (including future attempted views) will still be maintained goin"
 "g forward."
@@ -2145,11 +2652,11 @@ msgstr ""
 "Auditācijas pieraksti (tostarp turpmākie skatījumu mēģinājumi) joprojām tiks s"
 "aglabāti arī turpmāk."
 
-#: ../../../app/views/pushes/audit.html.erb:237
-msgid "Start of Audit Log"
-msgstr "Auditācijas pierakstu sākums"
+#: ../../../app/views/pushes/audit.html.erb:234
+msgid "Activity Log"
+msgstr "Aktivitāšu žurnāls"
 
-#: ../../../app/views/pushes/audit.html.erb:243
+#: ../../../app/views/pushes/audit.html.erb:241
 msgid ""
 "As the push receives activity, a log of each with identifying information will"
 " show up here."
@@ -2157,90 +2664,74 @@ msgstr ""
 "Kad push saņems aktivitāti, šeit tiks parādīts katras ziņas žurnāls ar identif"
 "icējošu informāciju."
 
-#: ../../../app/views/pushes/audit.html.erb:247
-msgid "End of Audit Log"
-msgstr "Auditācijas pierakstu beigas"
-
-#: ../../../app/views/pushes/edit.html.erb:1
-#: ../../../app/views/pushes/preview.html.erb:98
-msgid "Edit Push"
-msgstr "Rediģēt sūtīšanu"
-
-#: ../../../app/views/pushes/edit.html.erb:4
+#: ../../../app/views/pushes/edit.html.erb:6
 msgid "Editing Push"
 msgstr "Rediģēšanas spiediens"
 
-#: ../../../app/views/pushes/index.html.erb:9
-msgid "You currently have no active pushes."
-msgstr "Jums pašlaik nav aktīvu grūdienu."
-
-#: ../../../app/views/pushes/index.html.erb:11
-msgid "You currently have no expired pushes."
-msgstr "Jums pašlaik nav derīgu push paziņojumu."
+#: ../../../app/views/pushes/index.html.erb:1
+#: ../../../app/views/shared/_dashboard_header.html.erb:5
+#: ../../../app/views/shared/_header.html.erb:27
+msgid "Dashboard"
+msgstr "Infopanelis"
 
 #: ../../../app/views/pushes/index.html.erb:13
-msgid "You currently have no pushes."
-msgstr "Jums pašlaik nav neviena grūdiena."
+msgid "No active pushes"
+msgstr "Nav aktīvu grūdienu"
 
-#: ../../../app/views/pushes/index.html.erb:19
-msgid "Push a Password Now"
-msgstr "Nospiediet paroli tūlīt"
+#: ../../../app/views/pushes/index.html.erb:15
+msgid "No expired pushes"
+msgstr "Nav derīguma termiņa beigušos spiedpogu"
 
-#: ../../../app/views/pushes/index.html.erb:28
-msgid "Expired Pushes"
-msgstr "Beidzies derīguma termiņš"
+#: ../../../app/views/pushes/index.html.erb:17
+msgid "No pushes yet"
+msgstr "Vēl nav grūdienu"
 
-#: ../../../app/views/pushes/index.html.erb:30
-msgid "All Pushes"
-msgstr "Visi grūdieni"
+#: ../../../app/views/pushes/index.html.erb:21
+msgid "Create your first secure push to share passwords, files, or URLs."
+msgstr ""
+"Izveidojiet savu pirmo drošo push ziņojumu, lai kopīgotu paroles, failus vai U"
+"RL."
 
-#: ../../../app/views/pushes/index.html.erb:37
-msgid "Name or ID"
-msgstr "Vārds vai ID"
+#: ../../../app/views/pushes/index.html.erb:24
+msgid "Create Your First Push"
+msgstr "Izveidojiet savu pirmo grūdienu"
 
-#: ../../../app/views/pushes/index.html.erb:38
-msgid "Kind"
-msgstr "Veids"
+#: ../../../app/views/pushes/index.html.erb:32
+msgid "Name / ID"
+msgstr "Vārds/ID"
 
-#: ../../../app/views/pushes/index.html.erb:40
-msgid "Note"
-msgstr "Piezīme"
-
-#: ../../../app/views/pushes/index.html.erb:41
-msgid "Remaining"
-msgstr "Atlikušais"
+#: ../../../app/views/pushes/index.html.erb:36
+msgid "Status"
+msgstr "Statuss"
 
 #: ../../../app/views/pushes/index.html.erb:55
-msgid "File(s)"
-msgstr "Fails(-i)"
+msgid "File"
+msgstr "Fails"
 
-#: ../../../app/views/pushes/index.html.erb:57
+#: ../../../app/views/pushes/index.html.erb:59
 msgid "URL"
 msgstr "URL"
 
-#: ../../../app/views/pushes/index.html.erb:59
-msgid "QR Code"
-msgstr "QR kods"
+#: ../../../app/views/pushes/index.html.erb:63
+msgid "QR"
+msgstr "QR"
 
-#: ../../../app/views/pushes/index.html.erb:61
+#: ../../../app/views/pushes/index.html.erb:67
 msgid "Text"
 msgstr "Teksts"
 
-#: ../../../app/views/pushes/index.html.erb:77
-msgid "%{views} views or %{days} days"
-msgstr "%{views} skatījumi vai %{days} dienas"
+#: ../../../app/views/pushes/index.html.erb:93
+msgid "%{views}v / %{days}d"
+msgstr "%{views}v / %{days}d"
 
-#: ../../../app/views/pushes/index.html.erb:80
+#: ../../../app/views/pushes/index.html.erb:98
 msgid "Push Controls"
 msgstr "Paroles sūtīšanas vadīkla"
 
-#: ../../../app/views/pushes/index.html.erb:83
+#: ../../../app/views/pushes/index.html.erb:100
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:10
 msgid "Preview"
 msgstr "Priekšskatījums"
-
-#: ../../../app/views/pushes/index.html.erb:90
-msgid "Audit"
-msgstr "Audits"
 
 #: ../../../app/views/pushes/new.html.erb:1
 msgid "Securely Send a Password, Text or File"
@@ -2267,9 +2758,12 @@ msgid "Click Here to Proceed"
 msgstr "Noklikšķiniet šeit, lai turpinātu"
 
 #: ../../../app/views/pushes/preview.html.erb:1
-#: ../../../app/views/pushes/preview.html.erb:6
 msgid "Push Preview"
 msgstr "Push priekšskatījums"
+
+#: ../../../app/views/pushes/preview.html.erb:6
+msgid "Push Created"
+msgstr "Izveidots stumšanas process"
 
 #: ../../../app/views/pushes/preview.html.erb:8
 msgid "Use this secret link to share it:"
@@ -2300,13 +2794,13 @@ msgstr "Iekļaut ID"
 msgid "Generate"
 msgstr "Ģenerēt"
 
-#: ../../../app/views/pushes/preview.html.erb:56
+#: ../../../app/views/pushes/preview.html.erb:57
 #: ../../../app/views/pushes/show.html.erb:41
 #: ../../../app/views/pushes/show.html.erb:75
 msgid "This secret link and all content will be deleted in"
 msgstr "Šī slepenā saite un viss saturs tiks dzēsti"
 
-#: ../../../app/views/pushes/preview.html.erb:57
+#: ../../../app/views/pushes/preview.html.erb:60
 #: ../../../app/views/pushes/print_preview.html.erb:13
 #: ../../../app/views/pushes/show.html.erb:43
 #: ../../../app/views/pushes/show.html.erb:77
@@ -2316,7 +2810,7 @@ msgstr[0] "dienas"
 msgstr[1] "diena"
 msgstr[2] "dienas"
 
-#: ../../../app/views/pushes/preview.html.erb:59
+#: ../../../app/views/pushes/preview.html.erb:62
 #: ../../../app/views/pushes/print_preview.html.erb:15
 msgid "view"
 msgid_plural "views"
@@ -2324,54 +2818,41 @@ msgstr[0] "skatījumi"
 msgstr[1] "skats"
 msgstr[2] "skatījumi"
 
-#: ../../../app/views/pushes/preview.html.erb:65
-msgid "can be"
-msgstr "var būt"
+#: ../../../app/views/pushes/preview.html.erb:68
+msgid "Viewers can delete this push."
+msgstr "Skatītāji var dzēst šo paziņojumu."
 
-#: ../../../app/views/pushes/preview.html.erb:65
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "deleted by viewers."
-msgstr "dzēsuši skatītāji."
+#: ../../../app/views/pushes/preview.html.erb:70
+msgid "Viewers cannot delete this push."
+msgstr "Skatītāji nevar dzēst šo paziņojumu."
 
-#: ../../../app/views/pushes/preview.html.erb:67
-msgid "can NOT be"
-msgstr "nevar būt"
+#: ../../../app/views/pushes/preview.html.erb:77
+msgid "Includes a"
+msgstr "Ietver"
 
-#: ../../../app/views/pushes/preview.html.erb:73
-msgid "It also includes a"
-msgstr "Ietver arī "
-
-#: ../../../app/views/pushes/preview.html.erb:73
+#: ../../../app/views/pushes/preview.html.erb:77
 msgid "1-click preliminary retrieval step"
 msgstr "Viena klikšķa iepriekšējā izguves darbība"
 
-#: ../../../app/views/pushes/preview.html.erb:77
-msgid "View This Push Now"
-msgstr "Skatiet šo push tagad"
+#: ../../../app/views/pushes/preview.html.erb:87
+msgid "View This Push"
+msgstr "Skatīt šo spiedienu"
 
-#: ../../../app/views/pushes/preview.html.erb:82
-msgid "(will burn a view) or"
-msgstr "(patērēs skatījumu) vai arī"
-
-#: ../../../app/views/pushes/preview.html.erb:84
-#: ../../../app/views/pushes/preview.html.erb:86
-#: ../../../app/views/pushes/preview.html.erb:88
+#: ../../../app/views/pushes/preview.html.erb:91
+#: ../../../app/views/pushes/preview.html.erb:95
+#: ../../../app/views/pushes/preview.html.erb:99
 msgid "Push Another"
 msgstr "Nospiediet citu"
 
-#: ../../../app/views/pushes/preview.html.erb:95
-msgid "View Audit Log"
-msgstr "Skatīt auditācijas pierakstus"
-
-#: ../../../app/views/pushes/preview.html.erb:103
+#: ../../../app/views/pushes/preview.html.erb:116
 msgid ""
-"Tip: Pushing to an international user?  Change the secret link language using "
-"the dropdown menu to the right of the URL."
+"Tip: Pushing to an international user? Change the secret link language using t"
+"he dropdown menu to the right of the URL."
 msgstr ""
-"Padoms: vēlaties kopīgot paroli ar starptautisku lietotāju? Mainiet slepenās s"
-"aites valodu, izmantojot nolaižamo izvēlni pa labi no URL."
+"Padoms. Vai sūtīt saturu uz starptautisku lietotāju? Mainiet slepenās saites v"
+"alodu, izmantojot nolaižamo izvēlni URL labajā pusē."
 
-#: ../../../app/views/pushes/preview.html.erb:104
+#: ../../../app/views/pushes/preview.html.erb:117
 msgid ""
 "Alternatively auto-detection will select a language based on end-user browser "
 "settings."
@@ -2463,6 +2944,14 @@ msgstr ""
 "Ja nepieciešams, lūdzu, sazinieties ar personu vai organizāciju, kas jums pieš"
 "ķīra šo slepeno URL."
 
+#: ../../../app/views/shared/_additional_options.html.erb:3
+msgid "Additional Options"
+msgstr "Papildu opcijas"
+
+#: ../../../app/views/shared/_additional_options.html.erb:13
+msgid "Show / Hide"
+msgstr "Rādīt / Paslēpt"
+
 #: ../../../app/views/shared/_cookie_consent.html.erb:6
 msgid ""
 "Browser cookies help make this tool work. By using it, you agree the use of th"
@@ -2471,14 +2960,13 @@ msgstr ""
 "Pārlūka sīkfaili palīdz nodrošināt šī rīka darbību. Izmantojot to, jūs piekrīt"
 "at šo sīkdatņu izmantošanai."
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:3
-#: ../../../app/views/shared/_header.html.erb:30
-msgid "Dashboard"
-msgstr "Infopanelis"
+#: ../../../app/views/shared/_dashboard_header.html.erb:9
+msgid "Filter pushes"
+msgstr "Filtra nospiešanas"
 
-#: ../../../app/views/shared/_dashboard_header.html.erb:13
-msgid "New"
-msgstr "Jauns"
+#: ../../../app/views/shared/_dashboard_header.html.erb:22
+msgid "New Push"
+msgstr "Jauns Push"
 
 #: ../../../app/views/shared/_delete_user_button.html.erb:6
 msgid ""
@@ -2490,55 +2978,31 @@ msgstr ""
 "tāja izveidotie %{count} paziņojumi. Šo darbību nevar atsaukt. Vai tiešām vēla"
 "ties turpināt?"
 
-#: ../../../app/views/shared/_footer.html.erb:22
-msgid "Front Page"
-msgstr "Sākumlapa"
+#: ../../../app/views/shared/_footer.html.erb:27
+msgid "About"
+msgstr "Par Password Pusher"
 
-#: ../../../app/views/shared/_footer.html.erb:30
-msgid "Docker Containers"
-msgstr "Docker konteineri"
+#: ../../../app/views/shared/_footer.html.erb:28
+msgid "API"
+msgstr "API"
 
-#: ../../../app/views/shared/_footer.html.erb:34
-msgid "FAQ"
-msgstr "Biežāk uzdotie jautājumi"
-
-#: ../../../app/views/shared/_footer.html.erb:35
-msgid "JSON API"
-msgstr "JSON API"
-
-#: ../../../app/views/shared/_footer.html.erb:36
-msgid "Key Generator"
-msgstr "Atslēgu ģenerators"
-
-#: ../../../app/views/shared/_footer.html.erb:39
-msgid "Source Code"
-msgstr "Pirmkods"
-
-#: ../../../app/views/shared/_footer.html.erb:43
-msgid "Tools"
-msgstr "Rīki"
-
-#: ../../../app/views/shared/_footer.html.erb:51
-msgid "Overview"
-msgstr "Pārskats"
-
-#: ../../../app/views/shared/_header.html.erb:37
+#: ../../../app/views/shared/_header.html.erb:33
 msgid "Account"
 msgstr "Konts"
 
-#: ../../../app/views/shared/_header.html.erb:55
+#: ../../../app/views/shared/_header.html.erb:48
 msgid "Edit Login Details"
 msgstr "Rediģēt pieteikšanās informāciju"
 
-#: ../../../app/views/shared/_header.html.erb:71
+#: ../../../app/views/shared/_header.html.erb:61
 msgid "Log Out"
 msgstr "Atslēgties"
 
-#: ../../../app/views/shared/_header.html.erb:78
+#: ../../../app/views/shared/_header.html.erb:68
 msgid "Log In"
 msgstr "Pieslēgties"
 
-#: ../../../app/views/shared/_header.html.erb:82
+#: ../../../app/views/shared/_header.html.erb:71
 msgid "Sign Up"
 msgstr "Reģistrēties"
 
@@ -2559,66 +3023,306 @@ msgid "Configure Password Generation"
 msgstr ""
 "Konfigurēt paroles ģenerēšanu\n"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:11
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:12
 msgid "Test Area"
 msgstr "Izmēģinājuma lodziņš"
 
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:16
-msgid "Number of Syllables"
-msgstr "Zilbju skaits"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:20
-msgid "Minimum Syllable Length"
-msgstr "Minimālais zilbes garums"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:24
-msgid "Maximum Syllable Length"
-msgstr "Maksimālais zilbes garums"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:31
-msgid "Include numbers"
-msgstr "Izmantot skaitļus"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:35
-msgid "Use Titlecase"
-msgstr "Izmantot Virsraksta stilu"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:39
-msgid "Use Separators"
-msgstr "Izmantot atdalītājus"
-
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:43
 msgid "Test"
 msgstr "Izmēģināt"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:50
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:22
+msgid "Structure"
+msgstr "Struktūra"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:24
+msgid "Number of Syllables"
+msgstr "Zilbju skaits"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:28
+msgid "Minimum Syllable Length"
+msgstr "Minimālais zilbes garums"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:32
+msgid "Maximum Syllable Length"
+msgstr "Maksimālais zilbes garums"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:37
+msgid "Options"
+msgstr "Iespējas"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:40
+msgid "Include numbers"
+msgstr "Izmantot skaitļus"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:44
+msgid "Use Titlecase"
+msgstr "Izmantot Virsraksta stilu"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:48
+msgid "Use Separators"
+msgstr "Izmantot atdalītājus"
+
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:59
 msgid "Separators"
 msgstr "Atdalītāji"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:56
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:65
 msgid "Vowels"
 msgstr "Patskaņi"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:62
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:71
 msgid "Consonants"
 msgstr "Līdzskaņi"
 
-#: ../../../app/views/shared/_pw_generator_modal.html.erb:71
+#: ../../../app/views/shared/_pw_generator_modal.html.erb:79
 msgid "Reset to Defaults"
 msgstr "Atiestatīt uz noklusējuma iestatījumiem"
 
-#: ../../../app/views/shared/_topnav.html.erb:4
+#: ../../../app/views/shared/_topnav.html.erb:5
 msgid "Passwords"
 msgstr "Paroles"
 
-#: ../../../app/views/shared/_topnav.html.erb:8
-msgid "Files"
-msgstr "Faili"
-
-#: ../../../app/views/shared/_topnav.html.erb:13
-msgid "URLs"
-msgstr "URL"
-
-#: ../../../app/views/shared/_topnav.html.erb:18
+#: ../../../app/views/shared/_topnav.html.erb:25
 msgid "QR Codes"
 msgstr "QR kodi ᴮᴱᵀᴬ"
+
+#: ../../../app/views/users/first_runs/new.html.erb:1
+msgid "Password Pusher — First Run Setup"
+msgstr "Paroles piegādātājs — pirmās palaišanas iestatīšana"
+
+#: ../../../app/views/users/first_runs/new.html.erb:22
+msgid "Open Source Edition"
+msgstr "Atvērtā koda izdevums"
+
+#: ../../../app/views/users/first_runs/new.html.erb:27
+msgid "First Run Setup"
+msgstr "Pirmās darbības iestatīšana"
+
+#: ../../../app/views/users/first_runs/new.html.erb:29
+msgid ""
+"Securely share sensitive information with automatic expiration & deletion. Tra"
+"ck access with full audit logs."
+msgstr ""
+"Droši kopīgojiet sensitīvu informāciju ar automātisku derīguma termiņa beigām "
+"un dzēšanu. Izsekojiet piekļuvi, izmantojot pilnus audita žurnālus."
+
+#: ../../../app/views/users/first_runs/new.html.erb:38
+#: ../../../app/views/users/first_runs/new.html.erb:98
+msgid "Create Admin Account"
+msgstr "Izveidot kontu"
+
+#: ../../../app/views/users/first_runs/new.html.erb:39
+msgid "This account will have full access to manage your Password Pusher instance."
+msgstr "Šim kontam būs pilna piekļuve jūsu Password Pusher instances pārvaldībai."
+
+#: ../../../app/views/users/first_runs/new.html.erb:49
+msgid "Boot Code Required"
+msgstr "Nepieciešamais boot kods"
+
+#: ../../../app/views/users/first_runs/new.html.erb:50
+msgid "Enter the boot code shown in the application logs during startup."
+msgstr ""
+"Ievadiet sāknēšanas kodu, kas tiek parādīts lietojumprogrammas žurnālos startē"
+"šanas laikā."
+
+#: ../../../app/views/users/first_runs/new.html.erb:57
+#: ../../../app/views/users/first_runs/new.html.erb:61
+msgid "Boot Code"
+msgstr "Boot kods"
+
+#: ../../../app/views/users/first_runs/new.html.erb:93
+msgid "Your account will be created and you'll be signed in automatically."
+msgstr "Jūsu konts tiks izveidots, un jūs tiksiet automātiski pierakstīts."
+
+#: ../../../app/views/users/first_runs/new.html.erb:111
+msgid "How to retrieve the boot code"
+msgstr "Kā atgūt sāknēšanas kodu"
+
+#: ../../../app/views/users/first_runs/new.html.erb:112
+msgid ""
+"The boot code is printed to the application logs when the server starts. Use o"
+"ne of the following:"
+msgstr ""
+"Sāknēšanas kods tiek izdrukāts lietojumprogrammu žurnālos, kad serveris tiek s"
+"tartēts. Izmantojiet vienu no šīm darbībām:"
+
+#: ../../../app/views/users/first_runs/new.html.erb:115
+msgid "Docker"
+msgstr "Docker"
+
+#: ../../../app/views/users/first_runs/new.html.erb:119
+msgid "Docker Compose"
+msgstr "Docker Composite"
+
+#: ../../../app/views/users/first_runs/new.html.erb:123
+msgid "Look for a line containing the boot code in the output."
+msgstr "Izvadē meklējiet rindu, kurā ir sāknēšanas kods."
+
+#: ../../../app/views/users/first_runs/new.html.erb:132
+msgid "What you can do with Password Pusher"
+msgstr "Ko var paveikt ar Password Pusher"
+
+#: ../../../app/views/users/first_runs/new.html.erb:143
+msgid "Encrypted & ephemeral"
+msgstr "Šifrēts un īslaicīgs"
+
+#: ../../../app/views/users/first_runs/new.html.erb:144
+msgid ""
+"Secrets are stored encrypted and removed automatically after they expire or ar"
+"e viewed."
+msgstr ""
+"Noslēpumi tiek glabāti šifrēti un automātiski noņemti pēc to derīguma termiņa "
+"beigām vai to apskates."
+
+#: ../../../app/views/users/first_runs/new.html.erb:152
+msgid "Passwords, text & files"
+msgstr "Paroles, īsziņas un faili"
+
+#: ../../../app/views/users/first_runs/new.html.erb:153
+msgid ""
+"Share passwords, notes, URLs, and files with configurable expiration and view "
+"limits."
+msgstr ""
+"Kopīgojiet paroles, piezīmes, URL un failus ar konfigurējamiem derīguma termiņ"
+"iem un skatīšanas ierobežojumiem."
+
+#: ../../../app/views/users/first_runs/new.html.erb:161
+msgid "100% open source"
+msgstr "100% atvērtā koda"
+
+#: ../../../app/views/users/first_runs/new.html.erb:162
+msgid "Self-host with Docker or your own stack. No vendor lock-in, full transparency."
+msgstr ""
+"Pašmitināšana, izmantojot Docker vai savu steku. Nav piesaistīts konkrētam pār"
+"devējam, pilnīga pārredzamība."
+
+#: ../../../app/views/users/first_runs/new.html.erb:172
+msgid "Helpful links"
+msgstr "Noderīgas saites"
+
+#: ../../../app/views/users/first_runs/new.html.erb:178
+msgid "Configuration"
+msgstr "Konfigurācija"
+
+#: ../../../app/views/users/first_runs/new.html.erb:184
+msgid "Installation"
+msgstr "Uzstādīšana"
+
+#: ../../../app/views/users/first_runs/new.html.erb:196
+msgid "FAQ"
+msgstr "Biežāk uzdotie jautājumi"
+
+#: ../../../app/views/users/first_runs/new.html.erb:202
+msgid "Docker images"
+msgstr "Docker attēli"
+
+#: ../../../app/views/users/first_runs/new.html.erb:208
+msgid "JSON API"
+msgstr "JSON API"
+
+#: ../../../app/views/users/first_runs/new.html.erb:224
+msgid "Thanks for choosing Password Pusher!"
+msgstr "Paldies, ka izvēlējāties Password Pusher!"
+
+#: ../../../app/views/users/sessions/otp.html.erb:4
+msgid "Enter the 6-digit code from your authenticator app or a backup code."
+msgstr "Ievadiet 6 ciparu kodu no autentifikācijas lietotnes vai rezerves kodu."
+
+#: ../../../app/views/users/sessions/otp.html.erb:8
+#: ../../../app/views/users/two_factor/verify.html.erb:19
+msgid "Code"
+msgstr "Kods"
+
+#: ../../../app/views/users/sessions/otp.html.erb:9
+#: ../../../app/views/users/two_factor/verify.html.erb:20
+msgid "Verification code"
+msgstr "Verifikācijas kods"
+
+#: ../../../app/views/users/sessions/otp.html.erb:11
+msgid "Verify"
+msgstr "Pārbaudīt"
+
+#: ../../../app/views/users/two_factor/_mfa_required_banner.html.erb:3
+msgid ""
+"Two-factor authentication is required by the administrator. You must complete "
+"setup to access the application."
+msgstr ""
+"Administrators pieprasa divfaktoru autentifikāciju. Lai piekļūtu lietojumprogr"
+"ammai, ir jāpabeidz iestatīšana."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:1
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:6
+msgid "Save your backup codes"
+msgstr "Saglabājiet savus rezerves kodus"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:12
+msgid ""
+"Store these codes in a safe place. Each can be used once if you lose your auth"
+"enticator device."
+msgstr ""
+"Glabājiet šos kodus drošā vietā. Katru no tiem var izmantot vienu reizi, ja pa"
+"zaudējat autentifikācijas ierīci."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:17
+msgid "Save or copy these codes now"
+msgstr "Saglabājiet vai kopējiet šos kodus tūlīt"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:18
+msgid ""
+"You will not be able to see this list again after you continue. If you lose yo"
+"ur device and your backup codes, you may need an administrator to reset your a"
+"ccount."
+msgstr ""
+"Pēc turpināšanas šo sarakstu vairs nevarēsiet redzēt. Ja pazaudēsiet ierīci un"
+" rezerves kodus, iespējams, būs nepieciešams administratora pieprasījums aties"
+"tatīt jūsu kontu."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:24
+msgid "Recovery codes"
+msgstr "Atkopšanas kodi"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:25
+msgid "total"
+msgstr "kopā"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:41
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:42
+msgid "Copy all codes"
+msgstr "Kopēt visus kodus"
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:46
+msgid ""
+"Backup codes are saved but can only be shown once. If you did not save them, d"
+"isable two-factor authentication and set it up again."
+msgstr ""
+"Rezerves kodi ir saglabāti, bet tos var parādīt tikai vienu reizi. Ja tos nesa"
+"glabājāt, atspējojiet divfaktoru autentifikāciju un iestatiet to vēlreiz."
+
+#: ../../../app/views/users/two_factor/backup_codes.html.erb:52
+msgid "Continue to verify"
+msgstr "Turpināt verifikāciju"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:1
+msgid "Verify authenticator"
+msgstr "Verificēt autentifikatoru"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:6
+msgid "Scan this QR code"
+msgstr "Skenējiet šo QR kodu"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:10
+msgid ""
+"Add this account to your authenticator app, then enter the 6-digit code to con"
+"firm."
+msgstr ""
+"Pievienojiet šo kontu autentifikatora lietotnei un pēc tam ievadiet 6 ciparu k"
+"odu, lai apstiprinātu."
+
+#: ../../../app/views/users/two_factor/verify.html.erb:14
+msgid "If you cannot scan the code, enter this secret manually:"
+msgstr "Ja nevarat noskenēt kodu, ievadiet šo slepeno atslēgu manuāli:"
+
+#: ../../../app/views/users/two_factor/verify.html.erb:23
+msgid "Enable two-factor authentication"
+msgstr "Iespējot divu faktoru autentifikāciju"

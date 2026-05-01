@@ -1,0 +1,28 @@
+# Dev-only compose: mounts repo into Ruby container + Postgres.
+# Root docker-compose.yml is production-oriented (pre-built image); use this for Codespaces/VS Code devcontainer.
+
+services:
+  app:
+    image: ruby:4.0.2-bookworm
+    volumes:
+      - ..:/workspace:cached
+    working_dir: /workspace
+    command: sleep infinity
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/pwpush_development
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pwpush_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

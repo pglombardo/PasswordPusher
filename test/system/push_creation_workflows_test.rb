@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class PushCreationWorkflowsTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Settings.enable_url_pushes = true
     Settings.enable_file_pushes = true
@@ -12,7 +11,6 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
@@ -37,7 +35,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # Should redirect to preview page
     # URL tokens use urlsafe_base64 which can include hyphens and underscores
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "password push creation with custom expiration" do
@@ -55,11 +53,14 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     click_button "Push It!"
 
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "password push creation with retrieval step enabled" do
     visit new_push_path(tab: "text")
+
+    click_button "Show / Hide"
+    assert_selector "#additionalOptionsCollapse.show"
 
     fill_in "push_payload", with: "TestPassword"
     check "push_retrieval_step"
@@ -67,7 +68,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     click_button "Push It!"
 
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "password push creation with passphrase" do
@@ -79,7 +80,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     click_button "Push It!"
 
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "password push form validation" do
@@ -112,7 +113,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # Should redirect to preview page
     # URL tokens use urlsafe_base64 which can include hyphens and underscores
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "url push creation with custom expiration" do
@@ -161,7 +162,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
     # Should redirect to preview page
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 10
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   test "file push creation with multiple files" do
@@ -198,7 +199,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # Should redirect to preview page
     # URL tokens use urlsafe_base64 which can include hyphens and underscores
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 
   # Tab Switching

@@ -1,37 +1,54 @@
-# For an explanation of these settings, see:
-# https://docs.pwpush.com/docs/config-strategies/
-#
-export PWP__ENABLE_LOGINS=true
+# Password Pusher 2.0 — example env for pwpush-and-nginx.
+# Full option list and defaults: docker-compose.yml in repo root.
+# Upgrading from 1.x: https://github.com/pglombardo/PasswordPusher/blob/master/UPGRADE-2.0.md
+# Config strategies: https://docs.pwpush.com/docs/config-strategies/
+
+# --- Features (2.0 defaults; set false to disable) ---
+export PWP__ENABLE_URL_PUSHES=true
+export PWP__ENABLE_FILE_PUSHES=true
+export PWP__ENABLE_QR_PUSHES=true
+export PWP__ALLOW_ANONYMOUS=true
+
+# --- Authentication (2.0: logins always on; tune with these) ---
+# export PWP__DISABLE_SIGNUPS=false
+# export PWP__DISABLE_LOGINS=false
+# Enable if you use signup confirmation, forgot password, unlock (requires working SMTP):
+export PWP__ENABLE_USER_ACCOUNT_EMAILS=true
+
+# --- Mail ---
 export PWP__MAIL__RAISE_DELIVERY_ERRORS=true
 export PWP__MAIL__SMTP_ADDRESS=smtp.mydomain.com
 export PWP__MAIL__SMTP_PORT=587
 export PWP__MAIL__SMTP_USER_NAME=smtp-username
 export PWP__MAIL__SMTP_PASSWORD=smtp-password
 export PWP__MAIL__SMTP_AUTHENTICATION=plain
-export PWP__MAIL__SMTP_STARTTLS=true
+export PWP__MAIL__SMTP_ENABLE_STARTTLS_AUTO=true
 export PWP__MAIL__SMTP_OPEN_TIMEOUT=10
 export PWP__MAIL__SMTP_READ_TIMEOUT=10
+export PWP__MAIL__MAILER_SENDER='"Your Name" <name@mydomain.com>'
+
+# --- Deployment & URL ---
 export PWP__HOST_DOMAIN=localhost.dev
 export PWP__HOST_PROTOCOL=https
-export PWP__MAIL__MAILER_SENDER='"Your Name" <name@mydomain.com>'
 
 export PWP__SHOW_VERSION=false
 
-export PWP__ENABLE_FILE_PUSHES=true
-
+# --- Push: files (2.0 compose uses FILES__STORAGE) ---
+export PWP__FILES__STORAGE=local
 export PWP__FILES__EXPIRE_AFTER_DAYS_DEFAULT=2
 export PWP__FILES__EXPIRE_AFTER_DAYS_MAX=7
 export PWP__FILES__EXPIRE_AFTER_VIEWS_DEFAULT=5
 export PWP__FILES__EXPIRE_AFTER_VIEWS_MAX=10
 export PWP__FILES__RETRIEVAL_STEP_DEFAULT=true
 
-export PWP__ENABLE_URL_PUSHES=true
+# --- Branding ---
 export PWP__BRAND__TITLE="Acme Corp"
 export PWP__BRAND__TAGLINE="Generic is Not Good Enough"
-export PWP__BRAND__DISCLAIMER="This is a dummy disclaimer and should not be considered legally binding or taken seriously in any way."
+export PWP__BRAND__DISCLAIMER="Use subject to org terms. Security: contact your CSO."
 export PWP__BRAND__SHOW_FOOTER_MENU=false
 export PWP__BRAND__LIGHT_LOGO=https://pwpush.fra1.cdn.digitaloceanspaces.com/dev%2Facme-logo.jpg
 export PWP__BRAND__DARK_LOGO=https://pwpush.fra1.cdn.digitaloceanspaces.com/dev%2Facme-logo.jpg
 
+# --- Logging ---
 export PWP__LOG_TO_STDOUT=true
 export PWP__LOG_LEVEL=info

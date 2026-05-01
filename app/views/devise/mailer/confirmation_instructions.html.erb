@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-  <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>
-
-  <meta content="<%= _('Password Pusher is an application to securely send passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.') %>" name='description'>
-  <meta content='width=device-width, initial-scale=1' name='viewport'>
-
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-
-<div class="container">
-
 <h1><%= _('Confirm your new account') %></h1>
 <p><%= _('Your account has been created but you must confirm that you own this email address.') %></p>
 
@@ -32,8 +14,3 @@
 <p><%= _("If you didn't create an account, no action is required.") %></p>
 
 <%= render 'shared/email_footer' %>
-
-</div>
-
-</body>
-</html>

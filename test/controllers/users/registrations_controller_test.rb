@@ -6,13 +6,12 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     @user = users(:luca)
     @other_user = users(:one)
   end
 
   teardown do
-    Settings.enable_logins = false
+    Settings.disable_logins = false
   end
 
   # DELETE /users (destroy action)

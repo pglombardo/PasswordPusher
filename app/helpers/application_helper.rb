@@ -51,12 +51,23 @@ module ApplicationHelper
   # @param [String] url - The URL to generate the QR code for
   # @return [String] - The SVG QR code
   def qr_code(url)
-    RQRCode::QRCode.new(url).as_svg(
+    svg = RQRCode::QRCode.new(url).as_svg(
       offset: 0,
       color: :currentColor,
       shape_rendering: "crispEdges",
       module_size: 6,
       standalone: true
-    ).html_safe
+    )
+    # Strip XML declaration so the SVG is valid when embedded in HTML.
+    svg.sub(/\A<\?xml[^>]*\?>\s*/, "").html_safe
+  end
+
+  # Renders custom CSS from database as a style tag
+  # Returns nil if no custom CSS is set
+  def custom_css_style_tag
+    css = SiteSetting.custom_css
+    return if css.blank?
+
+    tag.style(css.html_safe, data: {turbo_track: "reload"})
   end
 end

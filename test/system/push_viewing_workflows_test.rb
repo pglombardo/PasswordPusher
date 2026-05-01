@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class PushViewingWorkflowsTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Rails.application.reload_routes!
 
@@ -137,5 +136,21 @@ class PushViewingWorkflowsTest < ApplicationSystemTestCase
 
     # Should not show delete button for regular users
     assert_no_selector "button", text: /delete/i, wait: 5
+  end
+
+  test "payload re-blurs automatically after reveal timeout" do
+    original_blur_setting = Settings.pw.enable_blur
+    Settings.pw.enable_blur = true
+
+    visit push_path(@push)
+
+    assert_selector "#push_payload.spoiler[data-spoiler-state='shrouded']", wait: 5
+    execute_script("document.querySelector('#push_payload').setAttribute('data-spoiler-auto-reblur-seconds', '0.2')")
+
+    find("#push_payload").click
+    assert_selector "#push_payload[data-spoiler-state='revealed']", wait: 2
+    assert_selector "#push_payload[data-spoiler-state='shrouded']", wait: 3
+  ensure
+    Settings.pw.enable_blur = original_blur_setting
   end
 end

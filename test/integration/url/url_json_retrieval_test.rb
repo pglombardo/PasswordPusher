@@ -6,12 +6,10 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
 
     @luca = users(:luca)
-    @luca.confirm
   end
 
   def test_view_with_passphrase
@@ -121,7 +119,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     assert_equal res.keys.sort, ["created_at", "days_remaining", "deletable_by_viewer", "deleted", "expire_after_days", "expire_after_views", "expired", "expired_on", "files", "html_url", "json_url", "passphrase", "payload", "retrieval_step", "updated_at", "url_token", "views_remaining"].sort
     assert_equal res.except("url_token", "created_at", "updated_at", "expired_on", "html_url", "json_url"), {"expire_after_views" => 2,
     "expired" => true,
-    "retrieval_step" => false,
+    "retrieval_step" => true,
     "passphrase" => nil,
     "expire_after_days" => 7,
     "days_remaining" => 7,

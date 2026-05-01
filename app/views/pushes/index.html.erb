@@ -1,100 +1,122 @@
-<% title(_('Active Pushes')) %>
+<% title(_('Dashboard')) %>
 
 <%= render partial: 'shared/dashboard_header' %>
 
 <main>
   <% if @pushes.length.zero? %>
-    <p class='text-center mt-3'>
-      <% if @filter == "active" %>
-        <%= _('You currently have no active pushes.') %>
-      <% elsif @filter == "expired" %>
-        <%= _('You currently have no expired pushes.') %>
-      <% else %>
-        <%= _('You currently have no pushes.') %>
-      <% end %>
-    </p>
-    <p class='text-center'>
-      <%= link_to new_push_path(tab: "text"), class: 'btn btn-primary' do %>
-        <em class="bi bi-stars"></em>
-        <%= _('Push a Password Now') %>
-      <% end %>
-    </p>
-  <% else %>
-    <div class="text-center my-3">
-      <h1 class="display-6">
+    <div class="text-center py-5">
+      <div class="mb-4">
+        <em class="bi bi-inbox fs-1 text-muted"></em>
+      </div>
+      <h2 class="h4 text-muted mb-3">
         <% if @filter == "active" %>
-          <%= _('Active Pushes') %>
+          <%= _('No active pushes') %>
         <% elsif @filter == "expired" %>
-          <%= _('Expired Pushes') %>
+          <%= _('No expired pushes') %>
         <% else %>
-          <%= _('All Pushes') %>
+          <%= _('No pushes yet') %>
         <% end %>
-      </h1>
-    </div>
-    <table class="table table-striped table-bordered table-sm table-hover caption-top align-middle" aria-label='<%= _('Active Pushes') %>'>
-      <thead>
-      <tr>
-          <th scope="col"><%= _('Name or ID') %></th>
-          <th scope="col" class=""><%= _('Kind') %></th>
-          <th scope="col"><%= _('Created') %></th>
-          <th scope="col"><%= _('Note') %></th>
-          <th scope="col" class=""><%= _('Remaining') %></th>
-          <th scope="col" class="text-center"><em class='bi-tools'></em></th>
-      </tr>
-      </thead>
-      <tbody class="table-group-divider">
-      <% for push in @pushes do %>
-        <tr>
-          <% if push.name.present? %>
-            <td><%= push.name %></td>
-          <% else %>
-            <td><%= push.url_token %></td>
-          <% end %>
-          <td class="">
-            <% if push.file? %>
-              <%= _('File(s)') %>
-            <% elsif push.url? %>
-              <%= _('URL') %>
-            <% elsif push.qr? %>
-              <%= _('QR Code') %>
-            <% else %>
-              <%= _('Text') %>
-            <% end %>
-          </td>
-          <td><%= I18n.l push.created_at.in_time_zone(Settings.timezone), format: :long %></td>
-          <td>
-            <% if push.note.blank? %>
-              <span class="badge rounded-pill bg-light text-dark"><%= _('None') %></span>
-            <% else %>
-              <div class="text-nowrap overflow-hidden">
-                <%= push.note.truncate(30, omission: '...') %>
-              </div>
-            <% end %>
-          </td>
-          <% if push.expired? %>
-            <td class=""><span class="badge rounded-pill bg-danger"><%= _('Expired') %></span></td>
-          <% else %>
-            <td class="text-success"><%= _('%{views} views or %{days} days') % { views: push.views_remaining, days: push.days_remaining } %></td>
-          <% end %>
-          <td class="text-center">
-            <div class="btn-group w-100" role="group" aria-label="<%= _('Push Controls') %>">
-              <% unless push.expired? %>
-                <%= link_to preview_push_path(push), class: 'btn btn-primary btn-sm', rel: 'nofollow' do %>
-                  <%= _('Preview') %>
-                <% end %>
-                <%= link_to edit_push_path(push), class: 'btn btn-warning btn-sm', rel: 'nofollow' do %>
-                  <%= _('Edit') %>
-                <% end %>
-              <% end %>
-              <%= link_to audit_push_path(push), class: 'btn btn-info btn-sm', rel: 'nofollow' do %>
-                <%= _('Audit') %>
-              <% end %>
-            </div>
-          </td>
-        </tr>
+      </h2>
+      <p class="text-muted mb-4">
+        <%= _('Create your first secure push to share passwords, files, or URLs.') %>
+      </p>
+      <%= link_to new_push_path(tab: "text"), class: 'btn btn-primary btn-lg' do %>
+        <em class="bi bi-plus-lg me-2"></em><%= _('Create Your First Push') %>
       <% end %>
-      </tbody>
-    </table>
-    <%= paginate @pushes, list_classes: %w(pagination justify-content-center) %>
+    </div>
+  <% else %>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0" aria-label="<%= _('Pushes') %>">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" class="ps-3"><%= _('Name / ID') %></th>
+            <th scope="col"><%= _('Type') %></th>
+            <th scope="col"><%= _('Created') %></th>
+            <th scope="col"><%= _('Note') %></th>
+            <th scope="col"><%= _('Status') %></th>
+            <th scope="col" class="text-end pe-3"><%= _('Actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @pushes.each do |push| %>
+            <tr>
+              <td class="ps-3">
+                <div class="fw-medium">
+                  <% if push.name.present? %>
+                    <%= push.name %>
+                  <% else %>
+                    <code class="text-muted small"><%= push.url_token %></code>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <% if push.file? %>
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis">
+                    <em class="bi bi-file-earmark me-1"></em><%= _('File') %>
+                  </span>
+                <% elsif push.url? %>
+                  <span class="badge bg-info-subtle text-info-emphasis">
+                    <em class="bi bi-link-45deg me-1"></em><%= _('URL') %>
+                  </span>
+                <% elsif push.qr? %>
+                  <span class="badge bg-warning-subtle text-warning-emphasis">
+                    <em class="bi bi-qr-code me-1"></em><%= _('QR') %>
+                  </span>
+                <% else %>
+                  <span class="badge bg-primary-subtle text-primary-emphasis">
+                    <em class="bi bi-file-text me-1"></em><%= _('Text') %>
+                  </span>
+                <% end %>
+              </td>
+              <td>
+                <span class="text-muted small">
+                  <%= local_time(push.created_at, :short) %>
+                </span>
+              </td>
+              <td>
+                <% if push.note.blank? %>
+                  <span class="text-muted small">&mdash;</span>
+                <% else %>
+                  <span class="small" title="<%= push.note %>">
+                    <%= push.note.truncate(25, omission: '...') %>
+                  </span>
+                <% end %>
+              </td>
+              <td>
+                <% if push.expired? %>
+                  <span class="badge bg-danger-subtle text-danger-emphasis">
+                    <em class="bi bi-x-circle me-1"></em><%= _('Expired') %>
+                  </span>
+                <% else %>
+                  <span class="badge bg-success-subtle text-success-emphasis">
+                    <em class="bi bi-check-circle me-1"></em>
+                    <%= _('%{views}v / %{days}d') % { views: push.views_remaining, days: push.days_remaining } %>
+                  </span>
+                <% end %>
+              </td>
+              <td class="text-end pe-3">
+                <div class="btn-group btn-group-sm" role="group" aria-label="<%= _('Push Controls') %>">
+                  <% unless push.expired? %>
+                    <%= link_to preview_push_path(push), class: 'btn btn-outline-primary', rel: 'nofollow', title: _('Preview') do %>
+                      <em class="bi bi-eye"></em>
+                    <% end %>
+                    <%= link_to edit_push_path(push), class: 'btn btn-outline-secondary', rel: 'nofollow', title: _('Edit') do %>
+                      <em class="bi bi-pencil"></em>
+                    <% end %>
+                  <% end %>
+                  <%= link_to audit_push_path(push), class: 'btn btn-outline-secondary', rel: 'nofollow', title: _('Audit Log') do %>
+                    <em class="bi bi-list-check"></em>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <%= paginate @pushes, list_classes: %w(pagination justify-content-center mb-0) %>
+    </div>
   <% end %>
 </main>

@@ -4,12 +4,10 @@ require "application_system_test_case"
 
 class PasswordGeneratorTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_password_pushes = true
     Rails.application.reload_routes!
 
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
@@ -122,10 +120,9 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     sleep 0.5
 
-    # Settings should be persisted
-    find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
-    # Note: Cookie persistence may require page reload, so we check if value was saved
-    # The exact behavior depends on implementation
+    # Settings should be persisted (syllables value we set before navigating away)
+    syllables_after = find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
+    assert_equal new_value, syllables_after.value, "Generator syllables setting should persist after save and revisit"
   end
 
   test "password generator is available on password form" do
@@ -224,6 +221,6 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     # Should create push successfully
     assert_current_path %r{/p/[a-zA-Z0-9_-]+/preview}, wait: 5
-    assert_text "Push Preview", wait: 5
+    assert_text "Push Created", wait: 5
   end
 end

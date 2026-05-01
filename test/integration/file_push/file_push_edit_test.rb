@@ -7,11 +7,9 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
   include ActionDispatch::TestProcess
 
   setup do
-    Settings.enable_logins = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
     @luca = users(:luca)
-    @luca.confirm
     sign_in @luca
   end
 
@@ -155,7 +153,7 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     push.update_columns(expired: true, expired_on: Time.current, payload_ciphertext: nil)
 
     get edit_push_path(push)
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
 
     patch push_path(push), params: {
       push: {
@@ -163,7 +161,7 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
         payload: "New message"
       }
     }
-    assert_redirected_to push_path(push)
+    assert_redirected_to pushes_path
   end
 
   test "edit page shows update button for file push" do

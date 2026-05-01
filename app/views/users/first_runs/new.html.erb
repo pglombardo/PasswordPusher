@@ -1,0 +1,228 @@
+<% title(_('Password Pusher — First Run Setup')) %>
+
+<div class="row justify-content-center py-4">
+  <div class="col-12 col-md-10 col-lg-8">
+
+    <!-- Hero Section with gradient background -->
+    <div class="text-center rounded-4 p-4 p-md-5 mb-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <!-- Logo -->
+      <div class="mb-3">
+        <div class="d-inline-block rounded-3 p-3 bg-white shadow">
+          <%= image_tag asset_path('logo-transparent-sm-bare.png'), alt: _('Password Pusher Logo'), class: 'img-fluid', style: 'max-height: 80px; width: auto;' %>
+        </div>
+      </div>
+
+      <!-- Brand name -->
+      <p class="display-5 fw-bold text-white mb-1">Password Pusher</p>
+
+      <!-- Badge -->
+      <div class="mb-5">
+        <span class="badge rounded-pill px-3 py-2 text-uppercase fw-semibold" style="background: rgba(255,255,255,0.2); color: #fff; font-size: 0.75rem; letter-spacing: 0.05em;">
+          <span class="bi bi-stars me-1" aria-hidden="true"></span>
+          <%= _('Open Source Edition') %>
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="h2 fw-bold text-white mb-3"><%= _('First Run Setup') %></h1>
+      <p class="lead mx-auto mb-0" style="max-width: 32em; color: rgba(255,255,255,0.9);">
+        <%= _('Securely share sensitive information with automatic expiration & deletion. Track access with full audit logs.') %>
+      </p>
+    </div>
+
+    <!-- Setup Form Card -->
+    <div class="card shadow border-0 mb-5" style="border-top: 4px solid #667eea !important;">
+      <div class="card-body p-4 p-md-5">
+        <div class="text-center mb-4">
+          <span class="bi bi-person-plus-fill text-primary" style="font-size: 2.5rem;" aria-hidden="true"></span>
+          <h2 class="h4 fw-bold mt-2 mb-1"><%= _('Create Admin Account') %></h2>
+          <p class="text-muted small mb-0"><%= _('This account will have full access to manage your Password Pusher instance.') %></p>
+        </div>
+
+        <%= form_with(model: resource, as: resource_name, url: first_run_path) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <% if FirstRunBootCode.needed? %>
+            <div class="alert alert-warning d-flex align-items-start text-start mb-4" role="alert">
+              <span class="bi bi-exclamation-triangle-fill me-2 mt-1 flex-shrink-0" aria-hidden="true"></span>
+              <div>
+                <strong><%= _('Boot Code Required') %></strong>
+                <p class="mb-0 mt-1 small"><%= _('Enter the boot code shown in the application logs during startup.') %></p>
+              </div>
+            </div>
+
+            <div class="form-floating mb-3">
+              <%= f.text_field :boot_code,
+                class: "form-control form-control-lg",
+                placeholder: _('Boot Code'),
+                required: true,
+                autocomplete: "off",
+                autofocus: true %>
+              <%= f.label :boot_code, _('Boot Code') %>
+            </div>
+          <% end %>
+
+          <div class="form-floating mb-3">
+            <%= f.email_field :email,
+              class: "form-control form-control-lg",
+              autocomplete: "email",
+              placeholder: _('Email'),
+              required: true,
+              autofocus: !FirstRunBootCode.needed? %>
+            <%= f.label :email, _('Email') %>
+          </div>
+
+          <div class="form-floating mb-3">
+            <%= f.password_field :password,
+              class: "form-control form-control-lg",
+              autocomplete: "new-password",
+              placeholder: _('Password'),
+              required: true %>
+            <%= f.label :password, _('Password') %>
+          </div>
+
+          <% minimum_password_length = @minimum_password_length || (resource_class.password_length.min if respond_to?(:resource_class) && resource_class.respond_to?(:password_length)) %>
+          <% if minimum_password_length %>
+            <p class="text-muted small mt-2 mb-0">
+              <%= sprintf(t('devise.registrations.password_minimum'), minimum_password_length) %>
+            </p>
+          <% end %>
+
+          <div class="alert alert-info d-flex align-items-start text-start mt-4 mb-0" role="status">
+            <span class="bi bi-info-circle-fill me-2 mt-1 flex-shrink-0" aria-hidden="true"></span>
+            <p class="mb-0 small"><%= _("Your account will be created and you'll be signed in automatically.") %></p>
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary mt-4 d-flex align-items-center justify-content-center gap-2" type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+            <span class="bi bi-rocket-takeoff" aria-hidden="true"></span>
+            <%= _('Create Admin Account') %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+
+    <% if FirstRunBootCode.needed? %>
+      <!-- Boot Code Help -->
+      <div class="card bg-light border-0 mb-5">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-start">
+            <span class="bi bi-terminal text-primary me-3" style="font-size: 1.5rem;" aria-hidden="true"></span>
+            <div>
+              <h2 class="h6 fw-semibold mb-2"><%= _('How to retrieve the boot code') %></h2>
+              <p class="small text-muted mb-3"><%= _('The boot code is printed to the application logs when the server starts. Use one of the following:') %></p>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <p class="small fw-semibold mb-1"><%= _('Docker') %></p>
+                  <pre class="bg-dark text-light p-2 rounded small mb-0" style="font-size: 0.8rem;"><code>docker logs &lt;container_name&gt;</code></pre>
+                </div>
+                <div class="col-md-6">
+                  <p class="small fw-semibold mb-1"><%= _('Docker Compose') %></p>
+                  <pre class="bg-dark text-light p-2 rounded small mb-0" style="font-size: 0.8rem;"><code>docker compose logs</code></pre>
+                </div>
+              </div>
+              <p class="small text-muted mt-3 mb-0"><%= _('Look for a line containing the boot code in the output.') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Section Divider -->
+    <div class="text-center mb-4">
+      <span class="text-muted small text-uppercase fw-semibold"><%= _('What you can do with Password Pusher') %></span>
+      <hr class="mt-2 mb-0">
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <span class="bi bi-shield-lock text-white" style="font-size: 1.75rem;" aria-hidden="true"></span>
+          </div>
+          <h3 class="h6 fw-bold mb-2"><%= _('Encrypted & ephemeral') %></h3>
+          <p class="small text-muted mb-0"><%= _('Secrets are stored encrypted and removed automatically after they expire or are viewed.') %></p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <span class="bi bi-file-earmark-text text-white" style="font-size: 1.75rem;" aria-hidden="true"></span>
+          </div>
+          <h3 class="h6 fw-bold mb-2"><%= _('Passwords, text & files') %></h3>
+          <p class="small text-muted mb-0"><%= _('Share passwords, notes, URLs, and files with configurable expiration and view limits.') %></p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <span class="bi bi-github text-white" style="font-size: 1.75rem;" aria-hidden="true"></span>
+          </div>
+          <h3 class="h6 fw-bold mb-2"><%= _('100% open source') %></h3>
+          <p class="small text-muted mb-0"><%= _('Self-host with Docker or your own stack. No vendor lock-in, full transparency.') %></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Helpful Links -->
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h6 fw-bold mb-3 d-flex align-items-center">
+          <span class="bi bi-bookmark-star text-primary me-2" aria-hidden="true"></span>
+          <%= _('Helpful links') %>
+        </h2>
+        <div class="row g-2">
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-sliders text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('Configuration'), 'https://docs.pwpush.com/docs/self-hosted-configuration/', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-download text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('Installation'), 'https://docs.pwpush.com/docs/installation/', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-book text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('Documentation'), 'https://docs.pwpush.com', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-question-circle text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('FAQ'), 'https://docs.pwpush.com/docs/faq/', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-box-seam text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('Docker images'), 'https://hub.docker.com/u/pglombardo', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-braces text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('JSON API'), 'https://docs.pwpush.com/docs/api-v1/', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="d-flex align-items-center p-2 rounded bg-light position-relative">
+              <span class="bi bi-github text-primary me-2" aria-hidden="true"></span>
+              <%= link_to _('Source code'), 'https://github.com/pglombardo/PasswordPusher', target: '_blank', rel: 'noopener noreferrer', class: 'text-decoration-none small fw-medium stretched-link' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <p class="text-center text-muted small mt-4 mb-0">
+      <span class="bi bi-heart-fill text-danger me-1" aria-hidden="true"></span>
+      <%= _('Thanks for choosing Password Pusher!') %>
+    </p>
+
+  </div>
+</div>

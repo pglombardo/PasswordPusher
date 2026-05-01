@@ -1,126 +1,210 @@
 <% title(_('About Password Pusher')) %>
-<h4 class='border-bottom my-3 py-3'><%= _('About') %></h4>
 
-<div class="row">
-    <div class="col-8">
-        <p>
-            <%= _('Password Pusher is a tool used for sharing passwords and other sensitive information with other people securely.') %>
-        </p>
-        <p>
-            <%= _('With Password Pusher, you can create a unique, one-time URL that will expire after a certain amount of time or after it has been accessed a certain number of times, ensuring that your information remains private and secure.') %>
-            <%= _('It is often used by individuals and organizations to share login credentials or other sensitive data with colleagues, clients, or partners.') %>
-        </p>
-        <p>
-            <%= _('Password Pusher is a simple and convenient solution for securely sharing passwords without the need for email or other less secure communication methods.') %>
-        </p>
-        <p>
-            <%= _('Hosted at') %>
-            <%= link_to 'pwpush.com', 'https://pwpush.com' %>
-            <%= _('or you can run your own private instance wherever you like.') %>
-        </p>
+<div class="row justify-content-center">
+  <div class="col-lg-10 col-xl-9">
+    <header class="text-center mb-5 pb-4 border-bottom">
+      <h1 class="display-5 fw-bold mb-3"><%= _('About Password Pusher') %></h1>
+      <p class="lead text-body-emphasis">
+        <%= _('Open source software for securely sharing passwords, text, URLs, and files. Trusted by thousands of organizations worldwide.') %>
+      </p>
+    </header>
 
-        <p>
-            <%= _('The source code is') %>
-            <a href="https://github.com/pglombardo/PasswordPusher" target="_blank"><%= _('on Github') %></a>.
-            <%= _('It’s opensource and free for anyone to use, review or modify.') %>
-        </p>
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-info-circle me-2"></em><%= _('What It Is') %></h2>
+      <p class="mb-2">
+        <%= _('Password Pusher is a tool for sharing sensitive information securely. You create a unique, one-time link that expires after a set number of views or a set time. Recipients open the link, see the content once, and the data is no longer available—reducing the risk of credentials living in email or chat.') %>
+      </p>
+      <p class="mb-0">
+        <%= _('It is open source, free to use and modify, and designed to be self-hosted so your data never leaves your infrastructure.') %>
+      </p>
+    </section>
 
-        <h5 class='border-bottom my-3 py-3'><%= _('The Author') %></h5>
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-clock-history me-2"></em><%= _('The Story') %></h2>
+      <p class="mb-2">
+        <%= _('Password Pusher began in December 2011 with a simple goal: stop sending passwords over email. The first commit was on') %>
+        <strong><%= local_date(Date.new(2011, 12, 28), :long) %></strong>.
+        <%= _('The public service at pwpush.com went live shortly after.') %>
+      </p>
+      <p class="mb-2">
+        <%= _('Over the years it grew into a full-featured application—passwords, URLs, file uploads, QR codes, a JSON API, dozens of languages, and a large self-hosted community. Today it is used by companies, teams, and individuals who want a simple, auditable way to share secrets without leaving them in inboxes or messaging apps.') %>
+      </p>
+      <p class="mb-0">
+        <%= _('In 2024,') %>
+        <%= link_to 'Apnotic', 'https://apnotic.com', target: '_blank', rel: 'noopener noreferrer' %>
+        <%= _('was formed to further the open source Password Pusher project: maintaining the codebase, hosting the public service at pwpush.com, publishing documentation, and offering a Pro edition for teams that want additional features and support. The open source version remains free and self-hostable.') %>
+      </p>
+    </section>
 
-        <p>
-            <%= _('My name is Peter Giacomo Lombardo. You can find me on') %>
-            <a href="https://www.linkedin.com/in/peterlombardo/" target="_blank">LinkedIn</a>,
-            <a href="https://github.com/pglombardo" target="_blank">Github</a>
-            <%= _('or') %>
-            <a href="https://the0x00.dev" target="_blank">The OxOO</a>.</p>
-
-        <p>
-            <%= _('For updates, you can') %>
-            <%= link_to _('follow me on Twitter'), 'https://twitter.com/pwpush', target: '_blank' %>
-            <%= _('or') %>
-            <%= link_to _('on Github'), 'https://github.com/pglombardo', target: '_blank' %>.
-        </p>
-
-        <h5 class='border-bottom my-3 py-3'><%= _('Want to Help Out?') %></h5>
-
-        <p>
-            <strong>
-                <%= _('By far the biggest help is to spread the word') %>:
-            </strong>
-            <%= _('Share and suggest Password Pusher to colleagues and friends.') %>
-        </p>
-
-        <p><%= _('You can also') %>:</p>
-        <ol class="list-group list-group-numbered">
-          <li class="list-group-item">
-            <a href="https://github.com/pglombardo/PasswordPusher" target="_blank"><%= _('Star the Github project') %></a>.
-            <%= _("It's gasoline for the algos that trend Password Pusher.") %>
-          </li>
-          <li class="list-group-item">
-            <%= _("Sign up for the") %>
-            <a href="https://buttondown.email/pwpush" target="_blank"><%= _('newsletter') %></a>
-            <%= _("to get updates on important releases, security issues, tips and more.") %>
-          </li>
-          <li class="list-group-item">
-            <%= _('Follow Password Pusher on') %>
-            <a href="https://www.facebook.com/pwpush" target="_blank">Facebook</a>,
-            <a href="https://twitter.com/pwpush" target="_blank">Twitter</a>
-            <%= _('and') %>
-            <a href="https://github.com/pglombardo" target="_blank">Github</a>.
-          </li>
-          <li class="list-group-item">
-            <%= _('Fix an issue, add a feature or write some documentation.') %> <a href="https://github.com/pglombardo/PasswordPusher/issues" target="_blank"><%= _('See the Github project.') %></a>
-          </li>
-          <li class="list-group-item">
-            <%= _('Sign up to Digital Ocean') %>
-                <a href="https://m.do.co/c/f4ea6ef24c13" target="_blank"><%= _('with this link') %></a>
-            <%= _('to get Password Pusher a hosting credit.') %>
-          </li>
-        </ol>
-
-        <p class='mt-3'><%= _('Thank you for supporting Password Pusher!') %></p>
-
-        <h5 class='border-bottom my-3 py-3'><%= _('Resources') %></h5>
-
-        <p class='mt-3'>
-            <%= _('If you are giving a presentation, authoring a blog post or video about Password Pusher, feel free to contact me for any questions.') %>
-        </p>
-        <p class='mt-3'>
-            <%= _('We have media resources and a full explanation of features available in') %>
-            <%= link_to _('Windows Powerpoint'), 'https://pwpush.fra1.cdn.digitaloceanspaces.com/resources/Password%20Pusher%20Media%20Resources.pptx' %>
-            <%= _('and') %>
-            <%= link_to _('Mac Keynote'), 'https://pwpush.fra1.cdn.digitaloceanspaces.com/resources/Password%20Pusher%20Media%20Resources.key' %>
-            <%= _('formats.') %>
-
-        </p>
-    </div>
-    <div class="col">
-      <div class="card mb-3">
-          <h5 class="card-header"><em class="bi bi-stars"></em> <%= _('Birthday') %></h5>
-          <div class="card-body">
-              <h5 class="card-title"><%= _('More Than 11 Years Old') %></h5>
-              <p class="card-text">
-                  <%= _('The first git commit to Password Pusher was on') %>
-                  <strong>
-                  <%= l Date.new(2011, 12, 28), format: :long %>.
-                  </strong>
-                  <%= _('pwpush.com went live shortly thereafter.') %></p>
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-collection me-2"></em><%= _('What You Can Do') %></h2>
+      <ul class="list-unstyled row g-3">
+        <li class="col-md-6">
+          <div class="d-flex gap-2">
+            <span class="text-primary"><em class="bi bi-key fs-5"></em></span>
+            <div>
+              <strong><%= _('Passwords & text') %></strong>
+              <span class="text-muted d-block small"><%= _('Share one-time secrets with expiration by views or time.') %></span>
+            </div>
           </div>
-      </div>
-      <div class="card mb-3">
-          <%= image_tag 'pwpush_logo.png', class: 'card-img-top', alt: 'Password Pusher Logo' %>
-          <div class="card-body">
-              <h5 class="card-title"><%= _('The Original Theme') %></h5>
-              <p class="card-text"><%= _('The original site design consisted of a dark background with a bold yellow font.') %></p>
+        </li>
+        <li class="col-md-6">
+          <div class="d-flex gap-2">
+            <span class="text-primary"><em class="bi bi-link-45deg fs-5"></em></span>
+            <div>
+              <strong><%= _('URLs') %></strong>
+              <span class="text-muted d-block small"><%= _('Send links that redirect only after the recipient opens the push.') %></span>
+            </div>
           </div>
+        </li>
+        <li class="col-md-6">
+          <div class="d-flex gap-2">
+            <span class="text-primary"><em class="bi bi-file-earmark fs-5"></em></span>
+            <div>
+              <strong><%= _('Files') %></strong>
+              <span class="text-muted d-block small"><%= _('Upload files that expire after retrieval or time.') %></span>
+            </div>
+          </div>
+        </li>
+        <li class="col-md-6">
+          <div class="d-flex gap-2">
+            <span class="text-primary"><em class="bi bi-qr-code fs-5"></em></span>
+            <div>
+              <strong><%= _('QR codes') %></strong>
+              <span class="text-muted d-block small"><%= _('Generate expiring QR codes for credentials or links.') %></span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p class="mt-2 mb-0 small text-muted">
+        <%= _('Optional passphrase protection, view/expiration limits, optional deletion by viewer, JSON API, and more. See the') %>
+        <%= link_to _('documentation'), 'https://docs.pwpush.com', target: '_blank', rel: 'noopener noreferrer' %>
+        <%= _('for details.') %>
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-shield-check me-2"></em><%= _('Security & Self-Hosting') %></h2>
+      <p class="mb-2">
+        <%= _('Payloads are encrypted at rest. You control where data lives: run Password Pusher on your own servers, in your cloud, or in Docker. Thousands of companies and teams self-host it so sensitive data never touches third-party SaaS.') %>
+      </p>
+      <p class="mb-0">
+        <%= _('No account is required for basic use; optional user accounts and sign-in let teams track their own pushes. The source code is open so you can review and adapt it.') %>
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-box-arrow-up-right me-2"></em><%= _('Get Started') %></h2>
+      <div class="row g-3">
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100 border">
+            <div class="card-body">
+              <h5 class="card-title h6"><em class="bi bi-book me-1"></em><%= _('Documentation') %></h5>
+              <p class="card-text small text-muted mb-2"><%= _('Installation, configuration, API, and FAQ.') %></p>
+              <%= link_to _('docs.pwpush.com'), 'https://docs.pwpush.com', target: '_blank', rel: 'noopener noreferrer', class: 'stretched-link small fw-medium' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100 border">
+            <div class="card-body">
+              <h5 class="card-title h6"><em class="bi bi-github me-1"></em><%= _('Source code') %></h5>
+              <p class="card-text small text-muted mb-2"><%= _('Open source on GitHub. Use, review, or contribute.') %></p>
+              <%= link_to _('GitHub'), 'https://github.com/pglombardo/PasswordPusher', target: '_blank', rel: 'noopener noreferrer', class: 'stretched-link small fw-medium' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card h-100 border">
+            <div class="card-body">
+              <h5 class="card-title h6"><em class="bi bi-cloud me-1"></em><%= _('Hosted option') %></h5>
+              <p class="card-text small text-muted mb-2"><%= _('Use the public service or run your own instance.') %></p>
+              <%= link_to 'pwpush.com', 'https://pwpush.com', target: '_blank', rel: 'noopener noreferrer', class: 'stretched-link small fw-medium' %>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class='text-end'><%= _('Follow for news, changes & updates.') %></p>
-      <div class="d-grid gap-2 d-md-block text-end mb-3">
-          <a href="https://www.facebook.com/pwpush/" target="_blank"><button class="btn btn-info" type="button"><em class="bi bi-facebook"></em></button></a>
-          <a href="https://github.com/pglombardo/PasswordPusher" target="_blank"><button class="btn btn-info" type="button"><em class="bi bi-github"></em></button></a>
-          <a href="https://twitter.com/pwpush" target="_blank"><button class="btn btn-info" type="button"><em class="bi bi-twitter"></em></button></a>
-          <a href="https://reddit.com/r/pwpush" target="_blank"><button class="btn btn-info" type="button"><em class="bi bi-reddit"></em></button></a>
-          <a href="https://buttondown.email/pwpush" target="_blank"><button class="btn btn-info" type="button"><em class="bi bi-newspaper"></em></button></a>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-person me-2"></em><%= _('The Author') %></h2>
+      <p class="mb-2">
+        <%= _('Password Pusher is created and maintained by Peter Giacomo Lombardo. You can find him on') %>
+        <%= link_to 'LinkedIn', 'https://www.linkedin.com/in/peterlombardo/', target: '_blank', rel: 'noopener noreferrer' %>,
+        <%= link_to 'GitHub', 'https://github.com/pglombardo', target: '_blank', rel: 'noopener noreferrer' %>,
+        <%= _('or') %>
+        <%= link_to 'The OxOO', 'https://the0x00.dev', target: '_blank', rel: 'noopener noreferrer' %>.
+      </p>
+      <p class="mb-0">
+        <%= _('For news and updates,') %>
+        <%= link_to _('follow on X'), 'https://twitter.com/pwpush', target: '_blank', rel: 'noopener noreferrer' %>
+        <%= _('or') %>
+        <%= link_to _('subscribe to the newsletter'), 'https://buttondown.email/pwpush', target: '_blank', rel: 'noopener noreferrer' %>.
+      </p>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-building me-2"></em>Apnotic, LLC</h2>
+      <p class="mb-3">
+        <%= _('Apnotic was created to manage and build out the Password Pusher project—maintaining the open source codebase, the public service, documentation, and related products.') %>
+        <%= link_to _('Learn more at apnotic.com'), 'https://apnotic.com/', target: '_blank', rel: 'noopener noreferrer' %>.
+      </p>
+      <h3 class="h6 fw-semibold mb-2"><%= _('Why choose Apnotic?') %></h3>
+      <p class="mb-2">
+        <%= _('Apnotic is built on principles of trust, reliability, and exceptional service.') %>
+      </p>
+      <ul class="mb-0">
+        <li><%= _('Privately held, zero debt, and financially responsible') %></li>
+        <li><%= _('Fanatical customer service and support') %></li>
+        <li><%= _('No venture capital pressure—we build for customers, not investors') %></li>
+        <li><%= _('Run by industry veterans with decades of experience') %></li>
+        <li><%= _('Talk directly with the founder and team') %></li>
+        <li><%= _('14+ years of proven track record with Password Pusher') %></li>
+      </ul>
+    </section>
+
+    <section class="mb-5">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-heart me-2"></em><%= _('Want to Help?') %></h2>
+      <p class="mb-3">
+        <strong><%= _('The biggest help is to spread the word.') %></strong>
+        <%= _('Share Password Pusher with colleagues and friends.') %>
+      </p>
+      <ul class="list-unstyled mb-0">
+        <li class="mb-2">
+          <%= link_to _('Star the project on GitHub'), 'https://github.com/pglombardo/PasswordPusher', target: '_blank', rel: 'noopener noreferrer' %>
+          — <%= _("it helps others discover the project.") %>
+        </li>
+        <li class="mb-2">
+          <%= link_to _('Subscribe to the newsletter'), 'https://buttondown.email/pwpush', target: '_blank', rel: 'noopener noreferrer' %>
+          — <%= _('releases, security notes, and tips.') %>
+        </li>
+        <li class="mb-2">
+          <%= _('Fix a bug, add a feature, or improve the docs.') %>
+          <%= link_to _('See the GitHub project'), 'https://github.com/pglombardo/PasswordPusher', target: '_blank', rel: 'noopener noreferrer' %>.
+        </li>
+      </ul>
+    </section>
+
+    <section class="mb-4">
+      <h2 class="h4 fw-semibold mb-3"><em class="bi bi-folder2-open me-2"></em><%= _('Resources') %></h2>
+      <p class="mb-2">
+        <%= _('Presenting or writing about Password Pusher? Media kits and slide decks are available in') %>
+        <%= link_to _('PowerPoint'), 'https://pwpush.fra1.cdn.digitaloceanspaces.com/resources/Password%20Pusher%20Media%20Resources.pptx', target: '_blank', rel: 'noopener noreferrer' %>
+        <%= _('and') %>
+        <%= link_to _('Keynote'), 'https://pwpush.fra1.cdn.digitaloceanspaces.com/resources/Password%20Pusher%20Media%20Resources.key', target: '_blank', rel: 'noopener noreferrer' %>
+        <%= _('formats. For questions or assets, reach out via the links above.') %>
+      </p>
+    </section>
+
+    <footer class="pt-4 mt-4 border-top text-center">
+      <p class="text-muted small mb-3"><%= _('Thank you for using and supporting Password Pusher.') %></p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="https://github.com/pglombardo/PasswordPusher" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="GitHub"><em class="bi bi-github fs-5"></em></a>
+        <a href="https://twitter.com/pwpush" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="X"><em class="bi bi-twitter fs-5"></em></a>
+        <a href="https://www.facebook.com/pwpush" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="Facebook"><em class="bi bi-facebook fs-5"></em></a>
+        <a href="https://reddit.com/r/pwpush" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="Reddit"><em class="bi bi-reddit fs-5"></em></a>
+        <a href="https://buttondown.email/pwpush" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="Newsletter"><em class="bi bi-envelope fs-5"></em></a>
       </div>
-    </div>
+    </footer>
+  </div>
 </div>

@@ -130,13 +130,13 @@ ru:
       blank: не может быть пустым
       present: должен быть пустым
       too_long:
-        one: слишком длинный (максимум 1 символ)
+        one: слишком длинный (максимум - %{count} символов)
         other: слишком длинный (максимум - %{count} символов)
       too_short:
-        one: слишком короткий (минимум 1 символ)
+        one: слишком короткий (минимум - %{count} символов)
         other: слишком короткий (минимум - %{count} символов)
       wrong_length:
-        one: имеет неправильную длину (должен быть 1 символ)
+        one: имеет неправильную длину (должен быть %{count})
         other: имеет неправильную длину (должно быть %{count} символов)
       not_a_number: не является числом
       not_an_integer: должен быть целым числом
@@ -164,7 +164,7 @@ ru:
     template:
       body: 'Возникли проблемы со следующими полями:'
       header:
-        one: 1 ошибка не позволила сохранить эту %{model}
+        one: ошибка %{count} не позволила сохранить этот %{model}
         other: "%{count} ошибкок не позволили сохранить эту %{model}"
     unavailable_session: |
       Сессия %{id} больше не доступна в памяти.
@@ -214,40 +214,40 @@ ru:
     distance_in_words:
       half_a_minute: полминуты
       less_than_x_seconds:
-        one: менее 1 секунды
+        one: менее %{count} секунды
         other: менее %{count} секунд
       x_seconds:
-        one: 1 секунда
+        one: "%{count} второй"
         other: "%{count} секунды"
       less_than_x_minutes:
         one: менее 1 минуты
         other: менее %{count} минут
       x_minutes:
-        one: 1 минута
+        one: "%{count} минута"
         other: "%{count} минуты"
       about_x_hours:
-        one: около 1 часа
+        one: около %{count} часа
         other: около %{count} часов
       x_days:
-        one: 1 день
+        one: "%{count} день"
         other: "%{count} дня"
       about_x_months:
-        one: около 1 месяца
+        one: около %{count} месяца
         other: около %{count} месяцев
       x_months:
-        one: 1 месяц
+        one: "%{count} месяц"
         other: "%{count} месяца"
       about_x_years:
-        one: около 1 года
+        one: около %{count} года
         other: около %{count} лет
       over_x_years:
-        one: более 1 года
+        one: за %{count} год
         other: более %{count} лет
       almost_x_years:
-        one: почти 1 год
+        one: почти %{count} год
         other: почти %{count} лет
       x_years:
-        one: 1 год
+        one: "%{count} год"
         other: "%{count} года"
     prompts:
       year: Год
@@ -380,13 +380,14 @@ ru:
       destroyed: До свидания! Ваша учетная запись удалена. Надеемся снова увидеть
         вас.
       edit:
-        are_you_sure: Вы уверены?
+        are_you_sure: Это приведет к безвозвратному удалению вашей учетной записи
+          и всех созданных вами пушей. Это действие необратимо. Вы уверены?
         cancel_my_account: Удалить учетную запись
         currently_waiting_confirmation_for_email: 'Ожидается подтверждение электронной
           почты: %{email}'
         leave_blank_if_you_don_t_want_to_change_it: оставьте поле пустым, если не
           хотите его менять
-        title: Редактировать %{resource}
+        title: Редактировать профиль
         unhappy: Разочарованы?
         update: Обновить
         we_need_your_current_password_to_confirm_your_changes: введите текущий пароль
@@ -467,7 +468,7 @@ ru:
       unlock_header: Заголовок разблокировки
       unlock_button: Кнопка разблокировки
     general:
-      remember_me: Запомнить меня
+      remember_me: Помни меня
       login: Вход в систему
       sign_up: Регистрация
       forgot_your: Забыли свой

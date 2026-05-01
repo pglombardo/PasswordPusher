@@ -1,0 +1,139 @@
+<% content_for :title, _("Custom CSS") %>
+
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="mb-4">
+    <h1 class="h3 fw-semibold text-dark mb-2"><%= _("Custom CSS") %></h1>
+    <p class="text-muted"><%= _("Add custom CSS styles to override the default appearance of your Password Pusher instance.") %></p>
+  </div>
+
+  <!-- Warning Alert -->
+  <div class="alert alert-warning d-flex align-items-start mb-4" role="alert">
+    <svg class="text-warning me-3 flex-shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+    </svg>
+    <div>
+      <div class="fw-medium text-warning-emphasis"><%= _("Use Caution") %></div>
+      <div class="small text-warning-emphasis"><%= _("Custom CSS can break the application layout or make it unusable. Test your changes carefully. Invalid CSS will be ignored by browsers.") %></div>
+    </div>
+  </div>
+
+  <!-- Themes Info -->
+  <div class="alert alert-info d-flex align-items-start mb-4" role="alert">
+    <svg class="text-info me-3 flex-shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div>
+      <div class="fw-medium text-info-emphasis"><%= _("Looking for Themes?") %></div>
+      <div class="small text-info-emphasis">
+        <% themes_text = _("Password Pusher includes 26 built-in themes that can be set via the %{code_start}PWP__THEME%{code_end} environment variable. No custom CSS needed for most branding changes.") % {code_start: "<code>", code_end: "</code>"} %>
+        <%= themes_text.html_safe %>
+        <%= link_to _("View the Theme Gallery"), "https://docs.pwpush.com/docs/rebranding/#theme-gallery", target: "_blank", rel: "noopener noreferrer" %>.
+      </div>
+    </div>
+  </div>
+
+  <!-- CSS Form -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <%= form_with url: admin_custom_css_path, method: :patch, data: { turbo: false } do |f| %>
+        <div class="mb-3">
+          <%= label_tag :custom_css, _("Custom Stylesheet"), class: "form-label fw-medium" %>
+          <%= text_area_tag :custom_css, @custom_css,
+                class: "form-control font-monospace",
+                style: "min-height: 400px; font-size: 14px;",
+                placeholder: _("/* Add your custom CSS here */\n\nbody {\n  background-color: #f5f5f5;\n}"),
+                autocomplete: "off",
+                spellcheck: "false",
+                autocorrect: "off",
+                autocapitalize: "off" %>
+          <div class="form-text text-muted">
+            <%= _("CSS entered here will be injected into every page. Changes take effect immediately after saving.") %>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="form-text text-muted small">
+            <%= _("Tip: Use Ctrl+Enter (or Cmd+Enter on Mac) to save quickly") %>
+          </div>
+          <%= f.submit _("Save Custom CSS"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Example Section -->
+  <div class="card bg-light border-0 mt-4">
+    <div class="card-body">
+      <h5 class="h6 fw-semibold text-dark mb-3"><%= _("Common Customization Examples") %></h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Make the password textarea larger with monospace font") %> */</code>
+            <pre class="mb-0 small"><code>#push_payload {
+  min-height: 300px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 1.1rem;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Style the Generate Password button with gradient") %> */</code>
+            <pre class="mb-0 small"><code>#generate_password {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  font-weight: 600;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Customize slider appearance") %> */</code>
+            <pre class="mb-0 small"><code>.form-range::-webkit-slider-thumb {
+  background-color: #0d6efd;
+  transform: scale(1.2);
+}
+.form-range::-webkit-slider-runnable-track {
+  height: 8px;
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Style the Push It button") %> */</code>
+            <pre class="mb-0 small"><code>button[type="submit"].btn-lg {
+  background-color: #198754;
+  border-radius: 50px;
+  padding: 1rem 3rem;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 15px rgba(25, 135, 84, 0.4);
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Highlight the passphrase field when focused") %> */</code>
+            <pre class="mb-0 small"><code>#push_passphrase:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}</code></pre>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bg-white p-3 rounded border">
+            <code class="d-block text-muted small mb-2">/* <%= _("Add card-style borders to form sections") %> */</code>
+            <pre class="mb-0 small"><code>.border.rounded-3 {
+  border: 2px solid #e9ecef !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s;
+}
+.border.rounded-3:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

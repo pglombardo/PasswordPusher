@@ -4,11 +4,9 @@ require "application_system_test_case"
 
 class UrlCookiesTest < ApplicationSystemTestCase
   setup do
-    Settings.enable_logins = true
     Settings.enable_url_pushes = true
     Rails.application.reload_routes!
     @user = users(:luca)
-    @user.confirm
     login_as(@user, scope: :user)
   end
 
@@ -35,12 +33,18 @@ class UrlCookiesTest < ApplicationSystemTestCase
     assert_equal "Save", container_data["knobsLangSaveValue"]
     assert_equal "Saved!", container_data["knobsLangSavedValue"]
 
+    click_button "Show / Hide"
+    assert_selector "#additionalOptionsCollapse.show"
+
     # Check form elements have correct knobs targets
     assert_equal "retrievalStepCheckbox", find("#push_retrieval_step")["data-knobs-target"]
   end
 
   test "saving settings persists when revisiting url page" do
     visit new_push_path(tab: "url")
+
+    click_button "Show / Hide"
+    assert_selector "#additionalOptionsCollapse.show"
 
     # Get the default values for comparison
     default_days = evaluate_script("document.querySelector('#push_expire_after_days').value")
@@ -75,6 +79,9 @@ class UrlCookiesTest < ApplicationSystemTestCase
     # Navigate away and then revisit the page
     visit root_path
     visit new_push_path(tab: "url")
+
+    click_button "Show / Hide"
+    assert_selector "#additionalOptionsCollapse.show"
 
     # Verify the saved values are restored
     assert_equal custom_days, evaluate_script("document.querySelector('#push_expire_after_days').value")

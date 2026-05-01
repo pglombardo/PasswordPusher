@@ -1,17 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
-# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
-
 name: Ruby Test Runs
 
 on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, v2-development ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -65,22 +58,19 @@ jobs:
           bundle install --jobs 4 --retry 3
           yarn install --frozen-lockfile
 
-      # Pin Chrome to version 133 to avoid flaky system test failures.
-      # Chrome 134+ has a known bug causing intermittent Selenium/Capybara failures
-      # where session paths don't update correctly after visit() calls.
-      # See: https://github.com/teamcapybara/capybara/issues/2800
-      # Remove this pin once the upstream issue is resolved.
+      # Pin Chrome for system tests: newer Chrome + headless has caused Capybara to treat
+      # Bootstrap modals and other UI as non-visible while still in the DOM, and flaky
+      # visit()/path behavior. See https://github.com/teamcapybara/capybara/issues/2800
       - name: Setup Chrome
         id: setup-chrome
-        uses: browser-actions/setup-chrome@latest
+        uses: browser-actions/setup-chrome@v2
         with:
-          chrome-version: 133
+          chrome-version: "133"
           install-chromedriver: true
 
       - name: Prepare tests
-        env:
-          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
+          yarn build:css:single
           bin/rails assets:precompile RAILS_ENV=test
           bin/rails db:migrate RAILS_ENV=test
 
@@ -91,16 +81,19 @@ jobs:
       - name: Run system tests
         env:
           CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+          # Selenium 4 reads this for ChromeDriver (see selenium-webdriver Chrome::Service)
+          SE_CHROMEDRIVER: ${{ steps.setup-chrome.outputs.chromedriver-path }}
         run: |
           bin/rails test:system
 
       - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+          compression-level: 0
 
       - name: Post job failure details to Campfire
         if: failure() && github.ref == 'refs/heads/master'

@@ -1,0 +1,111 @@
+name: 🐛 Bug report
+description: If something isn't working 🔧
+title: "[Bug]: "
+labels:
+  - bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report
+        If something isn't working for you, we definitely want to know.
+        Thanks for taking the time to file an issue!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of what the bug is.
+      placeholder: Tell us what you expected to happen vs what actually happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 🔬 How to reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: code_sample
+    attributes:
+      label: 💻 Code sample
+      description: If applicable, attach a minimal code sample or configuration that reproduces the issue.
+      placeholder: Paste any minimal snippet/config here (remove secrets).
+      render: shell
+
+  - type: dropdown
+    id: edition
+    attributes:
+      label: 🌍 Which edition
+      description: Which edition are you running of PwPush?
+      options:
+        - pwpush.com (Premium)
+        - pwpush.com (Pro)
+        - pwpush.com (Paid Support - Self Hosted)
+        - oss.pwpush.com
+
+  - type: checkboxes
+    id: environment
+    attributes:
+      label: 🌍 Environment
+      description: Where are you running/using PwPush?
+      options:
+        - label: pwpush.com (Hosted)
+        - label: Docker Image – pwpush
+        - label: Docker Image – pwpush-public-gateway
+        - label: Docker Image – pwpush-worker
+        - label: Docker Image – Custom image
+        - label: Digital Ocean – App Platform
+        - label: Digital Ocean – Kubernetes Service
+        - label: Heroku
+        - label: Microsoft Azure – App Service
+        - label: Microsoft Azure – Container Instances (ACI)
+        - label: Microsoft Azure – Container Apps (ACA)
+        - label: Microsoft Azure – Kubernetes Service (AKS)
+        - label: Google Cloud – App Engine
+        - label: Google Cloud – Cloud Run
+        - label: Google Cloud – Kubernetes Engine
+        - label: AWS – Elastic Container Service (ECS)
+        - label: AWS – Kubernetes Service
+        - label: Source Code
+        - label: Other (please specify below)
+
+  - type: input
+    id: other_install
+    attributes:
+      label: Other Install location
+      description: If applicable, where is your PWPush hosted?
+      placeholder: e.g. Alternative container based cloud provider
+
+  - type: input
+    id: version
+    attributes:
+      label: 📦 App version
+      description: If applicable, what version are you running?
+      placeholder: e.g. v1.40.2
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📸 Screenshots
+      description: If applicable, add screenshots to help explain your problem. You can paste images directly here.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 📈 Expected behavior
+      description: A clear and concise description of what you expected to happen.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Additional context
+      description: Add any other context, logs, or details about the problem here.

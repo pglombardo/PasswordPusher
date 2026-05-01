@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   add_flash_types :info, :error, :success, :warning
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  include Pwpush::FirstRun
   include SetLocale
+  include EnforceRequiredMfa
 
   private
 

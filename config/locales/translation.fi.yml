@@ -88,13 +88,13 @@ fi:
       blank: ei voi olla tyhjä
       present: täytyy olla sisällötön
       too_long:
-        one: on liian pitkä (saa olla enintään 1 merkki)
+        one: on liian pitkä (suurin sallittu merkkimäärä on %{count})
         other: on liian pitkä (saa olla enintään %{count} merkkiä)
       too_short:
-        one: on liian lyhyt (oltava vähintään 1 merkki)
+        one: on liian lyhyt (vähimmäismäärä on %{count} merkkiä)
         other: on liian lyhyt (oltava vähintään %{count} merkkiä)
       wrong_length:
-        one: on väärän pituinen (täytyy olla täsmälleen 1 merkki)
+        one: on väärän pituinen (pitäisi olla %{count} merkki)
         other: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
       not_a_number: ei ole luku
       not_an_integer: täytyy olla kokonaisluku
@@ -129,7 +129,7 @@ fi:
     template:
       body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:
-        one: Virhe syötteessä esti mallin %{model} tallentamisen
+        one: "%{count}-virhe esti tämän %{model}:n tallentamisen"
         other: "%{count} virhettä esti mallin %{model} tallentamisen"
   activerecord:
     errors:
@@ -171,40 +171,40 @@ fi:
     distance_in_words:
       half_a_minute: puoli minuuttia
       less_than_x_seconds:
-        one: alle sekunti
+        one: alle %{count} sekuntia
         other: alle %{count} sekuntia
       x_seconds:
-        one: sekunti
+        one: "%{count} sekunti"
         other: "%{count} sekuntia"
       less_than_x_minutes:
         one: alle minuutti
         other: alle %{count} minuuttia
       x_minutes:
-        one: minuutti
+        one: "%{count} minuutti"
         other: "%{count} minuuttia"
       about_x_hours:
-        one: noin tunti
+        one: noin %{count} tunti
         other: noin %{count} tuntia
       x_days:
-        one: päivä
+        one: "%{count} päivä"
         other: "%{count} päivää"
       about_x_months:
-        one: noin kuukausi
+        one: noin %{count} kuukausi
         other: noin %{count} kuukautta
       x_months:
-        one: kuukausi
+        one: "%{count} kuukausi"
         other: "%{count} kuukautta"
       about_x_years:
-        one: vuosi
+        one: noin %{count} vuosi
         other: noin %{count} vuotta
       over_x_years:
-        one: yli vuosi
+        one: yli %{count} vuoden
         other: yli %{count} vuotta
       almost_x_years:
-        one: melkein yksi vuosi
+        one: lähes %{count} vuosi
         other: melkein %{count} vuotta
       x_years:
-        one: vuosi
+        one: "%{count} vuosi"
         other: "%{count} vuotta"
     prompts:
       year: Vuosi
@@ -366,7 +366,7 @@ fi:
           %{email}'
         leave_blank_if_you_don_t_want_to_change_it: jätä tämä tyhjäksi, mikäli et
           halua vaihtaa
-        title: Muokkaa %{resource}
+        title: Muokkaa profiilia
         unhappy: Onneton?
         update: Päivitä
         we_need_your_current_password_to_confirm_your_changes: tarvitsemme nykyisen

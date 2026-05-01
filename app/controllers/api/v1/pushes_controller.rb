@@ -147,13 +147,15 @@ class Api::V1::PushesController < Api::BaseController
       }
   EOS
   def create
-    # Require authentication if allow_anonymous is false
-    # See config/settings.yml
-    authenticate_user! if Settings.enable_logins && !Settings.allow_anonymous
+    permitted_params = push_params
 
-    @push = Push.new(push_params)
+    # Require authentication if anonymous creation is disabled or
+    # when creating file pushes / uploading attachments.
+    authenticate_user! if requires_authentication_for_create?(permitted_params)
 
-    if !push_params[:kind].present?
+    @push = Push.new(permitted_params)
+
+    if !permitted_params[:kind].present?
       # These are used to determine the default kind based on the request path
       # for old push records. Their paths are generated based on their kind.
       # And, QR code pushes are created by using `/p/` path.
@@ -162,7 +164,7 @@ class Api::V1::PushesController < Api::BaseController
         "file"
       elsif request.path.include?("/r.json")
         "url"
-      elsif request.path.include?("/p.json") && push_params.key?(:files)
+      elsif request.path.include?("/p.json") && permitted_params.key?(:files)
         "file"
       else
         "text"
@@ -171,8 +173,8 @@ class Api::V1::PushesController < Api::BaseController
 
     @push.user = current_user if user_signed_in?
 
-    assign_deletable_by_viewer(@push, push_params)
-    assign_retrieval_step(@push, push_params)
+    assign_deletable_by_viewer(@push, permitted_params)
+    assign_retrieval_step(@push, permitted_params)
 
     if @push.save
       log_creation(@push)
@@ -350,11 +352,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def active
-    unless Settings.enable_logins
-      render json: {error: I18n._("You must be logged in to view your active pushes.")}, status: :unauthorized
-      return
-    end
-
+    authenticate_user!
     page = validate_page_parameter
     return if page.nil?
 
@@ -406,11 +404,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def expired
-    unless Settings.enable_logins
-      render json: {error: I18n._("You must be logged in to view your expired pushes.")}, status: :unauthorized
-      return
-    end
-
+    authenticate_user!
     page = validate_page_parameter
     return if page.nil?
 
@@ -424,6 +418,18 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   private
+
+  def requires_authentication_for_create?(permitted_params)
+    return true unless Settings.allow_anonymous
+    return true if request.path.start_with?("/f")
+
+    # Keep auth semantics aligned with API surface:
+    # - v1 /p.json treats files key presence as file intent
+    # - v2 /api/v2/pushes should do the same for auth gating
+    ((request.path.include?("/p.json") || params["controller"] == "api/v2/pushes") &&
+      permitted_params.key?(:files)) ||
+      permitted_params[:kind] == "file"
+  end
 
   # validate_page_parameter
   #
