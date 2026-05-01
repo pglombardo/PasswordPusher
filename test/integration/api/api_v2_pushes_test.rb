@@ -404,6 +404,10 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_equal "recipient@example.com", notify_by_email.recipients
     assert_equal "en", notify_by_email.locale
+
+    body = JSON.parse(response.body)
+    assert_equal "recipient@example.com", body["notify_by_email"]["recipients"]
+    assert_equal "en", body["notify_by_email"]["locale"]
   ensure
     Settings.reload!
   end
