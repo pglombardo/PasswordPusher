@@ -13,7 +13,7 @@ class Api::V2::PushesController < Api::V1::PushesController
 
     if @push.valid?
       log_creation_email_send(@push)
-      render json: {}, status: :ok
+      render json: {}, status: :created
     else
       render json: @push.errors, status: :unprocessable_entity
     end

@@ -47,15 +47,15 @@ module Pwpush
 
     def notify_by_email_availability
       if Settings.disable_logins || Settings.mail.smtp_address.blank?
-        errors.add(:base, _("Notifying by email is not available."))
+        errors.add(:base, _("Notifying by email is not available"))
       end
 
       if notify_by_email_creator.present?
         unless notify_by_email_creator == user
-          errors.add(:base, _("You are not authorized to notify by email for a push."))
+          errors.add(:base, _("You are not authorized to notify by email for this push"))
         end
       else
-        errors.add(:base, _("You need to be signed in to notify by email for a push."))
+        errors.add(:base, _("You need to be signed in to notify by email for a push"))
       end
     end
   end
