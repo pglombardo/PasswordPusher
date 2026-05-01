@@ -357,29 +357,44 @@ class LogEventsTest < ActionController::TestCase
     end
   end
 
+  def with_max_audit_logs_per_push_or_pull(value)
+    original_value = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL
+    AuditLog.send(:remove_const, :MAX_AUDIT_LOGS_PER_PUSH_OR_PULL)
+    AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, value)
+
+    yield
+  ensure
+    AuditLog.send(:remove_const, :MAX_AUDIT_LOGS_PER_PUSH_OR_PULL)
+    AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, original_value)
+  end
+
   test "log_event does not create audit log when push has max audit logs" do
-    @request.env["REMOTE_ADDR"] = "203.0.113.195"
-    @request.env["HTTP_USER_AGENT"] = "Test Agent"
+    with_max_audit_logs_per_push_or_pull(3) do
+      @request.env["REMOTE_ADDR"] = "203.0.113.195"
+      @request.env["HTTP_USER_AGENT"] = "Test Agent"
 
-    needed = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - @push.audit_logs.count
-    needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
-    assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, @push.audit_logs.count, "push should have exactly max audit logs"
+      needed = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - @push.audit_logs.count
+      needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
+      assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, @push.audit_logs.count, "push should have exactly max audit logs"
 
-    assert_no_difference("@push.audit_logs.count") do
-      @controller.log_event(@push, :view)
+      assert_no_difference("@push.audit_logs.count") do
+        @controller.log_event(@push, :view)
+      end
     end
   end
 
   test "log_event still creates audit log when push has one fewer than max" do
-    @request.env["REMOTE_ADDR"] = "203.0.113.195"
-    @request.env["HTTP_USER_AGENT"] = "Test Agent"
+    with_max_audit_logs_per_push_or_pull(3) do
+      @request.env["REMOTE_ADDR"] = "203.0.113.195"
+      @request.env["HTTP_USER_AGENT"] = "Test Agent"
 
-    needed = (AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1) - @push.audit_logs.count
-    needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
-    assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1, @push.audit_logs.count
+      needed = (AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1) - @push.audit_logs.count
+      needed.times { @push.audit_logs.create!(kind: :view, ip: "127.0.0.1", user_agent: "Test", referrer: nil, user: @user) }
+      assert_equal AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1, @push.audit_logs.count
 
-    assert_difference("@push.audit_logs.count", 1) do
-      @controller.log_event(@push, :view)
+      assert_difference("@push.audit_logs.count", 1) do
+        @controller.log_event(@push, :view)
+      end
     end
   end
 end
