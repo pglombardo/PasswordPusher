@@ -152,11 +152,11 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     log = body["logs"].select { |view| view["kind"] == "creation_email_send" }.first
 
-    assert_equal "en", log["notify_by_email_locale"]
-    assert_equal "one@example.com", log["notify_by_email_recipients"]
-    assert_equal "pending", log["notify_by_email_status"]
-    assert_nil log["notify_by_email_successful_sends"]
-    assert_nil log["notify_by_email_proceed_at"]
+    assert_equal "en", log["notify_by_email"]["locale"]
+    assert_equal "one@example.com", log["notify_by_email"]["recipients"]
+    assert_equal "pending", log["notify_by_email"]["status"]
+    assert_nil log["notify_by_email"]["successful_sends"]
+    assert_nil log["notify_by_email"]["proceed_at"]
   end
 
   def test_audit_includes_notify_by_email_details_for_completed_notify_by_email
@@ -176,11 +176,11 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     log = body["logs"].find { |log| log["kind"] == "creation_email_send" }
 
-    assert_equal "en", log["notify_by_email_locale"]
-    assert_equal "one@example.com", log["notify_by_email_recipients"]
-    assert_equal "completed", log["notify_by_email_status"]
-    assert_equal "one@example.com", log["notify_by_email_successful_sends"]
-    assert_equal "2026-01-01T01:00:00.000Z", log["notify_by_email_proceed_at"]
+    assert_equal "one@example.com", log["notify_by_email"]["recipients"]
+    assert_equal "en", log["notify_by_email"]["locale"]
+    assert_equal "completed", log["notify_by_email"]["status"]
+    assert_equal "one@example.com", log["notify_by_email"]["successful_sends"]
+    assert_equal "2026-01-01T01:00:00.000Z", log["notify_by_email"]["proceed_at"]
   end
 
   def test_active_allows_authenticated_access
