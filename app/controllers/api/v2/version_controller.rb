@@ -21,7 +21,7 @@ class Api::V2::VersionController < Api::BaseController
       },
       pushes: {
         enabled: true,
-        email_auto_dispatch: false,
+        email_auto_dispatch: Settings.mail.smtp_address.present?,
         file_attachments: {
           enabled: Settings.enable_file_pushes,
           requires_authentication: true
