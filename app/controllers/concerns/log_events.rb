@@ -27,11 +27,13 @@ module LogEvents
     return unless push.notify_by_email_recipients.present?
 
     ip, user_agent, referrer = log_info
-    audit_log = push.audit_logs.create!(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
+    audit_log = push.audit_logs.build(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
 
     recipients = push.notify_by_email_recipients
     locale = push.notify_by_email_locale
-    notify_by_email = audit_log.create_notify_by_email!(recipients: recipients, locale: locale)
+    notify_by_email = audit_log.build_notify_by_email(recipients: recipients, locale: locale)
+
+    audit_log.save!
 
     SendPushCreatedEmailJob.perform_later(notify_by_email.id)
   end
