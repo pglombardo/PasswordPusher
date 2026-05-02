@@ -4,7 +4,25 @@ class SendPushCreatedEmailJob < ApplicationJob
   queue_as :default
 
   def perform(notify_by_email_id)
-    notify_by_email = NotifyByEmail.find_by!(id: notify_by_email_id)
+    notify_by_email = NotifyByEmail.find_by(id: notify_by_email_id)
+
+    if notify_by_email.nil?
+      Rails.logger.error "[SendPushCreatedEmailJob] NotifyByEmail not found: #{notify_by_email_id}"
+
+      return
+    end
+
+    if notify_by_email.recipients.blank?
+      notify_by_email.update(status: :failed, error_message: _("No recipients found."))
+
+      return
+    end
+
+    unless Settings.notify_by_email_available?
+      notify_by_email.update(status: :failed, error_message: _("Email notifications are not available."))
+
+      return
+    end
 
     return unless notify_by_email.pending?
 
@@ -13,6 +31,12 @@ class SendPushCreatedEmailJob < ApplicationJob
     push = notify_by_email.push
     locale = notify_by_email.locale
     recipients = notify_by_email.recipients.split(",").map(&:strip)
+
+    if push.expired?
+      notify_by_email.update(status: :failed, error_message: _("Push already expired."))
+
+      return
+    end
 
     successful_sends = []
     recipients.each do |recipient|
@@ -23,14 +47,19 @@ class SendPushCreatedEmailJob < ApplicationJob
       Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
     end
 
-    status = if successful_sends.size == recipients.size
-      :completed
+    status, error_message = if successful_sends.size == recipients.size
+      [:completed, nil]
     elsif successful_sends.empty?
-      :fully_failed
+      [:failed, I18n._("No emails were sent successfully.")]
     else
-      :partially_failed
+      [:partially_failed, I18n._("Some emails could not be sent.")]
     end
 
-    notify_by_email.update!(successful_sends: successful_sends.join(","), status: status, proceed_at: Time.current)
+    notify_by_email.update!(successful_sends: successful_sends.join(","), status: status, error_message: error_message, proceed_at: Time.current)
   end
+
+rescue => e
+  Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
+
+  notify_by_email.update(status: :failed, error_message: e.message)
 end

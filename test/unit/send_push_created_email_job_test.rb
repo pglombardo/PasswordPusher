@@ -28,7 +28,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal "one@example.com", @notify_by_email.successful_sends
   end
 
-  test "perform update notify_by_email status to fully_failed after sending" do
+  test "perform update notify_by_email status to failed after sending" do
     failing_mail = Minitest::Mock.new
     failing_mail.expect(:deliver_now, -> { raise StandardError, "test error" })
 
@@ -37,8 +37,9 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     end
 
     @notify_by_email.reload
-    assert_equal "fully_failed", @notify_by_email.status
+    assert_equal "failed", @notify_by_email.status
     assert_equal "", @notify_by_email.successful_sends
+    assert_equal "No emails were sent successfully.", @notify_by_email.error_message
   end
 
   test "perform does not send mail when notify_by_email is not pending" do
@@ -54,15 +55,21 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
 
     @notify_by_email.reload
-    assert_equal "completed", @notify_by_email.status
+    assert_equal "failed", @notify_by_email.status
     assert @notify_by_email.successful_sends.blank?
+    assert_equal "No recipients found.", @notify_by_email.error_message
   end
 
-  test "perform raises an error if notify_by_email is not found" do
-    assert_raise ActiveRecord::RecordNotFound do
-      invalid_id = -1
+  test "perform logs error and does not send mail if notify_by_email is not found" do
+    invalid_id = -1
+    logger = Minitest::Mock.new
+    logger.expect(:error, nil, ["[SendPushCreatedEmailJob] NotifyByEmail not found: #{invalid_id}"])
+
+    Rails.stub(:logger, logger) do
       SendPushCreatedEmailJob.perform_now(invalid_id)
     end
+
+    assert logger.verify
   end
 
   test "perform uses default queue" do

@@ -18,7 +18,7 @@ module Pwpush
       validate :notify_by_email_limit
 
       def notify_by_email_available?(cur_user)
-        Settings.mail.smtp_address.present? && !Settings.disable_logins && cur_user.present? && (!persisted? || (cur_user == user))
+        Settings.notify_by_email_available? && cur_user.present? && (!persisted? || (cur_user == user))
       end
     end
 
@@ -46,7 +46,7 @@ module Pwpush
     end
 
     def notify_by_email_availability
-      if Settings.disable_logins || Settings.mail.smtp_address.blank?
+      unless Settings.notify_by_email_available?
         errors.add(:base, _("Notifying by email is not available"))
       end
 
