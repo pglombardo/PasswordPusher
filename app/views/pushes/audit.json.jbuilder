@@ -11,6 +11,7 @@ json.logs @audit_logs do |audit_log|
       json.recipients audit_log.notify_by_email.recipients
       json.locale audit_log.notify_by_email.locale
       json.status audit_log.notify_by_email.status
+      json.error_message audit_log.notify_by_email.error_message if audit_log.notify_by_email.error_message.present?
       json.successful_sends audit_log.notify_by_email.successful_sends
       json.proceed_at audit_log.notify_by_email.proceed_at
     end

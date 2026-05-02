@@ -115,8 +115,9 @@
                 <tr><td><code>passphrase</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Requires this passphrase to retrieve the payload.") %></td></tr>
                 <tr><td><code>name</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional label shown to the owner.") %></td></tr>
                 <tr><td><code>note</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional owner-only note.") %></td></tr>
-                <tr><td><code>notify_by_email_recipients</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
-                <tr><td><code>notify_by_email_locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
+                <tr><td><code>notify_by_email</code></td><td>object</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email.") %></td></tr>
+                <tr><td><code>notify_by_email.recipients</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
+                <tr><td><code>notify_by_email.locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
               </tbody>
             </table>
           </div>
@@ -127,7 +128,11 @@
     "expire_after_views": 5,
     "passphrase": "optional-passphrase",
     "deletable_by_viewer": true,
-    "retrieval_step": true
+    "retrieval_step": true,
+    "notify_by_email": {
+      "recipients": "email1@example.com, email2@example.com",
+      "locale": "en"
+    }
   }
 }</code></pre>
           <p class="mb-2 mt-3"><strong><%= _("cURL example (JSON body):") %></strong></p>
@@ -231,7 +236,7 @@
   -H "Authorization: Bearer YOUR_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "recipients": "recipient1@example.com,recipient2@example.com",
+    "recipients": "email1@example.com, email2@example.com",
     "locale": "en"
   }'</code></pre>
         </div>

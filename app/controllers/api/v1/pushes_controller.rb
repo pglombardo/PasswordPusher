@@ -153,6 +153,10 @@ class Api::V1::PushesController < Api::BaseController
     # when creating file pushes / uploading attachments.
     authenticate_user! if requires_authentication_for_create?(permitted_params)
 
+    # Extract notify_by_email params before creating the Push
+    # to avoid ActiveModel::UnknownAttributeError
+    permitted_notify_by_email_params = permitted_params.delete(:notify_by_email)
+
     @push = Push.new(permitted_params)
 
     if !permitted_params[:kind].present?
@@ -173,15 +177,17 @@ class Api::V1::PushesController < Api::BaseController
 
     if user_signed_in?
       @push.user = current_user
-      @push.notify_by_email_creator = current_user if permitted_params[:notify_by_email_recipients].present?
     end
+
+    # Handle nested notify_by_email params
+    set_notify_by_email(@push, permitted_notify_by_email_params) if permitted_notify_by_email_params.present?
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
 
     if @push.save
       log_creation(@push)
-      log_creation_email_send(@push) if permitted_params[:notify_by_email_recipients].present?
+      log_creation_email_send(@push) if permitted_notify_by_email_params.present?
 
       render template: "pushes/show", status: :created
     else
@@ -482,6 +488,13 @@ class Api::V1::PushesController < Api::BaseController
     respond_to do |format|
       format.json { render json: {error: "not-found"}.to_json, status: :not_found }
     end
+  end
+
+  def set_notify_by_email(push, notify_by_email_params, required: false)
+    push.notify_by_email_recipients = notify_by_email_params[:recipients]
+    push.notify_by_email_locale = notify_by_email_params[:locale]
+    push.notify_by_email_creator = current_user if user_signed_in?
+    push.notify_by_email_required = required
   end
 
   def push_params

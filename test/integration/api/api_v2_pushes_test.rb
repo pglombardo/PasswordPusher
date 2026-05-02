@@ -166,9 +166,12 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     notify_by_email = notify_by_emails(:one)
     owner = users(:giuliana)
 
-    travel_to Time.zone.local(2026, 1, 1, 1, 0, 0) do
-      SendPushCreatedEmailJob.perform_now(notify_by_email.id)
+    Settings.stub(:notify_by_email_available?, true) do
+      travel_to Time.zone.local(2026, 1, 1, 1, 0, 0) do
+        SendPushCreatedEmailJob.perform_now(notify_by_email.id)
+      end
     end
+
     get "/api/v2/pushes/#{push.url_token}/audit",
       headers: bearer_headers(owner),
       as: :json
@@ -389,8 +392,10 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
         params: {
           push: {
             payload: "some-secret",
-            notify_by_email_recipients: "recipient@example.com",
-            notify_by_email_locale: "en"
+            notify_by_email: {
+              recipients: "recipient@example.com",
+              locale: "en"
+            }
           }
         },
         headers: bearer_headers(user),
@@ -420,8 +425,10 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       params: {
         push: {
           payload: "some-secret",
-          notify_by_email_recipients: "recipient@example.com",
-          notify_by_email_locale: "en"
+          notify_by_email: {
+            recipients: "recipient@example.com",
+            locale: "en"
+          }
         }
       },
       headers: bearer_headers(user),
@@ -441,8 +448,10 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       params: {
         push: {
           payload: "some-secret",
-          notify_by_email_recipients: "recipient@example.com",
-          notify_by_email_locale: "en"
+          notify_by_email: {
+            recipients: "recipient@example.com",
+            locale: "en"
+          }
         }
       },
       as: :json

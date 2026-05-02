@@ -12,7 +12,9 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
 
   test "sends email to specified recipient" do
     mails = capture_emails do
-      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+      Settings.stub(:notify_by_email_available?, true) do
+        SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+      end
     end
 
     mail = mails.first
@@ -21,7 +23,9 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform update notify_by_email status to completed after sending" do
-    SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+    Settings.stub(:notify_by_email_available?, true) do
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+    end
 
     @notify_by_email.reload
     assert_equal "completed", @notify_by_email.status
@@ -33,7 +37,9 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     failing_mail.expect(:deliver_now, -> { raise StandardError, "test error" })
 
     PushCreatedMailer.stub(:with, failing_mail) do
-      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+      Settings.stub(:notify_by_email_available?, true) do
+        SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+      end
     end
 
     @notify_by_email.reload
