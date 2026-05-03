@@ -7,17 +7,11 @@ class ApplicationHelperTest < ActionView::TestCase
 
   setup do
     @push = pushes(:test_push)
-    # Ensure Settings are available
-    @original_title = Settings.brand.title
-    @original_enabled_language_codes = Settings.enabled_language_codes.dup
-    @original_override_base_url = Settings.override_base_url
   end
 
   teardown do
     # Restore original settings
-    Settings.brand.title = @original_title
-    Settings.enabled_language_codes = @original_enabled_language_codes
-    Settings.override_base_url = @original_override_base_url
+    Settings.reload!
     ENV.delete("FORCE_SSL")
   end
 

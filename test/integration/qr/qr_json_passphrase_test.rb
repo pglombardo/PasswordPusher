@@ -7,6 +7,10 @@ class QrJsonPassphraseTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_basic_json_passphrase
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testpw", passphrase: "asdf"}}
     assert_response :success

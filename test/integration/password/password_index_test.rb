@@ -11,10 +11,6 @@ class PasswordIndexTest < ActionDispatch::IntegrationTest
     sign_in @luca
   end
 
-  teardown do
-    sign_out :user
-  end
-
   def test_active
     get new_push_path(tab: "text")
     assert_response :success

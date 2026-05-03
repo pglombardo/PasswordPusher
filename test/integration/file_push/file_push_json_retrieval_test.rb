@@ -11,6 +11,11 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_view_with_passphrase
     mock_params = {}
 

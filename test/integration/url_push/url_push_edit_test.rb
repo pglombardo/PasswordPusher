@@ -13,7 +13,8 @@ class UrlPushEditTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "authenticated user can access edit page for their own url push" do

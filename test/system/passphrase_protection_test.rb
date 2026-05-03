@@ -15,6 +15,11 @@ class PassphraseProtectionTest < ApplicationSystemTestCase
     )
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   test "entering correct passphrase grants access" do
     visit push_path(@push)
 

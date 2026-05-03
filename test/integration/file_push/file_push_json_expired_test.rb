@@ -12,6 +12,11 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_basic_json_expired
     post file_pushes_path(format: :json),
       params: {

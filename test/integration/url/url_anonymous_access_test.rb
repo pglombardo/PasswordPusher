@@ -12,7 +12,8 @@ class UrlAnonymousAccessTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    Settings.disable_signups = false
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_anonymous_disabled_signups_no_signup_link

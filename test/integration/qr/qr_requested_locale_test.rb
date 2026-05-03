@@ -10,6 +10,10 @@ class QrRequestedLocaleTest < ActionDispatch::IntegrationTest
     sign_in @luca
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_requested_locale
     get new_push_path(tab: "qr")
     assert_response :success

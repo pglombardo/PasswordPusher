@@ -11,8 +11,8 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    @luca = users(:luca)
-    sign_out @luca
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "New push form is available when anonymous" do
@@ -93,9 +93,6 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
     assert_match(/URL pushes are disabled\./i, flash[:notice])
-  ensure
-    Settings.enable_url_pushes = true
-    Rails.application.reload_routes!
   end
 
   test "when URL pushes disabled, creating a URL push redirects to root with notice" do
@@ -111,9 +108,6 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     assert_equal I18n._("URL pushes are disabled."), flash[:notice]
-  ensure
-    Settings.enable_url_pushes = true
-    Rails.application.reload_routes!
   end
 
   test "when URL pushes disabled, logged-in user creating URL push redirects to root with notice" do
@@ -131,8 +125,5 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     assert_equal I18n._("URL pushes are disabled."), flash[:notice]
-  ensure
-    Settings.enable_url_pushes = true
-    Rails.application.reload_routes!
   end
 end

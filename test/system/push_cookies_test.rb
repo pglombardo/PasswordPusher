@@ -11,7 +11,8 @@ class PushCookiesTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "password form has correct stimulus targets and values" do

@@ -13,10 +13,7 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    # Restore feature flags so later tests (e.g. file_push, url push) don't see them false
-    Settings.require_mfa = false
-    Settings.enable_file_pushes = true
-    Settings.enable_url_pushes = true
+    Settings.reload!
     Rails.application.reload_routes!
   end
 
@@ -278,8 +275,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "/p/create with files requires authentication even when allow_anonymous is true" do
-    previous_allow_anonymous = Settings.allow_anonymous
-    previous_enable_file_pushes = Settings.enable_file_pushes
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -296,10 +291,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.allow_anonymous = previous_allow_anonymous
-    Settings.enable_file_pushes = previous_enable_file_pushes
-    Rails.application.reload_routes!
   end
 
   test "/p/create with files works with valid token when allow_anonymous is true" do
@@ -322,10 +313,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
     json = JSON.parse(response.body)
     assert json["url_token"].present?
-  ensure
-    Settings.allow_anonymous = true
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/p/create with empty files key requires authentication when allow_anonymous is true" do
@@ -345,10 +332,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.allow_anonymous = true
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   # When allow_anonymous is false, Api::V1::PushesController#create calls
@@ -372,8 +355,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     if response.redirect?
       assert_match(%r{/users/sign_in}, response.location)
     end
-  ensure
-    Settings.allow_anonymous = true
   end
 
   test "/p/create with valid token succeeds when allow_anonymous is false" do
@@ -393,8 +374,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_response :created, "authenticated create should succeed when allow_anonymous is false"
     json = JSON.parse(response.body)
     assert json["url_token"].present?
-  ensure
-    Settings.allow_anonymous = true
   end
 
   test "v2 show requires authentication when allow_anonymous is false" do
@@ -407,8 +386,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.allow_anonymous = true
   end
 
   # Test path-based authentication requirements for /f paths
@@ -428,9 +405,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/f/create works with valid token" do
@@ -451,9 +425,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     # Should not be unauthorized (may be other validation errors)
     assert_not_equal :unauthorized, response.status
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/f/audit requires authentication" do
@@ -465,9 +436,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/f/#{push.url_token}/audit.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/f/active requires authentication" do
@@ -476,9 +444,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/f/active.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/f/expired requires authentication" do
@@ -487,9 +452,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/f/expired.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   # Test path-based authentication requirements for /r paths
@@ -508,9 +470,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.enable_url_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/r/create works with valid token" do
@@ -530,9 +489,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     # Should not be unauthorized (may be other validation errors)
     assert_not_equal :unauthorized, response.status
-  ensure
-    Settings.enable_url_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/r/audit requires authentication" do
@@ -544,9 +500,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/r/#{push.url_token}/audit.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_url_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/r/active requires authentication" do
@@ -555,9 +508,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/r/active.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_url_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "/r/expired requires authentication" do
@@ -566,9 +516,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
 
     get "/r/expired.json"
     assert_response :unauthorized
-  ensure
-    Settings.enable_url_pushes = false
-    Rails.application.reload_routes!
   end
 
   # Test user already signed in (session-based auth)
@@ -664,9 +611,6 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
     json_response = JSON.parse(@response.body)
     assert json_response.key?("error")
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   # Test token with blank/nil values

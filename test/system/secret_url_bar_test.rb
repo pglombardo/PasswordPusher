@@ -6,9 +6,6 @@ class SecretUrlBarTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
   setup do
-    # Enable logins for these tests
-    Rails.application.reload_routes!
-
     # Create and sign in a user
     @user = users(:giuliana)
     sign_in @user
@@ -17,10 +14,6 @@ class SecretUrlBarTest < ApplicationSystemTestCase
     @push = pushes(:test_push)
     @push.payload = "test secret content"
     @push.save!
-  end
-
-  teardown do
-    sign_out :user
   end
 
   test "language dropdown shows available locales" do

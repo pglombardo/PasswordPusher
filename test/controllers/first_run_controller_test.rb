@@ -30,8 +30,8 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
   teardown do
     User.destroy_all
     FirstRunBootCode.clear!
-    Settings.disable_logins = false
-    Settings.disable_signups = false
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "any page redirects to first run when no users exist" do

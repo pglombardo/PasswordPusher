@@ -14,10 +14,6 @@ class PasswordAuditTest < ActionDispatch::IntegrationTest
     sign_in @luca
   end
 
-  teardown do
-    sign_out :user
-  end
-
   def test_user_can_view_audit_logs_for_own_push
     # Create a new push
     post pushes_path, params: {

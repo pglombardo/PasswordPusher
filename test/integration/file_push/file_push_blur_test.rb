@@ -15,8 +15,8 @@ class FilePushBlurTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
-    Settings.files.enable_blur = true
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_blur_enabled

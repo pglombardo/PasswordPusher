@@ -10,6 +10,11 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_audit_response_for_authenticated
     @luca = users(:luca)
     # Create a push

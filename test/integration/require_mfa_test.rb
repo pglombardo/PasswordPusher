@@ -4,13 +4,11 @@ require "test_helper"
 
 class RequireMfaTest < ActionDispatch::IntegrationTest
   setup do
-    @previous_require_mfa = Settings.require_mfa
     @user = users(:one)
   end
 
   teardown do
-    Settings.require_mfa = @previous_require_mfa
-    sign_out :user if respond_to?(:sign_out)
+    Settings.reload!
   end
 
   test "signed in users without two-factor are redirected when require_mfa is true" do

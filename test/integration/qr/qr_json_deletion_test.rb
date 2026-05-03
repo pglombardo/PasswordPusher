@@ -9,6 +9,10 @@ class QrJsonDeletionTest < ActionDispatch::IntegrationTest
     Settings.qr.retrieval_step_default = false
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_deletion
     # Create password
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr"}}

@@ -41,7 +41,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     assert_not @luca.admin?
   ensure
     ActiveRecord::Base.connection.define_singleton_method(:execute, original_execute)
-    sign_out @mr_admin
   end
 
   test "promote action shows success message on success" do
@@ -55,8 +54,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     @luca.reload
     assert @luca.admin?
-  ensure
-    sign_out @mr_admin
   end
 
   # Test error handling in revoke action
@@ -85,7 +82,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     assert @luca.admin?
   ensure
     ActiveRecord::Base.connection.define_singleton_method(:execute, original_execute)
-    sign_out @mr_admin
   end
 
   test "revoke action shows success message on success" do
@@ -104,8 +100,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     @luca.reload
     assert_not @luca.admin?
-  ensure
-    sign_out @mr_admin
   end
 
   # Test SQL injection prevention
@@ -125,8 +119,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     # Verify no users were affected (only @mr_admin should be admin)
     admin_count = User.where(admin: true).count
     assert_equal 1, admin_count
-  ensure
-    sign_out @mr_admin
   end
 
   test "revoke action prevents SQL injection in user id" do
@@ -144,8 +136,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     # Verify no users were affected
     admin_count = User.where(admin: true).count
     assert_equal 1, admin_count
-  ensure
-    sign_out @mr_admin
   end
 
   test "promote uses parameterized queries" do
@@ -162,8 +152,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     # Clean up
     patch revoke_admin_user_path(@luca)
-  ensure
-    sign_out @mr_admin
   end
 
   # Test edge cases for admin self-revocation
@@ -178,8 +166,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     @mr_admin.reload
     assert @mr_admin.admin?
-  ensure
-    sign_out @mr_admin
   end
 
   test "admin self-revocation attempt shows error message" do
@@ -190,8 +176,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_select ".alert", text: /cannot revoke your own/
-  ensure
-    sign_out @mr_admin
   end
 
   # Test promote/revoke with non-existent user
@@ -203,8 +187,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     # Should either raise error or return 404
     assert_includes [404, 500], response.status
-  ensure
-    sign_out @mr_admin
   end
 
   test "revoke action handles non-existent user" do
@@ -215,8 +197,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     # Should either raise error or return 404
     assert_includes [404, 500], response.status
-  ensure
-    sign_out @mr_admin
   end
 
   # Test that admin actions require authentication
@@ -225,8 +205,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     patch promote_admin_user_path(@giuliana)
     assert_response :not_found
-  ensure
-    sign_out @luca
   end
 
   test "revoke action requires admin authentication" do
@@ -234,8 +212,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
 
     patch revoke_admin_user_path(@giuliana)
     assert_response :not_found
-  ensure
-    sign_out @luca
   end
 
   # Test that admin actions require sign-in
@@ -277,8 +253,6 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     if @luca.admin?
       patch revoke_admin_user_path(@luca)
     end
-  ensure
-    sign_out @mr_admin
   end
 
   # Test that direct SQL updates work correctly
@@ -293,7 +267,5 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
     # Should use direct SQL update, bypassing attr_readonly
     assert @luca.admin?
     assert_not_equal original_admin_status, @luca.admin?
-  ensure
-    sign_out @mr_admin
   end
 end

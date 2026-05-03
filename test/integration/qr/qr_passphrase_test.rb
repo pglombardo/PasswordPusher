@@ -11,7 +11,7 @@ class QrPassphraseTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
+    Settings.reload!
   end
 
   def test_password_passphrase

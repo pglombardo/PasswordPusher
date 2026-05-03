@@ -64,5 +64,7 @@ class PasswordJsonPreviewTest < ActionDispatch::IntegrationTest
     assert uri.port == 12345
     assert uri.scheme == "https"
     assert_not (uri.path =~ /#{res["url_token"]}/).nil?
+  ensure
+    Settings.reload!
   end
 end

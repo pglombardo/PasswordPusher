@@ -11,6 +11,11 @@ class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_deletion
     post file_pushes_path(format: :json),
       params: {

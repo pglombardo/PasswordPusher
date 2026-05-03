@@ -7,6 +7,10 @@ class QrNotfoundTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_password_not_found
     # Non existant push should return the expired page
     get "/p/doesnotexist"

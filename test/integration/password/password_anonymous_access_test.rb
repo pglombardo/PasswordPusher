@@ -5,19 +5,14 @@ require "test_helper"
 class PasswordAnonymousAccessTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  setup do
-    Rails.application.reload_routes!
-  end
-
-  teardown do
-    Settings.disable_signups = false
-  end
-
   def test_anonymous_disabled_signups_no_signup_link
     Settings.disable_signups = true
 
     get new_push_path(tab: "text")
     assert_response :success
+  ensure
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_anonymous_enabled_signups_with_signup_link

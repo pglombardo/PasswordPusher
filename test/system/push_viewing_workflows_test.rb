@@ -17,6 +17,11 @@ class PushViewingWorkflowsTest < ApplicationSystemTestCase
     @push.audit_logs.destroy_all
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   test "viewing a password push" do
     visit push_path(@push)
 

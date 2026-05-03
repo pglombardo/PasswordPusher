@@ -12,6 +12,11 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_view_with_passphrase
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2, passphrase: "asdf"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
     assert_response :success

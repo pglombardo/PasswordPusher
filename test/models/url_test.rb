@@ -4,12 +4,11 @@ require "test_helper"
 
 class UrlTest < ActiveSupport::TestCase
   setup do
-    @default_enable_url_pushes = Settings.enable_url_pushes
     Settings.enable_url_pushes = true
   end
 
   teardown do
-    Settings.enable_url_pushes = @default_enable_url_pushes
+    Settings.reload!
   end
 
   test "should create url with name" do
