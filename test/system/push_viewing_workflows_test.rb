@@ -144,7 +144,6 @@ class PushViewingWorkflowsTest < ApplicationSystemTestCase
   end
 
   test "payload re-blurs automatically after reveal timeout" do
-    original_blur_setting = Settings.pw.enable_blur
     Settings.pw.enable_blur = true
 
     visit push_path(@push)
@@ -155,7 +154,5 @@ class PushViewingWorkflowsTest < ApplicationSystemTestCase
     find("#push_payload").click
     assert_selector "#push_payload[data-spoiler-state='revealed']", wait: 2
     assert_selector "#push_payload[data-spoiler-state='shrouded']", wait: 3
-  ensure
-    Settings.pw.enable_blur = original_blur_setting
   end
 end

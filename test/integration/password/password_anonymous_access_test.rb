@@ -12,7 +12,6 @@ class PasswordAnonymousAccessTest < ActionDispatch::IntegrationTest
     assert_response :success
   ensure
     Settings.reload!
-    Rails.application.reload_routes!
   end
 
   def test_anonymous_enabled_signups_with_signup_link
