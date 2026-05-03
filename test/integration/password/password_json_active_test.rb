@@ -6,8 +6,6 @@ class PasswordJsonActiveTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
-
     @luca = users(:luca)
   end
 

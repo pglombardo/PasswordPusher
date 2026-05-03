@@ -30,6 +30,7 @@ class FirstRunTest < ApplicationSystemTestCase
   teardown do
     FirstRunBootCode.clear!
     User.destroy_all
+
     Settings.reload!
     Rails.application.reload_routes!
   end

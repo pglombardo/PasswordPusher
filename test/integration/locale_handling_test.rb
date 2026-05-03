@@ -9,11 +9,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     @user = users(:luca)
   end
 
-  teardown do
-    Settings.reload!
-    Rails.application.reload_routes!
-  end
-
   # Test locale persistence across requests
   test "locale persists in session across requests" do
     get root_path, params: {locale: "es"}

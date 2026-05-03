@@ -14,6 +14,7 @@ class QrPushEditTest < ActionDispatch::IntegrationTest
 
   teardown do
     Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "authenticated user can access edit page for their own qr push" do

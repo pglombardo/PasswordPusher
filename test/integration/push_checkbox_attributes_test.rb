@@ -5,7 +5,6 @@ require "test_helper"
 class PushCheckboxAttributesTest < ActionDispatch::IntegrationTest
   teardown do
     Settings.reload!
-    Rails.application.reload_routes!
   end
 
   def test_text_push_form_has_x_default_attribute_on_checkboxes
