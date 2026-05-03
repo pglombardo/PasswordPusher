@@ -6,18 +6,9 @@ class AdminUserManagementTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
-    # Set default URL options for test environment to avoid missing host errors
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
-
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
     @giuliana = users(:giuliana)
-  end
-
-  teardown do
-    Settings.disable_logins = false
-    Rails.application.reload_routes!
   end
 
   # Test error handling in promote action

@@ -9,9 +9,6 @@ class ExpirePushesJobTest < ActiveSupport::TestCase
     Push.delete_all
     User.delete_all
 
-    # Set default URL options for test environment to avoid missing host errors
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
-
     # Freeze time for predictable testing
     travel_to Time.zone.local(2025, 5, 26)
   end
