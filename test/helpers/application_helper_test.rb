@@ -10,9 +10,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   teardown do
-    # Restore original settings
     Settings.reload!
-    ENV.delete("FORCE_SSL")
   end
 
   # Test title method
