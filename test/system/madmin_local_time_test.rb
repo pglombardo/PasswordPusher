@@ -4,18 +4,11 @@ require "application_system_test_case"
 
 class MadminLocalTimeTest < ApplicationSystemTestCase
   setup do
-    Rails.application.reload_routes!
-
     @mr_admin = users(:mr_admin)
     @giuliana = users(:giuliana)
     @test_push = pushes(:test_push)
 
     login_as(@mr_admin, scope: :user)
-  end
-
-  teardown do
-    logout(:user)
-    Rails.application.reload_routes!
   end
 
   test "madmin users index renders timestamps with local_time helper" do
