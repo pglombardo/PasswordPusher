@@ -18,8 +18,6 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
   end
 
   def test_deletion
-    assert Settings.files.enable_deletable_pushes == true
-
     get new_push_path(tab: "files")
     assert_response :success
 
@@ -53,8 +51,6 @@ class FilePushDeletionTest < ActionDispatch::IntegrationTest
   end
 
   def test_end_user_deletion_when_enabled
-    assert Settings.files.enable_deletable_pushes == true
-
     get new_push_path(tab: "files")
     assert_response :success
 

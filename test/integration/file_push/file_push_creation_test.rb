@@ -168,7 +168,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert(deletable_checkbox.length == 1)
 
     # DELETABLE_PASSWORDS_DEFAULT determines initial check state
-    if Settings.files.deletable_pushes_default == true
+    if Settings.files.deletable_pushes_default
       assert(deletable_checkbox.first.attributes["checked"].value == "checked")
     else
       assert(deletable_checkbox.first.attributes["checked"].nil?)
