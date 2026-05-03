@@ -7,6 +7,11 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     {"Authorization" => "Bearer #{user.authentication_token}"}
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_help_api_page_is_available
     get "/help/api"
     assert_response :success
@@ -244,8 +249,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       as: :json
 
     assert_includes [401, 302], response.status
-  ensure
-    Settings.allow_anonymous = true
   end
 
   def test_create_with_missing_payload_returns_json_validation_error_without_accept_header
@@ -265,9 +268,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_file_upload_requires_authentication_even_when_allow_anonymous_enabled
-    previous_allow_anonymous = Settings.allow_anonymous
-    previous_enable_file_pushes = Settings.enable_file_pushes
-
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -281,15 +281,9 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       }
 
     assert_response :unauthorized
-  ensure
-    Settings.allow_anonymous = previous_allow_anonymous
-    Settings.enable_file_pushes = previous_enable_file_pushes
-    Rails.application.reload_routes!
   end
 
   def test_create_file_upload_allows_authenticated_user_when_allow_anonymous_enabled
-    original_allow_anonymous = Settings.allow_anonymous
-    original_enable_file_pushes = Settings.enable_file_pushes
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -307,15 +301,9 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :created
     body = JSON.parse(response.body)
     assert body["url_token"].present?
-  ensure
-    Settings.allow_anonymous = original_allow_anonymous
-    Settings.enable_file_pushes = original_enable_file_pushes
-    Rails.application.reload_routes!
   end
 
   def test_create_with_empty_files_key_requires_authentication_even_when_allow_anonymous_enabled
-    original_allow_anonymous = Settings.allow_anonymous
-    original_enable_file_pushes = Settings.enable_file_pushes
     Settings.allow_anonymous = true
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!
@@ -330,10 +318,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       as: :json
 
     assert_response :unauthorized
-  ensure
-    Settings.allow_anonymous = original_allow_anonymous
-    Settings.enable_file_pushes = original_enable_file_pushes
-    Rails.application.reload_routes!
   end
 
   def test_create_with_valid_payload_returns_json_created_without_accept_header
@@ -413,8 +397,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal "recipient@example.com", body["notify_by_email"]["recipients"]
     assert_equal "en", body["notify_by_email"]["locale"]
-  ensure
-    Settings.reload!
   end
 
   def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
@@ -437,8 +419,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
     assert_equal "Notifying by email is not available", body["base"][0]
-  ensure
-    Settings.reload!
   end
 
   def test_create_with_notify_by_email_params_fails_when_user_is_not_signed_in
@@ -459,8 +439,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
     assert_equal "You need to be signed in to notify by email for a push", body["base"][0]
-  ensure
-    Settings.reload!
   end
 
   def test_notify_by_email_with_valid_params_returns_json_created
@@ -486,8 +464,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal "recipient@example.com", notify_by_email.recipients
     assert_equal "en", notify_by_email.locale
     assert_equal push, notify_by_email.push
-  ensure
-    Settings.reload!
   end
 
   def test_notify_by_email_with_valid_params_returns_error_when_email_service_is_not_configured
@@ -506,7 +482,5 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     body = JSON.parse(response.body)
     assert_equal "Notifying by email is not available", body["base"][0]
-  ensure
-    Settings.reload!
   end
 end

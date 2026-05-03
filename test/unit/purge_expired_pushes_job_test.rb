@@ -4,16 +4,15 @@ require "test_helper"
 
 class PurgeExpiredPushesJobTest < ActiveSupport::TestCase
   setup do
-    @previous_purge_after = Settings.purge_after
     Settings.purge_after = "3 months"
 
     # Clear all pushes before running tests
     AuditLog.destroy_all
-    Push.destroy_all
+    Push.delete_all
   end
 
   teardown do
-    Settings.purge_after = @previous_purge_after
+    Settings.reload!
   end
 
   test "job deletes anonymous expired pushes" do

@@ -6,15 +6,19 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   include ActionMailer::TestHelper
   setup do
     Rails.application.routes.default_url_options[:host] = "localhost:3000"
+    Settings.mail.smtp_address = "smtp.example.com"
+
     @push = pushes(:test_push)
     @notify_by_email = notify_by_emails(:one)
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   test "sends email to specified recipient" do
     mails = capture_emails do
-      Settings.stub(:notify_by_email_available?, true) do
-        SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
-      end
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
     end
 
     mail = mails.first

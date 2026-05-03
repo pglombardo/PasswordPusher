@@ -5,10 +5,6 @@ require "test_helper"
 class PasswordTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
-  teardown do
-    Settings.reload!
-  end
-
   test "should create password with name" do
     password = Push.new(
       kind: "text",
@@ -70,6 +66,8 @@ class PasswordTest < ActiveSupport::TestCase
     password.notify_by_email_creator = user
 
     assert password.valid?
+  ensure
+    Settings.reload!
   end
 
   test "should reject more than 5 emails in notify_by_email_recipients for pushes" do

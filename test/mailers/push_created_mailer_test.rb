@@ -10,10 +10,6 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     @push.update(user: @user)
   end
 
-  teardown do
-    Settings.reload!
-  end
-
   test "notify sends to emails" do
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
 
@@ -104,5 +100,7 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     Settings.override_base_url = "https://custom.example.com"
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
     assert_includes mail.body.encoded, "https://custom.example.com"
+  ensure
+    Settings.reload!
   end
 end
