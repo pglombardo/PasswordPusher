@@ -101,10 +101,10 @@ fi
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
-if [ -n "$PWP_PRECOMPILE" ]; then
+if [ -n "$PWP_PRECOMPILE" ] || [ -n "$PWP__THEME" ]; then
     echo "Password Pusher: rebuilding CSS for selected theme (custom overlays)..."
     BUILD_CSS_SINGLE=1 yarn build:css:single
-    echo "Password Pusher: precompiling assets (PWP_PRECOMPILE set)..."
+    echo "Password Pusher: precompiling assets..."
     bundle exec rails assets:precompile
 fi
 

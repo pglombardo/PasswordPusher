@@ -35,7 +35,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 | **🔒 Secure by default** | Encrypted storage, optional passphrase, expiry by views and/or time. Sensitive data is removed entirely once expired. |
 | **📋 Full audit trail** | See when links were created, viewed, and by whom (with logins). |
 | **🏠 Self-host or use hosted** | Use [pwpush.com](https://pwpush.com) or deploy your own—Docker, Kubernetes, Helm, or cloud. |
-| **🌐 Ready for teams** | 31 languages, light/dark theme, JSON API, CLI, and [many integrations](https://docs.pwpush.com/docs/3rd-party-tools/). |
+| **🌐 Ready for teams** | 31 languages, light/dark theme, JSON API, [official CLI & Chrome Extension](#tools--extensions), and [many integrations](https://docs.pwpush.com/docs/3rd-party-tools/). |
 
 ---
 
@@ -152,6 +152,17 @@ Quick API v2 smoke test:
 ```bash
 curl -s https://YOUR_HOST/api/v2/version
 ```
+
+---
+
+## Tools & Extensions
+
+Enhance Password Pusher with these official companion tools:
+
+| CLI | Chrome Extension |
+|:---:|:---:|
+| [![pwpush CLI](https://img.shields.io/badge/CLI-pwpush--cli-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/pglombardo/pwpush-cli) | [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/djdnbhbnimfpfmnocchfhjahinieaacg) |
+| Command-line tool for pushing secrets from the terminal | Create pushes directly from your browser with self-hosted & APIv2 support |
 
 ---
 
