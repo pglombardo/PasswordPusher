@@ -31,10 +31,9 @@ module LogEvents
 
     recipients = push.notify_by_email_recipients
     locale = push.notify_by_email_locale
-    notify_by_email = audit_log.build_notify_by_email(recipients: recipients, locale: locale)
+    audit_log.build_notify_by_email(recipients: recipients, locale: locale)
 
     audit_log.save!
-    SendPushCreatedEmailJob.perform_later(notify_by_email.id)
   end
 
   def log_update(push)

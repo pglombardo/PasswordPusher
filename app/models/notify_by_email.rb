@@ -12,9 +12,15 @@ class NotifyByEmail < ApplicationRecord
   has_one :push, through: :audit_log
   has_encrypted :recipients, :locale, :successful_sends, :error
 
+  after_create_commit :send_push_created_email
+
   private
 
   def set_recipients_count
     self.recipients_count = recipients.split(",").count
+  end
+
+  def send_push_created_email
+    SendPushCreatedEmailJob.perform_later(id)
   end
 end
