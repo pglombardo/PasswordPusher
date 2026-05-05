@@ -192,7 +192,6 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_password_creation_with_auto_dispatch_emails
-    Rails.application.routes.default_url_options[:host] = "test.host"
     Settings.mail.smtp_address = "smtp.example.com"
     @user = users(:luca)
     sign_in @user

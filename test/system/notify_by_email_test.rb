@@ -7,16 +7,14 @@ class NotifyByEmailTest < ApplicationSystemTestCase
 
   setup do
     Settings.mail.smtp_address = "smtp.example.com"
-    @user = users(:giuliana)
-    sign_in @user
 
-    # Get the test push from fixtures
     @push = pushes(:test_push)
+    @user = @push.user
+    sign_in @user
   end
 
   teardown do
     Settings.reload!
-    sign_out :user
   end
 
   test "notify by email with valid recipients" do

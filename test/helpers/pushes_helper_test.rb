@@ -102,20 +102,23 @@ class PushesHelperTest < ActionView::TestCase
   # Tests for format_days_remaining helper
   test "format_days_remaining returns plural days string" do
     push = Push.new(kind: "text")
-    push.define_singleton_method(:days_remaining) { 5 }
-    assert_equal "5 days", format_days_remaining(push)
+    push.stub(:days_remaining, 5) do
+      assert_equal "5 days", format_days_remaining(push)
+    end
   end
 
   test "format_days_remaining returns singular day when 1" do
     push = Push.new(kind: "text")
-    push.define_singleton_method(:days_remaining) { 1 }
-    assert_equal "1 day", format_days_remaining(push)
+    push.stub(:days_remaining, 1) do
+      assert_equal "1 day", format_days_remaining(push)
+    end
   end
 
-  test "format_days_remaining returns 0 days when expired" do
+  test "format_days_remaining returns 0 days when 0" do
     push = Push.new(kind: "text")
-    push.define_singleton_method(:days_remaining) { 0 }
-    assert_equal "0 days", format_days_remaining(push)
+    push.stub(:days_remaining, 0) do
+      assert_equal "0 days", format_days_remaining(push)
+    end
   end
 
   # Tests for checkbox_options_for_push helper

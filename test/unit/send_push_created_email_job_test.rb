@@ -5,7 +5,6 @@ require "test_helper"
 class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   include ActionMailer::TestHelper
   setup do
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
     Settings.mail.smtp_address = "smtp.example.com"
 
     @push = pushes(:test_push)
@@ -41,9 +40,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     failing_mail.expect(:deliver_now, -> { raise StandardError, "test error" })
 
     PushCreatedMailer.stub(:with, failing_mail) do
-      Settings.stub(:notify_by_email_available?, true) do
-        SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
-      end
+      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
     end
 
     @notify_by_email.reload

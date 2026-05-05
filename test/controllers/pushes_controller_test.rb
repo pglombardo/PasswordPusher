@@ -7,10 +7,6 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.routes.default_url_options[:host] = "test.host"
-
-    Settings.disable_logins = false
-    Settings.enable_url_pushes = true
     Settings.mail.smtp_address = "smtp.example.com"
 
     @push = pushes(:test_push)
@@ -213,7 +209,6 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "notify_by_email redirects to preview when push does not belong to user and disable_logins is false" do
-    Settings.disable_logins = false
     sign_out @user
 
     post notify_by_email_push_path(@push), params: {

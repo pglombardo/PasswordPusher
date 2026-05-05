@@ -165,8 +165,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_audit_includes_notify_by_email_details_for_completed_notify_by_email
-    Rails.application.routes.default_url_options[:host] = "test.host"
-
     push = pushes(:test_push)
     notify_by_email = notify_by_emails(:one)
     owner = users(:giuliana)
@@ -400,7 +398,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
-    Settings.mail.smtp_address = nil
     user = users(:one)
 
     post "/api/v2/pushes",

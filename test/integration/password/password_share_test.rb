@@ -6,8 +6,8 @@ class PasswordNotifyByEmailTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.routes.default_url_options[:host] = "test.host"
     Settings.mail.smtp_address = "smtp.example.com"
+
     @push = pushes(:test_push)
     @user = @push.user
     sign_in @user
