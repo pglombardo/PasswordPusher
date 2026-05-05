@@ -26,9 +26,7 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
   end
 
   test "perform update notify_by_email status to completed after sending" do
-    Settings.stub(:notify_by_email_available?, true) do
-      SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
-    end
+    SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
 
     @notify_by_email.reload
     assert_equal "completed", @notify_by_email.status
@@ -65,6 +63,16 @@ class SendPushCreatedEmailJobTest < ActiveJob::TestCase
     assert_equal "failed", @notify_by_email.status
     assert @notify_by_email.successful_sends.blank?
     assert_equal "No recipients found.", @notify_by_email.error_message
+  end
+
+  test "perform does not send mail when notifying by email is not available" do
+    Settings.mail.smtp_address = nil
+
+    SendPushCreatedEmailJob.perform_now(@notify_by_email.id)
+
+    @notify_by_email.reload
+    assert_equal "failed", @notify_by_email.status, "Status should be failed"
+    assert_equal "Notifying by email is not available.", @notify_by_email.error_message
   end
 
   test "perform logs error and does not send mail if notify_by_email is not found" do

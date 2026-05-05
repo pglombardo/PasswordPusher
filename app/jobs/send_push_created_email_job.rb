@@ -13,13 +13,13 @@ class SendPushCreatedEmailJob < ApplicationJob
     end
 
     if notify_by_email.recipients.blank?
-      notify_by_email.update(status: :failed, error_message: _("No recipients found."))
+      notify_by_email.update(status: :failed, error_message: _("No recipients found."), proceed_at: Time.current)
 
       return
     end
 
     unless Settings.notify_by_email_available?
-      notify_by_email.update(status: :failed, error_message: _("Email notifications are not available."))
+      notify_by_email.update(status: :failed, error_message: _("Notifying by email is not available."), proceed_at: Time.current)
 
       return
     end
@@ -33,7 +33,7 @@ class SendPushCreatedEmailJob < ApplicationJob
     recipients = notify_by_email.recipients.split(",").map(&:strip)
 
     if push.expired?
-      notify_by_email.update(status: :failed, error_message: _("Push already expired."))
+      notify_by_email.update(status: :failed, error_message: _("Push already expired."), proceed_at: Time.current)
 
       return
     end
@@ -61,5 +61,5 @@ class SendPushCreatedEmailJob < ApplicationJob
 rescue => e
   Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
 
-  notify_by_email.update(status: :failed, error_message: e.message)
+  notify_by_email.update(status: :failed, error_message: e.message, proceed_at: Time.current)
 end
