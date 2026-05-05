@@ -6,14 +6,7 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
-
     @user = users(:luca)
-  end
-
-  teardown do
-    Settings.disable_logins = false
-    Rails.application.reload_routes!
   end
 
   # Test locale persistence across requests
@@ -79,8 +72,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     get root_path, params: {locale: "es"}
     assert_response :success
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   # Test invalid locale handling
@@ -118,8 +109,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   test "user preference locale overrides default" do
@@ -129,8 +118,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     assert_select "html[lang=fr]"
-  ensure
-    sign_out @user
   end
 
   test "params locale takes precedence over user preference" do
@@ -140,8 +127,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     get root_path, params: {locale: "es"}
     assert_response :success
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   # Test locale from Accept-Language header
@@ -190,8 +175,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     assert_response :success
     # Params locale (es) should win
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   test "locale priority: user > header > default when no params" do
@@ -206,8 +189,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     assert_response :success
     # User preference (fr) should win over header (de)
     assert_select "html[lang=fr]"
-  ensure
-    sign_out @user
   end
 
   test "locale priority: header > default when no params or user" do
@@ -246,8 +227,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
     get root_path, params: {locale: "es"}
     assert_response :success
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   test "locale works with push creation flow" do
@@ -265,8 +244,6 @@ class LocaleHandlingTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
     assert_select "html[lang=es]"
-  ensure
-    sign_out @user
   end
 
   # Test default_url_options

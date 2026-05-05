@@ -6,14 +6,7 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
-
     @user = users(:luca)
-  end
-
-  teardown do
-    Settings.disable_logins = false
-    Rails.application.reload_routes!
   end
 
   # Test token viewing page

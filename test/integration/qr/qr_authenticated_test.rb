@@ -7,6 +7,10 @@ class QrAuthenticatedTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_authenticated_json_creation
     post json_pushes_path(format: :json),
       params: {password: {kind: "qr", payload: "testpw"}},

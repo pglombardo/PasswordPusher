@@ -10,6 +10,10 @@ class PushEditTest < ActiveSupport::TestCase
     Settings.enable_file_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   test "should update text push with valid payload" do
     push = Push.create!(
       kind: "text",

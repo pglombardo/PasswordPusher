@@ -10,10 +10,8 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    Settings.disable_logins = false
-    Settings.enable_file_pushes = false
+    Settings.reload!
     Rails.application.reload_routes!
-    sign_out :user if respond_to?(:sign_out)
   end
 
   test "GET sign_in returns 404 when disable_logins is true" do
@@ -63,9 +61,6 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
 
     get new_push_path(tab: "files")
     assert_redirected_to new_push_path(tab: "text")
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "DELETE sign_out still works when disable_logins is true" do
@@ -110,9 +105,6 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
     assert_response :success
     # No nav link to files tab when logins disabled (file pushes require sign-in)
     assert_select "a[href='#{new_push_path(tab: "files")}']", count: 0
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "new push page includes Files tab link when disable_logins is false and file pushes enabled" do
@@ -124,9 +116,6 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "text")
     assert_response :success
     assert_select "a[href='#{new_push_path(tab: "files")}']", minimum: 1
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "POST create file push redirects to text tab when disable_logins is true" do
@@ -144,9 +133,6 @@ class DisableLoginsTest < ActionDispatch::IntegrationTest
     }
     assert_redirected_to new_push_path(tab: "text")
     assert_equal I18n._("File pushes are unavailable while logins are disabled."), flash[:notice]
-  ensure
-    Settings.enable_file_pushes = false
-    Rails.application.reload_routes!
   end
 
   test "GET pushes index redirects to root when disable_logins and not signed in" do

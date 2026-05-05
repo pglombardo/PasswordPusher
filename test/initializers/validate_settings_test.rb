@@ -3,14 +3,8 @@
 require "test_helper"
 
 class ValidateSettingsTest < ActiveSupport::TestCase
-  def setup
-    # Store the original setting to restore it later
-    @original_purge_after = Settings.purge_after
-  end
-
   def teardown
-    # Restore the original setting
-    Settings.purge_after = @original_purge_after
+    Settings.reload!
     # Reload the initializer to restore the original configuration
     load Rails.root.join("config/initializers/validate_settings.rb")
   end

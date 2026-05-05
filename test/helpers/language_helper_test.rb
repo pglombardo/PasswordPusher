@@ -7,12 +7,11 @@ class LanguageHelperTest < ActionView::TestCase
 
   setup do
     @original_available_locales = I18n.available_locales.dup
-    @original_language_codes = Settings.language_codes.dup
   end
 
   teardown do
     I18n.available_locales = @original_available_locales
-    Settings.language_codes = @original_language_codes
+    Settings.reload!
   end
 
   test "language_options_for_select returns array of language code and locale pairs" do

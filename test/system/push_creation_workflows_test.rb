@@ -15,7 +15,8 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   # Password Push Creation

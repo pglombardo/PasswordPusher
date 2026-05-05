@@ -11,8 +11,8 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    @luca = users(:luca)
-    sign_out @luca
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "New push form is NOT available anonymous" do

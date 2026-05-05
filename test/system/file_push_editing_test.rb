@@ -12,7 +12,8 @@ class FilePushEditingTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "delete buttons are visible when multiple files exist" do

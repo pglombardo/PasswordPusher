@@ -9,6 +9,10 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_audit_response_for_authenticated
     @luca = users(:luca)
     # Create a push

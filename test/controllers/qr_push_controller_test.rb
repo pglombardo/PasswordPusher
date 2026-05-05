@@ -10,8 +10,7 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    @luca = users(:luca)
-    sign_out @luca
+    Settings.reload!
   end
 
   test "New push form is available when anonymous" do
@@ -113,8 +112,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
     assert_match(/QR code pushes are disabled\./i, flash[:notice])
-  ensure
-    Settings.enable_qr_pushes = true
   end
 
   test "when QR pushes disabled, creating a QR push redirects to root with notice" do
@@ -129,8 +126,6 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     assert_equal I18n._("QR code pushes are disabled."), flash[:notice]
-  ensure
-    Settings.enable_qr_pushes = true
   end
 
   test "when QR pushes disabled, logged-in user creating QR push redirects to root with notice" do
@@ -147,7 +142,5 @@ class QrPushControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     assert_equal I18n._("QR code pushes are disabled."), flash[:notice]
-  ensure
-    Settings.enable_qr_pushes = true
   end
 end

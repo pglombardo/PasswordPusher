@@ -12,8 +12,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    Settings.enable_file_pushes = false
-    Settings.enable_url_pushes = false
+    Settings.reload!
   end
 
   test "New push form is available anonymous" do
@@ -217,8 +216,6 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert response.body.include?("You need to sign in or sign up before continuing.")
-  ensure
-    Settings.allow_anonymous = true
   end
 
   test "when allow_anonymous disabled, anonymous user cannot create password push" do
@@ -234,8 +231,6 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert response.body.include?("You need to sign in or sign up before continuing.")
-  ensure
-    Settings.allow_anonymous = true
   end
 
   test "when allow_anonymous disabled, logged-in user can access new and create password push" do
@@ -253,7 +248,5 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :redirect
-  ensure
-    Settings.allow_anonymous = true
   end
 end

@@ -9,6 +9,10 @@ class QrJsonCreationTest < ActionDispatch::IntegrationTest
     Settings.qr.retrieval_step_default = false
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_basic_json_creation
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr"}}
     assert_response :success

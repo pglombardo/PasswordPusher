@@ -11,6 +11,11 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_audit_response_for_authenticated
     post file_pushes_path(format: :json), params: {
                                             file_push: {

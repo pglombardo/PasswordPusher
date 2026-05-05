@@ -3,14 +3,8 @@
 require "test_helper"
 
 class SessionStoreTest < ActiveSupport::TestCase
-  def setup
-    # Store the original setting to restore it later
-    @original_secure_cookies = Settings.secure_cookies
-  end
-
   def teardown
-    # Restore the original setting
-    Settings.secure_cookies = @original_secure_cookies
+    Settings.reload!
     # Reload the initializer to restore the original configuration
     load Rails.root.join("config/initializers/session_store.rb")
   end

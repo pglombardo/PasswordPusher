@@ -4,18 +4,11 @@ require "application_system_test_case"
 
 class AdminUserDeletionTest < ApplicationSystemTestCase
   setup do
-    Rails.application.reload_routes!
-
     @mr_admin = users(:mr_admin)
     @luca = users(:luca)
     @giuliana = users(:giuliana)
 
     login_as(@mr_admin, scope: :user)
-  end
-
-  teardown do
-    logout(:user)
-    Rails.application.reload_routes!
   end
 
   test "delete button is visible for non-current-user admin accounts" do

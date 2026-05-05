@@ -9,12 +9,7 @@ require "test_helper"
 # When the feature is disabled, the tests are skipped.
 class DeviseMailerTest < ActionMailer::TestCase
   setup do
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
     @email_enabled = User.respond_to?(:send_reset_password_instructions)
-  end
-
-  teardown do
-    Rails.application.routes.default_url_options[:host] = nil
   end
 
   test "reset_password_instructions renders without error" do

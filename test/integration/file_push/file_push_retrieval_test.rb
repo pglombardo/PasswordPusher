@@ -13,7 +13,8 @@ class FilePushRetrievalTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_anonymous_retrieval

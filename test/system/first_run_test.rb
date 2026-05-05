@@ -30,8 +30,9 @@ class FirstRunTest < ApplicationSystemTestCase
   teardown do
     FirstRunBootCode.clear!
     User.destroy_all
-    Settings.disable_logins = false
-    Settings.disable_signups = false
+
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "redirects to first run when visiting other pages and no users exist" do

@@ -22,8 +22,6 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
   setup do
     Settings.disable_signups = false
     Rails.application.reload_routes!
-    # Set default URL options for test environment to avoid missing host errors
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
 
     User.destroy_all
     FirstRunBootCode.clear!
@@ -32,8 +30,8 @@ class FirstRunControllerTest < ActionDispatch::IntegrationTest
   teardown do
     User.destroy_all
     FirstRunBootCode.clear!
-    Settings.disable_logins = false
-    Settings.disable_signups = false
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "any page redirects to first run when no users exist" do

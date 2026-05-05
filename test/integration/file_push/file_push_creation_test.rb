@@ -13,7 +13,8 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_textarea_has_safeties
@@ -74,7 +75,6 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_file_push_creation_with_limits
-    @old_max_files_uploads = Settings.files.max_file_uploads
     Settings.files.max_file_uploads = 1
 
     # Upload 1 file
@@ -104,7 +104,6 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :unprocessable_content
-    Settings.files.max_file_uploads = @old_max_files_uploads
   end
 
   def test_ascii_8bit_message_creation
@@ -169,7 +168,7 @@ class FilePushCreationTest < ActionDispatch::IntegrationTest
     assert(deletable_checkbox.length == 1)
 
     # DELETABLE_PASSWORDS_DEFAULT determines initial check state
-    if Settings.files.deletable_pushes_default == true
+    if Settings.files.deletable_pushes_default
       assert(deletable_checkbox.first.attributes["checked"].value == "checked")
     else
       assert(deletable_checkbox.first.attributes["checked"].nil?)

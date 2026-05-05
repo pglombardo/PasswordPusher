@@ -12,7 +12,8 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "generate password button generates password" do
