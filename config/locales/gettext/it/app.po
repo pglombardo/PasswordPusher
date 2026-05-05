@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-22 13:19+0200\n"
-"PO-Revision-Date: 2026-04-22 11:19+0000\n"
+"POT-Creation-Date: 2026-05-06 00:41+0200\n"
+"PO-Revision-Date: 2026-05-05 22:41+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
+
+#: ../../../app/controllers/admin/custom_css_controller.rb:11
+msgid "Custom CSS updated successfully."
+msgstr "Aggiornamento del CSS personalizzato completato con successo."
+
+#: ../../../app/controllers/admin/custom_css_controller.rb:13
+msgid "Error updating CSS: %{error}"
+msgstr "Errore durante l'aggiornamento del CSS: %{error}"
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -35,10 +43,10 @@ msgid "That push is not deletable by viewers."
 msgstr "Quel push non è cancellabile dai visualizzatori."
 
 #: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
-#: ../../../test/controllers/api/base_controller_test.rb:53
-#: ../../../test/integration/require_mfa_test.rb:29
-#: ../../../test/integration/require_mfa_test.rb:60
-#: ../../../test/integration/require_mfa_test.rb:76
+#: ../../../test/controllers/api/base_controller_test.rb:50
+#: ../../../test/integration/require_mfa_test.rb:27
+#: ../../../test/integration/require_mfa_test.rb:58
+#: ../../../test/integration/require_mfa_test.rb:74
 msgid "Two-factor authentication is required. Please set it up to continue."
 msgstr "È richiesta l'autenticazione a due fattori. Configurala per continuare."
 
@@ -74,7 +82,7 @@ msgstr "Push è stato aggiornato correttamente."
 
 #: ../../../app/controllers/pushes_controller.rb:278
 #: ../../../app/controllers/pushes_controller.rb:457
-#: ../../../test/integration/disable_logins_test.rb:56
+#: ../../../test/integration/disable_logins_test.rb:54
 msgid "The audit log is only available when signed in."
 msgstr "Il registro delle attività è disponibile solo dopo aver effettuato l'accesso."
 
@@ -111,12 +119,12 @@ msgid "File not found."
 msgstr "File non trovato."
 
 #: ../../../app/controllers/pushes_controller.rb:449
-#: ../../../test/integration/disable_logins_test.rb:158
+#: ../../../test/integration/disable_logins_test.rb:144
 msgid "The push dashboard is not available while logins are disabled."
 msgstr "La dashboard push non è disponibile quando gli accessi sono disabilitati."
 
 #: ../../../app/controllers/pushes_controller.rb:482
-#: ../../../test/integration/disable_logins_test.rb:146
+#: ../../../test/integration/disable_logins_test.rb:135
 msgid "File pushes are unavailable while logins are disabled."
 msgstr "Il caricamento dei file non è disponibile finché l'accesso è disabilitato."
 
@@ -127,15 +135,15 @@ msgstr "I push dei file sono disabilitati."
 
 #: ../../../app/controllers/pushes_controller.rb:495
 #: ../../../app/models/push.rb:212
-#: ../../../test/controllers/urls_controller_test.rb:113
-#: ../../../test/controllers/urls_controller_test.rb:133
+#: ../../../test/controllers/urls_controller_test.rb:110
+#: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "Gli URL push sono disabilitati."
 
 #: ../../../app/controllers/pushes_controller.rb:507
 #: ../../../app/models/push.rb:216
-#: ../../../test/controllers/qr_push_controller_test.rb:131
-#: ../../../test/controllers/qr_push_controller_test.rb:149
+#: ../../../test/controllers/qr_push_controller_test.rb:128
+#: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
 msgstr "L'invio di codici QR è disabilitato."
 
@@ -165,7 +173,7 @@ msgid "Two-factor authentication is now enabled."
 msgstr "L'autenticazione a due fattori è ora abilitata."
 
 #: ../../../app/controllers/users/two_factor_controller.rb:34
-#: ../../../test/integration/require_mfa_test.rb:107
+#: ../../../test/integration/require_mfa_test.rb:105
 msgid ""
 "Two-factor authentication cannot be disabled because it is required by the adm"
 "inistrator."
@@ -174,7 +182,7 @@ msgstr ""
 "dall'amministratore."
 
 #: ../../../app/controllers/users/two_factor_controller.rb:40
-#: ../../../test/integration/require_mfa_test.rb:124
+#: ../../../test/integration/require_mfa_test.rb:122
 msgid "Two-factor authentication has been disabled."
 msgstr "L'autenticazione a due fattori è stata disabilitata."
 
@@ -237,6 +245,112 @@ msgstr "Esploratore di dati"
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
 msgid "Background Jobs"
 msgstr "Lavori di sfondo"
+
+#: ../../../app/views/admin/_navigation.html.erb:64
+#: ../../../app/views/admin/custom_css/edit.html.erb:1
+#: ../../../app/views/admin/custom_css/edit.html.erb:6
+msgid "Custom CSS"
+msgstr "CSS personalizzato"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:7
+msgid ""
+"Add custom CSS styles to override the default appearance of your Password Push"
+"er instance."
+msgstr ""
+"Aggiungi stili CSS personalizzati per sovrascrivere l'aspetto predefinito dell"
+"a tua istanza di Password Pusher."
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:16
+msgid "Use Caution"
+msgstr "Usare cautela"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:17
+msgid ""
+"Custom CSS can break the application layout or make it unusable. Test your cha"
+"nges carefully. Invalid CSS will be ignored by browsers."
+msgstr ""
+"Il CSS personalizzato può compromettere il layout dell'applicazione o renderla"
+" inutilizzabile. Testa attentamente le modifiche. Il CSS non valido verrà igno"
+"rato dai browser."
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:27
+msgid "Looking for Themes?"
+msgstr "Cerchi temi?"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:29
+msgid ""
+"Password Pusher includes 26 built-in themes that can be set via the %{code_sta"
+"rt}PWP__THEME%{code_end} environment variable. No custom CSS needed for most b"
+"randing changes."
+msgstr ""
+"Password Pusher include 26 temi predefiniti che possono essere impostati trami"
+"te la variabile d'ambiente %{code_start}PWP__THEME%{code_end}. Non è necessari"
+"o alcun CSS personalizzato per la maggior parte delle modifiche al marchio."
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:31
+msgid "View the Theme Gallery"
+msgstr "Visualizza la galleria dei temi"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:41
+msgid "Custom Stylesheet"
+msgstr "Foglio di stile personalizzato"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:45
+msgid ""
+"/* Add your custom CSS here */\n"
+"\n"
+"body {\n"
+"  background-color: #f5f5f5;\n"
+"}"
+msgstr ""
+"/* Aggiungi qui il tuo CSS personalizzato */ body { background-color: #f5f5f5;"
+" }"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:51
+msgid ""
+"CSS entered here will be injected into every page. Changes take effect immedia"
+"tely after saving."
+msgstr ""
+"Il codice CSS inserito qui verrà applicato a ogni pagina. Le modifiche avranno"
+" effetto immediatamente dopo il salvataggio."
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:57
+msgid "Tip: Use Ctrl+Enter (or Cmd+Enter on Mac) to save quickly"
+msgstr "Suggerimento: usa Ctrl+Invio (o Cmd+Invio su Mac) per salvare rapidamente"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:59
+msgid "Save Custom CSS"
+msgstr "Salva CSS personalizzato"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:68
+msgid "Common Customization Examples"
+msgstr "Esempi comuni di personalizzazione"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:72
+msgid "Make the password textarea larger with monospace font"
+msgstr ""
+"Ingrandisci l'area di testo della password con un carattere a spaziatura fissa"
+"."
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:82
+msgid "Style the Generate Password button with gradient"
+msgstr "Personalizza il pulsante Genera password con una sfumatura"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:92
+msgid "Customize slider appearance"
+msgstr "Personalizza l'aspetto del cursore"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:104
+msgid "Style the Push It button"
+msgstr "Personalizza il pulsante Push It"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:116
+msgid "Highlight the passphrase field when focused"
+msgstr "Evidenzia il campo della passphrase quando è selezionato"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:125
+msgid "Add card-style borders to form sections"
+msgstr "Aggiungi bordi in stile scheda alle sezioni del modulo"
 
 #: ../../../app/views/admin/index.html.erb:1
 #: ../../../app/views/layouts/admin.html.erb:38
@@ -576,7 +690,7 @@ msgstr "Non conta nel limite di visualizzazione"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
 #: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:5
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
@@ -587,7 +701,7 @@ msgstr "Indirizzo IP:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
@@ -602,8 +716,8 @@ msgstr "Agente utente:"
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
@@ -618,7 +732,7 @@ msgstr "Nessuna"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
@@ -638,12 +752,8 @@ msgid "Manually expired on %{date} by %{user}"
 msgstr "Push scaduto manualmente il %{date} da %{user}"
 
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
-msgid "Failed passphrase attempt on"
-msgstr "Tentativo di passphrase fallito su"
-
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
-msgid "by %{user}"
-msgstr "da %{user}"
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "Tentativo di passphrase non riuscito su %{date} da parte di %{user}"
 
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
 msgid "Failed view attempt on %{date} by %{user}"
@@ -661,28 +771,11 @@ msgstr "Visualizzazione riuscita su %{date} da %{user}"
 msgid "Click Here to Confirm Your Account"
 msgstr "Clicca qui per confermare il tuo account"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
-#: ../../../app/views/devise/mailer/email_changed.html.erb:8
-#: ../../../app/views/devise/mailer/password_change.html.erb:8
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:8
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:8
-#: ../../../app/views/layouts/application.html.erb:8
-#: ../../../app/views/layouts/bare.html.erb:8
-#: ../../../app/views/layouts/login.html.erb:8
-#: ../../../app/views/layouts/naked.html.erb:8
-msgid ""
-"Password Pusher is an application to securely send passwords over the web. Lin"
-"ks to passwords expire after a certain number of views and/or time has passed."
-msgstr ""
-"Password Pusher è un'applicazione per inviare password in modo sicuro sul web."
-" I link alle password scadono dopo un certo numero di visualizzazioni e/o dopo"
-" un certo periodo di tempo."
-
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:1
 msgid "Confirm your new account"
 msgstr "Conferma il tuo nuovo account"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:20
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:2
 msgid ""
 "Your account has been created but you must confirm that you own this email add"
 "ress."
@@ -690,49 +783,49 @@ msgstr ""
 "Il tuo account è stato creato ma devi confermare di essere il proprietario di "
 "questo indirizzo email."
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:23
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "You can confirm your account email by"
 msgstr "Puoi confermare l'indirizzo email del tuo account tramite"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:24
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:22
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:4
 msgid "by clicking this link"
 msgstr "cliccando questo link"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:25
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:23
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:7
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:5
 msgid "or by copying and pasting the following URL into your browser:"
 msgstr "o copiando e incollando il seguente URL nel tuo browser:"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:32
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:14
 msgid "If you didn't create an account, no action is required."
 msgstr "Se non hai creato un account, non è richiesta alcuna azione."
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:19
+#: ../../../app/views/devise/mailer/email_changed.html.erb:1
 msgid "Your email is being changed"
 msgstr "La tua email è in fase di modifica"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:21
+#: ../../../app/views/devise/mailer/email_changed.html.erb:3
 msgid "We're contacting you to notify you that your email at"
 msgstr "Ti stiamo contattando per informarti che la tua email a"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:25
+#: ../../../app/views/devise/mailer/email_changed.html.erb:7
 msgid "is being changed to %s"
 msgstr "viene modificato a %s"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:27
+#: ../../../app/views/devise/mailer/email_changed.html.erb:9
 msgid "has been changed to %s"
 msgstr "è stato cambiato a %s"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:19
+#: ../../../app/views/devise/mailer/password_change.html.erb:1
 msgid "Password Change"
 msgstr "Cambio di password"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:21
+#: ../../../app/views/devise/mailer/password_change.html.erb:3
 msgid "We're contacting you to notify you that your password has been changed on"
 msgstr "Ti stiamo contattando per informarti che la tua password è stata modificata il"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:24
+#: ../../../app/views/devise/mailer/password_change.html.erb:6
 msgid ""
 "If you didn't initiate this and it wasn't your intention, please contact us as"
 " soon as possible."
@@ -740,11 +833,11 @@ msgstr ""
 "Se non l'hai avviato tu e non era tua intenzione, ti preghiamo di contattarci "
 "il prima possibile."
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:1
 msgid "Password Change Request"
 msgstr "Richiesta di cambio password"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:21
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:3
 msgid ""
 "Someone has requested a link to change your password. You can proceed with thi"
 "s action"
@@ -752,13 +845,13 @@ msgstr ""
 "Qualcuno ha richiesto un link per cambiare la tua password. Puoi procedere con"
 " questa azione"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:31
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:13
 msgid "If you didn't request this change, you can safely delete this email."
 msgstr ""
 "Se non hai richiesto tu questa modifica, puoi tranquillamente eliminare questa"
 " email."
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:32
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:14
 msgid ""
 "Your password won't change until you access the link above and create a new on"
 "e."
@@ -766,11 +859,11 @@ msgstr ""
 "La password non cambierà fino a quando si accede al link qui sopra e crearne u"
 "no nuovo."
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:1
 msgid "Unlock Your Account"
 msgstr "Sblocca il tuo account"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:22
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "Your account has been locked due to an excessive number of unsuccessful sign i"
 "n attempts."
@@ -778,11 +871,11 @@ msgstr ""
 "Il tuo account è stato bloccato a causa di un numero eccessivo di segno succes"
 "so nei tentativi."
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:26
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:8
 msgid "Click this link"
 msgstr "Fare clic su questo collegamento"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:27
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:9
 msgid ""
 "to unlock your account or by copying and pasting the following URL into your b"
 "rowser:"
@@ -935,6 +1028,18 @@ msgstr "Sistema attivo"
 #: ../../../app/views/layouts/admin.html.erb:60
 msgid "Back to App"
 msgstr "Torna all'app"
+
+#: ../../../app/views/layouts/application.html.erb:8
+#: ../../../app/views/layouts/bare.html.erb:8
+#: ../../../app/views/layouts/login.html.erb:8
+#: ../../../app/views/layouts/naked.html.erb:8
+msgid ""
+"Password Pusher is an application to securely send passwords over the web. Lin"
+"ks to passwords expire after a certain number of views and/or time has passed."
+msgstr ""
+"Password Pusher è un'applicazione per inviare password in modo sicuro sul web."
+" I link alle password scadono dopo un certo numero di visualizzazioni e/o dopo"
+" un certo periodo di tempo."
 
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:10
@@ -1806,49 +1911,91 @@ msgid "Version Endpoint"
 msgstr "Endpoint di versione"
 
 #: ../../../app/views/pages/api.html.erb:42
-msgid "Returns API and application version details."
-msgstr "Restituisce i dettagli relativi all'API e alla versione dell'applicazione."
+msgid ""
+"Returns API version, application details, and a features hash describing which"
+" capabilities are enabled on this instance."
+msgstr ""
+"Restituisce la versione dell'API, i dettagli dell'applicazione e un hash delle"
+" funzionalità che descrive quali capacità sono abilitate su questa istanza."
 
 #: ../../../app/views/pages/api.html.erb:43
-#: ../../../app/views/pages/api.html.erb:113
-#: ../../../app/views/pages/api.html.erb:122
-#: ../../../app/views/pages/api.html.erb:132
-#: ../../../app/views/pages/api.html.erb:142
-#: ../../../app/views/pages/api.html.erb:153
-#: ../../../app/views/pages/api.html.erb:164
+#: ../../../app/views/pages/api.html.erb:150
+#: ../../../app/views/pages/api.html.erb:159
+#: ../../../app/views/pages/api.html.erb:169
+#: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:190
+#: ../../../app/views/pages/api.html.erb:201
 msgid "cURL example:"
 msgstr "Esempio di cURL:"
 
-#: ../../../app/views/pages/api.html.erb:53
+#: ../../../app/views/pages/api.html.erb:75
+msgid "Features Hash"
+msgstr "Caratteristiche Hash"
+
+#: ../../../app/views/pages/api.html.erb:77
+msgid "Whether anonymous API usage is allowed (Settings.allow_anonymous)"
+msgstr ""
+"Indica se è consentito l'utilizzo anonimo dell'API (Impostazioni: allow_anonym"
+"ous)."
+
+#: ../../../app/views/pages/api.html.erb:78
+msgid "Bearer token authentication support"
+msgstr "Supporto per l'autenticazione con token bearer"
+
+#: ../../../app/views/pages/api.html.erb:79
+msgid "Accounts API availability (not available in OSS)"
+msgstr "Disponibilità dell'API per gli account (non disponibile in OSS)"
+
+#: ../../../app/views/pages/api.html.erb:80
+msgid "Push creation and management via API"
+msgstr "Creazione e gestione di push tramite API"
+
+#: ../../../app/views/pages/api.html.erb:81
+msgid "File attachments on pushes (Settings.enable_file_pushes)"
+msgstr "Allegati file nelle notifiche push (Impostazioni.abilita_le_notifiche_file)"
+
+#: ../../../app/views/pages/api.html.erb:82
+msgid "URL push type (Settings.enable_url_pushes)"
+msgstr "Tipo di notifica URL (Impostazioni.abilita_le_notifica_URL)"
+
+#: ../../../app/views/pages/api.html.erb:83
+msgid "QR code push type (Settings.enable_qr_pushes)"
+msgstr "Tipo di notifica tramite codice QR (Impostazioni.abilita_notifiche_QR)"
+
+#: ../../../app/views/pages/api.html.erb:84
+msgid "Requests API availability (not available in OSS)"
+msgstr "Richiesta di disponibilità dell'API (non disponibile in OSS)"
+
+#: ../../../app/views/pages/api.html.erb:90
 msgid "Push Endpoints"
 msgstr "Endpoint di push"
 
-#: ../../../app/views/pages/api.html.erb:58
+#: ../../../app/views/pages/api.html.erb:95
 msgid "Create a new push."
 msgstr "Crea una nuova notifica push."
 
-#: ../../../app/views/pages/api.html.erb:59
+#: ../../../app/views/pages/api.html.erb:96
 msgid "Body format:"
 msgstr "Formato del corpo:"
 
-#: ../../../app/views/pages/api.html.erb:64
+#: ../../../app/views/pages/api.html.erb:101
 msgid "Parameter"
 msgstr "Parametro"
 
-#: ../../../app/views/pages/api.html.erb:65
+#: ../../../app/views/pages/api.html.erb:102
 #: ../../../app/views/pushes/index.html.erb:33
 msgid "Type"
 msgstr "Tipo"
 
-#: ../../../app/views/pages/api.html.erb:66
+#: ../../../app/views/pages/api.html.erb:103
 msgid "Required"
 msgstr "Necessario"
 
-#: ../../../app/views/pages/api.html.erb:67
+#: ../../../app/views/pages/api.html.erb:104
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pages/api.html.erb:108
 #: ../../../app/views/pushes/audit.html.erb:53
 #: ../../../app/views/pushes/audit.html.erb:66
 #: ../../../app/views/pushes/audit.html.erb:80
@@ -1856,19 +2003,19 @@ msgstr "Descrizione"
 msgid "Yes"
 msgstr "sì"
 
-#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pages/api.html.erb:108
 msgid "Secret text payload for text, URL or QR pushes."
 msgstr "Testo segreto da inviare tramite SMS, URL o codici QR."
 
-#: ../../../app/views/pages/api.html.erb:72
-#: ../../../app/views/pages/api.html.erb:73
-#: ../../../app/views/pages/api.html.erb:74
-#: ../../../app/views/pages/api.html.erb:75
-#: ../../../app/views/pages/api.html.erb:76
-#: ../../../app/views/pages/api.html.erb:77
-#: ../../../app/views/pages/api.html.erb:78
-#: ../../../app/views/pages/api.html.erb:79
-#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:110
+#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:114
+#: ../../../app/views/pages/api.html.erb:115
+#: ../../../app/views/pages/api.html.erb:116
+#: ../../../app/views/pages/api.html.erb:117
 #: ../../../app/views/pushes/audit.html.erb:55
 #: ../../../app/views/pushes/audit.html.erb:68
 #: ../../../app/views/pushes/audit.html.erb:78
@@ -1876,7 +2023,7 @@ msgstr "Testo segreto da inviare tramite SMS, URL o codici QR."
 msgid "No"
 msgstr "No"
 
-#: ../../../app/views/pages/api.html.erb:72
+#: ../../../app/views/pages/api.html.erb:109
 msgid ""
 "Files to attach. When present, the push type becomes file unless kind is expli"
 "citly provided."
@@ -1884,49 +2031,49 @@ msgstr ""
 "File da allegare. Se presente, il tipo di invio diventa \"file\" a meno che non "
 "venga specificato esplicitamente il tipo."
 
-#: ../../../app/views/pages/api.html.erb:73
+#: ../../../app/views/pages/api.html.erb:110
 msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
 msgstr ""
 "Tipo di notifica: testo, file, URL o codice QR. Se non specificato, viene util"
 "izzato il testo come predefinito."
 
-#: ../../../app/views/pages/api.html.erb:74
+#: ../../../app/views/pages/api.html.erb:111
 msgid "Expiration window in days. If omitted, instance defaults are used."
 msgstr ""
 "Periodo di scadenza in giorni. Se omesso, vengono utilizzate le impostazioni p"
 "redefinite dell'istanza."
 
-#: ../../../app/views/pages/api.html.erb:75
+#: ../../../app/views/pages/api.html.erb:112
 msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
 msgstr ""
 "Numero massimo di recuperi consentiti. Se omesso, vengono utilizzati i valori "
 "predefiniti dell'istanza."
 
-#: ../../../app/views/pages/api.html.erb:76
+#: ../../../app/views/pages/api.html.erb:113
 msgid "Allows the recipient to expire the push."
 msgstr "Consente al destinatario di far scadere la notifica push."
 
-#: ../../../app/views/pages/api.html.erb:77
+#: ../../../app/views/pages/api.html.erb:114
 msgid "Adds an extra retrieval confirmation step."
 msgstr "Aggiunge un ulteriore passaggio di conferma del recupero."
 
-#: ../../../app/views/pages/api.html.erb:78
+#: ../../../app/views/pages/api.html.erb:115
 msgid "Requires this passphrase to retrieve the payload."
 msgstr "È necessaria questa passphrase per recuperare il payload."
 
-#: ../../../app/views/pages/api.html.erb:79
+#: ../../../app/views/pages/api.html.erb:116
 msgid "Optional label shown to the owner."
 msgstr "Etichetta opzionale mostrata al proprietario."
 
-#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pages/api.html.erb:117
 msgid "Optional owner-only note."
 msgstr "Nota facoltativa riservata al proprietario."
 
-#: ../../../app/views/pages/api.html.erb:94
+#: ../../../app/views/pages/api.html.erb:131
 msgid "cURL example (JSON body):"
 msgstr "Esempio di cURL (corpo JSON):"
 
-#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:148
 msgid ""
 "Retrieve a push payload by token. This counts as a view and may expire the pus"
 "h when limits are reached."
@@ -1935,18 +2082,18 @@ msgstr ""
 "me una visualizzazione e potrebbe invalidare la notifica push al raggiungiment"
 "o dei limiti."
 
-#: ../../../app/views/pages/api.html.erb:112
-#: ../../../app/views/pages/api.html.erb:131
-#: ../../../app/views/pages/api.html.erb:152
-#: ../../../app/views/pages/api.html.erb:163
+#: ../../../app/views/pages/api.html.erb:149
+#: ../../../app/views/pages/api.html.erb:168
+#: ../../../app/views/pages/api.html.erb:189
+#: ../../../app/views/pages/api.html.erb:200
 msgid "Query parameters:"
 msgstr "Parametri della query:"
 
-#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:149
 msgid "optional, required when the push is passphrase-protected"
 msgstr "facoltativo, obbligatorio quando la notifica push è protetta da passphrase"
 
-#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:158
 msgid ""
 "Returns the fully-qualified secret URL for a push without retrieving its paylo"
 "ad."
@@ -1954,7 +2101,7 @@ msgstr ""
 "Restituisce l'URL segreto completo per una notifica push senza recuperarne il "
 "payload."
 
-#: ../../../app/views/pages/api.html.erb:130
+#: ../../../app/views/pages/api.html.erb:167
 msgid ""
 "Return audit log entries for a push. Authentication and ownership are required"
 "."
@@ -1962,13 +2109,13 @@ msgstr ""
 "Restituisci le voci del registro di controllo per la distribuzione. Sono richi"
 "esti autenticazione e proprietà."
 
-#: ../../../app/views/pages/api.html.erb:131
-#: ../../../app/views/pages/api.html.erb:152
-#: ../../../app/views/pages/api.html.erb:163
+#: ../../../app/views/pages/api.html.erb:168
+#: ../../../app/views/pages/api.html.erb:189
+#: ../../../app/views/pages/api.html.erb:200
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "facoltativo, numero intero, valore predefinito 1, intervallo valido da 1 a 200"
 
-#: ../../../app/views/pages/api.html.erb:141
+#: ../../../app/views/pages/api.html.erb:178
 msgid ""
 "Expire a push immediately. Allowed for owners (when authenticated) or for reci"
 "pients when the push was created with deletable_by_viewer enabled."
@@ -1977,47 +2124,47 @@ msgstr ""
 "icati) o ai destinatari quando la notifica push è stata creata con l'opzione d"
 "eletable_by_viewer abilitata."
 
-#: ../../../app/views/pages/api.html.erb:151
+#: ../../../app/views/pages/api.html.erb:188
 msgid "List active pushes for the authenticated user."
 msgstr "Elenca le notifiche push attive per l'utente autenticato."
 
-#: ../../../app/views/pages/api.html.erb:162
+#: ../../../app/views/pages/api.html.erb:199
 msgid "List expired pushes for the authenticated user."
 msgstr "Elenca le notifiche push scadute per l'utente autenticato."
 
-#: ../../../app/views/pages/api.html.erb:172
+#: ../../../app/views/pages/api.html.erb:209
 msgid "HTTP Status Codes"
 msgstr "Codici di stato HTTP"
 
-#: ../../../app/views/pages/api.html.erb:174
+#: ../../../app/views/pages/api.html.erb:211
 msgid "Successful request"
 msgstr "Richiesta andata a buon fine"
 
-#: ../../../app/views/pages/api.html.erb:175
+#: ../../../app/views/pages/api.html.erb:212
 msgid "Push created"
 msgstr "Push creato"
 
-#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:213
 msgid "Invalid request parameters"
 msgstr "Parametri di richiesta non validi"
 
-#: ../../../app/views/pages/api.html.erb:177
+#: ../../../app/views/pages/api.html.erb:214
 msgid "Authentication required or invalid token"
 msgstr "Autenticazione richiesta o token non valido"
 
-#: ../../../app/views/pages/api.html.erb:178
+#: ../../../app/views/pages/api.html.erb:215
 msgid "Forbidden for current user"
 msgstr "Accesso vietato all'utente corrente"
 
-#: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:216
 msgid "Resource not found"
 msgstr "Risorsa non trovata"
 
-#: ../../../app/views/pages/api.html.erb:180
+#: ../../../app/views/pages/api.html.erb:217
 msgid "Validation error"
 msgstr "Errore di convalida"
 
-#: ../../../app/views/pages/api.html.erb:186
+#: ../../../app/views/pages/api.html.erb:223
 msgid "For legacy API v1 documentation, see"
 msgstr "Per la documentazione relativa all'API v1 legacy, vedere"
 

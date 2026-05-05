@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-04-22 13:19+0200\n"
-"PO-Revision-Date: 2026-04-22 11:19+0000\n"
+"POT-Creation-Date: 2026-05-06 00:41+0200\n"
+"PO-Revision-Date: 2026-05-05 22:41+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese\n"
 "Language: zh_CN\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
+
+#: ../../../app/controllers/admin/custom_css_controller.rb:11
+msgid "Custom CSS updated successfully."
+msgstr "自定义CSS已成功更新。"
+
+#: ../../../app/controllers/admin/custom_css_controller.rb:13
+msgid "Error updating CSS: %{error}"
+msgstr "CSS 更新错误：%{error}"
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -35,10 +43,10 @@ msgid "That push is not deletable by viewers."
 msgstr "观看者无法删除那个推送。"
 
 #: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
-#: ../../../test/controllers/api/base_controller_test.rb:53
-#: ../../../test/integration/require_mfa_test.rb:29
-#: ../../../test/integration/require_mfa_test.rb:60
-#: ../../../test/integration/require_mfa_test.rb:76
+#: ../../../test/controllers/api/base_controller_test.rb:50
+#: ../../../test/integration/require_mfa_test.rb:27
+#: ../../../test/integration/require_mfa_test.rb:58
+#: ../../../test/integration/require_mfa_test.rb:74
 msgid "Two-factor authentication is required. Please set it up to continue."
 msgstr "需要启用双因素身份验证。请进行设置以继续。"
 
@@ -72,7 +80,7 @@ msgstr "推送已成功更新。"
 
 #: ../../../app/controllers/pushes_controller.rb:278
 #: ../../../app/controllers/pushes_controller.rb:457
-#: ../../../test/integration/disable_logins_test.rb:56
+#: ../../../test/integration/disable_logins_test.rb:54
 msgid "The audit log is only available when signed in."
 msgstr "只有登录后才能查看审计日志。"
 
@@ -107,12 +115,12 @@ msgid "File not found."
 msgstr "文件未找到。"
 
 #: ../../../app/controllers/pushes_controller.rb:449
-#: ../../../test/integration/disable_logins_test.rb:158
+#: ../../../test/integration/disable_logins_test.rb:144
 msgid "The push dashboard is not available while logins are disabled."
 msgstr "登录功能禁用期间，推送仪表盘不可用。"
 
 #: ../../../app/controllers/pushes_controller.rb:482
-#: ../../../test/integration/disable_logins_test.rb:146
+#: ../../../test/integration/disable_logins_test.rb:135
 msgid "File pushes are unavailable while logins are disabled."
 msgstr "登录功能禁用期间，文件推送功能不可用。"
 
@@ -123,15 +131,15 @@ msgstr "文件推送已禁用。"
 
 #: ../../../app/controllers/pushes_controller.rb:495
 #: ../../../app/models/push.rb:212
-#: ../../../test/controllers/urls_controller_test.rb:113
-#: ../../../test/controllers/urls_controller_test.rb:133
+#: ../../../test/controllers/urls_controller_test.rb:110
+#: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "URL 推送已禁用。"
 
 #: ../../../app/controllers/pushes_controller.rb:507
 #: ../../../app/models/push.rb:216
-#: ../../../test/controllers/qr_push_controller_test.rb:131
-#: ../../../test/controllers/qr_push_controller_test.rb:149
+#: ../../../test/controllers/qr_push_controller_test.rb:128
+#: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
 msgstr "二维码推送已禁用。"
 
@@ -159,14 +167,14 @@ msgid "Two-factor authentication is now enabled."
 msgstr "现已启用双因素身份验证。"
 
 #: ../../../app/controllers/users/two_factor_controller.rb:34
-#: ../../../test/integration/require_mfa_test.rb:107
+#: ../../../test/integration/require_mfa_test.rb:105
 msgid ""
 "Two-factor authentication cannot be disabled because it is required by the adm"
 "inistrator."
 msgstr "双因素身份验证无法禁用，因为管理员要求启用此功能。"
 
 #: ../../../app/controllers/users/two_factor_controller.rb:40
-#: ../../../test/integration/require_mfa_test.rb:124
+#: ../../../test/integration/require_mfa_test.rb:122
 msgid "Two-factor authentication has been disabled."
 msgstr "双因素身份验证已禁用。"
 
@@ -225,6 +233,100 @@ msgstr "数据浏览器"
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:34
 msgid "Background Jobs"
 msgstr "背景职位"
+
+#: ../../../app/views/admin/_navigation.html.erb:64
+#: ../../../app/views/admin/custom_css/edit.html.erb:1
+#: ../../../app/views/admin/custom_css/edit.html.erb:6
+msgid "Custom CSS"
+msgstr "自定义 CSS"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:7
+msgid ""
+"Add custom CSS styles to override the default appearance of your Password Push"
+"er instance."
+msgstr "添加自定义 CSS 样式以覆盖 Password Pusher 实例的默认外观。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:16
+msgid "Use Caution"
+msgstr "谨慎使用"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:17
+msgid ""
+"Custom CSS can break the application layout or make it unusable. Test your cha"
+"nges carefully. Invalid CSS will be ignored by browsers."
+msgstr "自定义 CSS 可能会破坏应用程序布局或使其无法使用。请仔细测试您的更改。无效的 CSS 将被浏览器忽略。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:27
+msgid "Looking for Themes?"
+msgstr "正在寻找主题？"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:29
+msgid ""
+"Password Pusher includes 26 built-in themes that can be set via the %{code_sta"
+"rt}PWP__THEME%{code_end} environment variable. No custom CSS needed for most b"
+"randing changes."
+msgstr ""
+"Password Pusher 内置了 26 个主题，可通过 %{code_start}PWP__THEME%{code_end} 环境变量进行设置。大多数"
+"品牌更改无需自定义 CSS。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:31
+msgid "View the Theme Gallery"
+msgstr "查看主题图库"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:41
+msgid "Custom Stylesheet"
+msgstr "自定义样式表"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:45
+msgid ""
+"/* Add your custom CSS here */\n"
+"\n"
+"body {\n"
+"  background-color: #f5f5f5;\n"
+"}"
+msgstr "/* 在此处添加您的自定义 CSS */ body { background-color: #f5f5f5; }"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:51
+msgid ""
+"CSS entered here will be injected into every page. Changes take effect immedia"
+"tely after saving."
+msgstr "在此处输入的 CSS 代码将注入到每个页面中。更改将在保存后立即生效。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:57
+msgid "Tip: Use Ctrl+Enter (or Cmd+Enter on Mac) to save quickly"
+msgstr "提示：使用 Ctrl+Enter（Mac 用户请使用 Cmd+Enter）快速保存。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:59
+msgid "Save Custom CSS"
+msgstr "保存自定义 CSS"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:68
+msgid "Common Customization Examples"
+msgstr "常见定制示例"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:72
+msgid "Make the password textarea larger with monospace font"
+msgstr "使用等宽字体增大密码文本框的字体大小。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:82
+msgid "Style the Generate Password button with gradient"
+msgstr "使用渐变效果设置“生成密码”按钮的样式"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:92
+msgid "Customize slider appearance"
+msgstr "自定义滑块外观"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:104
+msgid "Style the Push It button"
+msgstr "为“Push It”按钮添加样式"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:116
+msgid "Highlight the passphrase field when focused"
+msgstr "选中密码短语字段时，将其高亮显示。"
+
+#: ../../../app/views/admin/custom_css/edit.html.erb:125
+msgid "Add card-style borders to form sections"
+msgstr "为表单部分添加卡片式边框"
 
 #: ../../../app/views/admin/index.html.erb:1
 #: ../../../app/views/layouts/admin.html.erb:38
@@ -540,7 +642,7 @@ msgstr "不计入浏览次数限制"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:8
 #: ../../../app/views/audit_logs/_log_edit.html.erb:8
 #: ../../../app/views/audit_logs/_log_expire.html.erb:8
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:5
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:8
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:8
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:9
 #: ../../../app/views/audit_logs/_log_view.html.erb:8
@@ -551,7 +653,7 @@ msgstr "IP 地址："
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_edit.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_view.html.erb:10
@@ -566,8 +668,8 @@ msgstr "用户代理："
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:10
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:7
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
@@ -582,7 +684,7 @@ msgstr "无"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
 #: ../../../app/views/audit_logs/_log_edit.html.erb:12
 #: ../../../app/views/audit_logs/_log_expire.html.erb:12
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:9
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:12
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:12
 #: ../../../app/views/audit_logs/_log_owner_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_view.html.erb:12
@@ -602,12 +704,8 @@ msgid "Manually expired on %{date} by %{user}"
 msgstr "手动推送已在 %{date} 上由 %{user} 过期"
 
 #: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
-msgid "Failed passphrase attempt on"
-msgstr "密码尝试失败"
-
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:3
-msgid "by %{user}"
-msgstr "作者：[%{user}］"
+msgid "Failed passphrase attempt on %{date} by %{user}"
+msgstr "%{user} 对 %{date} 的密码尝试失败"
 
 #: ../../../app/views/audit_logs/_log_failed_view.html.erb:3
 msgid "Failed view attempt on %{date} by %{user}"
@@ -625,113 +723,99 @@ msgstr "%{user} 对 %{date} 的查看成功"
 msgid "Click Here to Confirm Your Account"
 msgstr "单击此处确认您的帐户"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:8
-#: ../../../app/views/devise/mailer/email_changed.html.erb:8
-#: ../../../app/views/devise/mailer/password_change.html.erb:8
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:8
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:8
-#: ../../../app/views/layouts/application.html.erb:8
-#: ../../../app/views/layouts/bare.html.erb:8
-#: ../../../app/views/layouts/login.html.erb:8
-#: ../../../app/views/layouts/naked.html.erb:8
-msgid ""
-"Password Pusher is an application to securely send passwords over the web. Lin"
-"ks to passwords expire after a certain number of views and/or time has passed."
-msgstr "Password Pusher 是一款通过网络安全发送密码的应用程序。在经过一定数量的查看和/或特定时间后，指向密码的链接将过期。"
-
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:1
 msgid "Confirm your new account"
 msgstr "确认您的新帐户"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:20
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:2
 msgid ""
 "Your account has been created but you must confirm that you own this email add"
 "ress."
 msgstr "您的帐户已创建，但您必须确认您拥有此电子邮件地址。"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:23
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "You can confirm your account email by"
 msgstr "您可以通过以下方式确认您的帐户电子邮件"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:24
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:22
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:4
 msgid "by clicking this link"
 msgstr "通过点击这个链接"
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:25
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:23
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:7
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:5
 msgid "or by copying and pasting the following URL into your browser:"
 msgstr "或者将以下 URL 复制并粘贴到您的浏览器中："
 
-#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:32
+#: ../../../app/views/devise/mailer/confirmation_instructions.html.erb:14
 msgid "If you didn't create an account, no action is required."
 msgstr "如果您没有创建帐户，则无需执行任何操作。"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:19
+#: ../../../app/views/devise/mailer/email_changed.html.erb:1
 msgid "Your email is being changed"
 msgstr "您的电子邮件正在更改"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:21
+#: ../../../app/views/devise/mailer/email_changed.html.erb:3
 msgid "We're contacting you to notify you that your email at"
 msgstr "我们与您联系，是想要通知您，您的电子邮件地址为"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:25
+#: ../../../app/views/devise/mailer/email_changed.html.erb:7
 msgid "is being changed to %s"
 msgstr "正在更改为 %s"
 
-#: ../../../app/views/devise/mailer/email_changed.html.erb:27
+#: ../../../app/views/devise/mailer/email_changed.html.erb:9
 msgid "has been changed to %s"
 msgstr "已更改为 %s"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:19
+#: ../../../app/views/devise/mailer/password_change.html.erb:1
 msgid "Password Change"
 msgstr "更改密码"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:21
+#: ../../../app/views/devise/mailer/password_change.html.erb:3
 msgid "We're contacting you to notify you that your password has been changed on"
 msgstr "我们与您联系，是想要通知您，您的密码已更改"
 
-#: ../../../app/views/devise/mailer/password_change.html.erb:24
+#: ../../../app/views/devise/mailer/password_change.html.erb:6
 msgid ""
 "If you didn't initiate this and it wasn't your intention, please contact us as"
 " soon as possible."
 msgstr "如果这不是您发起的，也不是您的本意，请尽快与我们联系。"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:1
 msgid "Password Change Request"
 msgstr "密码更改请求"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:21
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:3
 msgid ""
 "Someone has requested a link to change your password. You can proceed with thi"
 "s action"
 msgstr "有人请求了一个链接来更改您的密码。您可以继续执行此操作"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:31
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:13
 msgid "If you didn't request this change, you can safely delete this email."
 msgstr "如果您没有请求此更改，则可以安全地删除此电子邮件。"
 
-#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:32
+#: ../../../app/views/devise/mailer/reset_password_instructions.html.erb:14
 msgid ""
 "Your password won't change until you access the link above and create a new on"
 "e."
 msgstr "在您访问上面的链接并创建一个新链接之前，您的密码不会更改。"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:19
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:1
 msgid "Unlock Your Account"
 msgstr "解锁您的帐户"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:22
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "Your account has been locked due to an excessive number of unsuccessful sign i"
 "n attempts."
 msgstr "由于登录尝试失败次数过多，您的帐户已被锁定。"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:26
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:8
 msgid "Click this link"
 msgstr "单击此链接"
 
-#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:27
+#: ../../../app/views/devise/mailer/unlock_instructions.html.erb:9
 msgid ""
 "to unlock your account or by copying and pasting the following URL into your b"
 "rowser:"
@@ -875,6 +959,15 @@ msgstr "系统活动"
 #: ../../../app/views/layouts/admin.html.erb:60
 msgid "Back to App"
 msgstr "返回应用"
+
+#: ../../../app/views/layouts/application.html.erb:8
+#: ../../../app/views/layouts/bare.html.erb:8
+#: ../../../app/views/layouts/login.html.erb:8
+#: ../../../app/views/layouts/naked.html.erb:8
+msgid ""
+"Password Pusher is an application to securely send passwords over the web. Lin"
+"ks to passwords expire after a certain number of views and/or time has passed."
+msgstr "Password Pusher 是一款通过网络安全发送密码的应用程序。在经过一定数量的查看和/或特定时间后，指向密码的链接将过期。"
 
 #: ../../../app/views/layouts/login.html.erb:33
 #: ../../../app/views/shared/_footer.html.erb:10
@@ -1681,49 +1774,87 @@ msgid "Version Endpoint"
 msgstr "版本端点"
 
 #: ../../../app/views/pages/api.html.erb:42
-msgid "Returns API and application version details."
-msgstr "返回 API 和应用程序版本详情。"
+msgid ""
+"Returns API version, application details, and a features hash describing which"
+" capabilities are enabled on this instance."
+msgstr "返回 API 版本、应用程序详细信息以及描述此实例上启用的功能的功能哈希。"
 
 #: ../../../app/views/pages/api.html.erb:43
-#: ../../../app/views/pages/api.html.erb:113
-#: ../../../app/views/pages/api.html.erb:122
-#: ../../../app/views/pages/api.html.erb:132
-#: ../../../app/views/pages/api.html.erb:142
-#: ../../../app/views/pages/api.html.erb:153
-#: ../../../app/views/pages/api.html.erb:164
+#: ../../../app/views/pages/api.html.erb:150
+#: ../../../app/views/pages/api.html.erb:159
+#: ../../../app/views/pages/api.html.erb:169
+#: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:190
+#: ../../../app/views/pages/api.html.erb:201
 msgid "cURL example:"
 msgstr "cURL示例："
 
-#: ../../../app/views/pages/api.html.erb:53
+#: ../../../app/views/pages/api.html.erb:75
+msgid "Features Hash"
+msgstr "特点"
+
+#: ../../../app/views/pages/api.html.erb:77
+msgid "Whether anonymous API usage is allowed (Settings.allow_anonymous)"
+msgstr "是否允许匿名使用 API（Settings.allow_anonymous）"
+
+#: ../../../app/views/pages/api.html.erb:78
+msgid "Bearer token authentication support"
+msgstr "支持承载令牌验证"
+
+#: ../../../app/views/pages/api.html.erb:79
+msgid "Accounts API availability (not available in OSS)"
+msgstr "账户 API 可用性（开源软件中不可用）"
+
+#: ../../../app/views/pages/api.html.erb:80
+msgid "Push creation and management via API"
+msgstr "通过应用程序接口创建和管理推送"
+
+#: ../../../app/views/pages/api.html.erb:81
+msgid "File attachments on pushes (Settings.enable_file_pushes)"
+msgstr "推送时启用文件附件（设置.enable_file_pushes）"
+
+#: ../../../app/views/pages/api.html.erb:82
+msgid "URL push type (Settings.enable_url_pushes)"
+msgstr "URL推送类型（设置.启用URL推送）"
+
+#: ../../../app/views/pages/api.html.erb:83
+msgid "QR code push type (Settings.enable_qr_pushes)"
+msgstr "二维码推送类型（设置.启用二维码推送）"
+
+#: ../../../app/views/pages/api.html.erb:84
+msgid "Requests API availability (not available in OSS)"
+msgstr "请求 API 可用性（开源软件中不可用）"
+
+#: ../../../app/views/pages/api.html.erb:90
 msgid "Push Endpoints"
 msgstr "推送端点"
 
-#: ../../../app/views/pages/api.html.erb:58
+#: ../../../app/views/pages/api.html.erb:95
 msgid "Create a new push."
 msgstr "创建新推送。"
 
-#: ../../../app/views/pages/api.html.erb:59
+#: ../../../app/views/pages/api.html.erb:96
 msgid "Body format:"
 msgstr "正文格式："
 
-#: ../../../app/views/pages/api.html.erb:64
+#: ../../../app/views/pages/api.html.erb:101
 msgid "Parameter"
 msgstr "参数"
 
-#: ../../../app/views/pages/api.html.erb:65
+#: ../../../app/views/pages/api.html.erb:102
 #: ../../../app/views/pushes/index.html.erb:33
 msgid "Type"
 msgstr "类型"
 
-#: ../../../app/views/pages/api.html.erb:66
+#: ../../../app/views/pages/api.html.erb:103
 msgid "Required"
 msgstr "必需的"
 
-#: ../../../app/views/pages/api.html.erb:67
+#: ../../../app/views/pages/api.html.erb:104
 msgid "Description"
 msgstr "描述"
 
-#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pages/api.html.erb:108
 #: ../../../app/views/pushes/audit.html.erb:53
 #: ../../../app/views/pushes/audit.html.erb:66
 #: ../../../app/views/pushes/audit.html.erb:80
@@ -1731,19 +1862,19 @@ msgstr "描述"
 msgid "Yes"
 msgstr "是的"
 
-#: ../../../app/views/pages/api.html.erb:71
+#: ../../../app/views/pages/api.html.erb:108
 msgid "Secret text payload for text, URL or QR pushes."
 msgstr "用于推送文本、URL 或二维码的秘密文本有效载荷。"
 
-#: ../../../app/views/pages/api.html.erb:72
-#: ../../../app/views/pages/api.html.erb:73
-#: ../../../app/views/pages/api.html.erb:74
-#: ../../../app/views/pages/api.html.erb:75
-#: ../../../app/views/pages/api.html.erb:76
-#: ../../../app/views/pages/api.html.erb:77
-#: ../../../app/views/pages/api.html.erb:78
-#: ../../../app/views/pages/api.html.erb:79
-#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:110
+#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:114
+#: ../../../app/views/pages/api.html.erb:115
+#: ../../../app/views/pages/api.html.erb:116
+#: ../../../app/views/pages/api.html.erb:117
 #: ../../../app/views/pushes/audit.html.erb:55
 #: ../../../app/views/pushes/audit.html.erb:68
 #: ../../../app/views/pushes/audit.html.erb:78
@@ -1751,130 +1882,130 @@ msgstr "用于推送文本、URL 或二维码的秘密文本有效载荷。"
 msgid "No"
 msgstr "否"
 
-#: ../../../app/views/pages/api.html.erb:72
+#: ../../../app/views/pages/api.html.erb:109
 msgid ""
 "Files to attach. When present, the push type becomes file unless kind is expli"
 "citly provided."
 msgstr "要附加的文件。如果存在，推送类型默认为文件，除非明确指定了类型。"
 
-#: ../../../app/views/pages/api.html.erb:73
+#: ../../../app/views/pages/api.html.erb:110
 msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
 msgstr "推送类型：文本、文件、URL 或二维码。如果未提供，则默认为文本。"
 
-#: ../../../app/views/pages/api.html.erb:74
+#: ../../../app/views/pages/api.html.erb:111
 msgid "Expiration window in days. If omitted, instance defaults are used."
 msgstr "过期时间（以天为单位）。如果省略，则使用实例默认值。"
 
-#: ../../../app/views/pages/api.html.erb:75
+#: ../../../app/views/pages/api.html.erb:112
 msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
 msgstr "允许的最大检索次数。如果省略，则使用实例默认值。"
 
-#: ../../../app/views/pages/api.html.erb:76
+#: ../../../app/views/pages/api.html.erb:113
 msgid "Allows the recipient to expire the push."
 msgstr "允许接收者使推送通知过期。"
 
-#: ../../../app/views/pages/api.html.erb:77
+#: ../../../app/views/pages/api.html.erb:114
 msgid "Adds an extra retrieval confirmation step."
 msgstr "增加一个额外的检索确认步骤。"
 
-#: ../../../app/views/pages/api.html.erb:78
+#: ../../../app/views/pages/api.html.erb:115
 msgid "Requires this passphrase to retrieve the payload."
 msgstr "需要此密码才能检索有效载荷。"
 
-#: ../../../app/views/pages/api.html.erb:79
+#: ../../../app/views/pages/api.html.erb:116
 msgid "Optional label shown to the owner."
 msgstr "（可选）向所有者显示的标签。"
 
-#: ../../../app/views/pages/api.html.erb:80
+#: ../../../app/views/pages/api.html.erb:117
 msgid "Optional owner-only note."
 msgstr "可选的仅供所有者查看的备注。"
 
-#: ../../../app/views/pages/api.html.erb:94
+#: ../../../app/views/pages/api.html.erb:131
 msgid "cURL example (JSON body):"
 msgstr "cURL 示例（JSON 请求体）："
 
-#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:148
 msgid ""
 "Retrieve a push payload by token. This counts as a view and may expire the pus"
 "h when limits are reached."
 msgstr "通过令牌检索推送负载。此操作计为一次查看，达到限制后可能会导致推送过期。"
 
-#: ../../../app/views/pages/api.html.erb:112
-#: ../../../app/views/pages/api.html.erb:131
-#: ../../../app/views/pages/api.html.erb:152
-#: ../../../app/views/pages/api.html.erb:163
+#: ../../../app/views/pages/api.html.erb:149
+#: ../../../app/views/pages/api.html.erb:168
+#: ../../../app/views/pages/api.html.erb:189
+#: ../../../app/views/pages/api.html.erb:200
 msgid "Query parameters:"
 msgstr "查询参数："
 
-#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:149
 msgid "optional, required when the push is passphrase-protected"
 msgstr "可选，但当推送操作受密码保护时为必填项"
 
-#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:158
 msgid ""
 "Returns the fully-qualified secret URL for a push without retrieving its paylo"
 "ad."
 msgstr "返回推送的完整密钥 URL，但不检索其有效负载。"
 
-#: ../../../app/views/pages/api.html.erb:130
+#: ../../../app/views/pages/api.html.erb:167
 msgid ""
 "Return audit log entries for a push. Authentication and ownership are required"
 "."
 msgstr "返回推送的审计日志条目。需要身份验证和所有权信息。"
 
-#: ../../../app/views/pages/api.html.erb:131
-#: ../../../app/views/pages/api.html.erb:152
-#: ../../../app/views/pages/api.html.erb:163
+#: ../../../app/views/pages/api.html.erb:168
+#: ../../../app/views/pages/api.html.erb:189
+#: ../../../app/views/pages/api.html.erb:200
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "可选，整数，默认值为 1，有效范围为 1 到 200"
 
-#: ../../../app/views/pages/api.html.erb:141
+#: ../../../app/views/pages/api.html.erb:178
 msgid ""
 "Expire a push immediately. Allowed for owners (when authenticated) or for reci"
 "pients when the push was created with deletable_by_viewer enabled."
 msgstr "立即使推送过期。允许推送所有者（已通过身份验证）或推送创建时启用了 deletable_by_viewer 功能的接收者执行此操作。"
 
-#: ../../../app/views/pages/api.html.erb:151
+#: ../../../app/views/pages/api.html.erb:188
 msgid "List active pushes for the authenticated user."
 msgstr "列出已认证用户的活动推送。"
 
-#: ../../../app/views/pages/api.html.erb:162
+#: ../../../app/views/pages/api.html.erb:199
 msgid "List expired pushes for the authenticated user."
 msgstr "列出已认证用户的过期推送。"
 
-#: ../../../app/views/pages/api.html.erb:172
+#: ../../../app/views/pages/api.html.erb:209
 msgid "HTTP Status Codes"
 msgstr "HTTP状态码"
 
-#: ../../../app/views/pages/api.html.erb:174
+#: ../../../app/views/pages/api.html.erb:211
 msgid "Successful request"
 msgstr "请求成功"
 
-#: ../../../app/views/pages/api.html.erb:175
+#: ../../../app/views/pages/api.html.erb:212
 msgid "Push created"
 msgstr "推送已创建"
 
-#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:213
 msgid "Invalid request parameters"
 msgstr "无效的请求参数"
 
-#: ../../../app/views/pages/api.html.erb:177
+#: ../../../app/views/pages/api.html.erb:214
 msgid "Authentication required or invalid token"
 msgstr "需要身份验证或令牌无效"
 
-#: ../../../app/views/pages/api.html.erb:178
+#: ../../../app/views/pages/api.html.erb:215
 msgid "Forbidden for current user"
 msgstr "当前用户禁止访问"
 
-#: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:216
 msgid "Resource not found"
 msgstr "未找到资源"
 
-#: ../../../app/views/pages/api.html.erb:180
+#: ../../../app/views/pages/api.html.erb:217
 msgid "Validation error"
 msgstr "验证错误"
 
-#: ../../../app/views/pages/api.html.erb:186
+#: ../../../app/views/pages/api.html.erb:223
 msgid "For legacy API v1 documentation, see"
 msgstr "有关旧版 API v1 文档，请参阅"
 
