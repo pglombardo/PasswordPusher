@@ -5,7 +5,6 @@ require "application_system_test_case"
 class CopyClipboardTest < ApplicationSystemTestCase
   setup do
     Settings.enable_password_pushes = true
-    Rails.application.reload_routes!
 
     @user = users(:giuliana)
     login_as(@user, scope: :user)
@@ -18,7 +17,7 @@ class CopyClipboardTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
   end
 
   test "copy secret URL button" do

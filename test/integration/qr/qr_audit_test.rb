@@ -15,7 +15,7 @@ class QrAuditTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out :user
+    Settings.reload!
   end
 
   def test_user_can_view_audit_logs_for_own_push

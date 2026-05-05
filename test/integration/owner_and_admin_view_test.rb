@@ -6,8 +6,6 @@ class OwnerAndAdminViewTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
-
     @owner = users(:luca)
     @admin = users(:mr_admin)
     @other_user = users(:one)

@@ -6,13 +6,8 @@ class PasswordIndexTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    Rails.application.reload_routes!
     @luca = users(:luca)
     sign_in @luca
-  end
-
-  teardown do
-    sign_out :user
   end
 
   def test_active

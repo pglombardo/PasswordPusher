@@ -8,9 +8,6 @@ class ExpirePushesJobTest < ActiveSupport::TestCase
     Push.destroy_all
     User.delete_all
 
-    # Set default URL options for test environment to avoid missing host errors
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
-
     # Freeze time for predictable testing
     travel_to Time.zone.local(2025, 5, 26)
   end
@@ -62,43 +59,30 @@ class ExpirePushesJobTest < ActiveSupport::TestCase
       create_push
     end
 
-    # Store the original method to restore it later
-    original_logger_method = nil
-    if ExpirePushesJob.method_defined?(:logger)
-      original_logger_method = ExpirePushesJob.instance_method(:logger)
+    # Capture the log output
+    log_output = StringIO.new
+    test_logger = Logger.new(log_output)
+
+    # Override the logger method
+    ExpirePushesJob.class_eval do
+      define_method(:logger) do
+        test_logger
+      end
     end
 
-    begin
-      # Capture the log output
-      log_output = StringIO.new
-      test_logger = Logger.new(log_output)
+    # Run the job
+    ExpirePushesJob.perform_now
 
-      # Override the logger method
-      ExpirePushesJob.class_eval do
-        define_method(:logger) do
-          test_logger
-        end
-      end
+    # Verify the log contains the correct counts
+    log_output.rewind
+    log_content = log_output.read
 
-      # Run the job
-      ExpirePushesJob.perform_now
-
-      # Verify the log contains the correct counts
-      log_output.rewind
-      log_content = log_output.read
-
-      assert_match(/Finished validating 5 unexpired pushes/, log_content)
-      assert_match(/3 total pushes expired/, log_content)
-    ensure
-      # Properly restore the original logger method
-      ExpirePushesJob.class_eval do
-        remove_method :logger if method_defined?(:logger)
-
-        # If there was an original method, restore it
-        if original_logger_method
-          define_method(:logger, original_logger_method)
-        end
-      end
+    assert_match(/Finished validating 5 unexpired pushes/, log_content)
+    assert_match(/3 total pushes expired/, log_content)
+  ensure
+    # Properly restore the original logger method
+    ExpirePushesJob.class_eval do
+      remove_method :logger if method_defined?(:logger)
     end
   end
 

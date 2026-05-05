@@ -10,6 +10,11 @@ class FilePushNotfoundTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_password_not_found
     # Non existant push should return the expired page
     get push_path("doesnotexist")

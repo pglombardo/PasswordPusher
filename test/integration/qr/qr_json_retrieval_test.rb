@@ -9,6 +9,10 @@ class QrJsonRetrievalTest < ActionDispatch::IntegrationTest
     Settings.qr.retrieval_step_default = false
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_view_with_passphrase
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2, passphrase: "asdf"}}
     assert_response :success

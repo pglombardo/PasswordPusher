@@ -8,6 +8,10 @@ class QrJsonPreviewTest < ActionDispatch::IntegrationTest
     Settings.enable_qr_pushes = true
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   def test_preview_anonymous_response
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}}
     assert_response :success

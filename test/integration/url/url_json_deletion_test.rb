@@ -12,6 +12,11 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_deletion
     # Create url
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}

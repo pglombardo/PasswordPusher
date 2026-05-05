@@ -12,6 +12,11 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
   end
 
+  teardown do
+    Settings.reload!
+    Rails.application.reload_routes!
+  end
+
   def test_preview_response
     post file_pushes_path(format: :json), params: {
                                             file_push: {

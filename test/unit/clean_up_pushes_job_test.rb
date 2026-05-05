@@ -8,9 +8,6 @@ class CleanUpPushesJobTest < ActiveSupport::TestCase
     AuditLog.destroy_all
     Push.delete_all
     User.delete_all
-
-    # Set default URL options for test environment to avoid missing host errors
-    Rails.application.routes.default_url_options[:host] = "localhost:3000"
   end
 
   test "job deletes anonymous expired pushes" do

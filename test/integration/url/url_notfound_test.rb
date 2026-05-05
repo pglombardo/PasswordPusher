@@ -14,7 +14,8 @@ class UrlNotfoundTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
-    sign_out @luca
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   def test_url_not_found

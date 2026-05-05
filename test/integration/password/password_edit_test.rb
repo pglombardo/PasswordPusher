@@ -10,10 +10,6 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     sign_in @luca
   end
 
-  teardown do
-    sign_out :user
-  end
-
   test "authenticated user can access edit page for their own push" do
     push = Push.create!(
       kind: "text",

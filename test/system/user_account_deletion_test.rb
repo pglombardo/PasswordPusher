@@ -4,14 +4,8 @@ require "application_system_test_case"
 
 class UserAccountDeletionTest < ApplicationSystemTestCase
   setup do
-    Rails.application.reload_routes!
-
     @user = users(:luca)
     login_as(@user, scope: :user)
-  end
-
-  teardown do
-    logout(:user)
   end
 
   test "delete account button is visible on edit account page" do

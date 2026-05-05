@@ -11,7 +11,8 @@ class FilePushCookiesTest < ApplicationSystemTestCase
   end
 
   teardown do
-    logout(:user)
+    Settings.reload!
+    Rails.application.reload_routes!
   end
 
   test "file push form has correct stimulus targets and values" do

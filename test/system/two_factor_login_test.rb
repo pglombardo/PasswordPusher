@@ -7,8 +7,6 @@ class TwoFactorLoginTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   setup do
-    @previous_disable_logins = Settings.disable_logins
-
     # Same-process Puma sees frozen time, so ROTP codes match server verification (no 30s boundary races).
     travel_to Time.utc(2024, 6, 1, 12, 0, 0)
 
@@ -24,7 +22,7 @@ class TwoFactorLoginTest < ApplicationSystemTestCase
   end
 
   teardown do
-    Settings.disable_logins = @previous_disable_logins
+    Settings.reload!
     travel_back
   end
 

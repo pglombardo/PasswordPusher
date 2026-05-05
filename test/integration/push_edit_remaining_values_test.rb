@@ -12,6 +12,10 @@ class PushEditRemainingValuesTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  teardown do
+    Settings.reload!
+  end
+
   test "text push edit form shows remaining days not original days" do
     # Create a push that expires in 7 days
     push = Push.create!(

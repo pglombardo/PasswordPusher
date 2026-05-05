@@ -10,10 +10,6 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     @other_user = users(:one)
   end
 
-  teardown do
-    Settings.disable_logins = false
-  end
-
   # DELETE /users (destroy action)
 
   test "authenticated user can delete their own account" do
