@@ -117,7 +117,7 @@
                 <tr><td><code>note</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional owner-only note.") %></td></tr>
                 <tr><td><code>notify_by_email</code></td><td>object</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email.") %></td></tr>
                 <tr><td><code>notify_by_email.recipients</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
-                <tr><td><code>notify_by_email.locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
+                <tr><td><code>notify_by_email.locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. See the list of available locales in the") %> <a href="#supported-locales"><%= _("Supported Locales") %></a> <%= _("section. Defaults to #{I18n.default_locale}.") %></td></tr>
               </tbody>
             </table>
           </div>
@@ -131,7 +131,7 @@
     "retrieval_step": true,
     "notify_by_email": {
       "recipients": "email1@example.com, email2@example.com",
-      "locale": "en"
+      "locale": "fr"
     }
   }
 }</code></pre>
@@ -227,7 +227,7 @@
               </thead>
               <tbody>
                 <tr><td><code>recipients</code></td><td>string</td><td><%= _("Yes") %></td><td><%= _("Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
-                <tr><td><code>locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Locale for the email notification. Defaults to #{I18n.default_locale}. Available locales: #{I18n.available_locales.map(&:to_s).join(", ")}") %></td></tr>
+                <tr><td><code>locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Locale for the email notification. See the list of available locales in the") %> <a href="#supported-locales"><%= _("Supported Locales") %></a> <%= _("section. Defaults to #{I18n.default_locale}.") %></td></tr>
               </tbody>
             </table>
           </div>
@@ -237,8 +237,33 @@
   -H "Content-Type: application/json" \
   -d '{
     "recipients": "email1@example.com, email2@example.com",
-    "locale": "en"
+    "locale": "fr"
   }'</code></pre>
+        </div>
+      </div>
+
+      <div class="card mb-4" id="supported-locales">
+        <div class="card-body">
+          <h2 class="h5"><%= _("Supported Locales") %></h2>
+          <p class="mb-2"><%= _("The following locales are supported for API requests that accept a locale parameter:") %></p>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th><%= _("Locale Code") %></th>
+                  <th><%= _("Language") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% I18n.available_locales.sort.each do |locale| %>
+                  <tr>
+                    <td><code><%= locale %></code></td>
+                    <td><%= Settings.language_codes[locale] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
