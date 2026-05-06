@@ -32,9 +32,9 @@ module Pwpush
 
       if new_count > remaining
         if notify_by_emails.any?
-          errors.add(:base, _("You can notify up to %{count} email(s) for this %{model_name} and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_notify_by_emails_count, model_name: model_name.human.downcase})
+          errors.add(:base, _("You can notify up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_notify_by_emails_count})
         else
-          errors.add(:base, _("You can notify up to %{count} email(s) for this %{model_name}") % {count: MAX_NOTIFY_BY_EMAILS, model_name: model_name.human.downcase})
+          errors.add(:base, _("You can notify up to %{count} email(s)") % {count: MAX_NOTIFY_BY_EMAILS})
         end
       end
     end
@@ -52,10 +52,10 @@ module Pwpush
 
       if notify_by_email_creator.present?
         unless notify_by_email_creator == user
-          errors.add(:base, _("You are not authorized to notify by email for this %{model_name}") % {model_name: model_name.human.downcase})
+          errors.add(:base, _("You are not authorized to notify by email"))
         end
       else
-        errors.add(:base, _("You need to be signed in to notify by email for a %{model_name}") % {model_name: model_name.human.downcase})
+        errors.add(:base, _("You need to be signed in to notify by email"))
       end
     end
   end

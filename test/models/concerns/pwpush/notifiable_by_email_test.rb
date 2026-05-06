@@ -85,14 +85,14 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_by_email_creator = nil
 
     assert_not @push.valid?
-    assert_includes @push.errors[:base], "You need to be signed in to notify by email for a push"
+    assert_includes @push.errors[:base], "You need to be signed in to notify by email"
   end
 
   test "rejects email notification when creator does not match push user" do
     @push.notify_by_email_creator = @other_user
 
     assert_not @push.valid?
-    assert_includes @push.errors[:base], "You are not authorized to notify by email for this push"
+    assert_includes @push.errors[:base], "You are not authorized to notify by email"
   end
 
   # Test notify_by_email_limit validation
@@ -113,7 +113,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     push.notify_by_email_recipients = emails
 
     assert_not push.valid?
-    assert_includes push.errors[:base], "You can notify up to 5 email(s) for this push"
+    assert_includes push.errors[:base], "You can notify up to 5 email(s)"
   end
 
   test "rejects emails when remaining limit is exceeded for a new push with previous notifications" do
@@ -125,7 +125,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_by_email_recipients = emails
 
     assert_not @push.valid?
-    assert_includes @push.errors[:base], "You can notify up to 5 email(s) for this push and you have already sent emails to 1 recipients"
+    assert_includes @push.errors[:base], "You can notify up to 5 email(s) and you have already sent emails to 1 recipients"
   end
 
   test "accepts emails within remaining limit for existing push with previous notifications" do
