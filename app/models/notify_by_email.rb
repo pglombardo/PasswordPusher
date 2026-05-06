@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class NotifyByEmail < ApplicationRecord
-  attr_readonly :recipients, :recipients_count, :locale
+  # audit_log_id is readonly because related audit_log is strongly coupled to notify_by_email record.
+  attr_readonly :recipients, :recipients_count, :locale, :audit_log_id
 
   enum :status, [:pending, :processing, :completed, :partially_failed, :failed], validate: true
 
