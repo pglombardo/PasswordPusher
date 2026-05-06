@@ -435,7 +435,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "You need to be signed in to notify by email for a push", body["base"][0]
+    assert_equal "You need to be signed in to notify by email", body["base"][0]
   end
 
   def test_notify_by_email_with_valid_params_returns_json_created

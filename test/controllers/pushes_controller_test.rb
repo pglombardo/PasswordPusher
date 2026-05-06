@@ -82,7 +82,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "You need to be signed in to notify by email for a push"
+      assert_includes response.body, "You need to be signed in to notify by email"
     end
   end
 
@@ -192,7 +192,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unprocessable_content
-    assert_includes response.body, "You are not authorized to notify by email for this push"
+    assert_includes response.body, "You are not authorized to notify by email"
   end
 
   test "notify_by_email fails with error when user login is disabled" do
