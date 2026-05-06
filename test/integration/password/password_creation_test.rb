@@ -199,7 +199,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     get new_push_path(tab: "text")
     assert_response :success
 
-    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+    job = assert_enqueued_with(job: SendNotifyByEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",

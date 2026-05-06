@@ -25,7 +25,7 @@ class PasswordNotifyByEmailTest < ActionDispatch::IntegrationTest
     assert_select "input[name='push[notify_by_email_recipients]']", count: 1
     assert_select "input[name='push[notify_by_email_locale]']", count: 1
 
-    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+    job = assert_enqueued_with(job: SendNotifyByEmailJob) do
       post notify_by_email_push_path(@push), params: {push: {notify_by_email_recipients: "test@example.com", notify_by_email_locale: "fr"}}
       assert_response :redirect
 

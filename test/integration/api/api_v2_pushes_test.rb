@@ -171,7 +171,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     Settings.stub(:notify_by_email_available?, true) do
       travel_to Time.zone.local(2026, 1, 1, 1, 0, 0) do
-        SendPushCreatedEmailJob.perform_now(notify_by_email.id)
+        SendNotifyByEmailJob.perform_now(notify_by_email.id)
       end
     end
 
@@ -369,7 +369,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     Settings.mail.smtp_address = "smtp.example.com"
     user = users(:one)
 
-    send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+    send_email_job = assert_enqueued_with(job: SendNotifyByEmailJob) do
       post "/api/v2/pushes",
         params: {
           push: {
@@ -443,7 +443,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     push = pushes(:test_push)
     owner = push.user
 
-    send_email_job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+    send_email_job = assert_enqueued_with(job: SendNotifyByEmailJob) do
       post "/api/v2/pushes/#{push.url_token}/notify_by_email",
         params: {
           recipients: "recipient@example.com",

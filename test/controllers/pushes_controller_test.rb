@@ -44,8 +44,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # create
-  test "create enqueues SendPushCreatedEmailJob when user is signed in and params present" do
-    job = assert_enqueued_with(job: SendPushCreatedEmailJob) do
+  test "create enqueues SendNotifyByEmailJob when user is signed in and params present" do
+    job = assert_enqueued_with(job: SendNotifyByEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
@@ -68,10 +68,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_equal push, notify_by_email.push
   end
 
-  test "create doesn't enqueue SendPushCreatedEmailJob when user is not signed in" do
+  test "create doesn't enqueue SendNotifyByEmailJob when user is not signed in" do
     sign_out @user
 
-    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+    assert_no_enqueued_jobs(only: SendNotifyByEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
@@ -86,10 +86,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "create doesn't enqueue SendPushCreatedEmailJob when email service is not configured" do
+  test "create doesn't enqueue SendNotifyByEmailJob when email service is not configured" do
     Settings.mail.smtp_address = nil
 
-    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+    assert_no_enqueued_jobs(only: SendNotifyByEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
@@ -104,8 +104,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "create doesn't enqueue SendPushCreatedEmailJob if any mail is not provided" do
-    assert_no_enqueued_jobs(only: SendPushCreatedEmailJob) do
+  test "create doesn't enqueue SendNotifyByEmailJob if any mail is not provided" do
+    assert_no_enqueued_jobs(only: SendNotifyByEmailJob) do
       post pushes_path, params: {
         push: {
           kind: "text",
@@ -144,8 +144,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # notify_by_email
-  test "notify_by_email enqueues SendPushCreatedEmailJob when user is signed in and params present" do
-    assert_enqueued_with(job: SendPushCreatedEmailJob) do
+  test "notify_by_email enqueues SendNotifyByEmailJob when user is signed in and params present" do
+    assert_enqueued_with(job: SendNotifyByEmailJob) do
       post notify_by_email_push_path(@push), params: {
         push: {
           notify_by_email_recipients: "recipient@example.com",

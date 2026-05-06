@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class SendPushCreatedEmailJob < ApplicationJob
+class SendNotifyByEmailJob < ApplicationJob
   queue_as :default
 
   def perform(notify_by_email_id)
     notify_by_email = NotifyByEmail.find_by(id: notify_by_email_id)
 
     if notify_by_email.nil?
-      Rails.logger.error "[SendPushCreatedEmailJob] NotifyByEmail not found: #{notify_by_email_id}"
+      Rails.logger.error "[SendNotifyByEmailJob] NotifyByEmail not found: #{notify_by_email_id}"
 
       return
     end
@@ -44,7 +44,7 @@ class SendPushCreatedEmailJob < ApplicationJob
       mail.deliver_now
       successful_sends << recipient
     rescue => e
-      Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
+      Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
     end
 
     status, error_message = if successful_sends.size == recipients.size
@@ -59,7 +59,7 @@ class SendPushCreatedEmailJob < ApplicationJob
   end
 
 rescue => e
-  Rails.logger.error "[SendPushCreatedEmailJob] Error sending email: #{e.message}"
+  Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
 
   notify_by_email.update(status: :failed, error_message: e.message, proceed_at: Time.current)
 end

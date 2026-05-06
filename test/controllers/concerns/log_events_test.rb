@@ -193,18 +193,18 @@ class LogEventsTest < ActionController::TestCase
     assert_equal "pending", notify_by_email.status
   end
 
-  test "log_creation_email_send creates a SendPushCreatedEmailJob" do
+  test "log_creation_email_send creates a SendNotifyByEmailJob" do
     sign_in @user
 
     @push.notify_by_email_recipients = "test@test.com"
     @push.notify_by_email_locale = "en"
 
-    assert_enqueued_with(job: SendPushCreatedEmailJob) do
+    assert_enqueued_with(job: SendNotifyByEmailJob) do
       @controller.log_creation_email_send(@push)
     end
 
     notify_by_email = NotifyByEmail.last
-    assert_enqueued_with(job: SendPushCreatedEmailJob, args: [notify_by_email.id])
+    assert_enqueued_with(job: SendNotifyByEmailJob, args: [notify_by_email.id])
   end
 
   test "log_creation_email_send does not create a job, audit_log or notify_by_email record when notify_by_email_recipients is blank" do
