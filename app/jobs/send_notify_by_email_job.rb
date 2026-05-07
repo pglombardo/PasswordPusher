@@ -56,10 +56,9 @@ class SendNotifyByEmailJob < ApplicationJob
     end
 
     notify_by_email.update!(successful_sends: successful_sends.join(","), status: status, error_message: error_message, proceed_at: Time.current)
+  rescue => e
+    Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
+
+    notify_by_email.update(status: :failed, error_message: _("An unexpected error occurred while sending the email."), proceed_at: Time.current)
   end
-
-rescue => e
-  Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
-
-  notify_by_email.update(status: :failed, error_message: e.message, proceed_at: Time.current)
 end

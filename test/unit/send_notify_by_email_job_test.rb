@@ -87,6 +87,19 @@ class SendNotifyByEmailJobTest < ActiveJob::TestCase
     assert logger.verify
   end
 
+  test "perform logs error and does not send mail if an unexpected error occurs" do
+    @notify_by_email.stub(:processing!, -> { raise StandardError, "test error" }) do
+      NotifyByEmail.stub(:find_by, @notify_by_email) do
+        SendNotifyByEmailJob.perform_now(@notify_by_email.id)
+      end
+    end
+
+    @notify_by_email.reload
+    assert_equal "failed", @notify_by_email.status
+    assert_nil @notify_by_email.successful_sends
+    assert_equal "An unexpected error occurred while sending the email.", @notify_by_email.error_message
+  end
+
   test "perform uses default queue" do
     assert_equal "default", SendNotifyByEmailJob.new.queue_name
   end
