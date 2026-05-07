@@ -11,7 +11,7 @@ class NotifyByEmail < ApplicationRecord
   belongs_to :audit_log
 
   has_one :push, through: :audit_log
-  has_encrypted :recipients, :locale, :successful_sends, :error
+  has_encrypted :recipients, :locale, :successful_sends, :error_message
 
   after_create_commit :send_notify_by_email
 
