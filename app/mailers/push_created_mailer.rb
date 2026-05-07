@@ -10,7 +10,7 @@ class PushCreatedMailer < ApplicationMailer
     locale = permitted_locale?(params[:locale]) ? params[:locale] : I18n.default_locale
 
     I18n.with_locale(locale || I18n.default_locale) do
-      @secret_url = mailer_secret_push_url(@push, locale)
+      @secret_url = mailer_secret_push_url(@push, params[:locale])
       sender = @push.user&.email.presence || _("Someone")
       @subject = "#{sender} #{_("has sent you a push")}"
       mail(
