@@ -3,6 +3,8 @@
 require "addressable/uri"
 
 class Push < ApplicationRecord
+  include Pwpush::NotifiableByEmail
+
   enum :kind, [:text, :file, :url, :qr], validate: true
 
   validate :check_enabled_push_kinds, on: :create
@@ -231,5 +233,13 @@ class Push < ApplicationRecord
 
   def deleted
     audit_logs.where(kind: AuditLog.kinds[:expire]).exists?
+  end
+
+  private
+
+  def notify_by_email_custom_validations
+    if expired?
+      errors.add(:base, _("You cannot notify by email for an expired push."))
+    end
   end
 end

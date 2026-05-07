@@ -10,11 +10,12 @@ end
 class LogEventsTest < ActionController::TestCase
   tests LogEventsTestController
   include Devise::Test::ControllerHelpers
+  include ActiveJob::TestHelper
 
   setup do
     @push = pushes(:test_push)
     @user = users(:luca)
-    AuditLog.delete_all
+    AuditLog.destroy_all
   end
 
   # Test log_view method
@@ -159,6 +160,65 @@ class LogEventsTest < ActionController::TestCase
     # It logs the push parameter, not @push
     assert_equal other_push, log.push
     assert_not_equal @push, log.push
+  end
+
+  test "log_creation_email_send creates an audit_log and notify_by_email" do
+    @request.env["REMOTE_ADDR"] = "172.16.0.1"
+    @request.env["HTTP_USER_AGENT"] = "TestAgent/1.0"
+    @request.env["HTTP_REFERER"] = "https://test.com"
+
+    sign_in @user
+
+    @push.notify_by_email_recipients = "test@test.com"
+    @push.notify_by_email_locale = "en"
+
+    assert_difference "AuditLog.count", 1 do
+      assert_difference "NotifyByEmail.count", 1 do
+        @controller.log_creation_email_send(@push)
+      end
+    end
+
+    assert_equal 1, AuditLog.count
+    log = AuditLog.last
+    assert_equal :creation_email_send, log.kind.to_sym
+    assert_equal @push, log.push
+    assert_equal "172.16.0.1", log.ip
+    assert_equal "TestAgent/1.0", log.user_agent
+    assert_equal "https://test.com", log.referrer
+
+    notify_by_email = NotifyByEmail.last
+    assert_equal "test@test.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+    assert_equal @push, notify_by_email.push
+    assert_equal "pending", notify_by_email.status
+  end
+
+  test "log_creation_email_send creates a SendNotifyByEmailJob" do
+    sign_in @user
+
+    @push.notify_by_email_recipients = "test@test.com"
+    @push.notify_by_email_locale = "en"
+
+    assert_enqueued_with(job: SendNotifyByEmailJob) do
+      @controller.log_creation_email_send(@push)
+    end
+
+    notify_by_email = NotifyByEmail.last
+    assert_enqueued_with(job: SendNotifyByEmailJob, args: [notify_by_email.id])
+  end
+
+  test "log_creation_email_send does not create a job, audit_log or notify_by_email record when notify_by_email_recipients is blank" do
+    sign_in @user
+
+    @push.notify_by_email_recipients = ""
+
+    refute_enqueued_jobs do
+      assert_no_difference "AuditLog.count" do
+        assert_no_difference "NotifyByEmail.count" do
+          @controller.log_creation_email_send(@push)
+        end
+      end
+    end
   end
 
   # Test log_failed_passphrase method
@@ -314,7 +374,7 @@ class LogEventsTest < ActionController::TestCase
     kinds = [:creation, :view, :failed_view, :expire, :failed_passphrase, :owner_view, :admin_view]
 
     kinds.each do |kind|
-      AuditLog.delete_all
+      AuditLog.destroy_all
       push = Push.create!(
         kind: "text",
         payload: "test",

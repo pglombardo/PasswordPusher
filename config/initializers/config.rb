@@ -58,3 +58,9 @@ Config.setup do |config|
   #
   # config.evaluate_erb_yaml = true
 end
+
+Rails.application.config.to_prepare do
+  Settings.define_singleton_method(:notify_by_email_available?) do
+    !Settings.disable_logins && Settings.mail&.smtp_address.present?
+  end
+end

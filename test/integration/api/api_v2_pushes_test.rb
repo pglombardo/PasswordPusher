@@ -146,6 +146,49 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_audit_includes_notify_by_email_details
+    push = pushes(:test_push)
+    owner = users(:giuliana)
+
+    get "/api/v2/pushes/#{push.url_token}/audit",
+      headers: bearer_headers(owner),
+      as: :json
+
+    body = JSON.parse(response.body)
+    log = body["logs"].select { |view| view["kind"] == "creation_email_send" }.first
+
+    assert_equal "en", log["notify_by_email"]["locale"]
+    assert_equal "one@example.com", log["notify_by_email"]["recipients"]
+    assert_equal "pending", log["notify_by_email"]["status"]
+    assert_nil log["notify_by_email"]["successful_sends"]
+    assert_nil log["notify_by_email"]["proceed_at"]
+  end
+
+  def test_audit_includes_notify_by_email_details_for_completed_notify_by_email
+    push = pushes(:test_push)
+    notify_by_email = notify_by_emails(:one)
+    owner = users(:giuliana)
+
+    Settings.stub(:notify_by_email_available?, true) do
+      travel_to Time.zone.local(2026, 1, 1, 1, 0, 0) do
+        SendNotifyByEmailJob.perform_now(notify_by_email.id)
+      end
+    end
+
+    get "/api/v2/pushes/#{push.url_token}/audit",
+      headers: bearer_headers(owner),
+      as: :json
+
+    body = JSON.parse(response.body)
+    log = body["logs"].find { |log| log["kind"] == "creation_email_send" }
+
+    assert_equal "one@example.com", log["notify_by_email"]["recipients"]
+    assert_equal "en", log["notify_by_email"]["locale"]
+    assert_equal "completed", log["notify_by_email"]["status"]
+    assert_equal "one@example.com", log["notify_by_email"]["successful_sends"]
+    assert_equal "2026-01-01T01:00:00.000Z", log["notify_by_email"]["proceed_at"]
+  end
+
   def test_active_allows_authenticated_access
     user = users(:one)
 
@@ -320,5 +363,149 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal "application/json; charset=utf-8", response.content_type
     body = JSON.parse(response.body)
     assert body["error"].present?
+  end
+
+  def test_create_with_notify_by_email_params_adds_a_job_to_the_queue
+    Settings.mail.smtp_address = "smtp.example.com"
+    user = users(:one)
+
+    send_email_job = assert_enqueued_with(job: SendNotifyByEmailJob) do
+      post "/api/v2/pushes",
+        params: {
+          push: {
+            payload: "some-secret",
+            notify_by_email: {
+              recipients: "recipient@example.com",
+              locale: "en"
+            }
+          }
+        },
+        headers: bearer_headers(user),
+        as: :json
+
+      assert_response :success
+    end
+
+    notify_by_email_id = send_email_job.arguments.first
+    notify_by_email = NotifyByEmail.find(notify_by_email_id)
+
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+
+    body = JSON.parse(response.body)
+    assert_equal "recipient@example.com", body["notify_by_email"]["recipients"]
+    assert_equal "en", body["notify_by_email"]["locale"]
+  end
+
+  def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
+    user = users(:one)
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "some-secret",
+          notify_by_email: {
+            recipients: "recipient@example.com",
+            locale: "en"
+          }
+        }
+      },
+      headers: bearer_headers(user),
+      as: :json
+
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+    assert_equal "Notifying by email is not available", body["base"][0]
+  end
+
+  def test_create_with_notify_by_email_params_fails_when_user_is_not_signed_in
+    Settings.mail.smtp_address = "smtp.example.com"
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "some-secret",
+          notify_by_email: {
+            recipients: "recipient@example.com",
+            locale: "en"
+          }
+        }
+      },
+      as: :json
+
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+    assert_equal "You need to be signed in to notify by email", body["base"][0]
+  end
+
+  def test_notify_by_email_with_valid_params_returns_json_created
+    Settings.mail.smtp_address = "smtp.example.com"
+    push = pushes(:test_push)
+    owner = push.user
+
+    send_email_job = assert_enqueued_with(job: SendNotifyByEmailJob) do
+      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+        params: {
+          recipients: "recipient@example.com",
+          locale: "en"
+        },
+        headers: bearer_headers(owner),
+        as: :json
+
+      assert_response :success
+    end
+
+    notify_by_email_id = send_email_job.arguments.first
+    notify_by_email = NotifyByEmail.find(notify_by_email_id)
+
+    assert_equal "recipient@example.com", notify_by_email.recipients
+    assert_equal "en", notify_by_email.locale
+    assert_equal push, notify_by_email.push
+  end
+
+  def test_notify_by_email_with_valid_params_returns_error_when_email_service_is_not_configured
+    push = pushes(:test_push)
+    owner = push.user
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      headers: bearer_headers(owner),
+      as: :json
+
+    assert_response :unprocessable_entity
+
+    body = JSON.parse(response.body)
+    assert_equal "Notifying by email is not available", body["base"][0]
+  end
+
+  def test_notify_by_email_requires_authentication
+    push = pushes(:test_push)
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      as: :json
+
+    assert_response :unauthorized
+  end
+
+  def test_notify_by_email_forbidden_for_non_owner
+    push = pushes(:test_push)
+    non_owner = users(:one)
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      headers: bearer_headers(non_owner),
+      as: :json
+
+    assert_response :forbidden
   end
 end

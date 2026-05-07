@@ -153,6 +153,10 @@ class Api::V1::PushesController < Api::BaseController
     # when creating file pushes / uploading attachments.
     authenticate_user! if requires_authentication_for_create?(permitted_params)
 
+    # Extract notify_by_email params before creating the Push
+    # to avoid ActiveModel::UnknownAttributeError
+    permitted_notify_by_email_params = permitted_params.delete(:notify_by_email)
+
     @push = Push.new(permitted_params)
 
     if !permitted_params[:kind].present?
@@ -171,13 +175,19 @@ class Api::V1::PushesController < Api::BaseController
       end
     end
 
-    @push.user = current_user if user_signed_in?
+    if user_signed_in?
+      @push.user = current_user
+    end
+
+    # Handle nested notify_by_email params
+    assign_notify_by_email_params(@push, permitted_notify_by_email_params) if permitted_notify_by_email_params.present?
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
 
     if @push.save
       log_creation(@push)
+      log_creation_email_send(@push) if permitted_notify_by_email_params.present?
 
       render template: "pushes/show", status: :created
     else
@@ -267,7 +277,11 @@ class Api::V1::PushesController < Api::BaseController
       .per(50)
 
     @secret_url = helpers.secret_url(@push)
-    render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
+    if params["controller"] == "api/v2/pushes"
+      render template: "pushes/audit", status: :ok
+    else
+      render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
+    end
   end
 
   api :DELETE, "/p/:url_token.json", "Expire a push: delete the payload and expire the secret URL."
@@ -455,7 +469,12 @@ class Api::V1::PushesController < Api::BaseController
   end
 
   def set_push
-    @push = Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    @push = if action_name == "audit"
+      # If notify_by_email is included unnecessarily, it will cause memory usage unnecessarily.
+      Push.includes(audit_logs: :notify_by_email).find_by!(url_token: params[:id])
+    else
+      Push.includes(:audit_logs).find_by!(url_token: params[:id])
+    end
   rescue ActiveRecord::RecordNotFound
     # Showing a 404 reveals that this Secret URL never existed
     # which is an information leak (not a secret anymore)
@@ -498,5 +517,12 @@ class Api::V1::PushesController < Api::BaseController
     Rails.logger.error("Error in push_params: #{e.message}")
 
     raise e
+  end
+
+  def assign_notify_by_email_params(push, permitted_params, required: false)
+    push.notify_by_email_recipients = permitted_params[:recipients]
+    push.notify_by_email_locale = permitted_params[:locale]
+    push.notify_by_email_creator = current_user if user_signed_in?
+    push.notify_by_email_required = required
   end
 end

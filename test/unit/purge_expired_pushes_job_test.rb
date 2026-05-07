@@ -7,7 +7,7 @@ class PurgeExpiredPushesJobTest < ActiveSupport::TestCase
     Settings.purge_after = "3 months"
 
     # Clear all pushes before running tests
-    AuditLog.delete_all
+    AuditLog.destroy_all
     Push.delete_all
   end
 

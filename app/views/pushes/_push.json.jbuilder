@@ -20,6 +20,13 @@ if %w[create active expired].include?(controller.action_name)
   json.name push.name
 end
 
+if controller.action_name == "create" && params["controller"] == "api/v2/pushes"
+  json.notify_by_email do
+    json.recipients push.notify_by_email_recipients
+    json.locale push.notify_by_email_locale
+  end
+end
+
 if controller.action_name == "show"
   json.payload push.payload
 
