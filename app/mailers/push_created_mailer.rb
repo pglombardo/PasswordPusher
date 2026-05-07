@@ -38,7 +38,7 @@ class PushCreatedMailer < ApplicationMailer
     end
 
     # Support forced https links with FORCE_SSL env var
-    raw_url = raw_url.gsub(/http/i, "https") if ENV.key?("FORCE_SSL")
+    raw_url = raw_url.gsub(/http:/i, "https:") if ENV.key?("FORCE_SSL")
 
     raw_url
   end
