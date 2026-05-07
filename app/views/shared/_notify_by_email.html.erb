@@ -1,16 +1,16 @@
 <% if (action_name != 'edit') && f.object.notify_by_email_available?(current_user) %>
   <div class="row">
     <div class="col">
-      <label class="form-label fw-medium mt-3"><%= _('Auto Dispatch: Send This Secret Link To...') %></label>
+      <label class="form-label fw-medium mt-3"><%= _('Auto-Dispatch: Send Secret Link To') %></label>
       <div class="input-group">
         <span class="input-group-text">
           <i class="bi bi-envelope" aria-hidden="true"></i>
         </span>
-        <%= f.text_field :notify_by_email_recipients, class: "form-control", placeholder: _('email1@example.com, email2@example.com') %>
+        <%= f.text_field :notify_by_email_recipients, class: "form-control", placeholder: _('recipient@example.com, another@example.com') %>
         <%= render "shared/notify_by_email_locale", f: f %>
       </div>
       <div class="form-text">
-        <%= _('Enter email addresses separated by commas (maximum 5 emails).') %>
+        <%= _('Separate multiple addresses with commas (max 5).') %>
       </div>
     </div>
   </div>
