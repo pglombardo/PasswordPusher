@@ -46,6 +46,8 @@ module Pwpush
     end
 
     def notify_by_email_availability
+      notify_by_email_custom_validations
+
       unless Settings.notify_by_email_available?
         errors.add(:base, _("Notifying by email is not available"))
       end
@@ -57,6 +59,10 @@ module Pwpush
       else
         errors.add(:base, _("You need to be signed in to notify by email"))
       end
+    end
+
+    # Override this method in the model to add custom validations
+    def notify_by_email_custom_validations
     end
   end
 end

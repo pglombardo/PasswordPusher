@@ -139,6 +139,16 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     assert @push.valid?
   end
 
+  test "rejects email notification for an expired push" do
+    @push.notify_by_email_recipients = nil
+    @push.notify_by_email_required = false
+    @push.expire!
+    @push.notify_by_email_recipients = "test@example.com"
+
+    assert_not @push.valid?
+    assert_includes @push.errors[:base], "You cannot notify by email for an expired push."
+  end
+
   # Test associations
   test "has_many notify_by_emails_audit_logs returns audit logs with creation_email_send kind" do
     assert @push.notify_by_emails_audit_logs.exists?
