@@ -490,13 +490,6 @@ class Api::V1::PushesController < Api::BaseController
     end
   end
 
-  def assign_notify_by_email_params(push, notify_by_email_params, required: false)
-    push.notify_by_email_recipients = notify_by_email_params[:recipients]
-    push.notify_by_email_locale = notify_by_email_params[:locale]
-    push.notify_by_email_creator = current_user if user_signed_in?
-    push.notify_by_email_required = required
-  end
-
   def push_params
     if request.path.start_with?("/f")
       params.require(:file_push).permit(:name, :expire_after_days, :expire_after_views, :deletable_by_viewer,
@@ -524,5 +517,12 @@ class Api::V1::PushesController < Api::BaseController
     Rails.logger.error("Error in push_params: #{e.message}")
 
     raise e
+  end
+
+  def assign_notify_by_email_params(push, permitted_params, required: false)
+    push.notify_by_email_recipients = permitted_params[:recipients]
+    push.notify_by_email_locale = permitted_params[:locale]
+    push.notify_by_email_creator = current_user if user_signed_in?
+    push.notify_by_email_required = required
   end
 end

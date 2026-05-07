@@ -132,7 +132,7 @@ class PushesController < BaseController
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
-    set_notify_by_email(@push, notify_by_email_params)
+    assign_notify_by_email_params(@push, notify_by_email_params)
 
     if @push.save
       log_creation(@push)
@@ -256,7 +256,7 @@ class PushesController < BaseController
       return
     end
 
-    set_notify_by_email(@push, notify_by_email_params, required: true)
+    assign_notify_by_email_params(@push, notify_by_email_params, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -555,7 +555,7 @@ class PushesController < BaseController
     params.require(:push).permit(:notify_by_email_recipients, :notify_by_email_locale)
   end
 
-  def set_notify_by_email(push, permitted_params, required: false)
+  def assign_notify_by_email_params(push, permitted_params, required: false)
     push.notify_by_email_recipients = permitted_params[:notify_by_email_recipients]
     push.notify_by_email_locale = permitted_params[:notify_by_email_locale]
     push.notify_by_email_creator = current_user if user_signed_in?
