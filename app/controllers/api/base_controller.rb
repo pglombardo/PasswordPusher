@@ -24,7 +24,7 @@ class Api::BaseController < ApplicationController
       head :unauthorized
 
     elsif params["controller"] == "api/v2/pushes"
-      if %w[audit active expired].include?(params["action"])
+      if %w[audit active expired notify_by_email].include?(params["action"])
         # These v2 endpoints require a valid token
         head :unauthorized
       end

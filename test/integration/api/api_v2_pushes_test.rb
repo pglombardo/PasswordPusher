@@ -480,4 +480,32 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal "Notifying by email is not available", body["base"][0]
   end
+
+  def test_notify_by_email_requires_authentication
+    push = pushes(:test_push)
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      as: :json
+
+    assert_response :unauthorized
+  end
+
+  def test_notify_by_email_forbidden_for_non_owner
+    push = pushes(:test_push)
+    non_owner = users(:one)
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      headers: bearer_headers(non_owner),
+      as: :json
+
+    assert_response :forbidden
+  end
 end
