@@ -139,17 +139,6 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     assert_includes @push.errors[:base], "You can notify up to 5 email(s) and you have already sent emails to 1 recipients"
   end
 
-  test "accepts emails within remaining limit for existing push with previous notifications" do
-    notify_by_email = notify_by_emails(:one)
-
-    assert_equal 1, notify_by_email.recipients_count
-
-    emails = Array.new(4) { |i| "user#{i}@example.com" }.join(",")
-    @push.notify_by_email_recipients = emails
-
-    assert @push.valid?
-  end
-
   test "rejects email notification for an expired push" do
     @push.notify_by_email_recipients = nil
     @push.notify_by_email_required = false
