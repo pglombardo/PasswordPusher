@@ -65,7 +65,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_190300) do
   create_table "notify_by_emails", force: :cascade do |t|
     t.integer "audit_log_id", null: false
     t.datetime "created_at", null: false
-    t.text "error_message"
+    t.text "error_message_ciphertext"
     t.string "locale_ciphertext"
     t.datetime "proceed_at"
     t.text "recipients_ciphertext", null: false
