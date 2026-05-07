@@ -182,7 +182,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  test "notify_by_email fails with error when push does not belong to user" do
+  test "notify_by_email redirects non-owner to root" do
     sign_in users(:luca)
 
     post notify_by_email_push_path(@push), params: {
@@ -191,8 +191,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_response :unprocessable_content
-    assert_includes response.body, "You are not authorized to notify by email"
+    assert_redirected_to root_url
   end
 
   test "notify_by_email fails with error when user login is disabled" do

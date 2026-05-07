@@ -249,9 +249,16 @@ class PushesController < BaseController
   end
 
   def notify_by_email
+    authenticate_user!
+
+    if @push.user_id != current_user.id
+      redirect_to :root, notice: I18n._("That push doesn't belong to you.")
+      return
+    end
+
     @push.notify_by_email_recipients = params.dig(:push, :notify_by_email_recipients)
     @push.notify_by_email_locale = params.dig(:push, :notify_by_email_locale)
-    @push.notify_by_email_creator = current_user if user_signed_in?
+    @push.notify_by_email_creator = current_user
     @push.notify_by_email_required = true
 
     if @push.valid?
