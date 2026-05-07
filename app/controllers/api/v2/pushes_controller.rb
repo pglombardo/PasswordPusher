@@ -13,7 +13,7 @@ class Api::V2::PushesController < Api::V1::PushesController
       return
     end
 
-    set_notify_by_email(@push, notify_by_email_params, required: true)
+    assign_notify_by_email_params(@push, notify_by_email_params, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -27,13 +27,6 @@ class Api::V2::PushesController < Api::V1::PushesController
 
   def force_json_format
     request.format = :json
-  end
-
-  def set_notify_by_email(push, permitted_params, required: false)
-    push.notify_by_email_recipients = permitted_params[:recipients]
-    push.notify_by_email_locale = permitted_params[:locale]
-    push.notify_by_email_creator = current_user if user_signed_in?
-    push.notify_by_email_required = required
   end
 
   def notify_by_email_params

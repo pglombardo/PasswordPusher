@@ -33,7 +33,7 @@ class SendNotifyByEmailJob < ApplicationJob
     recipients = notify_by_email.recipients.split(",").map(&:strip)
 
     if push.expired?
-      notify_by_email.update(status: :failed, error_message: _("Push already expired."), proceed_at: Time.current)
+      notify_by_email.update(status: :failed, error_message: _("It is already expired."), proceed_at: Time.current)
 
       return
     end

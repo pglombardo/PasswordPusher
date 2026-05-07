@@ -128,11 +128,11 @@ class PushesController < BaseController
 
     if user_signed_in?
       @push.user_id = current_user.id
-      @push.notify_by_email_creator = current_user if @push.notify_by_email_recipients.present?
     end
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
+    set_notify_by_email(@push, notify_by_email_params)
 
     if @push.save
       log_creation(@push)
@@ -256,10 +256,7 @@ class PushesController < BaseController
       return
     end
 
-    @push.notify_by_email_recipients = params.dig(:push, :notify_by_email_recipients)
-    @push.notify_by_email_locale = params.dig(:push, :notify_by_email_locale)
-    @push.notify_by_email_creator = current_user
-    @push.notify_by_email_required = true
+    set_notify_by_email(@push, notify_by_email_params, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -412,7 +409,7 @@ class PushesController < BaseController
   end
 
   def push_params
-    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_by_email_recipients notify_by_email_locale]
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase]
     case params.dig(:push, :kind)
     when "url"
       params.require(:push).permit(*base)
@@ -552,5 +549,16 @@ class PushesController < BaseController
         authenticate_user!
       end
     end
+  end
+
+  def notify_by_email_params
+    params.require(:push).permit(:notify_by_email_recipients, :notify_by_email_locale)
+  end
+
+  def set_notify_by_email(push, permitted_params, required: false)
+    push.notify_by_email_recipients = permitted_params[:notify_by_email_recipients]
+    push.notify_by_email_locale = permitted_params[:notify_by_email_locale]
+    push.notify_by_email_creator = current_user if user_signed_in?
+    push.notify_by_email_required = required
   end
 end

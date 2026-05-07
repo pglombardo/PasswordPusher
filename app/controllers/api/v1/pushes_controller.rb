@@ -180,7 +180,7 @@ class Api::V1::PushesController < Api::BaseController
     end
 
     # Handle nested notify_by_email params
-    set_notify_by_email(@push, permitted_notify_by_email_params) if permitted_notify_by_email_params.present?
+    assign_notify_by_email_params(@push, permitted_notify_by_email_params) if permitted_notify_by_email_params.present?
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
@@ -490,7 +490,7 @@ class Api::V1::PushesController < Api::BaseController
     end
   end
 
-  def set_notify_by_email(push, notify_by_email_params, required: false)
+  def assign_notify_by_email_params(push, notify_by_email_params, required: false)
     push.notify_by_email_recipients = notify_by_email_params[:recipients]
     push.notify_by_email_locale = notify_by_email_params[:locale]
     push.notify_by_email_creator = current_user if user_signed_in?
