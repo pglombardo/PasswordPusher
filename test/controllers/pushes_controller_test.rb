@@ -82,7 +82,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "You need to be signed in to notify by email"
+      assert_includes response.body, "Notifying by email is not allowed for unknown users"
     end
   end
 
