@@ -17,7 +17,7 @@ module Pwpush
       validates :notify_by_email_locale, allow_blank: true, allow_nil: true, inclusion: {in: I18n.available_locales.map(&:to_s)}
       validate :notify_by_email_limit
 
-      def notify_by_email_available?(cur_user)
+      def notify_by_email_allowed?(cur_user)
         Settings.notify_by_email_available? && cur_user.present? && (!persisted? || (cur_user == user))
       end
     end
