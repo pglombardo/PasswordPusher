@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_27_190300) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_09_010000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -235,6 +235,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_27_190300) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "email", default: "", null: false
+    t.integer "email_sent_count", default: 0, null: false
+    t.datetime "email_sent_reset_at"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0
     t.integer "last_otp_timestep"

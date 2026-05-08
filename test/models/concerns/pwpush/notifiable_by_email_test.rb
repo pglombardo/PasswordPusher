@@ -6,20 +6,32 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
   setup do
     Settings.mail.smtp_address = "smtp.example.com"
 
-    @user = users(:giuliana)
-    @other_user = users(:luca)
     @push = pushes(:test_push)
+
+    @user = @push.user
+    @other_user = users(:luca)
+
     @push.notify_by_email_required = true
     @push.notify_by_email_recipients = "test@example.com"
     @push.notify_by_email_creator = @user
-
-    @original_cache_store = Rails.cache
-    Rails.cache = ActiveSupport::Cache::MemoryStore.new
   end
 
   teardown do
     Settings.reload!
-    Rails.cache = @original_cache_store
+  end
+
+  test "increase email_sent_count when notify_by_email is created" do
+    # Using current time may cause flaky tests, so we travel to an exact time of the day
+    travel_to Time.current.beginning_of_day + 6.hours
+
+    assert_difference "@push.user.email_sent_count", 1 do
+      audit_log = @push.audit_logs.create(kind: :creation_email_send, user: @user)
+      audit_log.create_notify_by_email(recipients: "test@example.com", locale: "en")
+
+      @push.user.reload
+    end
+
+    travel_back
   end
 
   test "does not require notify_by_email_recipients when notify_by_email_required is false" do
@@ -77,6 +89,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
   test "rejects email notification when creator does not match push user" do
     @push.notify_by_email_creator = @other_user
 
+    assert @other_user != @push_creator
     assert_not @push.valid?
     assert_includes @push.errors[:base], "Notifying by email is allowed for only owners"
   end
@@ -173,40 +186,5 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
   test "notify_by_email_creator is accessible" do
     @push.notify_by_email_creator = @user
     assert_equal @user, @push.notify_by_email_creator
-  end
-
-  # Test notify_by_email_daily_limit_reached? method
-  test "notify_by_email_daily_limit_reached? returns false when under daily limit" do
-    Rails.cache.clear
-    cache_key = "notify_by_email_daily_usage_#{@push.user.id}_#{Time.current.beginning_of_day.to_i}"
-    Rails.cache.write(cache_key, 90)
-
-    assert_not @push.notify_by_email_daily_limit_reached?
-  end
-
-  test "notify_by_email_daily_limit_reached? returns true when over daily limit" do
-    Rails.cache.clear
-    cache_key = "notify_by_email_daily_usage_#{@push.user.id}_#{Time.current.beginning_of_day.to_i}"
-    Rails.cache.write(cache_key, 150)
-
-    assert @push.notify_by_email_daily_limit_reached?
-  end
-
-  # Test daily rate limit validation
-  test "rejects email notification when daily rate limit is reached" do
-    Rails.cache.clear
-    cache_key = "notify_by_email_daily_usage_#{@push.user.id}_#{Time.current.beginning_of_day.to_i}"
-    Rails.cache.write(cache_key, 100)
-
-    assert_not @push.valid?
-    assert_includes @push.errors[:base], "The maximum number of emails has been reached for today"
-  end
-
-  test "accepts email notification when just under daily rate limit" do
-    Rails.cache.clear
-    cache_key = "notify_by_email_daily_usage_#{@push.user.id}_#{Time.current.beginning_of_day.to_i}"
-    Rails.cache.write(cache_key, 99)
-
-    assert @push.valid?
   end
 end

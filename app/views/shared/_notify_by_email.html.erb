@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <label class="form-label fw-medium mt-3"><%= _('Auto-Dispatch: Send Secret Link To') %></label>
-      <% if f.object.notify_by_email_daily_limit_reached? %>
+      <% if current_user.present? && current_user.email_limit_reached? %>
         <div class="alert alert-info">
           <%= _('You have reached the maximum number of emails you can send today.') %>
         </div>

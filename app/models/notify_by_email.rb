@@ -8,8 +8,8 @@ class NotifyByEmail < ApplicationRecord
 
   before_create :set_recipients_count
 
+  after_create :increment_email_sent_count
   after_create_commit :send_notify_by_email
-  after_create_commit :increment_notify_by_email_daily_usage
 
   belongs_to :audit_log
 
@@ -18,14 +18,15 @@ class NotifyByEmail < ApplicationRecord
 
   has_encrypted :recipients, :locale, :successful_sends, :error_message
 
-  def increment_notify_by_email_daily_usage
-    recipients_count = recipients.split(",").count
-    cache_key = "notify_by_email_daily_usage_#{user.id}_#{Time.current.beginning_of_day.to_i}"
-
-    if Rails.cache.exist?(cache_key)
-      Rails.cache.increment(cache_key, by: recipients_count)
+  def increment_email_sent_count
+    # Reset count if it's a new day
+    if user.email_sent_reset_at.nil? || user.email_sent_reset_at.before?(Time.current.beginning_of_day)
+      user.update(
+        email_sent_count: recipients_count,
+        email_sent_reset_at: Time.current
+      )
     else
-      Rails.cache.write(cache_key, recipients_count, expires_in: 1.day)
+      user.update(email_sent_count: user.email_sent_count + recipients_count)
     end
   end
 

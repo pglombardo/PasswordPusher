@@ -73,7 +73,7 @@
 
       <div class="collapse row w-100 justify-content-center" id="notifyByEmailCollapse">
         <div class=" py-6 mt-4 col-12 col-lg-9 col-xl-6 ">
-          <% if !@push.notify_by_email_daily_limit_reached? %>
+          <% if !current_user.email_limit_reached? %>
             <div class="card border-0 shadow-sm">
               <div class="card-header bg-transparent"><em class="bi bi-envelope me-1"></em><%= _('Notify by Email') %></div>
               <div class="card-body">

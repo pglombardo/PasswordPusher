@@ -4,7 +4,6 @@ module Pwpush
   module NotifiableByEmail
     extend ActiveSupport::Concern
     MAX_NOTIFY_BY_EMAILS = 5
-    MAX_NOTIFY_BY_EMAILS_FOR_TODAY = 100
 
     included do
       attr_accessor :notify_by_email_recipients, :notify_by_email_locale, :notify_by_email_required, :notify_by_email_creator
@@ -20,10 +19,6 @@ module Pwpush
 
       def notify_by_email_allowed?(cur_user)
         Settings.notify_by_email_available? && cur_user.present? && (!persisted? || (cur_user == user))
-      end
-
-      def notify_by_email_daily_limit_reached?
-        notify_by_email_daily_usage >= MAX_NOTIFY_BY_EMAILS_FOR_TODAY
       end
     end
 
@@ -71,7 +66,7 @@ module Pwpush
         return
       end
 
-      if notify_by_email_daily_limit_reached?
+      if notify_by_email_creator.email_limit_reached?
         errors.add(:base, _("The maximum number of emails has been reached for today"))
       end
     end
@@ -79,11 +74,6 @@ module Pwpush
     # Override this method in the model to add custom validations
     def notify_by_email_custom_validations
       nil
-    end
-
-    def notify_by_email_daily_usage
-      cache_key = "notify_by_email_daily_usage_#{user&.id}_#{Time.current.beginning_of_day.to_i}"
-      (Rails.cache.read(cache_key) || 0).to_i
     end
   end
 end
