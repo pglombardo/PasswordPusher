@@ -25,7 +25,7 @@ class UserResource < Madmin::Resource
   attribute :preferred_language, index: false
   attribute :otp_required_for_login, index: true, form: false
   attribute :email_sent_count, index: true
-  attribute :email_sent_reset_at, index: true
+  attribute :email_sent_count_reset_at, index: true
 
   # Associations
   attribute :pushes

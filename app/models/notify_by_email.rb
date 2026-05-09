@@ -20,10 +20,10 @@ class NotifyByEmail < ApplicationRecord
 
   def increment_email_sent_count
     # Reset count if it's a new day
-    if user.email_sent_reset_at.nil? || user.email_sent_reset_at.before?(Time.current.beginning_of_day)
+    if user.email_sent_count_reset_at.nil? || user.email_sent_count_reset_at.before?(Time.current.beginning_of_day)
       user.update(
         email_sent_count: recipients_count,
-        email_sent_reset_at: Time.current
+        email_sent_count_reset_at: Time.current
       )
     else
       user.update(email_sent_count: user.email_sent_count + recipients_count)

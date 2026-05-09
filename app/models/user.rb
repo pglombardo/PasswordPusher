@@ -23,6 +23,6 @@ class User < ApplicationRecord
   end
 
   def email_limit_reached?
-    email_sent_reset_at.present? && email_sent_reset_at.after?(Time.current.beginning_of_day) && (email_sent_count >= MAX_EMAILS_PER_DAY)
+    email_sent_count_reset_at.present? && email_sent_count_reset_at.after?(Time.current.beginning_of_day) && (email_sent_count >= MAX_EMAILS_PER_DAY)
   end
 end

@@ -236,7 +236,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_010000) do
     t.string "current_sign_in_ip"
     t.string "email", default: "", null: false
     t.integer "email_sent_count", default: 0, null: false
-    t.datetime "email_sent_reset_at"
+    t.datetime "email_sent_count_reset_at"
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0
     t.integer "last_otp_timestep"
