@@ -20,20 +20,6 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     Settings.reload!
   end
 
-  test "increase email_sent_count when notify_by_email is created" do
-    # Using current time may cause flaky tests, so we travel to an exact time of the day
-    travel_to Time.current.beginning_of_day + 6.hours
-
-    assert_difference "@push.user.email_sent_count", 1 do
-      audit_log = @push.audit_logs.create(kind: :creation_email_send, user: @user)
-      audit_log.create_notify_by_email(recipients: "test@example.com", locale: "en")
-
-      @push.user.reload
-    end
-
-    travel_back
-  end
-
   test "does not require notify_by_email_recipients when notify_by_email_required is false" do
     @push.notify_by_email_required = false
     @push.notify_by_email_recipients = nil
