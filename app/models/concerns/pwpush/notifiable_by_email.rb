@@ -27,15 +27,14 @@ module Pwpush
     def notify_by_email_limit
       return if notify_by_email_recipients.blank?
 
+      # This validation is done by multiple_emails validator
+      return if notify_by_emails.none?
+
       new_count = notify_by_email_recipients.split(",").count
       remaining = MAX_NOTIFY_BY_EMAILS - total_notify_by_emails_count
 
       if new_count > remaining
-        if notify_by_emails.any?
-          errors.add(:base, _("You can notify up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_notify_by_emails_count})
-        else
-          errors.add(:base, _("You can notify up to %{count} email(s)") % {count: MAX_NOTIFY_BY_EMAILS})
-        end
+        errors.add(:base, _("You can notify up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_notify_by_emails_count})
       end
     end
 

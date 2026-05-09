@@ -110,9 +110,10 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
 
     emails = Array.new(6) { |i| "user#{i}@example.com" }.join(",")
     push.notify_by_email_recipients = emails
+    push.notify_by_email_creator = @user
 
-    assert_not push.valid?
-    assert_includes push.errors[:base], "You can notify up to 5 email(s)"
+    refute push.valid?
+    assert_includes push.errors[:notify_by_email_recipients], "contains more than 5 email(s)"
   end
 
   test "accepts emails within remaining limit for existing push with previous notifications" do
