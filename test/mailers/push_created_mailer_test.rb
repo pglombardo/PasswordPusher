@@ -95,6 +95,10 @@ class PushCreatedMailerTest < ActionMailer::TestCase
   end
 
   test "notify secret URL uses override_base_url if set" do
+    Settings.override_base_url = "http://custom.example.com"
+    mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
+    assert_includes mail.body.encoded, "http://custom.example.com"
+
     Settings.override_base_url = "https://custom.example.com"
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
     assert_includes mail.body.encoded, "https://custom.example.com"
