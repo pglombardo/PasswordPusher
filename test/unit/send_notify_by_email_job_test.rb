@@ -96,7 +96,7 @@ class SendNotifyByEmailJobTest < ActiveJob::TestCase
 
     @notify_by_email.reload
     assert_equal "failed", @notify_by_email.status
-    assert_nil @notify_by_email.successful_sends
+    assert_empty @notify_by_email.successful_sends
     assert_equal "An unexpected error occurred while sending the email.", @notify_by_email.error_message
   end
 
