@@ -126,9 +126,7 @@ class PushesController < BaseController
   def create
     @push = Push.new(push_params)
 
-    if user_signed_in?
-      @push.user_id = current_user.id
-    end
+    @push.user_id = current_user.id if user_signed_in?
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
