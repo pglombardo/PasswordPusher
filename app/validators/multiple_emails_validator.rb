@@ -16,13 +16,12 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
     max_emails = options[:max_emails] || 5
     emails = value.split(",").map(&:strip)
 
-    if emails.any?(&:blank?)
+    if value.end_with?(",") || emails.any?(&:blank?)
       record.errors.add(attribute, I18n._("has commas used in the wrong way"))
     end
 
-    if value.end_with?(",")
-      record.errors.add(attribute, I18n._("has commas used in the wrong way"))
-    end
+    # Remove blank emails
+    emails.compact_blank!
 
     if emails.count != emails.uniq.count
       record.errors.add(attribute, I18n._("contains duplicate emails"))
@@ -32,7 +31,7 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
       record.errors.add(attribute, I18n._("contains more than %{count} email(s)") % {count: max_emails})
     end
 
-    unless emails.all? { |email| email.blank? || email.match?(EMAIL_REGEX) }
+    unless emails.all? { |email| email.match?(EMAIL_REGEX) }
       record.errors.add(attribute, I18n._("contains invalid email(s)"))
     end
   end

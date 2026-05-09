@@ -162,6 +162,13 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_equal 1, @model.errors[:email_list].count
   end
 
+  test "handles multiple blank emails with only one error message" do
+    @model.email_list = "   , test@example.com,   ,user@domain.org, "
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "has commas used in the wrong way"
+    assert_equal 1, @model.errors[:email_list].count
+  end
+
   test "shows correct count in max emails error message" do
     emails = Array.new(6) { |i| "user#{i}@example.com" }
     @model.email_list = emails.join(",")
