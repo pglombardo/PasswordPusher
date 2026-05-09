@@ -9,7 +9,7 @@ class Api::V2::PushesController < Api::V1::PushesController
     authenticate_user!
 
     if @push.user != current_user
-      render json: {error: "That push doesn't belong to you."}, status: :forbidden
+      render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end
 
