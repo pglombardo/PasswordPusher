@@ -10,7 +10,7 @@ export default class extends Controller {
   select(event) {
     this.fieldTarget.value = event.currentTarget.dataset.lang;
     const template = event.currentTarget.querySelector('template');
-    this.menuButtonInnerTarget.innerHTML = template.innerHTML
+    this.menuButtonInnerTarget.replaceChildren(template.content.cloneNode(true));
   }
 
   restoreSelectedValue() {
@@ -20,7 +20,7 @@ export default class extends Controller {
       if (selectedOption) {
         const template = selectedOption.querySelector('template');
         if (template) {
-          this.menuButtonInnerTarget.innerHTML = template.innerHTML;
+          this.menuButtonInnerTarget.replaceChildren(template.content.cloneNode(true));
         }
       }
     }
