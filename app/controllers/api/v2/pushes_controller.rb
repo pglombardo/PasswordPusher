@@ -17,7 +17,7 @@ class Api::V2::PushesController < Api::V1::PushesController
 
     if @push.valid?
       log_creation_email_send(@push)
-      render json: {}, status: :created
+      render json: {message: "Recipient(s) are added to the queue to be sent."}, status: :created
     else
       render json: @push.errors, status: :unprocessable_entity
     end

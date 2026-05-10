@@ -453,6 +453,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
         as: :json
 
       assert_response :success
+      assert_equal "Recipient(s) are added to the queue to be sent.", JSON.parse(response.body)["message"]
     end
 
     notify_by_email_id = send_email_job.arguments.first
