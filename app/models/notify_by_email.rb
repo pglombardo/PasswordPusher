@@ -30,6 +30,16 @@ class NotifyByEmail < ApplicationRecord
     end
   end
 
+  def assign_fields_to_push
+    return unless persisted?
+
+    push.notify_by_email_recipients = recipients
+    push.notify_by_email_locale = locale
+    push.notify_by_email_creator = user
+    push.notify_by_email_skip_limit_validation = true
+    push.notify_by_email_required = true
+  end
+
   private
 
   def set_recipients_count

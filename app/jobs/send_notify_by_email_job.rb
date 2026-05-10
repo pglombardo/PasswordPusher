@@ -12,22 +12,11 @@ class SendNotifyByEmailJob < ApplicationJob
       return
     end
 
-    if notify_by_email.recipients.blank?
-      notify_by_email.update(status: :failed, error_message: _("No recipients found."), proceed_at: Time.current)
-
-      return
-    end
-
+    notify_by_email.assign_fields_to_push
     push = notify_by_email.push
 
-    unless push.notify_by_email_available?
-      notify_by_email.update(status: :failed, error_message: _("Notifying by email is not available."), proceed_at: Time.current)
-
-      return
-    end
-
-    unless push.notify_by_email_allowed_for?(notify_by_email.user)
-      notify_by_email.update(status: :failed, error_message: _("Notifying by email is not allowed."), proceed_at: Time.current)
+    unless push.valid?
+      notify_by_email.update(status: :failed, error_message: push.errors.full_messages.join(". ") + ".", proceed_at: Time.current)
 
       return
     end

@@ -6,7 +6,7 @@ module Pwpush
     MAX_NOTIFY_BY_EMAILS = 5
 
     included do
-      attr_accessor :notify_by_email_recipients, :notify_by_email_locale, :notify_by_email_required, :notify_by_email_creator
+      attr_accessor :notify_by_email_recipients, :notify_by_email_locale, :notify_by_email_required, :notify_by_email_creator, :notify_by_email_skip_limit_validation
 
       has_many :notify_by_emails_audit_logs, -> { where(kind: :creation_email_send) }, class_name: "AuditLog", dependent: :destroy
       has_many :notify_by_emails, through: :notify_by_emails_audit_logs
@@ -15,7 +15,7 @@ module Pwpush
       validates :notify_by_email_recipients, multiple_emails: {max_emails: MAX_NOTIFY_BY_EMAILS}
       validates :notify_by_email_recipients, presence: true, if: :notify_by_email_required
       validates :notify_by_email_locale, allow_blank: true, allow_nil: true, inclusion: {in: I18n.available_locales.map(&:to_s)}
-      validate :notify_by_email_limit
+      validate :notify_by_email_limit, unless: :notify_by_email_skip_limit_validation
 
       def notify_by_email_allowed_for?(cur_user)
         notify_by_email_available? && cur_user.present? && (!persisted? || (cur_user == user))
