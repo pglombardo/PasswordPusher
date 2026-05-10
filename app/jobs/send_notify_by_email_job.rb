@@ -18,8 +18,16 @@ class SendNotifyByEmailJob < ApplicationJob
       return
     end
 
-    unless Settings.notify_by_email_available?
+    push = notify_by_email.push
+
+    unless push.notify_by_email_available?
       notify_by_email.update(status: :failed, error_message: _("Notifying by email is not available."), proceed_at: Time.current)
+
+      return
+    end
+
+    unless push.notify_by_email_allowed_for?(notify_by_email.user)
+      notify_by_email.update(status: :failed, error_message: _("Notifying by email is not allowed."), proceed_at: Time.current)
 
       return
     end
@@ -31,7 +39,6 @@ class SendNotifyByEmailJob < ApplicationJob
     begin
       notify_by_email.processing!
 
-      push = notify_by_email.push
       locale = notify_by_email.locale
       recipients = notify_by_email.recipients.split(",").map(&:strip)
 
