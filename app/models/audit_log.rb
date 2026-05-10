@@ -10,8 +10,11 @@ class AuditLog < ApplicationRecord
 
   has_one :notify_by_email, dependent: :destroy
 
-  validates :user, presence: true, if: :creation_email_send?
-  before_create :build_associated_notify_by_email, if: :creation_email_send?
+  with_options on: :create, if: :creation_email_send? do |create|
+    create.before_validation :build_associated_notify_by_email
+
+    create.validates :user, presence: true
+  end
 
   def subject_name
     user&.email || "❓"
