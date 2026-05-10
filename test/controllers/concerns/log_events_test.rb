@@ -171,6 +171,7 @@ class LogEventsTest < ActionController::TestCase
 
     @push.notify_by_email_recipients = "test@test.com"
     @push.notify_by_email_locale = "en"
+    @push.notify_by_email_creator = @user
 
     assert_difference "AuditLog.count", 1 do
       assert_difference "NotifyByEmail.count", 1 do
