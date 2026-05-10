@@ -31,12 +31,6 @@ class SendNotifyByEmailJob < ApplicationJob
       locale = notify_by_email.locale
       recipients = notify_by_email.recipients.split(",").map(&:strip)
 
-      if push.expired?
-        notify_by_email.update(status: :failed, error_message: _("It is already expired."), proceed_at: Time.current)
-
-        return
-      end
-
       recipients.each do |recipient|
         mail = PushCreatedMailer.with(push: push, recipient: recipient, locale: locale).notify
         mail.deliver_now
