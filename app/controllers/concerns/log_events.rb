@@ -27,7 +27,7 @@ module LogEvents
     return unless push.notify_by_email_recipients.present?
 
     ip, user_agent, referrer = log_info
-    audit_log = push.audit_logs.build(kind: :creation_email_send, user: current_user, ip:, user_agent:, referrer:)
+    audit_log = push.audit_logs.build(kind: :creation_email_send, user: push.notify_by_email_creator, ip:, user_agent:, referrer:)
 
     recipients = push.notify_by_email_recipients
     locale = push.notify_by_email_locale
@@ -56,6 +56,8 @@ module LogEvents
     push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
   end
 
+  private
+
   def log_info
     ip = request.env["HTTP_X_FORWARDED_FOR"].blank? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
@@ -65,8 +67,6 @@ module LogEvents
 
     [ip, user_agent, referrer]
   end
-
-  private
 
   def audit_log_limit_reached?(audit_logs_association)
     audit_logs_association.reorder(nil).limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
