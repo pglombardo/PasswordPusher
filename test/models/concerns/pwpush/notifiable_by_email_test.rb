@@ -75,7 +75,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
   test "rejects email notification when creator does not match push user" do
     @push.notify_by_email_creator = @other_user
 
-    assert @other_user != @push_creator
+    assert @other_user != @user
     assert_not @push.valid?
     assert_includes @push.errors[:base], "Notifying by email is allowed for only owners"
   end
