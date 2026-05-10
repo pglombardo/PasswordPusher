@@ -11,8 +11,18 @@ class AuditLog < ApplicationRecord
   has_one :notify_by_email, dependent: :destroy
 
   validates :user, presence: true, if: :creation_email_send?
+  before_create :build_associated_notify_by_email, if: :creation_email_send?
 
   def subject_name
     user&.email || "❓"
+  end
+
+  private
+
+  def build_associated_notify_by_email
+    build_notify_by_email(
+      recipients: push.notify_by_email_recipients,
+      locale: push.notify_by_email_locale
+    )
   end
 end

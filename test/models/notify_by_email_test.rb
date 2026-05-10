@@ -8,8 +8,11 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   setup do
     @push = pushes(:test_push)
     @user = users(:giuliana)
+    @push.notify_by_email_recipients = "one@example.com, two@example.com"
+    @push.notify_by_email_locale = "en"
+
     # Create an audit log with user for proper testing
-    @audit_log = AuditLog.create!(
+    @audit_log = AuditLog.build(
       push: @push,
       kind: :creation_email_send,
       user: @user,
@@ -40,11 +43,9 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   end
 
   test "should have user through audit_log" do
-    notify = NotifyByEmail.create!(
-      audit_log: @audit_log,
-      recipients: "test@example.com"
-    )
-    assert_equal @user, notify.user
+    @audit_log.save!
+
+    assert_equal @user, @audit_log.notify_by_email.user
   end
 
   # Test status enum
@@ -116,49 +117,33 @@ class NotifyByEmailTest < ActiveSupport::TestCase
 
   # Test set_recipients_count callback
   test "set_recipients_count sets count based on single recipient" do
-    notify = NotifyByEmail.create!(
-      audit_log: @audit_log,
-      recipients: "single@example.com"
-    )
-    assert_equal 1, notify.recipients_count
+    @push.notify_by_email_recipients = "test@example.com"
+    @audit_log.save!
+
+    assert_equal 1, @audit_log.notify_by_email.recipients_count
   end
 
   test "set_recipients_count sets count based on multiple recipients" do
-    notify = NotifyByEmail.create!(
-      audit_log: @audit_log,
-      recipients: "one@example.com,two@example.com,three@example.com"
-    )
-    assert_equal 3, notify.recipients_count
+    @audit_log.save!
+
+    assert_equal 2, @audit_log.notify_by_email.recipients_count
   end
 
   # Test increment_email_sent_count
   test "increment_email_sent_count updates user email_sent_count on first email of day" do
     @user.update(email_sent_count: 0, email_sent_count_reset_at: nil)
 
-    NotifyByEmail.create!(
-      audit_log: @audit_log,
-      recipients: "test@example.com"
-    )
+    @audit_log.save!
 
     @user.reload
-    assert_equal 1, @user.email_sent_count
+    assert_equal 2, @user.email_sent_count
     assert @user.email_sent_count_reset_at.present?
   end
 
   test "increment_email_sent_count increments user email_sent_count on subsequent emails same day" do
     @user.update(email_sent_count: 2, email_sent_count_reset_at: Time.current)
 
-    other_audit_log = AuditLog.create!(
-      push: @push,
-      kind: :creation_email_send,
-      user: @user,
-      ip: "127.0.0.1"
-    )
-
-    NotifyByEmail.create!(
-      audit_log: other_audit_log,
-      recipients: "one@example.com,two@example.com"
-    )
+    @audit_log.save!
 
     @user.reload
     assert_equal 4, @user.email_sent_count
@@ -167,35 +152,22 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   test "increment_email_sent_count resets count when new day starts" do
     @user.update(email_sent_count: 10, email_sent_count_reset_at: 1.day.ago)
 
-    other_audit_log = AuditLog.create!(
-      push: @push,
-      kind: :creation_email_send,
-      user: @user,
-      ip: "127.0.0.1"
-    )
-
-    NotifyByEmail.create!(
-      audit_log: other_audit_log,
-      recipients: "test@example.com"
-    )
+    @audit_log.save!
 
     @user.reload
-    assert_equal 1, @user.email_sent_count
+    assert_equal 2, @user.email_sent_count
   end
 
   # Test send_notify_by_email callback
   test "send_notify_by_email enqueues SendNotifyByEmailJob after creation" do
     assert_enqueued_jobs 1, only: SendNotifyByEmailJob do
-      NotifyByEmail.create!(
-        audit_log: @audit_log,
-        recipients: "test@example.com"
-      )
+      @audit_log.save!
     end
   end
 
   # Test encrypted attributes
   test "recipients is encrypted" do
-    notify = NotifyByEmail.create!(
+    notify = NotifyByEmail.build(
       audit_log: @audit_log,
       recipients: "encrypted@example.com"
     )
@@ -205,7 +177,7 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   end
 
   test "locale is encrypted" do
-    notify = NotifyByEmail.create!(
+    notify = NotifyByEmail.build(
       audit_log: @audit_log,
       recipients: "test@example.com",
       locale: "fr"
@@ -216,7 +188,7 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   end
 
   test "successful_sends is encrypted" do
-    notify = NotifyByEmail.create!(
+    notify = NotifyByEmail.build(
       audit_log: @audit_log,
       recipients: "test@example.com",
       successful_sends: "success@example.com"
@@ -227,7 +199,7 @@ class NotifyByEmailTest < ActiveSupport::TestCase
   end
 
   test "error_message is encrypted" do
-    notify = NotifyByEmail.create!(
+    notify = NotifyByEmail.build(
       audit_log: @audit_log,
       recipients: "test@example.com",
       error_message: "Error occurred"

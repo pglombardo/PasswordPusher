@@ -26,14 +26,7 @@ module LogEvents
   def log_creation_email_send(push)
     return unless push.notify_by_email_recipients.present?
 
-    ip, user_agent, referrer = log_info
-    audit_log = push.audit_logs.build(kind: :creation_email_send, user: push.notify_by_email_creator, ip:, user_agent:, referrer:)
-
-    recipients = push.notify_by_email_recipients
-    locale = push.notify_by_email_locale
-    audit_log.build_notify_by_email(recipients: recipients, locale: locale)
-
-    audit_log.save!
+    log_event(push, :creation_email_send)
   end
 
   def log_update(push)
@@ -51,22 +44,16 @@ module LogEvents
   def log_event(push, kind)
     return if audit_log_limit_reached?(push.audit_logs)
 
-    ip, user_agent, referrer = log_info
-
-    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
-  end
-
-  private
-
-  def log_info
     ip = request.env["HTTP_X_FORWARDED_FOR"].blank? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
 
     # Limit retrieved values to 256 characters
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]
     referrer = request.env["HTTP_REFERER"].to_s[0, 255]
 
-    [ip, user_agent, referrer]
+    push.audit_logs.create(kind: kind, user: current_user, ip:, user_agent:, referrer:)
   end
+
+  private
 
   def audit_log_limit_reached?(audit_logs_association)
     audit_logs_association.reorder(nil).limit(1).offset(AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL - 1).exists?
