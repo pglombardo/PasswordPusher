@@ -141,6 +141,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     get preview_push_path(@push)
 
     assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
+    assert_select "div.collapse#notifyByEmailCollapse.show", count: 0
   end
 
   # notify_by_email
@@ -166,6 +167,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
     assert_select "input[name=?][value=?]", "push[notify_by_email_recipients]", "invalid-email, another-invalid"
     assert_select "input[name=?][value=?]", "push[notify_by_email_locale]", "fr"
+    assert_select "div.collapse#notifyByEmailCollapse.show", count: 1
   end
 
   test "notify_by_email redirects to preview when user is not signed in and disable_logins is true" do
