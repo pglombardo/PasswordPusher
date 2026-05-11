@@ -3,10 +3,6 @@
 require "test_helper"
 
 class PasswordCreationTest < ActionDispatch::IntegrationTest
-  teardown do
-    Settings.reload!
-  end
-
   def test_textarea_has_safeties
     get new_push_path(tab: "text")
     assert_response :success
@@ -217,5 +213,7 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert_emails 1 do
       job.perform_now
     end
+  ensure
+    Settings.reload!
   end
 end
