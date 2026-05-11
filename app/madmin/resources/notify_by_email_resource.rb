@@ -4,6 +4,7 @@ class NotifyByEmailResource < Madmin::Resource
   attribute :recipients, form: false
   attribute :locale, form: false
   attribute :status
+  attribute :successful_sends
   attribute :error_message
   attribute :proceed_at
   attribute :created_at, form: false
