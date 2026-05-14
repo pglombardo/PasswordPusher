@@ -13,7 +13,8 @@ class Api::V2::PushesController < Api::V1::PushesController
       return
     end
 
-    assign_notify_by_email_params(@push, notify_by_email_params, required: true)
+    permitted_notify_by_email_params = params.permit(:recipients, :locale)
+    assign_notify_by_email_params(@push, permitted_notify_by_email_params, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -27,10 +28,6 @@ class Api::V2::PushesController < Api::V1::PushesController
 
   def force_json_format
     request.format = :json
-  end
-
-  def notify_by_email_params
-    params.permit(:recipients, :locale)
   end
 
   def push_params

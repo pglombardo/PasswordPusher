@@ -156,7 +156,7 @@ class Api::V1::PushesController < Api::BaseController
     # Extract notify_by_email params before creating the Push
     # to avoid ActiveModel::UnknownAttributeError
     # Only API v2 requests may have nested notify_by_email params
-    notify_by_email_params = permitted_params.delete(:notify_by_email) if params["controller"] == "api/v2/pushes"
+    permitted_notify_by_email_params = permitted_params.delete(:notify_by_email) if params["controller"] == "api/v2/pushes"
 
     @push = Push.new(permitted_params)
 
@@ -184,8 +184,8 @@ class Api::V1::PushesController < Api::BaseController
     assign_retrieval_step(@push, permitted_params)
 
     # Handle nested notify_by_email params for only API v2 requests
-    if params["controller"] == "api/v2/pushes" && notify_by_email_params.present?
-      assign_notify_by_email_params(@push, notify_by_email_params)
+    if params["controller"] == "api/v2/pushes" && permitted_notify_by_email_params.present?
+      assign_notify_by_email_params(@push, permitted_notify_by_email_params)
     end
 
     if @push.save
