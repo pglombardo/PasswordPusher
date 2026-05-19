@@ -67,7 +67,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 ### Trust & community
 
 - **Open source** — Apache 2.0; no black box. Written and maintained by [myself](https://github.com/pglombardo) and the team at [Apnotic](https://apnotic.com) with the help of contributors.
-- **14+ years in production** — Used to deliver millions of secrets; [actively maintained](https://github.com/pglombardo/PasswordPusher/graphs/contributors).
+- **15+ years in production** — Used to deliver millions of secrets; [actively maintained](https://github.com/pglombardo/PasswordPusher/graphs/contributors).
 - **Trusted worldwide** — Used by thousands of companies around the globe.
 
 ---
