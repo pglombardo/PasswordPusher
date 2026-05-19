@@ -21,7 +21,7 @@ module ShareMessageHelper
         "",
         "#{I18n._("Secret link")}: #{secret_url}",
         "",
-        I18n._("Important Notes:").upcase,
+        I18n._("IMPORTANT NOTES:"),
         *notes.map { |note| "* #{note}" }
       ].join("\n")
     end
