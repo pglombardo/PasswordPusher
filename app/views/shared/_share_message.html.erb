@@ -1,0 +1,23 @@
+<div class="card border-0 shadow-sm w-75 mt-4 text-start">
+  <div class="card-body" data-controller="copy">
+    <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+      <div>
+        <label class="form-label fw-semibold mb-1"><%= _("Optional message to share") %></label>
+        <p class="text-muted small mb-0"><%= _("Copy and paste this into your email or chat. It includes the secret link and expiration details.") %></p>
+      </div>
+      <button type="button"
+              class="btn btn-outline-secondary btn-sm flex-shrink-0"
+              data-action="click->copy#miniCopyToClipboard"
+              title="<%= _('Copy to Clipboard') %>">
+        <em class="bi bi-clipboard-check"></em>
+        <%= _("Copy message") %>
+      </button>
+    </div>
+    <textarea id="share-message-text"
+              class="form-control"
+              rows="12"
+              spellcheck="false"
+              data-copy-target="payloadDiv"
+              aria-label="<%= _('Optional message to share') %>"><%= share_message %></textarea>
+  </div>
+</div>

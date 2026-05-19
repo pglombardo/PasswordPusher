@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module PushesHelper
+  include ShareMessageHelper
+
   PUSH_PAYLOAD_AUTO_REBLUR_SECONDS = 20
 
   def push_payload_auto_reblur_seconds
