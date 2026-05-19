@@ -32,10 +32,10 @@ export default class extends Controller {
             clearTimeout(this.feedbackTimeout)
         }
 
-        icon.className = "bi bi-check-lg"
+        this.showCopySuccess(icon)
 
         this.feedbackTimeout = setTimeout(() => {
-            icon.className = "bi bi-clipboard-check"
+            this.resetCopyIcon(icon)
             this.feedbackTimeout = null
         }, 1000)
     }
@@ -72,6 +72,16 @@ export default class extends Controller {
         }
 
         return button.querySelector("em")
+    }
+
+    showCopySuccess(icon) {
+        icon.classList.remove("bi-clipboard-check")
+        icon.classList.add("bi-check-lg")
+    }
+
+    resetCopyIcon(icon) {
+        icon.classList.remove("bi-check-lg")
+        icon.classList.add("bi-clipboard-check")
     }
 
     clearStrayIconClasses(button) {
