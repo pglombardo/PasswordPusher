@@ -7,6 +7,12 @@ module PushesHelper
     PUSH_PAYLOAD_AUTO_REBLUR_SECONDS
   end
 
+  # Returns a human-readable string for push expiration (days only), e.g. "5 days" or "1 day".
+  def format_days_remaining(push)
+    days = push.days_remaining
+    "#{days} #{n_("day", "days", days)}"
+  end
+
   def filesize(size)
     units = %w[B KiB MiB GiB TiB Pib EiB ZiB]
 

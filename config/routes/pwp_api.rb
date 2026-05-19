@@ -8,6 +8,7 @@ constraints(format: :json) do
         get "audit", on: :member
         get "active", on: :collection
         get "expired", on: :collection
+        post "notify_by_email", on: :member
       end
     end
   end

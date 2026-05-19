@@ -35,3 +35,11 @@ Settings.reload!
 load_legacy_environment_variables
 
 # rubocop:enable Layout/LineLength
+
+module SettingsExtensions
+  def notify_by_email_available?
+    !disable_logins && mail&.smtp_address.present?
+  end
+end
+
+Settings.extend(SettingsExtensions)
