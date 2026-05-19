@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
     static targets = [
         "payloadDiv",
+        "icon",
      ]
 
     static values = {
@@ -21,19 +22,22 @@ export default class extends Controller {
             }
         }
 
-        let button = event.target
-        if (button.tagName == 'BUTTON') {
-            button = button.querySelector('em')
+        const button = event.currentTarget
+        this.clearStrayIconClasses(button)
+
+        const icon = this.iconElement(button)
+        if (!icon) return
+
+        if (this.feedbackTimeout) {
+            clearTimeout(this.feedbackTimeout)
         }
 
-        button.classList.remove('bi-clipboard-check')
-        button.classList.add('bi-check-lg')
+        icon.className = "bi bi-check-lg"
 
-        setTimeout(function() {
-            button.classList.remove('bi-check-lg')
-            button.classList.add('bi-clipboard-check')
+        this.feedbackTimeout = setTimeout(() => {
+            icon.className = "bi bi-clipboard-check"
+            this.feedbackTimeout = null
         }, 1000)
-
     }
 
     copyToClipboard(event) {
@@ -54,6 +58,28 @@ export default class extends Controller {
             button.innerHTML = originalContent
         }, 1000)
 
+    }
+
+    disconnect() {
+        if (this.feedbackTimeout) {
+            clearTimeout(this.feedbackTimeout)
+        }
+    }
+
+    iconElement(button) {
+        if (this.hasIconTarget && button.contains(this.iconTarget)) {
+            return this.iconTarget
+        }
+
+        return button.querySelector("em")
+    }
+
+    clearStrayIconClasses(button) {
+        const iconClasses = ["bi", "bi-clipboard-check", "bi-check-lg"]
+
+        button.querySelectorAll("span").forEach((element) => {
+            iconClasses.forEach((iconClass) => element.classList.remove(iconClass))
+        })
     }
 
     fallbackCopyToClipboard(text) {
