@@ -43,10 +43,8 @@ module ShareMessageHelper
   end
 
   def share_message_expiration_note(push)
-    days_word = (push.days_remaining == 1) ? I18n._("day") : I18n._("days")
-    views_word = (push.views_remaining == 1) ? I18n._("view") : I18n._("views")
-    days_label = "#{push.days_remaining} #{days_word}"
-    views_label = "#{push.views_remaining} #{views_word}"
+    days_label = "#{push.days_remaining} #{n_("day", "days", push.days_remaining)}"
+    views_label = "#{push.views_remaining} #{n_("view", "views", push.views_remaining)}"
 
     I18n._("This link is valid for %{days}, or %{views}, whichever occurs first.") % {days: days_label, views: views_label}
   end
