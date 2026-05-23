@@ -1,4 +1,4 @@
-// @fontsource/roboto@5.2.9 downloaded from https://ga.jspm.io/npm:@fontsource/roboto@5.2.9/index.css
+// @fontsource/roboto@5.2.10 downloaded from https://ga.jspm.io/npm:@fontsource/roboto@5.2.10/index.css
 
 /* roboto-cyrillic-ext-400-normal */
 @font-face {

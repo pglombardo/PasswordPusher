@@ -1,4 +1,4 @@
-// @fontsource/roboto-mono@5.2.8 downloaded from https://ga.jspm.io/npm:@fontsource/roboto-mono@5.2.8/index.css
+// @fontsource/roboto-mono@5.2.9 downloaded from https://ga.jspm.io/npm:@fontsource/roboto-mono@5.2.9/index.css
 
 /* roboto-mono-cyrillic-ext-400-normal */
 @font-face {
