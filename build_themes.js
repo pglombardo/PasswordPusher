@@ -43,7 +43,7 @@ function compileOneTheme(slug) {
     `sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:${outFile} --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets`,
   );
   run(
-    `postcss ${outFile} --use=autoprefixer --output=${outFile} -c postcss.config.js --verbose`,
+    `postcss ${outFile} --use=autoprefixer --output=${outFile} --verbose`,
   );
 }
 
