@@ -19,15 +19,6 @@ function themeSlugs() {
     .sort();
 }
 
-function copyBootstrapIconFonts() {
-  const srcDir = path.join(root, "node_modules/bootstrap-icons/font/fonts");
-  const destDir = path.join(buildsDir, "fonts");
-  fs.mkdirSync(destDir, { recursive: true });
-  for (const name of fs.readdirSync(srcDir)) {
-    fs.copyFileSync(path.join(srcDir, name), path.join(destDir, name));
-  }
-}
-
 function run(cmd, extraEnv = {}) {
   execSync(cmd, {
     cwd: root,
@@ -43,7 +34,7 @@ function compileOneTheme(slug) {
     `sass --quiet-deps ./app/assets/stylesheets/application.bootstrap.scss:${outFile} --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets --load-path=vendor/stylesheets`,
   );
   run(
-    `postcss ${outFile} --use=autoprefixer --output=${outFile} -c postcss.config.js --verbose`,
+    `postcss ${outFile} --use=autoprefixer --output=${outFile} --verbose`,
   );
 }
 
@@ -53,8 +44,6 @@ function restoreDefaultSelected() {
 
 const singleMode =
   process.argv.includes("--single") || process.env.BUILD_CSS_SINGLE === "1";
-
-copyBootstrapIconFonts();
 
 if (singleMode) {
   const slug = (process.env.PWP__THEME || "default").toLowerCase();
