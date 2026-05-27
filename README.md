@@ -233,6 +233,10 @@ More: [Contributors](https://github.com/pglombardo/PasswordPusher/graphs/contrib
 
 ## Donations
 
+🛑 **Because of some abuse, the donation link is temporarily disabled.  Contact support@pwpush.com if you'd like to donate**
+
+--> _To those testing various cards and failing, do what you do but please not here.  We can't risk getting the account flagged in Stripe - we're not big enough to deal with that type of damage.  I hope you can understand our position._
+
 Donations are **optional**. Password Pusher is and will remain open source and free to use.
 
 If it’s useful to you and you’d like to support development, donations are greatly appreciated and go toward hosting, maintenance, testing, and new features.
