@@ -58,20 +58,10 @@ gem "rack-cors"
 gem "high_voltage"
 gem "kramdown", require: false
 gem "lockbox"
-
 gem "terser", "~> 1.2"
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "bootstrap"
 gem "json", "~> 2.19" # Legacy carry-over
-
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# https://github.com/Apipie/apipie-rails/pull/964
-gem "apipie-rails", github: "Apipie/apipie-rails", branch: "copilot/fix-router-deprecation-warning"
-
+gem "apipie-rails"
 gem "config"
 gem "devise", "~> 5.0"
 gem "foreman"
@@ -81,7 +71,6 @@ gem "oj"
 gem "puma"
 gem "kaminari", "~> 1.2"
 gem "invisible_captcha", "~> 2.3"
-
 gem "devise-i18n"
 gem "rails-i18n", "~> 8.1.0"
 gem "translation"
