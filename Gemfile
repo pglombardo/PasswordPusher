@@ -21,7 +21,6 @@ gem "cssbundling-rails"
 
 group :development do
   gem "listen"
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "pry-rails"
   gem "web-console"
 
