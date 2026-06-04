@@ -39,6 +39,19 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 ---
 
+## Financial Supporters
+
+A heartfelt thank you to the companies and individuals who help keep Password Pusher running. Their support goes toward hosting, maintenance, support and continued development.
+
+| Supporter | |
+|---|---|
+| <img width="392" height="134" alt="SerpApi" src="https://github.com/user-attachments/assets/f4c7369f-d56c-437f-8cb6-dd08c2129ed8" /> | Scrape and parse search engine results with a fast, reliable API. |
+| [WMACCESS](https://www.wmaccess.com/) | WMACCESS enables the query of historical interim profits and income data for funds including distribution-equivalent income. Data source for self-disclosures.
+
+Interested in supporting Password Pusher? Reach out at [support@pwpush.com](mailto:support@pwpush.com).
+
+---
+
 ## Features
 
 ### Security & privacy
