@@ -46,7 +46,7 @@ A heartfelt thank you to the companies and individuals who help keep Password Pu
 | Supporter | |
 |---|---|
 | [<img width="392" height="134" alt="SerpApi" src="https://github.com/user-attachments/assets/f4c7369f-d56c-437f-8cb6-dd08c2129ed8" />](https://serpapi.com/?utm_source=pwpush) | SerpApi is the world’s leading provider of search data, pioneering APIs that turn search engine results into structured, developer-ready information. |
-| [WMACCESS](https://www.wmaccess.com/) |  Enables the query of historical interim profits and income data for funds including distribution-equivalent income. Data source for self-disclosures. |
+| [WMACCESS](https://www.wmaccess.com/) |  Provides securities information and tax-relevant financial data, including securities master data and income data for comprehensive tax reporting. |
 
 A special thank you as well to every customer who [subscribed to a plan on pwpush.com](https://eu.pwpush.com/pricing) or purchased [Self-Hosted Pro](https://eu.pwpush.com/self-hosted-pricing) — your support directly funds the ongoing development of Password Pusher.
 
