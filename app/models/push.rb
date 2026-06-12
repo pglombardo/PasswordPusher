@@ -162,11 +162,11 @@ class Push < ApplicationRecord
 
     # MIGRATE - ask
     # Are these assignments needed?
-    unless self.expire_after_days.between?(settings_for_kind.expire_after_days_min, settings_for_kind.expire_after_days_max)
+    unless expire_after_days.between?(settings_for_kind.expire_after_days_min, settings_for_kind.expire_after_days_max)
       self.expire_after_days = settings_for_kind.expire_after_days_default
     end
 
-    unless self.expire_after_views.between?(settings_for_kind.expire_after_views_min, settings_for_kind.expire_after_views_max)
+    unless expire_after_views.between?(settings_for_kind.expire_after_views_min, settings_for_kind.expire_after_views_max)
       self.expire_after_views = settings_for_kind.expire_after_views_default
     end
   end
