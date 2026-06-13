@@ -52,7 +52,7 @@ jobs:
         run: ct install --config ./ct.yaml --target-branch "$TARGET_BRANCH"
 
       - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
+if: failure() && github.base_ref == env.TARGET_BRANCH
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@2ba014976f1fcce1740addd8961ea20b3b784a5f # v1.1.6
         with:
