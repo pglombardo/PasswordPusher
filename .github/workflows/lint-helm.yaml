@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@f0accbfd55e3332a28f721b8202b1016cecf90d5 # v5
+        uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5
         with:
           version: v3.12.1
 
@@ -54,7 +54,7 @@ jobs:
       - name: Post job failure details to Campfire
 if: failure() && github.base_ref == env.TARGET_BRANCH
         continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@2ba014976f1fcce1740addd8961ea20b3b784a5f # v1.1.6
+        uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: job_failed
