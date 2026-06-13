@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   post-commit-info:
+    if: secrets.CAMPFIRE_MESSAGES_URL != ''
     runs-on: ubuntu-latest
     steps:
       - name: Post commit info to Campfire
