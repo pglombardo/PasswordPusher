@@ -1,5 +1,4 @@
----
-name: Lint and Test Charts
+name: Lint and Test Helm Charts
 
 on: pull_request
 
@@ -52,7 +51,7 @@ jobs:
         run: ct install --config ./ct.yaml --target-branch "$TARGET_BRANCH"
 
       - name: Post job failure details to Campfire
-if: failure() && github.base_ref == env.TARGET_BRANCH
+        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.base_ref == env.TARGET_BRANCH
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:

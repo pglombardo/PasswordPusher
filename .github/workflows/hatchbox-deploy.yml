@@ -1,6 +1,3 @@
----
-# Deploy the OSS demo/production Hatchbox app when a release tag is pushed.
-# Add HATCHBOX_DEPLOY_KEY to repo secrets (App → Repository tab in Hatchbox.io).
 name: Hatchbox Deploy
 
 on:
@@ -13,10 +10,10 @@ permissions:
 
 jobs:
   deploy:
-    if: secrets.HATCHBOX_DEPLOY_KEY != ''
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Hatchbox
+        if: secrets.HATCHBOX_DEPLOY_KEY != ''
         uses: hatchboxio/github-hatchbox-deploy-action@3bbadafe51e89bbf29fd3932bd84534f4fc9a00c # v2
         with:
           deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
