@@ -47,6 +47,16 @@ jobs:
     if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
+      - id: campfire-configured
+        env:
+          CAMPFIRE_MESSAGES_URL: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+        run: |
+          if [ -n "${CAMPFIRE_MESSAGES_URL}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
@@ -95,7 +105,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
+        if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
@@ -108,6 +118,16 @@ jobs:
     if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
+      - id: campfire-configured
+        env:
+          CAMPFIRE_MESSAGES_URL: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+        run: |
+          if [ -n "${CAMPFIRE_MESSAGES_URL}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
@@ -161,7 +181,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
+        if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
@@ -173,6 +193,16 @@ jobs:
     if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
+      - id: campfire-configured
+        env:
+          CAMPFIRE_MESSAGES_URL: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+        run: |
+          if [ -n "${CAMPFIRE_MESSAGES_URL}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
@@ -226,7 +256,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
+        if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
