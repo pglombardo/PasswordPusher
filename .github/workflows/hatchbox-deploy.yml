@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   deploy:
+    if: secrets.HATCHBOX_DEPLOY_KEY != ''
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Hatchbox
