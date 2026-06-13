@@ -1,6 +1,7 @@
 ---
 # Fork PR builds run only when a maintainer adds the "docker" label. Login and push
 # are disabled for fork PRs; labeled fork PRs still execute untrusted Dockerfiles.
+# Skipped entirely when DOCKER_USERNAME is not configured (e.g. forks).
 name: Docker Container Builds
 
 on:
@@ -31,7 +32,7 @@ env:
   DOCKER_PUSH: true
 jobs:
   pwpush-container:
-    if: (github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request'
+    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -91,7 +92,7 @@ jobs:
 
 
   public-gateway-container:
-    if: (github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request'
+    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
@@ -156,7 +157,7 @@ jobs:
           template: job_failed
 
   worker-container:
-    if: (github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request'
+    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     needs: pwpush-container
     runs-on: ubuntu-latest
     steps:
