@@ -8,12 +8,15 @@ on:
     tags:
       - "v*.*.*"
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Hatchbox
-        uses: hatchboxio/github-hatchbox-deploy-action@v2
+        uses: hatchboxio/github-hatchbox-deploy-action@3bbadafe51e89bbf29fd3932bd84534f4fc9a00c # v2
         with:
           deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
           sha: ${{ github.sha }}

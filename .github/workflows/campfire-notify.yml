@@ -4,13 +4,16 @@ on:
   push:
     branches: [ master ]
 
+permissions:
+  contents: read
+
 jobs:
   post-commit-info:
     runs-on: ubuntu-latest
     steps:
       - name: Post commit info to Campfire
         continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@v1.1.6
+        uses: shane-lamb/campfire-notify-action@2ba014976f1fcce1740addd8961ea20b3b784a5f # v1.1.6
         with:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: commit_pushed
