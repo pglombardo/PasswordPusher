@@ -31,8 +31,24 @@ permissions:
 env:
   DOCKER_PUSH: true
 jobs:
+  docker-configured:
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
+    steps:
+      - id: check
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          if [ -n "${DOCKER_USERNAME}" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
   pwpush-container:
-    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
+    needs: docker-configured
+    if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -83,7 +99,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
+        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
@@ -92,8 +108,8 @@ jobs:
 
 
   public-gateway-container:
-    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
-    needs: pwpush-container
+    needs: [docker-configured, pwpush-container]
+    if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -149,7 +165,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
+        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
@@ -157,8 +173,8 @@ jobs:
           template: job_failed
 
   worker-container:
-    if: secrets.DOCKER_USERNAME != '' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
-    needs: pwpush-container
+    needs: [docker-configured, pwpush-container]
+    if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -214,7 +230,7 @@ jobs:
             type=gha,mode=max
 
       - name: Post job failure details to Campfire
-        if: failure() && github.ref == 'refs/heads/master'
+        if: failure() && secrets.CAMPFIRE_MESSAGES_URL != '' && github.ref == 'refs/heads/master'
         continue-on-error: true
         uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
