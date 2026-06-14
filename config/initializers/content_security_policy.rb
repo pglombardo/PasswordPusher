@@ -13,9 +13,7 @@ Rails.application.configure do
     policy.img_src :self, :https, :http, :data, :blob
     policy.media_src :self, :https, :http, :data, :blob
     policy.object_src :none
-    script_src = [:strict_dynamic, :self, :https, :http]
-    script_src << "https://plausible.io" if ENV.key?("PLAUSIBLE_DOMAIN")
-    policy.script_src(*script_src)
+    policy.script_src :strict_dynamic, :self, :https, :http
     policy.style_src :self, :https, :http, :unsafe_inline
     policy.style_src_attr :unsafe_inline
     policy.connect_src :self, :https, :http, :ws, :wss
