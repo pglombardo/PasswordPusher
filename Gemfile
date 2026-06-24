@@ -60,7 +60,7 @@ gem "kramdown", require: false
 gem "lockbox"
 gem "terser", "~> 1.2"
 gem "bootstrap"
-gem "json", "~> 2.19" # Legacy carry-over
+gem "json", "~> 2.20" # Legacy carry-over
 gem "apipie-rails"
 gem "config"
 gem "devise", "~> 5.0"
