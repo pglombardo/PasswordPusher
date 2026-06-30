@@ -57,4 +57,52 @@ class UrlTest < ActiveSupport::TestCase
     json = JSON.parse(url.to_json({}))
     assert_not json.key?("name")
   end
+
+  test "should reject data uri payloads" do
+    url = Push.new(
+      kind: "url",
+      payload: "data:text/html,<script>alert(1)</script>"
+    )
+
+    assert_not url.valid?
+    assert_includes url.errors[:payload], I18n._("must be a valid HTTP or HTTPS URL.")
+  end
+
+  test "should reject javascript uri payloads" do
+    url = Push.new(
+      kind: "url",
+      payload: "javascript:alert(1)"
+    )
+
+    assert_not url.valid?
+    assert_includes url.errors[:payload], I18n._("must be a valid HTTP or HTTPS URL.")
+  end
+
+  test "should reject ftp uri payloads" do
+    url = Push.new(
+      kind: "url",
+      payload: "ftp://example.com"
+    )
+
+    assert_not url.valid?
+    assert_includes url.errors[:payload], I18n._("must be a valid HTTP or HTTPS URL.")
+  end
+
+  test "should accept http uri payloads" do
+    url = Push.new(
+      kind: "url",
+      payload: "http://example.com"
+    )
+
+    assert url.valid?
+  end
+
+  test "should accept https uri payloads" do
+    url = Push.new(
+      kind: "url",
+      payload: "https://example.com"
+    )
+
+    assert url.valid?
+  end
 end
