@@ -224,7 +224,8 @@ class Push < ApplicationRecord
   end
 
   def valid_url?(url)
-    !Addressable::URI.parse(url).scheme.nil?
+    scheme = Addressable::URI.parse(url)&.scheme&.downcase
+    %w[http https].include?(scheme)
   rescue Addressable::URI::InvalidURIError
     false
   end
