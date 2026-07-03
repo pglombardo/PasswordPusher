@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_10_033644) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_09_010000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -66,7 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_10_033644) do
     t.integer "audit_log_id", null: false
     t.datetime "created_at", null: false
     t.text "error_message_ciphertext"
-    t.string "locale_ciphertext"
+    t.text "locale_ciphertext"
     t.datetime "proceed_at"
     t.text "recipients_ciphertext", null: false
     t.integer "recipients_count", default: 0, null: false

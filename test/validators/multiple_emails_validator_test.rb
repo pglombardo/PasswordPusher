@@ -146,6 +146,13 @@ class MultipleEmailsValidatorTest < ActiveSupport::TestCase
     assert_equal 1, @model.errors[:email_list].count
   end
 
+  test "treats case-differing addresses as duplicates" do
+    @model.email_list = "user@Example.com, USER@example.COM"
+    assert_not @model.valid?
+    assert_includes @model.errors[:email_list].first, "contains duplicate emails"
+    assert_equal 1, @model.errors[:email_list].count
+  end
+
   test "handles trailing comma" do
     @model.email_list = "test@example.com,"
     assert_not @model.valid?

@@ -3,6 +3,9 @@
 class SendNotifyByEmailJob < ApplicationJob
   queue_as :default
 
+  retry_on Net::SMTPServerBusy, Net::OpenTimeout, Timeout::Error, Errno::ECONNRESET,
+    wait: :polynomially_longer, attempts: 3
+
   def perform(notify_by_email_id)
     notify_by_email = NotifyByEmail.find_by(id: notify_by_email_id)
 
@@ -36,7 +39,7 @@ class SendNotifyByEmailJob < ApplicationJob
         mail.deliver_now
         successful_sends << recipient
       rescue => e
-        Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
+        Rails.logger.error "[SendNotifyByEmailJob] Error sending email (#{e.class}): #{e.message} (#{e.backtrace&.first})"
       end
 
       status, error_message = if successful_sends.size == recipients.size
@@ -49,7 +52,7 @@ class SendNotifyByEmailJob < ApplicationJob
 
       notify_by_email.update!(successful_sends: successful_sends.join(","), status: status, error_message: error_message, proceed_at: Time.current)
     rescue => e
-      Rails.logger.error "[SendNotifyByEmailJob] Error sending email: #{e.message}"
+      Rails.logger.error "[SendNotifyByEmailJob] Batch failed (#{e.class}): #{e.message} (#{e.backtrace&.first})"
 
       notify_by_email.update(successful_sends: successful_sends.join(","), status: :failed, error_message: _("An unexpected error occurred while sending the email."), proceed_at: Time.current)
     end

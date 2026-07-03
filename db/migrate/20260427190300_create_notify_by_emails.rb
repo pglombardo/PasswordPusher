@@ -7,7 +7,7 @@ class CreateNotifyByEmails < ActiveRecord::Migration[8.1]
       t.text :recipients_ciphertext, null: false
       t.integer :recipients_count, default: 0, null: false
       t.text :successful_sends_ciphertext
-      t.string :locale_ciphertext
+      t.text :locale_ciphertext
       t.integer :status, default: 0, null: false
       t.text :error_message_ciphertext
 

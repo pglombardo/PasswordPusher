@@ -24,6 +24,13 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+
+  # Ensure cache-backed features (e.g. ActionController::RateLimiting) start
+  # each test with a clean slate.
+  setup do
+    Rails.cache.clear
+  end
+
   # Add more helper methods to be used by all tests here...
 
   def assert_audit_log_created(push, kind)

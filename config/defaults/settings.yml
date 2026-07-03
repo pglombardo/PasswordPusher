@@ -1166,6 +1166,26 @@ throttling:
   # Environment Variable Override: PWP__THROTTLING__SECOND='20'
   second: 60
 
+### Notify by Email
+#
+# Configure the "Notify by Email" (auto-dispatch) feature.
+# When a signed-in user creates a push, they can optionally have the
+# application email the secret link to one or more recipients on their behalf.
+#
+# See https://docs.pwpush.com/docs/notify-by-email/
+#
+notify_by_email:
+  # Per-user daily cap on the number of notification emails that may be
+  # dispatched. Applies across all pushes owned by the user.
+  #
+  # Set to 0 to disable the feature entirely.
+  # Set to null (or leave unset) for no cap.
+  #
+  # Default: 500
+  #
+  # Environment Variable Override: PWP__NOTIFY_BY_EMAIL__DAILY_LIMIT='100'
+  daily_limit: 500
+
 ### Purge After
 #
 # Set the time after which expired pushes, including metadata like

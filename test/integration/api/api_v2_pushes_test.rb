@@ -509,4 +509,27 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
   end
+
+  def test_notify_by_email_is_rate_limited_after_five_bursts_per_user
+    Rails.cache.clear
+    Settings.mail.smtp_address = "smtp.example.com"
+    push = pushes(:test_push)
+    owner = push.user
+
+    5.times do |i|
+      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+        params: {recipients: "recipient#{i}@example.com", locale: "en"},
+        headers: bearer_headers(owner),
+        as: :json
+    end
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {recipients: "recipient5@example.com", locale: "en"},
+      headers: bearer_headers(owner),
+      as: :json
+
+    assert_response :too_many_requests
+    body = JSON.parse(response.body)
+    assert_match(/Too many email notification requests/, body["error"])
+  end
 end

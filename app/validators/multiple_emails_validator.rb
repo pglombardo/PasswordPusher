@@ -18,12 +18,10 @@ class MultipleEmailsValidator < ActiveModel::EachValidator
 
     if value.end_with?(",") || emails.any?(&:blank?)
       record.errors.add(attribute, I18n._("has commas used in the wrong way"))
+      return
     end
 
-    # Remove blank emails
-    emails.compact_blank!
-
-    if emails.count != emails.uniq.count
+    if emails.map(&:downcase).uniq.count != emails.count
       record.errors.add(attribute, I18n._("contains duplicate emails"))
     end
 

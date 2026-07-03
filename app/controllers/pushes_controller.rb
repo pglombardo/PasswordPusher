@@ -8,6 +8,10 @@ class PushesController < BaseController
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
 
+  rate_limit to: 5, within: 1.minute, only: :notify_by_email,
+    by: -> { current_user&.id },
+    with: -> { redirect_to preview_push_path(@push), alert: I18n._("Too many email notification requests. Please try again in a minute.") }
+
   def show
     # This push may have expired since the last view.  Validate the push
     # expiration before doing anything.

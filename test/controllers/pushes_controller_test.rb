@@ -222,4 +222,28 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
     assert_nil flash[:notice]
   end
+
+  test "notify_by_email is rate limited after five bursts per user" do
+    Rails.cache.clear
+
+    5.times do |i|
+      post notify_by_email_push_path(@push), params: {
+        push: {
+          notify_by_email_recipients: "recipient#{i}@example.com",
+          notify_by_email_locale: "en"
+        }
+      }
+    end
+
+    post notify_by_email_push_path(@push), params: {
+      push: {
+        notify_by_email_recipients: "recipient5@example.com",
+        notify_by_email_locale: "en"
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to preview_push_path(@push)
+    assert_match(/Too many email notification requests/, flash[:alert])
+  end
 end
