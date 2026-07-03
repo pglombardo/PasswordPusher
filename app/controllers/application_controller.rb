@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
   add_flash_types :info, :error, :success, :warning
+  before_action :set_robots_header
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include Pwpush::FirstRun
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
   include EnforceRequiredMfa
 
   private
+
+  def set_robots_header
+    response.headers["X-Robots-Tag"] = "noindex, nofollow" if Settings.noindex
+  end
 
   # To add extra fields to Devise registration, add the attribute names to `extra_keys`
   # See: https://stackoverflow.com/questions/64057147/attributes-not-saving-with-devise-and-accepts-nested-attributes-for
