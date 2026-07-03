@@ -34,6 +34,8 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_select "h2", "Push Created"
+    assert_match "Optional message to share", response.body
+    assert_select "textarea#share-message-text", minimum: 1
 
     # Password page
     get request.url.sub("/preview", "")

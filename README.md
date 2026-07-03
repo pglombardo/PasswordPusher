@@ -39,6 +39,21 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 
 ---
 
+## Financial Supporters
+
+A heartfelt thank you to the companies and individuals who help keep Password Pusher running. Their support goes toward hosting, maintenance, support and continued development.
+
+| Supporter | |
+|---|---|
+| [<img width="392" height="134" alt="SerpApi" src="https://github.com/user-attachments/assets/f4c7369f-d56c-437f-8cb6-dd08c2129ed8" />](https://serpapi.com/?utm_source=pwpush) | SerpApi is the world’s leading provider of search data, pioneering APIs that turn search engine results into structured, developer-ready information. |
+| [WMACCESS](https://www.wmaccess.com/) |  Provides securities information and tax-relevant financial data, including securities master data and income data for comprehensive tax reporting. |
+
+A special thank you as well to every customer who [subscribed to a plan on pwpush.com](https://eu.pwpush.com/pricing) or purchased [Self-Hosted Pro](https://eu.pwpush.com/self-hosted-pricing) — your support directly funds the ongoing development of Password Pusher.
+
+Interested in supporting Password Pusher? Reach out at [support@pwpush.com](mailto:support@pwpush.com).
+
+---
+
 ## Features
 
 ### Security & privacy
@@ -67,7 +82,7 @@ Use the [hosted service](https://pwpush.com) or run your own instance with Docke
 ### Trust & community
 
 - **Open source** — Apache 2.0; no black box. Written and maintained by [myself](https://github.com/pglombardo) and the team at [Apnotic](https://apnotic.com) with the help of contributors.
-- **14+ years in production** — Used to deliver millions of secrets; [actively maintained](https://github.com/pglombardo/PasswordPusher/graphs/contributors).
+- **15+ years in production** — Used to deliver millions of secrets; [actively maintained](https://github.com/pglombardo/PasswordPusher/graphs/contributors).
 - **Trusted worldwide** — Used by thousands of companies around the globe.
 
 ---
@@ -232,6 +247,10 @@ More: [Contributors](https://github.com/pglombardo/PasswordPusher/graphs/contrib
 ---
 
 ## Donations
+
+🛑 **Because of some abuse, the donation link is temporarily disabled.  Contact support@pwpush.com if you'd like to donate**
+
+--> _To those testing various cards and failing, do what you do but please not here.  We can't risk getting the account flagged in Stripe - we're not big enough to deal with that type of damage.  I hope you can understand our position._
 
 Donations are **optional**. Password Pusher is and will remain open source and free to use.
 

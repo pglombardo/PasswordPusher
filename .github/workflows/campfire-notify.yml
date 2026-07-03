@@ -1,16 +1,30 @@
-name: Post commit info to Campfire
+name: Campfire Notifications
 
 on:
   push:
     branches: [ master ]
 
+permissions:
+  contents: read
+
 jobs:
   post-commit-info:
     runs-on: ubuntu-latest
     steps:
+      - id: campfire-configured
+        env:
+          CAMPFIRE_MESSAGES_URL: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+        run: |
+          if [ -n "${CAMPFIRE_MESSAGES_URL}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Post commit info to Campfire
+        if: steps.campfire-configured.outputs.configured == 'true'
         continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@v1.1.6
+        uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
         with:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: commit_pushed

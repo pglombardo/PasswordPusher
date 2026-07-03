@@ -1,6 +1,6 @@
 constraints(format: :json) do
-  namespace :api do
-    namespace :v2 do
+  namespace :api, defaults: {format: :json} do
+    namespace :v2, defaults: {format: :json} do
       get :version, to: "version#show"
 
       resources :pushes, except: %i[new index edit update] do
@@ -13,8 +13,8 @@ constraints(format: :json) do
     end
   end
 
-  namespace :api do
-    namespace :v1 do
+  namespace :api, defaults: {format: :json} do
+    namespace :v1, defaults: {format: :json} do
       get :version, to: "version#show"
     end
   end
@@ -50,4 +50,14 @@ constraints(format: :json) do
       get "expired", on: :collection
     end
   end
+end
+
+# APIv2 Documentation
+constraints(format: :html) do
+  get "/help/api", to: "pages#api", as: :help_api
+end
+
+# Legacy APIv1 Documentation - redirect to https://docs.pwpush.com/docs/api-v1/
+constraints(format: :html) do
+  get "/api", to: redirect("https://docs.pwpush.com/docs/api-v1/"), as: :help_api_v1
 end

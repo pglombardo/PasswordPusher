@@ -17,9 +17,9 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  def test_existing_apipie_docs_remain_available
+  def test_legacy_api_v1_docs_are_redirected
     get "/api"
-    assert_response :success
+    assert_response :redirect
   end
 
   def test_versioned_requests_and_accounts_endpoints_are_not_exposed

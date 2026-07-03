@@ -1,0 +1,30 @@
+name: Hatchbox Deploy
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - id: hatchbox-configured
+        env:
+          HATCHBOX_DEPLOY_KEY: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
+        run: |
+          if [ -n "${HATCHBOX_DEPLOY_KEY}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to Hatchbox
+        if: steps.hatchbox-configured.outputs.configured == 'true'
+        uses: hatchboxio/github-hatchbox-deploy-action@3bbadafe51e89bbf29fd3932bd84534f4fc9a00c # v2
+        with:
+          deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
+          sha: ${{ github.sha }}

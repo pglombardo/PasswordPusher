@@ -244,6 +244,7 @@ class PushesController < BaseController
   def preview
     @secret_url = helpers.secret_url(@push)
     @qr_code = helpers.qr_code(@secret_url)
+    @share_message = helpers.push_share_message_text(@push, secret_url: @secret_url)
   end
 
   def notify_by_email

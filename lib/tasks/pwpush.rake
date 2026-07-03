@@ -54,8 +54,8 @@ task delete_expired_and_anonymous: :environment do
     .where(expired: true)
     .where(user_id: nil)
     .find_each do |push|
-      counter += 1
-      push.destroy
+    counter += 1
+    push.destroy
   end
 
   puts "  -> #{counter} total anonymous and expired pushes deleted."
@@ -64,18 +64,7 @@ end
 
 desc "Generate robots.txt."
 task generate_robots_txt: :environment do
-  include Rails.application.routes.url_helpers
-
-  contents = "User-agent: *\n"
-
-  # Old secret links have `/f/` and `/r/` in them for file pushes and url pushes respectively.
-  contents += "Disallow: /p/\n"
-  contents += "Disallow: /f/\n"
-  contents += "Disallow: /r/\n"
-
-  # New secret links can be generated at `/p/new`.
-  contents += "Allow: /p/new\n"
-  contents += "Allow: /pages/\n"
+  contents = "User-agent: *\nDisallow: /\n"
 
   File.write("./public/robots.txt", contents)
 
