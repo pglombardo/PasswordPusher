@@ -54,7 +54,7 @@
     },
     "pushes": {
       "enabled": true,
-      "email_auto_dispatch": false,
+      "email_auto_dispatch": <%= Settings.notify_by_email_available? %>,
       "file_attachments": {
         "enabled": <%= Settings.enable_file_pushes %>,
         "requires_authentication": true
@@ -78,6 +78,7 @@
               <li><strong>api_token_authentication</strong> - <%= _("Bearer token authentication support") %></li>
               <li><strong>accounts.enabled</strong> - <%= _("Accounts API availability (not available in OSS)") %></li>
               <li><strong>pushes.enabled</strong> - <%= _("Push creation and management via API") %></li>
+              <li><strong>pushes.email_auto_dispatch</strong> - <%= _("Auto-Dispatch email notifications (Settings.notify_by_email.enabled, requires SMTP and logins)") %></li>
               <li><strong>pushes.file_attachments.enabled</strong> - <%= _("File attachments on pushes (Settings.enable_file_pushes)") %></li>
               <li><strong>pushes.url_pushes.enabled</strong> - <%= _("URL push type (Settings.enable_url_pushes)") %></li>
               <li><strong>pushes.qr_code_pushes.enabled</strong> - <%= _("QR code push type (Settings.enable_qr_pushes)") %></li>

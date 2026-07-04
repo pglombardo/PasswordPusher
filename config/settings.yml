@@ -1175,11 +1175,19 @@ throttling:
 # See https://docs.pwpush.com/docs/notify-by-email/
 #
 notify_by_email:
+  # Set to false to disable Auto-Dispatch entirely (hides UI, blocks API).
+  #
+  # Default: true
+  #
+  # Environment Variable Override: PWP__NOTIFY_BY_EMAIL__ENABLED='false'
+  enabled: true
+
   # Per-user daily cap on the number of notification emails that may be
   # dispatched. Applies across all pushes owned by the user.
   #
-  # Set to 0 to disable the feature entirely.
+  # Set to 0 to block all sends (UI still visible with a limit message).
   # Set to null (or leave unset) for no cap.
+  # To fully disable the feature, use enabled: false above.
   #
   # Default: 500
   #
