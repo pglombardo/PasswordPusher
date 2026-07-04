@@ -28,7 +28,10 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
-  config.cache_store = :null_store
+  # Use an in-memory cache in tests so features that depend on it
+  # (e.g. ActionController::RateLimiting) function end-to-end.
+  # Tests that touch cache state should call `Rails.cache.clear` in setup.
+  config.cache_store = :memory_store
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = :rescuable

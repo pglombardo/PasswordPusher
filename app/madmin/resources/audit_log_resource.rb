@@ -11,6 +11,7 @@ class AuditLogResource < Madmin::Resource
   # Associations
   attribute :push
   attribute :user
+  attribute :notify_by_email
 
   # Add scopes to easily filter records
   # scope :published

@@ -6,6 +6,7 @@ authenticated :user, lambda { |u| u.admin? } do
       resources :variant_records
     end
     resources :audit_logs
+    resources :notify_by_emails
     resources :pushes
     resources :users, except: [:edit, :update]
     root to: "dashboard#show"

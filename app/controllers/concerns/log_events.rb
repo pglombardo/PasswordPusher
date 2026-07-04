@@ -23,6 +23,12 @@ module LogEvents
     log_event(push, :creation)
   end
 
+  def log_creation_email_send(push)
+    return unless push.notify_by_email_recipients.present?
+
+    log_event(push, :creation_email_send)
+  end
+
   def log_update(push)
     log_event(push, :edit)
   end

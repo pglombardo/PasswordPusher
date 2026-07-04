@@ -2,6 +2,8 @@
 
 <div class="container-xl py-4 py-lg-5">
 
+    <%= render partial: "pushes/error", locals: {push: @push} %>
+
     <%# Header %>
     <div class="text-center mb-4">
       <h2 class="fw-semibold mb-2">
@@ -121,11 +123,56 @@
                   <em class="bi bi-pencil me-1"></em><%= _('Edit') %>
                 <% end %>
               <% end %>
+              <% if @push.notify_by_email_allowed_for?(current_user) %>
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#notifyByEmailCollapse" aria-expanded="<%= @push.notify_by_email_recipients.present? %>" aria-controls="notifyByEmailCollapse">
+                  <em class="bi bi-envelope me-1"></em><%= _('Notify by Email') %>
+                </button>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <% if @push.notify_by_email_allowed_for?(current_user) %>
+      <%# Notify by email %>
+      <div class="collapse mb-4 <%= 'show' if @push.notify_by_email_recipients.present? %>" id="notifyByEmailCollapse">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-transparent">
+            <em class="bi bi-envelope me-1"></em><%= _('Notify by Email') %>
+          </div>
+          <div class="card-body">
+            <% if current_user.email_limit_reached? %>
+              <div class="alert alert-info mb-0">
+                <%= _('You have reached the maximum number of emails you can send today.') %>
+              </div>
+            <% else %>
+              <%= form_for @push, url: notify_by_email_push_path(@push), method: :post, local: true do |f| %>
+                <div class="mb-2">
+                  <%= f.label :notify_by_email_recipients, _('Email Recipients'), class: "form-label fw-semibold" %>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-envelope" aria-hidden="true"></i>
+                    </span>
+                    <%= f.text_field :notify_by_email_recipients,
+                        class: "form-control",
+                        placeholder: _('email1@example.com, email2@example.com'),
+                        required: true %>
+                    <%= render "shared/notify_by_email_locale", f: f %>
+                  </div>
+                  <div class="form-text">
+                    <%= _('Enter email addresses separated by commas (maximum 5 emails).') %>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <%= f.submit _('Send Emails'), class: "btn btn-success" %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <%# Language tip %>
     <div class="text-muted small text-center px-2">
