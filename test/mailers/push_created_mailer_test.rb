@@ -18,8 +18,7 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
 
     assert mail.subject.present?, "subject should be present"
-    # Subject is brandless: "email@example.com has sent you a push"
-    assert_includes mail.subject, "has sent you a push"
+    assert_equal "You have received a push", mail.subject
   end
 
   test "notify body includes secret URL" do
@@ -69,16 +68,18 @@ class PushCreatedMailerTest < ActionMailer::TestCase
     refute_includes mail.text_part.body.encoded, "locale="
   end
 
-  test "notify subject includes user email" do
+  test "notify html body includes sender email" do
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
-    assert_includes mail.subject, @user.email
+
+    assert_includes mail.html_part.body.decoded, @user.email
+    assert_includes mail.html_part.body.decoded, "has sent you a push"
   end
 
   test "notify body includes expiration days and views" do
     mail = PushCreatedMailer.with(push: @push, recipient: "one@example.com").notify
 
-    assert_includes mail.html_part.body.decoded, "valid for 7 days, or until 99 views"
-    assert_includes mail.text_part.body.decoded, "valid for 7 days, or until 99 views"
+    assert_includes mail.html_part.body.decoded, "valid for 7 days, or until 99 views, whichever occurs first"
+    assert_includes mail.text_part.body.decoded, "valid for 7 days, or 97 views, whichever occurs first"
   end
 
   test "notify HTML part secret link has full clickable URL in href" do

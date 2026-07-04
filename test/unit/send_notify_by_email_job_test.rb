@@ -22,7 +22,7 @@ class SendNotifyByEmailJobTest < ActiveJob::TestCase
 
     mail = mails.first
     assert_equal ["one@example.com"], mail.to
-    assert_equal "#{@push.user.email} has sent you a push", mail.subject
+    assert_equal "You have received a push", mail.subject
   end
 
   test "perform update notify_by_email status to completed after sending" do
