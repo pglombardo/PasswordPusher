@@ -1,11 +1,1 @@
-<%= _('You have been sent a push') %>
-
-<%= _('Please find the secret link below to access the sensitive information.') %>
-
-<%= _('Secret link:') %> <%= @secret_url %>
-
-<%= _('Important Notes:') %>
-
-<%= _('This link is valid for %{remaining}, or until %{views} views, whichever occurs first.') % { remaining: format_days_remaining(@push), views: @push.expire_after_views } %>
-<%= _('For added security, you may be prompted to enter a passphrase (provided separately) to access the content.') %>
-<%= _('Upon expiration, this secret link and all content are permanently deleted.') %>
+<%= push_share_message_text(@push, secret_url: @secret_url) %>
