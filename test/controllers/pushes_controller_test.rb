@@ -16,9 +16,20 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
 
   teardown do
     Settings.reload!
+    Rails.application.reload_routes!
   end
 
   # new
+  test "notify_by_email_recipients field is not shown when feature is disabled" do
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+
+    get new_push_path
+
+    assert_response :success
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+  end
+
   test "notify_by_email_recipients field is shown when mail service is configured and user is signed in" do
     get new_push_path
 
@@ -86,6 +97,25 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "create doesn't enqueue SendNotifyByEmailJob when feature is disabled" do
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+
+    assert_no_enqueued_jobs(only: SendNotifyByEmailJob) do
+      post pushes_path, params: {
+        push: {
+          kind: "text",
+          payload: "secret",
+          notify_by_email_recipients: "someone@example.com",
+          notify_by_email_locale: "fr"
+        }
+      }
+
+      assert_response :unprocessable_content
+      assert_includes response.body, "Notifying by email is not available"
+    end
+  end
+
   test "create doesn't enqueue SendNotifyByEmailJob when email service is not configured" do
     Settings.mail.smtp_address = nil
 
@@ -137,6 +167,16 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # preview
+  test "preview does not show notify_by_email when feature is disabled" do
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+
+    get preview_push_path(@push)
+
+    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "div.collapse#notifyByEmailCollapse", count: 0
+  end
+
   test "preview shows notify_by_email_recipients field when user is signed in and email service is configured" do
     get preview_push_path(@push)
 
@@ -145,6 +185,20 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # notify_by_email
+  test "notify_by_email returns not found when feature is disabled" do
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+
+    post "/p/#{@push.url_token}/notify_by_email", params: {
+      push: {
+        notify_by_email_recipients: "recipient@example.com",
+        notify_by_email_locale: "en"
+      }
+    }
+
+    assert_response :not_found
+  end
+
   test "notify_by_email enqueues SendNotifyByEmailJob when user is signed in and params present" do
     assert_enqueued_with(job: SendNotifyByEmailJob) do
       post notify_by_email_push_path(@push), params: {

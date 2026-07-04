@@ -18,6 +18,6 @@ constraints(format: :html) do
     delete "expire", on: :member
     get "audit", on: :member
     delete "delete_file", on: :member
-    post "notify_by_email", on: :member
+    post "notify_by_email", on: :member if Settings.notify_by_email.enabled != false
   end
 end

@@ -3,6 +3,10 @@
 require "test_helper"
 
 class ApiV2VersionTest < ActionDispatch::IntegrationTest
+  teardown do
+    Settings.reload!
+  end
+
   def test_anonymous_version_endpoint
     get "/api/v2/version"
     assert_response :success
@@ -32,6 +36,28 @@ class ApiV2VersionTest < ActionDispatch::IntegrationTest
     assert_equal expected_features, json["features"]
   end
 
+  def test_email_auto_dispatch_is_true_when_feature_is_enabled_and_smtp_configured
+    Settings.mail.smtp_address = "smtp.example.com"
+    Settings.notify_by_email.enabled = true
+
+    get "/api/v2/version"
+    assert_response :success
+
+    json = JSON.parse(@response.body)
+    assert_equal true, json["features"]["pushes"]["email_auto_dispatch"]
+  end
+
+  def test_email_auto_dispatch_is_false_when_feature_is_disabled
+    Settings.mail.smtp_address = "smtp.example.com"
+    Settings.notify_by_email.enabled = false
+
+    get "/api/v2/version"
+    assert_response :success
+
+    json = JSON.parse(@response.body)
+    assert_equal false, json["features"]["pushes"]["email_auto_dispatch"]
+  end
+
   private
 
   def expected_features
@@ -43,7 +69,7 @@ class ApiV2VersionTest < ActionDispatch::IntegrationTest
       },
       "pushes" => {
         "enabled" => true,
-        "email_auto_dispatch" => false,
+        "email_auto_dispatch" => Settings.notify_by_email_available?,
         "file_attachments" => {
           "enabled" => Settings.enable_file_pushes,
           "requires_authentication" => true

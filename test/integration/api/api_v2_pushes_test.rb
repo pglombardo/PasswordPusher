@@ -397,6 +397,30 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal "en", body["notify_by_email"]["locale"]
   end
 
+  def test_create_with_notify_by_email_params_fails_when_feature_is_disabled
+    Settings.mail.smtp_address = "smtp.example.com"
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+    user = users(:one)
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "some-secret",
+          notify_by_email: {
+            recipients: "recipient@example.com",
+            locale: "en"
+          }
+        }
+      },
+      headers: bearer_headers(user),
+      as: :json
+
+    assert_response :unprocessable_entity
+    body = JSON.parse(response.body)
+    assert_equal "Notifying by email is not available", body["base"][0]
+  end
+
   def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
     user = users(:one)
 
@@ -462,6 +486,24 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal "recipient@example.com", notify_by_email.recipients
     assert_equal "en", notify_by_email.locale
     assert_equal push, notify_by_email.push
+  end
+
+  def test_notify_by_email_returns_not_found_when_feature_is_disabled
+    Settings.mail.smtp_address = "smtp.example.com"
+    Settings.notify_by_email.enabled = false
+    Rails.application.reload_routes!
+    push = pushes(:test_push)
+    owner = push.user
+
+    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      params: {
+        recipients: "recipient@example.com",
+        locale: "en"
+      },
+      headers: bearer_headers(owner),
+      as: :json
+
+    assert_response :not_found
   end
 
   def test_notify_by_email_with_valid_params_returns_error_when_email_service_is_not_configured
