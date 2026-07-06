@@ -67,7 +67,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     Settings.mail.smtp_address = nil
 
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "is not available"
+    assert_includes @push.errors[:notify_emails_to], "are not available"
     assert_includes @push.errors[:notify_emails_to_locale], "is not available"
     assert_includes @push.errors[:base], "Notify by email feature is not enabled"
   end
@@ -76,7 +76,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_by_email_creator = nil
 
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "is not allowed for unknown users"
+    assert_includes @push.errors[:notify_emails_to], "are not allowed for unknown users"
     assert_includes @push.errors[:notify_emails_to_locale], "is not allowed for unknown users"
   end
 
@@ -85,7 +85,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
 
     assert @other_user != @user
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "is allowed for only owners"
+    assert_includes @push.errors[:notify_emails_to], "are allowed for only owners"
     assert_includes @push.errors[:notify_emails_to_locale], "is allowed for only owners"
   end
 
@@ -143,7 +143,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_emails_to_locale = "en"
 
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "is not available for expired pushes"
+    assert_includes @push.errors[:notify_emails_to], "are not available for expired pushes"
     assert_includes @push.errors[:notify_emails_to_locale], "is not available for expired pushes"
   end
 

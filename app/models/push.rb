@@ -240,7 +240,7 @@ class Push < ApplicationRecord
 
   def notify_by_email_custom_validations
     if expired?
-      errors.add(:notify_emails_to, _("is not available for expired pushes")) if notify_emails_to.present?
+      errors.add(:notify_emails_to, _("are not available for expired pushes")) if notify_emails_to.present?
       errors.add(:notify_emails_to_locale, _("is not available for expired pushes")) if notify_emails_to_locale.present?
     end
   end

@@ -434,7 +434,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "are not available", body["notify_emails_to"][0]
     assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 
@@ -454,7 +454,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "are not available", body["notify_emails_to"][0]
     assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 
@@ -473,7 +473,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "is not allowed for unknown users", body["notify_emails_to"][0]
+    assert_equal "are not allowed for unknown users", body["notify_emails_to"][0]
     assert_equal "is not allowed for unknown users", body["notify_emails_to_locale"][0]
   end
 
@@ -536,7 +536,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
 
     body = JSON.parse(response.body)
-    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "are not available", body["notify_emails_to"][0]
     assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 

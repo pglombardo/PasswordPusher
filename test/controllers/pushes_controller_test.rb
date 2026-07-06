@@ -93,7 +93,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notify emails to is not allowed for unknown users"
+      assert_includes response.body, "Recipient emails are not allowed for unknown users"
     end
   end
 
@@ -112,8 +112,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notify emails to is not available"
-      assert_includes response.body, "Notify emails to locale is not available"
+      assert_includes response.body, "Recipient emails are not available"
+      assert_includes response.body, "Notification language is not available"
       assert_includes response.body, "Notify by email feature is not enabled"
     end
   end
@@ -132,8 +132,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notify emails to is not available"
-      assert_includes response.body, "Notify emails to locale is not available"
+      assert_includes response.body, "Recipient emails are not available"
+      assert_includes response.body, "Notification language is not available"
     end
   end
 
@@ -263,7 +263,7 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :unprocessable_content
-    assert_includes response.body, "Notify emails to is not available"
+    assert_includes response.body, "Recipient emails are not available"
   end
 
   test "notify_emails redirects to preview when push does not belong to user and disable_logins is false" do
