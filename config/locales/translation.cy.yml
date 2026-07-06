@@ -47,7 +47,7 @@ cy:
     - Meh
     - Gor
     - Awst
-    - Med
+    - Medi
     - Hyd
     - Tach
     - Rha
@@ -78,58 +78,57 @@ cy:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Gwirio wedi methu: %{errors}'
+      model_invalid: 'Dilysiad wedi methu: %{errors}'
       inclusion: heb fod yn y rhestr
-      exclusion: wedi cadw
+      exclusion: wedi’i gadw
       invalid: heb fod yn nheilwng
-      confirmation: heb fod yn gyfateb
+      confirmation: nid yw’n cyfateb i %{attribute}
       accepted: angen ei dderbyn
-      empty: methu bod yn wag
-      blank: methu bod yn wag
+      empty: ni all fod yn wag
+      blank: ni all fod yn wag
       present: rhaid bod yn wag
       too_long:
         one: yn rhy hir (uchafswm yw %{count} nod)
         other: yn rhy hir (uchafswm yw %{count} nod)
       password_too_long: yn rhy hir
       too_short:
-        one: yn rhy fyr (yr isafswm yw %{count} nod)
+        one: yn rhy fyr (isafswm yw %{count} nod)
         other: yn rhy fyr (isafswm yw %{count} nod)
       wrong_length:
-        one: yw'r hyd anghywir (dylai fod yn %{count} nod)
-        other: yw'r hyd anghywir (dylai fod yn %{count} nod)
-      not_a_number: heb fod yn rhif
-      not_an_integer: heb fod yn rhif llawn
-      greater_than: angen bod yn fwy na %{count}
-      greater_than_or_equal_to: angen bod yr un maint neu fwy na %{count}
-      equal_to: angen bod yn %{count}
-      less_than: angen bod yn llai na %{count}
-      less_than_or_equal_to: angen bod yr un maint neu lai na %{count}
-      other_than: rhaid iddo fod yn wahanol i %{count}
-      in: rhaid bod yn %{count}
+        one: o hyd anghywir (dylai fod yn %{count} nod)
+        other: o hyd anghywir (dylai fod yn %{count} nod)
+      not_a_number: nid yw’n rhif
+      not_an_integer: rhaid bod yn gyfanrif
+      greater_than: rhaid iddo bod yn fwy na %{count}
+      greater_than_or_equal_to: rhaid bod yn fwy neu’n hafal i %{count}
+      equal_to: rhaid iddo fod yn hafal i %{count}
+      less_than: rhaid bod yn llai na %{count}
+      less_than_or_equal_to: rhaid bod yn llai neu’n hafal i %{count}
+      other_than: rhaid bod yn wahanol i %{count}
+      in: rhaid bod yn rhan o %{count}
       odd: rhaid bod yn odrif
       even: rhaid bod yn eilrif
-      required: rhaid bodoli
-      taken: wedi'i gymryd yn barod
+      required: rhaid iddo fodoli
+      taken: wedi’i gymryd eisoes
       already_confirmed: wedi'i gadarnhau eisoes, ceisiwch fewngofnodi
-      confirmation_period_expired: angen ei gadarnhau o fewn %{period}, gofynnwch
+      confirmation_period_expired: rhaid iddo ei gadarnhau o fewn %{period}, gofynnwch
         am un newydd
       expired: wedi dod i ben, gofynnwch am un newydd
-      not_found: heb ei ganfod
+      not_found: ni chanfuwyd
       not_locked: nid oedd wedi'i gloi
       not_saved:
-        one: 'Gwaharddodd 1 gwall hwn rhag cael ei gadw %{resource}:'
-        other: 'Roedd gwallau %{count} yn gwahardd cadw''r %{resource} hwn:'
+        one: 'Methodd cadw’r %{resource} hwn oherwydd 1 gwall:'
+        other: 'Methodd cadw’r %{resource} hwn oherwydd %{count} o wallau:'
     template:
       body: 'Cafwyd broblemau gyda''r meysydd canlynol:'
       header:
-        one: Atalwyd y %{model} hwn rhag ei gadw gan 1 nam
-        other: Atalwyd y %{model} hwn rhag ei gadw gan %{count} nam
-    unavailable_session: 'Nid yw sesiwn %{id} ar gael yn y cof mwyach. Os digwydd
-      i chi redeg ar weinydd aml-broses (fel Unicorn neu Puma) nid yw''r broses y
-      mae''r cais hwn yn ei tharo yn storio %{id} yn y cof. Ystyriwch droi nifer y
-      prosesau/gweithwyr i un (1) neu ddefnyddio gweinydd gwahanol wrth ddatblygu.
+        one: 'Methodd cadw’r %{model} hwn oherwydd %{count} gwall:'
+        other: " Methodd cadw’r %{model} hwn oherwydd %{count} gwall:"
+    unavailable_session: |2
 
-      '
+      Nid yw’r sesiwn %{id} ar gael bellach yn y cof.
+
+      Os ydych yn defnyddio gweinydd aml-broses (fel Unicorn neu Puma), nid yw’r broses a dderbyniodd y cais hwn yn storio %{id} yn y cof. Ystyriwch leihau nifer y prosesau/gweithwyr i un (1), neu ddefnyddio gweinydd gwahanol yn ystod datblygu.
     unacceptable_request: 'Disgwylir fersiwn â chymorth yn y pennawd Derbyn.
 
       '
@@ -140,30 +139,30 @@ cy:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Gwirio wedi methu: %{errors}'
+        record_invalid: 'Dilysiad wedi methu: %{errors}'
         restrict_dependent_destroy:
           has_one: Ni ellir dileu cofnod oherwydd bod dibynnydd %{record} yn bodoli
           has_many: Ni ellir dileu cofnod oherwydd bod y dibynnydd %{record} yn bodoli
     attributes:
       user:
-        confirmation_sent_at: Cadarnhad wedi'i anfon yn
+        confirmation_sent_at: Cadarnhad wedi'i anfon am
         confirmation_token: Tocyn cadarnhau
-        confirmed_at: Cadarnhawyd yn
-        created_at: Crëwyd yn
+        confirmed_at: Cadarnhawyd am
+        created_at: Crëwyd am
         current_password: Cyfrinair cyfredol
-        current_sign_in_at: Mewngofnodi cyfredol yn
+        current_sign_in_at: Mewngofnodi cyfredol am
         current_sign_in_ip: IP mewngofnodi cyfredol
         email: E-bost
         encrypted_password: Cyfrinair wedi'i amgryptio
         failed_attempts: Ymdrechion aflwyddiannus
-        last_sign_in_at: Mewngofnodi olaf yn
+        last_sign_in_at: Mewngofnodi olaf am
         last_sign_in_ip: IP mewngofnodi olaf
-        locked_at: Wedi'i gloi yn
+        locked_at: Wedi'i gloi am
         password: Cyfrinair
         password_confirmation: Cadarnhad cyfrinair
-        remember_created_at: Cofiwch wedi'i greu yn
+        remember_created_at: Cofiwch wedi'i greu am
         remember_me: Cofiwch fi
-        reset_password_sent_at: Ailosod cyfrinair wedi'i anfon at
+        reset_password_sent_at: Ailosod cyfrinair wedi'i anfon am
         reset_password_token: Ailosod tocyn cyfrinair
         sign_in_count: Cyfrif mewngofnodi
         unconfirmed_email: E-bost heb ei gadarnhau
@@ -177,40 +176,40 @@ cy:
     distance_in_words:
       half_a_minute: hanner munud
       less_than_x_seconds:
-        one: llai nag eiliad
+        one: llai nag %{count} eiliad
         other: llai na %{count} eiliad
       x_seconds:
-        one: 1 eiliad
-        other: "%{count} o eiliadau"
+        one: "%{count} eiliad"
+        other: "%{count} eiliad"
       less_than_x_minutes:
         one: llai na munud
         other: llai na %{count} munud
       x_minutes:
-        one: 1 munud
+        one: "%{count} munud"
         other: "%{count} o funudau"
       about_x_hours:
-        one: tuag awr
+        one: tuag %{count} awr
         other: tua %{count} awr
       x_days:
-        one: 1 diwrnod
+        one: "%{count} diwrnod"
         other: "%{count} diwrnod"
       about_x_months:
-        one: tua mis
+        one: tua %{count} mis
         other: tua %{count} mis
       x_months:
-        one: 1 mis
+        one: "%{count} mis"
         other: "%{count} mis"
       about_x_years:
-        one: tua blwyddyn
+        one: tua %{count} flwyddyn
         other: tua %{count} blynedd
       over_x_years:
-        one: dros flwyddyn
+        one: dros %{count} flwyddyn
         other: dros %{count} blynedd
       almost_x_years:
-        one: bron yn flwyddyn
+        one: bron yn %{count} flwyddyn
         other: bron yn %{count} blynedd
       x_years:
-        one: blwyddyn %{count}
+        one: "%{count} flwyddyn"
         other: "%{count} mlynedd"
     prompts:
       year: Blwyddyn
@@ -232,7 +231,7 @@ cy:
     page_entries_info:
       entry:
         zero: cofnodion
-        one: mynediad
+        one: cofnod
         other: cofnodion
       one_page:
         display_entries:
@@ -256,11 +255,11 @@ cy:
       confirmed: Mae eich cyfeiriad e-bost wedi'i gadarnhau'n llwyddiannus.
       new:
         resend_confirmation_instructions: Ail-anfon cyfarwyddiadau cadarnhau
-      send_instructions: Byddwch yn derbyn e-bost gyda chyfarwyddiadau ar sut i gadarnhau
-        eich cyfeiriad e-bost ymhen ychydig funudau.
+      send_instructions: Byddwch chi'n derbyn e-bost gyda chyfarwyddiadau ar sut i
+        gadarnhau eich cyfeiriad e-bost ymhen ychydig funudau.
       send_paranoid_instructions: Os yw eich cyfeiriad e-bost yn bodoli yn ein cronfa
-        ddata, byddwch yn derbyn e-bost gyda chyfarwyddiadau ar sut i gadarnhau eich
-        cyfeiriad e-bost ymhen ychydig funudau.
+        ddata, byddwch chi'n derbyn e-bost gyda chyfarwyddiadau ar sut i gadarnhau
+        eich cyfeiriad e-bost ymhen ychydig funudau.
       resend_button: Ail-anfon
       resend_header: Ail-anfon Cyfarwyddiadau Cadarnhau
       resend_title: Ail-anfon Cyfarwyddiadau Cadarnhau
@@ -309,7 +308,7 @@ cy:
           aflwyddiannus.
         subject: Cyfarwyddiadau datgloi
     omniauth_callbacks:
-      failure: Methu eich dilysu o %{kind} oherwydd "%{reason}".
+      failure: Ni ellid eich dilysu gan %{kind} oherwydd "%{reason}"
       success: Wedi'i ddilysu'n llwyddiannus o gyfrif %{kind}.
     passwords:
       edit:
@@ -321,14 +320,14 @@ cy:
         forgot_your_password: Wedi anghofio eich cyfrinair?
         send_me_reset_password_instructions: Anfonwch gyfarwyddiadau ailosod cyfrinair
           ataf
-      no_token: Ni allwch gael mynediad i'r dudalen hon heb ddod o e-bost ailosod
+      no_token: Ni allwch chi gael mynediad i'r dudalen hon heb ddod o e-bost ailosod
         cyfrinair. Os ydych chi'n dod o e-bost ailosod cyfrinair, gwnewch yn siŵr
         eich bod chi wedi defnyddio'r URL llawn a ddarparwyd.
-      send_instructions: Byddwch yn derbyn e-bost gyda chyfarwyddiadau ar sut i ailosod
-        eich cyfrinair ymhen ychydig funudau.
+      send_instructions: Byddwch chi'n derbyn e-bost gyda chyfarwyddiadau ar sut i
+        ailosod eich cyfrinair ymhen ychydig funudau.
       send_paranoid_instructions: Os yw eich cyfeiriad e-bost yn bodoli yn ein cronfa
-        ddata, byddwch yn derbyn dolen adfer cyfrinair yn eich cyfeiriad e-bost ymhen
-        ychydig funudau.
+        ddata, byddwch chi'n derbyn dolen adfer cyfrinair yn eich cyfeiriad e-bost
+        ymhen ychydig funudau.
       updated: Mae eich cyfrinair wedi'i newid yn llwyddiannus. Rydych chi bellach
         wedi mewngofnodi.
       updated_not_active: Mae eich cyfrinair wedi'i newid yn llwyddiannus.
@@ -411,15 +410,15 @@ cy:
         sign_up: Cofrestru
         redirecting: Ailgyfeirio...
       minimum_password_length:
-        one: "(Isafswm o %{count} nod)"
-        other: "(%{count} nod o leiaf)"
+        one: "(o leiaf %{count} nod)"
+        other: "(o leiaf %{count} nod)"
     unlocks:
       new:
         resend_unlock_instructions: Ail-anfon cyfarwyddiadau datgloi
-      send_instructions: Byddwch yn derbyn e-bost gyda chyfarwyddiadau ar sut i ddatgloi
-        eich cyfrif mewn ychydig funudau.
-      send_paranoid_instructions: Os yw eich cyfrif yn bodoli, byddwch yn derbyn e-bost
-        gyda chyfarwyddiadau ar sut i'w ddatgloi mewn ychydig funudau.
+      send_instructions: Byddwch chi'n derbyn e-bost gyda chyfarwyddiadau ar sut i
+        ddatgloi eich cyfrif mewn ychydig funudau.
+      send_paranoid_instructions: Os yw eich cyfrif yn bodoli, byddwch chi'n derbyn
+        e-bost gyda chyfarwyddiadau ar sut i'w ddatgloi mewn ychydig funudau.
       unlocked: Mae eich cyfrif wedi cael ei ddatgloi'n llwyddiannus. Mewngofnodwch
         i barhau.
       unlock_button: Ail-anfon
@@ -471,13 +470,13 @@ cy:
     deprecation_details: Manylion dirymiad
     deprecation:
       attributes:
-        deprecated_in: Wedi'i ddirymu yn
-        sunset_at: Machlud haul yn
+        deprecated_in: Wedi'i ddirymu am
+        sunset_at: Machlud haul am
         info: Gwybodaeth
   views:
     pagination:
-      first: "« Cyntaf"
-      last: Diwethaf »
-      previous: "‹ Blaenorol"
-      next: Nesaf ›
-      truncate: "…"
+      first: "&laquo; Cyntaf"
+      last: Diwethaf &raquo;
+      previous: "%lsaquo; Blaenorol"
+      next: Nesaf &rsaquo;
+      truncate: "&hellip;"
