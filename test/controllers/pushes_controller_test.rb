@@ -278,7 +278,6 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "access is rate limited after five attempts per push" do
-    Rails.cache.clear
 
     @push.update!(passphrase: "secret")
 
