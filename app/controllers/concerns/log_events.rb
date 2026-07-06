@@ -44,7 +44,7 @@ module LogEvents
   def log_event(push, kind)
     return if audit_log_limit_reached?(push.audit_logs)
 
-    ip = request.env["HTTP_X_FORWARDED_FOR"].blank? ? request.env["REMOTE_ADDR"] : request.env["HTTP_X_FORWARDED_FOR"]
+    ip = request.remote_ip
 
     # Limit retrieved values to 256 characters
     user_agent = request.env["HTTP_USER_AGENT"].to_s[0, 255]

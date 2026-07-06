@@ -243,14 +243,29 @@ class LogEventsTest < ActionController::TestCase
   end
 
   # Test log_event method - IP address handling
-  test "log_event uses HTTP_X_FORWARDED_FOR when present" do
+  test "log_event ignores spoofed X-Forwarded-For from untrusted clients" do
     @request.env["HTTP_X_FORWARDED_FOR"] = "203.0.113.50, 192.168.1.1"
+    @request.env["REMOTE_ADDR"] = "203.0.113.99"
+
+    @controller.log_view(@push)
+
+    log = AuditLog.last
+    assert_equal "203.0.113.99", log.ip
+  end
+
+  test "log_event uses client IP from X-Forwarded-For when REMOTE_ADDR is a trusted proxy" do
+    original_trusted_proxies = Rails.application.config.action_dispatch.trusted_proxies
+    Rails.application.config.action_dispatch.trusted_proxies = [IPAddr.new("10.0.0.0/8")]
+
+    @request.env["HTTP_X_FORWARDED_FOR"] = "203.0.113.50, 10.0.0.1"
     @request.env["REMOTE_ADDR"] = "10.0.0.1"
 
     @controller.log_view(@push)
 
     log = AuditLog.last
-    assert_equal "203.0.113.50, 192.168.1.1", log.ip
+    assert_equal "203.0.113.50", log.ip
+  ensure
+    Rails.application.config.action_dispatch.trusted_proxies = original_trusted_proxies
   end
 
   test "log_event uses REMOTE_ADDR when HTTP_X_FORWARDED_FOR is nil" do
@@ -269,7 +284,6 @@ class LogEventsTest < ActionController::TestCase
     @controller.log_view(@push)
 
     log = AuditLog.last
-    # Now correctly falls back to REMOTE_ADDR when HTTP_X_FORWARDED_FOR is empty
     assert_equal "10.0.0.3", log.ip
   end
 
