@@ -27,6 +27,19 @@ module Pwpush
       end
     end
 
+    class_methods do
+      def human_attribute_name(attribute, options = {})
+        case attribute.to_sym
+        when :notify_emails_to
+          _("Recipient emails")
+        when :notify_emails_to_locale
+          _("Notification language")
+        else
+          super
+        end
+      end
+    end
+
     private
 
     def validate_notify_by_email
@@ -45,7 +58,7 @@ module Pwpush
 
     def validate_notify_by_email_availability
       unless notify_by_email_available?
-        errors.add(:notify_emails_to, _("is not available")) if notify_emails_to.present?
+        errors.add(:notify_emails_to, _("are not available")) if notify_emails_to.present?
         errors.add(:notify_emails_to_locale, _("is not available")) if notify_emails_to_locale.present?
         errors.add(:base, _("Notify by email feature is not enabled"))
 
@@ -55,22 +68,21 @@ module Pwpush
       notify_by_email_custom_validations
 
       unless notify_by_email_creator.present?
-        errors.add(:notify_emails_to, _("is not allowed for unknown users")) if notify_emails_to.present?
+        errors.add(:notify_emails_to, _("are not allowed for unknown users")) if notify_emails_to.present?
         errors.add(:notify_emails_to_locale, _("is not allowed for unknown users")) if notify_emails_to_locale.present?
 
         return
       end
 
       unless notify_by_email_creator == user
-        errors.add(:notify_emails_to, _("is allowed for only owners")) if notify_emails_to.present?
-        errors.add(:notify_emails_to_locale, _("is allowed for only owners")) if notify_emails_to_locale.present?
+        errors.add(:notify_emails_to, _("are allowed only for owners")) if notify_emails_to.present?
+        errors.add(:notify_emails_to_locale, _("is allowed only for owners")) if notify_emails_to_locale.present?
 
         return
       end
 
       if notify_by_email_creator.email_limit_reached?
-        errors.add(:notify_emails_to, _("is not allowed because the maximum number of emails has been reached for today")) if notify_emails_to.present?
-        errors.add(:notify_emails_to_locale, _("is not allowed because the maximum number of emails has been reached for today")) if notify_emails_to_locale.present?
+        errors.add(:base, _("The maximum number of emails has been reached for today"))
       end
     end
 
