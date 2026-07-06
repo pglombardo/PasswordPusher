@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-05-19 19:24+0200\n"
-"PO-Revision-Date: 2026-05-19 17:24+0000\n"
+"POT-Creation-Date: 2026-07-06 10:39+0200\n"
+"PO-Revision-Date: 2026-07-06 08:39+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -31,16 +31,29 @@ msgid "You cannot delete your own account."
 msgstr "Þú getur ekki eytt þínum eigin reikningi."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:257
-#: ../../../app/controllers/pushes_controller.rb:118
-#: ../../../app/controllers/pushes_controller.rb:158
-#: ../../../app/controllers/pushes_controller.rb:286
-#: ../../../app/controllers/pushes_controller.rb:316
+#: ../../../app/controllers/api/v2/pushes_controller.rb:61
+#: ../../../app/controllers/api/v2/pushes_controller.rb:81
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:164
+#: ../../../app/controllers/pushes_controller.rb:258
+#: ../../../app/controllers/pushes_controller.rb:313
+#: ../../../app/controllers/pushes_controller.rb:343
 msgid "That push doesn't belong to you."
 msgstr "Þessi ýta tilheyrir þér ekki."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:311
 msgid "That push is not deletable by viewers."
 msgstr "Þessu ýti er ekki hægt að eyða af áhorfendum."
+
+#: ../../../app/controllers/api/v2/pushes_controller.rb:10
+#: ../../../app/controllers/pushes_controller.rb:13
+msgid "Too many email notification requests. Please try again in a minute."
+msgstr "Of margar beiðnir um tilkynningar í tölvupósti. Reyndu aftur eftir smástund."
+
+#: ../../../app/controllers/api/v2/pushes_controller.rb:90
+#: ../../../app/controllers/pushes_controller.rb:266
+msgid "Recipient(s) are added to the queue to be sent."
+msgstr "Viðtakandi/viðtakendur eru bættir í biðröðina til sendingar."
 
 #: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
 #: ../../../test/controllers/api/base_controller_test.rb:50
@@ -52,7 +65,7 @@ msgstr ""
 "Tvíþátta auðkenning er nauðsynleg. Vinsamlegast settu hana upp til að halda áf"
 "ram."
 
-#: ../../../app/controllers/pushes_controller.rb:98
+#: ../../../app/controllers/pushes_controller.rb:102
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -60,88 +73,88 @@ msgstr ""
 "Það lykilorð er rangt. Vinsamlegast reyndu aftur eða hafðu samband við þann eð"
 "a stofnunina sem sendi þér þennan hlekk."
 
-#: ../../../app/controllers/pushes_controller.rb:123
-#: ../../../app/controllers/pushes_controller.rb:164
+#: ../../../app/controllers/pushes_controller.rb:127
+#: ../../../app/controllers/pushes_controller.rb:170
 msgid "That push has already expired and cannot be edited."
 msgstr "Þessi tilkynning er þegar útrunnin og ekki er hægt að breyta henni."
 
-#: ../../../app/controllers/pushes_controller.rb:189
+#: ../../../app/controllers/pushes_controller.rb:195
 msgid "must be at least %{count} (days already elapsed + 1)."
 msgstr "verður að vera að minnsta kosti %{count} (fjöldi liðinna daga + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:198
+#: ../../../app/controllers/pushes_controller.rb:204
 msgid "must be at least %{count} (views already consumed + 1)."
 msgstr "verður að vera að minnsta kosti %{count} (áhorf þegar notað + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:223
-#: ../../../app/models/push.rb:114
+#: ../../../app/controllers/pushes_controller.rb:229
+#: ../../../app/models/push.rb:116
 msgid "You can only attach up to %{count} files per push."
 msgstr "Þú getur aðeins hengt allt að %{count} skrár við hverja ýtingu."
 
-#: ../../../app/controllers/pushes_controller.rb:236
+#: ../../../app/controllers/pushes_controller.rb:242
 msgid "Push was successfully updated."
 msgstr "Push var uppfært."
 
-#: ../../../app/controllers/pushes_controller.rb:279
-#: ../../../app/controllers/pushes_controller.rb:458
+#: ../../../app/controllers/pushes_controller.rb:306
+#: ../../../app/controllers/pushes_controller.rb:486
 #: ../../../test/integration/disable_logins_test.rb:54
 msgid "The audit log is only available when signed in."
 msgstr "Endurskoðunarskráin er aðeins aðgengileg þegar innskráning er gerð."
 
-#: ../../../app/controllers/pushes_controller.rb:281
+#: ../../../app/controllers/pushes_controller.rb:308
 msgid "You must be signed in to view the audit log."
 msgstr "Þú verður að vera innskráð(ur) til að skoða endurskoðunarskrána."
 
-#: ../../../app/controllers/pushes_controller.rb:296
+#: ../../../app/controllers/pushes_controller.rb:323
 msgid "That push is not deletable by viewers and does not belong to you."
 msgstr "Þessi tilkynning er ekki eyðileg fyrir áhorfendur og hún tilheyrir ekki þér."
 
-#: ../../../app/controllers/pushes_controller.rb:301
-#: ../../../app/controllers/pushes_controller.rb:322
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:349
 msgid "That push has already expired."
 msgstr "Sú aðgerð er þegar útrunnin."
 
-#: ../../../app/controllers/pushes_controller.rb:309
+#: ../../../app/controllers/pushes_controller.rb:336
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Push efninu hefur verið eytt og leyni vefslóðin rann út."
 
-#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:355
 msgid "You cannot delete the last file from a file push."
 msgstr "Þú getur ekki eytt síðustu skránni úr skráarflutningi."
 
-#: ../../../app/controllers/pushes_controller.rb:337
+#: ../../../app/controllers/pushes_controller.rb:364
 msgid "File was successfully deleted."
 msgstr "Skrá var eytt."
 
-#: ../../../app/controllers/pushes_controller.rb:339
+#: ../../../app/controllers/pushes_controller.rb:366
 msgid "File not found."
 msgstr "Skrá fannst ekki."
 
-#: ../../../app/controllers/pushes_controller.rb:450
+#: ../../../app/controllers/pushes_controller.rb:478
 #: ../../../test/integration/disable_logins_test.rb:144
 msgid "The push dashboard is not available while logins are disabled."
 msgstr "Mælaborðið fyrir ýtingu er ekki tiltækt þegar innskráningar eru óvirkar."
 
-#: ../../../app/controllers/pushes_controller.rb:483
+#: ../../../app/controllers/pushes_controller.rb:511
 #: ../../../test/integration/disable_logins_test.rb:135
 msgid "File pushes are unavailable while logins are disabled."
 msgstr "Skráaflutningar eru ekki tiltækir þegar innskráningar eru óvirkar."
 
-#: ../../../app/controllers/pushes_controller.rb:491
-#: ../../../app/models/push.rb:208
+#: ../../../app/controllers/pushes_controller.rb:519
+#: ../../../app/models/push.rb:210
 msgid "File pushes are disabled."
 msgstr "Skráaflutningar eru óvirkir."
 
-#: ../../../app/controllers/pushes_controller.rb:496
-#: ../../../app/models/push.rb:212
+#: ../../../app/controllers/pushes_controller.rb:524
+#: ../../../app/models/push.rb:214
 #: ../../../test/controllers/urls_controller_test.rb:110
 #: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "Vefslóðasendingar eru óvirkar."
 
-#: ../../../app/controllers/pushes_controller.rb:508
-#: ../../../app/models/push.rb:216
+#: ../../../app/controllers/pushes_controller.rb:536
+#: ../../../app/models/push.rb:218
 #: ../../../test/controllers/qr_push_controller_test.rb:128
 #: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
@@ -186,6 +199,17 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "Tvíþátta auðkenning hefur verið gerð óvirk."
 
+#: ../../../app/helpers/pushes_helper.rb:15
+#: ../../../app/helpers/share_message_helper.rb:46
+#: ../../../app/views/pushes/preview.html.erb:76
+#: ../../../app/views/pushes/print_preview.html.erb:13
+#: ../../../app/views/pushes/show.html.erb:43
+#: ../../../app/views/pushes/show.html.erb:77
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dagur"
+msgstr[1] "daga"
+
 #: ../../../app/helpers/share_message_helper.rb:14
 msgid "Once retrieved, the link and content will be deleted upon expiration."
 msgstr "Þegar þú hefur sótt, verður tengillinn og efnið eytt við útrun."
@@ -195,13 +219,14 @@ msgid "A secure link has been shared with you."
 msgstr "Öruggur hlekkur hefur verið deilt með þér."
 
 #: ../../../app/helpers/share_message_helper.rb:20
+#: ../../../app/views/push_created_mailer/notify.html.erb:6
 msgid "Please find the secret link below to access the sensitive information."
 msgstr ""
 "Vinsamlegast finndu leynilega tengilinn hér að neðan til að fá aðgang að viðkv"
 "æmum upplýsingum."
 
 #: ../../../app/helpers/share_message_helper.rb:22
-#: ../../../app/views/pushes/preview.html.erb:16
+#: ../../../app/views/pushes/preview.html.erb:18
 msgid "Secret link"
 msgstr "Leynileg tenging"
 
@@ -209,18 +234,8 @@ msgstr "Leynileg tenging"
 msgid "IMPORTANT NOTES:"
 msgstr "MIKILVÆGAR ATHUGASEMDIR:"
 
-#: ../../../app/helpers/share_message_helper.rb:46
-#: ../../../app/views/pushes/preview.html.erb:74
-#: ../../../app/views/pushes/print_preview.html.erb:13
-#: ../../../app/views/pushes/show.html.erb:43
-#: ../../../app/views/pushes/show.html.erb:77
-msgid "day"
-msgid_plural "days"
-msgstr[0] "dagur"
-msgstr[1] "daga"
-
 #: ../../../app/helpers/share_message_helper.rb:47
-#: ../../../app/views/pushes/preview.html.erb:76
+#: ../../../app/views/pushes/preview.html.erb:78
 #: ../../../app/views/pushes/print_preview.html.erb:15
 msgid "view"
 msgid_plural "views"
@@ -232,6 +247,7 @@ msgid "This link is valid for %{days}, or %{views}, whichever occurs first."
 msgstr "Þessi tengill gildir fyrir %{days} eða %{views}, hvort sem kemur fyrst."
 
 #: ../../../app/helpers/share_message_helper.rb:53
+#: ../../../app/views/push_created_mailer/notify.html.erb:14
 msgid ""
 "For added security, you may be prompted to enter a passphrase (provided separa"
 "tely) to access the content."
@@ -239,22 +255,87 @@ msgstr ""
 "Til að auka öryggi gætirðu verið beðinn um að slá inn aðgangsorð (veitt aðskil"
 "ið) til að fá aðgang að efni."
 
-#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
-#: ../../../app/models/push.rb:155
+#: ../../../app/jobs/send_notify_by_email_job.rb:48
+msgid "No emails were sent successfully."
+msgstr "Engir tölvupóstar voru sendir."
+
+#: ../../../app/jobs/send_notify_by_email_job.rb:50
+msgid "Some emails could not be sent."
+msgstr "Ekki var hægt að senda sum tölvupóst."
+
+#: ../../../app/jobs/send_notify_by_email_job.rb:57
+msgid "An unexpected error occurred while sending the email."
+msgstr "Óvænt villa kom upp við að senda tölvupóstinn."
+
+#: ../../../app/mailers/push_created_mailer.rb:14
+msgid "Someone"
+msgstr "Einhver"
+
+#: ../../../app/mailers/push_created_mailer.rb:15
+msgid "You have received a push"
+msgstr "Þú hefur fengið ýtingu"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:41
+msgid ""
+"You can notify up to %{count} email(s) and you have already sent emails to %{t"
+"otal_count} recipients"
+msgstr ""
+"Þú getur sent allt að %{count} netföngum tilkynningu og þú hefur þegar sent tö"
+"lvupóst til %{total_count} viðtakenda"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:53
+msgid "Notifying by email is not available"
+msgstr "Ekki er hægt að tilkynna með tölvupósti"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:61
+msgid "Notifying by email is not allowed for unknown users"
+msgstr "Ekki er leyfilegt að senda tilkynningar með tölvupósti til óþekktra notenda"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:67
+msgid "Notifying by email is allowed for only owners"
+msgstr "Aðeins eigendum er heimilt að tilkynna með tölvupósti"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:73
+msgid "The maximum number of emails has been reached for today"
+msgstr "Hámarksfjöldi tölvupósta hefur verið náð í dag"
+
+#: ../../../app/models/push.rb:125 ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:157
 msgid "Payload is required."
 msgstr "Nauðsynlegt er að nota farm."
 
-#: ../../../app/models/push.rb:128
+#: ../../../app/models/push.rb:130
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr "Burðargetan er of stór. Þú getur aðeins ýtt upp í %{count} bæti."
 
-#: ../../../app/models/push.rb:138
+#: ../../../app/models/push.rb:140 ../../../test/models/url_test.rb:68
+#: ../../../test/models/url_test.rb:78 ../../../test/models/url_test.rb:88
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "verður að vera gild HTTP- eða HTTPS-slóð."
 
-#: ../../../app/models/push.rb:152
+#: ../../../app/models/push.rb:154
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr "Hleðsla QR kóðans er of stór. Þú getur aðeins ýtt upp í %{count} bæti."
+
+#: ../../../app/models/push.rb:243
+msgid "You cannot notify by email for an expired push."
+msgstr "Þú getur ekki sent tilkynningu með tölvupósti um útrunninn afhendingardag."
+
+#: ../../../app/validators/multiple_emails_validator.rb:20
+msgid "has commas used in the wrong way"
+msgstr "hefur kommur notaðar á rangan hátt"
+
+#: ../../../app/validators/multiple_emails_validator.rb:25
+msgid "contains duplicate emails"
+msgstr "inniheldur tvítekin netföng"
+
+#: ../../../app/validators/multiple_emails_validator.rb:29
+msgid "contains more than %{count} email(s)"
+msgstr "inniheldur fleiri en %{count} netföng"
+
+#: ../../../app/validators/multiple_emails_validator.rb:33
+msgid "contains invalid email(s)"
+msgstr "inniheldur ógild netföng"
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -397,7 +478,7 @@ msgid "Add card-style borders to form sections"
 msgstr "Bæta við kortastíls jaðri við eyðublaðshluta"
 
 #: ../../../app/views/admin/index.html.erb:1
-#: ../../../app/views/layouts/admin.html.erb:38
+#: ../../../app/views/layouts/admin.html.erb:39
 msgid "Administration"
 msgstr "Stjórn"
 
@@ -697,10 +778,12 @@ msgstr ""
 "ru eftir."
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:15
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:17
 msgid "Secret Link Language"
 msgstr "Leyndarmál hlekkja"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:20
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:25
 msgid "Autodetect the recipient's language"
 msgstr "Sjálfvirk uppgötvun"
 
@@ -777,6 +860,34 @@ msgstr "Tilvísun:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Push búin til á %{date} af %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:22
+msgid "Email notification(s) queued on %{date}"
+msgstr "Tölvupósttilkynning(ar) í biðröð þann %{date}"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:29
+msgid "Status:"
+msgstr "Staða:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:33
+msgid "To:"
+msgstr "Til:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:38
+msgid "Sent:"
+msgstr "Sent:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:44
+msgid "Error:"
+msgstr "Villa:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Proceed At:"
+msgstr "Halda áfram á:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Not yet"
+msgstr "Ekki ennþá"
 
 #: ../../../app/views/audit_logs/_log_edit.html.erb:3
 msgid "Edited on %{date} by %{user}"
@@ -1050,30 +1161,19 @@ msgstr "Vinnur..."
 msgid "Password"
 msgstr "Lykilorð"
 
-#: ../../../app/views/layouts/admin.html.erb:11
+#: ../../../app/views/layouts/admin.html.erb:12
 msgid "Administration - Password Pusher"
 msgstr "Stjórnun - Lykilorðsþjónn"
 
-#: ../../../app/views/layouts/admin.html.erb:52
+#: ../../../app/views/layouts/admin.html.erb:53
 msgid "System Active"
 msgstr "Kerfi virkt"
 
-#: ../../../app/views/layouts/admin.html.erb:60
+#: ../../../app/views/layouts/admin.html.erb:61
 msgid "Back to App"
 msgstr "Til baka í appið"
 
-#: ../../../app/views/layouts/application.html.erb:8
-#: ../../../app/views/layouts/bare.html.erb:8
-#: ../../../app/views/layouts/login.html.erb:8
-#: ../../../app/views/layouts/naked.html.erb:8
-msgid ""
-"Password Pusher is an application to securely send passwords over the web. Lin"
-"ks to passwords expire after a certain number of views and/or time has passed."
-msgstr ""
-"Password Pusher er forrit til að senda lykilorð á öruggan hátt á vefnum. Tengl"
-"ar á lykilorð renna út eftir að ákveðinn fjöldi áhorfa og/eða tími er liðinn."
-
-#: ../../../app/views/layouts/login.html.erb:33
+#: ../../../app/views/layouts/login.html.erb:34
 #: ../../../app/views/shared/_footer.html.erb:10
 #: ../../../app/views/shared/_footer.html.erb:14
 #: ../../../app/views/shared/_header.html.erb:9
@@ -1082,15 +1182,15 @@ msgstr ""
 msgid "Password Pusher Logo"
 msgstr "Lykilorð Pusher merki"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:12
+#: ../../../app/views/layouts/madmin/application.html.erb:13
 msgid "Data Explorer - Administration - Password Pusher"
 msgstr "Gagnakönnun - Stjórnun - Lykilorðssmíðari"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:20
+#: ../../../app/views/layouts/madmin/application.html.erb:21
 msgid "Staging Environment"
 msgstr "Uppsetningarumhverfi"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:20
+#: ../../../app/views/layouts/madmin/application.html.erb:21
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
@@ -1218,7 +1318,7 @@ msgstr "Breyta %{name}"
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
-#: ../../../app/views/pushes/preview.html.erb:121
+#: ../../../app/views/pushes/preview.html.erb:123
 msgid "Edit"
 msgstr "Breyta"
 
@@ -1738,7 +1838,7 @@ msgstr ""
 
 #: ../../../app/views/pages/about.html.erb:135
 #: ../../../app/views/pages/about.html.erb:141
-#: ../../../app/views/pushes/preview.html.erb:75
+#: ../../../app/views/pushes/preview.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:14
 #: ../../../app/views/pushes/show.html.erb:46
 #: ../../../app/views/pushes/show.html.erb:49
@@ -1937,12 +2037,13 @@ msgstr ""
 "a eiginleikar eru virkir í þessu tilviki."
 
 #: ../../../app/views/pages/api.html.erb:43
-#: ../../../app/views/pages/api.html.erb:150
-#: ../../../app/views/pages/api.html.erb:159
-#: ../../../app/views/pages/api.html.erb:169
-#: ../../../app/views/pages/api.html.erb:179
-#: ../../../app/views/pages/api.html.erb:190
-#: ../../../app/views/pages/api.html.erb:201
+#: ../../../app/views/pages/api.html.erb:158
+#: ../../../app/views/pages/api.html.erb:167
+#: ../../../app/views/pages/api.html.erb:177
+#: ../../../app/views/pages/api.html.erb:187
+#: ../../../app/views/pages/api.html.erb:198
+#: ../../../app/views/pages/api.html.erb:209
+#: ../../../app/views/pages/api.html.erb:235
 msgid "cURL example:"
 msgstr "cURL dæmi:"
 
@@ -1967,51 +2068,64 @@ msgid "Push creation and management via API"
 msgstr "Stofnun og stjórnun ýtinga í gegnum API"
 
 #: ../../../app/views/pages/api.html.erb:81
+msgid ""
+"Auto-Dispatch email notifications (Settings.notify_by_email.enabled, requires "
+"SMTP and logins)"
+msgstr ""
+"Sjálfvirk sending tölvupósttilkynninga (Settings.notify_by_email.enabled, kref"
+"st SMTP og innskráningar)"
+
+#: ../../../app/views/pages/api.html.erb:82
 msgid "File attachments on pushes (Settings.enable_file_pushes)"
 msgstr "Skráarviðhengi í sendingum (Settings.enable_file_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:82
+#: ../../../app/views/pages/api.html.erb:83
 msgid "URL push type (Settings.enable_url_pushes)"
 msgstr "Tegund vefslóðarsendingar (Settings.enable_url_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:83
+#: ../../../app/views/pages/api.html.erb:84
 msgid "QR code push type (Settings.enable_qr_pushes)"
 msgstr "Tegund QR kóða ýtingar (Settings.enable_qr_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:84
+#: ../../../app/views/pages/api.html.erb:85
 msgid "Requests API availability (not available in OSS)"
 msgstr "Beiðnir um aðgengi að API (ekki í boði í OSS)"
 
-#: ../../../app/views/pages/api.html.erb:90
+#: ../../../app/views/pages/api.html.erb:91
 msgid "Push Endpoints"
 msgstr "Ýta endapunktar"
 
-#: ../../../app/views/pages/api.html.erb:95
+#: ../../../app/views/pages/api.html.erb:96
 msgid "Create a new push."
 msgstr "Búðu til nýja ýtingu."
 
-#: ../../../app/views/pages/api.html.erb:96
+#: ../../../app/views/pages/api.html.erb:97
 msgid "Body format:"
 msgstr "Líkamsform:"
 
-#: ../../../app/views/pages/api.html.erb:101
+#: ../../../app/views/pages/api.html.erb:102
+#: ../../../app/views/pages/api.html.erb:223
 msgid "Parameter"
 msgstr "Færibreyta"
 
-#: ../../../app/views/pages/api.html.erb:102
+#: ../../../app/views/pages/api.html.erb:103
+#: ../../../app/views/pages/api.html.erb:224
 #: ../../../app/views/pushes/index.html.erb:33
 msgid "Type"
 msgstr "Tegund"
 
-#: ../../../app/views/pages/api.html.erb:103
+#: ../../../app/views/pages/api.html.erb:104
+#: ../../../app/views/pages/api.html.erb:225
 msgid "Required"
 msgstr "Nauðsynlegt"
 
-#: ../../../app/views/pages/api.html.erb:104
+#: ../../../app/views/pages/api.html.erb:105
+#: ../../../app/views/pages/api.html.erb:226
 msgid "Description"
 msgstr "Lýsing"
 
-#: ../../../app/views/pages/api.html.erb:108
+#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:230
 #: ../../../app/views/pushes/audit.html.erb:53
 #: ../../../app/views/pushes/audit.html.erb:66
 #: ../../../app/views/pushes/audit.html.erb:80
@@ -2019,11 +2133,10 @@ msgstr "Lýsing"
 msgid "Yes"
 msgstr "Já"
 
-#: ../../../app/views/pages/api.html.erb:108
+#: ../../../app/views/pages/api.html.erb:109
 msgid "Secret text payload for text, URL or QR pushes."
 msgstr "Leynilegt textaálag fyrir texta, vefslóð eða QR sendingar."
 
-#: ../../../app/views/pages/api.html.erb:109
 #: ../../../app/views/pages/api.html.erb:110
 #: ../../../app/views/pages/api.html.erb:111
 #: ../../../app/views/pages/api.html.erb:112
@@ -2032,6 +2145,11 @@ msgstr "Leynilegt textaálag fyrir texta, vefslóð eða QR sendingar."
 #: ../../../app/views/pages/api.html.erb:115
 #: ../../../app/views/pages/api.html.erb:116
 #: ../../../app/views/pages/api.html.erb:117
+#: ../../../app/views/pages/api.html.erb:118
+#: ../../../app/views/pages/api.html.erb:119
+#: ../../../app/views/pages/api.html.erb:120
+#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:231
 #: ../../../app/views/pushes/audit.html.erb:55
 #: ../../../app/views/pushes/audit.html.erb:68
 #: ../../../app/views/pushes/audit.html.erb:78
@@ -2039,7 +2157,7 @@ msgstr "Leynilegt textaálag fyrir texta, vefslóð eða QR sendingar."
 msgid "No"
 msgstr "Nei"
 
-#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:110
 msgid ""
 "Files to attach. When present, the push type becomes file unless kind is expli"
 "citly provided."
@@ -2047,47 +2165,73 @@ msgstr ""
 "Skrár til að hengja við. Þegar til staðar verður ýtingartegundin að skrá nema "
 "tegund sé sérstaklega gefin upp."
 
-#: ../../../app/views/pages/api.html.erb:110
+#: ../../../app/views/pages/api.html.erb:111
 msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
 msgstr ""
 "Tegund tilkynningar: texti, skrá, slóð eða qr. Sjálfgefið er að texti sé ekki "
 "gefinn upp."
 
-#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:112
 msgid "Expiration window in days. If omitted, instance defaults are used."
 msgstr "Gildistími í dögum. Ef þessu er sleppt eru sjálfgefin gildi tilvika notuð."
 
-#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:113
 msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
 msgstr ""
 "Hámarksfjöldi leyfilegra sótta. Ef þessu er sleppt eru sjálfgefin gildi tilvik"
 "a notuð."
 
-#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:114
 msgid "Allows the recipient to expire the push."
 msgstr "Leyfir viðtakanda að hætta við tilkynninguna."
 
-#: ../../../app/views/pages/api.html.erb:114
+#: ../../../app/views/pages/api.html.erb:115
 msgid "Adds an extra retrieval confirmation step."
 msgstr "Bætir við auka staðfestingarskrefi fyrir sókn."
 
-#: ../../../app/views/pages/api.html.erb:115
+#: ../../../app/views/pages/api.html.erb:116
 msgid "Requires this passphrase to retrieve the payload."
 msgstr "Krefst þessa lykilorðs til að sækja gagnamagnið."
 
-#: ../../../app/views/pages/api.html.erb:116
+#: ../../../app/views/pages/api.html.erb:117
 msgid "Optional label shown to the owner."
 msgstr "Valfrjáls merkimiði sýndur eiganda."
 
-#: ../../../app/views/pages/api.html.erb:117
+#: ../../../app/views/pages/api.html.erb:118
 msgid "Optional owner-only note."
 msgstr "Valfrjáls athugasemd eingöngu fyrir eiganda."
 
-#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:119
+msgid "Optional recipients for the push creation email."
+msgstr "Valfrjálsir viðtakendur fyrir tölvupóstinn um stofnun."
+
+#: ../../../app/views/pages/api.html.erb:120
+msgid ""
+"Optional recipients for the push creation email. Comma-separated list of email"
+" addresses. Maximum 5 emails."
+msgstr ""
+"Valfrjálsir viðtakendur fyrir tölvupóstinn til að stofna tilkynningar. Listi y"
+"fir netföng, aðskilinn með kommu. Hámark 5 netföng."
+
+#: ../../../app/views/pages/api.html.erb:121
+msgid ""
+"Optional locale for the push creation email. See the list of available locales"
+" in the"
+msgstr ""
+"Valfrjáls staðsetning fyrir tölvupóstinn til að stofna tilkynningu. Sjá lista "
+"yfir tiltæk staðsetningar í"
+
+#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:231
+#: ../../../app/views/pages/api.html.erb:248
+msgid "Supported Locales"
+msgstr "Stuðningsstaðsetningar"
+
+#: ../../../app/views/pages/api.html.erb:139
 msgid "cURL example (JSON body):"
 msgstr "cURL dæmi (JSON meginmál):"
 
-#: ../../../app/views/pages/api.html.erb:148
+#: ../../../app/views/pages/api.html.erb:156
 msgid ""
 "Retrieve a push payload by token. This counts as a view and may expire the pus"
 "h when limits are reached."
@@ -2095,18 +2239,18 @@ msgstr ""
 "Sækja gagnaflutning með tákni. Þetta telst sem skoðun og gæti rofið gagnaflutn"
 "inginn þegar takmörkunum er náð."
 
-#: ../../../app/views/pages/api.html.erb:149
-#: ../../../app/views/pages/api.html.erb:168
-#: ../../../app/views/pages/api.html.erb:189
-#: ../../../app/views/pages/api.html.erb:200
+#: ../../../app/views/pages/api.html.erb:157
+#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:197
+#: ../../../app/views/pages/api.html.erb:208
 msgid "Query parameters:"
 msgstr "Fyrirspurnarbreytur:"
 
-#: ../../../app/views/pages/api.html.erb:149
+#: ../../../app/views/pages/api.html.erb:157
 msgid "optional, required when the push is passphrase-protected"
 msgstr "valfrjálst, krafist þegar sendingin er varin með lykilorði"
 
-#: ../../../app/views/pages/api.html.erb:158
+#: ../../../app/views/pages/api.html.erb:166
 msgid ""
 "Returns the fully-qualified secret URL for a push without retrieving its paylo"
 "ad."
@@ -2114,7 +2258,7 @@ msgstr ""
 "Skilar fullgildri leynilegri vefslóð fyrir sendingu án þess að sækja gagnamagn"
 " hennar."
 
-#: ../../../app/views/pages/api.html.erb:167
+#: ../../../app/views/pages/api.html.erb:175
 msgid ""
 "Return audit log entries for a push. Authentication and ownership are required"
 "."
@@ -2122,13 +2266,13 @@ msgstr ""
 "Skila færslum í endurskoðunarskrá fyrir sendingu. Auðkenning og eignarhald eru"
 " nauðsynleg."
 
-#: ../../../app/views/pages/api.html.erb:168
-#: ../../../app/views/pages/api.html.erb:189
-#: ../../../app/views/pages/api.html.erb:200
+#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:197
+#: ../../../app/views/pages/api.html.erb:208
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "valfrjálst, heiltala, sjálfgefið 1, gilt svið 1 til 200"
 
-#: ../../../app/views/pages/api.html.erb:178
+#: ../../../app/views/pages/api.html.erb:186
 msgid ""
 "Expire a push immediately. Allowed for owners (when authenticated) or for reci"
 "pients when the push was created with deletable_by_viewer enabled."
@@ -2136,47 +2280,77 @@ msgstr ""
 "Renna út tilkynningu strax. Leyft eigendum (þegar staðfest er) eða viðtakendum"
 " þegar tilkynningin var búin til með deletable_by_viewer virkt."
 
-#: ../../../app/views/pages/api.html.erb:188
+#: ../../../app/views/pages/api.html.erb:196
 msgid "List active pushes for the authenticated user."
 msgstr "Listi yfir virkar tilkynningar fyrir auðkennda notandann."
 
-#: ../../../app/views/pages/api.html.erb:199
+#: ../../../app/views/pages/api.html.erb:207
 msgid "List expired pushes for the authenticated user."
 msgstr "Listi yfir útrunnar tilkynningar fyrir auðkennda notandann."
 
-#: ../../../app/views/pages/api.html.erb:209
+#: ../../../app/views/pages/api.html.erb:218
+msgid "Send an email to notify the push creation to the specified recipients."
+msgstr ""
+"Senda tölvupóst til að tilkynna um stofnun tilkynningarinnar til tilgreindra v"
+"iðtakenda."
+
+#: ../../../app/views/pages/api.html.erb:230
+msgid "Comma-separated list of email addresses. Maximum 5 emails."
+msgstr "Listi yfir netföng, aðskilinn með kommu. Hámark 5 netföng."
+
+#: ../../../app/views/pages/api.html.erb:231
+msgid "Locale for the email notification. See the list of available locales in the"
+msgstr "Staðsetning fyrir tölvupósttilkynninguna. Sjá lista yfir tiltæka staði í"
+
+#: ../../../app/views/pages/api.html.erb:249
+msgid ""
+"The following locales are supported for API requests that accept a locale para"
+"meter:"
+msgstr ""
+"Eftirfarandi tungumálastillingar eru studdar fyrir API-beiðnir sem samþykkja t"
+"ungumálastillingarbreytu:"
+
+#: ../../../app/views/pages/api.html.erb:254
+msgid "Locale Code"
+msgstr "Staðarkóði"
+
+#: ../../../app/views/pages/api.html.erb:255
+msgid "Language"
+msgstr "Tungumál"
+
+#: ../../../app/views/pages/api.html.erb:273
 msgid "HTTP Status Codes"
 msgstr "HTTP stöðukóðar"
 
-#: ../../../app/views/pages/api.html.erb:211
+#: ../../../app/views/pages/api.html.erb:275
 msgid "Successful request"
 msgstr "Beiðni tókst"
 
-#: ../../../app/views/pages/api.html.erb:212
+#: ../../../app/views/pages/api.html.erb:276
 msgid "Push created"
 msgstr "Sending búin til"
 
-#: ../../../app/views/pages/api.html.erb:213
+#: ../../../app/views/pages/api.html.erb:277
 msgid "Invalid request parameters"
 msgstr "Ógildar beiðnibreytur"
 
-#: ../../../app/views/pages/api.html.erb:214
+#: ../../../app/views/pages/api.html.erb:278
 msgid "Authentication required or invalid token"
 msgstr "Auðkenning krafist eða ógildur auðkenni"
 
-#: ../../../app/views/pages/api.html.erb:215
+#: ../../../app/views/pages/api.html.erb:279
 msgid "Forbidden for current user"
 msgstr "Bannað fyrir núverandi notanda"
 
-#: ../../../app/views/pages/api.html.erb:216
+#: ../../../app/views/pages/api.html.erb:280
 msgid "Resource not found"
 msgstr "Auðlind fannst ekki"
 
-#: ../../../app/views/pages/api.html.erb:217
+#: ../../../app/views/pages/api.html.erb:281
 msgid "Validation error"
 msgstr "Staðfestingarvilla"
 
-#: ../../../app/views/pages/api.html.erb:223
+#: ../../../app/views/pages/api.html.erb:287
 msgid "For legacy API v1 documentation, see"
 msgstr "Sjá skjölun um eldri API útgáfu 1"
 
@@ -2310,6 +2484,32 @@ msgstr ""
 "Lyklar eru búnir til á netþjóninum með því að nota dulritunarlega örugg handah"
 "ófskennd bæti."
 
+#: ../../../app/views/push_created_mailer/notify.html.erb:2
+msgid "%{sender} has sent you a push"
+msgstr "%{sender} hefur sent þér tilkynningu"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:9
+msgid "Secret link:"
+msgstr "Leynileg tengill:"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:11
+msgid "Important Notes:"
+msgstr "Mikilvægar athugasemdir:"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:13
+msgid ""
+"This link is valid for %{remaining}, or until %{views} views, whichever occurs"
+" first."
+msgstr ""
+"Þessi tengill er gildur í %{remaining}, eða þar til %{views} skoðanir, hvaða g"
+"erist fyrst."
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:15
+msgid "Upon expiration, this secret link and all content are permanently deleted."
+msgstr ""
+"Þegar gildistími rennur út er þessum leynihlekk og öllu efni hans eytt fyrir f"
+"ullt og allt."
+
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
 msgstr "Sendu skrár á öruggan hátt"
@@ -2347,13 +2547,13 @@ msgid "Views"
 msgstr "Útsýni"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:147
+#: ../../../app/views/pushes/_files_form.html.erb:148
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:153
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:145
+#: ../../../app/views/pushes/_qr_form.html.erb:146
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_url_form.html.erb:109
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:82
 msgid "Save"
 msgstr "Vista"
@@ -2413,87 +2613,87 @@ msgstr ""
 "Valfrjálst: Krefjast þess að viðtakendur slái inn aðgangsorð til að skoða þess"
 "a ýtingu"
 
-#: ../../../app/views/pushes/_files_form.html.erb:128
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:125
-#: ../../../app/views/pushes/_url_form.html.erb:98
-msgid "Use a 1-click retrieval step"
-msgstr "Notaðu 1-smella endurheimtarskref"
-
 #: ../../../app/views/pushes/_files_form.html.erb:129
 #: ../../../app/views/pushes/_form.html.erb:135
 #: ../../../app/views/pushes/_qr_form.html.erb:126
+#: ../../../app/views/pushes/_url_form.html.erb:99
+msgid "Use a 1-click retrieval step"
+msgstr "Notaðu 1-smella endurheimtarskref"
+
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:136
+#: ../../../app/views/pushes/_qr_form.html.erb:127
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Hjálpar til við að koma í veg fyrir að spjallkerfi og vefslóðaskannar éti upp "
 "skoðanir."
 
-#: ../../../app/views/pushes/_files_form.html.erb:137
-#: ../../../app/views/pushes/_form.html.erb:143
-#: ../../../app/views/pushes/_qr_form.html.erb:135
-msgid "Allow immediate deletion"
-msgstr "Leyfa tafarlausa eyðingu"
-
 #: ../../../app/views/pushes/_files_form.html.erb:138
 #: ../../../app/views/pushes/_form.html.erb:144
 #: ../../../app/views/pushes/_qr_form.html.erb:136
+msgid "Allow immediate deletion"
+msgstr "Leyfa tafarlausa eyðingu"
+
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:145
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 msgid "Allow users to delete this push once retrieved."
 msgstr "Leyfa notendum að eyða þessu ýti þegar það hefur verið sótt."
 
-#: ../../../app/views/pushes/_files_form.html.erb:147
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:145
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:148
+#: ../../../app/views/pushes/_form.html.erb:154
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:109
 msgid "the above settings as the page default."
 msgstr "ofangreindar stillingar sem sjálfgefnar síðu."
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
-#: ../../../app/views/pushes/_files_form.html.erb:180
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
-#: ../../../app/views/pushes/_qr_form.html.erb:155
-#: ../../../app/views/pushes/_qr_form.html.erb:165
-#: ../../../app/views/pushes/_url_form.html.erb:118
-#: ../../../app/views/pushes/_url_form.html.erb:128
+#: ../../../app/views/pushes/_files_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:164
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:119
+#: ../../../app/views/pushes/_url_form.html.erb:129
 msgid "Optional"
 msgstr "Valfrjálst"
 
-#: ../../../app/views/pushes/_files_form.html.erb:160
-#: ../../../app/views/pushes/_form.html.erb:166
-#: ../../../app/views/pushes/_qr_form.html.erb:158
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:167
+#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Nafn sem birtist á mælaborðinu, í tilkynningum og tölvupósti."
 
-#: ../../../app/views/pushes/_files_form.html.erb:165
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Message"
 msgstr "Skilaboð"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:169
 msgid "Optional: A message to be included with the push"
 msgstr "Valfrjálst: Skilaboð sem fylgja með ýtunni"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
+#: ../../../app/views/pushes/_files_form.html.erb:173
 msgid "Encrypted and visible to the receiving party"
 msgstr "Dulkóðuð og sýnileg fyrir móttökuaðila"
 
-#: ../../../app/views/pushes/_files_form.html.erb:177
-#: ../../../app/views/pushes/_form.html.erb:170
-#: ../../../app/views/pushes/_qr_form.html.erb:162
-#: ../../../app/views/pushes/_url_form.html.erb:125
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:171
+#: ../../../app/views/pushes/_qr_form.html.erb:163
+#: ../../../app/views/pushes/_url_form.html.erb:126
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "Athugið"
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:131
+#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_form.html.erb:177
+#: ../../../app/views/pushes/_qr_form.html.erb:169
+#: ../../../app/views/pushes/_url_form.html.erb:132
 msgid "Encrypted and visible only to you"
 msgstr "Dulkóðuð og aðeins sýnileg þér"
 
-#: ../../../app/views/pushes/_files_form.html.erb:188
+#: ../../../app/views/pushes/_files_form.html.erb:189
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2501,36 +2701,36 @@ msgstr ""
 "Þegar útrunninn er, verður öllum skrám og innihaldi ýtunnar eytt strax og algj"
 "örlega."
 
-#: ../../../app/views/pushes/_files_form.html.erb:189
-#: ../../../app/views/pushes/_url_form.html.erb:137
+#: ../../../app/views/pushes/_files_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:138
 msgid "An audit log of activity will be available."
 msgstr "Endurskoðunarskrá yfir virkni verður tiltæk."
 
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:191
-#: ../../../app/views/pushes/_qr_form.html.erb:183
-#: ../../../app/views/pushes/_url_form.html.erb:146
+#: ../../../app/views/pushes/_files_form.html.erb:199
+#: ../../../app/views/pushes/_form.html.erb:192
+#: ../../../app/views/pushes/_qr_form.html.erb:184
+#: ../../../app/views/pushes/_url_form.html.erb:147
 msgid "Updating..."
 msgstr "Uppfærir..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:191
-#: ../../../app/views/pushes/_qr_form.html.erb:183
-#: ../../../app/views/pushes/_url_form.html.erb:146
+#: ../../../app/views/pushes/_files_form.html.erb:199
+#: ../../../app/views/pushes/_form.html.erb:192
+#: ../../../app/views/pushes/_qr_form.html.erb:184
+#: ../../../app/views/pushes/_url_form.html.erb:147
 msgid "Update Push"
 msgstr "Uppfæra Push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:200
-#: ../../../app/views/pushes/_form.html.erb:193
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:148
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:149
 msgid "Pushing..."
 msgstr "Að ýta..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:200
-#: ../../../app/views/pushes/_form.html.erb:193
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:148
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:149
 msgid "Push It!"
 msgstr "Ýttu á það!"
 
@@ -2570,8 +2770,8 @@ msgstr "Búðu til lykilorð"
 msgid "Configure Generator"
 msgstr "Stilla rafall"
 
-#: ../../../app/views/pushes/_form.html.erb:181
-#: ../../../app/views/pushes/_qr_form.html.erb:173
+#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_qr_form.html.erb:174
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -2579,8 +2779,8 @@ msgstr ""
 "Ráð: Sláðu aðeins inn lykilorð í reitinn. Aðrar persónugreinanlegar upplýsinga"
 "r geta ógnað öryggi."
 
-#: ../../../app/views/pushes/_form.html.erb:182
-#: ../../../app/views/pushes/_qr_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:183
+#: ../../../app/views/pushes/_qr_form.html.erb:175
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -2623,17 +2823,17 @@ msgstr "Tilvísun vefslóðar"
 msgid "Enter the URL to redirect to..."
 msgstr "Sláðu inn slóðina til að beina á..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:99
+#: ../../../app/views/pushes/_url_form.html.erb:100
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Hjálpar til við að forðast að spjallkerfi og vefslóðaskannar éti upp tilvísani"
 "r."
 
-#: ../../../app/views/pushes/_url_form.html.erb:136
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Leynileg vefslóð verður búin til sem vísar á tilgreinda vefslóð."
 
-#: ../../../app/views/pushes/_url_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:138
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Þegar það rennur út verður ýtt vefslóðinni eytt að öllu leyti."
 
@@ -2643,7 +2843,7 @@ msgstr "Endurskoðunarskrá fyrir %{push_id}"
 
 #: ../../../app/views/pushes/audit.html.erb:4
 #: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:118
+#: ../../../app/views/pushes/preview.html.erb:120
 msgid "Audit Log"
 msgstr "Endurskoðunarskrá"
 
@@ -2927,79 +3127,105 @@ msgstr "Smelltu hér til að halda áfram"
 msgid "Push Preview"
 msgstr "Forskoðun"
 
-#: ../../../app/views/pushes/preview.html.erb:8
+#: ../../../app/views/pushes/preview.html.erb:10
 msgid "Push Created"
 msgstr "Sending búin til"
 
-#: ../../../app/views/pushes/preview.html.erb:10
+#: ../../../app/views/pushes/preview.html.erb:12
 msgid "Copy the link or message below to share this push securely."
 msgstr ""
 "Afritaðu tengilinn eða skilaboðin hér að neðan til að deila þessari auglýsingu"
 " á öruggan hátt."
 
-#: ../../../app/views/pushes/preview.html.erb:26
+#: ../../../app/views/pushes/preview.html.erb:28
 msgid "QR code"
 msgstr "QR kóði"
 
-#: ../../../app/views/pushes/preview.html.erb:28
+#: ../../../app/views/pushes/preview.html.erb:30
 msgid "Scan to open the secret link on a mobile device."
 msgstr "Skannaðu til að opna leynileginn í snjalltæki."
 
-#: ../../../app/views/pushes/preview.html.erb:32
+#: ../../../app/views/pushes/preview.html.erb:34
 msgid "Print & Share"
 msgstr "Prenta og deila"
 
-#: ../../../app/views/pushes/preview.html.erb:36
+#: ../../../app/views/pushes/preview.html.erb:38
 msgid "Generate a printable page"
 msgstr "Búa til prentanlega síðu"
 
-#: ../../../app/views/pushes/preview.html.erb:39
+#: ../../../app/views/pushes/preview.html.erb:41
 msgid "Optional custom message"
 msgstr "Valfrjáls sérsniðin skilaboð"
 
-#: ../../../app/views/pushes/preview.html.erb:43
+#: ../../../app/views/pushes/preview.html.erb:45
 msgid "Show expiration details"
 msgstr "Sýna upplýsingar um gildistíma"
 
-#: ../../../app/views/pushes/preview.html.erb:47
+#: ../../../app/views/pushes/preview.html.erb:49
 msgid "Include ID"
 msgstr "Láttu auðkenni fylgja með"
 
-#: ../../../app/views/pushes/preview.html.erb:50
+#: ../../../app/views/pushes/preview.html.erb:52
 msgid "Generate"
 msgstr "Mynda"
 
-#: ../../../app/views/pushes/preview.html.erb:71
+#: ../../../app/views/pushes/preview.html.erb:73
 msgid "Expires when the first limit is reached"
 msgstr "Rennur út þegar fyrsta takmörkunum er náð"
 
-#: ../../../app/views/pushes/preview.html.erb:81
+#: ../../../app/views/pushes/preview.html.erb:83
 msgid "Viewers can delete this push."
 msgstr "Áhorfendur geta eytt þessari tilkynningu."
 
-#: ../../../app/views/pushes/preview.html.erb:83
+#: ../../../app/views/pushes/preview.html.erb:85
 msgid "Viewers cannot delete this push."
 msgstr "Áhorfendur geta ekki eytt þessari tilkynningu."
 
-#: ../../../app/views/pushes/preview.html.erb:89
+#: ../../../app/views/pushes/preview.html.erb:91
 msgid "Includes a"
 msgstr "Inniheldur"
 
-#: ../../../app/views/pushes/preview.html.erb:89
+#: ../../../app/views/pushes/preview.html.erb:91
 msgid "1-click preliminary retrieval step"
 msgstr "1-smellur bráðabirgðasókn"
 
-#: ../../../app/views/pushes/preview.html.erb:101
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"
 msgstr "Skoða þessa tilkynningu"
 
-#: ../../../app/views/pushes/preview.html.erb:105
-#: ../../../app/views/pushes/preview.html.erb:109
-#: ../../../app/views/pushes/preview.html.erb:113
+#: ../../../app/views/pushes/preview.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:111
+#: ../../../app/views/pushes/preview.html.erb:115
 msgid "Push Another"
 msgstr "Ýttu á annan"
 
-#: ../../../app/views/pushes/preview.html.erb:134
+#: ../../../app/views/pushes/preview.html.erb:128
+#: ../../../app/views/pushes/preview.html.erb:142
+msgid "Notify by Email"
+msgstr "Tilkynna með tölvupósti"
+
+#: ../../../app/views/pushes/preview.html.erb:147
+#: ../../../app/views/shared/_notify_by_email.html.erb:7
+msgid "You have reached the maximum number of emails you can send today."
+msgstr "Þú hefur náð hámarksfjölda tölvupósta sem þú getur sent í dag."
+
+#: ../../../app/views/pushes/preview.html.erb:152
+msgid "Email Recipients"
+msgstr "Viðtakendur tölvupósts"
+
+#: ../../../app/views/pushes/preview.html.erb:159
+msgid "email1@example.com, email2@example.com"
+msgstr "netfang1@dæmi.com, netfang2@dæmi.com"
+
+#: ../../../app/views/pushes/preview.html.erb:164
+msgid "Enter email addresses separated by commas (maximum 5 emails)."
+msgstr "Sláðu inn netföng aðskilin með kommum (hámark 5 netföng)."
+
+#: ../../../app/views/pushes/preview.html.erb:168
+msgid "Send Emails"
+msgstr "Senda tölvupóst"
+
+#: ../../../app/views/pushes/preview.html.erb:181
 msgid ""
 "Tip: Change the secret link language using the dropdown to the right of the UR"
 "L."
@@ -3007,7 +3233,7 @@ msgstr ""
 "Ábending: Breyttu tungumáli leynilegs tengils með því að nota fellilistann hæg"
 "ra megin við slóðina."
 
-#: ../../../app/views/pushes/preview.html.erb:136
+#: ../../../app/views/pushes/preview.html.erb:183
 msgid ""
 "Alternatively, auto-detection will select a language based on the recipient's "
 "browser settings."
@@ -3164,6 +3390,23 @@ msgstr "Skrá inn"
 #: ../../../app/views/shared/_header.html.erb:71
 msgid "Sign Up"
 msgstr "Skráðu þig"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:4
+msgid "Auto-Dispatch: Send Secret Link To"
+msgstr "Sjálfvirk sending: Senda leynilegt tengil til"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:14
+msgid "recipient@example.com, another@example.com"
+msgstr "viðtakandi@dæmi.com, annar@dæmi.com"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:18
+msgid "Separate multiple addresses with commas (max 5)."
+msgstr "Aðskiljið mörg netföng með kommum (hámark 5)."
+
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:11
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:12
+msgid "Select the language for the secret link"
+msgstr "Veldu tungumál fyrir leynihlekkinn"
 
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:5
 msgid "Confirm Password Generation"
