@@ -40,7 +40,7 @@ module ApplicationHelper
     end
 
     # Support forced https links with FORCE_SSL env var
-    raw_url.gsub!(/http/i, "https") if ENV.key?("FORCE_SSL") && !request.ssl?
+    raw_url = raw_url.sub(%r{\Ahttp://}i, "https://") if ENV.key?("FORCE_SSL") && !request.ssl?
     raw_url
   end
 
