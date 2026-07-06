@@ -107,6 +107,28 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_show_passphrase_is_rate_limited_after_five_attempts_per_push
+
+    push = pushes(:test_push)
+    push.update!(passphrase: "super-secret")
+
+    5.times do
+      get "/api/v2/pushes/#{push.url_token}",
+        params: {passphrase: "wrong-passphrase"},
+        as: :json
+
+      assert_response :unauthorized
+    end
+
+    get "/api/v2/pushes/#{push.url_token}",
+      params: {passphrase: "wrong-passphrase"},
+      as: :json
+
+    assert_response :too_many_requests
+    body = response.parsed_body
+    assert_match(/Too many passphrase attempts/, body["error"])
+  end
+
   def test_active_requires_authentication
     get "/api/v2/pushes/active", as: :json
     assert_response :unauthorized

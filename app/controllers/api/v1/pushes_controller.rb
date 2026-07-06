@@ -6,6 +6,12 @@ class Api::V1::PushesController < Api::BaseController
 
   before_action :set_push, only: %i[show preview audit destroy]
 
+  rate_limit to: 5, within: 1.minute, only: :show,
+    if: -> { params[:passphrase].present? },
+    by: -> { params[:id] },
+    scope: :passphrase_attempts, name: "per-push",
+    with: -> { render json: {error: I18n._("Too many passphrase attempts. Please try again in a minute.")}, status: :too_many_requests }
+
   resource_description do
     name "Pushes"
     short "Interact directly with pushes."
