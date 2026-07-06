@@ -23,10 +23,10 @@ class NotifyByEmailTest < ApplicationSystemTestCase
     visit preview_push_path(@push)
     click_on "Notify by Email"
 
-    assert_selector "input[name='push[notify_by_email_recipients]']", count: 1
-    assert_selector "input[name='push[notify_by_email_locale]']", count: 1, visible: :hidden
+    assert_selector "input[name='push[notify_emails_to]']", count: 1
+    assert_selector "input[name='push[notify_emails_to_locale]']", count: 1, visible: :hidden
 
-    fill_in "push[notify_by_email_recipients]", with: "test@example.com"
+    fill_in "push[notify_emails_to]", with: "test@example.com"
     click_on "Send Emails"
 
     assert_text "Recipient(s) are added to the queue to be sent."
@@ -36,10 +36,10 @@ class NotifyByEmailTest < ApplicationSystemTestCase
     visit preview_push_path(@push)
     click_on "Notify by Email"
 
-    fill_in "push[notify_by_email_recipients]", with: "test@example.com, invalid-email"
+    fill_in "push[notify_emails_to]", with: "test@example.com, invalid-email"
     click_on "Send Emails"
 
-    assert_text "Notify by email recipients contains invalid email(s)"
+    assert_text "Notify emails to contains invalid email(s)"
   end
 
   test "notify_by_email creation and sending emails" do
@@ -50,7 +50,7 @@ class NotifyByEmailTest < ApplicationSystemTestCase
 
     assert_difference "NotifyByEmail.count", 1 do
       assert_enqueued_jobs 1, only: SendNotifyByEmailJob do
-        fill_in "push[notify_by_email_recipients]", with: "test@example.com, test2@example.com"
+        fill_in "push[notify_emails_to]", with: "test@example.com, test2@example.com"
         click_on "Send Emails"
 
         assert_text "Recipient(s) are added to the queue to be sent."
