@@ -17,6 +17,18 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_help_api_page_documents_notify_emails_endpoint
+    get "/help/api"
+
+    assert_response :success
+    assert_includes response.body, "POST /api/v2/pushes/:url_token/notify_emails"
+    assert_includes response.body, "Authentication and ownership are required"
+    assert_includes response.body, "route is not registered and requests return 404 Not Found"
+    assert_includes response.body, "Recipient(s) are added to the queue to be sent."
+    assert_includes response.body, '"notify_emails_to": ["are not available"]'
+    assert_includes response.body, "Too many email notification requests (notify_emails endpoint only)"
+  end
+
   def test_legacy_api_v1_docs_are_redirected
     get "/api"
     assert_response :redirect
