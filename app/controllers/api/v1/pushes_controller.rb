@@ -3,6 +3,7 @@
 class Api::V1::PushesController < Api::BaseController
   include SetPushAttributes
   include LogEvents
+  include Pwpush::AssignNotifiableByEmailFields
 
   before_action :set_push, only: %i[show preview audit destroy]
 
@@ -181,6 +182,8 @@ class Api::V1::PushesController < Api::BaseController
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
+
+    assign_notify_by_email_fields(@push, required: false)
 
     if @push.save
       log_creation(@push)

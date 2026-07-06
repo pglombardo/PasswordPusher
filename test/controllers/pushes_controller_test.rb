@@ -20,38 +20,38 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # new
-  test "notify_by_email_recipients field is not shown when feature is disabled" do
+  test "notify_emails_to field is not shown when feature is disabled" do
     Settings.notify_by_email.enabled = false
     Rails.application.reload_routes!
 
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
-  test "notify_by_email_recipients field is shown when mail service is configured and user is signed in" do
+  test "notify_emails_to field is shown when mail service is configured and user is signed in" do
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 1
   end
 
-  test "notify_by_email_recipients field is not shown when mail service is not configured" do
+  test "notify_emails_to field is not shown when mail service is not configured" do
     Settings.mail.smtp_address = nil
 
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
-  test "notify_by_email_recipients fields are not shown when user is not signed in" do
+  test "notify_emails_to fields are not shown when user is not signed in" do
     sign_out @user
     get new_push_path
 
     assert_response :success
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
   # create
@@ -61,8 +61,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          notify_by_email_recipients: "recipient@example.com",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "fr"
         }
       }
 
@@ -87,13 +87,13 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          notify_by_email_recipients: "someone@example.com",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "someone@example.com",
+          notify_emails_to_locale: "fr"
         }
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notifying by email is not allowed for unknown users"
+      assert_includes response.body, "Notify emails to is not allowed for unknown users"
     end
   end
 
@@ -106,13 +106,15 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          notify_by_email_recipients: "someone@example.com",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "someone@example.com",
+          notify_emails_to_locale: "fr"
         }
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notifying by email is not available"
+      assert_includes response.body, "Notify emails to is not available"
+      assert_includes response.body, "Notify emails to locale is not available"
+      assert_includes response.body, "Notify by email feature is not enabled"
     end
   end
 
@@ -124,13 +126,14 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          notify_by_email_recipients: "someone@example.com",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "someone@example.com",
+          notify_emails_to_locale: "fr"
         }
       }
 
       assert_response :unprocessable_content
-      assert_includes response.body, "Notifying by email is not available"
+      assert_includes response.body, "Notify emails to is not available"
+      assert_includes response.body, "Notify emails to locale is not available"
     end
   end
 
@@ -140,8 +143,8 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "secret",
-          notify_by_email_recipients: "",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "",
+          notify_emails_to_locale: "fr"
         }
       }
     end
@@ -160,77 +163,77 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   # edit
-  test "edit does not show notify_by_email_recipients field when push is edited" do
+  test "edit does not show notify_emails_to field when push is edited" do
     get edit_push_path(@push)
 
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
   end
 
   # preview
-  test "preview does not show notify_by_email when feature is disabled" do
+  test "preview does not show notify_emails_to when feature is disabled" do
     Settings.notify_by_email.enabled = false
     Rails.application.reload_routes!
 
     get preview_push_path(@push)
 
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 0
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 0
     assert_select "div.collapse#notifyByEmailCollapse", count: 0
   end
 
-  test "preview shows notify_by_email_recipients field when user is signed in and email service is configured" do
+  test "preview shows notify_emails_to field when user is signed in and email service is configured" do
     get preview_push_path(@push)
 
-    assert_select "input[name=?]", "push[notify_by_email_recipients]", count: 1
+    assert_select "input[name=?]", "push[notify_emails_to]", count: 1
     assert_select "div.collapse#notifyByEmailCollapse.show", count: 0
   end
 
-  # notify_by_email
-  test "notify_by_email returns not found when feature is disabled" do
+  # notify_emails
+  test "notify_emails returns not found when feature is disabled" do
     Settings.notify_by_email.enabled = false
     Rails.application.reload_routes!
 
-    post "/p/#{@push.url_token}/notify_by_email", params: {
+    post "/p/#{@push.url_token}/notify_emails", params: {
       push: {
-        notify_by_email_recipients: "recipient@example.com",
-        notify_by_email_locale: "en"
+        notify_emails_to: "recipient@example.com",
+        notify_emails_to_locale: "en"
       }
     }
 
     assert_response :not_found
   end
 
-  test "notify_by_email enqueues SendNotifyByEmailJob when user is signed in and params present" do
+  test "notify_emails enqueues SendNotifyByEmailJob when user is signed in and params present" do
     assert_enqueued_with(job: SendNotifyByEmailJob) do
-      post notify_by_email_push_path(@push), params: {
+      post notify_emails_push_path(@push), params: {
         push: {
-          notify_by_email_recipients: "recipient@example.com",
-          notify_by_email_locale: "en"
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "en"
         }
       }
     end
   end
 
-  test "notify_by_email retains form values when validation fails" do
-    post notify_by_email_push_path(@push), params: {
+  test "notify_emails retains form values when validation fails" do
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "invalid-email, another-invalid",
-        notify_by_email_locale: "fr"
+        notify_emails_to: "invalid-email, another-invalid",
+        notify_emails_to_locale: "fr"
       }
     }
 
     assert_response :unprocessable_content
-    assert_select "input[name=?][value=?]", "push[notify_by_email_recipients]", "invalid-email, another-invalid"
-    assert_select "input[name=?][value=?]", "push[notify_by_email_locale]", "fr"
+    assert_select "input[name=?][value=?]", "push[notify_emails_to]", "invalid-email, another-invalid"
+    assert_select "input[name=?][value=?]", "push[notify_emails_to_locale]", "fr"
     assert_select "div.collapse#notifyByEmailCollapse.show", count: 1
   end
 
-  test "notify_by_email redirects to preview when user is not signed in and disable_logins is true" do
+  test "notify_emails redirects to preview when user is not signed in and disable_logins is true" do
     Settings.disable_logins = true
     sign_out @user
 
-    post notify_by_email_push_path(@push), params: {
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "recipient@example.com"
+        notify_emails_to: "recipient@example.com"
       }
     }
 
@@ -238,37 +241,37 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  test "notify_by_email redirects non-owner to root" do
+  test "notify_emails redirects non-owner to root" do
     sign_in users(:luca)
 
-    post notify_by_email_push_path(@push), params: {
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "recipient@example.com"
+        notify_emails_to: "recipient@example.com"
       }
     }
 
     assert_redirected_to root_url
   end
 
-  test "notify_by_email fails with error when user login is disabled" do
+  test "notify_emails fails with error when user login is disabled" do
     Settings.disable_logins = true
 
-    post notify_by_email_push_path(@push), params: {
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "recipient@example.com"
+        notify_emails_to: "recipient@example.com"
       }
     }
 
     assert_response :unprocessable_content
-    assert_includes response.body, "Notifying by email is not available"
+    assert_includes response.body, "Notify emails to is not available"
   end
 
-  test "notify_by_email redirects to preview when push does not belong to user and disable_logins is false" do
+  test "notify_emails redirects to preview when push does not belong to user and disable_logins is false" do
     sign_out @user
 
-    post notify_by_email_push_path(@push), params: {
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "recipient@example.com"
+        notify_emails_to: "recipient@example.com"
       }
     }
 
@@ -292,22 +295,20 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_match(/Too many passphrase attempts/, flash[:alert])
   end
 
-  test "notify_by_email is rate limited after five bursts per user" do
+  test "notify_emails is rate limited after five bursts per user" do
     Rails.cache.clear
 
     5.times do |i|
-      post notify_by_email_push_path(@push), params: {
+      post notify_emails_push_path(@push), params: {
         push: {
-          notify_by_email_recipients: "recipient#{i}@example.com",
-          notify_by_email_locale: "en"
+          notify_emails_to: "recipient#{i}@example.com"
         }
       }
     end
 
-    post notify_by_email_push_path(@push), params: {
+    post notify_emails_push_path(@push), params: {
       push: {
-        notify_by_email_recipients: "recipient5@example.com",
-        notify_by_email_locale: "en"
+        notify_emails_to: "recipient5@example.com"
       }
     }
 

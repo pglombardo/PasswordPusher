@@ -15,8 +15,7 @@ class SendNotifyByEmailJob < ApplicationJob
       return
     end
 
-    notify_by_email.assign_fields_to_push
-    push = notify_by_email.push
+    push = notify_by_email.assign_fields_to_push
 
     unless push.valid?
       notify_by_email.update(status: :failed, error_message: push.errors.full_messages.join(". ") + ".", proceed_at: Time.current)

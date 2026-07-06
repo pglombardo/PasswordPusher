@@ -20,11 +20,9 @@ if %w[create active expired].include?(controller.action_name)
   json.name push.name
 end
 
-if controller.action_name == "create" && push.notify_by_email_recipients.present?
-  json.notify_by_email do
-    json.recipients push.notify_by_email_recipients
-    json.locale push.notify_by_email_locale
-  end
+if controller.action_name == "create" && push.notify_emails_to.present?
+  json.notify_emails_to push.notify_emails_to
+  json.notify_emails_to_locale push.notify_emails_to_locale
 end
 
 if controller.action_name == "show"

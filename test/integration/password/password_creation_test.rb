@@ -202,8 +202,8 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
         push: {
           kind: "text",
           payload: "testpw",
-          notify_by_email_recipients: "test@example.com",
-          notify_by_email_locale: "fr"
+          notify_emails_to: "test@example.com",
+          notify_emails_to_locale: "fr"
         }
       }
       assert_response :redirect

@@ -1,6 +1,6 @@
 <% if Settings.language_codes %>
   <div data-controller="select-dropdown">
-    <%= f.hidden_field :notify_by_email_locale, data: {"select-dropdown-target": "field"} %>
+    <%= f.hidden_field :notify_emails_to_locale, data: {"select-dropdown-target": "field"} %>
 
     <button
       type="button"
@@ -8,13 +8,13 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
       aria-haspopup="true"
-      title="<%= _('Select the language for the secret link') %>"
-      aria-label="<%= _('Select the language for the secret link') %>">
+      title="<%= _('Select the language for the email notifications') %>"
+      aria-label="<%= _('Select the language for the email notifications') %>">
       <span class="me-2" data-select-dropdown-target="menuButtonInner">🌎</span>
     </button>
 
     <ul class="dropdown-menu dropdown-menu-end ">
-      <li><span class="dropdown-item-text"><%= _('Secret Link Language') %></span></li>
+      <li><span class="dropdown-item-text"><%= _('Email Notification Language') %></span></li>
       <li><hr class="dropdown-divider"></li>
       <% if Settings.language_codes %>
         <li class="m-0 p-0">
