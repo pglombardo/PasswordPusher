@@ -52,15 +52,15 @@ class PasswordTest < ActiveSupport::TestCase
     assert_not json.key?("name")
   end
 
-  test "should save password if notify_by_email_recipients and notify_by_email_locale are set and user is defined" do
+  test "should save password if notify_emails_to and notify_emails_to_locale are set and user is defined" do
     Settings.mail.smtp_address = "smtp.example.com"
     user = users(:giuliana)
 
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      notify_by_email_recipients: "test@example.com",
-      notify_by_email_locale: "fr",
+      notify_emails_to: "test@example.com",
+      notify_emails_to_locale: "fr",
       user: user
     )
     password.notify_by_email_creator = user
@@ -70,27 +70,27 @@ class PasswordTest < ActiveSupport::TestCase
     Settings.reload!
   end
 
-  test "should reject more than 5 emails in notify_by_email_recipients for pushes" do
+  test "should reject more than 5 emails in notify_emails_to for pushes" do
     emails = 6.times.map { |i| "u#{i}@example.com" }.join(", ")
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      notify_by_email_recipients: emails
+      notify_emails_to: emails
     )
 
     assert_not password.valid?
-    assert password.errors[:notify_by_email_recipients].any? { |m| m.include?("5") || m.include?("at most") }
+    assert password.errors[:notify_emails_to].any? { |m| m.include?("5") || m.include?("at most") }
   end
 
-  test "should reject invalid notify_by_email_locale for pushes" do
+  test "should reject invalid notify_emails_to_locale for pushes" do
     password = Push.new(
       kind: "text",
       payload: "test_payload",
-      notify_by_email_recipients: "test@example.com",
-      notify_by_email_locale: "zz"
+      notify_emails_to: "test@example.com",
+      notify_emails_to_locale: "zz"
     )
 
     assert_not password.valid?
-    assert password.errors[:notify_by_email_locale].present?
+    assert password.errors[:notify_emails_to_locale].present?
   end
 end

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class Api::V2::PushesController < Api::V1::PushesController
+  include Pwpush::AssignNotifiableByEmailFields
+
   before_action :force_json_format
 
-  before_action :set_push, only: %i[show preview audit destroy notify_by_email]
+  before_action :set_push, only: %i[show preview audit destroy notify_emails]
 
-  rate_limit to: 5, within: 1.minute, only: :notify_by_email,
+  rate_limit to: 5, within: 1.minute, only: :notify_emails,
     by: -> { current_user&.id },
     with: -> { render json: {error: I18n._("Too many email notification requests. Please try again in a minute.")}, status: :too_many_requests }
 
@@ -18,8 +20,6 @@ class Api::V2::PushesController < Api::V1::PushesController
     permitted_params = push_params
 
     authenticate_user! if requires_authentication_for_create?(permitted_params)
-
-    permitted_notify_by_email_params = permitted_params.delete(:notify_by_email)
 
     @push = Push.new(permitted_params)
 
@@ -39,10 +39,7 @@ class Api::V2::PushesController < Api::V1::PushesController
 
     assign_deletable_by_viewer(@push, permitted_params)
     assign_retrieval_step(@push, permitted_params)
-
-    if permitted_notify_by_email_params.present?
-      assign_notify_by_email_params(@push, permitted_notify_by_email_params)
-    end
+    assign_notify_by_email_fields(@push, required: false)
 
     if @push.save
       log_creation(@push)
@@ -74,7 +71,7 @@ class Api::V2::PushesController < Api::V1::PushesController
     render template: "pushes/audit", status: :ok
   end
 
-  def notify_by_email
+  def notify_emails
     authenticate_user!
 
     if @push.user != current_user
@@ -82,8 +79,8 @@ class Api::V2::PushesController < Api::V1::PushesController
       return
     end
 
-    permitted_notify_by_email_params = params.permit(:recipients, :locale)
-    assign_notify_by_email_params(@push, permitted_notify_by_email_params, required: true)
+    @push.assign_attributes(notify_emails_params)
+    assign_notify_by_email_fields(@push, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -113,7 +110,7 @@ class Api::V2::PushesController < Api::V1::PushesController
 
   def push_params
     permitted = params.require(:push).permit(:name, :kind, :expire_after_days, :expire_after_views,
-      :deletable_by_viewer, :retrieval_step, :payload, :note, :passphrase, notify_by_email: [:recipients, :locale], files: [])
+      :deletable_by_viewer, :retrieval_step, :payload, :note, :passphrase, :notify_emails_to, :notify_emails_to_locale, files: [])
 
     # For v2 requests, file uploads imply a file push unless kind is explicit.
     if permitted[:kind].blank? && permitted[:files].present?
@@ -126,10 +123,7 @@ class Api::V2::PushesController < Api::V1::PushesController
     raise e
   end
 
-  def assign_notify_by_email_params(push, permitted_params, required: false)
-    push.notify_by_email_recipients = permitted_params[:recipients]
-    push.notify_by_email_locale = permitted_params[:locale]
-    push.notify_by_email_creator = current_user if user_signed_in?
-    push.notify_by_email_required = required
+  def notify_emails_params
+    params.permit(:notify_emails_to, :notify_emails_to_locale)
   end
 end

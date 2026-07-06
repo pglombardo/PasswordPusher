@@ -3,12 +3,13 @@
 class PushesController < BaseController
   include SetPushAttributes
   include LogEvents
+  include Pwpush::AssignNotifiableByEmailFields
 
   before_action :clear_flash_for_delivery_pages, only: %i[show preliminary], prepend: true
   before_action :set_push, except: %i[new create index]
   before_action :check_allowed
 
-  rate_limit to: 5, within: 1.minute, only: :notify_by_email,
+  rate_limit to: 5, within: 1.minute, only: :notify_emails,
     by: -> { current_user&.id },
     with: -> { redirect_to preview_push_path(@push), alert: I18n._("Too many email notification requests. Please try again in a minute.") }
 
@@ -134,7 +135,7 @@ class PushesController < BaseController
 
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
-    assign_notify_by_email_params(@push, notify_by_email_params)
+    assign_notify_by_email_fields(@push, required: false)
 
     if @push.save
       log_creation(@push)
@@ -251,7 +252,7 @@ class PushesController < BaseController
     @share_message = helpers.push_share_message_text(@push, secret_url: @secret_url)
   end
 
-  def notify_by_email
+  def notify_emails
     authenticate_user!
 
     if @push.user_id != current_user.id
@@ -259,7 +260,8 @@ class PushesController < BaseController
       return
     end
 
-    assign_notify_by_email_params(@push, notify_by_email_params, required: true)
+    @push.assign_attributes(notify_emails_params)
+    assign_notify_by_email_fields(@push, required: true)
 
     if @push.valid?
       log_creation_email_send(@push)
@@ -412,7 +414,7 @@ class PushesController < BaseController
   end
 
   def push_params
-    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase]
+    base = %i[kind name expire_after_days expire_after_views retrieval_step payload note passphrase notify_emails_to notify_emails_to_locale]
     case params.dig(:push, :kind)
     when "url"
       params.require(:push).permit(*base)
@@ -444,6 +446,10 @@ class PushesController < BaseController
 
   def print_preview_params
     params.permit(:id, :locale, :message, :show_expiration, :show_id)
+  end
+
+  def notify_emails_params
+    params.require(:push).permit(:notify_emails_to, :notify_emails_to_locale)
   end
 
   def set_kind_by_tab
@@ -487,7 +493,7 @@ class PushesController < BaseController
       return
     end
 
-    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file notify_by_email].include?(action_name)
+    @push_kind = if %w[preview print_preview preliminary passphrase access show expire audit edit update delete_file notify_emails].include?(action_name)
       @push.kind
     elsif action_name == "new"
       case params["tab"]
@@ -552,16 +558,5 @@ class PushesController < BaseController
         authenticate_user!
       end
     end
-  end
-
-  def notify_by_email_params
-    params.require(:push).permit(:notify_by_email_recipients, :notify_by_email_locale)
-  end
-
-  def assign_notify_by_email_params(push, permitted_params, required: false)
-    push.notify_by_email_recipients = permitted_params[:notify_by_email_recipients]
-    push.notify_by_email_locale = permitted_params[:notify_by_email_locale]
-    push.notify_by_email_creator = current_user if user_signed_in?
-    push.notify_by_email_required = required
   end
 end

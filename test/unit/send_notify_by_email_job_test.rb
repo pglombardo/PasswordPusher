@@ -62,7 +62,7 @@ class SendNotifyByEmailJobTest < ActiveJob::TestCase
     @notify_by_email.reload
     assert_equal "failed", @notify_by_email.status
     assert @notify_by_email.successful_sends.blank?
-    assert_equal "Notify by email recipients can't be blank.", @notify_by_email.error_message
+    assert_equal "Notify emails to can't be blank.", @notify_by_email.error_message
   end
 
   test "perform does not send mail when notifying by email is not available" do
@@ -72,7 +72,7 @@ class SendNotifyByEmailJobTest < ActiveJob::TestCase
 
     @notify_by_email.reload
     assert_equal "failed", @notify_by_email.status, "Status should be failed"
-    assert_equal "Notifying by email is not available.", @notify_by_email.error_message
+    assert_equal "Notify emails to is not available. Notify emails to locale is not available. Notify by email feature is not enabled.", @notify_by_email.error_message
   end
 
   test "perform logs error and does not send mail if notify_by_email is not found" do

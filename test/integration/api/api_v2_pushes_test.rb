@@ -374,10 +374,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
         params: {
           push: {
             payload: "some-secret",
-            notify_by_email: {
-              recipients: "recipient@example.com",
-              locale: "en"
-            }
+            notify_emails_to: "recipient@example.com",
+            notify_emails_to_locale: "en"
           }
         },
         headers: bearer_headers(user),
@@ -400,17 +398,14 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   def test_create_with_notify_by_email_params_fails_when_feature_is_disabled
     Settings.mail.smtp_address = "smtp.example.com"
     Settings.notify_by_email.enabled = false
-    Rails.application.reload_routes!
     user = users(:one)
 
     post "/api/v2/pushes",
       params: {
         push: {
           payload: "some-secret",
-          notify_by_email: {
-            recipients: "recipient@example.com",
-            locale: "en"
-          }
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "en"
         }
       },
       headers: bearer_headers(user),
@@ -418,7 +413,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "Notifying by email is not available", body["base"][0]
+    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 
   def test_create_with_notify_by_email_params_fails_when_email_service_is_not_configured
@@ -428,10 +424,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       params: {
         push: {
           payload: "some-secret",
-          notify_by_email: {
-            recipients: "recipient@example.com",
-            locale: "en"
-          }
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "en"
         }
       },
       headers: bearer_headers(user),
@@ -439,7 +433,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "Notifying by email is not available", body["base"][0]
+    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 
   def test_create_with_notify_by_email_params_fails_when_user_is_not_signed_in
@@ -449,29 +444,28 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
       params: {
         push: {
           payload: "some-secret",
-          notify_by_email: {
-            recipients: "recipient@example.com",
-            locale: "en"
-          }
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "en"
         }
       },
       as: :json
 
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
-    assert_equal "Notifying by email is not allowed for unknown users", body["base"][0]
+    assert_equal "is not allowed for unknown users", body["notify_emails_to"][0]
+    assert_equal "is not allowed for unknown users", body["notify_emails_to_locale"][0]
   end
 
-  def test_notify_by_email_with_valid_params_returns_json_created
+  def test_notify_emails_with_valid_params_returns_json_created
     Settings.mail.smtp_address = "smtp.example.com"
     push = pushes(:test_push)
     owner = push.user
 
     send_email_job = assert_enqueued_with(job: SendNotifyByEmailJob) do
-      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+      post "/api/v2/pushes/#{push.url_token}/notify_emails",
         params: {
-          recipients: "recipient@example.com",
-          locale: "en"
+          notify_emails_to: "recipient@example.com",
+          notify_emails_to_locale: "en"
         },
         headers: bearer_headers(owner),
         as: :json
@@ -488,17 +482,17 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal push, notify_by_email.push
   end
 
-  def test_notify_by_email_returns_not_found_when_feature_is_disabled
+  def test_notify_emails_returns_not_found_when_feature_is_disabled
     Settings.mail.smtp_address = "smtp.example.com"
     Settings.notify_by_email.enabled = false
     Rails.application.reload_routes!
     push = pushes(:test_push)
     owner = push.user
 
-    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+    post "/api/v2/pushes/#{push.url_token}/notify_emails",
       params: {
-        recipients: "recipient@example.com",
-        locale: "en"
+        notify_emails_to: "recipient@example.com",
+        notify_emails_to_locale: "en"
       },
       headers: bearer_headers(owner),
       as: :json
@@ -506,14 +500,14 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  def test_notify_by_email_with_valid_params_returns_error_when_email_service_is_not_configured
+  def test_notify_emails_with_valid_params_returns_error_when_email_service_is_not_configured
     push = pushes(:test_push)
     owner = push.user
 
-    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+    post "/api/v2/pushes/#{push.url_token}/notify_emails",
       params: {
-        recipients: "recipient@example.com",
-        locale: "en"
+        notify_emails_to: "recipient@example.com",
+        notify_emails_to_locale: "en"
       },
       headers: bearer_headers(owner),
       as: :json
@@ -521,30 +515,31 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
 
     body = JSON.parse(response.body)
-    assert_equal "Notifying by email is not available", body["base"][0]
+    assert_equal "is not available", body["notify_emails_to"][0]
+    assert_equal "is not available", body["notify_emails_to_locale"][0]
   end
 
-  def test_notify_by_email_requires_authentication
+  def test_notify_emails_requires_authentication
     push = pushes(:test_push)
 
-    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+    post "/api/v2/pushes/#{push.url_token}/notify_emails",
       params: {
-        recipients: "recipient@example.com",
-        locale: "en"
+        notify_emails_to: "recipient@example.com",
+        notify_emails_to_locale: "en"
       },
       as: :json
 
     assert_response :unauthorized
   end
 
-  def test_notify_by_email_forbidden_for_non_owner
+  def test_notify_emails_forbidden_for_non_owner
     push = pushes(:test_push)
     non_owner = users(:one)
 
-    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
+    post "/api/v2/pushes/#{push.url_token}/notify_emails",
       params: {
-        recipients: "recipient@example.com",
-        locale: "en"
+        notify_emails_to: "recipient@example.com",
+        notify_emails_to_locale: "en"
       },
       headers: bearer_headers(non_owner),
       as: :json
@@ -552,21 +547,21 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  def test_notify_by_email_is_rate_limited_after_five_bursts_per_user
+  def test_notify_emails_is_rate_limited_after_five_bursts_per_user
     Rails.cache.clear
     Settings.mail.smtp_address = "smtp.example.com"
     push = pushes(:test_push)
     owner = push.user
 
     5.times do |i|
-      post "/api/v2/pushes/#{push.url_token}/notify_by_email",
-        params: {recipients: "recipient#{i}@example.com", locale: "en"},
+      post "/api/v2/pushes/#{push.url_token}/notify_emails",
+        params: {notify_emails_to: "recipient#{i}@example.com", notify_emails_to_locale: "en"},
         headers: bearer_headers(owner),
         as: :json
     end
 
-    post "/api/v2/pushes/#{push.url_token}/notify_by_email",
-      params: {recipients: "recipient5@example.com", locale: "en"},
+    post "/api/v2/pushes/#{push.url_token}/notify_emails",
+      params: {notify_emails_to: "recipient5@example.com", notify_emails_to_locale: "en"},
       headers: bearer_headers(owner),
       as: :json
 
