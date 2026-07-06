@@ -412,8 +412,8 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_equal "en", notify_by_email.locale
 
     body = JSON.parse(response.body)
-    assert_equal "recipient@example.com", body["notify_by_email"]["recipients"]
-    assert_equal "en", body["notify_by_email"]["locale"]
+    assert_equal "recipient@example.com", body["notify_emails_to"]
+    assert_equal "en", body["notify_emails_to_locale"]
   end
 
   def test_create_with_notify_by_email_params_fails_when_feature_is_disabled
