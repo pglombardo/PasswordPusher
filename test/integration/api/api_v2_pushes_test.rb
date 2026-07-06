@@ -108,7 +108,6 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_passphrase_is_rate_limited_after_five_attempts_per_push
-
     push = pushes(:test_push)
     push.update!(passphrase: "super-secret")
 

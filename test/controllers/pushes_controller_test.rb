@@ -278,7 +278,6 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "access is rate limited after five attempts per push" do
-
     @push.update!(passphrase: "secret")
 
     5.times do |i|
