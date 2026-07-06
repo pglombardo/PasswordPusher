@@ -116,7 +116,7 @@
                 <tr><td><code>passphrase</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Requires this passphrase to retrieve the payload.") %></td></tr>
                 <tr><td><code>name</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional label shown to the owner.") %></td></tr>
                 <tr><td><code>note</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional owner-only note.") %></td></tr>
-                <tr><td><code>notify_emails_to</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails.") %></td></tr>
+                <tr><td><code>notify_emails_to</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional recipients for the push creation email. Comma-separated list of email addresses. Maximum 5 emails. Requires authentication when provided.") %></td></tr>
                 <tr><td><code>notify_emails_to_locale</code></td><td>string</td><td><%= _("No") %></td><td><%= _("Optional locale for the push creation email. See the list of available locales in the") %> <a href="#supported-locales"><%= _("Supported Locales") %></a> <%= _("section. Defaults to #{I18n.default_locale}.") %></td></tr>
               </tbody>
             </table>
@@ -213,6 +213,9 @@
         <div class="card-body">
           <h3 class="h5 mb-2"><code>POST /api/v2/pushes/:url_token/notify_emails</code></h3>
           <p class="mb-2"><%= _("Send an email to notify the push creation to the specified recipients.") %></p>
+          <p class="mb-2"><%= _("Authentication and ownership are required. Only the push owner may send email notifications.") %></p>
+          <p class="mb-2"><%= _("This endpoint is only available when email auto-dispatch is enabled and SMTP is configured. When disabled, the route is not registered and requests return 404 Not Found.") %></p>
+          <p class="mb-2"><strong><%= _("Body format:") %></strong> <code>{ "notify_emails_to": "...", "notify_emails_to_locale": "..." }</code></p>
           <div class="table-responsive mb-3">
             <table class="table table-sm">
               <thead>
@@ -230,13 +233,23 @@
             </table>
           </div>
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
-          <pre class="bg-light border rounded p-3 mb-0"><code>curl -X POST "https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/notify_emails" \
+          <pre class="bg-light border rounded p-3 mb-3"><code>curl -X POST "https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/notify_emails" \
   -H "Authorization: Bearer YOUR_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "notify_emails_to": "email1@example.com, email2@example.com",
     "notify_emails_to_locale": "fr"
   }'</code></pre>
+          <p class="mb-2"><strong><%= _("Success response (201):") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-3"><code>{
+  "message": "<%= _("Recipient(s) are added to the queue to be sent.") %>"
+}</code></pre>
+          <p class="mb-2"><strong><%= _("Validation error response (422):") %></strong></p>
+          <p class="mb-2"><%= _("Field-level errors are returned as a JSON object keyed by parameter name:") %></p>
+          <pre class="bg-light border rounded p-3 mb-0"><code>{
+  "notify_emails_to": ["are not available"],
+  "notify_emails_to_locale": ["is not available"]
+}</code></pre>
         </div>
       </div>
 
@@ -270,12 +283,13 @@
           <h2 class="h5"><%= _("HTTP Status Codes") %></h2>
           <ul class="mb-0">
             <li><code>200</code> - <%= _("Successful request") %></li>
-            <li><code>201</code> - <%= _("Push created") %></li>
+            <li><code>201</code> - <%= _("Push created or email notification queued") %></li>
             <li><code>400</code> - <%= _("Invalid request parameters") %></li>
             <li><code>401</code> - <%= _("Authentication required or invalid token") %></li>
             <li><code>403</code> - <%= _("Forbidden for current user") %></li>
-            <li><code>404</code> - <%= _("Resource not found") %></li>
+            <li><code>404</code> - <%= _("Resource not found (includes unavailable notify_emails route when email auto-dispatch is disabled)") %></li>
             <li><code>422</code> - <%= _("Validation error") %></li>
+            <li><code>429</code> - <%= _("Too many email notification requests (notify_emails endpoint only)") %></li>
           </ul>
         </div>
       </div>
