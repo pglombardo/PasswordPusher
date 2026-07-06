@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-05-19 19:24+0200\n"
-"PO-Revision-Date: 2026-05-19 17:24+0000\n"
+"POT-Creation-Date: 2026-07-06 10:39+0200\n"
+"PO-Revision-Date: 2026-07-06 08:39+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -32,16 +32,31 @@ msgid "You cannot delete your own account."
 msgstr "Ви не можете видалити власний обліковий запис."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:257
-#: ../../../app/controllers/pushes_controller.rb:118
-#: ../../../app/controllers/pushes_controller.rb:158
-#: ../../../app/controllers/pushes_controller.rb:286
-#: ../../../app/controllers/pushes_controller.rb:316
+#: ../../../app/controllers/api/v2/pushes_controller.rb:61
+#: ../../../app/controllers/api/v2/pushes_controller.rb:81
+#: ../../../app/controllers/pushes_controller.rb:122
+#: ../../../app/controllers/pushes_controller.rb:164
+#: ../../../app/controllers/pushes_controller.rb:258
+#: ../../../app/controllers/pushes_controller.rb:313
+#: ../../../app/controllers/pushes_controller.rb:343
 msgid "That push doesn't belong to you."
 msgstr "Цей поштовх не належить вам."
 
 #: ../../../app/controllers/api/v1/pushes_controller.rb:311
 msgid "That push is not deletable by viewers."
 msgstr "Глядачі не можуть видалити цей поштовх."
+
+#: ../../../app/controllers/api/v2/pushes_controller.rb:10
+#: ../../../app/controllers/pushes_controller.rb:13
+msgid "Too many email notification requests. Please try again in a minute."
+msgstr ""
+"Занадто багато запитів на отримання повідомлень електронною поштою. Будь ласка"
+", спробуйте ще раз через хвилину."
+
+#: ../../../app/controllers/api/v2/pushes_controller.rb:90
+#: ../../../app/controllers/pushes_controller.rb:266
+msgid "Recipient(s) are added to the queue to be sent."
+msgstr "Одержувач(і) додаються до черги для відправлення."
 
 #: ../../../app/controllers/concerns/enforce_required_mfa.rb:19
 #: ../../../test/controllers/api/base_controller_test.rb:50
@@ -53,7 +68,7 @@ msgstr ""
 "Потрібна двофакторна автентифікація. Будь ласка, налаштуйте її, щоб продовжити"
 "."
 
-#: ../../../app/controllers/pushes_controller.rb:98
+#: ../../../app/controllers/pushes_controller.rb:102
 msgid ""
 "That passphrase is incorrect.  Please try again or contact the person or organ"
 "ization that sent you this link."
@@ -61,88 +76,88 @@ msgstr ""
 "Ця парольна фраза є неправильною.  Будь ласка, спробуйте ще раз або зверніться"
 " до особи чи організації, яка надіслала вам це посилання."
 
-#: ../../../app/controllers/pushes_controller.rb:123
-#: ../../../app/controllers/pushes_controller.rb:164
+#: ../../../app/controllers/pushes_controller.rb:127
+#: ../../../app/controllers/pushes_controller.rb:170
 msgid "That push has already expired and cannot be edited."
 msgstr "Термін дії цього пушу вже минув, і його не можна редагувати."
 
-#: ../../../app/controllers/pushes_controller.rb:189
+#: ../../../app/controllers/pushes_controller.rb:195
 msgid "must be at least %{count} (days already elapsed + 1)."
 msgstr "має бути не менше %{count} (днів, що вже минули + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:198
+#: ../../../app/controllers/pushes_controller.rb:204
 msgid "must be at least %{count} (views already consumed + 1)."
 msgstr "має бути не менше %{count} (вже спожиті перегляди + 1)."
 
-#: ../../../app/controllers/pushes_controller.rb:223
-#: ../../../app/models/push.rb:114
+#: ../../../app/controllers/pushes_controller.rb:229
+#: ../../../app/models/push.rb:116
 msgid "You can only attach up to %{count} files per push."
 msgstr "Ви можете прикріпити до %{count} файлів за одне відправлення."
 
-#: ../../../app/controllers/pushes_controller.rb:236
+#: ../../../app/controllers/pushes_controller.rb:242
 msgid "Push was successfully updated."
 msgstr "Push було успішно оновлено."
 
-#: ../../../app/controllers/pushes_controller.rb:279
-#: ../../../app/controllers/pushes_controller.rb:458
+#: ../../../app/controllers/pushes_controller.rb:306
+#: ../../../app/controllers/pushes_controller.rb:486
 #: ../../../test/integration/disable_logins_test.rb:54
 msgid "The audit log is only available when signed in."
 msgstr "Журнал аудиту доступний лише після входу в систему."
 
-#: ../../../app/controllers/pushes_controller.rb:281
+#: ../../../app/controllers/pushes_controller.rb:308
 msgid "You must be signed in to view the audit log."
 msgstr "Ви повинні увійти в систему, щоб переглянути журнал аудиту."
 
-#: ../../../app/controllers/pushes_controller.rb:296
+#: ../../../app/controllers/pushes_controller.rb:323
 msgid "That push is not deletable by viewers and does not belong to you."
 msgstr "Цей push не може бути видалений глядачами і не належить вам."
 
-#: ../../../app/controllers/pushes_controller.rb:301
-#: ../../../app/controllers/pushes_controller.rb:322
+#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:349
 msgid "That push has already expired."
 msgstr "Цей поштовх вже вичерпався."
 
-#: ../../../app/controllers/pushes_controller.rb:309
+#: ../../../app/controllers/pushes_controller.rb:336
 #: ../../../app/views/pushes/audit.html.erb:96
 msgid "The push content has been deleted and the secret URL expired."
 msgstr "Пуш-контент видалено, а термін дії секретної URL-адреси закінчився."
 
-#: ../../../app/controllers/pushes_controller.rb:328
+#: ../../../app/controllers/pushes_controller.rb:355
 msgid "You cannot delete the last file from a file push."
 msgstr "Ви не можете видалити останній файл з файлового штовхача."
 
-#: ../../../app/controllers/pushes_controller.rb:337
+#: ../../../app/controllers/pushes_controller.rb:364
 msgid "File was successfully deleted."
 msgstr "Файл успішно видалено."
 
-#: ../../../app/controllers/pushes_controller.rb:339
+#: ../../../app/controllers/pushes_controller.rb:366
 msgid "File not found."
 msgstr "Файл не знайдено."
 
-#: ../../../app/controllers/pushes_controller.rb:450
+#: ../../../app/controllers/pushes_controller.rb:478
 #: ../../../test/integration/disable_logins_test.rb:144
 msgid "The push dashboard is not available while logins are disabled."
 msgstr "Панель керування недоступна, якщо вимкнено вхід до системи."
 
-#: ../../../app/controllers/pushes_controller.rb:483
+#: ../../../app/controllers/pushes_controller.rb:511
 #: ../../../test/integration/disable_logins_test.rb:135
 msgid "File pushes are unavailable while logins are disabled."
 msgstr "Поштовхи файлів недоступні, якщо вимкнено вхід до системи."
 
-#: ../../../app/controllers/pushes_controller.rb:491
-#: ../../../app/models/push.rb:208
+#: ../../../app/controllers/pushes_controller.rb:519
+#: ../../../app/models/push.rb:210
 msgid "File pushes are disabled."
 msgstr "Поштовхи файлів вимкнено."
 
-#: ../../../app/controllers/pushes_controller.rb:496
-#: ../../../app/models/push.rb:212
+#: ../../../app/controllers/pushes_controller.rb:524
+#: ../../../app/models/push.rb:214
 #: ../../../test/controllers/urls_controller_test.rb:110
 #: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "Відправлення URL-адрес вимкнено."
 
-#: ../../../app/controllers/pushes_controller.rb:508
-#: ../../../app/models/push.rb:216
+#: ../../../app/controllers/pushes_controller.rb:536
+#: ../../../app/models/push.rb:218
 #: ../../../test/controllers/qr_push_controller_test.rb:128
 #: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
@@ -187,29 +202,9 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "Двофакторну автентифікацію вимкнено."
 
-#: ../../../app/helpers/share_message_helper.rb:14
-msgid "Once retrieved, the link and content will be deleted upon expiration."
-msgstr "Once retrieved, the link and content will be deleted upon expiration."
-
-#: ../../../app/helpers/share_message_helper.rb:18
-msgid "A secure link has been shared with you."
-msgstr "Ми надіслали вам безпечне посилання."
-
-#: ../../../app/helpers/share_message_helper.rb:20
-msgid "Please find the secret link below to access the sensitive information."
-msgstr "Please find the secret link below to access the sensitive information."
-
-#: ../../../app/helpers/share_message_helper.rb:22
-#: ../../../app/views/pushes/preview.html.erb:16
-msgid "Secret link"
-msgstr "Таємне посилання"
-
-#: ../../../app/helpers/share_message_helper.rb:24
-msgid "IMPORTANT NOTES:"
-msgstr "ВАЖЛИВІ НОТАТКИ:"
-
+#: ../../../app/helpers/pushes_helper.rb:15
 #: ../../../app/helpers/share_message_helper.rb:46
-#: ../../../app/views/pushes/preview.html.erb:74
+#: ../../../app/views/pushes/preview.html.erb:76
 #: ../../../app/views/pushes/print_preview.html.erb:13
 #: ../../../app/views/pushes/show.html.erb:43
 #: ../../../app/views/pushes/show.html.erb:77
@@ -219,8 +214,30 @@ msgstr[0] "день"
 msgstr[1] "днів"
 msgstr[2] "днів"
 
+#: ../../../app/helpers/share_message_helper.rb:14
+msgid "Once retrieved, the link and content will be deleted upon expiration."
+msgstr "Once retrieved, the link and content will be deleted upon expiration."
+
+#: ../../../app/helpers/share_message_helper.rb:18
+msgid "A secure link has been shared with you."
+msgstr "Ми надіслали вам безпечне посилання."
+
+#: ../../../app/helpers/share_message_helper.rb:20
+#: ../../../app/views/push_created_mailer/notify.html.erb:6
+msgid "Please find the secret link below to access the sensitive information."
+msgstr "Please find the secret link below to access the sensitive information."
+
+#: ../../../app/helpers/share_message_helper.rb:22
+#: ../../../app/views/pushes/preview.html.erb:18
+msgid "Secret link"
+msgstr "Таємне посилання"
+
+#: ../../../app/helpers/share_message_helper.rb:24
+msgid "IMPORTANT NOTES:"
+msgstr "ВАЖЛИВІ НОТАТКИ:"
+
 #: ../../../app/helpers/share_message_helper.rb:47
-#: ../../../app/views/pushes/preview.html.erb:76
+#: ../../../app/views/pushes/preview.html.erb:78
 #: ../../../app/views/pushes/print_preview.html.erb:15
 msgid "view"
 msgid_plural "views"
@@ -235,6 +252,7 @@ msgstr ""
 "аніше."
 
 #: ../../../app/helpers/share_message_helper.rb:53
+#: ../../../app/views/push_created_mailer/notify.html.erb:14
 msgid ""
 "For added security, you may be prompted to enter a passphrase (provided separa"
 "tely) to access the content."
@@ -242,26 +260,93 @@ msgstr ""
 "For added security, you may be prompted to enter a passphrase (provided separa"
 "tely) to access the content."
 
-#: ../../../app/models/push.rb:123 ../../../app/models/push.rb:141
-#: ../../../app/models/push.rb:155
+#: ../../../app/jobs/send_notify_by_email_job.rb:48
+msgid "No emails were sent successfully."
+msgstr "Надіслати електронні листи не вдалося."
+
+#: ../../../app/jobs/send_notify_by_email_job.rb:50
+msgid "Some emails could not be sent."
+msgstr "Деякі електронні листи не вдалося надіслати."
+
+#: ../../../app/jobs/send_notify_by_email_job.rb:57
+msgid "An unexpected error occurred while sending the email."
+msgstr "Під час надсилання електронного листа сталася несподівана помилка."
+
+#: ../../../app/mailers/push_created_mailer.rb:14
+msgid "Someone"
+msgstr "Хтось"
+
+#: ../../../app/mailers/push_created_mailer.rb:15
+msgid "You have received a push"
+msgstr "Ви отримали push-повідомлення"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:41
+msgid ""
+"You can notify up to %{count} email(s) and you have already sent emails to %{t"
+"otal_count} recipients"
+msgstr ""
+"Ви можете надіслати повідомлення на %{count} електронних адрес, і ви вже надіс"
+"лали листи %{total_count} одержувачам"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:53
+msgid "Notifying by email is not available"
+msgstr "Функція повідомлення електронною поштою недоступна"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:61
+msgid "Notifying by email is not allowed for unknown users"
+msgstr "Повідомлення електронною поштою для невідомих користувачів заборонено"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:67
+msgid "Notifying by email is allowed for only owners"
+msgstr "Надсилання повідомлень електронною поштою дозволено лише власникам"
+
+#: ../../../app/models/concerns/pwpush/notifiable_by_email.rb:73
+msgid "The maximum number of emails has been reached for today"
+msgstr "На сьогодні досягнуто максимальної кількості електронних листів"
+
+#: ../../../app/models/push.rb:125 ../../../app/models/push.rb:143
+#: ../../../app/models/push.rb:157
 msgid "Payload is required."
 msgstr "Потрібне корисне навантаження."
 
-#: ../../../app/models/push.rb:128
+#: ../../../app/models/push.rb:130
 msgid "The payload is too large.  You can only push up to %{count} bytes."
 msgstr ""
 "Корисне навантаження занадто велике.  Ви можете переслати лише до %{count} бай"
 "т."
 
-#: ../../../app/models/push.rb:138
+#: ../../../app/models/push.rb:140 ../../../test/models/url_test.rb:68
+#: ../../../test/models/url_test.rb:78 ../../../test/models/url_test.rb:88
 msgid "must be a valid HTTP or HTTPS URL."
 msgstr "має бути дійсною URL-адресою HTTP або HTTPS."
 
-#: ../../../app/models/push.rb:152
+#: ../../../app/models/push.rb:154
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr ""
 "Корисне навантаження QR-коду занадто велике.  Ви можете відправити лише до %{c"
 "ount} байт."
+
+#: ../../../app/models/push.rb:243
+msgid "You cannot notify by email for an expired push."
+msgstr ""
+"Неможливо надіслати повідомлення електронною поштою про push-повідомлення, тер"
+"мін дії якого закінчився."
+
+#: ../../../app/validators/multiple_emails_validator.rb:20
+msgid "has commas used in the wrong way"
+msgstr "має неправильно використані коми"
+
+#: ../../../app/validators/multiple_emails_validator.rb:25
+msgid "contains duplicate emails"
+msgstr "містить дублікати імейлів"
+
+#: ../../../app/validators/multiple_emails_validator.rb:29
+msgid "contains more than %{count} email(s)"
+msgstr "містить більше ніж %{count} електронних листів"
+
+#: ../../../app/validators/multiple_emails_validator.rb:33
+msgid "contains invalid email(s)"
+msgstr "містить невірну адресу (адреси) електронної пошти"
 
 #: ../../../app/views/admin/_navigation.html.erb:9
 msgid "Password Pusher"
@@ -412,7 +497,7 @@ msgid "Add card-style borders to form sections"
 msgstr "Додайте межі у стилі картки, щоб сформувати розділи"
 
 #: ../../../app/views/admin/index.html.erb:1
-#: ../../../app/views/layouts/admin.html.erb:38
+#: ../../../app/views/layouts/admin.html.erb:39
 msgid "Administration"
 msgstr "Administration"
 
@@ -720,10 +805,12 @@ msgstr ""
 "о перегляди залишаються."
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:15
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:17
 msgid "Secret Link Language"
 msgstr "Мова секретного посилання"
 
 #: ../../../app/views/application/_secret_url_bar.html.erb:20
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:25
 msgid "Autodetect the recipient's language"
 msgstr "Автоматичне визначення мови отримувача"
 
@@ -800,6 +887,34 @@ msgstr "Джерело переходу:"
 #: ../../../app/views/audit_logs/_log_creation.html.erb:3
 msgid "Created on %{date} by %{user}"
 msgstr "Створено %{date} користувачем %{user}"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:22
+msgid "Email notification(s) queued on %{date}"
+msgstr "Повідомлення електронної пошти, що знаходяться в черзі на %{date}"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:29
+msgid "Status:"
+msgstr "Статус:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:33
+msgid "To:"
+msgstr "To:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:38
+msgid "Sent:"
+msgstr "Надіслано:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:44
+msgid "Error:"
+msgstr "Помилка:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Proceed At:"
+msgstr "Продовжити на:"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Not yet"
+msgstr "Ще ні"
 
 #: ../../../app/views/audit_logs/_log_edit.html.erb:3
 msgid "Edited on %{date} by %{user}"
@@ -1069,31 +1184,19 @@ msgstr "Обробка..."
 msgid "Password"
 msgstr "Пароль"
 
-#: ../../../app/views/layouts/admin.html.erb:11
+#: ../../../app/views/layouts/admin.html.erb:12
 msgid "Administration - Password Pusher"
 msgstr "Адміністрування - Виштовхувач паролів"
 
-#: ../../../app/views/layouts/admin.html.erb:52
+#: ../../../app/views/layouts/admin.html.erb:53
 msgid "System Active"
 msgstr "Система активна"
 
-#: ../../../app/views/layouts/admin.html.erb:60
+#: ../../../app/views/layouts/admin.html.erb:61
 msgid "Back to App"
 msgstr "Повернутися до програми"
 
-#: ../../../app/views/layouts/application.html.erb:8
-#: ../../../app/views/layouts/bare.html.erb:8
-#: ../../../app/views/layouts/login.html.erb:8
-#: ../../../app/views/layouts/naked.html.erb:8
-msgid ""
-"Password Pusher is an application to securely send passwords over the web. Lin"
-"ks to passwords expire after a certain number of views and/or time has passed."
-msgstr ""
-"Password Pusher - це програма для безпечного надсилання паролів через Інтернет"
-". Посилання на паролі втрачають чинність після певної кількості переглядів та/"
-"або закінчення певного часу."
-
-#: ../../../app/views/layouts/login.html.erb:33
+#: ../../../app/views/layouts/login.html.erb:34
 #: ../../../app/views/shared/_footer.html.erb:10
 #: ../../../app/views/shared/_footer.html.erb:14
 #: ../../../app/views/shared/_header.html.erb:9
@@ -1102,15 +1205,15 @@ msgstr ""
 msgid "Password Pusher Logo"
 msgstr "Логотип Password Pusher"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:12
+#: ../../../app/views/layouts/madmin/application.html.erb:13
 msgid "Data Explorer - Administration - Password Pusher"
 msgstr "Провідник даних - Адміністрування - Проштовхувач паролів"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:20
+#: ../../../app/views/layouts/madmin/application.html.erb:21
 msgid "Staging Environment"
 msgstr "Постановочне середовище"
 
-#: ../../../app/views/layouts/madmin/application.html.erb:20
+#: ../../../app/views/layouts/madmin/application.html.erb:21
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
@@ -1240,7 +1343,7 @@ msgstr "Редагувати %{name}"
 #: ../../../app/views/madmin/application/index.html.erb:77
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
-#: ../../../app/views/pushes/preview.html.erb:121
+#: ../../../app/views/pushes/preview.html.erb:123
 msgid "Edit"
 msgstr "Редагувати"
 
@@ -1772,7 +1875,7 @@ msgstr ""
 
 #: ../../../app/views/pages/about.html.erb:135
 #: ../../../app/views/pages/about.html.erb:141
-#: ../../../app/views/pushes/preview.html.erb:75
+#: ../../../app/views/pushes/preview.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:14
 #: ../../../app/views/pushes/show.html.erb:46
 #: ../../../app/views/pushes/show.html.erb:49
@@ -1972,12 +2075,13 @@ msgstr ""
 " увімкнені на цьому екземплярі."
 
 #: ../../../app/views/pages/api.html.erb:43
-#: ../../../app/views/pages/api.html.erb:150
-#: ../../../app/views/pages/api.html.erb:159
-#: ../../../app/views/pages/api.html.erb:169
-#: ../../../app/views/pages/api.html.erb:179
-#: ../../../app/views/pages/api.html.erb:190
-#: ../../../app/views/pages/api.html.erb:201
+#: ../../../app/views/pages/api.html.erb:158
+#: ../../../app/views/pages/api.html.erb:167
+#: ../../../app/views/pages/api.html.erb:177
+#: ../../../app/views/pages/api.html.erb:187
+#: ../../../app/views/pages/api.html.erb:198
+#: ../../../app/views/pages/api.html.erb:209
+#: ../../../app/views/pages/api.html.erb:235
 msgid "cURL example:"
 msgstr "приклад cURL:"
 
@@ -2002,51 +2106,64 @@ msgid "Push creation and management via API"
 msgstr "Створення та управління пушами через API"
 
 #: ../../../app/views/pages/api.html.erb:81
+msgid ""
+"Auto-Dispatch email notifications (Settings.notify_by_email.enabled, requires "
+"SMTP and logins)"
+msgstr ""
+"Автоматична розсилка повідомлень електронною поштою (Settings.notify_by_email."
+"enabled, потребує SMTP та облікових даних)"
+
+#: ../../../app/views/pages/api.html.erb:82
 msgid "File attachments on pushes (Settings.enable_file_pushes)"
 msgstr "Файлові вкладення в поштовхах (Settings.enable_file_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:82
+#: ../../../app/views/pages/api.html.erb:83
 msgid "URL push type (Settings.enable_url_pushes)"
 msgstr "Тип проштовхування URL (Settings.enable_url_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:83
+#: ../../../app/views/pages/api.html.erb:84
 msgid "QR code push type (Settings.enable_qr_pushes)"
 msgstr "Тип натискання QR-коду (Settings.enable_qr_pushes)"
 
-#: ../../../app/views/pages/api.html.erb:84
+#: ../../../app/views/pages/api.html.erb:85
 msgid "Requests API availability (not available in OSS)"
 msgstr "Запитує доступність API (недоступно в OSS)"
 
-#: ../../../app/views/pages/api.html.erb:90
+#: ../../../app/views/pages/api.html.erb:91
 msgid "Push Endpoints"
 msgstr "Кінцеві пункти Push"
 
-#: ../../../app/views/pages/api.html.erb:95
+#: ../../../app/views/pages/api.html.erb:96
 msgid "Create a new push."
 msgstr "Створіть новий поштовх."
 
-#: ../../../app/views/pages/api.html.erb:96
+#: ../../../app/views/pages/api.html.erb:97
 msgid "Body format:"
 msgstr "Тілесний формат:"
 
-#: ../../../app/views/pages/api.html.erb:101
+#: ../../../app/views/pages/api.html.erb:102
+#: ../../../app/views/pages/api.html.erb:223
 msgid "Parameter"
 msgstr "Параметр"
 
-#: ../../../app/views/pages/api.html.erb:102
+#: ../../../app/views/pages/api.html.erb:103
+#: ../../../app/views/pages/api.html.erb:224
 #: ../../../app/views/pushes/index.html.erb:33
 msgid "Type"
 msgstr "Type"
 
-#: ../../../app/views/pages/api.html.erb:103
+#: ../../../app/views/pages/api.html.erb:104
+#: ../../../app/views/pages/api.html.erb:225
 msgid "Required"
 msgstr "Потрібно"
 
-#: ../../../app/views/pages/api.html.erb:104
+#: ../../../app/views/pages/api.html.erb:105
+#: ../../../app/views/pages/api.html.erb:226
 msgid "Description"
 msgstr "Опис"
 
-#: ../../../app/views/pages/api.html.erb:108
+#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:230
 #: ../../../app/views/pushes/audit.html.erb:53
 #: ../../../app/views/pushes/audit.html.erb:66
 #: ../../../app/views/pushes/audit.html.erb:80
@@ -2054,11 +2171,10 @@ msgstr "Опис"
 msgid "Yes"
 msgstr "Так"
 
-#: ../../../app/views/pages/api.html.erb:108
+#: ../../../app/views/pages/api.html.erb:109
 msgid "Secret text payload for text, URL or QR pushes."
 msgstr "Таємне текстове навантаження для текстових, URL або QR-пуш-повідомлень."
 
-#: ../../../app/views/pages/api.html.erb:109
 #: ../../../app/views/pages/api.html.erb:110
 #: ../../../app/views/pages/api.html.erb:111
 #: ../../../app/views/pages/api.html.erb:112
@@ -2067,6 +2183,11 @@ msgstr "Таємне текстове навантаження для текст
 #: ../../../app/views/pages/api.html.erb:115
 #: ../../../app/views/pages/api.html.erb:116
 #: ../../../app/views/pages/api.html.erb:117
+#: ../../../app/views/pages/api.html.erb:118
+#: ../../../app/views/pages/api.html.erb:119
+#: ../../../app/views/pages/api.html.erb:120
+#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:231
 #: ../../../app/views/pushes/audit.html.erb:55
 #: ../../../app/views/pushes/audit.html.erb:68
 #: ../../../app/views/pushes/audit.html.erb:78
@@ -2074,7 +2195,7 @@ msgstr "Таємне текстове навантаження для текст
 msgid "No"
 msgstr "Ні"
 
-#: ../../../app/views/pages/api.html.erb:109
+#: ../../../app/views/pages/api.html.erb:110
 msgid ""
 "Files to attach. When present, the push type becomes file unless kind is expli"
 "citly provided."
@@ -2082,47 +2203,73 @@ msgstr ""
 "Файли для прикріплення. Якщо присутній, тип push стає файлом, якщо не вказано "
 "тип явно."
 
-#: ../../../app/views/pages/api.html.erb:110
+#: ../../../app/views/pages/api.html.erb:111
 msgid "Push type: text, file, url, or qr. Defaults to text when not provided."
 msgstr "Тип push: текст, файл, url або qr. За замовчуванням текст, якщо не вказано."
 
-#: ../../../app/views/pages/api.html.erb:111
+#: ../../../app/views/pages/api.html.erb:112
 msgid "Expiration window in days. If omitted, instance defaults are used."
 msgstr ""
 "Вікно терміну дії у днях. Якщо не вказано, використовуються значення за замовч"
 "уванням."
 
-#: ../../../app/views/pages/api.html.erb:112
+#: ../../../app/views/pages/api.html.erb:113
 msgid "Maximum allowed retrieval count. If omitted, instance defaults are used."
 msgstr ""
 "Максимально допустима кількість витягів. Якщо не вказано, використовуються зна"
 "чення за замовчуванням."
 
-#: ../../../app/views/pages/api.html.erb:113
+#: ../../../app/views/pages/api.html.erb:114
 msgid "Allows the recipient to expire the push."
 msgstr "Дозволяє одержувачу закінчити термін дії push."
 
-#: ../../../app/views/pages/api.html.erb:114
+#: ../../../app/views/pages/api.html.erb:115
 msgid "Adds an extra retrieval confirmation step."
 msgstr "Додає додатковий крок підтвердження пошуку."
 
-#: ../../../app/views/pages/api.html.erb:115
+#: ../../../app/views/pages/api.html.erb:116
 msgid "Requires this passphrase to retrieve the payload."
 msgstr "Потрібна ця ключова фраза для отримання корисного навантаження."
 
-#: ../../../app/views/pages/api.html.erb:116
+#: ../../../app/views/pages/api.html.erb:117
 msgid "Optional label shown to the owner."
 msgstr "Необов'язкова етикетка, що показується власнику."
 
-#: ../../../app/views/pages/api.html.erb:117
+#: ../../../app/views/pages/api.html.erb:118
 msgid "Optional owner-only note."
 msgstr "Необов'язкова примітка тільки для власника."
 
-#: ../../../app/views/pages/api.html.erb:131
+#: ../../../app/views/pages/api.html.erb:119
+msgid "Optional recipients for the push creation email."
+msgstr "Додаткові адресати електронного листа про створення push-повідомлення."
+
+#: ../../../app/views/pages/api.html.erb:120
+msgid ""
+"Optional recipients for the push creation email. Comma-separated list of email"
+" addresses. Maximum 5 emails."
+msgstr ""
+"Додаткові одержувачі електронного листа про створення push-повідомлення. Списо"
+"к адрес електронної пошти, розділених комами. Максимум 5 адрес."
+
+#: ../../../app/views/pages/api.html.erb:121
+msgid ""
+"Optional locale for the push creation email. See the list of available locales"
+" in the"
+msgstr ""
+"Додаткова мова для електронного листа про створення push-повідомлення. Перелік"
+" доступних мов див. у"
+
+#: ../../../app/views/pages/api.html.erb:121
+#: ../../../app/views/pages/api.html.erb:231
+#: ../../../app/views/pages/api.html.erb:248
+msgid "Supported Locales"
+msgstr "Підтримувані локалі"
+
+#: ../../../app/views/pages/api.html.erb:139
 msgid "cURL example (JSON body):"
 msgstr "приклад cURL (тіло JSON):"
 
-#: ../../../app/views/pages/api.html.erb:148
+#: ../../../app/views/pages/api.html.erb:156
 msgid ""
 "Retrieve a push payload by token. This counts as a view and may expire the pus"
 "h when limits are reached."
@@ -2130,18 +2277,18 @@ msgstr ""
 "Отримати корисне навантаження пуша за токеном. Це вважається переглядом і може"
 " призвести до завершення push, коли будуть досягнуті ліміти."
 
-#: ../../../app/views/pages/api.html.erb:149
-#: ../../../app/views/pages/api.html.erb:168
-#: ../../../app/views/pages/api.html.erb:189
-#: ../../../app/views/pages/api.html.erb:200
+#: ../../../app/views/pages/api.html.erb:157
+#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:197
+#: ../../../app/views/pages/api.html.erb:208
 msgid "Query parameters:"
 msgstr "Параметри запиту:"
 
-#: ../../../app/views/pages/api.html.erb:149
+#: ../../../app/views/pages/api.html.erb:157
 msgid "optional, required when the push is passphrase-protected"
 msgstr "необов'язковий, необхідний, якщо push захищений парольною фразою"
 
-#: ../../../app/views/pages/api.html.erb:158
+#: ../../../app/views/pages/api.html.erb:166
 msgid ""
 "Returns the fully-qualified secret URL for a push without retrieving its paylo"
 "ad."
@@ -2149,7 +2296,7 @@ msgstr ""
 "Повертає повністю кваліфіковану секретну URL-адресу для push без отримання її "
 "корисного навантаження."
 
-#: ../../../app/views/pages/api.html.erb:167
+#: ../../../app/views/pages/api.html.erb:175
 msgid ""
 "Return audit log entries for a push. Authentication and ownership are required"
 "."
@@ -2157,13 +2304,13 @@ msgstr ""
 "Повернути записи журналу аудиту для push. Потрібна автентифікація та право вла"
 "сності."
 
-#: ../../../app/views/pages/api.html.erb:168
-#: ../../../app/views/pages/api.html.erb:189
-#: ../../../app/views/pages/api.html.erb:200
+#: ../../../app/views/pages/api.html.erb:176
+#: ../../../app/views/pages/api.html.erb:197
+#: ../../../app/views/pages/api.html.erb:208
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "опціонально, ціле число, за замовчуванням 1, допустимий діапазон від 1 до 200"
 
-#: ../../../app/views/pages/api.html.erb:178
+#: ../../../app/views/pages/api.html.erb:186
 msgid ""
 "Expire a push immediately. Allowed for owners (when authenticated) or for reci"
 "pients when the push was created with deletable_by_viewer enabled."
@@ -2172,47 +2319,75 @@ msgstr ""
 "бо для отримувачів, якщо пуш було створено з увімкненим параметром deletable_b"
 "y_viewer."
 
-#: ../../../app/views/pages/api.html.erb:188
+#: ../../../app/views/pages/api.html.erb:196
 msgid "List active pushes for the authenticated user."
 msgstr "Перелік активних push-повідомлень для авторизованого користувача."
 
-#: ../../../app/views/pages/api.html.erb:199
+#: ../../../app/views/pages/api.html.erb:207
 msgid "List expired pushes for the authenticated user."
 msgstr "Перерахувати прострочені пуші для авторизованого користувача."
 
-#: ../../../app/views/pages/api.html.erb:209
+#: ../../../app/views/pages/api.html.erb:218
+msgid "Send an email to notify the push creation to the specified recipients."
+msgstr ""
+"Надішліть електронний лист, щоб повідомити зазначених одержувачів про створенн"
+"я push-повідомлення."
+
+#: ../../../app/views/pages/api.html.erb:230
+msgid "Comma-separated list of email addresses. Maximum 5 emails."
+msgstr "Список адрес електронної пошти, розділених комами. Максимум 5 адрес."
+
+#: ../../../app/views/pages/api.html.erb:231
+msgid "Locale for the email notification. See the list of available locales in the"
+msgstr "Мова для повідомлень електронною поштою. Перелік доступних мов наведено в"
+
+#: ../../../app/views/pages/api.html.erb:249
+msgid ""
+"The following locales are supported for API requests that accept a locale para"
+"meter:"
+msgstr "Для запитів до API, які приймають параметр локалі, підтримуються такі локалі:"
+
+#: ../../../app/views/pages/api.html.erb:254
+msgid "Locale Code"
+msgstr "Код локалі"
+
+#: ../../../app/views/pages/api.html.erb:255
+msgid "Language"
+msgstr "Мова"
+
+#: ../../../app/views/pages/api.html.erb:273
 msgid "HTTP Status Codes"
 msgstr "Коди стану HTTP"
 
-#: ../../../app/views/pages/api.html.erb:211
+#: ../../../app/views/pages/api.html.erb:275
 msgid "Successful request"
 msgstr "Успішний запит"
 
-#: ../../../app/views/pages/api.html.erb:212
+#: ../../../app/views/pages/api.html.erb:276
 msgid "Push created"
 msgstr "Пуш створено"
 
-#: ../../../app/views/pages/api.html.erb:213
+#: ../../../app/views/pages/api.html.erb:277
 msgid "Invalid request parameters"
 msgstr "Неправильні параметри запиту"
 
-#: ../../../app/views/pages/api.html.erb:214
+#: ../../../app/views/pages/api.html.erb:278
 msgid "Authentication required or invalid token"
 msgstr "Потрібна автентифікація або недійсний токен"
 
-#: ../../../app/views/pages/api.html.erb:215
+#: ../../../app/views/pages/api.html.erb:279
 msgid "Forbidden for current user"
 msgstr "Заборонено для поточного користувача"
 
-#: ../../../app/views/pages/api.html.erb:216
+#: ../../../app/views/pages/api.html.erb:280
 msgid "Resource not found"
 msgstr "Ресурс не знайдено"
 
-#: ../../../app/views/pages/api.html.erb:217
+#: ../../../app/views/pages/api.html.erb:281
 msgid "Validation error"
 msgstr "Помилка перевірки"
 
-#: ../../../app/views/pages/api.html.erb:223
+#: ../../../app/views/pages/api.html.erb:287
 msgid "For legacy API v1 documentation, see"
 msgstr "Застарілу документацію по API v1 див"
 
@@ -2347,6 +2522,32 @@ msgstr ""
 "Ключі генеруються на сервері з використанням криптографічно захищених випадков"
 "их байтів."
 
+#: ../../../app/views/push_created_mailer/notify.html.erb:2
+msgid "%{sender} has sent you a push"
+msgstr "%{sender} надіслав вам push-повідомлення"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:9
+msgid "Secret link:"
+msgstr "Таємне посилання:"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:11
+msgid "Important Notes:"
+msgstr "Important Notes:"
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:13
+msgid ""
+"This link is valid for %{remaining}, or until %{views} views, whichever occurs"
+" first."
+msgstr ""
+"This link is valid for %{remaining}, or until %{views} views, whichever occurs"
+" first."
+
+#: ../../../app/views/push_created_mailer/notify.html.erb:15
+msgid "Upon expiration, this secret link and all content are permanently deleted."
+msgstr ""
+"Після закінчення терміну дії, це секретне посилання та весь вміст буде видален"
+"о назавжди."
+
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
 msgstr "Безпечно надсилайте файли"
@@ -2385,13 +2586,13 @@ msgid "Views"
 msgstr "Перегляди"
 
 #: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:147
+#: ../../../app/views/pushes/_files_form.html.erb:148
 #: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:153
+#: ../../../app/views/pushes/_form.html.erb:154
 #: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:145
+#: ../../../app/views/pushes/_qr_form.html.erb:146
 #: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_url_form.html.erb:109
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:82
 msgid "Save"
 msgstr "Зберегти"
@@ -2451,87 +2652,87 @@ msgstr ""
 "Необов'язково: Вимагати від одержувачів введення парольної фрази для перегляду"
 " цього push-повідомлення"
 
-#: ../../../app/views/pushes/_files_form.html.erb:128
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:125
-#: ../../../app/views/pushes/_url_form.html.erb:98
-msgid "Use a 1-click retrieval step"
-msgstr "Додати крок для отримання в 1 клік"
-
 #: ../../../app/views/pushes/_files_form.html.erb:129
 #: ../../../app/views/pushes/_form.html.erb:135
 #: ../../../app/views/pushes/_qr_form.html.erb:126
+#: ../../../app/views/pushes/_url_form.html.erb:99
+msgid "Use a 1-click retrieval step"
+msgstr "Додати крок для отримання в 1 клік"
+
+#: ../../../app/views/pushes/_files_form.html.erb:130
+#: ../../../app/views/pushes/_form.html.erb:136
+#: ../../../app/views/pushes/_qr_form.html.erb:127
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "Допомагає уникнути використання переглядів чат-системами та URL-сканерами."
 
-#: ../../../app/views/pushes/_files_form.html.erb:137
-#: ../../../app/views/pushes/_form.html.erb:143
-#: ../../../app/views/pushes/_qr_form.html.erb:135
-msgid "Allow immediate deletion"
-msgstr "Дозволити негайне видалення"
-
 #: ../../../app/views/pushes/_files_form.html.erb:138
 #: ../../../app/views/pushes/_form.html.erb:144
 #: ../../../app/views/pushes/_qr_form.html.erb:136
+msgid "Allow immediate deletion"
+msgstr "Дозволити негайне видалення"
+
+#: ../../../app/views/pushes/_files_form.html.erb:139
+#: ../../../app/views/pushes/_form.html.erb:145
+#: ../../../app/views/pushes/_qr_form.html.erb:137
 msgid "Allow users to delete this push once retrieved."
 msgstr "Дозволити користувачам видалити цей пуш після отримання."
 
-#: ../../../app/views/pushes/_files_form.html.erb:147
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:145
-#: ../../../app/views/pushes/_url_form.html.erb:108
+#: ../../../app/views/pushes/_files_form.html.erb:148
+#: ../../../app/views/pushes/_form.html.erb:154
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:109
 msgid "the above settings as the page default."
 msgstr "наведені вище налаштування як сторінку за замовчуванням."
 
-#: ../../../app/views/pushes/_files_form.html.erb:157
-#: ../../../app/views/pushes/_files_form.html.erb:180
-#: ../../../app/views/pushes/_form.html.erb:163
-#: ../../../app/views/pushes/_form.html.erb:173
-#: ../../../app/views/pushes/_qr_form.html.erb:155
-#: ../../../app/views/pushes/_qr_form.html.erb:165
-#: ../../../app/views/pushes/_url_form.html.erb:118
-#: ../../../app/views/pushes/_url_form.html.erb:128
+#: ../../../app/views/pushes/_files_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:181
+#: ../../../app/views/pushes/_form.html.erb:164
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:119
+#: ../../../app/views/pushes/_url_form.html.erb:129
 msgid "Optional"
 msgstr "Необов'язково"
 
-#: ../../../app/views/pushes/_files_form.html.erb:160
-#: ../../../app/views/pushes/_form.html.erb:166
-#: ../../../app/views/pushes/_qr_form.html.erb:158
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_form.html.erb:167
+#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr ""
 "Ім'я, що відображається в інформаційній панелі, сповіщеннях та електронних лис"
 "тах."
 
-#: ../../../app/views/pushes/_files_form.html.erb:165
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Message"
 msgstr "Повідомлення"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:169
 msgid "Optional: A message to be included with the push"
 msgstr "Необов'язково: Повідомлення, яке буде додано до push-повідомлення"
 
-#: ../../../app/views/pushes/_files_form.html.erb:172
+#: ../../../app/views/pushes/_files_form.html.erb:173
 msgid "Encrypted and visible to the receiving party"
 msgstr "Зашифровані та видимі для отримувача"
 
-#: ../../../app/views/pushes/_files_form.html.erb:177
-#: ../../../app/views/pushes/_form.html.erb:170
-#: ../../../app/views/pushes/_qr_form.html.erb:162
-#: ../../../app/views/pushes/_url_form.html.erb:125
+#: ../../../app/views/pushes/_files_form.html.erb:178
+#: ../../../app/views/pushes/_form.html.erb:171
+#: ../../../app/views/pushes/_qr_form.html.erb:163
+#: ../../../app/views/pushes/_url_form.html.erb:126
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "Примітка"
 
-#: ../../../app/views/pushes/_files_form.html.erb:183
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:131
+#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_form.html.erb:177
+#: ../../../app/views/pushes/_qr_form.html.erb:169
+#: ../../../app/views/pushes/_url_form.html.erb:132
 msgid "Encrypted and visible only to you"
 msgstr "Зашифрований і видимий тільки вам"
 
-#: ../../../app/views/pushes/_files_form.html.erb:188
+#: ../../../app/views/pushes/_files_form.html.erb:189
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2539,36 +2740,36 @@ msgstr ""
 "Після закінчення терміну дії всі файли та вміст пушу будуть негайно і повністю"
 " видалені."
 
-#: ../../../app/views/pushes/_files_form.html.erb:189
-#: ../../../app/views/pushes/_url_form.html.erb:137
+#: ../../../app/views/pushes/_files_form.html.erb:190
+#: ../../../app/views/pushes/_url_form.html.erb:138
 msgid "An audit log of activity will be available."
 msgstr "Буде доступний журнал аудиту діяльності."
 
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:191
-#: ../../../app/views/pushes/_qr_form.html.erb:183
-#: ../../../app/views/pushes/_url_form.html.erb:146
+#: ../../../app/views/pushes/_files_form.html.erb:199
+#: ../../../app/views/pushes/_form.html.erb:192
+#: ../../../app/views/pushes/_qr_form.html.erb:184
+#: ../../../app/views/pushes/_url_form.html.erb:147
 msgid "Updating..."
 msgstr "Оновлення..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:198
-#: ../../../app/views/pushes/_form.html.erb:191
-#: ../../../app/views/pushes/_qr_form.html.erb:183
-#: ../../../app/views/pushes/_url_form.html.erb:146
+#: ../../../app/views/pushes/_files_form.html.erb:199
+#: ../../../app/views/pushes/_form.html.erb:192
+#: ../../../app/views/pushes/_qr_form.html.erb:184
+#: ../../../app/views/pushes/_url_form.html.erb:147
 msgid "Update Push"
 msgstr "Update Push"
 
-#: ../../../app/views/pushes/_files_form.html.erb:200
-#: ../../../app/views/pushes/_form.html.erb:193
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:148
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:149
 msgid "Pushing..."
 msgstr "Pushing..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:200
-#: ../../../app/views/pushes/_form.html.erb:193
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:148
+#: ../../../app/views/pushes/_files_form.html.erb:201
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:149
 msgid "Push It!"
 msgstr "Запушити!"
 
@@ -2608,8 +2809,8 @@ msgstr "Згенерувати пароль"
 msgid "Configure Generator"
 msgstr "Налаштувати генератор"
 
-#: ../../../app/views/pushes/_form.html.erb:181
-#: ../../../app/views/pushes/_qr_form.html.erb:173
+#: ../../../app/views/pushes/_form.html.erb:182
+#: ../../../app/views/pushes/_qr_form.html.erb:174
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -2617,8 +2818,8 @@ msgstr ""
 "Порада: Вводьте у поле лише пароль. Інша ідентифікаційна інформація може поста"
 "вити під загрозу безпеку."
 
-#: ../../../app/views/pushes/_form.html.erb:182
-#: ../../../app/views/pushes/_qr_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:183
+#: ../../../app/views/pushes/_qr_form.html.erb:175
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -2661,17 +2862,17 @@ msgstr "Перенаправлення URL-адреси"
 msgid "Enter the URL to redirect to..."
 msgstr "Введіть URL-адресу для перенаправлення на..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:99
+#: ../../../app/views/pushes/_url_form.html.erb:100
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr "Допомагає уникнути використання переадресацій чат-системами та URL-сканерами."
 
-#: ../../../app/views/pushes/_url_form.html.erb:136
+#: ../../../app/views/pushes/_url_form.html.erb:137
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr ""
 "Буде згенеровано секретну URL-адресу, яка перенаправлятиме на вказану URL-адре"
 "су."
 
-#: ../../../app/views/pushes/_url_form.html.erb:137
+#: ../../../app/views/pushes/_url_form.html.erb:138
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Після закінчення терміну дії посилання буде повністю видалено."
 
@@ -2681,7 +2882,7 @@ msgstr "Журнал аудиту для %{push_id}"
 
 #: ../../../app/views/pushes/audit.html.erb:4
 #: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:118
+#: ../../../app/views/pushes/preview.html.erb:120
 msgid "Audit Log"
 msgstr "Журнал аудиту"
 
@@ -2969,77 +3170,105 @@ msgstr "Натисніть тут, щоб продовжити"
 msgid "Push Preview"
 msgstr "Попередній перегляд"
 
-#: ../../../app/views/pushes/preview.html.erb:8
+#: ../../../app/views/pushes/preview.html.erb:10
 msgid "Push Created"
 msgstr "Push Створено"
 
-#: ../../../app/views/pushes/preview.html.erb:10
+#: ../../../app/views/pushes/preview.html.erb:12
 msgid "Copy the link or message below to share this push securely."
 msgstr "Скопіюйте посилання або повідомлення нижче, щоб безпечно поділитися цим пушем."
 
-#: ../../../app/views/pushes/preview.html.erb:26
+#: ../../../app/views/pushes/preview.html.erb:28
 msgid "QR code"
 msgstr "QR-код"
 
-#: ../../../app/views/pushes/preview.html.erb:28
+#: ../../../app/views/pushes/preview.html.erb:30
 msgid "Scan to open the secret link on a mobile device."
 msgstr "Відскануйте, щоб відкрити секретне посилання на мобільному пристрої."
 
-#: ../../../app/views/pushes/preview.html.erb:32
+#: ../../../app/views/pushes/preview.html.erb:34
 msgid "Print & Share"
 msgstr "Роздрукувати та поділитися"
 
-#: ../../../app/views/pushes/preview.html.erb:36
+#: ../../../app/views/pushes/preview.html.erb:38
 msgid "Generate a printable page"
 msgstr "Створіть сторінку для друку"
 
-#: ../../../app/views/pushes/preview.html.erb:39
+#: ../../../app/views/pushes/preview.html.erb:41
 msgid "Optional custom message"
 msgstr "Необов'язкове користувацьке повідомлення"
 
-#: ../../../app/views/pushes/preview.html.erb:43
+#: ../../../app/views/pushes/preview.html.erb:45
 msgid "Show expiration details"
 msgstr "Показати інформацію про термін придатності"
 
-#: ../../../app/views/pushes/preview.html.erb:47
+#: ../../../app/views/pushes/preview.html.erb:49
 msgid "Include ID"
 msgstr "Вказати ідентифікатор"
 
-#: ../../../app/views/pushes/preview.html.erb:50
+#: ../../../app/views/pushes/preview.html.erb:52
 msgid "Generate"
 msgstr "Згенерувати"
 
-#: ../../../app/views/pushes/preview.html.erb:71
+#: ../../../app/views/pushes/preview.html.erb:73
 msgid "Expires when the first limit is reached"
 msgstr "Термін дії закінчується після досягнення першого ліміту"
 
-#: ../../../app/views/pushes/preview.html.erb:81
+#: ../../../app/views/pushes/preview.html.erb:83
 msgid "Viewers can delete this push."
 msgstr "Глядачі можуть видалити цей пуш."
 
-#: ../../../app/views/pushes/preview.html.erb:83
+#: ../../../app/views/pushes/preview.html.erb:85
 msgid "Viewers cannot delete this push."
 msgstr "Глядачі не можуть видалити цей пуш."
 
-#: ../../../app/views/pushes/preview.html.erb:89
+#: ../../../app/views/pushes/preview.html.erb:91
 msgid "Includes a"
 msgstr "Включає в себе"
 
-#: ../../../app/views/pushes/preview.html.erb:89
+#: ../../../app/views/pushes/preview.html.erb:91
 msgid "1-click preliminary retrieval step"
 msgstr "крок отримання в 1 клік"
 
-#: ../../../app/views/pushes/preview.html.erb:101
+#: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"
 msgstr "Переглянути цей поштовх"
 
-#: ../../../app/views/pushes/preview.html.erb:105
-#: ../../../app/views/pushes/preview.html.erb:109
-#: ../../../app/views/pushes/preview.html.erb:113
+#: ../../../app/views/pushes/preview.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:111
+#: ../../../app/views/pushes/preview.html.erb:115
 msgid "Push Another"
 msgstr "Запушити ще раз"
 
-#: ../../../app/views/pushes/preview.html.erb:134
+#: ../../../app/views/pushes/preview.html.erb:128
+#: ../../../app/views/pushes/preview.html.erb:142
+msgid "Notify by Email"
+msgstr "Повідомляти електронною поштою"
+
+#: ../../../app/views/pushes/preview.html.erb:147
+#: ../../../app/views/shared/_notify_by_email.html.erb:7
+msgid "You have reached the maximum number of emails you can send today."
+msgstr ""
+"Ви досягли максимальної кількості електронних листів, які можна надіслати сьог"
+"одні."
+
+#: ../../../app/views/pushes/preview.html.erb:152
+msgid "Email Recipients"
+msgstr "Адресати електронної пошти"
+
+#: ../../../app/views/pushes/preview.html.erb:159
+msgid "email1@example.com, email2@example.com"
+msgstr "email1@example.com, email2@example.com"
+
+#: ../../../app/views/pushes/preview.html.erb:164
+msgid "Enter email addresses separated by commas (maximum 5 emails)."
+msgstr "Введіть адреси електронної пошти, розділивши їх комами (максимум 5 адрес)."
+
+#: ../../../app/views/pushes/preview.html.erb:168
+msgid "Send Emails"
+msgstr "Надіслати електронні листи"
+
+#: ../../../app/views/pushes/preview.html.erb:181
 msgid ""
 "Tip: Change the secret link language using the dropdown to the right of the UR"
 "L."
@@ -3047,7 +3276,7 @@ msgstr ""
 "Порада: Змініть мову секретного посилання за допомогою випадаючого списку прав"
 "оруч від URL-адреси."
 
-#: ../../../app/views/pushes/preview.html.erb:136
+#: ../../../app/views/pushes/preview.html.erb:183
 msgid ""
 "Alternatively, auto-detection will select a language based on the recipient's "
 "browser settings."
@@ -3205,6 +3434,23 @@ msgstr "Увійти"
 #: ../../../app/views/shared/_header.html.erb:71
 msgid "Sign Up"
 msgstr "Зареєструватися"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:4
+msgid "Auto-Dispatch: Send Secret Link To"
+msgstr "Автоматичне надсилання: надіслати приховане посилання на"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:14
+msgid "recipient@example.com, another@example.com"
+msgstr "recipient@example.com, another@example.com"
+
+#: ../../../app/views/shared/_notify_by_email.html.erb:18
+msgid "Separate multiple addresses with commas (max 5)."
+msgstr "Розділіть кілька адрес комами (не більше 5)."
+
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:11
+#: ../../../app/views/shared/_notify_by_email_locale.html.erb:12
+msgid "Select the language for the secret link"
+msgstr "Виберіть мову для секретного посилання"
 
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:5
 msgid "Confirm Password Generation"
