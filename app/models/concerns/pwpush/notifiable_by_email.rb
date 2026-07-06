@@ -30,14 +30,14 @@ module Pwpush
     private
 
     def validate_notify_by_email
-      validate_notify_by_email_recipients_presence if notify_emails_to_required
+      validate_notify_emails_to_presence if notify_emails_to_required
       return unless notify_emails_to.present? || notify_emails_to_locale.present?
 
-      validate_notify_by_email_availability if notify_emails_to.present? || notify_emails_to_locale.present?
+      validate_notify_by_email_availability
       validate_notify_by_email_limit unless notify_by_email_skip_limit_validation
     end
 
-    def validate_notify_by_email_recipients_presence
+    def validate_notify_emails_to_presence
       unless notify_emails_to.present?
         errors.add(:notify_emails_to, :blank)
       end
