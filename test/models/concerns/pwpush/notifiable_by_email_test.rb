@@ -85,8 +85,8 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
 
     assert @other_user != @user
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "are allowed for only owners"
-    assert_includes @push.errors[:notify_emails_to_locale], "is allowed for only owners"
+    assert_includes @push.errors[:notify_emails_to], "are allowed only for owners"
+    assert_includes @push.errors[:notify_emails_to_locale], "is allowed only for owners"
   end
 
   # Test notify_by_email_limit validation

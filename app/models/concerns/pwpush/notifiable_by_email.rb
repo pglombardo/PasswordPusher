@@ -5,11 +5,6 @@ module Pwpush
     extend ActiveSupport::Concern
     MAX_NOTIFY_BY_EMAILS = 5
 
-    NOTIFY_BY_EMAIL_HUMAN_ATTRIBUTE_NAMES = {
-      notify_emails_to: "Recipient emails",
-      notify_emails_to_locale: "Notification language"
-    }.freeze
-
     included do
       attr_accessor :notify_emails_to, :notify_emails_to_locale, :notify_emails_to_required, :notify_by_email_creator, :notify_by_email_skip_limit_validation, :notify_by_email_recipients, :notify_by_email_locale
 
@@ -34,8 +29,14 @@ module Pwpush
 
     class_methods do
       def human_attribute_name(attribute, options = {})
-        name = NOTIFY_BY_EMAIL_HUMAN_ATTRIBUTE_NAMES[attribute.to_sym]
-        name ? _(name) : super
+        case attribute.to_sym
+        when :notify_emails_to
+          _("Recipient emails")
+        when :notify_emails_to_locale
+          _("Notification language")
+        else
+          super
+        end
       end
     end
 
@@ -74,8 +75,8 @@ module Pwpush
       end
 
       unless notify_by_email_creator == user
-        errors.add(:notify_emails_to, _("are allowed for only owners")) if notify_emails_to.present?
-        errors.add(:notify_emails_to_locale, _("is allowed for only owners")) if notify_emails_to_locale.present?
+        errors.add(:notify_emails_to, _("are allowed only for owners")) if notify_emails_to.present?
+        errors.add(:notify_emails_to_locale, _("is allowed only for owners")) if notify_emails_to_locale.present?
 
         return
       end
