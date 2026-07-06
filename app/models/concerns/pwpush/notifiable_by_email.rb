@@ -81,14 +81,14 @@ module Pwpush
       return if notify_by_emails.none?
 
       new_count = notify_emails_to.split(",").count
-      remaining = MAX_NOTIFY_BY_EMAILS - total_notify_by_emails_count
+      remaining = MAX_NOTIFY_BY_EMAILS - total_emails_count
 
       if new_count > remaining
-        errors.add(:base, _("You can notify up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_notify_by_emails_count})
+        errors.add(:base, _("You can notify up to %{count} email(s) and you have already sent emails to %{total_count} recipients") % {count: MAX_NOTIFY_BY_EMAILS, total_count: total_emails_count})
       end
     end
 
-    def total_notify_by_emails_count
+    def total_emails_count
       return 0 if notify_by_emails.none?
 
       notify_by_emails.sum(&:recipients_count)
