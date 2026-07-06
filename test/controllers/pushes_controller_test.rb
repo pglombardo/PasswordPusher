@@ -277,6 +277,23 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
     assert_nil flash[:notice]
   end
 
+  test "access is rate limited after five attempts per push" do
+    Rails.cache.clear
+
+    @push.update!(passphrase: "secret")
+
+    5.times do |i|
+      post access_push_path(@push), params: {passphrase: "wrong#{i}"}
+      assert_response :redirect
+    end
+
+    post access_push_path(@push), params: {passphrase: "wrong5"}
+
+    assert_response :redirect
+    assert_redirected_to passphrase_push_path(@push)
+    assert_match(/Too many passphrase attempts/, flash[:alert])
+  end
+
   test "notify_by_email is rate limited after five bursts per user" do
     Rails.cache.clear
 

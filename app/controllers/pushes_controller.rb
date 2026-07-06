@@ -12,6 +12,17 @@ class PushesController < BaseController
     by: -> { current_user&.id },
     with: -> { redirect_to preview_push_path(@push), alert: I18n._("Too many email notification requests. Please try again in a minute.") }
 
+  rate_limit to: 5, within: 1.minute, only: :access,
+    by: -> { params[:id] },
+    scope: :passphrase_attempts, name: "per-push",
+    with: -> { redirect_to passphrase_push_path(@push), alert: I18n._("Too many passphrase attempts. Please try again in a minute.") }
+
+  rate_limit to: 5, within: 1.minute, only: :show,
+    if: -> { params[:passphrase].present? },
+    by: -> { params[:id] },
+    scope: :passphrase_attempts, name: "per-push",
+    with: -> { redirect_to passphrase_push_path(@push), alert: I18n._("Too many passphrase attempts. Please try again in a minute.") }
+
   def show
     # This push may have expired since the last view.  Validate the push
     # expiration before doing anything.
