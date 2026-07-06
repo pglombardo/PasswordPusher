@@ -138,6 +138,40 @@ class ApplicationHelperTest < ActionView::TestCase
     assert url.start_with?("https://custom.example.com")
   end
 
+  test "secret_url does not corrupt https URLs when FORCE_SSL is set" do
+    Settings.override_base_url = "https://custom.example.com"
+    @request.env["HTTPS"] = "off"
+
+    ENV.stub(:key?, ->(key) { key == "FORCE_SSL" }) do
+      url = secret_url(@push)
+
+      assert url.start_with?("https://custom.example.com/p/#{@push.url_token}")
+      assert_not_includes url, "httpss"
+    end
+  end
+
+  test "secret_url upgrades http to https when FORCE_SSL is set and request is not ssl" do
+    Settings.override_base_url = "http://custom.example.com"
+    @request.env["HTTPS"] = "off"
+
+    ENV.stub(:key?, ->(key) { key == "FORCE_SSL" }) do
+      url = secret_url(@push)
+
+      assert url.start_with?("https://custom.example.com/p/#{@push.url_token}")
+    end
+  end
+
+  test "secret_url leaves https URLs unchanged when FORCE_SSL is set and request is ssl" do
+    Settings.override_base_url = "https://custom.example.com"
+    @request.env["HTTPS"] = "on"
+
+    ENV.stub(:key?, ->(key) { key == "FORCE_SSL" }) do
+      url = secret_url(@push)
+
+      assert_equal "https://custom.example.com/p/#{@push.url_token}", url
+    end
+  end
+
   # Test qr_code method
   test "qr_code generates SVG QR code" do
     test_url = "https://example.com/test"
