@@ -10,27 +10,27 @@
 
 Rails.application.configure do
   config.permissions_policy do |policy|
-    policy.accelerometer      :none
+    policy.accelerometer :none
     policy.ambient_light_sensor :none
-    policy.autoplay           :none
-    policy.camera             :none
-    policy.display_capture    :none
-    policy.encrypted_media    :none
-    policy.fullscreen         :none
-    policy.geolocation        :none
-    policy.gyroscope          :none
-    policy.hid                :none
-    policy.idle_detection     :none
-    policy.magnetometer       :none
-    policy.microphone         :none
-    policy.midi               :none
-    policy.payment            :none
+    policy.autoplay :none
+    policy.camera :none
+    policy.display_capture :none
+    policy.encrypted_media :none
+    policy.fullscreen :none
+    policy.geolocation :none
+    policy.gyroscope :none
+    policy.hid :none
+    policy.idle_detection :none
+    policy.magnetometer :none
+    policy.microphone :none
+    policy.midi :none
+    policy.payment :none
     policy.picture_in_picture :none
-    policy.screen_wake_lock   :none
-    policy.serial             :none
-    policy.sync_xhr           :none
-    policy.usb                :none
-    policy.web_share          :none
+    policy.screen_wake_lock :none
+    policy.serial :none
+    policy.sync_xhr :none
+    policy.usb :none
+    policy.web_share :none
   end
 
   config.action_dispatch.default_headers["Permissions-Policy"] = [
