@@ -64,7 +64,7 @@ end
 
 desc "Generate robots.txt."
 task generate_robots_txt: :environment do
-  contents = "User-agent: *\nDisallow: /\n"
+  contents = "User-agent: *\nDisallow: /p\nAllow: /p/new\n"
 
   File.write("./public/robots.txt", contents)
 
