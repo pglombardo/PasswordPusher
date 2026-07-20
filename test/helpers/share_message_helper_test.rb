@@ -18,6 +18,8 @@ class ShareMessageHelperTest < ActionView::TestCase
     assert_includes message, "IMPORTANT NOTES:"
     assert_includes message, @push.views_remaining.to_s
     assert_includes message, @push.days_remaining.to_s
+    assert_includes message, "The link and content will be deleted upon expiration."
+    assert_not_includes message, "Once retrieved"
   end
 
   test "push_share_message_text includes passphrase note when passphrase set" do

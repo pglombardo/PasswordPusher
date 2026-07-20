@@ -11,7 +11,7 @@ module ShareMessageHelper
       notes = [
         share_message_expiration_note(push),
         (passphrase_share_note if push.passphrase.present?),
-        I18n._("Once retrieved, the link and content will be deleted upon expiration.")
+        I18n._("The link and content will be deleted upon expiration.")
       ].compact
 
       [
