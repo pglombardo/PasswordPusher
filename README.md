@@ -7,10 +7,11 @@
 [![Try it free](https://img.shields.io/badge/Try_it_free-pwpush.com-0ea5e9?style=for-the-badge)](https://pwpush.com)
 [![Documentation](https://img.shields.io/badge/Docs-docs.pwpush.com-64748b?style=for-the-badge)](https://docs.pwpush.com)
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/pglombardo/PasswordPusher/ruby-tests.yml?branch=master)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml)
-[![GitHub stars](https://img.shields.io/github/stars/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher)
 [![Docker pulls](https://img.shields.io/docker/pulls/pglombardo/pwpush)](https://hub.docker.com/r/pglombardo/pwpush)
+[![Docker pulls](https://img.shields.io/docker/pulls/pglombardo/pwpush-ephemeral)](https://hub.docker.com/r/pglombardo/pwpush-ephemeral)
 [![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/master/LICENSE)
+
+[![GitHub stars](https://img.shields.io/github/stars/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher)
 
 </div>
 
