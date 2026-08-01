@@ -308,7 +308,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def destroy
-    if (@push.user == current_user) || @push.deletable_by_viewer
+    if @push.deletable_by?(current_user)
       unless @push.expired?
         # Deletable by the owner or viewer
         @push.expire!

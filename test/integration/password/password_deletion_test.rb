@@ -80,4 +80,19 @@ class PasswordDeletionTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert response.body.include?("We apologize but this secret link has expired.")
   end
+
+  def test_anonymous_push_not_deletable_by_viewer_cannot_be_expired
+    post pushes_path, params: {push: {kind: "text", payload: "testpw", deletable_by_viewer: "0"}}
+    assert_response :redirect
+
+    push = Push.order(:created_at).last
+    assert_nil push.user_id
+    assert_equal false, push.deletable_by_viewer
+
+    delete expire_push_path(push)
+    assert_response :redirect
+    follow_redirect!
+    assert_not push.reload.expired?
+    assert_equal "testpw", push.payload
+  end
 end
