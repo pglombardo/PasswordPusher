@@ -401,11 +401,13 @@ class PushEditTest < ActiveSupport::TestCase
     assert owned.owned_by?(owner)
     assert_not owned.owned_by?(other)
     assert_not owned.owned_by?(nil)
+    assert_not owned.owned_by?(User.new)
 
     anonymous = Push.create!(kind: "text", payload: "anon")
     assert_nil anonymous.user_id
     assert_not anonymous.owned_by?(nil)
     assert_not anonymous.owned_by?(other)
+    assert_not anonymous.owned_by?(User.new)
   end
 
   test "deletable_by? requires authenticated owner or explicit viewer deletion" do
