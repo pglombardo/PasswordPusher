@@ -54,7 +54,7 @@ class Api::V2::PushesController < Api::V1::PushesController
   def audit
     authenticate_user!
 
-    if @push.user != current_user
+    unless @push.owned_by?(current_user)
       render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end
@@ -74,7 +74,7 @@ class Api::V2::PushesController < Api::V1::PushesController
   def notify_emails
     authenticate_user!
 
-    if @push.user != current_user
+    unless @push.owned_by?(current_user)
       render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end

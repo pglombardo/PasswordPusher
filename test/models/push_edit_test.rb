@@ -393,6 +393,21 @@ class PushEditTest < ActiveSupport::TestCase
     assert_includes push.errors[:files], "You can only attach up to #{max_files} files per push."
   end
 
+  test "owned_by? requires an authenticated matching owner" do
+    owner = users(:luca)
+    other = users(:one)
+
+    owned = Push.create!(kind: "text", payload: "owned", user: owner)
+    assert owned.owned_by?(owner)
+    assert_not owned.owned_by?(other)
+    assert_not owned.owned_by?(nil)
+
+    anonymous = Push.create!(kind: "text", payload: "anon")
+    assert_nil anonymous.user_id
+    assert_not anonymous.owned_by?(nil)
+    assert_not anonymous.owned_by?(other)
+  end
+
   test "deletable_by? requires authenticated owner or explicit viewer deletion" do
     owner = users(:luca)
     other = users(:one)

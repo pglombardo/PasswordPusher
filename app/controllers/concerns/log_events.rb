@@ -11,7 +11,7 @@ module LogEvents
     elsif user_signed_in? && current_user.admin?
       # Admin views take precedence over owner views
       log_event(push, :admin_view)
-    elsif user_signed_in? && push.user_id == current_user.id
+    elsif push.owned_by?(current_user)
       log_event(push, :owner_view)
     else
       log_event(push, :view)

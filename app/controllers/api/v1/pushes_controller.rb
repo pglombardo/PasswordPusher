@@ -262,7 +262,7 @@ class Api::V1::PushesController < Api::BaseController
     https://docs.pwpush.com/docs/json-api/
   EOS
   def audit
-    if @push.user != current_user
+    unless @push.owned_by?(current_user)
       render json: {error: I18n._("That push doesn't belong to you.")}, status: :forbidden
       return
     end
