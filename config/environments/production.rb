@@ -163,10 +163,12 @@ Rails.application.configure do
       config.action_mailer.smtp_settings[:password] = Settings.mail.smtp_password
     end
 
-    # Pass a String ("none" / "peer"). The mail gem maps strings to OpenSSL::SSL::VERIFY_*
-    # constants; a Symbol like :none raises TypeError during TLS handshake.
+    # The mail gem maps String names ("none" / "peer") to OpenSSL::SSL::VERIFY_* constants.
+    # A Symbol like :none raises TypeError during TLS handshake. Leave Integers alone —
+    # config.env_parse_values can turn PWP__MAIL__SMTP_OPENSSL_VERIFY_MODE=0 into an Integer.
     if !Settings.mail.smtp_openssl_verify_mode.nil?
-      config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_s
+      mode = Settings.mail.smtp_openssl_verify_mode
+      config.action_mailer.smtp_settings[:openssl_verify_mode] = mode.is_a?(Symbol) ? mode.to_s : mode
     end
 
     if !Settings.mail.smtp_enable_starttls_auto.nil?
