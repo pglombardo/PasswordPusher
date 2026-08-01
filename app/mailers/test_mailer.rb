@@ -1,4 +1,6 @@
 class TestMailer < ApplicationMailer
+  after_deliver :announce_test_email_success, only: :send_test_email
+
   def send_test_email(email)
     puts ""
     puts "--> Configured FROM: address: '#{Settings.mail.mailer_sender}'"
@@ -64,17 +66,21 @@ class TestMailer < ApplicationMailer
 
     puts ""
     puts "--> Attempting to send a test email to #{email}..."
-    mail(to: email,
-      subject: "Test Email from Password Pusher",
-      body: "⭐  If you are reading this, sending email works! ⭐ ")
-
-    puts "--> ✅   It seems that the Email was accepted by the SMTP server!  Check destination inbox for the test email."
     puts ""
-
     puts "--> If you see an error, please paste this output into a GitHub issue for help."
     puts "  --> Make sure that no sensitive data is included."
     puts "  --> https://github.com/pglombardo/PasswordPusher/issues/new/choose"
+    puts ""
 
+    mail(to: email,
+      subject: "Test Email from Password Pusher",
+      body: "⭐  If you are reading this, sending email works! ⭐ ")
+  end
+
+  private
+
+  def announce_test_email_success
+    puts "--> ✅   It seems that the Email was accepted by the SMTP server!  Check destination inbox for the test email."
     puts ""
   end
 end

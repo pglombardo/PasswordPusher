@@ -163,16 +163,19 @@ Rails.application.configure do
       config.action_mailer.smtp_settings[:password] = Settings.mail.smtp_password
     end
 
+    # Pass a String ("none" / "peer"). The mail gem maps strings to OpenSSL::SSL::VERIFY_*
+    # constants; a Symbol like :none raises TypeError during TLS handshake.
     if !Settings.mail.smtp_openssl_verify_mode.nil?
-      config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_sym
+      config.action_mailer.smtp_settings[:openssl_verify_mode] = Settings.mail.smtp_openssl_verify_mode.to_s
     end
 
     if !Settings.mail.smtp_enable_starttls_auto.nil?
       config.action_mailer.smtp_settings[:enable_starttls_auto] = Settings.mail.smtp_enable_starttls_auto
     end
 
-    if !Settings.mail.smtp_enable_starttls.nil?
-      config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_enable_starttls
+    # settings.yml / PWP__MAIL__SMTP_STARTTLS maps to smtp_starttls
+    if !Settings.mail.smtp_starttls.nil?
+      config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_starttls
     end
   end
 
