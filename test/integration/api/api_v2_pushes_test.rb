@@ -268,6 +268,27 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert push.reload.expired?
   end
 
+  def test_destroy_forbidden_for_anonymous_push_when_not_deletable_by_viewer
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          payload: "anonymous-secret",
+          deletable_by_viewer: false
+        }
+      },
+      as: :json
+    assert_response :created
+
+    token = JSON.parse(@response.body)["url_token"]
+    push = Push.find_by!(url_token: token)
+    assert_nil push.user_id
+    assert_equal false, push.deletable_by_viewer
+
+    delete "/api/v2/pushes/#{token}", as: :json
+    assert_response :unauthorized
+    assert_not push.reload.expired?
+  end
+
   def test_create_requires_auth_when_allow_anonymous_disabled
     Settings.allow_anonymous = false
 

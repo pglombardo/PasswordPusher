@@ -193,6 +193,13 @@ class Push < ApplicationRecord
     save!
   end
 
+  # True when +user+ is the authenticated owner, or when viewer deletion is
+  # explicitly enabled. Anonymous pushes have a nil owner; comparing two nils
+  # must not count as ownership.
+  def deletable_by?(user)
+    (user.present? && user_id == user.id) || deletable_by_viewer == true
+  end
+
   def settings_for_kind
     if text?
       Settings.pw
