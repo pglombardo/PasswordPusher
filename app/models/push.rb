@@ -193,11 +193,17 @@ class Push < ApplicationRecord
     save!
   end
 
+  # True when +user+ is the authenticated owner of this push.
+  # Require a real owner id on both sides so nil == nil (anonymous push /
+  # non-persisted User.new) never counts as ownership.
+  def owned_by?(user)
+    user_id.present? && user.present? && user_id == user.id
+  end
+
   # True when +user+ is the authenticated owner, or when viewer deletion is
-  # explicitly enabled. Anonymous pushes have a nil owner; comparing two nils
-  # must not count as ownership.
+  # explicitly enabled.
   def deletable_by?(user)
-    (user.present? && user_id == user.id) || deletable_by_viewer == true
+    owned_by?(user) || deletable_by_viewer == true
   end
 
   def settings_for_kind
