@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-07-19 14:16+0200\n"
-"PO-Revision-Date: 2026-07-19 12:16+0000\n"
+"POT-Creation-Date: 2026-08-14 00:35+0200\n"
+"PO-Revision-Date: 2026-08-13 22:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
@@ -149,19 +149,19 @@ msgstr ""
 "tettu käytöstä."
 
 #: ../../../app/controllers/pushes_controller.rb:536
-#: ../../../app/models/push.rb:210
+#: ../../../app/models/push.rb:223
 msgid "File pushes are disabled."
 msgstr "Tiedostojen push-toiminnot ovat poissa käytöstä."
 
 #: ../../../app/controllers/pushes_controller.rb:541
-#: ../../../app/models/push.rb:214
+#: ../../../app/models/push.rb:227
 #: ../../../test/controllers/urls_controller_test.rb:110
 #: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "URL-sivujen lähettäminen on poistettu käytöstä."
 
 #: ../../../app/controllers/pushes_controller.rb:553
-#: ../../../app/models/push.rb:218
+#: ../../../app/models/push.rb:231
 #: ../../../test/controllers/qr_push_controller_test.rb:128
 #: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
@@ -218,8 +218,8 @@ msgstr[0] "päivä"
 msgstr[1] "päivää"
 
 #: ../../../app/helpers/share_message_helper.rb:14
-msgid "Once retrieved, the link and content will be deleted upon expiration."
-msgstr "Kun linkki ja sisältö on noudettu, ne poistetaan vanhentumisen yhteydessä."
+msgid "The link and content will be deleted upon expiration."
+msgstr "Linkki ja sisältö poistetaan sen voimassaolon päättyessä."
 
 #: ../../../app/helpers/share_message_helper.rb:18
 msgid "A secure link has been shared with you."
@@ -348,11 +348,11 @@ msgstr "täytyy olla voimassa oleva HTTP- tai HTTPS-URL."
 msgid "The QR code payload is too large.  You can only push up to %{count} bytes."
 msgstr "QR-koodin hyötykuorma on liian suuri. Voit työntää enintään %{count} tavua."
 
-#: ../../../app/models/push.rb:243
+#: ../../../app/models/push.rb:256
 msgid "are not available for expired pushes"
 msgstr "eivät ole saatavilla vanhentuneille push-tiedostoille"
 
-#: ../../../app/models/push.rb:244
+#: ../../../app/models/push.rb:257
 msgid "is not available for expired pushes"
 msgstr "ei ole saatavilla vanhentuneille push-tiedostoille"
 
@@ -2595,6 +2595,12 @@ msgstr ""
 "Tämän salaisen linkin ja kaiken sisällön voimassaolon päättyessä se poistetaan"
 " pysyvästi."
 
+#: ../../../app/views/pushes/_error.html.erb:3
+msgid "%{count} error prohibited this push from being saved:"
+msgid_plural "%{count} errors prohibited this push from being saved:"
+msgstr[0] "%{count} -virhe esti tämän pushin tallentamisen:"
+msgstr[1] "%{count} virheet estivät tämän pushin tallentamisen:"
+
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
 msgstr "Lähetä tiedostoja turvallisesti"
@@ -2831,7 +2837,7 @@ msgstr ""
 
 #: ../../../app/views/pushes/_form.html.erb:44
 msgid "Enter the Password or Text to push..."
-msgstr "Anna salasana tai teksti työnnettäväksi..."
+msgstr "Anna salasana tai teksti lähetettäväksi..."
 
 #: ../../../app/views/pushes/_form.html.erb:59
 #: ../../../app/views/pushes/_qr_form.html.erb:49
@@ -2889,8 +2895,8 @@ msgid ""
 "Please obtain and securely store this content in a secure manner, such as in a"
 " password manager."
 msgstr ""
-"Hanki ja tallenna tämä sisältö turvallisesti suojatulla tavalla, kuten salasan"
-"anhallinnassa."
+"Hae ja tallenna tämä sisältö turvallisesti suojatulla tavalla, kuten salasanan"
+"hallinnassa."
 
 #: ../../../app/views/pushes/_show_payload.html.erb:4
 msgid "Your password is blurred out.  Click below to reveal it."
@@ -3280,7 +3286,7 @@ msgstr "yhden klikin esihakuvaihe"
 
 #: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"
-msgstr "Näytä tämä painos"
+msgstr "Näytä tämä lähetys"
 
 #: ../../../app/views/pushes/preview.html.erb:107
 #: ../../../app/views/pushes/preview.html.erb:111

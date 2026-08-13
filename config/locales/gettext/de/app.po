@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-07-19 14:16+0200\n"
-"PO-Revision-Date: 2026-07-19 12:16+0000\n"
+"POT-Creation-Date: 2026-08-14 00:35+0200\n"
+"PO-Revision-Date: 2026-08-13 22:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -155,19 +155,19 @@ msgid "File pushes are unavailable while logins are disabled."
 msgstr "Dateiübertragungen sind nicht verfügbar, solange Anmeldungen deaktiviert sind."
 
 #: ../../../app/controllers/pushes_controller.rb:536
-#: ../../../app/models/push.rb:210
+#: ../../../app/models/push.rb:223
 msgid "File pushes are disabled."
 msgstr "Datei-Pushes sind deaktiviert."
 
 #: ../../../app/controllers/pushes_controller.rb:541
-#: ../../../app/models/push.rb:214
+#: ../../../app/models/push.rb:227
 #: ../../../test/controllers/urls_controller_test.rb:110
 #: ../../../test/controllers/urls_controller_test.rb:127
 msgid "URL pushes are disabled."
 msgstr "URL-Pushes sind deaktiviert."
 
 #: ../../../app/controllers/pushes_controller.rb:553
-#: ../../../app/models/push.rb:218
+#: ../../../app/models/push.rb:231
 #: ../../../test/controllers/qr_push_controller_test.rb:128
 #: ../../../test/controllers/qr_push_controller_test.rb:144
 msgid "QR code pushes are disabled."
@@ -224,8 +224,8 @@ msgstr[0] "Tag"
 msgstr[1] "Tage"
 
 #: ../../../app/helpers/share_message_helper.rb:14
-msgid "Once retrieved, the link and content will be deleted upon expiration."
-msgstr "Sobald abgerufen, werden der Link und der Inhalt nach Ablauf gelöscht."
+msgid "The link and content will be deleted upon expiration."
+msgstr "Der Link und der Inhalt werden nach Ablauf der Frist gelöscht."
 
 #: ../../../app/helpers/share_message_helper.rb:18
 msgid "A secure link has been shared with you."
@@ -358,11 +358,11 @@ msgstr ""
 "Die Nutzlast des QR-Codes ist zu groß. Sie können nur bis zu %{count} Bytes pu"
 "shen."
 
-#: ../../../app/models/push.rb:243
+#: ../../../app/models/push.rb:256
 msgid "are not available for expired pushes"
 msgstr "sind für abgelaufene Push-Benachrichtigungen nicht verfügbar"
 
-#: ../../../app/models/push.rb:244
+#: ../../../app/models/push.rb:257
 msgid "is not available for expired pushes"
 msgstr "ist für abgelaufene Push-Benachrichtigungen nicht verfügbar"
 
@@ -2653,6 +2653,12 @@ msgstr ""
 "Nach Ablauf der Frist werden dieser geheime Link und alle Inhalte endgültig ge"
 "löscht."
 
+#: ../../../app/views/pushes/_error.html.erb:3
+msgid "%{count} error prohibited this push from being saved:"
+msgid_plural "%{count} errors prohibited this push from being saved:"
+msgstr[0] "%{count} Fehler verhinderte das Speichern dieses Push-Vorgangs:"
+msgstr[1] "%{count} Fehler haben das Speichern dieses Push verhindert:"
+
 #: ../../../app/views/pushes/_files_form.html.erb:1
 msgid "Securely Send Files"
 msgstr "Dateien sicher senden"
@@ -3285,8 +3291,8 @@ msgstr "Push erstellt"
 #: ../../../app/views/pushes/preview.html.erb:12
 msgid "Copy the link or message below to share this push securely."
 msgstr ""
-"Kopieren Sie den unten stehenden Link oder die Nachricht, um diese Pressemitte"
-"ilung sicher weiterzuleiten."
+"Kopieren Sie den unten stehenden Link oder die Nachricht, um diesen Push siche"
+"r weiterzuleiten."
 
 #: ../../../app/views/pushes/preview.html.erb:28
 msgid "QR code"
