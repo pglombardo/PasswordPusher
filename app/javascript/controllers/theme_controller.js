@@ -22,6 +22,7 @@ export default class extends Controller {
   connect() {
     this.mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
     this.boundOnSystemChange = this.onSystemChange.bind(this)
+    this.sessionPreference = null
 
     this.apply()
 
@@ -41,10 +42,19 @@ export default class extends Controller {
   }
 
   get storedPreference() {
-    const value = localStorage.getItem("theme")
-    if (value === "light" || value === "dark" || value === "system") {
-      return value
+    try {
+      const value = localStorage.getItem("theme")
+      if (value === "light" || value === "dark" || value === "system") {
+        return value
+      }
+    } catch (_error) {
+      // Privacy modes / disabled storage — fall through
     }
+
+    if (this.sessionPreference === "light" || this.sessionPreference === "dark" || this.sessionPreference === "system") {
+      return this.sessionPreference
+    }
+
     return "system"
   }
 
@@ -87,7 +97,14 @@ export default class extends Controller {
     const order = ["light", "dark", "system"]
     const current = this.storedPreference
     const next = order[(order.indexOf(current) + 1) % order.length]
-    localStorage.setItem("theme", next)
+    this.sessionPreference = next
+
+    try {
+      localStorage.setItem("theme", next)
+    } catch (_error) {
+      // Keep sessionPreference so the toggle still works without storage
+    }
+
     this.apply()
   }
 

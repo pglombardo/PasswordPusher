@@ -19,7 +19,8 @@
    else
      Settings.brand.dark_logo
    end %>
-<% img_opts = { alt: _("Password Pusher Logo"), class: "logo-light #{css_class}".strip }
+<% logo_alt = Settings.brand&.title.presence || _("Password Pusher Logo") %>
+<% img_opts = { alt: logo_alt, class: "logo-light #{css_class}".strip }
    if height.present?
      img_opts[:height] = height
      # Inline height beats stylesheet rules; keeps large custom assets at the intended size
