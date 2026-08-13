@@ -53,7 +53,7 @@ class AuditLogTest < ActiveSupport::TestCase
   test "must belong to a user if creating a notify_by_email" do
     audit_log = AuditLog.new(kind: :creation_email_send, push: @push)
     assert_not audit_log.valid?
-    assert_includes audit_log.errors.full_messages, "User can't be blank"
+    assert_includes audit_log.errors.full_messages, "User cannot be left blank"
 
     audit_log = AuditLog.new(kind: :creation_email_send, push: @push, user: @luca)
     assert audit_log.valid?
