@@ -69,7 +69,7 @@ class NotifyByEmailTest < ActiveSupport::TestCase
       status: :invalid_status
     )
     assert_not notify.valid?
-    assert_includes notify.errors[:status], "is not included in the list"
+    assert_includes notify.errors[:status], "is not within the available options"
   end
 
   test "default status should be pending" do

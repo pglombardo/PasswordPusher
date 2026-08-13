@@ -107,7 +107,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
     # HTML5 validation may prevent submission, or Rails validation may show error
     sleep 1
     # Either we're still on the form page or we see an error
-    assert(page.current_path.include?("new") || page.has_text?(/can't be blank|required/i, wait: 5))
+    assert(page.current_path.include?("new") || page.has_text?(/cannot be left blank|can't be blank|required/i, wait: 5))
   end
 
   # URL Push Creation
@@ -154,7 +154,7 @@ class PushCreationWorkflowsTest < ApplicationSystemTestCase
 
     # Should show validation error or stay on page
     sleep 1
-    assert(page.current_path.include?("new") || page.has_text?(/can't be blank|required/i, wait: 5))
+    assert(page.current_path.include?("new") || page.has_text?(/cannot be left blank|can't be blank|required/i, wait: 5))
   end
 
   # File Push Creation

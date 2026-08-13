@@ -33,7 +33,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_emails_to = nil
 
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to], "can't be blank"
+    assert_includes @push.errors[:notify_emails_to], "cannot be left blank"
   end
 
   # Test notify_emails_to_locale validation
@@ -59,7 +59,7 @@ class Pwpush::NotifiableByEmailTest < ActiveSupport::TestCase
     @push.notify_emails_to_locale = "invalid_locale"
 
     assert_not @push.valid?
-    assert_includes @push.errors[:notify_emails_to_locale], "is not included in the list"
+    assert_includes @push.errors[:notify_emails_to_locale], "is not within the available options"
   end
 
   # Test notify_by_email_availability validation
