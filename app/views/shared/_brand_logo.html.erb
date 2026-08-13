@@ -1,0 +1,29 @@
+<%#
+  Brand logo that follows data-bs-theme (not prefers-color-scheme).
+
+  locals:
+    height: optional height in px (default 50); omit or nil to skip height attr
+    css_class: optional extra classes on each img
+    style: optional inline style on each img
+%>
+<% height = local_assigns.fetch(:height, 50) %>
+<% css_class = local_assigns.fetch(:css_class, "d-block") %>
+<% style = local_assigns[:style] %>
+<% light_src = if Settings.brand.nil? || Settings.brand.light_logo.nil?
+     asset_path("logo-transparent-sm-bare.png")
+   else
+     Settings.brand.light_logo
+   end %>
+<% dark_src = if Settings.brand.nil? || Settings.brand.dark_logo.nil?
+     asset_path("logo-transparent-sm-dark-bare.png")
+   else
+     Settings.brand.dark_logo
+   end %>
+<% img_opts = { alt: _("Password Pusher Logo"), class: "logo-light #{css_class}".strip }
+   img_opts[:height] = height if height.present?
+   img_opts[:style] = style if style.present? %>
+<% dark_opts = img_opts.merge(class: "logo-dark #{css_class}".strip) %>
+<span class="brand-logo">
+  <%= image_tag light_src, **img_opts %>
+  <%= image_tag dark_src, **dark_opts %>
+</span>
