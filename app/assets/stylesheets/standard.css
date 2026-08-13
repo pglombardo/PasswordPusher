@@ -18,7 +18,12 @@ input[type='file'] {
     justify-content: center;
 }
 
-/* Brand logos follow data-bs-theme (set by theme toggle / instance lock) */
+/* Brand logos follow data-bs-theme (set by theme toggle / instance lock).
+   Do not use Bootstrap d-block/d-none on these imgs — !important utilities
+   would override these rules and show both logos at once. */
+.brand-logo .logo-light {
+  display: block;
+}
 .brand-logo .logo-dark {
   display: none;
 }
