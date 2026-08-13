@@ -1,6 +1,14 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" data-controller="theme">
+<html lang="<%= I18n.locale %>"
+      data-controller="theme"
+      data-theme-mode="<%= Settings.theme_mode %>"
+      data-theme-instance-mode-value="<%= Settings.theme_mode %>"
+      data-theme-label-light-value="<%= _("Use light theme") %>"
+      data-theme-label-dark-value="<%= _("Use dark theme") %>"
+      data-theme-label-system-value="<%= _("Use system theme") %>"
+      <% if Settings.theme_mode_locked? %> data-bs-theme="<%= Settings.theme_mode %>"<% end %>>
 <head>
+  <%= render partial: "shared/theme_boot" %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <title><%= content_for?(:html_title) ? yield(:html_title) : Settings.brand.title %></title>

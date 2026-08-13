@@ -18,6 +18,34 @@ input[type='file'] {
     justify-content: center;
 }
 
+/* Brand logos follow data-bs-theme (set by theme toggle / instance lock).
+   Use inline-block (not Bootstrap d-block) so text-center layouts can
+   still center the logo, and so !important display utilities cannot
+   force both logos visible at once.
+   Do not set height:auto here — that overrides the HTML height attribute
+   and blows up large custom logo assets in the header. */
+.brand-logo {
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+.brand-logo .logo-light {
+  display: inline-block;
+  max-width: 100%;
+  width: auto;
+}
+.brand-logo .logo-dark {
+  display: none;
+  max-width: 100%;
+  width: auto;
+}
+html[data-bs-theme="dark"] .brand-logo .logo-light {
+  display: none;
+}
+html[data-bs-theme="dark"] .brand-logo .logo-dark {
+  display: inline-block;
+}
+
 .page { margin: 6px; }
 .first { margin: 6px; }
 .prev { margin: 6px; }

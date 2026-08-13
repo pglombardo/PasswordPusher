@@ -45,3 +45,20 @@ module SettingsExtensions
 end
 
 Settings.extend(SettingsExtensions)
+
+# Prepend so we override Config's theme_mode reader (extend alone loses to
+# singleton methods Config defines on Settings).
+module ThemeModeExtension
+  THEME_MODES = %w[auto light dark].freeze
+
+  def theme_mode
+    raw = super.to_s.strip.downcase
+    THEME_MODES.include?(raw) ? raw : "auto"
+  end
+
+  def theme_mode_locked?
+    theme_mode != "auto"
+  end
+end
+
+Settings.singleton_class.prepend(ThemeModeExtension)

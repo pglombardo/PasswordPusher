@@ -1,0 +1,36 @@
+<%#
+  Brand logo that follows data-bs-theme (not prefers-color-scheme).
+
+  locals:
+    height: optional height in px (default 50); omit or nil to skip height attr
+    css_class: optional extra classes on each img
+    style: optional inline style on each img
+%>
+<% height = local_assigns.fetch(:height, 50) %>
+<% css_class = local_assigns.fetch(:css_class, "") %>
+<% style = local_assigns[:style] %>
+<% light_src = if Settings.brand.nil? || Settings.brand.light_logo.nil?
+     asset_path("logo-transparent-sm-bare.png")
+   else
+     Settings.brand.light_logo
+   end %>
+<% dark_src = if Settings.brand.nil? || Settings.brand.dark_logo.nil?
+     asset_path("logo-transparent-sm-dark-bare.png")
+   else
+     Settings.brand.dark_logo
+   end %>
+<% logo_alt = Settings.brand&.title.presence || _("Password Pusher Logo") %>
+<% img_opts = { alt: logo_alt, class: "logo-light #{css_class}".strip }
+   if height.present?
+     img_opts[:height] = height
+     # Inline height beats stylesheet rules; keeps large custom assets at the intended size
+     height_style = "height: #{height}px; width: auto;"
+     img_opts[:style] = [height_style, style].compact_blank.join(" ")
+   elsif style.present?
+     img_opts[:style] = style
+   end %>
+<% dark_opts = img_opts.merge(class: "logo-dark #{css_class}".strip) %>
+<span class="brand-logo">
+  <%= image_tag light_src, **img_opts %>
+  <%= image_tag dark_src, **dark_opts %>
+</span>

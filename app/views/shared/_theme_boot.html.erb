@@ -1,0 +1,24 @@
+<%# Apply data-bs-theme before first paint to avoid a flash.
+    Reads instance lock from data-theme-mode on <html>, then localStorage.theme,
+    then prefers-color-scheme. Must stay in sync with theme_controller.js. %>
+<script nonce="<%= request.content_security_policy_nonce %>">
+  (function () {
+    var root = document.documentElement
+    var instanceMode = (root.getAttribute("data-theme-mode") || "auto").toLowerCase()
+    var mode
+
+    if (instanceMode === "light" || instanceMode === "dark") {
+      mode = instanceMode
+    } else {
+      var stored = null
+      try { stored = localStorage.getItem("theme") } catch (e) {}
+      if (stored === "light" || stored === "dark") {
+        mode = stored
+      } else {
+        mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      }
+    }
+
+    root.setAttribute("data-bs-theme", mode)
+  })()
+</script>

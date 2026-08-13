@@ -1,0 +1,13 @@
+<%# Theme toggle button — only rendered when theme_mode is auto.
+    Labels come from data-theme-label-*-value on the html[data-controller=theme] element. %>
+<% if Settings.theme_mode == "auto" %>
+  <button type="button"
+          class="btn btn-outline-secondary d-flex align-items-center"
+          id="theme-mode-toggle"
+          data-theme-target="button"
+          data-action="click->theme#cycle"
+          title="<%= _("Use system theme") %>"
+          aria-label="<%= _("Use system theme") %>">
+    <em class="bi bi-circle-half" data-theme-target="icon" aria-hidden="true"></em>
+  </button>
+<% end %>
