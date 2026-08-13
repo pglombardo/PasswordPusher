@@ -19,19 +19,28 @@ input[type='file'] {
 }
 
 /* Brand logos follow data-bs-theme (set by theme toggle / instance lock).
-   Do not use Bootstrap d-block/d-none on these imgs — !important utilities
-   would override these rules and show both logos at once. */
+   Use inline-block (not Bootstrap d-block) so text-center layouts can
+   still center the logo, and so !important display utilities cannot
+   force both logos visible at once. */
+.brand-logo {
+  display: inline-block;
+  max-width: 100%;
+}
 .brand-logo .logo-light {
-  display: block;
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
 }
 .brand-logo .logo-dark {
   display: none;
+  max-width: 100%;
+  height: auto;
 }
 html[data-bs-theme="dark"] .brand-logo .logo-light {
   display: none;
 }
 html[data-bs-theme="dark"] .brand-logo .logo-dark {
-  display: block;
+  display: inline-block;
 }
 
 .page { margin: 6px; }

@@ -31,12 +31,12 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+  <div class="position-absolute top-0 end-0 p-3">
+    <%= render partial: "shared/theme_toggle" %>
+  </div>
   <div class="container-fluid d-flex flex-column min-vh-100 justify-content-center align-items-center">
     <%= render partial: 'shared/alerts' %>
     <main class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
-      <div class="d-flex justify-content-end mb-2">
-        <%= render partial: "shared/theme_toggle" %>
-      </div>
       <%= link_to root_path(locale: locale.to_s), hreflang: locale.to_s do %>
         <%= render partial: "shared/brand_logo", locals: { height: nil, css_class: "", style: "max-height: 120px; max-width: 100%; height: auto;" } %>
       <% end %>
