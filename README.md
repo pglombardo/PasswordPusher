@@ -268,7 +268,7 @@ You can also support the project with a [paid plan on pwpush.com](https://pwpush
 
 ## Star history
 
-[![Star History Chart](https://api.star-history.com/svg?repos=pglombardo/PasswordPusher&type=Date)](https://www.star-history.com/#pglombardo/PasswordPusher&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=pglombardo/PasswordPusher&type=date&legend=top-left)](https://star-history.dera.page/#pglombardo/PasswordPusher&type=date&legend=top-left)
 
 ---
 
