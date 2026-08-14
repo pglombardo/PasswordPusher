@@ -23,6 +23,16 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert text_area.attribute("required").value == "required"
   end
 
+  def test_payload_visibility_toggle_present
+    get new_push_path(tab: "text")
+    assert_response :success
+
+    assert_select "[data-controller='payload-visibility']", 1
+    assert_select "button[data-action='payload-visibility#toggle']", 1
+    assert_select "button[data-action='payload-visibility#toggle'][aria-label='Hide payload']", 1
+    assert_select "textarea#push_payload[data-payload-visibility-target='input']", 1
+  end
+
   def test_password_creation
     get new_push_path(tab: "text")
     assert_response :success

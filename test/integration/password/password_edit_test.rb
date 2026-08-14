@@ -90,6 +90,10 @@ class PasswordEditTest < ActionDispatch::IntegrationTest
     # Reveal zone with instructions is present
     assert_select ".payload-reveal-zone", 1
     assert_match(/Content is hidden for privacy/, response.body)
+
+    # Hide-while-typing toggle is not shown when edit blur zone is active
+    assert_select "[data-controller='payload-visibility']", 0
+    assert_select "button[data-action='payload-visibility#toggle']", 0
   ensure
     Settings.reload!
   end

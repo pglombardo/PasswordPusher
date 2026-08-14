@@ -38,19 +38,45 @@
                         <em class="bi bi-eye-slash flex-shrink-0" aria-hidden="true"></em>
                         <span><%= _('Content is hidden for privacy. Click the field below to reveal and edit.') %></span>
                     </p>
-            <% end %>
-            <%= f.text_area(:payload, { class: "form-control rounded-3#{' spoiler' if payload_blurred}",
-                                        rows: 8,
-                                        placeholder: _('Enter the Password or Text to push...'),
-                                        autocomplete: "off",
-                                        spellcheck: "false",
-                                        autofocus: !payload_blurred,
-                                        required: true,
-                                        "data-pwgen-target" => "payloadInput",
-                                        "data-passwords-target" => "payloadInput",
-                                        "data-action" => "input->passwords#updateCharacterCount pwgen#setContentNotGenerated"
-                                         }) %>
-            <% if payload_blurred %>
+                    <%= f.text_area(:payload, { class: "form-control rounded-3 spoiler",
+                                                rows: 8,
+                                                placeholder: _('Enter the Password or Text to push...'),
+                                                autocomplete: "off",
+                                                spellcheck: "false",
+                                                autofocus: false,
+                                                required: true,
+                                                "data-pwgen-target" => "payloadInput",
+                                                "data-passwords-target" => "payloadInput",
+                                                "data-action" => "input->passwords#updateCharacterCount pwgen#setContentNotGenerated"
+                                                 }) %>
+                </div>
+            <% else %>
+                <div class="position-relative"
+                     data-controller="payload-visibility"
+                     data-payload-visibility-hide-label-value="<%= _('Hide payload') %>"
+                     data-payload-visibility-show-label-value="<%= _('Show payload') %>">
+                    <%= f.text_area(:payload, { class: "form-control rounded-3 pe-5",
+                                                rows: 8,
+                                                placeholder: _('Enter the Password or Text to push...'),
+                                                autocomplete: "off",
+                                                spellcheck: "false",
+                                                autofocus: true,
+                                                required: true,
+                                                "data-pwgen-target" => "payloadInput",
+                                                "data-passwords-target" => "payloadInput",
+                                                "data-payload-visibility-target" => "input",
+                                                "data-action" => "input->passwords#updateCharacterCount pwgen#setContentNotGenerated"
+                                                 }) %>
+                    <button type="button"
+                            class="btn btn-link payload-visibility-toggle position-absolute top-0 end-0 mt-1 me-1 p-1"
+                            data-payload-visibility-target="toggle"
+                            data-action="payload-visibility#toggle"
+                            aria-pressed="false"
+                            aria-label="<%= _('Hide payload') %>"
+                            title="<%= _('Hide payload') %>">
+                        <em class="bi bi-eye" data-payload-visibility-target="showIcon" aria-hidden="true"></em>
+                        <em class="bi bi-eye-slash d-none" data-payload-visibility-target="hideIcon" aria-hidden="true"></em>
+                    </button>
                 </div>
             <% end %>
             <div class='position-relative'>
