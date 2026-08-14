@@ -35,6 +35,11 @@ x-env: &x-env
     # Generate a new key here: https://us.pwpush.com/generate_key
     # PWPUSH_MASTER_KEY: ""
     #
+    # Docker secrets (_FILE): instead of the env vars above, you can set:
+    #   PWPUSH_MASTER_KEY_FILE, PWPUSH_MASTER_KEY_PREVIOUS_FILE, SECRET_KEY_BASE_FILE
+    # to a path whose contents are the secret (e.g. /run/secrets/...). The env var wins if both are set.
+    # See: https://docs.pwpush.com/docs/application-encryption/
+    #
     # TLS_DOMAIN: For automatic TLS/SSL (e.g. HTTPS via Let's Encrypt), create a DNS record that
     #   points to this host, then set this env var to that domain (e.g. pwpush.example.com).
     #   The container will provision and renew certificates automatically.

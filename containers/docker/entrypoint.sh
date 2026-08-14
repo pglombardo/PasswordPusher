@@ -47,6 +47,16 @@ Documentation: https://docs.pwpush.com
 Support: https://docs.pwpush.com/docs/support/
 "
 
+# Resolve SECRET_KEY_BASE from a Docker secrets-style file when the env var is unset.
+# SECRET_KEY_BASE wins when both are set. Fail loudly if _FILE is set but unreadable.
+if [ -z "$SECRET_KEY_BASE" ] && [ -n "$SECRET_KEY_BASE_FILE" ]; then
+    if [ ! -r "$SECRET_KEY_BASE_FILE" ]; then
+        echo "ERROR: SECRET_KEY_BASE_FILE is set but not readable: $SECRET_KEY_BASE_FILE"
+        exit 1
+    fi
+    export SECRET_KEY_BASE=$(tr -d '[:space:]' < "$SECRET_KEY_BASE_FILE")
+fi
+
 # Validate or generate SECRET_KEY_BASE
 if [ -z "$SECRET_KEY_BASE" ]; then
     echo "⚠️  SECRET_KEY_BASE not set; generating a random key for this boot."
