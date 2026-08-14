@@ -173,6 +173,43 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  def test_version_is_visible_in_admin_navigation_when_present
+    @mr_admin = users(:mr_admin)
+    sign_in @mr_admin
+
+    Version.stub :current, "1.0.53" do
+      get admin_root_path
+      assert_response :success
+      assert_match(/v1\.0\.53/, response.body)
+
+      get admin_users_path
+      assert_response :success
+      assert_match(/v1\.0\.53/, response.body)
+    end
+  end
+
+  def test_version_is_not_visible_in_admin_navigation_when_nil
+    @mr_admin = users(:mr_admin)
+    sign_in @mr_admin
+
+    Version.stub :current, nil do
+      get admin_users_path
+      assert_response :success
+      assert_no_match(/\bv\d+\.\d+/, response.body)
+    end
+  end
+
+  def test_version_is_not_visible_in_admin_navigation_when_blank
+    @mr_admin = users(:mr_admin)
+    sign_in @mr_admin
+
+    Version.stub :current, "" do
+      get admin_users_path
+      assert_response :success
+      assert_no_match(/\bv\d+\.\d+/, response.body)
+    end
+  end
+
   # Test admin dashboard content and statistics
   def test_admin_dashboard_content
     @mr_admin = users(:mr_admin)
