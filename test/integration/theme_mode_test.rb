@@ -134,4 +134,31 @@ class ThemeModeTest < ActionDispatch::IntegrationTest
     assert_match(/localStorage\.getItem\("theme"\)/, response.body)
     assert_match(/html\[data-bs-theme="dark"\]/, response.body)
   end
+
+  test "background jobs includes theme toggle and boot script when theme_mode is auto" do
+    Settings.theme_mode = "auto"
+    sign_in users(:mr_admin)
+
+    get "/admin/jobs"
+
+    assert_response :success
+    assert_select "html[data-theme-mode=auto]"
+    assert_select "#theme-mode-toggle"
+    assert_select "html[data-bs-theme]", count: 0
+    assert_match(/localStorage\.getItem\("theme"\)/, response.body)
+    assert_match(/html\[data-bs-theme="dark"\]/, response.body)
+    assert_match(/min-height:\s*100vh/, response.body)
+  end
+
+  test "background jobs locks data-bs-theme and hides toggle when theme_mode is dark" do
+    Settings.theme_mode = "dark"
+    sign_in users(:mr_admin)
+
+    get "/admin/jobs"
+
+    assert_response :success
+    assert_select "html[data-theme-mode=dark]"
+    assert_select "html[data-bs-theme=dark]"
+    assert_select "#theme-mode-toggle", count: 0
+  end
 end

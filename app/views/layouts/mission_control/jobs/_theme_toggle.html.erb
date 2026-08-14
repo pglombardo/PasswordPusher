@@ -1,0 +1,62 @@
+<%# Mission Control has its own importmap, so this toggle is self-contained.
+    It uses the same localStorage.theme key as theme_controller.js. %>
+<% if Settings.theme_mode == "auto" %>
+  <button type="button"
+          class="button"
+          id="theme-mode-toggle"
+          title="<%= _("Use system theme") %>"
+          aria-label="<%= _("Use system theme") %>">
+    <span aria-hidden="true" id="theme-mode-toggle-icon">◐</span>
+  </button>
+  <script nonce="<%= request.content_security_policy_nonce %>">
+    (function () {
+      var btn = document.getElementById("theme-mode-toggle")
+      var icon = document.getElementById("theme-mode-toggle-icon")
+      if (!btn) return
+
+      var sessionPreference = null
+      var order = ["light", "dark", "system"]
+      var labels = {
+        light: <%= raw _("Use dark theme").to_json %>,
+        dark: <%= raw _("Use light theme").to_json %>,
+        system: <%= raw _("Use system theme").to_json %>
+      }
+      var icons = { light: "☾", dark: "☀", system: "◐" }
+
+      function stored() {
+        try {
+          var value = localStorage.getItem("theme")
+          if (value === "light" || value === "dark" || value === "system") return value
+        } catch (e) {}
+        if (sessionPreference === "light" || sessionPreference === "dark" || sessionPreference === "system") {
+          return sessionPreference
+        }
+        return "system"
+      }
+
+      function resolve(preference) {
+        if (preference === "light" || preference === "dark") return preference
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      }
+
+      function apply(preference) {
+        preference = preference || stored()
+        document.documentElement.setAttribute("data-bs-theme", resolve(preference))
+        btn.dataset.themePreference = preference
+        btn.setAttribute("title", labels[preference])
+        btn.setAttribute("aria-label", labels[preference])
+        if (icon) icon.textContent = icons[preference]
+      }
+
+      btn.addEventListener("click", function (event) {
+        event.preventDefault()
+        var next = order[(order.indexOf(stored()) + 1) % order.length]
+        sessionPreference = next
+        try { localStorage.setItem("theme", next) } catch (e) {}
+        apply(next)
+      })
+
+      apply()
+    })()
+  </script>
+<% end %>
