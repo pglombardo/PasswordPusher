@@ -1,6 +1,14 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<html lang="<%= I18n.locale %>"
+      data-controller="theme"
+      data-theme-mode="<%= Settings.theme_mode %>"
+      data-theme-instance-mode-value="<%= Settings.theme_mode %>"
+      data-theme-label-light-value="<%= _("Use light theme") %>"
+      data-theme-label-dark-value="<%= _("Use dark theme") %>"
+      data-theme-label-system-value="<%= _("Use system theme") %>"
+      <% if Settings.theme_mode_locked? %> data-bs-theme="<%= Settings.theme_mode %>"<% end %>>
   <head>
+    <%= render partial: "shared/theme_boot" %>
     <meta charset="utf-8">
     <meta name="ROBOTS" content="NOODP">
     <meta name="viewport" content="initial-scale=1">
@@ -30,6 +38,12 @@
 
       <!-- Main Content -->
       <main class="flex-grow-1 d-flex flex-column">
+        <header class="bg-white border-bottom px-4 py-3">
+          <div class="d-flex align-items-center justify-content-end">
+            <%= render partial: "shared/theme_toggle" %>
+          </div>
+        </header>
+
         <!-- Page Content -->
         <div class="flex-grow-1 p-4">
           <%= render "madmin/application/flash" %>
