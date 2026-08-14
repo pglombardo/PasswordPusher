@@ -45,6 +45,22 @@ class ThemeModeSystemTest < ApplicationSystemTestCase
     assert_equal "dark", page.evaluate_script("document.documentElement.getAttribute('data-bs-theme')")
   end
 
+  test "theme preference applies on admin dashboard" do
+    Settings.theme_mode = "auto"
+    login_as(users(:mr_admin), scope: :user)
+
+    visit root_path
+    page.execute_script("localStorage.setItem('theme', 'dark')")
+
+    visit admin_root_path
+
+    assert_selector "#theme-mode-toggle"
+    assert_equal "dark", page.evaluate_script("document.documentElement.getAttribute('data-bs-theme')")
+
+    find("#theme-mode-toggle").click
+    assert_equal "system", page.evaluate_script("localStorage.getItem('theme')")
+  end
+
   private
 
   def clear_theme_storage
