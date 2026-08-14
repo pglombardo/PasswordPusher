@@ -67,26 +67,23 @@ html[data-bs-theme="dark"] .brand-logo .logo-dark {
 }
 @supports not (-webkit-text-security: disc) {
   .payload-hidden {
-    filter: blur(6px);
+    color: transparent;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.55);
+  }
+  html[data-bs-theme="dark"] .payload-hidden {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.55);
   }
 }
 
 .payload-visibility-toggle {
-  color: #212529;
+  color: var(--bs-body-color);
   line-height: 1;
   text-decoration: none;
 }
 .payload-visibility-toggle:hover,
 .payload-visibility-toggle:focus {
-  color: #000;
+  color: var(--bs-emphasis-color);
 }
 .payload-visibility-toggle .bi {
   font-size: 1.35rem;
-}
-html[data-bs-theme="dark"] .payload-visibility-toggle {
-  color: #f8f9fa;
-}
-html[data-bs-theme="dark"] .payload-visibility-toggle:hover,
-html[data-bs-theme="dark"] .payload-visibility-toggle:focus {
-  color: #fff;
 }
