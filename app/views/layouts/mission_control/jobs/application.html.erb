@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>"
+      data-theme-mode="<%= Settings.theme_mode %>"
+      <% if Settings.theme_mode_locked? %> data-bs-theme="<%= Settings.theme_mode %>"<% end %>>
+<head>
+  <%= render partial: "shared/theme_boot" %>
+  <title>Mission control - <%= page_title %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="turbo-cache-control" content="no-cache">
+
+  <%= stylesheet_link_tag "mission_control/jobs/bulma.min" %>
+  <%= stylesheet_link_tag "mission_control/jobs/application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags "application", importmap: MissionControl::Jobs.importmap %>
+  <%= render partial: "layouts/mission_control/jobs/theme_styles" %>
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <%= render "layouts/mission_control/jobs/application_selection" %>
+    <%= render "layouts/mission_control/jobs/flash" %>
+    <%= render "layouts/mission_control/jobs/navigation" %>
+    <%= yield %>
+  </div>
+</section>
+
+</body>
+</html>
