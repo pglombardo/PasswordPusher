@@ -60,3 +60,33 @@ html[data-bs-theme="dark"] .brand-logo .logo-dark {
 .payload-reveal-zone .spoiler[data-spoiler-state="revealed"] {
   cursor: text;
 }
+
+/* Hide payload while typing (create form eye toggle) */
+.payload-hidden {
+  -webkit-text-security: disc;
+}
+@supports not (-webkit-text-security: disc) {
+  .payload-hidden {
+    filter: blur(6px);
+  }
+}
+
+.payload-visibility-toggle {
+  color: #212529;
+  line-height: 1;
+  text-decoration: none;
+}
+.payload-visibility-toggle:hover,
+.payload-visibility-toggle:focus {
+  color: #000;
+}
+.payload-visibility-toggle .bi {
+  font-size: 1.35rem;
+}
+html[data-bs-theme="dark"] .payload-visibility-toggle {
+  color: #f8f9fa;
+}
+html[data-bs-theme="dark"] .payload-visibility-toggle:hover,
+html[data-bs-theme="dark"] .payload-visibility-toggle:focus {
+  color: #fff;
+}
