@@ -9,16 +9,9 @@
 <% height = local_assigns.fetch(:height, 50) %>
 <% css_class = local_assigns.fetch(:css_class, "") %>
 <% style = local_assigns[:style] %>
-<% light_src = if Settings.brand.nil? || Settings.brand.light_logo.nil?
-     asset_path("logo-transparent-sm-bare.png")
-   else
-     Settings.brand.light_logo
-   end %>
-<% dark_src = if Settings.brand.nil? || Settings.brand.dark_logo.nil?
-     asset_path("logo-transparent-sm-dark-bare.png")
-   else
-     Settings.brand.dark_logo
-   end %>
+<% srcs = brand_logo_srcs %>
+<% light_src = srcs[:light] %>
+<% dark_src = srcs[:dark] %>
 <% logo_alt = Settings.brand&.title.presence || _("Password Pusher Logo") %>
 <% img_opts = { alt: logo_alt, class: "logo-light #{css_class}".strip }
    if height.present?

@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  STOCK_LIGHT_LOGO = "logo-transparent-sm-bare.png"
+  STOCK_DARK_LOGO = "logo-transparent-sm-dark-bare.png"
+
+  # Resolves light/dark brand logo URLs.
+  #
+  # If only one of light_logo / dark_logo is set, that custom file is used for
+  # both theme modes. Stock Password Pusher assets are used only when neither
+  # custom logo is configured.
+  #
+  # @return [Hash] keys :light and :dark with logo src strings
+  def brand_logo_srcs
+    light = Settings.brand&.light_logo.presence
+    dark = Settings.brand&.dark_logo.presence
+    {
+      light: light || dark || asset_path(STOCK_LIGHT_LOGO),
+      dark: dark || light || asset_path(STOCK_DARK_LOGO)
+    }
+  end
+
   # Set the HTML title for the page with a trailing site identifier.
   def title(content)
     content_for(:html_title) { "#{content} | #{Settings.brand.title}" }

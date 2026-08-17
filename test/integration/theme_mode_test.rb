@@ -86,6 +86,50 @@ class ThemeModeTest < ActionDispatch::IntegrationTest
     assert_select "header picture", count: 0
   end
 
+  test "brand logos use stock assets when neither custom logo is set" do
+    Settings.brand.light_logo = nil
+    Settings.brand.dark_logo = nil
+
+    get root_path
+
+    assert_response :success
+    assert_select "header .brand-logo img.logo-light[src*='logo-transparent-sm-bare']"
+    assert_select "header .brand-logo img.logo-dark[src*='logo-transparent-sm-dark-bare']"
+  end
+
+  test "brand logos use light logo for both modes when only light is set" do
+    Settings.brand.light_logo = "/logos/acme.png"
+    Settings.brand.dark_logo = nil
+
+    get root_path
+
+    assert_response :success
+    assert_select "header .brand-logo img.logo-light[src=?]", "/logos/acme.png"
+    assert_select "header .brand-logo img.logo-dark[src=?]", "/logos/acme.png"
+  end
+
+  test "brand logos use dark logo for both modes when only dark is set" do
+    Settings.brand.light_logo = nil
+    Settings.brand.dark_logo = "/logos/acme-dark.png"
+
+    get root_path
+
+    assert_response :success
+    assert_select "header .brand-logo img.logo-light[src=?]", "/logos/acme-dark.png"
+    assert_select "header .brand-logo img.logo-dark[src=?]", "/logos/acme-dark.png"
+  end
+
+  test "brand logos use each custom logo when both are set" do
+    Settings.brand.light_logo = "/logos/acme.png"
+    Settings.brand.dark_logo = "/logos/acme-dark.png"
+
+    get root_path
+
+    assert_response :success
+    assert_select "header .brand-logo img.logo-light[src=?]", "/logos/acme.png"
+    assert_select "header .brand-logo img.logo-dark[src=?]", "/logos/acme-dark.png"
+  end
+
   test "theme boot script is present in head" do
     get root_path
 

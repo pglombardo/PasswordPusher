@@ -207,4 +207,45 @@ class ApplicationHelperTest < ActionView::TestCase
     assert qr.html_safe?
     assert qr.is_a?(ActiveSupport::SafeBuffer)
   end
+
+  # Test brand_logo_srcs
+  test "brand_logo_srcs uses stock assets when neither logo is set" do
+    Settings.brand.light_logo = nil
+    Settings.brand.dark_logo = nil
+
+    srcs = brand_logo_srcs
+
+    assert_equal asset_path(ApplicationHelper::STOCK_LIGHT_LOGO), srcs[:light]
+    assert_equal asset_path(ApplicationHelper::STOCK_DARK_LOGO), srcs[:dark]
+  end
+
+  test "brand_logo_srcs uses light logo for both modes when only light is set" do
+    Settings.brand.light_logo = "/logos/acme.png"
+    Settings.brand.dark_logo = nil
+
+    srcs = brand_logo_srcs
+
+    assert_equal "/logos/acme.png", srcs[:light]
+    assert_equal "/logos/acme.png", srcs[:dark]
+  end
+
+  test "brand_logo_srcs uses dark logo for both modes when only dark is set" do
+    Settings.brand.light_logo = nil
+    Settings.brand.dark_logo = "/logos/acme-dark.png"
+
+    srcs = brand_logo_srcs
+
+    assert_equal "/logos/acme-dark.png", srcs[:light]
+    assert_equal "/logos/acme-dark.png", srcs[:dark]
+  end
+
+  test "brand_logo_srcs uses each custom logo when both are set" do
+    Settings.brand.light_logo = "/logos/acme.png"
+    Settings.brand.dark_logo = "/logos/acme-dark.png"
+
+    srcs = brand_logo_srcs
+
+    assert_equal "/logos/acme.png", srcs[:light]
+    assert_equal "/logos/acme-dark.png", srcs[:dark]
+  end
 end
