@@ -35,7 +35,7 @@ Lockbox.master_key = PasswordPusher::EnvOrFile.read("PWPUSH_MASTER_KEY") ||
 
 previous = PasswordPusher::EnvOrFile.read("PWPUSH_MASTER_KEY_PREVIOUS")
 if previous
-  Lockbox.default_options[:previous_versions] = previous.split(",").map do |previous_key|
+  Lockbox.default_options[:previous_versions] = previous.split(",").map(&:strip).reject(&:empty?).map do |previous_key|
     {master_key: previous_key}
   end
 end

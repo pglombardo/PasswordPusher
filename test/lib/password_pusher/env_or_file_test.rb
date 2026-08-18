@@ -98,4 +98,41 @@ class PasswordPusher::EnvOrFileTest < ActiveSupport::TestCase
 
     assert_nil PasswordPusher::EnvOrFile.read(ENV_NAME)
   end
+
+  test "raises when _FILE points to an empty file" do
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "secret")
+      File.write(path, "")
+      ENV[FILE_ENV_NAME] = path
+
+      error = assert_raises(PasswordPusher::EnvOrFile::Error) do
+        PasswordPusher::EnvOrFile.read(ENV_NAME)
+      end
+      assert_match(/empty/, error.message)
+    end
+  end
+
+  test "raises when _FILE points to a whitespace-only file" do
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "secret")
+      File.write(path, " \n\t\n")
+      ENV[FILE_ENV_NAME] = path
+
+      error = assert_raises(PasswordPusher::EnvOrFile::Error) do
+        PasswordPusher::EnvOrFile.read(ENV_NAME)
+      end
+      assert_match(/empty/, error.message)
+    end
+  end
+
+  test "raises EnvOrFile::Error when _FILE points to a directory" do
+    Dir.mktmpdir do |dir|
+      ENV[FILE_ENV_NAME] = dir
+
+      error = assert_raises(PasswordPusher::EnvOrFile::Error) do
+        PasswordPusher::EnvOrFile.read(ENV_NAME)
+      end
+      assert_match(/not readable/, error.message)
+    end
+  end
 end
