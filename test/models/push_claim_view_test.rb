@@ -96,6 +96,49 @@ class PushClaimViewTest < ActiveSupport::TestCase
     assert_equal 1, push.audit_logs.where(kind: :admin_view).count
   end
 
+  test "claim_view! fails closed for counting views when audit log cap is reached" do
+    push = Push.create!(kind: "text", payload: "capped-secret", expire_after_views: 5, expire_after_days: 7)
+    push.audit_logs.create!(kind: :failed_passphrase, ip: "127.0.0.1")
+
+    old_max = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL
+    silence_warnings { AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, 1) }
+
+    result = push.claim_view!(ip: "127.0.0.1")
+
+    assert result.expired?
+    assert_nil result.payload
+    assert_equal :view, result.kind
+    assert_not result.expire_after_response
+    assert push.reload.expired?
+    assert_nil push.payload
+    assert_equal 0, push.audit_logs.where(kind: :view).count
+  ensure
+    silence_warnings { AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, old_max) }
+  end
+
+  test "owner claim still delivers when audit log cap is reached" do
+    push = Push.create!(
+      kind: "text",
+      payload: "owner-capped",
+      expire_after_views: 1,
+      expire_after_days: 7,
+      user: @owner
+    )
+    push.audit_logs.create!(kind: :failed_passphrase, ip: "127.0.0.1")
+
+    old_max = AuditLog::MAX_AUDIT_LOGS_PER_PUSH_OR_PULL
+    silence_warnings { AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, 1) }
+
+    result = push.claim_view!(viewer: @owner, ip: "127.0.0.1")
+
+    assert result.ok?
+    assert_equal "owner-capped", result.payload
+    assert_equal :owner_view, result.kind
+    assert_not push.reload.expired?
+  ensure
+    silence_warnings { AuditLog.const_set(:MAX_AUDIT_LOGS_PER_PUSH_OR_PULL, old_max) }
+  end
+
   test "concurrent claim_view! allows only one successful delivery for a one-time push" do
     push = Push.create!(kind: "text", payload: "race-secret", expire_after_views: 1, expire_after_days: 7)
     push_id = push.id

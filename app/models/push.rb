@@ -226,6 +226,7 @@ class Push < ApplicationRecord
       end
 
       if expired?
+        # Best-effort audit; payload is already gone
         create_retrieval_audit_log!(kind: :failed_view, viewer:, ip:, user_agent:, referrer:)
         result = ViewClaim.new(status: :expired, payload: nil, kind: :failed_view, expire_after_response: false)
       else
@@ -237,18 +238,27 @@ class Push < ApplicationRecord
           :view
         end
 
-        create_retrieval_audit_log!(kind:, viewer:, ip:, user_agent:, referrer:)
-        audit_logs.reset
+        logged = create_retrieval_audit_log!(kind:, viewer:, ip:, user_agent:, referrer:)
 
-        # File pushes defer expire so the viewer can still download attachments.
-        expire_after_response = kind == :view && !views_remaining.positive? && !files.attached?
+        # Counting views must be persisted or expire_after_views can be bypassed
+        # once the per-push audit log cap is hit. Fail closed: clear the secret.
+        if kind == :view && !logged
+          expire_record!
+          should_purge_files = true
+          result = ViewClaim.new(status: :expired, payload: nil, kind: :view, expire_after_response: false)
+        else
+          audit_logs.reset if logged
 
-        result = ViewClaim.new(
-          status: :ok,
-          payload: payload,
-          kind: kind,
-          expire_after_response: expire_after_response
-        )
+          # File pushes defer expire so the viewer can still download attachments.
+          expire_after_response = kind == :view && !views_remaining.positive? && !files.attached?
+
+          result = ViewClaim.new(
+            status: :ok,
+            payload: payload,
+            kind: kind,
+            expire_after_response: expire_after_response
+          )
+        end
       end
     end
 
@@ -315,8 +325,10 @@ class Push < ApplicationRecord
 
   private
 
+  # Returns true when an audit log row was persisted; false when skipped (cap)
+  # or the insert did not persist.
   def create_retrieval_audit_log!(kind:, viewer:, ip:, user_agent:, referrer:)
-    return if retrieval_audit_log_limit_reached?
+    return false if retrieval_audit_log_limit_reached?
 
     audit_logs.create(
       kind: kind,
@@ -324,7 +336,7 @@ class Push < ApplicationRecord
       ip: ip,
       user_agent: user_agent.to_s[0, 255],
       referrer: referrer.to_s[0, 255]
-    )
+    ).persisted?
   end
 
   def retrieval_audit_log_limit_reached?
