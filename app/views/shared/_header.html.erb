@@ -57,10 +57,10 @@
         </div>
       <% else %>
         <% unless Settings.disable_logins %>
-          <%= link_to _('Log In'), new_user_session_path, class: "btn btn-outline-secondary" %>
+          <%= link_to _('Log In'), new_user_session_path, class: "btn btn-outline-secondary", data: { turbo: false } %>
         <% end %>
         <% unless Settings.disable_signups %>
-          <%= link_to _('Sign Up'), new_user_registration_path, class: "btn btn-primary" %>
+          <%= link_to _('Sign Up'), new_user_registration_path, class: "btn btn-primary", data: { turbo: false } %>
         <% end %>
       <% end %>
     </nav>
