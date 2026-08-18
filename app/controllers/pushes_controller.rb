@@ -25,59 +25,54 @@ class PushesController < BaseController
     with: -> { redirect_to passphrase_push_path(@push), alert: I18n._("Too many passphrase attempts. Please try again in a minute.") }
 
   def show
-    # This push may have expired since the last view.  Validate the push
-    # expiration before doing anything.
+    # Expire pushes that are already past days/views so passphrase-protected
+    # exhausted pushes still skip the passphrase gate (legacy behavior).
     @push.check_limits
 
-    if @push.expired
-      log_view(@push)
-      render template: "pushes/show_expired", layout: "naked"
-      return
-    else
-      @payload = @push.payload
-    end
-
-    # Passphrase handling
-    if @push.passphrase.present?
-      # Construct the passphrase cookie name
+    # Passphrase gate before any payload access or view claim
+    if @push.passphrase.present? && !@push.expired?
       name = "#{@push.url_token}-p"
 
       # The passphrase can be passed in the params or in the cookie (default)
-      # JSON requests must pass the passphrase in the params
       has_passphrase = ActiveSupport::SecurityUtils.secure_compare(@push.passphrase.to_s, params[:passphrase].to_s) ||
         ActiveSupport::SecurityUtils.secure_compare(@push.passphrase_ciphertext.to_s, cookies[name].to_s)
 
       unless has_passphrase
-        # Passphrase hasn't been provided or is incorrect
-        # Redirect to the passphrase page
         redirect_to passphrase_push_path(@push.url_token)
         return
       end
 
-      # Delete the cookie
       cookies.delete name
     end
 
-    log_view(@push)
+    result = @push.claim_view!(
+      viewer: user_signed_in? ? current_user : nil,
+      admin: user_signed_in? && current_user.admin?,
+      ip: request.remote_ip,
+      user_agent: request.env["HTTP_USER_AGENT"],
+      referrer: request.env["HTTP_REFERER"]
+    )
+
+    if result.expired?
+      render template: "pushes/show_expired", layout: "naked"
+      return
+    end
+
+    @payload = result.payload
     expires_now
 
     # Optionally blur the text payload
     @blur_css_class = @push.settings_for_kind.enable_blur ? "spoiler" : ""
 
     if @push.kind == "url"
-      # Redirect to the URL
-      redirect_to @push.payload, allow_other_host: true, status: :see_other
+      redirect_to @payload, allow_other_host: true, status: :see_other
     else
       render layout: "bare"
     end
 
-    # If files are attached, we can't expire immediately as the viewer still needs
-    # to download the files.  In the case of files, this push will be expired on the
-    # next ExpirePushesJob run or next view attempt.  Whichever comes first.
-    if !@push.files.attached? && !@push.views_remaining.positive?
-      # Expire if this is the last view for this push
-      @push.expire!
-    end
+    # Expire after response so the last successful view still renders the payload
+    # with expired=false (legacy behavior). The view was already logged under lock.
+    @push.expire! if result.expire_after_response
   end
 
   # GET /p/:url_token/passphrase
