@@ -17,6 +17,22 @@ class LoginTurboVisitControlTest < ActionDispatch::IntegrationTest
     assert_select 'meta[name="turbo-visit-control"][content="reload"]'
   end
 
+  test "failed auth form response omits turbo-visit-control so Turbo keeps validation errors" do
+    Settings.disable_signups = false
+    InvisibleCaptcha.timestamp_enabled = false
+    InvisibleCaptcha.spinner_enabled = false
+
+    post user_registration_path, params: {
+      user: {email: "bad@example.com", password: "1", password_confirmation: "2"}
+    }
+
+    assert_response :unprocessable_content
+    assert_select 'meta[name="turbo-visit-control"]', count: 0
+  ensure
+    InvisibleCaptcha.timestamp_enabled = true
+    InvisibleCaptcha.spinner_enabled = true
+  end
+
   test "header Log In and Sign Up links disable Turbo" do
     Settings.disable_logins = false
     Settings.disable_signups = false

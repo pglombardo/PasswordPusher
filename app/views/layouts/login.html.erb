@@ -28,8 +28,11 @@
   <%= stylesheet_link_tag PasswordPusher::Theme.stylesheet_logical_name, "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <%= tag.meta name: 'turbo-drive-enabled', content: ENV.key?('TURBO_DRIVE_ENABLED') ? ENV['TURBO_DRIVE_ENABLED'].to_s.downcase : true %>
-  <%# Full page load so password managers (e.g. 1Password) can detect and fill auth forms after Turbo navigation %>
-  <meta name="turbo-visit-control" content="reload">
+  <%# GET-only: full page load so password managers can detect auth forms after Turbo navigation.
+      Omit on POST/PUT/PATCH (including 422s) so Turbo can keep rendered validation errors. %>
+  <% if request.get? %>
+    <meta name="turbo-visit-control" content="reload">
+  <% end %>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
