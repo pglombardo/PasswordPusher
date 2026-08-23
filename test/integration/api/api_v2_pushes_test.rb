@@ -623,4 +623,45 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_match(/Too many email notification requests/, body["error"])
   end
+
+  def test_active_pagination_headers
+    luca = users(:luca)
+
+    60.times do |i|
+      post "/api/v2/pushes",
+        params: {push: {payload: "api-v2-page-#{i}"}},
+        headers: bearer_headers(luca),
+        as: :json
+      assert_response :created
+    end
+
+    get "/api/v2/pushes/active", headers: bearer_headers(luca), as: :json
+    assert_response :success
+
+    res = JSON.parse(response.body)
+    assert_equal 50, res.count
+    assert_equal "1", response.headers["X-Page"]
+    assert_equal "50", response.headers["X-Per-Page"]
+    assert response.headers["X-Total"].to_i >= 60
+    assert_equal (response.headers["X-Total"].to_i.to_f / 50).ceil.to_s, response.headers["X-Total-Pages"]
+    assert_includes response.headers["Link"], 'rel="next"'
+    assert_includes response.headers["Link"], 'rel="first"'
+    assert_includes response.headers["Link"], 'rel="last"'
+    assert_not_includes response.headers["Link"], 'rel="prev"'
+
+    get "/api/v2/pushes/active?page=2", headers: bearer_headers(luca), as: :json
+    assert_response :success
+    assert_equal "2", response.headers["X-Page"]
+    assert_includes response.headers["Link"], 'rel="prev"'
+  end
+
+  def test_active_pagination_invalid_page_omits_headers
+    luca = users(:luca)
+
+    get "/api/v2/pushes/active?page=invalid", headers: bearer_headers(luca), as: :json
+    assert_response :bad_request
+    assert_nil response.headers["X-Page"]
+    assert_nil response.headers["X-Total"]
+    assert_nil response.headers["Link"]
+  end
 end

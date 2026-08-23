@@ -222,6 +222,7 @@ class Api::V1::PushesController < Api::BaseController
     - Event type (view, failed_view, expire, etc)
 
     Results are paginated with a maximum of 50 audit log entries per page and 200 pages total.
+    Pagination metadata is returned in response headers (Link, X-Page, X-Per-Page, X-Total, X-Total-Pages).
 
     Authentication is required. Only the owner of the push can retrieve its audit log.
     Requests for pushes not owned by the authenticated user will receive a 403 Forbidden response.
@@ -268,7 +269,13 @@ class Api::V1::PushesController < Api::BaseController
     @audit_logs = @push.audit_logs
       .order(created_at: :desc)
       .page(page)
-      .per(50)
+      .per(API_PAGE_SIZE)
+
+    set_pagination_headers(
+      page: @audit_logs.current_page,
+      per_page: @audit_logs.limit_value,
+      total: @audit_logs.total_count
+    )
 
     @secret_url = helpers.secret_url(@push)
     render json: {views: @audit_logs}.to_json(except: %i[user_id push_id id])
@@ -324,6 +331,7 @@ class Api::V1::PushesController < Api::BaseController
 
     Returns the list of pushes that are still active.
     Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+    Pagination metadata is returned in response headers (Link, X-Page, X-Per-Page, X-Total, X-Total-Pages).
 
     == Parameters
 
@@ -363,8 +371,14 @@ class Api::V1::PushesController < Api::BaseController
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: false)
       .page(page)
-      .per(50)
+      .per(API_PAGE_SIZE)
       .order(created_at: :desc)
+
+    set_pagination_headers(
+      page: @pushes.current_page,
+      per_page: @pushes.limit_value,
+      total: @pushes.total_count
+    )
 
     render template: "pushes/index", status: :ok
   end
@@ -376,6 +390,7 @@ class Api::V1::PushesController < Api::BaseController
 
     Returns the list of pushes that have expired.
     Results are paginated with a maximum of 50 pushes per page and 200 pages total.
+    Pagination metadata is returned in response headers (Link, X-Page, X-Per-Page, X-Total, X-Total-Pages).
 
     == Parameters
 
@@ -415,8 +430,14 @@ class Api::V1::PushesController < Api::BaseController
     @pushes = Push.includes(:audit_logs)
       .where(user_id: current_user.id, expired: true)
       .page(page)
-      .per(50)
+      .per(API_PAGE_SIZE)
       .order(created_at: :desc)
+
+    set_pagination_headers(
+      page: @pushes.current_page,
+      per_page: @pushes.limit_value,
+      total: @pushes.total_count
+    )
 
     render template: "pushes/index", status: :ok
   end
@@ -433,29 +454,6 @@ class Api::V1::PushesController < Api::BaseController
     ((request.path.include?("/p.json") || params["controller"] == "api/v2/pushes") &&
       permitted_params.key?(:files)) ||
       permitted_params[:kind] == "file"
-  end
-
-  # validate_page_parameter
-  #
-  # Validates and sanitizes the page parameter for pagination
-  # Returns the validated page number or renders an error response
-  #
-  # @return [Integer, nil] validated page number or nil if error rendered
-  def validate_page_parameter
-    begin
-      page = Integer(params[:page] || 1)
-      page = [page, 1].max  # Ensure minimum of 1
-    rescue ArgumentError, TypeError
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return nil
-    end
-
-    if page > 200
-      render json: {error: "Invalid page parameter"}, status: :bad_request
-      return nil
-    end
-
-    page
   end
 
   def set_push

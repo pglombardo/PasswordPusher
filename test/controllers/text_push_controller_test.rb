@@ -105,6 +105,14 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert_equal 50, res.count, "First page should return exactly 50 results"
+    assert_equal "1", @response.headers["X-Page"]
+    assert_equal "50", @response.headers["X-Per-Page"]
+    assert @response.headers["X-Total"].to_i >= 60
+    assert_equal (@response.headers["X-Total"].to_i.to_f / 50).ceil.to_s, @response.headers["X-Total-Pages"]
+    assert_includes @response.headers["Link"], 'rel="next"'
+    assert_includes @response.headers["Link"], 'rel="first"'
+    assert_includes @response.headers["Link"], 'rel="last"'
+    assert_not_includes @response.headers["Link"], 'rel="prev"'
 
     # Verify all results are active and not expired
     res.each do |push|
@@ -121,6 +129,9 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
     res_page2 = JSON.parse(@response.body)
     assert res_page2.count <= 50, "Second page should return at most 50 results"
     assert res_page2.count > 0, "Second page should have some results"
+    assert_equal "2", @response.headers["X-Page"]
+    assert_includes @response.headers["Link"], 'rel="prev"'
+    assert_not_includes @response.headers["Link"].to_s, 'rel="next"'
 
     # Verify no overlap between pages
     first_page_tokens = res.map { |push| push["url_token"] }
@@ -185,6 +196,23 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res["error"].include?("Invalid page parameter"), "Should return invalid page parameter error"
+    assert_nil @response.headers["X-Page"]
+    assert_nil @response.headers["X-Total"]
+    assert_nil @response.headers["Link"]
+  end
+
+  test "empty active list returns zero pagination headers" do
+    get active_passwords_path(format: :json),
+      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    assert_response :success
+
+    res = JSON.parse(@response.body)
+    assert_equal [], res
+    assert_equal "1", @response.headers["X-Page"]
+    assert_equal "50", @response.headers["X-Per-Page"]
+    assert_equal "0", @response.headers["X-Total"]
+    assert_equal "0", @response.headers["X-Total-Pages"]
+    assert_nil @response.headers["Link"]
   end
 
   test "invalid page parameter handling" do

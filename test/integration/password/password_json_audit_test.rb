@@ -164,6 +164,15 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("views")
     assert_equal 50, res["views"].count, "First page should return exactly 50 results"
+    assert_equal "1", @response.headers["X-Page"]
+    assert_equal "50", @response.headers["X-Per-Page"]
+    total = @response.headers["X-Total"].to_i
+    assert total >= 60
+    assert_equal (total.to_f / 50).ceil.to_s, @response.headers["X-Total-Pages"]
+    assert_includes @response.headers["Link"], 'rel="next"'
+    assert_includes @response.headers["Link"], 'rel="first"'
+    assert_includes @response.headers["Link"], 'rel="last"'
+    assert_not_includes @response.headers["Link"], 'rel="prev"'
 
     # Verify all results have required fields
     res["views"].each do |view|
@@ -182,6 +191,8 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     res_page2 = JSON.parse(@response.body)
     assert res_page2["views"].count <= 50, "Second page should return at most 50 results"
     assert res_page2["views"].count > 0, "Second page should have some results"
+    assert_equal "2", @response.headers["X-Page"]
+    assert_includes @response.headers["Link"], 'rel="prev"'
 
     # Verify no overlap between pages
     first_page_tokens = res["views"].map { |view| view["created_at"] }
@@ -216,6 +227,9 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("error")
     assert_equal "Invalid page parameter", res["error"]
+    assert_nil @response.headers["X-Page"]
+    assert_nil @response.headers["X-Total"]
+    assert_nil @response.headers["Link"]
 
     # Test page parameter too high
     get "/p/#{url_token}/audit.json?page=201",
@@ -225,6 +239,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     res = JSON.parse(@response.body)
     assert res.key?("error")
     assert_equal "Invalid page parameter", res["error"]
+    assert_nil @response.headers["X-Page"]
 
     # Test page parameter zero (should be converted to 1)
     get "/p/#{url_token}/audit.json?page=0",
@@ -233,6 +248,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     res = JSON.parse(@response.body)
     assert res.key?("views")
+    assert_equal "1", @response.headers["X-Page"]
     # page=0 should be converted to page=1, so this should work
   end
 end
