@@ -170,10 +170,11 @@
         <div class="card-body">
           <h3 class="h5 mb-2"><code>GET /api/v2/pushes/:url_token/audit</code></h3>
           <p class="mb-2"><%= _("Return audit log entries for a push. Authentication and ownership are required.") %></p>
-          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>). <%= _("Returns up to 50 entries per page.") %></p>
+          <p class="mb-2"><strong><%= _("Pagination response headers:") %></strong> <code>Link</code>, <code>X-Page</code>, <code>X-Per-Page</code>, <code>X-Total</code>, <code>X-Total-Pages</code></p>
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
           <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/YOUR_URL_TOKEN/audit?page=1" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+  -H "Authorization: Bearer YOUR_API_TOKEN" -i</code></pre>
         </div>
       </div>
 
@@ -191,10 +192,11 @@
         <div class="card-body">
           <h3 class="h5 mb-2"><code>GET /api/v2/pushes/active</code></h3>
           <p class="mb-2"><%= _("List active pushes for the authenticated user.") %></p>
-          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>). <%= _("Returns up to 50 pushes per page.") %></p>
+          <p class="mb-2"><strong><%= _("Pagination response headers:") %></strong> <code>Link</code>, <code>X-Page</code>, <code>X-Per-Page</code>, <code>X-Total</code>, <code>X-Total-Pages</code></p>
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
           <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/active?page=1" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+  -H "Authorization: Bearer YOUR_API_TOKEN" -i</code></pre>
         </div>
       </div>
 
@@ -202,10 +204,11 @@
         <div class="card-body">
           <h3 class="h5 mb-2"><code>GET /api/v2/pushes/expired</code></h3>
           <p class="mb-2"><%= _("List expired pushes for the authenticated user.") %></p>
-          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>)</p>
+          <p class="mb-2"><strong><%= _("Query parameters:") %></strong> <code>page</code> (<%= _("optional, integer, default 1, valid range 1 to 200") %>). <%= _("Returns up to 50 pushes per page.") %></p>
+          <p class="mb-2"><strong><%= _("Pagination response headers:") %></strong> <code>Link</code>, <code>X-Page</code>, <code>X-Per-Page</code>, <code>X-Total</code>, <code>X-Total-Pages</code></p>
           <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
           <pre class="bg-light border rounded p-3 mb-0"><code>curl -X GET "https://<%= request.host %>/api/v2/pushes/expired?page=1" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"</code></pre>
+  -H "Authorization: Bearer YOUR_API_TOKEN" -i</code></pre>
         </div>
       </div>
 

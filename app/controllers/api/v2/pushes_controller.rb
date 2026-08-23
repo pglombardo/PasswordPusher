@@ -65,7 +65,13 @@ class Api::V2::PushesController < Api::V1::PushesController
     @audit_logs = @push.audit_logs
       .order(created_at: :desc)
       .page(page)
-      .per(50)
+      .per(API_PAGE_SIZE)
+
+    set_pagination_headers(
+      page: @audit_logs.current_page,
+      per_page: @audit_logs.limit_value,
+      total: @audit_logs.total_count
+    )
 
     @secret_url = helpers.secret_url(@push)
     render template: "pushes/audit", status: :ok
