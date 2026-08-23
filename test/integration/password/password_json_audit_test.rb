@@ -168,7 +168,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     assert_equal "50", @response.headers["X-Per-Page"]
     total = @response.headers["X-Total"].to_i
     assert total >= 60
-    assert_equal ((total.to_f / 50).ceil).to_s, @response.headers["X-Total-Pages"]
+    assert_equal (total.to_f / 50).ceil.to_s, @response.headers["X-Total-Pages"]
     assert_includes @response.headers["Link"], 'rel="next"'
     assert_includes @response.headers["Link"], 'rel="first"'
     assert_includes @response.headers["Link"], 'rel="last"'
