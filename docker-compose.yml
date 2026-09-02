@@ -172,6 +172,9 @@ services:
       # - "5100:5100" # High port if you host pwpush behind a proxy (HTTP)
     platform: linux/amd64
     volumes:
+      # Persist SQLite DB + uploads here. Do NOT mount over /opt/PasswordPusher/db —
+      # that path contains db/migrate/; overlaying it hides migrations and breaks upgrades.
+      # Details: https://docs.pwpush.com/docs/database_url/
       - pwpush-storage:/opt/PasswordPusher/storage
       # Example host bind mount instead of named volume:
       # - ./pwpush-storage:/opt/PasswordPusher/storage
@@ -188,8 +191,9 @@ services:
     # env_file:
     #   - .env
 
-# Persists SQLite DB and file uploads. To use a host path instead, replace the
-# pwpush-storage service volume with: - /path/on/host:/opt/PasswordPusher/storage
+# Persists SQLite DB (storage/db/production.sqlite3) and file uploads.
+# To use a host path instead, replace with: - /path/on/host:/opt/PasswordPusher/storage
+# Never mount a volume over /opt/PasswordPusher/db (hides migration source files).
 volumes:
   pwpush-storage:
     driver: local

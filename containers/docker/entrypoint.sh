@@ -100,6 +100,16 @@ else
 fi
 echo ""
 
+# db/migrate must come from the image. A volume mounted over /opt/PasswordPusher/db hides it.
+if [ ! -d "/opt/PasswordPusher/db/migrate" ] || [ -z "$(ls -A /opt/PasswordPusher/db/migrate 2>/dev/null)" ]; then
+    echo "ERROR: /opt/PasswordPusher/db/migrate is missing or empty."
+    echo "A volume is likely mounted over /opt/PasswordPusher/db, which hides migration files from the image."
+    echo "Mount persistent data at /opt/PasswordPusher/storage instead (see docker-compose.yml)."
+    echo "Docs: https://docs.pwpush.com/docs/database_url/"
+    exit 1
+fi
+
+
 # Upgrade guidance for users migrating from 1.x.
 echo "Running Password Pusher ${APP_VERSION}. Migrating from 1.x? Read: https://github.com/pglombardo/PasswordPusher/blob/master/UPGRADE-2.0.md"
 echo ""
