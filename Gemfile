@@ -96,7 +96,7 @@ gem "madmin"
 gem "rotp", "~> 6.2"
 gem "rqrcode", "~> 3.2"
 gem "turnout2024", require: "turnout"
-gem "mission_control-jobs", "~> 1.1.0"
+gem "mission_control-jobs", "~> 1.2.0"
 gem "overmind", "~> 2.5", group: :development
 
 gem "dotenv", "~> 3.2"
