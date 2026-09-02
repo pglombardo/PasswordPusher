@@ -69,6 +69,9 @@ ingress:
   #  - secretName: pwpush-tls
   #    hosts:
   #      - pwpush.example.com
+# Mount /opt/PasswordPusher/storage for SQLite + uploads.
+# Do not mount over /opt/PasswordPusher/db — that hides db/migrate/ and breaks upgrades.
+# See https://docs.pwpush.com/docs/database_url/
 volumeMounts: []
   # - name: pwpush-storage
   #   mountPath: /opt/PasswordPusher/storage
