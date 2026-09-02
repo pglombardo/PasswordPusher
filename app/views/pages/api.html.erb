@@ -121,6 +121,12 @@
               </tbody>
             </table>
           </div>
+          <div class="alert alert-warning mb-3">
+            <h4 class="alert-heading h6"><%= _("OSS vs Pro: Expiration Fields") %></h4>
+            <p class="mb-0 small">
+              <%= (_("This open-source edition uses %{days_field} (integer days). Pro and pwpush.com use %{duration_field} (an enum 0–17 covering minutes through months). Do not send %{duration_field} to OSS — it is ignored and the instance default (typically 7 days) is applied instead.") % { days_field: "<code>expire_after_days</code>", duration_field: "<code>expire_after_duration</code>" }).html_safe %>
+            </p>
+          </div>
           <pre class="bg-light border rounded p-3 mb-0"><code>{
   "push": {
     "payload": "my-secret",
