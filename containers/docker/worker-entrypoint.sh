@@ -22,6 +22,8 @@ echo ""
 echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
+export SOLID_QUEUE_SUPERVISOR_MODE="${SOLID_QUEUE_SUPERVISOR_MODE:-async}"
+echo "Password Pusher: Solid Queue supervisor mode: ${SOLID_QUEUE_SUPERVISOR_MODE}"
 echo "Password Pusher: starting background workers..."
 bin/rails solid_queue:start
 

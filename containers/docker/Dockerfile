@@ -107,6 +107,7 @@ ENV LC_CTYPE=UTF-8 LC_ALL=en_US.UTF-8
 ENV APP_ROOT=/opt/PasswordPusher
 ENV RACK_ENV=production RAILS_ENV=production
 ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
+ENV SOLID_QUEUE_SUPERVISOR_MODE=async
 
 WORKDIR ${APP_ROOT}
 
