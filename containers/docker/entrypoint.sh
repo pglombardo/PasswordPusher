@@ -144,5 +144,7 @@ echo "Password Pusher: starting foreman..."
 if [ -n "$PWP__NO_WORKER" ] || [ -n "$PWP_PUBLIC_GATEWAY" ]; then
     exec bundle exec foreman start -m web=1
 else
+    export SOLID_QUEUE_SUPERVISOR_MODE="${SOLID_QUEUE_SUPERVISOR_MODE:-async}"
+    echo "Password Pusher: Solid Queue supervisor mode: ${SOLID_QUEUE_SUPERVISOR_MODE}"
     exec bundle exec foreman start -m web=1,worker=1
 fi
