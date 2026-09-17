@@ -22,6 +22,9 @@ export default class extends Controller {
         "symbolsCheckbox",
         "avoidAmbiguousCheckbox",
         "pinLengthInput",
+        "wordCountDisplay",
+        "passwordLengthDisplay",
+        "pinLengthDisplay",
         "passphraseFields",
         "passwordFields",
         "pinFields",
@@ -71,9 +74,27 @@ export default class extends Controller {
 
     toggleTypeFields() {
         const type = this.selectedType()
-        this.passphraseFieldsTarget.classList.toggle("d-none", type !== "passphrase")
-        this.passwordFieldsTarget.classList.toggle("d-none", type !== "password")
-        this.pinFieldsTarget.classList.toggle("d-none", type !== "pin")
+        this.activatePanel(this.passphraseFieldsTarget, type === "passphrase")
+        this.activatePanel(this.passwordFieldsTarget, type === "password")
+        this.activatePanel(this.pinFieldsTarget, type === "pin")
+    }
+
+    activatePanel(panel, active) {
+        panel.classList.toggle("is-active", active)
+        panel.toggleAttribute("inert", !active)
+        panel.setAttribute("aria-hidden", active ? "false" : "true")
+    }
+
+    syncRangeDisplays() {
+        if (this.hasWordCountDisplayTarget) {
+            this.wordCountDisplayTarget.textContent = this.wordCountInputTarget.value
+        }
+        if (this.hasPasswordLengthDisplayTarget) {
+            this.passwordLengthDisplayTarget.textContent = this.passwordLengthInputTarget.value
+        }
+        if (this.hasPinLengthDisplayTarget) {
+            this.pinLengthDisplayTarget.textContent = this.pinLengthInputTarget.value
+        }
     }
 
     selectedType() {
@@ -99,6 +120,7 @@ export default class extends Controller {
         this.symbolsCheckboxTarget.checked = this.config.symbols
         this.avoidAmbiguousCheckboxTarget.checked = this.config.avoidAmbiguous
         this.pinLengthInputTarget.value = this.config.pinLength
+        this.syncRangeDisplays()
         this.toggleTypeFields()
     }
 

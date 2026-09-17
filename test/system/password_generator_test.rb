@@ -65,6 +65,24 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     assert_selector "input", wait: 2
   end
 
+  test "configure modal keeps a stable size when switching generator types" do
+    visit new_push_path(tab: "text")
+    find("button[data-action*='pwgen#configureGenerator']", match: :first, wait: 5).click
+    assert_selector "#configureModal.show", wait: 5
+
+    dialog = find("#configureModal .pwgen-modal-content", match: :first)
+    passphrase_height = dialog.native.size.height
+
+    find("label.pwgen-type-label[for='pwgen_type_password']", match: :first).click
+    password_height = dialog.native.size.height
+
+    find("label.pwgen-type-label[for='pwgen_type_pin']", match: :first).click
+    pin_height = dialog.native.size.height
+
+    assert_in_delta passphrase_height, password_height, 8
+    assert_in_delta passphrase_height, pin_height, 8
+  end
+
   test "test generate functionality in dialog" do
     visit new_push_path(tab: "text")
 
@@ -97,8 +115,7 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     word_count_input = find("input[data-pwgen-target='wordCountInput']", match: :first, wait: 5)
     original_value = word_count_input.value.to_i
     new_value = (original_value + 1).to_s
-
-    fill_in word_count_input[:id] || word_count_input[:name], with: new_value
+    word_count_input.set(new_value)
 
     # Save settings (if there's a save button)
     save_buttons = all("button[data-action*='pwgen#saveSettings']")
