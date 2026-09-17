@@ -72,14 +72,26 @@
   }
 
   /* Dark Theme Support — follows data-bs-theme (toggle / PWP__THEME_MODE), not OS alone.
-     The default theme handles cards, tables, forms, alerts, buttons and text
-     utilities on its own, so only the madmin chrome is corrected here. Colours
-     come from the theme's --pwp-* surface ladder to stay in step with it, each
-     with a --bs-* fallback since only the default theme defines --pwp-* and one
-     Bootswatch bundle is loaded per instance.
+     Madmin views use fixed-polarity Bootstrap utilities such as .bg-white,
+     .bg-light and .text-dark. Correct those utilities because Bootswatch themes
+     do not consistently remap them for dark mode. Colours come from the default
+     theme's --pwp-* surface ladder, with --bs-* fallbacks for other themes.
      Fully-qualified selectors (no nesting) so this raw <style> block is portable. */
   html[data-bs-theme="dark"] body.bg-light {
     background-color: var(--bs-body-bg) !important;
+  }
+
+  html[data-bs-theme="dark"] .bg-white,
+  html[data-bs-theme="dark"] .bg-light:not(body) {
+    background-color: var(--pwp-surface-1, var(--bs-secondary-bg)) !important;
+  }
+
+  html[data-bs-theme="dark"] .bg-white {
+    border-color: var(--pwp-border, var(--bs-border-color)) !important;
+  }
+
+  html[data-bs-theme="dark"] .text-dark {
+    color: var(--pwp-text, var(--bs-emphasis-color)) !important;
   }
 
   html[data-bs-theme="dark"] .sidebar-nav-link {
