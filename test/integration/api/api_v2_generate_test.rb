@@ -82,6 +82,19 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_json_wrapper_keys_are_not_unpermitted
+    previous = ActionController::Parameters.action_on_unpermitted_parameters
+    ActionController::Parameters.action_on_unpermitted_parameters = :raise
+
+    post "/api/v2/generate",
+      params: {type: "passphrase", language: "it", word_count: 4, symbol: true},
+      as: :json
+
+    assert_response :success
+  ensure
+    ActionController::Parameters.action_on_unpermitted_parameters = previous
+  end
+
   def test_rate_limits_generation
     30.times do
       post "/api/v2/generate", params: {type: "pin"}, as: :json
