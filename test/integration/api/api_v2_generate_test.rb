@@ -54,7 +54,7 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
 
   def test_rejects_oversized_count
     post "/api/v2/generate",
-      params: {type: "pin", count: 21},
+      params: {type: "pin", count: 11},
       as: :json
 
     assert_response :unprocessable_content

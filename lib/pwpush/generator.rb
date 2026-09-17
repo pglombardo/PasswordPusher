@@ -2,7 +2,7 @@
 
 module Pwpush
   module Generator
-    MAX_COUNT = 20
+    MAX_COUNT = 10
     MIN_PASSWORD_LENGTH = 4
     MAX_PASSWORD_LENGTH = 128
     MIN_PIN_LENGTH = 4

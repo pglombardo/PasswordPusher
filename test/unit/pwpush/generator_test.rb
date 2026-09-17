@@ -87,7 +87,7 @@ class PwpushGeneratorTest < ActiveSupport::TestCase
 
   test "rejects an oversized batch" do
     error = assert_raises(Pwpush::Generator::InvalidParameter) do
-      Pwpush::Generator.generate(type: "pin", count: 21)
+      Pwpush::Generator.generate(type: "pin", count: 11)
     end
     assert_match(/count/, error.message)
   end
