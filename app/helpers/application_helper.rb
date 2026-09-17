@@ -89,4 +89,11 @@ module ApplicationHelper
 
     tag.style(css.html_safe, data: {turbo_track: "reload"})
   end
+
+  def pwgen_default_language
+    locale = I18n.locale.to_s.split(/[-_]/).first
+    return locale if Pwpush::Generator::LANGUAGES.include?(locale)
+
+    Settings.gen.language
+  end
 end

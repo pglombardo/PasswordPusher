@@ -28,9 +28,7 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     # Click generate button
     generate_button.click
-
-    # Password should appear in the form
-    sleep 0.5 # Wait for JavaScript to execute
+    wait_until_field_has_value("push_payload")
     new_value = payload_input.value
 
     assert_not_equal initial_value, new_value
@@ -45,9 +43,7 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     payload_input = find("textarea#push_payload")
 
     generate_button.click
-    sleep 0.5
-
-    # Password should be in the textarea
+    wait_until_field_has_value("push_payload")
     generated_password = payload_input.value
     assert generated_password.present?
     assert generated_password.length >= 8 # Minimum reasonable password length
@@ -97,12 +93,12 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     sleep 0.5
 
-    # Change a setting (e.g., number of syllables)
-    syllables_input = find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
-    original_value = syllables_input.value.to_i
-    new_value = (original_value + 2).to_s
+    # Change a setting (e.g., number of words)
+    word_count_input = find("input[data-pwgen-target='wordCountInput']", match: :first, wait: 5)
+    original_value = word_count_input.value.to_i
+    new_value = (original_value + 1).to_s
 
-    fill_in syllables_input[:id] || syllables_input[:name], with: new_value
+    fill_in word_count_input[:id] || word_count_input[:name], with: new_value
 
     # Save settings (if there's a save button)
     save_buttons = all("button[data-action*='pwgen#saveSettings']")
@@ -121,9 +117,9 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     sleep 0.5
 
-    # Settings should be persisted (syllables value we set before navigating away)
-    syllables_after = find("input[data-pwgen-target='numSyllablesInput']", match: :first, wait: 5)
-    assert_equal new_value, syllables_after.value, "Generator syllables setting should persist after save and revisit"
+    # Settings should be persisted (word count we set before navigating away)
+    word_count_after = find("input[data-pwgen-target='wordCountInput']", match: :first, wait: 5)
+    assert_equal new_value, word_count_after.value, "Generator word count setting should persist after save and revisit"
   end
 
   test "password generator is available on password form" do
@@ -196,13 +192,13 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
 
     # Generate first password
     generate_button.click
-    sleep 0.5
+    wait_until_field_has_value("push_payload")
     first_password = payload_input.value
 
     # Clear and generate second password
     payload_input.set("")
     generate_button.click
-    sleep 0.5
+    wait_until_field_changes("push_payload", from: "")
     second_password = payload_input.value
 
     # Passwords should be different (very high probability)
@@ -215,7 +211,7 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     # Generate password
     generate_button = find("button[data-action*='pwgen#producePassword']", match: :first, wait: 5)
     generate_button.click
-    sleep 0.5
+    wait_until_field_has_value("push_payload")
 
     # Submit the form
     click_button "Push It!"

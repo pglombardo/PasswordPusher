@@ -31,6 +31,10 @@ class Api::V2::VersionController < Api::BaseController
         },
         qr_code_pushes: {
           enabled: Settings.enable_qr_pushes
+        },
+        password_generator: {
+          enabled: true,
+          languages: Pwpush::Generator::LANGUAGES
         }
       },
       requests: {

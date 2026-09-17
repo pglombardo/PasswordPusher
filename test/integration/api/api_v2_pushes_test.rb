@@ -26,7 +26,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "route is not registered and requests return 404 Not Found"
     assert_includes response.body, "Recipient(s) are added to the queue to be sent."
     assert_includes response.body, '"notify_emails_to": ["are not available"]'
-    assert_includes response.body, "Too many email notification requests (notify_emails endpoint only)"
+    assert_includes response.body, "Too many requests (notify_emails or generate)"
   end
 
   def test_legacy_api_v1_docs_are_redirected

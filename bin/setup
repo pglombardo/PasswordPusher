@@ -20,10 +20,10 @@ FileUtils.chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
 
   puts "\n== Installing JavaScript dependencies =="
-  system('yarn install --frozen-lockfile') || system!('yarn install')
+  system('corepack yarn install --frozen-lockfile') || system!('corepack yarn install')
 
   puts "\n== Building default theme CSS (importmap + themed stylesheets) =="
-  system! 'yarn build:css:single'
+  system! 'corepack yarn build:css:single'
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")

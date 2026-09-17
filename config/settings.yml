@@ -764,71 +764,72 @@ qr:
 
 ### Password Generator Defaults
 #
-# Set the defaults of the front page password generator.
+# Defaults for the built-in password, passphrase and PIN generator
+# (UI and POST /api/v2/generate). Syllable-based omgopass settings
+# (HAS_NUMBERS, TITLE_CASED, USE_SEPARATORS, CONSONANTS, VOWELS,
+# SEPARATORS, *_SYLLABLE_LENGTH, SYLLABLES_COUNT) have been removed.
 #
 gen:
-  # Whether generated passwords have numbers
+  # Default generator mode: passphrase, password or pin
   #
   # Environment variable override:
-  # PWP__GEN__HAS_NUMBERS='true'
+  # PWP__GEN__DEFAULT_TYPE='passphrase'
   #
-  has_numbers: true
+  default_type: passphrase
 
-  # Whether generated passwords will be title cased
+  # Default passphrase language: en, es, fr, de or it
   #
   # Environment variable override:
-  # PWP__GEN__TITLE_CASED='true'
+  # PWP__GEN__LANGUAGE='en'
   #
-  title_cased: true
+  language: en
 
-  # Whether generated passwords will use separators between syllables
-  #
-  # Environment variable override:
-  # PWP__GEN__USE_SEPARATORS='true'
-  #
-  use_separators: true
+  password:
+    # Environment variable override:
+    # PWP__GEN__PASSWORD__CHARACTER_LENGTH=16
+    character_length: 16
 
-  # List of consonants to generate from
-  #
-  # Environment variable override:
-  # PWP__GEN__CONSONANTS='bcdfghklmnprstvz'
-  #
-  consonants: 'bcdfghklmnprstvz'
+    # PWP__GEN__PASSWORD__UPPERCASE='true'
+    uppercase: true
 
-  # List of vowels to generate from
-  #
-  # Environment variable override:
-  # PWP__GEN__VOWELS='aeiouy'
-  #
-  vowels: 'aeiouy'
+    # PWP__GEN__PASSWORD__LOWERCASE='true'
+    lowercase: true
 
-  # If `use_separators` is enabled above, the list of separators to use (randomly)
-  #
-  # Environment variable override:
-  # PWP__GEN__SEPARATORS='-_='
-  #
-  separators: '-_='
+    # PWP__GEN__PASSWORD__DIGITS='true'
+    digits: true
 
-  # The maximum length of each syllable that a generated password can have
-  #
-  # Environment variable override:
-  # PWP__GEN__MAX_SYLLABLE_LENGTH=3
-  #
-  max_syllable_length: 3
+    # PWP__GEN__PASSWORD__SYMBOLS='true'
+    symbols: true
 
-  # The minimum length of each syllable that a generated password can have
-  #
-  # Environment variable override:
-  # PWP__GEN__MIN_SYLLABLE_LENGTH=1
-  #
-  min_syllable_length: 1
+    # Omit I, l, 1, O, 0 and o
+    # PWP__GEN__PASSWORD__AVOID_AMBIGUOUS='true'
+    avoid_ambiguous: true
 
-  # The exact number of syllables that a generated password will have
-  #
-  # Environment variable override:
-  # PWP__GEN__SYLLABLES_COUNT=3
-  #
-  syllables_count: 3
+    # ascii, latin, cyrillic or greek
+    # PWP__GEN__PASSWORD__CHARSET='ascii'
+    charset: ascii
+
+  passphrase:
+    # PWP__GEN__PASSPHRASE__WORD_COUNT=4
+    word_count: 4
+
+    # PWP__GEN__PASSPHRASE__SEPARATOR='-'
+    separator: '-'
+
+    # PWP__GEN__PASSPHRASE__CAPITALIZE='true'
+    capitalize: true
+
+    # Append two digits
+    # PWP__GEN__PASSPHRASE__NUMBER='true'
+    number: true
+
+    # Append one symbol
+    # PWP__GEN__PASSPHRASE__SYMBOL='false'
+    symbol: false
+
+  pin:
+    # PWP__GEN__PIN__DIGIT_COUNT=6
+    digit_count: 6
 
 # =============================================================================
 # Branding & UI

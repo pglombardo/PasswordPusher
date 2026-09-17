@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "timeout"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # Register a custom driver that respects CHROME_BIN environment variable.
@@ -36,5 +37,27 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   teardown do
     # Any teardown needed for all system tests
+  end
+
+  def wait_until_field_has_value(locator, timeout: 8)
+    Timeout.timeout(timeout) do
+      loop do
+        value = find_field(locator).value
+        break value if value.present?
+
+        sleep 0.1
+      end
+    end
+  end
+
+  def wait_until_field_changes(locator, from:, timeout: 8)
+    Timeout.timeout(timeout) do
+      loop do
+        value = find_field(locator).value
+        break value if value.present? && value != from
+
+        sleep 0.1
+      end
+    end
   end
 end

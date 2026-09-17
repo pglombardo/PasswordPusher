@@ -2,6 +2,7 @@ constraints(format: :json) do
   namespace :api, defaults: {format: :json} do
     namespace :v2, defaults: {format: :json} do
       get :version, to: "version#show"
+      post :generate, to: "generate#create"
 
       resources :pushes, except: %i[new index edit update] do
         get "preview", on: :member

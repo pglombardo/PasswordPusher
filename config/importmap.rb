@@ -15,8 +15,6 @@ pin "@fontsource/roboto-slab", to: "@fontsource--roboto-slab.js" # @5.2.8
 pin "@rails/actioncable", to: "@rails--actioncable.js" # @8.1.300
 pin "clipboard" # @2.0.11
 pin "js-cookie" # @3.0.7
-pin "omgopass" # @3.2.1
-pin "omgopass/random.js", to: "omgopass--random.js.js" # @3.2.1
 pin "local-time" # @3.0.3
 pin "local_time_locales", to: "local_time_locales.js"
 pin "spoiler_alert", to: "spoiler_alert.js"
