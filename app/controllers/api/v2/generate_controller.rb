@@ -22,9 +22,6 @@ class Api::V2::GenerateController < Api::BaseController
       :avoid_ambiguous, :min_digits, :min_symbols, :charset, :word_count, :separator,
       :capitalize, :number, :symbol
     ).to_h.symbolize_keys
-
-    permitted[:type] ||= Settings.gen.default_type
-    permitted[:language] ||= Settings.gen.language
     permitted
   end
 

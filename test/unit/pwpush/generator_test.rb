@@ -29,6 +29,24 @@ class PwpushGeneratorTest < ActiveSupport::TestCase
     assert_operator constrained[:entropy_bits], :<, naive[:entropy_bits]
   end
 
+  test "omitted options use instance generator settings" do
+    Settings.gen.password.character_length = 24
+    Settings.gen.passphrase.word_count = 6
+    Settings.gen.passphrase.number = false
+    Settings.gen.passphrase.symbol = false
+    Settings.gen.pin.digit_count = 8
+
+    password = Pwpush::Generator.generate(type: "password")[:results].first
+    passphrase = Pwpush::Generator.generate(type: "passphrase")[:results].first
+    pin = Pwpush::Generator.generate(type: "pin")[:results].first
+
+    assert_equal 24, password.length
+    assert_equal 6, passphrase.split("-").size
+    assert_equal 8, pin.length
+  ensure
+    Settings.reload!
+  end
+
   test "omits ambiguous characters when requested" do
     20.times do
       password = Pwpush::Generator.generate(

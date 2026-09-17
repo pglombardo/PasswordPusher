@@ -49,6 +49,16 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     assert generated_password.length >= 8 # Minimum reasonable password length
   end
 
+  test "generate password updates the character counter" do
+    visit new_push_path(tab: "text")
+
+    find("button[data-action*='pwgen#producePassword']", match: :first, wait: 5).click
+    wait_until_field_has_value("push_payload")
+
+    payload = find("textarea#push_payload").value
+    assert_equal payload.length.to_s, find("[data-passwords-target='currentChars']", match: :first).text
+  end
+
   test "configure generator dialog opens" do
     visit new_push_path(tab: "text")
 
@@ -105,6 +115,18 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
       end
     end
     assert_not_equal original_bits, updated_bits
+  end
+
+  test "configure preview entropy clears when switching away from passphrase" do
+    visit new_push_path(tab: "text")
+    find("button[data-action*='pwgen#configureGenerator']", match: :first, wait: 5).click
+    assert_selector "#configureModal.show", wait: 5
+
+    find("button[data-action*='pwgen#testGenerate']", match: :first).click
+    assert_text(/bits/, wait: 5)
+
+    find("label.pwgen-type-label[for='pwgen_type_password']", match: :first).click
+    within("#configureModal") { assert_no_text(/bits/) }
   end
 
   test "test generate functionality in dialog" do

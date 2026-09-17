@@ -39,7 +39,7 @@ module Pwpush
       end
 
       def normalized_type
-        type = @params.fetch(:type, "passphrase").to_s
+        type = @params.fetch(:type, Settings.gen.default_type).to_s
         raise InvalidParameter, "Unknown generator type: #{type}" unless TYPES.include?(type)
 
         type
@@ -53,40 +53,42 @@ module Pwpush
       end
 
       def language
-        lang = @params.fetch(:language, "en").to_s
+        lang = @params.fetch(:language, Settings.gen.language).to_s
         raise InvalidParameter, "Unsupported language: #{lang}" unless LANGUAGES.include?(lang)
 
         lang
       end
 
       def password_options
+        password = Settings.gen.password
         {
-          length: bounded_integer(@params.fetch(:length, 16), "length", MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH),
-          uppercase: boolean(@params.fetch(:uppercase, true)),
-          lowercase: boolean(@params.fetch(:lowercase, true)),
-          digits: boolean(@params.fetch(:digits, true)),
-          symbols: boolean(@params.fetch(:symbols, true)),
-          avoid_ambiguous: boolean(@params.fetch(:avoid_ambiguous, true)),
+          length: bounded_integer(@params.fetch(:length, password.character_length), "length", MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH),
+          uppercase: boolean(@params.fetch(:uppercase, password.uppercase)),
+          lowercase: boolean(@params.fetch(:lowercase, password.lowercase)),
+          digits: boolean(@params.fetch(:digits, password.digits)),
+          symbols: boolean(@params.fetch(:symbols, password.symbols)),
+          avoid_ambiguous: boolean(@params.fetch(:avoid_ambiguous, password.avoid_ambiguous)),
           min_digits: non_negative_integer(@params.fetch(:min_digits, 1), "min_digits"),
           min_symbols: non_negative_integer(@params.fetch(:min_symbols, 1), "min_symbols"),
-          charset: @params.fetch(:charset, "ascii").to_s
+          charset: @params.fetch(:charset, password.charset).to_s
         }
       end
 
       def passphrase_options
+        passphrase = Settings.gen.passphrase
         {
           language: language,
-          word_count: bounded_integer(@params.fetch(:word_count, 4), "word_count", MIN_WORD_COUNT, MAX_WORD_COUNT),
-          separator: @params.fetch(:separator, "-").to_s,
-          capitalize: boolean(@params.fetch(:capitalize, true)),
-          number: boolean(@params.fetch(:number, true)),
-          symbol: boolean(@params.fetch(:symbol, false))
+          word_count: bounded_integer(@params.fetch(:word_count, passphrase.word_count), "word_count", MIN_WORD_COUNT, MAX_WORD_COUNT),
+          separator: @params.fetch(:separator, passphrase.separator).to_s,
+          capitalize: boolean(@params.fetch(:capitalize, passphrase.capitalize)),
+          number: boolean(@params.fetch(:number, passphrase.number)),
+          symbol: boolean(@params.fetch(:symbol, passphrase.symbol))
         }
       end
 
       def pin_options
         {
-          length: bounded_integer(@params.fetch(:length, 6), "length", MIN_PIN_LENGTH, MAX_PIN_LENGTH)
+          length: bounded_integer(@params.fetch(:length, Settings.gen.pin.digit_count), "length", MIN_PIN_LENGTH, MAX_PIN_LENGTH)
         }
       end
 

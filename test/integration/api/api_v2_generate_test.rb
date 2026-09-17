@@ -35,6 +35,15 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
     assert_operator long_bits, :>, short_bits
   end
 
+  def test_omitted_options_use_instance_generator_settings
+    Settings.gen.password.character_length = 24
+
+    post "/api/v2/generate", params: {type: "password"}, as: :json
+
+    assert_response :success
+    assert_equal 24, JSON.parse(response.body)["results"].first.length
+  end
+
   def test_generates_a_password_batch
     post "/api/v2/generate",
       params: {type: "password", length: 20, count: 3},

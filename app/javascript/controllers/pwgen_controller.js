@@ -241,6 +241,7 @@ export default class extends Controller {
 
     syncEstimatedEntropy(config = this.configFromForm()) {
         if (config.type !== "passphrase") {
+            this.showEntropy(null)
             return
         }
 
@@ -266,7 +267,7 @@ export default class extends Controller {
         }
 
         const value = Number(bits)
-        const label = Number.isFinite(value) ? `${value} bits` : ""
+        const label = (bits == null || bits === "" || !Number.isFinite(value)) ? "" : `${value} bits`
         this.entropyAreaTargets.forEach((element) => {
             element.textContent = label
         })
@@ -295,6 +296,7 @@ export default class extends Controller {
         }
 
         this.payloadInputTarget.value = result.results[0]
+        this.payloadInputTarget.dispatchEvent(new Event("input", { bubbles: true }))
         this.isContentGenerated = true
 
         if (this.gaEnabledValue) {
