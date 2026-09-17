@@ -133,12 +133,17 @@
     "number": true,
     "count": 3
   }'</code></pre>
-          <pre class="bg-light border rounded p-3 mb-0"><code>{
+          <pre class="bg-light border rounded p-3 mb-3"><code>{
   "type": "passphrase",
   "language": "de",
   "entropy_bits": 64.2,
   "results": ["Apfel-Tisch-Wolke-Stein42", "..."]
 }</code></pre>
+          <p class="mb-0"><%= (_("%{code} estimates the strength of these generator settings in bits, not of one specific result. See %{start_tag}entropy as a measure of password strength%{end_tag}.") % {
+            code: "<code>entropy_bits</code>",
+            start_tag: "<a href=\"https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            end_tag: "</a>"
+          }).html_safe %></p>
         </div>
       </div>
 

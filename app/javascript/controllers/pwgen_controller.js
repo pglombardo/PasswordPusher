@@ -48,7 +48,8 @@ export default class extends Controller {
         digitsDefault: Boolean,
         symbolsDefault: Boolean,
         avoidAmbiguousDefault: Boolean,
-        pinLengthDefault: Number
+        pinLengthDefault: Number,
+        wordlistSizes: Object
     }
 
     initialize() {
@@ -61,6 +62,7 @@ export default class extends Controller {
         this.loadSettings()
         this.loadForm()
         this.toggleTypeFields()
+        this.syncEstimatedEntropy()
         this.confirmationModal = new Modal(this.generateConfirmModalTarget)
     }
 
@@ -70,6 +72,7 @@ export default class extends Controller {
 
     typeChanged() {
         this.toggleTypeFields()
+        this.syncEstimatedEntropy()
     }
 
     toggleTypeFields() {
@@ -95,6 +98,7 @@ export default class extends Controller {
         if (this.hasPinLengthDisplayTarget) {
             this.pinLengthDisplayTarget.textContent = this.pinLengthInputTarget.value
         }
+        this.syncEstimatedEntropy()
     }
 
     selectedType() {
@@ -223,15 +227,49 @@ export default class extends Controller {
     }
 
     async testGenerate() {
-        const result = await this.requestGeneration(this.configFromForm())
+        const config = this.configFromForm()
+        this.syncEstimatedEntropy(config)
+
+        const result = await this.requestGeneration(config)
         if (!result) {
             return
         }
 
-        this.testPayloadAreaTarget.innerText = result.results[0]
-        if (this.hasEntropyAreaTarget && result.entropy_bits) {
-            this.entropyAreaTarget.innerText = `${result.entropy_bits} bits`
+        this.testPayloadAreaTarget.textContent = result.results[0]
+        this.showEntropy(result.entropy_bits)
+    }
+
+    syncEstimatedEntropy(config = this.configFromForm()) {
+        if (config.type !== "passphrase") {
+            return
         }
+
+        this.showEntropy(this.estimatedPassphraseEntropy(config))
+    }
+
+    estimatedPassphraseEntropy(config) {
+        const sizes = this.wordlistSizesValue || {}
+        const wordlistSize = Number(sizes[config.language] || sizes.en || 7776)
+        let bits = config.wordCount * Math.log2(wordlistSize)
+        if (config.number) {
+            bits += Math.log2(100)
+        }
+        if (config.symbol) {
+            bits += Math.log2(8)
+        }
+        return Math.round(bits * 10) / 10
+    }
+
+    showEntropy(bits) {
+        if (!this.hasEntropyAreaTarget) {
+            return
+        }
+
+        const value = Number(bits)
+        const label = Number.isFinite(value) ? `${value} bits` : ""
+        this.entropyAreaTargets.forEach((element) => {
+            element.textContent = label
+        })
     }
 
     producePassword() {

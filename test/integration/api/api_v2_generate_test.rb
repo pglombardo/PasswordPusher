@@ -21,6 +21,20 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
     assert_match(/[0-9]{2}\z/, body["results"].first)
   end
 
+  def test_passphrase_entropy_increases_with_word_count
+    post "/api/v2/generate",
+      params: {type: "passphrase", language: "en", word_count: 3, number: false, symbol: false},
+      as: :json
+    short_bits = JSON.parse(response.body)["entropy_bits"]
+
+    post "/api/v2/generate",
+      params: {type: "passphrase", language: "en", word_count: 10, number: false, symbol: false},
+      as: :json
+    long_bits = JSON.parse(response.body)["entropy_bits"]
+
+    assert_operator long_bits, :>, short_bits
+  end
+
   def test_generates_a_password_batch
     post "/api/v2/generate",
       params: {type: "password", length: 20, count: 3},
@@ -111,5 +125,6 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes response.body, "POST /api/v2/generate"
     assert_includes response.body, "password, passphrase, or pin"
+    assert_includes response.body, "https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength"
   end
 end

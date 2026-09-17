@@ -36,7 +36,7 @@
             <div class="row g-3">
               <div class="col-12 col-sm-6">
                 <label for="pwgen_language" class="form-label small text-muted"><%= _('Language') %></label>
-                <select class="form-select" id="pwgen_language" data-pwgen-target="languageInput">
+                <select class="form-select" id="pwgen_language" data-pwgen-target="languageInput" data-action="change->pwgen#syncEstimatedEntropy">
                   <option value="en"><%= _('English') %></option>
                   <option value="es"><%= _('Spanish') %></option>
                   <option value="fr"><%= _('French') %></option>
@@ -62,13 +62,13 @@
               </div>
               <div class="col-12 col-sm-4">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="pwgen_number" data-pwgen-target="numberCheckbox">
+                  <input class="form-check-input" type="checkbox" id="pwgen_number" data-pwgen-target="numberCheckbox" data-action="change->pwgen#syncEstimatedEntropy">
                   <label class="form-check-label" for="pwgen_number"><%= _('Append numbers') %></label>
                 </div>
               </div>
               <div class="col-12 col-sm-4">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="pwgen_symbol" data-pwgen-target="symbolCheckbox">
+                  <input class="form-check-input" type="checkbox" id="pwgen_symbol" data-pwgen-target="symbolCheckbox" data-action="change->pwgen#syncEstimatedEntropy">
                   <label class="form-check-label" for="pwgen_symbol"><%= _('Append a symbol') %></label>
                 </div>
               </div>

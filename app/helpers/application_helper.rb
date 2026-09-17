@@ -96,4 +96,8 @@ module ApplicationHelper
 
     Settings.gen.language
   end
+
+  def pwgen_wordlist_sizes
+    Pwpush::Generator::LANGUAGES.index_with { |language| Pwpush::Generator::Wordlists.size_for(language) }
+  end
 end

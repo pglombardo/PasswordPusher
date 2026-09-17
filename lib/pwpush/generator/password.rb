@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "securerandom"
+
 module Pwpush
   module Generator
     class Password
@@ -39,7 +41,17 @@ module Pwpush
       end
 
       def entropy_bits
-        (@length * Math.log2(@pool.size)).round(1)
+        extra_digits = extra_count(@min_digits, :digits)
+        extra_symbols = extra_count(@min_symbols, :symbols)
+        remaining = @length - @classes.size - extra_digits - extra_symbols
+
+        bits = remaining * Math.log2(@pool.size)
+        @classes.each_value { |pool| bits += Math.log2(pool.size) }
+        if extra_digits.positive?
+          bits += extra_digits * Math.log2(Charsets.maybe_strip(Charsets::DIGITS, @avoid_ambiguous).size)
+        end
+        bits += extra_symbols * Math.log2(Charsets::SYMBOLS.size) if extra_symbols.positive?
+        bits.round(1)
       end
 
       private

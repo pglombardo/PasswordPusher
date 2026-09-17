@@ -16,6 +16,19 @@ class PwpushGeneratorTest < ActiveSupport::TestCase
     assert_operator result[:entropy_bits], :>, 50
   end
 
+  test "password entropy accounts for enforced character classes" do
+    naive = Pwpush::Generator.generate(type: "password", length: 8, min_digits: 1, min_symbols: 1)
+    constrained = Pwpush::Generator.generate(type: "password", length: 8, min_digits: 3, min_symbols: 2)
+
+    pool = Pwpush::Generator::Charsets.pool(
+      uppercase: true, lowercase: true, digits: true, symbols: true, charset: "ascii", avoid_ambiguous: true
+    )
+    naive_ceiling = (8 * Math.log2(pool.size)).round(1)
+
+    assert_operator naive[:entropy_bits], :<=, naive_ceiling
+    assert_operator constrained[:entropy_bits], :<, naive[:entropy_bits]
+  end
+
   test "omits ambiguous characters when requested" do
     20.times do
       password = Pwpush::Generator.generate(

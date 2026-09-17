@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "securerandom"
+
 module Pwpush
   module Generator
     MAX_COUNT = 10

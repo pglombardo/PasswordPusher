@@ -83,6 +83,30 @@ class PasswordGeneratorTest < ApplicationSystemTestCase
     assert_in_delta passphrase_height, pin_height, 8
   end
 
+  test "configure preview entropy updates when passphrase word count changes" do
+    visit new_push_path(tab: "text")
+    find("button[data-action*='pwgen#configureGenerator']", match: :first, wait: 5).click
+    assert_selector "#configureModal.show", wait: 5
+
+    find("button[data-action*='pwgen#testGenerate']", match: :first).click
+    entropy = find("[data-pwgen-target='entropyArea']", match: :first, wait: 5)
+    assert_text(/bits/, wait: 5)
+    original_bits = entropy.text
+
+    find("input[data-pwgen-target='wordCountInput']", match: :first).set("10")
+    find("button[data-action*='pwgen#testGenerate']", match: :first).click
+
+    updated_bits = nil
+    Timeout.timeout(8) do
+      loop do
+        updated_bits = find("[data-pwgen-target='entropyArea']", match: :first).text
+        break if updated_bits != original_bits && updated_bits.include?("bits")
+        sleep 0.05
+      end
+    end
+    assert_not_equal original_bits, updated_bits
+  end
+
   test "test generate functionality in dialog" do
     visit new_push_path(tab: "text")
 
