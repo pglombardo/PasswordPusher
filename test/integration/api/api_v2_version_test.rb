@@ -79,6 +79,10 @@ class ApiV2VersionTest < ActionDispatch::IntegrationTest
         },
         "qr_code_pushes" => {
           "enabled" => Settings.enable_qr_pushes
+        },
+        "password_generator" => {
+          "enabled" => true,
+          "languages" => Pwpush::Generator::LANGUAGES
         }
       },
       "requests" => {

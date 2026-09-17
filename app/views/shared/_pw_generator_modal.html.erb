@@ -1,85 +1,146 @@
 <div class="modal fade" id="configureModal" tabindex="-1" aria-labelledby="configureModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title fw-semibold" id="configureModalLabel"><em class="bi bi-sliders me-2"></em><%= _('Configure Password Generation') %></h5>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg pwgen-modal-dialog">
+    <div class="modal-content pwgen-modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-semibold" id="configureModalLabel"><i class="bi bi-sliders" aria-hidden="true"></i><%= _('Configure Password Generation') %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="bg-body-tertiary rounded-3 p-4 mb-4 text-center position-relative">
-          <div class="text-muted small mb-1"><%= _('Preview') %></div>
-          <div class="fs-4 fw-medium text-break font-monospace" id="configure_password_payload" data-pwgen-target="testPayloadArea">
+      <div class="modal-body pt-2">
+        <div class="pwgen-preview rounded-3 p-3 p-sm-4 mb-3 bg-body-tertiary">
+          <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+            <div class="text-muted small"><%= _('Preview') %></div>
+            <div class="small text-muted text-nowrap" data-pwgen-target="entropyArea"></div>
+          </div>
+          <div class="pwgen-preview-payload font-monospace fw-medium text-break" id="configure_password_payload" data-pwgen-target="testPayloadArea">
             <%= _('Test Area') %>
           </div>
-          <button class="btn btn-primary btn-sm position-absolute bottom-0 end-0 m-2" type="button" id="configure_generate_password"
-              data-action="click->pwgen#testGenerate">
-            <em class="bi bi-shuffle me-1"></em><%= _('Test') %>
-          </button>
-        </div>
-
-        <div class="row g-4">
-          <div class="col-md-6">
-            <h6 class="fw-semibold mb-3"><em class="bi bi-hash me-2 text-muted"></em><%= _('Structure') %></h6>
-            <div class="mb-3">
-              <label for="num_syllables" class="form-label small text-muted"><%= _('Number of Syllables') %></label>
-              <input type="number" class="form-control" id="num_syllables" data-pwgen-target="numSyllablesInput" autocomplete="on">
-            </div>
-            <div class="mb-3">
-              <label for="min_syllable_length" class="form-label small text-muted"><%= _('Minimum Syllable Length') %></label>
-              <input type="number" class="form-control" id="min_syllable_length" data-pwgen-target="minSyllableLengthInput" autocomplete="on">
-            </div>
-            <div class="mb-3">
-              <label for="max_syllable_length" class="form-label small text-muted"><%= _('Maximum Syllable Length') %></label>
-              <input type="number" class="form-control" id="max_syllable_length" data-pwgen-target="maxSyllableLengthInput" autocomplete="on">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h6 class="fw-semibold mb-3"><em class="bi bi-toggles me-2 text-muted"></em><%= _('Options') %></h6>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" id="include_numbers" data-pwgen-target="includeNumbersCheckbox">
-              <label class="form-check-label" for="include_numbers"><%= _('Include numbers') %></label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" id="use_titlecase" data-pwgen-target="useTitleCaseCheckbox" checked>
-              <label class="form-check-label" for="use_titlecase"><%= _('Use Titlecase') %></label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" id="use_separators" data-pwgen-target="useSeparatorsCheckbox" checked>
-              <label class="form-check-label" for="use_separators"><%= _('Use Separators') %></label>
-            </div>
+          <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
+            <button class="btn btn-primary btn-sm" type="button" id="configure_generate_password"
+                data-action="click->pwgen#testGenerate">
+              <i class="bi bi-shuffle me-1" aria-hidden="true"></i><%= _('Test') %>
+            </button>
           </div>
         </div>
 
-        <hr class="my-4">
+        <div class="pwgen-type-switch btn-group w-100 mb-3" role="group" aria-label="<%= _('Generator type') %>">
+          <input type="radio" class="btn-check" name="pwgen_type" id="pwgen_type_passphrase" value="passphrase" data-pwgen-target="typeInput" data-action="change->pwgen#typeChanged">
+          <label class="btn btn-outline-primary pwgen-type-label" for="pwgen_type_passphrase"><%= _('Passphrase') %></label>
+          <input type="radio" class="btn-check" name="pwgen_type" id="pwgen_type_password" value="password" data-pwgen-target="typeInput" data-action="change->pwgen#typeChanged">
+          <label class="btn btn-outline-primary pwgen-type-label" for="pwgen_type_password"><%= _('Password') %></label>
+          <input type="radio" class="btn-check" name="pwgen_type" id="pwgen_type_pin" value="pin" data-pwgen-target="typeInput" data-action="change->pwgen#typeChanged">
+          <label class="btn btn-outline-primary pwgen-type-label" for="pwgen_type_pin"><%= _('PIN') %></label>
+        </div>
 
-        <h6 class="fw-semibold mb-3"><em class="bi bi-alphabet me-2 text-muted"></em><%= _('Characters') %></h6>
-        <div class="row g-3">
-          <div class="col-12">
-            <div class="input-group">
-              <span class="input-group-text small" style="min-width: 100px;"><%= _('Separators') %></span>
-              <input class="form-control font-monospace" type="text" id="separators" aria-label="Separators" data-pwgen-target="separatorsInput" autocomplete="on">
+        <div class="pwgen-panels">
+          <div class="pwgen-panel is-active" data-pwgen-target="passphraseFields">
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <label for="pwgen_language" class="form-label small text-muted"><%= _('Language') %></label>
+                <select class="form-select" id="pwgen_language" data-pwgen-target="languageInput" data-action="change->pwgen#syncEstimatedEntropy">
+                  <option value="en"><%= _('English') %></option>
+                  <option value="es"><%= _('Spanish') %></option>
+                  <option value="fr"><%= _('French') %></option>
+                  <option value="de"><%= _('German') %></option>
+                  <option value="it"><%= _('Italian') %></option>
+                </select>
+              </div>
+              <div class="col-6 col-sm-3">
+                <label for="pwgen_word_count" class="form-label small text-muted"><%= _('Words') %> <span class="fw-semibold text-body" data-pwgen-target="wordCountDisplay"></span></label>
+                <input type="range" class="form-range" id="pwgen_word_count" min="3" max="10" data-pwgen-target="wordCountInput" data-action="input->pwgen#syncRangeDisplays" autocomplete="off">
+              </div>
+              <div class="col-6 col-sm-3">
+                <label for="pwgen_separator" class="form-label small text-muted"><%= _('Separator') %></label>
+                <input class="form-control font-monospace" type="text" id="pwgen_separator" maxlength="8" data-pwgen-target="separatorInput" autocomplete="off">
+              </div>
+            </div>
+            <div class="row g-2 mt-3">
+              <div class="col-12 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_capitalize" data-pwgen-target="capitalizeCheckbox">
+                  <label class="form-check-label" for="pwgen_capitalize"><%= _('Capitalize words') %></label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_number" data-pwgen-target="numberCheckbox" data-action="change->pwgen#syncEstimatedEntropy">
+                  <label class="form-check-label" for="pwgen_number"><%= _('Append numbers') %></label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_symbol" data-pwgen-target="symbolCheckbox" data-action="change->pwgen#syncEstimatedEntropy">
+                  <label class="form-check-label" for="pwgen_symbol"><%= _('Append a symbol') %></label>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-12">
-            <div class="input-group">
-              <span class="input-group-text small" style="min-width: 100px;"><%= _('Vowels') %></span>
-              <input class="form-control font-monospace" type="text" id="vowels" aria-label="Vowels" data-pwgen-target="vowelsInput" autocomplete="on">
+
+          <div class="pwgen-panel" data-pwgen-target="passwordFields">
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <label for="pwgen_password_length" class="form-label small text-muted"><%= _('Length') %> <span class="fw-semibold text-body" data-pwgen-target="passwordLengthDisplay"></span></label>
+                <input type="range" class="form-range" id="pwgen_password_length" min="4" max="128" data-pwgen-target="passwordLengthInput" data-action="input->pwgen#syncRangeDisplays" autocomplete="off">
+              </div>
+              <div class="col-12 col-sm-6">
+                <label for="pwgen_charset" class="form-label small text-muted"><%= _('Character set') %></label>
+                <select class="form-select" id="pwgen_charset" data-pwgen-target="charsetInput">
+                  <option value="ascii">ASCII</option>
+                  <option value="latin"><%= _('Latin (includes accents)') %></option>
+                  <option value="cyrillic"><%= _('Cyrillic') %></option>
+                  <option value="greek"><%= _('Greek') %></option>
+                </select>
+              </div>
+            </div>
+            <div class="row g-2 mt-3">
+              <div class="col-6 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_uppercase" data-pwgen-target="uppercaseCheckbox">
+                  <label class="form-check-label" for="pwgen_uppercase"><%= _('Uppercase') %></label>
+                </div>
+              </div>
+              <div class="col-6 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_lowercase" data-pwgen-target="lowercaseCheckbox">
+                  <label class="form-check-label" for="pwgen_lowercase"><%= _('Lowercase') %></label>
+                </div>
+              </div>
+              <div class="col-6 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_digits" data-pwgen-target="digitsCheckbox">
+                  <label class="form-check-label" for="pwgen_digits"><%= _('Digits') %></label>
+                </div>
+              </div>
+              <div class="col-6 col-sm-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_symbols" data-pwgen-target="symbolsCheckbox">
+                  <label class="form-check-label" for="pwgen_symbols"><%= _('Symbols') %></label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-8">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="pwgen_avoid_ambiguous" data-pwgen-target="avoidAmbiguousCheckbox">
+                  <label class="form-check-label" for="pwgen_avoid_ambiguous"><%= _('Avoid ambiguous characters') %></label>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-12">
-            <div class="input-group">
-              <span class="input-group-text small" style="min-width: 100px;"><%= _('Consonants') %></span>
-              <input class="form-control font-monospace" type="text" id="consonants" aria-label="Consonants" data-pwgen-target="consonantsInput" autocomplete="on">
+
+          <div class="pwgen-panel" data-pwgen-target="pinFields">
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <label for="pwgen_pin_length" class="form-label small text-muted"><%= _('PIN length') %> <span class="fw-semibold text-body" data-pwgen-target="pinLengthDisplay"></span></label>
+                <input type="range" class="form-range" id="pwgen_pin_length" min="4" max="12" data-pwgen-target="pinLengthInput" data-action="input->pwgen#syncRangeDisplays" autocomplete="off">
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-outline-secondary" id="reset_to_defaults" data-action="click->pwgen#resetSettings">
-          <em class="bi bi-arrow-counterclockwise me-1"></em><%= _('Reset to Defaults') %>
+      <div class="modal-footer border-0 flex-column flex-sm-row gap-2">
+        <button type="button" class="btn btn-outline-secondary w-100 w-sm-auto" id="reset_to_defaults" data-action="click->pwgen#resetSettings">
+          <i class="bi bi-arrow-counterclockwise me-1" aria-hidden="true"></i><%= _('Reset to Defaults') %>
         </button>
-        <button type="button" class="btn btn-primary" id="save_configure" data-bs-dismiss="modal" data-action="click->pwgen#saveSettings">
-          <em class="bi bi-check-lg me-1"></em><%= _('Save') %>
+        <button type="button" class="btn btn-primary w-100 w-sm-auto" id="save_configure" data-bs-dismiss="modal" data-action="click->pwgen#saveSettings">
+          <i class="bi bi-check-lg me-1" aria-hidden="true"></i><%= _('Save') %>
         </button>
       </div>
     </div>

@@ -82,6 +82,10 @@ class Api::BaseController < ApplicationController
       # When anonymous access is disabled, API endpoints require authentication.
       head :unauthorized
 
+    elsif params["controller"] == "api/v2/generate"
+      # Anonymous generation is allowed when anonymous access is enabled
+      nil
+
     elsif params["controller"] == "api/v2/pushes"
       if %w[audit active expired notify_emails].include?(params["action"])
         # These v2 endpoints require a valid token

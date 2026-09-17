@@ -20,7 +20,7 @@
           <% end %>
           <pre class="bg-light border rounded p-3 mb-3"><code>Authorization: Bearer YOUR_API_TOKEN</code></pre>
           <ul class="mb-0">
-            <li><%= _("Public endpoints:") %> <code>GET /api/v2/version</code>, <code>GET /api/v2/pushes/:url_token</code>, <code>GET /api/v2/pushes/:url_token/preview</code></li>
+            <li><%= _("Public endpoints:") %> <code>GET /api/v2/version</code>, <code>POST /api/v2/generate</code>, <code>GET /api/v2/pushes/:url_token</code>, <code>GET /api/v2/pushes/:url_token/preview</code></li>
             <li><%= _("Authenticated endpoints:") %> <code>GET /api/v2/pushes/:url_token/audit</code>, <code>GET /api/v2/pushes/active</code>, <code>GET /api/v2/pushes/expired</code></li>
             <li><%= _("Anonymous access setting:") %> <%= _("When anonymous pushes are disabled, API endpoints require authentication.") %></li>
           </ul>
@@ -85,6 +85,65 @@
               <li><strong>requests.enabled</strong> - <%= _("Requests API availability (not available in OSS)") %></li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <h2 class="h4 mt-4 mb-3"><%= _("Password Generator") %></h2>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-2"><code>POST /api/v2/generate</code></h3>
+          <p class="mb-2"><%= _("Generate passwords, passphrases or PINs. Results are not stored. Compose a push separately with the generated payload.") %></p>
+          <p class="mb-2"><%= _("Anonymous access follows the same rule as push creation. Generation is rate limited to 30 requests per minute.") %></p>
+          <div class="table-responsive mb-3">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th><%= _("Parameter") %></th>
+                  <th><%= _("Type") %></th>
+                  <th><%= _("Description") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>type</code></td><td>string</td><td><%= _("password, passphrase, or pin. Defaults to the instance setting.") %></td></tr>
+                <tr><td><code>count</code></td><td>integer</td><td><%= _("How many secrets to return (1–10). Default 1.") %></td></tr>
+                <tr><td><code>language</code></td><td>string</td><td><%= _("Passphrase word list: en, es, fr, de, or it.") %></td></tr>
+                <tr><td><code>length</code></td><td>integer</td><td><%= _("Password length (4–128) or PIN length (4–12).") %></td></tr>
+                <tr><td><code>uppercase</code>, <code>lowercase</code>, <code>digits</code>, <code>symbols</code></td><td>boolean</td><td><%= _("Password character classes.") %></td></tr>
+                <tr><td><code>avoid_ambiguous</code></td><td>boolean</td><td><%= _("Omit characters such as I, l, 1, O, 0, and o.") %></td></tr>
+                <tr><td><code>min_digits</code>, <code>min_symbols</code></td><td>integer</td><td><%= _("Minimum occurrences of those classes in a password.") %></td></tr>
+                <tr><td><code>charset</code></td><td>string</td><td><%= _("ascii, latin, cyrillic, greek, or a custom character string.") %></td></tr>
+                <tr><td><code>word_count</code></td><td>integer</td><td><%= _("Passphrase words (3–10).") %></td></tr>
+                <tr><td><code>separator</code></td><td>string</td><td><%= _("String inserted between passphrase words.") %></td></tr>
+                <tr><td><code>capitalize</code></td><td>boolean</td><td><%= _("Titlecase each passphrase word.") %></td></tr>
+                <tr><td><code>number</code></td><td>boolean</td><td><%= _("Append two digits to a passphrase.") %></td></tr>
+                <tr><td><code>symbol</code></td><td>boolean</td><td><%= _("Append one symbol to a passphrase.") %></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mb-2"><strong><%= _("cURL example:") %></strong></p>
+          <pre class="bg-light border rounded p-3 mb-3"><code>curl -X POST https://<%= request.host %>/api/v2/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "passphrase",
+    "language": "de",
+    "word_count": 4,
+    "separator": "-",
+    "capitalize": true,
+    "number": true,
+    "count": 3
+  }'</code></pre>
+          <pre class="bg-light border rounded p-3 mb-3"><code>{
+  "type": "passphrase",
+  "language": "de",
+  "entropy_bits": 64.2,
+  "results": ["Apfel-Tisch-Wolke-Stein42", "..."]
+}</code></pre>
+          <p class="mb-0"><%= (_("%{code} estimates the strength of these generator settings in bits, not of one specific result. See %{start_tag}entropy as a measure of password strength%{end_tag}.") % {
+            code: "<code>entropy_bits</code>",
+            start_tag: "<a href=\"https://en.wikipedia.org/wiki/Password_strength#Entropy_as_a_measure_of_password_strength\" target=\"_blank\" rel=\"noopener noreferrer\">",
+            end_tag: "</a>"
+          }).html_safe %></p>
         </div>
       </div>
 
@@ -298,7 +357,7 @@
             <li><code>403</code> - <%= _("Forbidden for current user") %></li>
             <li><code>404</code> - <%= _("Resource not found (includes unavailable notify_emails route when email auto-dispatch is disabled)") %></li>
             <li><code>422</code> - <%= _("Validation error") %></li>
-            <li><code>429</code> - <%= _("Too many email notification requests (notify_emails endpoint only)") %></li>
+            <li><code>429</code> - <%= _("Too many requests (notify_emails or generate)") %></li>
           </ul>
         </div>
       </div>
