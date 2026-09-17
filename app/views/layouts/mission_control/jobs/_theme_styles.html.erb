@@ -1,5 +1,9 @@
-<%# Mission Control uses Bulma, not Bootstrap. Dark styles follow data-bs-theme
-    (theme toggle / PWP__THEME_MODE). Fully-qualified selectors — no nesting. %>
+<%# Mission Control uses Bulma, not Bootstrap, and its layout does not load the
+    Password Pusher theme stylesheet — so the surface ladder from
+    app/assets/stylesheets/themes/default.css is restated here rather than
+    referenced. Keep the two in step when either is retuned.
+    Dark styles follow data-bs-theme (theme toggle / PWP__THEME_MODE).
+    Fully-qualified selectors — no nesting. %>
 <style>
   .jobs-theme-header {
     margin-bottom: 1rem;
@@ -17,125 +21,216 @@
     min-height: 100vh;
   }
 
+  html[data-bs-theme="dark"] {
+    color-scheme: dark;
+    scrollbar-color: #262d38 #0f1319;
+  }
+
   html[data-bs-theme="dark"],
   html[data-bs-theme="dark"] body,
   html[data-bs-theme="dark"] .section {
-    background-color: #121212;
-    color: #e9ecef;
+    background-color: #0f1319;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] .title,
-  html[data-bs-theme="dark"] .subtitle,
-  html[data-bs-theme="dark"] .has-text-dark {
-    color: #e9ecef !important;
+  html[data-bs-theme="dark"] .has-text-dark,
+  html[data-bs-theme="dark"] strong,
+  html[data-bs-theme="dark"] label {
+    color: #eef2f7 !important;
   }
 
   html[data-bs-theme="dark"] .has-text-grey,
   html[data-bs-theme="dark"] .subtitle {
-    color: #adb5bd !important;
+    color: #98a3b0 !important;
+  }
+
+  html[data-bs-theme="dark"] .has-text-primary {
+    color: #7ba9f4 !important;
   }
 
   html[data-bs-theme="dark"] a {
-    color: #6495ed;
+    color: #7ba9f4;
   }
 
   html[data-bs-theme="dark"] a:hover {
-    color: #5080e0;
+    color: #a3c6fb;
   }
 
   html[data-bs-theme="dark"] .navbar,
   html[data-bs-theme="dark"] .navbar-menu {
-    background-color: #121212;
+    background-color: #0f1319;
   }
 
   html[data-bs-theme="dark"] .jobs-theme-header {
-    background-color: #1e1e1e;
-    border-bottom-color: #2d2d2d;
+    background-color: #171c23;
+    border-bottom-color: #2a313c;
   }
 
+  /* Tabs — muted when inactive, accent underline when active. */
   html[data-bs-theme="dark"] .tabs ul {
-    border-bottom-color: #2d2d2d;
+    border-bottom-color: #2a313c;
   }
 
   html[data-bs-theme="dark"] .tabs a {
-    color: #adb5bd;
+    color: #98a3b0;
     border-color: transparent;
   }
 
   html[data-bs-theme="dark"] .tabs a:hover {
-    color: #e9ecef;
-    background-color: #1e1e1e;
-    border-bottom-color: #495057;
+    color: #eef2f7;
+    background-color: #1e242d;
+    border-bottom-color: #39424f;
   }
 
   html[data-bs-theme="dark"] .tabs li.is-active a {
-    color: #e9ecef;
-    background-color: #1e1e1e;
-    border-color: #2d2d2d;
+    color: #eef2f7;
+    background-color: #1e242d;
+    border-color: #2a313c;
     border-bottom-color: transparent;
   }
 
-  html[data-bs-theme="dark"] .table {
-    background-color: #1e1e1e;
-    color: #e9ecef;
+  html[data-bs-theme="dark"] .tabs.is-boxed li.is-active a,
+  html[data-bs-theme="dark"] .tabs:not(.is-boxed) li.is-active a {
+    border-bottom-color: #7ba9f4;
   }
 
-  html[data-bs-theme="dark"] .table thead th,
+  /* Tables — raised header, transparent rows, hairline separators. */
+  html[data-bs-theme="dark"] .table {
+    background-color: #171c23;
+    color: #ccd4dd;
+  }
+
   html[data-bs-theme="dark"] .table td,
   html[data-bs-theme="dark"] .table th {
-    background-color: #1e1e1e;
-    color: #e9ecef;
-    border-color: #2d2d2d !important;
+    background-color: transparent;
+    color: #ccd4dd;
+    border-color: #2a313c !important;
+  }
+
+  html[data-bs-theme="dark"] .table thead th {
+    background-color: #1e242d;
+    color: #98a3b0;
+    border-color: #2a313c !important;
   }
 
   html[data-bs-theme="dark"] .table.is-hoverable tbody tr:hover,
   html[data-bs-theme="dark"] .table.is-hoverable tbody tr:hover td {
-    background-color: #2d2d2d;
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
   html[data-bs-theme="dark"] .button {
-    background-color: #2d2d2d;
-    border-color: #495057;
-    color: #e9ecef;
+    background-color: #1e242d;
+    border-color: #39424f;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] .button:hover,
   html[data-bs-theme="dark"] .button.is-hovered {
-    background-color: #495057;
-    border-color: #6c757d;
-    color: #fff;
+    background-color: #262d38;
+    border-color: #48525f;
+    color: #eef2f7;
+  }
+
+  html[data-bs-theme="dark"] .button:focus,
+  html[data-bs-theme="dark"] .button.is-focused {
+    border-color: #4582ec;
+    box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.3);
   }
 
   html[data-bs-theme="dark"] .button.is-light {
-    background-color: #2d2d2d;
-    color: #e9ecef;
+    background-color: #1e242d;
+    color: #ccd4dd;
   }
 
+  html[data-bs-theme="dark"] .button.is-danger {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: #fff;
+  }
+
+  html[data-bs-theme="dark"] .button.is-danger:hover {
+    background-color: #e0625e;
+    border-color: #e0625e;
+  }
+
+  /* Bulma draws pagination controls with a bright default border. */
+  html[data-bs-theme="dark"] .pagination-previous,
+  html[data-bs-theme="dark"] .pagination-next,
+  html[data-bs-theme="dark"] .pagination-link {
+    background-color: #1e242d;
+    border-color: #39424f;
+    color: #ccd4dd;
+  }
+
+  html[data-bs-theme="dark"] .pagination-previous:hover,
+  html[data-bs-theme="dark"] .pagination-next:hover,
+  html[data-bs-theme="dark"] .pagination-link:hover {
+    background-color: #262d38;
+    border-color: #48525f;
+    color: #eef2f7;
+  }
+
+  html[data-bs-theme="dark"] .pagination-link.is-current {
+    background-color: #4582ec;
+    border-color: #4582ec;
+    color: #fff;
+  }
+
+  html[data-bs-theme="dark"] .pagination-previous[disabled],
+  html[data-bs-theme="dark"] .pagination-next[disabled],
+  html[data-bs-theme="dark"] .pagination-link[disabled],
+  html[data-bs-theme="dark"] .pagination-ellipsis {
+    background-color: #0f1319;
+    border-color: #2a313c;
+    color: #7b8593;
+  }
+
+  /* Notifications — tinted subtle backgrounds rather than Bulma's fully
+     saturated fills, which glare against a dark canvas. */
   html[data-bs-theme="dark"] .notification {
-    background-color: #1e1e1e;
-    color: #e9ecef;
+    background-color: #171c23;
+    border: 1px solid #2a313c;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] .notification.is-info,
   html[data-bs-theme="dark"] .notification.is-info.is-light {
-    background-color: #1a2730;
-    color: #cfe2ff;
+    background-color: #0f2229;
+    border-color: #1c4f5c;
+    color: #ccd4dd;
+  }
+
+  html[data-bs-theme="dark"] .notification.is-success,
+  html[data-bs-theme="dark"] .notification.is-success.is-light {
+    background-color: #062b21;
+    border-color: #0b5c44;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] .notification.is-warning,
+  html[data-bs-theme="dark"] .notification.is-warning.is-light {
+    background-color: #2e2210;
+    border-color: #6d5223;
+    color: #ccd4dd;
+  }
+
   html[data-bs-theme="dark"] .notification.is-danger,
-  html[data-bs-theme="dark"] .notification.is-success {
-    color: #e9ecef;
+  html[data-bs-theme="dark"] .notification.is-danger.is-light {
+    background-color: #2e1413;
+    border-color: #6b2c2a;
+    color: #f08f8b;
   }
 
   html[data-bs-theme="dark"] .box {
-    background-color: #1e1e1e;
-    color: #e9ecef;
+    background-color: #171c23;
+    border: 1px solid #2a313c;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] .tag:not(body) {
-    background-color: #2d2d2d;
-    color: #e9ecef;
+    background-color: #1e242d;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] input,
@@ -143,18 +238,39 @@
   html[data-bs-theme="dark"] textarea,
   html[data-bs-theme="dark"] .input,
   html[data-bs-theme="dark"] .select select {
-    background-color: #2d2d2d;
-    border-color: #495057;
-    color: #e9ecef;
+    background-color: #171c23;
+    border-color: #39424f;
+    color: #ccd4dd;
+  }
+
+  html[data-bs-theme="dark"] input:focus,
+  html[data-bs-theme="dark"] select:focus,
+  html[data-bs-theme="dark"] textarea:focus,
+  html[data-bs-theme="dark"] .input:focus,
+  html[data-bs-theme="dark"] .select select:focus {
+    background-color: #1e242d;
+    border-color: #4582ec;
+    box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.3);
+    color: #eef2f7;
+  }
+
+  html[data-bs-theme="dark"] input::placeholder,
+  html[data-bs-theme="dark"] textarea::placeholder {
+    color: #7b8593;
+    opacity: 1;
+  }
+
+  html[data-bs-theme="dark"] .select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #98a3b0;
   }
 
   html[data-bs-theme="dark"] code,
   html[data-bs-theme="dark"] pre {
-    background-color: #2d2d2d;
-    color: #e9ecef;
+    background-color: #1e242d;
+    color: #ccd4dd;
   }
 
   html[data-bs-theme="dark"] hr {
-    background-color: #2d2d2d;
+    background-color: #2a313c;
   }
 </style>

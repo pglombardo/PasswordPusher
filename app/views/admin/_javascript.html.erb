@@ -14,234 +14,73 @@
 
   /* Active state styling */
   .bg-primary.bg-opacity-10 {
-    background-color: rgba(13, 110, 253, 0.1) !important;
+    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
   }
 
   /* Hover effects for navigation links */
   .sidebar-nav-link {
-    color: #6c757d;
+    color: var(--bs-secondary-color);
     transition: all 0.2s ease-in-out;
   }
 
   .sidebar-nav-link:hover {
-    color: #495057;
+    color: var(--bs-emphasis-color);
     background-color: rgba(0, 0, 0, 0.05);
     transform: translateX(2px);
   }
 
   .sidebar-nav-link.active {
-    color: #0d6efd;
-    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--bs-primary);
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
     font-weight: 600;
   }
 
   /* Dark Theme Support — follows data-bs-theme (toggle / PWP__THEME_MODE), not OS alone.
+     The default theme handles cards, tables, forms, alerts, buttons and text
+     utilities on its own, so only the admin chrome is corrected here. Colours
+     come from the theme's --pwp-* surface ladder to stay in step with it.
      Fully-qualified selectors (no nesting) so this raw <style> block is portable. */
-  html[data-bs-theme="dark"] body {
-    background-color: #121212 !important;
-    color: #e9ecef !important;
-  }
-
   html[data-bs-theme="dark"] body.bg-light {
-    background-color: #121212 !important;
+    background-color: var(--bs-body-bg) !important;
   }
 
-  html[data-bs-theme="dark"] aside.bg-white {
-    background-color: #1e1e1e !important;
-    border-color: #2d2d2d !important;
+  html[data-bs-theme="dark"] .sidebar-nav-link {
+    color: var(--bs-secondary-color);
   }
 
-  html[data-bs-theme="dark"] header.bg-white {
-    background-color: #1e1e1e !important;
-    border-color: #2d2d2d !important;
+  html[data-bs-theme="dark"] .sidebar-nav-link:hover {
+    color: var(--bs-emphasis-color);
+    background-color: rgba(255, 255, 255, 0.06);
   }
 
-  html[data-bs-theme="dark"] .text-dark {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .text-muted {
-    color: #adb5bd !important;
-  }
-
-  html[data-bs-theme="dark"] h1,
-  html[data-bs-theme="dark"] h2,
-  html[data-bs-theme="dark"] h3,
-  html[data-bs-theme="dark"] h4,
-  html[data-bs-theme="dark"] h5,
-  html[data-bs-theme="dark"] h6,
-  html[data-bs-theme="dark"] .h1,
-  html[data-bs-theme="dark"] .h2,
-  html[data-bs-theme="dark"] .h3,
-  html[data-bs-theme="dark"] .h4,
-  html[data-bs-theme="dark"] .h5,
-  html[data-bs-theme="dark"] .h6 {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .card {
-    background-color: #1e1e1e !important;
-    border-color: #2d2d2d !important;
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .card-body {
-    background-color: #1e1e1e !important;
-  }
-
-  html[data-bs-theme="dark"] .alert-danger {
-    background-color: #2d1f1f !important;
-    border-color: #5c3333 !important;
-    color: #f8d7da !important;
-  }
-
-  html[data-bs-theme="dark"] .alert-info {
-    background-color: #1a2730 !important;
-    border-color: #2d4a5c !important;
-    color: #cfe2ff !important;
-  }
-
-  html[data-bs-theme="dark"] .alert-warning {
-    background-color: #332b1f !important;
-    border-color: #664d26 !important;
-    color: #fff3cd !important;
-  }
-
-  html[data-bs-theme="dark"] .alert-heading {
-    color: inherit !important;
-  }
-
-  html[data-bs-theme="dark"] .text-danger-emphasis,
-  html[data-bs-theme="dark"] .text-info-emphasis,
-  html[data-bs-theme="dark"] .text-warning-emphasis,
-  html[data-bs-theme="dark"] .text-primary-emphasis {
-    color: inherit !important;
-  }
-
-  html[data-bs-theme="dark"] .bg-light {
-    background-color: #2d2d2d !important;
-  }
-
-  html[data-bs-theme="dark"] .bg-white {
-    background-color: #1e1e1e !important;
-  }
-
-  html[data-bs-theme="dark"] .bg-primary.bg-gradient {
-    background-color: #4169E1 !important;
-  }
-
-  html[data-bs-theme="dark"] .border-bottom,
-  html[data-bs-theme="dark"] .border-end,
-  html[data-bs-theme="dark"] .border {
-    border-color: #2d2d2d !important;
-  }
-
-  html[data-bs-theme="dark"] .border-primary {
-    border-color: #4169E1 !important;
+  html[data-bs-theme="dark"] .sidebar-nav-link.active {
+    color: var(--pwp-accent-text);
+    background-color: rgba(var(--bs-primary-rgb), 0.18);
   }
 
   html[data-bs-theme="dark"] .hover-bg-light:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
   }
 
-  html[data-bs-theme="dark"] .bg-primary.bg-opacity-10 {
-    background-color: rgba(65, 105, 225, 0.2) !important;
+  html[data-bs-theme="dark"] .breadcrumb-item a {
+    color: var(--bs-secondary-color) !important;
   }
 
-  html[data-bs-theme="dark"] .bg-success.bg-opacity-10 {
-    background-color: rgba(119, 179, 0, 0.2) !important;
+  html[data-bs-theme="dark"] .breadcrumb-item.active {
+    color: var(--bs-emphasis-color) !important;
   }
 
-  html[data-bs-theme="dark"] .bg-warning.bg-opacity-10 {
-    background-color: rgba(255, 136, 0, 0.2) !important;
+  html[data-bs-theme="dark"] nav a.text-decoration-none,
+  html[data-bs-theme="dark"] footer a {
+    color: var(--bs-secondary-color) !important;
   }
 
-  html[data-bs-theme="dark"] .bg-info.bg-opacity-10 {
-    background-color: rgba(153, 51, 204, 0.2) !important;
+  html[data-bs-theme="dark"] nav a.text-decoration-none:hover,
+  html[data-bs-theme="dark"] footer a:hover {
+    color: var(--bs-emphasis-color) !important;
   }
 
-  html[data-bs-theme="dark"] .bg-danger.bg-opacity-10 {
-    background-color: rgba(204, 0, 0, 0.2) !important;
-  }
-
-  html[data-bs-theme="dark"] .text-primary {
-    color: #6495ed !important;
-  }
-
-  html[data-bs-theme="dark"] .text-success {
-    color: #77b300 !important;
-  }
-
-  html[data-bs-theme="dark"] .text-warning {
-    color: #f80 !important;
-  }
-
-  html[data-bs-theme="dark"] .text-info {
-    color: #93c !important;
-  }
-
-  html[data-bs-theme="dark"] .text-danger {
-    color: #ff6b6b !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-secondary {
-    color: #adb5bd !important;
-    border-color: #495057 !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-secondary:hover {
-    background-color: #495057 !important;
-    color: #fff !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-primary {
-    color: #6495ed !important;
-    border-color: #4169E1 !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-primary:hover {
-    background-color: #4169E1 !important;
-    color: #fff !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-success {
-    color: #77b300 !important;
-    border-color: #77b300 !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-outline-success:hover {
-    background-color: #77b300 !important;
-    color: #fff !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-primary {
-    background-color: #4169E1 !important;
-    border-color: #4169E1 !important;
-  }
-
-  html[data-bs-theme="dark"] .btn-warning {
-    background-color: #f80 !important;
-    border-color: #f80 !important;
-    color: #000 !important;
-  }
-
-  html[data-bs-theme="dark"] .badge.bg-warning {
-    background-color: #f80 !important;
-    color: #000 !important;
-  }
-
-  html[data-bs-theme="dark"] .badge.bg-primary {
-    background-color: #4169E1 !important;
-  }
-
-  html[data-bs-theme="dark"] .badge.bg-success {
-    background-color: #77b300 !important;
-  }
-
-  html[data-bs-theme="dark"] .badge.bg-danger {
-    background-color: #c00 !important;
-  }
-
+  /* Madmin-style fields that are rendered without Bootstrap's .form-control. */
   html[data-bs-theme="dark"] input[type="text"],
   html[data-bs-theme="dark"] input[type="email"],
   html[data-bs-theme="dark"] input[type="password"],
@@ -249,9 +88,9 @@
   html[data-bs-theme="dark"] input[type="datetime-local"],
   html[data-bs-theme="dark"] select,
   html[data-bs-theme="dark"] textarea {
-    background-color: #2d2d2d !important;
-    border-color: #495057 !important;
-    color: #e9ecef !important;
+    background-color: var(--pwp-surface-1);
+    border-color: var(--pwp-border-strong);
+    color: var(--bs-body-color);
   }
 
   html[data-bs-theme="dark"] input[type="text"]:focus,
@@ -261,73 +100,8 @@
   html[data-bs-theme="dark"] input[type="datetime-local"]:focus,
   html[data-bs-theme="dark"] select:focus,
   html[data-bs-theme="dark"] textarea:focus {
-    background-color: #2d2d2d !important;
-    border-color: #6495ed !important;
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .table {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .table thead th {
-    background-color: #282828 !important;
-    color: #e9ecef !important;
-    border-color: #2d2d2d !important;
-  }
-
-  html[data-bs-theme="dark"] .table > :not(caption) > * > * {
-    background-color: #282828 !important;
-    color: #e9ecef !important;
-    border-color: #2d2d2d !important;
-  }
-
-  html[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(2n+1) > * {
-    background-color: #212529 !important;
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] a {
-    color: #6495ed !important;
-  }
-
-  html[data-bs-theme="dark"] a:hover {
-    color: #5080e0 !important;
-  }
-
-  html[data-bs-theme="dark"] .breadcrumb-item a {
-    color: #adb5bd !important;
-  }
-
-  html[data-bs-theme="dark"] .breadcrumb-item.active {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] svg {
-    filter: brightness(1.2);
-  }
-
-  html[data-bs-theme="dark"] nav a.text-decoration-none {
-    color: #adb5bd !important;
-  }
-
-  html[data-bs-theme="dark"] nav a.text-decoration-none:hover {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] footer a {
-    color: #adb5bd !important;
-  }
-
-  html[data-bs-theme="dark"] footer a:hover {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .display-4 {
-    color: #e9ecef !important;
-  }
-
-  html[data-bs-theme="dark"] .lead {
-    color: #adb5bd !important;
+    background-color: var(--pwp-surface-2);
+    border-color: var(--pwp-accent);
+    color: var(--bs-emphasis-color);
   }
 </style>
