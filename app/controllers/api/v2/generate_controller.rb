@@ -17,12 +17,11 @@ class Api::V2::GenerateController < Api::BaseController
   private
 
   def generate_params
-    permitted = generate_param_source.permit(
+    generate_param_source.permit(
       :type, :language, :count, :length, :uppercase, :lowercase, :digits, :symbols,
       :avoid_ambiguous, :min_digits, :min_symbols, :charset, :word_count, :separator,
       :capitalize, :number, :symbol
     ).to_h.symbolize_keys
-    permitted
   end
 
   # JSON ParamsWrapper copies the body into `generate` and leaves :format on the
