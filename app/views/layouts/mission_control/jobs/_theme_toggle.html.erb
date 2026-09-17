@@ -41,7 +41,9 @@
 
       function apply(preference) {
         preference = preference || stored()
-        document.documentElement.setAttribute("data-bs-theme", resolve(preference))
+        var mode = resolve(preference)
+        document.documentElement.setAttribute("data-bs-theme", mode)
+        document.documentElement.setAttribute("data-theme", mode)
         btn.dataset.themePreference = preference
         btn.setAttribute("title", labels[preference])
         btn.setAttribute("aria-label", labels[preference])
