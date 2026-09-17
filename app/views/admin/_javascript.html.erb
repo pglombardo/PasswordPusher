@@ -38,7 +38,9 @@
   /* Dark Theme Support — follows data-bs-theme (toggle / PWP__THEME_MODE), not OS alone.
      The default theme handles cards, tables, forms, alerts, buttons and text
      utilities on its own, so only the admin chrome is corrected here. Colours
-     come from the theme's --pwp-* surface ladder to stay in step with it.
+     come from the theme's --pwp-* surface ladder to stay in step with it, each
+     with a --bs-* fallback since only the default theme defines --pwp-* and one
+     Bootswatch bundle is loaded per instance.
      Fully-qualified selectors (no nesting) so this raw <style> block is portable. */
   html[data-bs-theme="dark"] body.bg-light {
     background-color: var(--bs-body-bg) !important;
@@ -54,7 +56,7 @@
   }
 
   html[data-bs-theme="dark"] .sidebar-nav-link.active {
-    color: var(--pwp-accent-text);
+    color: var(--pwp-accent-text, var(--bs-link-color));
     background-color: rgba(var(--bs-primary-rgb), 0.18);
   }
 
@@ -88,8 +90,8 @@
   html[data-bs-theme="dark"] input[type="datetime-local"],
   html[data-bs-theme="dark"] select,
   html[data-bs-theme="dark"] textarea {
-    background-color: var(--pwp-surface-1);
-    border-color: var(--pwp-border-strong);
+    background-color: var(--pwp-surface-1, var(--bs-secondary-bg));
+    border-color: var(--pwp-border-strong, var(--bs-border-color));
     color: var(--bs-body-color);
   }
 
@@ -100,8 +102,8 @@
   html[data-bs-theme="dark"] input[type="datetime-local"]:focus,
   html[data-bs-theme="dark"] select:focus,
   html[data-bs-theme="dark"] textarea:focus {
-    background-color: var(--pwp-surface-2);
-    border-color: var(--pwp-accent);
+    background-color: var(--pwp-surface-2, var(--bs-tertiary-bg));
+    border-color: var(--pwp-accent, var(--bs-primary));
     color: var(--bs-emphasis-color);
   }
 </style>
