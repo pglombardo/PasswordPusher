@@ -9,7 +9,7 @@
     "flag-icons": "^7.2.3",
     "nodemon": "^3.1.9",
     "postcss": "^8.5.28",
-    "postcss-cli": "^11.0.0",
+    "postcss-cli": "^12.0.0",
     "sass": "1.104.1"
   },
   "scripts": {
@@ -18,6 +18,9 @@
     "build:css:all": "node ./build_themes.js",
     "build:css": "yarn build:css:all",
     "build:css:watch": "nodemon --watch app/assets/stylesheets --watch vendor/stylesheets --ignore app/assets/stylesheets/themes/_selected.scss -e scss,css --exec \"corepack yarn build:css:single\""
+  },
+  "engines": {
+    "node": ">=22"
   },
   "browserslist": [
     "defaults"
