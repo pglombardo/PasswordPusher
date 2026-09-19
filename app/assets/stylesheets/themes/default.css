@@ -116,188 +116,524 @@ pre {
  }
 
 
-/* Dark mode follows data-bs-theme (theme toggle / PWP__THEME_MODE), not OS alone. */
+/* ---------------------------------------------------------------------------
+   Dark mode
+   ---------------------------------------------------------------------------
+   Follows data-bs-theme (theme toggle / PWP__THEME_MODE), not OS alone.
+
+   Built on a four-step surface ladder rather than shadows: on a dark canvas a
+   shadow cannot go darker than the page, so depth comes from raising the
+   luminance of each layer instead. Accents keep the light-theme hue but are
+   lightened for text so they do not vibrate against the dark surfaces.
+
+     surface-0  page canvas
+     surface-1  cards, inputs, raised panels
+     surface-2  modals, dropdowns, popovers
+     surface-3  panels inside overlays, hover states
+
+   Instance operators can retune the whole theme by redefining the --pwp-*
+   custom properties in custom.css or via the admin custom CSS setting.
+   --------------------------------------------------------------------------- */
 html[data-bs-theme="dark"] {
-  /* --bs-blue: #2a9fd6; */
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #e83e8c;
-  --bs-red: #c00;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #FFFF00;
-  --bs-green: #77b300;
-  --bs-teal: #20c997;
-  --bs-cyan: #93c;
+  color-scheme: dark;
+
+  --pwp-surface-0: #0f1319;
+  --pwp-surface-1: #171c23;
+  --pwp-surface-2: #1e242d;
+  --pwp-surface-3: #262d38;
+  --pwp-border: #2a313c;
+  --pwp-border-strong: #39424f;
+
+  --pwp-text: #ccd4dd;
+  --pwp-text-strong: #eef2f7;
+  --pwp-text-muted: #98a3b0;
+  --pwp-text-subtle: #7b8593;
+
+  /* Brand blue stays the fill colour; text/link accents are lightened so they
+     clear 4.5:1 on every surface in the ladder. */
+  --pwp-accent: #4582ec;
+  --pwp-accent-hover: #6b9bf0;
+  --pwp-accent-text: #7ba9f4;
+  --pwp-accent-text-hover: #a3c6fb;
+  --pwp-accent-ring: rgba(69, 130, 236, 0.3);
+
+  --bs-indigo: #8c68f7;
+  --bs-purple: #9a7ad6;
+  --bs-pink: #ef7fb2;
+  --bs-red: #e0625e;
+  --bs-orange: #fd9a4a;
+  --bs-yellow: #f0ad4e;
+  --bs-green: #0fc686;
+  --bs-teal: #35d8ab;
+  --bs-cyan: #2bb8ce;
   --bs-white: #fff;
-  --bs-gray: #555;
-  --bs-gray-dark: #222;
-  --bs-gray-100: #f8f9fa;
-  --bs-gray-200: #e9ecef;
-  --bs-gray-300: #dee2e6;
-  --bs-gray-400: #adafae;
-  --bs-gray-500: #888;
-  --bs-gray-600: #555;
-  --bs-gray-700: #282828;
-  --bs-gray-800: #222;
-  --bs-gray-900: #212529;
-  --bs-primary: #4169E1;
-  --bs-secondary: #555;
-  --bs-success: #77b300;
-  --bs-info: #93c;
-  --bs-warning: #f80;
-  --bs-danger: #c00;
-  --bs-light: #222;
-  --bs-dark: #adafae;
-  --bs-secondary-color: #ccc;
-  --bs-primary-rgb: 42, 159, 214;
-  --bs-secondary-rgb: 85, 85, 85;
-  --bs-success-rgb: 119, 179, 0;
-  --bs-info-rgb: 153, 51, 204;
-  --bs-warning-rgb: 255, 136, 0;
-  --bs-danger-rgb: 204, 0, 0;
-  --bs-light-rgb: 34, 34, 34;
-  --bs-dark-rgb: 173, 175, 174;
+  --bs-gray: var(--pwp-text-muted);
+  --bs-gray-dark: var(--pwp-surface-2);
+  --bs-gray-100: var(--pwp-surface-1);
+  --bs-gray-200: var(--pwp-surface-2);
+  --bs-gray-300: var(--pwp-surface-3);
+  --bs-gray-400: var(--pwp-border-strong);
+  --bs-gray-500: var(--pwp-text-subtle);
+  --bs-gray-600: var(--pwp-text-muted);
+  --bs-gray-700: #b4bdc8;
+  --bs-gray-800: var(--pwp-text);
+  --bs-gray-900: var(--pwp-text-strong);
+
+  --bs-primary: var(--pwp-accent);
+  --bs-secondary: #adb5bd;
+  --bs-success: #02b875;
+  --bs-info: #17a2b8;
+  --bs-warning: #f0ad4e;
+  --bs-danger: #d9534f;
+  --bs-primary-rgb: 69, 130, 236;
+  --bs-secondary-rgb: 173, 181, 189;
+  --bs-success-rgb: 2, 184, 117;
+  --bs-info-rgb: 23, 162, 184;
+  --bs-warning-rgb: 240, 173, 78;
+  --bs-danger-rgb: 217, 83, 79;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-body-rgb: 173, 175, 174;
-  /* --bs-body-color: #adb5bd; */
-  --bs-ans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* .bg-light / .text-dark are used widely in views and have to flip polarity
+     in dark mode. .bg-dark / .text-light are corrected further down, since
+     each pair shares a single --bs-*-rgb token. */
+  --bs-light: var(--pwp-surface-1);
+  --bs-light-rgb: 23, 28, 35;
+  --bs-dark: var(--pwp-text);
+  --bs-dark-rgb: 204, 212, 221;
+
+  --bs-body-bg: var(--pwp-surface-0);
+  --bs-body-bg-rgb: 15, 19, 25;
+  --bs-body-color: var(--pwp-text);
+  --bs-body-color-rgb: 204, 212, 221;
+  --bs-body-rgb: 204, 212, 221;
+  --bs-emphasis-color: var(--pwp-text-strong);
+  --bs-emphasis-color-rgb: 238, 242, 247;
+  --bs-heading-color: var(--pwp-text-strong);
+
+  /* Solid rather than opacity-based, so muted text keeps its contrast on
+     every surface instead of fading out on the lighter ones. */
+  --bs-secondary-color: var(--pwp-text-muted);
+  --bs-secondary-color-rgb: 152, 163, 176;
+  --bs-tertiary-color: var(--pwp-text-subtle);
+  --bs-tertiary-color-rgb: 123, 133, 147;
+
+  --bs-secondary-bg: var(--pwp-surface-1);
+  --bs-secondary-bg-rgb: 23, 28, 35;
+  --bs-tertiary-bg: var(--pwp-surface-3);
+  --bs-tertiary-bg-rgb: 38, 45, 56;
+
+  --bs-border-color: var(--pwp-border);
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.09);
+
+  --bs-link-color: var(--pwp-accent-text);
+  --bs-link-color-rgb: 123, 169, 244;
+  --bs-link-hover-color: var(--pwp-accent-text-hover);
+  --bs-link-hover-color-rgb: 163, 198, 251;
+
+  --bs-code-color: #e8a0c6;
+  --bs-highlight-color: var(--pwp-text-strong);
+  --bs-highlight-bg: #3d3312;
+
+  --bs-primary-text-emphasis: var(--pwp-accent-text);
+  --bs-secondary-text-emphasis: var(--pwp-text-muted);
+  --bs-success-text-emphasis: #4bd6a4;
+  --bs-info-text-emphasis: #57cde0;
+  --bs-warning-text-emphasis: #f6c77e;
+  --bs-danger-text-emphasis: #f08f8b;
+  --bs-light-text-emphasis: var(--pwp-text-strong);
+  --bs-dark-text-emphasis: var(--pwp-text);
+
+  --bs-primary-bg-subtle: #101c2e;
+  --bs-secondary-bg-subtle: var(--pwp-surface-1);
+  --bs-success-bg-subtle: #062b21;
+  --bs-info-bg-subtle: #07262c;
+  --bs-warning-bg-subtle: #2e2210;
+  --bs-danger-bg-subtle: #2e1413;
+  --bs-light-bg-subtle: var(--pwp-surface-2);
+  --bs-dark-bg-subtle: #12171d;
+
+  --bs-primary-border-subtle: #25406b;
+  --bs-secondary-border-subtle: var(--pwp-border);
+  --bs-success-border-subtle: #0b5c44;
+  --bs-info-border-subtle: #155a67;
+  --bs-warning-border-subtle: #6d5223;
+  --bs-danger-border-subtle: #6b2c2a;
+  --bs-light-border-subtle: var(--pwp-border-strong);
+  --bs-dark-border-subtle: var(--pwp-surface-3);
+
+  --bs-form-valid-color: #4bd6a4;
+  --bs-form-valid-border-color: #4bd6a4;
+  --bs-form-invalid-color: #f08f8b;
+  --bs-form-invalid-border-color: #f08f8b;
+
+  --bs-focus-ring-color: var(--pwp-accent-ring);
+
+  /* Bootstrap's default shadows are tuned for light backgrounds and vanish
+     here; deepen them so they still read under the raised surfaces. */
+  --bs-box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
+  --bs-box-shadow-sm: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.4);
+  --bs-box-shadow-lg: 0 1.5rem 3rem rgba(0, 0, 0, 0.6);
+  --bs-box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+
   --bs-font-monospace: 'Roboto Mono', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1.1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: var(--bs-gray-300);
-  --bs-link-color: var(--bs-yellow);
-  --bs-body-bg: #060606;
-  --bs-tertiary-bg: #888;
+
+  scrollbar-color: var(--pwp-surface-3) var(--pwp-surface-0);
+}
+
+/* --- Elevated surfaces ---------------------------------------------------
+   Most Bootstrap components default their background to --bs-body-bg, which
+   would leave every card, modal and dropdown flush with the canvas. Stepping
+   them up the ladder is what gives the dark theme its depth. */
+
+html[data-bs-theme="dark"] .card {
+  --bs-card-bg: var(--pwp-surface-1);
+  --bs-card-color: var(--pwp-text);
+  --bs-card-cap-bg: var(--pwp-surface-2);
+  --bs-card-cap-color: var(--pwp-text-strong);
+  --bs-card-border-color: var(--pwp-border);
+  --bs-card-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html[data-bs-theme="dark"] .modal {
+  --bs-modal-bg: var(--pwp-surface-2);
+  --bs-modal-color: var(--pwp-text);
+  --bs-modal-border-color: var(--pwp-border-strong);
+  --bs-modal-header-border-color: var(--pwp-border);
+  --bs-modal-footer-border-color: var(--pwp-border);
+  --bs-modal-box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.65);
+}
+
+html[data-bs-theme="dark"] .modal-backdrop {
+  --bs-backdrop-opacity: 0.7;
+}
+
+html[data-bs-theme="dark"] .dropdown-menu {
+  --bs-dropdown-bg: var(--pwp-surface-2);
+  --bs-dropdown-color: var(--pwp-text);
+  --bs-dropdown-border-color: var(--pwp-border-strong);
+  --bs-dropdown-divider-bg: var(--pwp-border);
+  --bs-dropdown-header-color: var(--pwp-text-muted);
+  --bs-dropdown-link-color: var(--pwp-text);
+  --bs-dropdown-link-hover-color: var(--pwp-text-strong);
+  --bs-dropdown-link-hover-bg: var(--pwp-surface-3);
+  --bs-dropdown-link-active-bg: var(--pwp-accent);
+  --bs-dropdown-link-disabled-color: var(--pwp-text-subtle);
+  --bs-dropdown-box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.55);
+}
+
+html[data-bs-theme="dark"] .popover {
+  --bs-popover-bg: var(--pwp-surface-2);
+  --bs-popover-border-color: var(--pwp-border-strong);
+  --bs-popover-header-bg: var(--pwp-surface-3);
+  --bs-popover-body-color: var(--pwp-text);
+}
+
+html[data-bs-theme="dark"] .tooltip {
+  --bs-tooltip-bg: var(--pwp-surface-3);
+  --bs-tooltip-color: var(--pwp-text-strong);
+  --bs-tooltip-opacity: 1;
+}
+
+html[data-bs-theme="dark"] .offcanvas,
+html[data-bs-theme="dark"] .offcanvas-sm,
+html[data-bs-theme="dark"] .offcanvas-md,
+html[data-bs-theme="dark"] .offcanvas-lg,
+html[data-bs-theme="dark"] .offcanvas-xl,
+html[data-bs-theme="dark"] .offcanvas-xxl {
+  --bs-offcanvas-bg: var(--pwp-surface-1);
+  --bs-offcanvas-color: var(--pwp-text);
+  --bs-offcanvas-border-color: var(--pwp-border);
+}
+
+html[data-bs-theme="dark"] .accordion {
+  --bs-accordion-bg: var(--pwp-surface-1);
+  --bs-accordion-color: var(--pwp-text);
+  --bs-accordion-border-color: var(--pwp-border);
+  --bs-accordion-btn-color: var(--pwp-text);
+  --bs-accordion-active-color: var(--pwp-accent-text);
+  --bs-accordion-active-bg: var(--pwp-surface-2);
+}
+
+/* Outranks the light-mode .accordion-button rule near the top of this file,
+   which otherwise pins the button to the canvas colour in both modes. */
+html[data-bs-theme="dark"] .accordion-button {
+  color: var(--pwp-text);
+  background-color: var(--pwp-surface-1);
+}
+
+html[data-bs-theme="dark"] .accordion-button:not(.collapsed) {
+  color: var(--pwp-accent-text);
+  background-color: var(--pwp-surface-2);
+  box-shadow: inset 0 -1px 0 var(--pwp-border);
+}
+
+html[data-bs-theme="dark"] .accordion-item {
+  color: var(--pwp-text);
+  background-color: var(--pwp-surface-1);
+}
+
+html[data-bs-theme="dark"] .list-group {
+  --bs-list-group-bg: var(--pwp-surface-1);
+  --bs-list-group-color: var(--pwp-text);
+  --bs-list-group-border-color: var(--pwp-border);
+  --bs-list-group-action-color: var(--pwp-text);
+  --bs-list-group-action-hover-color: var(--pwp-text-strong);
+  --bs-list-group-action-hover-bg: var(--pwp-surface-2);
+  --bs-list-group-action-active-bg: var(--pwp-surface-3);
+  --bs-list-group-active-bg: var(--pwp-accent);
+  --bs-list-group-active-border-color: var(--pwp-accent);
+  --bs-list-group-disabled-bg: var(--pwp-surface-1);
+  --bs-list-group-disabled-color: var(--pwp-text-subtle);
+}
+
+/* Flush list groups sit directly on whatever surface hosts them. */
+html[data-bs-theme="dark"] .list-group-flush {
+  --bs-list-group-bg: transparent;
+}
+
+html[data-bs-theme="dark"] .pagination {
+  --bs-pagination-bg: var(--pwp-surface-1);
+  --bs-pagination-border-color: var(--pwp-border);
+  --bs-pagination-hover-bg: var(--pwp-surface-2);
+  --bs-pagination-hover-border-color: var(--pwp-border-strong);
+  --bs-pagination-focus-bg: var(--pwp-surface-2);
+  --bs-pagination-active-bg: var(--pwp-accent);
+  --bs-pagination-active-border-color: var(--pwp-accent);
+  --bs-pagination-disabled-bg: var(--pwp-surface-0);
+  --bs-pagination-disabled-color: var(--pwp-text-subtle);
+  --bs-pagination-disabled-border-color: var(--pwp-border);
+}
+
+/* --- Tables ---------------------------------------------------------------
+   Transparent bodies so a table picks up whichever surface it is placed on,
+   with a raised header and hairline separation between rows. */
+
+html[data-bs-theme="dark"] .table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--pwp-text);
+  --bs-table-border-color: var(--pwp-border);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.035);
+  --bs-table-striped-color: var(--pwp-text);
+  --bs-table-hover-bg: rgba(255, 255, 255, 0.055);
+  --bs-table-hover-color: var(--pwp-text-strong);
+  --bs-table-active-bg: rgba(255, 255, 255, 0.075);
+  --bs-table-active-color: var(--pwp-text-strong);
+}
+
+html[data-bs-theme="dark"] .table > thead,
+html[data-bs-theme="dark"] .table > thead > tr > .table-light {
+  --bs-table-bg: var(--pwp-surface-2);
+  --bs-table-color: var(--pwp-text-muted);
+}
+
+html[data-bs-theme="dark"] .table-light {
+  --bs-table-bg: var(--pwp-surface-2);
+  --bs-table-color: var(--pwp-text-muted);
+  --bs-table-border-color: var(--pwp-border);
+}
+
+/* --- Forms ----------------------------------------------------------------
+   Form controls are compiled from Sass rather than driven by CSS variables,
+   so they need real declarations. Inputs sit one step above the canvas and
+   focus lifts them again plus a soft accent ring. */
+
+html[data-bs-theme="dark"] .form-control,
+html[data-bs-theme="dark"] .form-select {
+  color: var(--pwp-text);
+  background-color: var(--pwp-surface-1);
+  border-color: var(--pwp-border-strong);
+}
+
+html[data-bs-theme="dark"] .form-control:hover:not(:disabled):not([readonly]),
+html[data-bs-theme="dark"] .form-select:hover:not(:disabled) {
+  border-color: #48525f;
+}
+
+html[data-bs-theme="dark"] .form-control:focus,
+html[data-bs-theme="dark"] .form-select:focus {
+  color: var(--pwp-text-strong);
+  background-color: var(--pwp-surface-2);
+  border-color: var(--pwp-accent);
+  box-shadow: 0 0 0 0.25rem var(--pwp-accent-ring);
+}
+
+html[data-bs-theme="dark"] .form-control::placeholder {
+  color: var(--pwp-text-subtle);
+  opacity: 1;
+}
+
+html[data-bs-theme="dark"] .form-control:disabled,
+html[data-bs-theme="dark"] .form-control[readonly],
+html[data-bs-theme="dark"] .form-select:disabled {
+  color: var(--pwp-text-muted);
+  background-color: var(--pwp-surface-0);
+  border-color: var(--pwp-border);
+}
+
+html[data-bs-theme="dark"] .input-group-text {
+  color: var(--pwp-text-muted);
+  background-color: var(--pwp-surface-2);
+  border-color: var(--pwp-border-strong);
+}
+
+html[data-bs-theme="dark"] .form-check-input {
+  --bs-form-check-bg: var(--pwp-surface-1);
+  border-color: var(--pwp-border-strong);
+}
+
+html[data-bs-theme="dark"] .form-check-input:checked {
+  background-color: var(--pwp-accent);
+  border-color: var(--pwp-accent);
+}
+
+html[data-bs-theme="dark"] .form-check-input:focus {
+  border-color: var(--pwp-accent);
+  box-shadow: 0 0 0 0.25rem var(--pwp-accent-ring);
+}
+
+html[data-bs-theme="dark"] .form-range::-webkit-slider-runnable-track {
+  background-color: var(--pwp-surface-3);
+}
+
+html[data-bs-theme="dark"] .form-range::-moz-range-track {
+  background-color: var(--pwp-surface-3);
+}
+
+html[data-bs-theme="dark"] .form-range::-webkit-slider-thumb {
+  background-color: var(--pwp-accent);
+}
+
+html[data-bs-theme="dark"] .form-range::-moz-range-thumb {
+  background-color: var(--pwp-accent);
 }
 
 html[data-bs-theme="dark"] .form-floating > .form-control:focus ~ label,
 html[data-bs-theme="dark"] .form-floating > .form-control:not(:placeholder-shown) ~ label,
 html[data-bs-theme="dark"] .form-floating > .form-control-plaintext ~ label,
 html[data-bs-theme="dark"] .form-floating > .form-select ~ label {
-  color: var(--bs-white-100);
+  color: var(--pwp-text-muted);
 }
 
-html[data-bs-theme="dark"] .navbar-dark,
-html[data-bs-theme="dark"] .navbar[data-bs-theme="dark"] {
-  background-color: var(--bs-black-300);
-}
-
-html[data-bs-theme="dark"] .table thead th {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .table > :not(caption) > * > * {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(2n+1) > * {
-  background-color: var(--bs-gray-900);
-  color: var(--bs-body-color);
-}
-
-html[data-bs-theme="dark"] .nav-tabs .nav-link.active {
-  color: var(--bs-white);
-  background-color: #121212;
-  border-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .accordion-button {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .accordion-button:not(.collapsed) {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
-}
-
-html[data-bs-theme="dark"] .accordion-item {
-  background-color: var(--bs-body-bg);
-}
-
-html[data-bs-theme="dark"] .list-group-item {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .form-control {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .form-control:focus {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .form-control:disabled,
-html[data-bs-theme="dark"] .form-control[readonly] {
-  background-color: var(--bs-gray-800);
-}
-
-html[data-bs-theme="dark"] .card {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-700);
-}
-
-html[data-bs-theme="dark"] .card-header {
-  color: var(--bs-body-color);
-  background-color: var(--bs-gray-600);
-}
+/* --- Buttons and navigation ---------------------------------------------- */
 
 html[data-bs-theme="dark"] .btn-primary {
-  background-color: var(--bs-primary);
+  --bs-btn-bg: var(--pwp-accent);
+  --bs-btn-border-color: var(--pwp-accent);
+  --bs-btn-hover-bg: var(--pwp-accent-hover);
+  --bs-btn-hover-border-color: var(--pwp-accent-hover);
+  --bs-btn-active-bg: var(--pwp-accent-hover);
+  --bs-btn-active-border-color: var(--pwp-accent-hover);
+  --bs-btn-disabled-bg: var(--pwp-accent);
+  --bs-btn-disabled-border-color: var(--pwp-accent);
 }
 
-html[data-bs-theme="dark"] pre,
-html[data-bs-theme="dark"] code,
-html[data-bs-theme="dark"] kbd,
-html[data-bs-theme="dark"] samp {
-  color: var(--bs-gray-300);
+html[data-bs-theme="dark"] .btn-outline-primary {
+  --bs-btn-color: var(--pwp-accent-text);
+  --bs-btn-border-color: var(--pwp-border-strong);
+  --bs-btn-hover-bg: var(--pwp-accent);
+  --bs-btn-hover-border-color: var(--pwp-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--pwp-accent);
+  --bs-btn-active-border-color: var(--pwp-accent);
+  --bs-btn-active-color: #fff;
+  --bs-btn-disabled-color: var(--pwp-text-subtle);
+  --bs-btn-disabled-border-color: var(--pwp-border);
 }
 
-html[data-bs-theme="dark"] .bg-light {
-  background-color: var(--bs-gray-600);
+html[data-bs-theme="dark"] .btn-outline-secondary {
+  --bs-btn-color: var(--pwp-text-muted);
+  --bs-btn-border-color: var(--pwp-border-strong);
+  --bs-btn-hover-bg: var(--pwp-surface-2);
+  --bs-btn-hover-border-color: #48525f;
+  --bs-btn-hover-color: var(--pwp-text-strong);
+  --bs-btn-active-bg: var(--pwp-surface-3);
+  --bs-btn-active-border-color: #48525f;
+  --bs-btn-active-color: var(--pwp-text-strong);
+  --bs-btn-disabled-color: var(--pwp-text-subtle);
+  --bs-btn-disabled-border-color: var(--pwp-border);
+}
+
+html[data-bs-theme="dark"] .btn-link {
+  --bs-btn-color: var(--pwp-accent-text);
+  --bs-btn-hover-color: var(--pwp-accent-text-hover);
+}
+
+html[data-bs-theme="dark"] .nav-underline {
+  --bs-nav-link-color: var(--pwp-text-muted);
+  --bs-nav-link-hover-color: var(--pwp-text-strong);
+  --bs-nav-underline-link-active-color: var(--pwp-accent-text);
+}
+
+html[data-bs-theme="dark"] .nav-tabs {
+  --bs-nav-tabs-border-color: var(--pwp-border);
+  --bs-nav-tabs-link-active-color: var(--pwp-text-strong);
+  --bs-nav-tabs-link-active-bg: var(--pwp-surface-1);
+  --bs-nav-tabs-link-active-border-color: var(--pwp-border) var(--pwp-border) var(--pwp-surface-1);
+  --bs-nav-tabs-link-hover-border-color: var(--pwp-surface-2) var(--pwp-surface-2) var(--pwp-border);
+}
+
+/* --- Utility corrections --------------------------------------------------
+   .bg-light / .text-dark flip through their --bs-*-rgb tokens above. Their
+   counterparts share those same tokens, so restore them here; the utilities
+   carry !important, so these have to as well. */
+
+html[data-bs-theme="dark"] .bg-dark {
+  background-color: var(--pwp-surface-2) !important;
+}
+
+html[data-bs-theme="dark"] .text-light {
+  color: var(--pwp-text-strong) !important;
+}
+
+/* The revealed secret stays on a white slab on purpose — it is the one thing
+   on the page that should be unmissable. Everything else drops to a surface. */
+html[data-bs-theme="dark"] .bg-white:not(.payload) {
+  background-color: var(--pwp-surface-1) !important;
 }
 
 html[data-bs-theme="dark"] .payload pre {
-  color: var(--bs-body-bg);
+  color: #14181e;
 }
 
 html[data-bs-theme="dark"] .text-primary {
-  color: var(--bs-yellow) !important;
+  color: var(--pwp-accent-text) !important;
 }
 
-html[data-bs-theme="dark"] .text-secondary {
-  color: var(--bs-yellow) !important;
+html[data-bs-theme="dark"] .text-secondary,
+html[data-bs-theme="dark"] .text-muted {
+  color: var(--pwp-text-muted) !important;
 }
 
-html[data-bs-theme="dark"] .display-1 {
-  font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  color: var(--bs-yellow);
+html[data-bs-theme="dark"] .text-success {
+  color: var(--bs-success-text-emphasis) !important;
 }
 
+html[data-bs-theme="dark"] .text-info {
+  color: var(--bs-info-text-emphasis) !important;
+}
+
+html[data-bs-theme="dark"] .text-warning {
+  color: var(--bs-warning-text-emphasis) !important;
+}
+
+html[data-bs-theme="dark"] .text-danger {
+  color: var(--bs-danger-text-emphasis) !important;
+}
+
+html[data-bs-theme="dark"] .display-1,
 html[data-bs-theme="dark"] .display-2 {
   font-family: 'Roboto Slab', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: var(--pwp-text-strong);
 }
 
-html[data-bs-theme="dark"] .modal-header {
-  background-color: var(--bs-gray-600);
-}
-
-html[data-bs-theme="dark"] .modal-body {
-  color: var(--bs-gray-300);
-  background-color: var(--bs-body-bg);
-}
-
-html[data-bs-theme="dark"] .modal-footer {
-  background-color: var(--bs-body-bg);
+html[data-bs-theme="dark"] ::selection {
+  background-color: rgba(69, 130, 236, 0.35);
+  color: var(--pwp-text-strong);
 }
 

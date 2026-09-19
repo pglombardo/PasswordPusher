@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Light / dark / system theme control via Bootstrap data-bs-theme.
+// data-theme mirrors it for Bulma (Mission Control), which otherwise follows
+// prefers-color-scheme and ignores the toggle. Keep in sync with _theme_boot.
 //
 // Instance lock (data-theme-instance-mode-value):
 //   light | dark — force that mode; ignore localStorage and OS
@@ -77,6 +79,7 @@ export default class extends Controller {
   apply() {
     const mode = this.resolveMode()
     document.documentElement.setAttribute("data-bs-theme", mode)
+    document.documentElement.setAttribute("data-theme", mode)
     this.updateButton(mode)
   }
 
