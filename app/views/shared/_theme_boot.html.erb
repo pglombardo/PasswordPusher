@@ -1,6 +1,10 @@
 <%# Apply data-bs-theme before first paint to avoid a flash.
     Reads instance lock from data-theme-mode on <html>, then localStorage.theme,
-    then prefers-color-scheme. Must stay in sync with theme_controller.js. %>
+    then prefers-color-scheme. Must stay in sync with theme_controller.js.
+
+    data-theme is set to the same value for Bulma, which Mission Control uses.
+    Bulma follows prefers-color-scheme on its own unless an explicit theme is
+    declared, so without this it ignores the toggle and the instance lock. %>
 <script nonce="<%= request.content_security_policy_nonce %>">
   (function () {
     var root = document.documentElement
@@ -20,5 +24,6 @@
     }
 
     root.setAttribute("data-bs-theme", mode)
+    root.setAttribute("data-theme", mode)
   })()
 </script>
