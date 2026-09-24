@@ -49,7 +49,9 @@ export default class extends Controller {
         symbolsDefault: Boolean,
         avoidAmbiguousDefault: Boolean,
         pinLengthDefault: Number,
-        wordlistSizes: Object
+        wordlistSizes: Object,
+        langEntropy: String,
+        langFailed: String
     }
 
     initialize() {
@@ -267,7 +269,9 @@ export default class extends Controller {
         }
 
         const value = Number(bits)
-        const label = (bits == null || bits === "" || !Number.isFinite(value)) ? "" : `${value} bits`
+        const label = (bits == null || bits === "" || !Number.isFinite(value))
+            ? ""
+            : this.interpolate(this.langEntropyValue || "%{value} bits", { value })
         this.entropyAreaTargets.forEach((element) => {
             element.textContent = label
         })
@@ -348,14 +352,24 @@ export default class extends Controller {
             })
             const body = await response.json()
             if (!response.ok) {
-                window.alert(body.error || "Password generation failed.")
+                window.alert(body.error || this.generationFailedMessage())
                 return null
             }
             return body
         } catch (error) {
-            window.alert("Password generation failed.")
+            window.alert(this.generationFailedMessage())
             return null
         }
+    }
+
+    generationFailedMessage() {
+        return this.langFailedValue || "Password generation failed."
+    }
+
+    interpolate(template, replacements) {
+        return Object.keys(replacements).reduce((result, key) => {
+            return result.replace(`%{${key}}`, String(replacements[key]))
+        }, template)
     }
 
     toBoolean(candidate) {

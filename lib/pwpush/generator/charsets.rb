@@ -24,7 +24,7 @@ module Pwpush
         if custom.present? && CHARSET_PRESETS.exclude?(custom)
           pool = custom.chars.uniq.join
           pool = strip_ambiguous(pool) if avoid_ambiguous
-          raise InvalidParameter, "Character set is empty." if pool.empty?
+          raise InvalidParameter, I18n._("Character set is empty.") if pool.empty?
 
           return pool
         end
@@ -36,7 +36,7 @@ module Pwpush
         parts << SYMBOLS if symbols
         pool = parts.join.chars.uniq.join
         pool = strip_ambiguous(pool) if avoid_ambiguous
-        raise InvalidParameter, "Select at least one character class." if pool.empty?
+        raise InvalidParameter, I18n._("Select at least one character class.") if pool.empty?
 
         pool
       end

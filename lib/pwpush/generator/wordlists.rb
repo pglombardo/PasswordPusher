@@ -11,7 +11,7 @@ module Pwpush
 
       def words_for(language)
         lang = language.to_s
-        raise InvalidParameter, "Unsupported language: #{lang}" unless LANGUAGES.include?(lang)
+        raise InvalidParameter, I18n._("Unsupported language: %{language}") % {language: lang} unless LANGUAGES.include?(lang)
 
         cache[lang]
       end
@@ -26,7 +26,7 @@ module Pwpush
 
       def load_list(language)
         path = File.join(DIR, "#{language}.txt.gz")
-        raise InvalidParameter, "Word list missing for #{language}" unless File.exist?(path)
+        raise InvalidParameter, I18n._("Word list missing for %{language}") % {language: language} unless File.exist?(path)
 
         Zlib::GzipReader.open(path) do |gz|
           gz.read.split("\n").map { |word| word.unicode_normalize(:nfc) }.reject(&:blank?)
