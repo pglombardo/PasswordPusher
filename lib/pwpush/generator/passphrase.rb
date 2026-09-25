@@ -13,7 +13,7 @@ module Pwpush
         @number = number
         @symbol = symbol
         @words = Wordlists.words_for(@language)
-        raise InvalidParameter, "Separator is too long." if @separator.length > 8
+        raise InvalidParameter, I18n._("Separator is too long.") if @separator.length > 8
       end
 
       def generate

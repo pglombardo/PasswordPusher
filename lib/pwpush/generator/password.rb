@@ -61,7 +61,7 @@ module Pwpush
         required += [@min_digits - 1, 0].max if @digits
         required += [@min_symbols - 1, 0].max if @symbols
         if required > @length
-          raise InvalidParameter, "Password length is too short for the selected character rules."
+          raise InvalidParameter, I18n._("Password length is too short for the selected character rules.")
         end
       end
 

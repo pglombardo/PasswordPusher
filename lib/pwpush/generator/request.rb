@@ -40,21 +40,21 @@ module Pwpush
 
       def normalized_type
         type = @params.fetch(:type, Settings.gen.default_type).to_s
-        raise InvalidParameter, "Unknown generator type: #{type}" unless TYPES.include?(type)
+        raise InvalidParameter, I18n._("Unknown generator type: %{type}") % {type: type} unless TYPES.include?(type)
 
         type
       end
 
       def normalized_count
         count = integer(@params.fetch(:count, 1), "count")
-        raise InvalidParameter, "count must be between 1 and #{MAX_COUNT}." unless count.between?(1, MAX_COUNT)
+        raise InvalidParameter, I18n._("count must be between 1 and %{max}.") % {max: MAX_COUNT} unless count.between?(1, MAX_COUNT)
 
         count
       end
 
       def language
         lang = @params.fetch(:language, Settings.gen.language).to_s
-        raise InvalidParameter, "Unsupported language: #{lang}" unless LANGUAGES.include?(lang)
+        raise InvalidParameter, I18n._("Unsupported language: %{language}") % {language: lang} unless LANGUAGES.include?(lang)
 
         lang
       end
@@ -99,19 +99,19 @@ module Pwpush
       def integer(value, name)
         Integer(value)
       rescue ArgumentError, TypeError
-        raise InvalidParameter, "#{name} must be an integer."
+        raise InvalidParameter, I18n._("%{name} must be an integer.") % {name: name}
       end
 
       def non_negative_integer(value, name)
         number = integer(value, name)
-        raise InvalidParameter, "#{name} must be zero or greater." if number.negative?
+        raise InvalidParameter, I18n._("%{name} must be zero or greater.") % {name: name} if number.negative?
 
         number
       end
 
       def bounded_integer(value, name, min, max)
         number = integer(value, name)
-        raise InvalidParameter, "#{name} must be between #{min} and #{max}." unless number.between?(min, max)
+        raise InvalidParameter, I18n._("%{name} must be between %{min} and %{max}.") % {name: name, min: min, max: max} unless number.between?(min, max)
 
         number
       end
