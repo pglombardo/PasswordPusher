@@ -17,6 +17,8 @@ class FlagIconsAssetsTest < ActiveSupport::TestCase
   end
 
   test "rectangular and square flag SVGs resolve through Propshaft" do
+    skip "flag-icons npm package is not installed" unless flag_icons_installed?
+
     load_path = Rails.application.assets.load_path
 
     assert load_path.find("flags/4x3/se.svg"), "Expected flags/4x3/se.svg on the asset load path"
@@ -33,15 +35,22 @@ class FlagIconsAssetsTest < ActiveSupport::TestCase
     assert_no_match(/\$fi-path/, source)
   end
 
-  test "public/flags remains available for static serving" do
+  test "public/flags is a symlink to the flag-icons package" do
     flags_path = Rails.root.join("public/flags")
 
-    assert File.exist?(flags_path), "Expected public/flags to exist"
+    # Tracked as a symlink; File.exist? is false on a clean checkout until yarn install.
+    assert File.symlink?(flags_path), "Expected public/flags to be a symlink"
+    assert_equal "../node_modules/flag-icons/flags", File.readlink(flags_path)
+
+    skip "flag-icons npm package is not installed" unless flag_icons_installed?
+
     assert File.exist?(flags_path.join("4x3/se.svg"))
     assert File.exist?(flags_path.join("1x1/se.svg"))
   end
 
   test "Propshaft fingerprints flag URLs in default theme CSS" do
+    skip "flag-icons npm package is not installed" unless flag_icons_installed?
+
     compiled, logs = compile_flag_urls("application-default.css")
 
     assert_no_match(/Unable to resolve/, logs)
@@ -50,6 +59,8 @@ class FlagIconsAssetsTest < ActiveSupport::TestCase
   end
 
   test "Propshaft fingerprints flag URLs in custom theme CSS" do
+    skip "flag-icons npm package is not installed" unless flag_icons_installed?
+
     compiled, logs = compile_flag_urls("application-custom.css")
 
     assert_no_match(/Unable to resolve/, logs)
@@ -58,6 +69,10 @@ class FlagIconsAssetsTest < ActiveSupport::TestCase
   end
 
   private
+
+  def flag_icons_installed?
+    Rails.root.join("node_modules/flag-icons/flags/4x3/se.svg").exist?
+  end
 
   def compile_flag_urls(logical_name)
     logs = StringIO.new
