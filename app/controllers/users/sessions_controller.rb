@@ -7,9 +7,10 @@ class Users::SessionsController < Devise::SessionsController
 
   # Prepend so this runs before Devise::SessionsController#create (warden.authenticate! would
   # otherwise sign in with password only and bypass the OTP step).
-  # Register reject last so it runs first (prepended callbacks run in reverse order).
+  # Register the format reject last so it runs first (prepended callbacks run in reverse order).
   prepend_before_action :authenticate_with_two_factor, only: [:create]
   prepend_before_action :reject_when_logins_disabled, only: [:new, :create]
+  prepend_before_action :reject_non_html_format, only: [:new, :create, :destroy]
 
   # before_action :configure_sign_in_params, only: [:create]
 
@@ -83,6 +84,12 @@ class Users::SessionsController < Devise::SessionsController
     return unless Settings.disable_logins
 
     head :not_found
+  end
+
+  # Format suffixes are not routed. This rejects Accept: application/json (and
+  # other non-HTML formats) on the unsuffixed path before password or OTP checks.
+  def reject_non_html_format
+    head :not_acceptable unless request.format.html?
   end
 
   def after_sign_out_path_for(resource_or_scope)

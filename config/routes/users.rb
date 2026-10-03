@@ -4,7 +4,7 @@ else
   %i[new create edit update destroy]
 end
 
-devise_for :users, skip: :registrations, controllers: {
+devise_for :users, skip: :registrations, format: false, controllers: {
   sessions: "users/sessions",
   passwords: "users/passwords",
   unlocks: "users/unlocks",
