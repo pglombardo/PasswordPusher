@@ -116,14 +116,17 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     # Test users resource
     get madmin_users_path
     assert_response :success
+    assert_select ".pagination-info", text: "Displaying 1-#{[User.count, Madmin.per_page].min} of #{User.count}"
 
     # Test pushes resource
     get madmin_pushes_path
     assert_response :success
+    assert_select ".pagination-info", text: "Displaying 1-#{[Push.count, Madmin.per_page].min} of #{Push.count}"
 
     # Test audit logs resource
     get madmin_audit_logs_path
     assert_response :success
+    assert_select ".pagination-info", text: "Displaying 1-#{[AuditLog.count, Madmin.per_page].min} of #{AuditLog.count}"
 
     # Test Active Storage resources
     get madmin_active_storage_blobs_path

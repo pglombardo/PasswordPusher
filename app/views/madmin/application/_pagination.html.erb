@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-between align-items-center mt-4">
+  <div class="text-muted small pagination-info">
+    <% if page.to.zero? %>
+      <%= _("No records found") %>
+    <% else %>
+      <%= _("Displaying %{from}-%{to} of %{count}") % { from: page.from, to: page.to, count: page.count } %>
+    <% end %>
+  </div>
+  <% if page.last > 1 %>
+    <nav aria-label="<%= _("Pagination") %>">
+      <ul class="pagination pagination-sm mb-0">
+        <li class="<%= class_names("page-item", disabled: page.prev.nil?) %>">
+          <% if page.prev %>
+            <%= link_to "<", current_path_with(page.param => page.prev), class: "page-link", aria: { label: _("Previous") } %>
+          <% else %>
+            <span class="page-link" aria-hidden="true">&lt;</span>
+          <% end %>
+        </li>
+
+        <% page.series.each do |number| %>
+          <% if number == :gap %>
+            <li class="page-item disabled" aria-hidden="true"><span class="page-link">&hellip;</span></li>
+          <% elsif number == page.page %>
+            <li class="page-item active" aria-current="page"><span class="page-link"><%= number %></span></li>
+          <% else %>
+            <li class="page-item"><%= link_to number, current_path_with(page.param => number), class: "page-link" %></li>
+          <% end %>
+        <% end %>
+
+        <li class="<%= class_names("page-item", disabled: page.next.nil?) %>">
+          <% if page.next %>
+            <%= link_to ">", current_path_with(page.param => page.next), class: "page-link", aria: { label: _("Next") } %>
+          <% else %>
+            <span class="page-link" aria-hidden="true">&gt;</span>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
+</div>

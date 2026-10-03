@@ -90,20 +90,4 @@
   </div>
 </div>
 
-<!-- Pagination -->
-<div class="d-flex justify-content-between align-items-center mt-4">
-  <div class="text-muted small">
-    <% if @pagy.respond_to?(:info_tag) %>
-      <%== @pagy.info_tag %>
-    <% else %>
-      <%== pagy_info @pagy %>
-    <% end %>
-  </div>
-  <div>
-    <% if @pagy.respond_to?(:series_nav) %>
-      <%== @pagy.series_nav if @pagy.last > 1 %>
-    <% else %>
-      <%== pagy_nav @pagy if @pagy.last > 1 %>
-    <% end %>
-  </div>
-</div>
+<%= render "madmin/application/pagination", page: @page %>
