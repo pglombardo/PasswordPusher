@@ -81,7 +81,9 @@ if defined? Rack::Attack
       if req.path == "/users/sign_in" && req.post?
         # Normalize the email, using the same logic as your authentication process, to
         # protect against rate limit bypasses. Return the normalized email if present, nil otherwise.
-        req.params.dig("user", "email").to_s.downcase.gsub(/\s+/, "").presence
+        user_params = req.params["user"]
+        email = user_params["email"] if user_params.is_a?(Hash)
+        email.to_s.downcase.gsub(/\s+/, "").presence
       end
     end
   end

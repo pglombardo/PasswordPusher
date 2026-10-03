@@ -8,9 +8,11 @@ class Users::SessionsController < Devise::SessionsController
   # Prepend so this runs before Devise::SessionsController#create (warden.authenticate! would
   # otherwise sign in with password only and bypass the OTP step).
   # Register the format reject last so it runs first (prepended callbacks run in reverse order).
+  # Sign-out is omitted: the header logout form is a Turbo submission, whose
+  # format is turbo_stream rather than html.
   prepend_before_action :authenticate_with_two_factor, only: [:create]
   prepend_before_action :reject_when_logins_disabled, only: [:new, :create]
-  prepend_before_action :reject_non_html_format, only: [:new, :create, :destroy]
+  prepend_before_action :reject_non_html_format, only: [:new, :create]
 
   # before_action :configure_sign_in_params, only: [:create]
 

@@ -29,6 +29,7 @@ class ActiveSupport::TestCase
   # each test with a clean slate.
   setup do
     Rails.cache.clear
+    Rack::Attack.cache.store.clear if defined?(Rack::Attack)
   end
 
   # Add more helper methods to be used by all tests here...
