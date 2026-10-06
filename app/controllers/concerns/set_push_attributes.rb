@@ -4,6 +4,8 @@ module SetPushAttributes
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def assign_deletable_by_viewer(push, push_params)
+    return if push.settings_for_kind.nil?
+
     if push.url?
       # URLs cannot be preemptively deleted by end users ever
       push.deletable_by_viewer = nil
@@ -33,6 +35,8 @@ module SetPushAttributes
   # Since determining this value between and HTML forms and JSON API requests can be a bit
   # tricky, we break this out to it's own function.
   def assign_retrieval_step(push, push_params)
+    return if push.settings_for_kind.nil?
+
     if push.settings_for_kind.enable_retrieval_step == true
       if push_params.key?(:retrieval_step)
         # User form data or json API request: :retrieval_step can

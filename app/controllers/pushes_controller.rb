@@ -139,6 +139,11 @@ class PushesController < BaseController
 
     @push.user_id = current_user.id if user_signed_in?
 
+    if @push.settings_for_kind.nil?
+      redirect_to new_push_path, alert: _("That push type is not supported.")
+      return
+    end
+
     assign_deletable_by_viewer(@push, push_params)
     assign_retrieval_step(@push, push_params)
     assign_notify_by_email_fields(@push, required: false)

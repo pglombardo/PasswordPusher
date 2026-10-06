@@ -164,17 +164,20 @@ class Push < ApplicationRecord
   end
 
   def set_expire_limits
-    self.expire_after_days ||= settings_for_kind.expire_after_days_default
-    self.expire_after_views ||= settings_for_kind.expire_after_views_default
+    settings = settings_for_kind
+    return unless settings
+
+    self.expire_after_days ||= settings.expire_after_days_default
+    self.expire_after_views ||= settings.expire_after_views_default
 
     # MIGRATE - ask
     # Are these assignments needed?
-    unless expire_after_days.between?(settings_for_kind.expire_after_days_min, settings_for_kind.expire_after_days_max)
-      self.expire_after_days = settings_for_kind.expire_after_days_default
+    unless expire_after_days.between?(settings.expire_after_days_min, settings.expire_after_days_max)
+      self.expire_after_days = settings.expire_after_days_default
     end
 
-    unless expire_after_views.between?(settings_for_kind.expire_after_views_min, settings_for_kind.expire_after_views_max)
-      self.expire_after_views = settings_for_kind.expire_after_views_default
+    unless expire_after_views.between?(settings.expire_after_views_min, settings.expire_after_views_max)
+      self.expire_after_views = settings.expire_after_views_default
     end
   end
 

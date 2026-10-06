@@ -63,6 +63,15 @@ class PasswordCreationTest < ActionDispatch::IntegrationTest
     assert(pre.first.content.include?("testpw"))
   end
 
+  def test_unknown_kind_is_rejected
+    assert_no_difference("Push.count") do
+      post pushes_path, params: {push: {kind: "not-a-kind", payload: "secret"}}
+    end
+
+    assert_redirected_to new_push_path
+    assert_equal "That push type is not supported.", flash[:alert]
+  end
+
   def test_ascii_8bit_password_creation
     get "/"
     assert_response :success
