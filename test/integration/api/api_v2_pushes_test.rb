@@ -60,6 +60,23 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
     assert body["url_token"].present?
   end
 
+  def test_unknown_kind_is_rejected
+    assert_no_difference("Push.count") do
+      post "/api/v2/pushes",
+        params: {
+          push: {
+            kind: "not-a-kind",
+            payload: "secret"
+          }
+        },
+        as: :json
+    end
+
+    assert_response :unprocessable_content
+    body = JSON.parse(response.body)
+    assert body["kind"].present?
+  end
+
   def test_show_push_is_public_when_token_is_valid
     push = pushes(:test_push)
 
