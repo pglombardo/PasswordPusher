@@ -1,5 +1,5 @@
 # devise_for :users, skip: :registrations, controllers: {
-devise_for :users, only: :sessions, controllers: {
+devise_for :users, only: :sessions, format: false, controllers: {
   sessions: "users/sessions"
 }
 

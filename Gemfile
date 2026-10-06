@@ -86,7 +86,7 @@ gem "mysql2"
 gem "pg"
 gem "sqlite3", force_ruby_platform: true
 
-group :production, :development do
+group :production, :development, :test do
   gem "rack-attack"
 end
 
