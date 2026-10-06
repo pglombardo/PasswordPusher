@@ -468,6 +468,13 @@ html[data-bs-theme="dark"] .form-control::placeholder {
   opacity: 1;
 }
 
+/* Keep floating-label placeholders hidden in dark mode; the rule above outranks
+   Bootstrap's `.form-floating > .form-control::placeholder { color: transparent }`. */
+html[data-bs-theme="dark"] .form-floating > .form-control::placeholder,
+html[data-bs-theme="dark"] .form-floating > .form-control-plaintext::placeholder {
+  color: transparent;
+}
+
 html[data-bs-theme="dark"] .form-control:disabled,
 html[data-bs-theme="dark"] .form-control[readonly],
 html[data-bs-theme="dark"] .form-select:disabled {
