@@ -190,6 +190,7 @@ export default class extends Controller {
         }
 
         const hasValue = this.inputTarget.value.length > 0
+        this.inputTarget.classList.toggle("passphrase-field-has-value", hasValue)
         if (this.hasCopyButtonTarget) {
             this.copyButtonTarget.hidden = !hasValue
         }

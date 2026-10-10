@@ -10,32 +10,36 @@
      data-passphrase-field-failed-value="<%= _('Password generation failed.') %>">
   <div class="input-group flex-nowrap">
     <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
-    <%= f.text_field(:passphrase, {
-      class: "form-control",
-      autocomplete: "off",
-      spellcheck: "false",
-      placeholder: _('Optional: Require recipients to enter a passphrase to view this push'),
-      "data-passphrase-field-target": "input",
-      "data-action": "input->passphrase-field#changed"
-    }) %>
-    <button type="button"
-            hidden
-            class="btn btn-outline-secondary passphrase-copy"
-            data-passphrase-field-target="copyButton"
-            data-action="passphrase-field#copy"
-            aria-label="<%= _('Copy to clipboard') %>"
-            title="<%= _('Copy to clipboard') %>">
-      <em class="bi bi-clipboard" data-passphrase-field-target="copyIcon" aria-hidden="true"></em>
-    </button>
-    <button type="button"
-            hidden
-            class="btn btn-outline-secondary passphrase-clear"
-            data-passphrase-field-target="clearButton"
-            data-action="passphrase-field#clear"
-            aria-label="<%= _('Clear passphrase') %>"
-            title="<%= _('Clear passphrase') %>">
-      <em class="bi bi-x-lg" aria-hidden="true"></em>
-    </button>
+    <div class="passphrase-field-entry">
+      <%= f.text_field(:passphrase, {
+        class: "form-control",
+        autocomplete: "off",
+        spellcheck: "false",
+        placeholder: _('Optional: Require recipients to enter a passphrase to view this push'),
+        "data-passphrase-field-target": "input",
+        "data-action": "input->passphrase-field#changed"
+      }) %>
+      <div class="passphrase-field-actions">
+        <button type="button"
+                hidden
+                class="passphrase-copy"
+                data-passphrase-field-target="copyButton"
+                data-action="passphrase-field#copy"
+                aria-label="<%= _('Copy to clipboard') %>"
+                title="<%= _('Copy to clipboard') %>">
+          <em class="bi bi-clipboard" data-passphrase-field-target="copyIcon" aria-hidden="true"></em>
+        </button>
+        <button type="button"
+                hidden
+                class="passphrase-clear"
+                data-passphrase-field-target="clearButton"
+                data-action="passphrase-field#clear"
+                aria-label="<%= _('Clear passphrase') %>"
+                title="<%= _('Clear passphrase') %>">
+          <em class="bi bi-x-lg" aria-hidden="true"></em>
+        </button>
+      </div>
+    </div>
     <button type="button"
             class="btn btn-primary passphrase-generate"
             data-passphrase-field-target="generateButton"

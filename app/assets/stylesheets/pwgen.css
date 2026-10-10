@@ -87,8 +87,56 @@
   }
 }
 
+.passphrase-field .passphrase-field-entry {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+}
+
+.passphrase-field .passphrase-field-entry > .form-control {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.passphrase-field .form-control.passphrase-field-has-value {
+  padding-inline-end: 3.75rem;
+}
+
+.passphrase-field .passphrase-field-actions {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0.125rem;
+  display: flex;
+  align-items: center;
+}
+
 .passphrase-field .passphrase-copy,
-.passphrase-field .passphrase-clear,
+.passphrase-field .passphrase-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-secondary-color);
+  line-height: 1;
+}
+
+.passphrase-field .passphrase-copy:hover,
+.passphrase-field .passphrase-clear:hover {
+  color: var(--bs-body-color);
+}
+
+.passphrase-field .passphrase-copy:focus-visible,
+.passphrase-field .passphrase-clear:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: -2px;
+  border-radius: var(--bs-border-radius-sm);
+}
+
 .passphrase-field .passphrase-generate {
   display: inline-flex;
   align-items: center;
