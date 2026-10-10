@@ -111,12 +111,7 @@
 
                 <hr class="my-3">
 
-                <div class="input-group">
-                    <span class="input-group-text"><em class="bi bi-lock me-1"></em><%= _('Passphrase') %></span>
-                    <%= f.text_field(:passphrase, { class: "form-control",
-                                                    autocomplete: "off",
-                                                    placeholder: _('Optional: Require recipients to enter a passphrase to view this push') }) %>
-                </div>
+                <%= render "pushes/passphrase_field", f: f %>
                 <%= render 'shared/notify_emails_to', f: f %>
             </div>
 
