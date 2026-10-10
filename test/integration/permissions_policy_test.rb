@@ -7,9 +7,12 @@ class PermissionsPolicyTest < ActionDispatch::IntegrationTest
     get root_path
 
     assert_response :success
-    assert response.headers["Permissions-Policy"].present?
-    assert_includes response.headers["Permissions-Policy"], "camera=()"
-    assert_includes response.headers["Permissions-Policy"], "clipboard-write=(self)"
-    assert_includes response.headers["Feature-Policy"], "camera 'none'"
+    policy = response.headers["Permissions-Policy"]
+    assert policy.present?
+    assert_includes policy, "camera=()"
+    assert_includes policy, "clipboard-write=(self)"
+    assert_not_includes policy, "web-share"
+    assert_not_includes policy, "ambient-light-sensor"
+    assert_nil response.headers["Feature-Policy"]
   end
 end
