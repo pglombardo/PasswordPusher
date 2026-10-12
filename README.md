@@ -123,7 +123,27 @@ Self-hosted **Pro** (with licensing) is now available. Pro features not yet in O
 
 No setup: **[pwpush.com](https://pwpush.com)** — create a push and share the link.
 
-To run your own instance on a managed host, see [One-click deploy](#one-click-deploy).
+### One-click deploy
+
+Deploy your own instance without setting up a server. You pay the provider directly. This is self-hosting, separate from the hosted service at [pwpush.com](https://pwpush.com).
+
+| | |
+|---|---|
+| <a href="https://cloudzy.com/marketplace/password-pusher"><img alt="Deploy on Cloudzy" height="40" src="https://img.shields.io/badge/Deploy_on-Cloudzy-0EA5E9?style=for-the-badge&logo=cloud&logoColor=white"></a> | **[Cloudzy](https://cloudzy.com/marketplace/password-pusher)** — Marketplace VPS. Cloudzy handles deployment and infrastructure support. |
+| <a href="https://elest.io/open-source/password"><img alt="Deploy on Elestio" height="40" src="https://dash.elest.io/deploy-on-elestio.png"></a> | **[Elestio](https://elest.io/open-source/password)** — Managed hosting on 9 cloud providers. Pick a provider and region; updates and backups are included. |
+| <a href="https://www.pikapods.com/pods?run=pwpush"><img alt="Run on PikaPods" height="40" src="https://www.pikapods.com/static/run-button.svg"></a> | **[PikaPods](https://www.pikapods.com/pods?run=pwpush)** — Managed pod from their app catalog. |
+| <a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master"><img alt="Deploy to DigitalOcean" height="40" src="https://www.deploytodo.com/do-btn-blue.svg"></a> | **[DigitalOcean App Platform](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)** — [.do/deploy.template.yaml](.do/deploy.template.yaml) builds the production Docker image and attaches Postgres. Replace the two secret placeholders before launch. |
+| <a href="https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Render" height="40" src="https://render.com/images/deploy-to-render-button.svg"></a> | **[Render](https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher)** — [render.yaml](render.yaml) builds the production Docker image with Postgres and a disk for uploads. |
+| <a href="https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Heroku" height="40" src="https://www.herokucdn.com/deploy/button.svg"></a> | **[Heroku](https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)** — Uses [app.json](app.json). Heroku charges for the web dyno, worker dyno, and Postgres. |
+
+Railway and Fly.io are not marketplace buttons. Launch from their dashboard or CLI using the config in this repo:
+
+| | |
+|---|---|
+| <a href="https://railway.com/"><img alt="Railway" height="40" src="https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white"></a> | **[Railway](https://railway.com/)** — Connect this repo. [railway.toml](railway.toml) sets the Dockerfile. Add Postgres and set `SECRET_KEY_BASE` and `PWPUSH_MASTER_KEY` in the dashboard. |
+| <a href="https://fly.io/"><img alt="Fly.io" height="40" src="https://img.shields.io/badge/Fly.io-24175B?style=for-the-badge&logo=flydotio&logoColor=white"></a> | **[Fly.io](https://fly.io/)** — [fly.toml](fly.toml) and `containers/docker/Dockerfile`. Run `fly launch`, set secrets, then attach Postgres. |
+
+Install details: **[docs.pwpush.com/docs/installation](https://docs.pwpush.com/docs/installation/)**.
 
 ### Run your own instance with Docker Compose
 
@@ -150,8 +170,6 @@ _Note: If you didn't set `TLS_DOMAIN`, uncomment port 5100 and visit the applica
 
 Production image build: [containers/docker/Dockerfile](containers/docker/Dockerfile). Root [docker-compose.yml](docker-compose.yml) uses the published image; [.devcontainer/docker-compose.yml](.devcontainer/docker-compose.yml) is for development with a mounted working tree.
 
-Cloud buttons and platform configs: [One-click deploy](#one-click-deploy).
-
 ### Use the API, CLI, or integrations
 
 For API usage, CLI tools, and integrations:
@@ -166,30 +184,6 @@ Quick API v2 smoke test:
 ```bash
 curl -s https://YOUR_HOST/api/v2/version
 ```
-
----
-
-## One-click deploy
-
-Deploy your own instance without setting up a server. You pay the provider directly. This is self-hosting, separate from the hosted service at [pwpush.com](https://pwpush.com).
-
-| | |
-|---|---|
-| <a href="https://cloudzy.com/marketplace/password-pusher"><img alt="Deploy on Cloudzy" height="40" src="https://img.shields.io/badge/Deploy_on-Cloudzy-0EA5E9?style=for-the-badge&logo=cloud&logoColor=white"></a> | **[Cloudzy](https://cloudzy.com/marketplace/password-pusher)** — Marketplace VPS. Cloudzy handles deployment and infrastructure support. |
-| <a href="https://elest.io/open-source/password"><img alt="Deploy on Elestio" height="40" src="https://dash.elest.io/deploy-on-elestio.png"></a> | **[Elestio](https://elest.io/open-source/password)** — Managed hosting on 9 cloud providers. Pick a provider and region; updates and backups are included. |
-| <a href="https://www.pikapods.com/pods?run=pwpush"><img alt="Run on PikaPods" height="40" src="https://www.pikapods.com/static/run-button.svg"></a> | **[PikaPods](https://www.pikapods.com/pods?run=pwpush)** — Managed pod from their app catalog. |
-| <a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master"><img alt="Deploy to DigitalOcean" height="40" src="https://www.deploytodo.com/do-btn-blue.svg"></a> | **[DigitalOcean App Platform](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)** — [.do/deploy.template.yaml](.do/deploy.template.yaml) builds the production Docker image and attaches Postgres. Replace the two secret placeholders before launch. |
-| <a href="https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Render" height="40" src="https://render.com/images/deploy-to-render-button.svg"></a> | **[Render](https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher)** — [render.yaml](render.yaml) builds the production Docker image with Postgres and a disk for uploads. |
-| <a href="https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Heroku" height="40" src="https://www.herokucdn.com/deploy/button.svg"></a> | **[Heroku](https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)** — Uses [app.json](app.json). Heroku charges for the web dyno, worker dyno, and Postgres. |
-
-Railway and Fly.io are not marketplace buttons. Launch from their dashboard or CLI using the config in this repo:
-
-| | |
-|---|---|
-| <a href="https://railway.com/"><img alt="Railway" height="40" src="https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white"></a> | **[Railway](https://railway.com/)** — Connect this repo. [railway.toml](railway.toml) sets the Dockerfile. Add Postgres and set `SECRET_KEY_BASE` and `PWPUSH_MASTER_KEY` in the dashboard. |
-| <a href="https://fly.io/"><img alt="Fly.io" height="40" src="https://img.shields.io/badge/Fly.io-24175B?style=for-the-badge&logo=flydotio&logoColor=white"></a> | **[Fly.io](https://fly.io/)** — [fly.toml](fly.toml) and `containers/docker/Dockerfile`. Run `fly launch`, set secrets, then attach Postgres. |
-
-Install details: **[docs.pwpush.com/docs/installation](https://docs.pwpush.com/docs/installation/)**.
 
 ---
 
