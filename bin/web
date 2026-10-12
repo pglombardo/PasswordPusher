@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Thruster listens on HTTP_PORT (default 80) and proxies to TARGET_PORT.
+# Heroku routes to $PORT and does not set TARGET_PORT, so bind Thruster there.
+# The Docker entrypoint sets TARGET_PORT before Foreman. Keep Thruster on 80
+# in that case so it does not take the port Puma is about to use.
+set -euo pipefail
+
+if [ -z "${HTTP_PORT:-}" ]; then
+  if [ -n "${TARGET_PORT:-}" ]; then
+    export HTTP_PORT=80
+  elif [ -n "${PORT:-}" ]; then
+    export HTTP_PORT="$PORT"
+    export TARGET_PORT=5100
+  else
+    export HTTP_PORT=80
+    export TARGET_PORT=5100
+  fi
+fi
+
+exec bundle exec bin/thrust bin/rails server

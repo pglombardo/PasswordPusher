@@ -17,6 +17,12 @@
   "stack": "heroku-24",
   "buildpacks": [
     {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
       "url": "heroku/ruby"
     }
   ],
@@ -24,17 +30,18 @@
     "web": {
       "quantity": 1,
       "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
     }
   },
   "addons": [
     {
-      "plan": "heroku-postgresql",
+      "plan": "heroku-postgresql:essential-0",
       "as": "DATABASE"
     }
   ],
-  "scripts": {
-    "postdeploy": "bundle exec rails db:prepare"
-  },
   "env": {
     "BUNDLE_WITHOUT": {
       "description": "Bundler groups to exclude from production bundle.",
@@ -42,10 +49,6 @@
     },
     "RAILS_LOG_TO_STDOUT": {
       "description": "Log to stdout for Heroku log drain.",
-      "value": "true"
-    },
-    "RAILS_SERVE_STATIC_FILES": {
-      "description": "Serve static assets from Rails when no CDN is in front.",
       "value": "true"
     },
     "SECRET_KEY_BASE": {
@@ -125,6 +128,10 @@
     "review": {
       "formation": {
         "web": {
+          "quantity": 1,
+          "size": "basic"
+        },
+        "worker": {
           "quantity": 1,
           "size": "basic"
         }
