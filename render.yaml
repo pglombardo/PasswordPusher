@@ -1,33 +1,28 @@
-# Render Blueprint – Password Pusher (pwpush)
+# Render Blueprint – Password Pusher
 # https://render.com/docs/blueprint-spec
 #
-# Deploy: Connect repo → New Blueprint → select render.yaml, or `render blueprint apply`.
-# Set SECRET_KEY_BASE and PWPUSH_MASTER_KEY in the dashboard (Generate/Secret).
-# Optional: add a worker service with startCommand: bundle exec rake solid_queue:start
-
-databases:
-  - name: pwpush-db
-    plan: free
-    databaseName: pwpush
-    user: pwpush
+# Builds containers/docker/Dockerfile (Ruby 4.0.7, Node, asset build, migrations,
+# and the Solid Queue worker). The image entrypoint listens on $PORT.
+#
+# Auto-deploy is off so a push to this repo does not redeploy every instance
+# created from the Deploy to Render button. Turn it on in the dashboard to track master.
 
 services:
   - type: web
     name: pwpush-web
-    runtime: ruby
-    plan: starter
+    runtime: docker
+    dockerfilePath: containers/docker/Dockerfile
+    dockerContext: .
+    branch: master
+    plan: 1c-2g
     region: oregon
-    buildCommand: bundle install && bundle exec rails assets:precompile
-    preDeployCommand: bundle exec rails db:prepare
-    startCommand: bundle exec bin/thrust bin/rails server
     healthCheckPath: /up
+    autoDeployTrigger: off
+    disk:
+      name: pwpush-storage
+      mountPath: /opt/PasswordPusher/storage
+      sizeGB: 1
     envVars:
-      - key: RAILS_ENV
-        value: production
-      - key: RACK_ENV
-        value: production
-      - key: RAILS_LOG_LEVEL
-        value: info
       - key: DATABASE_URL
         fromDatabase:
           name: pwpush-db
@@ -36,6 +31,10 @@ services:
         generateValue: true
       - key: PWPUSH_MASTER_KEY
         generateValue: true
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
       - key: PWP__ALLOW_ANONYMOUS
         value: "true"
       - key: PWP__DISABLE_SIGNUPS
@@ -52,11 +51,13 @@ services:
         value: "true"
       - key: PWP__ENABLE_USER_ACCOUNT_EMAILS
         value: "false"
-    # Uncomment for Solid Queue worker (separate dyno):
-    # - type: worker
-    #   name: pwpush-worker
-    #   runtime: ruby
-    #   plan: starter
-    #   buildCommand: bundle install
-    #   startCommand: bundle exec rake solid_queue:start
-    #   envVars: (same as web, link DATABASE_URL etc.)
+      - key: PWP__FILES__STORAGE
+        value: local
+
+databases:
+  - name: pwpush-db
+    plan: 0.5c-1g
+    diskSizeGB: 1
+    postgresMajorVersion: "16"
+    databaseName: pwpush
+    user: pwpush

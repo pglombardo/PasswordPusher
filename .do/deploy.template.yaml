@@ -1,15 +1,15 @@
 # DigitalOcean App Platform deploy template (Deploy to DO button).
 # App spec reference: https://docs.digitalocean.com/products/app-platform/reference/app-spec/
-# Full PWP__ options: docker-compose.yml and https://docs.pwpush.com/docs/self-hosted-configuration/
 #
-# Security: Replace SECRET placeholders in the DO UI after deploy—never commit real keys.
+# Builds containers/docker/Dockerfile. The entrypoint migrates, then runs the
+# web process and Solid Queue worker. App Platform sets PORT to http_port;
+# the entrypoint binds Puma to that port.
+#
+# Before launch, replace the two SECRET values. A placeholder master key is public.
 
 spec:
   name: passwordpusher
   region: nyc
-
-  features:
-    - buildpack-stack=ubuntu-22
 
   alerts:
     - rule: DEPLOYMENT_FAILED
@@ -23,70 +23,51 @@ spec:
 
   services:
     - name: pwpush
-      environment_slug: ruby-on-rails
+      dockerfile_path: containers/docker/Dockerfile
       github:
         branch: master
         deploy_on_push: true
         repo: pglombardo/PasswordPusher
-      # Match Procfile web process; thrust runs Puma bound to PORT.
-      run_command: bundle exec bin/thrust bin/rails server
       instance_count: 1
       instance_size_slug: apps-s-1vcpu-1gb
       http_port: 8080
+      health_check:
+        http_path: /up
+        port: 8080
+        initial_delay_seconds: 60
+        period_seconds: 10
+        timeout_seconds: 5
+        success_threshold: 1
+        failure_threshold: 5
       envs:
-        # --- Build / runtime ---
+        - key: DATABASE_URL
+          scope: RUN_TIME
+          type: GENERAL
+          value: ${pwpush-db.DATABASE_URL}
         - key: RAILS_ENV
-          scope: RUN_AND_BUILD_TIME
+          scope: RUN_TIME
           type: GENERAL
           value: production
         - key: RACK_ENV
-          scope: RUN_AND_BUILD_TIME
+          scope: RUN_TIME
           type: GENERAL
           value: production
-        - key: BUNDLE_WITHOUT
-          scope: RUN_AND_BUILD_TIME
-          type: GENERAL
-          value: "development:test"
-        - key: RAILS_LOG_TO_STDOUT
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-        - key: RAILS_SERVE_STATIC_FILES
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-
-        # --- Secrets (set in App Platform UI; placeholders avoid committing real values) ---
         - key: SECRET_KEY_BASE
           scope: RUN_TIME
           type: SECRET
-          value: "REPLACE_ME_run_rails_secret"
+          value: "REPLACE_WITH_rails_secret"
         - key: PWPUSH_MASTER_KEY
           scope: RUN_TIME
           type: SECRET
-          value: "REPLACE_ME_run_rails_runner_puts_Lockbox_generate_key"
-
-        # --- Concurrency ---
+          value: "REPLACE_WITH_lockbox_generate_key"
         - key: WEB_CONCURRENCY
           scope: RUN_TIME
           type: GENERAL
           value: "0"
-
-        # --- URL / host (set to your app hostname after first deploy) ---
         - key: PWP__HOST_PROTOCOL
           scope: RUN_TIME
           type: GENERAL
           value: https
-        # - key: PWP__HOST_DOMAIN
-        #   scope: RUN_TIME
-        #   type: GENERAL
-        #   value: your-app.ondigitalocean.app
-        # - key: PWP__ALLOWED_HOSTS
-        #   scope: RUN_TIME
-        #   type: GENERAL
-        #   value: your-app.ondigitalocean.app
-
-        # --- Feature toggles (2.0 defaults) ---
         - key: PWP__ALLOW_ANONYMOUS
           scope: RUN_TIME
           type: GENERAL
@@ -119,82 +100,9 @@ spec:
           scope: RUN_TIME
           type: GENERAL
           value: "true"
-
-        # --- File storage: local is ephemeral on App Platform; use s3 for durable file pushes ---
+        # Local files live on the instance disk and do not survive a new container.
+        # Use an S3-compatible backend for durable file pushes.
         - key: PWP__FILES__STORAGE
           scope: RUN_TIME
           type: GENERAL
           value: local
-
-        # --- Password push (pw) limits & defaults ---
-        - key: PWP__PW__EXPIRE_AFTER_DAYS_DEFAULT
-          scope: RUN_TIME
-          type: GENERAL
-          value: "7"
-        - key: PWP__PW__EXPIRE_AFTER_DAYS_MIN
-          scope: RUN_TIME
-          type: GENERAL
-          value: "1"
-        - key: PWP__PW__EXPIRE_AFTER_DAYS_MAX
-          scope: RUN_TIME
-          type: GENERAL
-          value: "90"
-        - key: PWP__PW__EXPIRE_AFTER_VIEWS_DEFAULT
-          scope: RUN_TIME
-          type: GENERAL
-          value: "5"
-        - key: PWP__PW__EXPIRE_AFTER_VIEWS_MIN
-          scope: RUN_TIME
-          type: GENERAL
-          value: "1"
-        - key: PWP__PW__EXPIRE_AFTER_VIEWS_MAX
-          scope: RUN_TIME
-          type: GENERAL
-          value: "100"
-        - key: PWP__PW__ENABLE_DELETABLE_PUSHES
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-        - key: PWP__PW__DELETABLE_PUSHES_DEFAULT
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-        - key: PWP__PW__ENABLE_RETRIEVAL_STEP
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-        - key: PWP__PW__RETRIEVAL_STEP_DEFAULT
-          scope: RUN_TIME
-          type: GENERAL
-          value: "true"
-
-        - key: PWP__THEME
-          scope: RUN_TIME
-          type: GENERAL
-          value: default
-
-  jobs:
-    # Runs after each deploy: creates DB if needed and migrates.
-    - name: db-prepare-after-deploy
-      kind: POST_DEPLOY
-      environment_slug: ruby-on-rails
-      github:
-        branch: master
-        deploy_on_push: true
-        repo: pglombardo/PasswordPusher
-      run_command: bundle exec rails db:prepare
-      instance_count: 1
-      instance_size_slug: apps-s-1vcpu-0.5gb
-      envs:
-        - key: RAILS_ENV
-          scope: RUN_AND_BUILD_TIME
-          type: GENERAL
-          value: production
-        - key: RACK_ENV
-          scope: RUN_AND_BUILD_TIME
-          type: GENERAL
-          value: production
-        - key: BUNDLE_WITHOUT
-          scope: RUN_AND_BUILD_TIME
-          type: GENERAL
-          value: "development:test"
