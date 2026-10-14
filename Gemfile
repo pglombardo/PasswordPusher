@@ -78,7 +78,7 @@ gem "local_time"
 
 # For File Uploads
 gem "aws-sdk-s3", require: false
-gem "azure-blob", "~> 0.8.0", require: false
+gem "azure-blob", "~> 0.9.0", require: false
 gem "google-cloud-storage", "~> 1.62", require: false
 
 # Database backends
