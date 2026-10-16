@@ -27,6 +27,27 @@ function run(cmd, extraEnv = {}) {
   });
 }
 
+// Drop a leftover Google Fonts @import (for example after a Bootswatch refresh)
+// and fail if any Google Fonts host is still in the built CSS.
+function rejectRemoteFonts(outFile) {
+  let css = fs.readFileSync(outFile, "utf8");
+  const stripped = css.replace(
+    /@import\s+url\(\s*["']https:\/\/fonts\.googleapis\.com[^"']*["']\s*\)\s*;?/g,
+    "",
+  );
+  if (stripped !== css) {
+    fs.writeFileSync(outFile, stripped);
+    console.warn(`Removed a fonts.googleapis.com import from ${path.basename(outFile)}`);
+    css = stripped;
+  }
+  if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(css)) {
+    console.error(
+      `Google Fonts host remains in ${outFile}. Theme CSS must use the bundled faces in themes/_bundled_fonts.scss.`,
+    );
+    process.exit(1);
+  }
+}
+
 function compileOneTheme(slug) {
   const outFile = path.join(buildsDir, `application-${slug}.css`);
   run(`node ./set_theme.js`, { PWP__THEME: slug });
@@ -36,6 +57,7 @@ function compileOneTheme(slug) {
   run(
     `postcss ${outFile} --use=autoprefixer --output=${outFile} --verbose`,
   );
+  rejectRemoteFonts(outFile);
 }
 
 function restoreDefaultSelected() {
