@@ -23,12 +23,8 @@ echo "Password Pusher: migrating database to latest..."
 bundle exec rake db:migrate
 
 export SOLID_QUEUE_SUPERVISOR_MODE="${SOLID_QUEUE_SUPERVISOR_MODE:-async}"
-export PWP_PROCESS_TYPE=worker
 echo "Password Pusher: Solid Queue supervisor mode: ${SOLID_QUEUE_SUPERVISOR_MODE}"
 echo "Password Pusher: starting background workers..."
+bin/rails solid_queue:start
 
-if [ "${PWP__PROMETHEUS__ENABLED,,}" = "true" ]; then
-  exec bundle exec foreman start -f Procfile.worker -m worker=1,metrics=1
-else
-  exec bin/rails solid_queue:start
-fi
+exec "$@"

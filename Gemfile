@@ -100,5 +100,3 @@ gem "mission_control-jobs", "~> 1.3.1"
 gem "overmind", "~> 2.5", group: :development
 
 gem "dotenv", "~> 3.2"
-
-gem "prometheus_exporter", "~> 2.3"
