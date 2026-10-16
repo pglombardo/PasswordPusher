@@ -67,6 +67,10 @@ class Users::SessionsController < Devise::SessionsController
     # The counter lives in the cache, keyed only by user id, so a new source address
     # or another password submission does not grant a fresh budget.
     if otp_attempt_limit_exceeded?(resource)
+      Pwpush::Metrics.increment(
+        :authentication_events,
+        labels: {event: "mfa_rate_limited", mfa: true}
+      )
       head :too_many_requests
       return
     end
@@ -79,6 +83,10 @@ class Users::SessionsController < Devise::SessionsController
       sign_in(resource, event: :authentication)
       respond_with resource, location: after_sign_in_path_for(resource)
     else
+      Pwpush::Metrics.increment(
+        :authentication_events,
+        labels: {event: "mfa_failure", mfa: true}
+      )
       flash.now[:alert] = _("Incorrect verification code.")
       render :otp, status: :unprocessable_content
     end

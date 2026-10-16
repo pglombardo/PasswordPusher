@@ -34,12 +34,17 @@ env: {}
 
 livenessProbe:
   httpGet:
-    path: /
+    path: /up
     port: http
 readinessProbe:
   httpGet:
-    path: /
+    path: /up
     port: http
+
+metrics:
+  enabled: false
+  port: 9394
+  scrapeAnnotations: true
 
 resources: {}
   # limits:
