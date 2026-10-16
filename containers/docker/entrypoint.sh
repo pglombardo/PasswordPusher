@@ -141,10 +141,15 @@ else
 fi
 
 echo "Password Pusher: starting foreman..."
+metrics_processes=0
+if [ "${PWP__PROMETHEUS__ENABLED,,}" = "true" ]; then
+    metrics_processes=1
+fi
+
 if [ -n "$PWP__NO_WORKER" ] || [ -n "$PWP_PUBLIC_GATEWAY" ]; then
-    exec bundle exec foreman start -m web=1
+    exec bundle exec foreman start -m "web=1,worker=0,metrics=${metrics_processes}"
 else
     export SOLID_QUEUE_SUPERVISOR_MODE="${SOLID_QUEUE_SUPERVISOR_MODE:-async}"
     echo "Password Pusher: Solid Queue supervisor mode: ${SOLID_QUEUE_SUPERVISOR_MODE}"
-    exec bundle exec foreman start -m web=1,worker=1
+    exec bundle exec foreman start -m "web=1,worker=1,metrics=${metrics_processes}"
 fi
