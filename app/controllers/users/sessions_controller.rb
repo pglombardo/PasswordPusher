@@ -3,6 +3,10 @@
 class Users::SessionsController < Devise::SessionsController
   include Devise::Controllers::Rememberable
 
+  # Same budget as the per-account password throttle (Rack::Attack "logins/email").
+  OTP_ATTEMPT_LIMIT = 5
+  OTP_ATTEMPT_WINDOW = 20.seconds
+
   layout "login"
 
   # Prepend so this runs before Devise::SessionsController#create (warden.authenticate! would
@@ -59,6 +63,14 @@ class Users::SessionsController < Devise::SessionsController
       return
     end
 
+    # Checked before verify so a guess over the limit is not tested against the code.
+    # The counter lives in the cache, keyed only by user id, so a new source address
+    # or another password submission does not grant a fresh budget.
+    if otp_attempt_limit_exceeded?(resource)
+      head :too_many_requests
+      return
+    end
+
     if resource.verify_and_consume_otp!(params[:otp_attempt])
       want_remember_me = session.delete(:remember_me)
       clear_otp_user_from_session
@@ -98,6 +110,17 @@ class Users::SessionsController < Devise::SessionsController
     reset_session  # Explicitly clear the session data
     cookies.delete("_PasswordPusher_session") # Delete the session cookie
     root_path      # Redirect to the root path after logout
+  end
+
+  private
+
+  def otp_attempt_limit_exceeded?(user)
+    count = Rails.cache.increment(
+      "otp-sign-in:#{user.id}",
+      1,
+      expires_in: OTP_ATTEMPT_WINDOW
+    )
+    count.present? && count > OTP_ATTEMPT_LIMIT
   end
 
   # protected
