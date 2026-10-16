@@ -251,7 +251,6 @@ class PushesController < BaseController
 
     if @push.save
       log_update(@push)
-      record_uploaded_file_metrics(new_files)
       redirect_to preview_push_path(@push), notice: I18n._("Push was successfully updated.")
     else
       render action: "edit", status: :unprocessable_content
@@ -398,13 +397,6 @@ class PushesController < BaseController
   end
 
   private
-
-  def record_uploaded_file_metrics(files)
-    return if files.empty?
-
-    Pwpush::Metrics.increment(:uploaded_files, value: files.size)
-    Pwpush::Metrics.increment(:uploaded_file_bytes, value: files.sum(&:size))
-  end
 
   def clear_flash_for_delivery_pages
     flash.clear

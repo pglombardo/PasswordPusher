@@ -159,11 +159,6 @@ x-env: &x-env
     # PWP__THROTTLING__MINUTE: "120"
     # PWP__THROTTLING__SECOND: "60"
     # PWP__PURGE_AFTER: "disabled"
-    # PWP__PROMETHEUS__ENABLED: "true"
-    # PWP__PROMETHEUS__BIND: "0.0.0.0"       # Required when scraping through the port mapping below
-    # PWP__PROMETHEUS__PORT: "9394"
-    # PWP__PROMETHEUS__CLIENT_HOST: "127.0.0.1"
-    # PWP__PROMETHEUS__CLIENT_PORT: "9394"
 
     # --- Logging ---
     # PWP__LOG_LEVEL: "warn"
@@ -182,7 +177,6 @@ services:
       - "443:443"
       # - "80:80" # To support older browsers
       # - "5100:5100" # High port if you host pwpush behind a proxy (HTTP)
-      # - "127.0.0.1:9394:9394" # Prometheus exporter; keep private
     platform: linux/amd64
     volumes:
       # Persist SQLite DB + uploads here. Do NOT mount over /opt/PasswordPusher/db —
