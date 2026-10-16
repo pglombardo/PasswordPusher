@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :pushes, dependent: :destroy
 
   attr_readonly :admin
+  after_create_commit :record_prometheus_signup
 
   def admin?
     admin
@@ -35,5 +36,14 @@ class User < ApplicationRecord
     email_sent_count_reset_at.present? &&
       !email_sent_count_reset_at.before?(Time.current.beginning_of_day) &&
       email_sent_count >= limit.to_i
+  end
+
+  private
+
+  def record_prometheus_signup
+    Pwpush::Metrics.increment(
+      :authentication_events,
+      labels: {event: "signup", mfa: otp_required_for_login?}
+    )
   end
 end

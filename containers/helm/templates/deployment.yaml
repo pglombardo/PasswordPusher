@@ -14,9 +14,16 @@ spec:
       {{- include "helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- if or .Values.podAnnotations (and .Values.metrics.enabled .Values.metrics.scrapeAnnotations) }}
       annotations:
+        {{- if and .Values.metrics.enabled .Values.metrics.scrapeAnnotations }}
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: {{ .Values.metrics.port | quote }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- end }}
       labels:
         {{- include "helm.selectorLabels" . | nindent 8 }}
@@ -38,6 +45,18 @@ spec:
             - name: {{ $key }}
               value: {{ $val | quote }}
           {{- end }}
+          {{- if .Values.metrics.enabled }}
+            - name: PWP__PROMETHEUS__ENABLED
+              value: "true"
+            - name: PWP__PROMETHEUS__BIND
+              value: "0.0.0.0"
+            - name: PWP__PROMETHEUS__PORT
+              value: {{ .Values.metrics.port | quote }}
+            - name: PWP__PROMETHEUS__CLIENT_HOST
+              value: "127.0.0.1"
+            - name: PWP__PROMETHEUS__CLIENT_PORT
+              value: {{ .Values.metrics.port | quote }}
+          {{- end }}
           envFrom:
             - secretRef:
                 name:  {{ .Values.encKeys.existingSecret }}
@@ -46,6 +65,11 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: TCP
+            {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
