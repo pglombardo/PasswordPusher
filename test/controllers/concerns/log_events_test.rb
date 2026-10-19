@@ -268,6 +268,41 @@ class LogEventsTest < ActionController::TestCase
     Rails.application.config.action_dispatch.trusted_proxies = original_trusted_proxies
   end
 
+  test "log_event ignores a Forwarded hostname from a trusted proxy" do
+    @request.env["HTTP_FORWARDED"] = "for=localhost"
+    @request.env["HTTP_X_FORWARDED_FOR"] = "45.148.10.15, 10.110.0.3"
+    @request.env["REMOTE_ADDR"] = "127.0.0.1"
+
+    @controller.log_view(@push)
+
+    log = AuditLog.last
+    assert_equal "45.148.10.15", log.ip
+  end
+
+  test "log_event ignores an attacker-selected IP in Forwarded" do
+    @request.env["HTTP_FORWARDED"] = "for=198.51.100.8"
+    @request.env["HTTP_X_FORWARDED_FOR"] = "45.148.10.15, 10.110.0.3"
+    @request.env["REMOTE_ADDR"] = "127.0.0.1"
+
+    @controller.log_view(@push)
+
+    log = AuditLog.last
+    assert_equal "45.148.10.15", log.ip
+  end
+
+  test "Rack Attack throttles use X-Forwarded-For instead of Forwarded" do
+    assert_equal [:x_forwarded], Rack::Request.forwarded_priority
+
+    env = Rack::MockRequest.env_for("/users/sign_in", method: "POST")
+    env["HTTP_FORWARDED"] = "for=198.51.100.8"
+    env["HTTP_X_FORWARDED_FOR"] = "45.148.10.15, 10.110.0.3"
+    env["REMOTE_ADDR"] = "127.0.0.1"
+    request = Rack::Attack::Request.new(env)
+
+    throttle = Rack::Attack.throttles.fetch("logins/ip")
+    assert_equal "45.148.10.15", throttle.block.call(request)
+  end
+
   test "log_event uses REMOTE_ADDR when HTTP_X_FORWARDED_FOR is nil" do
     @request.env["REMOTE_ADDR"] = "10.0.0.2"
 
