@@ -1,3 +1,8 @@
+# Password Pusher's documented reverse proxies set X-Forwarded-* headers.
+# Ignore client-supplied Forwarded headers so they cannot select the IP used
+# for audit logs and Rack::Attack throttles.
+Rack::Request.forwarded_priority = [:x_forwarded]
+
 if defined? Rack::Attack
   class Rack::Attack
     # rack-attack helps you protect your Rails application from bad clients.
