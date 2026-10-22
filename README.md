@@ -190,6 +190,12 @@ curl -s https://YOUR_HOST/api/v2/version
 
 ---
 
+## ☁️ One-Click Deploy
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/password-pusher/)
+
+---
+
 ## Tools & Extensions
 
 Enhance Password Pusher with these official companion tools:
