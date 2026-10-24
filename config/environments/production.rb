@@ -66,10 +66,8 @@ Rails.application.configure do
     /100\.(6[4-9]|[7-9][0-9]|1[0-1][0-9]|12[0-7])\.\d{1,3}\.\d{1,3}/ # RFC 6598: 100.64.0.0/10
   ]
 
-  if Settings.trusted_proxies.present?
-    trusted_proxies = Settings.trusted_proxies.split(",").map(&:strip)
-    config.action_dispatch.trusted_proxies.concat(trusted_proxies)
-  end
+  # Custom addresses from Settings.trusted_proxies are appended in
+  # config/initializers/trusted_proxies.rb.
 
   # Logging
   config.logger = if ENV["RAILS_LOG_TO_STDOUT"].present? || Settings.log_to_stdout
