@@ -87,15 +87,16 @@ host_protocol: 'https'
 # load balancer outside those networks), add its address below—or use Cloudflare
 # Proxy below when fronting with Cloudflare.
 #
-# Multiple IP addresses can be added by separating them with a comma.
+# Multiple addresses can be added by separating them with a comma.
+# Each entry may be a single IP address or a CIDR range.
 #
 # Environment Variable Override:
-# PWP__TRUSTED_PROXIES='<ipaddress>'
-# PWP__TRUSTED_PROXIES='<ipaddress1>,<ipaddress2>'
+# PWP__TRUSTED_PROXIES='203.0.113.10'
+# PWP__TRUSTED_PROXIES='203.0.113.10,198.51.100.0/24'
 #
 # trusted_proxies:
-#   - '1.2.3.4'
-#   - '2.3.4.5'
+#   - '203.0.113.10'
+#   - '198.51.100.0/24'
 
 ## Cloudflare Proxy
 #

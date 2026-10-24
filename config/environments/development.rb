@@ -103,10 +103,8 @@ Rails.application.configure do
     /100\.(6[4-9]|[7-9][0-9]|1[0-1][0-9]|12[0-7])\.\d{1,3}\.\d{1,3}/ # RFC 6598: 100.64.0.0/10
   ]
 
-  if Settings.trusted_proxies.present?
-    trusted_proxies = Settings.trusted_proxies.split(",").map(&:strip)
-    config.action_dispatch.trusted_proxies.concat(trusted_proxies)
-  end
+  # Custom addresses from Settings.trusted_proxies are appended in
+  # config/initializers/trusted_proxies.rb.
 
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
   if Settings.allowed_hosts.present?
