@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/integer/time"
+require Rails.root.join("config/smtp_settings")
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -140,43 +141,7 @@ Rails.application.configure do
       protocol: Settings.host_protocol
     }
 
-    config.action_mailer.smtp_settings = {
-      address: Settings.mail.smtp_address,
-      port: Settings.mail.smtp_port
-    }
-
-    config.action_mailer.smtp_settings[:domain] = Settings.mail.smtp_domain if Settings.mail.smtp_domain
-    config.action_mailer.smtp_settings[:open_timeout] = Settings.mail.smtp_open_timeout if Settings.mail.smtp_open_timeout
-    config.action_mailer.smtp_settings[:read_timeout] = Settings.mail.smtp_read_timeout if Settings.mail.smtp_read_timeout
-
-    if !Settings.mail.smtp_authentication.nil?
-      config.action_mailer.smtp_settings[:authentication] = Settings.mail.smtp_authentication
-    end
-
-    if !Settings.mail.smtp_user_name.nil?
-      config.action_mailer.smtp_settings[:user_name] = Settings.mail.smtp_user_name
-    end
-
-    if !Settings.mail.smtp_password.nil?
-      config.action_mailer.smtp_settings[:password] = Settings.mail.smtp_password
-    end
-
-    # The mail gem maps String names ("none" / "peer") to OpenSSL::SSL::VERIFY_* constants.
-    # A Symbol like :none raises TypeError during TLS handshake. Leave Integers alone —
-    # config.env_parse_values can turn PWP__MAIL__SMTP_OPENSSL_VERIFY_MODE=0 into an Integer.
-    if !Settings.mail.smtp_openssl_verify_mode.nil?
-      mode = Settings.mail.smtp_openssl_verify_mode
-      config.action_mailer.smtp_settings[:openssl_verify_mode] = mode.is_a?(Symbol) ? mode.to_s : mode
-    end
-
-    if !Settings.mail.smtp_enable_starttls_auto.nil?
-      config.action_mailer.smtp_settings[:enable_starttls_auto] = Settings.mail.smtp_enable_starttls_auto
-    end
-
-    # settings.yml / PWP__MAIL__SMTP_STARTTLS maps to smtp_starttls
-    if !Settings.mail.smtp_starttls.nil?
-      config.action_mailer.smtp_settings[:enable_starttls] = Settings.mail.smtp_starttls
-    end
+    config.action_mailer.smtp_settings = PasswordPusher::SmtpSettings.build(Settings.mail)
   end
 
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts

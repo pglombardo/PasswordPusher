@@ -321,12 +321,20 @@ mail:
   # smtp_password: ''
 
   # Use STARTTLS when connecting to your SMTP server and fail if unsupported.
+  # Ignored when smtp_ssl is true.
   # Environment Variable Override: PWP__MAIL__SMTP_STARTTLS='true'
   # smtp_starttls: false
 
   # Detects if STARTTLS is enabled in your SMTP server and starts to use it. Defaults to true.
+  # Ignored when smtp_ssl is true.
   # Environment Variable Override: PWP__MAIL__SMTP_ENABLE_STARTTLS_AUTO='false'
   smtp_enable_starttls_auto: true
+
+  # Use implicit TLS (SMTPS) from the first byte. Typical for port 465.
+  # When true, both STARTTLS modes are turned off. The mail gem raises if they are combined.
+  # Leave false for the usual port 587 STARTTLS setup.
+  # Environment Variable Override: PWP__MAIL__SMTP_SSL='true'
+  smtp_ssl: false
 
   # Number of seconds to wait while attempting to open a connection.
   # Environment Variable Override: PWP__MAIL__SMTP_OPEN_TIMEOUT='10'
