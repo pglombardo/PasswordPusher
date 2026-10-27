@@ -19,10 +19,12 @@ class PushResource < Madmin::Resource
   # Add scopes to easily filter records
   # scope :published
 
-  # Add actions to the resource's show page
-  # member_action do |record|
-  #   link_to "Do Something", some_path
-  # end
+  # Audit rows for this push. Data Explorer is admin-only; the owner audit page is not.
+  member_action collection: true do |push|
+    link_to _("Audit Log"),
+      madmin_audit_logs_path(filters: [{column: "push_id", operator: "eq", value: push.id}]),
+      class: "btn btn-outline-secondary"
+  end
 
   # Customize the display name of records in the admin area.
   def self.display_name(record)

@@ -139,6 +139,47 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_admin_push_index_links_to_that_pushs_audit_logs
+    sign_in users(:mr_admin)
+
+    push = pushes(:test_push)
+    other = Push.create!(
+      kind: "text",
+      payload: "other",
+      url_token: "other_token",
+      expire_after_days: 7,
+      expire_after_views: 5
+    )
+    other.audit_logs.create!(kind: :creation, ip: "10.0.0.1")
+
+    audit_path = madmin_audit_logs_path(filters: [{column: "push_id", operator: "eq", value: push.id}])
+
+    get madmin_pushes_path
+    assert_response :success
+    assert_select "a[href=?]", audit_path, text: "Audit Log"
+
+    get madmin_push_path(push)
+    assert_response :success
+    assert_select "a[href=?]", audit_path, text: "Audit Log"
+
+    get audit_path
+    assert_response :success
+    assert_select ".pagination-info", text: "Displaying 1-#{push.audit_logs.count} of #{push.audit_logs.count}"
+    assert_select "td", text: "10.0.0.1", count: 0
+    # Search must keep the push filter, or a query can show rows from other pushes.
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][column]", "push_id"
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][operator]", "eq"
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][value]", push.id.to_s
+
+    get madmin_audit_logs_path(q: "10.0.0.1", filters: [{column: "push_id", operator: "eq", value: push.id}])
+    assert_response :success
+    assert_select ".pagination-info", text: "No records found"
+
+    # The owner audit page stays owner-only, including for administrators.
+    get audit_push_path(push)
+    assert_redirected_to root_path
+  end
+
   # Test that Data Explorer is not available to non-admin users
   def test_data_explorer_not_available_to_non_admin_users
     @luca = users(:luca)
