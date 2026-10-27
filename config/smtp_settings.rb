@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-module Pwpush
+# Required from config/environments/production.rb during boot, before Zeitwerk
+# is set up. Keep this file outside the autoload paths.
+module PasswordPusher
   # Builds the ActionMailer smtp_settings hash from Settings.mail.
   module SmtpSettings
     module_function
@@ -31,7 +33,7 @@ module Pwpush
     end
 
     def apply_encryption!(settings, mail)
-      if mail.smtp_ssl
+      if implicit_tls?(mail)
         # Implicit TLS (SMTPS), typically port 465. Mail 2.9 raises ArgumentError
         # when :ssl is combined with a truthy STARTTLS flag, and otherwise ignores :ssl.
         settings[:ssl] = true
@@ -42,6 +44,12 @@ module Pwpush
         # settings.yml / PWP__MAIL__SMTP_STARTTLS maps to smtp_starttls
         settings[:enable_starttls] = mail.smtp_starttls unless mail.smtp_starttls.nil?
       end
+    end
+
+    # Only an explicit true opts in. Upgrades that omit smtp_ssl, and the
+    # default false, must keep the previous STARTTLS behavior.
+    def implicit_tls?(mail)
+      mail.respond_to?(:smtp_ssl) && mail.smtp_ssl == true
     end
   end
 end

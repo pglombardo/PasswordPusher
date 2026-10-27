@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/core_ext/integer/time"
+require Rails.root.join("config/smtp_settings")
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -140,7 +141,7 @@ Rails.application.configure do
       protocol: Settings.host_protocol
     }
 
-    config.action_mailer.smtp_settings = Pwpush::SmtpSettings.build(Settings.mail)
+    config.action_mailer.smtp_settings = PasswordPusher::SmtpSettings.build(Settings.mail)
   end
 
   # If a user sets the allowed_hosts setting, we need to add the domain(s) to the list of allowed hosts
