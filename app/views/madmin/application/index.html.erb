@@ -48,6 +48,13 @@
   </div>
 </div>
 
+<% if filters.any? %>
+  <div class="alert alert-info d-flex align-items-center justify-content-between mb-4" role="status">
+    <span><%= _("Showing records that match the current filter.") %></span>
+    <%= link_to _("Clear filter"), resource.index_path, class: "btn btn-sm btn-outline-info" %>
+  </div>
+<% end %>
+
 <!-- Data Table -->
 <div class="card">
   <div class="card-body p-0">
@@ -75,6 +82,9 @@
                 <div class="btn-group btn-group-sm" role="group">
                   <%= link_to _("View"), resource.show_path(record), class: "btn btn-outline-primary" %>
                   <%= link_to _("Edit"), resource.edit_path(record), class: "btn btn-outline-secondary" %>
+                  <% resource.collection_member_actions.each do |action| %>
+                    <%= instance_exec(record, &action) %>
+                  <% end %>
                 </div>
               </td>
             </tr>

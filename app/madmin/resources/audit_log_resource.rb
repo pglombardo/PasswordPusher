@@ -7,6 +7,8 @@ class AuditLogResource < Madmin::Resource
   attribute :referrer, index: true
   attribute :kind, index: true
   attribute :updated_at, form: false
+  # Used to filter this index from a push row. Hidden everywhere else.
+  attribute :push_id, index: false, show: false, form: false
 
   # Associations
   attribute :push
