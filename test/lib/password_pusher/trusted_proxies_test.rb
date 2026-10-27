@@ -69,4 +69,28 @@ class PasswordPusher::TrustedProxiesTest < ActiveSupport::TestCase
 
     assert_equal "203.0.113.10", ip
   end
+
+  test "default ranges do not treat public 110 or 210 addresses as proxies" do
+    %w[110.20.30.40 210.5.6.7].each do |client_ip|
+      request = ActionDispatch::Request.new(
+        "REMOTE_ADDR" => "10.0.0.5",
+        "HTTP_X_FORWARDED_FOR" => "1.2.3.4, #{client_ip}"
+      )
+
+      ip = ActionDispatch::RemoteIp::GetIp.new(request, true, PasswordPusher::TrustedProxies::DEFAULTS).calculate_ip
+
+      assert_equal client_ip, ip
+    end
+  end
+
+  test "default ranges trust IPv6 ULA and link-local proxy hops" do
+    request = ActionDispatch::Request.new(
+      "REMOTE_ADDR" => "fe80::5",
+      "HTTP_X_FORWARDED_FOR" => "2001:db8::20, fc00::10"
+    )
+
+    ip = ActionDispatch::RemoteIp::GetIp.new(request, true, PasswordPusher::TrustedProxies::DEFAULTS).calculate_ip
+
+    assert_equal "2001:db8::20", ip
+  end
 end

@@ -5,6 +5,7 @@ require_relative "boot"
 
 require "rails/all"
 require "version"
+require_relative "../lib/password_pusher/trusted_proxy_headers"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -38,6 +39,7 @@ module PasswordPusher
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks pwpush/generator/wordlists])
+    config.middleware.insert_before ActionDispatch::RemoteIp, PasswordPusher::TrustedProxyHeaders
 
     # Configuration for the application, engines, and railties goes here.
     #
