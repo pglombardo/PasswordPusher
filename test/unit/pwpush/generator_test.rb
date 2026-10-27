@@ -93,6 +93,14 @@ class PwpushGeneratorTest < ActiveSupport::TestCase
     end
   end
 
+  test "capitalized french passphrases drop the accent on the first letter only" do
+    capitalized = french_passphrase(capitalize: true, words: %w[échelle académie cheval])
+    assert_equal "Echelle-Académie-Cheval", capitalized
+
+    raw = french_passphrase(capitalize: false, words: %w[échelle])
+    assert_equal "échelle", raw
+  end
+
   test "appends a symbol to passphrases when requested" do
     phrase = Pwpush::Generator.generate(
       type: "passphrase",
@@ -147,5 +155,20 @@ class PwpushGeneratorTest < ActiveSupport::TestCase
       assert_operator words.size, :>=, 2048, "#{language} word list is too small"
       assert_equal words.size, words.uniq.size
     end
+  end
+
+  private
+
+  def french_passphrase(capitalize:, words:)
+    generator = Pwpush::Generator::Passphrase.new(
+      language: "fr",
+      word_count: words.size,
+      separator: "-",
+      capitalize: capitalize,
+      number: false,
+      symbol: false
+    )
+    queue = words.dup
+    generator.stub(:sample_word, -> { queue.shift }) { generator.generate }
   end
 end
