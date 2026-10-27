@@ -166,6 +166,14 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pagination-info", text: "Displaying 1-#{push.audit_logs.count} of #{push.audit_logs.count}"
     assert_select "td", text: "10.0.0.1", count: 0
+    # Search must keep the push filter, or a query can show rows from other pushes.
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][column]", "push_id"
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][operator]", "eq"
+    assert_select "form input[type=hidden][name=?][value=?]", "filters[][value]", push.id.to_s
+
+    get madmin_audit_logs_path(q: "10.0.0.1", filters: [{column: "push_id", operator: "eq", value: push.id}])
+    assert_response :success
+    assert_select ".pagination-info", text: "No records found"
 
     # The owner audit page stays owner-only, including for administrators.
     get audit_push_path(push)
