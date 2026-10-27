@@ -80,12 +80,16 @@ host_protocol: 'https'
 # trusted.  By default, Password Pusher trusts common private and non-routable
 # IPv4 ranges: loopback (127.0.0.0/8), RFC 1918 (10.0.0.0/8, 172.16.0.0/12,
 # 192.168.0.0/16), IPv4 link-local (169.254.0.0/16), and RFC 6598 shared space
-# (100.64.0.0/10), plus IPv6 localhost (::1).  Typical Docker and LAN reverse
-# proxies fall in these ranges, so no extra configuration is needed.
+# (100.64.0.0/10); plus IPv6 localhost (::1), ULA (fc00::/7), and link-local
+# (fe80::/10). Typical Docker and LAN reverse proxies fall in these ranges, so
+# no extra configuration is needed.
 #
 # If your reverse proxy uses a public IP or another range (for example a hosted
 # load balancer outside those networks), add its address below—or use Cloudflare
 # Proxy below when fronting with Cloudflare.
+# Direct connections do not supply a trusted client IP via forwarded headers;
+# configure the address or CIDR of every reverse proxy that connects to Password
+# Pusher.
 #
 # Multiple addresses can be added by separating them with a comma.
 # Each entry may be a single IP address or a CIDR range.
