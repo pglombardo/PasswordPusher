@@ -27,8 +27,11 @@ module PasswordPusher
     end
 
     def trusted?(ip, proxies = DEFAULTS)
-      proxies.any? { |proxy| proxy === ip }
-    rescue IPAddr::InvalidAddressError
+      # Dual-stack listeners report an IPv4 peer as ::ffff:10.0.0.5. IPAddr
+      # does not match that form against an IPv4 range until it is native.
+      address = IPAddr.new(ip).native
+      proxies.any? { |proxy| proxy === address }
+    rescue IPAddr::Error
       false
     end
 
