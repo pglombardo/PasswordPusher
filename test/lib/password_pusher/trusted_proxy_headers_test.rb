@@ -39,6 +39,24 @@ class PasswordPusher::TrustedProxyHeadersTest < ActiveSupport::TestCase
     )
   end
 
+  test "preserves forwarded headers from an IPv4-mapped trusted proxy" do
+    response = call(
+      "REMOTE_ADDR" => "::ffff:10.0.0.5",
+      "HTTP_X_FORWARDED_FOR" => "1.2.3.4"
+    )
+
+    assert_equal "1.2.3.4", response["HTTP_X_FORWARDED_FOR"]
+  end
+
+  test "drops forwarded headers from an IPv4-mapped public client" do
+    response = call(
+      "REMOTE_ADDR" => "::ffff:8.8.8.8",
+      "HTTP_X_FORWARDED_FOR" => "1.2.3.4"
+    )
+
+    assert_nil response["HTTP_X_FORWARDED_FOR"]
+  end
+
   test "uses a configured trusted proxy CIDR" do
     headers = {
       "REMOTE_ADDR" => "203.0.113.10",
