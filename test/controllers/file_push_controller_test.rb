@@ -20,6 +20,14 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
+  test "New push form is available anonymous when set in settings" do
+    Settings.files.allow_anonymous_pushes = true
+    Rails.application.reload_routes!
+
+    get new_push_path(tab: "files")
+    assert_response :success
+  end
+
   test '"index" should redirect anonymous to user sign in' do
     get pushes_path
     assert_response :redirect
