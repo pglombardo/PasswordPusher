@@ -93,7 +93,7 @@ end
 gem "rollbar"
 gem "version", git: "https://github.com/pglombardo/version.git", branch: "master"
 gem "madmin"
-gem "rotp", "~> 6.2"
+gem "rotp", "~> 6.4"
 gem "rqrcode", "~> 3.2"
 gem "turnout2024", require: "turnout"
 gem "mission_control-jobs", "~> 1.3.1"
