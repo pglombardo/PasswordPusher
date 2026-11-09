@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Hatchbox default build already installs gems/JS and compiles assets.
+# robots.txt is generated per release so crawlers cannot enumerate push URLs.
+if [ "${WEB:-}" != "true" ]; then
+  echo "Skipping generate_robots_txt on non-web server (ROLES=${ROLES:-})."
+  exit 0
+fi
+
+cd "${RELEASE_DIR:-.}"
+bundle exec rails generate_robots_txt

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Rebuild CSS for the active theme (PWP__THEME) and re-fingerprint assets.
+# Hatchbox's default build compiles assets, but production on Hatchbox
+# historically rebuilt a single theme after a successful deploy.
+if [ "${WEB:-}" != "true" ]; then
+  echo "Skipping CSS/asset rebuild on non-web server (ROLES=${ROLES:-})."
+  exit 0
+fi
+
+cd "${RELEASE_DIR:-.}"
+BUILD_CSS_SINGLE=1 yarn build:css:single
+bundle exec rails assets:precompile
