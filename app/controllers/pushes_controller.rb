@@ -532,16 +532,18 @@ class PushesController < BaseController
 
     case @push_kind
     when "file"
-      if Settings.disable_logins
+      if Settings.disable_logins && !Settings.files.allow_anonymous_pushes
         redirect_to new_push_path(tab: "text"), notice: I18n._("File pushes are unavailable while logins are disabled.")
         return
       end
-      if Settings.enable_file_pushes
-        unless %w[preliminary passphrase access show expire].include?(action_name)
+      if !Settings.enable_file_pushes
+        redirect_to root_path, notice: I18n._("File pushes are disabled.")
+        return
+      end
+      unless %w[preliminary passphrase access show expire].include?(action_name)
+        if !Settings.files.allow_anonymous_pushes
           authenticate_user!
         end
-      else
-        redirect_to root_path, notice: I18n._("File pushes are disabled.")
       end
 
     when "url"
