@@ -49,7 +49,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "i18n-tasks", "~> 1.1.2", require: false
+  gem "i18n-tasks", "~> 1.2.0", require: false
   gem "erb_lint", "~> 0.9.0", require: false
   gem "standard", ">= 1.35.1"
 end
