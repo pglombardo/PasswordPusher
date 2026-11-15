@@ -446,6 +446,7 @@ class Api::V1::PushesController < Api::BaseController
 
   def requires_authentication_for_create?(permitted_params)
     return true unless Settings.allow_anonymous
+    return false if request.path.start_with?("/f") && Settings.files.allow_anonymous_pushes
     return true if request.path.start_with?("/f")
 
     # Keep auth semantics aligned with API surface:

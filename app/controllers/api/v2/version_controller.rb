@@ -24,7 +24,7 @@ class Api::V2::VersionController < Api::BaseController
         email_auto_dispatch: Settings.notify_by_email_available?,
         file_attachments: {
           enabled: Settings.enable_file_pushes,
-          requires_authentication: true
+          requires_authentication: !Settings.files.allow_anonymous_pushes
         },
         url_pushes: {
           enabled: Settings.enable_url_pushes
