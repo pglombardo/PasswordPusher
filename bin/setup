@@ -10,10 +10,41 @@ def system!(*)
   system(*, exception: true)
 end
 
+# Prefer the Node.js pin in .tool-versions over an older nvm/system Node on PATH.
+def activate_pinned_node!
+  tool_versions = File.join(APP_ROOT, '.tool-versions')
+  return unless File.exist?(tool_versions)
+
+  pinned = File.read(tool_versions)[/^nodejs\s+(\S+)/, 1]
+  return unless pinned
+
+  candidates = [
+    File.expand_path("~/.asdf/installs/nodejs/#{pinned}/bin"),
+    File.expand_path("~/.local/share/mise/installs/node/#{pinned}/bin"),
+    File.expand_path("~/.nvm/versions/node/v#{pinned}/bin")
+  ]
+  bin_dir = candidates.find { |dir| File.executable?(File.join(dir, 'node')) }
+  ENV['PATH'] = "#{bin_dir}:#{ENV['PATH']}" if bin_dir
+end
+
+def assert_node_engine!
+  version = `node -v 2>/dev/null`.to_s.strip.delete_prefix('v')
+  major = version.split('.').first.to_i
+  return if major >= 22
+
+  abort <<~MSG
+    Node.js #{version.empty? ? 'was not found' : version} is too old (package.json requires >=22).
+    Install the version in .tool-versions (nodejs 24.14.1) with asdf or mise, then re-run bin/setup.
+  MSG
+end
+
 FileUtils.chdir APP_ROOT do
   # This script is a way to set up or update your development environment automatically.
   # This script is idempotent, so that you can run it at any time and get an expectable outcome.
   # Add necessary setup steps to this file.
+
+  activate_pinned_node!
+  assert_node_engine!
 
   puts '== Installing dependencies =='
   system! 'gem install bundler --conservative'
