@@ -35,10 +35,19 @@ WORKDIR ${APP_ROOT}
 # Copy dependency files first for better layer caching
 COPY Gemfile Gemfile.lock ./
 
-# Install Ruby dependencies - this layer will be cached unless Gemfile changes
-RUN bundle config set without "${BUNDLE_WITHOUT}" \
+# Install Ruby dependencies into a persistent BuildKit cache mount so a
+# Gemfile.lock bump only fetches/compiles the gems that changed, then copy the
+# result into vendor/bundle (the cache mount itself is never part of the image).
+# The cache is keyed per-arch so native extensions are never shared across
+# platforms. CI persists it between runs via buildkit-cache-dance.
+ARG TARGETARCH
+RUN --mount=type=cache,id=bundle-${TARGETARCH},target=/cache/bundle,sharing=locked \
+    bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
-    && bundle install \
+    && BUNDLE_PATH=/cache/bundle bundle install \
+    && BUNDLE_PATH=/cache/bundle bundle clean --force \
+    && mkdir -p vendor \
+    && cp -a /cache/bundle vendor/bundle \
     && rm -rf vendor/bundle/ruby/*/cache \
     && rm -rf vendor/bundle/ruby/*/bundler/gems/*/.git \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
@@ -63,13 +72,9 @@ COPY ./ ${APP_ROOT}/
 # Then set it when running the container:
 #    docker run -e SECRET_KEY_BASE=<your-secret> ...
 
-# Precompile bootsnap cache only for amd64 architecture
-RUN if [ "$TARGETARCH" = "amd64" ]; then \
-      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile --gemfile && \
-      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile app/ lib/ ; \
-    else \
-      echo "Skipping bootsnap precompilation for $TARGETARCH" ; \
-    fi
+# Precompile bootsnap cache (images are built natively per-arch, no QEMU)
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile --gemfile && \
+    SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile app/ lib/
 
 # Precompile Rails assets - this layer will be rebuilt when assets change
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
