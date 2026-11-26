@@ -7,6 +7,7 @@ FROM ruby:4.0.10-alpine AS build-env
 # include global args
 ARG BUNDLE_WITHOUT
 ARG BUNDLE_DEPLOYMENT
+ARG TARGETARCH
 
 LABEL org.opencontainers.image.authors='pglombardo@hey.com'
 
@@ -63,13 +64,12 @@ COPY ./ ${APP_ROOT}/
 # Then set it when running the container:
 #    docker run -e SECRET_KEY_BASE=<your-secret> ...
 
-# Precompile bootsnap cache only for amd64 architecture
-RUN if [ "$TARGETARCH" = "amd64" ]; then \
-      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile --gemfile && \
-      SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile app/ lib/ ; \
-    else \
-      echo "Skipping bootsnap precompilation for $TARGETARCH" ; \
-    fi
+# Precompile bootsnap cache. Native arm64 builds do not hit the QEMU-only
+# bootsnap bug (Shopify/bootsnap#495), so run this on every architecture.
+# TARGETARCH is a BuildKit builtin; it must be declared in this stage to be set.
+RUN echo "Precompiling bootsnap for ${TARGETARCH:-unknown}" && \
+    SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile --gemfile && \
+    SECRET_KEY_BASE_DUMMY=1 bundle exec bootsnap precompile app/ lib/
 
 # Precompile Rails assets - this layer will be rebuilt when assets change
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
@@ -78,7 +78,7 @@ RUN rm -rf tmp/cache tmp/pids tmp/sockets app/assets/images/features
 
 ################## Build done ##################
 
-FROM ruby:4.0.10-alpine
+FROM ruby:4.0.10-alpine AS app
 
 # include global args
 ARG BUNDLE_WITHOUT
@@ -147,3 +147,18 @@ RUN touch /opt/PasswordPusher/.env.production && chown pwpusher:pwpusher /opt/Pa
 USER pwpusher
 EXPOSE 80 443 5100
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
+
+FROM app AS worker
+ENV PWP_WORKER=true
+USER pwpusher
+ENTRYPOINT ["/usr/local/bin/docker-worker-entrypoint"]
+
+FROM app AS public-gateway
+ENV PWP_PUBLIC_GATEWAY=true
+USER pwpusher
+EXPOSE 80 443 5100
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
+
+# Last stage is the default target, so `docker build -f containers/docker/Dockerfile .`
+# still produces the pwpush image.
+FROM app AS pwpush
