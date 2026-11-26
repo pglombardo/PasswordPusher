@@ -20,30 +20,10 @@ IMAGES=(
 )
 
 for IMAGE in "${IMAGES[@]}"; do
-  echo "Retrieving digests for ${IMAGE}:${SOURCE_TAG}..."
-
-  # Use docker manifest inspect to parse platform-specific digests
-  MANIFEST_JSON=$(docker manifest inspect "${IMAGE}:${SOURCE_TAG}")
-
-  AMD64_DIGEST=$(echo "${MANIFEST_JSON}" | jq -r '.manifests[] | select(.platform.architecture == "amd64") | .digest' | head -n 1)
-
-  if [ -z "${AMD64_DIGEST}" ]; then
-    echo "Error: Could not retrieve amd64 digest for ${IMAGE}:${SOURCE_TAG}"
-    exit 1
-  fi
-
-  echo "Removing existing stable tag if it exists..."
-  docker manifest rm "${IMAGE}:${ALIAS_TAG}" || true
-
-  echo "Creating manifest for ${IMAGE}:${ALIAS_TAG}..."
-  docker manifest create "${IMAGE}:${ALIAS_TAG}" \
-    "${IMAGE}@${AMD64_DIGEST}"
-
-  echo "Annotating platform for ${IMAGE}:${ALIAS_TAG}..."
-  docker manifest annotate "${IMAGE}:${ALIAS_TAG}" "${IMAGE}@${AMD64_DIGEST}" --arch amd64
-
-  echo "Pushing manifest for ${IMAGE}:${ALIAS_TAG}..."
-  docker manifest push --purge "${IMAGE}:${ALIAS_TAG}"
+  echo "Pointing ${IMAGE}:${ALIAS_TAG} at ${IMAGE}:${SOURCE_TAG} (all platforms)..."
+  # Copy the full multi-arch manifest list (amd64 + arm64 + attestations)
+  docker buildx imagetools create -t "${IMAGE}:${ALIAS_TAG}" "${IMAGE}:${SOURCE_TAG}"
+  docker buildx imagetools inspect "${IMAGE}:${ALIAS_TAG}"
 done
 
 echo "Checking out version tag: v${SOURCE_TAG}"
