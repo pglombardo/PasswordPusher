@@ -185,7 +185,9 @@ services:
       # - "80:80" # To support older browsers
       # - "5100:5100" # High port if you host pwpush behind a proxy (HTTP)
       # - "127.0.0.1:9394:9394" # Prometheus exporter; keep private
-    platform: linux/amd64
+    # Official images are multi-arch (linux/amd64, linux/arm64).
+    # To force the amd64 image under emulation, uncomment:
+    # platform: linux/amd64
     volumes:
       # Persist SQLite DB + uploads here. Do NOT mount over /opt/PasswordPusher/db —
       # that path contains db/migrate/; overlaying it hides migrations and breaks upgrades.
