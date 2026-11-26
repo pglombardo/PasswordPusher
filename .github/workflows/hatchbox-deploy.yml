@@ -24,7 +24,7 @@ jobs:
 
       - name: Deploy to Hatchbox
         if: steps.hatchbox-configured.outputs.configured == 'true'
-        uses: hatchboxio/github-hatchbox-deploy-action@3bbadafe51e89bbf29fd3932bd84534f4fc9a00c # v2
+        uses: hatchboxio/github-hatchbox-deploy-action@eab45e4152dd11c0dd346f05fd85e442463c2c3e # v2
         with:
           deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
           sha: ${{ github.sha }}
