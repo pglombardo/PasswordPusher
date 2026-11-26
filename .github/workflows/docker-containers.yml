@@ -14,7 +14,7 @@ on:
         default: false
   schedule:
     # * is a special character in YAML so you have to quote this string
-    # Run every day at 5:24 UTC - build 'nightly' docker containers
+    # Run every day at 17:24 UTC - build 'nightly' docker containers
     - cron: "24 17 * * *"
 
   pull_request:
@@ -23,6 +23,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 env:
   DOCKER_PUSH: true
@@ -42,10 +43,23 @@ jobs:
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           fi
 
-  pwpush-container:
+  build:
     needs: docker-configured
     if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            arch: amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      PUSH: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
     steps:
       - id: campfire-configured
         env:
@@ -71,38 +85,94 @@ jobs:
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker
-            type=match,pattern=stable
-            type=schedule,pattern=nightly
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
+          images: |
+            ${{ secrets.DOCKER_USERNAME }}/pwpush
+            ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
+            ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
 
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
+        if: env.PUSH == 'true'
         uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build pwpush (${{ matrix.arch }})
+        id: pwpush
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
         with:
           context: .
           file: ./containers/docker/Dockerfile
-          platforms: linux/amd64
-          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
+          target: pwpush
+          platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
+          provenance: false
+          outputs: type=image,name=${{ secrets.DOCKER_USERNAME }}/pwpush,push-by-digest=true,name-canonical=true,push=${{ env.PUSH }}
           cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache
-            type=gha
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }}
+            type=gha,scope=pwpush-${{ matrix.arch }}
           cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }},mode=max,ignore-error=true
+            type=gha,scope=pwpush-${{ matrix.arch }},mode=max
+
+      - name: Build worker (${{ matrix.arch }})
+        id: worker
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
+        with:
+          context: .
+          file: ./containers/docker/Dockerfile
+          target: worker
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          provenance: false
+          outputs: type=image,name=${{ secrets.DOCKER_USERNAME }}/pwpush-worker,push-by-digest=true,name-canonical=true,push=${{ env.PUSH }}
+          cache-from: |
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }}
+            type=gha,scope=pwpush-${{ matrix.arch }}
+
+      - name: Build public-gateway (${{ matrix.arch }})
+        id: gateway
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
+        with:
+          context: .
+          file: ./containers/docker/Dockerfile
+          target: public-gateway
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          provenance: false
+          outputs: type=image,name=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway,push-by-digest=true,name-canonical=true,push=${{ env.PUSH }}
+          cache-from: |
+            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }}
+            type=gha,scope=pwpush-${{ matrix.arch }}
+
+      - name: Export digests
+        if: env.PUSH == 'true'
+        env:
+          PWPUSH_DIGEST: ${{ steps.pwpush.outputs.digest }}
+          WORKER_DIGEST: ${{ steps.worker.outputs.digest }}
+          GATEWAY_DIGEST: ${{ steps.gateway.outputs.digest }}
+        run: |
+          set -euo pipefail
+          mkdir -p digests/pwpush digests/pwpush-worker digests/pwpush-public-gateway
+          for d in "pwpush:${PWPUSH_DIGEST}" "pwpush-worker:${WORKER_DIGEST}" "pwpush-public-gateway:${GATEWAY_DIGEST}"; do
+            img=${d%%:*}
+            dig=${d#*:}
+            if [ -z "${dig}" ] || [ "${dig}" = "${img}" ]; then
+              echo "Missing digest for ${img}"
+              exit 1
+            fi
+            rm -f "digests/${img}"/*
+            touch "digests/${img}/${dig#sha256:}"
+          done
+
+      - name: Upload digests
+        if: env.PUSH == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: digests-${{ matrix.arch }}
+          path: digests
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Post job failure details to Campfire
         if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
@@ -112,11 +182,15 @@ jobs:
           messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
           template: job_failed
 
-
-  public-gateway-container:
-    needs: [docker-configured, pwpush-container]
-    if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
+  merge:
+    needs: build
+    if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [pwpush, pwpush-worker, pwpush-public-gateway]
     steps:
       - id: campfire-configured
         env:
@@ -128,17 +202,12 @@ jobs:
             echo "configured=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download digests
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          fetch-depth: 1
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4
-        with:
-          image: tonistiigi/binfmt:master
+          pattern: digests-*
+          path: digests
+          merge-multiple: true
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@594f3bf4285d9ea8dc53c9a0c9c4092420091003 # v4
@@ -147,9 +216,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image }}
           tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker
+            type=ref,event=pr,suffix=-docker
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
@@ -158,102 +227,40 @@ jobs:
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
 
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
         uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
-        with:
-          context: .
-          file: ./containers/docker/Dockerfile.public-gateway
-          platforms: linux/amd64
-          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache
-            type=gha
-          cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-public-gateway:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
-
-      - name: Post job failure details to Campfire
-        if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
-        continue-on-error: true
-        uses: shane-lamb/campfire-notify-action@df63cf73810147306276e281bedccf71c1519caf # v1.1.6
-        with:
-          messages_url: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
-          template: job_failed
-
-  worker-container:
-    needs: [docker-configured, pwpush-container]
-    if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
-    runs-on: ubuntu-latest
-    steps:
-      - id: campfire-configured
+      - name: Create multi-arch manifest list
         env:
-          CAMPFIRE_MESSAGES_URL: ${{ secrets.CAMPFIRE_MESSAGES_URL }}
+          REGISTRY_IMAGE: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image }}
+        working-directory: digests/${{ matrix.image }}
         run: |
-          if [ -n "${CAMPFIRE_MESSAGES_URL}" ]; then
-            echo "configured=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "configured=false" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          shopt -s nullglob
+          digests=(*)
+          if [ "${#digests[@]}" -lt 2 ]; then
+            echo "Expected at least two architecture digests, found ${#digests[@]}"
+            ls -la
+            exit 1
           fi
+          tag_args=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "${DOCKER_METADATA_OUTPUT_JSON}")
+          if [ -z "${tag_args}" ]; then
+            echo "metadata-action produced no tags"
+            exit 1
+          fi
+          # shellcheck disable=SC2086
+          docker buildx imagetools create ${tag_args} $(printf "${REGISTRY_IMAGE}@sha256:%s " "${digests[@]}")
 
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
-          fetch-depth: 1
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4
-        with:
-          image: tonistiigi/binfmt:master
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@594f3bf4285d9ea8dc53c9a0c9c4092420091003 # v4
-
-      - name: Populate Docker metadata
-        id: meta
-        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
-        with:
-          images: ${{ secrets.DOCKER_USERNAME }}/pwpush-worker
-          tags: |
-            type=ref,event=pr,format=pr-{{ref}}-docker
-            type=match,pattern=stable
-            type=schedule,pattern=nightly
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
-
-      - name: Login to DockerHub
-        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
-        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
-        with:
-          context: .
-          file: ./containers/docker/Dockerfile.worker
-          platforms: linux/amd64
-          push: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
-          labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache
-            type=gha
-          cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush-worker:buildcache,mode=max,ignore-error=${{env.DOCKER_PUSH == 'false'}}
-            type=gha,mode=max
+      - name: Verify both arches present
+        env:
+          IMAGE: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image }}:${{ steps.meta.outputs.version }}
+        run: |
+          set -euo pipefail
+          docker buildx imagetools inspect "${IMAGE}" | tee inspect.txt
+          grep -q 'linux/amd64' inspect.txt
+          grep -q 'linux/arm64' inspect.txt
 
       - name: Post job failure details to Campfire
         if: failure() && steps.campfire-configured.outputs.configured == 'true' && github.ref == 'refs/heads/master'
