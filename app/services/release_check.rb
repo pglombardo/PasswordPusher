@@ -126,6 +126,9 @@ class ReleaseCheck
     http.read_timeout = TIMEOUT_SECONDS
     http.write_timeout = TIMEOUT_SECONDS if http.respond_to?(:write_timeout=)
 
+    # Net::HTTP#request with a block returns the response, not the block value.
+    # Accumulate the body outside the block so callers receive a String.
+    body = +""
     http.request(build_request(uri)) do |response|
       unless response.is_a?(Net::HTTPSuccess)
         raise "unexpected HTTP #{response.code}"
@@ -135,13 +138,12 @@ class ReleaseCheck
         raise "response too large"
       end
 
-      body = +""
       response.read_body do |chunk|
         body << chunk
         raise "response too large" if body.bytesize > MAX_BODY_BYTES
       end
-      body
     end
+    body
   end
 
   def self.feed_uri

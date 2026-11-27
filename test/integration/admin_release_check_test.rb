@@ -4,6 +4,7 @@ require "test_helper"
 
 class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ReleaseCheckHTTPStub
 
   setup do
     @admin = users(:mr_admin)
@@ -117,21 +118,38 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
       "releases" => [release_hash("99.0.0")]
     }.to_json
 
-    ReleaseCheck.stub :http_get_body, payload do
+    stub_release_check_http(body: payload) do
       post admin_release_check_path
     end
     follow_redirect!
 
     assert_response :success
     assert_equal "Checked for updates.", flash[:notice]
+    assert_select ".alert-info", text: /Checked for updates/
     assert_select "#release-check-banner", text: /v99.0.0/
+    assert_select "#release-check-card", text: /v99.0.0/
+  end
+
+  test "check now shows an alert when the feed request fails" do
+    sign_in @admin
+
+    stub_release_check_http(body: "nope", code: "503") do
+      post admin_release_check_path
+    end
+    follow_redirect!
+
+    assert_response :success
+    assert_equal "Could not check for updates. Try again later.", flash[:alert]
+    assert_select ".alert-warning", text: /Could not check for updates/
+    assert_select "#release-check-banner", count: 0
+    assert_select "#release-check-card", text: /No update information yet/
   end
 
   test "check now does nothing when disabled" do
     Settings.check_for_updates = false
     sign_in @admin
 
-    ReleaseCheck.stub :http_get_body, -> { flunk "HTTP should not be called when disabled" } do
+    Net::HTTP.stub :new, ->(*) { flunk "HTTP should not be called when disabled" } do
       post admin_release_check_path
     end
     follow_redirect!
