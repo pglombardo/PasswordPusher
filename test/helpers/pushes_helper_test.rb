@@ -213,9 +213,10 @@ class PushesHelperTest < ActionView::TestCase
 
   test "knobs_expiration_count_label uses Latvian plural categories" do
     I18n.with_locale(:lv) do
-      assert_equal "1 diena", knobs_expiration_count_label("Day", "Days", 1)
+      # gettext Day/Days: n=1 form 1, n=2 form 2, n=10 form 0 (translation.io).
+      assert_equal "1 Diena", knobs_expiration_count_label("Day", "Days", 1)
       assert_equal "2 Dienas", knobs_expiration_count_label("Day", "Days", 2)
-      assert_equal "10 Dienas", knobs_expiration_count_label("Day", "Days", 10)
+      assert_equal "10 Diena", knobs_expiration_count_label("Day", "Days", 10)
     end
   end
 
