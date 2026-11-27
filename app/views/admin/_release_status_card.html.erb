@@ -1,0 +1,71 @@
+<div id="release-check-card" class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+      <div>
+        <h2 class="h5 fw-semibold text-dark mb-1"><%= _("Version & Updates") %></h2>
+        <p class="text-muted small mb-0">
+          <%= _("OSS Version %{version}") % { version: Version.current } %>
+        </p>
+      </div>
+      <% if ReleaseCheck.enabled? %>
+        <%= button_to _("Check now"), admin_release_check_path, method: :post, class: "btn btn-outline-primary btn-sm" %>
+      <% end %>
+    </div>
+
+    <% if !ReleaseCheck.enabled? %>
+      <p class="text-muted small mb-0">
+        <%= _("Update checks are disabled for this instance.") %>
+      </p>
+    <% elsif @release_check.nil? %>
+      <p class="text-muted small mb-0">
+        <%= _("No update information yet. Run a check to see if a newer release is available.") %>
+      </p>
+    <% elsif @release_check.update_available? %>
+      <p class="mb-2">
+        <%= _("Password Pusher v%{latest} is available (you're running v%{current})") % { latest: @release_check.latest, current: @release_check.running_version } %>
+      </p>
+      <% if @release_check.notes_url.present? %>
+        <p class="mb-3">
+          <%= link_to _("View release notes"), @release_check.notes_url, target: "_blank", rel: "noopener noreferrer" %>
+        </p>
+      <% end %>
+      <% if @release_check.security_available? %>
+        <div class="alert alert-danger py-2 px-3 small mb-3" role="alert">
+          <%= _("A newer release includes security fixes. This notice cannot be dismissed until you upgrade.") %>
+        </div>
+      <% end %>
+      <h3 class="h6 fw-semibold text-dark"><%= _("Newer releases") %></h3>
+      <ul class="list-group list-group-flush">
+        <% @release_check.pending_releases.each do |release| %>
+          <li class="list-group-item px-0">
+            <div class="d-flex align-items-start justify-content-between gap-3">
+              <div>
+                <div class="fw-medium">
+                  v<%= release["version"] %>
+                  <% if release["security"] %>
+                    <span class="badge bg-danger"><%= _("Security") %></span>
+                  <% end %>
+                </div>
+                <% if release["title"].present? %>
+                  <div class="small text-muted"><%= release["title"] %></div>
+                <% end %>
+              </div>
+              <div class="text-end">
+                <% if release["date"].present? %>
+                  <div class="small text-muted"><%= release["date"] %></div>
+                <% end %>
+                <% if release["notes_url"].present? %>
+                  <%= link_to _("Notes"), release["notes_url"], class: "small", target: "_blank", rel: "noopener noreferrer" %>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted small mb-0">
+        <%= _("You're running the latest version.") %>
+      </p>
+    <% end %>
+  </div>
+</div>

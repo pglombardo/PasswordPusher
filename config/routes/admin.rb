@@ -10,6 +10,9 @@ authenticated :user, lambda { |u| u.admin? } do
     end
 
     resource :custom_css, only: [:edit, :update], controller: "custom_css"
+    resource :release_check, only: [:create], controller: "release_checks" do
+      post :dismiss
+    end
   end
 
   mount MissionControl::Jobs::Engine, at: "/admin/jobs" if defined?(::MissionControl::Jobs::Engine)
