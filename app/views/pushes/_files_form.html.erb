@@ -3,11 +3,9 @@
 <div class='container'
     data-controller="knobs form"
     data-knobs-tab-name-value="file"
-    data-knobs-lang-day-value="<%= _('Day') %>"
-    data-knobs-lang-days-value="<%= _('Days') %>"
+    data-knobs-day-labels-value='<%= knobs_day_labels_json(@push.settings_for_kind) %>'
     data-knobs-default-days-value="<%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %>"
-    data-knobs-lang-view-value="<%= _('View') %>"
-    data-knobs-lang-views-value="<%= _('Views') %>"
+    data-knobs-view-labels-value='<%= knobs_view_labels_json(@push.settings_for_kind) %>'
     data-knobs-default-views-value="<%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %>"
     data-knobs-lang-save-value="<%= _('Save') %>"
     data-knobs-lang-saved-value="<%= _('Saved!') %>"
@@ -87,7 +85,7 @@
                                               }) %>
                     </div>
                     <div class='col-auto'>
-                        <span class="badge rounded-pill bg-primary" data-knobs-target="daysRangeLabel"><%= @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default %> <%= _('Days') %></span>
+                        <span class="badge rounded-pill bg-primary" data-knobs-target="daysRangeLabel"><%= knobs_expiration_count_label("Day", "Days", @push.persisted? ? @push.days_remaining : @push.settings_for_kind.expire_after_days_default) %></span>
                     </div>
                 </div>
 
@@ -104,7 +102,7 @@
                                              }) %>
                     </div>
                     <div class='col-auto'>
-                        <span class="badge rounded-pill bg-primary" data-knobs-target="viewsRangeLabel"><%= @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default %> <%= _('Views') %></span>
+                        <span class="badge rounded-pill bg-primary" data-knobs-target="viewsRangeLabel"><%= knobs_expiration_count_label("View", "Views", @push.persisted? ? @push.views_remaining : @push.settings_for_kind.expire_after_views_default) %></span>
                     </div>
                 </div>
                 <p class='text-center text-muted small mb-0'><%= _('(whichever comes first)') %></p>
