@@ -117,8 +117,17 @@ class Push < ApplicationRecord
   end
 
   def check_files_for_file
-    if files.attached? && files.count { |file| !(file.is_a?(String) && file.empty?) } > settings_for_kind.max_file_uploads
+    attached = files.select { |file| !(file.is_a?(String) && file.empty?) }
+
+    if files.attached? && attached.count > settings_for_kind.max_file_uploads
       errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: settings_for_kind.max_file_uploads})
+    end
+
+    attached.each do |file|
+      next unless file.respond_to?(:byte_size)
+      next if Pwpush::FileLimits.allowed_byte_size?(file.byte_size)
+
+      errors.add(:files, Pwpush::FileLimits.too_large_message(filename: file.filename.to_s))
     end
   end
 

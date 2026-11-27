@@ -234,11 +234,19 @@ class PushesController < BaseController
     assign_deletable_by_viewer(@push, update_params)
     assign_retrieval_step(@push, update_params)
 
-    # Validate file count before attaching
+    # Validate file count and size before attaching
     if new_files.any?
       total_file_count = @push.files.count + new_files.count
       if total_file_count > @push.settings_for_kind.max_file_uploads
         @push.errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: @push.settings_for_kind.max_file_uploads})
+      end
+
+      new_files.each do |uploaded|
+        next unless uploaded.respond_to?(:size)
+        next if Pwpush::FileLimits.allowed_byte_size?(uploaded.size)
+
+        filename = uploaded.respond_to?(:original_filename) ? uploaded.original_filename : uploaded.filename.to_s
+        @push.errors.add(:files, Pwpush::FileLimits.too_large_message(filename: filename))
       end
     end
 

@@ -632,6 +632,57 @@ files:
   #
   max_file_uploads: 10
 
+  # Maximum Size Per File
+  #
+  # default: 100GB
+  #
+  # Application-level cap on each uploaded file (web direct upload and JSON API).
+  # 100GB is the product goal and is large enough not to break existing users,
+  # while still bounding disk-fill risk on local storage and through-Puma uploads.
+  # Set to 0, blank, or "unlimited" to disable the application limit.
+  #
+  # Units are binary (1GB = 1024^3 bytes). Examples: 256MB, 5GB, 100GB.
+  #
+  # Proxies, Thruster, and Cloudflare have their own body-size limits. Those must
+  # also be raised (or bypassed via direct-to-storage uploads) for large files.
+  # See containers/examples/pwpush-and-nginx/ and the README "Large file uploads"
+  # section.
+  #
+  # Environment variable override:
+  # PWP__FILES__MAX_FILE_SIZE='100GB'
+  #
+  max_file_size: '100GB'
+
+  # Signed Blob Download URL Lifetime
+  #
+  # default: 5 minutes
+  #
+  # How long signed Active Storage *download* URLs last on the secret-link show
+  # page. Keep this short: a leaked download URL is a capability until it expires.
+  # Raise it if recipients need longer to finish downloading large files.
+  #
+  # Environment variable override:
+  # PWP__FILES__BLOB_URLS_EXPIRE_IN='5 minutes'
+  #
+  blob_urls_expire_in: 5 minutes
+
+  # Direct Upload URL Lifetime
+  #
+  # default: 1 hour
+  #
+  # How long signed Active Storage *upload* (PUT) URLs last. Large files can take
+  # longer than 5 minutes to transfer, and the previous 5-minute default caused
+  # those uploads to fail with 404 once the token expired (#5084).
+  #
+  # A longer upload URL does not change download URL expiry (see above). The
+  # tradeoff of raising this further is a longer window during which an in-progress
+  # upload URL could be reused if it leaked.
+  #
+  # Environment variable override:
+  # PWP__FILES__DIRECT_UPLOAD_URLS_EXPIRE_IN='1 hour'
+  #
+  direct_upload_urls_expire_in: 1 hour
+
   # File Storage
   #
   # Password Pusher can store uploaded files into Amazon S3, Google Cloud Services
@@ -682,6 +733,11 @@ files:
     gsa_email: null
 
   # Microsoft Azure Storage Credentials
+  #
+  # Direct uploads sign a SAS URL. azure-blob ~> 0.10.0 (the adapter this app
+  # uses) sets sv=2024-05-04, which raises the Put Blob cap from 256MB (#1208)
+  # to 5000 MiB. Files larger than that still need multipart/Put Block (a later
+  # phase). Do not pin an older azure-blob that signs sv=2018-11-09.
   as:
     # Environment Variable Override: PWP__FILES__AS__STORAGE_ACCOUNT_NAME=''
     storage_account_name: ''

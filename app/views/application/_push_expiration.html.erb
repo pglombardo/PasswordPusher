@@ -1,6 +1,9 @@
-<% if push.files.attached? && Rails.application.config.active_storage.try(:service).to_s != "local" %>
-  <div class="text-muted fs-6" data-controller="countdown" data-countdown-expired-label-value="<%= _('Expired') %>">
-    <%= _('The file download links above will expire in:') %> <span id="countdown-timer" data-countdown-target="output">4:59</span>
+<% if push.files.attached? %>
+  <div class="text-muted fs-6"
+       data-controller="countdown"
+       data-countdown-duration-seconds-value="<%= Pwpush::FileLimits.blob_url_expires_in.to_i %>"
+       data-countdown-expired-label-value="<%= _('Expired') %>">
+    <%= _('The file download links above will expire in:') %> <span id="countdown-timer" data-countdown-target="output"><%= Pwpush::FileLimits.blob_url_expires_in_clock %></span>
     <div class="mt-2 mb-4">
       <%= _('You can refresh the page to regenerate new download links if views remain.') %>
     </div>

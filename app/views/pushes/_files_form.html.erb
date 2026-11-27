@@ -55,7 +55,12 @@
                 <h5 class="card-header"><%= _('Add Files...') %></h5>
                 <div class="card-body">
                     <div id="progress-bars" class="list-group"></div>
-                    <div data-controller="multi-upload" data-multi-upload-max-files-value="<%= @push.settings_for_kind.max_file_uploads %>">
+                    <div data-controller="multi-upload"
+                         data-multi-upload-max-files-value="<%= @push.settings_for_kind.max_file_uploads %>"
+                         data-multi-upload-max-file-size-value="<%= Pwpush::FileLimits.max_file_size_bytes.to_i %>"
+                         data-multi-upload-max-file-size-label-value="<%= Pwpush::FileLimits.human_max_file_size %>"
+                         data-multi-upload-file-too-large-message-value="<%= Pwpush::FileLimits.too_large_message_template %>">
+                        <div id="file-size-error" class="alert alert-danger d-none" role="alert"></div>
                         <div id="selected-files" data-multi-upload-target="files" class="list-group"></div>
                         <div class="file my-3">
                             <%= f.file_field :files,
@@ -67,7 +72,12 @@
                         </div>
                     </div>
                 </div>
-                <div id="file-count-footer" class="card-footer text-muted"> <%= _('You can upload up to %{count} files per push.') % { count: @push.settings_for_kind.max_file_uploads } %> </div>
+                <div id="file-count-footer" class="card-footer text-muted">
+                  <%= _('You can upload up to %{count} files per push.') % { count: @push.settings_for_kind.max_file_uploads } %>
+                  <% if Pwpush::FileLimits.limited? %>
+                    <%= _('Maximum size per file is %{size}.') % { size: Pwpush::FileLimits.human_max_file_size } %>
+                  <% end %>
+                </div>
             </div>
 
             <div class="border rounded-3 p-3 p-md-4">

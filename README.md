@@ -231,6 +231,20 @@ Open `https://pwpush.example.com`. The Compose file includes persistent storage,
 
 _Note: If you didn't set `TLS_DOMAIN`, uncomment port 5100 and visit the application on http://your-ip:5100_
 
+### Large file uploads
+
+File pushes accept up to **100GB per file** by default (`PWP__FILES__MAX_FILE_SIZE`). Set that to `0` or `unlimited` for no application-level cap. The web form checks the size before upload starts; the server also rejects oversized direct-upload blob creates and JSON API attachments.
+
+Signed **download** URLs expire after 5 minutes (`PWP__FILES__BLOB_URLS_EXPIRE_IN`). Signed **upload** URLs expire after 1 hour (`PWP__FILES__DIRECT_UPLOAD_URLS_EXPIRE_IN`) so large PUTs can finish. Longer download URLs help big downloads complete; they also leave a leaked link valid longer.
+
+A reverse proxy in front of Puma/Thruster must allow the body through:
+
+- nginx: `client_max_body_size` (the nginx default is 1MB) and `proxy_request_buffering off`, plus long `proxy_*_timeout` / `client_body_timeout` values. See [containers/examples/pwpush-and-nginx](containers/examples/pwpush-and-nginx).
+- Thruster (`bin/web`): raise `HTTP_IDLE_TIMEOUT`, `HTTP_READ_TIMEOUT`, and `HTTP_WRITE_TIMEOUT` (defaults 60/30/30 seconds). `MAX_REQUEST_BODY=0` is already unlimited.
+- Cloudflare: typical plans cap HTTP request bodies at 100MB. Direct uploads to S3, GCS, or Azure PUT to the bucket host and skip that cap; local-disk and JSON API uploads that pass through Cloudflare do not.
+
+Azure Blob direct uploads need `azure-blob` 0.10+ (already in this repo). That gem signs SAS URLs as `sv=2024-05-04`, which raises the Put Blob cap from 256MB to 5000 MiB. Larger Azure files still need multipart uploads.
+
 ### Local development
 
 | File / path | Use |

@@ -71,6 +71,9 @@ google:
   iam: <%= Settings.files.gcs.iam %>
   gsa_email: <%= Settings.files.gcs.gsa_email%>
 
+# AzureBlob is provided by azure-blob ~> 0.10.0, which signs SAS URLs as
+# sv=2024-05-04. That API version allows Put Blob up to 5000 MiB (the 256MB
+# cap in #1208 applied to sv=2018-11-09). Keep this gem at 0.10+.
 microsoft:
   service: AzureBlob
   storage_account_name: <%= Settings.files.as.storage_account_name %>

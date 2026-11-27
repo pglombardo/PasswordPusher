@@ -112,9 +112,22 @@ x-env: &x-env
     # PWP__FILES__DELETABLE_PUSHES_DEFAULT: "true"
     # PWP__FILES__BLUR: "true"
     # PWP__FILES__MAX_FILE_UPLOADS: "10"
+    # PWP__FILES__MAX_FILE_SIZE: "100GB"          # 0 or unlimited to disable; binary units (1GB = 1024^3)
+    # PWP__FILES__BLOB_URLS_EXPIRE_IN: "5 minutes" # signed download URLs (keep short)
+    # PWP__FILES__DIRECT_UPLOAD_URLS_EXPIRE_IN: "1 hour" # signed upload PUT URLs (#5084)
     # S3: PWP__FILES__S3__ENDPOINT, ACCESS_KEY_ID, SECRET_ACCESS_KEY, REGION, BUCKET
     # GCS: PWP__FILES__GCS__PROJECT, CREDENTIALS, BUCKET, IAM, GSA_EMAIL
     # Azure: PWP__FILES__AS__STORAGE_ACCOUNT_NAME, STORAGE_ACCESS_KEY, CONTAINER
+    #   azure-blob 0.10+ signs SAS as sv=2024-05-04 (Put Blob up to 5000 MiB; see #1208)
+    #
+    # Large files through Thruster (this image's bin/web): raise idle/read/write
+    # timeouts (defaults 60/30/30 seconds). MAX_REQUEST_BODY=0 is already unlimited.
+    # HTTP_IDLE_TIMEOUT: "3600"
+    # HTTP_READ_TIMEOUT: "3600"
+    # HTTP_WRITE_TIMEOUT: "3600"
+    # Front proxies: nginx client_max_body_size + proxy_request_buffering off;
+    # Cloudflare HTTP bodies cap at 100MB on typical plans. See
+    # containers/examples/pwpush-and-nginx/ and README "Large file uploads".
 
     # --- Push: QR ---
     # PWP__QR__EXPIRE_AFTER_DAYS_DEFAULT: "7"
