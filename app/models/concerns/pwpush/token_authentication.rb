@@ -4,6 +4,12 @@ module Pwpush
   module TokenAuthentication
     extend ActiveSupport::Concern
 
+    PROTECTED_TOKEN_JSON_KEYS = %w[
+      authentication_token
+      authentication_token_digest
+      authentication_token_hint
+    ].freeze
+
     included do
       self.filter_attributes |= %i[
         authentication_token
@@ -73,10 +79,7 @@ module Pwpush
     end
 
     def serializable_hash(options = nil)
-      options = options ? options.dup : {}
-      except = Array(options[:except]).map(&:to_s)
-      except |= %w[authentication_token authentication_token_digest authentication_token_hint]
-      super(options.merge(except: except))
+      super.except(*PROTECTED_TOKEN_JSON_KEYS)
     end
 
     private

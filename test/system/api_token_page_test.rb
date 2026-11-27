@@ -40,6 +40,23 @@ class ApiTokenPageTest < ApplicationSystemTestCase
     save_token_screenshot("api-token-masked")
   end
 
+  test "back navigation after regenerate does not restore the full token" do
+    visit token_user_registration_path
+    click_button "Regenerate Token"
+    click_button "Delete & Regenerate"
+
+    assert_selector "#authentication_token"
+    token = find("#authentication_token").text.strip
+
+    click_link "Dashboard"
+    assert_no_selector "#authentication_token"
+    page.go_back
+
+    assert_no_selector "#authentication_token"
+    assert_no_text token
+    assert_selector "#authentication_token_hint"
+  end
+
   private
 
   def save_token_screenshot(name)

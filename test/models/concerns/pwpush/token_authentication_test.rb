@@ -61,6 +61,23 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
     assert_not json.key?("authentication_token_hint")
   end
 
+  test "as_json omits token material even when only or methods request it" do
+    json = @user.as_json(only: [:email, :authentication_token_digest, :authentication_token_hint])
+
+    assert json.key?("email")
+    assert_not json.key?("authentication_token")
+    assert_not json.key?("authentication_token_digest")
+    assert_not json.key?("authentication_token_hint")
+
+    token = @user.regenerate_authentication_token!
+    json = @user.as_json(methods: [:authentication_token])
+
+    assert_not json.key?("authentication_token")
+    assert_not json.key?("authentication_token_digest")
+    assert_not json.key?("authentication_token_hint")
+    assert_no_match(/#{Regexp.escape(token)}/, json.to_json)
+  end
+
   test "inspect does not include the raw token" do
     @user.update!(authentication_token: "should-not-appear-in-inspect")
 

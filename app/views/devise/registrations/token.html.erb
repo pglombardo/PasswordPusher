@@ -14,23 +14,29 @@
       </p>
 
       <% if @raw_authentication_token.present? %>
-        <div class="alert alert-info small mb-4" id="token-shown-once-notice" role="status">
-          <em class="bi bi-info-circle me-2"></em><%= _('Copy this token now. It will not be shown again.') %>
-        </div>
+        <% content_for :head do %>
+          <meta name="turbo-cache-control" content="no-cache">
+        <% end %>
 
-        <div class="mb-4" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
-          <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
-          <p class="text-muted small mb-3"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
+        <div data-turbo-temporary>
+          <div class="alert alert-info small mb-4" id="token-shown-once-notice" role="status">
+            <em class="bi bi-info-circle me-2"></em><%= _('Copy this token now. It will not be shown again.') %>
+          </div>
 
-          <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
-            <div
-              class="payload spoiler notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
-              id="authentication_token"
-              data-copy-target="payloadDiv"
-              translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center"><%= @raw_authentication_token %></pre></div>
+          <div class="mb-4" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
+            <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
+            <p class="text-muted small mb-3"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
 
-            <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
-              <%= render partial: 'shared/copy_button', cached: true %>
+            <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
+              <div
+                class="payload spoiler notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
+                id="authentication_token"
+                data-copy-target="payloadDiv"
+                translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center"><%= @raw_authentication_token %></pre></div>
+
+              <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
+                <%= render partial: 'shared/copy_button', cached: true %>
+              </div>
             </div>
           </div>
         </div>

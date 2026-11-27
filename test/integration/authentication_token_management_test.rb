@@ -187,6 +187,8 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     delete token_user_registration_path
     assert_response :success
     assert_select "[data-controller*='copy']"
+    assert_select "meta[name='turbo-cache-control'][content='no-cache']"
+    assert_select "[data-turbo-temporary] #authentication_token"
   end
 
   test "revealed token is shown once then masked" do
