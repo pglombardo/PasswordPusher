@@ -14,7 +14,7 @@ class QrAuthenticatedTest < ActionDispatch::IntegrationTest
   def test_authenticated_json_creation
     post json_pushes_path(format: :json),
       params: {password: {kind: "qr", payload: "testpw"}},
-      headers: {"Authorization" => "Bearer #{users(:luca).authentication_token}"}
+      headers: {"Authorization" => "Bearer #{api_token_for(users(:luca))}"}
     assert_response :success
 
     res = JSON.parse(@response.body)

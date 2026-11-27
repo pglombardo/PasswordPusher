@@ -30,7 +30,7 @@ class QrJsonPreviewTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -39,7 +39,7 @@ class QrJsonPreviewTest < ActionDispatch::IntegrationTest
     url_token = res["url_token"]
 
     get "/p/#{url_token}/preview.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

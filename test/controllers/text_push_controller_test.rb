@@ -73,13 +73,13 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
   test "get active dashboard with token" do
     get active_passwords_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
     get expired_passwords_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
   end
 
@@ -100,7 +100,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     # Test first page (should return 50 results)
     get active_passwords_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -123,7 +123,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     # Test second page (should return remaining results)
     get active_passwords_path(format: :json, page: 2),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res_page2 = JSON.parse(@response.body)
@@ -160,7 +160,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     # Test first page (should return 50 results)
     get expired_passwords_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -175,7 +175,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
     # Test second page (should return remaining results)
     get expired_passwords_path(format: :json, page: 2),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res_page2 = JSON.parse(@response.body)
@@ -191,7 +191,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
   test "page limit enforcement" do
     # Test page limit (200 pages max)
     get active_passwords_path(format: :json, page: 201),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
@@ -203,7 +203,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
 
   test "empty active list returns zero pagination headers" do
     get active_passwords_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -218,7 +218,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
   test "invalid page parameter handling" do
     # Test negative page number (should default to 1)
     get active_passwords_path(format: :json, page: -1),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -228,7 +228,7 @@ class TextPushControllerTest < ActionDispatch::IntegrationTest
   test "malformed page parameter handling" do
     # Test non-numeric page parameter
     get active_passwords_path(format: :json, page: "abc"),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :bad_request
 
     res = JSON.parse(@response.body)

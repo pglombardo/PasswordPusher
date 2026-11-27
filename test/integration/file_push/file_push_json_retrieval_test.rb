@@ -27,7 +27,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
 
     mock_headers = {}
     mock_headers["X-User-Email"] = @luca.email
-    mock_headers["X-User-Token"] = @luca.authentication_token
+    mock_headers["X-User-Token"] = api_token_for(@luca)
 
     post file_pushes_path(format: :json), params: mock_params, headers: mock_headers
     assert_response :success
@@ -67,7 +67,7 @@ class FilePushJsonRetrievalTest < ActionDispatch::IntegrationTest
 
     mock_headers = {}
     mock_headers["X-User-Email"] = @luca.email
-    mock_headers["X-User-Token"] = @luca.authentication_token
+    mock_headers["X-User-Token"] = api_token_for(@luca)
 
     # Create a push with two views
     post file_pushes_path(format: :json), params: mock_params, headers: mock_headers

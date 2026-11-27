@@ -34,6 +34,18 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  # Known plaintext API tokens for fixture users (digests only are stored in the DB).
+  FIXTURE_API_TOKENS = {
+    "luca@example.org" => "1234567890",
+    "one@example.org" => "0987654321",
+    "giuliana@example.org" => "2014"
+  }.freeze
+
+  def api_token_for(user)
+    user.instance_variable_get(:@raw_authentication_token).presence ||
+      FIXTURE_API_TOKENS.fetch(user.email)
+  end
+
   def assert_audit_log_created(push, kind)
     assert push.audit_logs.where(kind: kind).exists?,
       "Expected audit log of kind #{kind} for push #{push.url_token}"

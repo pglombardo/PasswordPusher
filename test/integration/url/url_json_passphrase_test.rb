@@ -19,7 +19,7 @@ class UrlJsonPassphraseTest < ActionDispatch::IntegrationTest
 
   def test_basic_json_passphrase
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", passphrase: "asdf"}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
 
     assert_response :success
 
@@ -55,7 +55,7 @@ class UrlJsonPassphraseTest < ActionDispatch::IntegrationTest
 
   def test_basic_json_bad_passphrase
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", passphrase: "asdf"}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
 
     assert_response :success
 

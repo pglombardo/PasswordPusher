@@ -8,13 +8,17 @@ luca:
   email: luca@example.org
   encrypted_password: $2a$12$mvenK9BFqCuzPIg.gV.u8egtR4iyNGgrHtQHX5g9E6I5Ehrz4cCD6
   confirmed_at: 2021-01-01 00:00:00
-  authentication_token: 1234567890
+  authentication_token_digest: <%= User.digest_authentication_token("1234567890") %>
+  authentication_token_hint: "7890"
+  authentication_token_legacy: true
 
 one:
   email: one@example.org
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password12345') %>
   confirmed_at: 2025-02-28 18:00:00
-  authentication_token: 0987654321
+  authentication_token_digest: <%= User.digest_authentication_token("0987654321") %>
+  authentication_token_hint: "4321"
+  authentication_token_legacy: true
 
 two:
   email: test2@test.com
@@ -31,4 +35,6 @@ giuliana:
   email: giuliana@example.org
   confirmed_at: 2025-06-09 00:00:00
   encrypted_password: $2a$12$mvenK9BFqCuzPIg.gV.u8egtR4iyNGgrHtQHX5g9E6I5Ehrz4cCD6
-  authentication_token: 2014
+  authentication_token_digest: <%= User.digest_authentication_token("2014") %>
+  authentication_token_hint: "2014"
+  authentication_token_legacy: true

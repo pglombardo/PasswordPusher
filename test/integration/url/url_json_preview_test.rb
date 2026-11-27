@@ -21,7 +21,7 @@ class UrlJsonPreviewTest < ActionDispatch::IntegrationTest
   def test_authenticated_preview_response
     @luca = users(:luca)
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -30,7 +30,7 @@ class UrlJsonPreviewTest < ActionDispatch::IntegrationTest
     url_token = res["url_token"]
 
     get "/r/#{url_token}/preview.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

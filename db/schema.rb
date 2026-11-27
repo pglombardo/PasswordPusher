@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_28_110942) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_27_120000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.integer "blob_id", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -283,7 +283,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_28_110942) do
     t.string "unconfirmed_email"
     t.string "unlock_token"
     t.datetime "updated_at", precision: nil
-    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.string "authentication_token_digest", limit: 64
+    t.string "authentication_token_hint", limit: 4
+    t.boolean "authentication_token_legacy", default: false, null: false
+    t.index ["authentication_token_digest"], name: "index_users_on_authentication_token_digest", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

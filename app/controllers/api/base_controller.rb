@@ -128,7 +128,7 @@ class Api::BaseController < ApplicationController
     api_token = token_from_header
     return nil if api_token.blank?
 
-    User.find_by(authentication_token: api_token)
+    User.find_by_authentication_token(api_token)
   end
 
   rescue_from ActionController::ParameterMissing do |exception|

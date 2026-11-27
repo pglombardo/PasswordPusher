@@ -29,14 +29,14 @@ class FilePushJsonExpiredTest < ActionDispatch::IntegrationTest
           ]
         }
       },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
     delete "/f/#{res["url_token"]}.json"
     assert_response :success
 
-    get expired_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get expired_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

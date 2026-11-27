@@ -19,7 +19,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -44,7 +44,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/r/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -73,7 +73,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", passphrase: "asdf", expire_after_views: 3}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -92,7 +92,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Delete the new url via json e.g. /r/<url_token>.json
     delete "/r/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     # Generate views on that push
@@ -103,7 +103,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/r/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -124,7 +124,7 @@ class UrlJsonAuditTest < ActionDispatch::IntegrationTest
     @luca = users(:luca)
     # Create a push
     post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

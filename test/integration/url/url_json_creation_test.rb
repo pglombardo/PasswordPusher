@@ -18,7 +18,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_basic_json_creation
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -59,7 +59,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_days_expiration
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_days: 1}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_days: 1}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -72,7 +72,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_custom_views_expiration
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 5}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 5}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -85,7 +85,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
   end
 
   def test_creation_with_kind_on_endpoint_starting_with_p
-    post json_pushes_path(format: :json), params: {password: {kind: "url", payload: "https://the0x00.dev", expire_after_views: 5}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post json_pushes_path(format: :json), params: {password: {kind: "url", payload: "https://the0x00.dev", expire_after_views: 5}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -96,7 +96,7 @@ class UrlJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_bad_request
     post urls_path(format: :json), params: {},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :bad_request
 
     res = JSON.parse(@response.body)

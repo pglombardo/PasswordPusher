@@ -18,14 +18,14 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
   end
 
   def test_view_with_passphrase
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2, passphrase: "asdf"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2, passphrase: "asdf"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
     url_token = res["url_token"]
 
     # Now try to retrieve the url without the passphrase
-    get "/r/#{url_token}.json", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get "/r/#{url_token}.json", headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :unauthorized
 
     res = JSON.parse(@response.body)
@@ -33,12 +33,12 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
 
     # Now try to retrieve the url WITH the passphrase
     # Url push links were generated with '/p/' after unifying controllers and models
-    get "/p/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get "/p/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     # Now try to retrieve the url WITH the passphrase
     # Url push links were generated with '/r/' before unifying controllers and models
-    get "/r/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get "/r/#{url_token}.json?passphrase=asdf", headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -47,7 +47,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
   end
 
   def test_view_expiration
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev", expire_after_views: 2}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     # Push a url with two views
@@ -105,7 +105,7 @@ class UrlJsonRetrievalTest < ActionDispatch::IntegrationTest
 
     # With the third view, we should have an expired url
     get "/r/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

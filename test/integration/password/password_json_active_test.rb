@@ -12,10 +12,10 @@ class PasswordJsonActiveTest < ActionDispatch::IntegrationTest
   def test_basic_json_active
     post passwords_path(format: :json),
       params: {password: {payload: "testpw", name: "Test Password", note: "This is a test password"}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
-    get active_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get active_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

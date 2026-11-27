@@ -50,8 +50,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def token
     if current_user.nil?
       redirect_to user_session_path
-    elsif current_user&.authentication_token.blank?
-      current_user.regenerate_authentication_token!
+      return
+    end
+
+    if session[:raw_authentication_token].present?
+      @raw_authentication_token = session.delete(:raw_authentication_token)
+    elsif !current_user.has_authentication_token?
+      @raw_authentication_token = current_user.regenerate_authentication_token!
     end
   end
 
@@ -60,7 +65,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user.nil?
       redirect_to user_session_path
     else
-      current_user.regenerate_authentication_token!
+      session[:raw_authentication_token] = current_user.regenerate_authentication_token!
       redirect_to token_user_registration_path
     end
   end

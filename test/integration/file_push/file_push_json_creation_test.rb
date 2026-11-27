@@ -25,7 +25,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -74,7 +74,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -116,7 +116,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -134,7 +134,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -151,7 +151,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -169,7 +169,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -191,7 +191,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -213,7 +213,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -231,7 +231,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -242,7 +242,7 @@ class FilePushJsonCreationTest < ActionDispatch::IntegrationTest
 
   def test_bad_request
     post file_pushes_path(format: :json), params: {},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :bad_request
   end
 end

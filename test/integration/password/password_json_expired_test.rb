@@ -12,7 +12,7 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
   def test_basic_json_expired
     post passwords_path(format: :json),
       params: {password: {payload: "testpw", name: "Test Password", note: "This is a test password"}},
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -20,7 +20,7 @@ class PasswordJsonExpiredTest < ActionDispatch::IntegrationTest
     delete "/p/#{res["url_token"]}.json"
     assert_response :success
 
-    get expired_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get expired_passwords_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

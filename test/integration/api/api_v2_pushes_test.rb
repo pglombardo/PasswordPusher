@@ -4,7 +4,7 @@ require "test_helper"
 
 class ApiV2PushesTest < ActionDispatch::IntegrationTest
   def bearer_headers(user)
-    {"Authorization" => "Bearer #{user.authentication_token}"}
+    {"Authorization" => "Bearer #{api_token_for(user)}"}
   end
 
   teardown do
@@ -244,7 +244,7 @@ class ApiV2PushesTest < ActionDispatch::IntegrationTest
 
     get "/api/v2/pushes/active",
       headers: {
-        "Authorization" => "Bearer #{user.authentication_token}"
+        "Authorization" => "Bearer #{api_token_for(user)}"
       },
       as: :json
 

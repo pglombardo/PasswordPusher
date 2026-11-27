@@ -18,7 +18,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -33,7 +33,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/p/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -56,7 +56,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", passphrase: "asdf", expire_after_views: 3}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -74,7 +74,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
 
     delete json_push_path(url_token, format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     # Generate views on that push
@@ -85,7 +85,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/p/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -107,7 +107,7 @@ class QrJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post json_pushes_path(format: :json), params: {password: {kind: "qr", payload: "testqr", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

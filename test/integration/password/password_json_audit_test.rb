@@ -10,7 +10,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -25,7 +25,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/p/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -48,7 +48,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", passphrase: "asdf", expire_after_views: 3}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -66,7 +66,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
 
     delete password_path(url_token, format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     # Generate views on that push
@@ -77,7 +77,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get "/p/#{url_token}/audit.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -99,7 +99,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -143,7 +143,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 100}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -158,7 +158,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test first page (should return 50 results)
     get "/p/#{url_token}/audit.json?page=1",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -185,7 +185,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test second page (should return remaining results)
     get "/p/#{url_token}/audit.json?page=2",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res_page2 = JSON.parse(@response.body)
@@ -201,7 +201,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test third page (should return empty or remaining results)
     get "/p/#{url_token}/audit.json?page=3",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res_page3 = JSON.parse(@response.body)
@@ -213,7 +213,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
     # Create a push
     post passwords_path(format: :json), params: {password: {payload: "testpw", expire_after_views: 2}},
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}, as: :json
+                "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -221,7 +221,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test invalid page parameter
     get "/p/#{url_token}/audit.json?page=invalid",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
@@ -233,7 +233,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test page parameter too high
     get "/p/#{url_token}/audit.json?page=201",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :bad_request
 
     res = JSON.parse(@response.body)
@@ -243,7 +243,7 @@ class PasswordJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Test page parameter zero (should be converted to 1)
     get "/p/#{url_token}/audit.json?page=0",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
