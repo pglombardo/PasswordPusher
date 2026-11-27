@@ -8,20 +8,22 @@ module ReleaseCheckHTTPStub
   class FakeHTTP
     attr_writer :use_ssl, :open_timeout, :read_timeout, :write_timeout
 
-    def initialize(response: nil, error: nil)
+    def initialize(response: nil, error: nil, retry_response: nil)
       @response = response
       @error = error
+      @retry_response = retry_response
     end
 
     def request(_request)
       raise @error if @error
 
+      yield @retry_response if @retry_response && block_given?
       yield @response if block_given?
       @response
     end
   end
 
-  def stub_release_check_http(body: "", code: "200", content_length: :from_body, chunks: nil, error: nil, success: nil, &)
+  def stub_release_check_http(body: "", code: "200", content_length: :from_body, chunks: nil, error: nil, success: nil, retry_body: nil, &)
     success = code.to_s.start_with?("2") if success.nil?
     resolved_length = (content_length == :from_body) ? body.to_s.bytesize : content_length
     response = build_release_check_response(
@@ -31,7 +33,16 @@ module ReleaseCheckHTTPStub
       chunks: chunks,
       success: success
     )
-    fake_http = FakeHTTP.new(response: response, error: error)
+    retry_response = if retry_body
+      build_release_check_response(
+        body: retry_body.to_s,
+        code: "200",
+        content_length: retry_body.to_s.bytesize,
+        chunks: nil,
+        success: true
+      )
+    end
+    fake_http = FakeHTTP.new(response: response, error: error, retry_response: retry_response)
     original_new = Net::HTTP.method(:new)
     feed_host = URI(ReleaseCheck::FEED_URL).host
 

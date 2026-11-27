@@ -197,6 +197,34 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
     assert_select "#release-check-card", text: /No update information yet/
   end
 
+  test "check now keeps the previous result when a later fetch fails" do
+    sign_in @admin
+    payload = {
+      "schema" => 1,
+      "product" => "oss",
+      "generated_at" => "2026-11-27T00:00:00Z",
+      "latest" => "99.0.0",
+      "stable" => "99.0.0",
+      "releases" => [release_hash("99.0.0")]
+    }.to_json
+
+    stub_release_check_http(body: payload) do
+      post admin_release_check_path
+    end
+    follow_redirect!
+    assert_select "#release-check-banner", text: /v99.0.0/
+
+    stub_release_check_http(body: "nope", code: "503") do
+      post admin_release_check_path
+    end
+    follow_redirect!
+
+    assert_response :success
+    assert_equal "Could not check for updates. Try again later.", flash[:alert]
+    assert_select "#release-check-banner", text: /v99.0.0/
+    assert_select "#release-check-card", text: /v99.0.0/
+  end
+
   test "check now does nothing when disabled" do
     Settings.check_for_updates = false
     sign_in @admin

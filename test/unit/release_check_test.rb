@@ -39,6 +39,16 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "http_get_body discards a partial body if Net::HTTP retries" do
+    payload = feed_json(latest: "2.17.5")
+
+    stub_release_check_http(body: payload, retry_body: '{"partial":true') do
+      body = ReleaseCheck.http_get_body
+
+      assert_equal payload, body
+    end
+  end
+
   test "perform parses latest and releases from a realistic oss.json feed" do
     Version.stub :current, "2.17.0" do
       stub_release_check_http(body: realistic_feed_json) do

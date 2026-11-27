@@ -119,7 +119,10 @@ class ReleaseCheck
     end
 
     def file_store
-      @file_store ||= ActiveSupport::Cache::FileStore.new(file_store_dir)
+      @file_store ||= ActiveSupport::Cache::FileStore.new(
+        file_store_dir,
+        race_condition_ttl: 10.seconds
+      )
     end
 
     def file_store_dir
@@ -175,8 +178,11 @@ class ReleaseCheck
 
     # Net::HTTP#request with a block returns the response, not the block value.
     # Accumulate the body outside the block so callers receive a String.
+    # Reset at the start of each yield so a Net::HTTP retry (max_retries is 1)
+    # cannot append onto a partial previous body.
     body = +""
     http.request(build_request(uri)) do |response|
+      body = +""
       unless response.is_a?(Net::HTTPSuccess)
         raise "unexpected HTTP #{response.code}"
       end
