@@ -36,10 +36,19 @@ WORKDIR ${APP_ROOT}
 # Copy dependency files first for better layer caching
 COPY Gemfile Gemfile.lock ./
 
-# Install Ruby dependencies - this layer will be cached unless Gemfile changes
-RUN bundle config set without "${BUNDLE_WITHOUT}" \
+# Install Ruby dependencies into a persistent BuildKit cache mount so a
+# Gemfile.lock bump only fetches/compiles the gems that changed, then copy the
+# result into vendor/bundle (the cache mount itself is never part of the image).
+# The cache is keyed per-arch so native extensions are never shared across
+# platforms. TARGETARCH is declared in this stage above. CI persists the mount
+# between runs via buildkit-cache-dance.
+RUN --mount=type=cache,id=bundle-${TARGETARCH},target=/cache/bundle,sharing=locked \
+    bundle config set without "${BUNDLE_WITHOUT}" \
     && bundle config set deployment "${BUNDLE_DEPLOYMENT}" \
-    && bundle install \
+    && BUNDLE_PATH=/cache/bundle bundle install \
+    && BUNDLE_PATH=/cache/bundle bundle clean --force \
+    && mkdir -p vendor \
+    && cp -a /cache/bundle vendor/bundle \
     && rm -rf vendor/bundle/ruby/*/cache \
     && rm -rf vendor/bundle/ruby/*/bundler/gems/*/.git \
     && find vendor/bundle/ruby/*/gems/ -name "*.c" -delete \
