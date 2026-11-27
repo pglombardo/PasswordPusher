@@ -28,7 +28,7 @@
           <p><strong><%= _('Attached Files') %></strong></p>
             <% @push.files.each do |file| %>
               <div class="list-group">
-                  <%= link_to rails_blob_url(file), target: '_blank', class: 'list-group-item list-group-item-action' do %>
+                  <%= link_to rails_blob_url(file, expires_in: Pwpush::FileLimits.blob_url_expires_in), target: '_blank', class: 'list-group-item list-group-item-action' do %>
                     <%= file.filename %>
                     (<%= filesize(file.blob.byte_size) %>)
                     &nbsp;

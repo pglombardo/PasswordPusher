@@ -123,5 +123,32 @@ module Pwpush
 
       UNLIMITED_TOKENS.include?(value.to_s.strip.downcase)
     end
+
+    # Byte size of an incoming attachable: blob, uploaded file, or signed blob id.
+    def byte_size_for(upload)
+      return upload.byte_size if upload.respond_to?(:byte_size)
+      return upload.size if io_upload?(upload)
+      return signed_blob(upload)&.byte_size if upload.is_a?(String)
+
+      nil
+    end
+
+    def filename_for(upload)
+      return upload.original_filename.to_s if upload.respond_to?(:original_filename)
+      return upload.filename.to_s if upload.respond_to?(:filename)
+      return signed_blob(upload)&.filename.to_s if upload.is_a?(String)
+
+      nil
+    end
+
+    def io_upload?(upload)
+      upload.respond_to?(:original_filename) && upload.respond_to?(:size) && !upload.is_a?(String)
+    end
+
+    def signed_blob(signed_id)
+      return if signed_id.blank?
+
+      ActiveStorage::Blob.find_signed(signed_id)
+    end
   end
 end

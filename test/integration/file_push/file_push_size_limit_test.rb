@@ -25,6 +25,26 @@ class FilePushSizeLimitTest < ActionDispatch::IntegrationTest
     assert push.errors[:files].any? { |msg| msg.include?("too large") }
   end
 
+  def test_model_rejects_oversized_attachment_on_text_push
+    Settings.files.max_file_size = "10"
+    push = Push.new(kind: "text", payload: "secret")
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+
+    assert_not push.valid?
+    assert push.errors[:files].any? { |msg| msg.include?("too large") }
+  end
+
+  def test_expire_record_succeeds_after_max_file_size_is_lowered
+    Settings.files.max_file_size = "10MB"
+    push = Push.create!(kind: "file")
+    push.files.attach(fixture_file_upload("monkey.png", "image/png"))
+    assert push.files.attached?
+
+    Settings.files.max_file_size = "10"
+    assert_nothing_raised { push.expire_record! }
+    assert push.reload.expired?
+  end
+
   def test_legacy_json_api_rejects_oversized_file
     Settings.files.max_file_size = "10"
 
@@ -50,6 +70,24 @@ class FilePushSizeLimitTest < ActionDispatch::IntegrationTest
         push: {
           kind: "file",
           payload: "Message",
+          files: [fixture_file_upload("monkey.png", "image/png")]
+        }
+      },
+      headers: {"Authorization" => "Bearer #{@luca.authentication_token}"}
+
+    assert_response :unprocessable_content
+    body = JSON.parse(@response.body)
+    assert Array(body["files"]).any? { |msg| msg.include?("too large") }
+  end
+
+  def test_api_v2_rejects_oversized_file_on_text_push
+    Settings.files.max_file_size = "10"
+
+    post "/api/v2/pushes",
+      params: {
+        push: {
+          kind: "text",
+          payload: "secret",
           files: [fixture_file_upload("monkey.png", "image/png")]
         }
       },

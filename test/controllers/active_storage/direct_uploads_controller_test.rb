@@ -74,6 +74,29 @@ class ActiveStorage::DirectUploadsControllerTest < ActionDispatch::IntegrationTe
     assert_equal 12.minutes, captured
   end
 
+  def test_rails_blob_url_honors_configured_download_expiry
+    Settings.files.blob_urls_expire_in = "10 minutes"
+    assert_equal 10.minutes, ActiveStorage.urls_expire_in
+
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new("hello"),
+      filename: "hello.txt",
+      content_type: "text/plain"
+    )
+
+    path = rails_blob_path(blob, only_path: true)
+
+    travel 6.minutes do
+      get path
+      assert_response :redirect
+    end
+
+    travel 11.minutes do
+      get path
+      assert_response :not_found
+    end
+  end
+
   private
 
   def blob_params(byte_size:)

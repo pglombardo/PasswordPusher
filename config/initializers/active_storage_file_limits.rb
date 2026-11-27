@@ -5,6 +5,7 @@
 Rails.application.config.to_prepare do
   ActiveStorage::Blob.prepend(Pwpush::ActiveStorageUrlExpiry)
   ActiveStorage::DirectUploadsController.prepend(Pwpush::DirectUploadSizeLimit)
+  ActiveStorage.singleton_class.prepend(Pwpush::ActiveStorageUrlsExpireIn)
 end
 
 # azure-blob 0.10+ already signs SAS URLs as sv=2024-05-04 (Put Blob up to

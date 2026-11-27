@@ -21,6 +21,7 @@ class Push < ApplicationRecord
 
   validate :check_payload_for_text, if: :text?
   validate :check_files_for_file, if: :file?
+  validate :check_file_sizes
   validate :check_payload_for_url, if: :url?
   validate :check_payload_for_qr, if: :qr?
 
@@ -94,7 +95,11 @@ class Push < ApplicationRecord
       file_list = {}
       files.each do |file|
         # FIXME: default host?
-        file_list[file.filename] = Rails.application.routes.url_helpers.rails_blob_url(file, only_path: true)
+        file_list[file.filename] = Rails.application.routes.url_helpers.rails_blob_url(
+          file,
+          only_path: true,
+          expires_in: Pwpush::FileLimits.blob_url_expires_in
+        )
       end
       attr_hash["files"] = file_list.to_json
     end
@@ -117,17 +122,22 @@ class Push < ApplicationRecord
   end
 
   def check_files_for_file
-    attached = files.select { |file| !(file.is_a?(String) && file.empty?) }
+    attached_count = files.count { |file| !(file.is_a?(String) && file.empty?) }
+    return unless files.attached? && attached_count > settings_for_kind.max_file_uploads
 
-    if files.attached? && attached.count > settings_for_kind.max_file_uploads
-      errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: settings_for_kind.max_file_uploads})
-    end
+    errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: settings_for_kind.max_file_uploads})
+  end
 
-    attached.each do |file|
-      next unless file.respond_to?(:byte_size)
-      next if Pwpush::FileLimits.allowed_byte_size?(file.byte_size)
+  # Size cap applies to every kind (API can attach files on a text push) and
+  # only to attachments added in this save, so lowering the cap cannot block
+  # expire_record! on an existing push.
+  def check_file_sizes
+    files.attachments.reject(&:persisted?).each do |attachment|
+      blob = attachment.blob
+      next unless blob&.byte_size
+      next if Pwpush::FileLimits.allowed_byte_size?(blob.byte_size)
 
-      errors.add(:files, Pwpush::FileLimits.too_large_message(filename: file.filename.to_s))
+      errors.add(:files, Pwpush::FileLimits.too_large_message(filename: blob.filename.to_s))
     end
   end
 

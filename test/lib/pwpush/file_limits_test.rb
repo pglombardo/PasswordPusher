@@ -57,4 +57,19 @@ class Pwpush::FileLimitsTest < ActiveSupport::TestCase
     assert_equal 2.hours, Pwpush::FileLimits.direct_upload_url_expires_in
     assert_equal "10:00", Pwpush::FileLimits.blob_url_expires_in_clock
   end
+
+  test "byte_size_for resolves uploaded files, blobs, and signed blob ids" do
+    upload = Rack::Test::UploadedFile.new(file_fixture("test-file.txt"), "text/plain")
+    assert_equal upload.size, Pwpush::FileLimits.byte_size_for(upload)
+
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new("hello"),
+      filename: "hello.txt",
+      content_type: "text/plain"
+    )
+    assert_equal blob.byte_size, Pwpush::FileLimits.byte_size_for(blob)
+    assert_equal blob.byte_size, Pwpush::FileLimits.byte_size_for(blob.signed_id)
+    assert_equal "hello.txt", Pwpush::FileLimits.filename_for(blob.signed_id)
+    assert_nil Pwpush::FileLimits.byte_size_for("not-a-signed-id")
+  end
 end
