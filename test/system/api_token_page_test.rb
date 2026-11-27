@@ -14,7 +14,7 @@ class ApiTokenPageTest < ApplicationSystemTestCase
   test "legacy, revealed, and masked token page states" do
     visit token_user_registration_path
     assert_text "Your existing API token still works, but it cannot be displayed"
-    assert_selector "#authentication_token_hint", text: "••••7890"
+    assert_selector "#authentication_token_hint", text: "••••"
     assert_no_selector "#authentication_token"
     save_token_screenshot("api-token-legacy")
 

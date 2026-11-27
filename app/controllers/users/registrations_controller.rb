@@ -8,6 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout "application", only: %i[edit update token regen_token]
   layout "login", except: %i[edit update token regen_token]
 
+  after_action :prevent_browser_caching_of_token_page, only: %i[token regen_token]
+
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -89,6 +91,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     new_user_session_path
+  end
+
+  private
+
+  def prevent_browser_caching_of_token_page
+    response.headers["Cache-Control"] = "no-store"
   end
 
   # The path used after sign up for inactive accounts.

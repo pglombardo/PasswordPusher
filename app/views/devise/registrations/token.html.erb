@@ -18,7 +18,10 @@
           <meta name="turbo-cache-control" content="no-cache">
         <% end %>
 
-        <div data-turbo-temporary>
+        <div
+          data-turbo-temporary
+          data-controller="token-reveal"
+          data-token-reveal-masked-url-value="<%= token_user_registration_path %>">
           <div class="alert alert-info small mb-4" id="token-shown-once-notice" role="status">
             <em class="bi bi-info-circle me-2"></em><%= _('Copy this token now. It will not be shown again.') %>
           </div>

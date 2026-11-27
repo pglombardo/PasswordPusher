@@ -21,7 +21,7 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
 
     assert_nil @user.read_attribute(:authentication_token)
     assert_equal User.digest_authentication_token("fresh-token-value"), @user.authentication_token_digest
-    assert_equal "alue", @user.authentication_token_hint
+    assert_nil @user.authentication_token_hint
     assert_not @user.authentication_token_legacy?
     assert_equal @user, User.find_by_authentication_token("fresh-token-value")
   end
@@ -34,6 +34,7 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
     assert_nil @user.reload.read_attribute(:authentication_token)
     assert_nil User.find_by_authentication_token(old_token)
     assert_equal @user, User.find_by_authentication_token(new_token)
+    assert_equal new_token.last(4), @user.authentication_token_hint
     assert_not @user.authentication_token_legacy?
   end
 
@@ -88,6 +89,14 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
     assert_nil Pwpush::AuthenticationTokenDigest.hint_for("2014")
     assert_nil Pwpush::AuthenticationTokenDigest.hint_for("abc")
     assert_equal "bcde", Pwpush::AuthenticationTokenDigest.hint_for("abcde")
+  end
+
+  test "arbitrary assigned tokens do not store a hint" do
+    @user.update!(authentication_token: "abcde")
+    @user.reload
+
+    assert_nil @user.authentication_token_hint
+    assert_equal @user, User.find_by_authentication_token("abcde")
   end
 
   test "short tokens authenticate without storing the full credential as a hint" do

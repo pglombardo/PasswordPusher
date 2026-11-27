@@ -29,10 +29,11 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h2", text: /API Token/
     assert_select "#legacy-token-notice"
-    assert_select "#authentication_token_hint", text: /••••7890/
+    assert_select "#authentication_token_hint", text: "••••"
     assert_select "#authentication_token", count: 0
     assert_no_match(/1234567890/, @response.body)
     assert_nil plaintext_column(@user)
+    assert_includes response.headers["Cache-Control"], "no-store"
   end
 
   test "token page generates token when user has none" do
@@ -188,7 +189,8 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "[data-controller*='copy']"
     assert_select "meta[name='turbo-cache-control'][content='no-cache']"
-    assert_select "[data-turbo-temporary] #authentication_token"
+    assert_select "[data-turbo-temporary][data-controller~='token-reveal'] #authentication_token"
+    assert_includes response.headers["Cache-Control"], "no-store"
   end
 
   test "revealed token is shown once then masked" do

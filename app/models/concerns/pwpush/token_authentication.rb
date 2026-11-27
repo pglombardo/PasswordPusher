@@ -69,6 +69,7 @@ module Pwpush
     def regenerate_authentication_token!
       token = generate_authentication_token
       self.authentication_token = token
+      self.authentication_token_hint = Pwpush::AuthenticationTokenDigest.hint_for(token)
       save!
       token
     end
@@ -87,13 +88,8 @@ module Pwpush
     def assign_hashed_authentication_token(plaintext)
       token = plaintext.presence
       @raw_authentication_token = token
-      if token
-        self.authentication_token_digest = self.class.digest_authentication_token(token)
-        self.authentication_token_hint = Pwpush::AuthenticationTokenDigest.hint_for(token)
-      else
-        self.authentication_token_digest = nil
-        self.authentication_token_hint = nil
-      end
+      self.authentication_token_digest = token && self.class.digest_authentication_token(token)
+      self.authentication_token_hint = nil
       self.authentication_token_legacy = false
     end
 

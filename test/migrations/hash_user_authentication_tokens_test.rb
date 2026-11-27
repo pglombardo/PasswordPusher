@@ -23,7 +23,7 @@ class HashUserAuthenticationTokensTest < ActiveSupport::TestCase
 
     assert_nil user.read_attribute(:authentication_token)
     assert_equal User.digest_authentication_token(plaintext), user.authentication_token_digest
-    assert_equal "alue", user.authentication_token_hint
+    assert_nil user.authentication_token_hint
     assert user.authentication_token_legacy?
     assert_equal user, User.find_by_authentication_token(plaintext)
     assert_nil User.find_by(authentication_token: plaintext)
@@ -70,7 +70,7 @@ class HashUserAuthenticationTokensTest < ActiveSupport::TestCase
     row = conn.select_one("SELECT * FROM users WHERE email = 'legacy@example.com'")
     assert_nil row["authentication_token"]
     assert_equal Pwpush::AuthenticationTokenDigest.hexdigest("keep-working-token"), row["authentication_token_digest"]
-    assert_equal "oken", row["authentication_token_hint"]
+    assert_nil row["authentication_token_hint"]
     assert ActiveRecord::Type::Boolean.new.deserialize(row["authentication_token_legacy"])
 
     short = conn.select_one("SELECT * FROM users WHERE email = 'short@example.com'")

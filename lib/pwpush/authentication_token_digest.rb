@@ -12,7 +12,8 @@ module Pwpush
       OpenSSL::Digest::SHA256.hexdigest(token.to_s)
     end
 
-    # Last 4 characters, but only when that is not the entire token.
+    # Last 4 characters of a generated token. Callers must not use this for
+    # legacy or arbitrarily assigned tokens (remaining entropy would be too low).
     def hint_for(token)
       value = token.to_s
       return if value.length <= 4
@@ -33,7 +34,7 @@ module Pwpush
 
         record.update_columns(
           authentication_token_digest: hexdigest(token),
-          authentication_token_hint: hint_for(token),
+          authentication_token_hint: nil,
           authentication_token_legacy: true,
           authentication_token: nil
         )
