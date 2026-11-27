@@ -141,7 +141,7 @@ jobs:
             type=gha,scope=pwpush-${{ matrix.arch }}
           cache-to: |
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }},mode=max,ignore-error=true
-            type=gha,scope=pwpush-${{ matrix.arch }},mode=max
+            type=gha,scope=pwpush-${{ matrix.arch }},mode=max,ignore-error=true
 
       - name: Build worker (${{ matrix.arch }})
         id: worker
