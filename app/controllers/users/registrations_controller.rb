@@ -5,8 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   invisible_captcha only: :create
 
-  layout "application", only: %i[edit update token]
-  layout "login", except: %i[edit update token]
+  layout "application", only: %i[edit update token regen_token]
+  layout "login", except: %i[edit update token regen_token]
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -53,20 +53,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
       return
     end
 
-    if session[:raw_authentication_token].present?
-      @raw_authentication_token = session.delete(:raw_authentication_token)
-    elsif !current_user.has_authentication_token?
+    unless current_user.has_authentication_token?
       @raw_authentication_token = current_user.regenerate_authentication_token!
     end
   end
 
   # DELETE /resource/token
+  # Render the token in this response rather than stashing it in the CookieStore
+  # session, which could be replayed to reveal the value again.
   def regen_token
     if current_user.nil?
       redirect_to user_session_path
     else
-      session[:raw_authentication_token] = current_user.regenerate_authentication_token!
-      redirect_to token_user_registration_path
+      @raw_authentication_token = current_user.regenerate_authentication_token!
+      render :token
     end
   end
 

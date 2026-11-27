@@ -12,13 +12,15 @@ module Pwpush
       OpenSSL::Digest::SHA256.hexdigest(token.to_s)
     end
 
+    # Last 4 characters, but only when that is not the entire token.
     def hint_for(token)
-      token.to_s.last(4).presence
+      value = token.to_s
+      return if value.length <= 4
+
+      value.last(4)
     end
 
     def masked(hint)
-      return if hint.blank?
-
       "••••#{hint}"
     end
 

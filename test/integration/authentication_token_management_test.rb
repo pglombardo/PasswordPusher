@@ -71,6 +71,9 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     get token_user_registration_path
     assert_response :success
     assert_select "button", text: /Regenerate Token/
+    assert_select "form[data-turbo=false][action=?]", token_user_registration_path do
+      assert_select "button[type=submit]", text: /Delete & Regenerate/
+    end
   end
 
   test "token page shows token security warning" do
@@ -92,7 +95,8 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
 
     delete token_user_registration_path
 
-    assert_redirected_to token_user_registration_path
+    assert_response :success
+    assert_select "#authentication_token"
     @user.reload
     assert_not_equal original_digest, @user.authentication_token_digest
     assert @user.has_authentication_token?
@@ -111,12 +115,15 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     assert_not_equal @user.authentication_token_digest, other_user.authentication_token_digest
   end
 
-  test "regen_token redirects to token page" do
+  test "regen_token renders the new token in the delete response" do
     sign_in @user
 
     delete token_user_registration_path
 
-    assert_redirected_to token_user_registration_path
+    assert_response :success
+    assert_select "#authentication_token"
+    assert_select "#token-shown-once-notice"
+    assert_nil session[:raw_authentication_token]
   end
 
   test "regen_token invalidates old token" do
@@ -131,7 +138,7 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
 
     sign_in @user
     delete token_user_registration_path
-    follow_redirect!
+    assert_response :success
     new_token = revealed_token_from_page
     sign_out @user
 
@@ -178,7 +185,7 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     assert_select "[data-controller*='copy']", count: 0
 
     delete token_user_registration_path
-    follow_redirect!
+    assert_response :success
     assert_select "[data-controller*='copy']"
   end
 
@@ -186,10 +193,12 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     delete token_user_registration_path
-    follow_redirect!
+    assert_response :success
     token = revealed_token_from_page
     assert_select "#token-shown-once-notice"
     assert_select ".spoiler"
+    assert_nil session[:raw_authentication_token]
+    assert_not session.to_hash.values.any? { |value| value.to_s.include?(token) }
 
     get token_user_registration_path
     assert_response :success
@@ -198,6 +207,18 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     assert_select "#legacy-token-notice", count: 0
     assert_no_match(/#{Regexp.escape(token)}/, @response.body)
     assert_equal @user.reload, User.find_by_authentication_token(token)
+  end
+
+  test "short tokens do not leak the full credential as a hint" do
+    user = users(:giuliana)
+    sign_in user
+
+    get token_user_registration_path
+    assert_response :success
+    assert_nil user.reload.authentication_token_hint
+    assert_select "#authentication_token_hint", text: "••••"
+    assert_no_match(/2014/, @response.body)
+    assert_equal user, User.find_by_authentication_token("2014")
   end
 
   test "regenerated token is unique across all users" do
@@ -239,7 +260,7 @@ class AuthenticationTokenManagementTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     delete token_user_registration_path
-    follow_redirect!
+    assert_response :success
     new_token = revealed_token_from_page
     sign_out @user
 

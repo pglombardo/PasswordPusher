@@ -19,7 +19,7 @@ class ApiTokenPageTest < ApplicationSystemTestCase
     save_token_screenshot("api-token-legacy")
 
     click_button "Regenerate Token"
-    click_link "Delete & Regenerate"
+    click_button "Delete & Regenerate"
 
     assert_text "Copy this token now. It will not be shown again."
     assert_selector "#authentication_token"

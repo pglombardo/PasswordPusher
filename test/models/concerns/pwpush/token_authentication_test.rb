@@ -67,6 +67,20 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
     assert_no_match(/should-not-appear-in-inspect/, @user.inspect)
   end
 
+  test "hint_for omits tokens of 4 characters or fewer" do
+    assert_nil Pwpush::AuthenticationTokenDigest.hint_for("2014")
+    assert_nil Pwpush::AuthenticationTokenDigest.hint_for("abc")
+    assert_equal "bcde", Pwpush::AuthenticationTokenDigest.hint_for("abcde")
+  end
+
+  test "short tokens authenticate without storing the full credential as a hint" do
+    user = users(:giuliana)
+
+    assert_nil user.authentication_token_hint
+    assert_equal "••••", user.masked_authentication_token
+    assert_equal user, User.find_by_authentication_token("2014")
+  end
+
   test "tokens still authenticate after secret_key_base changes" do
     token = api_token_for(@user)
     digest_before = User.digest_authentication_token(token)
