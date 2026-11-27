@@ -124,10 +124,62 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_response :success
-    assert_equal "Checked for updates.", flash[:notice]
-    assert_select ".alert-info", text: /Checked for updates/
+    assert_equal "Update check complete: version v99.0.0 is available.", flash[:notice]
+    assert_select ".alert-info", text: /version v99.0.0 is available/
     assert_select "#release-check-banner", text: /v99.0.0/
     assert_select "#release-check-card", text: /v99.0.0/
+  end
+
+  test "check now reports when the instance is already up to date" do
+    sign_in @admin
+    current = Version.current.to_s
+    payload = {
+      "schema" => 1,
+      "product" => "oss",
+      "generated_at" => "2026-11-27T00:00:00Z",
+      "latest" => current,
+      "stable" => current,
+      "releases" => [release_hash(current)]
+    }.to_json
+
+    stub_release_check_http(body: payload) do
+      post admin_release_check_path
+    end
+    follow_redirect!
+
+    assert_response :success
+    assert_equal "Update check complete: you're running the latest version (v#{current}).", flash[:notice]
+    assert_select ".alert-info", text: /you're running the latest version/
+    assert_select "#release-check-banner", count: 0
+    assert_select "#release-check-card", text: /You're running the latest version/
+  end
+
+  test "check now persists an update when Rails.cache is a NullStore" do
+    sign_in @admin
+    payload = {
+      "schema" => 1,
+      "product" => "oss",
+      "generated_at" => "2026-11-27T00:00:00Z",
+      "latest" => "99.0.0",
+      "stable" => "99.0.0",
+      "releases" => [release_hash("99.0.0")]
+    }.to_json
+
+    ReleaseCheck.clear_file_store
+    Rails.stub :cache, ActiveSupport::Cache::NullStore.new do
+      stub_release_check_http(body: payload) do
+        post admin_release_check_path
+      end
+      follow_redirect!
+
+      assert_response :success
+      assert_equal "Update check complete: version v99.0.0 is available.", flash[:notice]
+      assert_select "#release-check-banner", text: /v99.0.0/
+      assert_select "#release-check-card", text: /Newer releases/
+      assert_select "#release-check-card", text: /v99.0.0/
+    end
+  ensure
+    ReleaseCheck.clear_file_store
   end
 
   test "check now shows an alert when the feed request fails" do

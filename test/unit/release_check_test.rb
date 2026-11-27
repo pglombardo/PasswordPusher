@@ -239,6 +239,56 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "success notice when an update is available" do
+    result = ReleaseCheck::Result.new(
+      latest: "9.0.0",
+      current: "1.0.0",
+      newer_releases: [{"version" => "9.0.0", "security" => false}],
+      security_available: false,
+      checked_at: Time.current.iso8601,
+      notes_url: ReleaseCheck::DEFAULT_NOTES_URL
+    )
+
+    Version.stub :current, "1.0.0" do
+      assert_equal "Update check complete: version v9.0.0 is available.",
+        ReleaseCheck.success_notice(result)
+    end
+  end
+
+  test "success notice when already on the latest version" do
+    result = ReleaseCheck::Result.new(
+      latest: "2.17.5",
+      current: "2.17.5",
+      newer_releases: [],
+      security_available: false,
+      checked_at: Time.current.iso8601,
+      notes_url: ReleaseCheck::DEFAULT_NOTES_URL
+    )
+
+    Version.stub :current, "2.17.5" do
+      assert_equal "Update check complete: you're running the latest version (v2.17.5).",
+        ReleaseCheck.success_notice(result)
+    end
+  end
+
+  test "refresh persists when Rails.cache is a NullStore" do
+    ReleaseCheck.clear_file_store
+
+    Rails.stub :cache, ActiveSupport::Cache::NullStore.new do
+      Version.stub :current, "1.0.0" do
+        stub_feed(latest: "1.2.0") do
+          result = ReleaseCheck.refresh
+
+          assert_equal "1.2.0", result.latest
+          assert_equal "1.2.0", ReleaseCheck.cached.latest
+          assert_nil Rails.cache.read(ReleaseCheck::CACHE_KEY)
+        end
+      end
+    end
+  ensure
+    ReleaseCheck.clear_file_store
+  end
+
   private
 
   def release(version, security: false, severity: nil, notes_url: "https://github.com/pglombardo/PasswordPusher/releases/tag/v#{version}")
