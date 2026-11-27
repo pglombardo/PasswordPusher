@@ -1,0 +1,27 @@
+<% if release_banner_visible?(@release_check) %>
+  <% security = @release_check.security_available? %>
+  <div id="release-check-banner" class="alert <%= security ? "alert-danger" : "alert-info" %> d-flex align-items-start justify-content-between gap-3 mb-4" role="alert">
+    <div>
+      <div class="fw-semibold">
+        <%= _("Password Pusher v%{latest} is available (you're running v%{current})") % { latest: @release_check.latest, current: @release_check.running_version } %>
+      </div>
+      <% if security %>
+        <div class="small mt-1">
+          <%= _("This update includes a security release. Please upgrade as soon as possible.") %>
+        </div>
+      <% end %>
+      <% if @release_check.notes_url.present? %>
+        <div class="mt-2">
+          <%= link_to _("View release notes"), @release_check.notes_url, class: "alert-link", target: "_blank", rel: "noopener noreferrer" %>
+        </div>
+      <% end %>
+    </div>
+    <% unless security %>
+      <%= button_to _("Dismiss"), dismiss_admin_release_check_path,
+          method: :post,
+          params: { version: @release_check.latest },
+          class: "btn btn-sm btn-outline-secondary",
+          form_class: "ms-auto" %>
+    <% end %>
+  </div>
+<% end %>

@@ -70,7 +70,7 @@ Interested in supporting Password Pusher? Reach out at [support@pwpush.com](mail
 - **One-command deploy** — Docker Compose with automatic SSL/TLS
 - **One-click cloud deploy** — Managed hosts and platform buttons. See [One-click deploy](#one-click-deploy).
 - **Database or ephemeral** — Use a database for persistence or run stateless.
-- **Admin dashboard** — Manage your instance from a built-in admin UI.
+- **Admin dashboard** — Manage your instance from a built-in admin UI, including new-release notices. Opt out with `PWP__CHECK_FOR_UPDATES=false`.
 - **White-label** — Custom theme, logo, site name, and [26 Bootswatch themes](https://docs.pwpush.com/docs/themes/) via env vars.
 - **Custom CSS** — Add your own styles; light/dark follows system preference.
 
