@@ -10,12 +10,15 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
     @admin = users(:mr_admin)
     @user = users(:luca)
     @original_check_for_updates = Settings.check_for_updates
+    @original_release_channel = Settings.release_channel
     Settings.check_for_updates = true
+    Settings.release_channel = "latest"
     Rails.cache.clear
   end
 
   teardown do
     Settings.check_for_updates = @original_check_for_updates
+    Settings.release_channel = @original_release_channel
     Settings.reload!
   end
 
@@ -53,6 +56,7 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
     assert_select "#release-check-banner", text: /Dismiss/
     assert_select "#release-check-card", text: /Newer releases/
     assert_select "#release-check-card", text: /v99.0.0/
+    assert_select "#release-check-card", text: /Update channel: latest/
     assert_select "#release-check-card form[action=?]", admin_release_check_path
   end
 
@@ -225,6 +229,85 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
     assert_select "#release-check-card", text: /v99.0.0/
   end
 
+  test "stable channel banner and card mention the stable channel" do
+    Settings.release_channel = "stable"
+    cache_update(latest: "99.0.0", channel: "stable")
+    sign_in @admin
+
+    get admin_root_path
+    assert_response :success
+    assert_select "#release-check-banner", text: /now available on the stable channel/
+    assert_select "#release-check-banner", text: /re-pull pglombardo\/pwpush:stable/
+    assert_select "#release-check-banner a", text: "View release notes"
+    assert_select "#release-check-card", text: /Update channel: stable/
+    assert_select "#release-check-card", text: /now available on the stable channel/
+  end
+
+  test "stable channel dismiss is keyed on the stable target not latest" do
+    Settings.release_channel = "stable"
+    cache_update(latest: "98.0.0", channel: "stable")
+    sign_in @admin
+
+    post dismiss_admin_release_check_path, params: {version: "99.0.0"}
+    follow_redirect!
+    assert_select "#release-check-banner", text: /now available on the stable channel/
+
+    post dismiss_admin_release_check_path, params: {version: "98.0.0"}
+    follow_redirect!
+    assert_select "#release-check-banner", count: 0
+    assert_select "#release-check-card", text: /now available on the stable channel/
+  end
+
+  test "stable channel check now flash mentions the stable target" do
+    Settings.release_channel = "stable"
+    sign_in @admin
+    payload = {
+      "schema" => 1,
+      "product" => "oss",
+      "generated_at" => "2026-11-27T00:00:00Z",
+      "latest" => "99.0.0",
+      "stable" => "98.0.0",
+      "releases" => [release_hash("99.0.0"), release_hash("98.0.0")]
+    }.to_json
+
+    stub_release_check_http(body: payload) do
+      post admin_release_check_path
+    end
+    follow_redirect!
+
+    assert_response :success
+    assert_equal "Update check complete: version v98.0.0 is available on the stable channel.", flash[:notice]
+    assert_select "#release-check-banner", text: /v98.0.0 is now available on the stable channel/
+    assert_select "#release-check-card", text: /Update channel: stable/
+    assert_select "#release-check-card", text: /v98.0.0/
+    assert_select "#release-check-card", text: /v99.0.0/, count: 0
+  end
+
+  test "stable channel check now reports current stable when running equals stable" do
+    Settings.release_channel = "stable"
+    sign_in @admin
+    current = Version.current.to_s
+    payload = {
+      "schema" => 1,
+      "product" => "oss",
+      "generated_at" => "2026-11-27T00:00:00Z",
+      "latest" => "99.0.0",
+      "stable" => current,
+      "releases" => [release_hash("99.0.0"), release_hash(current)]
+    }.to_json
+
+    stub_release_check_http(body: payload) do
+      post admin_release_check_path
+    end
+    follow_redirect!
+
+    assert_response :success
+    assert_equal "Update check complete: you're running the current stable version (v#{current}).", flash[:notice]
+    assert_select "#release-check-banner", count: 0
+    assert_select "#release-check-card", text: /You're running the current stable version/
+    assert_select "#release-check-card", text: /Update channel: stable/
+  end
+
   test "check now does nothing when disabled" do
     Settings.check_for_updates = false
     sign_in @admin
@@ -240,7 +323,7 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
 
   private
 
-  def cache_update(latest: "99.0.0", current: Version.current.to_s, security: false, newer: nil)
+  def cache_update(latest: "99.0.0", current: Version.current.to_s, security: false, newer: nil, channel: ReleaseCheck.channel)
     releases = newer || [release_hash(latest, security: security)]
     Rails.cache.write(
       ReleaseCheck::CACHE_KEY,
@@ -250,7 +333,8 @@ class AdminReleaseCheckTest < ActionDispatch::IntegrationTest
         "newer_releases" => releases,
         "security_available" => security,
         "checked_at" => Time.current.iso8601,
-        "notes_url" => "https://github.com/pglombardo/PasswordPusher/releases/tag/v#{latest}"
+        "notes_url" => "https://github.com/pglombardo/PasswordPusher/releases/tag/v#{latest}",
+        "channel" => channel
       },
       expires_in: 2.days
     )

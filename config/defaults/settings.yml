@@ -955,7 +955,7 @@ show_version: true
 # releases and shows an in-app notice to administrators.
 #
 # The request sends no query parameters or instance identifiers. Only the
-# latest version and release notes from the public feed are stored.
+# channel target version and release notes from the public feed are stored.
 #
 # Set to false to disable the daily check and hide the admin update banner.
 #
@@ -964,6 +964,29 @@ show_version: true
 #
 # Default: true
 check_for_updates: true
+
+### Release channel for update notices
+#
+# Which release channel the admin update notice follows:
+#   latest — notify when a new release is published (default)
+#   stable — notify only when the Docker `stable` tag has moved
+#            (pglombardo/pwpush:stable)
+#
+# Docker images cannot detect whether they were started from `:latest` or
+# `:stable`. The `stable` tag is a retag of a versioned image, so the image
+# itself has no channel marker. Set this explicitly if you run the `stable`
+# tag so the banner matches what `docker pull pglombardo/pwpush:stable`
+# will actually deliver. Re-pulling `stable` will not clear a `latest`
+# notice.
+#
+# Unknown values fall back to `latest`. Existing installs keep current
+# behavior unless this is changed.
+#
+# Environment variable override:
+# PWP__RELEASE_CHANNEL=stable
+#
+# Default: latest
+release_channel: latest
 
 ### Show the GDPR cookie consent banner
 #

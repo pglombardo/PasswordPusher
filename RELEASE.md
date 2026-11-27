@@ -74,6 +74,8 @@ The release notes template in [.github/release-drafter.yml](.github/release-draf
 
 We maintain a Docker `stable` tag for users who prefer a conservative, proven release over the latest version tag. This is updated separately and **should not** be moved with every release.
 
+Operators who pin `pglombardo/pwpush:stable` should set `PWP__RELEASE_CHANNEL=stable` so the admin update notice tracks that tag rather than `latest`. The image itself cannot detect the tag it was pulled from (`stable` is a retag of a versioned image).
+
 Update `stable` only after a release has been out for a few weeks with no reported issues from users.
 
 When ready, run:

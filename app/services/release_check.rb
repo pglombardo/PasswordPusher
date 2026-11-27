@@ -6,7 +6,11 @@ require "net/http"
 # Fetches the public OSS release feed and caches the comparison against this
 # instance's version. Used by the daily job and the admin "Check now" action.
 #
-# The request sends no query parameters or instance identifiers.
+# The request sends no query parameters or instance identifiers. The target
+# version is the feed's `latest` or `stable` field, depending on
+# Settings.release_channel (PWP__RELEASE_CHANNEL). Docker images cannot detect
+# whether they were started from `:latest` or `:stable` (`stable` is a retag of
+# a versioned image), so the channel must be set explicitly.
 class ReleaseCheck
   FEED_URL = "https://docs.pwpush.com/releases/oss.json"
   USER_AGENT = "PasswordPusher-UpdateCheck"
@@ -16,8 +20,21 @@ class ReleaseCheck
   CACHE_TTL = 2.days
   DISMISS_COOKIE = "pwpush_dismissed_release"
   DEFAULT_NOTES_URL = "https://github.com/pglombardo/PasswordPusher/releases"
+  CHANNELS = %w[latest stable].freeze
 
-  Result = Data.define(:latest, :current, :newer_releases, :security_available, :checked_at, :notes_url) do
+  Result = Data.define(:latest, :current, :newer_releases, :security_available, :checked_at, :notes_url, :channel) do
+    def initialize(latest:, current:, newer_releases:, security_available:, checked_at:, notes_url:, channel: "latest")
+      super(
+        latest: latest,
+        current: current,
+        newer_releases: newer_releases,
+        security_available: security_available,
+        checked_at: checked_at,
+        notes_url: notes_url,
+        channel: ReleaseCheck.normalize_channel(channel)
+      )
+    end
+
     def running_version
       Version.current.to_s
     end
@@ -31,7 +48,14 @@ class ReleaseCheck
     end
 
     def pending_releases
-      Array(newer_releases).select { |release| ReleaseCheck.newer?(release["version"], running_version) }
+      Array(newer_releases).select do |release|
+        ReleaseCheck.newer?(release["version"], running_version) &&
+          ReleaseCheck.at_or_before?(release["version"], latest)
+      end
+    end
+
+    def stable_channel?
+      channel == "stable"
     end
   end
 
@@ -40,8 +64,21 @@ class ReleaseCheck
       Settings.check_for_updates != false
     end
 
+    def channel
+      normalize_channel(Settings.release_channel)
+    end
+
+    def normalize_channel(value)
+      raw = value.to_s.strip.downcase
+      CHANNELS.include?(raw) ? raw : "latest"
+    end
+
     def cached
-      result_from_cache(store.read(CACHE_KEY))
+      result = result_from_cache(store.read(CACHE_KEY))
+      return unless result
+      return unless result.channel == channel
+
+      result
     end
 
     # Fetch the feed and store the result. Returns the cached result on
@@ -69,7 +106,13 @@ class ReleaseCheck
 
     def success_notice(result)
       if result.update_available?
-        _("Update check complete: version v%{latest} is available.") % {latest: result.latest}
+        if result.stable_channel?
+          _("Update check complete: version v%{version} is available on the stable channel.") % {version: result.latest}
+        else
+          _("Update check complete: version v%{latest} is available.") % {latest: result.latest}
+        end
+      elsif result.stable_channel?
+        _("Update check complete: you're running the current stable version (v%{version}).") % {version: result.running_version}
       else
         _("Update check complete: you're running the latest version (v%{version}).") % {version: result.running_version}
       end
@@ -87,6 +130,14 @@ class ReleaseCheck
       return false if candidate_version.nil? || baseline_version.nil?
 
       candidate_version > baseline_version
+    end
+
+    def at_or_before?(candidate, ceiling)
+      candidate_version = parse_version(candidate)
+      ceiling_version = parse_version(ceiling)
+      return false if candidate_version.nil? || ceiling_version.nil?
+
+      candidate_version <= ceiling_version
     end
 
     def parse_version(value)
@@ -139,7 +190,8 @@ class ReleaseCheck
         "newer_releases" => result.newer_releases,
         "security_available" => result.security_available,
         "checked_at" => result.checked_at,
-        "notes_url" => result.notes_url
+        "notes_url" => result.notes_url,
+        "channel" => result.channel
       }
     end
 
@@ -153,7 +205,8 @@ class ReleaseCheck
         newer_releases: Array(data["newer_releases"]),
         security_available: data["security_available"] == true,
         checked_at: data["checked_at"],
-        notes_url: data["notes_url"]
+        notes_url: data["notes_url"],
+        channel: data["channel"]
       )
     end
   end
@@ -213,6 +266,13 @@ class ReleaseCheck
     request
   end
 
+  def self.target_version(latest, stable_value)
+    return latest unless channel == "stable"
+
+    parsed = parse_version(stable_value)
+    parsed ? parsed.to_s : latest
+  end
+
   private
 
   def parse_payload(body)
@@ -229,27 +289,31 @@ class ReleaseCheck
   def build_result(payload)
     current = Version.current.to_s
     latest = payload["latest"].to_s.strip.delete_prefix("v")
-    newer_releases = sanitize_releases(payload["releases"], current)
-    notes_url = safe_url(newer_releases.dig(0, "notes_url")) ||
-      notes_url_for(payload["releases"], latest) ||
+    channel = self.class.channel
+    target = self.class.target_version(latest, payload["stable"])
+    newer_releases = sanitize_releases(payload["releases"], current, target)
+    notes_url = notes_url_for(payload["releases"], target) ||
+      safe_url(newer_releases.dig(0, "notes_url")) ||
       DEFAULT_NOTES_URL
 
     Result.new(
-      latest: latest,
+      latest: target,
       current: current,
       newer_releases: newer_releases,
       security_available: newer_releases.any? { |release| release["security"] == true },
       checked_at: Time.current.iso8601,
-      notes_url: notes_url
+      notes_url: notes_url,
+      channel: channel
     )
   end
 
-  def sanitize_releases(releases, current)
+  def sanitize_releases(releases, current, target)
     Array(releases).filter_map do |release|
       next unless release.is_a?(Hash)
 
       version = release["version"].to_s.strip.delete_prefix("v")
       next unless self.class.newer?(version, current)
+      next unless self.class.at_or_before?(version, target)
 
       {
         "version" => version,
