@@ -127,26 +127,90 @@ No setup: **[pwpush.com](https://pwpush.com)** — create a push and share the l
 
 Deploy your own instance without setting up a server. You pay the provider directly. This is self-hosting, separate from the hosted service at [pwpush.com](https://pwpush.com).
 
-| | |
-|---|---|
-| <a href="https://cloudzy.com/marketplace/password-pusher"><img alt="Deploy on Cloudzy" height="60" src="https://img.shields.io/badge/Deploy_on-Cloudzy-0EA5E9?style=for-the-badge&logo=cloud&logoColor=white"></a> | **[Cloudzy](https://cloudzy.com/marketplace/password-pusher)** — Marketplace VPS. Cloudzy handles deployment and infrastructure support. |
-| <a href="https://elest.io/open-source/password"><img alt="Deploy on Elestio" height="60" src="https://dash.elest.io/deploy-on-elestio.png"></a> | **[Elestio](https://elest.io/open-source/password)** — Managed hosting on 9 cloud providers. Pick a provider and region; updates and backups are included. |
-| <a href="https://www.pikapods.com/pods?run=pwpush"><img alt="Run on PikaPods" height="60" src="https://www.pikapods.com/static/run-button.svg"></a> | **[PikaPods](https://www.pikapods.com/pods?run=pwpush)** — Managed pod from their app catalog. |
-| <a href="https://www.hostinger.com/applications/password-pusher"><img alt="Deploy on Hostinger" height="60" src="https://img.shields.io/badge/Deploy_on-Hostinger-673DE6?style=for-the-badge&logo=hostinger&logoColor=white"></a> | **[Hostinger](https://www.hostinger.com/applications/password-pusher)** — One-click Docker deploy on a Hostinger VPS. Hostinger maintains the application template. |
-| <a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master"><img alt="Deploy to DigitalOcean" height="60" src="https://www.deploytodo.com/do-btn-blue.svg"></a> | **[DigitalOcean App Platform](https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master)** — [.do/deploy.template.yaml](.do/deploy.template.yaml) builds the production Docker image and attaches Postgres. Replace the two secret placeholders before launch. |
-| <a href="https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Render" height="60" src="https://render.com/images/deploy-to-render-button.svg"></a> | **[Render](https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher)** — [render.yaml](render.yaml) builds the production Docker image with Postgres and a disk for uploads. |
-| <a href="https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Heroku" height="60" src="https://www.herokucdn.com/deploy/button.svg"></a> | **[Heroku](https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)** — Uses [app.json](app.json). Heroku charges for the web dyno, worker dyno, and Postgres. |
-| <a href="https://zop.dev/zopday/app/deploy?image=pglombardo/pwpush:latest&amp;port=5100&amp;name=pwpush&amp;utm_source=github&amp;utm_medium=one_click&amp;utm_content=passwordpusher"><img alt="Deploy to ZopDay" height="60" src="https://zop.dev/deploytozopday-inkhard.svg"></a> | **[ZopDay](https://zop.dev/zopday/oss?utm_source=github&utm_medium=one_click&utm_content=passwordpusher)** — Run it on managed ZopCloud or in an AWS or GCP account you already own. |
-| <a href="https://pethost.dev/templates/password-pusher/"><img alt="Deploy on Pethost" height="60" src="https://pethost.dev/button.svg"></a> | **[Pethost](https://pethost.dev/templates/password-pusher/)** — A one-click template on a server of your own plan, with SQLite in a volume and nightly backups. |
-| [![Deploy to Railyard](https://app.railyard.run/deploy/badge)](https://app.railyard.run/deploy?repo=https://github.com/pglombardo/PasswordPusher) | **[Railyard](https://app.railyard.run/deploy?repo=https://github.com/pglombardo/PasswordPusher)** — Free, BYO-server PaaS. Deploys to a server in your own DigitalOcean, Hetzner, Vultr or AWS account, reading the Dockerfile here directly. |
-| <a href="https://podway.io/start?app=password-pusher&ref=docs-pwpush"><img alt="Deploy on Podway" height="60" src="https://podway.io/img/deploy-on-podway.svg"></a> | **[Podway](https://podway.io/start?app=password-pusher&ref=docs-pwpush)** — Runs Password Pusher on its own small machine with HTTPS, nightly backups and safe weekly updates. |
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://cloudzy.com/marketplace/password-pusher"><img alt="Deploy on Cloudzy" width="305" height="48" src="https://img.shields.io/badge/Deploy_on-Cloudzy-0EA5E9?style=for-the-badge&logo=cloud&logoColor=white"></a><br>
+      <a href="https://cloudzy.com/marketplace/password-pusher"><strong>Cloudzy</strong></a><br>
+      Marketplace VPS. Cloudzy handles deployment and infrastructure support.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master"><img alt="Deploy to DigitalOcean" width="302" height="48" src="https://www.deploytodo.com/do-btn-blue.svg"></a><br>
+      <a href="https://cloud.digitalocean.com/apps/new?repo=https://github.com/pglombardo/PasswordPusher/tree/master"><strong>DigitalOcean App Platform</strong></a><br>
+      <a href=".do/deploy.template.yaml"><code>.do/deploy.template.yaml</code></a> builds the production Docker image and attaches Postgres. Replace the two secret placeholders before launch.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://elest.io/open-source/password"><img alt="Deploy on Elestio" width="215" height="48" src="https://dash.elest.io/deploy-on-elestio.png"></a><br>
+      <a href="https://elest.io/open-source/password"><strong>Elestio</strong></a><br>
+      Managed hosting on 9 cloud providers. Pick a provider and region; updates and backups are included.
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Heroku" width="221" height="48" src="https://www.herokucdn.com/deploy/button.svg"></a><br>
+      <a href="https://www.heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher"><strong>Heroku</strong></a><br>
+      Uses <a href="app.json"><code>app.json</code></a>. Heroku charges for the web dyno, worker dyno, and Postgres.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://www.hostinger.com/applications/password-pusher"><img alt="Deploy on Hostinger" width="364" height="48" src="https://img.shields.io/badge/Deploy_on-Hostinger-673DE6?style=for-the-badge&logo=hostinger&logoColor=white"></a><br>
+      <a href="https://www.hostinger.com/applications/password-pusher"><strong>Hostinger</strong></a><br>
+      One-click Docker deploy on a Hostinger VPS. Hostinger maintains the application template.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://pethost.dev/templates/password-pusher/"><img alt="Deploy on Pethost" width="232" height="48" src="https://pethost.dev/button.svg"></a><br>
+      <a href="https://pethost.dev/templates/password-pusher/"><strong>Pethost</strong></a><br>
+      A one-click template on a server of your own plan, with SQLite in a volume and nightly backups.
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://www.pikapods.com/pods?run=pwpush"><img alt="Run on PikaPods" width="221" height="48" src="https://www.pikapods.com/static/run-button.svg"></a><br>
+      <a href="https://www.pikapods.com/pods?run=pwpush"><strong>PikaPods</strong></a><br>
+      Managed pod from their app catalog.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://podway.io/start?app=password-pusher&amp;ref=docs-pwpush"><img alt="Deploy on Podway" width="226" height="48" src="https://podway.io/img/deploy-on-podway.svg"></a><br>
+      <a href="https://podway.io/start?app=password-pusher&amp;ref=docs-pwpush"><strong>Podway</strong></a><br>
+      Runs Password Pusher on its own small machine with HTTPS, nightly backups and safe weekly updates.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://app.railyard.run/deploy?repo=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Railyard" width="204" height="48" src="https://app.railyard.run/deploy/badge"></a><br>
+      <a href="https://app.railyard.run/deploy?repo=https://github.com/pglombardo/PasswordPusher"><strong>Railyard</strong></a><br>
+      Free, BYO-server PaaS. Deploys to a server in your own DigitalOcean, Hetzner, Vultr or AWS account, reading the Dockerfile here directly.
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher"><img alt="Deploy to Render" width="184" height="48" src="https://render.com/images/deploy-to-render-button.svg"></a><br>
+      <a href="https://render.com/deploy?repo=https://github.com/pglombardo/PasswordPusher"><strong>Render</strong></a><br>
+      <a href="render.yaml"><code>render.yaml</code></a> builds the production Docker image with Postgres and a disk for uploads.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://zop.dev/zopday/app/deploy?image=pglombardo/pwpush:latest&amp;port=5100&amp;name=pwpush&amp;utm_source=github&amp;utm_medium=one_click&amp;utm_content=passwordpusher"><img alt="Deploy to ZopDay" width="225" height="48" src="https://zop.dev/deploytozopday-inkhard.svg"></a><br>
+      <a href="https://zop.dev/zopday/oss?utm_source=github&amp;utm_medium=one_click&amp;utm_content=passwordpusher"><strong>ZopDay</strong></a><br>
+      Run it on managed ZopCloud or in an AWS or GCP account you already own.
+    </td>
+    <td width="33%"></td>
+  </tr>
+</table>
 
 Railway and Fly.io are not marketplace buttons. Launch from their dashboard or CLI using the config in this repo:
 
-| | |
-|---|---|
-| <a href="https://railway.com/"><img alt="Railway" height="60" src="https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white"></a> | **[Railway](https://railway.com/)** — Connect this repo. [railway.toml](railway.toml) sets the Dockerfile. Add Postgres and set `SECRET_KEY_BASE` and `PWPUSH_MASTER_KEY` in the dashboard. |
-| <a href="https://fly.io/"><img alt="Fly.io" height="60" src="https://img.shields.io/badge/Fly.io-24175B?style=for-the-badge&logo=flydotio&logoColor=white"></a> | **[Fly.io](https://fly.io/)** — [fly.toml](fly.toml) and `containers/docker/Dockerfile`. Run `fly launch`, set secrets, then attach Postgres. |
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <a href="https://fly.io/"><img alt="Fly.io" width="152" height="48" src="https://img.shields.io/badge/Fly.io-24175B?style=for-the-badge&logo=flydotio&logoColor=white"></a><br>
+      <a href="https://fly.io/"><strong>Fly.io</strong></a><br>
+      <a href="fly.toml"><code>fly.toml</code></a> and <code>containers/docker/Dockerfile</code>. Run <code>fly launch</code>, set secrets, then attach Postgres.
+    </td>
+    <td align="center" valign="top" width="33%">
+      <a href="https://railway.com/"><img alt="Railway" width="181" height="48" src="https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white"></a><br>
+      <a href="https://railway.com/"><strong>Railway</strong></a><br>
+      Connect this repo. <a href="railway.toml"><code>railway.toml</code></a> sets the Dockerfile. Add Postgres and set <code>SECRET_KEY_BASE</code> and <code>PWPUSH_MASTER_KEY</code> in the dashboard.
+    </td>
+    <td width="33%"></td>
+  </tr>
+</table>
 
 Install details: **[docs.pwpush.com/docs/installation](https://docs.pwpush.com/docs/installation/)**.
 
