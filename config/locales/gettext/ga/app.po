@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush-oss 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-10-27 18:10+0100\n"
-"PO-Revision-Date: 2026-10-27 17:10+0000\n"
+"POT-Creation-Date: 2026-11-27 02:35+0100\n"
+"PO-Revision-Date: 2026-11-27 01:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Irish\n"
 "Language: ga\n"
@@ -26,6 +26,14 @@ msgstr "Nuashonraíodh an CSS saincheaptha go rathúil."
 #: ../../../app/controllers/admin/custom_css_controller.rb:13
 msgid "Error updating CSS: %{error}"
 msgstr "Earráid ag nuashonrú CSS: %{error}"
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:13
+msgid "Checked for updates."
+msgstr "Seiceáilte le haghaidh nuashonruithe."
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:16
+msgid "Could not check for updates. Try again later."
+msgstr "Níorbh fhéidir seiceáil le haghaidh nuashonruithe. Déan iarracht arís ar ball."
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -213,7 +221,7 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "Tá fíordheimhniú dhá fhachtóir díchumasaithe."
 
-#: ../../../app/helpers/pushes_helper.rb:15
+#: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
 #: ../../../app/views/pushes/print_preview.html.erb:13
@@ -284,6 +292,13 @@ msgstr "Níorbh fhéidir roinnt ríomhphoist a sheoladh."
 #: ../../../app/jobs/send_notify_by_email_job.rb:56
 msgid "An unexpected error occurred while sending the email."
 msgstr "Tharla earráid gan choinne agus an ríomhphost á sheoladh."
+
+#: ../../../app/madmin/resources/push_resource.rb:24
+#: ../../../app/views/pushes/audit.html.erb:4
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:120
+msgid "Audit Log"
+msgstr "Log Iniúchta"
 
 #: ../../../app/mailers/push_created_mailer.rb:14
 msgid "Someone"
@@ -400,7 +415,7 @@ msgid "Administration Home"
 msgstr "Baile Riaracháin"
 
 #: ../../../app/views/admin/_navigation.html.erb:37
-#: ../../../app/views/admin/index.html.erb:121
+#: ../../../app/views/admin/index.html.erb:127
 msgid "System Administration"
 msgstr "Riarachán Córais"
 
@@ -409,13 +424,13 @@ msgid "Admin Users"
 msgstr "Úsáideoirí Riaracháin"
 
 #: ../../../app/views/admin/_navigation.html.erb:50
-#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/admin/index.html.erb:167
 #: ../../../app/views/madmin/dashboard/show.html.erb:1
 msgid "Data Explorer"
 msgstr "Taiscéalaí Sonraí"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
-#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/admin/index.html.erb:152
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:37
 msgid "Background Jobs"
 msgstr "Poist Chúlra"
@@ -425,6 +440,73 @@ msgstr "Poist Chúlra"
 #: ../../../app/views/admin/custom_css/edit.html.erb:6
 msgid "Custom CSS"
 msgstr "CSS saincheaptha"
+
+#: ../../../app/views/admin/_release_banner.html.erb:6
+#: ../../../app/views/admin/_release_status_card.html.erb:25
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "Tá Pasfhocal Pusher v%{latest} ar fáil (tá v%{current} á rith agat)"
+
+#: ../../../app/views/admin/_release_banner.html.erb:10
+msgid "This update includes a security release. Please upgrade as soon as possible."
+msgstr ""
+"Tá eisiúint slándála san áireamh sa nuashonrú seo. Déan uasghrádú a luaithe is"
+" féidir."
+
+#: ../../../app/views/admin/_release_banner.html.erb:15
+#: ../../../app/views/admin/_release_status_card.html.erb:29
+msgid "View release notes"
+msgstr "Féach ar nótaí scaoilte"
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+msgid "Dismiss"
+msgstr "Díbhe"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:5
+msgid "Version & Updates"
+msgstr "Leagan & Nuashonruithe"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:7
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "Leagan OSS %{version}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Check now"
+msgstr "Seiceáil anois"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:17
+msgid "Update checks are disabled for this instance."
+msgstr "Tá seiceálacha nuashonraithe díchumasaithe don chás seo."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:21
+msgid "No update information yet. Run a check to see if a newer release is available."
+msgstr ""
+"Níl aon fhaisnéis nuashonraithe fós. Déan seiceáil le feiceáil an bhfuil leaga"
+"n níos nuaí ar fáil."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid ""
+"A newer release includes security fixes. This notice cannot be dismissed until"
+" you upgrade."
+msgstr ""
+"Tá socruithe slándála san áireamh i leagan níos nuaí. Ní féidir an fógra seo a"
+" dhíbhe go dtí go ndéanfaidh tú uasghrádú."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:37
+msgid "Newer releases"
+msgstr "Eisiúintí níos nuaí"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:46
+msgid "Security"
+msgstr "Slándáil"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:58
+msgid "Notes"
+msgstr "Nótaí"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:67
+msgid "You're running the latest version."
+msgstr "Tá an leagan is déanaí á rith agat."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -539,27 +621,23 @@ msgstr ""
 "Bainistigh socruithe d’fheidhmchláir agus riarachán an chórais ón suíomh lárna"
 "ch seo."
 
-#: ../../../app/views/admin/index.html.erb:21
-msgid "OSS Version %{version}"
-msgstr "Leagan OSS %{version}"
-
-#: ../../../app/views/admin/index.html.erb:40
+#: ../../../app/views/admin/index.html.erb:46
 msgid "Total Users"
 msgstr "Líon Iomlán na nÚsáideoirí"
 
-#: ../../../app/views/admin/index.html.erb:60
+#: ../../../app/views/admin/index.html.erb:66
 msgid "Total Pushes"
 msgstr "Iomlán na mBrúnna"
 
-#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/admin/index.html.erb:86
 msgid "Active Pushes"
 msgstr "Brú Gníomhach"
 
-#: ../../../app/views/admin/index.html.erb:100
+#: ../../../app/views/admin/index.html.erb:106
 msgid "Total Audit Logs"
 msgstr "Logaí Iniúchta Iomlána"
 
-#: ../../../app/views/admin/index.html.erb:123
+#: ../../../app/views/admin/index.html.erb:129
 msgid ""
 "Monitor system performance, manage background jobs, and analyze usage patterns"
 "."
@@ -567,143 +645,143 @@ msgstr ""
 "Déan monatóireacht ar fheidhmíocht an chórais, bainistigh poist chúlra, agus d"
 "éan anailís ar phatrúin úsáide."
 
-#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/index.html.erb:137
 #: ../../../app/views/admin/users/index.html.erb:1
 #: ../../../app/views/admin/users/index.html.erb:9
 #: ../../../app/views/admin/users/index.html.erb:23
 msgid "Administrator Management"
 msgstr "Bainistíocht Riarthóra"
 
-#: ../../../app/views/admin/index.html.erb:132
+#: ../../../app/views/admin/index.html.erb:138
 msgid "Manage admin accounts and privileges"
 msgstr "Bainistigh cuntais agus pribhléidí riarthóra"
 
-#: ../../../app/views/admin/index.html.erb:147
+#: ../../../app/views/admin/index.html.erb:153
 msgid "Monitor and manage queued tasks"
 msgstr "Monatóireacht a dhéanamh ar thascanna atá i scuaine agus iad a bhainistiú"
 
-#: ../../../app/views/admin/index.html.erb:162
+#: ../../../app/views/admin/index.html.erb:168
 msgid "Query data and manage records"
 msgstr "Ceistigh sonraí agus bainistigh taifid"
 
-#: ../../../app/views/admin/index.html.erb:184
+#: ../../../app/views/admin/index.html.erb:190
 msgid "Database Administration"
 msgstr "Riarachán Bunachar Sonraí"
 
-#: ../../../app/views/admin/index.html.erb:186
+#: ../../../app/views/admin/index.html.erb:192
 msgid "Direct access to database records and user management tools."
 msgstr ""
 "Rochtain dhíreach ar thaifid bhunachar sonraí agus ar uirlisí bainistíochta ús"
 "áideoirí."
 
-#: ../../../app/views/admin/index.html.erb:192
+#: ../../../app/views/admin/index.html.erb:198
 msgid "Advanced Database Access"
 msgstr "Rochtain Ardleibhéil ar Bhunachar Sonraí"
 
-#: ../../../app/views/admin/index.html.erb:193
+#: ../../../app/views/admin/index.html.erb:199
 msgid "Direct record manipulation and management"
 msgstr "Láimhseáil agus bainistíocht dhíreach taifead"
 
-#: ../../../app/views/admin/index.html.erb:196
+#: ../../../app/views/admin/index.html.erb:202
 msgid "Open Data Explorer"
 msgstr "Oscail Taiscéalaí Sonraí"
 
-#: ../../../app/views/admin/index.html.erb:218
+#: ../../../app/views/admin/index.html.erb:224
 msgid "Resources & Support"
 msgstr "Acmhainní & Tacaíocht"
 
-#: ../../../app/views/admin/index.html.erb:220
+#: ../../../app/views/admin/index.html.erb:226
 msgid "Access documentation, source code, releases, and get help when you need it."
 msgstr ""
 "Rochtain a fháil ar dhoiciméid, ar chód foinse, ar eisiúintí, agus faigh cabha"
 "ir nuair is gá duit í."
 
-#: ../../../app/views/admin/index.html.erb:230
+#: ../../../app/views/admin/index.html.erb:236
 msgid "GitHub Repository"
 msgstr "Stór GitHub"
 
-#: ../../../app/views/admin/index.html.erb:231
+#: ../../../app/views/admin/index.html.erb:237
 msgid "View source code and contribute"
 msgstr "Féach ar an gcód foinse agus cuir leis"
 
-#: ../../../app/views/admin/index.html.erb:246
+#: ../../../app/views/admin/index.html.erb:252
 msgid "Latest Releases"
 msgstr "Na hEisiúintí is Déanaí"
 
-#: ../../../app/views/admin/index.html.erb:247
+#: ../../../app/views/admin/index.html.erb:253
 msgid "View changelog and download updates"
 msgstr "Féach ar an loga athruithe agus íoslódáil nuashonruithe"
 
-#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/admin/index.html.erb:268
 #: ../../../app/views/pages/about.html.erb:102
 #: ../../../app/views/shared/_footer.html.erb:19
 #: ../../../app/views/users/first_runs/new.html.erb:190
 msgid "Documentation"
 msgstr "Doiciméadú"
 
-#: ../../../app/views/admin/index.html.erb:263
+#: ../../../app/views/admin/index.html.erb:269
 msgid "Complete setup and usage guides"
 msgstr "Treoracha iomlána socraithe agus úsáide"
 
-#: ../../../app/views/admin/index.html.erb:278
+#: ../../../app/views/admin/index.html.erb:284
 msgid "Support"
 msgstr "Tacaíocht"
 
-#: ../../../app/views/admin/index.html.erb:279
+#: ../../../app/views/admin/index.html.erb:285
 msgid "Get help and report issues"
 msgstr "Faigh cabhair agus tuairiscigh fadhbanna"
 
-#: ../../../app/views/admin/index.html.erb:299
+#: ../../../app/views/admin/index.html.erb:305
 msgid "Getting Started"
 msgstr "Ag Tosú"
 
-#: ../../../app/views/admin/index.html.erb:302
+#: ../../../app/views/admin/index.html.erb:308
 msgid ""
 "Welcome to the Password Pusher Administration Center! Here's your complete too"
 "lkit:"
 msgstr "Fáilte go dtí Ionad Riaracháin Pasfhocal Pusher! Seo do threalamh iomlán:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "👥 Manage Administrators:"
 msgstr "👥 Bainistigh Riarthóirí:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "Promote or revoke admin privileges for users in your system"
 msgstr "Pribhléidí riarthóra a chur chun cinn nó a chúlghairm d'úsáideoirí i do chóras"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "📊 Monitor Background Jobs:"
 msgstr "📊 Monatóireacht a dhéanamh ar Phoist sa Chúlra:"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "Track email notifications, push cleanup, and system processing tasks"
 msgstr "Rianaigh fógraí ríomhphoist, glanadh brú, agus tascanna próiseála córais"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "🗄️ Explore Database:"
 msgstr "🗄️ Iniúchadh a dhéanamh ar an mBunachar Sonraí:"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Rochtain dhíreach ar úsáideoirí, brúnna, logaí iniúchta, agus taifid stórála c"
 "omhad"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "📈 View System Stats:"
 msgstr "📈 Féach ar Staitisticí an Chórais:"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
 msgstr ""
 "Monatóireacht a dhéanamh ar ghníomhaíocht úsáideoirí, comhaireamh brúnna agus "
 "iontrálacha loga iniúchta"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "🔍 Track Activity:"
 msgstr "🔍 Gníomhaíocht Rianaithe:"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "Athbhreithnigh logaí iniúchta chun úsáid an chórais agus imeachtaí slándála a "
@@ -743,7 +821,7 @@ msgstr "Logáil Isteach Deiridh"
 
 #: ../../../app/views/admin/users/index.html.erb:53
 #: ../../../app/views/admin/users/index.html.erb:145
-#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/application/index.html.erb:71
 #: ../../../app/views/madmin/users/index.html.erb:63
 #: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
@@ -1418,7 +1496,7 @@ msgid "Edit %{name}"
 msgstr "Cuir in Eagar %{name}"
 
 #: ../../../app/views/madmin/application/edit.html.erb:13
-#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/index.html.erb:85
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
 #: ../../../app/views/pushes/preview.html.erb:123
@@ -1440,36 +1518,35 @@ msgstr "Bainistigh taifid %{name}"
 msgid "New %{name}"
 msgstr "Nua %{name}"
 
-#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/application/index.html.erb:27
 #: ../../../app/views/madmin/users/index.html.erb:26
 msgid "Search %{name}..."
 msgstr "Cuardaigh %{name}..."
 
-#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/application/index.html.erb:28
 #: ../../../app/views/madmin/users/index.html.erb:27
 msgid "Search"
 msgstr "Cuardach"
 
-#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/application/index.html.erb:41
 #: ../../../app/views/madmin/users/index.html.erb:40
 #: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "Gach"
 
-#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/application/index.html.erb:54
+msgid "Showing records that match the current filter."
+msgstr "Ag taispeáint taifead a mheaitseálann an scagaire reatha."
+
+#: ../../../app/views/madmin/application/index.html.erb:55
+msgid "Clear filter"
+msgstr "Glan an scagaire"
+
+#: ../../../app/views/madmin/application/index.html.erb:84
 #: ../../../app/views/madmin/users/index.html.erb:82
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:35
+msgctxt "button"
 msgid "View"
-msgid_plural "Views"
-msgstr[0] "Amharc"
-msgstr[1] "Radharcanna"
-msgstr[2] "Radharcanna"
-msgstr[3] "Radharcanna"
-msgstr[4] "Radharcanna"
+msgstr "Amharc"
 
 #: ../../../app/views/madmin/application/new.html.erb:18
 msgid "Create a new %{name} record"
@@ -2214,8 +2291,8 @@ msgid "Requests API availability (not available in OSS)"
 msgstr "Iarratais ar infhaighteacht API (nach bhfuil ar fáil in OSS)"
 
 #: ../../../app/views/pages/api.html.erb:91
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:83
+#: ../../../app/views/pushes/_form.html.erb:101
+#: ../../../app/views/pushes/_qr_form.html.erb:81
 msgid "Password Generator"
 msgstr "Gineadóir Pasfhocal"
 
@@ -2809,172 +2886,137 @@ msgstr[4] "Earráidí %{count} a chuir cosc ar an bhrú seo a shábháil:"
 msgid "Securely Send Files"
 msgstr "Seol Comhaid go Slán"
 
-#: ../../../app/views/pushes/_files_form.html.erb:6
-#: ../../../app/views/pushes/_form.html.erb:6
-#: ../../../app/views/pushes/_qr_form.html.erb:6
-#: ../../../app/views/pushes/_url_form.html.erb:6
-#: ../../../app/views/pushes/audit.html.erb:43
-msgid "Day"
-msgid_plural "Days"
-msgstr[0] "Lá"
-msgstr[1] "Laethanta"
-msgstr[2] "Laethanta"
-msgstr[3] "Laethanta"
-msgstr[4] "Laethanta"
-
-#: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:90
-#: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:58
-msgid "Days"
-msgstr "Laethanta"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:107
+#: ../../../app/views/pushes/_files_form.html.erb:141
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:184
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:130
+#: ../../../app/views/pushes/_qr_form.html.erb:166
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:76
-msgid "Views"
-msgstr "Radharcanna"
-
-#: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:102
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:143
 msgid "Save"
 msgstr "Sábháil"
 
-#: ../../../app/views/pushes/_files_form.html.erb:13
-#: ../../../app/views/pushes/_form.html.erb:13
-#: ../../../app/views/pushes/_qr_form.html.erb:13
-#: ../../../app/views/pushes/_url_form.html.erb:13
+#: ../../../app/views/pushes/_files_form.html.erb:11
+#: ../../../app/views/pushes/_form.html.erb:11
+#: ../../../app/views/pushes/_qr_form.html.erb:11
+#: ../../../app/views/pushes/_url_form.html.erb:11
 msgid "Saved!"
 msgstr "Sábháilte!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:28
+#: ../../../app/views/pushes/_files_form.html.erb:26
 msgid "Uploaded Files"
 msgstr "Comhaid Uaslódáilte"
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:42
 msgid "Are you sure you want to delete this file?"
 msgstr "An bhfuil tú cinnte gur mian leat an comhad seo a scriosadh?"
 
-#: ../../../app/views/pushes/_files_form.html.erb:57
+#: ../../../app/views/pushes/_files_form.html.erb:55
 msgid "Add Files..."
 msgstr "Cuir Comhaid leis..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:72
+#: ../../../app/views/pushes/_files_form.html.erb:70
 msgid "You can upload up to %{count} files per push."
 msgstr "Is féidir leat suas le %{count} comhad a uaslódáil in aghaidh an bhrú."
 
-#: ../../../app/views/pushes/_files_form.html.erb:76
-#: ../../../app/views/pushes/_form.html.erb:120
-#: ../../../app/views/pushes/_qr_form.html.erb:100
-#: ../../../app/views/pushes/_url_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:74
+#: ../../../app/views/pushes/_form.html.erb:118
+#: ../../../app/views/pushes/_qr_form.html.erb:98
+#: ../../../app/views/pushes/_url_form.html.erb:42
 msgid "Expire secret link and delete after:"
 msgstr "Cuir an nasc rúnda in éag agus scrios tar éis:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:110
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:133
-#: ../../../app/views/pushes/_url_form.html.erb:79
+#: ../../../app/views/pushes/_files_form.html.erb:108
+#: ../../../app/views/pushes/_form.html.erb:151
+#: ../../../app/views/pushes/_qr_form.html.erb:131
+#: ../../../app/views/pushes/_url_form.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(cibé acu a thagann ar dtús)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:124
-#: ../../../app/views/pushes/_form.html.erb:167
-#: ../../../app/views/pushes/_qr_form.html.erb:148
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:122
+#: ../../../app/views/pushes/_form.html.erb:165
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Bain úsáid as céim aisghabhála 1-cliceáil"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:149
+#: ../../../app/views/pushes/_files_form.html.erb:123
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:147
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Cabhraíonn sé le córais comhrá agus scanóirí URL a sheachaint ó radharcanna a "
 "ithe."
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:131
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
 msgid "Allow immediate deletion"
 msgstr "Ceadaigh scriosadh láithreach"
 
-#: ../../../app/views/pushes/_files_form.html.erb:134
-#: ../../../app/views/pushes/_form.html.erb:177
-#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_files_form.html.erb:132
+#: ../../../app/views/pushes/_form.html.erb:175
+#: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Allow users to delete this push once retrieved."
 msgstr "Ceadaigh d'úsáideoirí an bhrú seo a scriosadh a luaithe a aisghabhfar é."
 
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_files_form.html.erb:141
+#: ../../../app/views/pushes/_form.html.erb:184
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:102
 msgid "the above settings as the page default."
 msgstr "na socruithe thuas mar réamhshocrú an leathanaigh."
 
-#: ../../../app/views/pushes/_files_form.html.erb:153
-#: ../../../app/views/pushes/_files_form.html.erb:176
-#: ../../../app/views/pushes/_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:206
-#: ../../../app/views/pushes/_qr_form.html.erb:178
-#: ../../../app/views/pushes/_qr_form.html.erb:188
-#: ../../../app/views/pushes/_url_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:124
+#: ../../../app/views/pushes/_files_form.html.erb:151
+#: ../../../app/views/pushes/_files_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:204
+#: ../../../app/views/pushes/_qr_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:112
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "Optional"
 msgstr "Roghnach"
 
-#: ../../../app/views/pushes/_files_form.html.erb:156
-#: ../../../app/views/pushes/_form.html.erb:199
-#: ../../../app/views/pushes/_qr_form.html.erb:181
-#: ../../../app/views/pushes/_url_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_form.html.erb:197
+#: ../../../app/views/pushes/_qr_form.html.erb:179
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Ainm a thaispeántar sa phainéal rialaithe, i bhfógraí agus i ríomhphoist."
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:159
 msgid "Message"
 msgstr "Teachtaireacht"
 
-#: ../../../app/views/pushes/_files_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:162
 msgid "Optional: A message to be included with the push"
 msgstr "Roghnach: Teachtaireacht le cur san áireamh leis an mbrú"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Encrypted and visible to the receiving party"
 msgstr "Criptithe agus infheicthe ag an bpáirtí a fhaigheann é"
 
-#: ../../../app/views/pushes/_files_form.html.erb:173
-#: ../../../app/views/pushes/_form.html.erb:203
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:171
+#: ../../../app/views/pushes/_form.html.erb:201
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:119
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "Nóta"
 
-#: ../../../app/views/pushes/_files_form.html.erb:179
-#: ../../../app/views/pushes/_form.html.erb:209
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:127
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:207
+#: ../../../app/views/pushes/_qr_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:125
 msgid "Encrypted and visible only to you"
 msgstr "Criptithe agus le feiceáil agatsa amháin"
 
-#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_files_form.html.erb:182
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2982,36 +3024,36 @@ msgstr ""
 "Nuair a bheidh sé imithe in éag, scriosfar gach comhad agus ábhar an bhrú láit"
 "hreach agus go hiomlán."
 
-#: ../../../app/views/pushes/_files_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "An audit log of activity will be available."
 msgstr "Beidh log iniúchta gníomhaíochta ar fáil."
 
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
 msgid "Updating..."
 msgstr "Ag nuashonrú..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
+msgid "Update Push"
+msgstr "Nuashonrú Brú"
+
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
 #: ../../../app/views/pushes/_qr_form.html.erb:206
 #: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Update Push"
-msgstr "Nuashonrú Brú"
-
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
 msgid "Pushing..."
 msgstr "Ag brú..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Brúigh é!"
 
@@ -3019,60 +3061,60 @@ msgstr "Brúigh é!"
 msgid "Securely Send a Password"
 msgstr "Seol Pasfhocal go Slán"
 
-#: ../../../app/views/pushes/_form.html.erb:33
-#: ../../../app/views/pushes/_qr_form.html.erb:33
+#: ../../../app/views/pushes/_form.html.erb:31
+#: ../../../app/views/pushes/_qr_form.html.erb:31
 msgid "%{value} bits"
 msgstr "Giotáin %{value}"
 
-#: ../../../app/views/pushes/_form.html.erb:34
+#: ../../../app/views/pushes/_form.html.erb:32
 #: ../../../app/views/pushes/_passphrase_field.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:34
+#: ../../../app/views/pushes/_qr_form.html.erb:32
 msgid "Password generation failed."
 msgstr "Theip ar ghiniúint pasfhocail."
 
-#: ../../../app/views/pushes/_form.html.erb:50
+#: ../../../app/views/pushes/_form.html.erb:48
 msgid "Content is hidden for privacy. Click the field below to reveal and edit."
 msgstr ""
 "Tá an t-ábhar i bhfolach ar mhaithe le príobháideacht. Cliceáil an réimse thío"
 "s chun é a nochtadh agus a chur in eagar."
 
-#: ../../../app/views/pushes/_form.html.erb:54
-#: ../../../app/views/pushes/_form.html.erb:71
+#: ../../../app/views/pushes/_form.html.erb:52
+#: ../../../app/views/pushes/_form.html.erb:69
 msgid "Enter the Password or Text to push..."
 msgstr "Cuir isteach an Pasfhocal nó an Téacs le brú..."
 
-#: ../../../app/views/pushes/_form.html.erb:67
-#: ../../../app/views/pushes/_form.html.erb:86
-#: ../../../app/views/pushes/_form.html.erb:87
-#: ../../../app/views/pushes/_qr_form.html.erb:47
-#: ../../../app/views/pushes/_qr_form.html.erb:67
-#: ../../../app/views/pushes/_qr_form.html.erb:68
+#: ../../../app/views/pushes/_form.html.erb:65
+#: ../../../app/views/pushes/_form.html.erb:84
+#: ../../../app/views/pushes/_form.html.erb:85
+#: ../../../app/views/pushes/_qr_form.html.erb:45
+#: ../../../app/views/pushes/_qr_form.html.erb:65
+#: ../../../app/views/pushes/_qr_form.html.erb:66
 msgid "Hide payload"
 msgstr "Folaigh an t-ualach"
 
-#: ../../../app/views/pushes/_form.html.erb:68
-#: ../../../app/views/pushes/_qr_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:46
 msgid "Show payload"
 msgstr "Taispeáin ualach"
 
-#: ../../../app/views/pushes/_form.html.erb:96
-#: ../../../app/views/pushes/_qr_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:94
+#: ../../../app/views/pushes/_qr_form.html.erb:74
 msgid "Characters"
 msgstr "Carachtair"
 
-#: ../../../app/views/pushes/_form.html.erb:107
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_form.html.erb:105
+#: ../../../app/views/pushes/_qr_form.html.erb:85
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Gin Pasfhocal"
 
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:91
+#: ../../../app/views/pushes/_form.html.erb:109
+#: ../../../app/views/pushes/_qr_form.html.erb:89
 msgid "Configure Generator"
 msgstr "Cumraigh an Gineadóir"
 
-#: ../../../app/views/pushes/_form.html.erb:214
-#: ../../../app/views/pushes/_qr_form.html.erb:196
+#: ../../../app/views/pushes/_form.html.erb:212
+#: ../../../app/views/pushes/_qr_form.html.erb:194
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -3080,8 +3122,8 @@ msgstr ""
 "Leid: Ná cuir isteach ach pasfhocal sa bhosca. Is féidir le faisnéis aitheanta"
 "is eile an tslándáil a chur i mbaol."
 
-#: ../../../app/views/pushes/_form.html.erb:215
-#: ../../../app/views/pushes/_qr_form.html.erb:197
+#: ../../../app/views/pushes/_form.html.erb:213
+#: ../../../app/views/pushes/_qr_form.html.erb:195
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -3122,7 +3164,7 @@ msgstr "Gin frása faire"
 msgid "Securely Send a QR Code"
 msgstr "Seol Cód QR go Slán"
 
-#: ../../../app/views/pushes/_qr_form.html.erb:51
+#: ../../../app/views/pushes/_qr_form.html.erb:49
 msgid "Enter up to 1024 characters..."
 msgstr "Cuir isteach suas le 1024 carachtar..."
 
@@ -3143,37 +3185,31 @@ msgstr "Tá do phasfhocal doiléir. Cliceáil thíos chun é a thaispeáint."
 msgid "Securely Send URLs"
 msgstr "Seol URLanna go Slán"
 
-#: ../../../app/views/pushes/_url_form.html.erb:26
+#: ../../../app/views/pushes/_url_form.html.erb:24
 msgid "URL Redirection"
 msgstr "Atreorú URL"
 
-#: ../../../app/views/pushes/_url_form.html.erb:30
+#: ../../../app/views/pushes/_url_form.html.erb:28
 msgid "Enter the URL to redirect to..."
 msgstr "Cuir isteach an URL le hathsheoladh chuici..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Cabhraíonn sé le córais comhrá agus scanóirí URL a sheachaint ó atreoruithe a "
 "ithe."
 
-#: ../../../app/views/pushes/_url_form.html.erb:132
+#: ../../../app/views/pushes/_url_form.html.erb:130
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Ginfear URL rúnda a atreoróidh chuig an URL sonraithe."
 
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Nuair a bheidh an dáta éaga, scriosfar an URL brúite go hiomlán."
 
 #: ../../../app/views/pushes/audit.html.erb:1
 msgid "Audit Log for %{push_id}"
 msgstr "Log Iniúchta do %{push_id}"
-
-#: ../../../app/views/pushes/audit.html.erb:4
-#: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:120
-msgid "Audit Log"
-msgstr "Log Iniúchta"
 
 #: ../../../app/views/pushes/audit.html.erb:7
 msgid "Pushed on"
@@ -3200,9 +3236,27 @@ msgstr "Socruithe"
 msgid "Expire after"
 msgstr "Rachaidh in éag tar éis"
 
+#: ../../../app/views/pushes/audit.html.erb:35
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Amharc"
+msgstr[1] "Radharcanna"
+msgstr[2] "Radharcanna"
+msgstr[3] "Radharcanna"
+msgstr[4] "Radharcanna"
+
 #: ../../../app/views/pushes/audit.html.erb:36
 msgid "The push expires after this number of views."
 msgstr "Rachaidh an brú in éag tar éis an líon seo radharcanna."
+
+#: ../../../app/views/pushes/audit.html.erb:43
+msgid "Day"
+msgid_plural "Days"
+msgstr[0] "Lá"
+msgstr[1] "Laethanta"
+msgstr[2] "Laethanta"
+msgstr[3] "Laethanta"
+msgstr[4] "Laethanta"
 
 #: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."

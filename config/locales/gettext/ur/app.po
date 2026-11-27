@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush-oss 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-10-27 18:10+0100\n"
-"PO-Revision-Date: 2026-10-27 17:10+0000\n"
+"POT-Creation-Date: 2026-11-27 02:35+0100\n"
+"PO-Revision-Date: 2026-11-27 01:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Urdu\n"
 "Language: ur\n"
@@ -25,6 +25,14 @@ msgstr "حسب ضرورت CSS کامیابی سے اپ ڈیٹ ہو گئی۔"
 #: ../../../app/controllers/admin/custom_css_controller.rb:13
 msgid "Error updating CSS: %{error}"
 msgstr "CSS کو اپ ڈیٹ کرنے میں خرابی: %{error}"
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:13
+msgid "Checked for updates."
+msgstr "اپ ڈیٹس کے لیے چیک کیا گیا۔"
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:16
+msgid "Could not check for updates. Try again later."
+msgstr "اپ ڈیٹس کی جانچ نہیں ہو سکی۔ بعد میں دوبارہ کوشش کریں۔"
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -208,7 +216,7 @@ msgstr "دو عنصر کی توثیق کو غیر فعال نہیں کیا جا 
 msgid "Two-factor authentication has been disabled."
 msgstr "دو عنصر کی توثیق کو غیر فعال کر دیا گیا ہے۔"
 
-#: ../../../app/helpers/pushes_helper.rb:15
+#: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
 #: ../../../app/views/pushes/print_preview.html.erb:13
@@ -273,6 +281,13 @@ msgstr "کچھ ای میلز نہیں بھیجی جا سکیں۔"
 #: ../../../app/jobs/send_notify_by_email_job.rb:56
 msgid "An unexpected error occurred while sending the email."
 msgstr "ای میل بھیجتے وقت ایک غیر متوقع خرابی پیش آگئی۔"
+
+#: ../../../app/madmin/resources/push_resource.rb:24
+#: ../../../app/views/pushes/audit.html.erb:4
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:120
+msgid "Audit Log"
+msgstr "آڈٹ لاگ"
 
 #: ../../../app/mailers/push_created_mailer.rb:14
 msgid "Someone"
@@ -387,7 +402,7 @@ msgid "Administration Home"
 msgstr "ایڈمنسٹریشن ہوم"
 
 #: ../../../app/views/admin/_navigation.html.erb:37
-#: ../../../app/views/admin/index.html.erb:121
+#: ../../../app/views/admin/index.html.erb:127
 msgid "System Administration"
 msgstr "سسٹم ایڈمنسٹریشن"
 
@@ -396,13 +411,13 @@ msgid "Admin Users"
 msgstr "ایڈمن صارفین"
 
 #: ../../../app/views/admin/_navigation.html.erb:50
-#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/admin/index.html.erb:167
 #: ../../../app/views/madmin/dashboard/show.html.erb:1
 msgid "Data Explorer"
 msgstr "ڈیٹا ایکسپلورر"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
-#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/admin/index.html.erb:152
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:37
 msgid "Background Jobs"
 msgstr "بیک گراؤنڈ نوکریاں"
@@ -412,6 +427,71 @@ msgstr "بیک گراؤنڈ نوکریاں"
 #: ../../../app/views/admin/custom_css/edit.html.erb:6
 msgid "Custom CSS"
 msgstr "حسب ضرورت سی ایس ایس"
+
+#: ../../../app/views/admin/_release_banner.html.erb:6
+#: ../../../app/views/admin/_release_status_card.html.erb:25
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "پاس ورڈ پشر v%{latest} دستیاب ہے (آپ v%{current} چلا رہے ہیں)"
+
+#: ../../../app/views/admin/_release_banner.html.erb:10
+msgid "This update includes a security release. Please upgrade as soon as possible."
+msgstr "اس اپ ڈیٹ میں سیکیورٹی ریلیز شامل ہے۔ براہ کرم جلد از جلد اپ گریڈ کریں۔"
+
+#: ../../../app/views/admin/_release_banner.html.erb:15
+#: ../../../app/views/admin/_release_status_card.html.erb:29
+msgid "View release notes"
+msgstr "ریلیز نوٹس دیکھیں"
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+msgid "Dismiss"
+msgstr "برطرف کرنا"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:5
+msgid "Version & Updates"
+msgstr "ورژن اور اپ ڈیٹس"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:7
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "OSS ورژن %{version}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Check now"
+msgstr "ابھی چیک کریں۔"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:17
+msgid "Update checks are disabled for this instance."
+msgstr "اس مثال کے لیے اپ ڈیٹ چیک غیر فعال ہیں۔"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:21
+msgid "No update information yet. Run a check to see if a newer release is available."
+msgstr ""
+"ابھی تک کوئی اپ ڈیٹ کی معلومات نہیں ہے۔ یہ دیکھنے کے لیے ایک چیک چلائیں کہ آیا"
+" کوئی نئی ریلیز دستیاب ہے۔"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid ""
+"A newer release includes security fixes. This notice cannot be dismissed until"
+" you upgrade."
+msgstr ""
+"ایک نئی ریلیز میں حفاظتی اصلاحات شامل ہیں۔ جب تک آپ اپ گریڈ نہیں کرتے اس نوٹس "
+"کو مسترد نہیں کیا جا سکتا۔"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:37
+msgid "Newer releases"
+msgstr "نئی ریلیزز"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:46
+msgid "Security"
+msgstr "سیکورٹی"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:58
+msgid "Notes"
+msgstr "حسب ضرورت ڈومین نوٹس"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:67
+msgid "You're running the latest version."
+msgstr "آپ تازہ ترین ورژن چلا رہے ہیں۔"
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -526,27 +606,23 @@ msgid ""
 "ocation."
 msgstr "اس مرکزی مقام سے اپنی درخواست کی ترتیبات اور سسٹم ایڈمنسٹریشن کا نظم کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:21
-msgid "OSS Version %{version}"
-msgstr "OSS ورژن %{version}"
-
-#: ../../../app/views/admin/index.html.erb:40
+#: ../../../app/views/admin/index.html.erb:46
 msgid "Total Users"
 msgstr "کل صارفین"
 
-#: ../../../app/views/admin/index.html.erb:60
+#: ../../../app/views/admin/index.html.erb:66
 msgid "Total Pushes"
 msgstr "کل دھکے"
 
-#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/admin/index.html.erb:86
 msgid "Active Pushes"
 msgstr "ایکٹو پشز"
 
-#: ../../../app/views/admin/index.html.erb:100
+#: ../../../app/views/admin/index.html.erb:106
 msgid "Total Audit Logs"
 msgstr "کل آڈٹ لاگز"
 
-#: ../../../app/views/admin/index.html.erb:123
+#: ../../../app/views/admin/index.html.erb:129
 msgid ""
 "Monitor system performance, manage background jobs, and analyze usage patterns"
 "."
@@ -554,137 +630,137 @@ msgstr ""
 "سسٹم کی کارکردگی کی نگرانی کریں، پس منظر کی ملازمتوں کا نظم کریں، اور استعمال "
 "کے نمونوں کا تجزیہ کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/index.html.erb:137
 #: ../../../app/views/admin/users/index.html.erb:1
 #: ../../../app/views/admin/users/index.html.erb:9
 #: ../../../app/views/admin/users/index.html.erb:23
 msgid "Administrator Management"
 msgstr "ایڈمنسٹریٹر مینجمنٹ"
 
-#: ../../../app/views/admin/index.html.erb:132
+#: ../../../app/views/admin/index.html.erb:138
 msgid "Manage admin accounts and privileges"
 msgstr "ایڈمن اکاؤنٹس اور مراعات کا نظم کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:147
+#: ../../../app/views/admin/index.html.erb:153
 msgid "Monitor and manage queued tasks"
 msgstr "قطار میں لگے کاموں کی نگرانی اور ان کا نظم کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:162
+#: ../../../app/views/admin/index.html.erb:168
 msgid "Query data and manage records"
 msgstr "ڈیٹا سے استفسار کریں اور ریکارڈ کا نظم کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:184
+#: ../../../app/views/admin/index.html.erb:190
 msgid "Database Administration"
 msgstr "ڈیٹا بیس ایڈمنسٹریشن"
 
-#: ../../../app/views/admin/index.html.erb:186
+#: ../../../app/views/admin/index.html.erb:192
 msgid "Direct access to database records and user management tools."
 msgstr "ڈیٹا بیس ریکارڈز اور یوزر مینجمنٹ ٹولز تک براہ راست رسائی۔"
 
-#: ../../../app/views/admin/index.html.erb:192
+#: ../../../app/views/admin/index.html.erb:198
 msgid "Advanced Database Access"
 msgstr "اعلی درجے کی ڈیٹا بیس تک رسائی"
 
-#: ../../../app/views/admin/index.html.erb:193
+#: ../../../app/views/admin/index.html.erb:199
 msgid "Direct record manipulation and management"
 msgstr "براہ راست ریکارڈ ہیرا پھیری اور انتظام"
 
-#: ../../../app/views/admin/index.html.erb:196
+#: ../../../app/views/admin/index.html.erb:202
 msgid "Open Data Explorer"
 msgstr "ڈیٹا ایکسپلورر کھولیں۔"
 
-#: ../../../app/views/admin/index.html.erb:218
+#: ../../../app/views/admin/index.html.erb:224
 msgid "Resources & Support"
 msgstr "وسائل اور سپورٹ"
 
-#: ../../../app/views/admin/index.html.erb:220
+#: ../../../app/views/admin/index.html.erb:226
 msgid "Access documentation, source code, releases, and get help when you need it."
 msgstr ""
 "دستاویزات، سورس کوڈ، ریلیز تک رسائی حاصل کریں اور جب آپ کو ضرورت ہو مدد حاصل ک"
 "ریں۔"
 
-#: ../../../app/views/admin/index.html.erb:230
+#: ../../../app/views/admin/index.html.erb:236
 msgid "GitHub Repository"
 msgstr "GitHub ذخیرہ"
 
-#: ../../../app/views/admin/index.html.erb:231
+#: ../../../app/views/admin/index.html.erb:237
 msgid "View source code and contribute"
 msgstr "سورس کوڈ دیکھیں اور تعاون کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:246
+#: ../../../app/views/admin/index.html.erb:252
 msgid "Latest Releases"
 msgstr "تازہ ترین ریلیز"
 
-#: ../../../app/views/admin/index.html.erb:247
+#: ../../../app/views/admin/index.html.erb:253
 msgid "View changelog and download updates"
 msgstr "چینج لاگ دیکھیں اور اپ ڈیٹس ڈاؤن لوڈ کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/admin/index.html.erb:268
 #: ../../../app/views/pages/about.html.erb:102
 #: ../../../app/views/shared/_footer.html.erb:19
 #: ../../../app/views/users/first_runs/new.html.erb:190
 msgid "Documentation"
 msgstr "دستاویزی"
 
-#: ../../../app/views/admin/index.html.erb:263
+#: ../../../app/views/admin/index.html.erb:269
 msgid "Complete setup and usage guides"
 msgstr "مکمل سیٹ اپ اور استعمال کے رہنما"
 
-#: ../../../app/views/admin/index.html.erb:278
+#: ../../../app/views/admin/index.html.erb:284
 msgid "Support"
 msgstr "حمایت"
 
-#: ../../../app/views/admin/index.html.erb:279
+#: ../../../app/views/admin/index.html.erb:285
 msgid "Get help and report issues"
 msgstr "مدد حاصل کریں اور مسائل کی اطلاع دیں۔"
 
-#: ../../../app/views/admin/index.html.erb:299
+#: ../../../app/views/admin/index.html.erb:305
 msgid "Getting Started"
 msgstr "شروع کرنا"
 
-#: ../../../app/views/admin/index.html.erb:302
+#: ../../../app/views/admin/index.html.erb:308
 msgid ""
 "Welcome to the Password Pusher Administration Center! Here's your complete too"
 "lkit:"
 msgstr "پاس ورڈ پشر ایڈمنسٹریشن سینٹر میں خوش آمدید! یہاں آپ کی مکمل ٹول کٹ ہے:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "👥 Manage Administrators:"
 msgstr "👥 منتظمین کا نظم کریں:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "Promote or revoke admin privileges for users in your system"
 msgstr "اپنے سسٹم میں صارفین کے لیے ایڈمن مراعات کو فروغ دیں یا منسوخ کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "📊 Monitor Background Jobs:"
 msgstr "📊 پس منظر کی نوکریوں کی نگرانی کریں:"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "Track email notifications, push cleanup, and system processing tasks"
 msgstr "ای میل اطلاعات، پش کلین اپ، اور سسٹم پروسیسنگ کے کاموں کو ٹریک کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "🗄️ Explore Database:"
 msgstr "🗄️ ڈیٹا بیس دریافت کریں:"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr "صارفین، پشز، آڈٹ لاگز، اور فائل اسٹوریج ریکارڈز تک براہ راست رسائی"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "📈 View System Stats:"
 msgstr "📈 سسٹم کے اعدادوشمار دیکھیں:"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
 msgstr "صارف کی سرگرمی، پش کاؤنٹ، اور آڈٹ لاگ اندراجات کی نگرانی کریں۔"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "🔍 Track Activity:"
 msgstr "🔍 سرگرمی کو ٹریک کریں:"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr "سسٹم کے استعمال اور حفاظتی واقعات کو سمجھنے کے لیے آڈٹ لاگز کا جائزہ لیں۔"
 
@@ -722,7 +798,7 @@ msgstr "آخری سائن ان"
 
 #: ../../../app/views/admin/users/index.html.erb:53
 #: ../../../app/views/admin/users/index.html.erb:145
-#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/application/index.html.erb:71
 #: ../../../app/views/madmin/users/index.html.erb:63
 #: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
@@ -1389,7 +1465,7 @@ msgid "Edit %{name}"
 msgstr "ترمیم کریں %{name}"
 
 #: ../../../app/views/madmin/application/edit.html.erb:13
-#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/index.html.erb:85
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
 #: ../../../app/views/pushes/preview.html.erb:123
@@ -1411,33 +1487,35 @@ msgstr "%{name} ریکارڈز کا نظم کریں۔"
 msgid "New %{name}"
 msgstr "نیا %{name}"
 
-#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/application/index.html.erb:27
 #: ../../../app/views/madmin/users/index.html.erb:26
 msgid "Search %{name}..."
 msgstr "تلاش کریں %{name}..."
 
-#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/application/index.html.erb:28
 #: ../../../app/views/madmin/users/index.html.erb:27
 msgid "Search"
 msgstr "تلاش کریں۔"
 
-#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/application/index.html.erb:41
 #: ../../../app/views/madmin/users/index.html.erb:40
 #: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "تمام"
 
-#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/application/index.html.erb:54
+msgid "Showing records that match the current filter."
+msgstr "موجودہ فلٹر سے مماثل ریکارڈ دکھا رہا ہے۔"
+
+#: ../../../app/views/madmin/application/index.html.erb:55
+msgid "Clear filter"
+msgstr "فلٹر صاف کریں۔"
+
+#: ../../../app/views/madmin/application/index.html.erb:84
 #: ../../../app/views/madmin/users/index.html.erb:82
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:35
+msgctxt "button"
 msgid "View"
-msgid_plural "Views"
-msgstr[0] "دیکھیں"
-msgstr[1] "مناظر"
+msgstr "دیکھیں"
 
 #: ../../../app/views/madmin/application/new.html.erb:18
 msgid "Create a new %{name} record"
@@ -2172,8 +2250,8 @@ msgid "Requests API availability (not available in OSS)"
 msgstr "API کی دستیابی کی درخواست کرتا ہے (OSS میں دستیاب نہیں)"
 
 #: ../../../app/views/pages/api.html.erb:91
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:83
+#: ../../../app/views/pushes/_form.html.erb:101
+#: ../../../app/views/pushes/_qr_form.html.erb:81
 msgid "Password Generator"
 msgstr "پاس ورڈ جنریٹر"
 
@@ -2744,167 +2822,135 @@ msgstr[1] "%{count} غلطیوں نے اس پش کو محفوظ ہونے سے ر
 msgid "Securely Send Files"
 msgstr "محفوظ طریقے سے فائلیں بھیجیں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:6
-#: ../../../app/views/pushes/_form.html.erb:6
-#: ../../../app/views/pushes/_qr_form.html.erb:6
-#: ../../../app/views/pushes/_url_form.html.erb:6
-#: ../../../app/views/pushes/audit.html.erb:43
-msgid "Day"
-msgid_plural "Days"
-msgstr[0] "دن"
-msgstr[1] "دن"
-
-#: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:90
-#: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:58
-msgid "Days"
-msgstr "دن"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:107
+#: ../../../app/views/pushes/_files_form.html.erb:141
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:184
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:130
+#: ../../../app/views/pushes/_qr_form.html.erb:166
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:76
-msgid "Views"
-msgstr "مناظر"
-
-#: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:102
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:143
 msgid "Save"
 msgstr "محفوظ کریں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:13
-#: ../../../app/views/pushes/_form.html.erb:13
-#: ../../../app/views/pushes/_qr_form.html.erb:13
-#: ../../../app/views/pushes/_url_form.html.erb:13
+#: ../../../app/views/pushes/_files_form.html.erb:11
+#: ../../../app/views/pushes/_form.html.erb:11
+#: ../../../app/views/pushes/_qr_form.html.erb:11
+#: ../../../app/views/pushes/_url_form.html.erb:11
 msgid "Saved!"
 msgstr "محفوظ کر لیا!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:28
+#: ../../../app/views/pushes/_files_form.html.erb:26
 msgid "Uploaded Files"
 msgstr "اپ لوڈ کردہ فائلیں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:42
 msgid "Are you sure you want to delete this file?"
 msgstr "کیا آپ واقعی اس فائل کو حذف کرنا چاہتے ہیں؟"
 
-#: ../../../app/views/pushes/_files_form.html.erb:57
+#: ../../../app/views/pushes/_files_form.html.erb:55
 msgid "Add Files..."
 msgstr "فائلیں شامل کریں..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:72
+#: ../../../app/views/pushes/_files_form.html.erb:70
 msgid "You can upload up to %{count} files per push."
 msgstr "آپ ہر پش کے لیے %{count} فائلیں اپ لوڈ کر سکتے ہیں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:76
-#: ../../../app/views/pushes/_form.html.erb:120
-#: ../../../app/views/pushes/_qr_form.html.erb:100
-#: ../../../app/views/pushes/_url_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:74
+#: ../../../app/views/pushes/_form.html.erb:118
+#: ../../../app/views/pushes/_qr_form.html.erb:98
+#: ../../../app/views/pushes/_url_form.html.erb:42
 msgid "Expire secret link and delete after:"
 msgstr "خفیہ لنک کی میعاد ختم کریں اور اس کے بعد حذف کریں:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:110
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:133
-#: ../../../app/views/pushes/_url_form.html.erb:79
+#: ../../../app/views/pushes/_files_form.html.erb:108
+#: ../../../app/views/pushes/_form.html.erb:151
+#: ../../../app/views/pushes/_qr_form.html.erb:131
+#: ../../../app/views/pushes/_url_form.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(جو بھی پہلے آئے)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:124
-#: ../../../app/views/pushes/_form.html.erb:167
-#: ../../../app/views/pushes/_qr_form.html.erb:148
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:122
+#: ../../../app/views/pushes/_form.html.erb:165
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "1-کلک بازیافت کا مرحلہ استعمال کریں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:149
+#: ../../../app/views/pushes/_files_form.html.erb:123
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:147
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr "چیٹ سسٹمز اور یو آر ایل اسکینرز کو آراء کھانے سے بچنے میں مدد کرتا ہے۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:131
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
 msgid "Allow immediate deletion"
 msgstr "فوری طور پر حذف کرنے کی اجازت دیں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:134
-#: ../../../app/views/pushes/_form.html.erb:177
-#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_files_form.html.erb:132
+#: ../../../app/views/pushes/_form.html.erb:175
+#: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Allow users to delete this push once retrieved."
 msgstr "ایک بار بازیافت ہونے کے بعد صارفین کو اس پش کو حذف کرنے کی اجازت دیں۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_files_form.html.erb:141
+#: ../../../app/views/pushes/_form.html.erb:184
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:102
 msgid "the above settings as the page default."
 msgstr "صفحہ ڈیفالٹ کے طور پر اوپر کی ترتیبات۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:153
-#: ../../../app/views/pushes/_files_form.html.erb:176
-#: ../../../app/views/pushes/_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:206
-#: ../../../app/views/pushes/_qr_form.html.erb:178
-#: ../../../app/views/pushes/_qr_form.html.erb:188
-#: ../../../app/views/pushes/_url_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:124
+#: ../../../app/views/pushes/_files_form.html.erb:151
+#: ../../../app/views/pushes/_files_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:204
+#: ../../../app/views/pushes/_qr_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:112
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "Optional"
 msgstr "اختیاری"
 
-#: ../../../app/views/pushes/_files_form.html.erb:156
-#: ../../../app/views/pushes/_form.html.erb:199
-#: ../../../app/views/pushes/_qr_form.html.erb:181
-#: ../../../app/views/pushes/_url_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_form.html.erb:197
+#: ../../../app/views/pushes/_qr_form.html.erb:179
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "ڈیش بورڈ، اطلاعات اور ای میلز میں دکھایا گیا ایک نام۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:159
 msgid "Message"
 msgstr "پیغام"
 
-#: ../../../app/views/pushes/_files_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:162
 msgid "Optional: A message to be included with the push"
 msgstr "اختیاری: پش کے ساتھ شامل کیا جانے والا پیغام"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Encrypted and visible to the receiving party"
 msgstr "خفیہ کردہ اور وصول کنندہ پارٹی کو دکھائی دے رہا ہے۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:173
-#: ../../../app/views/pushes/_form.html.erb:203
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:171
+#: ../../../app/views/pushes/_form.html.erb:201
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:119
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "نوٹ"
 
-#: ../../../app/views/pushes/_files_form.html.erb:179
-#: ../../../app/views/pushes/_form.html.erb:209
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:127
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:207
+#: ../../../app/views/pushes/_qr_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:125
 msgid "Encrypted and visible only to you"
 msgstr "خفیہ کردہ اور صرف آپ کے لیے مرئی"
 
-#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_files_form.html.erb:182
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2912,36 +2958,36 @@ msgstr ""
 "ایک بار ختم ہونے کے بعد، تمام فائلیں اور پش کا مواد فوری طور پر اور مکمل طور پ"
 "ر حذف کر دیا جائے گا۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "An audit log of activity will be available."
 msgstr "سرگرمی کا ایک آڈٹ لاگ دستیاب ہوگا۔"
 
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
 msgid "Updating..."
 msgstr "اپ ڈیٹ ہو رہا ہے..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
+msgid "Update Push"
+msgstr "پش کو اپ ڈیٹ کریں"
+
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
 #: ../../../app/views/pushes/_qr_form.html.erb:206
 #: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Update Push"
-msgstr "پش کو اپ ڈیٹ کریں"
-
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
 msgid "Pushing..."
 msgstr "پش کر رہے ہیں..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "اسے دھکا!"
 
@@ -2949,60 +2995,60 @@ msgstr "اسے دھکا!"
 msgid "Securely Send a Password"
 msgstr "محفوظ طریقے سے پاس ورڈ بھیجیں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:33
-#: ../../../app/views/pushes/_qr_form.html.erb:33
+#: ../../../app/views/pushes/_form.html.erb:31
+#: ../../../app/views/pushes/_qr_form.html.erb:31
 msgid "%{value} bits"
 msgstr "%{value} بٹس"
 
-#: ../../../app/views/pushes/_form.html.erb:34
+#: ../../../app/views/pushes/_form.html.erb:32
 #: ../../../app/views/pushes/_passphrase_field.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:34
+#: ../../../app/views/pushes/_qr_form.html.erb:32
 msgid "Password generation failed."
 msgstr "پاس ورڈ بنانا ناکام ہوگیا۔"
 
-#: ../../../app/views/pushes/_form.html.erb:50
+#: ../../../app/views/pushes/_form.html.erb:48
 msgid "Content is hidden for privacy. Click the field below to reveal and edit."
 msgstr ""
 "مواد رازداری کے لیے چھپا ہوا ہے۔ ظاہر کرنے اور ترمیم کرنے کے لیے نیچے کی فیلڈ "
 "پر کلک کریں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:54
-#: ../../../app/views/pushes/_form.html.erb:71
+#: ../../../app/views/pushes/_form.html.erb:52
+#: ../../../app/views/pushes/_form.html.erb:69
 msgid "Enter the Password or Text to push..."
 msgstr "دبانے کے لیے پاس ورڈ یا متن درج کریں..."
 
-#: ../../../app/views/pushes/_form.html.erb:67
-#: ../../../app/views/pushes/_form.html.erb:86
-#: ../../../app/views/pushes/_form.html.erb:87
-#: ../../../app/views/pushes/_qr_form.html.erb:47
-#: ../../../app/views/pushes/_qr_form.html.erb:67
-#: ../../../app/views/pushes/_qr_form.html.erb:68
+#: ../../../app/views/pushes/_form.html.erb:65
+#: ../../../app/views/pushes/_form.html.erb:84
+#: ../../../app/views/pushes/_form.html.erb:85
+#: ../../../app/views/pushes/_qr_form.html.erb:45
+#: ../../../app/views/pushes/_qr_form.html.erb:65
+#: ../../../app/views/pushes/_qr_form.html.erb:66
 msgid "Hide payload"
 msgstr "پے لوڈ چھپائیں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:68
-#: ../../../app/views/pushes/_qr_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:46
 msgid "Show payload"
 msgstr "پے لوڈ دکھائیں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:96
-#: ../../../app/views/pushes/_qr_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:94
+#: ../../../app/views/pushes/_qr_form.html.erb:74
 msgid "Characters"
 msgstr "کردار"
 
-#: ../../../app/views/pushes/_form.html.erb:107
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_form.html.erb:105
+#: ../../../app/views/pushes/_qr_form.html.erb:85
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "پاس ورڈ بنائیں"
 
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:91
+#: ../../../app/views/pushes/_form.html.erb:109
+#: ../../../app/views/pushes/_qr_form.html.erb:89
 msgid "Configure Generator"
 msgstr "جنریٹر کو ترتیب دیں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:214
-#: ../../../app/views/pushes/_qr_form.html.erb:196
+#: ../../../app/views/pushes/_form.html.erb:212
+#: ../../../app/views/pushes/_qr_form.html.erb:194
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -3010,8 +3056,8 @@ msgstr ""
 "ٹپ: باکس میں صرف پاس ورڈ درج کریں۔ شناخت کرنے والی دیگر معلومات سیکورٹی سے سمج"
 "ھوتہ کر سکتی ہیں۔"
 
-#: ../../../app/views/pushes/_form.html.erb:215
-#: ../../../app/views/pushes/_qr_form.html.erb:197
+#: ../../../app/views/pushes/_form.html.erb:213
+#: ../../../app/views/pushes/_qr_form.html.erb:195
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -3050,7 +3096,7 @@ msgstr "پاس فریز بنائیں"
 msgid "Securely Send a QR Code"
 msgstr "محفوظ طریقے سے ایک QR کوڈ بھیجیں۔"
 
-#: ../../../app/views/pushes/_qr_form.html.erb:51
+#: ../../../app/views/pushes/_qr_form.html.erb:49
 msgid "Enter up to 1024 characters..."
 msgstr "1024 حروف تک درج کریں..."
 
@@ -3071,35 +3117,29 @@ msgstr "آپ کا پاس ورڈ دھندلا ہوا ہے۔ اسے ظاہر کر�
 msgid "Securely Send URLs"
 msgstr "محفوظ طریقے سے URLs بھیجیں۔"
 
-#: ../../../app/views/pushes/_url_form.html.erb:26
+#: ../../../app/views/pushes/_url_form.html.erb:24
 msgid "URL Redirection"
 msgstr "URL ری ڈائریکشن"
 
-#: ../../../app/views/pushes/_url_form.html.erb:30
+#: ../../../app/views/pushes/_url_form.html.erb:28
 msgid "Enter the URL to redirect to..."
 msgstr "ری ڈائریکٹ کرنے کے لیے URL درج کریں..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr "چیٹ سسٹمز اور یو آر ایل اسکینرز کو ری ڈائریکٹ کھانے سے بچنے میں مدد کرتا ہے۔"
 
-#: ../../../app/views/pushes/_url_form.html.erb:132
+#: ../../../app/views/pushes/_url_form.html.erb:130
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "ایک خفیہ URL تیار کیا جائے گا جو مخصوص URL پر ری ڈائریکٹ ہو جائے گا۔"
 
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "میعاد ختم ہونے پر، پش URL کو مکمل طور پر حذف کر دیا جائے گا۔"
 
 #: ../../../app/views/pushes/audit.html.erb:1
 msgid "Audit Log for %{push_id}"
 msgstr "آڈٹ لاگ برائے %{push_id}"
-
-#: ../../../app/views/pushes/audit.html.erb:4
-#: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:120
-msgid "Audit Log"
-msgstr "آڈٹ لاگ"
 
 #: ../../../app/views/pushes/audit.html.erb:7
 msgid "Pushed on"
@@ -3126,9 +3166,21 @@ msgstr "ترتیبات"
 msgid "Expire after"
 msgstr "ختم ہونے کے بعد"
 
+#: ../../../app/views/pushes/audit.html.erb:35
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "دیکھیں"
+msgstr[1] "مناظر"
+
 #: ../../../app/views/pushes/audit.html.erb:36
 msgid "The push expires after this number of views."
 msgstr "آراء کی اس تعداد کے بعد پش ختم ہو جاتا ہے۔"
+
+#: ../../../app/views/pushes/audit.html.erb:43
+msgid "Day"
+msgid_plural "Days"
+msgstr[0] "دن"
+msgstr[1] "دن"
 
 #: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."

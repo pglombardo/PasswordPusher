@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush-oss 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-10-27 18:10+0100\n"
-"PO-Revision-Date: 2026-10-27 17:10+0000\n"
+"POT-Creation-Date: 2026-11-27 02:35+0100\n"
+"PO-Revision-Date: 2026-11-27 01:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -25,6 +25,14 @@ msgstr "CSS personalizado atualizado com sucesso."
 #: ../../../app/controllers/admin/custom_css_controller.rb:13
 msgid "Error updating CSS: %{error}"
 msgstr "Erro ao atualizar o CSS: %{error}"
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:13
+msgid "Checked for updates."
+msgstr "Verifiquei se havia atualizações."
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:16
+msgid "Could not check for updates. Try again later."
+msgstr "Não foi possível verificar se há atualizações. Tente novamente mais tarde."
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -218,7 +226,7 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "A autenticação de dois fatores foi desativada."
 
-#: ../../../app/helpers/pushes_helper.rb:15
+#: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
 #: ../../../app/views/pushes/print_preview.html.erb:13
@@ -283,6 +291,13 @@ msgstr "Alguns e-mails não puderam ser enviados."
 #: ../../../app/jobs/send_notify_by_email_job.rb:56
 msgid "An unexpected error occurred while sending the email."
 msgstr "Ocorreu um erro inesperado ao enviar o e-mail."
+
+#: ../../../app/madmin/resources/push_resource.rb:24
+#: ../../../app/views/pushes/audit.html.erb:4
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:120
+msgid "Audit Log"
+msgstr "Registro de Auditoria"
 
 #: ../../../app/mailers/push_created_mailer.rb:14
 msgid "Someone"
@@ -399,7 +414,7 @@ msgid "Administration Home"
 msgstr "Início da administração"
 
 #: ../../../app/views/admin/_navigation.html.erb:37
-#: ../../../app/views/admin/index.html.erb:121
+#: ../../../app/views/admin/index.html.erb:127
 msgid "System Administration"
 msgstr "Administração do sistema"
 
@@ -408,13 +423,13 @@ msgid "Admin Users"
 msgstr "Administradores"
 
 #: ../../../app/views/admin/_navigation.html.erb:50
-#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/admin/index.html.erb:167
 #: ../../../app/views/madmin/dashboard/show.html.erb:1
 msgid "Data Explorer"
 msgstr "Explorador de dados"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
-#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/admin/index.html.erb:152
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:37
 msgid "Background Jobs"
 msgstr "Tarefas em segundo plano"
@@ -424,6 +439,75 @@ msgstr "Tarefas em segundo plano"
 #: ../../../app/views/admin/custom_css/edit.html.erb:6
 msgid "Custom CSS"
 msgstr "CSS personalizado"
+
+#: ../../../app/views/admin/_release_banner.html.erb:6
+#: ../../../app/views/admin/_release_status_card.html.erb:25
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr ""
+"O Password Pusher v%{latest} está disponível (você está executando v%{current}"
+")"
+
+#: ../../../app/views/admin/_release_banner.html.erb:10
+msgid "This update includes a security release. Please upgrade as soon as possible."
+msgstr ""
+"Esta atualização inclui correções de segurança. Atualize o mais rápido possíve"
+"l."
+
+#: ../../../app/views/admin/_release_banner.html.erb:15
+#: ../../../app/views/admin/_release_status_card.html.erb:29
+msgid "View release notes"
+msgstr "Ver notas de lançamento"
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+msgid "Dismiss"
+msgstr "Liberar"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:5
+msgid "Version & Updates"
+msgstr "Versões e atualizações"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:7
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "Versão OSS %{version}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Check now"
+msgstr "Confira agora"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:17
+msgid "Update checks are disabled for this instance."
+msgstr "As verificações de atualização estão desativadas para esta instância."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:21
+msgid "No update information yet. Run a check to see if a newer release is available."
+msgstr ""
+"Ainda não há informações sobre atualizações. Verifique se há uma versão mais r"
+"ecente disponível."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid ""
+"A newer release includes security fixes. This notice cannot be dismissed until"
+" you upgrade."
+msgstr ""
+"Uma versão mais recente inclui correções de segurança. Este aviso não pode ser"
+" descartado até que você atualize."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:37
+msgid "Newer releases"
+msgstr "Lançamentos mais recentes"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:46
+msgid "Security"
+msgstr "Segurança"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:58
+msgid "Notes"
+msgstr "Notas de domínio personalizado"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:67
+msgid "You're running the latest version."
+msgstr "Você está executando a versão mais recente."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -538,27 +622,23 @@ msgstr ""
 "Gerencie as configurações do seu aplicativo e a administração do sistema a par"
 "tir deste local central."
 
-#: ../../../app/views/admin/index.html.erb:21
-msgid "OSS Version %{version}"
-msgstr "Versão OSS %{version}"
-
-#: ../../../app/views/admin/index.html.erb:40
+#: ../../../app/views/admin/index.html.erb:46
 msgid "Total Users"
 msgstr "Total de usuários"
 
-#: ../../../app/views/admin/index.html.erb:60
+#: ../../../app/views/admin/index.html.erb:66
 msgid "Total Pushes"
 msgstr "Total de envios"
 
-#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/admin/index.html.erb:86
 msgid "Active Pushes"
 msgstr "Envios ativos"
 
-#: ../../../app/views/admin/index.html.erb:100
+#: ../../../app/views/admin/index.html.erb:106
 msgid "Total Audit Logs"
 msgstr "Registros de auditoria totais"
 
-#: ../../../app/views/admin/index.html.erb:123
+#: ../../../app/views/admin/index.html.erb:129
 msgid ""
 "Monitor system performance, manage background jobs, and analyze usage patterns"
 "."
@@ -566,97 +646,97 @@ msgstr ""
 "Monitore o desempenho do sistema, gerencie tarefas em segundo plano e analise "
 "padrões de uso."
 
-#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/index.html.erb:137
 #: ../../../app/views/admin/users/index.html.erb:1
 #: ../../../app/views/admin/users/index.html.erb:9
 #: ../../../app/views/admin/users/index.html.erb:23
 msgid "Administrator Management"
 msgstr "Gerenciamento de administradores"
 
-#: ../../../app/views/admin/index.html.erb:132
+#: ../../../app/views/admin/index.html.erb:138
 msgid "Manage admin accounts and privileges"
 msgstr "Gerenciar contas e privilégios de administrador."
 
-#: ../../../app/views/admin/index.html.erb:147
+#: ../../../app/views/admin/index.html.erb:153
 msgid "Monitor and manage queued tasks"
 msgstr "Monitorar e gerenciar tarefas em fila"
 
-#: ../../../app/views/admin/index.html.erb:162
+#: ../../../app/views/admin/index.html.erb:168
 msgid "Query data and manage records"
 msgstr "Consultar dados e gerenciar registros"
 
-#: ../../../app/views/admin/index.html.erb:184
+#: ../../../app/views/admin/index.html.erb:190
 msgid "Database Administration"
 msgstr "Administração de banco de dados"
 
-#: ../../../app/views/admin/index.html.erb:186
+#: ../../../app/views/admin/index.html.erb:192
 msgid "Direct access to database records and user management tools."
 msgstr ""
 "Acesso direto aos registros do banco de dados e às ferramentas de gerenciament"
 "o de usuários."
 
-#: ../../../app/views/admin/index.html.erb:192
+#: ../../../app/views/admin/index.html.erb:198
 msgid "Advanced Database Access"
 msgstr "Acesso avançado ao banco de dados"
 
-#: ../../../app/views/admin/index.html.erb:193
+#: ../../../app/views/admin/index.html.erb:199
 msgid "Direct record manipulation and management"
 msgstr "Manipulação e gerenciamento direto de registros"
 
-#: ../../../app/views/admin/index.html.erb:196
+#: ../../../app/views/admin/index.html.erb:202
 msgid "Open Data Explorer"
 msgstr "Abrir o Explorador de Dados"
 
-#: ../../../app/views/admin/index.html.erb:218
+#: ../../../app/views/admin/index.html.erb:224
 msgid "Resources & Support"
 msgstr "Recursos e suporte"
 
-#: ../../../app/views/admin/index.html.erb:220
+#: ../../../app/views/admin/index.html.erb:226
 msgid "Access documentation, source code, releases, and get help when you need it."
 msgstr ""
 "Acesse a documentação, o código-fonte, as versões e obtenha ajuda quando preci"
 "sar."
 
-#: ../../../app/views/admin/index.html.erb:230
+#: ../../../app/views/admin/index.html.erb:236
 msgid "GitHub Repository"
 msgstr "Repositório GitHub"
 
-#: ../../../app/views/admin/index.html.erb:231
+#: ../../../app/views/admin/index.html.erb:237
 msgid "View source code and contribute"
 msgstr "Veja o código-fonte e contribua."
 
-#: ../../../app/views/admin/index.html.erb:246
+#: ../../../app/views/admin/index.html.erb:252
 msgid "Latest Releases"
 msgstr "Lançamentos mais recentes"
 
-#: ../../../app/views/admin/index.html.erb:247
+#: ../../../app/views/admin/index.html.erb:253
 msgid "View changelog and download updates"
 msgstr "Veja o registro de alterações e baixe as atualizações."
 
-#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/admin/index.html.erb:268
 #: ../../../app/views/pages/about.html.erb:102
 #: ../../../app/views/shared/_footer.html.erb:19
 #: ../../../app/views/users/first_runs/new.html.erb:190
 msgid "Documentation"
 msgstr "Documentação"
 
-#: ../../../app/views/admin/index.html.erb:263
+#: ../../../app/views/admin/index.html.erb:269
 msgid "Complete setup and usage guides"
 msgstr "Guias completos de instalação e utilização"
 
-#: ../../../app/views/admin/index.html.erb:278
+#: ../../../app/views/admin/index.html.erb:284
 msgid "Support"
 msgstr "Suporte"
 
-#: ../../../app/views/admin/index.html.erb:279
+#: ../../../app/views/admin/index.html.erb:285
 msgid "Get help and report issues"
 msgstr "Obtenha ajuda e relate problemas"
 
-#: ../../../app/views/admin/index.html.erb:299
+#: ../../../app/views/admin/index.html.erb:305
 msgid "Getting Started"
 msgstr "Primeiros passos"
 
-#: ../../../app/views/admin/index.html.erb:302
+#: ../../../app/views/admin/index.html.erb:308
 msgid ""
 "Welcome to the Password Pusher Administration Center! Here's your complete too"
 "lkit:"
@@ -664,49 +744,49 @@ msgstr ""
 "Bem-vindo ao Centro de Administração do Password Pusher! Aqui está seu conjunt"
 "o completo de ferramentas:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "👥 Manage Administrators:"
 msgstr "👥 Gerenciar administradores:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "Promote or revoke admin privileges for users in your system"
 msgstr "Promova ou revogue privilégios de administrador para usuários em seu sistema."
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "📊 Monitor Background Jobs:"
 msgstr "📊 Monitorar trabalhos em segundo plano:"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "Track email notifications, push cleanup, and system processing tasks"
 msgstr ""
 "Acompanhe notificações por e-mail, a limpeza de envios e as tarefas de process"
 "amento do sistema."
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "🗄️ Explore Database:"
 msgstr "🗄️ Explorar Banco de Dados:"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Acesso direto a usuários, envios, registros de auditoria e registros de armaze"
 "namento de arquivos."
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "📈 View System Stats:"
 msgstr "📈 Ver estatísticas do sistema:"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
 msgstr ""
 "Monitore a atividade dos usuários, a quantidade de envios e as entradas do reg"
 "istro de auditoria."
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "🔍 Track Activity:"
 msgstr "🔍 Acompanhe a atividade:"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "Analise os registros de auditoria para entender o uso do sistema e os eventos "
@@ -746,7 +826,7 @@ msgstr "Último login"
 
 #: ../../../app/views/admin/users/index.html.erb:53
 #: ../../../app/views/admin/users/index.html.erb:145
-#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/application/index.html.erb:71
 #: ../../../app/views/madmin/users/index.html.erb:63
 #: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
@@ -1408,7 +1488,7 @@ msgid "Edit %{name}"
 msgstr "Editar %{name}"
 
 #: ../../../app/views/madmin/application/edit.html.erb:13
-#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/index.html.erb:85
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
 #: ../../../app/views/pushes/preview.html.erb:123
@@ -1430,33 +1510,35 @@ msgstr "Gerenciar registros de %{name}"
 msgid "New %{name}"
 msgstr "Novo %{name}"
 
-#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/application/index.html.erb:27
 #: ../../../app/views/madmin/users/index.html.erb:26
 msgid "Search %{name}..."
 msgstr "Pesquisar %{name}..."
 
-#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/application/index.html.erb:28
 #: ../../../app/views/madmin/users/index.html.erb:27
 msgid "Search"
 msgstr "Pesquisar"
 
-#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/application/index.html.erb:41
 #: ../../../app/views/madmin/users/index.html.erb:40
 #: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "Todos"
 
-#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/application/index.html.erb:54
+msgid "Showing records that match the current filter."
+msgstr "Exibindo registros que correspondem ao filtro atual."
+
+#: ../../../app/views/madmin/application/index.html.erb:55
+msgid "Clear filter"
+msgstr "Limpar filtro"
+
+#: ../../../app/views/madmin/application/index.html.erb:84
 #: ../../../app/views/madmin/users/index.html.erb:82
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:35
+msgctxt "button"
 msgid "View"
-msgid_plural "Views"
-msgstr[0] "Visualização"
-msgstr[1] "Visualizações"
+msgstr "Visualizar"
 
 #: ../../../app/views/madmin/application/new.html.erb:18
 msgid "Create a new %{name} record"
@@ -2199,8 +2281,8 @@ msgid "Requests API availability (not available in OSS)"
 msgstr "Disponibilidade da API de solicitações (não disponível na edição OSS)"
 
 #: ../../../app/views/pages/api.html.erb:91
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:83
+#: ../../../app/views/pushes/_form.html.erb:101
+#: ../../../app/views/pushes/_qr_form.html.erb:81
 msgid "Password Generator"
 msgstr "Gerador de senhas"
 
@@ -2791,169 +2873,137 @@ msgstr[1] "%{count} erros impediram que esta atualização fosse salva:"
 msgid "Securely Send Files"
 msgstr "Enviar arquivos com segurança"
 
-#: ../../../app/views/pushes/_files_form.html.erb:6
-#: ../../../app/views/pushes/_form.html.erb:6
-#: ../../../app/views/pushes/_qr_form.html.erb:6
-#: ../../../app/views/pushes/_url_form.html.erb:6
-#: ../../../app/views/pushes/audit.html.erb:43
-msgid "Day"
-msgid_plural "Days"
-msgstr[0] "Dia"
-msgstr[1] "Dias"
-
-#: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:90
-#: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:58
-msgid "Days"
-msgstr "Dias"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:107
+#: ../../../app/views/pushes/_files_form.html.erb:141
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:184
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:130
+#: ../../../app/views/pushes/_qr_form.html.erb:166
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:76
-msgid "Views"
-msgstr "Visualizações"
-
-#: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:102
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:143
 msgid "Save"
 msgstr "Salvar"
 
-#: ../../../app/views/pushes/_files_form.html.erb:13
-#: ../../../app/views/pushes/_form.html.erb:13
-#: ../../../app/views/pushes/_qr_form.html.erb:13
-#: ../../../app/views/pushes/_url_form.html.erb:13
+#: ../../../app/views/pushes/_files_form.html.erb:11
+#: ../../../app/views/pushes/_form.html.erb:11
+#: ../../../app/views/pushes/_qr_form.html.erb:11
+#: ../../../app/views/pushes/_url_form.html.erb:11
 msgid "Saved!"
 msgstr "Salvo!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:28
+#: ../../../app/views/pushes/_files_form.html.erb:26
 msgid "Uploaded Files"
 msgstr "Arquivos enviados"
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:42
 msgid "Are you sure you want to delete this file?"
 msgstr "Tem certeza de que deseja excluir este arquivo?"
 
-#: ../../../app/views/pushes/_files_form.html.erb:57
+#: ../../../app/views/pushes/_files_form.html.erb:55
 msgid "Add Files..."
 msgstr "Adicionar arquivos..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:72
+#: ../../../app/views/pushes/_files_form.html.erb:70
 msgid "You can upload up to %{count} files per push."
 msgstr "Você pode enviar até %{count} arquivos por envio."
 
-#: ../../../app/views/pushes/_files_form.html.erb:76
-#: ../../../app/views/pushes/_form.html.erb:120
-#: ../../../app/views/pushes/_qr_form.html.erb:100
-#: ../../../app/views/pushes/_url_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:74
+#: ../../../app/views/pushes/_form.html.erb:118
+#: ../../../app/views/pushes/_qr_form.html.erb:98
+#: ../../../app/views/pushes/_url_form.html.erb:42
 msgid "Expire secret link and delete after:"
 msgstr "Expirar e excluir o link secreto após:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:110
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:133
-#: ../../../app/views/pushes/_url_form.html.erb:79
+#: ../../../app/views/pushes/_files_form.html.erb:108
+#: ../../../app/views/pushes/_form.html.erb:151
+#: ../../../app/views/pushes/_qr_form.html.erb:131
+#: ../../../app/views/pushes/_url_form.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(o que ocorrer primeiro)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:124
-#: ../../../app/views/pushes/_form.html.erb:167
-#: ../../../app/views/pushes/_qr_form.html.erb:148
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:122
+#: ../../../app/views/pushes/_form.html.erb:165
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Usar uma etapa de recuperação com um clique"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:149
+#: ../../../app/views/pushes/_files_form.html.erb:123
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:147
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Ajuda a evitar que sistemas de bate-papo e scanners de URL consumam visualizaç"
 "ões."
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:131
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
 msgid "Allow immediate deletion"
 msgstr "Permitir exclusão imediata"
 
-#: ../../../app/views/pushes/_files_form.html.erb:134
-#: ../../../app/views/pushes/_form.html.erb:177
-#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_files_form.html.erb:132
+#: ../../../app/views/pushes/_form.html.erb:175
+#: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Allow users to delete this push once retrieved."
 msgstr "Permita que os usuários excluam este envio após acessá-lo."
 
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_files_form.html.erb:141
+#: ../../../app/views/pushes/_form.html.erb:184
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:102
 msgid "the above settings as the page default."
 msgstr "as configurações acima como padrão da página."
 
-#: ../../../app/views/pushes/_files_form.html.erb:153
-#: ../../../app/views/pushes/_files_form.html.erb:176
-#: ../../../app/views/pushes/_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:206
-#: ../../../app/views/pushes/_qr_form.html.erb:178
-#: ../../../app/views/pushes/_qr_form.html.erb:188
-#: ../../../app/views/pushes/_url_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:124
+#: ../../../app/views/pushes/_files_form.html.erb:151
+#: ../../../app/views/pushes/_files_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:204
+#: ../../../app/views/pushes/_qr_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:112
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "Optional"
 msgstr "Opcional"
 
-#: ../../../app/views/pushes/_files_form.html.erb:156
-#: ../../../app/views/pushes/_form.html.erb:199
-#: ../../../app/views/pushes/_qr_form.html.erb:181
-#: ../../../app/views/pushes/_url_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_form.html.erb:197
+#: ../../../app/views/pushes/_qr_form.html.erb:179
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "Um nome exibido no painel, notificações e e-mails."
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:159
 msgid "Message"
 msgstr "Mensagem"
 
-#: ../../../app/views/pushes/_files_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:162
 msgid "Optional: A message to be included with the push"
 msgstr "Opcional: uma mensagem a ser incluída no envio"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Encrypted and visible to the receiving party"
 msgstr "Criptografado e visível para o destinatário"
 
-#: ../../../app/views/pushes/_files_form.html.erb:173
-#: ../../../app/views/pushes/_form.html.erb:203
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:171
+#: ../../../app/views/pushes/_form.html.erb:201
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:119
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "Observação"
 
-#: ../../../app/views/pushes/_files_form.html.erb:179
-#: ../../../app/views/pushes/_form.html.erb:209
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:127
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:207
+#: ../../../app/views/pushes/_qr_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:125
 msgid "Encrypted and visible only to you"
 msgstr "Criptografado e visível apenas para você"
 
-#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_files_form.html.erb:182
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2961,36 +3011,36 @@ msgstr ""
 "Após a expiração, todos os arquivos e o conteúdo do envio serão excluídos imed"
 "iatamente e por completo."
 
-#: ../../../app/views/pushes/_files_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "An audit log of activity will be available."
 msgstr "Um registro de auditoria das atividades estará disponível."
 
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
 msgid "Updating..."
 msgstr "Atualizando..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
+msgid "Update Push"
+msgstr "Atualizar envio"
+
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
 #: ../../../app/views/pushes/_qr_form.html.erb:206
 #: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Update Push"
-msgstr "Atualizar envio"
-
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
 msgid "Pushing..."
 msgstr "Enviando..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Enviar!"
 
@@ -2998,60 +3048,60 @@ msgstr "Enviar!"
 msgid "Securely Send a Password"
 msgstr "Envie uma senha com segurança"
 
-#: ../../../app/views/pushes/_form.html.erb:33
-#: ../../../app/views/pushes/_qr_form.html.erb:33
+#: ../../../app/views/pushes/_form.html.erb:31
+#: ../../../app/views/pushes/_qr_form.html.erb:31
 msgid "%{value} bits"
 msgstr "%{value} bits"
 
-#: ../../../app/views/pushes/_form.html.erb:34
+#: ../../../app/views/pushes/_form.html.erb:32
 #: ../../../app/views/pushes/_passphrase_field.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:34
+#: ../../../app/views/pushes/_qr_form.html.erb:32
 msgid "Password generation failed."
 msgstr "Falha na geração da senha."
 
-#: ../../../app/views/pushes/_form.html.erb:50
+#: ../../../app/views/pushes/_form.html.erb:48
 msgid "Content is hidden for privacy. Click the field below to reveal and edit."
 msgstr ""
 "O conteúdo está oculto por motivos de privacidade. Clique no campo abaixo para"
 " revelar e editar."
 
-#: ../../../app/views/pushes/_form.html.erb:54
-#: ../../../app/views/pushes/_form.html.erb:71
+#: ../../../app/views/pushes/_form.html.erb:52
+#: ../../../app/views/pushes/_form.html.erb:69
 msgid "Enter the Password or Text to push..."
 msgstr "Digite a senha ou o texto para enviar..."
 
-#: ../../../app/views/pushes/_form.html.erb:67
-#: ../../../app/views/pushes/_form.html.erb:86
-#: ../../../app/views/pushes/_form.html.erb:87
-#: ../../../app/views/pushes/_qr_form.html.erb:47
-#: ../../../app/views/pushes/_qr_form.html.erb:67
-#: ../../../app/views/pushes/_qr_form.html.erb:68
+#: ../../../app/views/pushes/_form.html.erb:65
+#: ../../../app/views/pushes/_form.html.erb:84
+#: ../../../app/views/pushes/_form.html.erb:85
+#: ../../../app/views/pushes/_qr_form.html.erb:45
+#: ../../../app/views/pushes/_qr_form.html.erb:65
+#: ../../../app/views/pushes/_qr_form.html.erb:66
 msgid "Hide payload"
 msgstr "Ocultar carga útil"
 
-#: ../../../app/views/pushes/_form.html.erb:68
-#: ../../../app/views/pushes/_qr_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:46
 msgid "Show payload"
 msgstr "Mostrar carga útil"
 
-#: ../../../app/views/pushes/_form.html.erb:96
-#: ../../../app/views/pushes/_qr_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:94
+#: ../../../app/views/pushes/_qr_form.html.erb:74
 msgid "Characters"
 msgstr "Caracteres "
 
-#: ../../../app/views/pushes/_form.html.erb:107
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_form.html.erb:105
+#: ../../../app/views/pushes/_qr_form.html.erb:85
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Gerar senha"
 
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:91
+#: ../../../app/views/pushes/_form.html.erb:109
+#: ../../../app/views/pushes/_qr_form.html.erb:89
 msgid "Configure Generator"
 msgstr "Configurar gerador"
 
-#: ../../../app/views/pushes/_form.html.erb:214
-#: ../../../app/views/pushes/_qr_form.html.erb:196
+#: ../../../app/views/pushes/_form.html.erb:212
+#: ../../../app/views/pushes/_qr_form.html.erb:194
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -3059,8 +3109,8 @@ msgstr ""
 "Dica: Insira apenas uma senha no campo indicado. Outras informações de identif"
 "icação podem comprometer a segurança."
 
-#: ../../../app/views/pushes/_form.html.erb:215
-#: ../../../app/views/pushes/_qr_form.html.erb:197
+#: ../../../app/views/pushes/_form.html.erb:213
+#: ../../../app/views/pushes/_qr_form.html.erb:195
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -3101,7 +3151,7 @@ msgstr "Gerar senha"
 msgid "Securely Send a QR Code"
 msgstr "Envie um código QR com segurança"
 
-#: ../../../app/views/pushes/_qr_form.html.erb:51
+#: ../../../app/views/pushes/_qr_form.html.erb:49
 msgid "Enter up to 1024 characters..."
 msgstr "Insira até 1024 caracteres..."
 
@@ -3120,37 +3170,31 @@ msgstr "Sua senha está desfocada. Clique abaixo para revelá-la."
 msgid "Securely Send URLs"
 msgstr "Enviar URLs com segurança"
 
-#: ../../../app/views/pushes/_url_form.html.erb:26
+#: ../../../app/views/pushes/_url_form.html.erb:24
 msgid "URL Redirection"
 msgstr "Redirecionamento de URL"
 
-#: ../../../app/views/pushes/_url_form.html.erb:30
+#: ../../../app/views/pushes/_url_form.html.erb:28
 msgid "Enter the URL to redirect to..."
 msgstr "Digite a URL de destino..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Ajuda a evitar que sistemas de bate-papo e scanners de URL consumam redirecion"
 "amentos."
 
-#: ../../../app/views/pushes/_url_form.html.erb:132
+#: ../../../app/views/pushes/_url_form.html.erb:130
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "Será gerada uma URL secreta que redirecionará para a URL especificada."
 
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "Ao expirar, a URL do envio será excluída permanentemente."
 
 #: ../../../app/views/pushes/audit.html.erb:1
 msgid "Audit Log for %{push_id}"
 msgstr "Registro de auditoria para %{push_id}"
-
-#: ../../../app/views/pushes/audit.html.erb:4
-#: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:120
-msgid "Audit Log"
-msgstr "Registro de Auditoria"
 
 #: ../../../app/views/pushes/audit.html.erb:7
 msgid "Pushed on"
@@ -3177,9 +3221,21 @@ msgstr "Configurações"
 msgid "Expire after"
 msgstr "Expirar após"
 
+#: ../../../app/views/pushes/audit.html.erb:35
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Visualização"
+msgstr[1] "Visualizações"
+
 #: ../../../app/views/pushes/audit.html.erb:36
 msgid "The push expires after this number of views."
 msgstr "O envio expira após esse número de visualizações."
+
+#: ../../../app/views/pushes/audit.html.erb:43
+msgid "Day"
+msgid_plural "Days"
+msgstr[0] "Dia"
+msgstr[1] "Dias"
 
 #: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."

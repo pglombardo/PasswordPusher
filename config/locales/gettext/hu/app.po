@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pwpush-oss 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-10-27 18:10+0100\n"
-"PO-Revision-Date: 2026-10-27 17:10+0000\n"
+"POT-Creation-Date: 2026-11-27 02:35+0100\n"
+"PO-Revision-Date: 2026-11-27 01:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hungarian\n"
 "Language: hu\n"
@@ -25,6 +25,14 @@ msgstr "Az egyéni CSS frissítése sikeresen megtörtént."
 #: ../../../app/controllers/admin/custom_css_controller.rb:13
 msgid "Error updating CSS: %{error}"
 msgstr "Hiba a CSS frissítése során: %{error}"
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:13
+msgid "Checked for updates."
+msgstr "Frissítések ellenőrzése megtörtént."
+
+#: ../../../app/controllers/admin/release_checks_controller.rb:16
+msgid "Could not check for updates. Try again later."
+msgstr "Nem sikerült frissítéseket keresni. Próbáld újra később."
 
 #: ../../../app/controllers/admin/users_controller.rb:49
 msgid "You cannot delete your own account."
@@ -212,7 +220,7 @@ msgstr "A kétfaktoros hitelesítést nem lehet letiltani, mert a rendszergazda 
 msgid "Two-factor authentication has been disabled."
 msgstr "A kétfaktoros hitelesítés le van tiltva."
 
-#: ../../../app/helpers/pushes_helper.rb:15
+#: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
 #: ../../../app/views/pushes/print_preview.html.erb:13
@@ -281,6 +289,13 @@ msgstr "Néhány e-mailt nem sikerült elküldeni."
 #: ../../../app/jobs/send_notify_by_email_job.rb:56
 msgid "An unexpected error occurred while sending the email."
 msgstr "Váratlan hiba történt az e-mail küldése közben."
+
+#: ../../../app/madmin/resources/push_resource.rb:24
+#: ../../../app/views/pushes/audit.html.erb:4
+#: ../../../app/views/pushes/index.html.erb:107
+#: ../../../app/views/pushes/preview.html.erb:120
+msgid "Audit Log"
+msgstr "Ellenőrzési napló"
 
 #: ../../../app/mailers/push_created_mailer.rb:14
 msgid "Someone"
@@ -395,7 +410,7 @@ msgid "Administration Home"
 msgstr "Adminisztráció Főoldal"
 
 #: ../../../app/views/admin/_navigation.html.erb:37
-#: ../../../app/views/admin/index.html.erb:121
+#: ../../../app/views/admin/index.html.erb:127
 msgid "System Administration"
 msgstr "Rendszeradminisztráció"
 
@@ -404,13 +419,13 @@ msgid "Admin Users"
 msgstr "Adminisztrátori felhasználók"
 
 #: ../../../app/views/admin/_navigation.html.erb:50
-#: ../../../app/views/admin/index.html.erb:161
+#: ../../../app/views/admin/index.html.erb:167
 #: ../../../app/views/madmin/dashboard/show.html.erb:1
 msgid "Data Explorer"
 msgstr "Adatkezelő"
 
 #: ../../../app/views/admin/_navigation.html.erb:57
-#: ../../../app/views/admin/index.html.erb:146
+#: ../../../app/views/admin/index.html.erb:152
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:37
 msgid "Background Jobs"
 msgstr "Háttérfeladatok"
@@ -420,6 +435,73 @@ msgstr "Háttérfeladatok"
 #: ../../../app/views/admin/custom_css/edit.html.erb:6
 msgid "Custom CSS"
 msgstr "Egyéni CSS"
+
+#: ../../../app/views/admin/_release_banner.html.erb:6
+#: ../../../app/views/admin/_release_status_card.html.erb:25
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "A v%{latest} jelszóküldő elérhető (a v%{current} parancsot futtatja)"
+
+#: ../../../app/views/admin/_release_banner.html.erb:10
+msgid "This update includes a security release. Please upgrade as soon as possible."
+msgstr ""
+"Ez a frissítés egy biztonsági kiadást is tartalmaz. Kérjük, frissítsen amint l"
+"ehetséges."
+
+#: ../../../app/views/admin/_release_banner.html.erb:15
+#: ../../../app/views/admin/_release_status_card.html.erb:29
+msgid "View release notes"
+msgstr "Kiadási megjegyzések megtekintése"
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+msgid "Dismiss"
+msgstr "Elvetés"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:5
+msgid "Version & Updates"
+msgstr "Verzió és frissítések"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:7
+#: ../../../app/views/admin/index.html.erb:21
+msgid "OSS Version %{version}"
+msgstr "OSS verzió %{version}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Check now"
+msgstr "Ellenőrizd most"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:17
+msgid "Update checks are disabled for this instance."
+msgstr "A frissítések ellenőrzése ebben a példányban le van tiltva."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:21
+msgid "No update information yet. Run a check to see if a newer release is available."
+msgstr ""
+"Még nincsenek frissítési információk. Ellenőrizd, hogy elérhető-e újabb kiadás"
+"."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid ""
+"A newer release includes security fixes. This notice cannot be dismissed until"
+" you upgrade."
+msgstr ""
+"Egy újabb kiadás biztonsági javításokat tartalmaz. Ez az értesítés a frissítés"
+"ig nem zárható be."
+
+#: ../../../app/views/admin/_release_status_card.html.erb:37
+msgid "Newer releases"
+msgstr "Újabb kiadások"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:46
+msgid "Security"
+msgstr "Biztonság"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:58
+msgid "Notes"
+msgstr "Egyedi domain megjegyzések"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:67
+msgid "You're running the latest version."
+msgstr "A legújabb verziót futtatod."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -536,27 +618,23 @@ msgstr ""
 "Kezelje alkalmazásbeállításait és rendszeradminisztrációját erről a központi h"
 "elyről."
 
-#: ../../../app/views/admin/index.html.erb:21
-msgid "OSS Version %{version}"
-msgstr "OSS verzió %{version}"
-
-#: ../../../app/views/admin/index.html.erb:40
+#: ../../../app/views/admin/index.html.erb:46
 msgid "Total Users"
 msgstr "Összes felhasználó"
 
-#: ../../../app/views/admin/index.html.erb:60
+#: ../../../app/views/admin/index.html.erb:66
 msgid "Total Pushes"
 msgstr "Összes leküldés"
 
-#: ../../../app/views/admin/index.html.erb:80
+#: ../../../app/views/admin/index.html.erb:86
 msgid "Active Pushes"
 msgstr "Aktív küldések"
 
-#: ../../../app/views/admin/index.html.erb:100
+#: ../../../app/views/admin/index.html.erb:106
 msgid "Total Audit Logs"
 msgstr "Összes naplófájl"
 
-#: ../../../app/views/admin/index.html.erb:123
+#: ../../../app/views/admin/index.html.erb:129
 msgid ""
 "Monitor system performance, manage background jobs, and analyze usage patterns"
 "."
@@ -564,97 +642,97 @@ msgstr ""
 "Figyelemmel kíséri a rendszer teljesítményét, kezeli a háttérben futó feladato"
 "kat és elemzi a használati mintákat."
 
-#: ../../../app/views/admin/index.html.erb:131
+#: ../../../app/views/admin/index.html.erb:137
 #: ../../../app/views/admin/users/index.html.erb:1
 #: ../../../app/views/admin/users/index.html.erb:9
 #: ../../../app/views/admin/users/index.html.erb:23
 msgid "Administrator Management"
 msgstr "Adminisztrátor menedzsment"
 
-#: ../../../app/views/admin/index.html.erb:132
+#: ../../../app/views/admin/index.html.erb:138
 msgid "Manage admin accounts and privileges"
 msgstr "Rendszergazdai fiókok és jogosultságok kezelése"
 
-#: ../../../app/views/admin/index.html.erb:147
+#: ../../../app/views/admin/index.html.erb:153
 msgid "Monitor and manage queued tasks"
 msgstr "Várakozó feladatok figyelése és kezelése"
 
-#: ../../../app/views/admin/index.html.erb:162
+#: ../../../app/views/admin/index.html.erb:168
 msgid "Query data and manage records"
 msgstr "Adatok lekérdezése és rekordok kezelése"
 
-#: ../../../app/views/admin/index.html.erb:184
+#: ../../../app/views/admin/index.html.erb:190
 msgid "Database Administration"
 msgstr "Adatbázis-adminisztráció"
 
-#: ../../../app/views/admin/index.html.erb:186
+#: ../../../app/views/admin/index.html.erb:192
 msgid "Direct access to database records and user management tools."
 msgstr ""
 "Közvetlen hozzáférés az adatbázisrekordokhoz és a felhasználókezelő eszközökhö"
 "z."
 
-#: ../../../app/views/admin/index.html.erb:192
+#: ../../../app/views/admin/index.html.erb:198
 msgid "Advanced Database Access"
 msgstr "Speciális adatbázis-hozzáférés"
 
-#: ../../../app/views/admin/index.html.erb:193
+#: ../../../app/views/admin/index.html.erb:199
 msgid "Direct record manipulation and management"
 msgstr "Közvetlen rekordkezelés és -manipuláció"
 
-#: ../../../app/views/admin/index.html.erb:196
+#: ../../../app/views/admin/index.html.erb:202
 msgid "Open Data Explorer"
 msgstr "Adatkezelő megnyitása"
 
-#: ../../../app/views/admin/index.html.erb:218
+#: ../../../app/views/admin/index.html.erb:224
 msgid "Resources & Support"
 msgstr "Erőforrások és támogatás"
 
-#: ../../../app/views/admin/index.html.erb:220
+#: ../../../app/views/admin/index.html.erb:226
 msgid "Access documentation, source code, releases, and get help when you need it."
 msgstr ""
 "Hozzáférhetsz a dokumentációhoz, a forráskódhoz, a kiadásokhoz, és segítséget "
 "kaphatsz, amikor szükséged van rá."
 
-#: ../../../app/views/admin/index.html.erb:230
+#: ../../../app/views/admin/index.html.erb:236
 msgid "GitHub Repository"
 msgstr "GitHub adattár"
 
-#: ../../../app/views/admin/index.html.erb:231
+#: ../../../app/views/admin/index.html.erb:237
 msgid "View source code and contribute"
 msgstr "Forráskód megtekintése és közreműködés"
 
-#: ../../../app/views/admin/index.html.erb:246
+#: ../../../app/views/admin/index.html.erb:252
 msgid "Latest Releases"
 msgstr "Legújabb kiadások"
 
-#: ../../../app/views/admin/index.html.erb:247
+#: ../../../app/views/admin/index.html.erb:253
 msgid "View changelog and download updates"
 msgstr "Változási napló megtekintése és frissítések letöltése"
 
-#: ../../../app/views/admin/index.html.erb:262
+#: ../../../app/views/admin/index.html.erb:268
 #: ../../../app/views/pages/about.html.erb:102
 #: ../../../app/views/shared/_footer.html.erb:19
 #: ../../../app/views/users/first_runs/new.html.erb:190
 msgid "Documentation"
 msgstr "Dokumentáció"
 
-#: ../../../app/views/admin/index.html.erb:263
+#: ../../../app/views/admin/index.html.erb:269
 msgid "Complete setup and usage guides"
 msgstr "Teljes körű beállítási és használati útmutatók"
 
-#: ../../../app/views/admin/index.html.erb:278
+#: ../../../app/views/admin/index.html.erb:284
 msgid "Support"
 msgstr "Támogatás"
 
-#: ../../../app/views/admin/index.html.erb:279
+#: ../../../app/views/admin/index.html.erb:285
 msgid "Get help and report issues"
 msgstr "Segítség kérése és problémák jelentése"
 
-#: ../../../app/views/admin/index.html.erb:299
+#: ../../../app/views/admin/index.html.erb:305
 msgid "Getting Started"
 msgstr "Első lépések"
 
-#: ../../../app/views/admin/index.html.erb:302
+#: ../../../app/views/admin/index.html.erb:308
 msgid ""
 "Welcome to the Password Pusher Administration Center! Here's your complete too"
 "lkit:"
@@ -662,49 +740,49 @@ msgstr ""
 "Üdvözöljük a Password Pusher adminisztrációs központjában! Íme a teljes eszköz"
 "készlet:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "👥 Manage Administrators:"
 msgstr "👥 Adminisztrátorok kezelése:"
 
-#: ../../../app/views/admin/index.html.erb:304
+#: ../../../app/views/admin/index.html.erb:310
 msgid "Promote or revoke admin privileges for users in your system"
 msgstr ""
 "Előléptetheti vagy visszavonhatja a rendszer felhasználóinak rendszergazdai jo"
 "gosultságait"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "📊 Monitor Background Jobs:"
 msgstr "📊 Háttérfeladatok monitorozása:"
 
-#: ../../../app/views/admin/index.html.erb:305
+#: ../../../app/views/admin/index.html.erb:311
 msgid "Track email notifications, push cleanup, and system processing tasks"
 msgstr ""
 "E-mail értesítések, push értesítések és rendszerfeldolgozási feladatok nyomon "
 "követése"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "🗄️ Explore Database:"
 msgstr "🗄️ Adatbázis felfedezése:"
 
-#: ../../../app/views/admin/index.html.erb:306
+#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Közvetlen hozzáférés a felhasználókhoz, push üzenetekhez, auditnaplókhoz és fá"
 "jltárolási rekordokhoz"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "📈 View System Stats:"
 msgstr "📈 Rendszerstatisztikák megtekintése:"
 
-#: ../../../app/views/admin/index.html.erb:307
+#: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
 msgstr "Felhasználói aktivitás, push-számlálók és naplóbejegyzések figyelése"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "🔍 Track Activity:"
 msgstr "🔍 Tevékenység nyomon követése:"
 
-#: ../../../app/views/admin/index.html.erb:308
+#: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "A rendszerhasználat és a biztonsági események megértése érdekében tekintse át "
@@ -744,7 +822,7 @@ msgstr "Utolsó bejelentkezés"
 
 #: ../../../app/views/admin/users/index.html.erb:53
 #: ../../../app/views/admin/users/index.html.erb:145
-#: ../../../app/views/madmin/application/index.html.erb:63
+#: ../../../app/views/madmin/application/index.html.erb:71
 #: ../../../app/views/madmin/users/index.html.erb:63
 #: ../../../app/views/pushes/index.html.erb:37
 msgid "Actions"
@@ -1405,7 +1483,7 @@ msgid "Edit %{name}"
 msgstr "Szerkesztés %{name}"
 
 #: ../../../app/views/madmin/application/edit.html.erb:13
-#: ../../../app/views/madmin/application/index.html.erb:77
+#: ../../../app/views/madmin/application/index.html.erb:85
 #: ../../../app/views/madmin/application/show.html.erb:25
 #: ../../../app/views/pushes/index.html.erb:103
 #: ../../../app/views/pushes/preview.html.erb:123
@@ -1427,33 +1505,35 @@ msgstr "%{name} rekordok kezelése"
 msgid "New %{name}"
 msgstr "Új %{name}"
 
-#: ../../../app/views/madmin/application/index.html.erb:26
+#: ../../../app/views/madmin/application/index.html.erb:27
 #: ../../../app/views/madmin/users/index.html.erb:26
 msgid "Search %{name}..."
 msgstr "Keresés %{name}..."
 
-#: ../../../app/views/madmin/application/index.html.erb:27
+#: ../../../app/views/madmin/application/index.html.erb:28
 #: ../../../app/views/madmin/users/index.html.erb:27
 msgid "Search"
 msgstr "Keresés"
 
-#: ../../../app/views/madmin/application/index.html.erb:40
+#: ../../../app/views/madmin/application/index.html.erb:41
 #: ../../../app/views/madmin/users/index.html.erb:40
 #: ../../../app/views/shared/_dashboard_header.html.erb:11
 msgid "All"
 msgstr "Minden"
 
-#: ../../../app/views/madmin/application/index.html.erb:76
+#: ../../../app/views/madmin/application/index.html.erb:54
+msgid "Showing records that match the current filter."
+msgstr "Az aktuális szűrőnek megfelelő rekordok megjelenítése."
+
+#: ../../../app/views/madmin/application/index.html.erb:55
+msgid "Clear filter"
+msgstr "Szűrő törlése"
+
+#: ../../../app/views/madmin/application/index.html.erb:84
 #: ../../../app/views/madmin/users/index.html.erb:82
-#: ../../../app/views/pushes/_files_form.html.erb:9
-#: ../../../app/views/pushes/_form.html.erb:9
-#: ../../../app/views/pushes/_qr_form.html.erb:9
-#: ../../../app/views/pushes/_url_form.html.erb:9
-#: ../../../app/views/pushes/audit.html.erb:35
+msgctxt "button"
 msgid "View"
-msgid_plural "Views"
-msgstr[0] "Megtekintés"
-msgstr[1] "Megtekintések"
+msgstr "Megtekintés"
 
 #: ../../../app/views/madmin/application/new.html.erb:18
 msgid "Create a new %{name} record"
@@ -2198,8 +2278,8 @@ msgid "Requests API availability (not available in OSS)"
 msgstr "API elérhetőségét kéri (nem érhető el OSS-ben)"
 
 #: ../../../app/views/pages/api.html.erb:91
-#: ../../../app/views/pushes/_form.html.erb:103
-#: ../../../app/views/pushes/_qr_form.html.erb:83
+#: ../../../app/views/pushes/_form.html.erb:101
+#: ../../../app/views/pushes/_qr_form.html.erb:81
 msgid "Password Generator"
 msgstr "Jelszógenerátor"
 
@@ -2785,173 +2865,141 @@ msgstr[1] "Az %{count} hibák megakadályozták a push mentését:"
 msgid "Securely Send Files"
 msgstr "Fájlok biztonságos küldése"
 
-#: ../../../app/views/pushes/_files_form.html.erb:6
-#: ../../../app/views/pushes/_form.html.erb:6
-#: ../../../app/views/pushes/_qr_form.html.erb:6
-#: ../../../app/views/pushes/_url_form.html.erb:6
-#: ../../../app/views/pushes/audit.html.erb:43
-msgid "Day"
-msgid_plural "Days"
-msgstr[0] "nap"
-msgstr[1] "nap"
-
-#: ../../../app/views/pushes/_files_form.html.erb:7
-#: ../../../app/views/pushes/_files_form.html.erb:90
-#: ../../../app/views/pushes/_form.html.erb:7
-#: ../../../app/views/pushes/_form.html.erb:134
-#: ../../../app/views/pushes/_qr_form.html.erb:7
-#: ../../../app/views/pushes/_qr_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:7
-#: ../../../app/views/pushes/_url_form.html.erb:58
-msgid "Days"
-msgstr "nap"
-
 #: ../../../app/views/pushes/_files_form.html.erb:10
-#: ../../../app/views/pushes/_files_form.html.erb:107
+#: ../../../app/views/pushes/_files_form.html.erb:141
 #: ../../../app/views/pushes/_form.html.erb:10
-#: ../../../app/views/pushes/_form.html.erb:150
+#: ../../../app/views/pushes/_form.html.erb:184
 #: ../../../app/views/pushes/_qr_form.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:130
+#: ../../../app/views/pushes/_qr_form.html.erb:166
 #: ../../../app/views/pushes/_url_form.html.erb:10
-#: ../../../app/views/pushes/_url_form.html.erb:76
-msgid "Views"
-msgstr "megtekintés"
-
-#: ../../../app/views/pushes/_files_form.html.erb:12
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:12
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:12
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:12
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_url_form.html.erb:102
 #: ../../../app/views/shared/_pw_generator_modal.html.erb:143
 msgid "Save"
 msgstr "Mentse"
 
-#: ../../../app/views/pushes/_files_form.html.erb:13
-#: ../../../app/views/pushes/_form.html.erb:13
-#: ../../../app/views/pushes/_qr_form.html.erb:13
-#: ../../../app/views/pushes/_url_form.html.erb:13
+#: ../../../app/views/pushes/_files_form.html.erb:11
+#: ../../../app/views/pushes/_form.html.erb:11
+#: ../../../app/views/pushes/_qr_form.html.erb:11
+#: ../../../app/views/pushes/_url_form.html.erb:11
 msgid "Saved!"
 msgstr "Mentett!"
 
-#: ../../../app/views/pushes/_files_form.html.erb:28
+#: ../../../app/views/pushes/_files_form.html.erb:26
 msgid "Uploaded Files"
 msgstr "Feltöltött fájlok"
 
-#: ../../../app/views/pushes/_files_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:42
 msgid "Are you sure you want to delete this file?"
 msgstr "Biztosan törölni szeretné ezt a fájlt?"
 
-#: ../../../app/views/pushes/_files_form.html.erb:57
+#: ../../../app/views/pushes/_files_form.html.erb:55
 msgid "Add Files..."
 msgstr "Fájlok hozzáadása..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:72
+#: ../../../app/views/pushes/_files_form.html.erb:70
 msgid "You can upload up to %{count} files per push."
 msgstr "Legfeljebb %{count} fájlt tölthet fel push-onként."
 
-#: ../../../app/views/pushes/_files_form.html.erb:76
-#: ../../../app/views/pushes/_form.html.erb:120
-#: ../../../app/views/pushes/_qr_form.html.erb:100
-#: ../../../app/views/pushes/_url_form.html.erb:44
+#: ../../../app/views/pushes/_files_form.html.erb:74
+#: ../../../app/views/pushes/_form.html.erb:118
+#: ../../../app/views/pushes/_qr_form.html.erb:98
+#: ../../../app/views/pushes/_url_form.html.erb:42
 msgid "Expire secret link and delete after:"
 msgstr ""
 "A titkos link érvénytelenítése és törlése a következő feltételek teljesülése u"
 "tán:"
 
-#: ../../../app/views/pushes/_files_form.html.erb:110
-#: ../../../app/views/pushes/_form.html.erb:153
-#: ../../../app/views/pushes/_qr_form.html.erb:133
-#: ../../../app/views/pushes/_url_form.html.erb:79
+#: ../../../app/views/pushes/_files_form.html.erb:108
+#: ../../../app/views/pushes/_form.html.erb:151
+#: ../../../app/views/pushes/_qr_form.html.erb:131
+#: ../../../app/views/pushes/_url_form.html.erb:77
 #: ../../../app/views/pushes/print_preview.html.erb:16
 msgid "(whichever comes first)"
 msgstr "(amelyik előbb jön)"
 
-#: ../../../app/views/pushes/_files_form.html.erb:124
-#: ../../../app/views/pushes/_form.html.erb:167
-#: ../../../app/views/pushes/_qr_form.html.erb:148
-#: ../../../app/views/pushes/_url_form.html.erb:94
+#: ../../../app/views/pushes/_files_form.html.erb:122
+#: ../../../app/views/pushes/_form.html.erb:165
+#: ../../../app/views/pushes/_qr_form.html.erb:146
+#: ../../../app/views/pushes/_url_form.html.erb:92
 msgid "Use a 1-click retrieval step"
 msgstr "Kattintás után lehessen megtekinteni a jelszót"
 
-#: ../../../app/views/pushes/_files_form.html.erb:125
-#: ../../../app/views/pushes/_form.html.erb:168
-#: ../../../app/views/pushes/_qr_form.html.erb:149
+#: ../../../app/views/pushes/_files_form.html.erb:123
+#: ../../../app/views/pushes/_form.html.erb:166
+#: ../../../app/views/pushes/_qr_form.html.erb:147
 #: ../../../app/views/pushes/audit.html.erb:70
 msgid "Helps to avoid chat systems and URL scanners from eating up views."
 msgstr ""
 "Segít elkerülni, hogy a csevegőrendszerek és az URL-szkennerek elhasználják a "
 "megtekintéseket."
 
-#: ../../../app/views/pushes/_files_form.html.erb:133
-#: ../../../app/views/pushes/_form.html.erb:176
-#: ../../../app/views/pushes/_qr_form.html.erb:158
+#: ../../../app/views/pushes/_files_form.html.erb:131
+#: ../../../app/views/pushes/_form.html.erb:174
+#: ../../../app/views/pushes/_qr_form.html.erb:156
 msgid "Allow immediate deletion"
 msgstr "Azonnali törlés engedélyezése"
 
-#: ../../../app/views/pushes/_files_form.html.erb:134
-#: ../../../app/views/pushes/_form.html.erb:177
-#: ../../../app/views/pushes/_qr_form.html.erb:159
+#: ../../../app/views/pushes/_files_form.html.erb:132
+#: ../../../app/views/pushes/_form.html.erb:175
+#: ../../../app/views/pushes/_qr_form.html.erb:157
 msgid "Allow users to delete this push once retrieved."
 msgstr ""
 "Lehetővé teszi a felhasználóknak, hogy töröljék ezt a leküldést, miután lekért"
 "ék."
 
-#: ../../../app/views/pushes/_files_form.html.erb:143
-#: ../../../app/views/pushes/_form.html.erb:186
-#: ../../../app/views/pushes/_qr_form.html.erb:168
-#: ../../../app/views/pushes/_url_form.html.erb:104
+#: ../../../app/views/pushes/_files_form.html.erb:141
+#: ../../../app/views/pushes/_form.html.erb:184
+#: ../../../app/views/pushes/_qr_form.html.erb:166
+#: ../../../app/views/pushes/_url_form.html.erb:102
 msgid "the above settings as the page default."
 msgstr "a fenti beállításokat az oldal alapértelmezett beállításaiként."
 
-#: ../../../app/views/pushes/_files_form.html.erb:153
-#: ../../../app/views/pushes/_files_form.html.erb:176
-#: ../../../app/views/pushes/_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:206
-#: ../../../app/views/pushes/_qr_form.html.erb:178
-#: ../../../app/views/pushes/_qr_form.html.erb:188
-#: ../../../app/views/pushes/_url_form.html.erb:114
-#: ../../../app/views/pushes/_url_form.html.erb:124
+#: ../../../app/views/pushes/_files_form.html.erb:151
+#: ../../../app/views/pushes/_files_form.html.erb:174
+#: ../../../app/views/pushes/_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:204
+#: ../../../app/views/pushes/_qr_form.html.erb:176
+#: ../../../app/views/pushes/_qr_form.html.erb:186
+#: ../../../app/views/pushes/_url_form.html.erb:112
+#: ../../../app/views/pushes/_url_form.html.erb:122
 msgid "Optional"
 msgstr "Választható"
 
-#: ../../../app/views/pushes/_files_form.html.erb:156
-#: ../../../app/views/pushes/_form.html.erb:199
-#: ../../../app/views/pushes/_qr_form.html.erb:181
-#: ../../../app/views/pushes/_url_form.html.erb:117
+#: ../../../app/views/pushes/_files_form.html.erb:154
+#: ../../../app/views/pushes/_form.html.erb:197
+#: ../../../app/views/pushes/_qr_form.html.erb:179
+#: ../../../app/views/pushes/_url_form.html.erb:115
 msgid "A name shown in the dashboard, notifications and emails."
 msgstr "A műszerfalon, az értesítésekben és az e-mailekben megjelenő név."
 
-#: ../../../app/views/pushes/_files_form.html.erb:161
+#: ../../../app/views/pushes/_files_form.html.erb:159
 msgid "Message"
 msgstr "Üzenet"
 
-#: ../../../app/views/pushes/_files_form.html.erb:164
+#: ../../../app/views/pushes/_files_form.html.erb:162
 msgid "Optional: A message to be included with the push"
 msgstr "Nem kötelező: A leküldéshez csatolandó üzenet"
 
-#: ../../../app/views/pushes/_files_form.html.erb:168
+#: ../../../app/views/pushes/_files_form.html.erb:166
 msgid "Encrypted and visible to the receiving party"
 msgstr "Titkosított és a fogadó fél számára látható"
 
-#: ../../../app/views/pushes/_files_form.html.erb:173
-#: ../../../app/views/pushes/_form.html.erb:203
-#: ../../../app/views/pushes/_qr_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:121
+#: ../../../app/views/pushes/_files_form.html.erb:171
+#: ../../../app/views/pushes/_form.html.erb:201
+#: ../../../app/views/pushes/_qr_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:119
 #: ../../../app/views/pushes/index.html.erb:35
 msgid "Note"
 msgstr "jegyzet"
 
-#: ../../../app/views/pushes/_files_form.html.erb:179
-#: ../../../app/views/pushes/_form.html.erb:209
-#: ../../../app/views/pushes/_qr_form.html.erb:191
-#: ../../../app/views/pushes/_url_form.html.erb:127
+#: ../../../app/views/pushes/_files_form.html.erb:177
+#: ../../../app/views/pushes/_form.html.erb:207
+#: ../../../app/views/pushes/_qr_form.html.erb:189
+#: ../../../app/views/pushes/_url_form.html.erb:125
 msgid "Encrypted and visible only to you"
 msgstr "Titkosított és csak Ön számára látható"
 
-#: ../../../app/views/pushes/_files_form.html.erb:184
+#: ../../../app/views/pushes/_files_form.html.erb:182
 msgid ""
 "Once expired, all files and content of the push will be deleted immediately an"
 "d entirely."
@@ -2959,36 +3007,36 @@ msgstr ""
 "Amint lejár, a push összes fájlja és tartalma azonnal és teljes mértékben törl"
 "ődik."
 
-#: ../../../app/views/pushes/_files_form.html.erb:185
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_files_form.html.erb:183
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "An audit log of activity will be available."
 msgstr "A tevékenység ellenőrzési naplója elérhető lesz."
 
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
 msgid "Updating..."
 msgstr "Frissítés..."
 
+#: ../../../app/views/pushes/_files_form.html.erb:192
+#: ../../../app/views/pushes/_form.html.erb:222
+#: ../../../app/views/pushes/_qr_form.html.erb:204
+#: ../../../app/views/pushes/_url_form.html.erb:140
+msgid "Update Push"
+msgstr "Push frissítése"
+
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
 #: ../../../app/views/pushes/_qr_form.html.erb:206
 #: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Update Push"
-msgstr "Push frissítése"
-
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
 msgid "Pushing..."
 msgstr "Töltés..."
 
-#: ../../../app/views/pushes/_files_form.html.erb:196
-#: ../../../app/views/pushes/_form.html.erb:226
-#: ../../../app/views/pushes/_qr_form.html.erb:208
-#: ../../../app/views/pushes/_url_form.html.erb:144
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Küldjük!"
 
@@ -2996,60 +3044,60 @@ msgstr "Küldjük!"
 msgid "Securely Send a Password"
 msgstr "Biztonságosan küldjön jelszót"
 
-#: ../../../app/views/pushes/_form.html.erb:33
-#: ../../../app/views/pushes/_qr_form.html.erb:33
+#: ../../../app/views/pushes/_form.html.erb:31
+#: ../../../app/views/pushes/_qr_form.html.erb:31
 msgid "%{value} bits"
 msgstr "%{value} bit"
 
-#: ../../../app/views/pushes/_form.html.erb:34
+#: ../../../app/views/pushes/_form.html.erb:32
 #: ../../../app/views/pushes/_passphrase_field.html.erb:10
-#: ../../../app/views/pushes/_qr_form.html.erb:34
+#: ../../../app/views/pushes/_qr_form.html.erb:32
 msgid "Password generation failed."
 msgstr "A jelszó létrehozása nem sikerült."
 
-#: ../../../app/views/pushes/_form.html.erb:50
+#: ../../../app/views/pushes/_form.html.erb:48
 msgid "Content is hidden for privacy. Click the field below to reveal and edit."
 msgstr ""
 "A tartalom adatvédelmi okokból rejtett. Kattintson az alábbi mezőre a megjelen"
 "ítéshez és szerkesztéshez."
 
-#: ../../../app/views/pushes/_form.html.erb:54
-#: ../../../app/views/pushes/_form.html.erb:71
+#: ../../../app/views/pushes/_form.html.erb:52
+#: ../../../app/views/pushes/_form.html.erb:69
 msgid "Enter the Password or Text to push..."
 msgstr "Írja be a jelszót vagy a küldendő szöveget..."
 
-#: ../../../app/views/pushes/_form.html.erb:67
-#: ../../../app/views/pushes/_form.html.erb:86
-#: ../../../app/views/pushes/_form.html.erb:87
-#: ../../../app/views/pushes/_qr_form.html.erb:47
-#: ../../../app/views/pushes/_qr_form.html.erb:67
-#: ../../../app/views/pushes/_qr_form.html.erb:68
+#: ../../../app/views/pushes/_form.html.erb:65
+#: ../../../app/views/pushes/_form.html.erb:84
+#: ../../../app/views/pushes/_form.html.erb:85
+#: ../../../app/views/pushes/_qr_form.html.erb:45
+#: ../../../app/views/pushes/_qr_form.html.erb:65
+#: ../../../app/views/pushes/_qr_form.html.erb:66
 msgid "Hide payload"
 msgstr "A hasznos adat elrejtése"
 
-#: ../../../app/views/pushes/_form.html.erb:68
-#: ../../../app/views/pushes/_qr_form.html.erb:48
+#: ../../../app/views/pushes/_form.html.erb:66
+#: ../../../app/views/pushes/_qr_form.html.erb:46
 msgid "Show payload"
 msgstr "A hasznos adat megjelenítése"
 
-#: ../../../app/views/pushes/_form.html.erb:96
-#: ../../../app/views/pushes/_qr_form.html.erb:76
+#: ../../../app/views/pushes/_form.html.erb:94
+#: ../../../app/views/pushes/_qr_form.html.erb:74
 msgid "Characters"
 msgstr "karakter"
 
-#: ../../../app/views/pushes/_form.html.erb:107
-#: ../../../app/views/pushes/_qr_form.html.erb:87
+#: ../../../app/views/pushes/_form.html.erb:105
+#: ../../../app/views/pushes/_qr_form.html.erb:85
 #: ../../../app/views/shared/_pw_generate_confirm_modal.html.erb:18
 msgid "Generate Password"
 msgstr "Jelszó generálása"
 
-#: ../../../app/views/pushes/_form.html.erb:111
-#: ../../../app/views/pushes/_qr_form.html.erb:91
+#: ../../../app/views/pushes/_form.html.erb:109
+#: ../../../app/views/pushes/_qr_form.html.erb:89
 msgid "Configure Generator"
 msgstr "Generátor konfigurálása"
 
-#: ../../../app/views/pushes/_form.html.erb:214
-#: ../../../app/views/pushes/_qr_form.html.erb:196
+#: ../../../app/views/pushes/_form.html.erb:212
+#: ../../../app/views/pushes/_qr_form.html.erb:194
 msgid ""
 "Tip: Only enter a password into the box. Other identifying information can com"
 "promise security."
@@ -3057,8 +3105,8 @@ msgstr ""
 "Tipp: Csak jelszót írjon be a mezőbe. Más azonosító információk veszélyeztethe"
 "tik a biztonságot."
 
-#: ../../../app/views/pushes/_form.html.erb:215
-#: ../../../app/views/pushes/_qr_form.html.erb:197
+#: ../../../app/views/pushes/_form.html.erb:213
+#: ../../../app/views/pushes/_qr_form.html.erb:195
 msgid ""
 "All passwords are encrypted prior to storage and are available to only those w"
 "ith the secret link. Once expired, encrypted passwords are unequivocally delet"
@@ -3099,7 +3147,7 @@ msgstr "Jelszó generálása"
 msgid "Securely Send a QR Code"
 msgstr "QR-kód biztonságos küldése"
 
-#: ../../../app/views/pushes/_qr_form.html.erb:51
+#: ../../../app/views/pushes/_qr_form.html.erb:49
 msgid "Enter up to 1024 characters..."
 msgstr "Írjon be legfeljebb 1024 karaktert..."
 
@@ -3120,37 +3168,31 @@ msgstr "A jelszava el van homályosítva. Kattintson az alábbiakra, hogy felfed
 msgid "Securely Send URLs"
 msgstr "URL-ek biztonságos küldése"
 
-#: ../../../app/views/pushes/_url_form.html.erb:26
+#: ../../../app/views/pushes/_url_form.html.erb:24
 msgid "URL Redirection"
 msgstr "URL átirányítás"
 
-#: ../../../app/views/pushes/_url_form.html.erb:30
+#: ../../../app/views/pushes/_url_form.html.erb:28
 msgid "Enter the URL to redirect to..."
 msgstr "Adja meg az URL-t az átirányításhoz..."
 
-#: ../../../app/views/pushes/_url_form.html.erb:95
+#: ../../../app/views/pushes/_url_form.html.erb:93
 msgid "Helps to avoid chat systems and URL scanners from eating up redirects."
 msgstr ""
 "Segít elkerülni, hogy a csevegőrendszerek és az URL-szkennerek felfalják az át"
 "irányításokat."
 
-#: ../../../app/views/pushes/_url_form.html.erb:132
+#: ../../../app/views/pushes/_url_form.html.erb:130
 msgid "A secret URL will be generated that will redirect to the URL specified."
 msgstr "A rendszer létrehoz egy titkos URL-t, amely átirányít a megadott URL-re."
 
-#: ../../../app/views/pushes/_url_form.html.erb:133
+#: ../../../app/views/pushes/_url_form.html.erb:131
 msgid "Upon expiration, the push URL will be deleted entirely."
 msgstr "A lejárat után a push URL teljesen törlődik."
 
 #: ../../../app/views/pushes/audit.html.erb:1
 msgid "Audit Log for %{push_id}"
 msgstr "Audit napló a következőhöz: %{push_id}"
-
-#: ../../../app/views/pushes/audit.html.erb:4
-#: ../../../app/views/pushes/index.html.erb:107
-#: ../../../app/views/pushes/preview.html.erb:120
-msgid "Audit Log"
-msgstr "Ellenőrzési napló"
 
 #: ../../../app/views/pushes/audit.html.erb:7
 msgid "Pushed on"
@@ -3177,9 +3219,21 @@ msgstr "Beállítások"
 msgid "Expire after"
 msgstr "Lejárat"
 
+#: ../../../app/views/pushes/audit.html.erb:35
+msgid "View"
+msgid_plural "Views"
+msgstr[0] "Megtekintés"
+msgstr[1] "Megtekintések"
+
 #: ../../../app/views/pushes/audit.html.erb:36
 msgid "The push expires after this number of views."
 msgstr "A leküldés ennyi megtekintés után lejár."
+
+#: ../../../app/views/pushes/audit.html.erb:43
+msgid "Day"
+msgid_plural "Days"
+msgstr[0] "nap"
+msgstr[1] "nap"
 
 #: ../../../app/views/pushes/audit.html.erb:44
 msgid "The push expires after this number of days."
