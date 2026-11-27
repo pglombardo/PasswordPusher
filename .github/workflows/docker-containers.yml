@@ -23,10 +23,7 @@ on:
 
 permissions:
   contents: read
-  actions: write
 
-env:
-  DOCKER_PUSH: true
 jobs:
   docker-configured:
     runs-on: ubuntu-latest
@@ -46,6 +43,10 @@ jobs:
   build:
     needs: docker-configured
     if: needs.docker-configured.outputs.enabled == 'true' && ((github.event.label && github.event.label.name == 'docker') || github.event_name != 'pull_request')
+    permissions:
+      contents: read
+      # Digest artifact upload, and GHA BuildKit cache-to on trusted (non-PR) runs.
+      actions: write
     strategy:
       fail-fast: false
       matrix:
@@ -59,7 +60,12 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     env:
-      PUSH: ${{ github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork }}
+      # Push images for tags, nightly, same-repo labeled PRs, and dispatch when dockerPush is true.
+      # Fork PRs and dispatch with dockerPush=false never log in or push.
+      PUSH: ${{ (github.event_name == 'workflow_dispatch' && inputs.dockerPush) || (github.event_name != 'workflow_dispatch' && (github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork)) }}
+      # Shared Docker Hub buildcache-* (and GHA cache writes) only on trusted non-PR pushes.
+      # Labeled PRs, including same-repo, may cache-from but never cache-to.
+      CACHE_TO: ${{ github.event_name != 'pull_request' && ((github.event_name == 'workflow_dispatch' && inputs.dockerPush) || github.event_name != 'workflow_dispatch') }}
     steps:
       - id: campfire-configured
         env:
@@ -77,6 +83,7 @@ jobs:
           repository: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
           fetch-depth: 1
+          persist-credentials: false
 
       - name: Set up Docker Buildx
         id: buildx
@@ -88,6 +95,9 @@ jobs:
       # rather than reusing native extensions built against old libraries.
       # Worker/gateway builds reuse the pwpush layers from this job, so only
       # the main image needs the mount persisted.
+      # lookup-only: true so this publishing workflow never writes the GHA
+      # cache (zizmor cache-poisoning). PRs restore; trusted runs persist
+      # layers via the gated Docker Hub buildcache-* cache-to below.
       - name: Restore bundler cache
         id: bundle-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -95,6 +105,7 @@ jobs:
           path: bundle-cache
           key: bundle-${{ matrix.arch }}-${{ hashFiles('containers/docker/Dockerfile') }}-${{ hashFiles('Gemfile.lock') }}
           restore-keys: bundle-${{ matrix.arch }}-${{ hashFiles('containers/docker/Dockerfile') }}-
+          lookup-only: true
 
       - name: Inject bundler cache into BuildKit
         uses: reproducible-containers/buildkit-cache-dance@5422eac04292c961a382e0f584ea0f03ad9da723 # v3.4.0
@@ -107,7 +118,7 @@ jobs:
                 "id": "bundle-${{ matrix.arch }}"
               }
             }
-          skip-extraction: ${{ steps.bundle-cache.outputs.cache-hit }}
+          skip-extraction: true
 
       - name: Populate Docker metadata
         id: meta
@@ -140,8 +151,8 @@ jobs:
             type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }}
             type=gha,scope=pwpush-${{ matrix.arch }}
           cache-to: |
-            type=registry,ref=${{ secrets.DOCKER_USERNAME }}/pwpush:buildcache-${{ matrix.arch }},mode=max,ignore-error=true
-            type=gha,scope=pwpush-${{ matrix.arch }},mode=max,ignore-error=true
+            ${{ env.CACHE_TO == 'true' && format('type=registry,ref={0}/pwpush:buildcache-{1},mode=max,ignore-error=true', secrets.DOCKER_USERNAME, matrix.arch) || '' }}
+            ${{ env.CACHE_TO == 'true' && format('type=gha,scope=pwpush-{0},mode=max,ignore-error=true', matrix.arch) || '' }}
 
       - name: Build worker (${{ matrix.arch }})
         id: worker
@@ -212,7 +223,10 @@ jobs:
 
   merge:
     needs: build
-    if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
+    if: (github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork) && (github.event_name != 'workflow_dispatch' || inputs.dockerPush)
+    permissions:
+      contents: read
+      actions: read
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -247,12 +261,13 @@ jobs:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ matrix.image }}
           tags: |
             type=ref,event=pr,suffix=-docker
+            type=ref,event=branch,enable=${{ github.event_name == 'workflow_dispatch' }}
             type=match,pattern=stable
             type=schedule,pattern=nightly
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
+            type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')) }}
 
       - name: Login to DockerHub
         uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
