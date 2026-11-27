@@ -125,8 +125,8 @@ x-env: &x-env
     # HTTP_IDLE_TIMEOUT: "3600"
     # HTTP_READ_TIMEOUT: "3600"
     # HTTP_WRITE_TIMEOUT: "3600"
-    # Front proxies: nginx client_max_body_size is the whole request (example: 1T
-    # for 10×100GB plus multipart overhead), plus proxy_request_buffering off.
+    # Front proxies: nginx client_max_body_size is the whole request (example: 1024G
+    # for 10×100GB plus multipart overhead; nginx has no T suffix), plus proxy_request_buffering off.
     # Cloudflare HTTP bodies cap at 100MB on typical plans. See
     # containers/examples/pwpush-and-nginx/ and README "Large file uploads".
 
