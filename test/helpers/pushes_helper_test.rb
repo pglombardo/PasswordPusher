@@ -171,4 +171,72 @@ class PushesHelperTest < ActionView::TestCase
     result3 = checkbox_options_for_push(push, "customTarget", false)
     assert_equal "customTargetCheckbox", result3["data-knobs-target"]
   end
+
+  # Tests for knobs expiration labels (gettext n_ Day/Days and View/Views)
+  test "knobs_expiration_count_label uses singular Day and View at 1" do
+    assert_equal "1 Day", knobs_expiration_count_label("Day", "Days", 1)
+    assert_equal "1 View", knobs_expiration_count_label("View", "Views", 1)
+  end
+
+  test "knobs_expiration_count_label uses plural Days and Views above 1" do
+    assert_equal "5 Days", knobs_expiration_count_label("Day", "Days", 5)
+    assert_equal "5 Views", knobs_expiration_count_label("View", "Views", 5)
+  end
+
+  test "knobs_expiration_count_labels maps every value from min to max" do
+    labels = knobs_expiration_count_labels("Day", "Days", min: 1, max: 3)
+
+    assert_equal({1 => "1 Day", 2 => "2 Days", 3 => "3 Days"}, labels)
+  end
+
+  test "knobs_expiration_count_labels caps huge maxima and still includes the real max" do
+    labels = knobs_expiration_count_labels("View", "Views", min: 1, max: 5_000)
+
+    assert_equal PushesHelper::KNOBS_EXPIRATION_LABEL_HARD_MAX + 1, labels.size
+    assert_equal "1 View", labels[1]
+    assert_equal "1000 Views", labels[PushesHelper::KNOBS_EXPIRATION_LABEL_HARD_MAX]
+    assert_equal "5000 Views", labels[5_000]
+    assert_nil labels[1_001]
+  end
+
+  test "knobs_day_labels_json and knobs_view_labels_json emit string keys for stimulus" do
+    json = JSON.parse(knobs_day_labels_json(Settings.pw))
+
+    assert_equal "1 Day", json["1"]
+    assert_equal "7 Days", json["7"]
+    assert json.key?(Settings.pw.expire_after_days_max.to_s)
+
+    views = JSON.parse(knobs_view_labels_json(Settings.pw))
+    assert_equal "1 View", views["1"]
+    assert_equal "5 Views", views["5"]
+  end
+
+  test "knobs_expiration_count_label uses Latvian plural categories" do
+    I18n.with_locale(:lv) do
+      assert_equal "1 diena", knobs_expiration_count_label("Day", "Days", 1)
+      assert_equal "2 Dienas", knobs_expiration_count_label("Day", "Days", 2)
+      assert_equal "10 Dienas", knobs_expiration_count_label("Day", "Days", 10)
+    end
+  end
+
+  test "knobs_expiration_count_label uses Russian plural categories" do
+    I18n.with_locale(:ru) do
+      assert_equal "1 День", knobs_expiration_count_label("Day", "Days", 1)
+      assert_equal "2 Дня", knobs_expiration_count_label("Day", "Days", 2)
+      assert_equal "5 Дней", knobs_expiration_count_label("Day", "Days", 5)
+      assert_equal "21 День", knobs_expiration_count_label("Day", "Days", 21)
+      assert_equal "1 Просмотр", knobs_expiration_count_label("View", "Views", 1)
+      assert_equal "2 Просмотра", knobs_expiration_count_label("View", "Views", 2)
+      assert_equal "5 Просмотров", knobs_expiration_count_label("View", "Views", 5)
+      assert_equal "21 Просмотр", knobs_expiration_count_label("View", "Views", 21)
+    end
+  end
+
+  test "knobs_expiration_count_label uses Polish view plural categories" do
+    I18n.with_locale(:pl) do
+      assert_equal "1 Wyświetlenie", knobs_expiration_count_label("View", "Views", 1)
+      assert_equal "2 Wyświetlenia", knobs_expiration_count_label("View", "Views", 2)
+      assert_equal "5 Wyswietleń", knobs_expiration_count_label("View", "Views", 5)
+    end
+  end
 end

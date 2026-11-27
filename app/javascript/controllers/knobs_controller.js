@@ -13,12 +13,10 @@ export default class extends Controller {
     static values = {
         tabName: String,
 
-        langDay: String,
-        langDays: String,
+        dayLabels: Object,
         defaultDays: Number,
 
-        langView: String,
-        langViews: String,
+        viewLabels: Object,
         defaultViews: Number,
 
         langSave: String,
@@ -33,28 +31,18 @@ export default class extends Controller {
     }
 
     updateDaysSlider(event) {
-        let days = event.target.value
-        if (days > 1) {
-            this.daysRangeLabelTarget.innerText = days + " " + this.langDaysValue;
-        } else {
-            this.daysRangeLabelTarget.innerText = days + " " + this.langDayValue;
-        }
+        this.daysRangeLabelTarget.innerText = this.labelFor(this.dayLabelsValue, event.target.value)
     }
 
     updateViewsSlider(event) {
-        let views = event.target.value
-        if (views > 1) {
-            this.viewsRangeLabelTarget.innerText = views + " " + this.langViewsValue;
-        } else {
-            this.viewsRangeLabelTarget.innerText = views + " " + this.langViewValue;
-        }
+        this.viewsRangeLabelTarget.innerText = this.labelFor(this.viewLabelsValue, event.target.value)
     }
 
     loadSettings() {
         this.daysRangeTarget.value = Cookies.get(`pwpush_${this.tabNameValue}_days`) || this.defaultDaysValue
-        this.daysRangeLabelTarget.innerText = this.daysRangeTarget.value + " " + this.langDaysValue
+        this.daysRangeLabelTarget.innerText = this.labelFor(this.dayLabelsValue, this.daysRangeTarget.value)
         this.viewsRangeTarget.value = Cookies.get(`pwpush_${this.tabNameValue}_views`) || this.defaultViewsValue
-        this.viewsRangeLabelTarget.innerText = this.viewsRangeTarget.value + " " + this.langViewsValue
+        this.viewsRangeLabelTarget.innerText = this.labelFor(this.viewLabelsValue, this.viewsRangeTarget.value)
 
         // Only load checkbox values from cookies if creating a new push (not editing)
         // Check if the checkbox has x-default attribute - if yes, we're creating, not editing
@@ -103,6 +91,15 @@ export default class extends Controller {
             event.target.innerText = defaultTextValue
         }, 1000);
         return false
+    }
+
+    labelFor(labels, value) {
+        const key = String(value)
+        const label = labels[key]
+        if (label == null || label === "") {
+            return key
+        }
+        return label
     }
 
     toBoolean(candidate) {
