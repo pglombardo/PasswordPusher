@@ -26,6 +26,19 @@ class Pwpush::FileLimitsTest < ActiveSupport::TestCase
 
     Settings.files.max_file_size = "unlimited"
     assert_nil Pwpush::FileLimits.max_file_size_bytes
+
+    Settings.files.max_file_size = ""
+    assert_nil Pwpush::FileLimits.max_file_size_bytes
+  end
+
+  test "invalid max_file_size raises instead of disabling the cap" do
+    Settings.files.max_file_size = "10MBB"
+
+    error = assert_raises(ArgumentError) { Pwpush::FileLimits.max_file_size_bytes }
+    assert_includes error.message, "10MBB"
+    assert_includes error.message, "max_file_size"
+
+    assert_raises(ArgumentError) { Pwpush::FileLimits.allowed_byte_size?(100.gigabytes) }
   end
 
   test "allowed_byte_size? enforces the configured cap" do

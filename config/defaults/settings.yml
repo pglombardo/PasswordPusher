@@ -643,8 +643,10 @@ files:
   #
   # Units are binary (1GB = 1024^3 bytes). Examples: 256MB, 5GB, 100GB.
   #
-  # Proxies, Thruster, and Cloudflare have their own body-size limits. Those must
-  # also be raised (or bypassed via direct-to-storage uploads) for large files.
+  # Invalid values (for example 10MBB) raise a configuration error rather than
+  # disabling the cap. Proxies, Thruster, and Cloudflare have their own
+  # body-size limits; proxy limits apply to the whole request, not each file.
+  # Raise those (or bypass them via direct-to-storage uploads) for large files.
   # See containers/examples/pwpush-and-nginx/ and the README "Large file uploads"
   # section.
   #

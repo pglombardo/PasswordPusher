@@ -2,7 +2,7 @@
 
 require "application_system_test_case"
 
-class FilePushSizeLimitTest < ApplicationSystemTestCase
+class FilePushSizeLimitSystemTest < ApplicationSystemTestCase
   setup do
     Settings.enable_file_pushes = true
     Rails.application.reload_routes!

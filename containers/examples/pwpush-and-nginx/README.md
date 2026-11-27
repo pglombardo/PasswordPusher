@@ -2,9 +2,9 @@ See the [documentation](https://docs.pwpush.com/docs/installation/#nginx) on how
 
 ## Large file uploads
 
-The example `nginx.conf` is sized for the default `PWP__FILES__MAX_FILE_SIZE=100GB`:
+The example `nginx.conf` is sized for the default `PWP__FILES__MAX_FILE_SIZE=100GB` and `PWP__FILES__MAX_FILE_UPLOADS=10`:
 
-- `client_max_body_size 100G` — nginx defaults this to `1m`, which returns 413 for any larger body.
+- `client_max_body_size 1T` — this is an **aggregate request** limit, not a per-file cap. Nginx defaults it to `1m` (413). JSON API and through-Puma uploads send every file in one body, so 10 × 100GB plus multipart framing needs more than 100G. Direct-to-storage PUTs do not use this limit.
 - `proxy_request_buffering off` — stream the upload to Password Pusher instead of spooling it on the proxy.
 - `client_body_timeout`, `proxy_connect_timeout`, `proxy_send_timeout`, and `proxy_read_timeout` of 3600s — large transfers can sit idle between chunks.
 

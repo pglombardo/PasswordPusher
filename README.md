@@ -239,7 +239,7 @@ Signed **download** URLs expire after 5 minutes (`PWP__FILES__BLOB_URLS_EXPIRE_I
 
 A reverse proxy in front of Puma/Thruster must allow the body through:
 
-- nginx: `client_max_body_size` (the nginx default is 1MB) and `proxy_request_buffering off`, plus long `proxy_*_timeout` / `client_body_timeout` values. See [containers/examples/pwpush-and-nginx](containers/examples/pwpush-and-nginx).
+- nginx: `client_max_body_size` is the whole request (not each file; the nginx default is 1MB). The example uses `1T` so 10 × 100GB API uploads plus multipart overhead fit. Also set `proxy_request_buffering off` and long `proxy_*_timeout` / `client_body_timeout` values. See [containers/examples/pwpush-and-nginx](containers/examples/pwpush-and-nginx).
 - Thruster (`bin/web`): raise `HTTP_IDLE_TIMEOUT`, `HTTP_READ_TIMEOUT`, and `HTTP_WRITE_TIMEOUT` (defaults 60/30/30 seconds). `MAX_REQUEST_BODY=0` is already unlimited.
 - Cloudflare: typical plans cap HTTP request bodies at 100MB. Direct uploads to S3, GCS, or Azure PUT to the bucket host and skip that cap; local-disk and JSON API uploads that pass through Cloudflare do not.
 

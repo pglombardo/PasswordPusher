@@ -85,6 +85,14 @@ module Pwpush
 
     def parse_file_size(value)
       return if unlimited?(value)
+
+      parsed = extract_file_size(value)
+      return parsed if parsed
+
+      raise ArgumentError, invalid_max_file_size_message(value)
+    end
+
+    def extract_file_size(value)
       return value if value.is_a?(Integer) && value.positive?
       return value.to_i if value.is_a?(Numeric) && value.positive?
 
@@ -99,6 +107,11 @@ module Pwpush
       return unless multiplier && quantity.positive?
 
       (quantity * multiplier).to_i
+    end
+
+    def invalid_max_file_size_message(value)
+      "Invalid files.max_file_size #{value.inspect}. " \
+        "Use a size such as 256MB or 100GB, or 0/unlimited to disable the cap."
     end
 
     def parse_duration(value)
@@ -121,7 +134,10 @@ module Pwpush
       return true if value.nil? || value == false
       return true if value.is_a?(Numeric) && !value.positive?
 
-      UNLIMITED_TOKENS.include?(value.to_s.strip.downcase)
+      str = value.to_s.strip
+      return true if str.empty?
+
+      UNLIMITED_TOKENS.include?(str.downcase)
     end
 
     # Byte size of an incoming attachable: blob, uploaded file, or signed blob id.
