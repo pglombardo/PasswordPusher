@@ -36,16 +36,9 @@ x-env: &x-env
     # PWPUSH_MASTER_KEY: ""
     #
     # Docker secrets (_FILE): instead of the env vars above, you can set:
-    #   PWPUSH_MASTER_KEY_FILE, PWPUSH_MASTER_KEY_PREVIOUS_FILE, SECRET_KEY_BASE_FILE,
-    #   PWPUSH_API_TOKEN_HMAC_KEY_FILE
+    #   PWPUSH_MASTER_KEY_FILE, PWPUSH_MASTER_KEY_PREVIOUS_FILE, SECRET_KEY_BASE_FILE
     # to a path whose contents are the secret (e.g. /run/secrets/...). The env var wins if both are set.
     # See: https://docs.pwpush.com/docs/application-encryption/
-    #
-    # API token hashing: tokens are stored as HMAC-SHA256 digests. The HMAC key is derived
-    # from SECRET_KEY_BASE unless you set PWPUSH_API_TOKEN_HMAC_KEY (or _FILE). Rotating
-    # SECRET_KEY_BASE without a dedicated HMAC key invalidates existing API tokens.
-    # Set PWPUSH_API_TOKEN_HMAC_KEY before the first hashed-token migrate if you want
-    # tokens to survive SECRET_KEY_BASE rotation.
     #
     # TLS_DOMAIN: For automatic TLS/SSL (e.g. HTTPS via Let's Encrypt), create a DNS record that
     #   points to this host, then set this env var to that domain (e.g. pwpush.example.com).

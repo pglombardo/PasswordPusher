@@ -67,13 +67,17 @@ class Pwpush::TokenAuthenticationTest < ActiveSupport::TestCase
     assert_no_match(/should-not-appear-in-inspect/, @user.inspect)
   end
 
-  test "PWPUSH_API_TOKEN_HMAC_KEY changes the digest independently of secret_key_base" do
-    token = "same-token"
-    default_digest = User.digest_authentication_token(token)
-    ENV["PWPUSH_API_TOKEN_HMAC_KEY"] = "dedicated-hmac-key-for-tests"
+  test "tokens still authenticate after secret_key_base changes" do
+    token = api_token_for(@user)
+    digest_before = User.digest_authentication_token(token)
+    original_key = Rails.application.secret_key_base
+    new_key = SecureRandom.hex(64)
 
-    assert_not_equal default_digest, User.digest_authentication_token(token)
-  ensure
-    ENV.delete("PWPUSH_API_TOKEN_HMAC_KEY")
+    Rails.application.stub(:secret_key_base, new_key) do
+      assert_not_equal original_key, Rails.application.secret_key_base
+      assert_equal digest_before, User.digest_authentication_token(token)
+      assert_equal OpenSSL::Digest::SHA256.hexdigest(token), User.digest_authentication_token(token)
+      assert_equal @user, User.find_by_authentication_token(token)
+    end
   end
 end

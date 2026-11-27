@@ -1,28 +1,15 @@
 # frozen_string_literal: true
 
 module Pwpush
-  # Deterministic HMAC-SHA256 for API tokens so lookup stays an indexed +find_by+.
-  #
-  # The HMAC key is +PWPUSH_API_TOKEN_HMAC_KEY+ (or +PWPUSH_API_TOKEN_HMAC_KEY_FILE+)
-  # when set, otherwise a key derived from +secret_key_base+. Rotating
-  # +SECRET_KEY_BASE+ without a dedicated HMAC key invalidates every API token.
+  # Deterministic unsalted SHA-256 for API tokens so lookup stays an indexed +find_by+.
+  # Tokens are high-entropy random strings (Devise.friendly_token).
   module AuthenticationTokenDigest
-    PURPOSE = "Pwpush::TokenAuthentication"
-    HMAC_KEY_ENV = "PWPUSH_API_TOKEN_HMAC_KEY"
-
     module_function
 
     def hexdigest(token)
       return if token.blank?
 
-      OpenSSL::HMAC.hexdigest("SHA256", hmac_key, token.to_s)
-    end
-
-    def hmac_key
-      explicit = PasswordPusher::EnvOrFile.read(HMAC_KEY_ENV)
-      return explicit if explicit.present?
-
-      OpenSSL::HMAC.digest("SHA256", Rails.application.secret_key_base, PURPOSE)
+      OpenSSL::Digest::SHA256.hexdigest(token.to_s)
     end
 
     def hint_for(token)

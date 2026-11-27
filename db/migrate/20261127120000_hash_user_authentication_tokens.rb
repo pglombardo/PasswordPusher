@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
-# Hash API tokens at rest (HMAC-SHA256) and clear the plaintext column.
+# Hash API tokens at rest (unsalted SHA-256) and clear the plaintext column.
 #
 # Upgrade: Docker runs `db:migrate` on boot, so existing tokens keep working with
 # no operator or user action. All app processes should be upgraded together:
 # older code looks up `authentication_token` and would miss nulled rows.
 #
-# HMAC key: `PWPUSH_API_TOKEN_HMAC_KEY` / `PWPUSH_API_TOKEN_HMAC_KEY_FILE` when set,
-# otherwise a key derived from `secret_key_base`. Rotating `SECRET_KEY_BASE` without
-# a dedicated HMAC key invalidates every API token (users regenerate from the UI).
-# Set a dedicated key *before* this migration if you want tokens to survive
-# `SECRET_KEY_BASE` rotation later; it cannot be introduced after plaintext is cleared.
+# Digests are unsalted SHA-256 of the token, so they keep working across restarts
+# even when the Docker entrypoint generates a new random secret on boot.
 #
 # This migration nulls plaintext in the same release. Leaving plaintext until a
 # follow-up would not address the finding (a database dump would still contain

@@ -19,7 +19,7 @@ module Pwpush
         Pwpush::AuthenticationTokenDigest.hexdigest(token)
       end
 
-      # Indexed lookup by HMAC digest, then a constant-time compare of the stored digest.
+      # Indexed lookup by SHA-256 digest, then a constant-time compare of the stored digest.
       def find_by_authentication_token(token)
         return if token.blank?
 

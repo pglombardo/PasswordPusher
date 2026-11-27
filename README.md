@@ -61,7 +61,7 @@ Interested in supporting Password Pusher? Reach out at [support@pwpush.com](mail
 
 - **Encrypted at rest** — Sensitive data is stored encrypted and deleted when expired.
 - **Expiry controls** — Limit by number of views and/or time; links can require a passphrase.
-- **Hashed API tokens** — API tokens are stored as HMAC-SHA256 digests, not plaintext. Existing tokens keep working after upgrade. Rotating `SECRET_KEY_BASE` invalidates API tokens unless `PWPUSH_API_TOKEN_HMAC_KEY` was set before the hashing migration.
+- **Hashed API tokens** — API tokens are stored as SHA-256 digests, not plaintext. Existing tokens keep working after upgrade.
 - **Two-factor authentication (MFA)** — TOTP (authenticator apps) with backup codes; admins can require MFA instance-wide with `PWP__REQUIRE_MFA=true`.
 - **Audit logging** — Track what was shared and who viewed it (with optional logins).
 - **Unbranded delivery page** — No logos, superfluous text or unrelated links to confuse push recipients.
