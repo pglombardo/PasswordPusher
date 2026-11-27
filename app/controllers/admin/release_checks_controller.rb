@@ -8,13 +8,12 @@ module Admin
         return
       end
 
-      result = ReleaseCheck.refresh
-      if result
-        redirect_back fallback_location: admin_root_path, notice: _("Checked for updates.")
-      else
-        redirect_back fallback_location: admin_root_path,
-          alert: _("Could not check for updates. Try again later.")
-      end
+      result = ReleaseCheck.check_now
+      redirect_back fallback_location: admin_root_path, notice: ReleaseCheck.success_notice(result)
+    rescue => e
+      ReleaseCheck.log_failure(e)
+      redirect_back fallback_location: admin_root_path,
+        alert: _("Could not check for updates. Try again later.")
     end
 
     def dismiss

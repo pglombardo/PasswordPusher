@@ -6,6 +6,7 @@ require "rails/test_help"
 require "minitest/rails"
 require "i18n/tasks"
 require_relative "selenium_error_patch"
+require_relative "support/release_check_http_stub"
 
 # Rubocop forces assert_not to be used instead of refute
 # This adds assert_not to Minitest::Test

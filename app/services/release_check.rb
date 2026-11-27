@@ -41,8 +41,7 @@ class ReleaseCheck
     end
 
     def cached
-      raw = Rails.cache.read(CACHE_KEY)
-      result_from_cache(raw)
+      result_from_cache(store.read(CACHE_KEY))
     end
 
     # Fetch the feed and store the result. Returns the cached result on
@@ -50,14 +49,36 @@ class ReleaseCheck
     def refresh
       return cached unless enabled?
 
-      result = new.perform
-      return cached if result.nil?
-
-      Rails.cache.write(CACHE_KEY, result_to_cache(result), expires_in: CACHE_TTL)
-      result
+      check_now
     rescue => e
       log_failure(e)
       cached
+    end
+
+    # Fetch and persist. Raises on failure so the admin Check now action can
+    # show an error while still keeping any previously stored result.
+    def check_now
+      raise "update checks are disabled" unless enabled?
+
+      result = new.perform
+      raise "empty result" if result.nil?
+
+      persist(result)
+      result
+    end
+
+    def success_notice(result)
+      if result.update_available?
+        _("Update check complete: version v%{latest} is available.") % {latest: result.latest}
+      else
+        _("Update check complete: you're running the latest version (v%{version}).") % {version: result.running_version}
+      end
+    end
+
+    def clear_file_store
+      path = file_store_dir
+      FileUtils.rm_rf(path) if path.exist?
+      @file_store = nil
     end
 
     def newer?(candidate, baseline)
@@ -81,6 +102,35 @@ class ReleaseCheck
     end
 
     private
+
+    def persist(result)
+      store.write(CACHE_KEY, result_to_cache(result), expires_in: CACHE_TTL)
+    end
+
+    # Development uses NullStore unless `bin/rails dev:cache` is on, which
+    # would drop Check now results on redirect. Fall back to a small FileStore
+    # under tmp/ so the last check survives without toggling cache.
+    def store
+      null_cache? ? file_store : Rails.cache
+    end
+
+    def null_cache?
+      Rails.cache.is_a?(ActiveSupport::Cache::NullStore)
+    end
+
+    def file_store
+      @file_store ||= ActiveSupport::Cache::FileStore.new(
+        file_store_dir,
+        race_condition_ttl: 10.seconds
+      )
+    end
+
+    def file_store_dir
+      dir = Rails.root.join("tmp", "cache", "release_check")
+      worker = ENV["TEST_WORKER_NUMBER"]
+      dir = dir.join("w#{worker}") if Rails.env.test? && worker.present?
+      dir
+    end
 
     def result_to_cache(result)
       {
@@ -126,7 +176,13 @@ class ReleaseCheck
     http.read_timeout = TIMEOUT_SECONDS
     http.write_timeout = TIMEOUT_SECONDS if http.respond_to?(:write_timeout=)
 
+    # Net::HTTP#request with a block returns the response, not the block value.
+    # Accumulate the body outside the block so callers receive a String.
+    # Reset at the start of each yield so a Net::HTTP retry (max_retries is 1)
+    # cannot append onto a partial previous body.
+    body = +""
     http.request(build_request(uri)) do |response|
+      body = +""
       unless response.is_a?(Net::HTTPSuccess)
         raise "unexpected HTTP #{response.code}"
       end
@@ -135,13 +191,12 @@ class ReleaseCheck
         raise "response too large"
       end
 
-      body = +""
       response.read_body do |chunk|
         body << chunk
         raise "response too large" if body.bytesize > MAX_BODY_BYTES
       end
-      body
     end
+    body
   end
 
   def self.feed_uri
