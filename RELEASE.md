@@ -54,7 +54,7 @@ Pushing the version tag triggers the [Docker Container Builds](.github/workflows
 - `pglombardo/pwpush-worker`
 - `pglombardo/pwpush-public-gateway`
 
-Each image is tagged with the semver version (e.g. `2.7.1`, `2.7`, `2`).
+Each image is tagged with the semver version (e.g. `2.7.1`, `2.7`, `2`) and published as a multi-arch manifest for `linux/amd64` and `linux/arm64`.
 
 ### 4. Publish the GitHub release
 
@@ -90,7 +90,7 @@ This script:
 - Updates the `stable` git tag on the `oss` remote
 - Prints community announcement text you can paste (newsletter, social, etc.)
 
-**Requirements:** Docker logged in to Docker Hub, `jq` installed, and push access to the `oss` remote.
+**Requirements:** Docker logged in to Docker Hub (with Buildx available) and push access to the `oss` remote.
 
 ## Quick Reference
 
