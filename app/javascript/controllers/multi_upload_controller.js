@@ -19,6 +19,9 @@ export default class extends Controller {
 
   static values = {
     maxFiles: Number,
+    maxFileSize: { type: Number, default: 0 },
+    maxFileSizeLabel: { type: String, default: "" },
+    fileTooLargeMessage: { type: String, default: "" },
   }
 
   connect() {
@@ -106,6 +109,21 @@ export default class extends Controller {
       return
     }
 
+    if (this.maxFileSizeValue > 0) {
+      for (let i = 0; i < arrayLength; i++) {
+        const file = originalInput.files[i]
+        if (file.size > this.maxFileSizeValue) {
+          this.showFileTooLarge(file.name)
+          event.preventDefault()
+          event.stopPropagation()
+          originalInput.value = ''
+          return
+        }
+      }
+    }
+
+    this.clearFileTooLarge()
+
     for (let i = 0; i < arrayLength; i++) {
       fileCount += 1
 
@@ -140,7 +158,34 @@ export default class extends Controller {
   updateFilesFooter() {
     const footer = document.getElementById("file-count-footer")
     const maxFiles = this.maxFilesValue
-    footer.innerHTML = fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
+    let text = fileCount + ` file(s) selected. You can upload up to ${maxFiles} files per push.`
+    if (this.maxFileSizeValue > 0 && this.maxFileSizeLabelValue) {
+      text += ` Maximum size per file is ${this.maxFileSizeLabelValue}.`
+    }
+    footer.innerHTML = text
+  }
+
+  showFileTooLarge(filename) {
+    const template = this.fileTooLargeMessageValue || "%{filename} is too large. Maximum size per file is %{size}."
+    const message = template
+      .replace("%{filename}", filename)
+      .replace("%{size}", this.maxFileSizeLabelValue)
+
+    const el = document.getElementById("file-size-error")
+    if (el) {
+      el.textContent = message
+      el.classList.remove("d-none")
+    } else {
+      alert(message)
+    }
+  }
+
+  clearFileTooLarge() {
+    const el = document.getElementById("file-size-error")
+    if (el) {
+      el.textContent = ""
+      el.classList.add("d-none")
+    }
   }
 
   removeFile(event) {

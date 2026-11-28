@@ -234,12 +234,25 @@ class PushesController < BaseController
     assign_deletable_by_viewer(@push, update_params)
     assign_retrieval_step(@push, update_params)
 
-    # Validate file count before attaching
+    # Validate file count and size before attaching. Do this before valid?,
+    # which clears errors collected here.
     if new_files.any?
       total_file_count = @push.files.count + new_files.count
       if total_file_count > @push.settings_for_kind.max_file_uploads
         @push.errors.add(:files, I18n._("You can only attach up to %{count} files per push.") % {count: @push.settings_for_kind.max_file_uploads})
       end
+
+      new_files.each do |uploaded|
+        byte_size = Pwpush::FileLimits.byte_size_for(uploaded)
+        next if byte_size.nil? || Pwpush::FileLimits.allowed_byte_size?(byte_size)
+
+        @push.errors.add(:files, Pwpush::FileLimits.too_large_message(filename: Pwpush::FileLimits.filename_for(uploaded)))
+      end
+    end
+
+    if @push.errors.any?
+      render action: "edit", status: :unprocessable_content
+      return
     end
 
     if @push.valid?
@@ -403,7 +416,8 @@ class PushesController < BaseController
     return if files.empty?
 
     Pwpush::Metrics.increment(:uploaded_files, value: files.size)
-    Pwpush::Metrics.increment(:uploaded_file_bytes, value: files.sum(&:size))
+    uploaded_bytes = files.sum { |file| Pwpush::FileLimits.byte_size_for(file).to_i }
+    Pwpush::Metrics.increment(:uploaded_file_bytes, value: uploaded_bytes)
   end
 
   def clear_flash_for_delivery_pages

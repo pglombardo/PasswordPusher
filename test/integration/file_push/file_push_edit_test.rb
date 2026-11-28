@@ -178,6 +178,53 @@ class FilePushEditTest < ActionDispatch::IntegrationTest
     assert_select "button[type=submit]", text: /Update Push/
   end
 
+  test "edit rejects oversized signed blob id" do
+    push = Push.create!(kind: "file", user: @luca)
+    push.files.attach(fixture_file_upload("test-file.txt", "text/plain"))
+    Settings.files.max_file_size = "10"
+
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: file_fixture("monkey.png").open,
+      filename: "monkey.png",
+      content_type: "image/png"
+    )
+
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        files: [blob.signed_id]
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_select "div.alert-danger", text: /too large/
+    assert_equal 1, push.reload.files.count
+  end
+
+  test "edit accepts signed blob id under the limit" do
+    Settings.files.max_file_size = "10MB"
+    push = Push.create!(kind: "file", user: @luca)
+    push.files.attach(fixture_file_upload("test-file.txt", "text/plain"))
+
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: file_fixture("monkey.png").open,
+      filename: "monkey.png",
+      content_type: "image/png"
+    )
+
+    patch push_path(push), params: {
+      push: {
+        kind: "file",
+        files: [blob.signed_id]
+      }
+    }
+
+    assert_redirected_to preview_push_path(push)
+    push.reload
+    assert_equal 2, push.files.count
+    assert_includes push.files.map { |file| file.filename.to_s }, "monkey.png"
+  end
+
   test "cannot exceed max file limit when updating" do
     push = Push.create!(kind: "file", user: @luca)
 

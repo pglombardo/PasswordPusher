@@ -32,6 +32,8 @@ module PasswordPusher
     config.load_defaults 8.0
     config.active_support.cache_format_version = 7.0
 
+    # Framework fallback. Request-time values come from Settings.files
+    # blob_urls_expire_in / direct_upload_urls_expire_in (Pwpush::FileLimits).
     config.active_storage.urls_expire_in = 5.minutes
     config.active_storage.routes_prefix = "/pfb"
 
