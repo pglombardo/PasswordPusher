@@ -186,11 +186,15 @@ Deploy your own instance without setting up a server. You pay the provider direc
       <a href="render.yaml"><code>render.yaml</code></a> builds the production Docker image with Postgres and a disk for uploads.
     </td>
     <td align="center" valign="top" width="33%">
+      <a href="https://www.simafri.com/en/guides/self-host-password-pusher/"><img alt="Self-host on Simafri" width="216" height="48" src="https://www.simafri.com/assets/img/self-host-on-simafri.svg"></a><br>
+      <a href="https://www.simafri.com/en/guides/self-host-password-pusher/"><strong>Simafri</strong></a><br>
+      Managed VPS that Simafri runs, with system updates, 24/7 monitoring and encrypted nightly backups, and a tested guide for Docker Compose with PostgreSQL.
+    </td>
+    <td align="center" valign="top" width="33%">
       <a href="https://zop.dev/zopday/app/deploy?image=pglombardo/pwpush:latest&amp;port=5100&amp;name=pwpush&amp;utm_source=github&amp;utm_medium=one_click&amp;utm_content=passwordpusher"><img alt="Deploy to ZopDay" width="225" height="48" src="https://zop.dev/deploytozopday-inkhard.svg"></a><br>
       <a href="https://zop.dev/zopday/oss?utm_source=github&amp;utm_medium=one_click&amp;utm_content=passwordpusher"><strong>ZopDay</strong></a><br>
       Run it on managed ZopCloud or in an AWS or GCP account you already own.
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
