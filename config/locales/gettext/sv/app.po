@@ -1,14 +1,14 @@
-# Swedish translations for pwpush-oss package.
-# Copyright (C) 2026 pwpush-oss
-# This file is distributed under the same license as the pwpush-oss package.
+# Swedish translations for pwpush package.
+# Copyright (C) 2026 pwpush
+# This file is distributed under the same license as the pwpush package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pwpush-oss 1.0\n"
+"Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-11-27 18:36+0100\n"
-"PO-Revision-Date: 2026-11-27 17:36+0000\n"
+"POT-Creation-Date: 2026-11-28 19:36+0100\n"
+"PO-Revision-Date: 2026-11-28 18:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish\n"
 "Language: sv\n"
@@ -214,6 +214,26 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "Tvåfaktorsautentisering har inaktiverats."
 
+#: ../../../app/helpers/admin_helper.rb:14
+msgid ""
+"Password Pusher v%{version} is now available on the stable channel (you're run"
+"ning v%{current})."
+msgstr ""
+"Lösenordsutlösaren v%{version} är nu tillgänglig på den stabila kanalen (du kö"
+"r v%{current})."
+
+#: ../../../app/helpers/admin_helper.rb:19
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "Lösenordsutlösaren v%{latest} är tillgänglig (du kör v%{current})"
+
+#: ../../../app/helpers/admin_helper.rb:28
+msgid "You're running the current stable version."
+msgstr "Du kör den nuvarande stabila versionen."
+
+#: ../../../app/helpers/admin_helper.rb:30
+msgid "You're running the latest version."
+msgstr "Du kör den senaste versionen."
+
 #: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
@@ -373,11 +393,25 @@ msgstr "är inte tillgängliga för utgångna push-kampanjer"
 msgid "is not available for expired pushes"
 msgstr "är inte tillgängligt för utgångna push-kampanjer"
 
-#: ../../../app/services/release_check.rb:72
+#: ../../../app/services/release_check.rb:110
+msgid "Update check complete: version v%{version} is available on the stable channel."
+msgstr ""
+"Uppdateringskontroll klar: version v%{version} är tillgänglig på den stabila k"
+"analen."
+
+#: ../../../app/services/release_check.rb:112
 msgid "Update check complete: version v%{latest} is available."
 msgstr "Uppdateringskontroll klar: version v%{latest} är tillgänglig."
 
-#: ../../../app/services/release_check.rb:74
+#: ../../../app/services/release_check.rb:115
+msgid ""
+"Update check complete: you're running the current stable version (v%{version})"
+"."
+msgstr ""
+"Uppdateringskontroll klar: du kör den nuvarande stabila versionen (v%{version}"
+")."
+
+#: ../../../app/services/release_check.rb:117
 msgid "Update check complete: you're running the latest version (v%{version})."
 msgstr "Uppdateringskontroll klar: du kör den senaste versionen (v%{version})."
 
@@ -438,11 +472,6 @@ msgstr "Bakgrundsjobb"
 msgid "Custom CSS"
 msgstr "Anpassad CSS"
 
-#: ../../../app/views/admin/_release_banner.html.erb:6
-#: ../../../app/views/admin/_release_status_card.html.erb:25
-msgid "Password Pusher v%{latest} is available (you're running v%{current})"
-msgstr "Lösenordsutlösaren v%{latest} är tillgänglig (du kör v%{current})"
-
 #: ../../../app/views/admin/_release_banner.html.erb:10
 msgid "This update includes a security release. Please upgrade as soon as possible."
 msgstr ""
@@ -450,11 +479,16 @@ msgstr ""
 "nart som möjligt."
 
 #: ../../../app/views/admin/_release_banner.html.erb:15
-#: ../../../app/views/admin/_release_status_card.html.erb:29
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid "Docker users: re-pull pglombardo/pwpush:stable to upgrade."
+msgstr "Docker-användare: hämta pglombardo/pwpush:stable igen för att uppgradera."
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_status_card.html.erb:39
 msgid "View release notes"
 msgstr "Visa versionsinformation"
 
-#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_banner.html.erb:25
 msgid "Dismiss"
 msgstr "Avfärda"
 
@@ -468,20 +502,24 @@ msgid "OSS Version %{version}"
 msgstr "OSS-version %{version}"
 
 #: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Update channel: %{channel}"
+msgstr "Uppdatera kanal: %{channel}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:16
 msgid "Check now"
 msgstr "Kolla nu"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:17
+#: ../../../app/views/admin/_release_status_card.html.erb:22
 msgid "Update checks are disabled for this instance."
 msgstr "Uppdateringskontroller är inaktiverade för den här instansen."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:21
+#: ../../../app/views/admin/_release_status_card.html.erb:26
 msgid "No update information yet. Run a check to see if a newer release is available."
 msgstr ""
 "Ingen uppdateringsinformation ännu. Kontrollera om en nyare version finns till"
 "gänglig."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:34
+#: ../../../app/views/admin/_release_status_card.html.erb:44
 msgid ""
 "A newer release includes security fixes. This notice cannot be dismissed until"
 " you upgrade."
@@ -489,21 +527,17 @@ msgstr ""
 "En nyare version innehåller säkerhetskorrigeringar. Det här meddelandet kan in"
 "te ignoreras förrän du uppgraderar."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:37
+#: ../../../app/views/admin/_release_status_card.html.erb:48
 msgid "Newer releases"
 msgstr "Nyare utgåvor"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:46
+#: ../../../app/views/admin/_release_status_card.html.erb:57
 msgid "Security"
 msgstr "Säkerhet"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:58
+#: ../../../app/views/admin/_release_status_card.html.erb:69
 msgid "Notes"
 msgstr "Anpassade domänanteckningar"
-
-#: ../../../app/views/admin/_release_status_card.html.erb:67
-msgid "You're running the latest version."
-msgstr "Du kör den senaste versionen."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -756,32 +790,32 @@ msgid "Track email notifications, push cleanup, and system processing tasks"
 msgstr "Spåra e-postmeddelanden, push-rensning och systembearbetningsuppgifter"
 
 #: ../../../app/views/admin/index.html.erb:312
-msgid "🗄️ Explore Database:"
-msgstr "🗄️ Utforska databasen:"
-
-#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Direktåtkomst till användare, push-meddelanden, granskningsloggar och fillagri"
 "ngsposter"
 
-#: ../../../app/views/admin/index.html.erb:313
-msgid "📈 View System Stats:"
-msgstr "📈 Visa systemstatistik:"
+#: ../../../app/views/admin/index.html.erb:312
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Utforska databasen:"
 
 #: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
 msgstr "Övervaka användaraktivitet, push-antal och granskningsloggposter"
 
-#: ../../../app/views/admin/index.html.erb:314
-msgid "🔍 Track Activity:"
-msgstr "🔍 Spåra aktivitet:"
+#: ../../../app/views/admin/index.html.erb:313
+msgid "📈 View System Stats:"
+msgstr "📈 Visa systemstatistik:"
 
 #: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "Granska granskningsloggar för att förstå systemanvändning och säkerhetshändels"
 "er"
+
+#: ../../../app/views/admin/index.html.erb:314
+msgid "🔍 Track Activity:"
+msgstr "🔍 Spåra aktivitet:"
 
 #: ../../../app/views/admin/users/index.html.erb:25
 msgid "Manage administrator accounts and privileges"
@@ -940,17 +974,6 @@ msgid "IP Address:"
 msgstr "IP-adress:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_creation.html.erb:10
-#: ../../../app/views/audit_logs/_log_edit.html.erb:10
-#: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
-#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_view.html.erb:10
-msgid "User Agent:"
-msgstr "Användaragent:"
-
-#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -969,6 +992,17 @@ msgstr "Användaragent:"
 #: ../../../app/views/pushes/audit.html.erb:20
 msgid "None"
 msgstr "Ingen"
+
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Användaragent:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -1006,12 +1040,12 @@ msgid "Error:"
 msgstr "Fel:"
 
 #: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
-msgid "Proceed At:"
-msgstr "Fortsätt vid:"
-
-#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
 msgid "Not yet"
 msgstr "Inte än"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Proceed At:"
+msgstr "Fortsätt vid:"
 
 #: ../../../app/views/audit_logs/_log_edit.html.erb:3
 msgid "Edited on %{date} by %{user}"
@@ -1327,16 +1361,16 @@ msgid "Data Explorer - Administration - Password Pusher"
 msgstr "Datautforskaren - Administration - Lösenordsutlösare"
 
 #: ../../../app/views/layouts/madmin/application.html.erb:29
-msgid "Staging Environment"
-msgstr "Staging-miljö"
-
-#: ../../../app/views/layouts/madmin/application.html.erb:29
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
 msgstr ""
 "Detta är en mellanlagringsplats för testning och data återställs ofta. Använd "
 "%{production_link} om du inte testar nya funktioner."
+
+#: ../../../app/views/layouts/madmin/application.html.erb:29
+msgid "Staging Environment"
+msgstr "Staging-miljö"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:23
@@ -1384,23 +1418,23 @@ msgstr "Automatiskt borttagning av utgångna push-meddelanden från databasen"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
-msgid "File processing"
-msgstr "Filbehandling"
-
-#:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
 msgid "Handling file uploads and any post-processing tasks."
 msgstr "Hantera filuppladdningar och eventuella efterbehandlingsuppgifter."
 
 #:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
-msgid "Audit logging"
-msgstr "Granskningsloggning"
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
+msgid "File processing"
+msgstr "Filbehandling"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
 msgid "Recording system events and user actions"
 msgstr "Registrera systemhändelser och användaråtgärder"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid "Audit logging"
+msgstr "Granskningsloggning"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:62
@@ -1560,14 +1594,14 @@ msgid "Database %{status}"
 msgstr "Databas %{status}"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:21
-#: ../../../app/views/madmin/dashboard/show.html.erb:205
-msgid "Connected"
-msgstr "Ansluten"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:21
 #: ../../../app/views/madmin/dashboard/show.html.erb:210
 msgid "Disconnected"
 msgstr "Osammanhängande"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Ansluten"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:27
 #: ../../../app/views/madmin/dashboard/show.html.erb:237
@@ -1579,10 +1613,6 @@ msgid "Direct Database Access"
 msgstr "Direkt databasåtkomst"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:43
-msgid "Warning:"
-msgstr "Varning:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:43
 msgid ""
 "This interface provides direct access to your production database. All changes"
 " are immediate and irreversible. Exercise extreme caution when modifying recor"
@@ -1591,6 +1621,10 @@ msgstr ""
 "Det här gränssnittet ger direkt åtkomst till din produktionsdatabas. Alla ändr"
 "ingar är omedelbara och oåterkalleliga. Var extremt försiktig när du ändrar po"
 "ster."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Varning:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:46
 msgid "Recommendation:"
@@ -1629,12 +1663,12 @@ msgid "View user accounts, check registration dates, and manage permissions"
 msgstr "Visa användarkonton, kontrollera registreringsdatum och hantera behörigheter"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:69
-msgid "Pushes:"
-msgstr "Pushar:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:69
 msgid "Monitor password pushes, view expiration status, and track usage"
 msgstr "Övervaka lösenordsöverföringar, visa utgångsstatus och spåra användning"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Pushar:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:70
 msgid "Audit Logs:"
@@ -1649,20 +1683,20 @@ msgid "🔧 Common Tasks"
 msgstr "🔧 Vanliga uppgifter"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:76
-msgid "User Support:"
-msgstr "Användarsupport:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:76
 msgid "Impersonate users to troubleshoot issues"
 msgstr "Utge dig för att vara användare för att felsöka problem"
 
-#: ../../../app/views/madmin/dashboard/show.html.erb:77
-msgid "Data Cleanup:"
-msgstr "Datarensning:"
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Användarsupport:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:77
 msgid "Remove expired pushes or inactive accounts"
 msgstr "Ta bort utgångna pushar eller inaktiva konton"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Datarensning:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:78
 msgid "Security Review:"
@@ -1673,12 +1707,12 @@ msgid "Check audit logs for suspicious activity"
 msgstr "Kontrollera granskningsloggar för misstänkt aktivitet"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:79
-msgid "Analytics:"
-msgstr "Analys:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:79
 msgid "Analyze usage patterns and system health"
 msgstr "Analysera användningsmönster och systemhälsa"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analys:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:99
 msgid "Core Data"
@@ -2172,14 +2206,14 @@ msgid "Authenticated endpoints:"
 msgstr "Autentiserade slutpunkter:"
 
 #: ../../../app/views/pages/api.html.erb:25
-msgid "Anonymous access setting:"
-msgstr "Inställning för anonym åtkomst:"
-
-#: ../../../app/views/pages/api.html.erb:25
 msgid "When anonymous pushes are disabled, API endpoints require authentication."
 msgstr ""
 "När anonyma push-meddelanden är inaktiverade kräver API-slutpunkter autentiser"
 "ing."
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "Anonymous access setting:"
+msgstr "Inställning för anonym åtkomst:"
 
 #: ../../../app/views/pages/api.html.erb:32
 msgid "Base URL"
@@ -2466,18 +2500,18 @@ msgstr ""
 "s."
 
 #: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:299
+#: ../../../app/views/pages/api.html.erb:326
+msgid "Supported Locales"
+msgstr "Språk som stöds"
+
+#: ../../../app/views/pages/api.html.erb:179
 msgid ""
 "Optional locale for the push creation email. See the list of available locales"
 " in the"
 msgstr ""
 "Valfri språkinställning för e-postmeddelandet om att skapa push-meddelandet. S"
 "e listan över tillgängliga språkinställningar i"
-
-#: ../../../app/views/pages/api.html.erb:179
-#: ../../../app/views/pages/api.html.erb:299
-#: ../../../app/views/pages/api.html.erb:326
-msgid "Supported Locales"
-msgstr "Språk som stöds"
 
 #: ../../../app/views/pages/api.html.erb:184
 msgid "OSS vs Pro: Expiration Fields"
@@ -2535,14 +2569,14 @@ msgstr ""
 "rävs."
 
 #: ../../../app/views/pages/api.html.erb:238
+msgid "Returns up to 50 entries per page."
+msgstr "Returnerar upp till 50 poster per sida."
+
+#: ../../../app/views/pages/api.html.erb:238
 #: ../../../app/views/pages/api.html.erb:260
 #: ../../../app/views/pages/api.html.erb:272
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "valfritt, heltal, standard 1, giltigt intervall 1 till 200"
-
-#: ../../../app/views/pages/api.html.erb:238
-msgid "Returns up to 50 entries per page."
-msgstr "Returnerar upp till 50 poster per sida."
 
 #: ../../../app/views/pages/api.html.erb:239
 #: ../../../app/views/pages/api.html.erb:261
@@ -2989,22 +3023,15 @@ msgstr "En revisionslogg över aktivitet kommer att finnas tillgänglig."
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Updating..."
-msgstr "Uppdaterar..."
+msgid "Update Push"
+msgstr "Uppdatera Push"
 
 #: ../../../app/views/pushes/_files_form.html.erb:192
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Update Push"
-msgstr "Uppdatera Push"
-
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Pushing..."
-msgstr "Pushar..."
+msgid "Updating..."
+msgstr "Uppdaterar..."
 
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
@@ -3012,6 +3039,13 @@ msgstr "Pushar..."
 #: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Pusha!"
+
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
+msgid "Pushing..."
+msgstr "Pushar..."
 
 #: ../../../app/views/pushes/_form.html.erb:1
 msgid "Securely Send a Password"
@@ -3512,12 +3546,12 @@ msgid "Viewers cannot delete this push."
 msgstr "Tittare kan inte ta bort den här pushen."
 
 #: ../../../app/views/pushes/preview.html.erb:91
-msgid "Includes a"
-msgstr "Inkluderar en"
-
-#: ../../../app/views/pushes/preview.html.erb:91
 msgid "1-click preliminary retrieval step"
 msgstr "Preliminär 1-klickhämtning"
+
+#: ../../../app/views/pushes/preview.html.erb:91
+msgid "Includes a"
+msgstr "Inkluderar en"
 
 #: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"

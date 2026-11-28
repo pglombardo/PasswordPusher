@@ -1,14 +1,14 @@
-# Catalan translations for pwpush-oss package.
-# Copyright (C) 2026 pwpush-oss
-# This file is distributed under the same license as the pwpush-oss package.
+# Catalan translations for pwpush package.
+# Copyright (C) 2026 pwpush
+# This file is distributed under the same license as the pwpush package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pwpush-oss 1.0\n"
+"Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-11-27 18:36+0100\n"
-"PO-Revision-Date: 2026-11-27 17:36+0000\n"
+"POT-Creation-Date: 2026-11-28 19:36+0100\n"
+"PO-Revision-Date: 2026-11-28 18:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -222,6 +222,26 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "L'autenticació de dos factors s'ha desactivat."
 
+#: ../../../app/helpers/admin_helper.rb:14
+msgid ""
+"Password Pusher v%{version} is now available on the stable channel (you're run"
+"ning v%{current})."
+msgstr ""
+"El Password Pusher v%{version} ja està disponible al canal estable (esteu exec"
+"utant v%{current})."
+
+#: ../../../app/helpers/admin_helper.rb:19
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "El Password Pusher v%{latest} està disponible (esteu executant v%{current})"
+
+#: ../../../app/helpers/admin_helper.rb:28
+msgid "You're running the current stable version."
+msgstr "Esteu executant la versió estable actual."
+
+#: ../../../app/helpers/admin_helper.rb:30
+msgid "You're running the latest version."
+msgstr "Esteu executant la darrera versió."
+
 #: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
@@ -381,11 +401,25 @@ msgstr "no estan disponibles per a les trameses caducades"
 msgid "is not available for expired pushes"
 msgstr "no està disponible per a les trameses caducades"
 
-#: ../../../app/services/release_check.rb:72
+#: ../../../app/services/release_check.rb:110
+msgid "Update check complete: version v%{version} is available on the stable channel."
+msgstr ""
+"Comprovació d'actualització completada: la versió v%{version} està disponible "
+"al canal estable."
+
+#: ../../../app/services/release_check.rb:112
 msgid "Update check complete: version v%{latest} is available."
 msgstr "Comprovació d'actualització completada: la versió v%{latest} està disponible."
 
-#: ../../../app/services/release_check.rb:74
+#: ../../../app/services/release_check.rb:115
+msgid ""
+"Update check complete: you're running the current stable version (v%{version})"
+"."
+msgstr ""
+"Comprovació d'actualització completada: esteu executant la versió estable actu"
+"al (v%{version})."
+
+#: ../../../app/services/release_check.rb:117
 msgid "Update check complete: you're running the latest version (v%{version})."
 msgstr ""
 "Comprovació d'actualització completada: esteu executant la darrera versió (v%{"
@@ -448,11 +482,6 @@ msgstr "Feines de fons"
 msgid "Custom CSS"
 msgstr "CSS personalitzat"
 
-#: ../../../app/views/admin/_release_banner.html.erb:6
-#: ../../../app/views/admin/_release_status_card.html.erb:25
-msgid "Password Pusher v%{latest} is available (you're running v%{current})"
-msgstr "El Password Pusher v%{latest} està disponible (esteu executant v%{current})"
-
 #: ../../../app/views/admin/_release_banner.html.erb:10
 msgid "This update includes a security release. Please upgrade as soon as possible."
 msgstr ""
@@ -460,11 +489,16 @@ msgstr ""
 "la tan aviat com sigui possible."
 
 #: ../../../app/views/admin/_release_banner.html.erb:15
-#: ../../../app/views/admin/_release_status_card.html.erb:29
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid "Docker users: re-pull pglombardo/pwpush:stable to upgrade."
+msgstr "Usuaris de Docker: torneu a executar pglombardo/pwpush:stable per actualitzar."
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_status_card.html.erb:39
 msgid "View release notes"
 msgstr "Veure les notes de la versió"
 
-#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_banner.html.erb:25
 msgid "Dismiss"
 msgstr "Ignora"
 
@@ -478,20 +512,24 @@ msgid "OSS Version %{version}"
 msgstr "Versió OSS %{version}"
 
 #: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Update channel: %{channel}"
+msgstr "Actualitza el canal: %{channel}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:16
 msgid "Check now"
 msgstr "Comprova ara"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:17
+#: ../../../app/views/admin/_release_status_card.html.erb:22
 msgid "Update checks are disabled for this instance."
 msgstr "Les comprovacions d'actualització estan desactivades per a aquesta instància."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:21
+#: ../../../app/views/admin/_release_status_card.html.erb:26
 msgid "No update information yet. Run a check to see if a newer release is available."
 msgstr ""
 "Encara no hi ha informació d'actualització. Comprova si hi ha disponible una v"
 "ersió més recent."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:34
+#: ../../../app/views/admin/_release_status_card.html.erb:44
 msgid ""
 "A newer release includes security fixes. This notice cannot be dismissed until"
 " you upgrade."
@@ -499,21 +537,17 @@ msgstr ""
 "Una versió més recent inclou correccions de seguretat. Aquest avís no es pot i"
 "gnorar fins que no actualitzeu."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:37
+#: ../../../app/views/admin/_release_status_card.html.erb:48
 msgid "Newer releases"
 msgstr "Llançaments més recents"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:46
+#: ../../../app/views/admin/_release_status_card.html.erb:57
 msgid "Security"
 msgstr "Seguretat"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:58
+#: ../../../app/views/admin/_release_status_card.html.erb:69
 msgid "Notes"
 msgstr "Notes de domini personalitzades"
-
-#: ../../../app/views/admin/_release_status_card.html.erb:67
-msgid "You're running the latest version."
-msgstr "Esteu executant la darrera versió."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -770,18 +804,14 @@ msgstr ""
 "les tasques de processament del sistema"
 
 #: ../../../app/views/admin/index.html.erb:312
-msgid "🗄️ Explore Database:"
-msgstr "🗄️ Explora la base de dades:"
-
-#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Accés directe a usuaris, push, registres d'auditoria i registres d'emmagatzema"
 "tge de fitxers"
 
-#: ../../../app/views/admin/index.html.erb:313
-msgid "📈 View System Stats:"
-msgstr "📈 Veure les estadístiques del sistema:"
+#: ../../../app/views/admin/index.html.erb:312
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Explora la base de dades:"
 
 #: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
@@ -789,15 +819,19 @@ msgstr ""
 "Supervisar l'activitat dels usuaris, el recompte d'instacions i les entrades d"
 "el registre d'auditoria"
 
-#: ../../../app/views/admin/index.html.erb:314
-msgid "🔍 Track Activity:"
-msgstr "🔍 Activitat de seguiment:"
+#: ../../../app/views/admin/index.html.erb:313
+msgid "📈 View System Stats:"
+msgstr "📈 Veure les estadístiques del sistema:"
 
 #: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "Revisar els registres d'auditoria per entendre l'ús del sistema i els esdeveni"
 "ments de seguretat"
+
+#: ../../../app/views/admin/index.html.erb:314
+msgid "🔍 Track Activity:"
+msgstr "🔍 Activitat de seguiment:"
 
 #: ../../../app/views/admin/users/index.html.erb:25
 msgid "Manage administrator accounts and privileges"
@@ -956,17 +990,6 @@ msgid "IP Address:"
 msgstr "Adreça IP:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_creation.html.erb:10
-#: ../../../app/views/audit_logs/_log_edit.html.erb:10
-#: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
-#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_view.html.erb:10
-msgid "User Agent:"
-msgstr "Agent d'usuari:"
-
-#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -985,6 +1008,17 @@ msgstr "Agent d'usuari:"
 #: ../../../app/views/pushes/audit.html.erb:20
 msgid "None"
 msgstr "Cap"
+
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Agent d'usuari:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -1022,12 +1056,12 @@ msgid "Error:"
 msgstr "Error:"
 
 #: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
-msgid "Proceed At:"
-msgstr "Continuar a:"
-
-#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
 msgid "Not yet"
 msgstr "Encara no"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Proceed At:"
+msgstr "Continuar a:"
 
 #: ../../../app/views/audit_logs/_log_edit.html.erb:3
 msgid "Edited on %{date} by %{user}"
@@ -1355,16 +1389,16 @@ msgid "Data Explorer - Administration - Password Pusher"
 msgstr "Explorador de dades - Administració - Enviador de contrasenyes"
 
 #: ../../../app/views/layouts/madmin/application.html.erb:29
-msgid "Staging Environment"
-msgstr "Entorn de posada en escena"
-
-#: ../../../app/views/layouts/madmin/application.html.erb:29
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
 msgstr ""
 "Aquest és un lloc web de proves i les dades es reinicien amb freqüència. Si us"
 " plau, utilitzeu %{production_link} tret que estigueu provant noves funcions."
+
+#: ../../../app/views/layouts/madmin/application.html.erb:29
+msgid "Staging Environment"
+msgstr "Entorn de posada en escena"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:23
@@ -1412,23 +1446,23 @@ msgstr "Eliminació automàtica de les push caducades de la base de dades"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
-msgid "File processing"
-msgstr "Processament de fitxers"
-
-#:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
 msgid "Handling file uploads and any post-processing tasks."
 msgstr "Gestionar la càrrega de fitxers i qualsevol tasca de postprocessament."
 
 #:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
-msgid "Audit logging"
-msgstr "Registre d'auditoria"
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
+msgid "File processing"
+msgstr "Processament de fitxers"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
 msgid "Recording system events and user actions"
 msgstr "Registre d'esdeveniments del sistema i accions de l'usuari"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid "Audit logging"
+msgstr "Registre d'auditoria"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:62
@@ -1588,14 +1622,14 @@ msgid "Database %{status}"
 msgstr "Base de dades %{status}"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:21
-#: ../../../app/views/madmin/dashboard/show.html.erb:205
-msgid "Connected"
-msgstr "Connectat"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:21
 #: ../../../app/views/madmin/dashboard/show.html.erb:210
 msgid "Disconnected"
 msgstr "Desconnectat"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Connectat"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:27
 #: ../../../app/views/madmin/dashboard/show.html.erb:237
@@ -1607,10 +1641,6 @@ msgid "Direct Database Access"
 msgstr "Accés directe a la base de dades"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:43
-msgid "Warning:"
-msgstr "Avís:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:43
 msgid ""
 "This interface provides direct access to your production database. All changes"
 " are immediate and irreversible. Exercise extreme caution when modifying recor"
@@ -1619,6 +1649,10 @@ msgstr ""
 "Aquesta interfície proporciona accés directe a la base de dades de producció. "
 "Tots els canvis són immediats i irreversibles. Extremeu la precaució en modifi"
 "car registres."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Avís:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:46
 msgid "Recommendation:"
@@ -1657,14 +1691,14 @@ msgid "View user accounts, check registration dates, and manage permissions"
 msgstr "Veure comptes d'usuari, comprovar dates de registre i gestionar permisos"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:69
-msgid "Pushes:"
-msgstr "Empeny:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:69
 msgid "Monitor password pushes, view expiration status, and track usage"
 msgstr ""
 "Supervisar les trameses de contrasenyes, veure l'estat de caducitat i fer un s"
 "eguiment de l'ús"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Empeny:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:70
 msgid "Audit Logs:"
@@ -1679,20 +1713,20 @@ msgid "🔧 Common Tasks"
 msgstr "🔧 Tasques comunes"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:76
-msgid "User Support:"
-msgstr "Suport a l'usuari:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:76
 msgid "Impersonate users to troubleshoot issues"
 msgstr "Fer-se passar per usuaris per resoldre problemes"
 
-#: ../../../app/views/madmin/dashboard/show.html.erb:77
-msgid "Data Cleanup:"
-msgstr "Neteja de dades:"
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Suport a l'usuari:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:77
 msgid "Remove expired pushes or inactive accounts"
 msgstr "Eliminar les trameses caducades o els comptes inactius"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Neteja de dades:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:78
 msgid "Security Review:"
@@ -1703,12 +1737,12 @@ msgid "Check audit logs for suspicious activity"
 msgstr "Revisar els registres d'auditoria per detectar activitats sospitoses"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:79
-msgid "Analytics:"
-msgstr "Analítica:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:79
 msgid "Analyze usage patterns and system health"
 msgstr "Analitzar els patrons d'ús i l'estat del sistema"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analítica:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:99
 msgid "Core Data"
@@ -2205,14 +2239,14 @@ msgid "Authenticated endpoints:"
 msgstr "Punts finals autenticats:"
 
 #: ../../../app/views/pages/api.html.erb:25
-msgid "Anonymous access setting:"
-msgstr "Configuració d'accés anònim:"
-
-#: ../../../app/views/pages/api.html.erb:25
 msgid "When anonymous pushes are disabled, API endpoints require authentication."
 msgstr ""
 "Quan les trameses anònimes estan desactivades, els punts finals de l'API reque"
 "reixen autenticació."
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "Anonymous access setting:"
+msgstr "Configuració d'accés anònim:"
 
 #: ../../../app/views/pages/api.html.erb:32
 msgid "Base URL"
@@ -2501,18 +2535,18 @@ msgstr ""
 "Cal autenticació quan es proporciona."
 
 #: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:299
+#: ../../../app/views/pages/api.html.erb:326
+msgid "Supported Locales"
+msgstr "Configuracions regionals compatibles"
+
+#: ../../../app/views/pages/api.html.erb:179
 msgid ""
 "Optional locale for the push creation email. See the list of available locales"
 " in the"
 msgstr ""
 "Configuració regional opcional per al correu electrònic de creació push. Vegeu"
 " la llista de configuracions regionals disponibles a"
-
-#: ../../../app/views/pages/api.html.erb:179
-#: ../../../app/views/pages/api.html.erb:299
-#: ../../../app/views/pages/api.html.erb:326
-msgid "Supported Locales"
-msgstr "Configuracions regionals compatibles"
 
 #: ../../../app/views/pages/api.html.erb:184
 msgid "OSS vs Pro: Expiration Fields"
@@ -2570,14 +2604,14 @@ msgstr ""
 "tenticació i propietat."
 
 #: ../../../app/views/pages/api.html.erb:238
+msgid "Returns up to 50 entries per page."
+msgstr "Retorna fins a 50 entrades per pàgina."
+
+#: ../../../app/views/pages/api.html.erb:238
 #: ../../../app/views/pages/api.html.erb:260
 #: ../../../app/views/pages/api.html.erb:272
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "opcional, enter, per defecte 1, interval vàlid d'1 a 200"
-
-#: ../../../app/views/pages/api.html.erb:238
-msgid "Returns up to 50 entries per page."
-msgstr "Retorna fins a 50 entrades per pàgina."
 
 #: ../../../app/views/pages/api.html.erb:239
 #: ../../../app/views/pages/api.html.erb:261
@@ -3036,22 +3070,15 @@ msgstr "Hi haurà disponible un registre d'auditoria de l'activitat."
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Updating..."
-msgstr "Actualitzant..."
+msgid "Update Push"
+msgstr "Actualitzar Push"
 
 #: ../../../app/views/pushes/_files_form.html.erb:192
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Update Push"
-msgstr "Actualitzar Push"
-
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Pushing..."
-msgstr "Empentant..."
+msgid "Updating..."
+msgstr "Actualitzant..."
 
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
@@ -3059,6 +3086,13 @@ msgstr "Empentant..."
 #: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Puja-la!"
+
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
+msgid "Pushing..."
+msgstr "Empentant..."
 
 #: ../../../app/views/pushes/_form.html.erb:1
 msgid "Securely Send a Password"
@@ -3565,12 +3599,12 @@ msgid "Viewers cannot delete this push."
 msgstr "Els espectadors no poden suprimir aquesta inserció."
 
 #: ../../../app/views/pushes/preview.html.erb:91
-msgid "Includes a"
-msgstr "Inclou un"
-
-#: ../../../app/views/pushes/preview.html.erb:91
 msgid "1-click preliminary retrieval step"
 msgstr "Pas preliminar de recuperació d'1 clic"
+
+#: ../../../app/views/pushes/preview.html.erb:91
+msgid "Includes a"
+msgstr "Inclou un"
 
 #: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"

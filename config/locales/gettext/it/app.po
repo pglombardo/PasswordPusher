@@ -1,14 +1,14 @@
-# Italian translations for pwpush-oss package.
-# Copyright (C) 2026 pwpush-oss
-# This file is distributed under the same license as the pwpush-oss package.
+# Italian translations for pwpush package.
+# Copyright (C) 2026 pwpush
+# This file is distributed under the same license as the pwpush package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pwpush-oss 1.0\n"
+"Project-Id-Version: pwpush 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2026-11-27 18:36+0100\n"
-"PO-Revision-Date: 2026-11-27 17:36+0000\n"
+"POT-Creation-Date: 2026-11-28 19:36+0100\n"
+"PO-Revision-Date: 2026-11-28 18:36+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -218,6 +218,26 @@ msgstr ""
 msgid "Two-factor authentication has been disabled."
 msgstr "L'autenticazione a due fattori è stata disabilitata."
 
+#: ../../../app/helpers/admin_helper.rb:14
+msgid ""
+"Password Pusher v%{version} is now available on the stable channel (you're run"
+"ning v%{current})."
+msgstr ""
+"Password Pusher v%{version} è ora disponibile sul canale stabile (stai eseguen"
+"do v%{current})."
+
+#: ../../../app/helpers/admin_helper.rb:19
+msgid "Password Pusher v%{latest} is available (you're running v%{current})"
+msgstr "Password Pusher v%{latest} è disponibile (stai eseguendo v%{current})"
+
+#: ../../../app/helpers/admin_helper.rb:28
+msgid "You're running the current stable version."
+msgstr "Stai utilizzando la versione stabile corrente."
+
+#: ../../../app/helpers/admin_helper.rb:30
+msgid "You're running the latest version."
+msgstr "Stai utilizzando la versione più recente."
+
 #: ../../../app/helpers/pushes_helper.rb:62
 #: ../../../app/helpers/share_message_helper.rb:46
 #: ../../../app/views/pushes/preview.html.erb:76
@@ -381,11 +401,25 @@ msgstr "non sono disponibili per le notifiche push scadute"
 msgid "is not available for expired pushes"
 msgstr "non è disponibile per le notifiche push scadute"
 
-#: ../../../app/services/release_check.rb:72
+#: ../../../app/services/release_check.rb:110
+msgid "Update check complete: version v%{version} is available on the stable channel."
+msgstr ""
+"Verifica dell'aggiornamento completata: la versione v%{version} è disponibile "
+"sul canale stabile."
+
+#: ../../../app/services/release_check.rb:112
 msgid "Update check complete: version v%{latest} is available."
 msgstr "Verifica dell'aggiornamento completata: la versione v%{latest} è disponibile."
 
-#: ../../../app/services/release_check.rb:74
+#: ../../../app/services/release_check.rb:115
+msgid ""
+"Update check complete: you're running the current stable version (v%{version})"
+"."
+msgstr ""
+"Verifica dell'aggiornamento completata: stai eseguendo la versione stabile cor"
+"rente (v%{version})."
+
+#: ../../../app/services/release_check.rb:117
 msgid "Update check complete: you're running the latest version (v%{version})."
 msgstr ""
 "Verifica dell'aggiornamento completata: stai utilizzando la versione più recen"
@@ -448,11 +482,6 @@ msgstr "Lavori di sfondo"
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: ../../../app/views/admin/_release_banner.html.erb:6
-#: ../../../app/views/admin/_release_status_card.html.erb:25
-msgid "Password Pusher v%{latest} is available (you're running v%{current})"
-msgstr "Password Pusher v%{latest} è disponibile (stai eseguendo v%{current})"
-
 #: ../../../app/views/admin/_release_banner.html.erb:10
 msgid "This update includes a security release. Please upgrade as soon as possible."
 msgstr ""
@@ -460,11 +489,18 @@ msgstr ""
 "il prima possibile."
 
 #: ../../../app/views/admin/_release_banner.html.erb:15
-#: ../../../app/views/admin/_release_status_card.html.erb:29
+#: ../../../app/views/admin/_release_status_card.html.erb:34
+msgid "Docker users: re-pull pglombardo/pwpush:stable to upgrade."
+msgstr ""
+"Utenti Docker: scaricate nuovamente pglombardo/pwpush:stable per eseguire l'ag"
+"giornamento."
+
+#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_status_card.html.erb:39
 msgid "View release notes"
 msgstr "Visualizza le note di rilascio"
 
-#: ../../../app/views/admin/_release_banner.html.erb:20
+#: ../../../app/views/admin/_release_banner.html.erb:25
 msgid "Dismiss"
 msgstr "Congedare"
 
@@ -478,20 +514,24 @@ msgid "OSS Version %{version}"
 msgstr "Versione OSS %{version}"
 
 #: ../../../app/views/admin/_release_status_card.html.erb:11
+msgid "Update channel: %{channel}"
+msgstr "Canale di aggiornamento: %{channel}"
+
+#: ../../../app/views/admin/_release_status_card.html.erb:16
 msgid "Check now"
 msgstr "Controlla ora"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:17
+#: ../../../app/views/admin/_release_status_card.html.erb:22
 msgid "Update checks are disabled for this instance."
 msgstr "Per questa istanza, i controlli di aggiornamento sono disabilitati."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:21
+#: ../../../app/views/admin/_release_status_card.html.erb:26
 msgid "No update information yet. Run a check to see if a newer release is available."
 msgstr ""
 "Non sono ancora disponibili informazioni sugli aggiornamenti. Esegui un contro"
 "llo per verificare se è disponibile una versione più recente."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:34
+#: ../../../app/views/admin/_release_status_card.html.erb:44
 msgid ""
 "A newer release includes security fixes. This notice cannot be dismissed until"
 " you upgrade."
@@ -499,21 +539,17 @@ msgstr ""
 "Una versione più recente include correzioni di sicurezza. Questo avviso non pu"
 "ò essere chiuso finché non si esegue l'aggiornamento."
 
-#: ../../../app/views/admin/_release_status_card.html.erb:37
+#: ../../../app/views/admin/_release_status_card.html.erb:48
 msgid "Newer releases"
 msgstr "Nuove uscite"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:46
+#: ../../../app/views/admin/_release_status_card.html.erb:57
 msgid "Security"
 msgstr "Sicurezza"
 
-#: ../../../app/views/admin/_release_status_card.html.erb:58
+#: ../../../app/views/admin/_release_status_card.html.erb:69
 msgid "Notes"
 msgstr "Note sul dominio personalizzato"
-
-#: ../../../app/views/admin/_release_status_card.html.erb:67
-msgid "You're running the latest version."
-msgstr "Stai utilizzando la versione più recente."
 
 #: ../../../app/views/admin/custom_css/edit.html.erb:7
 msgid ""
@@ -773,18 +809,14 @@ msgstr ""
 "laborazione del sistema"
 
 #: ../../../app/views/admin/index.html.erb:312
-msgid "🗄️ Explore Database:"
-msgstr "🗄️ Esplora il database:"
-
-#: ../../../app/views/admin/index.html.erb:312
 msgid "Direct access to users, pushes, audit logs, and file storage records"
 msgstr ""
 "Accesso diretto a utenti, push, registri di controllo e record di archiviazion"
 "e dei file"
 
-#: ../../../app/views/admin/index.html.erb:313
-msgid "📈 View System Stats:"
-msgstr "📈 Visualizza le statistiche di sistema:"
+#: ../../../app/views/admin/index.html.erb:312
+msgid "🗄️ Explore Database:"
+msgstr "🗄️ Esplora il database:"
 
 #: ../../../app/views/admin/index.html.erb:313
 msgid "Monitor user activity, push counts, and audit log entries"
@@ -792,15 +824,19 @@ msgstr ""
 "Monitora l'attività degli utenti, i conteggi delle push e le voci del registro"
 " di controllo"
 
-#: ../../../app/views/admin/index.html.erb:314
-msgid "🔍 Track Activity:"
-msgstr "🔍 Attività di monitoraggio:"
+#: ../../../app/views/admin/index.html.erb:313
+msgid "📈 View System Stats:"
+msgstr "📈 Visualizza le statistiche di sistema:"
 
 #: ../../../app/views/admin/index.html.erb:314
 msgid "Review audit logs to understand system usage and security events"
 msgstr ""
 "Esaminare i registri di controllo per comprendere l'utilizzo del sistema e gli"
 " eventi di sicurezza"
+
+#: ../../../app/views/admin/index.html.erb:314
+msgid "🔍 Track Activity:"
+msgstr "🔍 Attività di monitoraggio:"
 
 #: ../../../app/views/admin/users/index.html.erb:25
 msgid "Manage administrator accounts and privileges"
@@ -959,17 +995,6 @@ msgid "IP Address:"
 msgstr "Indirizzo IP:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_creation.html.erb:10
-#: ../../../app/views/audit_logs/_log_edit.html.erb:10
-#: ../../../app/views/audit_logs/_log_expire.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
-#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
-#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
-#: ../../../app/views/audit_logs/_log_view.html.erb:10
-msgid "User Agent:"
-msgstr "Agente utente:"
-
-#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:10
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -988,6 +1013,17 @@ msgstr "Agente utente:"
 #: ../../../app/views/pushes/audit.html.erb:20
 msgid "None"
 msgstr "Nessuna"
+
+#: ../../../app/views/audit_logs/_log_admin_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_creation.html.erb:10
+#: ../../../app/views/audit_logs/_log_edit.html.erb:10
+#: ../../../app/views/audit_logs/_log_expire.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_passphrase.html.erb:10
+#: ../../../app/views/audit_logs/_log_failed_view.html.erb:10
+#: ../../../app/views/audit_logs/_log_owner_view.html.erb:11
+#: ../../../app/views/audit_logs/_log_view.html.erb:10
+msgid "User Agent:"
+msgstr "Agente utente:"
 
 #: ../../../app/views/audit_logs/_log_admin_view.html.erb:13
 #: ../../../app/views/audit_logs/_log_creation.html.erb:12
@@ -1025,12 +1061,12 @@ msgid "Error:"
 msgstr "Errore:"
 
 #: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
-msgid "Proceed At:"
-msgstr "Procedere a:"
-
-#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
 msgid "Not yet"
 msgstr "Non ancora"
+
+#: ../../../app/views/audit_logs/_log_creation_email_send.html.erb:49
+msgid "Proceed At:"
+msgstr "Procedere a:"
 
 #: ../../../app/views/audit_logs/_log_edit.html.erb:3
 msgid "Edited on %{date} by %{user}"
@@ -1352,10 +1388,6 @@ msgid "Data Explorer - Administration - Password Pusher"
 msgstr "Esploratore dati - Amministrazione - Password Pusher"
 
 #: ../../../app/views/layouts/madmin/application.html.erb:29
-msgid "Staging Environment"
-msgstr "Ambiente di staging"
-
-#: ../../../app/views/layouts/madmin/application.html.erb:29
 msgid ""
 "This is a staging site for testing and data is reset frequently. Please use %{"
 "production_link} unless you are testing new features."
@@ -1363,6 +1395,10 @@ msgstr ""
 "Questo è un sito di staging per i test e i dati vengono reimpostati frequentem"
 "ente. Si prega di utilizzare %{production_link} a meno che non si stiano testa"
 "ndo nuove funzionalità."
+
+#: ../../../app/views/layouts/madmin/application.html.erb:29
+msgid "Staging Environment"
+msgstr "Ambiente di staging"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:23
@@ -1410,23 +1446,23 @@ msgstr "Rimozione automatica delle push scadute dal database"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
-msgid "File processing"
-msgstr "Elaborazione dei file"
-
-#:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
 msgid "Handling file uploads and any post-processing tasks."
 msgstr "Gestire il caricamento dei file e qualsiasi attività di post-elaborazione."
 
 #:
-#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
-msgid "Audit logging"
-msgstr "Registrazione di controllo"
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:58
+msgid "File processing"
+msgstr "Elaborazione dei file"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
 msgid "Recording system events and user actions"
 msgstr "Registrazione degli eventi di sistema e delle azioni dell'utente"
+
+#:
+#: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:59
+msgid "Audit logging"
+msgstr "Registrazione di controllo"
 
 #:
 #: ../../../app/views/layouts/mission_control/jobs/_application_selection.html.erb:62
@@ -1586,14 +1622,14 @@ msgid "Database %{status}"
 msgstr "Banca dati %{status}"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:21
-#: ../../../app/views/madmin/dashboard/show.html.erb:205
-msgid "Connected"
-msgstr "Collegato"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:21
 #: ../../../app/views/madmin/dashboard/show.html.erb:210
 msgid "Disconnected"
 msgstr "Disconnesso"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:21
+#: ../../../app/views/madmin/dashboard/show.html.erb:205
+msgid "Connected"
+msgstr "Collegato"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:27
 #: ../../../app/views/madmin/dashboard/show.html.erb:237
@@ -1605,10 +1641,6 @@ msgid "Direct Database Access"
 msgstr "Accesso diretto al database"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:43
-msgid "Warning:"
-msgstr "Avvertimento:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:43
 msgid ""
 "This interface provides direct access to your production database. All changes"
 " are immediate and irreversible. Exercise extreme caution when modifying recor"
@@ -1617,6 +1649,10 @@ msgstr ""
 "Questa interfaccia fornisce accesso diretto al database di produzione. Tutte l"
 "e modifiche sono immediate e irreversibili. Prestare la massima attenzione qua"
 "ndo si modificano i record."
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:43
+msgid "Warning:"
+msgstr "Avvertimento:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:46
 msgid "Recommendation:"
@@ -1657,14 +1693,14 @@ msgstr ""
 "e autorizzazioni"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:69
-msgid "Pushes:"
-msgstr "Spinte:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:69
 msgid "Monitor password pushes, view expiration status, and track usage"
 msgstr ""
 "Monitora le password push, visualizza lo stato di scadenza e monitora l'utiliz"
 "zo"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:69
+msgid "Pushes:"
+msgstr "Spinte:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:70
 msgid "Audit Logs:"
@@ -1679,20 +1715,20 @@ msgid "🔧 Common Tasks"
 msgstr "🔧 Attività comuni"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:76
-msgid "User Support:"
-msgstr "Supporto utente:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:76
 msgid "Impersonate users to troubleshoot issues"
 msgstr "Impersonare gli utenti per risolvere i problemi"
 
-#: ../../../app/views/madmin/dashboard/show.html.erb:77
-msgid "Data Cleanup:"
-msgstr "Pulizia dei dati:"
+#: ../../../app/views/madmin/dashboard/show.html.erb:76
+msgid "User Support:"
+msgstr "Supporto utente:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:77
 msgid "Remove expired pushes or inactive accounts"
 msgstr "Rimuovi push scaduti o account inattivi"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:77
+msgid "Data Cleanup:"
+msgstr "Pulizia dei dati:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:78
 msgid "Security Review:"
@@ -1703,12 +1739,12 @@ msgid "Check audit logs for suspicious activity"
 msgstr "Controllare i registri di controllo per attività sospette"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:79
-msgid "Analytics:"
-msgstr "Analisi:"
-
-#: ../../../app/views/madmin/dashboard/show.html.erb:79
 msgid "Analyze usage patterns and system health"
 msgstr "Analizzare i modelli di utilizzo e lo stato di salute del sistema"
+
+#: ../../../app/views/madmin/dashboard/show.html.erb:79
+msgid "Analytics:"
+msgstr "Analisi:"
 
 #: ../../../app/views/madmin/dashboard/show.html.erb:99
 msgid "Core Data"
@@ -2208,14 +2244,14 @@ msgid "Authenticated endpoints:"
 msgstr "Endpoint autenticati:"
 
 #: ../../../app/views/pages/api.html.erb:25
-msgid "Anonymous access setting:"
-msgstr "Impostazione di accesso anonimo:"
-
-#: ../../../app/views/pages/api.html.erb:25
 msgid "When anonymous pushes are disabled, API endpoints require authentication."
 msgstr ""
 "Quando le notifiche push anonime sono disabilitate, gli endpoint API richiedon"
 "o l'autenticazione."
+
+#: ../../../app/views/pages/api.html.erb:25
+msgid "Anonymous access setting:"
+msgstr "Impostazione di accesso anonimo:"
 
 #: ../../../app/views/pages/api.html.erb:32
 msgid "Base URL"
@@ -2506,18 +2542,18 @@ msgstr ""
 "utenticazione se fornita."
 
 #: ../../../app/views/pages/api.html.erb:179
+#: ../../../app/views/pages/api.html.erb:299
+#: ../../../app/views/pages/api.html.erb:326
+msgid "Supported Locales"
+msgstr "Località supportate"
+
+#: ../../../app/views/pages/api.html.erb:179
 msgid ""
 "Optional locale for the push creation email. See the list of available locales"
 " in the"
 msgstr ""
 "Lingua facoltativa per l'e-mail di creazione push. Vedi l'elenco delle lingue "
 "disponibili in"
-
-#: ../../../app/views/pages/api.html.erb:179
-#: ../../../app/views/pages/api.html.erb:299
-#: ../../../app/views/pages/api.html.erb:326
-msgid "Supported Locales"
-msgstr "Località supportate"
 
 #: ../../../app/views/pages/api.html.erb:184
 msgid "OSS vs Pro: Expiration Fields"
@@ -2576,14 +2612,14 @@ msgstr ""
 "esti autenticazione e proprietà."
 
 #: ../../../app/views/pages/api.html.erb:238
+msgid "Returns up to 50 entries per page."
+msgstr "Restituisce fino a 50 voci per pagina."
+
+#: ../../../app/views/pages/api.html.erb:238
 #: ../../../app/views/pages/api.html.erb:260
 #: ../../../app/views/pages/api.html.erb:272
 msgid "optional, integer, default 1, valid range 1 to 200"
 msgstr "facoltativo, numero intero, valore predefinito 1, intervallo valido da 1 a 200"
-
-#: ../../../app/views/pages/api.html.erb:238
-msgid "Returns up to 50 entries per page."
-msgstr "Restituisce fino a 50 voci per pagina."
 
 #: ../../../app/views/pages/api.html.erb:239
 #: ../../../app/views/pages/api.html.erb:261
@@ -3036,22 +3072,15 @@ msgstr "Sarà disponibile un registro di controllo delle attività."
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Updating..."
-msgstr "Aggiornamento..."
+msgid "Update Push"
+msgstr "Aggiorna push"
 
 #: ../../../app/views/pushes/_files_form.html.erb:192
 #: ../../../app/views/pushes/_form.html.erb:222
 #: ../../../app/views/pushes/_qr_form.html.erb:204
 #: ../../../app/views/pushes/_url_form.html.erb:140
-msgid "Update Push"
-msgstr "Aggiorna push"
-
-#: ../../../app/views/pushes/_files_form.html.erb:194
-#: ../../../app/views/pushes/_form.html.erb:224
-#: ../../../app/views/pushes/_qr_form.html.erb:206
-#: ../../../app/views/pushes/_url_form.html.erb:142
-msgid "Pushing..."
-msgstr "Spingendo..."
+msgid "Updating..."
+msgstr "Aggiornamento..."
 
 #: ../../../app/views/pushes/_files_form.html.erb:194
 #: ../../../app/views/pushes/_form.html.erb:224
@@ -3059,6 +3088,13 @@ msgstr "Spingendo..."
 #: ../../../app/views/pushes/_url_form.html.erb:142
 msgid "Push It!"
 msgstr "Invia!"
+
+#: ../../../app/views/pushes/_files_form.html.erb:194
+#: ../../../app/views/pushes/_form.html.erb:224
+#: ../../../app/views/pushes/_qr_form.html.erb:206
+#: ../../../app/views/pushes/_url_form.html.erb:142
+msgid "Pushing..."
+msgstr "Spingendo..."
 
 #: ../../../app/views/pushes/_form.html.erb:1
 msgid "Securely Send a Password"
@@ -3564,12 +3600,12 @@ msgid "Viewers cannot delete this push."
 msgstr "Gli utenti non possono eliminare questa notifica."
 
 #: ../../../app/views/pushes/preview.html.erb:91
-msgid "Includes a"
-msgstr "Include un"
-
-#: ../../../app/views/pushes/preview.html.erb:91
 msgid "1-click preliminary retrieval step"
 msgstr "Fase di recupero preliminare con 1 clic"
+
+#: ../../../app/views/pushes/preview.html.erb:91
+msgid "Includes a"
+msgstr "Include un"
 
 #: ../../../app/views/pushes/preview.html.erb:103
 msgid "View This Push"
