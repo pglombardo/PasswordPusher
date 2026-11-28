@@ -22,6 +22,12 @@ kubectl port-forward --namespace pwpush svc/my-passwordpusher-helm 5555:5100
 
 and then opening up your browser to [localhost:5555](http://localhost:5555).
 
+## Update notice channel
+
+The chart default `image.tag` is `stable`. The pod gets `PWP__RELEASE_CHANNEL` derived from that tag (`stable` → `stable`, anything else → `latest`) so the admin update notice matches the image.
+
+Override with `releaseChannel: latest` (or `stable`), or set `env.PWP__RELEASE_CHANNEL`, which always wins.
+
 ## Uninstall
 
 ```
