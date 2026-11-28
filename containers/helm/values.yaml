@@ -16,6 +16,11 @@ podLabels:
 encKeys:
   existingSecret: "pwpush-keys"                # Secret containing PWPUSH_MASTER_KEY and SECRET_KEY_BASE (optional)
 
+# Admin update notice channel. Empty derives from image.tag:
+#   "stable" → stable, anything else (latest, 2.18.0, empty/appVersion) → latest
+# Set to "latest" or "stable" to override. env.PWP__RELEASE_CHANNEL always wins.
+releaseChannel: ""
+
 env: {}
 # Optional env map for the pod (2.0). See repo docker-compose.yml and:
 # https://docs.pwpush.com/docs/self-hosted-configuration/
@@ -31,6 +36,8 @@ env: {}
 #   PWP__ENABLE_QR_PUSHES: "true"
 #   PWP__FILES__STORAGE: "local"               # or s3 / gcs / azure per docs
 #   PWP__LOG_TO_STDOUT: "true"
+#   PWP__CHECK_FOR_UPDATES: "true"             # admin new-release notice; false to opt out
+#   PWP__RELEASE_CHANNEL: "stable"             # optional; omit to use releaseChannel / image.tag
 
 livenessProbe:
   httpGet:

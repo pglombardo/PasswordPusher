@@ -3,11 +3,16 @@
   <div id="release-check-banner" class="alert <%= security ? "alert-danger" : "alert-info" %> d-flex align-items-start justify-content-between gap-3 mb-4" role="alert">
     <div>
       <div class="fw-semibold">
-        <%= _("Password Pusher v%{latest} is available (you're running v%{current})") % { latest: @release_check.latest, current: @release_check.running_version } %>
+        <%= release_update_headline(@release_check) %>
       </div>
       <% if security %>
         <div class="small mt-1">
           <%= _("This update includes a security release. Please upgrade as soon as possible.") %>
+        </div>
+      <% end %>
+      <% if @release_check.stable_channel? %>
+        <div class="small mt-1">
+          <%= _("Docker users: re-pull pglombardo/pwpush:stable to upgrade.") %>
         </div>
       <% end %>
       <% if @release_check.notes_url.present? %>

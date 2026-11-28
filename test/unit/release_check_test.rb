@@ -8,10 +8,12 @@ class ReleaseCheckTest < ActiveSupport::TestCase
   setup do
     Rails.cache.clear
     @original_check_for_updates = Settings.check_for_updates
+    @original_release_channel = Settings.release_channel
   end
 
   teardown do
     Settings.check_for_updates = @original_check_for_updates
+    Settings.release_channel = @original_release_channel
     Settings.reload!
   end
 
@@ -49,6 +51,23 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "channel defaults to latest and ignores unknown values" do
+    Settings.release_channel = "latest"
+    assert_equal "latest", ReleaseCheck.channel
+
+    Settings.release_channel = "stable"
+    assert_equal "stable", ReleaseCheck.channel
+
+    Settings.release_channel = "STABLE"
+    assert_equal "stable", ReleaseCheck.channel
+
+    Settings.release_channel = "nightly"
+    assert_equal "latest", ReleaseCheck.channel
+
+    Settings.release_channel = ""
+    assert_equal "latest", ReleaseCheck.channel
+  end
+
   test "perform parses latest and releases from a realistic oss.json feed" do
     Version.stub :current, "2.17.0" do
       stub_release_check_http(body: realistic_feed_json) do
@@ -58,7 +77,7 @@ class ReleaseCheckTest < ActiveSupport::TestCase
         assert_equal "2.17.0", result.current
         assert result.update_available?
         assert result.security_available?
-        assert_equal ["2.17.5", "2.17.4", "2.17.3"], result.pending_releases.map { |item| item["version"] }
+        assert_equal ["2.17.5", "2.17.4", "2.17.3", "2.17.2"], result.pending_releases.map { |item| item["version"] }
         security = result.pending_releases.find { |item| item["version"] == "2.17.4" }
         assert_equal true, security["security"]
         assert_equal "high", security["severity"]
@@ -249,6 +268,125 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     end
   end
 
+  test "stable channel targets feed stable and excludes newer-than-stable releases" do
+    Settings.release_channel = "stable"
+
+    Version.stub :current, "2.17.0" do
+      stub_release_check_http(body: realistic_feed_json) do
+        result = ReleaseCheck.new.perform
+
+        assert_equal "2.17.2", result.latest
+        assert_equal "stable", result.channel
+        assert result.stable_channel?
+        assert result.update_available?
+        assert_not result.security_available?
+        assert_equal ["2.17.2"], result.pending_releases.map { |item| item["version"] }
+        assert_equal "https://github.com/pglombardo/PasswordPusher/releases/tag/v2.17.2", result.notes_url
+      end
+    end
+  end
+
+  test "stable channel falls back to latest when stable is missing" do
+    Settings.release_channel = "stable"
+
+    Version.stub :current, "1.0.0" do
+      stub_feed(latest: "1.2.0", include_stable: false, releases: [release("1.2.0"), release("1.1.0")]) do
+        result = ReleaseCheck.refresh
+
+        assert_equal "1.2.0", result.latest
+        assert_equal "stable", result.channel
+        assert result.update_available?
+        assert_equal ["1.2.0", "1.1.0"], result.pending_releases.map { |item| item["version"] }
+      end
+    end
+  end
+
+  test "stable channel falls back to latest when stable is invalid" do
+    Settings.release_channel = "stable"
+
+    Version.stub :current, "1.0.0" do
+      stub_feed(latest: "1.2.0", stable: "not-a-version", releases: [release("1.2.0")]) do
+        result = ReleaseCheck.refresh
+
+        assert_equal "1.2.0", result.latest
+        assert_equal "stable", result.channel
+        assert result.update_available?
+      end
+    end
+  end
+
+  test "stable channel ignores security releases newer than the stable target" do
+    Settings.release_channel = "stable"
+
+    Version.stub :current, "1.0.0" do
+      stub_feed(
+        latest: "1.2.0",
+        stable: "1.1.0",
+        releases: [
+          release("1.2.0", security: true, severity: "high"),
+          release("1.1.0"),
+          release("1.0.0")
+        ]
+      ) do
+        result = ReleaseCheck.refresh
+
+        assert_equal "1.1.0", result.latest
+        assert result.update_available?
+        assert_not result.security_available?
+        assert_equal ["1.1.0"], result.pending_releases.map { |item| item["version"] }
+      end
+    end
+  end
+
+  test "stable channel flags security when a pending release at or below target is marked security" do
+    Settings.release_channel = "stable"
+
+    Version.stub :current, "1.0.0" do
+      stub_feed(
+        latest: "1.2.0",
+        stable: "1.1.0",
+        releases: [
+          release("1.2.0"),
+          release("1.1.0", security: true, severity: "high"),
+          release("1.0.0")
+        ]
+      ) do
+        result = ReleaseCheck.refresh
+
+        assert_equal "1.1.0", result.latest
+        assert result.update_available?
+        assert result.security_available?
+      end
+    end
+  end
+
+  test "latest channel still targets feed latest when stable is behind" do
+    Settings.release_channel = "latest"
+
+    Version.stub :current, "2.17.0" do
+      stub_release_check_http(body: realistic_feed_json) do
+        result = ReleaseCheck.new.perform
+
+        assert_equal "2.17.5", result.latest
+        assert_equal "latest", result.channel
+        assert_not result.stable_channel?
+        assert result.security_available?
+      end
+    end
+  end
+
+  test "cached result from another channel is ignored" do
+    Settings.release_channel = "latest"
+    Version.stub :current, "1.0.0" do
+      stub_feed(latest: "1.2.0", stable: "1.1.0") { ReleaseCheck.refresh }
+    end
+    assert_equal "1.2.0", ReleaseCheck.cached.latest
+    assert_equal "latest", ReleaseCheck.cached.channel
+
+    Settings.release_channel = "stable"
+    assert_nil ReleaseCheck.cached
+  end
+
   test "success notice when an update is available" do
     result = ReleaseCheck::Result.new(
       latest: "9.0.0",
@@ -277,6 +415,40 @@ class ReleaseCheckTest < ActiveSupport::TestCase
 
     Version.stub :current, "2.17.5" do
       assert_equal "Update check complete: you're running the latest version (v2.17.5).",
+        ReleaseCheck.success_notice(result)
+    end
+  end
+
+  test "success notice on the stable channel when an update is available" do
+    result = ReleaseCheck::Result.new(
+      latest: "2.17.2",
+      current: "2.17.0",
+      newer_releases: [{"version" => "2.17.2", "security" => false}],
+      security_available: false,
+      checked_at: Time.current.iso8601,
+      notes_url: ReleaseCheck::DEFAULT_NOTES_URL,
+      channel: "stable"
+    )
+
+    Version.stub :current, "2.17.0" do
+      assert_equal "Update check complete: version v2.17.2 is available on the stable channel.",
+        ReleaseCheck.success_notice(result)
+    end
+  end
+
+  test "success notice on the stable channel when already on the current stable" do
+    result = ReleaseCheck::Result.new(
+      latest: "2.17.2",
+      current: "2.17.2",
+      newer_releases: [],
+      security_available: false,
+      checked_at: Time.current.iso8601,
+      notes_url: ReleaseCheck::DEFAULT_NOTES_URL,
+      channel: "stable"
+    )
+
+    Version.stub :current, "2.17.2" do
+      assert_equal "Update check complete: you're running the current stable version (v2.17.2).",
         ReleaseCheck.success_notice(result)
     end
   end
@@ -315,15 +487,16 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     }
   end
 
-  def feed_json(latest:, releases: nil)
-    {
+  def feed_json(latest:, stable: latest, releases: nil, include_stable: true)
+    payload = {
       "schema" => 1,
       "product" => "oss",
       "generated_at" => "2026-11-27T00:00:00Z",
       "latest" => latest,
-      "stable" => latest,
       "releases" => releases || [release(latest)]
-    }.to_json
+    }
+    payload["stable"] = stable if include_stable
+    payload.to_json
   end
 
   def realistic_feed_json
@@ -368,6 +541,17 @@ class ReleaseCheckTest < ActiveSupport::TestCase
           "min_upgrade_from" => nil
         },
         {
+          "version" => "2.17.2",
+          "date" => "2026-11-10",
+          "security" => false,
+          "severity" => nil,
+          "title" => "v2.17.2: Stable channel target",
+          "summary" => "The version currently tagged Docker stable.",
+          "notes_url" => "https://github.com/pglombardo/PasswordPusher/releases/tag/v2.17.2",
+          "upgrade_notes_url" => nil,
+          "min_upgrade_from" => nil
+        },
+        {
           "version" => "2.17.0",
           "date" => "2026-10-28",
           "security" => false,
@@ -382,8 +566,11 @@ class ReleaseCheckTest < ActiveSupport::TestCase
     }.to_json
   end
 
-  def stub_feed(latest:, releases: nil, &)
-    stub_release_check_http(body: feed_json(latest: latest, releases: releases), &)
+  def stub_feed(latest:, stable: latest, releases: nil, include_stable: true, &)
+    stub_release_check_http(
+      body: feed_json(latest: latest, stable: stable, releases: releases, include_stable: include_stable),
+      &
+    )
   end
 
   def capture_warnings

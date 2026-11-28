@@ -41,9 +41,14 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          {{- range $key, $val := .Values.env }}
+          {{- $env := .Values.env | default dict }}
+          {{- range $key, $val := $env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
+          {{- end }}
+          {{- if not (hasKey $env "PWP__RELEASE_CHANNEL") }}
+            - name: PWP__RELEASE_CHANNEL
+              value: {{ include "helm.releaseChannel" . | quote }}
           {{- end }}
           {{- if .Values.metrics.enabled }}
             - name: PWP__PROMETHEUS__ENABLED

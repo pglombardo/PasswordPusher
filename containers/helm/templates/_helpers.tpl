@@ -51,6 +51,28 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Admin update notice channel.
+
+Precedence:
+  1. env.PWP__RELEASE_CHANNEL (emitted from the env loop; this helper is not used)
+  2. releaseChannel when it is "latest" or "stable"
+  3. image.tag (empty falls back to Chart.appVersion): "stable" → stable, else latest
+*/}}
+{{- define "helm.releaseChannel" -}}
+{{- $override := default "" .Values.releaseChannel | toString | trim | lower -}}
+{{- if or (eq $override "stable") (eq $override "latest") -}}
+{{- $override -}}
+{{- else -}}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion | toString | trim | lower -}}
+{{- if eq $tag "stable" -}}
+stable
+{{- else -}}
+latest
+{{- end -}}
+{{- end -}}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "helm.serviceAccountName" -}}
