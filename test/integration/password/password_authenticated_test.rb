@@ -6,7 +6,7 @@ class PasswordAuthenticatedTest < ActionDispatch::IntegrationTest
   def test_authenticated_json_creation
     post passwords_path(format: :json),
       params: {password: {payload: "testpw"}},
-      headers: {"Authorization" => "Bearer #{users(:luca).authentication_token}"}
+      headers: {"Authorization" => "Bearer #{api_token_for(users(:luca))}"}
     assert_response :success
 
     res = JSON.parse(@response.body)

@@ -26,7 +26,7 @@ class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
           ]
         }
       },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
 
     assert_response :success
 
@@ -46,7 +46,7 @@ class FilePushJsonDeletionTest < ActionDispatch::IntegrationTest
 
     # Delete the new push via json e.g. /f/<url_token>.json
     delete "/f/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

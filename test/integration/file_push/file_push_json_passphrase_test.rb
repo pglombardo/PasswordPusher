@@ -26,7 +26,7 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -68,7 +68,7 @@ class FilePushJsonPassphraseTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

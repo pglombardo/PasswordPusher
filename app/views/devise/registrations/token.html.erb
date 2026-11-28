@@ -13,22 +13,56 @@
         <em class="bi bi-shield-lock me-2"></em><%= _('Make sure to keep this token secure.  It provides full access to your account.') %>
       </p>
 
-      <div class="mb-4" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
-        <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
-        <p class="text-muted small mb-3"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
+      <% if @raw_authentication_token.present? %>
+        <% content_for :head do %>
+          <meta name="turbo-cache-control" content="no-cache">
+        <% end %>
 
-        <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
-          <div
-            class="payload spoiler notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
-            id="authentication_token"
-            data-copy-target="payloadDiv"
-            translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center"><%= current_user.authentication_token %></pre></div>
+        <div
+          data-turbo-temporary
+          data-controller="token-reveal"
+          data-token-reveal-masked-url-value="<%= token_user_registration_path %>">
+          <div class="alert alert-info small mb-4" id="token-shown-once-notice" role="status">
+            <em class="bi bi-info-circle me-2"></em><%= _('Copy this token now. It will not be shown again.') %>
+          </div>
 
-          <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
-            <%= render partial: 'shared/copy_button', cached: true %>
+          <div class="mb-4" data-controller="copy passwords" data-copy-lang-copied-value="<%= _('Copied!') %>">
+            <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
+            <p class="text-muted small mb-3"><%= _('Your API token is blurred out.  Click below to reveal it.') %></p>
+
+            <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
+              <div
+                class="payload spoiler notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
+                id="authentication_token"
+                data-copy-target="payloadDiv"
+                translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center"><%= @raw_authentication_token %></pre></div>
+
+              <div class="d-grid d-sm-flex justify-content-sm-end mt-3">
+                <%= render partial: 'shared/copy_button', cached: true %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      <% else %>
+        <% if current_user.authentication_token_legacy? %>
+          <div class="alert alert-info small mb-4" id="legacy-token-notice" role="status">
+            <em class="bi bi-info-circle me-2"></em>
+            <%= _('Your existing API token still works, but it cannot be displayed. Generate a new token if you need to copy it.') %>
+          </div>
+        <% end %>
+
+        <div class="mb-4">
+          <h5 class="fw-semibold border-bottom pb-2 mb-3"><em class="bi bi-eye-slash me-2"></em><%= _('Current Token') %></h5>
+          <p class="text-muted small mb-3"><%= _('Only a hint of this token is stored. Generate a new token if you need to copy the full value.') %></p>
+
+          <div class="border rounded-3 bg-body-tertiary p-3 p-md-4">
+            <div
+              class="notranslate rounded-3 border bg-white p-3 p-md-4 fs-5"
+              id="authentication_token_hint"
+              translate="no"><pre class="mb-0 w-100 text-break text-wrap text-center text-muted"><%= current_user.masked_authentication_token %></pre></div>
+          </div>
+        </div>
+      <% end %>
 
       <div class="mb-4">
         <h5 class="fw-semibold text-danger border-bottom border-danger-subtle pb-2 mb-3">
@@ -60,7 +94,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= _('Cancel') %></button>
-        <%= link_to _('Delete & Regenerate'), token_user_registration_path, data: { turbo_method: :delete, action: 'form#disableWith', 'disable-with': _('Processing...') }, class: 'btn btn-danger', rel: 'nofollow' %>
+        <%= button_to _('Delete & Regenerate'), token_user_registration_path,
+              method: :delete,
+              class: "btn btn-danger",
+              form: { data: { turbo: false } } %>
       </div>
     </div>
   </div>

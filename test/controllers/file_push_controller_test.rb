@@ -72,13 +72,13 @@ class FilePushControllerTest < ActionDispatch::IntegrationTest
 
   test "get active dashboard with token" do
     @luca = users(:luca)
-    get active_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get active_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
   end
 
   test "get expired dashboard with token" do
     @luca = users(:luca)
-    get expired_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    get expired_file_pushes_path(format: :json), headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
   end
 

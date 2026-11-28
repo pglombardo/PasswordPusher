@@ -35,10 +35,15 @@ namespace :pwpush do
       active_storage_attachments: []
     }
 
-    # Export Users (exclude authentication_token; API tokens are not migrated)
+    # Export Users (exclude API token material; tokens are not migrated)
     puts "Exporting #{User.count} users..."
     User.find_each do |user|
-      data[:users] << user.attributes.except("authentication_token")
+      data[:users] << user.attributes.except(
+        "authentication_token",
+        "authentication_token_digest",
+        "authentication_token_hint",
+        "authentication_token_legacy"
+      )
     end
 
     # Export Pushes (includes ciphertext fields)

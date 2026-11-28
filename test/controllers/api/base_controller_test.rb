@@ -689,4 +689,45 @@ class Api::BaseControllerTest < ActionDispatch::IntegrationTest
     # Should not be unauthorized (may be 404, but not 401)
     assert_not_equal :unauthorized, response.status
   end
+
+  test "pre-upgrade fixture token still authenticates via Bearer and legacy headers" do
+    luca = users(:luca)
+    token = api_token_for(luca)
+
+    get "/api/v1/version.json",
+      headers: {
+        "Authorization" => "Bearer #{token}",
+        "Accept" => "application/json"
+      }
+    assert_response :success
+    assert_equal luca.id, @controller.current_user.id
+
+    get "/api/v1/version.json",
+      headers: {
+        "X-User-Email" => luca.email,
+        "X-User-Token" => token,
+        "Accept" => "application/json"
+      }
+    assert_response :success
+    assert_equal luca.id, @controller.current_user.id
+  end
+
+  test "rejects a wrong API token" do
+    get "/p/active.json",
+      headers: {
+        "Authorization" => "Bearer not-the-real-token",
+        "Accept" => "application/json"
+      }
+
+    assert_response :unauthorized
+  end
+
+  test "plaintext authentication_token column is not populated or used for lookup" do
+    @user.update(authentication_token: "valid_token_123")
+    @user.reload
+
+    assert_nil @user.read_attribute(:authentication_token)
+    assert_nil User.find_by(authentication_token: "valid_token_123")
+    assert_equal @user, User.find_by_authentication_token("valid_token_123")
+  end
 end

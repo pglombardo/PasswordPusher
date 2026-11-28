@@ -5,8 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   invisible_captcha only: :create
 
-  layout "application", only: %i[edit update token]
-  layout "login", except: %i[edit update token]
+  layout "application", only: %i[edit update token regen_token]
+  layout "login", except: %i[edit update token regen_token]
+
+  after_action :prevent_browser_caching_of_token_page, only: %i[token regen_token]
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -50,18 +52,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def token
     if current_user.nil?
       redirect_to user_session_path
-    elsif current_user&.authentication_token.blank?
-      current_user.regenerate_authentication_token!
+      return
+    end
+
+    unless current_user.has_authentication_token?
+      @raw_authentication_token = current_user.regenerate_authentication_token!
     end
   end
 
   # DELETE /resource/token
+  # Render the token in this response rather than stashing it in the CookieStore
+  # session, which could be replayed to reveal the value again.
   def regen_token
     if current_user.nil?
       redirect_to user_session_path
     else
-      current_user.regenerate_authentication_token!
-      redirect_to token_user_registration_path
+      @raw_authentication_token = current_user.regenerate_authentication_token!
+      render :token
     end
   end
 
@@ -84,6 +91,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_inactive_sign_up_path_for(resource)
     new_user_session_path
+  end
+
+  private
+
+  def prevent_browser_caching_of_token_page
+    response.headers["Cache-Control"] = "no-store"
   end
 
   # The path used after sign up for inactive accounts.

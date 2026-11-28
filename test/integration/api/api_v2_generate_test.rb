@@ -99,7 +99,7 @@ class ApiV2GenerateTest < ActionDispatch::IntegrationTest
 
     post "/api/v2/generate",
       params: {type: "pin", length: 6},
-      headers: {"Authorization" => "Bearer #{user.authentication_token}"},
+      headers: {"Authorization" => "Bearer #{api_token_for(user)}"},
       as: :json
 
     assert_response :success

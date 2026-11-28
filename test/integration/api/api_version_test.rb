@@ -24,7 +24,7 @@ class ApiVersionTest < ActionDispatch::IntegrationTest
     get "/api/v1/version.json",
       headers: {
         "Accept" => "application/json",
-        "Authorization" => "Bearer #{@user_one.authentication_token}"
+        "Authorization" => "Bearer #{api_token_for(@user_one)}"
       }
 
     assert_response :success
@@ -38,7 +38,7 @@ class ApiVersionTest < ActionDispatch::IntegrationTest
     get "/api/v1/version",
       headers: {
         "Accept" => "application/json",
-        "Authorization" => "Bearer #{@user_one.authentication_token}"
+        "Authorization" => "Bearer #{api_token_for(@user_one)}"
       }
 
     assert_response :success

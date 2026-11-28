@@ -27,14 +27,14 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
     assert res.key?("url_token")
 
     get preview_file_push_path(res["url_token"], format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -51,7 +51,7 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
                                               ]
                                             }
                                           },
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -60,7 +60,7 @@ class FilePushJsonPreviewTest < ActionDispatch::IntegrationTest
     url_token = res["url_token"]
 
     get preview_file_push_path(url_token, format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)

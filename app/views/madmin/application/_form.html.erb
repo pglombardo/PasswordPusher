@@ -12,7 +12,7 @@
   }
 
   security_fields = visible_fields.select{ |attr|
-    ['admin', 'failed_attempts', 'encrypted_password', 'reset_password_token', 'unlock_token', 'confirmation_token', 'unconfirmed_email', 'authentication_token'].include?(attr.field.attribute_name.to_s)
+    ['admin', 'failed_attempts', 'encrypted_password', 'reset_password_token', 'unlock_token', 'confirmation_token', 'unconfirmed_email', 'authentication_token', 'authentication_token_digest', 'authentication_token_hint', 'authentication_token_legacy'].include?(attr.field.attribute_name.to_s)
   }
 
   ip_fields = visible_fields.select{ |attr|

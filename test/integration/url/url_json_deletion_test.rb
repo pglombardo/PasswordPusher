@@ -19,7 +19,7 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
 
   def test_deletion
     # Create url
-    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+    post urls_path(format: :json), params: {url: {payload: "https://the0x00.dev"}}, headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -38,7 +38,7 @@ class UrlJsonDeletionTest < ActionDispatch::IntegrationTest
 
     # Delete the new url via json e.g. /r/<url_token>.json
     delete "/r/#{res["url_token"]}.json",
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)

@@ -21,7 +21,7 @@ class UserResource < Madmin::Resource
   # attribute :confirmation_token, index: false, form: false
   attribute :confirmation_sent_at, index: false
   # attribute :unconfirmed_email, index: false
-  attribute :authentication_token, index: false, form: false
+  attribute :authentication_token_hint, index: false, form: false
   attribute :preferred_language, index: false
   attribute :otp_required_for_login, index: true, form: false
   attribute :email_sent_count, index: true

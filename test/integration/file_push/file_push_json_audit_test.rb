@@ -27,7 +27,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
                                             }
                                           },
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}
+                "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -42,7 +42,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get audit_file_push_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -71,7 +71,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
                                             }
                                           },
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}
+                "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -89,7 +89,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
 
     delete file_push_path(url_token, format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     # Generate unsuccessful views on that push
@@ -100,7 +100,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
 
     # Get the Audit Log
     get audit_file_push_path(format: :json),
-      headers: {"X-User-Email": @luca.email, "X-User-Token": @luca.authentication_token}, as: :json
+      headers: {"X-User-Email": @luca.email, "X-User-Token": api_token_for(@luca)}, as: :json
     assert_response :success
 
     res = JSON.parse(@response.body)
@@ -128,7 +128,7 @@ class FilePushJsonAuditTest < ActionDispatch::IntegrationTest
                                             }
                                           },
       headers: {"X-User-Email": @luca.email,
-                "X-User-Token": @luca.authentication_token}
+                "X-User-Token": api_token_for(@luca)}
     assert_response :success
 
     res = JSON.parse(@response.body)
